@@ -7,6 +7,7 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Audio;
 using Robust.Shared.Random;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Network;
 using Content.Shared._FarHorizons.Materials;
 using Content.Shared._FarHorizons.Materials.Systems;
 using Content.Shared.Nutrition;
@@ -21,6 +22,7 @@ public abstract partial class SharedReactorPartSystem : EntitySystem
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedPointLightSystem _lightSystem = default!;
     [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private INetManager _net = default!;
     [Dependency] private SharedRadiationSystem _radiation = default!; // DarkestHour: RadiationSourceComponent is access-restricted
 
     /// <summary>
@@ -128,6 +130,11 @@ public abstract partial class SharedReactorPartSystem : EntitySystem
 
     protected virtual void AccUpdate()
     {
+        // DarkestHour: only the server adds/changes these networked components; doing it on the client
+        // created components with a null Damage that crashed state handling.
+        if (_net.IsClient)
+            return;
+
         var query = EntityQueryEnumerator<ReactorPartComponent>();
         while (query.MoveNext(out var uid, out var component))
         {
@@ -148,11 +155,22 @@ public abstract partial class SharedReactorPartSystem : EntitySystem
                 _lightSystem.SetRadius(uid, 1.2f, lightcomp);
             }
 
-            var burncomp = EnsureComp<DamageOnInteractComponent>(uid);
+            // DarkestHour: DamageOnInteract.Damage is required and must never be null (networked state)
+            if (!TryComp<DamageOnInteractComponent>(uid, out var burncomp))
+            {
+                burncomp = AddComp<DamageOnInteractComponent>(uid);
+                burncomp.Damage = new DamageSpecifier();
+                burncomp.IsDamageActive = false;
+                Dirty(uid, burncomp);
+            }
 
             if (component.Temperature == Atmospherics.T20C)
             {
-                burncomp.IsDamageActive = false;
+                if (burncomp.IsDamageActive)
+                {
+                    burncomp.IsDamageActive = false;
+                    Dirty(uid, burncomp);
+                }
                 continue;
             }
 
