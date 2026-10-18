@@ -36,3 +36,11 @@ git merge upstream/master
 ```
 
 Конфликты ищутся по меткам `DarkestHour`.
+
+## Лицензия
+
+- Проект в целом распространяется под **GNU AGPL v3** ([LICENSE-AGPLv3.TXT](LICENSE-AGPLv3.TXT)): исходный код
+  сервера, на котором идёт игра, должен быть доступен игрокам.
+- Код апстрима (space-wizards) и RMC-14 — под MIT ([LICENSE.TXT](LICENSE.TXT)); эти файлы сохраняют свою лицензию.
+- Перенесённый код Monolith и Goob Station сохраняет лицензию и заголовки источника (AGPLv3, MPL-2.0, MIT).
+- Ассеты — по лицензиям в их `meta.json` (в основном CC-BY-SA 3.0).

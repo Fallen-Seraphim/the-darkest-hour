@@ -3,7 +3,10 @@
 Сервер Space Station 14: исследовательская станция Metallistick Group на границе Соединённой Республики и
 Первой Империи, 2413 год. Форк [space-wizards/space-station-14](https://github.com/space-wizards/space-station-14).
 
-Правила разработки и структура папок — в [DARKESTHOUR.md](DARKESTHOUR.md). Ниже — оригинальный README апстрима.
+Правила разработки и структура папок — в [DARKESTHOUR.md](DARKESTHOUR.md).
+Лицензия проекта — GNU AGPL v3 ([LICENSE-AGPLv3.TXT](LICENSE-AGPLv3.TXT)); код апстрима остаётся под MIT ([LICENSE.TXT](LICENSE.TXT)).
+
+Ниже — оригинальный README апстрима.
 
 ---
 
