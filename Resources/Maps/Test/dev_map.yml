@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 10:22:08
-  entityCount: 3678
+  entityCount: 3675
 maps:
 - 23
 grids:
@@ -9007,13 +9007,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 96.5,20.5
-- proto: CargoMailTeleporter
-  entities:
-  - uid: 2477
-    components:
-    - type: Transform
-      parent: 1
-      pos: 73.5,56.5
 - proto: CargoPalletBuy
   entities:
   - uid: 3219
@@ -9126,18 +9119,6 @@ entities:
       parent: 1
       rot: 1.5707963267948966 rad
       pos: 59.5,63.5
-- proto: CargoTelepad
-  entities:
-  - uid: 1125
-    components:
-    - type: Transform
-      parent: 1
-      pos: 59.5,65.5
-  - uid: 3263
-    components:
-    - type: Transform
-      parent: 1
-      pos: 61.5,65.5
 - proto: CarpetBlack
   entities:
   - uid: 426
@@ -12183,13 +12164,7 @@ entities:
       parent: 1
       pos: 60.5,65.5
     - type: DeviceLinkSource
-      linkedPorts:
-        1125:
-        - - OrderSender
-          - OrderReceiver
-        3263:
-        - - OrderSender
-          - OrderReceiver
+      linkedPorts: {}
   - uid: 3252
     components:
     - type: Transform

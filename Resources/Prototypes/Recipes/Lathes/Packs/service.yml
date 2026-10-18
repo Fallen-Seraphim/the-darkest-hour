@@ -58,7 +58,7 @@
   - WeaponSprayNozzle
   - ClothingBackpackWaterTank
   - MegaSprayBottle
-  - TrashBagHolding
+  # - TrashBagHolding # DarkestHour: нет блюспейса
   - BoxLighttube
   - BoxExteriorLighttube
   - BoxLedLighttube

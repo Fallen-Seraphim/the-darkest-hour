@@ -169,7 +169,7 @@
   - AdvMopItem
   - MegaSprayBottle
   - BorgModuleAdvancedCleaning
-  - TrashBagHolding
+  # - TrashBagHolding # DarkestHour: нет блюспейса
 
 - type: technology
   id: HONKMech
@@ -204,17 +204,7 @@
   - WeaponSprayNozzle
   - ClothingBackpackWaterTank
 
-- type: technology
-  id: BluespaceCargoTransport
-  name: research-technology-bluespace-cargo-transport
-  icon:
-    sprite: Structures/cargo_telepad.rsi
-    state: display
-  discipline: CivilianServices
-  tier: 2
-  cost: 15000
-  recipeUnlocks:
-  - CargoTelepadMachineCircuitboard
+# BluespaceCargoTransport удалён # DarkestHour: нет блюспейса
 
 - type: technology
   id: PushHorn
@@ -243,18 +233,7 @@
   recipeUnlocks:
   - ClothingShoesBootsSpeed
 
-- type: technology
-  id: BluespaceChemistry
-  name: research-technology-bluespace-chemistry
-  icon:
-    sprite: Objects/Specific/Chemistry/beaker_bluespace.rsi
-    state: beakerbluespace
-  discipline: CivilianServices
-  tier: 3
-  cost: 10000
-  recipeUnlocks:
-  - BluespaceBeaker
-  - SyringeBluespace
+# BluespaceChemistry удалён # DarkestHour: нет блюспейса
 
 - type: technology
   id: LauncherSyringe

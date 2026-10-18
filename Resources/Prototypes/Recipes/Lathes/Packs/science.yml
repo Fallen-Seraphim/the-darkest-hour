@@ -21,10 +21,10 @@
   # - AnomalyLocatorWide # DarkestHour: нет аномалий и ксеноархеологии
   - HoloprojectorField
   - SignallerAdvanced
-  - DeviceQuantumSpinInverter
-  - DeviceDesynchronizer
+  # - DeviceQuantumSpinInverter # DarkestHour: нет блюспейса
+  # - DeviceDesynchronizer # DarkestHour: нет блюспейса
   - ClothingBackpackHarmpack
-  - TeleporterChipBlank
+  # - TeleporterChipBlank # DarkestHour: нет блюспейса
 
 - type: latheRecipePack
   id: ScienceClothing
@@ -33,9 +33,9 @@
   - ClothingShoesBootsMoon
   - ClothingShoesBootsSpeed
   - ClothingShoesBootsJump
-  - ClothingBackpackHolding
-  - ClothingBackpackSatchelHolding
-  - ClothingBackpackDuffelHolding
+  # - ClothingBackpackHolding # DarkestHour: нет блюспейса
+  # - ClothingBackpackSatchelHolding # DarkestHour: нет блюспейса
+  # - ClothingBackpackDuffelHolding # DarkestHour: нет блюспейса
 
 - type: latheRecipePack
   id: PowerCells
@@ -84,8 +84,8 @@
   # - APECircuitboard # DarkestHour: нет аномалий и ксеноархеологии
   # - ArtifactAnalyzerMachineCircuitboard # DarkestHour: нет аномалий и ксеноархеологии
   # - ArtifactCrusherMachineCircuitboard # DarkestHour: нет аномалий и ксеноархеологии
-  - StationTeleportersControlCircuitboard
-  - StationTeleporterMachineCircuitboard
+  # - StationTeleportersControlCircuitboard # DarkestHour: нет блюспейса
+  # - StationTeleporterMachineCircuitboard # DarkestHour: нет блюспейса
 
 - type: latheRecipePack
   id: CameraBoards

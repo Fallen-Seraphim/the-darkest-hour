@@ -90,7 +90,7 @@
         - id: CargoShuttleConsoleCircuitboard
         - id: SalvageMagnetMachineCircuitboard
         - id: SalvageJobBoardComputerCircuitboard
-        - id: MailTeleporterMachineCircuitboard
+        # - id: MailTeleporterMachineCircuitboard # DarkestHour: нет блюспейса
 
 - type: entity
   parent: BoxStamps

@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 04/21/2025 18:18:53
-  entityCount: 270
+  entityCount: 268
 maps: []
 grids:
 - 1
@@ -435,22 +435,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -2.5,-0.5
       parent: 1
-- proto: BluespaceBeaker
-  entities:
-  - uid: 16
-    components:
-    - type: Transform
-      parent: 15
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 17
-    components:
-    - type: Transform
-      parent: 15
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 - proto: BoxBodyBag
   entities:
   - uid: 68
@@ -1427,8 +1411,6 @@ entities:
           - 18
           - 25
           - 24
-          - 17
-          - 16
           - 23
           - 22
           - 21

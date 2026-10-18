@@ -13,8 +13,8 @@
           cost: 2
         - proto: BiomassReclaimerMachineCircuitboard
           cost: 2
-        - proto: BluespaceBeaker
-          cost: 2
+        # - proto: BluespaceBeaker # DarkestHour: нет блюспейса
+        # cost: 2
         - proto: CyborgEndoskeleton
           cost: 3
           prob: 0.5

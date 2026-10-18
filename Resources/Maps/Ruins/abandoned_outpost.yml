@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 12:22:12
-  entityCount: 374
+  entityCount: 372
 maps: []
 grids:
 - 2
@@ -204,15 +204,6 @@ entities:
       parent: 2
       rot: 1.5707963267948966 rad
       pos: -7.5,7.5
-- proto: BluespaceBeaker
-  entities:
-  - uid: 112
-    components:
-    - type: Transform
-      parent: 111
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 - proto: BrokenBottle
   entities:
   - uid: 42
@@ -1276,7 +1267,6 @@ entities:
       containers:
         entity_storage: !type:Container
           ents:
-          - 112
           showEnts: False
           occludes: True
         paper_label: !type:ContainerSlot
@@ -1294,7 +1284,6 @@ entities:
       containers:
         entity_storage: !type:Container
           ents:
-          - 116
           showEnts: False
           occludes: True
         paper_label: !type:ContainerSlot
@@ -2023,15 +2012,6 @@ entities:
     - type: Transform
       parent: 2
       pos: 9.5,-9.5
-- proto: SyringeBluespace
-  entities:
-  - uid: 116
-    components:
-    - type: Transform
-      parent: 114
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 - proto: TableFrame
   entities:
   - uid: 193

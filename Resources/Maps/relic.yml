@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 10:23:30
-  entityCount: 11605
+  entityCount: 11604
 maps:
 - 1
 grids:
@@ -48896,13 +48896,6 @@ entities:
     - type: Transform
       parent: 2
       pos: 30.5,8.5
-- proto: HandTeleporter
-  entities:
-  - uid: 11347
-    components:
-    - type: Transform
-      parent: 2
-      pos: -5.5,5.5
 - proto: HeatExchanger
   entities:
   - uid: 799

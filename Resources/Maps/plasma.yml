@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 10/08/2026 01:35:11
-  entityCount: 27201
+  entityCount: 27199
 maps:
 - 1
 grids:
@@ -50942,20 +50942,6 @@ entities:
     - type: Transform
       parent: 2
       pos: -129.5,7.5
-- proto: CargoMailTeleporter
-  entities:
-  - uid: 22056
-    components:
-    - type: Transform
-      parent: 2
-      pos: -102.5,16.5
-- proto: CargoTelepad
-  entities:
-  - uid: 27157
-    components:
-    - type: Transform
-      parent: 2
-      pos: -88.5,19.5
 - proto: Carpet
   entities:
   - uid: 3375
@@ -72862,10 +72848,7 @@ entities:
       parent: 2
       pos: -101.5,12.5
     - type: DeviceLinkSource
-      linkedPorts:
-        27157:
-        - - OrderSender
-          - OrderReceiver
+      linkedPorts: {}
   - uid: 17840
     components:
     - type: Transform
@@ -72873,10 +72856,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -98.5,13.5
     - type: DeviceLinkSource
-      linkedPorts:
-        27157:
-        - - OrderSender
-          - OrderReceiver
+      linkedPorts: {}
 - proto: ComputerCargoOrdersEngineering
   entities:
   - uid: 22274
@@ -72886,10 +72866,7 @@ entities:
       rot: 3.141592653589793 rad
       pos: -112.5,-18.5
     - type: DeviceLinkSource
-      linkedPorts:
-        27157:
-        - - OrderSender
-          - OrderReceiver
+      linkedPorts: {}
 - proto: ComputerCargoOrdersMedical
   entities:
   - uid: 19332
@@ -72899,10 +72876,7 @@ entities:
       rot: 3.141592653589793 rad
       pos: -21.5,-46.5
     - type: DeviceLinkSource
-      linkedPorts:
-        27157:
-        - - OrderSender
-          - OrderReceiver
+      linkedPorts: {}
 - proto: ComputerCargoOrdersScience
   entities:
   - uid: 25821
@@ -72911,10 +72885,7 @@ entities:
       parent: 2
       pos: -131.5,-38.5
     - type: DeviceLinkSource
-      linkedPorts:
-        27157:
-        - - OrderSender
-          - OrderReceiver
+      linkedPorts: {}
 - proto: ComputerCargoOrdersSecurity
   entities:
   - uid: 12908
@@ -72924,10 +72895,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -80.5,-27.5
     - type: DeviceLinkSource
-      linkedPorts:
-        27157:
-        - - OrderSender
-          - OrderReceiver
+      linkedPorts: {}
 - proto: ComputerCargoOrdersService
   entities:
   - uid: 24116
@@ -72936,10 +72904,7 @@ entities:
       parent: 2
       pos: -72.5,-24.5
     - type: DeviceLinkSource
-      linkedPorts:
-        27157:
-        - - OrderSender
-          - OrderReceiver
+      linkedPorts: {}
 - proto: ComputerComms
   entities:
   - uid: 2690

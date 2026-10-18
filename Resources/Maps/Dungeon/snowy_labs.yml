@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/13/2026 13:53:47
-  entityCount: 2220
+  entityCount: 2219
 maps:
 - 1653
 grids:
@@ -380,13 +380,6 @@ entities:
     - type: Transform
       parent: 1653
       pos: 1.4725559,25.735012
-- proto: BluespaceBeaker
-  entities:
-  - uid: 1476
-    components:
-    - type: Transform
-      parent: 1653
-      pos: 21.201073,4.650565
 - proto: BookLeafLoversSecret
   entities:
   - uid: 1419

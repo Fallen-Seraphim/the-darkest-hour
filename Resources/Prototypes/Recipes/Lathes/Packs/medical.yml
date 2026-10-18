@@ -98,8 +98,8 @@
   - ChemicalPayload
   - CryostasisBeaker
   - SyringeCryostasis
-  - BluespaceBeaker
-  - SyringeBluespace
+  # - BluespaceBeaker # DarkestHour: нет блюспейса
+  # - SyringeBluespace # DarkestHour: нет блюспейса
   - LauncherSyringe
   - MiniSyringe
   - AdvancedJetInjector
