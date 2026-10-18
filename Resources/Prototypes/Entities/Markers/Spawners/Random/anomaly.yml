@@ -9,7 +9,7 @@
     - sprite: Structures/Specific/anomaly.rsi
       state: anom1
   - type: RandomSpawner
-    chance: 1
+    chance: 0 # DarkestHour: нет аномалий и ксеноархеологии
     prototypes:
     - AnomalyPyroclastic
     - AnomalyGravity
@@ -23,7 +23,7 @@
     - AnomalyShadow
     - AnomalyTech
     #- AnomalySanta
-    rareChance: 0.3
+    rareChance: 0 # DarkestHour: нет аномалий и ксеноархеологии
     rarePrototypes:
     - RandomAnomalyInjectorSpawner
     offset: 0.15 # not to put it higher. The anomaly sychnronizer looks for anomalies within this radius, and if the radius is higher, the anomaly can be attracted from a neighboring tile.
@@ -46,7 +46,7 @@
     - AnomalyRockGold
     - AnomalyRockQuartz
     - AnomalyRockUranium
-    chance: 1
+    chance: 0 # DarkestHour: нет аномалий и ксеноархеологии
     offset: 0.15
 
 - type: entity
@@ -72,4 +72,4 @@
     - AnomalyTrapTech
     - AnomalyTrapRock
     #- AnomalyTrapSanta
-    chance: 1
+    chance: 0 # DarkestHour: нет аномалий и ксеноархеологии

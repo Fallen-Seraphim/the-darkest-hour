@@ -6,7 +6,7 @@
     TraitorObjectiveGroupKill: 1
     TraitorObjectiveGroupState: 1 #As in, something about your character. Alive, dead, arrested, gained an ability...
     TraitorObjectiveGroupSocial: 1 #Involves helping/harming others without killing them or stealing their stuff
-    TraitorObjectiveGroupSabotage: 1
+    # TraitorObjectiveGroupSabotage: 1 # DarkestHour: нет аномалий и ксеноархеологии (группа пуста; свои цели саботажа — позже)
     TraitorObjectiveGroupOther: 1
 
 - type: weightedRandom
@@ -46,10 +46,7 @@
 #    RandomTraitorAliveObjective: 1 - Removed because the objective was boring and didn't progress the round.
     RandomTraitorProgressObjective: 1
 
-- type: weightedRandom
-  id: TraitorObjectiveGroupSabotage
-  weights:
-    SupercritAnomaliesObjective: 1
+# TraitorObjectiveGroupSabotage удалена # DarkestHour: нет аномалий и ксеноархеологии
 
 #misc objectives that don't fall other another category
 - type: weightedRandom
@@ -112,7 +109,7 @@
     NuclearBombStealObjective: 0.5
     FaxMachineCaptainStealObjective: 1
     ChemDispenserStealObjective: 1
-    XenoArtifactStealObjective: 1
+    # XenoArtifactStealObjective: 1 # DarkestHour: нет аномалий и ксеноархеологии
     FreezerHeaterStealObjective: 1
     TegStealObjective: 1
     BoozeDispenserStealObjective: 1
