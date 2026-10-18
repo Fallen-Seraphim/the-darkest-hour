@@ -223,8 +223,8 @@
     - id: SyndicateMicrowaveMachineCircuitboard
     - id: HydroponicsTrayMachineCircuitboard
     - id: DawInstrumentMachineCircuitboard
-    - id: PortableGeneratorPacmanMachineCircuitboard
-    - id: PortableGeneratorSuperPacmanMachineCircuitboard
+    # - id: PortableGeneratorPacmanMachineCircuitboard # DarkestHour: нет плазмы
+    # - id: PortableGeneratorSuperPacmanMachineCircuitboard # DarkestHour: нет плазмы
     - id: HellfireFreezerMachineCircuitBoard
     - id: HellfireHeaterMachineCircuitBoard
     - id: ReagentGrinderMachineCircuitboard
@@ -411,11 +411,11 @@
       - id: IngotSilver
     - !type:GroupSelector
       children:
-      - id: SheetPlasma1
-        weight: 2
-      - id: SheetPlasma10
-      - id: SheetPlasma
-        weight: 0.50
+      # - id: SheetPlasma1 # DarkestHour: нет плазмы
+      # weight: 2
+      # - id: SheetPlasma10 # DarkestHour: нет плазмы
+      # - id: SheetPlasma # DarkestHour: нет плазмы
+      # weight: 0.50
     - !type:GroupSelector
       children:
       - id: SheetUranium1

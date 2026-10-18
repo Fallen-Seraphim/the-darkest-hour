@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 04/24/2025 07:17:27
-  entityCount: 1092
+  entityCount: 1091
 maps: []
 grids:
 - 1
@@ -4934,13 +4934,6 @@ entities:
     components:
     - type: Transform
       pos: -15.1823435,3.8764727
-      parent: 1
-- proto: ScrapGeneratorPlasma
-  entities:
-  - uid: 1000
-    components:
-    - type: Transform
-      pos: -15.5,-0.5
       parent: 1
 - proto: ScrapIntercom
   entities:

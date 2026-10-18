@@ -130,7 +130,8 @@
     # - id: CrateArtifactContainer # DarkestHour: нет аномалий и ксеноархеологии
     # - id: HandheldArtifactContainer # DarkestHour: нет аномалий и ксеноархеологии
     # weight: 0.2
-    - id: CrateMaterialPlasma
+    # - id: CrateMaterialPlasma # DarkestHour: нет плазмы
+    - id: CrateScienceBiosuit # DarkestHour: замена, чтобы таблица не была пустой
 
 - type: entityTable
   id: LowValueCrateTable

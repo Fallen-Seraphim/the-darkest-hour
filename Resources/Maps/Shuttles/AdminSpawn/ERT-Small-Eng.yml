@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 04/21/2025 18:20:09
-  entityCount: 298
+  entityCount: 292
 maps: []
 grids:
 - 1
@@ -932,13 +932,7 @@ entities:
           - 231
           - 230
           - 229
-          - 228
           - 227
-          - 226
-          - 225
-          - 224
-          - 223
-          - 222
         paper_label: !type:ContainerSlot
           showEnts: False
           occludes: True
@@ -1640,7 +1634,7 @@ entities:
     - type: Transform
       pos: -4.5,0.5
       parent: 1
-- proto: PlasmaReinforcedWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 46
     components:
@@ -1883,50 +1877,6 @@ entities:
       canCollide: False
     - type: InsideEntityStorage
   - uid: 239
-    components:
-    - type: Transform
-      parent: 221
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-- proto: SheetRPGlass
-  entities:
-  - uid: 222
-    components:
-    - type: Transform
-      parent: 221
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 223
-    components:
-    - type: Transform
-      parent: 221
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 224
-    components:
-    - type: Transform
-      parent: 221
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 225
-    components:
-    - type: Transform
-      parent: 221
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 226
-    components:
-    - type: Transform
-      parent: 221
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 228
     components:
     - type: Transform
       parent: 221

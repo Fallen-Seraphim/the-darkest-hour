@@ -151,7 +151,7 @@
   id: RandomRareHighValueConstructionMaterialsTable
   table: !type:GroupSelector
     children:
-    - id: SheetRPGlass
+    - id: SheetRGlass # DarkestHour: было SheetRPGlass, плазмы нет
 
 ## High value materials
 - type: entityTable
@@ -169,7 +169,7 @@
   id: RandomCommonHighValueMaterialsTable
   table: !type:GroupSelector
     children:
-    - id: SheetPlasma
+    # - id: SheetPlasma # DarkestHour: нет плазмы
     - id: IngotGold
     - id: IngotSilver
 
@@ -212,7 +212,7 @@
   table: !type:GroupSelector
     children:
     - id: SheetPlasteel10
-    - id: SheetPlasma1
+    # - id: SheetPlasma1 # DarkestHour: нет плазмы
     - id: MaterialWoodPlank10
     - id: PartRodMetal10
     - id: SheetSteel10

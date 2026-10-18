@@ -29,10 +29,7 @@
   id: ReinforcedShiv
   graph: ReinforcedShiv
 
-- type: construction
-  parent: Shiv
-  id: PlasmaShiv
-  graph: PlasmaShiv
+# PlasmaShiv удалён # DarkestHour: нет плазмы
 
 - type: construction
   parent: Shiv
@@ -50,10 +47,7 @@
   id: SpearReinforced
   graph: SpearReinforced
 
-- type: construction
-  parent: Spear
-  id: SpearPlasma
-  graph: SpearPlasma
+# SpearPlasma удалён # DarkestHour: нет плазмы
 
 - type: construction
   parent: Spear
@@ -106,11 +100,7 @@
   graph: ImprovisedArrowCarp
   targetNode: ImprovisedArrowCarp
 
-- type: construction
-  parent: BaseWeapon
-  id: ImprovisedArrowPlasma
-  graph: ImprovisedArrowPlasma
-  targetNode: ImprovisedArrowPlasma
+# ImprovisedArrowPlasma удалён # DarkestHour: нет плазмы
 
 - type: construction
   parent: BaseWeapon

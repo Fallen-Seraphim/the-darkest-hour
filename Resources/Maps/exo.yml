@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 09/22/2026 17:46:44
-  entityCount: 20098
+  entityCount: 20072
 maps:
 - 1
 grids:
@@ -2564,10 +2564,6 @@ entities:
       parent: 18198
     - type: Action
       container: 18198
-  - uid: 18388
-    components:
-    - type: Transform
-      parent: 18387
   - uid: 18567
     mapInit: true
     paused: true
@@ -92889,29 +92885,7 @@ entities:
     - type: Transform
       parent: 2
       pos: 6.7292037,-82.632835
-- proto: PlasmaCanister
-  entities:
-  - uid: 5052
-    components:
-    - type: Transform
-      parent: 2
-      pos: -25.5,-24.5
-  - uid: 7428
-    components:
-    - type: Transform
-      parent: 2
-      pos: 43.5,-72.5
-  - uid: 7824
-    components:
-    - type: Transform
-      parent: 2
-      pos: 42.5,-59.5
-  - uid: 17826
-    components:
-    - type: Transform
-      parent: 2
-      pos: 53.5,-72.5
-- proto: PlasmaReinforcedWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 596
     components:
@@ -93070,19 +93044,7 @@ entities:
       parent: 2
       rot: -1.5707963267948966 rad
       pos: -59.5,-61.5
-- proto: PlasmaTank
-  entities:
-  - uid: 17253
-    components:
-    - type: Transform
-      parent: 2
-      pos: 45.629066,-75.563896
-  - uid: 18387
-    components:
-    - type: Transform
-      parent: 2
-      pos: -25.621885,-66.30062
-- proto: PlasmaWindoorAtmosphericsLocked
+- proto: WindoorAtmosphericsLocked
   entities:
   - uid: 10456
     components:
@@ -93114,7 +93076,7 @@ entities:
     - type: Transform
       parent: 2
       pos: 44.5,-61.5
-- proto: PlasmaWindoorChemistryLocked
+- proto: WindoorChemistryLocked
   entities:
   - uid: 6282
     components:
@@ -93134,7 +93096,7 @@ entities:
       parent: 2
       rot: 3.141592653589793 rad
       pos: 20.5,-76.5
-- proto: PlasmaWindoorCommandLocked
+- proto: WindoorCommandLocked
   entities:
   - uid: 2896
     components:
@@ -93175,7 +93137,7 @@ entities:
       parent: 2
       rot: 1.5707963267948966 rad
       pos: 83.5,-45.5
-- proto: PlasmaWindoorEngineeringLocked
+- proto: WindoorEngineeringLocked
   entities:
   - uid: 356
     components:
@@ -93207,7 +93169,7 @@ entities:
       parent: 2
       rot: 3.141592653589793 rad
       pos: -32.5,-74.5
-- proto: PlasmaWindoorScienceLocked
+- proto: WindoorScienceLocked
   entities:
   - uid: 1074
     components:
@@ -93232,7 +93194,7 @@ entities:
     - type: Transform
       parent: 2
       pos: -10.5,-17.5
-- proto: PlasmaWindoorSecurityLocked
+- proto: WindoorSecurityLocked
   entities:
   - uid: 2724
     components:
@@ -93469,92 +93431,6 @@ entities:
       enabled: False
     - type: Physics
       bodyType: Dynamic
-- proto: PortableGeneratorJrPacman
-  entities:
-  - uid: 8372
-    components:
-    - type: Transform
-      parent: 2
-      pos: 4.5,-25.5
-  - uid: 15022
-    components:
-    - type: Transform
-      parent: 2
-      pos: -8.5,-6.5
-  - uid: 15437
-    components:
-    - type: Transform
-      parent: 2
-      pos: 78.5,-41.5
-  - uid: 15529
-    components:
-    - type: Transform
-      parent: 2
-      pos: 37.5,-91.5
-  - uid: 15779
-    components:
-    - type: Transform
-      parent: 2
-      pos: 54.5,-69.5
-  - uid: 16181
-    components:
-    - type: Transform
-      parent: 2
-      pos: -39.5,-26.5
-  - uid: 16675
-    components:
-    - type: Transform
-      parent: 2
-      pos: -49.5,-67.5
-  - uid: 16976
-    components:
-    - type: Transform
-      parent: 2
-      pos: 36.5,-38.5
-  - uid: 17972
-    components:
-    - type: Transform
-      parent: 2
-      pos: -41.5,-36.5
-  - uid: 18253
-    components:
-    - type: Transform
-      parent: 2
-      pos: -5.5,-72.5
-  - uid: 18254
-    components:
-    - type: Transform
-      parent: 2
-      pos: 18.5,-58.5
-  - uid: 19388
-    components:
-    - type: Transform
-      parent: 2
-      pos: -33.5,-69.5
-- proto: PortableGeneratorPacman
-  entities:
-  - uid: 7446
-    components:
-    - type: Transform
-      parent: 2
-      pos: -19.5,-15.5
-  - uid: 15799
-    components:
-    - type: Transform
-      parent: 2
-      pos: -11.5,-66.5
-  - uid: 17727
-    components:
-    - type: Transform
-      parent: 2
-      pos: -5.5,-75.5
-- proto: PortableGeneratorSuperPacman
-  entities:
-  - uid: 5729
-    components:
-    - type: Transform
-      parent: 2
-      pos: -11.5,-65.5
 - proto: PortableScrubber
   entities:
   - uid: 7976
@@ -98601,7 +98477,7 @@ entities:
     - type: Transform
       parent: 2
       pos: -8.5,-10.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 182
     components:
@@ -99123,7 +98999,7 @@ entities:
     - type: Transform
       parent: 2
       pos: 84.5,-46.5
-- proto: ReinforcedPlasmaWindowDiagonal
+- proto: ReinforcedWindowDiagonal
   entities:
   - uid: 1731
     components:
@@ -100612,26 +100488,6 @@ entities:
     - type: Transform
       parent: 2
       pos: -3.413918,-22.43804
-- proto: SheetPlasma
-  entities:
-  - uid: 3506
-    components:
-    - type: Transform
-      parent: 2
-      pos: -12.6246805,-71.2753
-  - uid: 14433
-    components:
-    - type: Transform
-      parent: 2
-      rot: 3.141592653589793 rad
-      pos: -15.5,-18.5
-- proto: SheetPlasma1
-  entities:
-  - uid: 2919
-    components:
-    - type: Transform
-      parent: 2
-      pos: 16.517122,-67.41579
 - proto: SheetPlasteel
   entities:
   - uid: 2747
@@ -108930,7 +108786,7 @@ entities:
     - type: Transform
       parent: 2
       pos: 16.5,-32.5
-- proto: TablePlasmaGlass
+- proto: TableReinforcedGlass
   entities:
   - uid: 455
     components:
@@ -127351,7 +127207,7 @@ entities:
     - type: Transform
       parent: 2
       pos: 14.5,-70.5
-- proto: WindoorPlasma
+- proto: Windoor
   entities:
   - uid: 1854
     components:

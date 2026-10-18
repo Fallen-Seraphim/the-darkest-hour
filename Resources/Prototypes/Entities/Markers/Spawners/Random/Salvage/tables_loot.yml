@@ -55,8 +55,8 @@
       weight: 0.33
     - id: MaterialWoodPlank10
       weight: 0.2
-    - id: SheetPlasma10
-      weight: 0.2
+    # - id: SheetPlasma10 # DarkestHour: нет плазмы
+    # weight: 0.2
     # - id: ArtifactFragment1 # DarkestHour: нет аномалий и ксеноархеологии
     # weight: 0.05
     - id: SheetPlasteel10
@@ -93,9 +93,9 @@
   id: SalvageTreasureCommon
   table: !type:GroupSelector
     children:
-    - id: SheetPlasma1
-      amount: !type:RangeNumberSelector
-        range: 3, 5
+    # - id: SheetPlasma1 # DarkestHour: нет плазмы
+    # amount: !type:RangeNumberSelector
+    # range: 3, 5
     - id: ResearchDisk
     - id: DrinkGoldenCup
     - id: TreasureSampleTube
@@ -277,10 +277,10 @@
   id: RandomGeneratorTable
   table: !type:GroupSelector
     children:
-    - id: ScrapGeneratorPlasmaLeaking
+    # - id: ScrapGeneratorPlasmaLeaking # DarkestHour: нет плазмы
     - id: ScrapGeneratorUraniumLeaking
-    - id: ScrapGeneratorPlasma
-      weight: 0.5
+    # - id: ScrapGeneratorPlasma # DarkestHour: нет плазмы
+    # weight: 0.5
     - id: ScrapGeneratorUranium
       weight: 0.5
     - id: ScrapGeneratorFrame

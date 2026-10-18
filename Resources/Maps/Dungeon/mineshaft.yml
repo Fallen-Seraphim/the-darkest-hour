@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 14:11:36
-  entityCount: 1103
+  entityCount: 1099
 maps:
 - 2
 grids:
@@ -3490,28 +3490,6 @@ entities:
     - type: Transform
       parent: 2
       pos: 6.3847184,15.547257
-- proto: PortableGeneratorJrPacman
-  entities:
-  - uid: 292
-    components:
-    - type: Transform
-      parent: 2
-      pos: 1.5,21.5
-  - uid: 824
-    components:
-    - type: Transform
-      parent: 2
-      pos: 48.5,23.5
-  - uid: 989
-    components:
-    - type: Transform
-      parent: 2
-      pos: 5.5,32.5
-  - uid: 1079
-    components:
-    - type: Transform
-      parent: 2
-      pos: 31.5,32.5
 - proto: PosterLegitScience
   entities:
   - uid: 590

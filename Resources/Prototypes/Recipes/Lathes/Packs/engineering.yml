@@ -84,9 +84,9 @@
   - SolarControlComputerCircuitboard
   - SolarTrackerElectronics
   - GasRecyclerMachineCircuitboard
-  - PortableGeneratorPacmanMachineCircuitboard
-  - PortableGeneratorSuperPacmanMachineCircuitboard
-  - PortableGeneratorJrPacmanMachineCircuitboard
+  # - PortableGeneratorPacmanMachineCircuitboard # DarkestHour: нет плазмы
+  # - PortableGeneratorSuperPacmanMachineCircuitboard # DarkestHour: нет плазмы
+  # - PortableGeneratorJrPacmanMachineCircuitboard # DarkestHour: нет плазмы
   - EmitterCircuitboard
   - TelecomServerCircuitboard
   - SMESAdvancedMachineCircuitboard

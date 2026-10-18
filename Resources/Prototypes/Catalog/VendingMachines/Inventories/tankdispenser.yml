@@ -7,6 +7,6 @@
 - type: vendingMachineInventory
   id: TankDispenserEngineeringInventory
   startingInventory:
-    PlasmaTankFilled: 10
+    # PlasmaTankFilled: 10 # DarkestHour: нет плазмы
     NitrogenTankFilled: 10
     OxygenTankFilled: 10

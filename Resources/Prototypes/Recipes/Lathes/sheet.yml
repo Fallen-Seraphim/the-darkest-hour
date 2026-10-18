@@ -112,8 +112,7 @@
   result: SheetPlasteel1
   completetime: 0
   materials:
-    RawPlasma: 100
-    RawIron: 200 #Twice as durable as steel, Twice the material cost
+    RawIron: 300 # DarkestHour: нет плазмы (было RawPlasma 100 + RawIron 200; рецепт пересмотрим на этапе материалов)
     Coal: 30
 
 - type: latheRecipe
@@ -121,8 +120,7 @@
   result: SheetPlasteel
   completetime: 5
   materials:
-    RawPlasma: 3000
-    RawIron: 6000 #Twice as durable as steel, Twice the material cost
+    RawIron: 9000 # DarkestHour: нет плазмы (было RawPlasma 3000 + RawIron 6000)
     Coal: 1000
 
 - type: latheRecipe

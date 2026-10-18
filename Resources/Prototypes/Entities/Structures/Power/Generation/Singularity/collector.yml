@@ -114,7 +114,7 @@
   - type: ItemSlots
     slots:
       gas_tank:
-        startingItem: PlasmaTankFilled
+        # startingItem: PlasmaTankFilled # DarkestHour: нет плазмы
         whitelist:
           components:
           - GasTank

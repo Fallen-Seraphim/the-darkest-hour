@@ -2040,7 +2040,7 @@ entities:
     - type: Physics
       canCollide: False
     - type: InsideEntityStorage
-- proto: PlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 262
     components:
@@ -2154,7 +2154,7 @@ entities:
     - type: Transform
       parent: 1
       pos: -1.5,-4.5
-- proto: PlasmaWindowDiagonal
+- proto: ReinforcedWindowDiagonal
   entities:
   - uid: 281
     components:
@@ -2443,7 +2443,7 @@ entities:
           - 106
           showEnts: False
           occludes: True
-- proto: TablePlasmaGlass
+- proto: TableReinforcedGlass
   entities:
   - uid: 317
     components:

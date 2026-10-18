@@ -157,10 +157,7 @@
   id: TableReinforcedGlass
   targetNode: TableReinforcedGlass
 
-- type: construction
-  parent: BaseTable
-  id: TablePlasmaGlass
-  targetNode: TablePlasmaGlass
+# TablePlasmaGlass удалён # DarkestHour: нет плазмы
 
 - type: construction
   parent: BaseTable

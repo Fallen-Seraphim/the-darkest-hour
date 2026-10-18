@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 12:38:31
-  entityCount: 2280
+  entityCount: 2276
 maps: []
 grids:
 - 1
@@ -5622,18 +5622,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 25.5,-10.5
-- proto: CratePlasma
-  entities:
-  - uid: 1452
-    components:
-    - type: Transform
-      parent: 1
-      pos: 24.5,-19.5
-  - uid: 1454
-    components:
-    - type: Transform
-      parent: 1
-      pos: 24.5,-18.5
 - proto: CrateWeaponSecure
   entities:
   - uid: 446
@@ -6543,20 +6531,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 91.71212,-18.379372
-- proto: PlasmaCanister
-  entities:
-  - uid: 401
-    components:
-    - type: Transform
-      parent: 1
-      pos: 24.5,-3.5
-- proto: PortableGeneratorSuperPacman
-  entities:
-  - uid: 1484
-    components:
-    - type: Transform
-      parent: 1
-      pos: 26.5,-19.5
 - proto: PoweredlightEmpty
   entities:
   - uid: 1570

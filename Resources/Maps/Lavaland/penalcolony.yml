@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 04/25/2025 05:02:18
-  entityCount: 1340
+  entityCount: 1337
 maps: []
 grids:
 - 1
@@ -4402,13 +4402,6 @@ entities:
     - type: Transform
       pos: -9.496842,4.466636
       parent: 1
-- proto: PortableGeneratorPacman
-  entities:
-  - uid: 808
-    components:
-    - type: Transform
-      pos: 20.5,-5.5
-      parent: 1
 - proto: PowerCellRecharger
   entities:
   - uid: 838
@@ -4876,13 +4869,6 @@ entities:
     - type: Transform
       pos: 4.5581913,8.6529045
       parent: 1
-- proto: ScrapGeneratorPlasmaLeaking
-  entities:
-  - uid: 809
-    components:
-    - type: Transform
-      pos: 21.5,-5.5
-      parent: 1
 - proto: ShardGlassReinforced
   entities:
   - uid: 720
@@ -4899,13 +4885,6 @@ entities:
     components:
     - type: Transform
       pos: 16.971382,3.5153513
-      parent: 1
-- proto: SheetPlasma
-  entities:
-  - uid: 897
-    components:
-    - type: Transform
-      pos: 21.516975,-2.4572878
       parent: 1
 - proto: SheetSteel1
   entities:

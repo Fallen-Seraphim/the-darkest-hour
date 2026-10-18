@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 04/21/2025 06:14:13
-  entityCount: 566
+  entityCount: 560
 maps: []
 grids:
 - 1
@@ -1908,7 +1908,7 @@ entities:
     - type: Transform
       pos: -14.03804,-4.192683
       parent: 1
-- proto: PlasmaReinforcedWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 228
     components:
@@ -2110,7 +2110,7 @@ entities:
     - type: Transform
       pos: -7.5,-0.5
       parent: 1
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 182
     components:
@@ -2455,33 +2455,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -12.664373,-2.4758506
       parent: 1
-- proto: ShardGlassPlasma
-  entities:
-  - uid: 187
-    components:
-    - type: Transform
-      pos: 12.178013,2.6173701
-      parent: 1
-  - uid: 188
-    components:
-    - type: Transform
-      pos: 12.787388,2.2892451
-      parent: 1
-  - uid: 189
-    components:
-    - type: Transform
-      pos: 11.709263,-4.6248174
-      parent: 1
-  - uid: 190
-    components:
-    - type: Transform
-      pos: 13.51395,-4.03888
-      parent: 1
-  - uid: 191
-    components:
-    - type: Transform
-      pos: 13.748325,-4.5310674
-      parent: 1
 - proto: ShardGlassReinforced
   entities:
   - uid: 227
@@ -2520,13 +2493,6 @@ entities:
     components:
     - type: Transform
       pos: -7.744358,10.600736
-      parent: 1
-- proto: SheetPlasma
-  entities:
-  - uid: 267
-    components:
-    - type: Transform
-      pos: -5.4900637,5.6346035
       parent: 1
 - proto: SheetPlastic
   entities:
@@ -3381,7 +3347,7 @@ entities:
     - type: Transform
       pos: -4.033656,3.2255795
       parent: 1
-- proto: WindoorPlasma
+- proto: Windoor
   entities:
   - uid: 232
     components:

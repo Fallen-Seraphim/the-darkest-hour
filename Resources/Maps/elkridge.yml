@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 09/22/2026 15:31:58
-  entityCount: 18726
+  entityCount: 18702
 maps:
 - 1
 grids:
@@ -59613,7 +59613,6 @@ entities:
       containers:
         entity_storage: !type:Container
           ents:
-          - 1252
           - 1253
           showEnts: False
           occludes: True
@@ -97657,28 +97656,6 @@ entities:
     - type: Transform
       parent: 2
       pos: 28.5,-29.5
-- proto: PlasmaCanister
-  entities:
-  - uid: 1381
-    components:
-    - type: Transform
-      parent: 2
-      pos: 40.5,-26.5
-  - uid: 1860
-    components:
-    - type: Transform
-      parent: 2
-      pos: 17.5,-23.5
-  - uid: 2726
-    components:
-    - type: Transform
-      parent: 2
-      pos: 40.5,-27.5
-  - uid: 8249
-    components:
-    - type: Transform
-      parent: 2
-      pos: 19.5,-37.5
 - proto: PlasticFlapsAirtightClear
   entities:
   - uid: 5095
@@ -97848,104 +97825,6 @@ entities:
     - type: Transform
       parent: 2
       pos: 2.5,-29.5
-- proto: PortableGeneratorJrPacman
-  entities:
-  - uid: 923
-    components:
-    - type: Transform
-      parent: 2
-      pos: 31.5,-16.5
-  - uid: 2252
-    components:
-    - type: Transform
-      parent: 2
-      pos: 32.5,-1.5
-  - uid: 3294
-    components:
-    - type: Transform
-      parent: 2
-      pos: -28.5,-28.5
-  - uid: 4816
-    components:
-    - type: Transform
-      parent: 2
-      pos: -42.5,-15.5
-  - uid: 6611
-    components:
-    - type: Transform
-      parent: 2
-      pos: 8.5,14.5
-  - uid: 7311
-    components:
-    - type: Transform
-      parent: 2
-      pos: -15.5,56.5
-  - uid: 7313
-    components:
-    - type: Transform
-      parent: 2
-      pos: -4.5,35.5
-  - uid: 8826
-    components:
-    - type: Transform
-      parent: 2
-      pos: 42.5,20.5
-  - uid: 8827
-    components:
-    - type: Transform
-      parent: 2
-      pos: 27.5,26.5
-  - uid: 16102
-    components:
-    - type: Transform
-      parent: 2
-      pos: -21.5,38.5
-  - uid: 16280
-    components:
-    - type: Transform
-      parent: 2
-      pos: 27.5,-5.5
-  - uid: 16667
-    components:
-    - type: Transform
-      parent: 2
-      pos: -23.5,3.5
-  - uid: 17234
-    components:
-    - type: Transform
-      parent: 2
-      pos: -42.5,-42.5
-  - uid: 17308
-    components:
-    - type: Transform
-      parent: 2
-      pos: -34.5,7.5
-  - uid: 17309
-    components:
-    - type: Transform
-      parent: 2
-      pos: -33.5,23.5
-- proto: PortableGeneratorJrPacmanMachineCircuitboard
-  entities:
-  - uid: 8501
-    components:
-    - type: Transform
-      parent: 2
-      pos: 43.74804,-22.74506
-- proto: PortableGeneratorPacman
-  entities:
-  - uid: 16285
-    components:
-    - type: Transform
-      parent: 2
-      pos: 30.5,-13.5
-- proto: PortableGeneratorSuperPacman
-  entities:
-  - uid: 2256
-    components:
-    - type: Transform
-      parent: 2
-      pos: 30.5,-8.5
 - proto: PortableScrubber
   entities:
   - uid: 2625
@@ -102854,7 +102733,7 @@ entities:
     - type: Transform
       parent: 2
       pos: -30.5,29.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 1403
     components:
@@ -104446,20 +104325,6 @@ entities:
     - type: Transform
       parent: 2
       pos: -12.272852,11.512635
-- proto: SheetPlasma
-  entities:
-  - uid: 1252
-    components:
-    - type: Transform
-      parent: 1249
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 14395
-    components:
-    - type: Transform
-      parent: 2
-      pos: -30.013832,22.60418
 - proto: SheetPlasteel
   entities:
   - uid: 1251

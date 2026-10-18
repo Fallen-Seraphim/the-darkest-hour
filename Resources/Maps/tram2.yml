@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 09/22/2026 16:05:44
-  entityCount: 26306
+  entityCount: 26287
 maps:
 - 1
 grids:
@@ -118513,33 +118513,7 @@ entities:
     - type: Transform
       parent: 15
       pos: -4.2574186,-4.5545216
-- proto: PlasmaCanister
-  entities:
-  - uid: 10870
-    components:
-    - type: Transform
-      parent: 15
-      pos: -31.5,-73.5
-    - type: GasCanister
-      releasePressure: 100
-    - type: Lock
-      locked: False
-  - uid: 12461
-    components:
-    - type: Transform
-      parent: 15
-      pos: -29.5,-60.5
-  - uid: 14439
-    components:
-    - type: Transform
-      parent: 15
-      pos: 50.5,-48.5
-  - uid: 18004
-    components:
-    - type: Transform
-      parent: 15
-      pos: -50.5,-71.5
-- proto: PlasmaWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 7720
     components:
@@ -118818,85 +118792,6 @@ entities:
       enabled: False
     - type: Physics
       bodyType: Dynamic
-- proto: PortableGeneratorJrPacman
-  entities:
-  - uid: 11312
-    components:
-    - type: Transform
-      parent: 15
-      pos: -74.5,-41.5
-  - uid: 12647
-    components:
-    - type: Transform
-      parent: 15
-      pos: -6.5,-31.5
-  - uid: 12669
-    components:
-    - type: Transform
-      parent: 15
-      pos: -24.5,20.5
-  - uid: 12865
-    components:
-    - type: Transform
-      parent: 15
-      pos: 28.5,-41.5
-  - uid: 20280
-    components:
-    - type: Transform
-      parent: 15
-      pos: 27.5,-2.5
-  - uid: 20641
-    components:
-    - type: Transform
-      parent: 15
-      pos: -14.5,-1.5
-  - uid: 23431
-    components:
-    - type: Transform
-      parent: 15
-      pos: 59.5,-49.5
-  - uid: 25115
-    components:
-    - type: Transform
-      parent: 15
-      pos: -53.5,-51.5
-  - uid: 25246
-    components:
-    - type: Transform
-      parent: 15
-      pos: 72.5,-29.5
-- proto: PortableGeneratorPacman
-  entities:
-  - uid: 10964
-    components:
-    - type: Transform
-      parent: 15
-      pos: -40.5,-47.5
-  - uid: 10965
-    components:
-    - type: Transform
-      parent: 15
-      pos: -39.5,-47.5
-  - uid: 17651
-    components:
-    - type: Transform
-      parent: 17588
-      pos: -39.5,-21.5
-    - type: MaterialStorage
-      storage:
-        Plasma: 3000
-    - type: PowerSupplier
-      voltage: Medium
-    - type: PowerSwitchable
-      activeIndex: 1
-    - type: InsertingMaterialStorage
-- proto: PortableGeneratorSuperPacman
-  entities:
-  - uid: 7272
-    components:
-    - type: Transform
-      parent: 15
-      pos: -38.5,-47.5
 - proto: PortableScrubber
   entities:
   - uid: 750
@@ -126079,7 +125974,7 @@ entities:
     - type: Transform
       parent: 15
       pos: 82.5,-8.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 1777
     components:
@@ -126431,7 +126326,7 @@ entities:
     - type: Transform
       parent: 15
       pos: -56.5,-74.5
-- proto: ReinforcedPlasmaWindowDiagonal
+- proto: ReinforcedWindowDiagonal
   entities:
   - uid: 5835
     components:
@@ -129975,19 +129870,6 @@ entities:
     - type: Transform
       parent: 15
       pos: -70.278305,-44.563316
-- proto: SheetPlasma
-  entities:
-  - uid: 2300
-    components:
-    - type: Transform
-      parent: 15
-      pos: 49.5,-37.5
-  - uid: 17885
-    components:
-    - type: Transform
-      parent: 15
-      rot: 3.141592653589793 rad
-      pos: -38.434723,-51.589424
 - proto: SheetPlasteel
   entities:
   - uid: 8809

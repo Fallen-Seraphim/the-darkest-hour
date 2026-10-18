@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/22/2026 15:19:02
-  entityCount: 708
+  entityCount: 707
 maps: []
 grids:
 - 179
@@ -1775,13 +1775,6 @@ entities:
     - type: Transform
       parent: 179
       pos: -14.727282,-5.4793034
-- proto: PlasmaTankFilled
-  entities:
-  - uid: 688
-    components:
-    - type: Transform
-      parent: 179
-      pos: 23.68226,-5.1301785
 - proto: PosterBroken
   entities:
   - uid: 636

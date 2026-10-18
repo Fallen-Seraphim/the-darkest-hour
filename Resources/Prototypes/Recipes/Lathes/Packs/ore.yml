@@ -5,7 +5,7 @@
   recipes:
   - SheetSteel
   - SheetGlass1
-  - SheetPlasma1
+  # - SheetPlasma1 # DarkestHour: нет плазмы
   - SheetUranium1
   - IngotGold1
   - IngotSilver1
@@ -16,8 +16,8 @@
   id: RGlassSmelting
   recipes:
   - SheetRGlassRaw
-  - SheetPGlass1
-  - SheetRPGlass1
+  # - SheetPGlass1 # DarkestHour: нет плазмы
+  # - SheetRPGlass1 # DarkestHour: нет плазмы
 
 - type: latheRecipePack
   id: AdvancedSmelting

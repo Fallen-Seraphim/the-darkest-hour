@@ -334,13 +334,13 @@
   - type: Welder
     fuelConsumption: 0.005
     fuelLitCost: 1
-    fuelReagent: Plasma
+    fuelReagent: WeldingFuel # DarkestHour: нет плазмы
   - type: PointLight
     color: blue
   - type: Solution
     solution:
       reagents:
-      - ReagentId: Plasma
+      - ReagentId: WeldingFuel # DarkestHour: нет плазмы
         Quantity: 15
 
 - type: entity
@@ -359,7 +359,7 @@
   - type: Welder
     fuelConsumption: 0.0
     fuelLitCost: 10
-    fuelReagent: Plasma
+    fuelReagent: WeldingFuel # DarkestHour: нет плазмы
   - type: PointLight
     radius: 4 #Excessively powerful
     color: Gold

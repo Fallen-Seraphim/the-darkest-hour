@@ -171,7 +171,7 @@
     radius: 1.5
     color: lightblue
   - type: Welder
-    fuelReagent: Plasma
+    fuelReagent: WeldingFuel # DarkestHour: нет плазмы
   - type: RequiresEyeProtection
     statusEffectTime: 5 # less harmful; sunglasses can block it
 
@@ -183,12 +183,12 @@
   - type: Solution
     solution:
       reagents:
-      - ReagentId: Plasma
+      - ReagentId: WeldingFuel # DarkestHour: нет плазмы
         Quantity: 480 # Literally infinite so this number basically doesn't matter, also this should be a battery tbqh.
   - type: SolutionRegeneration
     generated:
       reagents:
-      - ReagentId: Plasma
+      - ReagentId: WeldingFuel # DarkestHour: нет плазмы
         Quantity: 1
 
 - type: entity

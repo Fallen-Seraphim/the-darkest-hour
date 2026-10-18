@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 09/07/2026 17:40:39
-  entityCount: 365
+  entityCount: 352
 maps: []
 grids:
 - 407
@@ -1873,14 +1873,7 @@ entities:
     - type: Transform
       parent: 407
       pos: 8.530472,8.534576
-- proto: PlasmaOre1
-  entities:
-  - uid: 397
-    components:
-    - type: Transform
-      parent: 407
-      pos: -9.462246,2.5242848
-- proto: PlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 76
     components:
@@ -1914,13 +1907,6 @@ entities:
     - type: Transform
       parent: 407
       pos: -4.4913177,-9.236341
-- proto: PortableGeneratorPacman
-  entities:
-  - uid: 208
-    components:
-    - type: Transform
-      parent: 407
-      pos: 2.5,6.5
 - proto: PosterLegitNanotrasenLogo
   entities:
   - uid: 341
@@ -2012,7 +1998,7 @@ entities:
     - type: Transform
       parent: 407
       pos: 6.5,-6.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 185
     components:
@@ -2053,65 +2039,6 @@ entities:
     - type: Transform
       parent: 407
       pos: 8.5,-4.5
-- proto: SheetPlasma1
-  entities:
-  - uid: 384
-    components:
-    - type: Transform
-      parent: 407
-      pos: 6.479499,3.526761
-  - uid: 385
-    components:
-    - type: Transform
-      parent: 407
-      pos: 6.479499,3.526761
-  - uid: 386
-    components:
-    - type: Transform
-      parent: 407
-      pos: 6.479499,3.526761
-  - uid: 387
-    components:
-    - type: Transform
-      parent: 407
-      pos: 6.479499,3.526761
-  - uid: 388
-    components:
-    - type: Transform
-      parent: 407
-      pos: 6.479499,3.526761
-- proto: SheetRPGlass1
-  entities:
-  - uid: 389
-    components:
-    - type: Transform
-      parent: 407
-      pos: 13.522866,-9.46357
-  - uid: 390
-    components:
-    - type: Transform
-      parent: 407
-      pos: 13.522866,-9.46357
-  - uid: 391
-    components:
-    - type: Transform
-      parent: 407
-      pos: 13.522866,-9.46357
-  - uid: 392
-    components:
-    - type: Transform
-      parent: 407
-      pos: 13.522866,-9.46357
-  - uid: 393
-    components:
-    - type: Transform
-      parent: 407
-      pos: 13.522866,-9.46357
-  - uid: 394
-    components:
-    - type: Transform
-      parent: 407
-      pos: 13.522866,-9.46357
 - proto: SignSecureSmall
   entities:
   - uid: 382

@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 11:53:24
-  entityCount: 439
+  entityCount: 437
 maps: []
 grids:
 - 1
@@ -891,7 +891,7 @@ entities:
     - type: Transform
       parent: 1
       pos: -6.5,-1.5
-- proto: AsteroidRockPlasma
+- proto: AsteroidRock
   entities:
   - uid: 10
     components:
@@ -2124,20 +2124,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 18.52544,-18.478405
-- proto: PortableGeneratorJrPacman
-  entities:
-  - uid: 156
-    components:
-    - type: Transform
-      parent: 1
-      pos: -1.5,-5.5
-- proto: PortableGeneratorSuperPacman
-  entities:
-  - uid: 14
-    components:
-    - type: Transform
-      parent: 1
-      pos: -4.5,-4.5
 - proto: PosterBroken
   entities:
   - uid: 97
@@ -2268,7 +2254,7 @@ entities:
     - type: Transform
       parent: 1
       pos: -4.5,-6.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 423
     components:

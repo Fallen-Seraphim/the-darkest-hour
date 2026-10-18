@@ -58,22 +58,5 @@
 #  category: cargoproduct-category-name-atmospherics
 #  group: market
 
-- type: cargoProduct
-  id: AtmosphericsPlasma
-  icon:
-    sprite: Structures/Storage/canister.rsi
-    state: orange
-  product: PlasmaCanister
-  cost: 4200 # for reference, bagel's 3x1 roundstart plasma chamber contains ~16kmol for free, this is $4.2k for 2769 mol
-  category: cargoproduct-category-name-atmospherics
-  group: market
+# AtmosphericsPlasma удалён # DarkestHour: нет плазмы
 
-#- type: cargoProduct
-#  id: AtmosphericsTritium
-#  icon:
-#    sprite: Structures/Storage/canister.rsi
-#    state: green
-#  product: TritiumCanister
-#  cost: 15500
-#  category: cargoproduct-category-name-atmospherics
-#  group: market

@@ -214,107 +214,17 @@
   products:
     Miniozine: 5
 
-- type: reaction
-  id: Ragorium
-  reactants:
-    Lipozine:
-      amount: 5
-    Plasma:
-      amount: 5
-    Blood:
-      amount: 5
-  extension: !type:DnaImprinterReaction
-    dnaSource: Blood
-    dnaOutput: Ragorium
-  products:
-    Ragorium: 5
+# Ragorium удалён # DarkestHour: нет плазмы
 
-- type: reaction
-  id: RagoriumCopperBlood
-  reactants:
-    Lipozine:
-      amount: 5
-    Plasma:
-      amount: 5
-    CopperBlood:
-      amount: 5
-  extension: !type:DnaImprinterReaction
-    dnaSource: CopperBlood
-    dnaOutput: Ragorium
-  products:
-    Ragorium: 5
+# RagoriumCopperBlood удалён # DarkestHour: нет плазмы
 
-- type: reaction
-  id: RagoriumInsectBlood
-  reactants:
-    Lipozine:
-      amount: 5
-    Plasma:
-      amount: 5
-    InsectBlood:
-      amount: 5
-  extension: !type:DnaImprinterReaction
-    dnaSource: InsectBlood
-    dnaOutput: Ragorium
-  products:
-    Ragorium: 5
+# RagoriumInsectBlood удалён # DarkestHour: нет плазмы
 
-- type: reaction
-  id: RagoriumAmmoniaBlood
-  reactants:
-    Lipozine:
-      amount: 5
-    Plasma:
-      amount: 5
-    AmmoniaBlood:
-      amount: 5
-  extension: !type:DnaImprinterReaction
-    dnaSource: AmmoniaBlood
-    dnaOutput: Ragorium
-  products:
-    Ragorium: 5
+# RagoriumAmmoniaBlood удалён # DarkestHour: нет плазмы
 
-- type: reaction
-  id: RagoriumSulfurBlood
-  reactants:
-    Lipozine:
-      amount: 5
-    Plasma:
-      amount: 5
-    SulfurBlood:
-      amount: 5
-  extension: !type:DnaImprinterReaction
-    dnaSource: SulfurBlood
-    dnaOutput: Ragorium
-  products:
-    Ragorium: 5
+# RagoriumSulfurBlood удалён # DarkestHour: нет плазмы
 
-- type: reaction
-  id: RagoriumSlime
-  reactants:
-    Lipozine:
-      amount: 5
-    Plasma:
-      amount: 5
-    Slime:
-      amount: 5
-  extension: !type:DnaImprinterReaction
-    dnaSource: Slime
-    dnaOutput: Ragorium
-  products:
-    Ragorium: 5
+# RagoriumSlime удалён # DarkestHour: нет плазмы
 
-- type: reaction
-  id: RagoriumSap
-  reactants:
-    Lipozine:
-      amount: 5
-    Plasma:
-      amount: 5
-    Sap:
-      amount: 5
-  extension: !type:DnaImprinterReaction
-    dnaSource: Sap
-    dnaOutput: Ragorium
-  products:
-    Ragorium: 5
+# RagoriumSap удалён # DarkestHour: нет плазмы
+

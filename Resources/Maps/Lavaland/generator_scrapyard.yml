@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 05/03/2025 21:38:41
-  entityCount: 67
+  entityCount: 59
 maps: []
 grids:
 - 1
@@ -272,35 +272,6 @@ entities:
     - type: Transform
       pos: 3.5,15.5
       parent: 1
-- proto: PortableGeneratorJrPacman
-  entities:
-  - uid: 22
-    components:
-    - type: Transform
-      anchored: True
-      pos: 5.5,10.5
-      parent: 1
-    - type: Physics
-      bodyType: Static
-- proto: PortableGeneratorPacman
-  entities:
-  - uid: 24
-    components:
-    - type: Transform
-      pos: 4.5,15.5
-      parent: 1
-- proto: PortableGeneratorPacmanMachineCircuitboard
-  entities:
-  - uid: 14
-    components:
-    - type: Transform
-      pos: 3.421713,8.67631
-      parent: 1
-  - uid: 21
-    components:
-    - type: Transform
-      pos: 3.6161573,8.280477
-      parent: 1
 - proto: PosterContrabandPower
   entities:
   - uid: 7
@@ -391,25 +362,6 @@ entities:
     - type: Transform
       pos: 5.0268545,14.029539
       parent: 1
-- proto: ScrapGeneratorPlasma
-  entities:
-  - uid: 5
-    components:
-    - type: Transform
-      pos: 7.5,12.5
-      parent: 1
-  - uid: 23
-    components:
-    - type: Transform
-      pos: 3.5,13.5
-      parent: 1
-- proto: ScrapGeneratorPlasmaLeaking
-  entities:
-  - uid: 32
-    components:
-    - type: Transform
-      pos: 6.5,16.5
-      parent: 1
 - proto: ScrapGlass
   entities:
   - uid: 31
@@ -430,13 +382,6 @@ entities:
     components:
     - type: Transform
       pos: 5.5546336,16.605946
-      parent: 1
-- proto: SheetPlasma
-  entities:
-  - uid: 2
-    components:
-    - type: Transform
-      pos: 2.5,8.5
       parent: 1
 - proto: SignEngine
   entities:

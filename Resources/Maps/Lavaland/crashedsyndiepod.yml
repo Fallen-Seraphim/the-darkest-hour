@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 04/26/2025 05:56:17
-  entityCount: 202
+  entityCount: 194
 maps:
 - 94
 grids:
@@ -1175,7 +1175,7 @@ entities:
 
 
         if he's dead, burn his body. it was part of his religion, i think.
-- proto: PlasmaWindowDiagonal
+- proto: ReinforcedWindowDiagonal
   entities:
   - uid: 73
     components:
@@ -1259,7 +1259,7 @@ entities:
     - type: Transform
       pos: -0.5,-2.5
       parent: 1
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 85
     components:
@@ -1286,48 +1286,6 @@ entities:
     components:
     - type: Transform
       pos: -0.10537675,0.8159752
-      parent: 1
-- proto: ShardGlassPlasma
-  entities:
-  - uid: 51
-    components:
-    - type: Transform
-      pos: -1.4046504,1.3054738
-      parent: 1
-  - uid: 83
-    components:
-    - type: Transform
-      pos: -1.4984004,2.6335988
-      parent: 1
-  - uid: 84
-    components:
-    - type: Transform
-      pos: 0.27665472,5.227436
-      parent: 1
-  - uid: 87
-    components:
-    - type: Transform
-      pos: -0.54527545,0.6023488
-      parent: 1
-  - uid: 89
-    components:
-    - type: Transform
-      pos: -1.0609004,3.3835988
-      parent: 1
-  - uid: 91
-    components:
-    - type: Transform
-      pos: -0.29527545,2.7898488
-      parent: 1
-  - uid: 111
-    components:
-    - type: Transform
-      pos: 0.93909955,1.2429738
-      parent: 1
-  - uid: 112
-    components:
-    - type: Transform
-      pos: 1.6394429,2.4148488
       parent: 1
 - proto: SheetPlasteel1
   entities:

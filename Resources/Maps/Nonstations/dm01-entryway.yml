@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/12/2026 22:00:17
-  entityCount: 1080
+  entityCount: 1079
 maps:
 - 1
 grids:
@@ -3728,13 +3728,6 @@ entities:
       pos: 36.5,19.5
     - type: Physics
       canCollide: False
-- proto: PortableGeneratorJrPacman
-  entities:
-  - uid: 404
-    components:
-    - type: Transform
-      parent: 2
-      pos: 27.5,45.5
 - proto: ProtolatheHyperConvection
   entities:
   - uid: 873

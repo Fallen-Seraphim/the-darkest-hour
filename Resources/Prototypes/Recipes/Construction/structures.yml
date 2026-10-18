@@ -84,10 +84,7 @@
   id: SilverWall
   targetNode: silverWall
 
-- type: construction
-  parent: Girder
-  id: PlasmaWall
-  targetNode: plasmaWall
+# PlasmaWall удалён # DarkestHour: нет плазмы
 
 - type: construction
   parent: Girder
@@ -167,32 +164,18 @@
   id: TintedWindow
   targetNode: tintedWindow
 
-- type: construction
-  parent: BaseWindow
-  id: PlasmaWindow
-  targetNode: plasmaWindow
+# PlasmaWindow удалён # DarkestHour: нет плазмы
 
-- type: construction
-  parent: BaseWindow
-  id: ReinforcedPlasmaWindow
-  targetNode: reinforcedPlasmaWindow
+# ReinforcedPlasmaWindow удалён # DarkestHour: нет плазмы
 
 - type: construction
   parent: BaseWindow
   id: ShuttleWindow
   targetNode: shuttleWindow
 
-- type: construction
-  parent: BaseWindowDiagonal
-  id: PlasmaWindowDiagonal
-  name: construction-recipe-plasma-window-diagonal
-  targetNode: plasmaWindowDiagonal
+# PlasmaWindowDiagonal удалён # DarkestHour: нет плазмы
 
-- type: construction
-  parent: BaseWindowDiagonal
-  id: ReinforcedPlasmaWindowDiagonal
-  name: construction-recipe-reinforced-plasma-window-diagonal
-  targetNode: reinforcedPlasmaWindowDiagonal
+# ReinforcedPlasmaWindowDiagonal удалён # DarkestHour: нет плазмы
 
 - type: construction
   parent: BaseWindow
@@ -254,44 +237,10 @@
   objectType: Structure
   placementMode: SnapgridCenter
 
-- type: construction
-  parent: WindowDirectional
-  id: PlasmaWindowDirectional
-  targetNode: plasmaWindowDirectional
+# PlasmaWindowDirectional удалён # DarkestHour: нет плазмы
 
-- type: construction
-  id: PlasmaWindowDirectionalCorner
-  graph: WindowDirectionalCorner
-  startNode: start
-  targetNode: plasmaWindowDirectionalCorner
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
+# PlasmaReinforcedWindowDirectional удалён # DarkestHour: нет плазмы
 
-- type: construction
-  parent: WindowDirectional
-  id: PlasmaReinforcedWindowDirectional
-  targetNode: plasmaReinforcedWindowDirectional
-# endregion Windows
-
-- type: construction
-  id: PlasmaReinforcedWindowDirectionalCorner
-  graph: WindowDirectionalCorner
-  startNode: start
-  targetNode: plasmaReinforcedWindowDirectionalCorner
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-
-# region Firelocks
 - type: construction
   parent: BaseStructureFullTileDirectional
   id: Firelock
@@ -553,10 +502,7 @@
   id: WoodDoor
   targetNode: woodDoor
 
-- type: construction
-  parent: SilverDoor
-  id: PlasmaDoor
-  targetNode: plasmaDoor
+# PlasmaDoor удалён # DarkestHour: нет плазмы
 
 - type: construction
   parent: SilverDoor

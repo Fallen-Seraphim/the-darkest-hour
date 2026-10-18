@@ -7,7 +7,7 @@
     OreSalt: 0.20
     OreGold: 0.25
     OreSilver: 0.25
-    OrePlasma: 0.20
+    # OrePlasma: 0.20 # DarkestHour: нет плазмы
     OreUranium: 0.20
     # OreArtifactFragment: 0.10 # DarkestHour: нет аномалий и ксеноархеологии
 

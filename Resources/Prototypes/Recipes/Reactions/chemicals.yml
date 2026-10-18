@@ -83,8 +83,6 @@
   reactants:
     SulfuricAcid:
       amount: 1
-    Plasma:
-      amount: 1
     Potassium:
       amount: 1
   products:
