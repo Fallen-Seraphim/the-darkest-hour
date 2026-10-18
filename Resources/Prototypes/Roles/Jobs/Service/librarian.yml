@@ -15,7 +15,7 @@
   id: LibrarianGear
   equipment:
     shoes: ClothingShoesBootsLaceup
-    id: LibrarianPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (LibrarianPDA)
     ears: ClothingHeadsetService
     pocket1: d20Dice
     pocket2: HandLabeler # for making named bestsellers

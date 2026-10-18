@@ -13,7 +13,7 @@
 - type: startingGear
   id: PassengerGear
   equipment:
-    id: PassengerPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (PassengerPDA)
     ears: ClothingHeadsetGrey
   #storage:
     #back:

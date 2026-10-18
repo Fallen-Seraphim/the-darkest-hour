@@ -20,7 +20,7 @@
 - type: startingGear
   id: ParamedicGear
   equipment:
-    id: ParamedicPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (ParamedicPDA)
     ears: ClothingHeadsetMedical
 
 - type: chameleonOutfit

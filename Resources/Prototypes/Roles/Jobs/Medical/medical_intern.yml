@@ -20,7 +20,7 @@
   id: MedicalInternGear
   equipment:
     shoes: ClothingShoesColorWhite
-    id: MedicalInternPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (MedicalInternPDA)
     ears: ClothingHeadsetMedical
     pocket2: BookMedicalReferenceBook
 

@@ -36,7 +36,7 @@
 - type: startingGear
   id: QuartermasterGear
   equipment:
-    id: QuartermasterPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (QuartermasterPDA)
     ears: ClothingHeadsetQM
     belt: BoxFolderClipboardThreePapers
     pocket1: AppraisalTool

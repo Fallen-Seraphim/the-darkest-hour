@@ -63,7 +63,7 @@
   id: HoPGear
   equipment:
     shoes: ClothingShoesColorBrown
-    id: HoPPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (HoPPDA)
     gloves: ClothingHandsGlovesHop
     ears: ClothingHeadsetAltCommand
     belt: BoxFolderClipboardThreePapers

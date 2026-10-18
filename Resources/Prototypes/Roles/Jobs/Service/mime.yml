@@ -25,7 +25,7 @@
   equipment:
     gloves: ClothingHandsGlovesColorWhite
     shoes: ClothingShoesColorWhite
-    id: MimePDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (MimePDA)
     ears: ClothingHeadsetService
   storage:
     back:

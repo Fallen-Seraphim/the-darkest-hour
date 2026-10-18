@@ -20,7 +20,7 @@
   id: LawyerGear
   equipment:
     shoes: ClothingShoesBootsLaceup
-    id: LawyerPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (LawyerPDA)
     ears: ClothingHeadsetSecurity
   inhand:
     - BriefcaseBrownFilled

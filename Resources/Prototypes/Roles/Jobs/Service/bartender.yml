@@ -23,7 +23,7 @@
   id: BartenderGear
   equipment:
     shoes: ClothingShoesColorBlack
-    id: BartenderPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (BartenderPDA)
     ears: ClothingHeadsetService
   #storage:
     #back:

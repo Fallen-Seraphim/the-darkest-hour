@@ -19,7 +19,7 @@
 - type: startingGear
   id: ChemistGear
   equipment:
-    id: ChemistryPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (ChemistryPDA)
     ears: ClothingHeadsetMedical
 
 - type: chameleonOutfit

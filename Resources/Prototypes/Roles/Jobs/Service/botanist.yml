@@ -23,7 +23,7 @@
   id: BotanistGear
   equipment:
     shoes: ClothingShoesColorBrown
-    id: BotanistPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (BotanistPDA)
     ears: ClothingHeadsetService
     belt: ClothingBeltPlantFilled
   #storage:

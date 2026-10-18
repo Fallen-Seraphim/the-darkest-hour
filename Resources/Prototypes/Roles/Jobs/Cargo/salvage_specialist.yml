@@ -21,7 +21,7 @@
   id: SalvageSpecialistGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitSalvageSpecialist
-    id: SalvagePDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (SalvagePDA)
     ears: ClothingHeadsetCargo
   #storage:
     #back:

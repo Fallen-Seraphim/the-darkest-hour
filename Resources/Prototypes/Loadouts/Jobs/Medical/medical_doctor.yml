@@ -122,7 +122,7 @@
 - type: loadout
   id: MedicalDoctorPDA
   equipment:
-    id: MedicalPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (MedicalPDA)
 
 - type: loadout
   id: SeniorPhysicianPDA
@@ -130,7 +130,7 @@
   - !type:GroupLoadoutEffect
     proto: SeniorPhysician
   equipment:
-    id: SeniorPhysicianPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (SeniorPhysicianPDA)
 
 #Masks
 - type: loadout

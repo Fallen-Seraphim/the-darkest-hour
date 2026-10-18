@@ -17,7 +17,7 @@
   id: PsychologistGear
   equipment:
     shoes: ClothingShoesLeather
-    id: PsychologistPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (PsychologistPDA)
     ears: ClothingHeadsetMedical
   storage:
     back:

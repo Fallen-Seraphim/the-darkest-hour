@@ -67,7 +67,7 @@
 - type: loadout
   id: CargoTechnicianPDA
   equipment:
-    id: CargoPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (CargoPDA)
 
 - type: loadout
   id: SeniorCourierPDA
@@ -75,4 +75,4 @@
   - !type:GroupLoadoutEffect
     proto: SeniorCargo
   equipment:
-    id: SeniorCourierPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (SeniorCourierPDA)

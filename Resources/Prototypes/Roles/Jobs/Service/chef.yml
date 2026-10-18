@@ -23,7 +23,7 @@
   id: ChefGear
   equipment:
     shoes: ClothingShoesChef
-    id: ChefPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (ChefPDA)
     ears: ClothingHeadsetService
     belt: ClothingBeltChefFilled
   #storage:
