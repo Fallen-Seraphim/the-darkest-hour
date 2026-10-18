@@ -28,9 +28,7 @@
   minLimit: 2
   hidden: true
   loadouts:
-  - EmergencyNitrogenMedical
   - EmergencyOxygenMedical
-  - LoadoutSpeciesVoxNitrogen
 
 # Chief Medical Officer
 

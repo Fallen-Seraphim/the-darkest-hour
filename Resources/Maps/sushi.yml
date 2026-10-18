@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 09/22/2026 18:12:21
-  entityCount: 25454
+  entityCount: 25451
 maps:
 - 1
 grids:
@@ -122691,14 +122691,6 @@ entities:
     - type: Transform
       parent: 2
       pos: 95.5,41.5
-- proto: OrganArachnidHeart
-  entities:
-  - uid: 17226
-    components:
-    - type: Transform
-      parent: 2
-      rot: -1.5707963267948966 rad
-      pos: 111.03912,24.234692
 - proto: OrganHumanHeart
   entities:
   - uid: 16970
@@ -122767,22 +122759,6 @@ entities:
     - type: Transform
       parent: 2
       pos: 31.598114,29.47747
-- proto: OrganVoxHeart
-  entities:
-  - uid: 17228
-    components:
-    - type: Transform
-      parent: 2
-      rot: -1.5707963267948966 rad
-      pos: 108.836,23.812817
-- proto: OrganVoxLiver
-  entities:
-  - uid: 17229
-    components:
-    - type: Transform
-      parent: 2
-      rot: -1.5707963267948966 rad
-      pos: 112.22662,23.109692
 - proto: OxygenCanister
   entities:
   - uid: 8474
