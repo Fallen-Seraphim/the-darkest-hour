@@ -1,8 +1,7 @@
 // Ported from RMC-14 (MIT): https://github.com/RMC-14/RMC-14/blob/7fca80389aa705890666b9476051fcca2970e6fc/Content.Shared/_RMC14/Marines/Dogtags/DogtagsSystem.cs
 // DarkestHour: RMC-only dependencies (xenos, skills, RMC unrevivable/defibrillator, IdCardOwner) removed.
-// Tags can be taken from a body that can no longer be saved: rotten or unrevivable (vanilla components).
+// Tags can be taken from any dead body.
 using Content.Shared.Access.Components;
-using Content.Shared.Atmos.Rotting;
 using Content.Shared.Coordinates;
 using Content.Shared.Examine;
 using Content.Shared.Hands.EntitySystems;
@@ -10,7 +9,6 @@ using Content.Shared.Interaction;
 using Content.Shared.Inventory;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
-using Content.Shared.Traits.Assorted;
 using Content.Shared.Verbs;
 using Robust.Shared.Network;
 using Robust.Shared.Utility;
@@ -19,7 +17,6 @@ namespace Content.Shared._RMC14.Marines.Dogtags;
 
 public sealed class DogtagsSystem : EntitySystem
 {
-    [Dependency] private readonly SharedRottingSystem _rotting = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly MobStateSystem _mob = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
@@ -96,18 +93,14 @@ public sealed class DogtagsSystem : EntitySystem
             return false;
         }
 
+        // DarkestHour: tags can be taken from any dead body, no need to wait for rotting.
         if (!_mob.IsDead(wearer))
         {
             reason = Loc.GetString("rmc-dogtags-still-alive");
             return false;
         }
 
-        // DarkestHour: vanilla equivalents of RMC unrevivable/defib-blocked checks; police skill bypass removed.
-        if (_rotting.IsRotten(wearer) || HasComp<UnrevivableComponent>(wearer))
-            return true;
-
-        reason = Loc.GetString("rmc-dogtags-can-be-saved");
-        return false;
+        return true;
     }
 
     private void OnGetVerbTags(Entity<TakeableTagsComponent> tags, ref GetVerbsEvent<EquipmentVerb> args)

@@ -19,7 +19,6 @@ rmc-dogtags-info-read = {$number}. [bold]{$name}[/bold], {$assignment}. Blood ty
 rmc-dogtags-unknown = Unknown
 rmc-dogtags-take = Take information tag
 rmc-dogtags-still-alive = They are still alive. Leave their tags alone.
-rmc-dogtags-can-be-saved = They can still be saved. Get them to medical first.
 rmc-dogtags-already-taken = Someone has already taken {THE($target)}'s information tag.
 rmc-dogtags-info-joined-name = information dog tags
 rmc-dogtags-info-joined-desc = Information dog tags of several dead crewmembers, strung together.
