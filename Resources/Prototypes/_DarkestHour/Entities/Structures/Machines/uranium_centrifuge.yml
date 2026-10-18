@@ -1,0 +1,70 @@
+# DarkestHour: industrial uranium enrichment centrifuge, 2x2.
+# Based on Monolith's CentrifugeLathe (AGPL-3.0); sprite by Monolith (CC-BY-SA-3.0, 2x2centrifuge.rsi).
+# Enrichment is slower than in Monolith and uses our own recipes (UraniumEnrichment pack).
+- type: entity
+  id: UraniumEnrichmentCentrifuge
+  parent: BaseLathe
+  name: uranium enrichment centrifuge
+  description: A large industrial gas centrifuge that separates uranium into enriched fuel material and depleted uranium. It is slow, loud and very heavy.
+  components:
+  - type: Sprite
+    sprite: _Mono/Structures/Machines/2x2centrifuge.rsi
+    snapCardinals: false
+    offset: 0.5, 0.5
+    noRot: false
+    layers:
+    - state: icon
+      map: ["enum.LatheVisualLayers.IsRunning"]
+    - state: unlit
+      shader: unshaded
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: Machine
+    board: UraniumEnrichmentCentrifugeMachineCircuitboard
+  - type: Transform
+    anchored: true
+    noRot: false
+  - type: Lathe
+    producingSound: /Audio/Ambience/Objects/crushing.ogg
+    idleState: icon
+    runningState: building
+    staticPacks:
+    - UraniumEnrichment
+  - type: MaterialStorage
+    whitelist:
+      tags:
+      - Sheet
+      - Ingot
+  - type: OreSiloClient
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,1.45,1.45"
+        density: 1500
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: ApcPowerReceiver
+    powerLoad: 500
+  - type: PowerState
+    idlePowerDraw: 500
+    workingPowerDraw: 5000
+
+- type: entity
+  id: UraniumEnrichmentCentrifugeMachineCircuitboard
+  parent: BaseMachineCircuitboard
+  name: uranium enrichment centrifuge machine board
+  description: A machine printed circuit board for a uranium enrichment centrifuge.
+  components:
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: UraniumEnrichmentCentrifuge
+    stackRequirements:
+      Manipulator: 4
+      Plasteel: 10
+      Steel: 10

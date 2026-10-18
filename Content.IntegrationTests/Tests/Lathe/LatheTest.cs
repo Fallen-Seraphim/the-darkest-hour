@@ -125,7 +125,8 @@ public sealed class LatheTest : GameTest
         {
             foreach (var recipe in proto.EnumeratePrototypes<LatheRecipePrototype>())
             {
-                if (recipe.Result == null)
+                // DarkestHour: recipes may also produce materials directly (MaterialResult)
+                if (recipe.Result == null && recipe.MaterialResult == null)
                     Assert.That(recipe.ResultReagents, Is.Not.Null, $"Recipe '{recipe.ID}' has no result or result reagents.");
             }
         });

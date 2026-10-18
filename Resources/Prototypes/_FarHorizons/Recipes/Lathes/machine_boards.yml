@@ -1,0 +1,14 @@
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe #, BaseEngineeringMachineRecipeCategory ]
+  id: NuclearFabricatorMachineCircuitboard
+  result: NuclearFabricatorMachineCircuitboard
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe #, BaseEngineeringMachineRecipeCategory ]
+  id: NuclearCentrifugeMachineCircuitboard
+  result: NuclearCentrifugeMachineCircuitboard
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: UraniumEnrichmentCentrifugeMachineCircuitboard # DarkestHour
+  result: UraniumEnrichmentCentrifugeMachineCircuitboard

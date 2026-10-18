@@ -259,6 +259,7 @@
     - ServiceBoardsStatic
     - CargoBoardsStatic
     - MedicalBoardsStatic
+    - ReactorCircuitboards # DarkestHour: nuclear reactor boards, static until the R&D rework
     - EngineeringBoardsStatic
     dynamicPacks:
     - EngineeringBoards

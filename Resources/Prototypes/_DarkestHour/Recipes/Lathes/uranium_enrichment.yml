@@ -1,0 +1,27 @@
+# DarkestHour: uranium enrichment. 10 sheets of uranium -> 0.1 sheet of enriched uranium + 0.85 sheet of depleted uranium.
+# A uranium fuel rod needs 30 units (0.3 sheet) of enriched uranium, i.e. three cycles.
+- type: latheRecipe
+  id: UraniumEnrichment
+  name: recipe-uranium-enrichment-name
+  description: recipe-uranium-enrichment-description
+  categories:
+  - NuclearFission
+  completetime: 45
+  materials:
+    Uranium: 1000
+  materialResult:
+    UraniumFissile: 10
+    UraniumDepleted: 85
+  applyMaterialDiscount: false
+  icon:
+    sprite: _Mono/Effects/processing.rsi
+    state: processing_2
+
+- type: latheRecipePack
+  id: UraniumEnrichment
+  recipes:
+  - UraniumEnrichment
+
+- type: latheCategory
+  id: NuclearFission
+  name: lathe-category-nuclear-fission
