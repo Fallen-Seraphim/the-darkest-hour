@@ -17,8 +17,6 @@
       amount: 1
     SulfuricAcid:
       amount: 1
-    Plasma:
-      amount: 1
   effects:
   - !type:CreateGas
     gas: Plasma

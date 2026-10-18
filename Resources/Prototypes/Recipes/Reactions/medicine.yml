@@ -107,7 +107,7 @@
   reactants:
     Oxygen:
       amount: 2
-    Plasma:
+    Copper: # DarkestHour: нет плазмы (катализатор вместо плазмы)
       amount: 1
       catalyst: true
   products:
@@ -188,9 +188,6 @@
       amount: 1
     Fersilicite:
       amount: 1
-    Plasma:
-      amount: 1
-      catalyst: true
   products:
     Leporazine: 2
 
@@ -269,8 +266,6 @@
   reactants:
     HeartbreakerToxin:
       amount: 1
-    Plasma:
-      amount: 1
     Vestine:
       amount: 1
   products:
@@ -330,7 +325,7 @@
   reactants:
     Histamine:
       amount: 1
-    Plasma:
+    Copper: # DarkestHour: нет плазмы (катализатор вместо плазмы)
       amount: 1
       catalyst: true
   products:
@@ -572,8 +567,6 @@
   reactants:
     Cognizine:
       amount: 1
-    Plasma:
-      amount: 2
     Doxarubixadone:
       amount: 1
   products:
@@ -584,8 +577,6 @@
   minTemp: 400
   reactants:
     LivingTissue: # Do you want to save the victim from rotting, or check if the dude is a changeling? Hmm...
-      amount: 2
-    Plasma:
       amount: 2
     Doxarubixadone:
       amount: 2
@@ -652,9 +643,6 @@
       amount: 1
     Ethanol:
       amount: 1
-    Plasma:
-      amount: 5
-      catalyst: true
   products:
     Happiness: 4
 
@@ -703,7 +691,5 @@
       amount: 2
     Razorium:
       amount: 2
-    Plasma:
-      amount: 1
   products:
     Hemorrhinol: 2

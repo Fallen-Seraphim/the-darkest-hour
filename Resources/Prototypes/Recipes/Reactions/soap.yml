@@ -15,23 +15,7 @@
     - !type:SpawnEntity
       entity: Soap
 
-- type: reaction
-  id: CreateSoapNT
-  impact: Low
-  quantized: true
-  minTemp: 373
-  reactants:
-    Oil:
-      amount: 20
-    Lye:
-      amount: 25
-    TableSalt:
-      amount: 10
-    Plasma:
-      amount: 5
-  effects:
-    - !type:SpawnEntity
-      entity: SoapNT
+# CreateSoapNT удалён # DarkestHour: нет плазмы
 
 - type: reaction
   id: CreateSoapDeluxe
