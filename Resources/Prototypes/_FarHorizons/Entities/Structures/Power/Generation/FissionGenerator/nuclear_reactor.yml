@@ -376,7 +376,7 @@
   categories: [ HideSpawnMenu ]
   components:
     - type: Sprite
-      sprite: Markers/teg_arrow.rsi
+      sprite: _FarHorizons/Markers/teg_arrow.rsi # DarkestHour: texture from Monolith, absent in vanilla
       color: "#FFFFFFBB"
       layers:
         - state: arrow

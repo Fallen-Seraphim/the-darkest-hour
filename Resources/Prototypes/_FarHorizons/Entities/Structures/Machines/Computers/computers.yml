@@ -10,13 +10,9 @@
     radius: 1.5
     energy: 1.6
     color: "#c9c042"
-  - type: Sprite
-    sprite: Structures/Machines/computers.rsi
-    layers:
-    - map: ["computerLayerBody"]
-      state: computer
-    - map: ["computerLayerScreen"]
-      state: power_monitor
+  - type: ComputerVisuals # DarkestHour: vanilla computer visuals
+    stateScreen: power_monitor
+    stateKeys: power_key
   - type: NuclearReactorMonitor
   - type: ActivatableUI
     key: enum.NuclearReactorUiKey.Key
@@ -24,6 +20,8 @@
     interfaces:
       enum.NuclearReactorUiKey.Key:
         type: NuclearReactorBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
   #- type: AccessReader # You got a permit for that meltdown?
   #  access: [["Engineering"]]
   - type: Lock
@@ -54,13 +52,9 @@
     radius: 1.5
     energy: 1.6
     color: "#c9c042"
-  - type: Sprite
-    sprite: Structures/Machines/computers.rsi
-    layers:
-    - map: ["computerLayerBody"]
-      state: computer
-    - map: ["computerLayerScreen"]
-      state: turbinecomp
+  - type: ComputerVisuals # DarkestHour: vanilla computer visuals
+    stateScreen: turbinecomp
+    stateKeys: power_key
   - type: GasTurbineMonitor
   - type: ActivatableUI
     key: enum.TurbineUiKey.Key
@@ -68,6 +62,8 @@
     interfaces:
       enum.TurbineUiKey.Key:
         type: TurbineBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
   #- type: AccessReader # Keeps some random tider from blowing up the turbine
   #  access: [["Engineering"]]
   - type: Lock
