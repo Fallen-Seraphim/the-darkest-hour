@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/22/2026 15:20:28
-  entityCount: 368
+  entityCount: 366
 maps: []
 grids:
 - 1
@@ -1216,16 +1216,6 @@ entities:
     - type: Transform
       parent: 1
       pos: -5.171875,2.6875
-- proto: PortableGeneratorJrPacman
-  entities:
-  - uid: 115
-    components:
-    - type: Transform
-      parent: 1
-      pos: 6.5,0.5
-      anchored: True
-    - type: Physics
-      bodyType: Static
 - proto: PuddleBlood
   entities:
   - uid: 154
@@ -1757,13 +1747,6 @@ entities:
     - type: Transform
       parent: 1
       pos: -3.5,0.5
-- proto: SheetPlasma
-  entities:
-  - uid: 339
-    components:
-    - type: Transform
-      parent: 1
-      pos: 4.53125,-4.4375
 - proto: SignHydro1
   entities:
   - uid: 70

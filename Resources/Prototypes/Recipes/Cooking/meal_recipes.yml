@@ -184,15 +184,7 @@
     FoodMeatDuck: 1
     FoodCheeseSlice: 1
 
-- type: microwaveMealRecipe
-  id: RecipeEmpoweredBurger
-  result: FoodBurgerEmpowered
-  time: 10
-  group: Savory
-  solids:
-    FoodBreadBun: 1
-  stacks:
-    Plasma: 2
+# RecipeEmpoweredBurger удалён # DarkestHour: нет плазмы
 
 - type: microwaveMealRecipe
   id: RecipeCarpBurger
@@ -1976,16 +1968,7 @@
     TrashBananaPeel: 1
 
 # Suppermatter
-- type: microwaveMealRecipe
-  id: RecipeSuppermatter
-  result: FoodCakeSuppermatter
-  time: 30
-  solids:
-    FoodCakeBatter: 2
-  reagents:
-    Sugar: 30
-    Nitrogen: 10
-    Plasma: 10
+# RecipeSuppermatter удалён # DarkestHour: нет плазмы
 
 - type: microwaveMealRecipe
   id: RecipeFoodBakedChevreChaud

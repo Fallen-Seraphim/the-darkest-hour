@@ -52,7 +52,7 @@
     JugSugar: 3
     JugSulfur: 1
     JugWeldingFuel: 1
-    PlasmaChemistryVial: 1
+    # PlasmaChemistryVial: 1 # DarkestHour: нет плазмы
   contrabandInventory:
     DrinkLithiumFlask: 1
     StrangePill: 3

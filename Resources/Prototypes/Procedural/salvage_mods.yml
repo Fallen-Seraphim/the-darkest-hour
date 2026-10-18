@@ -188,18 +188,7 @@
     - Snow
     - Lava
 
-- type: salvageAirMod
-  id: Plasma
-  cost: 4
-  desc: salvage-air-mod-toxic-atmosphere
-  gases:
-    - 0
-    - 0
-    - 0
-    - 103.927899 # plasma
-  biomes:
-    - Caves
-    - Lava
+# Plasma удалён # DarkestHour: нет плазмы
 
 - type: salvageAirMod
   id: Burnable

@@ -1188,19 +1188,7 @@
   products:
     Tortuga: 2
 
-- type: reaction
-  id: ToxinsSpecial
-  requiredMixerCategories:
-  - Shake
-  reactants:
-    Rum:
-      amount: 2
-    Vermouth:
-      amount: 1
-    Plasma:
-      amount: 2
-  products:
-    ToxinsSpecial: 5
+# ToxinsSpecial удалён # DarkestHour: нет плазмы
 
 - type: reaction
   id: Vampiro

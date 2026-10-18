@@ -939,7 +939,7 @@ entities:
     - type: Transform
       parent: 222
       pos: -4.534439,-4.3155937
-- proto: PlasmaReinforcedWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 206
     components:
@@ -1040,7 +1040,7 @@ entities:
     - type: Transform
       parent: 222
       pos: 4.5,-6.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 3
     components:

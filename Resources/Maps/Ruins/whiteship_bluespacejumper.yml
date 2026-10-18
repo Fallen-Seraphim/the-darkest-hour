@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 12:49:51
-  entityCount: 302
+  entityCount: 301
 maps: []
 grids:
 - 1
@@ -1169,13 +1169,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 19.486015,-7.4950085
-- proto: PortableGeneratorSuperPacmanMachineCircuitboard
-  entities:
-  - uid: 149
-    components:
-    - type: Transform
-      parent: 1
-      pos: 6.5812764,-7.571988
 - proto: PowerCellRecharger
   entities:
   - uid: 291

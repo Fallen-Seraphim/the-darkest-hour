@@ -5136,7 +5136,7 @@ entities:
       parent: 1
       rot: 3.141592653589793 rad
       pos: -1.5,-20.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 239
     components:

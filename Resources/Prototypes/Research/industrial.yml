@@ -80,9 +80,9 @@
   tier: 1
   cost: 7500
   recipeUnlocks:
-  - PortableGeneratorPacmanMachineCircuitboard
-  - PortableGeneratorSuperPacmanMachineCircuitboard
-  - PortableGeneratorJrPacmanMachineCircuitboard
+  # - PortableGeneratorPacmanMachineCircuitboard # DarkestHour: нет плазмы
+  # - PortableGeneratorSuperPacmanMachineCircuitboard # DarkestHour: нет плазмы
+  # - PortableGeneratorJrPacmanMachineCircuitboard # DarkestHour: нет плазмы
   - SolarControlComputerCircuitboard
   - SolarTrackerElectronics
   - EmitterCircuitboard

@@ -97,7 +97,7 @@
     - id: NitrogenCanister
     - id: NitrousOxideCanister
     - id: OxygenCanister
-    - id: PlasmaCanister
+    # - id: PlasmaCanister # DarkestHour: нет плазмы
     - id: TritiumCanister
     - id: WaterVaporCanister
 

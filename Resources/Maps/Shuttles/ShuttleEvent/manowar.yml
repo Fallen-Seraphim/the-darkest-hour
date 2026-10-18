@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/22/2026 17:22:14
-  entityCount: 444
+  entityCount: 440
 maps: []
 grids:
 - 1
@@ -2550,30 +2550,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 0.5,-4.5
-- proto: SpearPlasma
-  entities:
-  - uid: 356
-    components:
-    - type: Transform
-      parent: 1
-      pos: -0.71863043,3.476175
-  - uid: 376
-    components:
-    - type: Transform
-      parent: 1
-      pos: 1.7813697,3.4970086
-  - uid: 378
-    components:
-    - type: Transform
-      parent: 1
-      rot: 1.5707963267948966 rad
-      pos: 1.8230364,3.476175
-  - uid: 379
-    components:
-    - type: Transform
-      parent: 1
-      rot: 1.5707963267948966 rad
-      pos: -0.72904706,3.5282586
 - proto: StairStageWood
   entities:
   - uid: 61

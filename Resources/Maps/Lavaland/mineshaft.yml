@@ -730,13 +730,6 @@ entities:
     - type: Transform
       pos: 23.795095,-12.199974
       parent: 1
-- proto: PortableGeneratorJrPacman
-  entities:
-  - uid: 682
-    components:
-    - type: Transform
-      pos: 25.5,-10.5
-      parent: 1
 - proto: Rack
   entities:
   - uid: 570

@@ -1049,7 +1049,7 @@ entities:
     - type: Physics
       canCollide: False
     - type: InsideEntityStorage
-- proto: PlasmaWindowDiagonal
+- proto: ReinforcedWindowDiagonal
   entities:
   - uid: 70
     components:
@@ -1135,7 +1135,7 @@ entities:
     - type: Transform
       parent: 1
       pos: 4.5,1.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 83
     components:

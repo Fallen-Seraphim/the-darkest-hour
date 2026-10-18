@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 10/08/2026 01:35:11
-  entityCount: 27199
+  entityCount: 27168
 maps:
 - 1
 grids:
@@ -2935,14 +2935,6 @@ entities:
       pos: -131.49832,-18.377594
 - proto: ActionToggleInternals
   entities:
-  - uid: 6670
-    mapInit: true
-    paused: true
-    components:
-    - type: Transform
-      parent: 4309
-    - type: Action
-      container: 4309
   - uid: 23594
     mapInit: true
     paused: true
@@ -16229,7 +16221,7 @@ entities:
     - type: Transform
       parent: 2
       pos: -92.5,-15.5
-- proto: AsteroidRockPlasma
+- proto: AsteroidRock
   entities:
   - uid: 193
     components:
@@ -74375,7 +74367,6 @@ entities:
       containers:
         entity_storage: !type:Container
           ents:
-          - 6249
           showEnts: False
           occludes: True
         paper_label: !type:ContainerSlot
@@ -74448,13 +74439,6 @@ entities:
     - type: Transform
       parent: 2
       pos: -116.5,-37.5
-- proto: CrateMaterialPlasma
-  entities:
-  - uid: 12922
-    components:
-    - type: Transform
-      parent: 2
-      pos: -112.5,-37.5
 - proto: CrateMaterialPlastic
   entities:
   - uid: 12920
@@ -91335,35 +91319,6 @@ entities:
     - type: Transform
       parent: 2
       pos: -128.5,9.5
-- proto: GasMinerPlasma
-  entities:
-  - uid: 2814
-    components:
-    - type: MetaData
-      desc: An old gas miner. It probably won't be of much use anymore.
-    - type: Transform
-      parent: 2
-      pos: -59.5,-9.5
-    missingComponents:
-    - GasMiner
-  - uid: 21476
-    components:
-    - type: MetaData
-      desc: A plasma gas miner - gutted of components and mothballed by Nanotrasen. It's not mining plasma any time soon.
-    - type: Transform
-      parent: 2
-      pos: -93.5,-5.5
-    missingComponents:
-    - GasMiner
-  - uid: 21477
-    components:
-    - type: MetaData
-      desc: A plasma gas miner - gutted of components and mothballed by Nanotrasen. It's not mining plasma any time soon.
-    - type: Transform
-      parent: 2
-      pos: -89.5,-65.5
-    missingComponents:
-    - GasMiner
 - proto: GasMinerWaterVapor
   entities:
   - uid: 7359
@@ -138373,31 +138328,7 @@ entities:
     - type: Transform
       parent: 2
       pos: -114.5,-1.5
-- proto: PlasmaCanister
-  entities:
-  - uid: 5272
-    components:
-    - type: Transform
-      parent: 2
-      pos: -108.5,14.5
-  - uid: 5273
-    components:
-    - type: Transform
-      parent: 2
-      pos: -108.5,13.5
-  - uid: 5905
-    components:
-    - type: Transform
-      parent: 2
-      pos: -136.5,-7.5
-- proto: PlasmaChemistryVial
-  entities:
-  - uid: 1292
-    components:
-    - type: Transform
-      parent: 2
-      pos: -94.33524,-71.06413
-- proto: PlasmaReinforcedWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 1747
     components:
@@ -138528,34 +138459,7 @@ entities:
       parent: 2
       rot: 1.5707963267948966 rad
       pos: -123.5,-72.5
-- proto: PlasmaTank
-  entities:
-  - uid: 2843
-    components:
-    - type: Transform
-      parent: 2
-      pos: -63.392788,-9.400902
-  - uid: 4309
-    components:
-    - type: Transform
-      parent: 2
-      pos: -73.858475,-4.3700285
-    - type: GasTank
-      toggleActionEntity: 6670
-    - type: ActionsContainer
-    - type: ContainerContainer
-      containers:
-        actions: !type:Container
-          ents:
-          - 6670
-- proto: PlasmaTankFilled
-  entities:
-  - uid: 24490
-    components:
-    - type: Transform
-      parent: 2
-      pos: -37.521202,-8.33657
-- proto: PlasmaWindoorCommandLocked
+- proto: WindoorCommandLocked
   entities:
   - uid: 23834
     components:
@@ -138597,7 +138501,7 @@ entities:
       parent: 2
       rot: 1.5707963267948966 rad
       pos: -119.5,-82.5
-- proto: PlasmaWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 6607
     components:
@@ -138860,77 +138764,6 @@ entities:
     - type: Transform
       parent: 2
       pos: -84.5,-20.5
-- proto: PortableGeneratorJrPacman
-  entities:
-  - uid: 1221
-    components:
-    - type: Transform
-      parent: 2
-      pos: -30.5,-67.5
-  - uid: 8269
-    components:
-    - type: Transform
-      parent: 2
-      pos: -8.5,-19.5
-  - uid: 9129
-    components:
-    - type: Transform
-      parent: 2
-      pos: -83.5,-72.5
-  - uid: 13772
-    components:
-    - type: Transform
-      parent: 2
-      pos: -68.5,-64.5
-  - uid: 14080
-    components:
-    - type: Transform
-      parent: 2
-      pos: -122.5,-33.5
-  - uid: 21004
-    components:
-    - type: Transform
-      parent: 2
-      pos: -46.5,-32.5
-  - uid: 23305
-    components:
-    - type: Transform
-      parent: 2
-      pos: -109.5,-29.5
-  - uid: 23391
-    components:
-    - type: Transform
-      parent: 2
-      pos: -80.5,-9.5
-  - uid: 24106
-    components:
-    - type: Transform
-      parent: 2
-      pos: -10.5,-43.5
-- proto: PortableGeneratorPacman
-  entities:
-  - uid: 6246
-    components:
-    - type: Transform
-      parent: 2
-      pos: -122.5,-24.5
-  - uid: 6313
-    components:
-    - type: Transform
-      parent: 2
-      pos: -129.5,-13.5
-  - uid: 25158
-    components:
-    - type: Transform
-      parent: 2
-      pos: -117.5,-66.5
-- proto: PortableGeneratorSuperPacman
-  entities:
-  - uid: 6266
-    components:
-    - type: Transform
-      parent: 2
-      pos: -131.5,-13.5
 - proto: PortableScrubber
   entities:
   - uid: 3962
@@ -144095,7 +143928,7 @@ entities:
       parent: 2
       rot: 1.5707963267948966 rad
       pos: -100.5,20.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 599
     components:
@@ -144687,7 +144520,7 @@ entities:
     - type: Transform
       parent: 2
       pos: -124.5,-65.5
-- proto: ReinforcedPlasmaWindowDiagonal
+- proto: ReinforcedWindowDiagonal
   entities:
   - uid: 7308
     components:
@@ -146944,13 +146777,6 @@ entities:
     - type: Transform
       parent: 2
       pos: -85.5,-48.5
-- proto: ShardGlassPlasma
-  entities:
-  - uid: 11090
-    components:
-    - type: Transform
-      parent: 2
-      pos: -24.51336,-65.540665
 - proto: SheetGlass
   entities:
   - uid: 1201
@@ -146987,37 +146813,6 @@ entities:
     - type: Transform
       parent: 2
       pos: -110.686745,-18.409145
-- proto: SheetPlasma
-  entities:
-  - uid: 4307
-    components:
-    - type: Transform
-      parent: 2
-      pos: -73.18086,-4.40055
-  - uid: 4308
-    components:
-    - type: Transform
-      parent: 2
-      pos: -72.88399,-4.3693
-  - uid: 6249
-    components:
-    - type: Transform
-      parent: 20514
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 6315
-    components:
-    - type: Transform
-      parent: 2
-      pos: -130.37454,-13.518744
-- proto: SheetPlasma1
-  entities:
-  - uid: 2811
-    components:
-    - type: Transform
-      parent: 2
-      pos: -63.814663,-9.338402
 - proto: SheetPlasteel
   entities:
   - uid: 508
@@ -178057,7 +177852,7 @@ entities:
       parent: 2
       rot: 1.5707963267948966 rad
       pos: -31.5,-19.5
-- proto: WindoorPlasma
+- proto: Windoor
   entities:
   - uid: 21052
     components:

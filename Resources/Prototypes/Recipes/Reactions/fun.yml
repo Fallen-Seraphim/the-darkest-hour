@@ -125,9 +125,6 @@
   reactants:
     Frezon:
       amount: 3
-    Plasma:
-      amount: 1
-      catalyst: true
     Nitrogen:
       amount: 2
     Cryoxadone:

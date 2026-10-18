@@ -5,7 +5,7 @@
     weight: 0.5
     reagents:
     - Omnizine
-    - Plasma
+    # - Plasma # DarkestHour: нет плазмы
     - Fresium
     - HeartbreakerToxin
     - Honk

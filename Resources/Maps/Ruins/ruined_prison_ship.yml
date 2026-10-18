@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 12:42:50
-  entityCount: 734
+  entityCount: 727
 maps: []
 grids:
 - 2
@@ -3019,13 +3019,6 @@ entities:
     - type: Transform
       parent: 2
       pos: 6.467701,-11.451192
-- proto: PortableGeneratorJrPacman
-  entities:
-  - uid: 107
-    components:
-    - type: Transform
-      parent: 2
-      pos: 1.5,1.5
 - proto: PosterContrabandCybersun600
   entities:
   - uid: 643
@@ -3359,7 +3352,7 @@ entities:
       parent: 2
       rot: 1.5707963267948966 rad
       pos: -7.5,-24.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 189
     components:
@@ -3755,35 +3748,6 @@ entities:
       parent: 2
       rot: 1.5707963267948966 rad
       pos: 0.6730366,5.3144054
-- proto: ShardGlassPlasma
-  entities:
-  - uid: 75
-    components:
-    - type: Transform
-      parent: 2
-      pos: -0.5295793,6.567419
-  - uid: 78
-    components:
-    - type: Transform
-      parent: 2
-      pos: -0.48270428,7.395544
-  - uid: 91
-    components:
-    - type: Transform
-      parent: 2
-      pos: 0.39229572,7.004919
-  - uid: 109
-    components:
-    - type: Transform
-      parent: 2
-      rot: 1.5707963267948966 rad
-      pos: 3.2199116,5.7050304
-  - uid: 111
-    components:
-    - type: Transform
-      parent: 2
-      rot: 1.5707963267948966 rad
-      pos: 2.4855366,5.4550304
 - proto: ShardGlassReinforced
   entities:
   - uid: 53
@@ -3896,13 +3860,6 @@ entities:
     - type: Transform
       parent: 2
       pos: 4.7765174,-18.467577
-- proto: SheetPlasma
-  entities:
-  - uid: 669
-    components:
-    - type: Transform
-      parent: 2
-      pos: 1.5424409,-29.552258
 - proto: SheetPlastic
   entities:
   - uid: 670

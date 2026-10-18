@@ -1811,7 +1811,7 @@ entities:
       parent: 1
       rot: -1.5707963267948966 rad
       pos: -4.5,8.5
-- proto: PlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 34
     components:
@@ -2022,7 +2022,7 @@ entities:
     - type: Transform
       parent: 1
       pos: 9.5,1.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 364
     components:
@@ -2297,7 +2297,7 @@ entities:
     - type: Transform
       parent: 1
       pos: -2.5,12.5
-- proto: WallPlasma
+- proto: WallSolid
   entities:
   - uid: 18
     components:
@@ -3924,7 +3924,7 @@ entities:
       parent: 1
       rot: -1.5707963267948966 rad
       pos: -1.5,13.5
-- proto: WindoorPlasma
+- proto: Windoor
   entities:
   - uid: 588
     components:

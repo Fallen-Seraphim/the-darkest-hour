@@ -191,7 +191,7 @@
   - type: MachineBoard
     prototype: ResearchAndDevelopmentServer
     stackRequirements:
-      Plasma: 5
+      Uranium: 5 # DarkestHour: нет плазмы (было Plasma)
 
 - type: entity
   id: BiogeneratorMachineCircuitboard
@@ -410,7 +410,7 @@
     prototype: GasThermoMachineHellfireFreezer
     stackRequirements:
       Manipulator: 4
-      Plasma: 1
+      Uranium: 1 # DarkestHour: нет плазмы (было Plasma)
   - type: Construction
     deconstructionTarget: null
     graph: ThermomachineBoard
@@ -428,7 +428,7 @@
     prototype: GasThermoMachineHellfireHeater
     stackRequirements:
       Manipulator: 4
-      Plasma: 1
+      Uranium: 1 # DarkestHour: нет плазмы (было Plasma)
   - type: Construction
     graph: ThermomachineBoard
     deconstructionTarget: null
@@ -1203,7 +1203,7 @@
     stackRequirements:
       Manipulator: 2
       Steel: 10
-      Plasma: 5
+      Uranium: 5 # DarkestHour: нет плазмы (было Plasma)
 
 - type: entity
   id: BoozeDispenserMachineCircuitboard
