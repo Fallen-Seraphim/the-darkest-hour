@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 04/21/2025 06:14:13
-  entityCount: 583
+  entityCount: 566
 maps: []
 grids:
 - 1
@@ -301,21 +301,6 @@ entities:
     components:
     - type: Transform
       pos: 12.5,-2.5
-      parent: 1
-- proto: AnomalyCoreFleshInert
-  entities:
-  - uid: 199
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -15.492753,-2.6592877
-      parent: 1
-- proto: AnomalyScanner
-  entities:
-  - uid: 268
-    components:
-    - type: Transform
-      pos: -5.3650637,4.6814785
       parent: 1
 - proto: APCBasic
   entities:
@@ -1302,14 +1287,6 @@ entities:
     - type: Transform
       pos: -14.958105,-3.199584
       parent: 1
-- proto: ComputerAnalysisConsole
-  entities:
-  - uid: 126
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 11.5,-0.5
-      parent: 1
 - proto: computerBodyScanner
   entities:
   - uid: 206
@@ -1372,13 +1349,6 @@ entities:
     components:
     - type: Transform
       pos: -17.5,-0.5
-      parent: 1
-- proto: CrateArtifactContainer
-  entities:
-  - uid: 289
-    components:
-    - type: Transform
-      pos: 9.5,-4.5
       parent: 1
 - proto: CrateMedicalSurgery
   entities:
@@ -1858,13 +1828,6 @@ entities:
     - type: Transform
       pos: 12.5,2.5
       parent: 1
-- proto: HandheldArtifactContainer
-  entities:
-  - uid: 138
-    components:
-    - type: Transform
-      pos: 9.521122,1.18117
-      parent: 1
 - proto: Hemostat
   entities:
   - uid: 217
@@ -1885,64 +1848,6 @@ entities:
     components:
     - type: Transform
       pos: -6.046609,11.241361
-      parent: 1
-- proto: MachineAnomalyGenerator
-  entities:
-  - uid: 265
-    components:
-    - type: Transform
-      pos: -7.5,4.5
-      parent: 1
-- proto: MachineAnomalySynchronizer
-  entities:
-  - uid: 269
-    components:
-    - type: Transform
-      pos: -8.5,-2.5
-      parent: 1
-- proto: MachineAnomalyVessel
-  entities:
-  - uid: 226
-    components:
-    - type: Transform
-      pos: -0.5,-1.5
-      parent: 1
-- proto: MachineAPE
-  entities:
-  - uid: 147
-    components:
-    - type: Transform
-      pos: -0.5,5.5
-      parent: 1
-  - uid: 270
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -6.5,-2.5
-      parent: 1
-- proto: MachineArtifactAnalyzer
-  entities:
-  - uid: 113
-    components:
-    - type: Transform
-      pos: 14.5,1.5
-      parent: 1
-  - uid: 130
-    components:
-    - type: Transform
-      pos: 14.5,-2.5
-      parent: 1
-  - uid: 134
-    components:
-    - type: Transform
-      pos: 14.5,5.5
-      parent: 1
-- proto: MachineArtifactCrusher
-  entities:
-  - uid: 129
-    components:
-    - type: Transform
-      pos: 7.5,-4.5
       parent: 1
 - proto: MachineFlatpacker
   entities:
@@ -1974,14 +1879,6 @@ entities:
     components:
     - type: Transform
       pos: -5.0574512,9.868924
-      parent: 1
-- proto: NodeScanner
-  entities:
-  - uid: 313
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 9.521122,0.290545
       parent: 1
 - proto: OperatingTable
   entities:
@@ -2181,18 +2078,6 @@ entities:
     components:
     - type: Transform
       pos: -4.5,2.5
-      parent: 1
-- proto: RandomArtifactSpawner
-  entities:
-  - uid: 112
-    components:
-    - type: Transform
-      pos: 14.5,-2.5
-      parent: 1
-  - uid: 125
-    components:
-    - type: Transform
-      pos: 14.5,5.5
       parent: 1
 - proto: RandomMedicCorpseSpawner
   entities:

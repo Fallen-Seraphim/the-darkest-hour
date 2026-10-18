@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 09/22/2026 17:17:10
-  entityCount: 19008
+  entityCount: 18995
 maps:
 - 1793
 grids:
@@ -6707,18 +6707,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 69.5,105.5
-- proto: AnomalyScanner
-  entities:
-  - uid: 15995
-    components:
-    - type: Transform
-      parent: 1
-      pos: 14.6308365,98.48761
-  - uid: 15996
-    components:
-    - type: Transform
-      parent: 1
-      pos: 14.383175,98.67897
 - proto: APCBasic
   entities:
   - uid: 31
@@ -48964,33 +48952,6 @@ entities:
       parent: 1
       rot: 3.141592653589793 rad
       pos: 15.5,48.5
-- proto: ComputerAnalysisConsole
-  entities:
-  - uid: 48
-    components:
-    - type: Transform
-      parent: 1
-      rot: 1.5707963267948966 rad
-      pos: 7.5,91.5
-    - type: AnalysisConsole
-      analyzerEntity: 81
-    - type: DeviceLinkSource
-      linkedPorts:
-        81:
-        - - ArtifactAnalyzerSender
-          - ArtifactAnalyzerReceiver
-  - uid: 1576
-    components:
-    - type: Transform
-      parent: 1
-      pos: 8.5,96.5
-    - type: AnalysisConsole
-      analyzerEntity: 1000
-    - type: DeviceLinkSource
-      linkedPorts:
-        1000:
-        - - ArtifactAnalyzerSender
-          - ArtifactAnalyzerReceiver
 - proto: ComputerAtmosMonitoring
   entities:
   - uid: 6789
@@ -49685,18 +49646,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 66.526634,17.693142
-- proto: CrateArtifactContainer
-  entities:
-  - uid: 1882
-    components:
-    - type: Transform
-      parent: 1
-      pos: 11.5,93.5
-  - uid: 4100
-    components:
-    - type: Transform
-      parent: 1
-      pos: 12.5,75.5
 - proto: CrateContrabandStorageSecure
   entities:
   - uid: 1400
@@ -90847,47 +90796,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 25.5,110.5
-- proto: MachineAnomalyGenerator
-  entities:
-  - uid: 15991
-    components:
-    - type: Transform
-      parent: 1
-      pos: 16.5,98.5
-- proto: MachineAnomalyVessel
-  entities:
-  - uid: 15452
-    components:
-    - type: Transform
-      parent: 1
-      rot: -1.5707963267948966 rad
-      pos: 13.5,95.5
-- proto: MachineAPE
-  entities:
-  - uid: 15449
-    components:
-    - type: Transform
-      parent: 1
-      rot: -1.5707963267948966 rad
-      pos: 18.5,94.5
-  - uid: 15450
-    components:
-    - type: Transform
-      parent: 1
-      rot: -1.5707963267948966 rad
-      pos: 17.5,94.5
-- proto: MachineArtifactAnalyzer
-  entities:
-  - uid: 81
-    components:
-    - type: Transform
-      parent: 1
-      pos: 4.5,90.5
-  - uid: 1000
-    components:
-    - type: Transform
-      parent: 1
-      pos: 9.5,99.5
 - proto: MachineCentrifuge
   entities:
   - uid: 10360
@@ -95014,13 +94922,6 @@ entities:
       parent: 1
       rot: 1.5707963267948966 rad
       pos: 96.5,97.5
-- proto: RandomArtifactSpawner
-  entities:
-  - uid: 1878
-    components:
-    - type: Transform
-      parent: 1
-      pos: 11.5,92.5
 - proto: RandomDrinkGlass
   entities:
   - uid: 1989

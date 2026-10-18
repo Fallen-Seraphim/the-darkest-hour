@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/22/2026 14:54:16
-  entityCount: 211
+  entityCount: 210
 maps: []
 grids:
 - 6
@@ -935,13 +935,6 @@ entities:
       parent: 6
       rot: -1.5707963267948966 rad
       pos: -5.5,-8.5
-- proto: RandomArtifactSpawner
-  entities:
-  - uid: 113
-    components:
-    - type: Transform
-      parent: 6
-      pos: -0.5,2.5
 - proto: RandomDrinkBottle
   entities:
   - uid: 195

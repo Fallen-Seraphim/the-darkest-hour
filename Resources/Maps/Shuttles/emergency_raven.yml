@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 08:58:30
-  entityCount: 2517
+  entityCount: 2513
 maps: []
 grids:
 - 1
@@ -7080,18 +7080,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 8.5,27.5
-- proto: CrateArtifactContainer
-  entities:
-  - uid: 1875
-    components:
-    - type: Transform
-      parent: 1
-      pos: 16.5,-12.5
-  - uid: 1876
-    components:
-    - type: Transform
-      parent: 1
-      pos: 17.5,-12.5
 - proto: CrateEmptySpawner
   entities:
   - uid: 1822
@@ -11801,13 +11789,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 11.5,-22.5
-- proto: MachineAPE
-  entities:
-  - uid: 1931
-    components:
-    - type: Transform
-      parent: 1
-      pos: 14.5,-12.5
 - proto: MaterialBiomass
   entities:
   - uid: 2048
@@ -12703,13 +12684,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 5.5,-6.5
-- proto: RandomArtifactSpawner
-  entities:
-  - uid: 1877
-    components:
-    - type: Transform
-      parent: 1
-      pos: 17.5,-13.5
 - proto: RandomInstruments
   entities:
   - uid: 2122

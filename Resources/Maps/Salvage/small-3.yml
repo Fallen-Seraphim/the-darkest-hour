@@ -329,13 +329,6 @@ entities:
     - type: Transform
       pos: 4.543269,-7.600075
       parent: 10
-- proto: RandomArtifactSpawner
-  entities:
-  - uid: 481
-    components:
-    - type: Transform
-      pos: 4.5,6.5
-      parent: 10
 - proto: RandomDrinkSoda
   entities:
   - uid: 467

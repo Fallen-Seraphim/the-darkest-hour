@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 10:23:30
-  entityCount: 11612
+  entityCount: 11605
 maps:
 - 1
 grids:
@@ -22471,19 +22471,6 @@ entities:
       parent: 2
       rot: 1.5707963267948966 rad
       pos: 26.5,24.5
-- proto: ComputerAnalysisConsole
-  entities:
-  - uid: 8267
-    components:
-    - type: Transform
-      parent: 2
-      rot: 3.141592653589793 rad
-      pos: 54.5,3.5
-    - type: DeviceLinkSource
-      linkedPorts:
-        77:
-        - - ArtifactAnalyzerSender
-          - ArtifactAnalyzerReceiver
 - proto: ComputerAtmosMonitoring
   entities:
   - uid: 1460
@@ -50147,32 +50134,6 @@ entities:
     - type: Transform
       parent: 2
       pos: 13.5,30.5
-- proto: MachineAnomalyVessel
-  entities:
-  - uid: 2379
-    components:
-    - type: Transform
-      parent: 2
-      pos: 48.5,2.5
-- proto: MachineAPE
-  entities:
-  - uid: 6762
-    components:
-    - type: Transform
-      parent: 2
-      pos: 48.5,4.5
-  - uid: 11210
-    components:
-    - type: Transform
-      parent: 2
-      pos: 48.5,3.5
-- proto: MachineArtifactAnalyzer
-  entities:
-  - uid: 77
-    components:
-    - type: Transform
-      parent: 2
-      pos: 53.5,0.5
 - proto: MachineCentrifuge
   entities:
   - uid: 2809
@@ -54228,20 +54189,6 @@ entities:
     - type: Transform
       parent: 2
       pos: 28.5,-6.5
-- proto: RandomArtifactSpawner
-  entities:
-  - uid: 324
-    components:
-    - type: Transform
-      parent: 2
-      rot: 3.141592653589793 rad
-      pos: 66.5,-20.5
-  - uid: 325
-    components:
-    - type: Transform
-      parent: 2
-      rot: 3.141592653589793 rad
-      pos: 52.5,-0.5
 - proto: RandomEngineerCorpseSpawner
   entities:
   - uid: 7286

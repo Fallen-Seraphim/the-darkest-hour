@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 09/10/2026 23:43:42
-  entityCount: 9833
+  entityCount: 9830
 maps: []
 grids:
 - 1668
@@ -2015,27 +2015,6 @@ entities:
     - type: Transform
       parent: 1668
       pos: 15.5,20.5
-- proto: AnomalyLocatorWide
-  entities:
-  - uid: 9396
-    components:
-    - type: Transform
-      parent: 1668
-      pos: -22.533813,-17.224167
-- proto: AnomalyScanner
-  entities:
-  - uid: 9394
-    components:
-    - type: Transform
-      parent: 1668
-      pos: -22.492147,-17.432499
-- proto: AnomalyScannerAdmin
-  entities:
-  - uid: 9749
-    components:
-    - type: Transform
-      parent: 1668
-      pos: -23.3841,9.5656
 - proto: APCBasic
   entities:
   - uid: 2865

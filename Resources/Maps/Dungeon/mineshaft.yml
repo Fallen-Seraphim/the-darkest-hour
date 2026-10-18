@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 14:11:36
-  entityCount: 1111
+  entityCount: 1103
 maps:
 - 2
 grids:
@@ -200,28 +200,6 @@ entities:
       parent: 2
       rot: 3.141592653589793 rad
       pos: 16.5,32.5
-- proto: ArtifactFragment1
-  entities:
-  - uid: 615
-    components:
-    - type: Transform
-      parent: 2
-      pos: 37.25915,14.655882
-  - uid: 630
-    components:
-    - type: Transform
-      parent: 2
-      pos: 35.42342,13.322435
-  - uid: 664
-    components:
-    - type: Transform
-      parent: 2
-      pos: 34.67064,15.487637
-  - uid: 665
-    components:
-    - type: Transform
-      parent: 2
-      pos: 33.138664,14.7483
 - proto: Autolathe
   entities:
   - uid: 64
@@ -3294,20 +3272,6 @@ entities:
     - type: Transform
       parent: 2
       pos: 2.5,26.5
-- proto: MachineAnomalySynchronizer
-  entities:
-  - uid: 591
-    components:
-    - type: Transform
-      parent: 2
-      pos: 36.5,22.5
-- proto: MachineArtifactCrusher
-  entities:
-  - uid: 680
-    components:
-    - type: Transform
-      parent: 2
-      pos: 33.5,15.5
 - proto: MachineFrameDestroyed
   entities:
   - uid: 796
@@ -3923,13 +3887,6 @@ entities:
       parent: 2
       rot: 1.5707963267948966 rad
       pos: 48.5,3.5
-- proto: RandomArtifactSpawner
-  entities:
-  - uid: 611
-    components:
-    - type: Transform
-      parent: 2
-      pos: 34.5,14.5
 - proto: RandomBoard
   entities:
   - uid: 934
@@ -4185,14 +4142,6 @@ entities:
     - type: Transform
       parent: 2
       pos: 41.5,13.5
-- proto: RandomRockAnomalySpawner
-  entities:
-  - uid: 585
-    components:
-    - type: Transform
-      parent: 2
-      rot: 3.141592653589793 rad
-      pos: 36.5,22.5
 - proto: RandomWoodenSupport
   entities:
   - uid: 939

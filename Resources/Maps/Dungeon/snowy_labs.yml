@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/13/2026 13:53:47
-  entityCount: 2227
+  entityCount: 2220
 maps:
 - 1653
 grids:
@@ -242,44 +242,6 @@ entities:
     - type: Transform
       parent: 1653
       pos: 16.688623,9.410957
-- proto: AnomalyFloraBulb
-  entities:
-  - uid: 105
-    components:
-    - type: Transform
-      parent: 1653
-      pos: 21.5,44.5
-  - uid: 110
-    components:
-    - type: Transform
-      parent: 1653
-      pos: 17.5,44.5
-  - uid: 624
-    components:
-    - type: Transform
-      parent: 1653
-      pos: 18.5,47.5
-- proto: AnomalyIce
-  entities:
-  - uid: 1840
-    components:
-    - type: Transform
-      parent: 1653
-      rot: 3.141592653589793 rad
-      pos: 45.497818,12.844993
-  - uid: 2141
-    components:
-    - type: Transform
-      parent: 1653
-      rot: -1.5707963267948966 rad
-      pos: 51.43184,14.455296
-- proto: AnomalyScanner
-  entities:
-  - uid: 2182
-    components:
-    - type: Transform
-      parent: 1653
-      pos: 53.56535,13.579968
 - proto: APCBasic
   entities:
   - uid: 353
@@ -11888,14 +11850,6 @@ entities:
       parent: 1653
       rot: -1.5707963267948966 rad
       pos: 36.487568,15.43374
-- proto: MachineAPE
-  entities:
-  - uid: 2139
-    components:
-    - type: Transform
-      parent: 1653
-      rot: 1.5707963267948966 rad
-      pos: 50.5,14.5
 - proto: MachineFrame
   entities:
   - uid: 1110
