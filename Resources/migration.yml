@@ -83,10 +83,10 @@ SyringeSpaceacillin: null
 AirlockPainter: SprayPainter
 
 # 2023-08-19
-GeneratorPlasma: PortableGeneratorPacman
-GeneratorUranium: PortableGeneratorSuperPacman
-GeneratorPlasmaMachineCircuitboard: PortableGeneratorPacmanMachineCircuitboard
-GeneratorUraniumMachineCircuitboard: PortableGeneratorSuperPacmanMachineCircuitboard
+GeneratorPlasma: null # DarkestHour: PortableGeneratorPacman удалён
+GeneratorUranium: null # DarkestHour: PortableGeneratorSuperPacman удалён
+GeneratorPlasmaMachineCircuitboard: null # DarkestHour: PortableGeneratorPacmanMachineCircuitboard удалён
+GeneratorUraniumMachineCircuitboard: null # DarkestHour: PortableGeneratorSuperPacmanMachineCircuitboard удалён
 
 # 2023-12-10
 SpawnPointSeniorResearcher: null
@@ -1017,7 +1017,7 @@ WallRockBasalt: WallRock
 WallRockBasaltCoal: WallRockCoal
 WallRockBasaltGold: WallRockGold
 WallRockBasaltDiamond: WallRockDiamond
-WallRockBasaltPlasma: WallRockPlasma
+WallRockBasaltPlasma: null # DarkestHour: WallRockPlasma удалён
 WallRockBasaltQuartz: WallRockQuartz
 WallRockBasaltSilver: WallRockSilver
 WallRockBasaltBananium: WallRock
@@ -1029,7 +1029,7 @@ WallRockAndesite: WallRock
 WallRockAndesiteCoal: WallRockCoal
 WallRockAndesiteGold: WallRockGold
 WallRockAndesiteDiamond: WallRockDiamond
-WallRockAndesitePlasma: WallRockPlasma
+WallRockAndesitePlasma: null # DarkestHour: WallRockPlasma удалён
 WallRockAndesiteQuartz: WallRockQuartz
 WallRockAndesiteSilver: WallRockSilver
 WallRockAndesiteBananium: WallRock
@@ -1066,14 +1066,14 @@ ButtonFrameExit: ButtonFrameWhite
 
 # 2026-08-12
 WindoorSecure: Windoor
-WindoorSecurePlasma: WindoorPlasma
+WindoorSecurePlasma: null # DarkestHour: WindoorPlasma удалён
 WindoorSecureUranium: WindoorUranium
 WindoorSecureArmoryLocked: WindoorArmoryLocked
-PlasmaWindoorSecureArmoryLocked: PlasmaWindoorArmoryLocked
+PlasmaWindoorSecureArmoryLocked: null # DarkestHour: PlasmaWindoorArmoryLocked удалён
 WindoorSecureEngineeringLocked: WindoorEngineeringLocked
 WindoorSecureAtmosphericsLocked: WindoorEngineeringLocked
-PlasmaWindoorSecureEngineeringLocked: PlasmaWindoorEngineeringLocked
-PlasmaWindoorSecureAtmosphericsLocked: PlasmaWindoorAtmosphericsLocked
+PlasmaWindoorSecureEngineeringLocked: null # DarkestHour: PlasmaWindoorEngineeringLocked удалён
+PlasmaWindoorSecureAtmosphericsLocked: null # DarkestHour: PlasmaWindoorAtmosphericsLocked удалён
 WindoorSecureServiceLocked: WindoorServiceLocked
 WindoorSecureKitchenLocked: WindoorKitchenLocked
 WindoorSecureBarLocked: WindoorBarLocked
@@ -1087,28 +1087,28 @@ WindoorSecureSalvageLocked: WindoorSalvageLocked
 WindoorSecureChapelLocked: WindoorChapelLocked
 WindoorSecureMedicalLocked: WindoorMedicalLocked
 WindoorSecureChemistryLocked: WindoorChemistryLocked
-PlasmaWindoorSecureChemistryLocked: PlasmaWindoorChemistryLocked
+PlasmaWindoorSecureChemistryLocked: null # DarkestHour: PlasmaWindoorChemistryLocked удалён
 WindoorSecureCommandLocked: WindoorCommandLocked
 WindoorSecureCentralCommandLocked: WindoorCentralCommandLocked
-PlasmaWindoorSecureCentralCommandLocked: PlasmaWindoorCentralCommandLocked
+PlasmaWindoorSecureCentralCommandLocked: null # DarkestHour: PlasmaWindoorCentralCommandLocked удалён
 UraniumWindoorSecureCentralCommandLocked: UraniumWindoorCentralCommandLocked
-PlasmaWindoorSecureCommandLocked: PlasmaWindoorCommandLocked
+PlasmaWindoorSecureCommandLocked: null # DarkestHour: PlasmaWindoorCommandLocked удалён
 UraniumWindoorSecureEngineeringLocked: UraniumWindoorEngineeringLocked
 WindoorSecureExternalLocked: WindoorExternalLocked
-PlasmaWindoorSecureJanitorLocked: PlasmaWindoorJanitorLocked
+PlasmaWindoorSecureJanitorLocked: null # DarkestHour: PlasmaWindoorJanitorLocked удалён
 WindoorSecureResearchDirectorLocked: WindoorResearchDirectorLocked
-PlasmaWindoorSecureSecurityLocked: PlasmaWindoorSecurityLocked
+PlasmaWindoorSecureSecurityLocked: null # DarkestHour: PlasmaWindoorSecurityLocked удалён
 WindoorSecureScienceLocked: WindoorScienceLocked
-PlasmaWindoorSecureScienceLocked: PlasmaWindoorScienceLocked
+PlasmaWindoorSecureScienceLocked: null # DarkestHour: PlasmaWindoorScienceLocked удалён
 WindoorSecureHeadOfPersonnelLocked: WindoorHeadOfPersonnelLocked
 WindoorSecureSyndicateLocked: WindoorSyndicateLocked
-PlasmaWindoorSecureSyndicateLocked: PlasmaWindoorSyndicateLocked
+PlasmaWindoorSecureSyndicateLocked: null # DarkestHour: PlasmaWindoorSyndicateLocked удалён
 UraniumWindoorSecureSyndicateLocked: UraniumWindoorSyndicateLocked
 WindoorSecureNukeopLocked: WindoorNukeopLocked
-PlasmaWindoorSecureNukeopLocked: PlasmaWindoorNukeopLocked
+PlasmaWindoorSecureNukeopLocked: null # DarkestHour: PlasmaWindoorNukeopLocked удалён
 UraniumWindoorSecureNukeopLocked: UraniumWindoorNukeopLocked
 WindoorAssemblySecure: WindoorAssembly
-WindoorAssemblySecurePlasma: WindoorAssemblyPlasma
+WindoorAssemblySecurePlasma: null # DarkestHour: WindoorAssemblyPlasma удалён
 WindoorAssemblySecureUranium: WindoorAssemblyUranium
 LightReplacer: LightReplacerFilled
 
@@ -1119,7 +1119,7 @@ MeteorRockQuartz: AsteroidRockQuartz
 MeteorRockTin: AsteroidRockTin
 MeteorRockSilver: AsteroidRockSilver
 MeteorRockGold: AsteroidRockGold
-MeteorRockPlasma: AsteroidRockPlasma
+MeteorRockPlasma: null # DarkestHour: AsteroidRockPlasma удалён
 MeteorRockDiamond: AsteroidRockDiamond
 MeteorRockUranium: AsteroidRockUranium
 StatueBananiumClown: StatueOrnateClown

@@ -17,13 +17,13 @@ namespace Content.Shared._RMC14.Marines.Dogtags;
 
 public sealed class DogtagsSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly MobStateSystem _mob = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly MetaDataSystem _meta = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private MobStateSystem _mob = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private SharedHandsSystem _hands = default!;
+    [Dependency] private INetManager _net = default!;
+    [Dependency] private MetaDataSystem _meta = default!;
+    [Dependency] private SharedInteractionSystem _interaction = default!;
 
     public override void Initialize()
     {
@@ -132,13 +132,13 @@ public sealed class DogtagsSystem : EntitySystem
     {
         if (tags.Comp.TagsTaken)
         {
-            _popup.PopupClient(Loc.GetString("rmc-dogtags-already-taken", ("target", wearer)), user);
+            _popup.PopupEntity(Loc.GetString("rmc-dogtags-already-taken", ("target", wearer)), user, user);
             return;
         }
 
         if (!CanTakeTags(tags, wearer, user, out var equipped, out var reason))
         {
-            _popup.PopupClient(reason, user);
+            _popup.PopupEntity(reason, user, user);
             return;
         }
 
