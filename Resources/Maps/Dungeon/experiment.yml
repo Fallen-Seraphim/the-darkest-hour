@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 14:04:51
-  entityCount: 1640
+  entityCount: 1633
 maps:
 - 1653
 grids:
@@ -232,30 +232,6 @@ entities:
     - type: Transform
       parent: 1653
       pos: 16.688623,9.410957
-- proto: AnomalyScanner
-  entities:
-  - uid: 658
-    components:
-    - type: Transform
-      parent: 1653
-      pos: 22.399458,27.421732
-  - uid: 670
-    components:
-    - type: Transform
-      parent: 1653
-      pos: 22.461958,26.374857
-  - uid: 712
-    components:
-    - type: Transform
-      parent: 1653
-      pos: 22.461958,25.452982
-- proto: AnomalyVesselCircuitboard
-  entities:
-  - uid: 883
-    components:
-    - type: Transform
-      parent: 1653
-      pos: 22.494812,28.596468
 - proto: APCBasic
   entities:
   - uid: 353
@@ -7517,14 +7493,6 @@ entities:
       parent: 1653
       rot: 1.5707963267948966 rad
       pos: 48.5,0.5
-- proto: ComputerAnalysisConsole
-  entities:
-  - uid: 461
-    components:
-    - type: Transform
-      parent: 1653
-      rot: -1.5707963267948966 rad
-      pos: 2.5,43.5
 - proto: computerBodyScanner
   entities:
   - uid: 1546
@@ -9644,18 +9612,6 @@ entities:
       parent: 1653
       rot: 1.5707963267948966 rad
       pos: 13.5,19.5
-- proto: RandomArtifactSpawner
-  entities:
-  - uid: 455
-    components:
-    - type: Transform
-      parent: 1653
-      pos: 5.5,43.5
-  - uid: 1059
-    components:
-    - type: Transform
-      parent: 1653
-      pos: 34.5,22.5
 - proto: RandomFoodMeal
   entities:
   - uid: 993

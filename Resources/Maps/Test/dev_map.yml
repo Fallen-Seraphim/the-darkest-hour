@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 10:22:08
-  entityCount: 3690
+  entityCount: 3678
 maps:
 - 23
 grids:
@@ -1501,20 +1501,6 @@ entities:
       - Arsenal
       - Experimental
       - CivilianServices
-- proto: AnomalyLocator
-  entities:
-  - uid: 862
-    components:
-    - type: Transform
-      parent: 1
-      pos: 56.5,28.4999
-- proto: AnomalyScanner
-  entities:
-  - uid: 807
-    components:
-    - type: Transform
-      parent: 1
-      pos: 56.5,28.499
 - proto: APCBasic
   entities:
   - uid: 3132
@@ -12140,23 +12126,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 45.5,53.5
-- proto: ComputerAnalysisConsole
-  entities:
-  - uid: 756
-    components:
-    - type: Transform
-      parent: 1
-      pos: 58.5,28.5
-    - type: DeviceLinkSource
-      linkedPorts:
-        844:
-        - - ArtifactAnalyzerSender
-          - ArtifactAnalyzerReceiver
-  - uid: 2616
-    components:
-    - type: Transform
-      parent: 1
-      pos: 49.5,59.5
 - proto: ComputerAtmosMonitoring
   entities:
   - uid: 2634
@@ -12764,25 +12733,6 @@ entities:
       pos: 80.5,37.5
     missingComponents:
     - Destructible
-- proto: CrateArtifactContainer
-  entities:
-  - uid: 801
-    components:
-    - type: Transform
-      parent: 1
-      pos: 58.5,25.5
-    - type: Lock
-      locked: False
-    - type: ContainerContainer
-      containers:
-        entity_storage: !type:Container
-          ents: []
-          showEnts: False
-          occludes: True
-        paper_label: !type:ContainerSlot
-          ent: 802
-          showEnts: False
-          occludes: True
 - proto: CrateFreezer
   entities:
   - uid: 988
@@ -15335,34 +15285,6 @@ entities:
       pos: 58.5,20.5
     - type: Lock
       locked: False
-- proto: MachineAnomalyGenerator
-  entities:
-  - uid: 126
-    components:
-    - type: Transform
-      parent: 1
-      pos: 54.5,28.5
-- proto: MachineAnomalyVessel
-  entities:
-  - uid: 747
-    components:
-    - type: Transform
-      parent: 1
-      pos: 52.5,28.5
-- proto: MachineAnomalyVesselExperimental
-  entities:
-  - uid: 752
-    components:
-    - type: Transform
-      parent: 1
-      pos: 50.5,28.5
-- proto: MachineArtifactAnalyzer
-  entities:
-  - uid: 844
-    components:
-    - type: Transform
-      parent: 1
-      pos: 61.5,26.5
 - proto: MachineCentrifuge
   entities:
   - uid: 1123
@@ -16267,13 +16189,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 96.5,28.5
-- proto: NodeScanner
-  entities:
-  - uid: 806
-    components:
-    - type: Transform
-      parent: 1
-      pos: 58.5,28.5
 - proto: NuclearGrenade
   entities:
   - uid: 2180
@@ -16340,12 +16255,6 @@ entities:
       parent: 1
       rot: 3.141592653589793 rad
       pos: 41.4792,16.654684
-  - uid: 802
-    components:
-    - type: Transform
-      parent: 801
-    - type: Physics
-      canCollide: False
 - proto: PaperBin20
   entities:
   - uid: 1372
@@ -17964,13 +17873,6 @@ entities:
       parent: 1
       rot: -1.5707963267948966 rad
       pos: 26.5,19.5
-- proto: RandomArtifactSpawner
-  entities:
-  - uid: 861
-    components:
-    - type: Transform
-      parent: 1
-      pos: 61.5,26.5
 - proto: RandomPosterAny
   entities:
   - uid: 2668

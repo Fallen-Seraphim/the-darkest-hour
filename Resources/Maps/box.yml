@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 10/10/2026 22:58:19
-  entityCount: 28888
+  entityCount: 28864
 maps:
 - 780
 grids:
@@ -9796,28 +9796,6 @@ entities:
     - type: Transform
       parent: 8364
       pos: -12.664007,-72.46974
-- proto: AnomalyScanner
-  entities:
-  - uid: 2172
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 73.60628,-49.3431
-  - uid: 2590
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 73.76253,-49.43685
-  - uid: 21161
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 74.46565,-49.3431
-  - uid: 21397
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 74.59065,-49.452477
 - proto: APCBasic
   entities:
   - uid: 1260
@@ -78418,24 +78396,6 @@ entities:
     - type: Transform
       parent: 8364
       pos: -5.5,-61.5
-- proto: ComputerAnalysisConsole
-  entities:
-  - uid: 13678
-    components:
-    - type: Transform
-      parent: 8364
-      rot: 3.141592653589793 rad
-      pos: 79.5,-26.5
-  - uid: 17552
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 71.5,-43.5
-    - type: DeviceLinkSource
-      linkedPorts:
-        21199:
-        - source: ArtifactAnalyzerSender
-          sink: ArtifactAnalyzerReceiver
 - proto: ComputerAtmosMonitoring
   entities:
   - uid: 19021
@@ -79406,26 +79366,6 @@ entities:
     - type: Transform
       parent: 8364
       pos: -51.5,1.5
-- proto: CrateArtifactContainer
-  entities:
-  - uid: 25989
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 80.5,-23.5
-    - type: EntityStorage
-      air:
-        temperature: 293.1496
-        volume: 200
-        moles:
-          Oxygen: 5.001885
-          Nitrogen: 18.816614
-        immutable: False
-  - uid: 27530
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 72.5,-43.5
 - proto: CrateCoffin
   entities:
   - uid: 11610
@@ -135409,63 +135349,6 @@ entities:
     - type: Transform
       parent: 8364
       pos: 14.5,19.5
-- proto: MachineAnomalyGenerator
-  entities:
-  - uid: 21980
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 76.5,-51.5
-- proto: MachineAnomalyVessel
-  entities:
-  - uid: 21398
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 70.5,-49.5
-  - uid: 21399
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 71.5,-49.5
-- proto: MachineAPE
-  entities:
-  - uid: 2170
-    components:
-    - type: Transform
-      parent: 8364
-      rot: -1.5707963267948966 rad
-      pos: 73.5,-57.5
-  - uid: 2294
-    components:
-    - type: Transform
-      parent: 8364
-      rot: -1.5707963267948966 rad
-      pos: 72.5,-56.5
-  - uid: 25022
-    components:
-    - type: Transform
-      parent: 8364
-      rot: -1.5707963267948966 rad
-      pos: 72.5,-57.5
-  - uid: 26866
-    components:
-    - type: Transform
-      parent: 8364
-      rot: -1.5707963267948966 rad
-      pos: 63.5,-30.5
-- proto: MachineArtifactAnalyzer
-  entities:
-  - uid: 20207
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 80.5,-29.5
-  - uid: 21199
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 71.5,-40.5
 - proto: MachineCentrifuge
   entities:
   - uid: 16828
@@ -144218,45 +144101,6 @@ entities:
     - type: Transform
       parent: 8364
       pos: -33.5,24.5
-- proto: RandomArtifactSpawner
-  entities:
-  - uid: 20071
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 79.5,-30.5
-- proto: RandomArtifactSpawner20
-  entities:
-  - uid: 16825
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 82.5,-30.5
-  - uid: 20637
-    components:
-    - type: Transform
-      parent: 8364
-      pos: -39.5,-26.5
-  - uid: 20641
-    components:
-    - type: Transform
-      parent: 8364
-      pos: -39.5,-24.5
-  - uid: 20643
-    components:
-    - type: Transform
-      parent: 8364
-      pos: -39.5,-22.5
-  - uid: 25984
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 80.5,-29.5
-  - uid: 27418
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 71.5,-39.5
 - proto: RandomBoard
   entities:
   - uid: 5724

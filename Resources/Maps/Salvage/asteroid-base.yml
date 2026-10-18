@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 09/07/2026 17:40:39
-  entityCount: 366
+  entityCount: 365
 maps: []
 grids:
 - 407
@@ -2012,13 +2012,6 @@ entities:
     - type: Transform
       parent: 407
       pos: 6.5,-6.5
-- proto: RandomArtifactSpawner
-  entities:
-  - uid: 154
-    components:
-    - type: Transform
-      parent: 407
-      pos: 11.5,-5.5
 - proto: ReinforcedPlasmaWindow
   entities:
   - uid: 185

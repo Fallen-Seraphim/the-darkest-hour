@@ -127,9 +127,9 @@
   id: LowValueScienceCrateTable
   table: !type:GroupSelector
     children:
-    - id: CrateArtifactContainer
-    - id: HandheldArtifactContainer
-      weight: 0.2
+    # - id: CrateArtifactContainer # DarkestHour: нет аномалий и ксеноархеологии
+    # - id: HandheldArtifactContainer # DarkestHour: нет аномалий и ксеноархеологии
+    # weight: 0.2
     - id: CrateMaterialPlasma
 
 - type: entityTable

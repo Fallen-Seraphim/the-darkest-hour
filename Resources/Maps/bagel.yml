@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 10/06/2026 05:35:29
-  entityCount: 26373
+  entityCount: 26354
 maps:
 - 943
 grids:
@@ -8667,18 +8667,6 @@ entities:
     - type: Transform
       parent: 60
       pos: 8.742763,23.42964
-- proto: AnomalyScanner
-  entities:
-  - uid: 9421
-    components:
-    - type: Transform
-      parent: 60
-      pos: -51.426517,-5.692988
-  - uid: 9423
-    components:
-    - type: Transform
-      parent: 60
-      pos: -51.582767,-5.458613
 - proto: APCBasic
   entities:
   - uid: 66
@@ -70542,29 +70530,6 @@ entities:
       parent: 60
       rot: 1.5707963267948966 rad
       pos: -4.5,25.5
-- proto: ComputerAnalysisConsole
-  entities:
-  - uid: 466
-    components:
-    - type: Transform
-      parent: 60
-      rot: 1.5707963267948966 rad
-      pos: -47.5,16.5
-    - type: DeviceLinkSource
-      linkedPorts:
-        9442:
-        - - ArtifactAnalyzerSender
-          - ArtifactAnalyzerReceiver
-  - uid: 24680
-    components:
-    - type: Transform
-      parent: 60
-      pos: -52.5,14.5
-    - type: DeviceLinkSource
-      linkedPorts:
-        9570:
-        - - ArtifactAnalyzerSender
-          - ArtifactAnalyzerReceiver
 - proto: ComputerAtmosMonitoring
   entities:
   - uid: 13949
@@ -71521,21 +71486,6 @@ entities:
     - type: Transform
       parent: 60
       pos: -25.481215,-45.479855
-- proto: CrateArtifactContainer
-  entities:
-  - uid: 9461
-    components:
-    - type: Transform
-      parent: 60
-      pos: -44.5,14.5
-    - type: EntityStorage
-      air:
-        temperature: 293.1496
-        volume: 200
-        moles:
-          Oxygen: 1.6495836
-          Nitrogen: 6.2055764
-        immutable: False
 - proto: CrateCoffin
   entities:
   - uid: 14213
@@ -121198,59 +121148,6 @@ entities:
     - type: Physics
       canCollide: False
       bodyType: Static
-- proto: MachineAnomalyGenerator
-  entities:
-  - uid: 17284
-    components:
-    - type: Transform
-      parent: 60
-      pos: -58.5,3.5
-- proto: MachineAnomalyVessel
-  entities:
-  - uid: 9394
-    components:
-    - type: Transform
-      parent: 60
-      rot: 1.5707963267948966 rad
-      pos: -56.5,-3.5
-  - uid: 9420
-    components:
-    - type: Transform
-      parent: 60
-      rot: 1.5707963267948966 rad
-      pos: -57.5,-3.5
-  - uid: 23867
-    components:
-    - type: Transform
-      parent: 60
-      rot: 1.5707963267948966 rad
-      pos: -55.5,-3.5
-- proto: MachineAPE
-  entities:
-  - uid: 8532
-    components:
-    - type: Transform
-      parent: 60
-      rot: 1.5707963267948966 rad
-      pos: -51.5,-0.5
-  - uid: 9162
-    components:
-    - type: Transform
-      parent: 60
-      rot: 1.5707963267948966 rad
-      pos: -51.5,-1.5
-- proto: MachineArtifactAnalyzer
-  entities:
-  - uid: 9442
-    components:
-    - type: Transform
-      parent: 60
-      pos: -50.5,17.5
-  - uid: 9570
-    components:
-    - type: Transform
-      parent: 60
-      pos: -54.5,17.5
 - proto: MachineCentrifuge
   entities:
   - uid: 2457
@@ -128732,40 +128629,6 @@ entities:
     - type: Transform
       parent: 60
       pos: -7.5,64.5
-- proto: RandomArtifactSpawner
-  entities:
-  - uid: 8496
-    components:
-    - type: Transform
-      parent: 60
-      pos: -49.5,16.5
-  - uid: 17728
-    components:
-    - type: Transform
-      parent: 60
-      pos: -58.5,49.5
-  - uid: 19792
-    components:
-    - type: Transform
-      parent: 60
-      pos: -55.5,16.5
-- proto: RandomArtifactSpawner20
-  entities:
-  - uid: 19678
-    components:
-    - type: Transform
-      parent: 60
-      pos: 51.5,12.5
-  - uid: 24308
-    components:
-    - type: Transform
-      parent: 60
-      pos: 51.5,8.5
-  - uid: 24309
-    components:
-    - type: Transform
-      parent: 60
-      pos: 51.5,10.5
 - proto: RandomBoard
   entities:
   - uid: 1808

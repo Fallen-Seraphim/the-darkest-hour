@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 07/17/2026 15:37:47
-  entityCount: 237
+  entityCount: 235
 maps: []
 grids:
 - 1
@@ -82,13 +82,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 2.5,0.5
-- proto: AnomalyFlesh
-  entities:
-  - uid: 3
-    components:
-    - type: Transform
-      parent: 1
-      pos: 0.5,0.5
 - proto: ChairMeat
   entities:
   - uid: 162
@@ -283,14 +276,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 4.640625,-1.4375
-- proto: MachineAPE
-  entities:
-  - uid: 118
-    components:
-    - type: Transform
-      parent: 1
-      rot: -1.5707963267948966 rad
-      pos: 1.5,0.5
 - proto: MachineFrameDestroyed
   entities:
   - uid: 122

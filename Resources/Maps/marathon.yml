@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 09/22/2026 18:29:32
-  entityCount: 23929
+  entityCount: 23914
 maps:
 - 5350
 grids:
@@ -8360,18 +8360,6 @@ entities:
     - type: Transform
       parent: 30
       pos: -13.5,-47.5
-- proto: AnomalyScanner
-  entities:
-  - uid: 21723
-    components:
-    - type: Transform
-      parent: 30
-      pos: 30.56893,23.39165
-  - uid: 21724
-    components:
-    - type: Transform
-      parent: 30
-      pos: 30.41268,23.594774
 - proto: APCBasic
   entities:
   - uid: 406
@@ -59815,18 +59803,6 @@ entities:
     - type: Transform
       parent: 30
       pos: -6.5,76.5
-- proto: ComputerAnalysisConsole
-  entities:
-  - uid: 15282
-    components:
-    - type: Transform
-      parent: 30
-      pos: 37.5,10.5
-    - type: DeviceLinkSource
-      linkedPorts:
-        22233:
-        - - ArtifactAnalyzerSender
-          - ArtifactAnalyzerReceiver
 - proto: ComputerAtmosMonitoring
   entities:
   - uid: 11291
@@ -60609,26 +60585,6 @@ entities:
     - type: Transform
       parent: 30
       pos: 29.536556,-37.5655
-- proto: CrateArtifactContainer
-  entities:
-  - uid: 17790
-    components:
-    - type: Transform
-      parent: 30
-      pos: 41.5,12.5
-  - uid: 22272
-    components:
-    - type: Transform
-      parent: 30
-      pos: 41.5,14.5
-    - type: EntityStorage
-      air:
-        temperature: 293.1496
-        volume: 200
-        moles:
-          Oxygen: 3.4430928
-          Nitrogen: 12.952587
-        immutable: False
 - proto: CrateCoffin
   entities:
   - uid: 20530
@@ -110662,46 +110618,6 @@ entities:
           Oxygen: 3.4430928
           Nitrogen: 12.952587
         immutable: False
-- proto: MachineAnomalyGenerator
-  entities:
-  - uid: 22436
-    components:
-    - type: Transform
-      parent: 30
-      pos: 28.5,21.5
-- proto: MachineAnomalyVessel
-  entities:
-  - uid: 9523
-    components:
-    - type: Transform
-      parent: 30
-      pos: 31.5,17.5
-  - uid: 9531
-    components:
-    - type: Transform
-      parent: 30
-      pos: 33.5,17.5
-- proto: MachineAPE
-  entities:
-  - uid: 9490
-    components:
-    - type: Transform
-      parent: 30
-      rot: 1.5707963267948966 rad
-      pos: 32.5,21.5
-  - uid: 9494
-    components:
-    - type: Transform
-      parent: 30
-      rot: 1.5707963267948966 rad
-      pos: 32.5,22.5
-- proto: MachineArtifactAnalyzer
-  entities:
-  - uid: 22233
-    components:
-    - type: Transform
-      parent: 30
-      pos: 36.5,12.5
 - proto: MachineCentrifuge
   entities:
   - uid: 19439
@@ -118205,28 +118121,6 @@ entities:
     - type: Transform
       parent: 30
       pos: -43.5,67.5
-- proto: RandomArtifactSpawner
-  entities:
-  - uid: 10151
-    components:
-    - type: Transform
-      parent: 30
-      pos: 41.5,13.5
-  - uid: 22234
-    components:
-    - type: Transform
-      parent: 30
-      pos: 37.5,12.5
-  - uid: 22419
-    components:
-    - type: Transform
-      parent: 30
-      pos: 27.5,-5.5
-  - uid: 22522
-    components:
-    - type: Transform
-      parent: 30
-      pos: -5.5,23.5
 - proto: RandomBoard
   entities:
   - uid: 5616

@@ -1,6 +1,7 @@
 - type: entityTable
   id: RandomArtifactTable
   table: !type:GroupSelector
+    prob: 0 # DarkestHour: нет аномалий и ксеноархеологии
     children:
     - id: ComplexXenoArtifact
       weight: 2

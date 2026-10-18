@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/22/2026 14:53:19
-  entityCount: 169
+  entityCount: 168
 maps: []
 grids:
 - 166
@@ -984,13 +984,6 @@ entities:
       pos: -2.5,-1.5
     - type: ApcPowerReceiver
       powerLoad: 0
-- proto: RandomArtifactSpawner
-  entities:
-  - uid: 123
-    components:
-    - type: Transform
-      parent: 166
-      pos: -1.5,4.5
 - proto: RitualDagger
   entities:
   - uid: 159

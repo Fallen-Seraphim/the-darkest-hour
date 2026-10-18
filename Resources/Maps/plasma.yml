@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 10/08/2026 01:35:11
-  entityCount: 27223
+  entityCount: 27201
 maps:
 - 1
 grids:
@@ -9467,13 +9467,6 @@ entities:
       parent: 2
       rot: 1.5707963267948966 rad
       pos: -36.5,13.5
-- proto: ArtifactFragment1
-  entities:
-  - uid: 5997
-    components:
-    - type: Transform
-      parent: 2
-      pos: -148.53247,-45.469967
 - proto: ArtistCircuitBoard
   entities:
   - uid: 24939
@@ -72763,31 +72756,6 @@ entities:
     - type: Transform
       parent: 2
       pos: -123.5,-76.5
-- proto: ComputerAnalysisConsole
-  entities:
-  - uid: 7205
-    components:
-    - type: Transform
-      parent: 2
-      rot: 3.141592653589793 rad
-      pos: -147.5,-47.5
-    - type: DeviceLinkSource
-      range: 7
-      linkedPorts:
-        14168:
-        - - ArtifactAnalyzerSender
-          - ArtifactAnalyzerReceiver
-  - uid: 7251
-    components:
-    - type: Transform
-      parent: 2
-      pos: -147.5,-43.5
-    - type: DeviceLinkSource
-      range: 7
-      linkedPorts:
-        15401:
-        - - ArtifactAnalyzerSender
-          - ArtifactAnalyzerReceiver
 - proto: ComputerAtmosMonitoring
   entities:
   - uid: 5571
@@ -74001,18 +73969,6 @@ entities:
     - type: Transform
       parent: 2
       pos: -52.390553,-61.160458
-- proto: CrateArtifactContainer
-  entities:
-  - uid: 5995
-    components:
-    - type: Transform
-      parent: 2
-      pos: -144.5,-42.5
-  - uid: 7323
-    components:
-    - type: Transform
-      parent: 2
-      pos: -144.5,-48.5
 - proto: CrateCoffin
   entities:
   - uid: 26093
@@ -136313,53 +136269,6 @@ entities:
     - type: Transform
       parent: 2
       pos: -55.49161,-78.39125
-- proto: MachineAnomalyGenerator
-  entities:
-  - uid: 14143
-    components:
-    - type: Transform
-      parent: 2
-      pos: -127.5,-36.5
-- proto: MachineAnomalyVessel
-  entities:
-  - uid: 7355
-    components:
-    - type: Transform
-      parent: 2
-      rot: 1.5707963267948966 rad
-      pos: -124.5,-35.5
-  - uid: 20492
-    components:
-    - type: Transform
-      parent: 2
-      rot: 3.141592653589793 rad
-      pos: -124.5,-36.5
-- proto: MachineAPE
-  entities:
-  - uid: 7353
-    components:
-    - type: Transform
-      parent: 2
-      rot: 1.5707963267948966 rad
-      pos: -130.5,-35.5
-  - uid: 7354
-    components:
-    - type: Transform
-      parent: 2
-      rot: 1.5707963267948966 rad
-      pos: -130.5,-36.5
-- proto: MachineArtifactAnalyzer
-  entities:
-  - uid: 14168
-    components:
-    - type: Transform
-      parent: 2
-      pos: -147.5,-53.5
-  - uid: 15401
-    components:
-    - type: Transform
-      parent: 2
-      pos: -147.5,-37.5
 - proto: MachineCentrifuge
   entities:
   - uid: 7625
@@ -137415,13 +137324,6 @@ entities:
     - type: Transform
       parent: 2
       pos: -129.5,1.5
-- proto: NodeScanner
-  entities:
-  - uid: 7393
-    components:
-    - type: Transform
-      parent: 2
-      pos: -146.4721,-45.42309
 - proto: NoticeBoard
   entities:
   - uid: 7604
@@ -143513,55 +143415,6 @@ entities:
     - type: Transform
       parent: 2
       pos: -25.5,21.5
-- proto: RandomArtifactSpawner
-  entities:
-  - uid: 19337
-    components:
-    - type: Transform
-      parent: 2
-      pos: -90.5,7.5
-  - uid: 20733
-    components:
-    - type: Transform
-      parent: 2
-      pos: -89.5,19.5
-  - uid: 24047
-    components:
-    - type: Transform
-      parent: 2
-      pos: -114.5,-39.5
-  - uid: 25697
-    components:
-    - type: Transform
-      parent: 2
-      pos: -147.5,-37.5
-- proto: RandomArtifactSpawner20
-  entities:
-  - uid: 797
-    components:
-    - type: Transform
-      parent: 2
-      pos: -99.5,-18.5
-  - uid: 6261
-    components:
-    - type: Transform
-      parent: 2
-      pos: -76.5,-68.5
-  - uid: 9220
-    components:
-    - type: Transform
-      parent: 2
-      pos: -61.5,-73.5
-  - uid: 9706
-    components:
-    - type: Transform
-      parent: 2
-      pos: -98.5,-62.5
-  - uid: 25455
-    components:
-    - type: Transform
-      parent: 2
-      pos: -100.5,40.5
 - proto: RandomBoard
   entities:
   - uid: 4264

@@ -1,13 +1,4 @@
-- type: cargoBounty
-  id: BountyArtifact
-  reward: 2500
-  description: bounty-description-artifact
-  entries:
-  - name: bounty-item-artifact
-    amount: 1
-    whitelist:
-      components:
-      - XenoArtifact
+# BountyArtifact удалён # DarkestHour: нет аномалий и ксеноархеологии
 
 - type: cargoBounty
   id: BountyBaseballBat
@@ -417,16 +408,7 @@
       tags:
       - Trash
 
-- type: cargoBounty
-  id: BountyAnomalyCore
-  reward: 10000
-  description: bounty-description-anomaly-core
-  entries:
-  - name: bounty-item-anomaly-core
-    amount: 1
-    whitelist:
-      components:
-      - AnomalyCore
+# BountyAnomalyCore удалён # DarkestHour: нет аномалий и ксеноархеологии
 
 - type: cargoBounty
   id: BountyBorgModule
@@ -439,16 +421,7 @@
       components:
       - BorgModule
 
-- type: cargoBounty
-  id: BountyArtifactFragment
-  reward: 32500
-  description: bounty-description-artifact-fragment
-  entries:
-  - name: bounty-item-artifact-fragment
-    amount: 7
-    whitelist:
-      tags:
-      - ArtifactFragment
+# BountyArtifactFragment удалён # DarkestHour: нет аномалий и ксеноархеологии
 
 - type: cargoBounty
   id: BountyOrgans

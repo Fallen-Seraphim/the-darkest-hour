@@ -15,10 +15,10 @@
 - type: latheRecipePack
   id: ScienceEquipment
   recipes:
-  - AnomalyScanner
-  - NodeScanner
-  - AnomalyLocator
-  - AnomalyLocatorWide
+  # - AnomalyScanner # DarkestHour: нет аномалий и ксеноархеологии
+  # - NodeScanner # DarkestHour: нет аномалий и ксеноархеологии
+  # - AnomalyLocator # DarkestHour: нет аномалий и ксеноархеологии
+  # - AnomalyLocatorWide # DarkestHour: нет аномалий и ксеноархеологии
   - HoloprojectorField
   - SignallerAdvanced
   - DeviceQuantumSpinInverter
@@ -47,14 +47,14 @@
 - type: latheRecipePack
   id: ScienceWeapons
   recipes:
-  - WeaponPistolCHIMP
+  # - WeaponPistolCHIMP # DarkestHour: нет аномалий и ксеноархеологии
   - WeaponForceGun
   - WeaponProtoKineticAccelerator
   - PKAUpgradeDamage
   - PKAUpgradeRange
   - PKAUpgradeFireRate
   - WeaponTetherGun
-  - WeaponGauntletGorilla
+  # - WeaponGauntletGorilla # DarkestHour: нет аномалий и ксеноархеологии
 
 # Only contains parts for making basic modular grenades, no actual explosives
 - type: latheRecipePack
@@ -77,13 +77,13 @@
   - FlatpackerMachineCircuitboard
   - SheetifierMachineCircuitboard
   - PowerCageRechargerCircuitboard
-  - AnalysisComputerCircuitboard
-  - AnomalyVesselCircuitboard
-  - AnomalyVesselExperimentalCircuitboard
-  - AnomalySynchronizerCircuitboard
-  - APECircuitboard
-  - ArtifactAnalyzerMachineCircuitboard
-  - ArtifactCrusherMachineCircuitboard
+  # - AnalysisComputerCircuitboard # DarkestHour: нет аномалий и ксеноархеологии
+  # - AnomalyVesselCircuitboard # DarkestHour: нет аномалий и ксеноархеологии
+  # - AnomalyVesselExperimentalCircuitboard # DarkestHour: нет аномалий и ксеноархеологии
+  # - AnomalySynchronizerCircuitboard # DarkestHour: нет аномалий и ксеноархеологии
+  # - APECircuitboard # DarkestHour: нет аномалий и ксеноархеологии
+  # - ArtifactAnalyzerMachineCircuitboard # DarkestHour: нет аномалий и ксеноархеологии
+  # - ArtifactCrusherMachineCircuitboard # DarkestHour: нет аномалий и ксеноархеологии
   - StationTeleportersControlCircuitboard
   - StationTeleporterMachineCircuitboard
 

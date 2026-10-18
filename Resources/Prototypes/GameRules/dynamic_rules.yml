@@ -83,9 +83,9 @@
         - !type:GroupSelector
           weight: 30
           children: # copy paste of BasicCalmEventsTable because it's an AllSelector
-          - id: AnomalySpawn
-          - id: BluespaceArtifact
-          - id: BluespaceLocker
+          # - id: AnomalySpawn # DarkestHour: нет аномалий, артефактов и блюспейса
+          # - id: BluespaceArtifact # DarkestHour: нет аномалий, артефактов и блюспейса
+          # - id: BluespaceLocker # DarkestHour: нет аномалий, артефактов и блюспейса
           - id: BreakerFlip
           - id: BureaucraticError
           - id: ClericalError

@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 09/22/2026 15:51:04
-  entityCount: 16513
+  entityCount: 16499
 maps:
 - 126
 grids:
@@ -6285,27 +6285,6 @@ entities:
     - type: Physics
       canCollide: False
     - type: InsideEntityStorage
-- proto: AnalysisComputerCircuitboard
-  entities:
-  - uid: 13492
-    components:
-    - type: Transform
-      parent: 14590
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-- proto: AnomalyScanner
-  entities:
-  - uid: 5381
-    components:
-    - type: Transform
-      parent: 2
-      pos: 71.46026,14.574104
-  - uid: 5382
-    components:
-    - type: Transform
-      parent: 2
-      pos: 71.56963,14.339729
 - proto: APCBasic
   entities:
   - uid: 43
@@ -7025,15 +7004,6 @@ entities:
       parent: 2
       rot: 1.5707963267948966 rad
       pos: -7.5,-17.5
-- proto: ArtifactAnalyzerMachineCircuitboard
-  entities:
-  - uid: 15428
-    components:
-    - type: Transform
-      parent: 14590
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 - proto: ArtistCircuitBoard
   entities:
   - uid: 14277
@@ -46503,20 +46473,6 @@ entities:
       parent: 2
       rot: 1.5707963267948966 rad
       pos: 29.5,-26.5
-- proto: ComputerAnalysisConsole
-  entities:
-  - uid: 5410
-    components:
-    - type: Transform
-      parent: 2
-      pos: 62.5,25.5
-    - type: AnalysisConsole
-      analyzerEntity: 5444
-    - type: DeviceLinkSource
-      linkedPorts:
-        5444:
-        - - ArtifactAnalyzerSender
-          - ArtifactAnalyzerReceiver
 - proto: ComputerAtmosMonitoring
   entities:
   - uid: 15222
@@ -47208,13 +47164,6 @@ entities:
     - type: Transform
       parent: 2
       pos: 84.5,-5.5
-- proto: CrateArtifactContainer
-  entities:
-  - uid: 5638
-    components:
-    - type: Transform
-      parent: 2
-      pos: 60.5,25.5
 - proto: CrateCoffin
   entities:
   - uid: 2538
@@ -78614,8 +78563,6 @@ entities:
       containers:
         entity_storage: !type:Container
           ents:
-          - 13492
-          - 15428
           showEnts: False
           occludes: True
         paper_label: !type:ContainerSlot
@@ -78827,46 +78774,6 @@ entities:
     - type: Transform
       parent: 2
       pos: 38.5,43.5
-- proto: MachineAnomalyGenerator
-  entities:
-  - uid: 5363
-    components:
-    - type: Transform
-      parent: 2
-      pos: 70.5,15.5
-- proto: MachineAnomalyVessel
-  entities:
-  - uid: 171
-    components:
-    - type: Transform
-      parent: 2
-      rot: -1.5707963267948966 rad
-      pos: 68.5,13.5
-  - uid: 15516
-    components:
-    - type: Transform
-      parent: 2
-      rot: -1.5707963267948966 rad
-      pos: 66.5,13.5
-- proto: MachineAPE
-  entities:
-  - uid: 10464
-    components:
-    - type: Transform
-      parent: 2
-      pos: 68.5,16.5
-  - uid: 10467
-    components:
-    - type: Transform
-      parent: 2
-      pos: 66.5,16.5
-- proto: MachineArtifactAnalyzer
-  entities:
-  - uid: 5444
-    components:
-    - type: Transform
-      parent: 2
-      pos: 63.5,28.5
 - proto: MachineCentrifuge
   entities:
   - uid: 5074
@@ -83931,18 +83838,6 @@ entities:
     - type: Transform
       parent: 2
       pos: 83.5,12.5
-- proto: RandomArtifactSpawner
-  entities:
-  - uid: 5445
-    components:
-    - type: Transform
-      parent: 2
-      pos: 62.5,29.5
-  - uid: 10421
-    components:
-    - type: Transform
-      parent: 2
-      pos: 64.5,28.5
 - proto: RandomBoard
   entities:
   - uid: 11863

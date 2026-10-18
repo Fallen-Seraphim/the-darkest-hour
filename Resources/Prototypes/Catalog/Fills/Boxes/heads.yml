@@ -119,6 +119,6 @@
         - id: ResearchComputerCircuitboard
         - id: CargoRequestScienceComputerCircuitboard
         - id: RoboticsConsoleCircuitboard
-        - id: AnalysisComputerCircuitboard #Because sometimes round start artis just fucking explode on the pad.
-        - id: ArtifactAnalyzerMachineCircuitboard
+        # - id: AnalysisComputerCircuitboard # DarkestHour: нет аномалий и ксеноархеологии
+        # - id: ArtifactAnalyzerMachineCircuitboard # DarkestHour: нет аномалий и ксеноархеологии
         - id: StationAiFixerCircuitboard

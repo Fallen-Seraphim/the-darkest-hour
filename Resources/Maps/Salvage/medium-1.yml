@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/22/2026 14:49:00
-  entityCount: 196
+  entityCount: 195
 maps: []
 grids:
 - 85
@@ -890,13 +890,6 @@ entities:
     - type: Transform
       parent: 85
       pos: -0.5,-4.5
-- proto: RandomArtifactSpawner20
-  entities:
-  - uid: 20
-    components:
-    - type: Transform
-      parent: 85
-      pos: 2.5,-6.5
 - proto: RandomScienceCorpseSpawner
   entities:
   - uid: 208
