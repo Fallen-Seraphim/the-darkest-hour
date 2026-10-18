@@ -409,13 +409,7 @@
       - id: IngotSilver1
         weight: 2
       - id: IngotSilver
-    - !type:GroupSelector
-      children:
-      # - id: SheetPlasma1 # DarkestHour: нет плазмы
-      # weight: 2
-      # - id: SheetPlasma10 # DarkestHour: нет плазмы
-      # - id: SheetPlasma # DarkestHour: нет плазмы
-      # weight: 0.50
+    # DarkestHour: группа с плазмой удалена целиком (пустая группа ломает чтение таблицы)
     - !type:GroupSelector
       children:
       - id: SheetUranium1
