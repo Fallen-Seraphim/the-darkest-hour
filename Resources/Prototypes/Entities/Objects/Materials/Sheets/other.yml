@@ -51,56 +51,6 @@
 
 - type: entity
   parent: SheetOtherBase
-  id: SheetPlasma
-  name: plasma
-  suffix: Full
-  components:
-  - type: PhysicalComposition
-    materialComposition:
-      Plasma: 100
-  - type: Stack
-    stackType: Plasma
-    baseLayer: base
-    layerStates:
-    - plasma
-    - plasma_2
-    - plasma_3
-  - type: Sprite
-    state: plasma_3
-    layers:
-    - state: plasma_3
-      map: ["base"]
-  - type: Item
-    heldPrefix: plasma
-  - type: Solution
-    solution:
-      reagents:
-      - ReagentId: Plasma
-        Quantity: 10
-
-- type: entity
-  parent: SheetPlasma
-  id: SheetPlasma10
-  suffix: 10
-  components:
-  - type: Sprite
-    state: plasma
-  - type: Stack
-    count: 10
-
-- type: entity
-  parent: SheetPlasma
-  id: SheetPlasma1
-  name: plasma
-  suffix: Single
-  components:
-  - type: Sprite
-    state: plasma
-  - type: Stack
-    count: 1
-
-- type: entity
-  parent: SheetOtherBase
   id: SheetPlastic
   name: plastic
   suffix: Full

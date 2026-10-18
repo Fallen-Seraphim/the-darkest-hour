@@ -78,7 +78,6 @@
   - type: ItemSlots
     slots:
       gas_tank:
-        startingItem: PlasmaTank
         whitelist:
           components:
           - GasTank

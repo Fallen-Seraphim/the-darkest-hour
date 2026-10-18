@@ -23,7 +23,7 @@ public sealed partial class SolidFuelGeneratorAdapterComponent : Component
     /// The material to accept as fuel.
     /// </summary>
     [DataField]
-    public ProtoId<MaterialPrototype> FuelMaterial = "Plasma";
+    public ProtoId<MaterialPrototype> FuelMaterial = "Uranium"; // DarkestHour: no plasma
 
     /// <summary>
     /// How much material (can be fractional) is left in the generator.

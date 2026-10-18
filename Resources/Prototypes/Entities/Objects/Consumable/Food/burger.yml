@@ -641,8 +641,6 @@
       reagents:
       - ReagentId: Nutriment
         Quantity: 10
-      - ReagentId: Plasma
-        Quantity: 20
       - ReagentId: Licoxide
         Quantity: 10
 # Tastes like bun, pure electricity.

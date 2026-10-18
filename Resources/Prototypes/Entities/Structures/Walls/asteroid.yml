@@ -165,21 +165,6 @@
 
 - type: entity
   abstract: true
-  id: BaseVeinPlasma
-  suffix: Plasma
-  description: An ore vein rich with plasma.
-  components:
-  - type: OreVein
-    oreChance: 1.0
-    currentOre: OrePlasma
-  - type: Sprite
-    layers:
-    - state: rock_phoron
-      sprite: Structures/Walls/stone-ore.rsi
-      map: [ "enum.MiningScannerVisualLayers.Overlay" ]
-
-- type: entity
-  abstract: true
   id: BaseVeinQuartz
   suffix: Quartz
   description: An ore vein rich with quartz.
@@ -327,10 +312,6 @@
   id: AsteroidRockDiamond
 
 - type: entity
-  parent: [ BaseVeinPlasma, AsteroidRock ]
-  id: AsteroidRockPlasma
-
-- type: entity
   parent: [ BaseVeinQuartz, AsteroidRock ]
   id: AsteroidRockQuartz
 
@@ -425,10 +406,6 @@
 - type: entity
   parent: [ BaseVeinGold, IronRock ]
   id: IronRockGold
-
-- type: entity
-  parent: [ BaseVeinPlasma, IronRock ]
-  id: IronRockPlasma
 
 - type: entity
   parent: [ BaseVeinQuartz, IronRock ]
@@ -537,17 +514,6 @@
       WallRockSnow: WallRockSnowDiamond
 
 - type: entity
-  parent: [ BaseVeinPlasma, WallRock ]
-  id: WallRockPlasma
-  components:
-  - type: EntityRemap
-    mask:
-      AsteroidRock: AsteroidRockPlasma
-      WallRockChromite: WallRockChromitePlasma
-      WallRockSand: WallRockSandPlasma
-      WallRockSnow: WallRockSnowPlasma
-
-- type: entity
   parent: [ BaseVeinQuartz, WallRock ]
   id: WallRockQuartz
   components:
@@ -640,10 +606,6 @@
   id: WallRockSnowDiamond
 
 - type: entity
-  parent: [ BaseVeinPlasma, WallRockSnow ]
-  id: WallRockSnowPlasma
-
-- type: entity
   parent: [ BaseVeinQuartz, WallRockSnow ]
   id: WallRockSnowQuartz
 
@@ -694,10 +656,6 @@
   id: WallRockSandDiamond
 
 - type: entity
-  parent: [ BaseVeinPlasma, WallRockSand ]
-  id: WallRockSandPlasma
-
-- type: entity
   parent: [ BaseVeinQuartz, WallRockSand ]
   id: WallRockSandQuartz
 
@@ -746,10 +704,6 @@
 - type: entity
   parent: [ BaseVeinDiamond, WallRockChromite ]
   id: WallRockChromiteDiamond
-
-- type: entity
-  parent: [ BaseVeinPlasma, WallRockChromite ]
-  id: WallRockChromitePlasma
 
 - type: entity
   parent: [ BaseVeinQuartz, WallRockChromite ]

@@ -361,53 +361,6 @@
       collection: FootstepTile
 
 - type: entity
-  parent: [ TableBase, StructureHealthFurnitureWeak ]
-  id: TablePlasmaGlass
-  name: plasma glass table
-  description: A square piece of plasma glass, standing on four metal legs. Pretty!
-  components:
-  - type: Sprite
-    sprite: Structures/Furniture/Tables/plasma.rsi
-  - type: Icon
-    sprite: Structures/Furniture/Tables/plasma.rsi
-  - type: GlassTable
-    climberDamage:
-      types:
-        Slash: 30
-    tableDamage:
-      types:
-        Blunt: 100
-    tableMassLimit: 240
-  - type: Damageable
-    damageModifierSet: GlassPlasmaMod
-  - type: Destructible
-    thresholds:
-    - trigger: *DamageFurnitureWeak
-      behaviors:
-      - *SoundGlassBreak
-      - *ChangeNodeFrame
-      - !type:SpawnEntitiesBehavior
-        spawn:
-          ShardGlassPlasma:
-            min: 1
-            max: 1
-          PartRodMetal1:
-            min: 1
-            max: 1
-  - type: IconSmooth
-    key: glasstable
-    states:
-    - !type:CornerSpriteSmoothing
-      mask: [ glasstable ]
-      base: state_
-  - type: Construction
-    graph: Table
-    node: TablePlasmaGlass
-  - type: FootstepModifier
-    footstepSoundCollection:
-      collection: FootstepTile
-
-- type: entity
   parent: [ TableBase, StructureHealthFurniture ]
   id: TableBrass
   name: brass table

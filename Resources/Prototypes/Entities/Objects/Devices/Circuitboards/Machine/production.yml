@@ -299,7 +299,7 @@
     stackRequirements:
       Manipulator: 3
       Cable: 5
-      PlasmaGlass: 10
+      Glass: 10 # DarkestHour: нет плазмы
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -314,7 +314,7 @@
       stackRequirements:
         Manipulator: 3
         Cable: 1
-        PlasmaGlass: 10
+        Glass: 10 # DarkestHour: нет плазмы
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -329,7 +329,7 @@
     stackRequirements:
       Manipulator: 3
       Cable: 5
-      PlasmaGlass: 15
+      Glass: 15 # DarkestHour: нет плазмы
       MetalRod: 4
 
 - type: entity
@@ -344,7 +344,7 @@
       prototype: MachineAnomalySynchronizer
       stackRequirements:
         Manipulator: 7
-        PlasmaGlass: 5
+        Glass: 5 # DarkestHour: нет плазмы
         Cable: 5
 
 - type: entity
@@ -827,26 +827,6 @@
           examineName: construction-insert-info-examine-name-instrument-woodwind
 
 - type: entity
-  id: PortableGeneratorPacmanMachineCircuitboard
-  parent: BaseMachineCircuitboard
-  name: P.A.C.M.A.N.-type portable generator machine board
-  components:
-    - type: Sprite
-      state: engineering
-    - type: MachineBoard
-      prototype: PortableGeneratorPacman
-      stackRequirements:
-        Manipulator: 1
-        CableHV: 5
-    - type: PhysicalComposition
-      materialComposition:
-        Glass: 200
-      chemicalComposition:
-        Silicon: 20
-    - type: StaticPrice
-      price: 40
-
-- type: entity
   id: ThrusterMachineCircuitboard
   parent: BaseMachineCircuitboard
   name: thruster machine board
@@ -871,46 +851,6 @@
     stackRequirements:
       Manipulator: 3
       Glass: 2
-
-- type: entity
-  id: PortableGeneratorSuperPacmanMachineCircuitboard
-  parent: BaseMachineCircuitboard
-  name: S.U.P.E.R.P.A.C.M.A.N.-type portable generator machine board
-  components:
-    - type: Sprite
-      state: engineering
-    - type: MachineBoard
-      prototype: PortableGeneratorSuperPacman
-      stackRequirements:
-        Manipulator: 2
-        CableHV: 10
-    - type: PhysicalComposition
-      materialComposition:
-        Glass: 200
-      chemicalComposition:
-        Silicon: 20
-    - type: StaticPrice
-      price: 40
-
-- type: entity
-  id: PortableGeneratorJrPacmanMachineCircuitboard
-  parent: BaseMachineCircuitboard
-  name: J.R.P.A.C.M.A.N.-type portable generator machine board
-  components:
-    - type: Sprite
-      state: engineering
-    - type: MachineBoard
-      prototype: PortableGeneratorJrPacman
-      stackRequirements:
-        Manipulator: 1
-        Cable: 10
-    - type: PhysicalComposition
-      materialComposition:
-        Glass: 200
-      chemicalComposition:
-        Silicon: 20
-    - type: StaticPrice
-      price: 40
 
 - type: entity
   id: ReagentGrinderMachineCircuitboard

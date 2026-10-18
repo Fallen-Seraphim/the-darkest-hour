@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 11:51:29
-  entityCount: 796
+  entityCount: 785
 maps: []
 grids:
 - 768
@@ -3457,65 +3457,6 @@ entities:
     - type: Transform
       parent: 768
       pos: 1.5621729,-0.9631119
-- proto: PlasmaDoor
-  entities:
-  - uid: 7
-    components:
-    - type: Transform
-      parent: 768
-      pos: -0.5,7.5
-  - uid: 663
-    components:
-    - type: Transform
-      parent: 768
-      rot: 1.5707963267948966 rad
-      pos: -2.5,4.5
-  - uid: 664
-    components:
-    - type: Transform
-      parent: 768
-      rot: 1.5707963267948966 rad
-      pos: 1.5,4.5
-  - uid: 665
-    components:
-    - type: Transform
-      parent: 768
-      pos: -0.5,1.5
-  - uid: 666
-    components:
-    - type: Transform
-      parent: 768
-      pos: -0.5,-4.5
-  - uid: 667
-    components:
-    - type: Transform
-      parent: 768
-      pos: -0.5,-8.5
-  - uid: 668
-    components:
-    - type: Transform
-      parent: 768
-      pos: 3.5,-8.5
-  - uid: 669
-    components:
-    - type: Transform
-      parent: 768
-      pos: -4.5,-8.5
-  - uid: 670
-    components:
-    - type: Transform
-      parent: 768
-      pos: -3.5,-12.5
-  - uid: 677
-    components:
-    - type: Transform
-      parent: 768
-      pos: -6.5,1.5
-  - uid: 678
-    components:
-    - type: Transform
-      parent: 768
-      pos: -5.5,-4.5
 - proto: WindowReinforcedDirectional
   entities:
   - uid: 240

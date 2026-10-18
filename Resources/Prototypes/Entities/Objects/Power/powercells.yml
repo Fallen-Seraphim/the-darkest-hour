@@ -324,7 +324,7 @@
     - SolutionRiggableLarge
   - type: Riggable
     reagent:
-      ReagentId: Plasma
+      ReagentId: Thermite # DarkestHour: нет плазмы
       Quantity: 15
   - type: Extractable
     juiceSolution:

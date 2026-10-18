@@ -13,13 +13,6 @@
             - material: WoodPlank
               amount: 10
               doAfter: 8
-        - to: plasmaDoor
-          completed:
-            - !type:SnapToGrid { }
-          steps:
-            - material: Plasma
-              amount: 10
-              doAfter: 8
         - to: goldDoor
           completed:
             - !type:SnapToGrid { }
@@ -55,17 +48,6 @@
           completed:
             - !type:SpawnPrototype
               prototype: MaterialWoodPlank1
-              amount: 10
-          steps:
-            - tool: Anchoring
-              doAfter: 8
-    - node: plasmaDoor
-      entity: PlasmaDoor
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: SheetPlasma
               amount: 10
           steps:
             - tool: Anchoring

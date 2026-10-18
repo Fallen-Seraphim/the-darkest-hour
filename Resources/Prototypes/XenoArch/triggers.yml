@@ -12,8 +12,6 @@
     - id: TriggerWater
     - id: TriggerCO2
       weight: 0.5
-    - id: TriggerPlasma
-      weight: 0.5
     - id: TriggerN2O
       weight: 0.5
     - id: TriggerTritium
@@ -151,17 +149,6 @@
   - type: XATReactive
     reagents:
     - CarbonDioxide
-
-- type: entity
-  parent: BaseXenoArtifactTrigger
-  id: TriggerPlasma
-  name: Non-solid plasma
-  components:
-  - type: XATGas
-    targetGas: Plasma
-  - type: XATReactive
-    reagents:
-    - Plasma
 
 - type: entity
   parent: BaseXenoArtifactTrigger

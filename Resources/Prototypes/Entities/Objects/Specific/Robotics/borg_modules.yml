@@ -1073,7 +1073,7 @@
           tags:
           - ConstructionMaterial
     - hand:
-        emptyRepresentative: SheetRPGlass
+        emptyRepresentative: SheetRUGlass # DarkestHour: нет плазмы
         emptyLabel: borg-slot-construction-empty
         whitelist:
           tags:

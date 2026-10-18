@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 04/20/2025 04:10:17
-  entityCount: 82
+  entityCount: 79
 maps: []
 grids:
 - 1
@@ -159,23 +159,6 @@ entities:
     components:
     - type: Transform
       pos: 0.8715155,-2.950407
-      parent: 1
-- proto: PlasmaDoor
-  entities:
-  - uid: 24
-    components:
-    - type: Transform
-      pos: -6.5,0.5
-      parent: 1
-  - uid: 58
-    components:
-    - type: Transform
-      pos: 0.5,-6.5
-      parent: 1
-  - uid: 59
-    components:
-    - type: Transform
-      pos: 7.5,0.5
       parent: 1
 - proto: RandomSpawner100
   entities:

@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 10/10/2026 22:58:19
-  entityCount: 28834
+  entityCount: 28824
 maps:
 - 780
 grids:
@@ -13581,53 +13581,6 @@ entities:
     - type: Transform
       parent: 8364
       pos: 17.5,-66.5
-- proto: AtmosFixPlasmaMarker
-  entities:
-  - uid: 14723
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 26.5,-48.5
-  - uid: 14724
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 26.5,-47.5
-  - uid: 14727
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 27.5,-48.5
-  - uid: 15003
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 27.5,-47.5
-  - uid: 15318
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 27.5,-46.5
-  - uid: 15353
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 28.5,-47.5
-  - uid: 15374
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 28.5,-46.5
-  - uid: 15475
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 26.5,-46.5
-  - uid: 15476
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 28.5,-48.5
 - proto: Autolathe
   entities:
   - uid: 13406
@@ -182325,13 +182278,6 @@ entities:
     - type: Transform
       parent: 8364
       pos: 15.5,-63.5
-- proto: WarningPlasma
-  entities:
-  - uid: 22910
-    components:
-    - type: Transform
-      parent: 8364
-      pos: 25.5,-45.5
 - proto: WarningWaste
   entities:
   - uid: 22909

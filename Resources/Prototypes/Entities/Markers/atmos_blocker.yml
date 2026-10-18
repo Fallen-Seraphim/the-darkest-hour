@@ -50,40 +50,6 @@
       mode: 3
 
 - type: entity
-  name: Atmos Fix Plasma Marker
-  id: AtmosFixPlasmaMarker
-  description: "Plasma @ gas miner pressure, T20C"
-  parent: MarkerBase
-  components:
-    - type: Sprite
-      layers:
-        - sprite: Markers/atmos.rsi # {
-          state: base
-          shader: unshaded
-        - sprite: Markers/atmos.rsi
-          shader: unshaded # }
-          state: plasma
-    - type: AtmosFixMarker
-      mode: 4
-
-- type: entity
-  name: Atmos Fix Instant Plasmafire Marker
-  id: AtmosFixInstantPlasmaFireMarker
-  description: "INSTANT PLASMAFIRE"
-  parent: MarkerBase
-  components:
-    - type: Sprite
-      layers:
-        - sprite: Markers/atmos.rsi # {
-          state: base-hot
-          shader: unshaded
-        - sprite: Markers/atmos.rsi
-          shader: unshaded # }
-          state: fire
-    - type: AtmosFixMarker
-      mode: 5
-
-- type: entity
   name: Atmos Fix Freezer Marker
   id: AtmosFixFreezerMarker
   description: "Change air temp to 235K, for freezer with a bit of wiggle room to get set up."

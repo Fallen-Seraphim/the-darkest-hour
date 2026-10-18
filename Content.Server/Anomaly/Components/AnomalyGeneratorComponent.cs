@@ -37,7 +37,7 @@ public sealed partial class AnomalyGeneratorComponent : Component
     /// The material needed to generate an anomaly
     /// </summary>
     [DataField]
-    public ProtoId<MaterialPrototype> RequiredMaterial = "Plasma";
+    public ProtoId<MaterialPrototype> RequiredMaterial = "Uranium"; // DarkestHour: no plasma
 
     /// <summary>
     /// The amount of material needed to generate a single anomaly

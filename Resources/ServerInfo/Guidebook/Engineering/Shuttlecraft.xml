@@ -12,7 +12,6 @@
   <GuideEntityEmbed Entity="Gyroscope"/>
   <GuideEntityEmbed Entity="ComputerShuttle"/>
   <GuideEntityEmbed Entity="SubstationBasic"/>
-  <GuideEntityEmbed Entity="PortableGeneratorPacman" Caption="P.A.C.M.A.N." />
   </Box>
   <Box>
   <GuideEntityEmbed Entity="CableHVStack"/>
@@ -100,19 +99,7 @@
   ## Power
   Now that you have all the systems in place, you'll need to power them.
 
-  For small shuttles, a J.R.P.A.C.M.A.N.-type portable generator is a good choice. It provides straight LV power, so you don't have to worry about transformers.
-  Fuel for the generator is also commonly found in maintenance tunnels.
-
-  <Box HorizontalAlignment="Stretch">
-    <Box>
-      <GuideEntityEmbed Entity="PortableGeneratorJrPacman" Caption="J.R.P.A.C.M.A.N."/>
-    </Box>
-    <Box>
-      <GuideEntityEmbed Entity="WeldingFuelTankFull"/>
-    </Box>
-  </Box>
-
-  Some stations, however, provide much better generators and compact solutions like the Shuttle APU or the static generator.
+  Stations usually provide generators and compact solutions like the Shuttle APU or the static generator.
   These output HV and will have to be stepped down to MV and LV.
   Luckily, these stations also usually provide wallmount substation boards for this purpose.
 

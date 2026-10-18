@@ -492,40 +492,6 @@
 
 - type: entity
   parent: BaseScrapLarge
-  id: ScrapGeneratorPlasmaLeaking
-  name: leaking P.A.C.M.A.N. generator
-  description: An old looking P.A.C.M.A.N. generator whos plasma tanks started leaking.
-  components:
-  - type: Sprite
-    sprite: Objects/Materials/Scrap/generator.rsi
-    snapCardinals: true
-    layers:
-      - state: old_generator_plasma
-      - state: old_generator_plasma_fuel_leak
-  - type: PhysicalComposition
-    materialComposition:
-      Steel: 4000 # 40 sheets
-      Plasma: 2500 # 25 sheets
-      Plastic: 500 # 5 sheets
-
-- type: entity
-  parent: BaseScrapLarge
-  id: ScrapGeneratorPlasma
-  name: old P.A.C.M.A.N. generator
-  description: An old looking P.A.C.M.A.N. generator. It's in very poor condition and non functional.
-  components:
-  - type: Sprite
-    sprite: Objects/Materials/Scrap/generator.rsi
-    layers:
-      - state: old_generator_plasma
-  - type: PhysicalComposition
-    materialComposition:
-      Steel: 4000 # 40 sheets
-      Plasma: 1000 # 10 sheets
-      Plastic: 500 # 5 sheets
-
-- type: entity
-  parent: BaseScrapLarge
   id: ScrapGeneratorUraniumLeaking
   name: leaking S.U.P.E.R.P.A.C.M.A.N. generator
   description: A S.U.P.E.R.P.A.C.M.A.N. generator that appears to have had some kind of catastrophic failure. It's leaking uranium.

@@ -152,45 +152,6 @@
 
 - type: entity
   parent: ShardBase
-  id: ShardGlassPlasma
-  name: plasma glass shard
-  description: A small piece of plasma glass.
-  components:
-  - type: Sprite
-    color: "#FF72E7"
-  - type: MeleeWeapon
-    damage:
-      types:
-        Slash: 5.5
-  - type: ToolRefinable
-    refineResult:
-    - id: SheetGlass1
-    - id: SheetPlasma1
-  - type: PhysicalComposition
-    materialComposition:
-      Glass: 50
-      Plasma: 50
-  - type: DamageOnTrigger
-    damage:
-      types:
-        Piercing: 6.5
-  - type: Tag
-    tags:
-      - PlasmaGlassShard
-      - Trash
-  - type: Solution
-    solution:
-      reagents:
-      - ReagentId: Silicon
-        Quantity: 5
-      - ReagentId: Plasma
-        Quantity: 5
-  - type: Construction
-    graph: PlasmaShivConstruct
-    node: start
-
-- type: entity
-  parent: ShardBase
   id: ShardGlassUranium
   name: uranium glass shard
   description: A small piece of uranium glass.

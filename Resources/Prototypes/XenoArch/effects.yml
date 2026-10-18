@@ -59,8 +59,6 @@
       weight: 1
     - id: XenoArtifactRareMaterialSpawnSilver
       weight: 1.8 # amount is laughable
-    - id: XenoArtifactRareMaterialSpawnPlasma
-      weight: 2 # amount is laughable
     - id: XenoArtifactRareMaterialSpawnGold
       weight: 1.8 # amount is laughable
     - id: XenoArtifactRareMaterialSpawnUranium
@@ -119,8 +117,6 @@
       weight: 1
     - id: XenoArtifactBoom
       weight: 5
-    - id: XenoArtifactEffectCreationGasPlasma
-      weight: 2
     - id: XenoArtifactEffectCreationGasTritium
       weight: 2
     - id: XenoArtifactEffectCreationGasAmmonia
@@ -635,7 +631,6 @@
     replaceDescription: true
     reagents:
     - Oxygen
-    - Plasma
     - Blood
     - SpaceCleaner
     - Nutriment
@@ -781,29 +776,6 @@
         rolls: !type:ConstantNumberSelector
           value: 6
         prob: 0.7
-
-- type: entity
-  parent: BaseXenoArtifactEffect
-  id: XenoArtifactRareMaterialSpawnPlasma
-  description: Create plasma
-  components:
-  - type: XenoArtifactNode
-    maxDurability: 4
-    maxDurabilityCanDecreaseBy:
-      min: 0
-      max: 2
-  - type: XAEApplyComponents
-    applyIfAlreadyHave: true
-    refreshOnReactivate: true
-    components:
-    - type: EntityTableSpawner
-      deleteSpawnerAfterSpawn: false
-      autoStack: true
-      table:
-        id: PlasmaOre1
-        rolls: !type:ConstantNumberSelector
-          value: 6
-        prob: 0.3
 
 - type: entity
   parent: BaseXenoArtifactEffect
@@ -1018,7 +990,6 @@
     replaceDescription: true
     reagents:
     - Tritium
-    - Plasma
     - SulfuricAcid
     - SpaceDrugs
     - Nocturine
@@ -1298,15 +1269,6 @@
     intensitySlope: 2.5
     maxIntensity: 50
     repeatable: true
-
-- type: entity
-  parent: BaseXenoArtifactEffect
-  id: XenoArtifactEffectCreationGasPlasma
-  description: Expels plasma
-  components:
-  - type: XAECreateGas
-    gases:
-      Plasma: 300
 
 - type: entity
   parent: BaseXenoArtifactEffect

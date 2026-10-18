@@ -43,14 +43,6 @@
   price: 0.01 # it's paper bro what do you expect?
 
 - type: material
-  id: Plasma
-  stackEntity: SheetPlasma1
-  name: materials-plasma
-  icon: { sprite: Objects/Materials/Sheets/other.rsi, state: plasma }
-  color: "#7e009e"
-  price: 0.35 # $35 for 1 unit
-
-- type: material
   id: Plastic
   stackEntity: SheetPlastic1
   name: materials-plastic

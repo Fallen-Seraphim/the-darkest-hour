@@ -52,7 +52,6 @@
   The Singularity Engine produces power by capturing the radiation emitted by it using Radiation Collectors.
   <Box>
     <GuideEntityEmbed Entity="RadiationCollector"/>
-    <GuideEntityEmbed Entity="PlasmaTank"/>
   </Box>
   They require gaseous plasma to function. The plasma containers attached to the collectors must be filled with plasma to produce power.
 

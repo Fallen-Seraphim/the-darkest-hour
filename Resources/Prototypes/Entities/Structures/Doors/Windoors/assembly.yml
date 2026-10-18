@@ -49,28 +49,6 @@
 #plasma windoor assemblies
 - type: entity
   parent: WindoorAssembly
-  id: WindoorAssemblyPlasma
-  name: plasma windoor assembly
-  description: It opens, it closes, and you can see through it! This one looks purp-, no, pink. Wait...
-  components:
-  - type: Sprite
-    sprite: Structures/Doors/Windoors/plasma.rsi
-    layers:
-    - state: assembly
-  - type: Destructible
-    thresholds:
-    - trigger: *DamageDoorWeak
-      behaviors:
-      - !type:SpawnEntitiesBehavior
-        spawn:
-          SheetPGlass1: *BaseWindoorDrop
-  - type: Construction
-    graph: Windoor
-    node: pglass
-
-#uranium windoor assemblies
-- type: entity
-  parent: WindoorAssembly
   id: WindoorAssemblyUranium
   name: uranium windoor assembly
   description: It opens, it closes, and you can see through it! This one looks sickly green...

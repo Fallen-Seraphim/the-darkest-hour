@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 09/07/2026 17:40:39
-  entityCount: 352
+  entityCount: 351
 maps: []
 grids:
 - 407
@@ -2227,13 +2227,6 @@ entities:
       parent: 407
       pos: 5.5,2.5
   - uid: 140
-    components:
-    - type: Transform
-      parent: 407
-      pos: 11.5,-8.5
-- proto: WarningPlasma
-  entities:
-  - uid: 395
     components:
     - type: Transform
       parent: 407

@@ -67,12 +67,6 @@
       maxGroupSize: 12
     - !type:OreDunGen
       replacement: IronRock
-      entity: IronRockPlasma
-      count: 35
-      minGroupSize: 4
-      maxGroupSize: 8
-    - !type:OreDunGen
-      replacement: IronRock
       entity: IronRockUranium
       count: 35
       minGroupSize: 4

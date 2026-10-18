@@ -43,7 +43,8 @@
     sprite: /Textures/Effects/atmospherics.rsi
     state: plasma
   color: '#FF3300'
-  reagent: Plasma
+  # DarkestHour: плазмы в игре нет. Слот газа оставлен, потому что набор газов зашит в код атмосферы
+  # (enum Gas); источников газа нет, реагент удалён. Позже слот можно переделать под топливо двигателей.
   pricePerMole: 0
   isFuel: true
 

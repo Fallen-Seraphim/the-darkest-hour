@@ -37,30 +37,30 @@
 
   ## Plasma/Uranium Glass
   <Box>
-    <GuideEntityEmbed Entity="PlasmaWindow" Caption=""/>
-    <GuideEntityEmbed Entity="PlasmaWindowDirectional" Caption=""/>
-    <GuideEntityEmbed Entity="WindoorPlasma" Caption=""/>
+    <GuideEntityEmbed Entity="UraniumWindow" Caption=""/>
+    <GuideEntityEmbed Entity="UraniumWindowDirectional" Caption=""/>
+    <GuideEntityEmbed Entity="WindoorUranium" Caption=""/>
     <GuideEntityEmbed Entity="UraniumWindow" Caption=""/>
     <GuideEntityEmbed Entity="UraniumWindowDirectional" Caption=""/>
     <GuideEntityEmbed Entity="WindoorUranium" Caption=""/>
   </Box>
 
-  Plasma glass and uranium glass can withstand a ΔP of up to [color=orange][protodata="PlasmaWindow" comp="DeltaPressure" member="MinPressureDelta"/] kPa[/color] before starting to crack.
+  Uranium glass can withstand a ΔP of up to [color=orange][protodata="UraniumWindow" comp="DeltaPressure" member="MinPressureDelta"/] kPa[/color] before starting to crack.
 
-  Plasma and uranium quarter-size glass can withstand a ΔP of up to [color=orange][protodata="PlasmaWindowDirectional" comp="DeltaPressure" member="MinPressureDelta"/] kPa[/color] before starting to crack.
+  Uranium quarter-size glass can withstand a ΔP of up to [color=orange][protodata="UraniumWindowDirectional" comp="DeltaPressure" member="MinPressureDelta"/] kPa[/color] before starting to crack.
 
   ## Reinforced Plasma/Uranium Glass
 
   <Box>
-    <GuideEntityEmbed Entity="ReinforcedPlasmaWindow" Caption=""/>
-    <GuideEntityEmbed Entity="PlasmaReinforcedWindowDirectional" Caption=""/>
+    <GuideEntityEmbed Entity="ReinforcedUraniumWindow" Caption=""/>
+    <GuideEntityEmbed Entity="UraniumReinforcedWindowDirectional" Caption=""/>
     <GuideEntityEmbed Entity="ReinforcedUraniumWindow" Caption=""/>
     <GuideEntityEmbed Entity="UraniumReinforcedWindowDirectional" Caption=""/>
 
   </Box>
 
-  Reinforced plasma glass and uranium glass can withstand a ΔP of up to [color=orange][protodata="ReinforcedPlasmaWindow" comp="DeltaPressure" member="MinPressureDelta"/] kPa[/color] before starting to crack.
+  Reinforced uranium glass can withstand a ΔP of up to [color=orange][protodata="ReinforcedUraniumWindow" comp="DeltaPressure" member="MinPressureDelta"/] kPa[/color] before starting to crack.
 
-  Reinforced plasma and uranium quarter-size glass can withstand a ΔP of up to [color=orange][protodata="PlasmaReinforcedWindowDirectional" comp="DeltaPressure" member="MinPressureDelta"/] kPa[/color] before starting to crack.
+  Reinforced uranium quarter-size glass can withstand a ΔP of up to [color=orange][protodata="UraniumReinforcedWindowDirectional" comp="DeltaPressure" member="MinPressureDelta"/] kPa[/color] before starting to crack.
 
 </Document>

@@ -1053,9 +1053,6 @@
   id: OreGold # CargoBounty: BountySalvageOreGold
 
 - type: Tag
-  id: OrePlasma # CargoBounty: BountySalvageOrePlasma
-
-- type: Tag
   id: OreSilver # CargoBounty: BountySalvageOreSilver
 
 - type: Tag
@@ -1129,9 +1126,6 @@
 
 - type: Tag
   id: PlantBGone # Storage whitelist: ClothingBeltPlant. ItemMapper: ClothingBeltPlant
-
-- type: Tag
-  id: PlasmaGlassShard # ConstructionGraph: ImprovisedArrowPlasma, PlasmaShiv, SpearPlasma
 
 - type: Tag
   id: Plastic # Used by MicrowaveSystem to turn tagged entities into trash.
@@ -1569,9 +1563,6 @@
 
 - type: Tag
   id: Windoor # Used in ConstructionGraph "Windoor" to navigate between Windoor, PlasmaWindoor, and UraniumWindoor airlocks.
-
-- type: Tag
-  id: WindoorPlasma # Used in ConstructionGraph "Windoor" to navigate between Windoor, PlasmaWindoor, and UraniumWindoor airlocks.
 
 - type: Tag
   id: WindoorUranium # Used in ConstructionGraph "Windoor" to navigate between Windoor, PlasmaWindoor, and UraniumWindoor airlocks.

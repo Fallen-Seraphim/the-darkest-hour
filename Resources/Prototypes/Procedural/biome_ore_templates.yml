@@ -82,20 +82,6 @@
 # High value
 # Plasma
 - type: biomeMarkerLayer
-  id: OrePlasma
-  entityMask:
-    AsteroidRock: AsteroidRockPlasma
-    WallRock: WallRockPlasma
-    WallRockChromite: WallRockChromitePlasma
-    WallRockSand: WallRockSandPlasma
-    WallRockSnow: WallRockSnowPlasma
-  maxCount: 12
-  minGroupSize: 4
-  maxGroupSize: 8
-  radius: 4
-
-# Uranium
-- type: biomeMarkerLayer
   id: OreUranium
   entityMask:
     AsteroidRock: AsteroidRockUranium

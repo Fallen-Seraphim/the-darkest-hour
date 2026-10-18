@@ -71,7 +71,7 @@
     totalIntensity: 30
     canCreateVacuum: false
   - type: Damageable
-    damageModifierSet: GlassPlasmaMod
+    damageModifierSet: Glass # DarkestHour: нет плазмы
   - type: Destructible
     thresholds:
     - trigger:
@@ -282,7 +282,7 @@
       tags:
         - Sheet
     materialWhiteList:
-    - Plasma
+    - Uranium # DarkestHour: нет плазмы
   - type: OreSiloClient
   - type: Fixtures
     fixtures:

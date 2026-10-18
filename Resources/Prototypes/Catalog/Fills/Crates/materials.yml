@@ -82,17 +82,6 @@
         id: SheetPlasteel
 
 - type: entity
-  parent: CratePlasma
-  id: CrateMaterialPlasma
-  name: solid plasma crate
-  description: 30 sheets of plasma.
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      entity_storage:
-        id: SheetPlasma
-
-- type: entity
   parent: CrateGenericSteel
   id: CrateMaterialGold
   name: gold crate
@@ -164,7 +153,6 @@
     - !type:GroupSelector # tertiary materials, singles
       weight: 5
       children:
-      - id: SheetPlasma1
       - id: SheetUranium1
       - id: IngotGold1
       - id: IngotSilver1
