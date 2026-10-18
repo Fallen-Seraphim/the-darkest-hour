@@ -46,6 +46,13 @@ namespace Content.Shared.Research.Prototypes
         public Dictionary<ProtoId<ReagentPrototype>, FixedPoint2>? ResultReagents;
 
         /// <summary>
+        ///     DarkestHour: materials produced by this recipe, deposited directly into the lathe's material storage.
+        ///     Ported from Monolith (AGPL-3.0). Used by the uranium enrichment centrifuge.
+        /// </summary>
+        [DataField]
+        public Dictionary<ProtoId<MaterialPrototype>, int>? MaterialResult;
+
+        /// <summary>
         ///     An entity whose sprite is displayed in the ui in place of the actual recipe result.
         /// </summary>
         [DataField]

@@ -1,0 +1,144 @@
+# Ported from Monolith (Resources/Prototypes/_Mono/Entities/Materials/materials.yml, AGPL-3.0).
+# DarkestHour: Mono-only components removed (ChainRadiation, ThermalSignature, PassiveThermalSignature),
+# fissile uranium renamed to enriched uranium in texts.
+
+- type: material
+  id: UraniumFissile
+  stackEntity: SheetUraniumFissile1
+  name: materials-uraniumfissile
+  unit: materials-unit-sheet
+  icon: { sprite: /Textures/_Mono/Objects/Materials/fissiles.rsi, state: uranium }
+  color: "#8a8568"
+  price: 50 # DarkestHour: Mono 250 -> scaled to vanilla prices (5000 per sheet)
+  properties:
+    electrical: 4
+    thermal: 3
+    hard: 5
+    density: 7
+    chemical: 6
+    radioactive: 9
+    n_radioactive: 8
+
+- type: entity
+  parent: MaterialBase
+  id: SheetUraniumFissile
+  name: enriched uranium
+  description: Ingots of enriched uranium, ready to be made into reactor fuel. Don't keep them close together.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: /Textures/_Mono/Objects/Materials/fissiles.rsi
+    state: uranium_3
+    layers:
+    - state: uranium_3
+      map: ["base"]
+  - type: Tag
+    tags:
+    - Sheet
+  - type: Item
+    sprite: /Textures/_Mono/Objects/Materials/fissiles.rsi
+    inhandVisuals:
+      left:
+      - state: uranium-inhand-left
+      right:
+      - state: uranium-inhand-right
+  - type: Stack
+    stackType: UraniumFissile
+    count: 5
+    baseLayer: base
+    layerStates:
+    - uranium
+    - uranium_2
+    - uranium_3
+  - type: Material
+  - type: RadiationSource
+    intensity: 1.2
+    slope: 10
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      UraniumFissile: 100
+  - type: PointLight
+    color: "#8a8568"
+    radius: 2
+    energy: 1
+  - type: DamageOnLand
+    damage:
+      types:
+        Radiation: 5
+
+- type: entity
+  parent: SheetUraniumFissile
+  id: SheetUraniumFissile1
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: material
+  id: UraniumDepleted
+  stackEntity: SheetUraniumDepleted1
+  name: materials-uraniumdepleted
+  unit: materials-unit-sheet
+  icon: { sprite: /Textures/_Mono/Objects/Materials/fissiles.rsi, state: depleted }
+  color: "#14211d"
+  price: 0.3 # DarkestHour: Mono 20 -> scaled to vanilla prices
+  properties:
+    electrical: 4
+    thermal: 3
+    hard: 12
+    density: 12
+    chemical: 6
+    radioactive: 1
+    n_radioactive: 1
+
+- type: entity
+  parent: MaterialBase
+  id: SheetUraniumDepleted
+  name: depleted uranium
+  description: Ingots of dense and ridiculously heavy depleted uranium, no longer fissile.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: /Textures/_Mono/Objects/Materials/fissiles.rsi
+    state: depleted_3
+    layers:
+    - state: depleted_3
+      map: ["base"]
+  - type: Tag
+    tags:
+    - Sheet
+  - type: Item
+    sprite: /Textures/_Mono/Objects/Materials/fissiles.rsi
+    size: Ginormous
+    inhandVisuals:
+      left:
+      - state: depleted-inhand-left
+      right:
+      - state: depleted-inhand-right
+  - type: MultiHandedItem
+  - type: ClothingSpeedModifier
+    walkModifier: 0.6
+    sprintModifier: 0.6
+  - type: HeldSpeedModifier
+  - type: Stack
+    stackType: UraniumDepleted
+    count: 5
+    baseLayer: base
+    layerStates:
+    - depleted
+    - depleted_2
+    - depleted_3
+  - type: Material
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      UraniumDepleted: 100
+
+- type: entity
+  parent: SheetUraniumDepleted
+  id: SheetUraniumDepleted1
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1

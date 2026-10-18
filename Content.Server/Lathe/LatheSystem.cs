@@ -142,6 +142,16 @@ namespace Content.Server.Lathe
                         materialWhitelist.Add(mat);
                     }
                 }
+
+                // DarkestHour: materials produced by the recipe must be storable too (ported from Monolith)
+                if (proto.MaterialResult is { } materialResult)
+                {
+                    foreach (var (mat, _) in materialResult)
+                    {
+                        if (!materialWhitelist.Contains(mat))
+                            materialWhitelist.Add(mat);
+                    }
+                }
             }
 
             var combined = args.Whitelist.Union(materialWhitelist).ToList();
@@ -235,6 +245,15 @@ namespace Content.Server.Lathe
                 {
                     var result = Spawn(resultProto, Transform(uid).Coordinates);
                     _stack.TryMergeToContacts(result);
+                }
+
+                // DarkestHour: materials produced by the recipe go straight into the lathe storage (ported from Monolith)
+                if (currentRecipe.MaterialResult is { } materialResult)
+                {
+                    foreach (var (mat, amount) in materialResult)
+                    {
+                        _materialStorage.TryChangeMaterialAmount(uid, mat, amount);
+                    }
                 }
 
                 if (currentRecipe.ResultReagents is { } resultReagents &&

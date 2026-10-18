@@ -1,0 +1,4 @@
+- files: ["base.png","control.png","fuel.png","gas.png","heat.png"]
+  license: "CC-BY-NC-SA-3.0"
+  copyright: "Taken from goonstation and adapted by Jhrushbe for Far Horizons; ported to The Darkest Hour via Monolith"
+  source: "https://github.com/goonstation/goonstation"

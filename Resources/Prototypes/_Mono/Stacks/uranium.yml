@@ -1,0 +1,14 @@
+# Ported from Monolith (Resources/Prototypes/_Mono/Stacks/Materials/Sheets/sheets.yml, AGPL-3.0).
+- type: stack
+  id: UraniumFissile
+  name: stack-uranium-fissile
+  icon: { sprite: /Textures/_Mono/Objects/Materials/fissiles.rsi, state: uranium }
+  spawn: SheetUraniumFissile1
+  maxCount: 5
+
+- type: stack
+  id: UraniumDepleted
+  name: stack-uranium-depleted
+  icon: { sprite: /Textures/_Mono/Objects/Materials/fissiles.rsi, state: depleted }
+  spawn: SheetUraniumDepleted1
+  maxCount: 5
