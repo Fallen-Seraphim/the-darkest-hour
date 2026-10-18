@@ -139,7 +139,7 @@
 - type: loadout
   id: SecurityPDA
   equipment:
-    id: SecurityPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (SecurityPDA)
 
 - type: loadout
   id: SeniorOfficerPDA
@@ -147,4 +147,4 @@
   - !type:GroupLoadoutEffect
     proto: SeniorOfficer
   equipment:
-    id: SeniorOfficerPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (SeniorOfficerPDA)

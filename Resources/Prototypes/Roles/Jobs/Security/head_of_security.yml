@@ -43,7 +43,7 @@
   id: HoSGear
   equipment:
     eyes: ClothingEyesGlassesSecurity
-    id: HoSPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (HoSPDA)
     gloves: ClothingHandsGlovesCombat
     ears: ClothingHeadsetAltSecurity
     pocket1: WeaponPistolMk58

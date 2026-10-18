@@ -26,7 +26,7 @@
   id: DetectiveGear
   equipment:
     eyes: ClothingEyesGlassesSecurity
-    id: DetectivePDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (DetectivePDA)
     ears: ClothingHeadsetSecurity
     belt: ClothingBeltHolsterFilled
   storage:

@@ -15,7 +15,7 @@
   id: ReporterGear
   equipment:
     shoes: ClothingShoesColorWhite
-    id: ReporterPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (ReporterPDA)
     ears: ClothingHeadsetService
   #storage:
     #back:

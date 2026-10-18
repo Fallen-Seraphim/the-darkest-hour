@@ -20,7 +20,7 @@
   id: JanitorGear
   equipment:
     shoes: ClothingShoesGaloshes
-    id: JanitorPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (JanitorPDA)
     ears: ClothingHeadsetService
     belt: ClothingBeltJanitorFilled
   #storage:
@@ -31,7 +31,7 @@
   id: JanitorMaidGear
   equipment:
     jumpsuit: ClothingUniformJumpskirtJanimaid
-    id: JanitorPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (JanitorPDA)
     gloves: ClothingHandsGlovesJanitor
     head: ClothingHeadHatCatEars
     ears: ClothingHeadsetService

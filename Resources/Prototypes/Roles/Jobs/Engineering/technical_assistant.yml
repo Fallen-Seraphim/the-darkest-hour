@@ -23,7 +23,7 @@
   id: TechnicalAssistantGear
   equipment:
     shoes: ClothingShoesBootsWork
-    id: TechnicalAssistantPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (TechnicalAssistantPDA)
     belt: ClothingBeltUtilityEngineering
     ears: ClothingHeadsetEngineering
     pocket2: BookEngineersHandbook

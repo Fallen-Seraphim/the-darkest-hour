@@ -23,7 +23,7 @@
   id: ServiceWorkerGear
   equipment:
     shoes: ClothingShoesColorBlack
-    id: ServiceWorkerPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (ServiceWorkerPDA)
     ears: ClothingHeadsetService
   #storage:
     #back:

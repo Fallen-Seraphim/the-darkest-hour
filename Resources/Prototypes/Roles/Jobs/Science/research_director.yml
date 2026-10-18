@@ -31,7 +31,7 @@
 - type: startingGear
   id: ResearchDirectorGear
   equipment:
-    id: RnDPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (RnDPDA)
     ears: ClothingHeadsetRD
   storage:
     back:

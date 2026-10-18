@@ -28,7 +28,7 @@
     mask: ClothingMaskClown
     pocket1: BikeHorn
     pocket2: ClownRecorder
-    id: ClownPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (ClownPDA)
     ears: ClothingHeadsetService
   inhand:
   - FoolboxFilled

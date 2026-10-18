@@ -39,7 +39,7 @@
     shoes: ClothingShoesBootsLaceup
     eyes: ClothingEyesGlassesCommand
     gloves: ClothingHandsGlovesCaptain
-    id: CaptainPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (CaptainPDA)
     ears: ClothingHeadsetAltCommand
   storage:
     back:

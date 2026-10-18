@@ -25,7 +25,7 @@
   id: AtmosphericTechnicianGear
   equipment:
     eyes: ClothingEyesGlassesMeson
-    id: AtmosPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (AtmosPDA)
     belt: ClothingBeltUtilityEngineering
     ears: ClothingHeadsetEngineering
   #storage:

@@ -32,7 +32,7 @@
   id: WardenGear
   equipment:
     eyes: ClothingEyesGlassesSecurity
-    id: WardenPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (WardenPDA)
     ears: ClothingHeadsetSecurity
     pocket1: WeaponPistolMk58
   storage:

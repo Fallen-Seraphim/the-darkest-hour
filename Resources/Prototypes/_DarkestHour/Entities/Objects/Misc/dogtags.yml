@@ -1,0 +1,21 @@
+# DarkestHour: dog tags replace ID cards. Name, job and access are filled from the job on spawn
+# (StationSpawningSystem.SetPdaAndIdCardData works with any IdCard in the "id" slot).
+- type: entity
+  parent: CMIDCardStandardDogtag
+  id: DHDogtags
+  components:
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+  - type: StealTarget
+    stealGroup:
+    - IDCard
+
+# For mapping and admin testing: tags with a preset job.
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsPassenger
+  suffix: Passenger
+  components:
+  - type: PresetIdCard
+    job: Passenger

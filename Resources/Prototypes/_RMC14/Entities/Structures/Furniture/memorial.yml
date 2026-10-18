@@ -1,0 +1,52 @@
+# Ported from RMC-14 (MIT): Resources/Prototypes/_RMC14/Entities/Structures/Furniture/memorial.yml
+# DarkestHour: only the dogtag memorial is ported; RMC-only components removed, texts rewritten for the setting.
+- type: entity
+  parent: Memorial
+  id: CMMemorialBase
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Furniture/memorial.rsi
+    state: ship_memorial
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.50,-0.10,0.50,0.50"
+        density: 85
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+
+- type: entity
+  parent: CMMemorialBase
+  id: CMMemorial
+  name: memorial slab
+  description: A slab dedicated to the crew who gave their lives aboard this station. Dog tags of the fallen can be added to it.
+  components:
+  - type: RMCMemorial
+
+- type: entity
+  parent: CMMemorial
+  id: RMCMemorialWall
+  suffix: Wall
+  components:
+  - type: Sprite
+    state: ship_memorial_wall
+    offset: 0.5,0
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb {}
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+  - type: WallMount
+    arc: 360
+  - type: Physics
+    bodyType: Static
+    canCollide: false

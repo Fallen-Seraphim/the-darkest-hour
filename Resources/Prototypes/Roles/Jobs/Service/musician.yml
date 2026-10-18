@@ -20,7 +20,7 @@
   equipment:
     eyes: ClothingEyesGlassesSunglasses
     shoes: ClothingShoesBootsLaceup
-    id: MusicianPDA
+    id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (MusicianPDA)
     ears: ClothingHeadsetService
   #storage:
     #back:
