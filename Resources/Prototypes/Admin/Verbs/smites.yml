@@ -661,32 +661,6 @@
     force: true
 
 - type: adminVerb
-  id: AdminSmiteReptilian
-  categoryPrototype: Smite
-  name: admin-smite-reptilian-species-swap-name
-  description: admin-smite-reptilian-species-swap-description
-  icon:
-    sprite: Objects/Fun/Plushies/lizard.rsi
-    state: icon
-  effects:
-  - !type:Polymorph
-    prototype: AdminLizardSmite
-    force: true
-
-- type: adminVerb
-  id: AdminSmiteVulpkanin
-  categoryPrototype: Smite
-  name: admin-smite-vulpkanin-species-swap-name
-  description: admin-smite-vulpkanin-species-swap-description
-  icon:
-    sprite: Objects/Fun/Balls/tennisball.rsi
-    state: icon
-  effects:
-  - !type:Polymorph
-    prototype: AdminVulpSmite
-    force: true
-
-- type: adminVerb
   id: AdminSmiteRemoveHands
   categoryPrototype: Smite
   name: admin-smite-remove-hands-name
