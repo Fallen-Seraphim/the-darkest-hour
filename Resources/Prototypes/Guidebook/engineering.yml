@@ -316,7 +316,6 @@
   name: guide-entry-generators
   text: "/ServerInfo/Guidebook/Engineering/Generators.xml"
   children:
-  - PortableGenerator
   - AME
   - SingularityTeslaEngine
   - TEG
@@ -355,11 +354,6 @@
   id: RTG
   name: guide-entry-rtg
   text: "/ServerInfo/Guidebook/Engineering/RTG.xml"
-
-- type: guideEntry
-  id: PortableGenerator
-  name: guide-entry-portable-generator
-  text: "/ServerInfo/Guidebook/Engineering/PortableGenerator.xml"
 
 - type: guideEntry
   id: SolarPanels

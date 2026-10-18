@@ -175,21 +175,6 @@
     tags: *TagVial
 
 - type: entity
-  parent: ChemistryEmptyVialSmall
-  id: PlasmaChemistryVial
-  suffix: plasma
-  components:
-  - type: Label
-    localizedLabel: reagent-name-plasma
-  - type: Solution
-    solution:
-      reagents:
-      - ReagentId: Plasma
-        Quantity: 15
-  - type: Tag
-    tags: *TagVial
-
-- type: entity
   parent: ChemistryEmptyAmpoule
   id: XenoborgOilChemistryAmpoule
   suffix: xenoborg oil

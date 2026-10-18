@@ -101,14 +101,6 @@
       spawnGas: CarbonDioxide
 
 - type: entity
-  name: plasma gas miner
-  parent: GasMinerBase
-  id: GasMinerPlasma
-  components:
-    - type: GasMiner
-      spawnGas: Plasma
-
-- type: entity
   name: tritium gas miner
   parent: GasMinerBase
   id: GasMinerTritium

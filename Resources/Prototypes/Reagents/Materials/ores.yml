@@ -43,15 +43,6 @@
   price: 0.15
 
 - type: material
-  id: RawPlasma
-  stackEntity: PlasmaOre1
-  name: materials-raw-plasma
-  unit: materials-unit-chunk
-  icon: { sprite: Objects/Materials/ore.rsi, state: plasma }
-  color: "#7e009e"
-  price: 0.2
-
-- type: material
   id: RawUranium
   stackEntity: UraniumOre1
   name: materials-raw-uranium

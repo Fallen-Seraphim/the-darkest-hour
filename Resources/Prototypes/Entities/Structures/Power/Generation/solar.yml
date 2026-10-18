@@ -55,42 +55,6 @@
     - SolarPanels
 
 - type: entity
-  parent: [ SolarPanelBasePhysSprite, StructureHealthMachine ]
-  id: SolarPanelPlasma
-  name: solar panel plasma
-  description: A few sheets of plasma glass that generate electricity when hit by photons.
-  components:
-  - type: PowerSupplier
-    supplyRampTolerance: 500
-    supplyRampRate: 500
-  - type: SolarPanel
-    maxSupply: 1000
-  - type: Sprite
-    sprite: Structures/Power/Generation/solar_panel.rsi
-    state: solar_panel_plasma
-  - type: Damageable
-    damageModifierSet: GlassPlasmaMod
-  - type: Destructible
-    thresholds:
-    - trigger: &DamageMachineNormal # Excess damage, don't spawn entities
-        !type:DamageTrigger
-        damage: 175
-      behaviors:
-      - &SoundGlassBreak !type:PlaySoundBehavior
-        sound:
-          collection: GlassBreak
-    - trigger:
-        !type:DamageTrigger
-        damage: 75
-      behaviors:
-      - *SoundGlassBreak
-      - !type:ChangeConstructionNodeBehavior
-        node: solarpanelplasma_broken
-  - type: Construction
-    graph: SolarPanel
-    node: solarpanelplasma
-
-- type: entity
   parent: [ SolarPanelBasePhysSprite, StructureHealthMachineStrong ]
   id: SolarPanelUranium
   name: solar panel uranium
@@ -112,7 +76,9 @@
         !type:DamageTrigger
         damage: 275
       behaviors:
-      - *SoundGlassBreak
+      - &SoundGlassBreak !type:PlaySoundBehavior # DarkestHour: якорь перенесён из удалённой плазменной панели
+        sound:
+          collection: GlassBreak
     - trigger:
         !type:DamageTrigger
         damage: 175
@@ -183,32 +149,6 @@
   - type: Construction
     graph: SolarPanel
     node: solarpanel_broken
-
-- type: entity
-  parent: [ SolarPanelBasePhysSprite, StructureHealthMachineFlimsy ]
-  id: SolarPanelPlasmaBroken
-  name: plasma solar panel
-  description: A broken plasma solar panel.
-  suffix: Broken
-  components:
-  - type: Sprite
-    state: solar_panel_plasma_broken
-  - type: Damageable
-    damageModifierSet: SteelMod
-  - type: Destructible
-    thresholds:
-    - trigger: *DamageMachineFlimsy
-      behaviors:
-      - *SoundGlassBreak
-      - *ChangeNodeAssembly
-      - !type:SpawnEntitiesBehavior
-        spawn:
-          ShardGlassPlasma:
-            min: 1
-            max: 2
-  - type: Construction
-    graph: SolarPanel
-    node: solarpanelplasma_broken
 
 - type: entity
   parent: [ SolarPanelBasePhysSprite, StructureHealthMachineFlimsy ]
@@ -317,7 +257,9 @@
     damageModifierSet: GlassMod
   - type: Destructible
     thresholds:
-    - trigger: *DamageMachineNormal
+    - trigger: &DamageMachineNormal
+        !type:DamageTrigger
+        damage: 175
       behaviors:
       - *SoundGlassBreak
       - *ChangeNodeAssembly

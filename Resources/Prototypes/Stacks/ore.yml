@@ -23,13 +23,6 @@
 
 - type: stack
   parent: BaseMediumStack
-  id: PlasmaOre
-  name: stack-plasma-ore
-  icon: { sprite: /Textures/Objects/Materials/ore.rsi, state: plasma }
-  spawn: PlasmaOre1
-
-- type: stack
-  parent: BaseMediumStack
   id: SilverOre
   name: stack-silver-ore
   icon: { sprite: /Textures/Objects/Materials/ore.rsi, state: silver }

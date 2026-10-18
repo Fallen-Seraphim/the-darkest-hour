@@ -76,12 +76,6 @@
               amount: 1
               doAfter: 1
 
-        - to: TablePlasmaGlass
-          steps:
-            - material: PlasmaGlass
-              amount: 1
-              doAfter: 1
-
         - to: TableBrass
           steps:
             - material: Brass
@@ -187,18 +181,6 @@
           completed:
             - !type:SpawnPrototype
               prototype: SheetRGlass1
-              amount: 1
-          steps:
-            - tool: Anchoring
-              doAfter: 1
-
-    - node: TablePlasmaGlass
-      entity: TablePlasmaGlass
-      edges:
-        - to: TableFrame
-          completed:
-            - !type:SpawnPrototype
-              prototype: SheetPGlass1
               amount: 1
           steps:
             - tool: Anchoring

@@ -1206,15 +1206,6 @@
 
 - type: entity
   parent: BaseSign
-  id: WarningPlasma
-  name: plasma waste sign
-  description: WARNING! Plasma flow tube. Ensure the flow is disengaged before working.
-  components:
-  - type: Sprite
-    state: atmos_plasma
-
-- type: entity
-  parent: BaseSign
   id: WarningTritium
   name: tritium waste sign
   description: WARNING! Tritium flow tube. Ensure the flow is disengaged before working.

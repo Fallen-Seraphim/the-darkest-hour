@@ -14,20 +14,6 @@
 
 - type: stack
   parent: BaseSheetStack
-  id: PlasmaGlass
-  name: stack-plasma-glass
-  icon: { sprite: /Textures/Objects/Materials/Sheets/glass.rsi, state: pglass }
-  spawn: SheetPGlass1
-
-- type: stack
-  parent: BaseSheetStack
-  id: ReinforcedPlasmaGlass
-  name: stack-reinforced-plasma-glass
-  icon: { sprite: /Textures/Objects/Materials/Sheets/glass.rsi, state: rpglass }
-  spawn: SheetRPGlass1
-
-- type: stack
-  parent: BaseSheetStack
   id: UraniumGlass
   name: stack-uranium-glass
   icon: { sprite: /Textures/Objects/Materials/Sheets/glass.rsi, state: uglass }

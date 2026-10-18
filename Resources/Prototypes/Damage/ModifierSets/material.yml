@@ -160,45 +160,6 @@
 
 # Halfway between plasma and glass.
 - type: damageModifierSet
-  id: GlassPlasmaMod
-  coefficients:
-    Blunt: 1.5
-    Piercing: 1.5
-    Heat: 0.7
-    Cold: 1.3
-    Shock: 1.3
-  flatReductions:
-    Blunt: 3
-    Slash: 3
-    Heat: 30
-    Cold: 20
-    Shock: 20
-    Caustic: 20
-
-# Halfway between reinforced glass and plasma.
-- type: damageModifierSet
-  id: GlassReinforcedPlasmaMod
-  coefficients:
-    Blunt: 1.3
-    Piercing: 1.2
-    Heat: 0.8
-    Cold: 1.3
-    Shock: 1.3
-  flatReductions:
-    Blunt: 8
-    Slash: 8
-    Piercing: 10
-    Heat: 30
-    Cold: 20
-    Shock: 20
-    Caustic: 20
-    Structural: 3
-
-#endregion
-#region Organic
-## Poor resistances with specific, obvious weaknesses.
-
-- type: damageModifierSet
   id: CardboardMod
   coefficients:
     Blunt: 1.5
@@ -264,19 +225,6 @@
     Caustic: 10
 
 # A weird space rock which fills gaps for unusual weaknesses.
-- type: damageModifierSet
-  id: PlasmaMod
-  coefficients:
-    Piercing: 2
-    Cold: 2
-    Shock: 2
-  flatReductions:
-    Blunt: 10
-    Slash: 10
-    Heat: 10
-    Caustic: 10
-
-# The least durable material in the universe. You'd need to be some sort of clown to build with this :o)
 - type: damageModifierSet
   id: BananiumMod
   coefficients:

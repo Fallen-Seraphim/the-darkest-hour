@@ -13,44 +13,6 @@
               amount: 1
             - material: MetalRod
               amount: 1
-        - to: SheetPGlass
-          completed:
-            - !type:SetStackCount
-              amount: 1
-          steps:
-            - material: Glass
-              amount: 1
-            - material: Plasma
-              amount: 1
-        - to: SheetRPGlass
-          completed:
-            - !type:SetStackCount
-              amount: 1
-          steps:
-            - material: Glass
-              amount: 1
-            - material: Plasma
-              amount: 1
-            - material: MetalRod
-              amount: 1
-        - to: SheetRPGlass0
-          completed:
-            - !type:SetStackCount
-              amount: 1
-          steps:
-            - material: PlasmaGlass
-              amount: 1
-            - material: MetalRod
-              amount: 1
-        - to: SheetRPGlass1
-          completed:
-            - !type:SetStackCount
-              amount: 1
-          steps:
-            - material: ReinforcedGlass
-              amount: 1
-            - material: Plasma
-              amount: 1
         - to: SheetUGlass
           completed:
             - !type:SetStackCount
@@ -107,18 +69,6 @@
 
     - node: SheetRGlass
       entity: SheetRGlass
-
-    - node: SheetPGlass
-      entity: SheetPGlass
-
-    - node: SheetRPGlass
-      entity: SheetRPGlass
-
-    - node: SheetRPGlass0
-      entity: SheetRPGlass
-
-    - node: SheetRPGlass1
-      entity: SheetRPGlass
 
     - node: SheetUGlass
       entity: SheetUGlass

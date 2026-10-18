@@ -105,39 +105,6 @@
 
 - type: entity
   parent: OreBase
-  id: PlasmaOre
-  name: plasma ore
-  suffix: Full
-  components:
-  - type: Stack
-    stackType: PlasmaOre
-  - type: Sprite
-    state: plasma
-  - type: PhysicalComposition
-    materialComposition:
-      RawPlasma: 100
-  - type: PointLight
-    radius: 1.2
-    energy: 0.6
-    castShadows: false
-    color: "#e592e7"
-  - type: Item
-    heldPrefix: plasma
-  - type: Tag
-    tags:
-    - Ore
-    - OrePlasma
-
-- type: entity
-  parent: PlasmaOre
-  id: PlasmaOre1
-  suffix: Single
-  components:
-    - type: Stack
-      count: 1
-
-- type: entity
-  parent: OreBase
   id: SilverOre
   name: silver ore
   suffix: Full

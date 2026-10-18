@@ -67,33 +67,6 @@
 ### Metal doors ###
 - type: entity
   parent: [ BaseMaterialDoorNavMap, StructureHealthDoorWeak ]
-  id: PlasmaDoor
-  name: plasma door
-  components:
-  - type: Sprite
-    sprite: Structures/Doors/MaterialDoors/plasma-door.rsi
-  - type: Construction
-    graph: DoorGraph
-    node: plasmaDoor
-  - type: Damageable
-    damageModifierSet: PlasmaMod
-  - type: Destructible
-    thresholds:
-    - trigger: &DamageDoorWeak
-        !type:DamageTrigger
-        damage: 100
-      behaviors:
-      - &SoundMetalBreak !type:PlaySoundBehavior
-        sound:
-          collection: MetalBreak
-      - !type:SpawnEntitiesBehavior
-        spawn:
-          SheetPlasma1: &BaseDoorSpawn
-            min: 3
-            max: 5
-
-- type: entity
-  parent: [ BaseMaterialDoorNavMap, StructureHealthDoorWeak ]
   id: GoldDoor
   name: gold door
   components:
@@ -106,12 +79,18 @@
     damageModifierSet: PreciousMetalMod
   - type: Destructible
     thresholds:
-    - trigger: *DamageDoorWeak
+    - trigger: &DamageDoorWeak # DarkestHour: якорь перенесён из удалённой плазменной двери
+        !type:DamageTrigger
+        damage: 100
       behaviors:
-      - *SoundMetalBreak
+      - &SoundMetalBreak !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
       - !type:SpawnEntitiesBehavior
         spawn:
-          IngotGold1: *BaseDoorSpawn
+          IngotGold1: &BaseDoorSpawn
+            min: 3
+            max: 5
 
 - type: entity
   parent: [ BaseMaterialDoorNavMap, StructureHealthDoorWeak ]

@@ -156,8 +156,6 @@
     solution:
       maxVol: 20
       reagents:
-      - ReagentId: Plasma
-        Quantity: 10
       - ReagentId: Iron
         Quantity: 9
       - ReagentId: Carbon

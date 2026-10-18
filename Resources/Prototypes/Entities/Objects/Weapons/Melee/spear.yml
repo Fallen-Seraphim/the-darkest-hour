@@ -135,26 +135,6 @@
     graph: SpearReinforced
 
 - type: entity
-  name: plasma spear
-  parent: Spear
-  id: SpearPlasma
-  description: A spear with a plasma shard as a tip.
-  components:
-  - type: Sprite
-    sprite: Objects/Weapons/Melee/plasma_spear.rsi
-  - type: MeleeWeapon
-    wideAnimationRotation: -135
-    damage:
-      types:
-        Piercing: 18
-  - type: DamageOtherOnHit
-    damage:
-      types:
-        Piercing: 21
-  - type: Construction
-    graph: SpearPlasma
-
-- type: entity
   name: uranium spear
   parent: Spear
   id: SpearUranium

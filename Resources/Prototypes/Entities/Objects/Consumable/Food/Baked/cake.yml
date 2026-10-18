@@ -1157,8 +1157,6 @@
         Quantity: 20
       - ReagentId: Sugar
         Quantity: 50
-      - ReagentId: Plasma
-        Quantity: 10
   - type: Edible
     transferAmount: 12
   - type: Item
@@ -1186,8 +1184,6 @@
         Quantity: 2.5
       - ReagentId: Sugar
         Quantity: 6.25
-      - ReagentId: Plasma
-        Quantity: 1.25
   - type: Edible
     transferAmount: 3
   - type: PointLight

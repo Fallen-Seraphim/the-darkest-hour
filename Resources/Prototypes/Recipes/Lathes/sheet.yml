@@ -58,56 +58,6 @@
     Coal: 500
 
 - type: latheRecipe
-  id: SheetPGlass1
-  result: SheetPGlass1
-  completetime: 0
-  materials:
-    RawQuartz: 100
-    RawPlasma: 100
-
-- type: latheRecipe
-  id: SheetPGlass30
-  result: SheetPGlass
-  completetime: 2
-  materials:
-    RawQuartz: 3000
-    RawPlasma: 3000
-
-- type: latheRecipe
-  id: SheetRPGlass1
-  result: SheetRPGlass1
-  completetime: 0
-  materials:
-    RawQuartz: 100
-    RawPlasma: 100
-    RawIron: 50
-    Coal: 15
-
-- type: latheRecipe
-  id: SheetRPGlass30
-  result: SheetRPGlass
-  completetime: 2
-  materials:
-    RawQuartz: 3000
-    RawPlasma: 3000
-    RawIron: 1500
-    Coal: 500
-
-- type: latheRecipe
-  id: SheetPlasma1
-  result: SheetPlasma1
-  completetime: 0
-  materials:
-    RawPlasma: 100
-
-- type: latheRecipe
-  id: SheetPlasma30
-  result: SheetPlasma
-  completetime: 2
-  materials:
-    RawPlasma: 3000
-
-- type: latheRecipe
   id: SheetPlasteel1
   result: SheetPlasteel1
   completetime: 0

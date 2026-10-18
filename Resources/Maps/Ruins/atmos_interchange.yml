@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 05/02/2025 09:49:49
-  entityCount: 1012
+  entityCount: 1003
 maps: []
 grids:
 - 1
@@ -665,55 +665,6 @@ entities:
     components:
     - type: Transform
       pos: -19.5,7.5
-      parent: 1
-- proto: AtmosFixInstantPlasmaFireMarker
-  entities:
-  - uid: 772
-    components:
-    - type: Transform
-      pos: -0.5,-3.5
-      parent: 1
-- proto: AtmosFixPlasmaMarker
-  entities:
-  - uid: 764
-    components:
-    - type: Transform
-      pos: -1.5,-4.5
-      parent: 1
-  - uid: 765
-    components:
-    - type: Transform
-      pos: -1.5,-2.5
-      parent: 1
-  - uid: 766
-    components:
-    - type: Transform
-      pos: -0.5,-2.5
-      parent: 1
-  - uid: 767
-    components:
-    - type: Transform
-      pos: 0.5,-2.5
-      parent: 1
-  - uid: 768
-    components:
-    - type: Transform
-      pos: 0.5,-3.5
-      parent: 1
-  - uid: 769
-    components:
-    - type: Transform
-      pos: 0.5,-4.5
-      parent: 1
-  - uid: 770
-    components:
-    - type: Transform
-      pos: -0.5,-4.5
-      parent: 1
-  - uid: 771
-    components:
-    - type: Transform
-      pos: -1.5,-3.5
       parent: 1
 - proto: CableApcExtension
   entities:

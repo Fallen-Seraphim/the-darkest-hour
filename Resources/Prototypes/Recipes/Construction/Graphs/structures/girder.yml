@@ -87,18 +87,6 @@
             - tool: Welding
               doAfter: 20
 
-        - to: plasmaWall
-          completed:
-            - !type:SnapToGrid
-              southRotation: true
-          conditions:
-            - !type:EntityAnchored {}
-          steps:
-            - material: Plasma
-              amount: 2
-            - tool: Welding
-              doAfter: 20
-
         - to: goldWall
           completed:
             - !type:SnapToGrid
@@ -187,20 +175,6 @@
             doAfter: 20
           - tool: Prying
             doAfter: 10
-
-    - node: plasmaWall
-      entity: WallPlasma
-      edges:
-        - to: girder
-          completed:
-            - !type:GivePrototype
-              prototype: SheetPlasma1
-              amount: 2
-          steps:
-            - tool: Welding
-              doAfter: 20
-            - tool: Prying
-              doAfter: 10
 
     - node: goldWall
       entity: WallGold

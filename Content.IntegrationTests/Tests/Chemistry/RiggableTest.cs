@@ -24,12 +24,12 @@ public sealed class RiggableTest : InteractionTest
     private const string Prototypes = @"
 - type: entity
   parent: PrefilledSyringe
-  id: TestPlasmaSyringe
+  id: TestThermiteSyringe
   components:
   - type: Solution
     solution:
       reagents:
-      - ReagentId: Plasma
+      - ReagentId: Thermite # DarkestHour: no plasma
         Quantity: 15
 
 - type: entity
@@ -44,7 +44,7 @@ public sealed class RiggableTest : InteractionTest
 ";
 
     [Test]
-    [TestCase("TestPlasmaSyringe", ExpectedResult = true)]
+    [TestCase("TestThermiteSyringe", ExpectedResult = true)]
     [TestCase("TestMilkSyringe", ExpectedResult = false)]
     [Description("Gives the player a power cell, injects it with different solutions and tests the rigged cell in a flashlight")]
     public async Task<bool> RigBatteryTest(string syringe)
@@ -109,7 +109,7 @@ public sealed class RiggableTest : InteractionTest
         Assert.That(Comp<ItemToggleComponent>(baton).Activated, Is.True, "Stunbaton did not activate");
 
         // Rig the baton
-        await PlaceInHands("TestPlasmaSyringe");
+        await PlaceInHands("TestThermiteSyringe");
         await Interact();
 
         await RunTicks(5);

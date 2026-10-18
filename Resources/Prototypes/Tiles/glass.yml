@@ -17,15 +17,6 @@
   itemDrop: SheetRGlass1
 
 - type: tile
-  id: FloorGlassPlasma
-  parent: BaseStationTile
-  name: tiles-plasma-glass-floor
-  sprite: /Textures/Tiles/Glass/glass-plasma.png
-  footstepSounds:
-    collection: FootstepTile
-  itemDrop: SheetPlasma1
-
-- type: tile
   id: FloorGlassUranium
   parent: BaseStationTile
   name: tiles-uranium-glass-floor
@@ -41,4 +32,4 @@
   sprite: /Textures/Tiles/Glass/glass-plastitanium.png
   footstepSounds:
     collection: FootstepTile
-  itemDrop: SheetPlasma1
+  itemDrop: SheetGlass1 # DarkestHour: нет плазмы

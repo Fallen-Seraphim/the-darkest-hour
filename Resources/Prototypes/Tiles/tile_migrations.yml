@@ -131,10 +131,6 @@
   target: FloorDarkMarble
 
 - type: tileAlias
-  id: FloorPlasmaMarble
-  target: FloorMarble
-
-- type: tileAlias
   id: FloorEighties
   target: FloorArcadeBlue
 

@@ -152,23 +152,6 @@
   result: SMESAdvancedMachineCircuitboard
 
 - type: latheRecipe
-  parent: [ BaseCircuitboardRecipe, BaseEngineeringMachineRecipeCategory ]
-  id: PortableGeneratorPacmanMachineCircuitboard
-  result: PortableGeneratorPacmanMachineCircuitboard
-
-- type: latheRecipe
-  parent: PortableGeneratorPacmanMachineCircuitboard
-  id: PortableGeneratorSuperPacmanMachineCircuitboard
-  result: PortableGeneratorSuperPacmanMachineCircuitboard
-
-- type: latheRecipe
-  parent: PortableGeneratorPacmanMachineCircuitboard
-  id: PortableGeneratorJrPacmanMachineCircuitboard
-  result: PortableGeneratorJrPacmanMachineCircuitboard
-
-## Medical
-
-- type: latheRecipe
   parent: [ BaseGoldCircuitboardRecipe, BaseMedicalMachineRecipeCategory ]
   id: BiomassReclaimerMachineCircuitboard
   result: BiomassReclaimerMachineCircuitboard

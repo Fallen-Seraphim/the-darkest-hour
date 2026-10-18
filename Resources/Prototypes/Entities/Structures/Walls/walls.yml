@@ -313,42 +313,6 @@
       base: gold
 
 - type: entity
-  parent: [ BaseWall, StructureHealthWallWeak ]
-  id: WallPlasma
-  name: plasma wall
-  components:
-  - type: Sprite
-    sprite: Structures/Walls/plasma.rsi
-  - type: Icon
-    sprite: Structures/Walls/plasma.rsi
-  - type: Construction
-    graph: Girder
-    node: plasmaWall
-  - type: RCDDeconstructable
-    cost: 6
-    delay: 8
-    fx: EffectRCDDeconstruct8
-  - type: Damageable
-    damageModifierSet: PlasmaMod
-  - type: Destructible
-    thresholds:
-    - trigger: *DamageWallWeak
-      behaviors:
-      - *ChangeNodeGirder
-      - *SoundMetalSlam
-      - !type:SpawnEntitiesBehavior
-        spawn:
-          SheetPlasma1: *BaseWallSpawn
-  - type: IconSmooth
-    key: walls
-    states:
-    - !type:CornerSpriteSmoothing
-      mask: [ walls, windows, grilles, marble, doors ]
-      base: plasma
-  - type: RadiationBlocker
-    resistance: 5
-
-- type: entity
   parent: BaseWall
   id: WallPlastitaniumIndestructible
   name: plastitanium wall

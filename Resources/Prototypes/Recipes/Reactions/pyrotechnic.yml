@@ -17,13 +17,6 @@
       amount: 1
     SulfuricAcid:
       amount: 1
-  effects:
-  - !type:CreateGas
-    gas: Plasma
-  - !type:PopupMessage
-    visualType: LargeCaution
-    messages: [ "phlogiston-plasma-created" ]
-    type: Pvs
   products:
     Phlogiston: 3
 

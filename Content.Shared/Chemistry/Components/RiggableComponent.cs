@@ -35,5 +35,5 @@ public sealed partial class RiggableComponent : Component
     /// The reagent and amount needed for rigging.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public ReagentQuantity Reagent = new("Plasma", FixedPoint2.New(5), null);
+    public ReagentQuantity Reagent = new("Thermite", FixedPoint2.New(5), null); // DarkestHour: no plasma
 }

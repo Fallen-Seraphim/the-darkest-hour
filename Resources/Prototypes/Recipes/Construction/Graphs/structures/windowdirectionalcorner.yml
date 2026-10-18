@@ -17,18 +17,6 @@
               amount: 1
               doAfter: 3
 
-        - to: plasmaWindowDirectionalCorner
-          steps:
-            - material: PlasmaGlass
-              amount: 1
-              doAfter: 2
-
-        - to: plasmaReinforcedWindowDirectionalCorner
-          steps:
-            - material: ReinforcedPlasmaGlass
-              amount: 1
-              doAfter: 3
-
         - to: uraniumWindowDirectionalCorner
           steps:
             - material: UraniumGlass
@@ -74,44 +62,6 @@
               doAfter: 1
             - tool: Anchoring
               doAfter: 2
-
-    - node: plasmaWindowDirectionalCorner
-      entity: PlasmaWindowDirectionalCorner
-      edges:
-        - to: start
-          completed:
-            - !type:GivePrototype
-              prototype: SheetPGlass1
-              amount: 1
-            - !type:DeleteEntity {}
-          steps:
-            - tool: Screwing
-              doAfter: 2
-            - tool: Prying
-              doAfter: 3
-            - tool: Screwing
-              doAfter: 2
-            - tool: Anchoring
-              doAfter: 3
-
-    - node: plasmaReinforcedWindowDirectionalCorner
-      entity: PlasmaReinforcedWindowDirectionalCorner
-      edges:
-        - to: start
-          completed:
-            - !type:GivePrototype
-              prototype: SheetRPGlass1
-              amount: 1
-            - !type:DeleteEntity {}
-          steps:
-            - tool: Screwing
-              doAfter: 2
-            - tool: Prying
-              doAfter: 3
-            - tool: Screwing
-              doAfter: 2
-            - tool: Anchoring
-              doAfter: 3
 
     - node: uraniumWindowDirectionalCorner
       entity: UraniumWindowDirectionalCorner
