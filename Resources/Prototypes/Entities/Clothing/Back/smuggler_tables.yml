@@ -623,9 +623,9 @@
     - id: HolofanProjector
     - id: HoloprojectorField
     - id: HoloprojectorSecurity
-    - id: DeviceQuantumSpinInverter
-      amount: !type:ConstantNumberSelector
-        value: 2
+    # - id: DeviceQuantumSpinInverter # DarkestHour: нет блюспейса
+    # amount: !type:ConstantNumberSelector
+    # value: 2
     - id: SpectralLocator
     - id: ArabianLamp
       weight: 0.50

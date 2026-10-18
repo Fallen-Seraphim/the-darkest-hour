@@ -68,40 +68,9 @@
 
 # Tier 3
 
-- type: technology
-  id: QuantumLeaping
-  name: research-technology-quantum-leaping
-  icon:
-    sprite: Objects/Devices/swapper.rsi
-    state: icon
-  discipline: Experimental
-  tier: 3
-  cost: 10000
-  recipeUnlocks:
-  - DeviceQuantumSpinInverter
+# QuantumLeaping удалён # DarkestHour: нет блюспейса
 
-- type: technology
-  id: BluespaceTimeManipulation
-  name: research-technology-bluespace-time-manipulation
-  icon:
-    sprite: Objects/Devices/desynchronizer.rsi
-    state: icon
-  discipline: Experimental
-  tier: 3
-  cost: 10000
-  recipeUnlocks:
-  - DeviceDesynchronizer
+# BluespaceTimeManipulation удалён # DarkestHour: нет блюспейса
 
-- type: technology
-  id: TeleSci
-  name: research-technology-telesci
-  icon:
-    sprite: Effects/portal.rsi
-    state: portal-artifact
-  discipline: Experimental
-  tier: 3
-  cost: 10000
-  recipeUnlocks:
-  - StationTeleportersControlCircuitboard
-  - StationTeleporterMachineCircuitboard
-  - TeleporterChipBlank
+# TeleSci удалён # DarkestHour: нет блюспейса
+

@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 12:42:50
-  entityCount: 735
+  entityCount: 734
 maps: []
 grids:
 - 2
@@ -4019,14 +4019,6 @@ entities:
     - type: Transform
       parent: 2
       pos: 1.5,-17.5
-- proto: SyringeBluespace
-  entities:
-  - uid: 36
-    components:
-    - type: Transform
-      parent: 2
-      rot: 1.5707963267948966 rad
-      pos: 0.37354228,-10.530617
 - proto: Table
   entities:
   - uid: 220

@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 09/22/2026 18:12:21
-  entityCount: 25482
+  entityCount: 25480
 maps:
 - 1
 grids:
@@ -44010,20 +44010,6 @@ entities:
       parent: 2
       rot: 3.141592653589793 rad
       pos: 18.582455,107.58667
-- proto: CargoMailTeleporter
-  entities:
-  - uid: 6940
-    components:
-    - type: Transform
-      parent: 2
-      pos: 74.5,36.5
-- proto: CargoTelepad
-  entities:
-  - uid: 17580
-    components:
-    - type: Transform
-      parent: 2
-      pos: 69.5,33.5
 - proto: Carpet
   entities:
   - uid: 6941
@@ -66390,10 +66376,7 @@ entities:
       rot: 3.141592653589793 rad
       pos: 74.5,61.5
     - type: DeviceLinkSource
-      linkedPorts:
-        17580:
-        - - OrderSender
-          - OrderReceiver
+      linkedPorts: {}
     - type: AccessReader
       accessListsOriginal:
       - - Cargo
@@ -66404,20 +66387,14 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 72.5,39.5
     - type: DeviceLinkSource
-      linkedPorts:
-        17580:
-        - - OrderSender
-          - OrderReceiver
+      linkedPorts: {}
   - uid: 9252
     components:
     - type: Transform
       parent: 2
       pos: 79.5,25.5
     - type: DeviceLinkSource
-      linkedPorts:
-        17580:
-        - - OrderSender
-          - OrderReceiver
+      linkedPorts: {}
   - uid: 21326
     components:
     - type: Transform
@@ -66425,10 +66402,7 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 72.5,41.5
     - type: DeviceLinkSource
-      linkedPorts:
-        17580:
-        - - OrderSender
-          - OrderReceiver
+      linkedPorts: {}
 - proto: ComputerCargoOrdersEngineering
   entities:
   - uid: 9253
@@ -66437,10 +66411,7 @@ entities:
       parent: 2
       pos: 53.5,53.5
     - type: DeviceLinkSource
-      linkedPorts:
-        17580:
-        - - OrderSender
-          - OrderReceiver
+      linkedPorts: {}
 - proto: ComputerCargoOrdersMedical
   entities:
   - uid: 9254
@@ -66450,10 +66421,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 103.5,48.5
     - type: DeviceLinkSource
-      linkedPorts:
-        17580:
-        - - OrderSender
-          - OrderReceiver
+      linkedPorts: {}
 - proto: ComputerCargoOrdersScience
   entities:
   - uid: 9255
@@ -66462,10 +66430,7 @@ entities:
       parent: 2
       pos: 103.5,72.5
     - type: DeviceLinkSource
-      linkedPorts:
-        17580:
-        - - OrderSender
-          - OrderReceiver
+      linkedPorts: {}
 - proto: ComputerCargoOrdersSecurity
   entities:
   - uid: 9256
@@ -66474,10 +66439,7 @@ entities:
       parent: 2
       pos: 96.5,88.5
     - type: DeviceLinkSource
-      linkedPorts:
-        17580:
-        - - OrderSender
-          - OrderReceiver
+      linkedPorts: {}
 - proto: ComputerCargoOrdersService
   entities:
   - uid: 9257
@@ -66486,10 +66448,7 @@ entities:
       parent: 2
       pos: 60.5,81.5
     - type: DeviceLinkSource
-      linkedPorts:
-        17580:
-        - - OrderSender
-          - OrderReceiver
+      linkedPorts: {}
 - proto: ComputerComms
   entities:
   - uid: 9258

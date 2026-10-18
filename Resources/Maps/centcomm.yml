@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 09/10/2026 23:43:42
-  entityCount: 9830
+  entityCount: 9825
 maps: []
 grids:
 - 1668
@@ -3617,13 +3617,6 @@ entities:
       pos: 3.5,-2.5
     - type: DeviceLinkSink
       invokeCounter: 1
-- proto: BluespaceBeaker
-  entities:
-  - uid: 908
-    components:
-    - type: Transform
-      parent: 1668
-      pos: 10.462108,-8.316433
 - proto: BookshelfFilled
   entities:
   - uid: 1990
@@ -24772,13 +24765,6 @@ entities:
     - type: Physics
       canCollide: False
     - type: InsideEntityStorage
-- proto: ClothingBackpackSatchelHolding
-  entities:
-  - uid: 2629
-    components:
-    - type: Transform
-      parent: 1668
-      pos: -23.461355,13.518487
 - proto: ClothingBeltChiefEngineerFilled
   entities:
   - uid: 4047
@@ -44835,13 +44821,6 @@ entities:
     - type: Transform
       parent: 1668
       pos: -18.530924,26.575684
-- proto: HolopadBluespace
-  entities:
-  - uid: 496
-    components:
-    - type: Transform
-      parent: 1668
-      pos: -0.5,-0.5
 - proto: HoloprojectorSecurity
   entities:
   - uid: 6822
@@ -55566,18 +55545,6 @@ entities:
     - type: Transform
       parent: 1668
       pos: 13.5,-15.5
-- proto: SyringeBluespace
-  entities:
-  - uid: 906
-    components:
-    - type: Transform
-      parent: 1668
-      pos: 11.599115,-11.392432
-  - uid: 907
-    components:
-    - type: Transform
-      parent: 1668
-      pos: 11.61474,-11.158057
 - proto: SyringeCryostasis
   entities:
   - uid: 4430

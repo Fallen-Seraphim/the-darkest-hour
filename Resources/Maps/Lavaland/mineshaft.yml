@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 04/21/2025 08:14:38
-  entityCount: 1474
+  entityCount: 1473
 maps: []
 grids:
 - 1
@@ -677,13 +677,6 @@ entities:
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: -3.575366,0.62506294
-      parent: 1
-- proto: OreBagOfHolding
-  entities:
-  - uid: 733
-    components:
-    - type: Transform
-      pos: 21.496107,-8.563963
       parent: 1
 - proto: OreBox
   entities:

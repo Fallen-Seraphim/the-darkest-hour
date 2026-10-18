@@ -23,7 +23,7 @@
     KnuckleDustersStealObjective: 1
     CaptainGunStealObjective: 0.5
     CaptainJetpackStealObjective: 0.5
-    HandTeleporterStealObjective: 0.5
+    # HandTeleporterStealObjective: 0.5 # DarkestHour: нет блюспейса
     EnergyMagnumStealObjective: 0.5
 
 - type: weightedRandom

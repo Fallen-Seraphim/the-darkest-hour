@@ -22,11 +22,11 @@
   - MiningDrillDiamond
   - MineralScannerEmpty
   - AdvancedMineralScannerEmpty
-  - OreBagOfHolding
+  # - OreBagOfHolding # DarkestHour: нет блюспейса
 
 - type: latheRecipePack
   id: CargoBoards
   recipes:
   - OreProcessorIndustrialMachineCircuitboard
-  - CargoTelepadMachineCircuitboard
+  # - CargoTelepadMachineCircuitboard # DarkestHour: нет блюспейса
   - ShuttleGunKineticCircuitboard

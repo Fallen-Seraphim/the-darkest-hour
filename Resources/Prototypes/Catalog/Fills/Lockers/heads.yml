@@ -271,7 +271,7 @@
     - id: ClothingBeltUtilityFilled
     - id: ClothingHeadsetAltScience
     - id: DoorRemoteResearch
-    - id: HandTeleporter
+    # - id: HandTeleporter # DarkestHour: нет блюспейса
     - id: RubberStampRd
     - id: PlushieLizardJobResearchdirector
       prob: 0.02
