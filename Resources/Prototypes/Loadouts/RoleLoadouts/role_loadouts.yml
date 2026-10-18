@@ -456,17 +456,6 @@
 # They will be used without player configuration, thus they will only ever apply what is forced by MinLimit
 
 # gives vox a harness and breathing mask
-# nitrogen tank not included
-- type: roleLoadout
-  id: RoleSurvivalVoxSupport
-  groups:
-
-# gives vox a nitrogen breathing tank
-# other species get nothing
-- type: roleLoadout
-  id: RoleSurvivalVoxTank
-  groups:
-
 - type: roleLoadout
   id: RoleSurvivalStandard
   groups:
