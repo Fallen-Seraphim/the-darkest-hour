@@ -2,6 +2,7 @@ using Content.Shared.Atmos;
 using Content.Shared.Damage.Components;
 using Content.Shared.Examine;
 using Content.Shared.Radiation.Components;
+using Content.Shared.Radiation.Systems;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Audio;
 using Robust.Shared.Random;
@@ -20,6 +21,7 @@ public abstract partial class SharedReactorPartSystem : EntitySystem
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedPointLightSystem _lightSystem = default!;
     [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private SharedRadiationSystem _radiation = default!; // DarkestHour: RadiationSourceComponent is access-restricted
 
     /// <summary>
     /// Changes the overall rate of events
@@ -135,7 +137,7 @@ public abstract partial class SharedReactorPartSystem : EntitySystem
             if (!_entityManager.HasComponent<RadiationSourceComponent>(uid))
             {
                 var radcomp = EnsureComp<RadiationSourceComponent>(uid);
-                radcomp.Intensity = (component.Properties.Radioactivity * 0.1f) + (component.Properties.NeutronRadioactivity * 0.15f) + (component.Properties.FissileIsotopes * 0.125f);
+                _radiation.SetIntensity((uid, radcomp), (component.Properties.Radioactivity * 0.1f) + (component.Properties.NeutronRadioactivity * 0.15f) + (component.Properties.FissileIsotopes * 0.125f));
             }
 
             if (component.Properties.NeutronRadioactivity > 0 && !_lightSystem.TryGetLight(uid, out _))

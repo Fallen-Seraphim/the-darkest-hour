@@ -11,6 +11,7 @@ using Content.Shared.Atmos;
 using Content.Shared.Database;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Radiation.Components;
+using Content.Shared.Radiation.Systems;
 using Content.Shared.Radio;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
@@ -60,6 +61,7 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
     [Dependency] private PopupSystem _popupSystem = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private ThrowingSystem _throwingSystem = default!;
+    [Dependency] private SharedRadiationSystem _radiation = default!; // DarkestHour: RadiationSourceComponent is access-restricted
     [Dependency] private TransformSystem _transformSystem = default!;
 
     public override void Initialize()
@@ -399,7 +401,7 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
         var reactor = ent.Comp;
         var comp = EnsureComp<RadiationSourceComponent>(ent.Owner);
 
-        comp.Intensity = Math.Max(reactor.RadiationLevel, reactor.Melted ? reactor.MeltdownRadiation : 0);
+        _radiation.SetIntensity((ent.Owner, comp), Math.Max(reactor.RadiationLevel, reactor.Melted ? reactor.MeltdownRadiation : 0));
         reactor.RadiationLevel /= Math.Max(reactor.RadiationStability, 1);
     }
 
