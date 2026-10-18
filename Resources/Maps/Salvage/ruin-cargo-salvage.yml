@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/22/2026 15:05:36
-  entityCount: 463
+  entityCount: 457
 maps: []
 grids:
 - 16
@@ -2156,13 +2156,6 @@ entities:
       parent: 16
       rot: 1.5707963267948966 rad
       pos: 7.5,-1.5
-- proto: PortableGeneratorPacman
-  entities:
-  - uid: 290
-    components:
-    - type: Transform
-      parent: 16
-      pos: 4.5,11.5
 - proto: PosterContrabandUnreadableAnnouncement
   entities:
   - uid: 632
@@ -2473,33 +2466,6 @@ entities:
     - type: Transform
       parent: 16
       pos: 4.5,-1.5
-- proto: SheetPlasma1
-  entities:
-  - uid: 265
-    components:
-    - type: Transform
-      parent: 16
-      pos: 5.4992433,11.644601
-  - uid: 266
-    components:
-    - type: Transform
-      parent: 16
-      pos: 5.4992433,11.644601
-  - uid: 296
-    components:
-    - type: Transform
-      parent: 16
-      pos: 5.5617433,11.535226
-  - uid: 299
-    components:
-    - type: Transform
-      parent: 16
-      pos: 5.5617433,11.535226
-  - uid: 304
-    components:
-    - type: Transform
-      parent: 16
-      pos: 5.5617433,11.535226
 - proto: Shovel
   entities:
   - uid: 595

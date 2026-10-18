@@ -6556,7 +6556,7 @@ entities:
       parent: 1
       rot: -1.5707963267948966 rad
       pos: -1.345274,18.11729
-- proto: PlasmaReinforcedWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 1049
     components:
@@ -6576,7 +6576,7 @@ entities:
       parent: 1
       rot: 1.5707963267948966 rad
       pos: -2.5,-15.5
-- proto: PlasmaReinforcedWindowDirectionalCorner
+- proto: WindowReinforcedDirectionalCorner
   entities:
   - uid: 998
     components:
@@ -6972,7 +6972,7 @@ entities:
     - type: Transform
       parent: 1
       pos: -1.5,-11.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 828
     components:

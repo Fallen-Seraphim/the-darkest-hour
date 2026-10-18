@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 10/06/2026 05:35:29
-  entityCount: 26352
+  entityCount: 26313
 maps:
 - 943
 grids:
@@ -68764,7 +68764,6 @@ entities:
       containers:
         entity_storage: !type:Container
           ents:
-          - 4711
           showEnts: False
           occludes: True
         paper_label: !type:ContainerSlot
@@ -123026,38 +123025,7 @@ entities:
     - type: Transform
       parent: 60
       pos: -62.5,49.5
-- proto: PlasmaCanister
-  entities:
-  - uid: 15241
-    components:
-    - type: Transform
-      parent: 60
-      pos: -45.5,40.5
-  - uid: 16078
-    components:
-    - type: Transform
-      parent: 60
-      pos: -25.5,36.5
-  - uid: 16270
-    components:
-    - type: Transform
-      parent: 60
-      pos: -3.5,32.5
-  - uid: 16393
-    components:
-    - type: Transform
-      parent: 60
-      pos: -25.5,35.5
-- proto: PlasmaOre1
-  entities:
-  - uid: 4711
-    components:
-    - type: Transform
-      parent: 6448
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-- proto: PlasmaReinforcedWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 3006
     components:
@@ -123093,7 +123061,7 @@ entities:
       parent: 60
       rot: -1.5707963267948966 rad
       pos: -54.5,-3.5
-- proto: PlasmaWindoorScienceLocked
+- proto: WindoorScienceLocked
   entities:
   - uid: 23868
     components:
@@ -123342,112 +123310,6 @@ entities:
       enabled: False
     - type: Physics
       bodyType: Dynamic
-- proto: PortableGeneratorJrPacman
-  entities:
-  - uid: 4003
-    components:
-    - type: Transform
-      parent: 60
-      pos: 40.5,-48.5
-  - uid: 5402
-    components:
-    - type: Transform
-      parent: 60
-      pos: 12.5,-50.5
-  - uid: 5603
-    components:
-    - type: Transform
-      parent: 60
-      pos: 3.5,-3.5
-  - uid: 14122
-    components:
-    - type: Transform
-      parent: 60
-      pos: -6.5,35.5
-  - uid: 14124
-    components:
-    - type: Transform
-      parent: 60
-      pos: -5.5,35.5
-  - uid: 17322
-    components:
-    - type: Transform
-      parent: 60
-      pos: 47.5,-34.5
-  - uid: 17325
-    components:
-    - type: Transform
-      parent: 60
-      pos: -60.5,13.5
-  - uid: 18441
-    components:
-    - type: Transform
-      parent: 60
-      pos: 24.5,19.5
-  - uid: 21677
-    components:
-    - type: Transform
-      parent: 60
-      pos: -59.5,-14.5
-  - uid: 21747
-    components:
-    - type: Transform
-      parent: 60
-      pos: 60.5,-26.5
-  - uid: 21771
-    components:
-    - type: Transform
-      parent: 60
-      pos: 11.5,-39.5
-  - uid: 21776
-    components:
-    - type: Transform
-      parent: 60
-      pos: -43.5,16.5
-  - uid: 23707
-    components:
-    - type: Transform
-      parent: 60
-      pos: 31.5,12.5
-  - uid: 23708
-    components:
-    - type: Transform
-      parent: 60
-      pos: 50.5,-5.5
-- proto: PortableGeneratorPacman
-  entities:
-  - uid: 856
-    components:
-    - type: Transform
-      parent: 60
-      pos: -32.5,2.5
-  - uid: 8063
-    components:
-    - type: Transform
-      parent: 7536
-      pos: -12.5,-2.5
-  - uid: 14121
-    components:
-    - type: Transform
-      parent: 60
-      pos: -5.5,36.5
-  - uid: 19805
-    components:
-    - type: Transform
-      parent: 60
-      pos: -120.5,19.5
-  - uid: 20011
-    components:
-    - type: Transform
-      parent: 60
-      pos: 29.5,3.5
-- proto: PortableGeneratorSuperPacman
-  entities:
-  - uid: 14091
-    components:
-    - type: Transform
-      parent: 60
-      pos: -6.5,36.5
 - proto: PortableScrubber
   entities:
   - uid: 21394
@@ -129427,7 +129289,7 @@ entities:
     - type: Transform
       parent: 60
       pos: 6.5,-78.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 6985
     components:
@@ -134501,80 +134363,6 @@ entities:
     - type: Transform
       parent: 60
       pos: 26.545897,12.490652
-- proto: SheetPlasma
-  entities:
-  - uid: 9406
-    components:
-    - type: Transform
-      parent: 60
-      pos: -54.504642,-5.5148015
-  - uid: 10882
-    components:
-    - type: Transform
-      parent: 60
-      pos: -8.629877,31.544586
-  - uid: 11521
-    components:
-    - type: Transform
-      parent: 60
-      pos: -8.676752,31.622711
-  - uid: 23111
-    components:
-    - type: Transform
-      parent: 60
-      pos: -120.64238,15.600244
-- proto: SheetPlasma1
-  entities:
-  - uid: 20017
-    components:
-    - type: Transform
-      parent: 60
-      pos: 29.490437,4.841237
-  - uid: 20018
-    components:
-    - type: Transform
-      parent: 60
-      pos: 29.490437,4.841237
-  - uid: 20019
-    components:
-    - type: Transform
-      parent: 60
-      pos: 29.490437,4.841237
-  - uid: 20020
-    components:
-    - type: Transform
-      parent: 60
-      pos: 29.490437,4.841237
-  - uid: 20021
-    components:
-    - type: Transform
-      parent: 60
-      pos: 29.490437,4.841237
-  - uid: 20022
-    components:
-    - type: Transform
-      parent: 60
-      pos: 29.490437,4.841237
-  - uid: 20023
-    components:
-    - type: Transform
-      parent: 60
-      pos: 29.490437,4.841237
-  - uid: 20024
-    components:
-    - type: Transform
-      parent: 60
-      pos: 29.490437,4.841237
-  - uid: 20025
-    components:
-    - type: Transform
-      parent: 60
-      pos: 29.490437,4.841237
-  - uid: 20026
-    components:
-    - type: Transform
-      parent: 60
-      pos: 29.506062,4.825612
 - proto: SheetPlasteel
   entities:
   - uid: 7207
@@ -145391,7 +145179,7 @@ entities:
     - type: Transform
       parent: 60
       pos: -70.5,20.5
-- proto: TablePlasmaGlass
+- proto: TableReinforcedGlass
   entities:
   - uid: 2071
     components:

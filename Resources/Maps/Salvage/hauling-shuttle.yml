@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 11:55:28
-  entityCount: 205
+  entityCount: 203
 maps: []
 grids:
 - 1
@@ -741,13 +741,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 3.5,-5.5
-- proto: CratePlasma
-  entities:
-  - uid: 191
-    components:
-    - type: Transform
-      parent: 1
-      pos: 3.5,-4.5
 - proto: CrateTrashCartFilled
   entities:
   - uid: 190
@@ -900,13 +893,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 9.5,-2.5
-- proto: PortableGeneratorPacman
-  entities:
-  - uid: 112
-    components:
-    - type: Transform
-      parent: 1
-      pos: 1.5,-3.5
 - proto: PottedPlantRandom
   entities:
   - uid: 122

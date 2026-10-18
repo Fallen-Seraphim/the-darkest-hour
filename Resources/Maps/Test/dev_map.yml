@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 10:22:08
-  entityCount: 3675
+  entityCount: 3667
 maps:
 - 23
 grids:
@@ -13832,13 +13832,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 96.5,18.5
-- proto: GasMinerPlasma
-  entities:
-  - uid: 1447
-    components:
-    - type: Transform
-      parent: 1
-      pos: 96.5,14.5
 - proto: GasMinerTritium
   entities:
   - uid: 1420
@@ -16261,13 +16254,6 @@ entities:
       parent: 1
       rot: 3.141592653589793 rad
       pos: 80.5,13.5
-- proto: PlasmaCanister
-  entities:
-  - uid: 1451
-    components:
-    - type: Transform
-      parent: 1
-      pos: 96.5,14.5
 - proto: PlasticFlapsAirtightOpaque
   entities:
   - uid: 2772
@@ -17856,7 +17842,7 @@ entities:
       parent: 1
       rot: 3.141592653589793 rad
       pos: 38.5,19.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 123
     components:
@@ -18048,37 +18034,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 70.5419,15.089581
-- proto: SheetPGlass
-  entities:
-  - uid: 3249
-    components:
-    - type: Transform
-      parent: 1
-      pos: 70.73635,17.692348
-- proto: SheetPlasma
-  entities:
-  - uid: 741
-    components:
-    - type: Transform
-      parent: 1
-      pos: 56.5,28.5
-  - uid: 2698
-    components:
-    - type: Transform
-      parent: 1
-      pos: 52.71865,25.88818
-  - uid: 3226
-    components:
-    - type: Transform
-      parent: 1
-      pos: 70.31969,17.853405
-- proto: SheetPlasma10
-  entities:
-  - uid: 1128
-    components:
-    - type: Transform
-      parent: 1
-      pos: 52.5,43.5
 - proto: SheetPlasteel
   entities:
   - uid: 1358
@@ -18120,13 +18075,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 72.25,19.503
-- proto: SheetRPGlass
-  entities:
-  - uid: 3254
-    components:
-    - type: Transform
-      parent: 1
-      pos: 70.43079,17.388128
 - proto: SheetRUGlass
   entities:
   - uid: 3220
@@ -18873,7 +18821,7 @@ entities:
     - type: Transform
       parent: 1
       pos: 69.5,-1.5
-- proto: SolarPanelPlasma
+- proto: SolarPanel
   entities:
   - uid: 1930
     components:

@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 08:58:30
-  entityCount: 2513
+  entityCount: 2510
 maps: []
 grids:
 - 1
@@ -12696,23 +12696,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 14.5,9.5
-- proto: SheetPlasma1
-  entities:
-  - uid: 2050
-    components:
-    - type: Transform
-      parent: 1
-      pos: 9.514079,-6.3833523
-  - uid: 2051
-    components:
-    - type: Transform
-      parent: 1
-      pos: 9.514079,-6.3833523
-  - uid: 2052
-    components:
-    - type: Transform
-      parent: 1
-      pos: 9.514079,-6.3833523
 - proto: ShuttersNormalOpen
   entities:
   - uid: 2278

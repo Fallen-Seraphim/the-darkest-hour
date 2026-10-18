@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 09/22/2026 17:17:10
-  entityCount: 18993
+  entityCount: 18981
 maps:
 - 1793
 grids:
@@ -49737,18 +49737,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 54.5,85.5
-- proto: CrateMaterialPlasma
-  entities:
-  - uid: 7878
-    components:
-    - type: Transform
-      parent: 1
-      pos: 16.5,75.5
-  - uid: 16093
-    components:
-    - type: Transform
-      parent: 1
-      pos: 18.5,97.5
 - proto: CrateRadiation
   entities:
   - uid: 7245
@@ -91760,18 +91748,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 53.5,92.5
-- proto: PlasmaCanister
-  entities:
-  - uid: 6961
-    components:
-    - type: Transform
-      parent: 1
-      pos: 61.5,100.5
-  - uid: 6962
-    components:
-    - type: Transform
-      parent: 1
-      pos: 60.5,100.5
 - proto: PlasticFlapsAirtightClear
   entities:
   - uid: 7557
@@ -91870,40 +91846,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 35.5,32.5
-- proto: PortableGeneratorJrPacman
-  entities:
-  - uid: 7283
-    components:
-    - type: Transform
-      parent: 1
-      pos: 71.5,95.5
-  - uid: 17509
-    components:
-    - type: Transform
-      parent: 1
-      pos: 29.5,24.5
-  - uid: 17853
-    components:
-    - type: Transform
-      parent: 1
-      pos: 38.5,59.5
-- proto: PortableGeneratorPacman
-  entities:
-  - uid: 7155
-    components:
-    - type: Transform
-      parent: 1
-      pos: 53.5,107.5
-  - uid: 7282
-    components:
-    - type: Transform
-      parent: 1
-      pos: 71.5,94.5
-  - uid: 11453
-    components:
-    - type: Transform
-      parent: 1
-      pos: 73.5,12.5
 - proto: PortableScrubber
   entities:
   - uid: 6899
@@ -95312,7 +95254,7 @@ entities:
       parent: 1
       rot: -1.5707963267948966 rad
       pos: 86.5,96.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 935
     components:
@@ -97985,20 +97927,6 @@ entities:
       parent: 1
       rot: -106.81415022205287 rad
       pos: 14.4703865,97.63916
-- proto: SheetPlasma
-  entities:
-  - uid: 18065
-    components:
-    - type: Transform
-      parent: 1
-      pos: 69.5,110.5
-- proto: SheetPlasma10
-  entities:
-  - uid: 11454
-    components:
-    - type: Transform
-      parent: 1
-      pos: 60.5,13.5
 - proto: SheetPlasteel
   entities:
   - uid: 7183

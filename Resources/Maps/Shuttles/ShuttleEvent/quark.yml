@@ -1614,7 +1614,7 @@ entities:
       parent: 264
     - type: Physics
       canCollide: False
-- proto: PlasmaReinforcedWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 7
     components:

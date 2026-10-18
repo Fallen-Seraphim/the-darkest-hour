@@ -10,7 +10,7 @@
     nitrogen: NitrogenCanister
     nitrous-oxide: NitrousOxideCanister
     oxygen: OxygenCanister
-    plasma: PlasmaCanister
+    # plasma: PlasmaCanister # DarkestHour: нет плазмы
     storage: StorageCanister
     tritium: TritiumCanister
     water-vapor: WaterVaporCanister

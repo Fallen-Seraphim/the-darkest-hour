@@ -80,20 +80,7 @@
       tags:
       - ToothSharkminnow
 
-- type: cargoBounty
-  id: BountySalvageOrePlasma
-  reward: 12500
-  description: bounty-description-salvage-ore-plasma
-  group: SalvageJobTier2
-  sprite:
-    sprite: Objects/Materials/ore.rsi
-    state: plasma
-  entries:
-  - name: bounty-item-ore-plasma
-    amount: 45
-    whitelist:
-      tags:
-      - OrePlasma
+# BountySalvageOrePlasma удалён # DarkestHour: нет плазмы
 
 - type: cargoBounty
   id: BountySalvageOreUranium

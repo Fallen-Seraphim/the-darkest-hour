@@ -2936,11 +2936,8 @@ entities:
       containers:
         entity_storage: !type:Container
           ents:
-          - 482
           - 484
           - 478
-          - 479
-          - 480
           - 481
           - 483
           showEnts: False
@@ -4339,17 +4336,7 @@ entities:
     - type: Transform
       parent: 1
       pos: 2.330452,-5.4928937
-- proto: PlasmaChemistryVial
-  entities:
-  - uid: 479
-    components:
-    - type: Transform
-      parent: 477
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-      storage: 477
-- proto: PlasmaReinforcedWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 345
     components:
@@ -4627,7 +4614,7 @@ entities:
       parent: 1
       rot: 3.141592653589793 rad
       pos: -4.5,2.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 379
     components:
@@ -4755,24 +4742,6 @@ entities:
       parent: 1
       rot: 3.141592653589793 rad
       pos: -7.4977655,-7.5847235
-- proto: SheetPlasma10
-  entities:
-  - uid: 480
-    components:
-    - type: Transform
-      parent: 477
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-      storage: 477
-  - uid: 482
-    components:
-    - type: Transform
-      parent: 477
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-      storage: 477
 - proto: SignalButtonDirectional
   entities:
   - uid: 389

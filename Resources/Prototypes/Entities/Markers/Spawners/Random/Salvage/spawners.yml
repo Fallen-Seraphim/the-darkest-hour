@@ -397,8 +397,8 @@
       - id: NitrogenCanister
       - id: OxygenCanister
       - id: CarbonDioxideCanister
-      - id: PlasmaCanister
-        weight: 0.25
+      # - id: PlasmaCanister # DarkestHour: нет плазмы
+      # weight: 0.25
       - id: NitrousOxideCanister
         weight: 0.25
 

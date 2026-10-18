@@ -32,25 +32,13 @@
   id: SheetClockworkGlass
   targetNode: SheetClockworkGlass
 
-- type: construction
-  parent: SheetRGlass
-  id: SheetPGlass
-  targetNode: SheetPGlass
+# SheetPGlass удалён # DarkestHour: нет плазмы
 
-- type: construction
-  parent: SheetRGlass
-  id: SheetRPGlass
-  targetNode: SheetRPGlass
+# SheetRPGlass удалён # DarkestHour: нет плазмы
 
-- type: construction
-  parent: SheetRGlass
-  id: SheetRPGlass0
-  targetNode: SheetRPGlass0
+# SheetRPGlass0 удалён # DarkestHour: нет плазмы
 
-- type: construction
-  parent: SheetRGlass
-  id: SheetRPGlass1
-  targetNode: SheetRPGlass1
+# SheetRPGlass1 удалён # DarkestHour: нет плазмы
 
 - type: construction
   parent: SheetRGlass

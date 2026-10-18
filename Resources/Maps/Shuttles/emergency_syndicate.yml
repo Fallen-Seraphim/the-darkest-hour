@@ -2973,7 +2973,7 @@ entities:
     - type: GasCanister
       releaseValveOpen: True
       releasePressure: 1013.25
-- proto: PlasmaReinforcedWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 465
     components:
@@ -2993,7 +2993,7 @@ entities:
       parent: 1
       rot: 1.5707963267948966 rad
       pos: -3.5,-0.5
-- proto: PlasmaWindoorSecurityLocked
+- proto: WindoorSecurityLocked
   entities:
   - uid: 124
     components:
@@ -3402,7 +3402,7 @@ entities:
     - type: Transform
       parent: 1
       pos: 3.5,-13.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 163
     components:
@@ -3522,7 +3522,7 @@ entities:
       parent: 1
       rot: -1.5707963267948966 rad
       pos: -3.5,-21.5
-- proto: TablePlasmaGlass
+- proto: TableReinforcedGlass
   entities:
   - uid: 569
     components:

@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 04/21/2025 18:22:00
-  entityCount: 253
+  entityCount: 248
 maps: []
 grids:
 - 1
@@ -1299,40 +1299,13 @@ entities:
     - type: Transform
       pos: -3.8203683,0.7412402
       parent: 1
-- proto: PlasmaReinforcedWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 45
     components:
     - type: Transform
       rot: 3.141592653589793 rad
       pos: -2.5,-3.5
-      parent: 1
-- proto: PlasmaTankFilled
-  entities:
-  - uid: 250
-    components:
-    - type: Transform
-      pos: -4.7243257,5.6854124
-      parent: 1
-  - uid: 251
-    components:
-    - type: Transform
-      pos: -4.432659,5.6854124
-      parent: 1
-  - uid: 252
-    components:
-    - type: Transform
-      pos: -4.234742,5.6958294
-      parent: 1
-  - uid: 253
-    components:
-    - type: Transform
-      pos: -4.5993257,5.4562464
-      parent: 1
-  - uid: 254
-    components:
-    - type: Transform
-      pos: -4.328492,5.4145794
       parent: 1
 - proto: PottedPlant26
   entities:

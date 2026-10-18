@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 05/03/2025 23:17:42
-  entityCount: 213
+  entityCount: 212
 maps: []
 grids:
 - 1
@@ -1102,13 +1102,6 @@ entities:
     - type: CollisionWake
       enabled: False
     - type: Conveyed
-- proto: PortableGeneratorJrPacman
-  entities:
-  - uid: 211
-    components:
-    - type: Transform
-      pos: -0.5,-9.5
-      parent: 1
 - proto: Poweredlight
   entities:
   - uid: 187

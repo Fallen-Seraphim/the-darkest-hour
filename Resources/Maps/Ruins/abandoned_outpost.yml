@@ -1381,7 +1381,7 @@ entities:
     - type: Transform
       parent: 2
       pos: 9.52752,4.7223573
-- proto: PlasmaReinforcedWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 165
     components:
@@ -1662,7 +1662,7 @@ entities:
     - type: Transform
       parent: 2
       pos: -7.5,0.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 277
     components:

@@ -2000,7 +2000,7 @@ entities:
       pos: -3.4212573,5.444251
     - type: Physics
       canCollide: False
-- proto: PlasmaReinforcedWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 88
     components:

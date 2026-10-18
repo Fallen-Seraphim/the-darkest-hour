@@ -25,7 +25,7 @@
     # rare materials
     IngotGold: 1.0
     IngotSilver: 1.0
-    SheetPlasma: 1.0
+    # SheetPlasma: 1.0 # DarkestHour: нет плазмы
     SheetUranium: 1.0
     TechnologyDiskRare: 0.5
     # cloning boards

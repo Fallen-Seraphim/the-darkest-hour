@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 14:12:36
-  entityCount: 1816
+  entityCount: 1810
 maps:
 - 588
 grids:
@@ -10490,40 +10490,6 @@ entities:
     - type: Transform
       parent: 588
       pos: 32.5,25.5
-- proto: PortableGeneratorPacman
-  entities:
-  - uid: 967
-    components:
-    - type: Transform
-      parent: 588
-      pos: 16.5,32.5
-  - uid: 969
-    components:
-    - type: Transform
-      parent: 588
-      pos: 24.5,32.5
-- proto: PortableGeneratorSuperPacman
-  entities:
-  - uid: 50
-    components:
-    - type: Transform
-      parent: 588
-      pos: 26.5,15.5
-  - uid: 55
-    components:
-    - type: Transform
-      parent: 588
-      pos: 28.5,15.5
-  - uid: 1504
-    components:
-    - type: Transform
-      parent: 588
-      pos: 18.5,44.5
-  - uid: 1505
-    components:
-    - type: Transform
-      parent: 588
-      pos: 20.5,44.5
 - proto: PortableScrubber
   entities:
   - uid: 1101

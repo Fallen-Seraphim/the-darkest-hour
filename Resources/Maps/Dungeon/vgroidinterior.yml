@@ -264,13 +264,6 @@ entities:
     - type: Transform
       pos: 19.45475,8.339682
       parent: 1
-- proto: CrateMaterialPlasma
-  entities:
-  - uid: 16
-    components:
-    - type: Transform
-      pos: 8.5,14.5
-      parent: 1
 - proto: GeneratorRTG
   entities:
   - uid: 17

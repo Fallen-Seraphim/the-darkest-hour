@@ -429,8 +429,8 @@
           prob: 0.1
         - id: Syringe
           prob: 0.1
-        - id: ShardGlassPlasma
-          prob: 0.1
+        # - id: ShardGlassPlasma # DarkestHour: нет плазмы
+        # prob: 0.1
 
 - type: entity
   parent: CrateGenericSteel

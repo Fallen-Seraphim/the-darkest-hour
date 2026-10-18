@@ -1364,7 +1364,7 @@ entities:
       parent: 1
     - type: Physics
       bodyType: Static
-- proto: PlasmaReinforcedWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 246
     components:

@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 14:04:51
-  entityCount: 1632
+  entityCount: 1628
 maps:
 - 1653
 grids:
@@ -8695,14 +8695,7 @@ entities:
     - type: Transform
       parent: 1653
       pos: 24.34895,16.173763
-- proto: PlasmaCanister
-  entities:
-  - uid: 833
-    components:
-    - type: Transform
-      parent: 1653
-      pos: 16.5,27.5
-- proto: PlasmaReinforcedWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 645
     components:
@@ -8750,13 +8743,6 @@ entities:
     - type: Transform
       parent: 1653
       pos: 34.5,36.5
-- proto: PlasmaTankFilled
-  entities:
-  - uid: 1473
-    components:
-    - type: Transform
-      parent: 1653
-      pos: 30.568752,4.54119
 - proto: PlushieSharkGrey
   entities:
   - uid: 926
@@ -8790,18 +8776,6 @@ entities:
     - type: Transform
       parent: 1653
       pos: 40.5,0.5
-- proto: PortableGeneratorPacman
-  entities:
-  - uid: 1528
-    components:
-    - type: Transform
-      parent: 1653
-      pos: 25.5,8.5
-  - uid: 1529
-    components:
-    - type: Transform
-      parent: 1653
-      pos: 33.5,8.5
 - proto: PortableScrubber
   entities:
   - uid: 836

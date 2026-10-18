@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/13/2026 13:53:47
-  entityCount: 2219
+  entityCount: 2214
 maps:
 - 1653
 grids:
@@ -12025,13 +12025,6 @@ entities:
     - type: Transform
       parent: 1653
       pos: 33.566967,20.5998
-- proto: PlasmaTankFilled
-  entities:
-  - uid: 1473
-    components:
-    - type: Transform
-      parent: 1653
-      pos: 30.568752,4.54119
 - proto: PlushieDiona
   entities:
   - uid: 653
@@ -12053,30 +12046,6 @@ entities:
     - type: Transform
       parent: 1653
       pos: 40.5,0.5
-- proto: PortableGeneratorJrPacman
-  entities:
-  - uid: 1716
-    components:
-    - type: Transform
-      parent: 1653
-      pos: 27.5,19.5
-- proto: PortableGeneratorPacman
-  entities:
-  - uid: 489
-    components:
-    - type: Transform
-      parent: 1653
-      pos: 27.5,21.5
-  - uid: 1528
-    components:
-    - type: Transform
-      parent: 1653
-      pos: 25.5,8.5
-  - uid: 1529
-    components:
-    - type: Transform
-      parent: 1653
-      pos: 33.5,8.5
 - proto: PottedPlant19
   entities:
   - uid: 990

@@ -1885,7 +1885,7 @@ entities:
       rot: 3.141592653589793 rad
       pos: -5.5,1.5
       parent: 1
-- proto: PlasmaReinforcedWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 83
     components:

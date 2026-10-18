@@ -449,7 +449,6 @@
     Plastic: 240
     Steel: 160
     Glass: 80
-    Plasma: 160
     Silver: 80
 
 - type: latheRecipe

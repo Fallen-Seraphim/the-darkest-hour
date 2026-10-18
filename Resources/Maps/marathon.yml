@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 09/22/2026 18:29:32
-  entityCount: 23912
+  entityCount: 23890
 maps:
 - 5350
 grids:
@@ -58249,7 +58249,6 @@ entities:
       containers:
         entity_storage: !type:Container
           ents:
-          - 11365
           showEnts: False
           occludes: True
         paper_label: !type:ContainerSlot
@@ -112306,34 +112305,7 @@ entities:
     - type: Transform
       parent: 30
       pos: 8.5,-30.5
-- proto: PlasmaCanister
-  entities:
-  - uid: 5351
-    components:
-    - type: Transform
-      parent: 30
-      pos: 18.5,-14.5
-  - uid: 9656
-    components:
-    - type: Transform
-      parent: 30
-      pos: -5.5,-49.5
-  - uid: 9696
-    components:
-    - type: Transform
-      parent: 30
-      pos: 18.5,-13.5
-  - uid: 17005
-    components:
-    - type: Transform
-      parent: 30
-      pos: 27.5,-30.5
-  - uid: 23394
-    components:
-    - type: Transform
-      parent: 30
-      pos: -16.5,-34.5
-- proto: PlasmaReinforcedWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 2028
     components:
@@ -112381,19 +112353,7 @@ entities:
       parent: 30
       rot: -1.5707963267948966 rad
       pos: -40.5,53.5
-- proto: PlasmaTank
-  entities:
-  - uid: 23385
-    components:
-    - type: Transform
-      parent: 30
-      pos: -19.491625,-50.34907
-  - uid: 23386
-    components:
-    - type: Transform
-      parent: 30
-      pos: -19.366564,-50.463734
-- proto: PlasmaWindoorArmoryLocked
+- proto: WindoorArmoryLocked
   entities:
   - uid: 1943
     components:
@@ -112417,7 +112377,7 @@ entities:
       parent: 30
       rot: 3.141592653589793 rad
       pos: -40.5,54.5
-- proto: PlasmaWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 7039
     components:
@@ -112595,72 +112555,6 @@ entities:
     - type: Transform
       parent: 30
       pos: -39.5,51.5
-- proto: PortableGeneratorJrPacman
-  entities:
-  - uid: 11157
-    components:
-    - type: Transform
-      parent: 30
-      pos: -7.5,-48.5
-  - uid: 14479
-    components:
-    - type: Transform
-      parent: 30
-      pos: -54.5,-62.5
-  - uid: 17594
-    components:
-    - type: Transform
-      parent: 30
-      pos: 23.5,4.5
-  - uid: 19476
-    components:
-    - type: Transform
-      parent: 30
-      pos: -20.5,18.5
-  - uid: 19477
-    components:
-    - type: Transform
-      parent: 30
-      pos: 44.5,14.5
-  - uid: 19491
-    components:
-    - type: Transform
-      parent: 30
-      pos: 17.5,53.5
-  - uid: 19492
-    components:
-    - type: Transform
-      parent: 30
-      pos: -41.5,19.5
-  - uid: 19493
-    components:
-    - type: Transform
-      parent: 30
-      pos: -59.5,36.5
-  - uid: 19694
-    components:
-    - type: Transform
-      parent: 30
-      pos: -21.5,-28.5
-- proto: PortableGeneratorPacman
-  entities:
-  - uid: 10534
-    components:
-    - type: Transform
-      parent: 30
-      pos: -53.5,-59.5
-  - uid: 18810
-    components:
-    - type: Transform
-      parent: 30
-      pos: -19.5,-35.5
-- proto: PortableGeneratorSuperPacman
-  entities:
-  - uid: 19415
-    components:
-    - type: Transform
-      parent: 30
-      pos: -19.5,-34.5
 - proto: PortableScrubber
   entities:
   - uid: 8285
@@ -118941,7 +118835,7 @@ entities:
       parent: 30
       rot: 1.5707963267948966 rad
       pos: 32.5,-11.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 4425
     components:
@@ -123015,24 +122909,6 @@ entities:
     - type: Transform
       parent: 30
       pos: 3.1795287,-46.489548
-- proto: SheetPlasma
-  entities:
-  - uid: 11365
-    components:
-    - type: Transform
-      parent: 11364
-    - type: Physics
-      canCollide: False
-  - uid: 18692
-    components:
-    - type: Transform
-      parent: 30
-      pos: -15.565023,-37.405533
-  - uid: 21729
-    components:
-    - type: Transform
-      parent: 30
-      pos: 30.50643,22.626024
 - proto: SheetPlasteel
   entities:
   - uid: 550
@@ -132537,7 +132413,7 @@ entities:
     - type: Transform
       parent: 30
       pos: 5.5,-11.5
-- proto: TablePlasmaGlass
+- proto: TableReinforcedGlass
   entities:
   - uid: 16142
     components:

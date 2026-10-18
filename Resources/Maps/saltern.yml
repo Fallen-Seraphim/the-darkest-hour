@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 09/22/2026 18:21:07
-  entityCount: 11471
+  entityCount: 11455
 maps:
 - 658
 grids:
@@ -27451,7 +27451,6 @@ entities:
         entity_storage: !type:Container
           ents:
           - 7856
-          - 7859
           - 7854
           - 7857
           - 7855
@@ -50910,40 +50909,6 @@ entities:
     - type: Transform
       parent: 31
       pos: 51.5,18.5
-- proto: PlasmaCanister
-  entities:
-  - uid: 10009
-    components:
-    - type: Transform
-      parent: 31
-      pos: 36.5,11.5
-  - uid: 11054
-    components:
-    - type: Transform
-      parent: 31
-      pos: 36.5,10.5
-  - uid: 11072
-    components:
-    - type: Transform
-      parent: 31
-      pos: 42.5,23.5
-- proto: PlasmaTankFilled
-  entities:
-  - uid: 6878
-    components:
-    - type: Transform
-      parent: 31
-      pos: 55.67908,8.591436
-  - uid: 6881
-    components:
-    - type: Transform
-      parent: 31
-      pos: 55.257206,8.247686
-  - uid: 11326
-    components:
-    - type: Transform
-      parent: 31
-      pos: 64.25282,0.19537628
 - proto: PlasticFlapsAirtightClear
   entities:
   - uid: 547
@@ -51101,54 +51066,6 @@ entities:
     - type: Transform
       parent: 31
       pos: -13.5,19.5
-- proto: PortableGeneratorJrPacman
-  entities:
-  - uid: 10125
-    components:
-    - type: Transform
-      parent: 31
-      pos: -32.5,-10.5
-  - uid: 11261
-    components:
-    - type: Transform
-      parent: 31
-      pos: -20.5,-25.5
-  - uid: 11262
-    components:
-    - type: Transform
-      parent: 31
-      pos: -10.5,-36.5
-  - uid: 11263
-    components:
-    - type: Transform
-      parent: 31
-      pos: 0.5,-11.5
-- proto: PortableGeneratorPacman
-  entities:
-  - uid: 1682
-    components:
-    - type: Transform
-      parent: 31
-      pos: 24.5,-16.5
-  - uid: 3303
-    components:
-    - type: Transform
-      parent: 31
-      pos: 28.5,13.5
-- proto: PortableGeneratorPacmanMachineCircuitboard
-  entities:
-  - uid: 10979
-    components:
-    - type: Transform
-      parent: 31
-      pos: 56.502796,-5.3510003
-- proto: PortableGeneratorSuperPacman
-  entities:
-  - uid: 4541
-    components:
-    - type: Transform
-      parent: 31
-      pos: 47.5,1.5
 - proto: PortableScrubber
   entities:
   - uid: 4315
@@ -54338,7 +54255,7 @@ entities:
       parent: 31
       rot: 1.5707963267948966 rad
       pos: -34.5,-16.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 439
     components:
@@ -56277,20 +56194,6 @@ entities:
     - type: Transform
       parent: 31
       pos: 8.687881,-17.407122
-- proto: SheetPlasma
-  entities:
-  - uid: 7600
-    components:
-    - type: Transform
-      parent: 31
-      pos: -6.54687,-32.500237
-  - uid: 7859
-    components:
-    - type: Transform
-      parent: 7853
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 - proto: SheetPlasteel
   entities:
   - uid: 738

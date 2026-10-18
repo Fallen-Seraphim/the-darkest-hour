@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 05/29/2026 08:54:24
-  entityCount: 980
+  entityCount: 978
 maps: []
 grids:
 - 1
@@ -5516,11 +5516,9 @@ entities:
           - 60
           - 63
           - 64
-          - 66
           - 61
           - 57
           - 58
-          - 65
         paper_label: !type:ContainerSlot
           showEnts: False
           occludes: True
@@ -5656,7 +5654,7 @@ entities:
     - type: Transform
       pos: 0.3812492,14.513718
       parent: 1
-- proto: PlasmaReinforcedWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 703
     components:
@@ -5981,22 +5979,6 @@ entities:
 - proto: ReagentContainerMayo
   entities:
   - uid: 1000
-    components:
-    - type: Transform
-      parent: 999
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-- proto: SheetPlasma1
-  entities:
-  - uid: 65
-    components:
-    - type: Transform
-      parent: 999
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 66
     components:
     - type: Transform
       parent: 999

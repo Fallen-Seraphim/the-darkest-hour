@@ -1207,7 +1207,7 @@ entities:
     - type: Transform
       parent: 1
       pos: 6.5,0.5
-- proto: ReinforcedPlasmaWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 9
     components:
