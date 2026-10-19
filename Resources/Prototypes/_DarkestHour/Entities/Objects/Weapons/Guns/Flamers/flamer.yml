@@ -107,10 +107,13 @@
     state: flametank_improvised
   - type: Item
     size: Normal
-  - type: SolutionContainerManager
-    solutions:
-      tank:
-        maxVol: 100
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 100
+  - type: ExaminableSolution
+    solution: tank
+    exactVolume: true
   - type: RefillableSolution
     solution: tank
   - type: SolutionTransfer
@@ -132,13 +135,13 @@
   components:
   - type: Sprite
     state: flametank
-  - type: SolutionContainerManager
-    solutions:
-      tank:
-        maxVol: 100
-        reagents:
-        - ReagentId: WeldingFuel
-          Quantity: 100
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 100
+      reagents:
+      - ReagentId: WeldingFuel
+        Quantity: 100
 
 - type: entity
   parent: [ DHFlamerTank, BaseMajorContraband ]
@@ -148,10 +151,10 @@
   components:
   - type: Sprite
     state: flametank_gel
-  - type: SolutionContainerManager
-    solutions:
-      tank:
-        maxVol: 100
-        reagents:
-        - ReagentId: Napalm
-          Quantity: 100
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 100
+      reagents:
+      - ReagentId: Napalm
+        Quantity: 100
