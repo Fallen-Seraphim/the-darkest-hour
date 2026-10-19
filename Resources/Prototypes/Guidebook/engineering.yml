@@ -321,7 +321,7 @@
   - TEG
   - RTG
   - SolarPanels
-  - NuclearReactor # DarkestHour: Far Horizons reactor
+  - FusionReactor # DarkestHour: own fusion reactor
 
 - type: guideEntry
   id: AME

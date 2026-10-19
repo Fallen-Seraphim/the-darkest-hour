@@ -1,0 +1,51 @@
+<Document>
+  # Compact Fusion Reactor
+
+  <Box>
+    <GuideEntityEmbed Entity="DHFusionReactor" Caption="Fusion reactor"/>
+    <GuideEntityEmbed Entity="DHGasTurbine" Caption="Gas turbine"/>
+    <GuideEntityEmbed Entity="DHFusionFuelCassette" Caption="Fuel cassette"/>
+  </Box>
+
+  The station runs on a compact fusion reactor. The reactor itself makes no electricity: it heats gas. The [color=orange]gas turbine[/color] is a heat engine: it lets heat flow from that hot gas into cold gas and turns part of it into power for the [color=orange]HV network[/color]. Like any heat engine, it needs both a hot side and a cold side.
+
+  ## Two loops
+  [bold]Hot loop[/bold] (closed):
+  [color=orange]reactor outlet[/color] → turbine [color=orange]hot inlet[/color] → turbine hot outlet → [color=lightblue]reactor inlet[/color]
+
+  [bold]Cold loop[/bold] (closed, built by atmospherics):
+  turbine [color=lightblue]cold outlet[/color] → [color=cyan]radiators in space[/color] (and/or coolers) → turbine [color=lightblue]cold inlet[/color]
+
+  Examine the reactor and the turbine to see which side each port is on. The reactor and both sides of the turbine move gas on their own; no extra pumps are needed in either loop.
+
+  ## Where the power comes from
+  - The share of the heat that becomes electricity grows with the temperature difference: [bold]efficiency = 70% × (1 − T cold / T hot)[/bold]. A cold side at 300 K and a hot side at 1500 K give 56%.
+  - Every watt the reactor makes has to leave through the cold loop: as electricity, or as heat dumped by the radiators. [bold]The cold loop decides how hard you can run the reactor.[/bold]
+  - Without cold gas, or with a cold loop that has warmed up, the turbine makes nothing, the hot loop has nowhere to put its heat and the reactor core overheats.
+
+  ## Filling the loops
+  - Fill both loops to roughly [color=orange]3000–4500 kPa[/color]. Low pressure in the hot loop means the core runs much hotter for the same power.
+  - Nitrogen works. Carbon dioxide, water vapour and nitrous oxide carry a little more heat per mole, frezon far more. Tritium is a poor coolant.
+  - Radiators shed heat much faster when hot, so a cold loop at a few hundred kelvin is normal. Coolers (freezers) help but use power.
+
+  Rough numbers for nitrogen at about 4500 kPa: with [bold]~20 radiators[/bold] the reactor can run at about half power and the turbine gives roughly [bold]450–500 kW[/bold]. Full power needs a much larger cold loop (several dozen radiators). Watch the core temperature and raise the power only as far as your cooling allows.
+
+  The reactor window and the turbine show pressures, temperatures and flow (mol/s). The turbine tells you when an outlet is full, when no gas flows, or when the cold side is too warm.
+
+  ## Running the reactor
+  - The containment field needs [color=orange]APC power[/color]. Without it the reactor winds down and the field weakens.
+  - Insert a [color=cyan]fuel cassette[/color]. Cassettes are ordered from cargo. The cassette is locked in while the reactor runs.
+  - The reactor needs power before the turbine makes any: start it from the SMES or batteries.
+  - Set the power and press [bold]Start reactor[/bold]. Output rises gradually. Start at 30–50% and raise it while watching the core temperature.
+  - Higher power burns fuel faster and heats the core faster. The core only stays cool if enough gas flows through it.
+
+  ## Danger
+  Above the safe core temperature the containment field starts to fail; the hotter the core, the faster it fails. Engineering is warned over the radio as the field weakens.
+
+  If the field reaches 0%, the reactor [color=red]breaches[/color]: an explosion, a burst of superheated gas, and an electromagnetic pulse that knocks out nearby electronics. The reactor is wrecked.
+
+  [bold]Shutting down always works.[/bold] Press Shut down, keep coolant flowing, and the core cools on its own.
+
+  ## Turbine
+  Gas hotter than the turbine can take wears down its blades. A turbine with wrecked blades makes no power until it is repaired with a [color=orange]welder[/color].
+</Document>

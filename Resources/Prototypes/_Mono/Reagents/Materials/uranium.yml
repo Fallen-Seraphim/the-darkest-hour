@@ -10,14 +10,6 @@
   icon: { sprite: /Textures/_Mono/Objects/Materials/fissiles.rsi, state: uranium }
   color: "#8a8568"
   price: 50 # DarkestHour: Mono 250 -> scaled to vanilla prices (5000 per sheet)
-  properties:
-    electrical: 4
-    thermal: 3
-    hard: 5
-    density: 7
-    chemical: 6
-    radioactive: 9
-    n_radioactive: 8
 
 - type: entity
   parent: MaterialBase
@@ -83,14 +75,6 @@
   icon: { sprite: /Textures/_Mono/Objects/Materials/fissiles.rsi, state: depleted }
   color: "#14211d"
   price: 0.3 # DarkestHour: Mono 20 -> scaled to vanilla prices
-  properties:
-    electrical: 4
-    thermal: 3
-    hard: 12
-    density: 12
-    chemical: 6
-    radioactive: 1
-    n_radioactive: 1
 
 - type: entity
   parent: MaterialBase

@@ -1,0 +1,236 @@
+using System.Diagnostics.CodeAnalysis;
+using Content.Server.Atmos.EntitySystems;
+using Content.Server.NodeContainer.EntitySystems;
+using Content.Server.NodeContainer.Nodes;
+using Content.Shared._DarkestHour.Atmos;
+using Content.Shared.Atmos;
+using Content.Shared.Examine;
+using Robust.Shared.Map;
+
+namespace Content.Server._DarkestHour.Atmos;
+
+/// <summary>
+/// Spawns, keeps and removes the gas port entities of large machines (see <see cref="MachineGasPortsComponent"/>).
+/// </summary>
+public sealed class MachineGasPortsSystem : EntitySystem
+{
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private NodeContainerSystem _nodeContainer = default!;
+    [Dependency] private AtmosphereSystem _atmos = default!;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        SubscribeLocalEvent<MachineGasPortsComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<MachineGasPortsComponent, AnchorStateChangedEvent>(OnAnchorChanged);
+        SubscribeLocalEvent<MachineGasPortsComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<MachineGasPortsComponent, GasAnalyzerScanEvent>(OnAnalyze);
+        SubscribeLocalEvent<MachineGasPortsComponent, ExaminedEvent>(OnExamined);
+    }
+
+    /// <summary>
+    /// Volume of gas (L) a machine moves from its inlet to its outlet this tick, like a volumetric pump:
+    /// at most <paramref name="flowRate"/> L/s and never pushing the outlet above <paramref name="maxOutletPressure"/> kPa.
+    /// </summary>
+    public float GetTransferVolume(PipeNode inlet, PipeNode outlet, float flowRate, float maxOutletPressure, float dt)
+    {
+        if (inlet.Air.TotalMoles <= 0f || inlet.Air.Pressure <= 0f)
+            return 0f;
+
+        var wanted = MathF.Min(inlet.Air.Volume, flowRate * _atmos.PumpSpeedup() * dt);
+        var wantedMoles = inlet.Air.Pressure * wanted / (inlet.Air.Temperature * Atmospherics.R);
+        var spaceLeft = (maxOutletPressure - outlet.Air.Pressure) * outlet.Air.Volume
+                        / (MathF.Max(outlet.Air.Temperature, Atmospherics.TCMB) * Atmospherics.R);
+        var moles = Math.Clamp(wantedMoles, 0f, MathF.Max(0f, spaceLeft));
+
+        return moles * inlet.Air.Temperature * Atmospherics.R / inlet.Air.Pressure;
+    }
+
+    private void OnMapInit(Entity<MachineGasPortsComponent> ent, ref MapInitEvent args)
+    {
+        EnsurePorts(ent);
+    }
+
+    private void OnAnchorChanged(Entity<MachineGasPortsComponent> ent, ref AnchorStateChangedEvent args)
+    {
+        if (!args.Anchored || args.Detaching)
+        {
+            DeletePorts(ent);
+            return;
+        }
+
+        // Machines anchored while their map is being loaded or set up get their ports on MapInit
+        // (or lazily on the first atmos update).
+        if (MetaData(ent).EntityLifeStage >= EntityLifeStage.MapInitialized)
+            EnsurePorts(ent);
+    }
+
+    private void OnShutdown(Entity<MachineGasPortsComponent> ent, ref ComponentShutdown args)
+    {
+        DeletePorts(ent);
+    }
+
+    private void OnAnalyze(Entity<MachineGasPortsComponent> ent, ref GasAnalyzerScanEvent args)
+    {
+        if (!TryGetPipes(ent, out var inlet, out var outlet))
+            return;
+
+        args.GasMixtures ??= new List<(string, GasMixture?)>();
+        if (!ent.Comp.Secondary)
+        {
+            args.GasMixtures.Add((Loc.GetString("gas-analyzer-window-text-inlet"), inlet.Air));
+            args.GasMixtures.Add((Loc.GetString("gas-analyzer-window-text-outlet"), outlet.Air));
+            return;
+        }
+
+        args.GasMixtures.Add((Loc.GetString("dh-machine-gas-ports-hot-inlet"), inlet.Air));
+        args.GasMixtures.Add((Loc.GetString("dh-machine-gas-ports-hot-outlet"), outlet.Air));
+        if (TryGetSecondaryPipes(ent, out var coldInlet, out var coldOutlet))
+        {
+            args.GasMixtures.Add((Loc.GetString("dh-machine-gas-ports-cold-inlet"), coldInlet.Air));
+            args.GasMixtures.Add((Loc.GetString("dh-machine-gas-ports-cold-outlet"), coldOutlet.Air));
+        }
+    }
+
+    private void OnExamined(Entity<MachineGasPortsComponent> ent, ref ExaminedEvent args)
+    {
+        if (!args.IsInDetailsRange)
+            return;
+
+        var rotation = Transform(ent).LocalRotation;
+        var inlet = (rotation + DirectionAngle(ent.Comp.InletDirection)).GetCardinalDir();
+        var outlet = (rotation + DirectionAngle(ent.Comp.OutletDirection)).GetCardinalDir();
+
+        args.PushMarkup(Loc.GetString(ent.Comp.Secondary ? "dh-machine-gas-ports-examine-hot" : "dh-machine-gas-ports-examine",
+            ("inlet", DirectionName(inlet)),
+            ("outlet", DirectionName(outlet))));
+
+        if (!ent.Comp.Secondary)
+            return;
+
+        var coldInlet = (rotation + DirectionAngle(ent.Comp.SecondaryInletDirection)).GetCardinalDir();
+        var coldOutlet = (rotation + DirectionAngle(ent.Comp.SecondaryOutletDirection)).GetCardinalDir();
+        args.PushMarkup(Loc.GetString("dh-machine-gas-ports-examine-cold",
+            ("inlet", DirectionName(coldInlet)),
+            ("outlet", DirectionName(coldOutlet))));
+    }
+
+    private string DirectionName(Direction direction)
+    {
+        return Loc.GetString($"dh-direction-{direction.ToString().ToLowerInvariant()}");
+    }
+
+    /// <summary>
+    /// Gets the pipe nodes of the second gas circuit, spawning the ports if they are missing.
+    /// </summary>
+    public bool TryGetSecondaryPipes(Entity<MachineGasPortsComponent> ent,
+        [NotNullWhen(true)] out PipeNode? inlet,
+        [NotNullWhen(true)] out PipeNode? outlet)
+    {
+        inlet = null;
+        outlet = null;
+
+        if (!ent.Comp.Secondary)
+            return false;
+
+        EnsurePorts(ent);
+
+        if (ent.Comp.SecondaryInlet is not { } inletUid || ent.Comp.SecondaryOutlet is not { } outletUid)
+            return false;
+
+        return _nodeContainer.TryGetNode(inletUid, ent.Comp.PortNode, out inlet)
+               && _nodeContainer.TryGetNode(outletUid, ent.Comp.PortNode, out outlet);
+    }
+
+    /// <summary>
+    /// Gets the inlet and outlet pipe nodes, spawning the ports if they are missing.
+    /// </summary>
+    public bool TryGetPipes(Entity<MachineGasPortsComponent> ent,
+        [NotNullWhen(true)] out PipeNode? inlet,
+        [NotNullWhen(true)] out PipeNode? outlet)
+    {
+        inlet = null;
+        outlet = null;
+
+        EnsurePorts(ent);
+
+        if (ent.Comp.Inlet is not { } inletUid || ent.Comp.Outlet is not { } outletUid)
+            return false;
+
+        if (!_nodeContainer.TryGetNode(inletUid, ent.Comp.PortNode, out inlet))
+            return false;
+
+        if (!_nodeContainer.TryGetNode(outletUid, ent.Comp.PortNode, out outlet))
+            return false;
+
+        return true;
+    }
+
+    public void EnsurePorts(Entity<MachineGasPortsComponent> ent)
+    {
+        var xform = Transform(ent);
+        if (!xform.Anchored || xform.GridUid == null || TerminatingOrDeleted(ent))
+            return;
+
+        ent.Comp.Inlet = EnsurePort(ent, xform, ent.Comp.Inlet, ent.Comp.InletOffset, ent.Comp.InletDirection);
+        ent.Comp.Outlet = EnsurePort(ent, xform, ent.Comp.Outlet, ent.Comp.OutletOffset, ent.Comp.OutletDirection);
+
+        if (!ent.Comp.Secondary)
+            return;
+
+        ent.Comp.SecondaryInlet = EnsurePort(ent, xform, ent.Comp.SecondaryInlet,
+            ent.Comp.SecondaryInletOffset, ent.Comp.SecondaryInletDirection);
+        ent.Comp.SecondaryOutlet = EnsurePort(ent, xform, ent.Comp.SecondaryOutlet,
+            ent.Comp.SecondaryOutletOffset, ent.Comp.SecondaryOutletDirection);
+    }
+
+    public void DeletePorts(Entity<MachineGasPortsComponent> ent)
+    {
+        if (ent.Comp.Inlet is { } inlet && !TerminatingOrDeleted(inlet))
+            QueueDel(inlet);
+
+        if (ent.Comp.Outlet is { } outlet && !TerminatingOrDeleted(outlet))
+            QueueDel(outlet);
+
+        if (ent.Comp.SecondaryInlet is { } coldInlet && !TerminatingOrDeleted(coldInlet))
+            QueueDel(coldInlet);
+
+        if (ent.Comp.SecondaryOutlet is { } coldOutlet && !TerminatingOrDeleted(coldOutlet))
+            QueueDel(coldOutlet);
+
+        ent.Comp.Inlet = null;
+        ent.Comp.Outlet = null;
+        ent.Comp.SecondaryInlet = null;
+        ent.Comp.SecondaryOutlet = null;
+    }
+
+    private EntityUid EnsurePort(Entity<MachineGasPortsComponent> ent,
+        TransformComponent xform,
+        EntityUid? existing,
+        System.Numerics.Vector2 offset,
+        Direction direction)
+    {
+        if (existing is { } port && !TerminatingOrDeleted(port))
+            return port;
+
+        // Port position and facing follow the machine's rotation. The pipe node of the port faces south at rotation 0.
+        var position = xform.LocalPosition + xform.LocalRotation.RotateVec(offset);
+        var coordinates = new EntityCoordinates(xform.ParentUid, position);
+        var rotation = xform.LocalRotation + DirectionAngle(direction);
+
+        var newPort = SpawnAttachedTo(ent.Comp.PortPrototype, coordinates, rotation: rotation);
+        if (!Transform(newPort).Anchored)
+            _transform.AnchorEntity(newPort);
+
+        return newPort;
+    }
+
+    /// <summary>
+    /// Angle that turns a south-facing direction into <paramref name="direction"/>. South is 0, east is 90 degrees.
+    /// </summary>
+    private static Angle DirectionAngle(Direction direction)
+    {
+        return new Angle(MathHelper.PiOver4 * (int) direction);
+    }
+}

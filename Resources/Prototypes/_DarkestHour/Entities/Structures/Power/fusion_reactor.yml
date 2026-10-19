@@ -1,0 +1,198 @@
+# DarkestHour: compact fusion reactor (3x3) and gas turbine (2x5). Own mechanic, sprites made for The Darkest Hour.
+
+# Invisible pipe connection used by large machines (MachineGasPorts). Spawned and removed by the machine.
+- type: entity
+  id: DHMachineGasPort
+  name: machine gas port
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+  - type: NodeContainer
+    nodes:
+      pipe:
+        !type:PipeNode
+        nodeGroupID: Pipe
+        pipeDirection: South
+        volume: 200
+
+- type: entity
+  id: DHFusionReactor
+  parent: BaseStructure
+  name: compact fusion reactor
+  description: A Metallistick Group station reactor. Coolant gas enters on one side, passes the magnetically contained core and leaves hot on the other. Keep the containment field powered.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Power/Fusion/fusion_reactor.rsi
+    noRot: false
+    snapCardinals: false
+    drawdepth: Objects
+    layers:
+    - state: base
+      map: [ "enum.FusionReactorVisualLayers.Body" ]
+    - state: core_active
+      shader: unshaded
+      visible: false
+      map: [ "enum.FusionReactorVisualLayers.Core" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.FusionReactorVisuals.State:
+        enum.FusionReactorVisualLayers.Body:
+          Off: { state: base }
+          Active: { state: base }
+          Unstable: { state: base }
+          Breached: { state: broken }
+        enum.FusionReactorVisualLayers.Core:
+          Off: { visible: false }
+          Active: { visible: true, state: core_active }
+          Unstable: { visible: true, state: core_unstable }
+          Breached: { visible: false }
+  - type: Transform
+    anchored: true
+    noRot: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.45,-1.45,1.45,1.45"
+        density: 1000
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: InteractionOutline
+  - type: AtmosDevice
+  - type: MachineGasPorts
+    inletOffset: -1, 0
+    inletDirection: West
+    outletOffset: 1, 0
+    outletDirection: East
+  - type: FusionReactor
+  - type: ApcPowerReceiver
+    powerLoad: 1000
+  - type: ExtensionCableReceiver
+  - type: ItemSlots
+    slots:
+      fuel_slot:
+        name: fusion-reactor-fuel-slot
+        whitelist:
+          components:
+          - FusionFuelCassette
+  - type: ContainerContainer
+    containers:
+      fuel_slot: !type:ContainerSlot
+  - type: PointLight
+    enabled: false
+    radius: 3
+    energy: 2
+    color: "#59b8ff"
+    castShadows: false
+  - type: AccessReader
+    access: [["Engineering"]]
+  - type: ActivatableUI
+    key: enum.FusionReactorUiKey.Key
+  - type: ActivatableUIRequiresAccess
+  - type: UserInterface
+    interfaces:
+      enum.FusionReactorUiKey.Key:
+        type: FusionReactorBoundUserInterface
+  - type: GuideHelp
+    guides:
+    - FusionReactor
+    - Power
+  - type: AmbientMusicMarkerEngineering
+
+- type: entity
+  id: DHFusionReactorFueled
+  parent: DHFusionReactor
+  suffix: Fueled
+  components:
+  - type: ItemSlots
+    slots:
+      fuel_slot:
+        name: fusion-reactor-fuel-slot
+        startingItem: DHFusionFuelCassette
+        whitelist:
+          components:
+          - FusionFuelCassette
+
+- type: entity
+  id: DHGasTurbine
+  parent: BaseStructure
+  name: gas turbine
+  description: A heat engine with two gas circuits. Hot gas from the reactor gives its heat to cold gas from the cooling loop, and the turbine turns part of that heat into power for the HV network. The bigger the temperature difference, the more power.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Power/Fusion/gas_turbine.rsi
+    noRot: false
+    snapCardinals: false
+    drawdepth: Objects
+    offset: 0.5, 0
+    layers:
+    - state: base
+      map: [ "enum.GasTurbineVisualLayers.Body" ]
+    - state: rotor
+      map: [ "enum.GasTurbineVisualLayers.Rotor" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.GasTurbineVisuals.Spinning:
+        enum.GasTurbineVisualLayers.Rotor:
+          True: { state: rotor_spin }
+          False: { state: rotor }
+      enum.GasTurbineVisuals.Broken:
+        enum.GasTurbineVisualLayers.Body:
+          True: { state: broken }
+          False: { state: base }
+        enum.GasTurbineVisualLayers.Rotor:
+          True: { visible: false }
+          False: { visible: true }
+  - type: Transform
+    anchored: true
+    noRot: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-2.45,1.45,2.45"
+        density: 1000
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: InteractionOutline
+  - type: AtmosDevice
+  - type: MachineGasPorts
+    inletOffset: 0, 2
+    inletDirection: North
+    outletOffset: 0, -2
+    outletDirection: South
+    secondary: true
+    secondaryInletOffset: 1, -1
+    secondaryInletDirection: East
+    secondaryOutletOffset: 1, 1
+    secondaryOutletDirection: East
+  - type: GasTurbine
+  - type: NodeContainer
+    examinable: true
+    nodes:
+      output:
+        !type:CableDeviceNode
+        nodeGroupID: HVPower
+  - type: PowerSupplier
+    supplyRate: 0
+    supplyRampRate: 100000
+    supplyRampTolerance: 10000
+  - type: PowerMonitoringDevice
+    group: Generator
+    loadNode: output
+    sprite: _DarkestHour/Structures/Power/Fusion/gas_turbine.rsi
+    state: base
+  - type: GuideHelp
+    guides:
+    - FusionReactor
+    - Power
+  - type: AmbientMusicMarkerEngineering

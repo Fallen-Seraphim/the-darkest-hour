@@ -1,0 +1,9 @@
+- type: cargoProduct
+  id: DHEngineeringFusionFuel
+  icon:
+    sprite: _DarkestHour/Objects/Power/fuel_cassette.rsi
+    state: icon
+  product: DHCrateFusionFuel
+  cost: 4000
+  category: cargoproduct-category-name-engineering
+  group: market
