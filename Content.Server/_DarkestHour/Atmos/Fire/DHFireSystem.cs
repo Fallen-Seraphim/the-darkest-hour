@@ -1,9 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
 using Content.Server.Atmos.EntitySystems;
 using Content.Shared._DarkestHour.Atmos.Fire;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Damage;
+using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
@@ -28,18 +30,18 @@ namespace Content.Server._DarkestHour.Atmos.Fire;
 /// </summary>
 public sealed class DHFireSystem : EntitySystem
 {
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly FlammableSystem _flammable = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly MapSystem _map = default!;
-    [Dependency] private readonly PointLightSystem _pointLight = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
+    [Dependency] private AppearanceSystem _appearance = default!;
+    [Dependency] private AtmosphereSystem _atmosphere = default!;
+    [Dependency] private DamageableSystem _damageable = default!;
+    [Dependency] private FlammableSystem _flammable = default!;
+    [Dependency] private InventorySystem _inventory = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
+    [Dependency] private MapSystem _map = default!;
+    [Dependency] private PointLightSystem _pointLight = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private SharedSolutionContainerSystem _solution = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private TurfSystem _turf = default!;
 
     public static readonly EntProtoId DefaultFire = "DHTileFire";
     private static readonly ProtoId<DamageTypePrototype> HeatType = "Heat";
@@ -206,7 +208,7 @@ public sealed class DHFireSystem : EntitySystem
     }
 
     private bool TryGetFire(EntityUid gridUid, MapGridComponent grid, Vector2i tile,
-        out Entity<DHTileFireComponent>? fire)
+        [NotNullWhen(true)] out Entity<DHTileFireComponent>? fire)
     {
         fire = null;
         var anchored = _map.GetAnchoredEntitiesEnumerator(gridUid, grid, tile);
