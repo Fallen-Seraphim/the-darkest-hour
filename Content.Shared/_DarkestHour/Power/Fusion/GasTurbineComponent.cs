@@ -4,43 +4,45 @@ using Robust.Shared.Prototypes;
 namespace Content.Shared._DarkestHour.Power.Fusion;
 
 /// <summary>
-/// Gas turbine. Hot gas from the inlet port passes through the turbine and leaves cooler through the outlet port;
-/// part of the heat taken from the gas becomes electricity on the HV network.
-/// The hotter and denser the incoming gas, the more power. The exhaust is still warm and must be vented or cooled
-/// before it goes back into the reactor.
+/// Gas turbine with two separate gas circuits.
+/// Hot gas from the reactor passes the hot side, cold gas from the cooling loop passes the cold side.
+/// Heat flows from the hot gas into the cold gas, and part of it becomes electricity on the HV network.
+/// The share that becomes electricity grows with the temperature difference (Carnot-like),
+/// so the turbine makes nothing without a working, well-cooled cold loop.
 /// </summary>
 [RegisterComponent]
 public sealed partial class GasTurbineComponent : Component
 {
     /// <summary>
-    /// Volume of gas pulled through the turbine per second, in litres.
+    /// Volume of hot gas pulled through the hot side per second, in litres.
     /// </summary>
     [DataField]
-    public float FlowRate = 2500f;
+    public float HotFlowRate = 2500f;
 
     /// <summary>
-    /// The turbine keeps pulling gas through until its outlet reaches this pressure, kPa.
+    /// Volume of cold gas pulled through the cold side per second, in litres.
+    /// </summary>
+    [DataField]
+    public float ColdFlowRate = 2500f;
+
+    /// <summary>
+    /// Both sides keep moving gas until their outlet reaches this pressure, kPa.
     /// </summary>
     [DataField]
     public float MaxOutletPressure = 15000f;
 
     /// <summary>
-    /// How far the gas cools towards <see cref="ExhaustReferenceTemperature"/>, 0..1.
+    /// How close the two gases get to a common temperature while passing each other, 0..1.
     /// </summary>
     [DataField]
-    public float ExpansionFraction = 0.6f;
+    public float HeatExchange = 0.8f;
 
     /// <summary>
-    /// Share of the heat taken from the gas that becomes electricity, 0..1.
+    /// Efficiency at an infinitely cold cold side. The actual efficiency is
+    /// <c>MaxEfficiency * (1 - Tcold / Thot)</c>.
     /// </summary>
     [DataField]
-    public float Efficiency = 0.6f;
-
-    /// <summary>
-    /// Temperature the gas expands towards, K. Gas at or below it gives no power.
-    /// </summary>
-    [DataField]
-    public float ExhaustReferenceTemperature = 293.15f;
+    public float MaxEfficiency = 0.7f;
 
     /// <summary>
     /// How fast the reported power output follows the actual output, per second.
@@ -55,13 +57,13 @@ public sealed partial class GasTurbineComponent : Component
     public float SpinThreshold = 1_000f;
 
     /// <summary>
-    /// Inlet gas temperature above which the blades get damaged, K.
+    /// Hot inlet gas temperature above which the blades get damaged, K.
     /// </summary>
     [DataField]
     public float MaxInletTemperature = 3500f;
 
     /// <summary>
-    /// Integrity lost per second when the inlet gas is twice as hot as <see cref="MaxInletTemperature"/>.
+    /// Integrity lost per second when the hot gas is twice as hot as <see cref="MaxInletTemperature"/>.
     /// </summary>
     [DataField]
     public float OverheatDamage = 20f;
@@ -103,7 +105,13 @@ public sealed partial class GasTurbineComponent : Component
     public float PowerOutput;
 
     [ViewVariables]
+    public float LastEfficiency;
+
+    [ViewVariables]
     public float LastInletTemperature;
+
+    [ViewVariables]
+    public float LastColdTemperature;
 
     [ViewVariables]
     public float LastInletPressure;
@@ -111,9 +119,21 @@ public sealed partial class GasTurbineComponent : Component
     [ViewVariables]
     public float LastOutletPressure;
 
+    [ViewVariables]
+    public float LastColdInletPressure;
+
+    [ViewVariables]
+    public float LastColdOutletPressure;
+
     /// <summary>
-    /// Gas flow through the turbine, mol/s.
+    /// Hot gas flow, mol/s.
     /// </summary>
     [ViewVariables]
     public float LastMolesPerSecond;
+
+    /// <summary>
+    /// Cold gas flow, mol/s.
+    /// </summary>
+    [ViewVariables]
+    public float LastColdMolesPerSecond;
 }

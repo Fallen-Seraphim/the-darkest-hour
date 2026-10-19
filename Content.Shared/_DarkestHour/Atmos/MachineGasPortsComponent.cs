@@ -49,6 +49,24 @@ public sealed partial class MachineGasPortsComponent : Component
     public Direction OutletDirection = Direction.East;
 
     /// <summary>
+    /// The machine has a second, separate gas circuit (for example the cold loop of a turbine).
+    /// </summary>
+    [DataField]
+    public bool Secondary;
+
+    [DataField]
+    public Vector2 SecondaryInletOffset = new(0, -1);
+
+    [DataField]
+    public Direction SecondaryInletDirection = Direction.South;
+
+    [DataField]
+    public Vector2 SecondaryOutletOffset = new(0, 1);
+
+    [DataField]
+    public Direction SecondaryOutletDirection = Direction.North;
+
+    /// <summary>
     /// The spawned inlet port. Saved with the map so the port is not duplicated on load.
     /// </summary>
     [DataField]
@@ -59,4 +77,10 @@ public sealed partial class MachineGasPortsComponent : Component
     /// </summary>
     [DataField]
     public EntityUid? Outlet;
+
+    [DataField]
+    public EntityUid? SecondaryInlet;
+
+    [DataField]
+    public EntityUid? SecondaryOutlet;
 }

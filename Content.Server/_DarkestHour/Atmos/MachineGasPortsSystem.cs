@@ -77,8 +77,20 @@ public sealed class MachineGasPortsSystem : EntitySystem
             return;
 
         args.GasMixtures ??= new List<(string, GasMixture?)>();
-        args.GasMixtures.Add((Loc.GetString("gas-analyzer-window-text-inlet"), inlet.Air));
-        args.GasMixtures.Add((Loc.GetString("gas-analyzer-window-text-outlet"), outlet.Air));
+        if (!ent.Comp.Secondary)
+        {
+            args.GasMixtures.Add((Loc.GetString("gas-analyzer-window-text-inlet"), inlet.Air));
+            args.GasMixtures.Add((Loc.GetString("gas-analyzer-window-text-outlet"), outlet.Air));
+            return;
+        }
+
+        args.GasMixtures.Add((Loc.GetString("dh-machine-gas-ports-hot-inlet"), inlet.Air));
+        args.GasMixtures.Add((Loc.GetString("dh-machine-gas-ports-hot-outlet"), outlet.Air));
+        if (TryGetSecondaryPipes(ent, out var coldInlet, out var coldOutlet))
+        {
+            args.GasMixtures.Add((Loc.GetString("dh-machine-gas-ports-cold-inlet"), coldInlet.Air));
+            args.GasMixtures.Add((Loc.GetString("dh-machine-gas-ports-cold-outlet"), coldOutlet.Air));
+        }
     }
 
     private void OnExamined(Entity<MachineGasPortsComponent> ent, ref ExaminedEvent args)
@@ -90,9 +102,45 @@ public sealed class MachineGasPortsSystem : EntitySystem
         var inlet = (rotation + DirectionAngle(ent.Comp.InletDirection)).GetCardinalDir();
         var outlet = (rotation + DirectionAngle(ent.Comp.OutletDirection)).GetCardinalDir();
 
-        args.PushMarkup(Loc.GetString("dh-machine-gas-ports-examine",
-            ("inlet", Loc.GetString($"dh-direction-{inlet.ToString().ToLowerInvariant()}")),
-            ("outlet", Loc.GetString($"dh-direction-{outlet.ToString().ToLowerInvariant()}"))));
+        args.PushMarkup(Loc.GetString(ent.Comp.Secondary ? "dh-machine-gas-ports-examine-hot" : "dh-machine-gas-ports-examine",
+            ("inlet", DirectionName(inlet)),
+            ("outlet", DirectionName(outlet))));
+
+        if (!ent.Comp.Secondary)
+            return;
+
+        var coldInlet = (rotation + DirectionAngle(ent.Comp.SecondaryInletDirection)).GetCardinalDir();
+        var coldOutlet = (rotation + DirectionAngle(ent.Comp.SecondaryOutletDirection)).GetCardinalDir();
+        args.PushMarkup(Loc.GetString("dh-machine-gas-ports-examine-cold",
+            ("inlet", DirectionName(coldInlet)),
+            ("outlet", DirectionName(coldOutlet))));
+    }
+
+    private string DirectionName(Direction direction)
+    {
+        return Loc.GetString($"dh-direction-{direction.ToString().ToLowerInvariant()}");
+    }
+
+    /// <summary>
+    /// Gets the pipe nodes of the second gas circuit, spawning the ports if they are missing.
+    /// </summary>
+    public bool TryGetSecondaryPipes(Entity<MachineGasPortsComponent> ent,
+        [NotNullWhen(true)] out PipeNode? inlet,
+        [NotNullWhen(true)] out PipeNode? outlet)
+    {
+        inlet = null;
+        outlet = null;
+
+        if (!ent.Comp.Secondary)
+            return false;
+
+        EnsurePorts(ent);
+
+        if (ent.Comp.SecondaryInlet is not { } inletUid || ent.Comp.SecondaryOutlet is not { } outletUid)
+            return false;
+
+        return _nodeContainer.TryGetNode(inletUid, ent.Comp.PortNode, out inlet)
+               && _nodeContainer.TryGetNode(outletUid, ent.Comp.PortNode, out outlet);
     }
 
     /// <summary>
@@ -127,6 +175,14 @@ public sealed class MachineGasPortsSystem : EntitySystem
 
         ent.Comp.Inlet = EnsurePort(ent, xform, ent.Comp.Inlet, ent.Comp.InletOffset, ent.Comp.InletDirection);
         ent.Comp.Outlet = EnsurePort(ent, xform, ent.Comp.Outlet, ent.Comp.OutletOffset, ent.Comp.OutletDirection);
+
+        if (!ent.Comp.Secondary)
+            return;
+
+        ent.Comp.SecondaryInlet = EnsurePort(ent, xform, ent.Comp.SecondaryInlet,
+            ent.Comp.SecondaryInletOffset, ent.Comp.SecondaryInletDirection);
+        ent.Comp.SecondaryOutlet = EnsurePort(ent, xform, ent.Comp.SecondaryOutlet,
+            ent.Comp.SecondaryOutletOffset, ent.Comp.SecondaryOutletDirection);
     }
 
     public void DeletePorts(Entity<MachineGasPortsComponent> ent)
@@ -137,8 +193,16 @@ public sealed class MachineGasPortsSystem : EntitySystem
         if (ent.Comp.Outlet is { } outlet && !TerminatingOrDeleted(outlet))
             QueueDel(outlet);
 
+        if (ent.Comp.SecondaryInlet is { } coldInlet && !TerminatingOrDeleted(coldInlet))
+            QueueDel(coldInlet);
+
+        if (ent.Comp.SecondaryOutlet is { } coldOutlet && !TerminatingOrDeleted(coldOutlet))
+            QueueDel(coldOutlet);
+
         ent.Comp.Inlet = null;
         ent.Comp.Outlet = null;
+        ent.Comp.SecondaryInlet = null;
+        ent.Comp.SecondaryOutlet = null;
     }
 
     private EntityUid EnsurePort(Entity<MachineGasPortsComponent> ent,

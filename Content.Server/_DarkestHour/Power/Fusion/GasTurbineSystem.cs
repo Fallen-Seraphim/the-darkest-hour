@@ -1,3 +1,4 @@
+using Content.Server.NodeContainer.Nodes;
 using Content.Server._DarkestHour.Atmos;
 using Content.Server.Administration.Logs;
 using Content.Server.Atmos.EntitySystems;
@@ -15,7 +16,8 @@ using Content.Shared.Tools.Systems;
 namespace Content.Server._DarkestHour.Power.Fusion;
 
 /// <summary>
-/// Runs <see cref="GasTurbineComponent"/>: takes heat from the gas passing through and feeds the HV network.
+/// Runs <see cref="GasTurbineComponent"/>: passes heat from the hot circuit into the cold circuit
+/// and turns part of it into power on the HV network.
 /// </summary>
 public sealed class GasTurbineSystem : EntitySystem
 {
@@ -44,37 +46,76 @@ public sealed class GasTurbineSystem : EntitySystem
         var power = 0f;
 
         comp.LastMolesPerSecond = 0f;
+        comp.LastColdMolesPerSecond = 0f;
+        comp.LastEfficiency = 0f;
+
         if (TryComp<MachineGasPortsComponent>(uid, out var ports)
             && _ports.TryGetPipes((uid, ports), out var inlet, out var outlet))
         {
             comp.LastInletPressure = inlet.Air.Pressure;
             comp.LastOutletPressure = outlet.Air.Pressure;
 
-            var volume = _ports.GetTransferVolume(inlet, outlet, comp.FlowRate, comp.MaxOutletPressure, dt);
-            if (volume > 0f)
+            GasMixture? hotGas = null;
+            var hotVolume = _ports.GetTransferVolume(inlet, outlet, comp.HotFlowRate, comp.MaxOutletPressure, dt);
+            if (hotVolume > 0f)
             {
-                var gas = inlet.Air.RemoveVolume(volume);
-                var hot = gas.Temperature;
-                comp.LastInletTemperature = hot;
-                comp.LastMolesPerSecond = gas.TotalMoles / MathF.Max(dt, 0.001f);
+                hotGas = inlet.Air.RemoveVolume(hotVolume);
+                comp.LastInletTemperature = hotGas.Temperature;
+                comp.LastMolesPerSecond = hotGas.TotalMoles / MathF.Max(dt, 0.001f);
+            }
 
-                // The gas expands towards a fixed exhaust reference temperature; hotter gas gives more work.
-                var cold = comp.ExhaustReferenceTemperature;
-                var capacity = _atmos.GetHeatCapacity(gas, true);
+            GasMixture? coldGas = null;
+            PipeNode? coldOutlet = null;
+            if (_ports.TryGetSecondaryPipes((uid, ports), out var coldInlet, out coldOutlet))
+            {
+                comp.LastColdInletPressure = coldInlet.Air.Pressure;
+                comp.LastColdOutletPressure = coldOutlet.Air.Pressure;
 
-                if (!comp.Broken && capacity > 0f && hot > cold)
+                var coldVolume = _ports.GetTransferVolume(coldInlet, coldOutlet, comp.ColdFlowRate, comp.MaxOutletPressure, dt);
+                if (coldVolume > 0f)
                 {
-                    var cooled = hot - (hot - cold) * comp.ExpansionFraction;
-                    var heat = capacity * (hot - cooled);
-                    gas.Temperature = cooled;
-                    power = heat * comp.Efficiency / MathF.Max(dt, 0.001f);
+                    coldGas = coldInlet.Air.RemoveVolume(coldVolume);
+                    comp.LastColdTemperature = coldGas.Temperature;
+                    comp.LastColdMolesPerSecond = coldGas.TotalMoles / MathF.Max(dt, 0.001f);
+                }
+            }
+
+            if (!comp.Broken && hotGas != null && coldGas != null)
+            {
+                var hotCapacity = _atmos.GetHeatCapacity(hotGas, true);
+                var coldCapacity = _atmos.GetHeatCapacity(coldGas, true);
+                var hot = hotGas.Temperature;
+                var cold = coldGas.Temperature;
+
+                if (hotCapacity > 0f && coldCapacity > 0f && hot > cold)
+                {
+                    // Heat flows from the hot gas into the cold gas; part of it is turned into work on the way.
+                    var equilibrium = (hotCapacity * hot + coldCapacity * cold) / (hotCapacity + coldCapacity);
+                    var heat = comp.HeatExchange * hotCapacity * (hot - equilibrium);
+                    var efficiency = Math.Clamp(comp.MaxEfficiency * (1f - cold / hot), 0f, 1f);
+                    var work = heat * efficiency;
+
+                    hotGas.Temperature = hot - heat / hotCapacity;
+                    coldGas.Temperature = cold + (heat - work) / coldCapacity;
+
+                    comp.LastEfficiency = efficiency;
+                    power = work / MathF.Max(dt, 0.001f);
+                }
+            }
+
+            if (hotGas != null)
+            {
+                if (!comp.Broken && comp.LastInletTemperature > comp.MaxInletTemperature)
+                {
+                    Damage(ent, (comp.LastInletTemperature - comp.MaxInletTemperature) / comp.MaxInletTemperature
+                                * comp.OverheatDamage * dt);
                 }
 
-                if (!comp.Broken && hot > comp.MaxInletTemperature)
-                    Damage(ent, (hot - comp.MaxInletTemperature) / comp.MaxInletTemperature * comp.OverheatDamage * dt);
-
-                _atmos.Merge(outlet.Air, gas);
+                _atmos.Merge(outlet.Air, hotGas);
             }
+
+            if (coldGas != null && coldOutlet != null)
+                _atmos.Merge(coldOutlet.Air, coldGas);
         }
 
         // Smooth the output so the power network does not jitter every atmos tick.
@@ -117,19 +158,35 @@ public sealed class GasTurbineSystem : EntitySystem
 
         args.PushMarkup(Loc.GetString("gas-turbine-examine-status",
             ("power", MathF.Round(comp.PowerOutput / 1000f)),
-            ("temperature", MathF.Round(comp.LastInletTemperature)),
+            ("efficiency", MathF.Round(comp.LastEfficiency * 100f)),
             ("integrity", MathF.Round(comp.Integrity / comp.MaxIntegrity * 100f))));
-        args.PushMarkup(Loc.GetString("gas-turbine-examine-flow",
+        args.PushMarkup(Loc.GetString("gas-turbine-examine-hot",
+            ("temperature", MathF.Round(comp.LastInletTemperature)),
             ("inlet", MathF.Round(comp.LastInletPressure)),
             ("outlet", MathF.Round(comp.LastOutletPressure)),
             ("flow", MathF.Round(comp.LastMolesPerSecond))));
+        args.PushMarkup(Loc.GetString("gas-turbine-examine-cold",
+            ("temperature", MathF.Round(comp.LastColdTemperature)),
+            ("inlet", MathF.Round(comp.LastColdInletPressure)),
+            ("outlet", MathF.Round(comp.LastColdOutletPressure)),
+            ("flow", MathF.Round(comp.LastColdMolesPerSecond))));
 
         if (comp.LastMolesPerSecond < 1f)
         {
-            var hint = comp.LastOutletPressure >= comp.MaxOutletPressure - 1f
-                ? "gas-turbine-examine-outlet-full"
-                : "gas-turbine-examine-no-gas";
-            args.PushMarkup(Loc.GetString(hint));
+            args.PushMarkup(Loc.GetString(comp.LastOutletPressure >= comp.MaxOutletPressure - 1f
+                ? "gas-turbine-examine-hot-outlet-full"
+                : "gas-turbine-examine-no-hot-gas"));
+        }
+
+        if (comp.LastColdMolesPerSecond < 1f)
+        {
+            args.PushMarkup(Loc.GetString(comp.LastColdOutletPressure >= comp.MaxOutletPressure - 1f
+                ? "gas-turbine-examine-cold-outlet-full"
+                : "gas-turbine-examine-no-cold-gas"));
+        }
+        else if (comp.LastMolesPerSecond >= 1f && comp.LastEfficiency < 0.15f)
+        {
+            args.PushMarkup(Loc.GetString("gas-turbine-examine-cold-too-warm"));
         }
     }
 

@@ -122,7 +122,7 @@
   id: DHGasTurbine
   parent: BaseStructure
   name: gas turbine
-  description: Takes heat from hot gas and turns it into power for the HV network. The hotter the incoming gas, the more power it makes.
+  description: A heat engine with two gas circuits. Hot gas from the reactor gives its heat to cold gas from the cooling loop, and the turbine turns part of that heat into power for the HV network. The bigger the temperature difference, the more power.
   components:
   - type: Sprite
     sprite: _DarkestHour/Structures/Power/Fusion/gas_turbine.rsi
@@ -170,6 +170,11 @@
     inletDirection: North
     outletOffset: 0, -2
     outletDirection: South
+    secondary: true
+    secondaryInletOffset: 1, -1
+    secondaryInletDirection: East
+    secondaryOutletOffset: 1, 1
+    secondaryOutletDirection: East
   - type: GasTurbine
   - type: NodeContainer
     examinable: true

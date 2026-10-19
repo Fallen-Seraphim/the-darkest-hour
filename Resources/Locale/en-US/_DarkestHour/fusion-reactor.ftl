@@ -37,10 +37,14 @@ fusion-fuel-cassette-examine = Fuel left: [color=cyan]{$percent}%[/color].
 
 ## Gas turbine
 
-gas-turbine-examine-status = Output: [color=yellow]{$power} kW[/color]. Inlet gas: {$temperature} K. Blades: {$integrity}%.
-gas-turbine-examine-flow = Pressure: in [color=lightblue]{$inlet} kPa[/color], out [color=orange]{$outlet} kPa[/color]. Flow: {$flow} mol/s.
-gas-turbine-examine-outlet-full = [color=orange]The outlet is full: gas has nowhere to go. Close the loop back to the reactor or vent the exhaust.[/color]
-gas-turbine-examine-no-gas = [color=orange]No gas is flowing through the turbine.[/color]
+gas-turbine-examine-status = Output: [color=yellow]{$power} kW[/color]. Efficiency: {$efficiency}%. Blades: {$integrity}%.
+gas-turbine-examine-hot = Hot side: [color=orange]{$temperature} K[/color], in {$inlet} kPa, out {$outlet} kPa, {$flow} mol/s.
+gas-turbine-examine-cold = Cold side: [color=lightblue]{$temperature} K[/color], in {$inlet} kPa, out {$outlet} kPa, {$flow} mol/s.
+gas-turbine-examine-hot-outlet-full = [color=orange]The hot outlet is full: send the hot gas back to the reactor.[/color]
+gas-turbine-examine-no-hot-gas = [color=orange]No hot gas is flowing.[/color]
+gas-turbine-examine-cold-outlet-full = [color=orange]The cold outlet is full: the cold loop has to circulate through the radiators back to the cold inlet.[/color]
+gas-turbine-examine-no-cold-gas = [color=orange]No cold gas is flowing. Without a cold loop the turbine makes no power and the reactor overheats.[/color]
+gas-turbine-examine-cold-too-warm = [color=orange]The cold side is barely colder than the hot side. Add radiators or coolers to the cold loop.[/color]
 gas-turbine-examine-broken = [color=red]The blades are wrecked. Weld them back together.[/color]
 gas-turbine-broken = The blades of {THE($turbine)} tear apart from the heat!
 gas-turbine-repaired = Blades repaired to {$integrity}%.
@@ -48,6 +52,12 @@ gas-turbine-repaired = Blades repaired to {$integrity}%.
 ## Large machine gas ports
 
 dh-machine-gas-ports-examine = Gas inlet on the [color=lightblue]{$inlet}[/color] side, outlet on the [color=orange]{$outlet}[/color] side.
+dh-machine-gas-ports-examine-hot = Hot gas inlet on the [color=orange]{$inlet}[/color] side, outlet on the [color=orange]{$outlet}[/color] side.
+dh-machine-gas-ports-examine-cold = Cold gas inlet on the [color=lightblue]{$inlet}[/color] side, outlet on the [color=lightblue]{$outlet}[/color] side.
+dh-machine-gas-ports-hot-inlet = Hot inlet
+dh-machine-gas-ports-hot-outlet = Hot outlet
+dh-machine-gas-ports-cold-inlet = Cold inlet
+dh-machine-gas-ports-cold-outlet = Cold outlet
 dh-direction-north = north
 dh-direction-south = south
 dh-direction-east = east
