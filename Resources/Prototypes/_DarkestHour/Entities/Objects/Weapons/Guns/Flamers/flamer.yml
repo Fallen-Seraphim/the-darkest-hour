@@ -1,0 +1,157 @@
+# DarkestHour: огнемёт. Механика своя по образцу RMC-14, спрайт LC9 из RMC-14 (CC-BY-SA-4.0).
+
+- type: entity
+  id: DHFlamerShot
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanAmmo
+  - type: DHFlamerShot
+
+- type: soundCollection
+  id: DHFlamerShoot
+  files:
+  - /Audio/_RMC14/Weapons/Guns/Flamer/surv_flamer_fire1.ogg
+  - /Audio/_RMC14/Weapons/Guns/Flamer/surv_flamer_fire2.ogg
+  - /Audio/_RMC14/Weapons/Guns/Flamer/surv_flamer_fire3.ogg
+  - /Audio/_RMC14/Weapons/Guns/Flamer/surv_flamer_fire4.ogg
+
+- type: Tag
+  id: DHFlamerTank
+
+- type: entity
+  parent: [ BaseItem, BaseSecurityContraband ]
+  id: DHWeaponFlamer
+  name: FL-9 incinerator
+  description: A bulky industrial incinerator. Sprays burning fuel from a swappable tank; the fuel decides how far, how hot and how long it burns. Alt-click to light the pilot flame.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Weapons/Guns/Flamethrower/colony.rsi
+    layers:
+    - state: base
+      map: [ "enum.GunVisualLayers.Base" ]
+    - state: mag-0
+      map: [ "enum.GunVisualLayers.Mag" ]
+    - state: lit
+      map: [ "enum.DHFlamerVisuals.Ignited" ]
+      visible: false
+      shader: unshaded
+  - type: Item
+    sprite: _RMC14/Objects/Weapons/Guns/Flamethrower/colony.rsi
+    size: Huge
+    shape:
+    - 0,0,3,1
+  - type: Clothing
+    sprite: _RMC14/Objects/Weapons/Guns/Flamethrower/colony.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: Gun
+    fireRate: 0.75
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    minAngle: 0
+    maxAngle: 4
+    angleIncrease: 0
+    cameraRecoilScalar: 0
+    soundGunshot:
+      collection: DHFlamerShoot
+    soundEmpty:
+      path: /Audio/_RMC14/Weapons/Guns/Flamer/gun_flamethrower_empty.ogg
+  - type: Wieldable
+    unwieldOnUse: false
+  - type: GunRequiresWield
+  - type: AmmoCounter
+  - type: DHFlamer
+    maxRange: 6
+    igniteSound:
+      path: /Audio/_RMC14/Weapons/Guns/Flamer/surv_flamer_ignite.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Tank
+        startingItem: DHFlamerTankWeldingFuel
+        insertSound: /Audio/_RMC14/Weapons/Handling/flamer_reload.ogg
+        ejectSound: /Audio/_RMC14/Weapons/Handling/flamer_unload.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - DHFlamerTank
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHFlamerVisuals.Ignited:
+        enum.DHFlamerVisuals.Ignited:
+          True: { visible: true }
+          False: { visible: false }
+  - type: StaticPrice
+    price: 800
+
+- type: entity
+  parent: BaseItem
+  id: DHFlamerTank
+  name: incinerator fuel tank
+  description: A pressurised tank for the FL-9 incinerator. Click a fuel tank or another container with it to fill it up.
+  suffix: Empty
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Weapons/Guns/Ammunition/flamethrower.rsi
+    state: flametank_improvised
+  - type: Item
+    size: Normal
+  - type: SolutionContainerManager
+    solutions:
+      tank:
+        maxVol: 100
+  - type: RefillableSolution
+    solution: tank
+  - type: SolutionTransfer
+    canSend: false
+    transferAmount: 100
+    maxTransferAmount: 100
+  - type: DHFlamerTank
+  - type: Tag
+    tags:
+    - DHFlamerTank
+  - type: StaticPrice
+    price: 60
+
+- type: entity
+  parent: DHFlamerTank
+  id: DHFlamerTankWeldingFuel
+  name: incinerator fuel tank
+  suffix: Welding fuel
+  components:
+  - type: Sprite
+    state: flametank
+  - type: SolutionContainerManager
+    solutions:
+      tank:
+        maxVol: 100
+        reagents:
+        - ReagentId: WeldingFuel
+          Quantity: 100
+
+- type: entity
+  parent: [ DHFlamerTank, BaseMajorContraband ]
+  id: DHFlamerTankNapalm
+  name: incinerator napalm tank
+  suffix: Napalm
+  components:
+  - type: Sprite
+    state: flametank_gel
+  - type: SolutionContainerManager
+    solutions:
+      tank:
+        maxVol: 100
+        reagents:
+        - ReagentId: Napalm
+          Quantity: 100

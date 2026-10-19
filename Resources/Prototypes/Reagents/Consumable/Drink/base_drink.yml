@@ -20,6 +20,7 @@
     amount: 1
   tileReactions:
   - !type:ExtinguishTileReaction { }
+  - !type:DHExtinguishTileFireReaction { } # DarkestHour: гасит огонь на тайлах
   - !type:SpillIfPuddlePresentTileReaction { }
 
 - type: reagent

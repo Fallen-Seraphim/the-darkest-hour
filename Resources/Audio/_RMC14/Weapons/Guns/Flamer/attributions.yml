@@ -1,0 +1,40 @@
+- files: ["gun_flamethrower_empty.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13"
+  source: "https://github.com/cmss13-devs/cmss13/blob/master/sound/weapons/gun_flamethrower_empty.ogg"
+
+
+- files: ["surv_flamer_extinguish.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13"
+  source: "https://github.com/cmss13-devs/cmss13/blob/master/sound/weapons/surv_flamer_extinguish.ogg"
+
+
+- files: ["surv_flamer_fire1.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13"
+  source: "https://github.com/cmss13-devs/cmss13/blob/master/sound/weapons/surv_flamer_fire1.ogg"
+
+
+- files: ["surv_flamer_fire2.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13"
+  source: "https://github.com/cmss13-devs/cmss13/blob/master/sound/weapons/surv_flamer_fire2.ogg"
+
+
+- files: ["surv_flamer_fire3.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13"
+  source: "https://github.com/cmss13-devs/cmss13/blob/master/sound/weapons/surv_flamer_fire3.ogg"
+
+
+- files: ["surv_flamer_fire4.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13"
+  source: "https://github.com/cmss13-devs/cmss13/blob/master/sound/weapons/surv_flamer_fire4.ogg"
+
+
+- files: ["surv_flamer_ignite.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13"
+  source: "https://github.com/cmss13-devs/cmss13/blob/master/sound/weapons/surv_flamer_ignite.ogg"

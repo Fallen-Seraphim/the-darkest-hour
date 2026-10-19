@@ -1,0 +1,22 @@
+# DarkestHour: огнемёт для станционной СБ через карго.
+- type: entity
+  id: DHCrateFlamer
+  parent: CrateWeaponSecure
+  name: FL-9 incinerator crate
+  description: One FL-9 incinerator with a spare tank of welding fuel. Requires armory access to open.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHWeaponFlamer
+    - id: DHFlamerTankWeldingFuel
+
+- type: entity
+  id: DHCrateFlamerNapalm
+  parent: CrateWeaponSecure
+  name: incinerator napalm crate
+  description: Two tanks of napalm for the FL-9 incinerator. Requires armory access to open.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHFlamerTankNapalm
+      amount: 2
