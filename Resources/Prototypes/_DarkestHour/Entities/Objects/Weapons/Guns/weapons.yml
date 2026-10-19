@@ -2323,3 +2323,169 @@
         whitelist:
           tags:
           - DHAttachmentOptic8x
+- type: entity
+  name: "Ravenger"
+  parent: [ BaseWeaponRifle, BaseGunWieldable, BaseSecurityContraband ]
+  id: DHWeaponRifleRavenger
+  description: "A Metallistick Group security assault rifle built on the old M16/M4A1 pattern and rechambered for 7.62x39mm. Heavier-hitting than the Vympel, slower to fire."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Guns/ravenger.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+    - map: ["barrelAttachment"]
+    - map: ["gripAttachment"]
+    - map: ["opticAttachment"]
+  - type: Item
+    size: Huge
+    sprite: _DarkestHour/Objects/Weapons/Guns/ravenger_inhands.rsi
+    shape:
+    - 0,0,3,1
+  - type: Clothing
+    sprite: _DarkestHour/Objects/Weapons/Guns/ravenger_inhands.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: GunWieldBonus
+    minAngle: -4
+    maxAngle: -40
+  - type: Gun
+    fireRate: 6
+    selectedMode: FullAuto
+    availableModes:
+    - FullAuto
+    - SemiAuto
+    minAngle: 4
+    maxAngle: 60
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/rifle2.ogg
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/sf_rifle_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: "Magazine"
+        startingItem: DHMagazine762x39FMG
+        insertSound: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - DHMagazine762x39
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: "Chamber"
+        startingItem: DHCartridge762x39FMG
+        priority: 1
+        whitelist:
+          tags:
+          - DHCartridge762x39
+      attachment_barrel:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentBarrel
+      attachment_grip:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentGrip
+      attachment_optic:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentOptic
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+      attachment_barrel: !type:ContainerSlot
+      attachment_grip: !type:ContainerSlot
+      attachment_optic: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+  - type: ESAttachableGun
+    slots:
+    - name: es-gun-attachments-slot-name-barrel
+      containerId: attachment_barrel
+      whitelist:
+        tags:
+        - DHAttachmentBarrel
+    - name: es-gun-attachments-slot-name-grip
+      containerId: attachment_grip
+      whitelist:
+        tags:
+        - DHAttachmentGrip
+    - name: es-gun-attachments-slot-name-optic
+      containerId: attachment_optic
+      whitelist:
+        tags:
+        - DHAttachmentOptic
+  - type: ActivatableUI
+    key: enum.ESAttachableGunUiKey.Key
+    verbOnly: true
+    verbText: es-gun-attachments-verb-text
+  - type: UserInterface
+    interfaces:
+      enum.ESAttachableGunUiKey.Key:
+        type: ESGunAttachmentBui
+  - type: ESItemMapper
+    mappings:
+      barrelAttachment:
+      - containerId: attachment_barrel
+        state: suppressed
+        whitelist:
+          tags:
+          - DHAttachmentSuppressor
+      - containerId: attachment_barrel
+        state: flashhider
+        whitelist:
+          tags:
+          - DHAttachmentFlashHider
+      - containerId: attachment_barrel
+        state: compensator
+        whitelist:
+          tags:
+          - DHAttachmentCompensator
+      gripAttachment:
+      - containerId: attachment_grip
+        state: vgrip
+        whitelist:
+          tags:
+          - DHAttachmentVerticalGrip
+      - containerId: attachment_grip
+        state: agrip
+        whitelist:
+          tags:
+          - DHAttachmentAngledGrip
+      opticAttachment:
+      - containerId: attachment_optic
+        state: optic2x
+        whitelist:
+          tags:
+          - DHAttachmentOptic2x
+      - containerId: attachment_optic
+        state: optic4x
+        whitelist:
+          tags:
+          - DHAttachmentOptic4x
+      - containerId: attachment_optic
+        state: optic8x
+        whitelist:
+          tags:
+          - DHAttachmentOptic8x
+  - type: GunRequiresWield

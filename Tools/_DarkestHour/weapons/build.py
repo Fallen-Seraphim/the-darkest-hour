@@ -11,7 +11,7 @@ from guns import GUNS
 
 HERE = os.path.dirname(__file__)
 COPY = "Drawn by Claude (Anthropic) for The Darkest Hour"
-ICON_W, ICON_H = 48, 32
+ICON_W, ICON_H = 48, 32   # default canvas; long guns set Gun.width = 64
 DY = 2  # designs sit a little high on the grid; centre them vertically
 
 TPL_RIFLE = json.load(open(os.path.join(HERE, 'tpl_ak.json')))
@@ -97,6 +97,7 @@ SLOTS = {
     'impsh17p': [],
     'vympel': ['suppressed', 'flashhider', 'compensator', 'vgrip', 'agrip', 'optic2x', 'optic4x'],
     'wspr': ['optic2x', 'optic4x', 'optic8x'],
+    'ravenger': ['suppressed', 'flashhider', 'compensator', 'vgrip', 'agrip', 'optic2x', 'optic4x', 'optic8x'],
 }
 
 
@@ -176,14 +177,15 @@ def build_gun(g, out, body_s, body_n):
 
     full = base.copy().stamp(mag)
     opened = base.copy().stamp(bolt)
-    states = [('icon', [render(full, pal)]),
-              ('base', [render(base, pal)]),
-              ('bolt-open', [render(opened, pal)])]
+    size = (g.width, ICON_H)
+    states = [('icon', [render(full, pal, size)]),
+              ('base', [render(base, pal, size)]),
+              ('bolt-open', [render(opened, pal, size)])]
     if mag.px:
-        states.append(('mag-0', [render(mag, pal)]))
+        states.append(('mag-0', [render(mag, pal, size)]))
     for kind in SLOTS[g.id]:
-        states.append((kind, [render(stamp(kind, shifted), PAL['att'])]))
-    save_rsi(os.path.join(out, g.id + '.rsi'), (ICON_W, ICON_H), states)
+        states.append((kind, [render(stamp(kind, shifted), PAL['att'], size)]))
+    save_rsi(os.path.join(out, g.id + '.rsi'), size, states)
 
     pistol = g.kind == 'pistol'
     tpl, ref, lo, hi = (TPL_PISTOL, REF_PISTOL, 0.9, 1.25) if pistol else (TPL_RIFLE, REF_RIFLE, 0.75, 1.12)
@@ -215,7 +217,7 @@ def attachment_items(out):
 
 def preview(allstates, path):
     rows = list(GUNS.values())
-    cell = 48
+    cell = 64
     sheet = Image.new('RGBA', (cell * 3 + 32 * 6 + 12, len(rows) * 36 + 4), (66, 66, 72, 255))
     for i, g in enumerate(rows):
         st, inh = allstates[g.id]

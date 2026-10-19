@@ -13,7 +13,7 @@ from PIL import Image, ImageDraw
 # 'u'..'y'  second furniture / accent   'R' red LED  'G' green emitter  'B' cyan glass  'O' orange  'Y' brass  'W' white
 BASE = {
     'R': (226, 48, 40), 'r': (140, 30, 28), 'G': (96, 240, 96), 'g': (40, 140, 52), 'B': (96, 196, 222),
-    'b': (54, 120, 150), 'O': (244, 150, 48), 'Y': (198, 158, 72), 'W': (236, 238, 240), 'K': (14, 15, 17),
+    'b': (54, 120, 150), 'C': (40, 104, 136), 'O': (244, 150, 48), 'Y': (198, 158, 72), 'W': (236, 238, 240), 'K': (14, 15, 17),
 }
 
 def ramp(*cols):
@@ -242,7 +242,7 @@ def render_mini(art, pal, cx, cy, angle_deg, length, size=(32, 32), ss=4, covera
             # prefer accent colours (LEDs, glass, stripes) if present, else the most common
             best = cnt.most_common(1)[0][0]
             for v in cnt:
-                if inv[v] in 'RGBOWY' and cnt[v] >= ss:
+                if inv[v] in 'RGBCOWY' and cnt[v] >= ss:
                     best = v
                     break
             op[tx, ty] = tuple(pal[inv[best]]) + (255,)

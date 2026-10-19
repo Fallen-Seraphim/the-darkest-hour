@@ -26,6 +26,19 @@
       amount: 4
 
 - type: entity
+  id: DHCrateSecurityRavenger
+  parent: CrateWeaponSecure
+  name: Ravenger rifle crate
+  description: Two Ravenger 7.62x39mm assault rifles with four spare magazines. Requires armory access to open.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHWeaponRifleRavenger
+      amount: 2
+    - id: DHMagazine762x39FMG
+      amount: 4
+
+- type: entity
   id: DHCrateSecurityAmmo556x45
   parent: CrateWeaponSecure
   name: 5.56x45mm ammunition crate
@@ -50,6 +63,19 @@
       amount: 2
     - id: DHAmmoBox9x51EB
     - id: DHAmmoBox9x51FMG
+
+- type: entity
+  id: DHCrateSecurityAmmo762x39
+  parent: CrateWeaponSecure
+  name: 7.62x39mm ammunition crate
+  description: Ammunition boxes for the Ravenger. Requires armory access to open.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHAmmoBox762x39FMG
+      amount: 2
+    - id: DHAmmoBox762x39BB
+    - id: DHAmmoBox762x39E
 
 - type: entity
   id: DHCrateSecurityAttachments

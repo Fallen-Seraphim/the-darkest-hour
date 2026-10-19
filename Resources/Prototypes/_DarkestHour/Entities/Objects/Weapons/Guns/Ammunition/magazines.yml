@@ -428,7 +428,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/7.62x39mm/7.62x39mm_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/8x65mm/8x65mm.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -436,7 +436,7 @@
       map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: mag
-    steps: 2
+    steps: 7
     zeroVisible: false
   - type: Appearance
 - type: entity
@@ -535,6 +535,70 @@
   components:
   - type: BallisticAmmoProvider
     proto: DHCartridge9x51DZ
+- type: entity
+  abstract: true
+  parent: [ BaseItem, BaseSecurityContraband ]
+  id: DHMagazine762x39Base
+  name: "Ravenger magazine (7.62x39mm)"
+  components:
+  - type: Tag
+    tags:
+    - DHMagazine762x39
+  - type: Item
+    size: Small
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - DHCartridge762x39
+    capacity: 30
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/7.62x39mm/7.62x39mm_mag.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: false
+  - type: Appearance
+- type: entity
+  parent: DHMagazine762x39Base
+  id: DHMagazine762x39Empty
+  suffix: Empty
+  description: "30-round magazine."
+  components:
+  - type: BallisticAmmoProvider
+    proto: null
+- type: entity
+  parent: DHMagazine762x39Base
+  id: DHMagazine762x39FMG
+  name: "Ravenger magazine (7.62x39mm FMG)"
+  description: "30-round magazine. Standard full metal jacket."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x39FMG
+- type: entity
+  parent: DHMagazine762x39Base
+  id: DHMagazine762x39BB
+  name: "Ravenger magazine (7.62x39mm BB)"
+  description: "30-round magazine. Armour-piercing: steel core, goes through armour and cover."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x39BB
+- type: entity
+  parent: DHMagazine762x39Base
+  id: DHMagazine762x39E
+  name: "Ravenger magazine (7.62x39mm E)"
+  description: "30-round magazine. Expanding: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x39E
 - type: entity
   abstract: true
   parent: [ BaseItem, BaseSecurityContraband ]

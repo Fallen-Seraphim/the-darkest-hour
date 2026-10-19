@@ -32,7 +32,7 @@
 - type: cargoProduct
   id: DHSecurityAmmo9x51
   icon:
-    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/7.62x39mm/7.62x39mm_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/8x65mm/8x65mm.rsi
     state: base
   product: DHCrateSecurityAmmo9x51
   cost: 1800
@@ -49,3 +49,22 @@
   category: cargoproduct-category-name-security
   group: market
 
+- type: cargoProduct
+  id: DHSecurityRavenger
+  icon:
+    sprite: _DarkestHour/Objects/Weapons/Guns/ravenger.rsi
+    state: icon
+  product: DHCrateSecurityRavenger
+  cost: 6500
+  category: cargoproduct-category-name-security
+  group: market
+
+- type: cargoProduct
+  id: DHSecurityAmmo762x39
+  icon:
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/7.62x39mm/7.62x39mm_mag.rsi
+    state: base
+  product: DHCrateSecurityAmmo762x39
+  cost: 1600
+  category: cargoproduct-category-name-security
+  group: market

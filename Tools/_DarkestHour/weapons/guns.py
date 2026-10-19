@@ -17,7 +17,7 @@ ACC = 'uvxy'   # accent furniture
 
 class Gun:
     def __init__(self, gid, faction, kind, base, mag=None, bolt_open=None, muzzle=None, rail=None, under=None,
-                 stock_at=None):
+                 stock_at=None, width=48):
         self.id = gid
         self.faction = faction
         self.kind = kind
@@ -28,6 +28,7 @@ class Gun:
         self.rail = rail                 # (x0, x1, y) top of the optic rail (optics sit at y-1 and above)
         self.under = under               # (x, y) top of an under-barrel grip
         self.stock_at = stock_at         # (x, y) where an add-on stock attaches (IMP-17)
+        self.width = width               # icon canvas width (48, or 64 for long guns)
         full = base.copy().stamp(self.mag)
         x0, y0, x1, y1 = full.bounds()
         self.length = x1 - x0 + 1
@@ -332,24 +333,43 @@ def rmad_as_m15_17():
 
 
 def rmad_in_m91_19():
-    """RMAD-IN-M-91-19 - 10.66 iridium bullpup. Smooth rounded tan shell, cyan coil line, magazine behind the grip."""
+    """RMAD-IN-M-91-19 - 10.66 iridium bullpup in the M4RA mould: pale sage housing with dark panels,
+    stepped top rail, long slotted handguard glowing with the iridium coil, ring trigger guard,
+    magazine behind the grip, heavy muzzle brake. 64 px canvas."""
+    L = '2345'                                                                    # pale housing
     a = Art()
-    a.shade_poly([(3, 10), (6, 8), (34, 8), (38, 10), (38, 15), (26, 15), (24, 16), (8, 16), (3, 15)], FUR)
-    a.rail(12, 30, 7)
-    a.hline(6, 36, 12, 'B').hline(6, 36, 13, 'b')                     # iridium coil
-    a.pattern(8, 34, 12, 'BBBW')
-    a.rect(29, 9, 31, 10, '0').dot(30, 9, 'R')
-    a.hline(5, 37, 15, 'a')
-    a.vline(3, 10, 15, '1')
-    a.bevel(39, 10, 42, 13, MET)
-    a.bevel(43, 9, 44, 14, DMET, right=True)
-    a.vline(43, 11, 12, '0')
-    grip(a, 25, 16, h=5, w=4, slant=2)
-    guard(a, 28, 31, 18, 16, c='a')
-    mag = box_mag(12, 16, 4, 5, curve=0)
-    bolt = Art().hline(17, 22, 11, '0').dot(18, 11, 'B').dot(19, 11, 'B')
-    return Gun('rmad_in_m91_19', 'rep', 'rifle', a, mag, bolt, muzzle=(45, 11), rail=(12, 30, 6), under=(35, 16))
-
+    # butt + rear housing (bullpup)
+    a.shade_poly([(3, 10), (9, 9), (9, 17), (3, 18)], L)
+    a.vline(3, 10, 18, '1').vline(4, 11, 17, '2')
+    a.bevel(9, 8, 32, 16, L, left=True)
+    a.shade_poly([(10, 6), (20, 6), (22, 8), (10, 8)], L)                         # raised cheek hump
+    a.hline(10, 31, 12, '1').hline(10, 31, 13, '2')                              # dark side panel
+    a.rect(11, 9, 16, 10, '1').hline(11, 16, 9, '0')                             # ejection window
+    a.dot(29, 10, 'R').dot(30, 10, 'R').dot(29, 11, 'r')                          # ammo display
+    a.hline(9, 32, 16, '1')
+    # top rail over the whole length
+    a.rail(20, 48, 7)
+    a.hline(20, 48, 8, '3')
+    # long slotted handguard, slots glow with the iridium coil
+    a.bevel(32, 9, 50, 15, L)
+    for x in range(34, 49, 3):
+        a.rect(x, 11, x + 1, 12, 'B').hline(x, x + 1, 12, 'C')
+    a.hline(32, 50, 14, '2').hline(32, 50, 15, '1')
+    a.vline(32, 9, 15, '1')
+    # barrel + brake
+    a.bevel(51, 11, 54, 12, '1234')
+    a.bevel(55, 9, 58, 14, '0123', left=True, right=True)
+    a.vline(56, 10, 13, '0').vline(57, 10, 13, '1').dot(58, 11, 'B').dot(58, 12, 'C')
+    # forward grip with a big rounded trigger guard
+    grip(a, 33, 16, h=6, w=4, slant=2, r='1234')
+    for x, y in [(37, 16), (38, 17), (39, 18), (39, 19), (39, 20), (38, 21), (37, 21), (36, 21)]:
+        a.dot(x, y, '2')
+    a.dot(37, 17, '4').dot(38, 18, '3')
+    mag = box_mag(19, 17, 5, 7, curve=1)
+    mag.vline(21, 18, 22, 'C').vline(22, 18, 22, 'B')
+    bolt = Art().rect(11, 9, 16, 10, '0').dot(12, 10, 'B').dot(13, 10, 'B').dot(14, 10, 'B')
+    return Gun('rmad_in_m91_19', 'rep', 'rifle', a, mag, bolt, muzzle=(59, 11), rail=(20, 48, 6), under=(44, 16),
+               width=64)
 
 def rpr_m9_02():
     """RPR-M-9-02 - 10x24 police carbine. Compact rounded black body, white police stripe, stub stock."""
@@ -544,22 +564,23 @@ TR = 'uvxy'   # white trim
 
 
 def vympel():
-    """Vympel - 5.56x45 bullpup carbine. Navy polymer shell, gunmetal top rail, white trim, mag behind the grip."""
+    """Vympel - 5.56x45 bullpup carbine. Slim navy shell with a gunmetal top rail and white trim,
+    long magazine behind the grip, short shrouded barrel."""
     a = Art()
-    a.shade_poly([(5, 9), (8, 8), (31, 8), (35, 10), (35, 15), (24, 15), (22, 16), (10, 16), (5, 16)], NV)
-    a.vline(5, 9, 16, '1').vline(6, 9, 15, 'a')
-    a.rail(10, 30, 7)
-    a.hline(9, 33, 12, 'x').hline(9, 33, 13, 'b')
-    a.hline(12, 16, 10, '1').dot(28, 10, 'R')
-    a.hline(7, 34, 15, 'a')
+    a.shade_poly([(5, 10), (8, 9), (32, 9), (35, 11), (35, 14), (24, 14), (22, 15), (9, 15), (5, 15)], NV)
+    a.vline(5, 10, 15, '1').vline(6, 10, 14, 'a')
+    a.rail(10, 31, 8)
+    a.hline(8, 33, 12, 'x').hline(8, 33, 13, 'a')
+    a.hline(16, 20, 10, '1').hline(16, 20, 11, '0')                               # ejection port
+    a.dot(29, 10, 'R')
     a.bevel(36, 11, 39, 12, '1234')
     a.bevel(40, 10, 41, 13, '0123', right=True)
-    grip(a, 24, 16, h=5, w=4, slant=2, r=NV)
-    guard(a, 27, 30, 18, 16, c='a')
-    mag = box_mag(13, 16, 3, 6, curve=1)
-    bolt = Art().hline(12, 16, 10, '0').dot(13, 10, 'Y').dot(14, 10, 'Y')
-    return Gun('vympel', 'corp', 'rifle', a, mag, bolt, muzzle=(42, 11), rail=(10, 30, 6), under=(32, 16))
-
+    a.dot(31, 7, '2').dot(31, 6, 'R')
+    grip(a, 24, 15, h=6, w=4, slant=2, r=NV)
+    guard(a, 27, 30, 18, 15, c='a')
+    mag = box_mag(10, 15, 4, 10, curve=2)
+    bolt = Art().hline(16, 20, 10, '0').hline(16, 20, 11, '0').dot(17, 11, 'Y').dot(18, 11, 'Y')
+    return Gun('vympel', 'corp', 'rifle', a, mag, bolt, muzzle=(42, 11), rail=(10, 31, 7), under=(32, 15))
 
 def wspr():
     """WSPR - 9x51 integrally suppressed rifle. Navy stock, gunmetal receiver, long thick suppressor."""
@@ -585,5 +606,48 @@ def wspr():
     return Gun('wspr', 'corp', 'rifle', a, mag, bolt, muzzle=(47, 11), rail=(13, 26, 6), under=(27, 15))
 
 
-for f in (ir17, img17l, img17t, imp17, imsh17, impsh17p, vympel, wspr):
+def ravenger():
+    """Ravenger - 7.62x39 assault rifle of Metallistick Group security, after the M16/M4A1 pattern:
+    fixed navy stock, flat-top upper with a flip-up sight, ribbed round handguard behind a delta ring,
+    tall front sight post, birdcage flash hider, curved 7.62x39 magazine. 64 px canvas."""
+    a = Art()
+    # A2-style stock
+    a.shade_poly([(2, 10), (12, 10), (17, 12), (17, 15), (12, 16), (2, 18)], NV)
+    a.vline(2, 10, 18, '1').vline(3, 11, 17, '0')
+    a.hline(5, 13, 11, 'c').hline(4, 11, 15, 'a')
+    a.dot(8, 13, 'x').dot(9, 13, 'x').dot(10, 13, 'x')                              # white trim
+    # lower + upper receiver
+    a.bevel(17, 13, 29, 16, '1234', left=True)
+    a.bevel(17, 9, 33, 13, '1234', left=True)
+    a.rail(18, 32, 8)
+    a.rect(19, 5, 21, 7, '2').dot(19, 5, '3').dot(21, 5, '3').dot(20, 6, '0')       # flip-up rear sight
+    a.hline(23, 28, 11, '0').hline(23, 28, 12, '2')                                 # dust cover / port
+    a.dot(18, 10, '3').dot(18, 11, '2')                                              # charging handle
+    a.dot(31, 11, 'R')
+    a.hline(18, 32, 13, '0')
+    # magazine well
+    a.bevel(26, 14, 31, 16, '1234')
+    # delta ring + ribbed handguard
+    a.bevel(33, 9, 34, 15, '1234', left=True, right=True)
+    a.bevel(35, 9, 47, 15, NV)
+    for x in range(36, 47, 2):
+        a.vline(x, 10, 14, 'a')
+    a.bevel(48, 10, 48, 14, '1234')
+    # barrel, front sight, birdcage
+    a.bevel(49, 11, 56, 12, '1234')
+    a.rect(49, 9, 53, 10, '2').hline(49, 53, 9, '3').hline(50, 52, 8, '2')
+    a.vline(51, 6, 7, '2').dot(51, 5, '3')
+    a.bevel(57, 10, 59, 13, '0123', right=True)
+    a.vline(58, 10, 10, '0').vline(58, 13, 13, '0')
+    # pistol grip + guard
+    grip(a, 19, 16, h=6, w=4, slant=2, r=NV)
+    guard(a, 22, 26, 19, 16)
+    mag = box_mag(27, 17, 4, 8, curve=3)
+    bolt = Art().hline(23, 28, 11, '0').hline(23, 28, 12, '0').dot(24, 12, 'Y').dot(25, 12, 'Y')
+    bolt.hline(16, 18, 10, '3')
+    return Gun('ravenger', 'corp', 'rifle', a, mag, bolt, muzzle=(60, 11), rail=(18, 32, 7), under=(42, 16),
+               width=64)
+
+
+for f in (ir17, img17l, img17t, imp17, imsh17, impsh17p, vympel, wspr, ravenger):
     add(f())

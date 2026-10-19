@@ -494,7 +494,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/7.62x39mm.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/9x19mm.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -519,7 +519,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/7.62x39mm.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/9x19mm.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -543,11 +543,179 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/7.62x39mm.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/9x19mm.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
     - state: practice
+  - type: Appearance
+# ---------------------------------------------------------------- 7.62x39mm
+- type: entity
+  parent: BaseBullet
+  id: DHBullet762x39FMG
+  name: "bullet (7.62x39mm FMG)"
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 37.5
+- type: entity
+  parent: BaseBullet
+  id: DHBullet762x39BB
+  name: "bullet (7.62x39mm BB)"
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 30
+  - type: DHBallistics
+    armorPenetration: 0.45
+    unarmoredMultiplier: 1.0
+    armoredMultiplier: 1.0
+- type: entity
+  parent: BaseBullet
+  id: DHBullet762x39E
+  name: "bullet (7.62x39mm E)"
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 52.5
+  - type: DHBallistics
+    armorPenetration: 0.0
+    unarmoredMultiplier: 1.35
+    armoredMultiplier: 0.6
+- type: entity
+  abstract: true
+  parent: [ BaseCartridge, BaseSecurityContraband ]
+  id: DHBaseCartridge762x39
+  name: "cartridge (7.62x39mm)"
+  components:
+  - type: Tag
+    tags:
+    - Cartridge
+    - DHCartridge762x39
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Casings/rifle_ammo_casing.rsi
+    layers:
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+- type: entity
+  parent: DHBaseCartridge762x39
+  id: DHCartridge762x39FMG
+  name: "cartridge (7.62x39mm FMG)"
+  description: "Standard full metal jacket."
+  components:
+  - type: CartridgeAmmo
+    proto: DHBullet762x39FMG
+- type: entity
+  parent: DHBaseCartridge762x39
+  id: DHCartridge762x39BB
+  name: "cartridge (7.62x39mm BB)"
+  description: "Armour-piercing: steel core, goes through armour and cover."
+  components:
+  - type: CartridgeAmmo
+    proto: DHBullet762x39BB
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      map: ["enum.AmmoVisualLayers.Tip"]
+      color: "#2b2b2b"
+- type: entity
+  parent: DHBaseCartridge762x39
+  id: DHCartridge762x39E
+  name: "cartridge (7.62x39mm E)"
+  description: "Expanding: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: CartridgeAmmo
+    proto: DHBullet762x39E
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      map: ["enum.AmmoVisualLayers.Tip"]
+      color: "#c94040"
+- type: entity
+  parent: [ BaseItem, BaseSecurityContraband ]
+  id: DHAmmoBox762x39FMG
+  name: "ammunition box (7.62x39mm FMG)"
+  description: "60 rounds. Standard full metal jacket."
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - DHCartridge762x39
+    proto: DHCartridge762x39FMG
+    capacity: 60
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/7.62x39mm.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+  - type: Appearance
+- type: entity
+  parent: [ BaseItem, BaseSecurityContraband ]
+  id: DHAmmoBox762x39BB
+  name: "ammunition box (7.62x39mm BB)"
+  description: "60 rounds. Armour-piercing: steel core, goes through armour and cover."
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - DHCartridge762x39
+    proto: DHCartridge762x39BB
+    capacity: 60
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/7.62x39mm.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: steelAP
+  - type: Appearance
+- type: entity
+  parent: [ BaseItem, BaseSecurityContraband ]
+  id: DHAmmoBox762x39E
+  name: "ammunition box (7.62x39mm E)"
+  description: "60 rounds. Expanding: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - DHCartridge762x39
+    proto: DHCartridge762x39E
+    capacity: 60
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/7.62x39mm.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: HP
   - type: Appearance
 # ---------------------------------------------------------------- 10x24mm
 - type: entity

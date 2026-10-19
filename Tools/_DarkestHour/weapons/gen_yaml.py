@@ -57,8 +57,11 @@ CALIBERS = [
         'EP': T(28, box='RIP')}),
     ('762x51', '7.62x51mm', 'rep', 'rifle_ammo_casing', '7.62x51mm', 40, {
         'FMG': T(36), 'BB': T(30, ap=0.5, box='steelAP'), 'E': T(37, unarm=1.35, arm=0.6, box='HP')}),
-    ('9x51', '9x51mm', 'rep', 'rifle_ammo_casing', '7.62x39mm', 30, {
+    ('9x51', '9x51mm', 'rep', 'rifle_ammo_casing', '9x19mm', 30, {
         'EB': T(32, ap=0.35, unarm=1.2, box='plasteelAP'), 'FMG': T(32), 'DZ': T(28, box='practice')}),
+    # station security (Metallistick): Ravenger
+    ('762x39', '7.62x39mm', 'rep', 'rifle_ammo_casing', '7.62x39mm', 60, {
+        'FMG': T(25), 'BB': T(20, ap=0.45, box='steelAP'), 'E': T(35, unarm=1.35, arm=0.6, box='HP')}),
     ('10x24', '10x24mm', 'rep', 'pistol_ammo_casing', '45_ACP', 60, {
         'SVP': T(24, ap=0.6, box='synthAP'), 'E': T(28, unarm=1.35, arm=0.6, box='HP')}),
     ('10x51', '10x51mm', 'rep', 'rifle_ammo_casing', '68x52mm_caseless', 40, {
@@ -96,8 +99,9 @@ MAGS = [
     ('DHMagazine762x51', 'DHMagazine762x51', '762x51', 20, '7.62x51mm/7.62x51mm_mag', 'RAR-M-11-2 magazine', 'Small', 2),
     ('DHMagazine762x51Short', 'DHMagazine762x51', '762x51', 10, '7.62x51mm/7.62x51mm_cap_mag', 'RAR-M-11-2 short magazine', 'Small', 2),
     ('DHMagazineBox762x51', 'DHMagazineBox762x51', '762x51', 75, '8x65mm/8x65mm_box', 'RAMG-M-14-2 ammunition box', 'Normal', 2),
-    ('DHMagazine9x51', 'DHMagazine9x51', '9x51', 15, '7.62x39mm/7.62x39mm_mag', 'RAR-M-11-3 magazine', 'Small', 2),
+    ('DHMagazine9x51', 'DHMagazine9x51', '9x51', 15, '8x65mm/8x65mm', 'RAR-M-11-3 magazine', 'Small', 7),
     ('DHMagazine9x51Short', 'DHMagazine9x51', '9x51', 5, '7.62x39mm/7.62x39mm_cap_mag', 'RAR-M-11-3 short magazine', 'Small', 2),
+    ('DHMagazine762x39', 'DHMagazine762x39', '762x39', 30, '7.62x39mm/7.62x39mm_mag', 'Ravenger magazine', 'Small', 2),
     ('DHMagazine10x24', 'DHMagazine10x24', '10x24', 30, '45_ACP/45_ACP_smg_mag', 'RAP-TOR magazine', 'Small', 3),
     ('DHMagazine10x24Short', 'DHMagazine10x24Short', '10x24', 15, '45_ACP/45_ACP_pistol_high_capacity_mag', 'RPR-M-9 magazine', 'Small', 6),
     ('DHMagazine10x51', 'DHMagazine10x51', '10x51', 20, '7.62x51mm/7.62x51mm_cap_mag', 'RMAD-AS magazine', 'Small', 2),
@@ -200,6 +204,10 @@ WEAPONS = [
       mags=['DHMagazine9x51'], start='DHMagazine9x51DZ', cal='9x51', rate=7.5, modes=['Burst', 'FullAuto'],
       spread=(14, 41), wield=(-14, -27), snd=('/Audio/Weapons/Guns/Gunshots/silenced.ogg',) + SND_RIFLE[1:],
       slots=[OPTIC], size='Large', burst=3, burstrate=20),
+    W(id='DHWeaponRifleRavenger', sprite='ravenger', name='Ravenger', faction='corp', kind='rifle',
+      desc='A Metallistick Group security assault rifle built on the old M16/M4A1 pattern and rechambered for 7.62x39mm. Heavier-hitting than the Vympel, slower to fire.',
+      mags=['DHMagazine762x39'], start='DHMagazine762x39FMG', cal='762x39', rate=6, modes=['FullAuto', 'SemiAuto'],
+      spread=(4, 60), wield=(-4, -40), snd=SND_RIFLE, slots=[BARREL, GRIP, OPTIC], size='Huge', wieldreq=True),
 ]
 
 # which attachment overlay states a slot can show on each gun (must match build.py SLOTS)
