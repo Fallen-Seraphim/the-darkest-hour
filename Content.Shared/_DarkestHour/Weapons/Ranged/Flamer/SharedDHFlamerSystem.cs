@@ -23,12 +23,12 @@ namespace Content.Shared._DarkestHour.Weapons.Ranged.Flamer;
 /// </summary>
 public abstract class SharedDHFlamerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] protected readonly IPrototypeManager Proto = default!;
-    [Dependency] protected readonly SharedSolutionContainerSystem SolutionContainer = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private SharedContainerSystem _container = default!;
+    [Dependency] private INetManager _net = default!;
+    [Dependency] protected IPrototypeManager Proto = default!;
+    [Dependency] protected SharedSolutionContainerSystem SolutionContainer = default!;
 
     public override void Initialize()
     {

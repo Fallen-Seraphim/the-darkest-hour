@@ -21,13 +21,13 @@ namespace Content.Server._DarkestHour.Weapons.Ranged.Flamer;
 /// </summary>
 public sealed class DHFlamerSystem : SharedDHFlamerSystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly DHFireSystem _fire = default!;
-    [Dependency] private readonly MapSystem _map = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
+    [Dependency] private IAdminLogManager _adminLog = default!;
+    [Dependency] private AtmosphereSystem _atmosphere = default!;
+    [Dependency] private DHFireSystem _fire = default!;
+    [Dependency] private MapSystem _map = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private TransformSystem _transform = default!;
+    [Dependency] private TurfSystem _turf = default!;
 
     private readonly List<PendingFire> _pending = new();
 
