@@ -1,0 +1,70 @@
+# DarkestHour: Metallistick Group corporate security weapons (ported from Monolith, own sprites).
+- type: entity
+  id: DHCrateSecurityVympel
+  parent: CrateWeaponSecure
+  name: Vympel carbine crate
+  description: Two Vympel 5.56x45mm bullpup carbines with four spare magazines. Requires armory access to open.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHWeaponRifleVympel
+      amount: 2
+    - id: DHMagazine556x45FMG
+      amount: 4
+
+- type: entity
+  id: DHCrateSecurityWSPR
+  parent: CrateWeaponSecure
+  name: WSPR rifle crate
+  description: Two integrally suppressed WSPR 9x51mm rifles with four spare magazines of subsonic DZ rounds. Requires armory access to open.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHWeaponRifleWSPR
+      amount: 2
+    - id: DHMagazine9x51DZ
+      amount: 4
+
+- type: entity
+  id: DHCrateSecurityAmmo556x45
+  parent: CrateWeaponSecure
+  name: 5.56x45mm ammunition crate
+  description: Ammunition boxes for station 5.56x45mm weapons. Requires armory access to open.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHAmmoBox556x45FMG
+      amount: 2
+    - id: DHAmmoBox556x45BB
+    - id: DHAmmoBox556x45E
+
+- type: entity
+  id: DHCrateSecurityAmmo9x51
+  parent: CrateWeaponSecure
+  name: 9x51mm ammunition crate
+  description: Ammunition boxes for station 9x51mm weapons. Requires armory access to open.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHAmmoBox9x51DZ
+      amount: 2
+    - id: DHAmmoBox9x51EB
+    - id: DHAmmoBox9x51FMG
+
+- type: entity
+  id: DHCrateSecurityAttachments
+  parent: CrateWeaponSecure
+  name: weapon attachments crate
+  description: Suppressors, grips and optics for station weapons. Requires armory access to open.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHAttachmentSuppressor
+      amount: 2
+    - id: DHAttachmentFlashHider
+    - id: DHAttachmentCompensator
+    - id: DHAttachmentVerticalGrip
+    - id: DHAttachmentAngledGrip
+    - id: DHAttachmentOptic2x
+      amount: 2
+    - id: DHAttachmentOptic4x
