@@ -1,0 +1,51 @@
+# DarkestHour: station security weapons through cargo.
+- type: cargoProduct
+  id: DHSecurityVympel
+  icon:
+    sprite: _DarkestHour/Objects/Weapons/Guns/vympel.rsi
+    state: base
+  product: DHCrateSecurityVympel
+  cost: 6000
+  category: cargoproduct-category-name-security
+  group: market
+
+- type: cargoProduct
+  id: DHSecurityWSPR
+  icon:
+    sprite: _DarkestHour/Objects/Weapons/Guns/wspr.rsi
+    state: base
+  product: DHCrateSecurityWSPR
+  cost: 7000
+  category: cargoproduct-category-name-security
+  group: market
+
+- type: cargoProduct
+  id: DHSecurityAmmo556x45
+  icon:
+    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/rar_m11_1_mag.rsi
+    state: base
+  product: DHCrateSecurityAmmo556x45
+  cost: 1500
+  category: cargoproduct-category-name-security
+  group: market
+
+- type: cargoProduct
+  id: DHSecurityAmmo9x51
+  icon:
+    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/rar_m11_3_mag.rsi
+    state: base
+  product: DHCrateSecurityAmmo9x51
+  cost: 1800
+  category: cargoproduct-category-name-security
+  group: market
+
+- type: cargoProduct
+  id: DHSecurityAttachments
+  icon:
+    sprite: _DarkestHour/Objects/Weapons/Guns/Attachments/attachments.rsi
+    state: optic4x
+  product: DHCrateSecurityAttachments
+  cost: 3000
+  category: cargoproduct-category-name-security
+  group: market
+
