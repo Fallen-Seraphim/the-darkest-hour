@@ -63,6 +63,9 @@ public sealed class FusionReactorBuiState : BoundUserInterfaceState
     public float Integrity;
     public float InletTemperature;
     public float OutletTemperature;
+    public float InletPressure;
+    public float OutletPressure;
+    public float MolesPerSecond;
 }
 
 /// <summary>

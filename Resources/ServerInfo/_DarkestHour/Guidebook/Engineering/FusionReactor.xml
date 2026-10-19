@@ -10,19 +10,29 @@
   The station runs on a compact fusion reactor. The reactor itself makes no electricity: it heats coolant gas, and a [color=orange]gas turbine[/color] turns that heat into power for the [color=orange]HV network[/color].
 
   ## The loop
-  1. Coolant gas is pumped into the reactor [color=lightblue]inlet[/color]. Examine the reactor to see which side it is on.
-  2. The gas passes the core, heats up and leaves through the [color=orange]outlet[/color].
-  3. Hot gas goes into the turbine inlet. The turbine takes heat from it and makes power.
-  4. Gas leaving the turbine is still warm. Vent it, or cool it in radiators and send it back to the reactor.
+  The coolant runs in a [bold]closed loop[/bold]:
 
-  The hotter and denser the gas entering the turbine, the more power it makes. About half of the heat above room temperature is taken out, so the exhaust is still hot.
+  [color=orange]reactor outlet[/color] → [color=lightblue]turbine inlet[/color] → turbine outlet → [color=cyan]radiators in space[/color] → [color=lightblue]reactor inlet[/color]
 
-  A good cold loop matters: the colder the gas entering the reactor, the more heat it can carry away, and the higher you can run the reactor before the core overheats. Denser coolant (higher pressure) carries more heat too.
+  - The reactor and the turbine both move gas on their own. The loop needs no extra pump.
+  - The radiators cool the turbine exhaust before it returns to the reactor. The colder the gas entering the reactor, the cooler the core runs.
+  - The loop must [bold]close[/bold]. If the turbine exhaust has nowhere to go, its outlet fills up, the gas stops and the turbine makes nothing. Examine the turbine: it tells you when its outlet is full.
+
+  ## Filling the loop
+  Power depends on how much gas flows, not only on how hot it is.
+  - Fill the loop to roughly [color=orange]3000–4500 kPa[/color] (measured on the cold side). At a few hundred kPa the turbine makes almost nothing and the core overheats at any real power.
+  - Nitrogen works. Carbon dioxide, water vapour and nitrous oxide carry a little more heat per mole. Frezon carries far more. Tritium is a poor coolant.
+  - The reactor window and the turbine show inlet and outlet pressure and the flow in mol/s. If the flow is 0, something in the loop is blocked or empty.
+
+  With a nitrogen loop at about 4500 kPa and the reactor at full power, the turbine gives roughly [bold]700 kW[/bold], and the core stays around 1000 K. At lower pressure the turbine gives about the same power, but the core runs much hotter.
+
+  The turbine takes 60% of the heat above room temperature out of the gas and turns 60% of that into electricity. The rest of the heat leaves through the radiators.
 
   ## Running the reactor
   - The containment field needs [color=orange]APC power[/color]. Without it the reactor winds down and the field weakens.
   - Insert a [color=cyan]fuel cassette[/color]. Cassettes are ordered from cargo. The cassette is locked in while the reactor runs.
-  - Set the power and press [bold]Start reactor[/bold]. Output rises gradually.
+  - The reactor needs power before the turbine makes any: start it from the SMES or batteries.
+  - Set the power and press [bold]Start reactor[/bold]. Output rises gradually. Start at 30–50% and raise it while watching the core temperature.
   - Higher power burns fuel faster and heats the core faster. The core only stays cool if enough gas flows through it.
 
   ## Danger

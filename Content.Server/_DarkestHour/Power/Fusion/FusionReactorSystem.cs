@@ -105,12 +105,17 @@ public sealed class FusionReactorSystem : EntitySystem
 
     private void ExchangeHeat(FusionReactorComponent comp, PipeNode inlet, PipeNode outlet, float dt)
     {
-        var transferVolume = CalculateTransferVolume(comp.FlowRate, inlet, outlet, dt);
+        comp.LastInletPressure = inlet.Air.Pressure;
+        comp.LastOutletPressure = outlet.Air.Pressure;
+        comp.LastMolesPerSecond = 0f;
+
+        var transferVolume = _ports.GetTransferVolume(inlet, outlet, comp.FlowRate, comp.MaxOutletPressure, dt);
         if (transferVolume <= 0f)
             return;
 
         var gas = inlet.Air.RemoveVolume(transferVolume);
         comp.LastInletTemperature = gas.Temperature;
+        comp.LastMolesPerSecond = gas.TotalMoles / MathF.Max(dt, 0.001f);
 
         var gasCapacity = _atmos.GetHeatCapacity(gas, true);
         if (gasCapacity > 0f)
@@ -126,21 +131,6 @@ public sealed class FusionReactorSystem : EntitySystem
 
         comp.LastOutletTemperature = gas.Temperature;
         _atmos.Merge(outlet.Air, gas);
-    }
-
-    private float CalculateTransferVolume(float flowRate, PipeNode inlet, PipeNode outlet, float dt)
-    {
-        if (inlet.Air.TotalMoles <= 0f || inlet.Air.Pressure <= 0f)
-            return 0f;
-
-        // Same limits as a gas pump: do not push the outlet above the max output pressure.
-        var wanted = MathF.Min(inlet.Air.Volume, flowRate * _atmos.PumpSpeedup() * dt);
-        var wantedMoles = inlet.Air.Pressure * wanted / (inlet.Air.Temperature * Atmospherics.R);
-        var spaceLeft = (Atmospherics.MaxOutputPressure - outlet.Air.Pressure) * outlet.Air.Volume
-                        / (MathF.Max(outlet.Air.Temperature, Atmospherics.TCMB) * Atmospherics.R);
-        var moles = Math.Clamp(wantedMoles, 0f, MathF.Max(0f, spaceLeft));
-
-        return moles * inlet.Air.Temperature * Atmospherics.R / inlet.Air.Pressure;
     }
 
     private void UpdateField(Entity<FusionReactorComponent> ent, float dt)
@@ -322,6 +312,10 @@ public sealed class FusionReactorSystem : EntitySystem
         args.PushMarkup(Loc.GetString("fusion-reactor-examine-status",
             ("temperature", MathF.Round(ent.Comp.CoreTemperature)),
             ("integrity", MathF.Round(ent.Comp.Integrity))));
+        args.PushMarkup(Loc.GetString("fusion-reactor-examine-flow",
+            ("inlet", MathF.Round(ent.Comp.LastInletPressure)),
+            ("outlet", MathF.Round(ent.Comp.LastOutletPressure)),
+            ("flow", MathF.Round(ent.Comp.LastMolesPerSecond))));
     }
 
     private void UpdateAppearance(Entity<FusionReactorComponent> ent)
@@ -367,6 +361,9 @@ public sealed class FusionReactorSystem : EntitySystem
             Integrity = comp.Integrity,
             InletTemperature = comp.LastInletTemperature,
             OutletTemperature = comp.LastOutletTemperature,
+            InletPressure = comp.LastInletPressure,
+            OutletPressure = comp.LastOutletPressure,
+            MolesPerSecond = comp.LastMolesPerSecond,
         };
 
         _ui.SetUiState(ent.Owner, FusionReactorUiKey.Key, state);

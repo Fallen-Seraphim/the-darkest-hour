@@ -54,7 +54,14 @@ public sealed partial class FusionReactorComponent : Component
     /// Volume of gas pulled through the core per second, in litres.
     /// </summary>
     [DataField]
-    public float FlowRate = 400f;
+    public float FlowRate = 600f;
+
+    /// <summary>
+    /// The reactor circulator keeps pushing gas until the outlet reaches this pressure, kPa.
+    /// Hot gas is denser in pressure than cold gas, so this is well above a normal pump's 4500 kPa.
+    /// </summary>
+    [DataField]
+    public float MaxOutletPressure = 15000f;
 
     /// <summary>
     /// How close the passing gas gets to thermal equilibrium with the core, 0..1.
@@ -180,6 +187,18 @@ public sealed partial class FusionReactorComponent : Component
 
     [ViewVariables]
     public float LastOutletTemperature;
+
+    [ViewVariables]
+    public float LastInletPressure;
+
+    [ViewVariables]
+    public float LastOutletPressure;
+
+    /// <summary>
+    /// Coolant flow through the core, mol/s.
+    /// </summary>
+    [ViewVariables]
+    public float LastMolesPerSecond;
 
     [ViewVariables]
     public bool Powered;

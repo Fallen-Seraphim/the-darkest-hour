@@ -16,19 +16,25 @@ public sealed partial class GasTurbineComponent : Component
     /// Volume of gas pulled through the turbine per second, in litres.
     /// </summary>
     [DataField]
-    public float FlowRate = 400f;
+    public float FlowRate = 2500f;
+
+    /// <summary>
+    /// The turbine keeps pulling gas through until its outlet reaches this pressure, kPa.
+    /// </summary>
+    [DataField]
+    public float MaxOutletPressure = 15000f;
 
     /// <summary>
     /// How far the gas cools towards <see cref="ExhaustReferenceTemperature"/>, 0..1.
     /// </summary>
     [DataField]
-    public float ExpansionFraction = 0.5f;
+    public float ExpansionFraction = 0.6f;
 
     /// <summary>
     /// Share of the heat taken from the gas that becomes electricity, 0..1.
     /// </summary>
     [DataField]
-    public float Efficiency = 0.5f;
+    public float Efficiency = 0.6f;
 
     /// <summary>
     /// Temperature the gas expands towards, K. Gas at or below it gives no power.
@@ -98,4 +104,16 @@ public sealed partial class GasTurbineComponent : Component
 
     [ViewVariables]
     public float LastInletTemperature;
+
+    [ViewVariables]
+    public float LastInletPressure;
+
+    [ViewVariables]
+    public float LastOutletPressure;
+
+    /// <summary>
+    /// Gas flow through the turbine, mol/s.
+    /// </summary>
+    [ViewVariables]
+    public float LastMolesPerSecond;
 }

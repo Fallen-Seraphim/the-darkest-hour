@@ -19,6 +19,8 @@ public sealed class FusionReactorWindow : DefaultWindow
     private readonly Label _core = new();
     private readonly Label _field = new();
     private readonly Label _gas = new();
+    private readonly Label _flow = new();
+    private readonly Label _flowWarning = new() { FontColorOverride = Color.OrangeRed };
     private readonly ProgressBar _coreBar = new() { MinValue = 0f, MaxValue = 1f, MinHeight = 14f, HorizontalExpand = true };
     private readonly ProgressBar _fieldBar = new() { MinValue = 0f, MaxValue = 100f, MinHeight = 14f, HorizontalExpand = true };
     private readonly Button _toggle = new() { HorizontalExpand = true };
@@ -29,7 +31,7 @@ public sealed class FusionReactorWindow : DefaultWindow
     public FusionReactorWindow()
     {
         Title = Loc.GetString("fusion-reactor-ui-title");
-        MinSize = new System.Numerics.Vector2(380, 340);
+        MinSize = new System.Numerics.Vector2(400, 380);
 
         var root = new BoxContainer
         {
@@ -47,6 +49,8 @@ public sealed class FusionReactorWindow : DefaultWindow
         root.AddChild(_fieldBar);
         root.AddChild(_heat);
         root.AddChild(_gas);
+        root.AddChild(_flow);
+        root.AddChild(_flowWarning);
 
         var powerRow = new BoxContainer
         {
@@ -116,6 +120,15 @@ public sealed class FusionReactorWindow : DefaultWindow
         _gas.Text = Loc.GetString("fusion-reactor-ui-gas",
             ("inlet", MathF.Round(state.InletTemperature)),
             ("outlet", MathF.Round(state.OutletTemperature)));
+
+        _flow.Text = Loc.GetString("fusion-reactor-ui-flow",
+            ("inlet", MathF.Round(state.InletPressure)),
+            ("outlet", MathF.Round(state.OutletPressure)),
+            ("flow", MathF.Round(state.MolesPerSecond)));
+
+        // Running without coolant flow is the usual way to cook the core.
+        _flowWarning.Visible = state.Active && !state.Breached && state.MolesPerSecond < 1f;
+        _flowWarning.Text = Loc.GetString("fusion-reactor-ui-no-flow");
 
         _toggle.Text = Loc.GetString(state.Active ? "fusion-reactor-ui-turn-off" : "fusion-reactor-ui-turn-on");
         _toggle.Disabled = state.Breached;

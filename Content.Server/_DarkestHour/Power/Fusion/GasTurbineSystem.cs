@@ -43,24 +43,20 @@ public sealed class GasTurbineSystem : EntitySystem
         var dt = args.dt;
         var power = 0f;
 
+        comp.LastMolesPerSecond = 0f;
         if (TryComp<MachineGasPortsComponent>(uid, out var ports)
-            && _ports.TryGetPipes((uid, ports), out var inlet, out var outlet)
-            && inlet.Air.TotalMoles > 0f
-            && inlet.Air.Pressure > 0f)
+            && _ports.TryGetPipes((uid, ports), out var inlet, out var outlet))
         {
-            // Pull gas through like a pump, without pushing the outlet above the max output pressure.
-            var wanted = MathF.Min(inlet.Air.Volume, comp.FlowRate * _atmos.PumpSpeedup() * dt);
-            var wantedMoles = inlet.Air.Pressure * wanted / (inlet.Air.Temperature * Atmospherics.R);
-            var spaceLeft = (Atmospherics.MaxOutputPressure - outlet.Air.Pressure) * outlet.Air.Volume
-                            / (MathF.Max(outlet.Air.Temperature, Atmospherics.TCMB) * Atmospherics.R);
-            var moles = Math.Clamp(wantedMoles, 0f, MathF.Max(0f, spaceLeft));
-            var volume = moles * inlet.Air.Temperature * Atmospherics.R / inlet.Air.Pressure;
+            comp.LastInletPressure = inlet.Air.Pressure;
+            comp.LastOutletPressure = outlet.Air.Pressure;
 
+            var volume = _ports.GetTransferVolume(inlet, outlet, comp.FlowRate, comp.MaxOutletPressure, dt);
             if (volume > 0f)
             {
                 var gas = inlet.Air.RemoveVolume(volume);
                 var hot = gas.Temperature;
                 comp.LastInletTemperature = hot;
+                comp.LastMolesPerSecond = gas.TotalMoles / MathF.Max(dt, 0.001f);
 
                 // The gas expands towards a fixed exhaust reference temperature; hotter gas gives more work.
                 var cold = comp.ExhaustReferenceTemperature;
@@ -123,6 +119,18 @@ public sealed class GasTurbineSystem : EntitySystem
             ("power", MathF.Round(comp.PowerOutput / 1000f)),
             ("temperature", MathF.Round(comp.LastInletTemperature)),
             ("integrity", MathF.Round(comp.Integrity / comp.MaxIntegrity * 100f))));
+        args.PushMarkup(Loc.GetString("gas-turbine-examine-flow",
+            ("inlet", MathF.Round(comp.LastInletPressure)),
+            ("outlet", MathF.Round(comp.LastOutletPressure)),
+            ("flow", MathF.Round(comp.LastMolesPerSecond))));
+
+        if (comp.LastMolesPerSecond < 1f)
+        {
+            var hint = comp.LastOutletPressure >= comp.MaxOutletPressure - 1f
+                ? "gas-turbine-examine-outlet-full"
+                : "gas-turbine-examine-no-gas";
+            args.PushMarkup(Loc.GetString(hint));
+        }
     }
 
     private void OnInteractUsing(Entity<GasTurbineComponent> ent, ref InteractUsingEvent args)

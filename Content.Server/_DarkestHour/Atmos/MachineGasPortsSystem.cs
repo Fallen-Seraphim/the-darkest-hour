@@ -16,6 +16,7 @@ public sealed class MachineGasPortsSystem : EntitySystem
 {
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private NodeContainerSystem _nodeContainer = default!;
+    [Dependency] private AtmosphereSystem _atmos = default!;
 
     public override void Initialize()
     {
@@ -26,6 +27,24 @@ public sealed class MachineGasPortsSystem : EntitySystem
         SubscribeLocalEvent<MachineGasPortsComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<MachineGasPortsComponent, GasAnalyzerScanEvent>(OnAnalyze);
         SubscribeLocalEvent<MachineGasPortsComponent, ExaminedEvent>(OnExamined);
+    }
+
+    /// <summary>
+    /// Volume of gas (L) a machine moves from its inlet to its outlet this tick, like a volumetric pump:
+    /// at most <paramref name="flowRate"/> L/s and never pushing the outlet above <paramref name="maxOutletPressure"/> kPa.
+    /// </summary>
+    public float GetTransferVolume(PipeNode inlet, PipeNode outlet, float flowRate, float maxOutletPressure, float dt)
+    {
+        if (inlet.Air.TotalMoles <= 0f || inlet.Air.Pressure <= 0f)
+            return 0f;
+
+        var wanted = MathF.Min(inlet.Air.Volume, flowRate * _atmos.PumpSpeedup() * dt);
+        var wantedMoles = inlet.Air.Pressure * wanted / (inlet.Air.Temperature * Atmospherics.R);
+        var spaceLeft = (maxOutletPressure - outlet.Air.Pressure) * outlet.Air.Volume
+                        / (MathF.Max(outlet.Air.Temperature, Atmospherics.TCMB) * Atmospherics.R);
+        var moles = Math.Clamp(wantedMoles, 0f, MathF.Max(0f, spaceLeft));
+
+        return moles * inlet.Air.Temperature * Atmospherics.R / inlet.Air.Pressure;
     }
 
     private void OnMapInit(Entity<MachineGasPortsComponent> ent, ref MapInitEvent args)
