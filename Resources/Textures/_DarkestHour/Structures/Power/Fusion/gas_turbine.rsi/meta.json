@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Made by Claude (Anthropic) for The Darkest Hour",
+  "size": {
+    "x": 64,
+    "y": 160
+  },
+  "states": [
+    {
+      "name": "base"
+    },
+    {
+      "name": "broken"
+    },
+    {
+      "name": "rotor"
+    },
+    {
+      "name": "rotor_spin",
+      "delays": [
+        [
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05
+        ]
+      ]
+    }
+  ]
+}

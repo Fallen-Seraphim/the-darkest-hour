@@ -1,4 +1,3 @@
-using Content.Shared._FarHorizons.Materials; // DarkestHour: Far Horizons material properties
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Array;
 using Robust.Shared.Utility;
@@ -57,12 +56,5 @@ namespace Content.Shared.Materials
         /// </summary>
         [DataField(required: true)]
         public double Price = 0;
-
-        /// <summary>
-        /// DarkestHour: physical properties of the material, used by the Far Horizons nuclear reactor.
-        /// Ported from Monolith (_FarHorizons, AGPL-3.0).
-        /// </summary>
-        [DataField("properties")]
-        public MaterialProperties Properties { get; private set; } = new();
     }
 }

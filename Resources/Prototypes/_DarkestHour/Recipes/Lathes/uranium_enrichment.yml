@@ -25,3 +25,14 @@
 - type: latheCategory
   id: NuclearFission
   name: lathe-category-nuclear-fission
+
+# DarkestHour: own engineering machine boards, printed by the circuit imprinter without research until the R&D rework.
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: UraniumEnrichmentCentrifugeMachineCircuitboard
+  result: UraniumEnrichmentCentrifugeMachineCircuitboard
+
+- type: latheRecipePack
+  id: DHEngineeringBoardsStatic
+  recipes:
+  - UraniumEnrichmentCentrifugeMachineCircuitboard
