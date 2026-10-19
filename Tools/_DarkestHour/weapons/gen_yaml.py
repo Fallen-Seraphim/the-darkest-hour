@@ -30,65 +30,84 @@ TYPES = {
     'Slug':  ('slug', 'A solid 14.5x115 slug against armoured targets.', None),
 }
 
-def T(piercing, ap=0.0, unarm=1.0, arm=1.0, extra=None, fire=0.0, pen=0, pellets=0, spread=0):
+# All damage (and penetration thresholds, which are measured in damage) is scaled by this factor.
+# 1.0 = Monolith's scale; the author asked for 1.5x (2026-10-19).
+DAMAGE_MULT = 1.5
+
+def dmg_num(v):
+    v = round(v * DAMAGE_MULT, 1)
+    return int(v) if v == int(v) else v
+
+def T(piercing, ap=0.0, unarm=1.0, arm=1.0, extra=None, fire=0.0, pen=0, pellets=0, spread=0, box=None):
+    """box: overlay state drawn on the Monolith ammo box sprite for this type (None = plain box)."""
     return dict(piercing=piercing, ap=ap, unarm=unarm, arm=arm, extra=extra or {}, fire=fire, pen=pen,
-                pellets=pellets, spread=spread)
+                pellets=pellets, spread=spread, box=box)
+
+# Ammunition sprites are Monolith's (CC-BY-SA-3.0), copied under their _Mono prefix.
+MONO_AMMO = '_Mono/Objects/Weapons/Guns/Ammunition'
+CASING_TIP = {'rifle_ammo_casing', 'rifle_ammo_casing_steel', 'pistol_ammo_casing', 'pistol_ammo_casing_steel',
+              'big_ammo_casing', 'big_ammo_casing_steel', 'caseless_ammo_casing'}
 
 # id, display name, faction ('rep'/'emp'), casing sprite, box sprite, box size, damage per type
+# Base damage is on Monolith's scale (5.56 FMJ 23, 7.62x51 36, 7.62x54R 45, 12.7 65 + structural, 14.5 80),
+# multiplied by DAMAGE_MULT on output.
 CALIBERS = [
-    ('556x45', '5.56x45mm', 'rep', 'ammo_casing', 'rifle', 60, {
-        'FMG': T(17), 'BB': T(14, ap=0.45), 'E': T(15, unarm=1.35, arm=0.6), 'EP': T(20)}),
-    ('762x51', '7.62x51mm', 'rep', 'ammo_casing', 'rifle', 40, {
-        'FMG': T(23), 'BB': T(19, ap=0.5), 'E': T(21, unarm=1.35, arm=0.6)}),
-    ('9x51', '9x51mm', 'rep', 'ammo_casing', 'rifle', 30, {
-        'EB': T(21, ap=0.35, unarm=1.2), 'FMG': T(20), 'DZ': T(18)}),
-    ('10x24', '10x24mm', 'rep', 'ammo_casing', 'pistol', 60, {
-        'SVP': T(17, ap=0.6), 'E': T(16, unarm=1.35, arm=0.6)}),
-    ('10x51', '10x51mm', 'rep', 'ammo_casing', 'rifle', 40, {
-        'SVP': T(26, ap=0.6), 'FMG': T(28)}),
-    ('1066', '10.66mm', 'rep', 'ammo_casing', 'rifle', 28, {
-        'EPP': T(32, ap=0.8, pen=60), 'EPPP': T(36, ap=1.0, pen=110, extra={'Structural': 30})}),
-    ('127x105', '12.7x105mm', 'rep', 'large_casing', 'anti_materiel', 10, {
-        'SVP': T(70, ap=0.7, extra={'Structural': 100}, pen=400), 'EB': T(75, ap=0.4, unarm=1.2, extra={'Structural': 60})}),
-    ('842x54', '8.42x54mm Imp', 'emp', 'ammo_casing', 'rifle', 40, {
-        'ImpS': T(24, ap=0.15), 'ImpR': T(21, ap=0.55), 'ImpZ': T(18, extra={'Heat': 6}, fire=0.4)}),
-    ('104x16', '10.4x16mm Imp', 'emp', 'ammo_casing', 'pistol', 60, {
-        'ImpB': T(19, ap=0.1)}),
-    ('145x114', '14.5x114mm', 'emp', 'large_casing', 'magnum', 12, {
-        'Std': T(55, ap=0.5, extra={'Structural': 40})}),
-    ('14g', '14 gauge', 'emp', 'shotgun_shell', 'shotgun', 16, {
-        'Shot': T(11, pellets=6, spread=15, extra={'Structural': 5}), 'Flech': T(8, ap=0.5, pellets=6, spread=10),
-        'Slug': T(50, ap=0.4, extra={'Structural': 30})}),
+    ('556x45', '5.56x45mm', 'rep', 'rifle_ammo_casing', '5.56x45mm', 60, {
+        'FMG': T(23), 'BB': T(18, ap=0.45, box='steelAP'), 'E': T(30, unarm=1.35, arm=0.6, box='HP'),
+        'EP': T(28, box='RIP')}),
+    ('762x51', '7.62x51mm', 'rep', 'rifle_ammo_casing', '7.62x51mm', 40, {
+        'FMG': T(36), 'BB': T(30, ap=0.5, box='steelAP'), 'E': T(37, unarm=1.35, arm=0.6, box='HP')}),
+    ('9x51', '9x51mm', 'rep', 'rifle_ammo_casing', '7.62x39mm', 30, {
+        'EB': T(32, ap=0.35, unarm=1.2, box='plasteelAP'), 'FMG': T(32), 'DZ': T(28, box='practice')}),
+    ('10x24', '10x24mm', 'rep', 'pistol_ammo_casing', '45_ACP', 60, {
+        'SVP': T(24, ap=0.6, box='synthAP'), 'E': T(28, unarm=1.35, arm=0.6, box='HP')}),
+    ('10x51', '10x51mm', 'rep', 'rifle_ammo_casing', '68x52mm_caseless', 40, {
+        'SVP': T(38, ap=0.6, box='plasteelAP'), 'FMG': T(42)}),
+    ('1066', '10.66mm', 'rep', 'caseless_ammo_casing', '6.35x40mm_caseless', 28, {
+        'EPP': T(48, ap=0.8, pen=60), 'EPPP': T(55, ap=1.0, pen=110, extra={'Structural': 40}, box='base-b')}),
+    ('127x105', '12.7x105mm', 'rep', 'big_ammo_casing', '12.7x99mm', 10, {
+        'SVP': T(90, ap=0.7, extra={'Structural': 150}, pen=400),
+        'EB': T(95, ap=0.4, unarm=1.2, extra={'Structural': 100})}),
+    ('842x54', '8.42x54mm Imp', 'emp', 'rifle_ammo_casing_steel', '7.62x54mmR', 40, {
+        'ImpS': T(45, ap=0.15), 'ImpR': T(38, ap=0.55, box='steelAP'),
+        'ImpZ': T(30, extra={'Heat': 12}, fire=0.4, box='incendiary')}),
+    ('104x16', '10.4x16mm Imp', 'emp', 'pistol_ammo_casing_steel', '4.6x30mm', 60, {
+        'ImpB': T(28, ap=0.1)}),
+    ('145x114', '14.5x114mm', 'emp', '14.5x114mm_casing', '14.5x114mm', 12, {
+        'Std': T(80, ap=0.5, extra={'Structural': 150})}),
+    ('14g', '14 gauge', 'emp', 'shotgun_shell', '12_gauge', 16, {
+        'Shot': T(15, pellets=6, spread=15, extra={'Structural': 10}, box='lethal'),
+        'Flech': T(10, ap=0.5, pellets=6, spread=10, extra={'Structural': 10}, box='flechette'),
+        'Slug': T(70, ap=0.4, extra={'Structural': 200}, box='slug')}),
 ]
 CAL = {c[0]: c for c in CALIBERS}
 CONTRA = {'rep': 'BaseSecurityContraband', 'emp': 'BaseSyndicateContraband'}
-BOX_STEPS = {'rifle': 4, 'pistol': 3, 'anti_materiel': 4, 'magnum': 4, 'shotgun': 5}
 
 def cart_id(cal, t): return f'DHCartridge{cal}{t}'
 def bullet_id(cal, t): return f'DHBullet{cal}{t}'
 def cal_tag(cal): return f'DHCartridge{cal}'
 
 # ----------------------------------------------------------------------------- magazines
-# id, tag, caliber, capacity, sprite (gun id), name, size
+# id, tag, caliber, capacity, sprite (Monolith magazine rsi under Magazine/), name, size, MagazineVisuals steps (0 = static)
 MAGS = [
-    ('DHMagazine556x45', 'DHMagazine556x45', '556x45', 30, 'rar_m11_1', 'RAR-M-11 magazine', 'Small'),
-    ('DHMagazine556x45Short', 'DHMagazine556x45', '556x45', 15, 'rar_m11_1', 'RAR-M-11 short magazine', 'Small'),
-    ('DHMagazineBox556x45', 'DHMagazineBox556x45', '556x45', 100, 'ramg_m14_1', 'RAMG-M-14-1 ammunition box', 'Normal'),
-    ('DHMagazine762x51', 'DHMagazine762x51', '762x51', 20, 'rar_m11_2', 'RAR-M-11-2 magazine', 'Small'),
-    ('DHMagazine762x51Short', 'DHMagazine762x51', '762x51', 10, 'rar_m11_2', 'RAR-M-11-2 short magazine', 'Small'),
-    ('DHMagazineBox762x51', 'DHMagazineBox762x51', '762x51', 75, 'ramg_m14_2', 'RAMG-M-14-2 ammunition box', 'Normal'),
-    ('DHMagazine9x51', 'DHMagazine9x51', '9x51', 15, 'rar_m11_3', 'RAR-M-11-3 magazine', 'Small'),
-    ('DHMagazine9x51Short', 'DHMagazine9x51', '9x51', 5, 'rar_m11_3', 'RAR-M-11-3 short magazine', 'Small'),
-    ('DHMagazine10x24', 'DHMagazine10x24', '10x24', 30, 'raptor_m12_16', 'RAP-TOR magazine', 'Small'),
-    ('DHMagazine10x24Short', 'DHMagazine10x24Short', '10x24', 15, 'rpr_m9_02', 'RPR-M-9 magazine', 'Small'),
-    ('DHMagazine10x51', 'DHMagazine10x51', '10x51', 20, 'rmad_as_m15_17', 'RMAD-AS magazine', 'Small'),
-    ('DHMagazine1066', 'DHMagazine1066', '1066', 14, 'rmad_in_m91_19', 'RMAD-IN magazine', 'Small'),
-    ('DHMagazine127x105', 'DHMagazine127x105', '127x105', 10, 'rmar_as_m15_18', 'RMAR-AS magazine', 'Small'),
-    ('DHMagazine842x54', 'DHMagazine842x54', '842x54', 20, 'ir17', 'IR-17 magazine', 'Small'),
-    ('DHMagazineDrum842x54', 'DHMagazineDrum842x54', '842x54', 45, 'img17t', 'IMG-17T drum', 'Normal'),
-    ('DHMagazine104x16', 'DHMagazine104x16', '104x16', 20, 'img17l', 'IMG-17L magazine', 'Small'),
-    ('DHMagazine145x114', 'DHMagazine145x114', '145x114', 4, 'imp17', 'IMP-17 magazine', 'Tiny'),
-    ('DHMagazineDrum14g', 'DHMagazineDrum14g', '14g', 12, 'imsh17', 'IMSH-17 drum', 'Normal'),
+    ('DHMagazine556x45', 'DHMagazine556x45', '556x45', 30, '5.56x45mm/5.56x45mm_mag', 'RAR-M-11 magazine', 'Small', 2),
+    ('DHMagazine556x45Short', 'DHMagazine556x45', '556x45', 15, '5.56x45mm/5.56x45mm_mag', 'RAR-M-11 short magazine', 'Small', 2),
+    ('DHMagazineBox556x45', 'DHMagazineBox556x45', '556x45', 100, '7.62x39mm/pk_box', 'RAMG-M-14-1 ammunition box', 'Normal', 8),
+    ('DHMagazine762x51', 'DHMagazine762x51', '762x51', 20, '7.62x51mm/7.62x51mm_mag', 'RAR-M-11-2 magazine', 'Small', 2),
+    ('DHMagazine762x51Short', 'DHMagazine762x51', '762x51', 10, '7.62x51mm/7.62x51mm_cap_mag', 'RAR-M-11-2 short magazine', 'Small', 2),
+    ('DHMagazineBox762x51', 'DHMagazineBox762x51', '762x51', 75, '8x65mm/8x65mm_box', 'RAMG-M-14-2 ammunition box', 'Normal', 2),
+    ('DHMagazine9x51', 'DHMagazine9x51', '9x51', 15, '7.62x39mm/7.62x39mm_mag', 'RAR-M-11-3 magazine', 'Small', 2),
+    ('DHMagazine9x51Short', 'DHMagazine9x51', '9x51', 5, '7.62x39mm/7.62x39mm_cap_mag', 'RAR-M-11-3 short magazine', 'Small', 2),
+    ('DHMagazine10x24', 'DHMagazine10x24', '10x24', 30, '45_ACP/45_ACP_smg_mag', 'RAP-TOR magazine', 'Small', 3),
+    ('DHMagazine10x24Short', 'DHMagazine10x24Short', '10x24', 15, '45_ACP/45_ACP_pistol_high_capacity_mag', 'RPR-M-9 magazine', 'Small', 6),
+    ('DHMagazine10x51', 'DHMagazine10x51', '10x51', 20, '7.62x51mm/7.62x51mm_cap_mag', 'RMAD-AS magazine', 'Small', 2),
+    ('DHMagazine1066', 'DHMagazine1066', '1066', 14, '6.35x40mm_caseless/6.35x40mm_caseless_rifle_mag', 'RMAD-IN magazine', 'Small', 2),
+    ('DHMagazine127x105', 'DHMagazine127x105', '127x105', 10, '12.7x99mm/12.7x99mm_mag', 'RMAR-AS magazine', 'Small', 2),
+    ('DHMagazine842x54', 'DHMagazine842x54', '842x54', 20, '7.62x54mmR/7.62x54mmR_mag', 'IR-17 magazine', 'Small', 2),
+    ('DHMagazineDrum842x54', 'DHMagazineDrum842x54', '842x54', 45, '7.62x39mm/dp29', 'IMG-17T drum', 'Normal', 8),
+    ('DHMagazine104x16', 'DHMagazine104x16', '104x16', 20, '4.6x30mm/4.6x30mm_smg_mag', 'IMG-17L magazine', 'Small', 3),
+    ('DHMagazine145x114', 'DHMagazine145x114', '145x114', 4, '357_magnum/357_magnum_pistol_mag', 'IMP-17 magazine', 'Tiny', 0),
+    ('DHMagazineDrum14g', 'DHMagazineDrum14g', '14g', 12, '12_gauge/12_gauge_drum', 'IMSH-17 drum', 'Normal', 2),
 ]
 
 # ----------------------------------------------------------------------------- weapons
@@ -223,7 +242,7 @@ def write_ammo():
         # bullets
         for t, st in types.items():
             label, desc, tip = TYPES[t]
-            dmg = {'Piercing': st['piercing'], **st['extra']}
+            dmg = {k: dmg_num(v) for k, v in {'Piercing': st['piercing'], **st['extra']}.items()}
             out.append(lines(
                 '- type: entity',
                 f'  parent: BaseBullet',
@@ -235,7 +254,7 @@ def write_ammo():
                 '    damage:',
                 '      types:',
                 *[f'        {k}: {v}' for k, v in dmg.items()],
-                *([f'    penetrationThreshold: {st["pen"]}'] if st['pen'] else []),
+                *([f'    penetrationThreshold: {dmg_num(st["pen"])}'] if st['pen'] else []),
                 *(['  - type: DHBallistics',
                    f'    armorPenetration: {st["ap"]}',
                    f'    unarmoredMultiplier: {st["unarm"]}',
@@ -263,7 +282,7 @@ def write_ammo():
                 f'  name: shell ({disp})', '  components:', '  - type: Tag', '    tags:', '    - Cartridge',
                 f'    - {cal_tag(cal)}', '    - DHShell14g', '  - type: CartridgeAmmo', '    soundEject:',
                 '      collection: ShellEject', '  - type: Sprite',
-                '    sprite: Objects/Weapons/Guns/Ammunition/Casings/shotgun_shell.rsi', '    layers:',
+                f'    sprite: {MONO_AMMO}/Casings/shotgun_shell.rsi', '    layers:',
                 '    - state: base', '      map: [ "enum.AmmoVisualLayers.Base" ]', '  - type: Appearance',
                 '  - type: SpentAmmoVisuals'))
         else:
@@ -271,7 +290,7 @@ def write_ammo():
                 '- type: entity', '  abstract: true', f'  parent: [ BaseCartridge, {CONTRA[fac]} ]', f'  id: {base}',
                 f'  name: cartridge ({disp})', '  components:', '  - type: Tag', '    tags:', '    - Cartridge',
                 f'    - {cal_tag(cal)}', '  - type: Sprite',
-                f'    sprite: Objects/Weapons/Guns/Ammunition/Casings/{casing}.rsi', '    layers:',
+                f'    sprite: {MONO_AMMO}/Casings/{casing}.rsi', '    layers:',
                 '    - state: base', '      map: ["enum.AmmoVisualLayers.Base"]', '  - type: Appearance',
                 '  - type: SpentAmmoVisuals'))
         for t, st in types.items():
@@ -282,7 +301,7 @@ def write_ammo():
                 state = {'Shot': 'base', 'Flech': 'practice', 'Slug': 'slug'}[t]
                 sprite = ['  - type: Sprite', '    layers:', f'    - state: {state}',
                           '      map: [ "enum.AmmoVisualLayers.Base" ]', '  - type: SpentAmmoVisuals', f'    state: "{state}"']
-            elif tip and casing == 'ammo_casing':
+            elif tip and casing in CASING_TIP:
                 sprite = ['  - type: Sprite', '    layers:', '    - state: base', '      map: ["enum.AmmoVisualLayers.Base"]',
                           '    - state: tip', '      map: ["enum.AmmoVisualLayers.Tip"]', f'      color: "{tip}"']
             name = f'{"shell" if shell else "cartridge"} ({disp} {label})' if label else f'cartridge ({disp})'
@@ -299,15 +318,14 @@ def write_ammo():
                 '    mayTransfer: true', '    whitelist:', '      tags:', f'      - {cal_tag(cal)}',
                 f'    proto: {cart_id(cal, t)}', f'    capacity: {boxsize}', '  - type: Item', '    size: Small',
                 '  - type: ContainerContainer', '    containers:', '      ballistic-ammo: !type:Container',
-                '  - type: Sprite', f'    sprite: Objects/Weapons/Guns/Ammunition/Boxes/{box}.rsi', '    layers:',
-                '    - state: base', '      map: ["enum.GunVisualLayers.Base"]', '    - state: mag-1',
-                '      map: ["enum.GunVisualLayers.Mag"]', '  - type: MagazineVisuals', '    magState: mag',
-                f'    steps: {BOX_STEPS[box]}', '    zeroVisible: false', '  - type: Appearance'))
+                '  - type: Sprite', f'    sprite: {MONO_AMMO}/Boxes/{box}.rsi', '    layers:',
+                '    - state: base', '      map: ["enum.GunVisualLayers.Base"]',
+                *([f'    - state: {st["box"]}'] if st['box'] else []), '  - type: Appearance'))
     open(os.path.join(PROTO, 'Ammunition/ammunition.yml'), 'w').write(''.join(out))
 
 def write_mags():
     out = [HEADER]
-    for mid, tag, cal, cap, sprite, name, size in MAGS:
+    for mid, tag, cal, cap, sprite, name, size, steps in MAGS:
         c = CAL[cal]; disp, fac, types = c[1], c[2], c[6]
         out.append(lines(
             '- type: entity', '  abstract: true', f'  parent: [ BaseItem, {CONTRA[fac]} ]', f'  id: {mid}Base',
@@ -315,9 +333,10 @@ def write_mags():
             '  - type: Item', f'    size: {size}', '  - type: BallisticAmmoProvider', '    mayTransfer: true',
             '    whitelist:', '      tags:', f'      - {cal_tag(cal)}', f'    capacity: {cap}',
             '  - type: ContainerContainer', '    containers:', '      ballistic-ammo: !type:Container',
-            '  - type: Sprite', f'    sprite: {TEX}/Magazines/{sprite}_mag.rsi', '    layers:', '    - state: base',
-            '      map: ["enum.GunVisualLayers.Base"]', '    - state: mag-1', '      map: ["enum.GunVisualLayers.Mag"]',
-            '  - type: MagazineVisuals', '    magState: mag', '    steps: 2', '    zeroVisible: false',
+            '  - type: Sprite', f'    sprite: {MONO_AMMO}/Magazine/{sprite}.rsi', '    layers:', '    - state: base',
+            '      map: ["enum.GunVisualLayers.Base"]',
+            *(['    - state: mag-1', '      map: ["enum.GunVisualLayers.Mag"]', '  - type: MagazineVisuals',
+               '    magState: mag', f'    steps: {steps}', '    zeroVisible: false'] if steps else []),
             '  - type: Appearance'))
         out.append(lines('- type: entity', f'  parent: {mid}Base', f'  id: {mid}Empty', '  suffix: Empty',
                          f'  description: {cap}-round magazine.', '  components:', '  - type: BallisticAmmoProvider',

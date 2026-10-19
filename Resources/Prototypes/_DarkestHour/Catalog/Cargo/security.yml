@@ -22,7 +22,7 @@
 - type: cargoProduct
   id: DHSecurityAmmo556x45
   icon:
-    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/rar_m11_1_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/5.56x45mm/5.56x45mm_mag.rsi
     state: base
   product: DHCrateSecurityAmmo556x45
   cost: 1500
@@ -32,7 +32,7 @@
 - type: cargoProduct
   id: DHSecurityAmmo9x51
   icon:
-    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/rar_m11_3_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/7.62x39mm/7.62x39mm_mag.rsi
     state: base
   product: DHCrateSecurityAmmo9x51
   cost: 1800
