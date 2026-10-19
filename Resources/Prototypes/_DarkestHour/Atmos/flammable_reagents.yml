@@ -1,0 +1,48 @@
+# DarkestHour: горючесть реагентов (DHFlammableReagentPrototype). ID = ID реагента.
+# intensity — урон Heat/с стоящим в огне; duration — сколько секунд горит тайл от огнемёта;
+# puddleDurationPerUnit — секунд горения на единицу в луже; range — дальность струи огнемёта;
+# fireStacks — огненные стаки/с; spread — струя шириной 3; structuralDamage — урон конструкциям/с;
+# burnsBlockers — струя поджигает стену/дверь, в которую упёрлась; hotspotTemperature — нагрев атмосферы тайла.
+
+- type: dhFlammableReagent
+  id: Ethanol
+  intensity: 2
+  duration: 6
+  puddleDurationPerUnit: 0.3
+  range: 4
+  fireStacks: 1
+  hotspotTemperature: 600
+  color: "#6897f7"
+
+- type: dhFlammableReagent
+  id: WeldingFuel
+  intensity: 4
+  duration: 12
+  puddleDurationPerUnit: 0.6
+  range: 5
+  fireStacks: 2
+  hotspotTemperature: 900
+  color: "#ee6515"
+
+- type: dhFlammableReagent
+  id: Napalm
+  intensity: 7
+  duration: 25
+  puddleDurationPerUnit: 1.5
+  range: 6
+  fireStacks: 4
+  spread: true
+  hotspotTemperature: 1200
+  color: "#d05006"
+
+- type: dhFlammableReagent
+  id: Thermite
+  intensity: 10
+  duration: 15
+  puddleDurationPerUnit: 1
+  range: 3
+  fireStacks: 3
+  structuralDamage: 25
+  burnsBlockers: true
+  hotspotTemperature: 2500
+  color: "#fff1c4"
