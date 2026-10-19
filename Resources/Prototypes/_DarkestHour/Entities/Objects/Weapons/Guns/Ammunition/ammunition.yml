@@ -9,7 +9,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 17
+        Piercing: 34.5
 - type: entity
   parent: BaseBullet
   id: DHBullet556x45BB
@@ -19,7 +19,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 14
+        Piercing: 27
   - type: DHBallistics
     armorPenetration: 0.45
     unarmoredMultiplier: 1.0
@@ -33,7 +33,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 15
+        Piercing: 45
   - type: DHBallistics
     armorPenetration: 0.0
     unarmoredMultiplier: 1.35
@@ -47,7 +47,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 20
+        Piercing: 42
 - type: entity
   abstract: true
   parent: [ BaseCartridge, BaseSecurityContraband ]
@@ -59,7 +59,7 @@
     - Cartridge
     - DHCartridge556x45
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Casings/rifle_ammo_casing.rsi
     layers:
     - state: base
       map: ["enum.AmmoVisualLayers.Base"]
@@ -137,16 +137,10 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/5.56x45mm.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 4
-    zeroVisible: false
   - type: Appearance
 - type: entity
   parent: [ BaseItem, BaseSecurityContraband ]
@@ -167,16 +161,11 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/5.56x45mm.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 4
-    zeroVisible: false
+    - state: steelAP
   - type: Appearance
 - type: entity
   parent: [ BaseItem, BaseSecurityContraband ]
@@ -197,16 +186,11 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/5.56x45mm.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 4
-    zeroVisible: false
+    - state: HP
   - type: Appearance
 - type: entity
   parent: [ BaseItem, BaseSecurityContraband ]
@@ -227,16 +211,11 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/5.56x45mm.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 4
-    zeroVisible: false
+    - state: RIP
   - type: Appearance
 # ---------------------------------------------------------------- 7.62x51mm
 - type: entity
@@ -248,7 +227,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 23
+        Piercing: 54
 - type: entity
   parent: BaseBullet
   id: DHBullet762x51BB
@@ -258,7 +237,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 19
+        Piercing: 45
   - type: DHBallistics
     armorPenetration: 0.5
     unarmoredMultiplier: 1.0
@@ -272,7 +251,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 21
+        Piercing: 55.5
   - type: DHBallistics
     armorPenetration: 0.0
     unarmoredMultiplier: 1.35
@@ -288,7 +267,7 @@
     - Cartridge
     - DHCartridge762x51
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Casings/rifle_ammo_casing.rsi
     layers:
     - state: base
       map: ["enum.AmmoVisualLayers.Base"]
@@ -351,16 +330,10 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/7.62x51mm.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 4
-    zeroVisible: false
   - type: Appearance
 - type: entity
   parent: [ BaseItem, BaseSecurityContraband ]
@@ -381,16 +354,11 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/7.62x51mm.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 4
-    zeroVisible: false
+    - state: steelAP
   - type: Appearance
 - type: entity
   parent: [ BaseItem, BaseSecurityContraband ]
@@ -411,16 +379,11 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/7.62x51mm.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 4
-    zeroVisible: false
+    - state: HP
   - type: Appearance
 # ---------------------------------------------------------------- 9x51mm
 - type: entity
@@ -432,7 +395,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 21
+        Piercing: 48
   - type: DHBallistics
     armorPenetration: 0.35
     unarmoredMultiplier: 1.2
@@ -446,7 +409,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 20
+        Piercing: 48
 - type: entity
   parent: BaseBullet
   id: DHBullet9x51DZ
@@ -456,7 +419,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 18
+        Piercing: 42
 - type: entity
   abstract: true
   parent: [ BaseCartridge, BaseSecurityContraband ]
@@ -468,7 +431,7 @@
     - Cartridge
     - DHCartridge9x51
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Casings/rifle_ammo_casing.rsi
     layers:
     - state: base
       map: ["enum.AmmoVisualLayers.Base"]
@@ -531,16 +494,11 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/9x19mm.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 4
-    zeroVisible: false
+    - state: plasteelAP
   - type: Appearance
 - type: entity
   parent: [ BaseItem, BaseSecurityContraband ]
@@ -561,16 +519,10 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/9x19mm.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 4
-    zeroVisible: false
   - type: Appearance
 - type: entity
   parent: [ BaseItem, BaseSecurityContraband ]
@@ -591,16 +543,179 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/9x19mm.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 4
-    zeroVisible: false
+    - state: practice
+  - type: Appearance
+# ---------------------------------------------------------------- 7.62x39mm
+- type: entity
+  parent: BaseBullet
+  id: DHBullet762x39FMG
+  name: "bullet (7.62x39mm FMG)"
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 37.5
+- type: entity
+  parent: BaseBullet
+  id: DHBullet762x39BB
+  name: "bullet (7.62x39mm BB)"
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 30
+  - type: DHBallistics
+    armorPenetration: 0.45
+    unarmoredMultiplier: 1.0
+    armoredMultiplier: 1.0
+- type: entity
+  parent: BaseBullet
+  id: DHBullet762x39E
+  name: "bullet (7.62x39mm E)"
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 52.5
+  - type: DHBallistics
+    armorPenetration: 0.0
+    unarmoredMultiplier: 1.35
+    armoredMultiplier: 0.6
+- type: entity
+  abstract: true
+  parent: [ BaseCartridge, BaseSecurityContraband ]
+  id: DHBaseCartridge762x39
+  name: "cartridge (7.62x39mm)"
+  components:
+  - type: Tag
+    tags:
+    - Cartridge
+    - DHCartridge762x39
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Casings/rifle_ammo_casing.rsi
+    layers:
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+- type: entity
+  parent: DHBaseCartridge762x39
+  id: DHCartridge762x39FMG
+  name: "cartridge (7.62x39mm FMG)"
+  description: "Standard full metal jacket."
+  components:
+  - type: CartridgeAmmo
+    proto: DHBullet762x39FMG
+- type: entity
+  parent: DHBaseCartridge762x39
+  id: DHCartridge762x39BB
+  name: "cartridge (7.62x39mm BB)"
+  description: "Armour-piercing: steel core, goes through armour and cover."
+  components:
+  - type: CartridgeAmmo
+    proto: DHBullet762x39BB
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      map: ["enum.AmmoVisualLayers.Tip"]
+      color: "#2b2b2b"
+- type: entity
+  parent: DHBaseCartridge762x39
+  id: DHCartridge762x39E
+  name: "cartridge (7.62x39mm E)"
+  description: "Expanding: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: CartridgeAmmo
+    proto: DHBullet762x39E
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      map: ["enum.AmmoVisualLayers.Tip"]
+      color: "#c94040"
+- type: entity
+  parent: [ BaseItem, BaseSecurityContraband ]
+  id: DHAmmoBox762x39FMG
+  name: "ammunition box (7.62x39mm FMG)"
+  description: "60 rounds. Standard full metal jacket."
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - DHCartridge762x39
+    proto: DHCartridge762x39FMG
+    capacity: 60
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/7.62x39mm.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+  - type: Appearance
+- type: entity
+  parent: [ BaseItem, BaseSecurityContraband ]
+  id: DHAmmoBox762x39BB
+  name: "ammunition box (7.62x39mm BB)"
+  description: "60 rounds. Armour-piercing: steel core, goes through armour and cover."
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - DHCartridge762x39
+    proto: DHCartridge762x39BB
+    capacity: 60
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/7.62x39mm.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: steelAP
+  - type: Appearance
+- type: entity
+  parent: [ BaseItem, BaseSecurityContraband ]
+  id: DHAmmoBox762x39E
+  name: "ammunition box (7.62x39mm E)"
+  description: "60 rounds. Expanding: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - DHCartridge762x39
+    proto: DHCartridge762x39E
+    capacity: 60
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/7.62x39mm.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: HP
   - type: Appearance
 # ---------------------------------------------------------------- 10x24mm
 - type: entity
@@ -612,7 +727,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 17
+        Piercing: 36
   - type: DHBallistics
     armorPenetration: 0.6
     unarmoredMultiplier: 1.0
@@ -626,7 +741,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 16
+        Piercing: 42
   - type: DHBallistics
     armorPenetration: 0.0
     unarmoredMultiplier: 1.35
@@ -642,7 +757,7 @@
     - Cartridge
     - DHCartridge10x24
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Casings/pistol_ammo_casing.rsi
     layers:
     - state: base
       map: ["enum.AmmoVisualLayers.Base"]
@@ -697,16 +812,11 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/pistol.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/45_ACP.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 3
-    zeroVisible: false
+    - state: synthAP
   - type: Appearance
 - type: entity
   parent: [ BaseItem, BaseSecurityContraband ]
@@ -727,16 +837,11 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/pistol.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/45_ACP.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 3
-    zeroVisible: false
+    - state: HP
   - type: Appearance
 # ---------------------------------------------------------------- 10x51mm
 - type: entity
@@ -748,7 +853,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 26
+        Piercing: 57
   - type: DHBallistics
     armorPenetration: 0.6
     unarmoredMultiplier: 1.0
@@ -762,7 +867,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 28
+        Piercing: 63
 - type: entity
   abstract: true
   parent: [ BaseCartridge, BaseSecurityContraband ]
@@ -774,7 +879,7 @@
     - Cartridge
     - DHCartridge10x51
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Casings/rifle_ammo_casing.rsi
     layers:
     - state: base
       map: ["enum.AmmoVisualLayers.Base"]
@@ -822,16 +927,11 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/68x52mm_caseless.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 4
-    zeroVisible: false
+    - state: plasteelAP
   - type: Appearance
 - type: entity
   parent: [ BaseItem, BaseSecurityContraband ]
@@ -852,16 +952,10 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/68x52mm_caseless.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 4
-    zeroVisible: false
   - type: Appearance
 # ---------------------------------------------------------------- 10.66mm
 - type: entity
@@ -873,8 +967,8 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 32
-    penetrationThreshold: 60
+        Piercing: 72
+    penetrationThreshold: 90
   - type: DHBallistics
     armorPenetration: 0.8
     unarmoredMultiplier: 1.0
@@ -888,9 +982,9 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 36
-        Structural: 30
-    penetrationThreshold: 110
+        Piercing: 82.5
+        Structural: 60
+    penetrationThreshold: 165
   - type: DHBallistics
     armorPenetration: 1.0
     unarmoredMultiplier: 1.0
@@ -906,7 +1000,7 @@
     - Cartridge
     - DHCartridge1066
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Casings/caseless_ammo_casing.rsi
     layers:
     - state: base
       map: ["enum.AmmoVisualLayers.Base"]
@@ -961,16 +1055,10 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/6.35x40mm_caseless.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 4
-    zeroVisible: false
   - type: Appearance
 - type: entity
   parent: [ BaseItem, BaseSecurityContraband ]
@@ -991,16 +1079,11 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/6.35x40mm_caseless.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 4
-    zeroVisible: false
+    - state: base-b
   - type: Appearance
 # ---------------------------------------------------------------- 12.7x105mm
 - type: entity
@@ -1012,9 +1095,9 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 70
-        Structural: 100
-    penetrationThreshold: 400
+        Piercing: 135
+        Structural: 225
+    penetrationThreshold: 600
   - type: DHBallistics
     armorPenetration: 0.7
     unarmoredMultiplier: 1.0
@@ -1028,8 +1111,8 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 75
-        Structural: 60
+        Piercing: 142.5
+        Structural: 150
   - type: DHBallistics
     armorPenetration: 0.4
     unarmoredMultiplier: 1.2
@@ -1045,7 +1128,7 @@
     - Cartridge
     - DHCartridge127x105
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Casings/large_casing.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Casings/big_ammo_casing.rsi
     layers:
     - state: base
       map: ["enum.AmmoVisualLayers.Base"]
@@ -1059,6 +1142,13 @@
   components:
   - type: CartridgeAmmo
     proto: DHBullet127x105SVP
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      map: ["enum.AmmoVisualLayers.Tip"]
+      color: "#7a4fb0"
 - type: entity
   parent: DHBaseCartridge127x105
   id: DHCartridge127x105EB
@@ -1067,6 +1157,13 @@
   components:
   - type: CartridgeAmmo
     proto: DHBullet127x105EB
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      map: ["enum.AmmoVisualLayers.Tip"]
+      color: "#1f3f7a"
 - type: entity
   parent: [ BaseItem, BaseSecurityContraband ]
   id: DHAmmoBox127x105SVP
@@ -1086,16 +1183,10 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/anti_materiel.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/12.7x99mm.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 4
-    zeroVisible: false
   - type: Appearance
 - type: entity
   parent: [ BaseItem, BaseSecurityContraband ]
@@ -1116,16 +1207,10 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/anti_materiel.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/12.7x99mm.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 4
-    zeroVisible: false
   - type: Appearance
 # ---------------------------------------------------------------- 8.42x54mm Imp
 - type: entity
@@ -1137,7 +1222,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 24
+        Piercing: 67.5
   - type: DHBallistics
     armorPenetration: 0.15
     unarmoredMultiplier: 1.0
@@ -1151,7 +1236,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 21
+        Piercing: 57
   - type: DHBallistics
     armorPenetration: 0.55
     unarmoredMultiplier: 1.0
@@ -1165,8 +1250,8 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 18
-        Heat: 6
+        Piercing: 45
+        Heat: 18
   - type: IgniteOnCollide
     fireStacks: 0.4
   - type: PointLight
@@ -1185,7 +1270,7 @@
     - Cartridge
     - DHCartridge842x54
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Casings/rifle_ammo_casing_steel.rsi
     layers:
     - state: base
       map: ["enum.AmmoVisualLayers.Base"]
@@ -1255,16 +1340,10 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/7.62x54mmR.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 4
-    zeroVisible: false
   - type: Appearance
 - type: entity
   parent: [ BaseItem, BaseSyndicateContraband ]
@@ -1285,16 +1364,11 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/7.62x54mmR.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 4
-    zeroVisible: false
+    - state: steelAP
   - type: Appearance
 - type: entity
   parent: [ BaseItem, BaseSyndicateContraband ]
@@ -1315,16 +1389,11 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/7.62x54mmR.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 4
-    zeroVisible: false
+    - state: incendiary
   - type: Appearance
 # ---------------------------------------------------------------- 10.4x16mm Imp
 - type: entity
@@ -1336,7 +1405,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 19
+        Piercing: 42
   - type: DHBallistics
     armorPenetration: 0.1
     unarmoredMultiplier: 1.0
@@ -1352,7 +1421,7 @@
     - Cartridge
     - DHCartridge104x16
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Casings/pistol_ammo_casing_steel.rsi
     layers:
     - state: base
       map: ["enum.AmmoVisualLayers.Base"]
@@ -1392,16 +1461,10 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/pistol.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/4.6x30mm.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 3
-    zeroVisible: false
   - type: Appearance
 # ---------------------------------------------------------------- 14.5x114mm
 - type: entity
@@ -1413,8 +1476,8 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 55
-        Structural: 40
+        Piercing: 120
+        Structural: 225
   - type: DHBallistics
     armorPenetration: 0.5
     unarmoredMultiplier: 1.0
@@ -1430,7 +1493,7 @@
     - Cartridge
     - DHCartridge145x114
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Casings/large_casing.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Casings/14.5x114mm_casing.rsi
     layers:
     - state: base
       map: ["enum.AmmoVisualLayers.Base"]
@@ -1463,16 +1526,10 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/magnum.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/14.5x114mm.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 4
-    zeroVisible: false
   - type: Appearance
 # ---------------------------------------------------------------- 14 gauge
 - type: entity
@@ -1484,8 +1541,8 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 11
-        Structural: 5
+        Piercing: 22.5
+        Structural: 15
 - type: entity
   id: DHBullet14gShotSpread
   categories: [ HideSpawnMenu ]
@@ -1503,7 +1560,8 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 8
+        Piercing: 15
+        Structural: 15
   - type: DHBallistics
     armorPenetration: 0.5
     unarmoredMultiplier: 1.0
@@ -1525,8 +1583,8 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 50
-        Structural: 30
+        Piercing: 105
+        Structural: 300
   - type: DHBallistics
     armorPenetration: 0.4
     unarmoredMultiplier: 1.0
@@ -1546,7 +1604,7 @@
     soundEject:
       collection: ShellEject
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Casings/shotgun_shell.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Casings/shotgun_shell.rsi
     layers:
     - state: base
       map: [ "enum.AmmoVisualLayers.Base" ]
@@ -1613,16 +1671,11 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/shotgun.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/12_gauge.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 5
-    zeroVisible: false
+    - state: lethal
   - type: Appearance
 - type: entity
   parent: [ BaseItem, BaseSyndicateContraband ]
@@ -1643,16 +1696,11 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/shotgun.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/12_gauge.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 5
-    zeroVisible: false
+    - state: flechette
   - type: Appearance
 - type: entity
   parent: [ BaseItem, BaseSyndicateContraband ]
@@ -1673,14 +1721,9 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/shotgun.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/12_gauge.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 5
-    zeroVisible: false
+    - state: slug
   - type: Appearance

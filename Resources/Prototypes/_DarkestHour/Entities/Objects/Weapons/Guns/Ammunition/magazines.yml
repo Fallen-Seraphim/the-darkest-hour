@@ -20,7 +20,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/rar_m11_1_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/5.56x45mm/5.56x45mm_mag.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -92,7 +92,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/rar_m11_1_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/5.56x45mm/5.56x45mm_mag.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -164,7 +164,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/ramg_m14_1_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/7.62x39mm/pk_box.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -172,7 +172,7 @@
       map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: mag
-    steps: 2
+    steps: 8
     zeroVisible: false
   - type: Appearance
 - type: entity
@@ -236,7 +236,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/rar_m11_2_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/7.62x51mm/7.62x51mm_mag.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -300,7 +300,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/rar_m11_2_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/7.62x51mm/7.62x51mm_cap_mag.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -364,7 +364,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/ramg_m14_2_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/8x65mm/8x65mm_box.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -428,7 +428,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/rar_m11_3_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/8x65mm/8x65mm.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -436,7 +436,7 @@
       map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: mag
-    steps: 2
+    steps: 7
     zeroVisible: false
   - type: Appearance
 - type: entity
@@ -492,7 +492,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/rar_m11_3_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/7.62x39mm/7.62x39mm_cap_mag.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -538,6 +538,70 @@
 - type: entity
   abstract: true
   parent: [ BaseItem, BaseSecurityContraband ]
+  id: DHMagazine762x39Base
+  name: "Ravenger magazine (7.62x39mm)"
+  components:
+  - type: Tag
+    tags:
+    - DHMagazine762x39
+  - type: Item
+    size: Small
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - DHCartridge762x39
+    capacity: 30
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/7.62x39mm/7.62x39mm_mag.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: false
+  - type: Appearance
+- type: entity
+  parent: DHMagazine762x39Base
+  id: DHMagazine762x39Empty
+  suffix: Empty
+  description: "30-round magazine."
+  components:
+  - type: BallisticAmmoProvider
+    proto: null
+- type: entity
+  parent: DHMagazine762x39Base
+  id: DHMagazine762x39FMG
+  name: "Ravenger magazine (7.62x39mm FMG)"
+  description: "30-round magazine. Standard full metal jacket."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x39FMG
+- type: entity
+  parent: DHMagazine762x39Base
+  id: DHMagazine762x39BB
+  name: "Ravenger magazine (7.62x39mm BB)"
+  description: "30-round magazine. Armour-piercing: steel core, goes through armour and cover."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x39BB
+- type: entity
+  parent: DHMagazine762x39Base
+  id: DHMagazine762x39E
+  name: "Ravenger magazine (7.62x39mm E)"
+  description: "30-round magazine. Expanding: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x39E
+- type: entity
+  abstract: true
+  parent: [ BaseItem, BaseSecurityContraband ]
   id: DHMagazine10x24Base
   name: "RAP-TOR magazine (10x24mm)"
   components:
@@ -556,7 +620,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/raptor_m12_16_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/45_ACP/45_ACP_smg_mag.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -564,7 +628,7 @@
       map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: mag
-    steps: 2
+    steps: 3
     zeroVisible: false
   - type: Appearance
 - type: entity
@@ -612,7 +676,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/rpr_m9_02_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/45_ACP/45_ACP_pistol_high_capacity_mag.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -620,7 +684,7 @@
       map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: mag
-    steps: 2
+    steps: 6
     zeroVisible: false
   - type: Appearance
 - type: entity
@@ -668,7 +732,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/rmad_as_m15_17_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/7.62x51mm/7.62x51mm_cap_mag.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -724,7 +788,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/rmad_in_m91_19_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/6.35x40mm_caseless/6.35x40mm_caseless_rifle_mag.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -780,7 +844,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/rmar_as_m15_18_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/12.7x99mm/12.7x99mm_mag.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -836,7 +900,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/ir17_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/7.62x54mmR/7.62x54mmR_mag.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -900,7 +964,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/img17t_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/7.62x39mm/dp29.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -908,7 +972,7 @@
       map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: mag
-    steps: 2
+    steps: 8
     zeroVisible: false
   - type: Appearance
 - type: entity
@@ -964,7 +1028,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/img17l_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/4.6x30mm/4.6x30mm_smg_mag.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -972,7 +1036,7 @@
       map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: mag
-    steps: 2
+    steps: 3
     zeroVisible: false
   - type: Appearance
 - type: entity
@@ -1012,16 +1076,10 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/imp17_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/357_magnum/357_magnum_pistol_mag.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 2
-    zeroVisible: false
   - type: Appearance
 - type: entity
   parent: DHMagazine145x114Base
@@ -1060,7 +1118,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _DarkestHour/Objects/Weapons/Guns/Magazines/imsh17_mag.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/12_gauge/12_gauge_drum.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
