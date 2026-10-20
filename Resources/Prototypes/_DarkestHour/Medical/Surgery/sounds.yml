@@ -1,0 +1,43 @@
+- type: soundCollection
+  id: DHSurgeryScalpel
+  files:
+  - /Audio/_DarkestHour/Medical/Surgery/scalpel1.ogg
+  - /Audio/_DarkestHour/Medical/Surgery/scalpel2.ogg
+
+- type: soundCollection
+  id: DHSurgeryHemostat
+  files:
+  - /Audio/_DarkestHour/Medical/Surgery/hemostat1.ogg
+
+- type: soundCollection
+  id: DHSurgeryRetractor
+  files:
+  - /Audio/_DarkestHour/Medical/Surgery/retractor1.ogg
+  - /Audio/_DarkestHour/Medical/Surgery/retractor2.ogg
+
+- type: soundCollection
+  id: DHSurgeryBoneSaw
+  files:
+  - /Audio/_DarkestHour/Medical/Surgery/bone_saw.ogg
+
+- type: soundCollection
+  id: DHSurgerySaw
+  files:
+  - /Audio/_DarkestHour/Medical/Surgery/saw.ogg
+
+- type: soundCollection
+  id: DHSurgeryBoneSetter
+  files:
+  - /Audio/_DarkestHour/Medical/Surgery/bone_setter.ogg
+
+- type: soundCollection
+  id: DHSurgeryCautery
+  files:
+  - /Audio/_DarkestHour/Medical/Surgery/cautery1.ogg
+  - /Audio/_DarkestHour/Medical/Surgery/cautery2.ogg
+
+- type: soundCollection
+  id: DHSurgeryOrgan
+  files:
+  - /Audio/_DarkestHour/Medical/Surgery/organ1.ogg
+  - /Audio/_DarkestHour/Medical/Surgery/organ2.ogg

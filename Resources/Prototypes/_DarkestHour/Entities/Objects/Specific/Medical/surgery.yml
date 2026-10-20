@@ -1,0 +1,46 @@
+# DarkestHour: хирургические принадлежности. Спрайты — Shitmed (Goob Station), изначально /tg/station, CC-BY-SA-3.0.
+
+- type: entity
+  parent: BaseToolSurgery
+  id: DHBoneGel
+  name: bone gel
+  description: A tube of bone gel. Fuses sawn ribs and skull back together before the incision is closed.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Specific/Medical/Surgery/bone-gel.rsi
+    state: bone-gel
+  - type: Item
+    sprite: _DarkestHour/Objects/Specific/Medical/Surgery/bone-gel.rsi
+  - type: DHSurgicalTool
+    kind: BoneGel
+
+- type: entity
+  parent: BaseToolSurgery
+  id: DHBoneSetter
+  name: bone setter
+  description: Sets sawn and broken bones back into place.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Specific/Medical/Surgery/bonesetter.rsi
+    state: bonesetter
+  - type: Item
+    sprite: _DarkestHour/Objects/Specific/Medical/Surgery/bonesetter.rsi
+    storedRotation: 90
+  - type: DHSurgicalTool
+    kind: BoneSetter
+
+- type: entity
+  parent: BaseItem
+  id: DHSurgicalDrapes
+  name: surgical drapes
+  description: Sterile drapes. Use them on a patient lying down to plan an operation.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Specific/Medical/Surgery/drapes.rsi
+    state: drapes
+  - type: Item
+    sprite: _DarkestHour/Objects/Specific/Medical/Surgery/drapes.rsi
+    size: Small
+  - type: DHSurgicalDrapes
+  - type: StaticPrice
+    price: 10

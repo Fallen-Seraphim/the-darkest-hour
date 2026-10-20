@@ -1,0 +1,288 @@
+# DarkestHour: операции. Часть тела открывают («Разрез», для головы и торса ещё «Вскрыть кость»), работают внутри и закрывают
+# («Закрыть»: вправить и склеить кость, если вскрыта, затем прижечь). Органы и конечности — сущности тела апстрима.
+
+- type: dhSurgery
+  id: DHSurgeryOpen
+  name: dh-surgery-open
+  description: dh-surgery-open-desc
+  order: 0
+  parts: [ Head, Torso, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+  forbids: [ Incised ]
+  steps:
+  - DHSurgeryStepIncise
+  - DHSurgeryStepClamp
+  - DHSurgeryStepRetract
+
+- type: dhSurgery
+  id: DHSurgeryOpenBone
+  name: dh-surgery-open-bone
+  description: dh-surgery-open-bone-desc
+  order: 1
+  parts: [ Head, Torso ]
+  requires: [ Retracted ]
+  forbids: [ BoneOpen ]
+  steps:
+  - DHSurgeryStepSawBone
+
+- type: dhSurgery
+  id: DHSurgeryRemoveBrain
+  name: dh-surgery-remove-brain
+  order: 10
+  parts: [ Head ]
+  requires: [ BoneOpen ]
+  organ: Brain
+  steps:
+  - DHSurgeryStepExtractOrgan
+
+- type: dhSurgery
+  id: DHSurgeryRemoveEyes
+  name: dh-surgery-remove-eyes
+  order: 11
+  parts: [ Head ]
+  requires: [ Retracted ]
+  organ: Eyes
+  steps:
+  - DHSurgeryStepExtractOrgan
+
+- type: dhSurgery
+  id: DHSurgeryRemoveTongue
+  name: dh-surgery-remove-tongue
+  order: 12
+  parts: [ Head ]
+  requires: [ Retracted ]
+  organ: Tongue
+  steps:
+  - DHSurgeryStepExtractOrgan
+
+- type: dhSurgery
+  id: DHSurgeryRemoveEars
+  name: dh-surgery-remove-ears
+  order: 13
+  parts: [ Head ]
+  requires: [ Retracted ]
+  organ: Ears
+  steps:
+  - DHSurgeryStepExtractOrgan
+
+- type: dhSurgery
+  id: DHSurgeryRemoveHeart
+  name: dh-surgery-remove-heart
+  order: 14
+  parts: [ Torso ]
+  requires: [ BoneOpen ]
+  organ: Heart
+  steps:
+  - DHSurgeryStepExtractOrgan
+
+- type: dhSurgery
+  id: DHSurgeryRemoveLungs
+  name: dh-surgery-remove-lungs
+  order: 15
+  parts: [ Torso ]
+  requires: [ BoneOpen ]
+  organ: Lungs
+  steps:
+  - DHSurgeryStepExtractOrgan
+
+- type: dhSurgery
+  id: DHSurgeryRemoveLiver
+  name: dh-surgery-remove-liver
+  order: 16
+  parts: [ Torso ]
+  requires: [ BoneOpen ]
+  organ: Liver
+  steps:
+  - DHSurgeryStepExtractOrgan
+
+- type: dhSurgery
+  id: DHSurgeryRemoveKidneys
+  name: dh-surgery-remove-kidneys
+  order: 17
+  parts: [ Torso ]
+  requires: [ BoneOpen ]
+  organ: Kidneys
+  steps:
+  - DHSurgeryStepExtractOrgan
+
+- type: dhSurgery
+  id: DHSurgeryRemoveStomach
+  name: dh-surgery-remove-stomach
+  order: 18
+  parts: [ Torso ]
+  requires: [ BoneOpen ]
+  organ: Stomach
+  steps:
+  - DHSurgeryStepExtractOrgan
+
+- type: dhSurgery
+  id: DHSurgeryRemoveAppendix
+  name: dh-surgery-remove-appendix
+  order: 19
+  parts: [ Torso ]
+  requires: [ Retracted ]
+  organ: Appendix
+  steps:
+  - DHSurgeryStepExtractOrgan
+
+- type: dhSurgery
+  id: DHSurgeryInsertBrain
+  name: dh-surgery-insert-brain
+  order: 20
+  parts: [ Head ]
+  requires: [ BoneOpen ]
+  organ: Brain
+  organPresent: false
+  steps:
+  - DHSurgeryStepPlaceOrgan
+  - DHSurgeryStepConnectOrgan
+
+- type: dhSurgery
+  id: DHSurgeryInsertEyes
+  name: dh-surgery-insert-eyes
+  order: 21
+  parts: [ Head ]
+  requires: [ Retracted ]
+  organ: Eyes
+  organPresent: false
+  steps:
+  - DHSurgeryStepPlaceOrgan
+  - DHSurgeryStepConnectOrgan
+
+- type: dhSurgery
+  id: DHSurgeryInsertTongue
+  name: dh-surgery-insert-tongue
+  order: 22
+  parts: [ Head ]
+  requires: [ Retracted ]
+  organ: Tongue
+  organPresent: false
+  steps:
+  - DHSurgeryStepPlaceOrgan
+  - DHSurgeryStepConnectOrgan
+
+- type: dhSurgery
+  id: DHSurgeryInsertEars
+  name: dh-surgery-insert-ears
+  order: 23
+  parts: [ Head ]
+  requires: [ Retracted ]
+  organ: Ears
+  organPresent: false
+  steps:
+  - DHSurgeryStepPlaceOrgan
+  - DHSurgeryStepConnectOrgan
+
+- type: dhSurgery
+  id: DHSurgeryInsertHeart
+  name: dh-surgery-insert-heart
+  order: 24
+  parts: [ Torso ]
+  requires: [ BoneOpen ]
+  organ: Heart
+  organPresent: false
+  steps:
+  - DHSurgeryStepPlaceOrgan
+  - DHSurgeryStepConnectOrgan
+
+- type: dhSurgery
+  id: DHSurgeryInsertLungs
+  name: dh-surgery-insert-lungs
+  order: 25
+  parts: [ Torso ]
+  requires: [ BoneOpen ]
+  organ: Lungs
+  organPresent: false
+  steps:
+  - DHSurgeryStepPlaceOrgan
+  - DHSurgeryStepConnectOrgan
+
+- type: dhSurgery
+  id: DHSurgeryInsertLiver
+  name: dh-surgery-insert-liver
+  order: 26
+  parts: [ Torso ]
+  requires: [ BoneOpen ]
+  organ: Liver
+  organPresent: false
+  steps:
+  - DHSurgeryStepPlaceOrgan
+  - DHSurgeryStepConnectOrgan
+
+- type: dhSurgery
+  id: DHSurgeryInsertKidneys
+  name: dh-surgery-insert-kidneys
+  order: 27
+  parts: [ Torso ]
+  requires: [ BoneOpen ]
+  organ: Kidneys
+  organPresent: false
+  steps:
+  - DHSurgeryStepPlaceOrgan
+  - DHSurgeryStepConnectOrgan
+
+- type: dhSurgery
+  id: DHSurgeryInsertStomach
+  name: dh-surgery-insert-stomach
+  order: 28
+  parts: [ Torso ]
+  requires: [ BoneOpen ]
+  organ: Stomach
+  organPresent: false
+  steps:
+  - DHSurgeryStepPlaceOrgan
+  - DHSurgeryStepConnectOrgan
+
+- type: dhSurgery
+  id: DHSurgeryInsertAppendix
+  name: dh-surgery-insert-appendix
+  order: 29
+  parts: [ Torso ]
+  requires: [ Retracted ]
+  organ: Appendix
+  organPresent: false
+  steps:
+  - DHSurgeryStepPlaceOrgan
+  - DHSurgeryStepConnectOrgan
+
+- type: dhSurgery
+  id: DHSurgeryAmputate
+  name: dh-surgery-amputate
+  description: dh-surgery-amputate-desc
+  order: 50
+  parts: [ ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+  requires: [ Retracted ]
+  steps:
+  - DHSurgeryStepAmputate
+
+- type: dhSurgery
+  id: DHSurgeryAttachLimb
+  name: dh-surgery-attach-limb
+  description: dh-surgery-attach-limb-desc
+  order: 51
+  parts: [ ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+  partPresent: false
+  attachTo:
+    ArmLeft: Torso
+    ArmRight: Torso
+    LegLeft: Torso
+    LegRight: Torso
+    HandLeft: ArmLeft
+    HandRight: ArmRight
+    FootLeft: LegLeft
+    FootRight: LegRight
+  steps:
+  - DHSurgeryStepPlaceLimb
+  - DHSurgeryStepConnectOrgan
+  - DHSurgeryStepCauterize
+
+- type: dhSurgery
+  id: DHSurgeryClose
+  name: dh-surgery-close
+  description: dh-surgery-close-desc
+  order: 100
+  parts: [ Head, Torso, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+  requires: [ Incised ]
+  steps:
+  - DHSurgeryStepSetBone
+  - DHSurgeryStepMendBone
+  - DHSurgeryStepCauterize

@@ -66,6 +66,10 @@
         - id: Saw
         - id: Hemostat
         - id: ClothingMaskSterile
+        - id: DHBoneGel # DarkestHour: хирургия
+        - id: DHBoneSetter
+        - id: DHSurgicalDrapes
+        - id: ClothingHandsGlovesLatex
 
 - type: entity
   parent: CrateMedical

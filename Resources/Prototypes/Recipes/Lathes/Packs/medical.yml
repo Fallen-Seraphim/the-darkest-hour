@@ -37,6 +37,9 @@
   - Drill
   - Saw
   - Hemostat
+  - DHBoneGel # DarkestHour: хирургия
+  - DHBoneSetter # DarkestHour: хирургия
+  - DHSurgicalDrapes # DarkestHour: хирургия
 
 - type: latheRecipePack
   id: MedicalStatic

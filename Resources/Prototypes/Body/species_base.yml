@@ -134,6 +134,9 @@
         type: HumanoidMarkingModifierBoundUserInterface
       enum.StrippingUiKey.Key:
         type: StrippableBoundUserInterface
+      enum.DHSurgeryUiKey.Key: # DarkestHour: хирургия
+        type: DHSurgeryBoundUserInterface
+  - type: DHSurgeryPatient # DarkestHour: хирургия
   - type: Puller
   - type: Speech
     speechSounds: Alto
@@ -232,6 +235,20 @@
   - type: FireVisuals
     alternateState: Standing
   - type: StunVisuals
+  - type: DHVitalOrgans # DarkestHour: нет жизненно важного органа — урон
+    missing:
+      Heart:
+        types:
+          Asphyxiation: 3
+      Brain:
+        types:
+          Asphyxiation: 3
+      Liver:
+        types:
+          Poison: 0.5
+      Kidneys:
+        types:
+          Poison: 0.5
 
 - type: entity
   abstract: true
