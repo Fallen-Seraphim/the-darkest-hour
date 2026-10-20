@@ -2,6 +2,7 @@ using System.Linq;
 using Content.Shared._DarkestHour.Medical.Disease;
 using Content.Shared.Clothing.Components;
 using Content.Shared.Damage.Systems;
+using Content.Shared.GameTicking;
 using Content.Shared.EntityEffects;
 using Content.Shared.Inventory;
 using Content.Shared.Mobs.Systems;
@@ -38,12 +39,42 @@ public sealed partial class DHDiseaseSystem : EntitySystem
 
     private readonly HashSet<Entity<DHDiseaseCarrierComponent>> _nearby = new();
 
+    /// <summary>Болезни, определённые вирусологом в этом раунде: только их значок виден на медицинском HUD.</summary>
+    private readonly HashSet<ProtoId<DHDiseasePrototype>> _known = new();
+
     public override void Initialize()
     {
         base.Initialize();
 
         SubscribeLocalEvent<DHDiseaseCarrierComponent, DHInfectAttemptEvent>(OnInfectAttempt);
         SubscribeLocalEvent<DHDiseaseCarrierComponent, DamageChangedEvent>(OnDamageChanged);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
+    }
+
+    private void OnRoundRestart(RoundRestartCleanupEvent ev)
+    {
+        _known.Clear();
+    }
+
+    /// <summary>Известна ли болезнь станции (неопределяемые вирусологом — лучевая, хронитовая — известны всегда).</summary>
+    public bool IsKnown(DHDiseasePrototype proto) => !proto.Identifiable || _known.Contains(proto.ID);
+
+    public IReadOnlyCollection<ProtoId<DHDiseasePrototype>> KnownDiseases => _known;
+
+    /// <summary>Отметить болезнь известной. false — уже была известна.</summary>
+    public bool MarkKnown(ProtoId<DHDiseasePrototype> disease)
+    {
+        if (!_known.Add(disease))
+            return false;
+
+        var query = EntityQueryEnumerator<DHDiseaseCarrierComponent>();
+        while (query.MoveNext(out var uid, out var carrier))
+        {
+            if (carrier.Diseases.ContainsKey(disease))
+                UpdateSymptomatic((uid, carrier));
+        }
+
+        return true;
     }
 
     #region API
@@ -293,7 +324,7 @@ public sealed partial class DHDiseaseSystem : EntitySystem
         var symptomatic = false;
         foreach (var (id, disease) in ent.Comp.Diseases)
         {
-            if (_proto.TryIndex(id, out var proto) && proto.Stages[StageIndex(proto, disease)].Symptomatic)
+            if (_proto.TryIndex(id, out var proto) && proto.Stages[StageIndex(proto, disease)].Symptomatic && IsKnown(proto))
             {
                 symptomatic = true;
                 break;

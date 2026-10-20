@@ -52,6 +52,8 @@
   - DHSplint # DarkestHour: травмы
   - DHDosimeter # DarkestHour: радиация и хронит
   - DHSkinGraft # DarkestHour: хронит
+  - DHPathogenSwab # DarkestHour: вирусология
+  - DHPathogenScanner # DarkestHour: вирусология
   - WhiteCane
   - OffsetCane
   - OffsetCaneWood

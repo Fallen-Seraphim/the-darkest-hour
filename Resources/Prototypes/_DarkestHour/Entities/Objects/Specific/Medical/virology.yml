@@ -1,0 +1,100 @@
+# DarkestHour: вирусология (этап 2, шаг 5). Мазок → анализатор (строение) → компьютер вирусолога (карточка случая).
+
+- type: entity
+  parent: BaseItem
+  id: DHPathogenSwab
+  name: pathogen swab
+  description: A sterile swab for taking samples from a patient or a culture jar. Single use. Put the used swab into a pathogen analyzer.
+  components:
+  - type: Item
+    size: Tiny
+  - type: Sprite
+    sprite: Objects/Specific/Medical/mouth_swab.rsi
+    state: icon
+  - type: DHPathogenSwab
+  - type: Tag
+    tags:
+    - Recyclable
+    - Trash
+
+- type: entity
+  parent: BaseItem
+  id: DHPathogenScanner
+  name: pathogen scanner
+  description: A handheld body scanner. Shows whether the patient carries a pathogen and which symptoms it causes, but not what the disease is.
+  components:
+  - type: Item
+    size: Small
+  - type: Sprite
+    sprite: Objects/Specific/Medical/healthanalyzer.rsi
+    state: icon
+    color: "#a8e6b4"
+  - type: DHPathogenScanner
+  - type: StaticPrice
+    price: 60
+
+# --- Банки с культурами (карго, экспедиции). Из банки берут мазок; разбитая банка заражает всех рядом. ---
+
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: DHCultureJarBase
+  name: culture jar
+  description: A sealed glass jar with a live pathogen culture. Handle with care.
+  components:
+  - type: Item
+    size: Small
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Specific/Medical/culture_jar.rsi
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: DamageOnHighSpeedImpact
+    minimumSpeed: 2
+    damage:
+      types:
+        Blunt: 10
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 8
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          ShardGlass:
+            min: 1
+            max: 1
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: StaticPrice
+    price: 150
+
+- type: entity
+  parent: DHCultureJarBase
+  id: DHCultureJarCold
+  suffix: Cold
+  components:
+  - type: Sprite
+    state: green
+  - type: DHCultureJar
+    disease: DHDiseaseCold
+
+- type: entity
+  parent: DHCultureJarBase
+  id: DHCultureJarFluTaurus
+  suffix: Taurus flu
+  components:
+  - type: Sprite
+    state: amber
+  - type: DHCultureJar
+    disease: DHDiseaseFluTaurus
+
+- type: entity
+  parent: DHCultureJarBase
+  id: DHCultureJarDysentery
+  suffix: Dysentery
+  components:
+  - type: Sprite
+    state: brown
+  - type: DHCultureJar
+    disease: DHDiseaseDysentery

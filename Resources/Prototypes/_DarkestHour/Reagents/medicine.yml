@@ -95,3 +95,32 @@
         damage:
           types:
             Poison: 1
+
+# Вакцины (рецепт печатает компьютер вирусолога; готовят химики). Иммунитет к болезни; идущую болезнь сильно сбивают.
+- type: reagent
+  id: DHVaccineCold
+  name: reagent-name-dh-vaccine-cold
+  group: Medicine
+  desc: reagent-desc-dh-vaccine
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: medicine
+  color: "#c9e8d0"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DHVaccinate
+        disease: DHDiseaseCold
+
+- type: reagent
+  id: DHVaccineFluTaurus
+  name: reagent-name-dh-vaccine-flu-taurus
+  group: Medicine
+  desc: reagent-desc-dh-vaccine
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: medicine
+  color: "#e8d9b0"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DHVaccinate
+        disease: DHDiseaseFluTaurus

@@ -91,3 +91,37 @@ public sealed partial class DHInfectDisease : EntityEffectBase<DHInfectDisease>
 /// </summary>
 [ByRefEvent]
 public readonly record struct DHInfectAttemptEvent(ProtoId<DHDiseasePrototype> Disease);
+
+/// <summary>
+/// Вакцина: иммунитет к болезни; если болезнь уже идёт — сильно её сбивает.
+/// </summary>
+/// <inheritdoc cref="EntityEffectSystem{T, TEffect}"/>
+public sealed partial class DHVaccinateEntityEffectSystem : EntityEffectSystem<DHDiseaseCarrierComponent, DHVaccinate>
+{
+    protected override void Effect(Entity<DHDiseaseCarrierComponent> entity, ref EntityEffectEvent<DHVaccinate> args)
+    {
+        entity.Comp.Immune.Add(args.Effect.Disease);
+        if (entity.Comp.Diseases.TryGetValue(args.Effect.Disease, out var disease))
+        {
+            disease.Progress -= args.Effect.Amount * args.Scale;
+            disease.Immunity = 1f;
+        }
+    }
+}
+
+/// <inheritdoc cref="EntityEffect"/>
+public sealed partial class DHVaccinate : EntityEffectBase<DHVaccinate>
+{
+    [DataField(required: true)]
+    public ProtoId<DHDiseasePrototype> Disease;
+
+    /// <summary>На сколько снижает прогресс идущей болезни за срабатывание.</summary>
+    [DataField]
+    public float Amount = 0.1f;
+
+    public override string EntityEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
+    {
+        var name = prototype.TryIndex(Disease, out var proto) ? Loc.GetString(proto.Name) : Disease.Id;
+        return Loc.GetString("dh-entity-effect-guidebook-vaccinate", ("chance", Probability), ("disease", name));
+    }
+}

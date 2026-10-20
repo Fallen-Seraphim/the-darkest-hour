@@ -1,0 +1,35 @@
+# DarkestHour: ящики вирусологии.
+
+- type: entity
+  parent: CrateMedicalSecure
+  id: DHCrateCultureSamples
+  name: pathogen culture crate
+  description: Three sealed jars with live pathogen cultures for virology research. Do not drop.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:GroupSelector
+        rolls: !type:ConstantNumberSelector
+          value: 3
+        children:
+        - id: DHCultureJarCold
+        - id: DHCultureJarFluTaurus
+        - id: DHCultureJarDysentery
+
+- type: entity
+  parent: CrateMedical
+  id: DHCrateVirologyEquipment
+  name: virology equipment crate
+  description: Machine boards for a pathogen analyzer and a virology computer, a pathogen scanner and sterile swabs.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:AllSelector
+        children:
+        - id: DHPathogenAnalyzerMachineCircuitboard
+        - id: DHVirologyComputerCircuitboard
+        - id: DHPathogenScanner
+        - id: DHPathogenSwab
+          amount: 6
+        - id: ClothingMaskSterile
+        - id: ClothingHandsGlovesNitrile
