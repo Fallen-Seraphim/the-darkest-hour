@@ -226,7 +226,7 @@
     children:
     - id: WeaponPistolMk58
       amount: 4
-    - id: MagazinePistol
+    - id: DHMagazine10x24ShortE # DarkestHour: Mk 58 под 10×24
       amount: 8
 
 - type: entity

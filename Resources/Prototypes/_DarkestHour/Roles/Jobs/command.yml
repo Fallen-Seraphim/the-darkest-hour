@@ -129,7 +129,7 @@
   storage:
     back:
     - Flash
-    - MagazinePistol
+    - DHMagazine10x24ShortE
 
 - type: chameleonOutfit
   id: DHMetallArmedSpecialistChameleonOutfit

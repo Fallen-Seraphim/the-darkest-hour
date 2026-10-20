@@ -448,6 +448,7 @@
       - Radio
       - Sidearm
       - MagazinePistol
+      - DHMagazine10x24Short # DarkestHour: магазины Mk 58
       - MagazineMagnum
       - CombatKnife
       - HandGrenade

@@ -94,3 +94,27 @@
     - id: DHAttachmentOptic2x
       amount: 2
     - id: DHAttachmentOptic4x
+
+- type: entity
+  id: DHCrateSecurityRSPMG
+  parent: CrateWeaponSecure
+  name: RSPMG-10-54 mounted machine gun crate
+  description: One RSPMG-10-54 mounted machine gun on a folding tripod with three 100-round 7.62x51mm belts. Requires armory access to open.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHWeaponHMGRSPMG1054
+    - id: DHMagazineBelt762x51FMG
+      amount: 3
+
+- type: entity
+  id: DHCrateSecurityAmmoRSPMG
+  parent: CrateWeaponSecure
+  name: RSPMG-10-54 belt crate
+  description: Three 100-round 7.62x51mm FMG belts and one BB belt for the RSPMG-10-54. Requires armory access to open.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHMagazineBelt762x51FMG
+      amount: 3
+    - id: DHMagazineBelt762x51BB
