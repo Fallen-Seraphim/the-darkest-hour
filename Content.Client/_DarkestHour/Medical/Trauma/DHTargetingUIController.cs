@@ -79,6 +79,9 @@ public sealed partial class DHTargetingUIController : UIController
 
         screen.AddChild(_panel);
         LayoutContainer.SetAnchorAndMarginPreset(_panel, LayoutContainer.LayoutPreset.BottomRight, margin: 10);
+        // Прижата к правому нижнему углу — расти должна влево и вверх, иначе уходит за край экрана.
+        LayoutContainer.SetGrowHorizontal(_panel, LayoutContainer.GrowDirection.Begin);
+        LayoutContainer.SetGrowVertical(_panel, LayoutContainer.GrowDirection.Begin);
     }
 
     private void OnScreenUnload()
