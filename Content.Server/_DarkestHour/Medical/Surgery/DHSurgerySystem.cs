@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Content.Server._DarkestHour.Medical.Trauma;
 using Content.Server.Chat.Systems;
 using Content.Shared._DarkestHour.Medical.Surgery;
 using Content.Shared.Bed.Sleep;
@@ -57,6 +58,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
     [Dependency] private SharedToolSystem _tool = default!;
     [Dependency] private UserInterfaceSystem _ui = default!;
     [Dependency] private DHWoundInfectionSystem _infection = default!;
+    [Dependency] private DHTraumaSystem _trauma = default!;
 
     [Dependency] private EntityQuery<OrganComponent> _organQuery = default!;
     [Dependency] private EntityQuery<ChildOrganComponent> _childQuery = default!;
@@ -176,7 +178,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
 
         var organs = GetOrgans(ent);
         var progress = GetProgress(ent.Comp, args.Category);
-        if (!IsAvailable(surgery, args.Category, organs, progress))
+        if (!IsAvailable(ent, surgery, args.Category, organs, progress))
             return;
 
         progress.Active = surgery.ID;
@@ -324,6 +326,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
                 _sleeping.TryWaking((ent.Owner, sleeping), force: true);
 
             success *= 1f - step.Pain * DHSurgeryConstants.PainFailFactor;
+            _trauma.AddPain(ent, step.Pain * 50f);
             _popup.PopupEntity(Loc.GetString("dh-surgery-pain-self"), ent, ent, PopupType.LargeCaution);
             if (_random.Prob(MathF.Min(1f, step.Pain + 0.2f)))
                 _chat.TryEmoteWithChat(ent, ScreamEmote, ignoreActionBlocker: true);
@@ -552,6 +555,18 @@ public sealed partial class DHSurgerySystem : EntitySystem
                 GetProgress(patient.Comp, category).State |= DHPartState.Incised | DHPartState.Clamped;
                 return true;
             }
+            case DHSurgeryEffect.FixFracture:
+                _trauma.FixFracture(patient, category);
+                return true;
+            case DHSurgeryEffect.StopInternalBleeding:
+                _trauma.StopInternalBleeding(patient, category);
+                return true;
+            case DHSurgeryEffect.RemoveShrapnel:
+                _trauma.RemoveShrapnel(patient, category);
+                return true;
+            case DHSurgeryEffect.RepairOrgans:
+                _trauma.RepairOrgans(patient, category);
+                return true;
             default:
                 return true;
         }
@@ -661,7 +676,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
         return progress;
     }
 
-    private bool IsAvailable(DHSurgeryPrototype surgery, ProtoId<OrganCategoryPrototype> category,
+    private bool IsAvailable(EntityUid patient, DHSurgeryPrototype surgery, ProtoId<OrganCategoryPrototype> category,
         Dictionary<ProtoId<OrganCategoryPrototype>, EntityUid> organs, DHSurgeryPartProgress? progress)
     {
         if (!surgery.Parts.Contains(category))
@@ -681,7 +696,14 @@ public sealed partial class DHSurgerySystem : EntitySystem
         if (surgery.Organ is { } organ && organs.ContainsKey(organ) != surgery.OrganPresent)
             return false;
 
-        return true;
+        return surgery.Injury switch
+        {
+            DHInjuryKind.Fracture => _trauma.HasFracture(patient, category),
+            DHInjuryKind.InternalBleeding => _trauma.HasInternalBleeding(patient, category),
+            DHInjuryKind.Shrapnel => _trauma.HasShrapnel(patient, category),
+            DHInjuryKind.OrganDamage => _trauma.HasOrganDamage(patient, category),
+            _ => true,
+        };
     }
 
     private void OnPatientOrganRemoved(Entity<DHSurgeryPatientComponent> ent, ref OrganRemovedFromEvent args)
@@ -740,6 +762,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
                 Name = PartName(category),
                 Present = organs.ContainsKey(category),
                 State = progress?.State ?? DHPartState.None,
+                Injuries = _trauma.DescribePart(patient, categoryId),
             };
 
             if (progress?.Active is { } active && _proto.TryIndex(active, out var activeProto))
@@ -764,7 +787,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
 
             foreach (var surgery in surgeries)
             {
-                if (surgery.ID == part.ActiveId || !IsAvailable(surgery, category, organs, progress))
+                if (surgery.ID == part.ActiveId || !IsAvailable(patient, surgery, category, organs, progress))
                     continue;
 
                 part.Options.Add(new DHSurgeryOptionData

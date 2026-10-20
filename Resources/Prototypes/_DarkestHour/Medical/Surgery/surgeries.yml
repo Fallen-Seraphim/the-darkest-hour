@@ -286,3 +286,50 @@
   - DHSurgeryStepSetBone
   - DHSurgeryStepMendBone
   - DHSurgeryStepCauterize
+
+# --- Травмы (этап 2, шаг 2): доступны, только если травма есть. ---
+
+- type: dhSurgery
+  id: DHSurgeryFixFracture
+  name: dh-surgery-fix-fracture
+  description: dh-surgery-fix-fracture-desc
+  order: 60
+  parts: [ Head, Torso, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+  requires: [ Retracted ]
+  injury: Fracture
+  steps:
+  - DHSurgeryStepSetFracture
+  - DHSurgeryStepGelFracture
+
+- type: dhSurgery
+  id: DHSurgeryStopInternalBleeding
+  name: dh-surgery-stop-internal-bleeding
+  description: dh-surgery-stop-internal-bleeding-desc
+  order: 61
+  parts: [ Head, Torso, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+  requires: [ Clamped, Retracted ]
+  injury: InternalBleeding
+  steps:
+  - DHSurgeryStepTieVessels
+
+- type: dhSurgery
+  id: DHSurgeryRemoveShrapnel
+  name: dh-surgery-remove-shrapnel
+  description: dh-surgery-remove-shrapnel-desc
+  order: 62
+  parts: [ Head, Torso, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+  requires: [ Retracted ]
+  injury: Shrapnel
+  steps:
+  - DHSurgeryStepExtractShrapnel
+
+- type: dhSurgery
+  id: DHSurgeryRepairOrgans
+  name: dh-surgery-repair-organs
+  description: dh-surgery-repair-organs-desc
+  order: 63
+  parts: [ Head, Torso ]
+  requires: [ BoneOpen ]
+  injury: OrganDamage
+  steps:
+  - DHSurgeryStepRepairOrgans

@@ -1,4 +1,5 @@
 using Content.Shared._DarkestHour.Medical.Surgery;
+using Content.Shared._DarkestHour.Medical.Trauma;
 using Content.Shared.Body;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Mobs.Systems;
@@ -48,6 +49,13 @@ public sealed partial class DHVitalOrgansSystem : EntitySystem
         Recalculate(ent);
     }
 
+    /// <summary>Пересчитать недостающие и отказавшие органы (после травмы или ремонта органа).</summary>
+    public void Recalculate(EntityUid uid)
+    {
+        if (TryComp<DHVitalOrgansComponent>(uid, out var comp))
+            Recalculate((uid, comp));
+    }
+
     private void Recalculate(Entity<DHVitalOrgansComponent> ent)
     {
         ent.Comp.Absent.Clear();
@@ -62,6 +70,16 @@ public sealed partial class DHVitalOrgansSystem : EntitySystem
             {
                 if (_organQuery.TryComp(organ, out var comp) && comp.Category is { } category)
                     ent.Comp.Absent.Remove(category);
+            }
+        }
+
+        // Органы, отказавшие от травм, работают как отсутствующие.
+        if (TryComp<DHTraumaComponent>(ent, out var trauma))
+        {
+            foreach (var (organ, damage) in trauma.Organs)
+            {
+                if (damage >= trauma.OrganMaxDamage && ent.Comp.Missing.ContainsKey(organ))
+                    ent.Comp.Absent.Add(organ);
             }
         }
 

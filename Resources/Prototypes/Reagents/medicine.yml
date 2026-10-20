@@ -816,6 +816,7 @@
       # but still technically stop your bleeding.
       - !type:ModifyBleed
         amount: -1.5
+      - !type:DHSlowInternalBleeding # DarkestHour: замедляет внутреннее кровотечение
       - !type:HealthChange
         conditions:
         - !type:ReagentCondition

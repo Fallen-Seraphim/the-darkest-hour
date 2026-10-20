@@ -22,6 +22,7 @@ public sealed class DHSurgeryWindow : DefaultWindow
     private static readonly Color SkippedColor = Color.FromHex("#6b6b6b");
     private static readonly Color WarningColor = Color.FromHex("#e08a4a");
     private static readonly Color MissingColor = Color.FromHex("#b05050");
+    private static readonly Color InjuryColor = Color.FromHex("#d97a6a");
 
     private readonly BoxContainer _warnings = new() { Orientation = BoxContainer.LayoutOrientation.Vertical };
     private readonly BoxContainer _parts = new() { Orientation = BoxContainer.LayoutOrientation.Vertical, MinWidth = 170 };
@@ -108,6 +109,9 @@ public sealed class DHSurgeryWindow : DefaultWindow
             else if (part.State != DHPartState.None)
                 text += " ✚";
 
+            if (part.Injuries.Count > 0)
+                text += " !";
+
             var button = new Button
             {
                 Text = text,
@@ -144,6 +148,11 @@ public sealed class DHSurgeryWindow : DefaultWindow
             Text = Loc.GetString("dh-surgery-ui-state", ("state", StateText(part))),
             FontColorOverride = Color.LightGray,
         });
+
+        foreach (var injury in part.Injuries)
+        {
+            _details.AddChild(new Label { Text = "• " + injury, FontColorOverride = InjuryColor });
+        }
 
         if (part.ActiveId != null)
         {

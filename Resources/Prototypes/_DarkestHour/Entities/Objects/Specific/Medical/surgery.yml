@@ -44,3 +44,19 @@
   - type: DHSurgicalDrapes
   - type: StaticPrice
     price: 10
+
+# DarkestHour: травмы. Шина — на сломанную руку/ногу в выбранной зоне (или любую сломанную, если зона не та).
+- type: entity
+  parent: BaseItem
+  id: DHSplint
+  name: splint
+  description: Two rigid slats and a roll of bandage. Immobilises a broken limb until a surgeon can set the bone.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Specific/Medical/splint.rsi
+    state: icon
+  - type: Item
+    size: Small
+  - type: DHSplint
+  - type: StaticPrice
+    price: 10

@@ -34,6 +34,9 @@ public sealed class DHSurgeryPartData
     public bool Present;
     public DHPartState State;
 
+    /// <summary>Травмы части тела (урон, перелом, кровотечение, осколки, органы).</summary>
+    public List<string> Injuries = new();
+
     public string? ActiveId;
     public string? ActiveName;
     public List<DHSurgeryStepData> ActiveSteps = new();

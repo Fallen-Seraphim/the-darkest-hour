@@ -11,3 +11,15 @@
       amount: 1
   products:
     DHSpacecillin: 3
+
+- type: reaction
+  id: DHMorphine
+  reactants:
+    Phenol:
+      amount: 1
+    Carbon:
+      amount: 1
+    Nitrogen:
+      amount: 1
+  products:
+    DHMorphine: 3
