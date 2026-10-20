@@ -689,8 +689,8 @@ public sealed partial class DHTraumaSystem : EntitySystem
         return result;
     }
 
-    private static string PartName(string category)
+    private string PartName(string category)
     {
-        return Loc.TryGetString($"dh-surgery-part-{category}", out var name) ? name.ToLowerInvariant() : category;
+        return Loc.TryGetString($"dh-surgery-part-{category}", out var name) && name != null ? name.ToLowerInvariant() : category;
     }
 }
