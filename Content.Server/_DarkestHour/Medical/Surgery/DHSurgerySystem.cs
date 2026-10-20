@@ -18,6 +18,7 @@ using Content.Shared.Popups;
 using Content.Shared.Standing;
 using Content.Shared.StatusEffectNew;
 using Content.Shared.Tools.Components;
+using Content.Shared.Tools.Systems;
 using Content.Shared.Verbs;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
@@ -53,6 +54,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
     [Dependency] private StandingStateSystem _standing = default!;
     [Dependency] private StatusEffectsSystem _status = default!;
     [Dependency] private ItemToggleSystem _toggle = default!;
+    [Dependency] private SharedToolSystem _tool = default!;
     [Dependency] private UserInterfaceSystem _ui = default!;
     [Dependency] private DHWoundInfectionSystem _infection = default!;
 
@@ -425,7 +427,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
 
         foreach (var entry in step.Tools)
         {
-            if (entry.Quality is { } quality && tool.Qualities.Contains(quality))
+            if (entry.Quality is { } quality && _tool.HasQuality(item, quality, tool))
                 return (entry.Speed, entry.Success, false);
         }
 
