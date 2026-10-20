@@ -41,6 +41,7 @@
         - id: Gauze
         - id: PillCanisterIron
         - id: PillCanisterCopper
+        - id: DHSplint # DarkestHour: травмы
 
 - type: entity
   id: MedkitToxinFilled

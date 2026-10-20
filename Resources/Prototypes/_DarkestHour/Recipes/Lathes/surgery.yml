@@ -19,3 +19,11 @@
   result: DHSurgicalDrapes
   materials:
     Plastic: 100
+
+- type: latheRecipe
+  id: DHSplint
+  result: DHSplint
+  completetime: 2
+  materials:
+    Plastic: 100
+    Steel: 50

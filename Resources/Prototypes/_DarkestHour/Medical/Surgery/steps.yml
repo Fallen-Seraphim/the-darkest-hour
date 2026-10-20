@@ -213,3 +213,92 @@
   effect: AttachLimb
   sound:
     collection: DHSurgeryOrgan
+
+# --- Травмы (этап 2, шаг 2) ---
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepSetFracture
+  name: dh-surgery-step-set-fracture
+  toolHint: dh-surgery-tool-bonesetter
+  tools:
+  - kind: BoneSetter
+  - quality: Prying
+    speed: 0.4
+    success: 0.6
+  duration: 4
+  pain: 0.9
+  failDamage:
+    types:
+      Blunt: 4
+  sound:
+    collection: DHSurgeryBoneSetter
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepGelFracture
+  name: dh-surgery-step-gel-fracture
+  toolHint: dh-surgery-tool-bonegel
+  tools:
+  - kind: BoneGel
+  duration: 3
+  pain: 0.3
+  effect: FixFracture
+  sound:
+    collection: DHSurgeryOrgan
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepTieVessels
+  name: dh-surgery-step-tie-vessels
+  toolHint: dh-surgery-tool-hemostat
+  tools:
+  - kind: Hemostat
+  - quality: Cutting
+    speed: 0.5
+    success: 0.7
+  duration: 5
+  pain: 0.5
+  invasive: true
+  effect: StopInternalBleeding
+  failDamage:
+    types:
+      Slash: 3
+  sound:
+    collection: DHSurgeryHemostat
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepExtractShrapnel
+  name: dh-surgery-step-extract-shrapnel
+  toolHint: dh-surgery-tool-hemostat
+  tools:
+  - kind: Hemostat
+  - quality: Cutting
+    speed: 0.5
+    success: 0.7
+  duration: 5
+  pain: 0.7
+  invasive: true
+  bleed: 0.5
+  effect: RemoveShrapnel
+  failDamage:
+    types:
+      Slash: 4
+  sound:
+    collection: DHSurgeryOrgan
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepRepairOrgans
+  name: dh-surgery-step-repair-organs
+  toolHint: dh-surgery-tool-hemostat
+  tools:
+  - kind: Hemostat
+  - quality: Cutting
+    speed: 0.4
+    success: 0.6
+  duration: 7
+  pain: 0.8
+  invasive: true
+  effect: RepairOrgans
+  failDamage:
+    types:
+      Slash: 4
+  sound:
+    collection: DHSurgeryHemostat

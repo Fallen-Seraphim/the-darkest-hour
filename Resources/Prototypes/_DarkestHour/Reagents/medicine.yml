@@ -22,3 +22,31 @@
         damage:
           types:
             Poison: 1
+
+# Морфин — сильное обезболивающее: подавляет боль (болевой шок, потерю сознания от боли). Передозировка угнетает дыхание.
+- type: reagent
+  id: DHMorphine
+  name: reagent-name-dh-morphine
+  group: Medicine
+  desc: reagent-desc-dh-morphine
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: bitter
+  color: "#e8e4f0"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.2
+      effects:
+      - !type:DHSuppressPain
+        amount: 70
+        duration: 4
+      - !type:MovementSpeedModifier
+        walkSpeedModifier: 0.9
+        sprintSpeedModifier: 0.9
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHMorphine
+          min: 20
+        damage:
+          types:
+            Asphyxiation: 2

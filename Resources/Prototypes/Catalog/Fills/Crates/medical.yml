@@ -70,6 +70,8 @@
         - id: DHBoneSetter
         - id: DHSurgicalDrapes
         - id: ClothingHandsGlovesLatex
+        - id: DHSplint # DarkestHour: травмы
+          amount: 2
 
 - type: entity
   parent: CrateMedical

@@ -137,6 +137,7 @@
       enum.DHSurgeryUiKey.Key: # DarkestHour: хирургия
         type: DHSurgeryBoundUserInterface
   - type: DHSurgeryPatient # DarkestHour: хирургия
+  - type: DHTargeting # DarkestHour: выбор зоны попадания
   - type: Puller
   - type: Speech
     speechSounds: Alto
@@ -235,8 +236,12 @@
   - type: FireVisuals
     alternateState: Standing
   - type: StunVisuals
+  - type: DHTrauma # DarkestHour: травмы по частям тела
   - type: DHVitalOrgans # DarkestHour: нет жизненно важного органа — урон
     missing:
+      Lungs:
+        types:
+          Asphyxiation: 2
       Heart:
         types:
           Asphyxiation: 3

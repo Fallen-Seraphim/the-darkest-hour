@@ -73,6 +73,26 @@ public enum DHSurgeryEffect : byte
     Amputate,
     /// <summary>Приживить отделённую часть тела из руки хирурга.</summary>
     AttachLimb,
+    /// <summary>Срастить перелом части тела.</summary>
+    FixFracture,
+    /// <summary>Перевязать сосуды — остановить внутреннее кровотечение.</summary>
+    StopInternalBleeding,
+    /// <summary>Извлечь осколки и пули.</summary>
+    RemoveShrapnel,
+    /// <summary>Ушить повреждённые органы внутри части тела.</summary>
+    RepairOrgans,
+}
+
+/// <summary>
+/// Травма, которую лечит операция (операция доступна, только если травма есть).
+/// </summary>
+[Serializable, NetSerializable]
+public enum DHInjuryKind : byte
+{
+    Fracture,
+    InternalBleeding,
+    Shrapnel,
+    OrganDamage,
 }
 
 /// <summary>
@@ -200,6 +220,10 @@ public sealed partial class DHSurgeryPrototype : IPrototype
     /// <summary>Орган, с которым работает операция (извлечь/вставить).</summary>
     [DataField]
     public ProtoId<OrganCategoryPrototype>? Organ;
+
+    /// <summary>Операция доступна только при этой травме части тела.</summary>
+    [DataField]
+    public DHInjuryKind? Injury;
 
     /// <summary>true — орган должен быть в теле, false — должен отсутствовать.</summary>
     [DataField]
