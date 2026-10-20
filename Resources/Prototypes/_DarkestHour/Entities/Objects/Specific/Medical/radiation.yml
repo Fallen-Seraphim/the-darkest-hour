@@ -1,0 +1,51 @@
+# DarkestHour: дозиметр, кожный трансплантат, источник хронита (отладка/админ). Спрайты — генератор Claude.
+
+- type: entity
+  parent: BaseItem
+  id: DHDosimeter
+  name: dosimeter
+  description: Shows the accumulated radiation and chronite dose. Use it in hand for your own dose, or on someone else.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Specific/Medical/dosimeter.rsi
+    state: icon
+  - type: Item
+    size: Small
+  - type: DHDosimeter
+  - type: StaticPrice
+    price: 40
+
+- type: entity
+  parent: BaseItem
+  id: DHSkinGraft
+  name: skin graft
+  description: A sterile sheet of cultured synthetic skin for covering excised areas.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Specific/Medical/skin_graft.rsi
+    state: icon
+  - type: Item
+    size: Small
+  - type: DHSkinGraft
+  - type: StaticPrice
+    price: 25
+
+- type: entity
+  parent: BaseItem
+  id: DHChroniteSourceDebug
+  name: chronite shard
+  suffix: Debug, strong source
+  description: A glowing violet crystal. Standing next to it is a very bad idea.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Specific/Medical/chronite_shard.rsi
+    state: icon
+  - type: Item
+    size: Tiny
+  - type: PointLight
+    color: "#9b4dff"
+    radius: 1.5
+    energy: 1
+  - type: DHChroniteEmitter
+    rate: 1
+    range: 3

@@ -50,6 +50,8 @@
   - DiseaseSwab
   - BodyBag
   - DHSplint # DarkestHour: травмы
+  - DHDosimeter # DarkestHour: радиация и хронит
+  - DHSkinGraft # DarkestHour: хронит
   - WhiteCane
   - OffsetCane
   - OffsetCaneWood

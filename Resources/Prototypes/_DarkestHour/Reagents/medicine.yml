@@ -75,3 +75,23 @@
         damage:
           types:
             Poison: 1
+
+# Хроносорб — связывает и выводит хронит. Сам токсичен: давать вместе с Dylovene. На последней стадии бессилен.
+- type: reagent
+  id: DHChronosorb
+  name: reagent-name-dh-chronosorb
+  group: Medicine
+  desc: reagent-desc-dh-chronosorb
+  physicalDesc: reagent-physical-desc-glowing
+  flavor: bitter
+  color: "#7b3fd6"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DHReduceDose
+        kind: Chronite
+        amount: 0.6
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 1

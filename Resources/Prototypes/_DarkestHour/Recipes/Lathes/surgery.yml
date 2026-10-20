@@ -27,3 +27,19 @@
   materials:
     Plastic: 100
     Steel: 50
+
+- type: latheRecipe
+  id: DHDosimeter
+  result: DHDosimeter
+  completetime: 2
+  materials:
+    Steel: 100
+    Plastic: 100
+    Glass: 50
+
+- type: latheRecipe
+  id: DHSkinGraft
+  result: DHSkinGraft
+  completetime: 4
+  materials:
+    Plastic: 200

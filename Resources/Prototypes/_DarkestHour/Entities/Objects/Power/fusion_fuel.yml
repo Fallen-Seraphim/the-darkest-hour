@@ -5,6 +5,9 @@
   name: fusion fuel cassette
   description: A sealed cassette of fusion fuel for a compact reactor. Lasts about half an hour at full power.
   components:
+  - type: DHChroniteEmitter # хронит в топливе: слабое облучение вблизи
+    rate: 0.02
+    range: 1.5
   - type: Sprite
     sprite: _DarkestHour/Objects/Power/fuel_cassette.rsi
     state: icon
@@ -19,6 +22,9 @@
   parent: DHFusionFuelCassette
   suffix: Empty
   components:
+  - type: DHChroniteEmitter
+    rate: 0.005
+    range: 1
   - type: FusionFuelCassette
     fuel: 0
   - type: StaticPrice

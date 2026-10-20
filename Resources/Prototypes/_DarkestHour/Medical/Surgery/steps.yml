@@ -302,3 +302,37 @@
       Slash: 4
   sound:
     collection: DHSurgeryHemostat
+
+# --- Хронитовая кожно-покровная болезнь (этап 2, шаг 4) ---
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepExciseSkin
+  name: dh-surgery-step-excise-skin
+  toolHint: dh-surgery-tool-scalpel
+  tools:
+  - kind: Scalpel
+  - quality: Slicing
+    speed: 0.5
+    success: 0.7
+  duration: 6
+  pain: 0.8
+  invasive: true
+  bleed: 2
+  effect: ExciseChronite
+  failDamage:
+    types:
+      Slash: 5
+  sound:
+    collection: DHSurgeryScalpel
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepGraftSkin
+  name: dh-surgery-step-graft-skin
+  toolHint: dh-surgery-tool-skin-graft
+  duration: 5
+  pain: 0.4
+  invasive: true
+  bleed: -1
+  effect: GraftSkin
+  sound:
+    collection: DHSurgeryOrgan
