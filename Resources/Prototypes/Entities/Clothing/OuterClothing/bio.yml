@@ -5,6 +5,9 @@
   suffix: Generic
   description: A suit that protects against biological contamination.
   components:
+  - type: DHBioProtection # DarkestHour: биозащита от болезней
+    airborne: 0.5
+    contact: 0.7
   - type: Sprite
     sprite: Clothing/OuterClothing/Bio/general.rsi
   - type: Clothing
@@ -70,6 +73,9 @@
   suffix: Security
   description: A suit that protects against biological contamination, kitted out with additional armor.
   components:
+  - type: DHBioProtection # DarkestHour: биозащита от болезней
+    airborne: 0.5
+    contact: 0.7
   - type: Sprite
     sprite: Clothing/OuterClothing/Bio/security.rsi
   - type: Clothing

@@ -1,6 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Content.Server._DarkestHour.Medical.Disease;
 using Content.Server._DarkestHour.Medical.Trauma;
+using Content.Shared._DarkestHour.Medical.Disease;
 using Content.Server.Chat.Systems;
 using Content.Shared._DarkestHour.Medical.Surgery;
 using Content.Shared.Bed.Sleep;
@@ -57,7 +59,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
     [Dependency] private ItemToggleSystem _toggle = default!;
     [Dependency] private SharedToolSystem _tool = default!;
     [Dependency] private UserInterfaceSystem _ui = default!;
-    [Dependency] private DHWoundInfectionSystem _infection = default!;
+    [Dependency] private DHDiseaseSystem _disease = default!;
     [Dependency] private DHTraumaSystem _trauma = default!;
 
     [Dependency] private EntityQuery<OrganComponent> _organQuery = default!;
@@ -65,6 +67,9 @@ public sealed partial class DHSurgerySystem : EntitySystem
     [Dependency] private EntityQuery<ParentOrganComponent> _parentQuery = default!;
 
     private const string ScreamEmote = "Scream";
+
+    /// <summary>Болезнь от нестерильной операции.</summary>
+    private static readonly ProtoId<DHDiseasePrototype> WoundInfection = "DHDiseaseWoundInfection";
 
     public override void Initialize()
     {
@@ -603,7 +608,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
             risk += DHSurgeryConstants.NoGlovesInfectionRisk;
 
         if (risk > 0f && _random.Prob(MathF.Min(1f, risk)))
-            _infection.Infect(patient);
+            _disease.Infect(patient, WoundInfection);
     }
 
     private bool HasSterile(EntityUid surgeon, string slot, DHSterileSlot kind)

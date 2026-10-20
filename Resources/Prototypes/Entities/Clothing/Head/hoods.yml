@@ -5,6 +5,9 @@
   suffix: Generic
   description: A hood that protects the head and face from biological contaminants.
   components:
+  - type: DHBioProtection # DarkestHour: биозащита от болезней
+    airborne: 0.5
+    contact: 0.2
   - type: Sprite
     sprite: Clothing/Head/Hoods/Bio/general.rsi
   - type: Clothing

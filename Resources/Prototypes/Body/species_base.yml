@@ -237,6 +237,7 @@
     alternateState: Standing
   - type: StunVisuals
   - type: DHTrauma # DarkestHour: травмы по частям тела
+  - type: DHDiseaseCarrier # DarkestHour: болезни
   - type: DHVitalOrgans # DarkestHour: нет жизненно важного органа — урон
     missing:
       Lungs:

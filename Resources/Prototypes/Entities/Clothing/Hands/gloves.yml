@@ -175,6 +175,8 @@
   name: latex gloves
   description: Thin sterile latex gloves. Basic PPE for any doctor.
   components:
+  - type: DHBioProtection # DarkestHour: биозащита от болезней
+    contact: 0.6
   - type: DHSterileClothing # DarkestHour: стерильность при операциях
     slot: Gloves
   - type: Sprite
@@ -191,6 +193,8 @@
   name: nitrile gloves
   description: High-quality nitrile gloves. Expensive medical PPE.
   components:
+  - type: DHBioProtection # DarkestHour: биозащита от болезней
+    contact: 0.7
   - type: DHSterileClothing # DarkestHour: стерильность при операциях
     slot: Gloves
   - type: Sprite

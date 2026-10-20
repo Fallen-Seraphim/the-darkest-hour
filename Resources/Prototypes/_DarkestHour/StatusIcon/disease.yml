@@ -1,0 +1,8 @@
+# DarkestHour: значок болезни на медицинском HUD (есть симптомы; инкубация не видна).
+- type: statusIcon
+  parent: HealthIcon
+  id: DHDiseaseIconSick
+  priority: 4
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/disease_icons.rsi
+    state: sick

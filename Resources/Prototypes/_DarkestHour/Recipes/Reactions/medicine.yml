@@ -23,3 +23,15 @@
       amount: 1
   products:
     DHMorphine: 3
+
+- type: reaction
+  id: DHViracide
+  reactants:
+    Dylovene:
+      amount: 1
+    Silicon:
+      amount: 1
+    Chlorine:
+      amount: 1
+  products:
+    DHViracide: 3

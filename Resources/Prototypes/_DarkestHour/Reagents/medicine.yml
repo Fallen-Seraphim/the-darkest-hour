@@ -1,5 +1,5 @@
-# DarkestHour: лекарства медицины DH (этап 2). Спейсациллин — антибиотик широкого спектра; пока лечит раневую инфекцию
-# после нестерильной операции, с движком болезней — бактериальные болезни из списка.
+# DarkestHour: лекарства медицины DH (этап 2). Спейсациллин — антибиотик широкого спектра (бактериальные болезни,
+# в т.ч. раневая инфекция после нестерильной операции); Вирацид — противовирусное (сдерживает вирус и ускоряет иммунитет).
 
 - type: reagent
   id: DHSpacecillin
@@ -12,8 +12,9 @@
   metabolisms:
     Bloodstream:
       effects:
-      - !type:DHTreatWoundInfection
-        amount: 0.15
+      - !type:DHTreatDisease
+        group: Bacteria
+        amount: 0.08
       - !type:HealthChange
         conditions:
         - !type:ReagentCondition
@@ -50,3 +51,27 @@
         damage:
           types:
             Asphyxiation: 2
+
+- type: reagent
+  id: DHViracide
+  name: reagent-name-dh-viracide
+  group: Medicine
+  desc: reagent-desc-dh-viracide
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: medicine
+  color: "#9fd6c8"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DHTreatDisease
+        group: Virus
+        amount: 0.01
+        immunity: 0.02
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHViracide
+          min: 30
+        damage:
+          types:
+            Poison: 1
