@@ -4,6 +4,8 @@
   name: gas mask
   description: A face-covering mask that can be connected to an air supply.
   components:
+  - type: DHBioProtection # DarkestHour: биозащита от болезней
+    airborne: 0.6
   - type: Sprite
     sprite: Clothing/Mask/gas.rsi
   - type: Clothing
@@ -125,6 +127,8 @@
   name: medical mask
   description: A close-fitting sterile mask that can be connected to an air supply.
   components:
+  - type: DHBioProtection # DarkestHour: биозащита от болезней
+    airborne: 0.4
   - type: DHSterileClothing # DarkestHour: стерильность при операциях
     slot: Mask
   - type: Item
@@ -170,6 +174,8 @@
   name: breath mask
   description: Might as well keep this on 24/7.
   components:
+  - type: DHBioProtection # DarkestHour: биозащита от болезней
+    airborne: 0.3
   - type: Item
     size: Tiny
   - type: Sprite
@@ -302,6 +308,8 @@
   name: sterile mask
   description: A sterile mask designed to help prevent the spread of diseases.
   components:
+  - type: DHBioProtection # DarkestHour: биозащита от болезней
+    airborne: 0.5
   - type: DHSterileClothing # DarkestHour: стерильность при операциях
     slot: Mask
   - type: Sprite

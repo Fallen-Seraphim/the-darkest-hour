@@ -100,16 +100,7 @@ dh-surgery-insert-kidneys = Transplant kidneys
 dh-surgery-insert-stomach = Transplant stomach
 dh-surgery-insert-appendix = Transplant appendix
 
-dh-wound-infection-mild = Your wound throbs and you feel feverish.
-dh-wound-infection-severe = Burning fever! The wound is swollen and oozing.
-dh-wound-infection-examine = [color=yellow]{CAPITALIZE(SUBJECT($target))} {CONJUGATE-HAVE($target)} an inflamed wound.[/color]
-dh-wound-infection-examine-severe = [color=orange]{CAPITALIZE(POSS-ADJ($target))} wound is festering and swollen.[/color]
 
-dh-entity-effect-guidebook-treat-wound-infection =
-    { $chance ->
-        [1] Treats
-        *[other] treat
-    } wound infection
 
 reagent-name-dh-spacecillin = spacecillin
-reagent-desc-dh-spacecillin = A broad-spectrum antibiotic. Treats wound infections. Overdose above 30u is toxic.
+reagent-desc-dh-spacecillin = A broad-spectrum antibiotic. Treats bacterial diseases, including wound infections. Overdose above 30u is toxic.

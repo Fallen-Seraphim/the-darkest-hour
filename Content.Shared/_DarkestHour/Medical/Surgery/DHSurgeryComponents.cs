@@ -1,6 +1,5 @@
 using Content.Shared.Body;
 using Content.Shared.Damage;
-using Content.Shared.FixedPoint;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
@@ -126,41 +125,6 @@ public sealed partial class DHVitalOrgansComponent : Component
     /// <summary>Каких органов сейчас нет (пересчитывается при вставке и извлечении).</summary>
     [ViewVariables]
     public HashSet<ProtoId<OrganCategoryPrototype>> Absent = new();
-}
-
-/// <summary>
-/// Раневая инфекция после нестерильной операции (до движка болезней — упрощённо): после инкубации жар и урон токсинами,
-/// растёт со временем; лечится антибиотиком Спейсациллин.
-/// </summary>
-[RegisterComponent]
-public sealed partial class DHWoundInfectionComponent : Component
-{
-    /// <summary>Тяжесть 0…<see cref="MaxSeverity"/>. При 0 инфекция проходит.</summary>
-    [DataField]
-    public float Severity = 0.5f;
-
-    [DataField]
-    public float MaxSeverity = 4f;
-
-    /// <summary>Рост тяжести за тик.</summary>
-    [DataField]
-    public float Growth = 0.04f;
-
-    [DataField]
-    public TimeSpan IncubationEnd;
-
-    [DataField]
-    public TimeSpan NextUpdate;
-
-    [DataField]
-    public TimeSpan Interval = TimeSpan.FromSeconds(10);
-
-    /// <summary>Урон токсинами за тик на единицу тяжести.</summary>
-    [DataField]
-    public DamageSpecifier Damage = new()
-    {
-        DamageDict = { ["Poison"] = FixedPoint2.New(0.5) },
-    };
 }
 
 public static class DHSurgeryConstants
