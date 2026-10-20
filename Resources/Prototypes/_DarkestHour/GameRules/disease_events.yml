@@ -1,0 +1,30 @@
+# DarkestHour: события болезней (этап 2, шаг 6). Вспышка — случайный «нулевой пациент» без объявления; утечка из
+# лаборатории — трескается одна из банок с культурой (если на станции есть банки). Лучевая и хронитовая — не события.
+
+- type: entity
+  parent: BaseGameRule
+  id: DHDiseaseOutbreak
+  components:
+  - type: StationEvent
+    weight: 6
+    earliestStart: 15
+    reoccurrenceDelay: 25
+    minimumPlayers: 5
+    duration: 1
+  - type: DHDiseaseOutbreakRule
+    diseases:
+    - DHDiseaseCold
+    - DHDiseaseCold
+    - DHDiseaseFluTaurus
+    - DHDiseaseDysentery
+
+- type: entity
+  parent: BaseGameRule
+  id: DHLabLeak
+  components:
+  - type: StationEvent
+    weight: 3
+    earliestStart: 20
+    reoccurrenceDelay: 30
+    duration: 1
+  - type: DHLabLeakRule
