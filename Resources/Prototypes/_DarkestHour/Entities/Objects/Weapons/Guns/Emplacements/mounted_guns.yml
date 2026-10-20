@@ -1,0 +1,225 @@
+# DarkestHour: станковые пулемёты (механика — DHWeaponMount по образцу RMC-14 WeaponMount, спрайты свои).
+# Взять сложенный пулемёт в руки → «использовать» в руке: станок ставится на тайл перед вами и вы встаёте за него.
+# Стрелять в боевом режиме (сектор 120° перед станком; цель сбоку — станок доворачивается). Ленту вставлять
+# прямо в станок. Отойти — действие «Отойти от пулемёта». Сложить — Alt-клик / меню «Сложить пулемёт».
+
+- type: entity
+  parent: BaseAction
+  id: DHActionDismountWeapon
+  name: Step away from the gun
+  description: Let go of the mounted gun.
+  components:
+  - type: Sprite
+    layers:
+    - texture: Interface/VerbIcons/eject.svg.192dpi.png
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:DHDismountWeaponActionEvent
+
+# ------------------------------------------------------------------ the gun on the mount (not a hand weapon)
+- type: entity
+  abstract: true
+  id: DHBaseMountedGun
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    noRot: true
+  - type: Appearance
+  - type: Gun
+    selectedMode: FullAuto
+    availableModes:
+    - FullAuto
+    minAngle: 1
+    maxAngle: 10
+    angleIncrease: 0.6
+    angleDecay: 20
+  - type: MagazineAmmoProvider
+  - type: AmmoCounter
+  - type: DHMountableWeapon
+  - type: DHOverheat
+
+- type: entity
+  parent: DHBaseMountedGun
+  id: DHMountedGunRSPMG1054
+  name: RSPMG-10-54
+  description: The gun half of the RSPMG-10-54 mounted machine gun.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Guns/Emplacements/rspmg_10_54.rsi
+    state: folded
+  - type: Gun
+    fireRate: 10
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/lmg.ogg
+    soundEmpty:
+      path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Belt
+        insertSound: /Audio/Weapons/Guns/MagIn/lmg_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/lmg_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - DHMagazineBelt762x51
+          - DHMagazineBox762x51
+        whitelistFailPopup: gun-magazine-whitelist-fail
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+  - type: DHOverheat
+    maxHeat: 50
+    heatPerShot: 1
+    cooldownRate: 5
+    overheatLockout: 3
+    damage:
+      types:
+        Heat: 20
+
+- type: entity
+  parent: DHBaseMountedGun
+  id: DHMountedGunIHMG17
+  name: IHMG-17
+  description: The gun half of the IHMG-17 heavy machine gun.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Guns/Emplacements/ihmg_17.rsi
+    state: folded
+  - type: Gun
+    fireRate: 8
+    minAngle: 1.5
+    maxAngle: 14
+    angleIncrease: 1
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/batrifle.ogg
+      params:
+        pitch: 0.75
+        volume: 3
+    soundEmpty:
+      path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Belt
+        insertSound: /Audio/Weapons/Guns/MagIn/lmg_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/lmg_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - DHMagazineBelt145x114
+        whitelistFailPopup: gun-magazine-whitelist-fail
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+  - type: DHOverheat
+    maxHeat: 40
+    heatPerShot: 1.5
+    cooldownRate: 4
+    overheatLockout: 4
+    damage:
+      types:
+        Heat: 30
+
+# ------------------------------------------------------------------ the mount (what players carry and deploy)
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: DHBaseWeaponMount
+  components:
+  - type: Item
+    size: Huge
+  - type: Clothing
+    quickEquip: false
+    slots:
+    - Back
+  - type: Appearance
+  - type: Strap
+    enabled: false
+    position: Stand
+    buckleOffset: "0,0.48"
+    buckleOnInteractHand: true
+    whitelist:
+      components:
+      - Hands
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 2
+            max: 4
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: ContainerContainer
+    containers:
+      dh_mounted_weapon: !type:ContainerSlot
+
+- type: entity
+  parent: [ DHBaseWeaponMount, BaseSecurityContraband ]
+  id: DHWeaponHMGRSPMG1054
+  name: RSPMG-10-54
+  description: A Republican mounted machine gun on a folding tripod, chambered in 7.62x51mm. Takes 100-round belts and RAMG-M-14-2 boxes. Deploy it in front of you and stand behind it to fire.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Guns/Emplacements/rspmg_10_54.rsi
+    noRot: true
+    layers:
+    - state: folded
+      map: [ "enum.DHWeaponMountLayers.Folded" ]
+    - state: deployed
+      map: [ "enum.DHWeaponMountLayers.Deployed" ]
+      visible: false
+    - state: ammo
+      map: [ "enum.DHWeaponMountLayers.Ammo" ]
+      visible: false
+    - state: heat
+      map: [ "enum.DHWeaponMountLayers.Heat" ]
+      visible: false
+      shader: unshaded
+  - type: Item
+    sprite: _DarkestHour/Objects/Weapons/Guns/Emplacements/rspmg_10_54.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Objects/Weapons/Guns/Emplacements/rspmg_10_54.rsi
+  - type: DHWeaponMount
+    weapon: DHMountedGunRSPMG1054
+  - type: StaticPrice
+    price: 4000
+
+- type: entity
+  parent: [ DHBaseWeaponMount, BaseSyndicateContraband ]
+  id: DHWeaponHMGIHMG17
+  name: IHMG-17
+  description: An Imperial heavy machine gun in 14.5x114mm with a finned barrel and a big muzzle brake. Takes 50-round belts. Tears through armour, cover and light walls, but overheats fast. Deploy it in front of you and stand behind it to fire.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Guns/Emplacements/ihmg_17.rsi
+    noRot: true
+    layers:
+    - state: folded
+      map: [ "enum.DHWeaponMountLayers.Folded" ]
+    - state: deployed
+      map: [ "enum.DHWeaponMountLayers.Deployed" ]
+      visible: false
+    - state: ammo
+      map: [ "enum.DHWeaponMountLayers.Ammo" ]
+      visible: false
+    - state: heat
+      map: [ "enum.DHWeaponMountLayers.Heat" ]
+      visible: false
+      shader: unshaded
+  - type: Item
+    sprite: _DarkestHour/Objects/Weapons/Guns/Emplacements/ihmg_17.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Objects/Weapons/Guns/Emplacements/ihmg_17.rsi
+  - type: DHWeaponMount
+    weapon: DHMountedGunIHMG17
+  - type: StaticPrice
+    price: 6000

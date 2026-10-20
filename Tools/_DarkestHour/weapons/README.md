@@ -12,3 +12,8 @@
 - `gen_yaml.py` — калибры, пули, патроны, коробки, магазины, оружие, обвес. `python3 gen_yaml.py <repo>`.
   Урон задаётся по шкале Monolith и умножается на `DAMAGE_MULT` (сейчас 1.5). Спрайты патронов и магазинов —
   из Monolith (CC-BY-SA-3.0), лежат в `Resources/Textures/_Mono/Objects/Weapons/Guns/Ammunition`.
+- `emplacements.py` — станковые пулемёты (RSPMG-10-54, IHMG-17): сложенный вид, станок на треноге в 4 направлениях,
+  лента и раскалённый ствол отдельными слоями, в руках и на спине. `python3 emplacements.py <out> <repo>` →
+  скопировать `<out>/*.rsi` в `Resources/Textures/_DarkestHour/Objects/Weapons/Guns/Emplacements/`.
+- Гильза 14.5x114 (`Resources/Textures/_DarkestHour/Objects/Weapons/Guns/Ammunition/Casings/14.5x114mm_casing.rsi`) —
+  стальная, сделана из `big_ammo_casing` Monolith (CC-BY-SA-3.0); путь задаётся в `CASING_PATH` в `gen_yaml.py`.

@@ -45,7 +45,9 @@ def T(piercing, ap=0.0, unarm=1.0, arm=1.0, extra=None, fire=0.0, pen=0, pellets
 
 # Ammunition sprites are Monolith's (CC-BY-SA-3.0), copied under their _Mono prefix.
 MONO_AMMO = '_Mono/Objects/Weapons/Guns/Ammunition'
-CASING_TIP = {'rifle_ammo_casing', 'rifle_ammo_casing_steel', 'pistol_ammo_casing', 'pistol_ammo_casing_steel',
+# casings drawn for The Darkest Hour (not in Monolith): sprite path override
+CASING_PATH = {'14.5x114mm_casing': '_DarkestHour/Objects/Weapons/Guns/Ammunition/Casings/14.5x114mm_casing'}
+CASING_TIP = {'14.5x114mm_casing', 'rifle_ammo_casing', 'rifle_ammo_casing_steel', 'pistol_ammo_casing', 'pistol_ammo_casing_steel',
               'big_ammo_casing', 'big_ammo_casing_steel', 'caseless_ammo_casing'}
 
 # id, display name, faction ('rep'/'emp'), casing sprite, box sprite, box size, damage per type
@@ -103,7 +105,7 @@ MAGS = [
     ('DHMagazine9x51Short', 'DHMagazine9x51', '9x51', 5, '7.62x39mm/7.62x39mm_cap_mag', 'RAR-M-11-3 short magazine', 'Small', 2),
     ('DHMagazine762x39', 'DHMagazine762x39', '762x39', 30, '7.62x39mm/7.62x39mm_mag', 'Ravenger magazine', 'Small', 2),
     ('DHMagazine10x24', 'DHMagazine10x24', '10x24', 30, '45_ACP/45_ACP_smg_mag', 'RAP-TOR magazine', 'Small', 3),
-    ('DHMagazine10x24Short', 'DHMagazine10x24Short', '10x24', 15, '45_ACP/45_ACP_pistol_high_capacity_mag', 'RPR-M-9 magazine', 'Small', 6),
+    ('DHMagazine10x24Short', 'DHMagazine10x24Short', '10x24', 15, '45_ACP/45_ACP_pistol_high_capacity_mag', 'RPR-M-9 / Mk 58 magazine', 'Small', 6),
     ('DHMagazine10x51', 'DHMagazine10x51', '10x51', 20, '7.62x51mm/7.62x51mm_cap_mag', 'RMAD-AS magazine', 'Small', 2),
     ('DHMagazine1066', 'DHMagazine1066', '1066', 14, '6.35x40mm_caseless/6.35x40mm_caseless_rifle_mag', 'RMAD-IN magazine', 'Small', 2),
     ('DHMagazine127x105', 'DHMagazine127x105', '127x105', 10, '12.7x99mm/12.7x99mm_mag', 'RMAR-AS magazine', 'Small', 2),
@@ -111,6 +113,9 @@ MAGS = [
     ('DHMagazineDrum842x54', 'DHMagazineDrum842x54', '842x54', 45, '7.62x39mm/dp29', 'IMG-17T drum', 'Normal', 8),
     ('DHMagazine104x16', 'DHMagazine104x16', '104x16', 20, '4.6x30mm/4.6x30mm_smg_mag', 'IMG-17L magazine', 'Small', 3),
     ('DHMagazine145x114', 'DHMagazine145x114', '145x114', 4, '357_magnum/357_magnum_pistol_mag', 'IMP-17 magazine', 'Tiny', 0),
+    # belt boxes of the mounted machine guns
+    ('DHMagazineBelt762x51', 'DHMagazineBelt762x51', '762x51', 100, '8x65mm/8x65mm_box', 'RSPMG-10-54 ammunition belt', 'Normal', 2),
+    ('DHMagazineBelt145x114', 'DHMagazineBelt145x114', '145x114', 50, '7.62x39mm/pk_box', 'IHMG-17 ammunition belt', 'Normal', 8),
     ('DHMagazineDrum14g', 'DHMagazineDrum14g', '14g', 12, '12_gauge/12_gauge_drum', 'IMSH-17 drum', 'Normal', 2),
 ]
 
@@ -208,6 +213,10 @@ WEAPONS = [
       desc='A Metallistick Group security assault rifle built on the old M16/M4A1 pattern and rechambered for 7.62x39mm. Heavier-hitting than the Vympel, slower to fire.',
       mags=['DHMagazine762x39'], start='DHMagazine762x39FMG', cal='762x39', rate=6, modes=['FullAuto', 'SemiAuto'],
       spread=(4, 60), wield=(-4, -40), snd=SND_RIFLE, slots=[BARREL, GRIP, OPTIC], size='Huge', wieldreq=True),
+    W(id='DHWeaponPistolMk58', sprite='mk58', name='Mk 58', faction='corp', kind='pistol',
+      desc='The standard sidearm of Metallistick Group corporate security, rebuilt for the 10x24mm police round. Simple, reliable, takes RPR-M-9 magazines.',
+      mags=['DHMagazine10x24Short'], start='DHMagazine10x24ShortE', cal='10x24', rate=5, modes=['SemiAuto'],
+      spread=(2, 17), wield=None, snd=('/Audio/Weapons/Guns/Gunshots/mk58.ogg',) + SND_HPISTOL[1:], slots=[], size='Small'),
 ]
 
 # which attachment overlay states a slot can show on each gun (must match build.py SLOTS)
@@ -298,7 +307,7 @@ def write_ammo():
                 '- type: entity', '  abstract: true', f'  parent: [ BaseCartridge, {CONTRA[fac]} ]', f'  id: {base}',
                 f'  name: cartridge ({disp})', '  components:', '  - type: Tag', '    tags:', '    - Cartridge',
                 f'    - {cal_tag(cal)}', '  - type: Sprite',
-                f'    sprite: {MONO_AMMO}/Casings/{casing}.rsi', '    layers:',
+                f'    sprite: {CASING_PATH.get(casing, MONO_AMMO + "/Casings/" + casing)}.rsi', '    layers:',
                 '    - state: base', '      map: ["enum.AmmoVisualLayers.Base"]', '  - type: Appearance',
                 '  - type: SpentAmmoVisuals'))
         for t, st in types.items():

@@ -649,5 +649,29 @@ def ravenger():
                width=64)
 
 
-for f in (ir17, img17l, img17t, imp17, imsh17, impsh17p, vympel, wspr, ravenger):
+def mk58():
+    """Mk 58 - Metallistick security sidearm, rechambered for 10x24mm. Gunmetal slide with rear serrations,
+    khaki polymer frame with an accessory rail and a textured grip, beige trim line."""
+    a = Art()
+    a.shade_poly([(14, 9), (34, 9), (35, 10), (35, 13), (14, 13)], '1234')       # slide
+    a.vline(16, 10, 12, '1').vline(18, 10, 12, '1').vline(20, 10, 12, '1')     # rear serrations
+    a.hline(25, 29, 10, '0').hline(25, 29, 11, '2')                            # ejection port
+    a.dot(15, 8, '2').dot(33, 8, '3')                                          # sights
+    a.vline(36, 11, 12, '0')                                                   # muzzle
+    a.hline(15, 34, 13, '1')
+    a.bevel(17, 14, 34, 15, 'abcd')                                            # frame
+    a.hline(17, 34, 14, 'x')                                                   # beige trim
+    a.pattern(27, 34, 15, 'a.')                                                # rail slots
+    a.shade_poly([(15, 14), (21, 14), (19, 23), (14, 23), (13, 22)], 'abcd')   # grip
+    a.pattern(14, 19, 17, 'a.').pattern(14, 18, 19, 'a.').pattern(14, 18, 21, 'a.')
+    a.vline(20, 15, 17, 'x')
+    guard(a, 21, 25, 18, 16, c='a')
+    mag = Art().bevel(13, 23, 19, 24, '0123').dot(13, 23, '2')
+    bolt = Art().erase(14, 9, 16, 13)
+    bolt.bevel(11, 9, 13, 13, '1234').vline(12, 10, 12, '1')
+    bolt.hline(25, 29, 10, '0').dot(26, 11, 'Y').dot(27, 11, 'Y')
+    return Gun('mk58', 'corp', 'pistol', a, mag, bolt, muzzle=(37, 11), rail=(18, 30, 8), under=(28, 16))
+
+
+for f in (ir17, img17l, img17t, imp17, imsh17, impsh17p, vympel, wspr, ravenger, mk58):
     add(f())
