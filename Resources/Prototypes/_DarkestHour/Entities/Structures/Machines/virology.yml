@@ -1,0 +1,113 @@
+# DarkestHour: анализатор возбудителей и компьютер вирусолога. Платы — в принтере плат (пакет DHMedicalBoardsStatic).
+
+- type: entity
+  parent: [ BaseMachinePowered, ConstructibleMachine, BaseConstructibleMachineDestructible ]
+  id: DHPathogenAnalyzer
+  name: pathogen analyzer
+  description: Put a used swab in and it prints the structure of every pathogen in the sample after a short analysis.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/diagnoser.rsi
+    snapCardinals: true
+    layers:
+    - state: icon
+    - state: running
+      map: [ "running" ]
+      visible: false
+    - state: unlit
+      shader: unshaded
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHPathogenAnalyzerVisuals.Running:
+        running:
+          True: { visible: true }
+          False: { visible: false }
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: InteractionOutline
+  - type: Anchorable
+  - type: ItemSlots
+    slots:
+      swab:
+        name: dh-analyzer-slot-swab
+        whitelist:
+          components:
+          - DHPathogenSwab
+  - type: ContainerContainer
+    containers:
+      swab: !type:ContainerSlot
+      machine_board: !type:Container
+      machine_parts: !type:Container
+  - type: Machine
+    board: DHPathogenAnalyzerMachineCircuitboard
+  - type: DHPathogenAnalyzer
+  - type: ApcPowerReceiver
+    powerLoad: 300
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: DHPathogenAnalyzerMachineCircuitboard
+  name: pathogen analyzer machine board
+  description: A machine printed circuit board for a pathogen analyzer.
+  components:
+  - type: Sprite
+    state: medical
+  - type: MachineBoard
+    prototype: DHPathogenAnalyzer
+    stackRequirements:
+      Manipulator: 1
+      Glass: 2
+      Steel: 5
+
+- type: entity
+  parent: BaseComputer
+  id: DHVirologyComputer
+  name: virology computer
+  description: Case records for identified pathogens. A correct record earns research points and prints a treatment recipe for the chemists.
+  components:
+  - type: DHVirologyConsole
+  - type: ComputerVisuals
+    stateScreen: dna
+    stateKeys: med_key
+  - type: PointLight
+    radius: 1.5
+    energy: 3.0
+    color: "#7fd68a"
+  - type: Computer
+    board: DHVirologyComputerCircuitboard
+  - type: ActivatableUI
+    key: enum.DHVirologyConsoleUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHVirologyConsoleUiKey.Key:
+        type: DHVirologyConsoleBoundUserInterface
+
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: DHVirologyComputerCircuitboard
+  name: virology computer board
+  description: A computer printed circuit board for a virology computer.
+  components:
+  - type: Sprite
+    state: cpu_medical
+  - type: ComputerBoard
+    prototype: DHVirologyComputer

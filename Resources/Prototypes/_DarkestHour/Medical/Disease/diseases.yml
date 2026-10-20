@@ -14,6 +14,11 @@
   immuneGain: 0.002
   immuneStrength: 0.025
   grantsImmunity: true
+  symptoms: [ dh-symptom-sneezing, dh-symptom-cough, dh-symptom-runny-nose ]
+  structure: dh-virology-structure-cold
+  treatment: Rest
+  recipe: dh-virology-recipe-cold
+  researchPoints: 3000
   stages:
   - contagious: false
     symptomatic: false
@@ -44,6 +49,11 @@
   immuneGain: 0.0012
   immuneStrength: 0.012
   grantsImmunity: true
+  symptoms: [ dh-symptom-cough, dh-symptom-fever, dh-symptom-aches, dh-symptom-weakness, dh-symptom-fainting ]
+  structure: dh-virology-structure-flu-taurus
+  treatment: Vaccine
+  recipe: dh-virology-recipe-flu-taurus
+  researchPoints: 7500
   stages:
   - contagious: false
     symptomatic: false
@@ -97,6 +107,11 @@
   progressRate: 0.008
   immuneGain: 0.0004
   immuneStrength: 0.008
+  symptoms: [ dh-symptom-cramps, dh-symptom-nausea, dh-symptom-vomiting ]
+  structure: dh-virology-structure-dysentery
+  treatment: Antibiotic
+  recipe: dh-virology-recipe-dysentery
+  researchPoints: 5000
   stages:
   - contagious: false
     symptomatic: false
@@ -139,6 +154,11 @@
   progressRate: 0.0067
   immuneGain: 0.0002
   immuneStrength: 0.005
+  symptoms: [ dh-symptom-fever, dh-symptom-wound-inflammation, dh-symptom-pus, dh-symptom-gangrene ]
+  structure: dh-virology-structure-wound-infection
+  treatment: Antibiotic
+  recipe: dh-virology-recipe-wound-infection
+  researchPoints: 4000
   stages:
   - contagious: false
     symptomatic: false
@@ -190,6 +210,7 @@
   infectivity: 0
   progressRate: 0
   immuneGain: 0
+  identifiable: false
   stages:
   - contagious: false
     interval: 8
@@ -266,6 +287,7 @@
   infectivity: 0
   progressRate: 0
   immuneGain: 0
+  identifiable: false
   stages:
   - contagious: false
     interval: 8

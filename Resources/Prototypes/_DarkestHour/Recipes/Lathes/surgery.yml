@@ -43,3 +43,38 @@
   completetime: 4
   materials:
     Plastic: 200
+
+# --- Вирусология ---
+
+- type: latheRecipe
+  id: DHPathogenSwab
+  result: DHPathogenSwab
+  completetime: 1
+  materials:
+    Plastic: 20
+
+- type: latheRecipe
+  id: DHPathogenScanner
+  result: DHPathogenScanner
+  completetime: 2
+  materials:
+    Steel: 100
+    Plastic: 100
+    Glass: 50
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: DHPathogenAnalyzerMachineCircuitboard
+  result: DHPathogenAnalyzerMachineCircuitboard
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: DHVirologyComputerCircuitboard
+  result: DHVirologyComputerCircuitboard
+
+# DarkestHour: свои медицинские платы в принтере плат, статично до переделки РнД.
+- type: latheRecipePack
+  id: DHMedicalBoardsStatic
+  recipes:
+  - DHPathogenAnalyzerMachineCircuitboard
+  - DHVirologyComputerCircuitboard

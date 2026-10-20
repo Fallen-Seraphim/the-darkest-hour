@@ -47,3 +47,27 @@
       amount: 1
   products:
     DHChronosorb: 3
+
+- type: reaction
+  id: DHVaccineCold
+  reactants:
+    DHViracide:
+      amount: 1
+    Saline:
+      amount: 1
+    Sugar:
+      amount: 1
+  products:
+    DHVaccineCold: 2
+
+- type: reaction
+  id: DHVaccineFluTaurus
+  reactants:
+    DHViracide:
+      amount: 1
+    Iodine:
+      amount: 1
+    Sugar:
+      amount: 1
+  products:
+    DHVaccineFluTaurus: 2

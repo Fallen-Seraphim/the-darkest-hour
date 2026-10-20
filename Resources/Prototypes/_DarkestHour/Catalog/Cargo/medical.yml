@@ -1,0 +1,21 @@
+# DarkestHour: медицинские заказы — культуры возбудителей и оборудование вирусолога.
+
+- type: cargoProduct
+  id: DHMedicalCultureSamples
+  icon:
+    sprite: _DarkestHour/Objects/Specific/Medical/culture_jar.rsi
+    state: green
+  product: DHCrateCultureSamples
+  cost: 2000
+  category: cargoproduct-category-name-medical
+  group: market
+
+- type: cargoProduct
+  id: DHMedicalVirologyEquipment
+  icon:
+    sprite: Structures/Machines/diagnoser.rsi
+    state: icon
+  product: DHCrateVirologyEquipment
+  cost: 3000
+  category: cargoproduct-category-name-medical
+  group: market

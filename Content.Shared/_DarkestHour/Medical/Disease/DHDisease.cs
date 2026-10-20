@@ -37,6 +37,24 @@ public enum DHSpreadVector : byte
     Blood,
 }
 
+/// <summary>
+/// Основное лечение болезни — вариант, который вирусолог выбирает в карточке случая.
+/// </summary>
+[Serializable, NetSerializable]
+public enum DHTreatmentKind : byte
+{
+    /// <summary>Покой, организм справится сам (противовирусное ускоряет).</summary>
+    Rest,
+    /// <summary>Вакцина (рецепт печатает компьютер вирусолога).</summary>
+    Vaccine,
+    Antibiotic,
+    ReserveAntibiotic,
+    Antifungal,
+    Antiparasitic,
+    /// <summary>Хирургическое извлечение.</summary>
+    Surgery,
+}
+
 [DataDefinition]
 public sealed partial class DHDiseaseStage
 {
@@ -96,6 +114,31 @@ public sealed partial class DHDiseasePrototype : IPrototype
 
     [DataField(required: true)]
     public List<DHDiseaseStage> Stages = new();
+
+    // --- Вирусология ---
+
+    /// <summary>Определяется вирусологом (лучевая и хронитовая — нет: их видно по дозиметру).</summary>
+    [DataField]
+    public bool Identifiable = true;
+
+    /// <summary>Наблюдаемые симптомы (для сканера тела и карточки случая).</summary>
+    [DataField]
+    public List<LocId> Symptoms = new();
+
+    /// <summary>Характерные признаки строения (распечатка анализатора, вдобавок к маркерам группы).</summary>
+    [DataField]
+    public LocId? Structure;
+
+    [DataField]
+    public DHTreatmentKind Treatment = DHTreatmentKind.Rest;
+
+    /// <summary>Текст рецепта, который печатает компьютер вирусолога при верном определении.</summary>
+    [DataField]
+    public LocId? Recipe;
+
+    /// <summary>Очки исследований за первое верное определение за раунд.</summary>
+    [DataField]
+    public int ResearchPoints = 5000;
 }
 
 /// <summary>
