@@ -5,7 +5,7 @@
   description: A sturdy jumpsuit, issued to members of the Cargo department.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpsuits/Cargo/cargotech.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Cargo/cargotech.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingUniformBase, ClothingUniformFoldableBase]
@@ -14,7 +14,7 @@
   description: It's a snappy jumpsuit with a sturdy set of overalls. It's very dirty.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpsuits/Cargo/salvage.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Cargo/salvage.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
@@ -23,9 +23,9 @@
   description: 'What can brown do for you?'
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpsuits/Cargo/qm.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Cargo/qm.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpsuits/Cargo/qm.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Cargo/qm.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingUniformBase, ClothingUniformFoldableBase, BaseCommandContraband]
@@ -34,9 +34,9 @@
   description: A sharp turtleneck made for the hardy work environment of supply.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpsuits/Cargo/qmturtle.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Cargo/qmturtle.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpsuits/Cargo/qmturtle.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Cargo/qmturtle.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
@@ -45,6 +45,6 @@
   description: Inspired by the quartermasters of militaries past, the perfect outfit for supplying a formal occasion.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpsuits/Cargo/qmformal.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Cargo/qmformal.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpsuits/Cargo/qmformal.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Cargo/qmformal.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)

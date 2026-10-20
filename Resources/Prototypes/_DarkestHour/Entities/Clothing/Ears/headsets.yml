@@ -14,9 +14,9 @@
       - DHEncryptionKeyInvestigations
       - EncryptionKeyCommon
   - type: Sprite
-    sprite: Clothing/Ears/Headsets/security.rsi
+    sprite: _DarkestHour/Clothing/Ears/Headsets/security.rsi
   - type: Clothing
-    sprite: Clothing/Ears/Headsets/security.rsi
+    sprite: _DarkestHour/Clothing/Ears/Headsets/security.rsi
 
 # УКСБ: командование (:к) + КСБ (:о) + расследования (:р).
 - type: entity
@@ -32,9 +32,9 @@
       - EncryptionKeyCommand
       - EncryptionKeyCommon
   - type: Sprite
-    sprite: Clothing/Ears/Headsets/security.rsi
+    sprite: _DarkestHour/Clothing/Ears/Headsets/security.rsi
   - type: Clothing
-    sprite: Clothing/Ears/Headsets/security.rsi
+    sprite: _DarkestHour/Clothing/Ears/Headsets/security.rsi
 
 # Специалист Metall Armed: командование (:к) + КСБ (:о).
 - type: entity
@@ -49,6 +49,6 @@
       - EncryptionKeyCommand
       - EncryptionKeyCommon
   - type: Sprite
-    sprite: Clothing/Ears/Headsets/command.rsi
+    sprite: _DarkestHour/Clothing/Ears/Headsets/command.rsi
   - type: Clothing
-    sprite: Clothing/Ears/Headsets/command.rsi
+    sprite: _DarkestHour/Clothing/Ears/Headsets/command.rsi

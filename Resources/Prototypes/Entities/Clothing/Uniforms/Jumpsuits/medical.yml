@@ -5,7 +5,7 @@
   description: There's some odd stains on this jumpsuit. Hm.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpsuits/Medical/chemistry.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Medical/chemistry.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: ClothingUniformBase
@@ -36,7 +36,7 @@
   description: It's a jumpsuit worn by those with the experience to be Chief Medical Officer. It provides minor biological protection.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpsuits/Medical/cmo.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Medical/cmo.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
@@ -45,9 +45,9 @@
   description: It's a turtleneck worn by those with the experience to be Chief Medical Officer. It provides minor biological protection.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpsuits/Medical/cmo_turtle.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Medical/cmo_turtle.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpsuits/Medical/cmo_turtle.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Medical/cmo_turtle.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingUniformBase, ClothingUniformFoldableBase]
@@ -56,7 +56,7 @@
   description: It's made of a special fiber that provides minor protection against biohazards. It has a cross on the chest denoting that the wearer is trained medical personnel.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpsuits/Medical/medical.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Medical/medical.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: ClothingUniformBase
@@ -65,9 +65,9 @@
   description: It's got a plus on it, that's a good thing right?
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpsuits/Medical/paramedic.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Medical/paramedic.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpsuits/Medical/paramedic.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Medical/paramedic.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: ClothingUniformBase
@@ -76,6 +76,6 @@
   description: A sign of skill and prestige within the medical department.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpsuits/Medical/senior_physician.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Medical/senior_physician.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpsuits/Medical/senior_physician.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Medical/senior_physician.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)

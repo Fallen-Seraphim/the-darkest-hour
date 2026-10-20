@@ -5,9 +5,9 @@
   description: There's some odd stains on this jumpskirt. Hm.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpskirts/Medical/chemistry.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Medical/chemistry.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpskirts/Medical/chemistry.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Medical/chemistry.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: ClothingUniformSkirtBase
@@ -38,9 +38,9 @@
   description: It's a jumpskirt worn by those with the experience to be Chief Medical Officer. It provides minor biological protection.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpskirts/Medical/cmo.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Medical/cmo.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpskirts/Medical/cmo.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Medical/cmo.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingUniformSkirtBase, BaseCommandContraband]
@@ -49,9 +49,9 @@
   description: It's a turtleneck worn by those with the experience to be Chief Medical Officer. It provides minor biological protection.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpskirts/Medical/cmo_turtle.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Medical/cmo_turtle.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpskirts/Medical/cmo_turtle.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Medical/cmo_turtle.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: ClothingUniformSkirtBase
@@ -60,9 +60,9 @@
   description: It's made of a special fiber that provides minor protection against biohazards. It has a cross on the chest denoting that the wearer is trained medical personnel.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpskirts/Medical/medical.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Medical/medical.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpskirts/Medical/medical.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Medical/medical.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: ClothingUniformSkirtBase
@@ -71,9 +71,9 @@
   description: It's got a plus on it, that's a good thing right?
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpskirts/Medical/paramedic.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Medical/paramedic.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpskirts/Medical/paramedic.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Medical/paramedic.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: ClothingUniformSkirtBase
@@ -82,6 +82,6 @@
   description: A sign of skill and prestige within the medical department.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpskirts/Medical/senior_physician.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Medical/senior_physician.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpskirts/Medical/senior_physician.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Medical/senior_physician.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)

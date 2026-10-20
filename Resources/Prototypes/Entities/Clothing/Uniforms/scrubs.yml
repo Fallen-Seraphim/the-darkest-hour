@@ -27,6 +27,6 @@
   description: A combination of comfort and utility intended to make removing every last organ someone has and selling them to a space robot much more official looking.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Scrubs/blue.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Scrubs/blue.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Scrubs/blue.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Scrubs/blue.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)

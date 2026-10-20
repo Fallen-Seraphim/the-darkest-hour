@@ -95,9 +95,9 @@
   description: A greatcoat enhanced with a special alloy for some extra protection and style for those with a commanding presence.
   components:
   - type: Sprite
-    sprite: Clothing/OuterClothing/Coats/hos_trenchcoat.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/hos_trenchcoat.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/OuterClothing/Coats/hos_trenchcoat.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/hos_trenchcoat.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: ClothingOuterJacketToggleableBase
@@ -164,9 +164,9 @@
   description: A suit that protects against minor chemical spills. Has an orange stripe on the shoulder.
   components:
   - type: Sprite
-    sprite: Clothing/OuterClothing/Coats/labcoat_chem.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/labcoat_chem.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/OuterClothing/Coats/labcoat_chem.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/labcoat_chem.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Armor
     modifiers:
       coefficients:
@@ -224,9 +224,9 @@
   description: Custom made blue lab coat for the Chief Medical Officer, offers improved protection against chemical spills and minor cuts.
   components:
   - type: Sprite
-    sprite: Clothing/OuterClothing/Coats/labcoat_cmo.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/labcoat_cmo.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/OuterClothing/Coats/labcoat_cmo.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/labcoat_cmo.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Armor
     modifiers:
       coefficients:
@@ -246,9 +246,9 @@
   description: A suit that protects against minor chemical spills. Has a purple stripe on the shoulder.
   components:
   - type: Sprite
-    sprite: Clothing/OuterClothing/Coats/labcoat_sci.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/labcoat_sci.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/OuterClothing/Coats/labcoat_sci.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/labcoat_sci.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Armor
     modifiers:
       coefficients:
@@ -266,9 +266,9 @@
   description: More like an eccentric coat than a labcoat. Helps pass off bloodstains as part of the aesthetic. Comes with red shoulder pads.
   components:
   - type: Sprite
-    sprite: Clothing/OuterClothing/Coats/labcoat_robo.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/labcoat_robo.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/OuterClothing/Coats/labcoat_robo.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/labcoat_robo.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Armor
     modifiers:
       coefficients:
@@ -286,9 +286,9 @@
   description: Woven with top of the line technology, this labcoat helps protect against radiation in similar way to the experimental hardsuit.
   components:
   - type: Sprite
-    sprite: Clothing/OuterClothing/Coats/labcoat_rd.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/labcoat_rd.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/OuterClothing/Coats/labcoat_rd.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/labcoat_rd.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Armor
     modifiers:
       coefficients:
@@ -318,9 +318,9 @@
   description: A sturdy, utilitarian jacket designed to protect a warden from any brig-bound threats.
   components:
   - type: Sprite
-    sprite: Clothing/OuterClothing/Coats/warden.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/warden.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/OuterClothing/Coats/warden.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/warden.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: ClothingOuterStorageBase
@@ -368,9 +368,9 @@
   description: A paramedic's trusty windbreaker, for all the space wind.
   components:
   - type: Sprite
-    sprite: Clothing/OuterClothing/Coats/windbreaker_paramedic.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/windbreaker_paramedic.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/OuterClothing/Coats/windbreaker_paramedic.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/windbreaker_paramedic.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingOuterStorageBase, BaseSyndicateContraband]
@@ -420,9 +420,9 @@
   description: A suit that protects against minor chemical spills. Has a purple collar and wrist trims.
   components:
   - type: Sprite
-    sprite: Clothing/OuterClothing/Coats/labcoat_senior_researcher.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/labcoat_senior_researcher.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/OuterClothing/Coats/labcoat_senior_researcher.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/labcoat_senior_researcher.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Armor
     modifiers:
       coefficients:
@@ -440,9 +440,9 @@
   description: A suit that protects against minor chemical spills. Has light blue sleeves and an orange waist trim.
   components:
   - type: Sprite
-    sprite: Clothing/OuterClothing/Coats/labcoat_senior_physician.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/labcoat_senior_physician.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/OuterClothing/Coats/labcoat_senior_physician.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/labcoat_senior_physician.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Armor
     modifiers:
       coefficients:

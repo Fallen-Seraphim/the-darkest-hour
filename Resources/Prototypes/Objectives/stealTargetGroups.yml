@@ -97,7 +97,7 @@
   id: HeadCloak
   name: steal-target-groups-heads-cloaks
   sprite:
-    sprite: Clothing/Neck/Cloaks/cap.rsi
+    sprite: _DarkestHour/Clothing/Neck/Cloaks/cap.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
     state: icon
 
 - type: stealTargetGroup
@@ -204,7 +204,7 @@
   id: ClothingHeadHatWarden
   name: steal-target-groups-clothing-head-hat-warden
   sprite:
-    sprite: Clothing/Head/Hats/warden.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/warden.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
     state: icon
 
 - type: stealTargetGroup
@@ -225,7 +225,7 @@
   id: ClothingHeadsetAltMedical
   name: steal-target-groups-clothing-headset-alt-medical
   sprite:
-    sprite: Clothing/Ears/Headsets/medical.rsi
+    sprite: _DarkestHour/Clothing/Ears/Headsets/medical.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
     state: icon_alt
 
 - type: stealTargetGroup
