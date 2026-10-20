@@ -1,0 +1,21 @@
+# DarkestHour: хирургические принадлежности в медицинском лате (пакет SurgeryStatic).
+
+- type: latheRecipe
+  parent: BaseSurgicalRecipe
+  id: DHBoneGel
+  result: DHBoneGel
+  materials:
+    Plastic: 100
+    Steel: 50
+
+- type: latheRecipe
+  parent: BaseSurgicalRecipe
+  id: DHBoneSetter
+  result: DHBoneSetter
+
+- type: latheRecipe
+  parent: BaseSurgicalRecipe
+  id: DHSurgicalDrapes
+  result: DHSurgicalDrapes
+  materials:
+    Plastic: 100

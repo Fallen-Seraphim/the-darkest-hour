@@ -89,6 +89,8 @@
         type: HumanoidMarkingModifierBoundUserInterface
       enum.StrippingUiKey.Key:
         type: StrippableBoundUserInterface
+      enum.DHSurgeryUiKey.Key: # DarkestHour: хирургия
+        type: DHSurgeryBoundUserInterface
   - type: InitialBody
     relationships:
       Torso: [Head, ArmLeft, ArmRight, LegLeft, LegRight, Appendix, Lungs, Heart, Stomach, Liver, Kidneys]

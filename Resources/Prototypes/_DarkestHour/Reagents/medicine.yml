@@ -1,0 +1,24 @@
+# DarkestHour: лекарства медицины DH (этап 2). Спейсациллин — антибиотик широкого спектра; пока лечит раневую инфекцию
+# после нестерильной операции, с движком болезней — бактериальные болезни из списка.
+
+- type: reagent
+  id: DHSpacecillin
+  name: reagent-name-dh-spacecillin
+  group: Medicine
+  desc: reagent-desc-dh-spacecillin
+  physicalDesc: reagent-physical-desc-opaque
+  flavor: medicine
+  color: "#d8d0a8"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DHTreatWoundInfection
+        amount: 0.15
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHSpacecillin
+          min: 30
+        damage:
+          types:
+            Poison: 1

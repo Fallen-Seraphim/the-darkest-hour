@@ -1,0 +1,13 @@
+# DarkestHour: рецепты лекарств DH.
+
+- type: reaction
+  id: DHSpacecillin
+  reactants:
+    Dylovene:
+      amount: 1
+    Ethanol:
+      amount: 1
+    Sulfur:
+      amount: 1
+  products:
+    DHSpacecillin: 3

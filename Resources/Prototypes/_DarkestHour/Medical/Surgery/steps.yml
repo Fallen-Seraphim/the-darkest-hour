@@ -1,0 +1,215 @@
+# DarkestHour: шаги операций. Инструмент: kind — хирургический (DHSurgicalTool), quality — подручный (ToolComponent)
+# со своей скоростью и шансом успеха. pain — боль без наркоза (0…1), invasive — риск инфекции без маски и перчаток.
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepIncise
+  name: dh-surgery-step-incise
+  toolHint: dh-surgery-tool-scalpel
+  tools:
+  - kind: Scalpel
+  - quality: Slicing
+    speed: 0.5
+    success: 0.75
+  duration: 3
+  pain: 0.5
+  invasive: true
+  bleed: 1.5
+  add: [ Incised ]
+  failDamage:
+    types:
+      Slash: 5
+  sound:
+    collection: DHSurgeryScalpel
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepClamp
+  name: dh-surgery-step-clamp
+  toolHint: dh-surgery-tool-hemostat
+  tools:
+  - kind: Hemostat
+  - quality: Cutting
+    speed: 0.5
+    success: 0.75
+  duration: 2.5
+  pain: 0.2
+  bleed: -1.5
+  add: [ Clamped ]
+  failDamage:
+    types:
+      Slash: 2
+  sound:
+    collection: DHSurgeryHemostat
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepRetract
+  name: dh-surgery-step-retract
+  toolHint: dh-surgery-tool-retractor
+  tools:
+  - kind: Retractor
+  - quality: Prying
+    speed: 0.5
+    success: 0.7
+  duration: 2.5
+  pain: 0.3
+  invasive: true
+  add: [ Retracted ]
+  failDamage:
+    types:
+      Slash: 3
+  sound:
+    collection: DHSurgeryRetractor
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepSawBone
+  name: dh-surgery-step-saw-bone
+  toolHint: dh-surgery-tool-saw
+  tools:
+  - kind: Saw
+  - kind: Drill
+    speed: 0.6
+  - quality: Sawing
+    speed: 0.5
+    success: 0.7
+  duration: 5
+  pain: 1.0
+  invasive: true
+  bleed: 1
+  add: [ BoneOpen ]
+  failDamage:
+    types:
+      Slash: 4
+      Blunt: 4
+  sound:
+    collection: DHSurgeryBoneSaw
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepSetBone
+  name: dh-surgery-step-set-bone
+  toolHint: dh-surgery-tool-bonesetter
+  tools:
+  - kind: BoneSetter
+  - quality: Prying
+    speed: 0.4
+    success: 0.6
+  duration: 3
+  pain: 0.8
+  onlyIf: [ BoneOpen ]
+  failDamage:
+    types:
+      Blunt: 4
+  sound:
+    collection: DHSurgeryBoneSetter
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepMendBone
+  name: dh-surgery-step-mend-bone
+  toolHint: dh-surgery-tool-bonegel
+  tools:
+  - kind: BoneGel
+  duration: 3
+  pain: 0.3
+  remove: [ BoneOpen ]
+  onlyIf: [ BoneOpen ]
+  sound:
+    collection: DHSurgeryOrgan
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepCauterize
+  name: dh-surgery-step-cauterize
+  toolHint: dh-surgery-tool-cautery
+  tools:
+  - kind: Cautery
+  - quality: Welding
+    speed: 0.6
+    success: 0.75
+  duration: 3
+  pain: 0.6
+  bleed: -3
+  remove: [ Incised, Clamped, Retracted ]
+  failDamage:
+    types:
+      Heat: 4
+  sound:
+    collection: DHSurgeryCautery
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepExtractOrgan
+  name: dh-surgery-step-extract-organ
+  toolHint: dh-surgery-tool-hemostat
+  tools:
+  - kind: Hemostat
+  - kind: Retractor
+    speed: 0.8
+  - quality: Cutting
+    speed: 0.5
+    success: 0.7
+  duration: 4
+  pain: 0.8
+  invasive: true
+  bleed: 1
+  effect: RemoveOrgan
+  failDamage:
+    types:
+      Slash: 4
+  sound:
+    collection: DHSurgeryOrgan
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepPlaceOrgan
+  name: dh-surgery-step-place-organ
+  toolHint: dh-surgery-tool-organ
+  duration: 3
+  pain: 0.3
+  invasive: true
+  effect: InsertOrgan
+  sound:
+    collection: DHSurgeryOrgan
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepConnectOrgan
+  name: dh-surgery-step-connect
+  toolHint: dh-surgery-tool-hemostat
+  tools:
+  - kind: Hemostat
+  - quality: Cutting
+    speed: 0.5
+    success: 0.7
+  duration: 4
+  pain: 0.4
+  bleed: -1
+  failDamage:
+    types:
+      Slash: 2
+  sound:
+    collection: DHSurgeryHemostat
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepAmputate
+  name: dh-surgery-step-amputate
+  toolHint: dh-surgery-tool-saw
+  tools:
+  - kind: Saw
+  - quality: Sawing
+    speed: 0.5
+    success: 0.7
+  duration: 7
+  pain: 1.0
+  invasive: true
+  bleed: 5
+  effect: Amputate
+  failDamage:
+    types:
+      Slash: 8
+  sound:
+    collection: DHSurgerySaw
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepPlaceLimb
+  name: dh-surgery-step-place-limb
+  toolHint: dh-surgery-tool-limb
+  duration: 4
+  pain: 0.5
+  invasive: true
+  effect: AttachLimb
+  sound:
+    collection: DHSurgeryOrgan
