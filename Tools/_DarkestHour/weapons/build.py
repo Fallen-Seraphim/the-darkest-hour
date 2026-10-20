@@ -98,6 +98,7 @@ SLOTS = {
     'vympel': ['suppressed', 'flashhider', 'compensator', 'vgrip', 'agrip', 'optic2x', 'optic4x'],
     'wspr': ['optic2x', 'optic4x', 'optic8x'],
     'ravenger': ['suppressed', 'flashhider', 'compensator', 'vgrip', 'agrip', 'optic2x', 'optic4x', 'optic8x'],
+    'mk58': [],
 }
 
 

@@ -39,7 +39,7 @@
   storage:
     back:
     - Flash
-    - MagazinePistol
+    - DHMagazine10x24ShortE
 
 - type: chameleonOutfit
   id: DHSecurityChiefChameleonOutfit
@@ -83,7 +83,7 @@
   storage:
     back:
     - Flash
-    - MagazinePistol
+    - DHMagazine10x24ShortE
 
 - type: chameleonOutfit
   id: DHWardenChameleonOutfit
@@ -214,7 +214,7 @@
   storage:
     back:
     - Flash
-    - MagazinePistol
+    - DHMagazine10x24ShortE
 
 - type: chameleonOutfit
   id: DHSecurityOfficerChameleonOutfit
@@ -255,7 +255,7 @@
   storage:
     back:
     - Flash
-    - MagazinePistol
+    - DHMagazine10x24ShortE
 
 - type: chameleonOutfit
   id: DHSecurityPilotChameleonOutfit
@@ -296,7 +296,7 @@
   storage:
     back:
     - Flash
-    - MagazinePistol
+    - DHMagazine10x24ShortE
 
 - type: chameleonOutfit
   id: DHSecurityInstructorChameleonOutfit
@@ -340,7 +340,7 @@
   storage:
     back:
     - Flash
-    - MagazinePistol
+    - DHMagazine10x24ShortE
 
 - type: chameleonOutfit
   id: DHSecurityCadetChameleonOutfit

@@ -659,7 +659,7 @@
   abstract: true
   parent: [ BaseItem, BaseSecurityContraband ]
   id: DHMagazine10x24ShortBase
-  name: "RPR-M-9 magazine (10x24mm)"
+  name: "RPR-M-9 / Mk 58 magazine (10x24mm)"
   components:
   - type: Tag
     tags:
@@ -698,7 +698,7 @@
 - type: entity
   parent: DHMagazine10x24ShortBase
   id: DHMagazine10x24ShortSVP
-  name: "RPR-M-9 magazine (10x24mm SVP)"
+  name: "RPR-M-9 / Mk 58 magazine (10x24mm SVP)"
   description: "15-round magazine. Super-penetration: hardened core against heavy armour."
   components:
   - type: BallisticAmmoProvider
@@ -706,7 +706,7 @@
 - type: entity
   parent: DHMagazine10x24ShortBase
   id: DHMagazine10x24ShortE
-  name: "RPR-M-9 magazine (10x24mm E)"
+  name: "RPR-M-9 / Mk 58 magazine (10x24mm E)"
   description: "15-round magazine. Expanding: devastating against unarmoured targets, poor against armour."
   components:
   - type: BallisticAmmoProvider
@@ -1094,6 +1094,118 @@
   id: DHMagazine145x114Std
   name: "IMP-17 magazine (14.5x114mm)"
   description: "4-round magazine. Standard load."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge145x114Std
+- type: entity
+  abstract: true
+  parent: [ BaseItem, BaseSecurityContraband ]
+  id: DHMagazineBelt762x51Base
+  name: "RSPMG-10-54 ammunition belt (7.62x51mm)"
+  components:
+  - type: Tag
+    tags:
+    - DHMagazineBelt762x51
+  - type: Item
+    size: Normal
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - DHCartridge762x51
+    capacity: 100
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/8x65mm/8x65mm_box.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: false
+  - type: Appearance
+- type: entity
+  parent: DHMagazineBelt762x51Base
+  id: DHMagazineBelt762x51Empty
+  suffix: Empty
+  description: "100-round magazine."
+  components:
+  - type: BallisticAmmoProvider
+    proto: null
+- type: entity
+  parent: DHMagazineBelt762x51Base
+  id: DHMagazineBelt762x51FMG
+  name: "RSPMG-10-54 ammunition belt (7.62x51mm FMG)"
+  description: "100-round magazine. Standard full metal jacket."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51FMG
+- type: entity
+  parent: DHMagazineBelt762x51Base
+  id: DHMagazineBelt762x51BB
+  name: "RSPMG-10-54 ammunition belt (7.62x51mm BB)"
+  description: "100-round magazine. Armour-piercing: steel core, goes through armour and cover."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51BB
+- type: entity
+  parent: DHMagazineBelt762x51Base
+  id: DHMagazineBelt762x51E
+  name: "RSPMG-10-54 ammunition belt (7.62x51mm E)"
+  description: "100-round magazine. Expanding: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51E
+- type: entity
+  abstract: true
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: DHMagazineBelt145x114Base
+  name: "IHMG-17 ammunition belt (14.5x114mm)"
+  components:
+  - type: Tag
+    tags:
+    - DHMagazineBelt145x114
+  - type: Item
+    size: Normal
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - DHCartridge145x114
+    capacity: 50
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/7.62x39mm/pk_box.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 8
+    zeroVisible: false
+  - type: Appearance
+- type: entity
+  parent: DHMagazineBelt145x114Base
+  id: DHMagazineBelt145x114Empty
+  suffix: Empty
+  description: "50-round magazine."
+  components:
+  - type: BallisticAmmoProvider
+    proto: null
+- type: entity
+  parent: DHMagazineBelt145x114Base
+  id: DHMagazineBelt145x114Std
+  name: "IHMG-17 ammunition belt (14.5x114mm)"
+  description: "50-round magazine. Standard load."
   components:
   - type: BallisticAmmoProvider
     proto: DHCartridge145x114Std
