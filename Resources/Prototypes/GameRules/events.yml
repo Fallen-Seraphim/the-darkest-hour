@@ -24,6 +24,8 @@
     - id: SpiderSpawnHorde
     - id: VendorMalfunction
     - id: VentClog
+    - id: DHDiseaseOutbreak # DarkestHour: вспышка болезни
+    - id: DHLabLeak # DarkestHour: утечка из лаборатории
 
 - type: entityTable
   id: BasicAntagEventsTable
