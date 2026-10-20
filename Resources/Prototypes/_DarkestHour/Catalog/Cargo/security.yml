@@ -68,3 +68,23 @@
   cost: 1600
   category: cargoproduct-category-name-security
   group: market
+
+- type: cargoProduct
+  id: DHSecurityRSPMG
+  icon:
+    sprite: _DarkestHour/Objects/Weapons/Guns/Emplacements/rspmg_10_54.rsi
+    state: folded
+  product: DHCrateSecurityRSPMG
+  cost: 9000
+  category: cargoproduct-category-name-security
+  group: market
+
+- type: cargoProduct
+  id: DHSecurityAmmoRSPMG
+  icon:
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/8x65mm/8x65mm_box.rsi
+    state: base
+  product: DHCrateSecurityAmmoRSPMG
+  cost: 2500
+  category: cargoproduct-category-name-security
+  group: market

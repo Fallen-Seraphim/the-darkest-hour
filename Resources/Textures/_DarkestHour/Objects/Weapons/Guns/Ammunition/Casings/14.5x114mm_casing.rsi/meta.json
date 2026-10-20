@@ -1,0 +1,20 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Taken from SS13 Shiptest. | Steel-cased 14.5x114mm made from Monolith big_ammo_casing for The Darkest Hour",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "base-spent"
+        },
+        {
+            "name": "base"
+        },
+        {
+            "name": "tip"
+        }
+    ]
+}

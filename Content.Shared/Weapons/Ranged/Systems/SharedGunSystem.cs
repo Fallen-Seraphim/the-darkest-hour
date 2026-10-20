@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Shared._DarkestHour.Weapons.Ranged.Emplacements; // DarkestHour: станковое оружие
 using Content.Shared.ActionBlocker;
 using Content.Shared.Actions;
 using Content.Shared.Administration.Logs;
@@ -196,6 +197,15 @@ public abstract partial class SharedGunSystem : EntitySystem
     {
         gun = default;
 
+        // DarkestHour: стрелок за станковым пулемётом стреляет из пулемёта на станке, а не из рук.
+        if (TryComp(entity, out DHWeaponControllerComponent? controller) &&
+            controller.Weapon is { } mountedWeapon &&
+            TryComp(mountedWeapon, out GunComponent? mountedGun))
+        {
+            gun = (mountedWeapon, mountedGun);
+            return true;
+        }
+
         if (_hands.GetActiveItem(entity) is { } held &&
             TryComp(held, out GunComponent? gunComp))
         {
@@ -345,6 +355,12 @@ public abstract partial class SharedGunSystem : EntitySystem
         }
 
         var fromCoordinates = Transform(user).Coordinates;
+
+        // DarkestHour: станковое оружие стреляет от дула на станке, а не из точки, где стоит стрелок.
+        var originEv = new DHGunShotOriginEvent(fromCoordinates);
+        RaiseLocalEvent(gun, ref originEv);
+        fromCoordinates = originEv.Origin;
+
         // Remove ammo
         var ev = new TakeAmmoEvent(shots, [], fromCoordinates, user);
 
