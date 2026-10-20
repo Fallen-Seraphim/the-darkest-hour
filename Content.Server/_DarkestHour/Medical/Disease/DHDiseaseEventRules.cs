@@ -8,6 +8,7 @@ using Content.Shared.Mind.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Station.Components;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 
 namespace Content.Server._DarkestHour.Medical.Disease;
 
@@ -59,11 +60,13 @@ public sealed partial class DHDiseaseOutbreakRule : StationEventSystem<DHDisease
         if (candidates.Count == 0)
             return;
 
-        var disease = RobustRandom.Pick(ent.Comp1.Diseases);
+        var disease = ent.Comp1.Diseases[RobustRandom.Next(ent.Comp1.Diseases.Count)];
         var count = Math.Min(candidates.Count, RobustRandom.Next(ent.Comp1.MinPatients, ent.Comp1.MaxPatients + 1));
         for (var i = 0; i < count; i++)
         {
-            var patient = RobustRandom.PickAndTake(candidates);
+            var index = RobustRandom.Next(candidates.Count);
+            var patient = candidates[index];
+            candidates.RemoveAt(index);
             _disease.Infect(patient, disease);
             Sawmill.Info($"Disease outbreak: {ToPrettyString(patient)} infected with {disease}.");
         }
@@ -106,7 +109,7 @@ public sealed partial class DHLabLeakRule : StationEventSystem<DHLabLeakRuleComp
         if (jars.Count == 0)
             return;
 
-        var jar = RobustRandom.Pick(jars);
+        var jar = jars[RobustRandom.Next(jars.Count)];
         _damageable.TryChangeDamage(jar, ent.Comp1.Damage, ignoreResistances: true);
         Sawmill.Info($"Lab leak: {ToPrettyString(jar)} broke.");
     }
