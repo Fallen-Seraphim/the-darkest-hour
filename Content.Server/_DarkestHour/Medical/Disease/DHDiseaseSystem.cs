@@ -81,6 +81,39 @@ public sealed partial class DHDiseaseSystem : EntitySystem
         UpdateSymptomatic((uid, carrier));
     }
 
+    /// <summary>
+    /// Болезнь, стадию которой задаёт внешняя система (накопленная доза радиации/хронита), а не время и иммунитет.
+    /// stage = null — болезнь снимается (без иммунитета); иначе болезнь ставится на эту стадию (0 — первая).
+    /// </summary>
+    public void SetStage(EntityUid uid, ProtoId<DHDiseasePrototype> disease, int? stage)
+    {
+        if (!TryComp<DHDiseaseCarrierComponent>(uid, out var carrier))
+            return;
+
+        if (stage is not { } index)
+        {
+            if (carrier.Diseases.Remove(disease))
+                UpdateSymptomatic((uid, carrier));
+            return;
+        }
+
+        if (!_proto.TryIndex(disease, out var proto) || proto.Stages.Count == 0)
+            return;
+
+        if (!carrier.Diseases.TryGetValue(disease, out var active))
+        {
+            active = new DHActiveDisease { NextSymptoms = _timing.CurTime + TimeSpan.FromSeconds(_random.NextFloat(2f, 6f)) };
+            carrier.Diseases[disease] = active;
+        }
+
+        active.Progress = Math.Clamp(index, 0, proto.Stages.Count - 1) + 0.5f;
+
+        if (carrier.NextUpdate < _timing.CurTime)
+            carrier.NextUpdate = _timing.CurTime + UpdateInterval;
+
+        UpdateSymptomatic((uid, carrier));
+    }
+
     public bool HasDisease(EntityUid uid, ProtoId<DHDiseasePrototype> disease) =>
         TryComp<DHDiseaseCarrierComponent>(uid, out var carrier) && carrier.Diseases.ContainsKey(disease);
 

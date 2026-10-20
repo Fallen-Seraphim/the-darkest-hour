@@ -134,6 +134,9 @@
           types:
             Radiation: -3
             Blunt: 1.5
+      - !type:DHReduceDose # DarkestHour: выводит накопленную радиацию
+        kind: Radiation
+        amount: 1.5
 
 - type: reagent
   id: Bicaridine
@@ -408,6 +411,9 @@
         damage:
           types:
             Radiation: -1
+      - !type:DHReduceDose # DarkestHour: выводит накопленную радиацию
+        kind: Radiation
+        amount: 0.5
       - !type:Vomit
         probability: 0.02
       - !type:HealthChange

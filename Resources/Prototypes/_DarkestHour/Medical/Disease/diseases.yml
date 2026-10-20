@@ -181,3 +181,152 @@
         types:
           Poison: 2
           Cellular: 1
+
+# 13. Лучевая болезнь — не заразна. Стадию задаёт накопленная доза радиации (DHDose), не время.
+- type: dhDisease
+  id: DHDiseaseRadiationSickness
+  name: dh-disease-radiation-sickness
+  group: Radiation
+  infectivity: 0
+  progressRate: 0
+  immuneGain: 0
+  stages:
+  - contagious: false
+    interval: 8
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Small
+      messages: [ "dh-disease-symptom-nausea", "dh-disease-symptom-rad-metal-taste" ]
+      probability: 0.2
+    - !type:Vomit
+      probability: 0.04
+  - contagious: false
+    interval: 6
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Small
+      messages: [ "dh-disease-symptom-rad-hair", "dh-disease-symptom-weak" ]
+      probability: 0.15
+    - !type:Vomit
+      probability: 0.08
+    - !type:ModifyBleed
+      amount: 0.5
+      probability: 0.2
+    - !type:HealthChange
+      probability: 0.4
+      damage:
+        types:
+          Cellular: 0.3
+  - contagious: false
+    interval: 5
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Medium
+      messages: [ "dh-disease-symptom-rad-bleeding", "dh-disease-symptom-weak" ]
+      probability: 0.15
+    - !type:ModifyBleed
+      amount: 1
+      probability: 0.3
+    - !type:HealthChange
+      probability: 0.6
+      damage:
+        types:
+          Cellular: 1
+    - !type:Jitter
+      probability: 0.1
+  - contagious: false
+    interval: 5
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Large
+      messages: [ "dh-disease-symptom-rad-dying" ]
+      probability: 0.15
+    - !type:HealthChange
+      damage:
+        types:
+          Cellular: 3
+          Poison: 1
+    - !type:ModifyStatusEffect
+      effectProto: StatusEffectForcedSleeping
+      time: 3
+      type: Update
+      probability: 0.05
+
+# 12. Хронитовая кожно-покровная болезнь — не заразна, страшнее лучевой. Стадию задаёт накопленный хронит (DHDose);
+# хронит сам не выводится. Кожа светится фиолетовым. Лечение: Хроносорб + Dylovene (ранняя стадия), иссечение кожи
+# и пересадка (средняя). Последняя стадия неизлечима.
+- type: dhDisease
+  id: DHDiseaseChroniteSkin
+  name: dh-disease-chronite-skin
+  group: Chronite
+  infectivity: 0
+  progressRate: 0
+  immuneGain: 0
+  stages:
+  - contagious: false
+    interval: 8
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Small
+      messages: [ "dh-disease-symptom-chronite-spots", "dh-disease-symptom-chronite-itch" ]
+      probability: 0.2
+  - contagious: false
+    interval: 6
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Medium
+      messages: [ "dh-disease-symptom-chronite-crystals", "dh-disease-symptom-chronite-cracks" ]
+      probability: 0.2
+    - !type:HealthChange
+      probability: 0.5
+      damage:
+        types:
+          Caustic: 0.5
+    - !type:ModifyBleed
+      amount: 0.5
+      probability: 0.2
+    - !type:DHAddPain
+      amount: 10
+      probability: 0.3
+  - contagious: false
+    interval: 5
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Medium
+      messages: [ "dh-disease-symptom-chronite-necrosis" ]
+      probability: 0.2
+    - !type:HealthChange
+      probability: 0.7
+      damage:
+        types:
+          Caustic: 1
+          Cellular: 1
+    - !type:ModifyBleed
+      amount: 1
+      probability: 0.3
+    - !type:DHAddPain
+      amount: 20
+      probability: 0.4
+  - contagious: false
+    interval: 5
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Large
+      messages: [ "dh-disease-symptom-chronite-terminal" ]
+      probability: 0.2
+    - !type:HealthChange
+      damage:
+        types:
+          Caustic: 2
+          Cellular: 3
+    - !type:DHAddPain
+      amount: 30
+      probability: 0.5

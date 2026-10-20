@@ -35,3 +35,15 @@
       amount: 1
   products:
     DHViracide: 3
+
+- type: reaction
+  id: DHChronosorb
+  reactants:
+    Iodine:
+      amount: 1
+    Silicon:
+      amount: 1
+    Sulfur:
+      amount: 1
+  products:
+    DHChronosorb: 3

@@ -333,3 +333,17 @@
   injury: OrganDamage
   steps:
   - DHSurgeryStepRepairOrgans
+
+# --- Хронит: иссечение поражённой кожи и пересадка (стадии 2–3; на последней стадии недоступно). ---
+
+- type: dhSurgery
+  id: DHSurgeryExciseChronite
+  name: dh-surgery-excise-chronite
+  description: dh-surgery-excise-chronite-desc
+  order: 64
+  parts: [ Head, Torso, ArmLeft, ArmRight, LegLeft, LegRight ]
+  requires: [ Retracted ]
+  injury: ChroniteSkin
+  steps:
+  - DHSurgeryStepExciseSkin
+  - DHSurgeryStepGraftSkin

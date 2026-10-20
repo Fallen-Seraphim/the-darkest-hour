@@ -1,6 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Server._DarkestHour.Medical.Disease;
+using Content.Server._DarkestHour.Medical.Radiation;
+using Content.Shared._DarkestHour.Medical.Radiation;
 using Content.Server._DarkestHour.Medical.Trauma;
 using Content.Shared._DarkestHour.Medical.Disease;
 using Content.Server.Chat.Systems;
@@ -61,6 +63,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
     [Dependency] private UserInterfaceSystem _ui = default!;
     [Dependency] private DHDiseaseSystem _disease = default!;
     [Dependency] private DHTraumaSystem _trauma = default!;
+    [Dependency] private DHDoseSystem _dose = default!;
 
     [Dependency] private EntityQuery<OrganComponent> _organQuery = default!;
     [Dependency] private EntityQuery<ChildOrganComponent> _childQuery = default!;
@@ -70,6 +73,9 @@ public sealed partial class DHSurgerySystem : EntitySystem
 
     /// <summary>Болезнь от нестерильной операции.</summary>
     private static readonly ProtoId<DHDiseasePrototype> WoundInfection = "DHDiseaseWoundInfection";
+
+    /// <summary>Сколько хронита убирает одно иссечение поражённой кожи.</summary>
+    private const float ChroniteExcision = 35f;
 
     public override void Initialize()
     {
@@ -465,6 +471,10 @@ public sealed partial class DHSurgerySystem : EntitySystem
                 if (FindDetachedRoot(item, category) != null)
                     return true;
                 break;
+            case DHSurgeryEffect.GraftSkin:
+                if (HasComp<DHSkinGraftComponent>(item))
+                    return true;
+                break;
             default:
                 return true;
         }
@@ -571,6 +581,12 @@ public sealed partial class DHSurgerySystem : EntitySystem
                 return true;
             case DHSurgeryEffect.RepairOrgans:
                 _trauma.RepairOrgans(patient, category);
+                return true;
+            case DHSurgeryEffect.ExciseChronite:
+                _dose.ExciseChronite(patient, ChroniteExcision);
+                return true;
+            case DHSurgeryEffect.GraftSkin:
+                QueueDel(item);
                 return true;
             default:
                 return true;
@@ -707,6 +723,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
             DHInjuryKind.InternalBleeding => _trauma.HasInternalBleeding(patient, category),
             DHInjuryKind.Shrapnel => _trauma.HasShrapnel(patient, category),
             DHInjuryKind.OrganDamage => _trauma.HasOrganDamage(patient, category),
+            DHInjuryKind.ChroniteSkin => _dose.CanExciseChronite(patient),
             _ => true,
         };
     }

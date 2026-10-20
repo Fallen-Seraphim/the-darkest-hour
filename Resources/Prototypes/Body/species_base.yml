@@ -238,6 +238,7 @@
   - type: StunVisuals
   - type: DHTrauma # DarkestHour: травмы по частям тела
   - type: DHDiseaseCarrier # DarkestHour: болезни
+  - type: DHDose # DarkestHour: накопленная радиация и хронит
   - type: DHVitalOrgans # DarkestHour: нет жизненно важного органа — урон
     missing:
       Lungs:

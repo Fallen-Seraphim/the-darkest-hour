@@ -81,6 +81,10 @@ public enum DHSurgeryEffect : byte
     RemoveShrapnel,
     /// <summary>Ушить повреждённые органы внутри части тела.</summary>
     RepairOrgans,
+    /// <summary>Иссечь кожу, поражённую хронитом (снижает накопленный хронит).</summary>
+    ExciseChronite,
+    /// <summary>Пересадить кожу (кожный трансплантат из руки хирурга).</summary>
+    GraftSkin,
 }
 
 /// <summary>
@@ -93,6 +97,8 @@ public enum DHInjuryKind : byte
     InternalBleeding,
     Shrapnel,
     OrganDamage,
+    /// <summary>Кристаллизация кожи хронитом (стадия 2–3 хронитовой болезни, не последняя).</summary>
+    ChroniteSkin,
 }
 
 /// <summary>
