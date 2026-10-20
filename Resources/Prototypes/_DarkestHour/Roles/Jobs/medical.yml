@@ -1,0 +1,204 @@
+# DarkestHour: свои должности. Снаряжение и лоадауты пока взяты у ванильных аналогов, форма — ванильная.
+
+- type: job
+  id: DHChiefPhysician
+  name: dh-job-chief-physician-name
+  description: dh-job-chief-physician-description
+  playTimeTracker: JobDHChiefPhysician
+  startingGear: DHChiefPhysicianGear
+  icon: JobIconDHChiefPhysician
+  supervisors: dh-job-supervisors-captain
+  guides: [ Command ]
+  access:
+  - Medical
+  - Command
+  - Maintenance
+  - Chemistry
+  - ChiefMedicalOfficer
+  - Brig
+  - Cryogenics
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: CommandStaff
+
+- type: startingGear
+  id: DHChiefPhysicianGear
+  equipment:
+    id: DHDogtags
+    ears: ClothingHeadsetCMO
+  storage:
+    back:
+    - Flash
+
+- type: chameleonOutfit
+  id: DHChiefPhysicianChameleonOutfit
+  job: DHChiefPhysician
+  hasMindShield: true
+  equipment:
+    head: ClothingHeadHatBeretCmo
+    eyes: ClothingEyesHudMedical
+    mask: ClothingMaskSterile
+    neck: ClothingCloakCmo
+    outerClothing: ClothingOuterCoatLabCmo
+    gloves: ClothingHandsGlovesNitrile
+
+- type: job
+  id: DHLeadPhysician
+  name: dh-job-lead-physician-name
+  description: dh-job-lead-physician-description
+  playTimeTracker: JobDHLeadPhysician
+  startingGear: DHLeadPhysicianGear
+  icon: JobIconDHLeadPhysician
+  supervisors: dh-job-supervisors-chief-physician
+  guides: [ Medical ]
+  access:
+  - Medical
+  - Maintenance
+  - Chemistry
+  extendedAccess:
+  - Chemistry
+
+- type: startingGear
+  id: DHLeadPhysicianGear
+  equipment:
+    ears: ClothingHeadsetMedical
+    id: DHDogtags
+
+- type: chameleonOutfit
+  id: DHLeadPhysicianChameleonOutfit
+  job: DHLeadPhysician
+  equipment:
+    head: ClothingHeadNurseHat
+    eyes: ClothingEyesHudMedical
+    mask: ClothingMaskSterile
+    neck: ClothingNeckStethoscope
+    outerClothing: ClothingOuterCoatLab
+    gloves: ClothingHandsGlovesLatex
+
+- type: job
+  id: DHChemist
+  name: dh-job-chemist-name
+  description: dh-job-chemist-description
+  playTimeTracker: JobDHChemist
+  startingGear: DHChemistGear
+  icon: JobIconDHChemist
+  supervisors: dh-job-supervisors-physicians
+  guides: [ Chemist ]
+  access:
+  - Medical
+  - Chemistry
+  - Maintenance
+
+- type: startingGear
+  id: DHChemistGear
+  equipment:
+    id: DHDogtags
+    ears: ClothingHeadsetMedical
+
+- type: chameleonOutfit
+  id: DHChemistChameleonOutfit
+  job: DHChemist
+  equipment:
+    head: ClothingHeadHatBeretMedic
+    eyes: ClothingEyesGlassesChemical
+    mask: ClothingMaskSterile
+    neck: ClothingNeckStethoscope
+    outerClothing: ClothingOuterCoatLabChem
+    gloves: ClothingHandsGlovesLatex
+
+- type: job
+  id: DHPhysician
+  name: dh-job-physician-name
+  description: dh-job-physician-description
+  playTimeTracker: JobDHPhysician
+  startingGear: DHPhysicianGear
+  icon: JobIconDHPhysician
+  supervisors: dh-job-supervisors-physicians
+  guides: [ Medical ]
+  access:
+  - Medical
+  - Maintenance
+  extendedAccess:
+  - Chemistry
+
+- type: startingGear
+  id: DHPhysicianGear
+  equipment:
+    ears: ClothingHeadsetMedical
+    id: DHDogtags
+
+- type: chameleonOutfit
+  id: DHPhysicianChameleonOutfit
+  job: DHPhysician
+  equipment:
+    head: ClothingHeadNurseHat
+    eyes: ClothingEyesHudMedical
+    mask: ClothingMaskSterile
+    neck: ClothingNeckStethoscope
+    outerClothing: ClothingOuterCoatLab
+    gloves: ClothingHandsGlovesLatex
+
+- type: job
+  id: DHParamedic
+  name: dh-job-paramedic-name
+  description: dh-job-paramedic-description
+  playTimeTracker: JobDHParamedic
+  startingGear: DHParamedicGear
+  icon: JobIconDHParamedic
+  supervisors: dh-job-supervisors-physicians
+  guides: [ Medical ]
+  access:
+  - Medical
+  - Maintenance
+  extendedAccess:
+  - Chemistry
+
+- type: startingGear
+  id: DHParamedicGear
+  equipment:
+    id: DHDogtags
+    ears: ClothingHeadsetMedical
+
+- type: chameleonOutfit
+  id: DHParamedicChameleonOutfit
+  job: DHParamedic
+  equipment:
+    head: ClothingHeadHatParamedicsoft
+    eyes: ClothingEyesHudMedical
+    mask: ClothingMaskSterile
+    neck: ClothingNeckStethoscope
+    outerClothing: ClothingOuterCoatParamedicWB
+    gloves: ClothingHandsGlovesLatex
+
+- type: job
+  id: DHMedicalIntern
+  name: dh-job-medical-intern-name
+  description: dh-job-medical-intern-description
+  playTimeTracker: JobDHMedicalIntern
+  startingGear: DHMedicalInternGear
+  icon: JobIconDHMedicalIntern
+  supervisors: dh-job-supervisors-medical-staff
+  guides: [ Medical ]
+  access:
+  - Medical
+  - Maintenance
+
+- type: startingGear
+  id: DHMedicalInternGear
+  equipment:
+    shoes: ClothingShoesColorWhite
+    id: DHDogtags
+    ears: ClothingHeadsetMedical
+    pocket2: BookMedicalReferenceBook
+
+- type: chameleonOutfit
+  id: DHMedicalInternChameleonOutfit
+  job: DHMedicalIntern
+  equipment:
+    head: ClothingHeadHatBeretMedic
+    eyes: ClothingEyesHudMedical
+    mask: ClothingMaskSterile
+    neck: ClothingNeckStethoscope
+    outerClothing: ClothingOuterCoatLabOpened
+    gloves: ClothingHandsGlovesLatex

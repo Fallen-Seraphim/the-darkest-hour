@@ -27,7 +27,7 @@
   description: It's bright red and rather crisp, much like security's victims tend to be.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpsuits/Security/hos.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Security/hos.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Item
     inhandVisuals:
       left:
@@ -41,7 +41,7 @@
         sprite: Clothing/Uniforms/Jumpsuits/Color/color.rsi
       - state: overlay-inhand-right
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpsuits/Security/hos.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Security/hos.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
@@ -50,9 +50,9 @@
   description: It's a turtleneck worn by those strong and disciplined enough to achieve the position of Head of Security.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpsuits/Security/hos_alt.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Security/hos_alt.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpsuits/Security/hos_alt.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Security/hos_alt.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
@@ -145,7 +145,7 @@
   description: A jumpsuit made of strong material, providing robust protection.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpsuits/Security/security.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Security/security.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Item
     inhandVisuals:
       left:
@@ -177,9 +177,9 @@
   description: A tactical relic of years past before Nanotrasen decided it was cheaper to dye the suits red instead of washing out the blood.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpsuits/Security/security_grey.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Security/security_grey.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpsuits/Security/security_grey.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Security/security_grey.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingUniformBase, BaseSecurityContraband]
@@ -188,9 +188,9 @@
   description: A formal uniform issued to the Nanotrasen Troopers, usually it comes with a car.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpsuits/Security/security_trooper.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Security/security_trooper.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpsuits/Security/security_trooper.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Security/security_trooper.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingUniformBase, BaseSecurityContraband]
@@ -199,7 +199,7 @@
   description: A formal security suit for officers complete with Nanotrasen belt buckle.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpsuits/Security/warden.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Security/warden.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Item
     inhandVisuals:
       left:
@@ -213,7 +213,7 @@
         sprite: Clothing/Uniforms/Jumpsuits/Color/color.rsi
       - state: overlay-inhand-right
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpsuits/Security/warden.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Security/warden.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
@@ -222,9 +222,9 @@
   description: A suit for special occasions.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpsuits/Security/hosformal.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Security/hosformal.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpsuits/Security/hosformal.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Security/hosformal.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingUniformBase, BaseSecurityContraband]
@@ -233,6 +233,6 @@
   description: A sign of skill and prestige within the security department.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpsuits/Security/senior_officer.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Security/senior_officer.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpsuits/Security/senior_officer.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Security/senior_officer.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)

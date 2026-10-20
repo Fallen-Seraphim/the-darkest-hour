@@ -1,0 +1,15 @@
+# DarkestHour: ключ канала расследований (:р) — детектив, следователи, УКСБ.
+- type: entity
+  parent: [ EncryptionKey, BaseSecurityContraband ]
+  id: DHEncryptionKeyInvestigations
+  name: investigations encryption key
+  description: An encryption key used by corporate security investigators.
+  components:
+  - type: EncryptionKey
+    channels:
+    - DHInvestigations
+    defaultChannel: DHInvestigations
+  - type: Sprite
+    layers:
+    - state: crypt_silver
+    - state: sec_label

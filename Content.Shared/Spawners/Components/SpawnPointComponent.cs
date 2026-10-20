@@ -13,6 +13,14 @@ public sealed partial class SpawnPointComponent : Component, ISpawnPoint
     [DataField("job_id")]
     public ProtoId<JobPrototype>? Job;
 
+    // DarkestHour: точка появления может обслуживать несколько должностей — наши должности
+    // используют ванильные точки на картах, пока у нас нет своих карт.
+    /// <summary>
+    /// Additional jobs that may also spawn at this point.
+    /// </summary>
+    [DataField]
+    public List<ProtoId<JobPrototype>> Jobs = new();
+
     /// <summary>
     /// The type of spawn point.
     /// </summary>

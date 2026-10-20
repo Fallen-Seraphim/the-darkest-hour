@@ -55,9 +55,9 @@
   description: A beret with the security department's insignia. For officers that are more inclined towards style than safety.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hats/beret_security.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/beret_security.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Hats/beret_security.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/beret_security.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Tag
     tags:
     - ClothMade
@@ -74,9 +74,9 @@
   description: A campaign hat for the Nanotrasen Troopers. It's supposed to come with a case, too...
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hats/security_trooper_hat.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/security_trooper_hat.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Hats/security_trooper_hat.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/security_trooper_hat.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Tag
     tags:
     - ClothMade
@@ -104,9 +104,9 @@
   description: A beret for real scientists.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hats/beret_rnd.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/beret_rnd.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Hats/beret_rnd.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/beret_rnd.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Tag
     tags:
     - PetWearable
@@ -123,9 +123,9 @@
   description: A beret with the engineering department's insignia. For engineers that are more inclined towards style than safety.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hats/beret_engineering.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/beret_engineering.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Hats/beret_engineering.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/beret_engineering.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Tag
     tags:
     - PetWearable
@@ -142,9 +142,9 @@
   description: A beret with the cargo department's insignia.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hats/beret_qm.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/beret_qm.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Hats/beret_qm.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/beret_qm.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Tag
     tags:
     - PetWearable
@@ -161,9 +161,9 @@
   description: A black beret with a commander's rank emblem. For officers that are more inclined towards style than safety.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hats/beret_hos.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/beret_hos.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Hats/beret_hos.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/beret_hos.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Tag
     tags:
     - PetWearable
@@ -180,9 +180,9 @@
   description: A corporate-blue beret with a warden's rank emblem. For officers that are more inclined towards style than safety.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hats/beret_warden.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/beret_warden.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Hats/beret_warden.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/beret_warden.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Tag
     tags:
     - PetWearable
@@ -196,9 +196,9 @@
   description: Donning the colours of medical and chemistry, physicians are the pride of this department!
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hats/beret_physician.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/beret_physician.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Hats/beret_physician.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/beret_physician.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Tag
     tags:
     - PetWearable
@@ -276,9 +276,9 @@
   description: Feels good being the king.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hats/captain.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/captain.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Hats/captain.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/captain.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Tag
     tags:
     - PetWearable
@@ -415,9 +415,9 @@
   description: A stylish cap worn by the Head of Personnel. Shows paperwork who's in charge.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hats/hopcap.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/hopcap.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Hats/hopcap.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/hopcap.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Tag
     tags:
     - PetWearable
@@ -434,9 +434,9 @@
   description: A stylish cap worn by the Head of Security. Shows the officers who's in charge.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hats/hoshat.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/hoshat.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Hats/hoshat.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/hoshat.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Tag
     tags:
     - PetWearable
@@ -725,9 +725,9 @@
   description: This hat emphasizes that you are THE LAW.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hats/warden.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/warden.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Hats/warden.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/warden.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: StealTarget
     stealGroup:
     - ClothingHeadHatWarden
@@ -981,9 +981,9 @@
   description: Somehow I feel I'm not supposed to leave this place.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hats/nursehat.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/nursehat.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Hats/nursehat.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/nursehat.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Tag
     tags:
     - ClothMade
@@ -1050,9 +1050,9 @@
   description: A turquoise beret with a cross on the front. The sight of it calms you down and makes it clear that you will be cured.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hats/beret_cmo.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/beret_cmo.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Hats/beret_cmo.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/beret_cmo.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Tag
     tags:
     - PetWearable
@@ -1194,11 +1194,11 @@
   description: A grand, stylish cap worn by the Captain. Shows the station who's in charge.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hats/capcap.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/capcap.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Hats/capcap.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/capcap.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Item
-    sprite: Clothing/Head/Hats/capcap.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/capcap.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Tag
     tags:
     - PetWearable
@@ -1497,9 +1497,9 @@
   description: A sterile white beret.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hats/beret_medic.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/beret_medic.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Hats/beret_medic.rsi
+    sprite: _DarkestHour/Clothing/Head/Hats/beret_medic.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Tag
     tags:
     - PetWearable

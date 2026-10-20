@@ -26,7 +26,7 @@
           mapNameTemplate: "Dev"
         - type: StationJobs
           availableJobs:
-            Captain: [ -1, -1 ]
+            DHCaptain: [ -1, -1 ] # DarkestHour: свой капитан
 
 - type: gameMap
   id: TestTeg

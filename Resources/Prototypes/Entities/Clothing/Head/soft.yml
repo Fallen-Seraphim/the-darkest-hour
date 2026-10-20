@@ -62,9 +62,9 @@
   description: A baseball cap colored to match cargo's uniforms.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Soft/cargosoft.rsi
+    sprite: _DarkestHour/Clothing/Head/Soft/cargosoft.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Soft/cargosoft.rsi
+    sprite: _DarkestHour/Clothing/Head/Soft/cargosoft.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Tag
     tags:
     - ClothMade
@@ -91,9 +91,9 @@
   description: A baseball cap colored to match the Quartermaster's uniform.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Soft/qmsoft.rsi
+    sprite: _DarkestHour/Clothing/Head/Soft/qmsoft.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Soft/qmsoft.rsi
+    sprite: _DarkestHour/Clothing/Head/Soft/qmsoft.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingHeadHeadHatBaseFlipped, ClothingHeadHatQMsoft]
@@ -123,9 +123,9 @@
   description: A baseball cap in corporation colors.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Soft/corpsoft.rsi
+    sprite: _DarkestHour/Clothing/Head/Soft/corpsoft.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Soft/corpsoft.rsi
+    sprite: _DarkestHour/Clothing/Head/Soft/corpsoft.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingHeadHeadHatBaseFlipped, ClothingHeadHatCorpsoft]
@@ -264,9 +264,9 @@
   description: A baseball cap colored to match security's uniforms.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Soft/secsoft.rsi
+    sprite: _DarkestHour/Clothing/Head/Soft/secsoft.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Soft/secsoft.rsi
+    sprite: _DarkestHour/Clothing/Head/Soft/secsoft.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingHeadHeadHatBaseFlipped, ClothingHeadHatSecsoft]
@@ -312,9 +312,9 @@
   description: A blue baseball cap with a cross on the front.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Soft/paramedicsoft.rsi
+    sprite: _DarkestHour/Clothing/Head/Soft/paramedicsoft.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Soft/paramedicsoft.rsi
+    sprite: _DarkestHour/Clothing/Head/Soft/paramedicsoft.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Tag
     tags:
     - ClothMade

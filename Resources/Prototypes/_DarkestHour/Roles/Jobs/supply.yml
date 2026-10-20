@@ -1,0 +1,113 @@
+# DarkestHour: свои должности. Снаряжение и лоадауты пока взяты у ванильных аналогов, форма — ванильная.
+
+- type: job
+  id: DHQuartermaster
+  name: dh-job-quartermaster-name
+  description: dh-job-quartermaster-description
+  playTimeTracker: JobDHQuartermaster
+  startingGear: DHQuartermasterGear
+  icon: JobIconDHQuartermaster
+  supervisors: dh-job-supervisors-captain
+  guides: [ Command ]
+  access:
+  - Cargo
+  - Salvage
+  - Quartermaster
+  - Maintenance
+  - External
+  - Command
+  - Brig
+  - Cryogenics
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: CommandStaff
+
+- type: startingGear
+  id: DHQuartermasterGear
+  equipment:
+    id: DHDogtags
+    ears: ClothingHeadsetQM
+    belt: BoxFolderClipboardThreePapers
+    pocket1: AppraisalTool
+  storage:
+    back:
+    - Flash
+
+- type: chameleonOutfit
+  id: DHQuartermasterChameleonOutfit
+  job: DHQuartermaster
+  hasMindShield: true
+  equipment:
+    head: ClothingHeadHatQMsoft
+    eyes: ClothingEyesGlassesSunglasses
+    mask: ClothingMaskBreath
+    outerClothing: ClothingOuterWinterQM
+    neck: ClothingNeckCloakQm
+    gloves: ClothingHandsKnuckleDustersQM
+
+- type: job
+  id: DHExpeditor
+  name: dh-job-expeditor-name
+  description: dh-job-expeditor-description
+  playTimeTracker: JobDHExpeditor
+  startingGear: DHExpeditorGear
+  icon: JobIconDHExpeditor
+  supervisors: dh-job-supervisors-quartermaster
+  guides: [ Salvage ]
+  access:
+  - Cargo
+  - Salvage
+  - Maintenance
+  - External
+
+- type: startingGear
+  id: DHExpeditorGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitSalvageSpecialist
+    id: DHDogtags
+    ears: ClothingHeadsetCargo
+
+- type: chameleonOutfit
+  id: DHExpeditorChameleonOutfit
+  job: DHExpeditor
+  equipment:
+    head: ClothingHeadHatCargosoft
+    eyes: ClothingEyesGlassesCheapSunglasses
+    mask: ClothingMaskGasExplorer
+    outerClothing: ClothingOuterWinterMiner
+    neck: ClothingNeckScarfStripedBrown
+    gloves: ClothingHandsGlovesColorBlack
+
+- type: job
+  id: DHLoader
+  name: dh-job-loader-name
+  description: dh-job-loader-description
+  playTimeTracker: JobDHLoader
+  startingGear: DHLoaderGear
+  icon: JobIconDHLoader
+  supervisors: dh-job-supervisors-quartermaster
+  guides: [ Cargo ]
+  access:
+  - Cargo
+  - Maintenance
+  extendedAccess:
+  - Salvage
+
+- type: startingGear
+  id: DHLoaderGear
+  equipment:
+    ears: ClothingHeadsetCargo
+    pocket1: AppraisalTool
+    id: DHDogtags
+
+- type: chameleonOutfit
+  id: DHLoaderChameleonOutfit
+  job: DHLoader
+  equipment:
+    head: ClothingHeadHatCargosoft
+    eyes: ClothingEyesGlassesCheapSunglasses
+    mask: ClothingMaskBreath
+    outerClothing: ClothingOuterWinterCargo
+    neck: ClothingNeckScarfStripedBrown
+    gloves: ClothingHandsGlovesFingerless

@@ -35,7 +35,7 @@
   description: Standard security gear. Protects the head from impacts, and comes with a visor which can be lowered to protect the eyes.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Helmets/security.rsi
+    sprite: _DarkestHour/Clothing/Head/Helmets/security.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
     layers:
     - state: icon
       map: [ "unfoldedLayer" ]
@@ -43,7 +43,7 @@
       map: [ "foldedLayer" ]
       visible: false
   - type: Clothing
-    sprite: Clothing/Head/Helmets/security.rsi
+    sprite: _DarkestHour/Clothing/Head/Helmets/security.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Tag
     tags:
     - WhitelistChameleon

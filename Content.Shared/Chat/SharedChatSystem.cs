@@ -101,8 +101,21 @@ public abstract partial class SharedChatSystem : EntitySystem
 
     private void CacheRadios()
     {
-        _keyCodes = ProtoMan.EnumeratePrototypes<RadioChannelPrototype>()
-            .ToFrozenDictionary(x => x.KeyCode);
+        // DarkestHour: учитываем дополнительные префиксы каналов и каналы без префикса ('\0').
+        var keyCodes = new Dictionary<char, RadioChannelPrototype>();
+        foreach (var proto in ProtoMan.EnumeratePrototypes<RadioChannelPrototype>())
+        {
+            if (proto.KeyCode != '\0' && !keyCodes.TryAdd(char.ToLower(proto.KeyCode), proto))
+                Log.Error($"Radio channel {proto.ID} uses keycode '{proto.KeyCode}' that is already taken by {keyCodes[char.ToLower(proto.KeyCode)].ID}");
+
+            foreach (var alt in proto.AltKeyCodes)
+            {
+                if (alt != '\0' && !keyCodes.TryAdd(char.ToLower(alt), proto))
+                    Log.Error($"Radio channel {proto.ID} uses alt keycode '{alt}' that is already taken by {keyCodes[char.ToLower(alt)].ID}");
+            }
+        }
+
+        _keyCodes = keyCodes.ToFrozenDictionary();
     }
 
     /// <summary>

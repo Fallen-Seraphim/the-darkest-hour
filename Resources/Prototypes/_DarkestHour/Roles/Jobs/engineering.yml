@@ -1,0 +1,185 @@
+# DarkestHour: свои должности. Снаряжение и лоадауты пока взяты у ванильных аналогов, форма — ванильная.
+
+- type: job
+  id: DHChiefTechnician
+  name: dh-job-chief-technician-name
+  description: dh-job-chief-technician-description
+  playTimeTracker: JobDHChiefTechnician
+  startingGear: DHChiefTechnicianGear
+  icon: JobIconDHChiefTechnician
+  supervisors: dh-job-supervisors-captain
+  guides: [ Command ]
+  access:
+  - Maintenance
+  - Engineering
+  - Command
+  - External
+  - ChiefEngineer
+  - Atmospherics
+  - Brig
+  - Cryogenics
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: CommandStaff
+
+- type: startingGear
+  id: DHChiefTechnicianGear
+  equipment:
+    id: DHDogtags
+    eyes: ClothingEyesGlassesMeson
+    ears: ClothingHeadsetCE
+    belt: ClothingBeltUtilityEngineering
+  storage:
+    back:
+    - Flash
+
+- type: chameleonOutfit
+  id: DHChiefTechnicianChameleonOutfit
+  job: DHChiefTechnician
+  hasMindShield: true
+  equipment:
+    head: ClothingHeadHatBeretEngineering
+    mask: ClothingMaskBreath
+    neck: ClothingNeckCloakCe
+    outerClothing: ClothingOuterWinterCE
+    gloves: ClothingHandsGlovesColorYellow
+    shoes: ClothingShoesBootsMagAdv
+
+- type: job
+  id: DHLeadTechnician
+  name: dh-job-lead-technician-name
+  description: dh-job-lead-technician-description
+  playTimeTracker: JobDHLeadTechnician
+  startingGear: DHLeadTechnicianGear
+  icon: JobIconDHLeadTechnician
+  supervisors: dh-job-supervisors-chief-technician
+  guides: [ Engineering ]
+  access:
+  - Maintenance
+  - Engineering
+  - External
+  - Atmospherics
+  extendedAccess:
+  - Atmospherics
+
+- type: startingGear
+  id: DHLeadTechnicianGear
+  equipment:
+    eyes: ClothingEyesGlassesMeson
+    belt: ClothingBeltUtilityEngineering
+    ears: ClothingHeadsetEngineering
+    id: DHDogtags
+
+- type: chameleonOutfit
+  id: DHLeadTechnicianChameleonOutfit
+  job: DHLeadTechnician
+  equipment:
+    head: ClothingHeadHatHardhatYellow
+    mask: ClothingMaskBreath
+    neck: ClothingNeckScarfStripedOrange
+    outerClothing: ClothingOuterWinterEngi
+    gloves: ClothingHandsGlovesColorYellow
+    shoes: ClothingShoesBootsMag
+
+- type: job
+  id: DHAtmosTechnician
+  name: dh-job-atmos-technician-name
+  description: dh-job-atmos-technician-description
+  playTimeTracker: JobDHAtmosTechnician
+  startingGear: DHAtmosTechnicianGear
+  icon: JobIconDHAtmosTechnician
+  supervisors: dh-job-supervisors-technicians
+  guides: [ Atmospherics ]
+  access:
+  - Maintenance
+  - Engineering
+  - External
+  - Atmospherics
+
+- type: startingGear
+  id: DHAtmosTechnicianGear
+  equipment:
+    eyes: ClothingEyesGlassesMeson
+    id: DHDogtags
+    belt: ClothingBeltUtilityEngineering
+    ears: ClothingHeadsetEngineering
+
+- type: chameleonOutfit
+  id: DHAtmosTechnicianChameleonOutfit
+  job: DHAtmosTechnician
+  equipment:
+    head: ClothingHeadHelmetAtmosFire
+    mask: ClothingMaskGasAtmos
+    neck: ClothingNeckScarfStripedLightBlue
+    outerClothing: ClothingOuterSuitAtmosFire
+    gloves: ClothingHandsGlovesColorYellow
+
+- type: job
+  id: DHTechnician
+  name: dh-job-technician-name
+  description: dh-job-technician-description
+  playTimeTracker: JobDHTechnician
+  startingGear: DHTechnicianGear
+  icon: JobIconDHTechnician
+  supervisors: dh-job-supervisors-technicians
+  guides: [ Engineering ]
+  access:
+  - Maintenance
+  - Engineering
+  - External
+  extendedAccess:
+  - Atmospherics
+
+- type: startingGear
+  id: DHTechnicianGear
+  equipment:
+    eyes: ClothingEyesGlassesMeson
+    belt: ClothingBeltUtilityEngineering
+    ears: ClothingHeadsetEngineering
+    id: DHDogtags
+
+- type: chameleonOutfit
+  id: DHTechnicianChameleonOutfit
+  job: DHTechnician
+  equipment:
+    head: ClothingHeadHatHardhatYellow
+    mask: ClothingMaskBreath
+    neck: ClothingNeckScarfStripedOrange
+    outerClothing: ClothingOuterWinterEngi
+    gloves: ClothingHandsGlovesColorYellow
+    shoes: ClothingShoesBootsMag
+
+- type: job
+  id: DHJuniorTechnician
+  name: dh-job-junior-technician-name
+  description: dh-job-junior-technician-description
+  playTimeTracker: JobDHJuniorTechnician
+  startingGear: DHJuniorTechnicianGear
+  icon: JobIconDHJuniorTechnician
+  supervisors: dh-job-supervisors-engineering-staff
+  guides: [ Engineering ]
+  access:
+  - Maintenance
+  - Engineering
+  - External
+
+- type: startingGear
+  id: DHJuniorTechnicianGear
+  equipment:
+    shoes: ClothingShoesBootsWork
+    id: DHDogtags
+    belt: ClothingBeltUtilityEngineering
+    ears: ClothingHeadsetEngineering
+    pocket2: BookEngineersHandbook
+
+- type: chameleonOutfit
+  id: DHJuniorTechnicianChameleonOutfit
+  job: DHJuniorTechnician
+  equipment:
+    head: ClothingHeadHatHardhatOrange
+    eyes: ClothingEyesGlassesMeson
+    mask: ClothingMaskBreath
+    neck: ClothingNeckScarfStripedOrange
+    outerClothing: ClothingOuterVestHazard
+    gloves: ClothingHandsGlovesColorYellow

@@ -9,7 +9,7 @@
       - tag: SecurityHelmet
         name: construction-graph-tag-security-helmet
         icon:
-          sprite: Clothing/Head/Helmets/security.rsi
+          sprite: _DarkestHour/Clothing/Head/Helmets/security.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
           state: icon
       - material: Cable
         amount: 2

@@ -76,7 +76,7 @@
   description: It's a very robust backpack.
   components:
   - type: Sprite
-    sprite: Clothing/Back/Backpacks/security.rsi
+    sprite: _DarkestHour/Clothing/Back/Backpacks/security.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingBackpack, BaseSecurityContraband]
@@ -94,7 +94,7 @@
   description: It's a tough backpack for the daily grind of station life.
   components:
   - type: Sprite
-    sprite: Clothing/Back/Backpacks/engineering.rsi
+    sprite: _DarkestHour/Clothing/Back/Backpacks/engineering.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: ClothingBackpack
@@ -103,7 +103,7 @@
   description: It's a backpack made of fire resistant fibers. Smells like plasma.
   components:
   - type: Sprite
-    sprite: Clothing/Back/Backpacks/atmospherics.rsi
+    sprite: _DarkestHour/Clothing/Back/Backpacks/atmospherics.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: ClothingBackpack
@@ -112,7 +112,7 @@
   description: It's a backpack especially designed for use in a sterile environment.
   components:
   - type: Sprite
-    sprite: Clothing/Back/Backpacks/medical.rsi
+    sprite: _DarkestHour/Clothing/Back/Backpacks/medical.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingBackpack, BaseCommandContraband]
@@ -121,7 +121,7 @@
   description: It's a special backpack made exclusively for Nanotrasen officers.
   components:
   - type: Sprite
-    sprite: Clothing/Back/Backpacks/captain.rsi
+    sprite: _DarkestHour/Clothing/Back/Backpacks/captain.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: ClothingBackpack
@@ -142,7 +142,7 @@
   description: A backpack specially designed to repel stains and hazardous liquids.
   components:
   - type: Sprite
-    sprite: Clothing/Back/Backpacks/chemistry.rsi
+    sprite: _DarkestHour/Clothing/Back/Backpacks/chemistry.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: ClothingBackpack
@@ -160,7 +160,7 @@
   description: A backpack specially designed to repel stains and hazardous liquids.
   components:
   - type: Sprite
-    sprite: Clothing/Back/Backpacks/science.rsi
+    sprite: _DarkestHour/Clothing/Back/Backpacks/science.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: ClothingBackpack
@@ -187,7 +187,7 @@
   description: A robust backpack for stealing cargo's loot.
   components:
     - type: Sprite
-      sprite: Clothing/Back/Backpacks/cargo.rsi
+      sprite: _DarkestHour/Clothing/Back/Backpacks/cargo.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: ClothingBackpack
@@ -196,7 +196,7 @@
   description: A robust backpack for stashing your loot.
   components:
     - type: Sprite
-      sprite: Clothing/Back/Backpacks/salvage.rsi
+      sprite: _DarkestHour/Clothing/Back/Backpacks/salvage.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: ClothingBackpack

@@ -8,59 +8,75 @@
 - type: radioChannel
   id: CentCom
   name: chat-radio-centcom
-  keycode: 'y'
+  altKeyCodes: [ 'w' ] # DarkestHour: латиница на той же клавише
+  keycode: 'ц' # DarkestHour: кириллический префикс
   frequency: 133.7
   color: "#2681a5"
   longRange: true
 
 - type: radioChannel
   id: Command
-  name: chat-radio-command
-  keycode: 'c'
+  name: dh-chat-radio-command # DarkestHour: свой канал
+  altKeyCodes: [ 'r' ] # DarkestHour: латиница на той же клавише
+  keycode: 'к' # DarkestHour: кириллический префикс
   frequency: 135.3
-  color: "#fcdf03"
+  color: "#d8b96a" # DarkestHour
 
 - type: radioChannel
   id: Engineering
-  name: chat-radio-engineering
-  keycode: 'e'
+  name: dh-chat-radio-engineering # DarkestHour: свой канал
+  altKeyCodes: [ 'n' ] # DarkestHour: латиница на той же клавише
+  keycode: 'т' # DarkestHour: кириллический префикс
   frequency: 135.7
   color: "#ff733c"
 
 - type: radioChannel
   id: Medical
-  name: chat-radio-medical
-  keycode: 'm'
+  name: dh-chat-radio-medical # DarkestHour: свой канал
+  altKeyCodes: [ 'v' ] # DarkestHour: латиница на той же клавише
+  keycode: 'м' # DarkestHour: кириллический префикс
   frequency: 135.5
   color: "#57b8f0"
 
 - type: radioChannel
   id: Science
-  name: chat-radio-science
-  keycode: 'n'
+  name: dh-chat-radio-science # DarkestHour: свой канал
+  altKeyCodes: [ 'y' ] # DarkestHour: латиница на той же клавише
+  keycode: 'н' # DarkestHour: кириллический префикс
   frequency: 135.1
   color: "#cd7ccd"
 
 - type: radioChannel
   id: Security
-  name: chat-radio-security
-  keycode: 's'
+  name: dh-chat-radio-security # DarkestHour: свой канал
+  altKeyCodes: [ 'j' ] # DarkestHour: латиница на той же клавише
+  keycode: 'о' # DarkestHour: кириллический префикс
   frequency: 135.9
-  color: "#ff4242"
+  color: "#b8ab78" # DarkestHour
 
 - type: radioChannel
   id: Service
   name: chat-radio-service
-  keycode: 'v'
+  # DarkestHour: без префикса — канал отключён (сервисного отдела нет)
   frequency: 134.9
   color: "#539c00"
 
 - type: radioChannel
   id: Supply
-  name: chat-radio-supply
-  keycode: 'u'
+  name: dh-chat-radio-supply # DarkestHour: свой канал
+  altKeyCodes: [ 'c' ] # DarkestHour: латиница на той же клавише
+  keycode: 'с' # DarkestHour: кириллический префикс
   frequency: 134.7
   color: "#b48b57"
+
+# DarkestHour: канал отдела расследований (детективы, следователи, УКСБ). Латинского дубля нет:
+# ":h" в ванили занят под канал по умолчанию.
+- type: radioChannel
+  id: DHInvestigations
+  name: dh-chat-radio-investigations
+  keycode: 'р'
+  frequency: 136.1
+  color: "#d6c49a"
 
 - type: radioChannel
   id: Syndicate

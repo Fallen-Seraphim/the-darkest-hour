@@ -5,9 +5,9 @@
   description: A sturdy jumpskirt, issued to members of the Cargo department.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpskirts/Cargo/cargotech.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Cargo/cargotech.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpskirts/Cargo/cargotech.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Cargo/cargotech.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingUniformSkirtBase, BaseCommandContraband]
@@ -16,9 +16,9 @@
   description: 'What can brown do for you?'
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpskirts/Cargo/qm.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Cargo/qm.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpskirts/Cargo/qm.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Cargo/qm.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingUniformSkirtBase, BaseCommandContraband]
@@ -27,9 +27,9 @@
   description: A sharp turtleneck made for the hardy work environment of supply.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpskirts/Cargo/qmturtleskirt.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Cargo/qmturtleskirt.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpskirts/Cargo/qmturtleskirt.rsi
+    sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Cargo/qmturtleskirt.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
@@ -38,6 +38,6 @@
   description: Inspired by the quartermasters of militaries past, the perfect outfit for supplying a formal occasion.
   components:
     - type: Sprite
-      sprite: Clothing/Uniforms/Jumpskirts/Cargo/qmformaldress.rsi
+      sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Cargo/qmformaldress.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
     - type: Clothing
-      sprite: Clothing/Uniforms/Jumpskirts/Cargo/qmformaldress.rsi
+      sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Cargo/qmformaldress.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)

@@ -7,81 +7,84 @@
   id: CommandIconGroup
   groupName: job-icon-group-command
   sprite:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi # DarkestHour
     state: Captain
-  icons:
-  - JobIconCaptain
-  - JobIconChiefEngineer
-  - JobIconChiefMedicalOfficer
-  - JobIconHeadOfPersonnel
-  - JobIconHeadOfSecurity
-  - JobIconQuarterMaster
-  - JobIconResearchDirector
+  icons: # DarkestHour: свои должности
+  - JobIconDHCaptain
+  - JobIconDHAdjutant
+  - JobIconDHMetallArmedSpecialist
+  - JobIconDHSecurityChief
+  - JobIconDHChiefPhysician
+  - JobIconDHQuartermaster
+  - JobIconDHResearchDirector
+  - JobIconDHChiefTechnician
 
 - type: jobIconGroup
   id: CargoIconGroup
   groupName: job-icon-group-cargo
   sprite:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: CargoTechnician
-  icons:
-  - JobIconQuarterMaster
-  - JobIconCargoTechnician
-  - JobIconShaftMiner
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi # DarkestHour
+    state: Loader
+  icons: # DarkestHour: свои должности
+  - JobIconDHQuartermaster
+  - JobIconDHExpeditor
+  - JobIconDHLoader
 
 - type: jobIconGroup
   id: EngineeringIconGroup
   groupName: job-icon-group-engineering
   sprite:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: StationEngineer
-  icons:
-  - JobIconChiefEngineer
-  - JobIconAtmosphericTechnician
-  - JobIconStationEngineer
-  - JobIconTechnicalAssistant
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi # DarkestHour
+    state: Technician
+  icons: # DarkestHour: свои должности
+  - JobIconDHChiefTechnician
+  - JobIconDHLeadTechnician
+  - JobIconDHAtmosTechnician
+  - JobIconDHTechnician
+  - JobIconDHJuniorTechnician
 
 - type: jobIconGroup
   id: MedicalIconGroup
   groupName: job-icon-group-medical
   sprite:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: MedicalDoctor
-  icons:
-  - JobIconChiefMedicalOfficer
-  - JobIconChemist
-  - JobIconMedicalDoctor
-  - JobIconMedicalIntern
-  - JobIconParamedic
-  - JobIconPsychologist
-  - JobIconGeneticist
-  - JobIconVirologist
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi # DarkestHour
+    state: Physician
+  icons: # DarkestHour: свои должности
+  - JobIconDHChiefPhysician
+  - JobIconDHLeadPhysician
+  - JobIconDHChemist
+  - JobIconDHParamedic
+  - JobIconDHPhysician
+  - JobIconDHMedicalIntern
 
 - type: jobIconGroup
   id: ScienceIconGroup
   groupName: job-icon-group-science
   sprite:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: Scientist
-  icons:
-  - JobIconResearchDirector
-  - JobIconResearchAssistant
-  - JobIconScientist
-  - JobIconRoboticist
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi # DarkestHour
+    state: LeadScientist
+  icons: # DarkestHour: свои должности
+  - JobIconDHResearchDirector
+  - JobIconDHLeadScientist
+  - JobIconDHLabAssistant
+  - JobIconDHMaterialsScientist
+  - JobIconDHVirologist
 
 - type: jobIconGroup
   id: SecurityIconGroup
   groupName: job-icon-group-security
   sprite:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi # DarkestHour
     state: SecurityOfficer
-  icons:
-  - JobIconHeadOfSecurity
-  - JobIconWarden
-  - JobIconDetective
-  - JobIconSecurityCadet
-  - JobIconSecurityOfficer
-  - JobIconBrigmedic
+  icons: # DarkestHour: свои должности
+  - JobIconDHSecurityChief
+  - JobIconDHWarden
+  - JobIconDHDetective
+  - JobIconDHInvestigator
+  - JobIconDHSecurityInstructor
+  - JobIconDHSecurityPilot
+  - JobIconDHSecurityOfficer
+  - JobIconDHSecurityCadet
 
 - type: jobIconGroup
   id: ServiceIconGroup
@@ -129,11 +132,10 @@
   id: SiliconIconGroup
   groupName: job-icon-group-silicon
   sprite:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: Borg
-  icons:
-  - JobIconStationAi
-  - JobIconBorg
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi # DarkestHour
+    state: StationAi
+  icons: # DarkestHour: свои должности
+  - JobIconDHStationAi
 
 - type: jobIconGroup
   id: CentCommIconGroup

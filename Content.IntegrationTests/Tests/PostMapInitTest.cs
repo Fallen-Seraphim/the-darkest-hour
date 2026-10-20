@@ -416,6 +416,11 @@ namespace Content.IntegrationTests.Tests
 
                     jobs.ExceptWith(spawnPoints);
 
+                    // DarkestHour: дополнительные должности точек появления.
+                    jobs.ExceptWith(entManager.EntityQuery<SpawnPointComponent>()
+                        .Where(x => x.SpawnType == SpawnPointType.Job)
+                        .SelectMany(x => x.Jobs));
+
                     spawnPoints = entManager.EntityQuery<ContainerSpawnPointComponent>()
                         .Where(x => x.SpawnType is SpawnPointType.Job or SpawnPointType.Unset && x.Job != null)
                         .Select(x => x.Job.Value);

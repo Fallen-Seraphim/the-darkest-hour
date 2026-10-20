@@ -1,0 +1,167 @@
+# DarkestHour: свои должности. Снаряжение и лоадауты пока взяты у ванильных аналогов, форма — ванильная.
+
+- type: job
+  id: DHResearchDirector
+  name: dh-job-research-director-name
+  description: dh-job-research-director-description
+  playTimeTracker: JobDHResearchDirector
+  startingGear: DHResearchDirectorGear
+  icon: JobIconDHResearchDirector
+  supervisors: dh-job-supervisors-captain
+  guides: [ Command ]
+  access:
+  - Research
+  - Command
+  - Maintenance
+  - ResearchDirector
+  - Brig
+  - Cryogenics
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: CommandStaff
+
+- type: startingGear
+  id: DHResearchDirectorGear
+  equipment:
+    id: DHDogtags
+    ears: ClothingHeadsetRD
+  storage:
+    back:
+    - Flash
+
+- type: chameleonOutfit
+  id: DHResearchDirectorChameleonOutfit
+  job: DHResearchDirector
+  hasMindShield: true
+  equipment:
+    head: ClothingHeadHatBeretRND
+    eyes: ClothingEyesGlasses
+    mask: ClothingMaskGas
+    neck: ClothingNeckCloakRd
+    outerClothing: ClothingOuterCoatRD
+    gloves: ClothingHandsGlovesColorPurple
+
+- type: job
+  id: DHLeadScientist
+  name: dh-job-lead-scientist-name
+  description: dh-job-lead-scientist-description
+  playTimeTracker: JobDHLeadScientist
+  startingGear: DHLeadScientistGear
+  icon: JobIconDHLeadScientist
+  supervisors: dh-job-supervisors-research-director
+  guides: [ Science ]
+  access:
+  - Research
+  - Maintenance
+
+- type: startingGear
+  id: DHLeadScientistGear
+  equipment:
+    ears: ClothingHeadsetScience
+    id: DHDogtags
+
+- type: chameleonOutfit
+  id: DHLeadScientistChameleonOutfit
+  job: DHLeadScientist
+  equipment:
+    head: ClothingHeadBandSkull
+    eyes: ClothingEyesGlassesCheapSunglasses
+    mask: ClothingMaskGas
+    neck: ClothingNeckTieSci
+    outerClothing: ClothingOuterCoatRnd
+    gloves: ClothingHandsGlovesLatex
+
+- type: job
+  id: DHMaterialsScientist
+  name: dh-job-materials-scientist-name
+  description: dh-job-materials-scientist-description
+  playTimeTracker: JobDHMaterialsScientist
+  startingGear: DHMaterialsScientistGear
+  icon: JobIconDHMaterialsScientist
+  supervisors: dh-job-supervisors-scientists
+  guides: [ Science ]
+  access:
+  - Research
+  - Maintenance
+  - Salvage
+
+- type: startingGear
+  id: DHMaterialsScientistGear
+  equipment:
+    ears: ClothingHeadsetScience
+    id: DHDogtags
+
+- type: chameleonOutfit
+  id: DHMaterialsScientistChameleonOutfit
+  job: DHMaterialsScientist
+  equipment:
+    head: ClothingHeadBandSkull
+    eyes: ClothingEyesGlassesCheapSunglasses
+    mask: ClothingMaskGas
+    neck: ClothingNeckTieSci
+    outerClothing: ClothingOuterCoatRnd
+    gloves: ClothingHandsGlovesLatex
+
+- type: job
+  id: DHVirologist
+  name: dh-job-virologist-name
+  description: dh-job-virologist-description
+  playTimeTracker: JobDHVirologist
+  startingGear: DHVirologistGear
+  icon: JobIconDHVirologist
+  supervisors: dh-job-supervisors-scientists
+  guides: [ Science ]
+  access:
+  - Research
+  - Maintenance
+  - Medical
+
+- type: startingGear
+  id: DHVirologistGear
+  equipment:
+    ears: ClothingHeadsetMedicalScience
+    id: DHDogtags
+
+- type: chameleonOutfit
+  id: DHVirologistChameleonOutfit
+  job: DHVirologist
+  equipment:
+    head: ClothingHeadBandSkull
+    eyes: ClothingEyesGlassesCheapSunglasses
+    mask: ClothingMaskGas
+    neck: ClothingNeckTieSci
+    outerClothing: ClothingOuterCoatRnd
+    gloves: ClothingHandsGlovesLatex
+
+- type: job
+  id: DHLabAssistant
+  name: dh-job-lab-assistant-name
+  description: dh-job-lab-assistant-description
+  playTimeTracker: JobDHLabAssistant
+  startingGear: DHLabAssistantGear
+  icon: JobIconDHLabAssistant
+  supervisors: dh-job-supervisors-science-staff
+  guides: [ Science ]
+  access:
+  - Research
+  - Maintenance
+
+- type: startingGear
+  id: DHLabAssistantGear
+  equipment:
+    shoes: ClothingShoesColorWhite
+    id: DHDogtags
+    ears: ClothingHeadsetScience
+    pocket2: BookScientistsGuidebook
+
+- type: chameleonOutfit
+  id: DHLabAssistantChameleonOutfit
+  job: DHLabAssistant
+  equipment:
+    head: ClothingHeadHatCardborg
+    eyes: ClothingEyesGlasses
+    mask: ClothingMaskGas
+    neck: ClothingNeckScarfStripedPurple
+    outerClothing: ClothingOuterCoatLab
+    gloves: ClothingHandsGlovesLatex
