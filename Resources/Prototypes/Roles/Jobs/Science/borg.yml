@@ -2,21 +2,19 @@
 # Why is this one file?
 - type: job
   id: StationAi
-  name: job-name-station-ai
-  description: job-description-station-ai
+  name: dh-job-station-ai-name # DarkestHour: станционный ИИ M.A.R.S. 1.0
+  description: dh-job-station-ai-description # DarkestHour
   playTimeTracker: JobStationAi
-  requirements:
-  - !type:RoleTimeRequirement
-    role: JobBorg
-    time: 5h
-  icon: JobIconStationAi
-  supervisors: job-supervisors-rd
+  # DarkestHour: требований по времени пока нет (киборгов тоже нет)
+  icon: JobIconDHStationAi # DarkestHour
+  supervisors: dh-job-supervisors-captain # DarkestHour
   jobEntity: StationAiBrain
   jobPreviewEntity: PlayerStationAiPreview
   applyTraits: false
 
 - type: job
   id: Borg
+  setPreference: false # DarkestHour: киборгов на станции нет
   name: job-name-borg
   description: job-description-borg
   playTimeTracker: JobBorg

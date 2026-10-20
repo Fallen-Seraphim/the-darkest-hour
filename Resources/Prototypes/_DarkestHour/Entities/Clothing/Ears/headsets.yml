@@ -1,0 +1,54 @@
+# DarkestHour: гарнитуры корпоративной СБ с каналом расследований.
+
+# Детектив и следователи: КСБ (:о) + расследования (:р).
+- type: entity
+  parent: [ ClothingHeadset, BaseSecurityContraband ]
+  id: DHClothingHeadsetInvestigations
+  name: investigations headset
+  description: A corporate security headset with an extra investigations channel.
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeySecurity
+      - DHEncryptionKeyInvestigations
+      - EncryptionKeyCommon
+  - type: Sprite
+    sprite: Clothing/Ears/Headsets/security.rsi
+  - type: Clothing
+    sprite: Clothing/Ears/Headsets/security.rsi
+
+# УКСБ: командование (:к) + КСБ (:о) + расследования (:р).
+- type: entity
+  parent: [ ClothingHeadsetAlt, BaseCommandContraband ]
+  id: DHClothingHeadsetAltSecurityChief
+  name: corporate security chief's over-ear headset
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeySecurity
+      - DHEncryptionKeyInvestigations
+      - EncryptionKeyCommand
+      - EncryptionKeyCommon
+  - type: Sprite
+    sprite: Clothing/Ears/Headsets/security.rsi
+  - type: Clothing
+    sprite: Clothing/Ears/Headsets/security.rsi
+
+# Специалист Metall Armed: командование (:к) + КСБ (:о).
+- type: entity
+  parent: [ ClothingHeadsetAlt, BaseCommandContraband ]
+  id: DHClothingHeadsetAltMetallArmed
+  name: Metall Armed over-ear headset
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeySecurity
+      - EncryptionKeyCommand
+      - EncryptionKeyCommon
+  - type: Sprite
+    sprite: Clothing/Ears/Headsets/command.rsi
+  - type: Clothing
+    sprite: Clothing/Ears/Headsets/command.rsi

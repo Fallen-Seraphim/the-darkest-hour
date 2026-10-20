@@ -1,0 +1,104 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Made for The Darkest Hour (Tools/_DarkestHour/jobicons/build.py), layout after the job icons of /tg/station",
+    "size": {
+        "x": 8,
+        "y": 8
+    },
+    "states": [
+        {
+            "name": "Captain"
+        },
+        {
+            "name": "Adjutant"
+        },
+        {
+            "name": "MetallArmedSpecialist"
+        },
+        {
+            "name": "SecurityChief"
+        },
+        {
+            "name": "Warden"
+        },
+        {
+            "name": "Detective"
+        },
+        {
+            "name": "Investigator"
+        },
+        {
+            "name": "SecurityOfficer"
+        },
+        {
+            "name": "SecurityPilot"
+        },
+        {
+            "name": "SecurityInstructor"
+        },
+        {
+            "name": "SecurityCadet"
+        },
+        {
+            "name": "ChiefPhysician"
+        },
+        {
+            "name": "LeadPhysician"
+        },
+        {
+            "name": "Physician"
+        },
+        {
+            "name": "Chemist"
+        },
+        {
+            "name": "Paramedic"
+        },
+        {
+            "name": "MedicalIntern"
+        },
+        {
+            "name": "Quartermaster"
+        },
+        {
+            "name": "Expeditor"
+        },
+        {
+            "name": "Loader"
+        },
+        {
+            "name": "ResearchDirector"
+        },
+        {
+            "name": "LeadScientist"
+        },
+        {
+            "name": "MaterialsScientist"
+        },
+        {
+            "name": "Virologist"
+        },
+        {
+            "name": "LabAssistant"
+        },
+        {
+            "name": "ChiefTechnician"
+        },
+        {
+            "name": "LeadTechnician"
+        },
+        {
+            "name": "AtmosTechnician"
+        },
+        {
+            "name": "Technician"
+        },
+        {
+            "name": "JuniorTechnician"
+        },
+        {
+            "name": "StationAi"
+        }
+    ]
+}

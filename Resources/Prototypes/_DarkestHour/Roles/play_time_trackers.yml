@@ -1,0 +1,91 @@
+# DarkestHour: трекеры наигранного времени своих должностей.
+
+- type: playTimeTracker
+  id: JobDHCaptain
+
+- type: playTimeTracker
+  id: JobDHAdjutant
+
+- type: playTimeTracker
+  id: JobDHMetallArmedSpecialist
+
+- type: playTimeTracker
+  id: JobDHSecurityChief
+
+- type: playTimeTracker
+  id: JobDHWarden
+
+- type: playTimeTracker
+  id: JobDHDetective
+
+- type: playTimeTracker
+  id: JobDHInvestigator
+
+- type: playTimeTracker
+  id: JobDHSecurityOfficer
+
+- type: playTimeTracker
+  id: JobDHSecurityPilot
+
+- type: playTimeTracker
+  id: JobDHSecurityInstructor
+
+- type: playTimeTracker
+  id: JobDHSecurityCadet
+
+- type: playTimeTracker
+  id: JobDHChiefPhysician
+
+- type: playTimeTracker
+  id: JobDHLeadPhysician
+
+- type: playTimeTracker
+  id: JobDHChemist
+
+- type: playTimeTracker
+  id: JobDHPhysician
+
+- type: playTimeTracker
+  id: JobDHParamedic
+
+- type: playTimeTracker
+  id: JobDHMedicalIntern
+
+- type: playTimeTracker
+  id: JobDHQuartermaster
+
+- type: playTimeTracker
+  id: JobDHExpeditor
+
+- type: playTimeTracker
+  id: JobDHLoader
+
+- type: playTimeTracker
+  id: JobDHResearchDirector
+
+- type: playTimeTracker
+  id: JobDHLeadScientist
+
+- type: playTimeTracker
+  id: JobDHMaterialsScientist
+
+- type: playTimeTracker
+  id: JobDHVirologist
+
+- type: playTimeTracker
+  id: JobDHLabAssistant
+
+- type: playTimeTracker
+  id: JobDHChiefTechnician
+
+- type: playTimeTracker
+  id: JobDHLeadTechnician
+
+- type: playTimeTracker
+  id: JobDHAtmosTechnician
+
+- type: playTimeTracker
+  id: JobDHTechnician
+
+- type: playTimeTracker
+  id: JobDHJuniorTechnician

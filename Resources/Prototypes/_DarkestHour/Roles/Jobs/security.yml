@@ -1,0 +1,355 @@
+# DarkestHour: свои должности. Снаряжение и лоадауты пока взяты у ванильных аналогов, форма — ванильная.
+
+- type: job
+  id: DHSecurityChief
+  name: dh-job-security-chief-name
+  description: dh-job-security-chief-description
+  playTimeTracker: JobDHSecurityChief
+  startingGear: DHSecurityChiefGear
+  icon: JobIconDHSecurityChief
+  supervisors: dh-job-supervisors-captain
+  guides: [ Command ]
+  access:
+  - HeadOfSecurity
+  - Command
+  - Brig
+  - Security
+  - Armory
+  - Maintenance
+  - External
+  - Detective
+  - Cryogenics
+  - GenpopEnter
+  - GenpopLeave
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+  - !type:AddComponentSpecial
+    components:
+    - type: CommandStaff
+
+- type: startingGear
+  id: DHSecurityChiefGear
+  equipment:
+    eyes: ClothingEyesGlassesSecurity
+    id: DHDogtags
+    gloves: ClothingHandsGlovesCombat
+    ears: DHClothingHeadsetAltSecurityChief
+    pocket1: WeaponPistolMk58
+  storage:
+    back:
+    - Flash
+    - MagazinePistol
+
+- type: chameleonOutfit
+  id: DHSecurityChiefChameleonOutfit
+  job: DHSecurityChief
+  hasMindShield: true
+  equipment:
+    head: ClothingHeadHatBeretHoS
+    mask: ClothingMaskGasSecurity
+    neck: ClothingNeckCloakHos
+
+- type: job
+  id: DHWarden
+  name: dh-job-warden-name
+  description: dh-job-warden-description
+  playTimeTracker: JobDHWarden
+  startingGear: DHWardenGear
+  icon: JobIconDHWarden
+  supervisors: dh-job-supervisors-security-chief
+  guides: [ Security ]
+  access:
+  - Security
+  - Brig
+  - Armory
+  - Maintenance
+  - External
+  - Detective
+  - Cryogenics
+  - GenpopEnter
+  - GenpopLeave
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+
+- type: startingGear
+  id: DHWardenGear
+  equipment:
+    eyes: ClothingEyesGlassesSecurity
+    id: DHDogtags
+    ears: ClothingHeadsetSecurity
+    pocket1: WeaponPistolMk58
+  storage:
+    back:
+    - Flash
+    - MagazinePistol
+
+- type: chameleonOutfit
+  id: DHWardenChameleonOutfit
+  job: DHWarden
+  hasMindShield: true
+  equipment:
+    head: ClothingHeadHatWarden
+    mask: ClothingMaskGasSecurity
+    outerClothing: ClothingOuterCoatWarden
+    jumpsuit: ClothingUniformJumpsuitWarden
+    neck: Dinkystar
+    belt: ClothingBeltSecurity
+    gloves: ClothingHandsGlovesCombat
+    shoes: ClothingShoesBootsJack
+
+- type: job
+  id: DHDetective
+  name: dh-job-detective-name
+  description: dh-job-detective-description
+  playTimeTracker: JobDHDetective
+  startingGear: DHDetectiveGear
+  icon: JobIconDHDetective
+  supervisors: dh-job-supervisors-security-chief
+  guides: [ Forensics ]
+  access:
+  - Security
+  - Brig
+  - Maintenance
+  - Detective
+  - Cryogenics
+  - External
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+
+- type: startingGear
+  id: DHDetectiveGear
+  equipment:
+    eyes: ClothingEyesGlassesSecurity
+    id: DHDogtags
+    ears: DHClothingHeadsetInvestigations
+    belt: ClothingBeltHolsterFilled
+  storage:
+    back:
+    - Flash
+    - ForensicPad
+    - ForensicScanner
+
+- type: chameleonOutfit
+  id: DHDetectiveChameleonOutfit
+  job: DHDetective
+  hasMindShield: true
+  equipment:
+    head: ClothingHeadHatFedoraBrown
+    mask: ClothingMaskGasSecurity
+    neck: ClothingNeckTieDet
+    gloves: ClothingHandsGlovesForensic
+
+- type: job
+  id: DHInvestigator
+  name: dh-job-investigator-name
+  description: dh-job-investigator-description
+  playTimeTracker: JobDHInvestigator
+  startingGear: DHInvestigatorGear
+  icon: JobIconDHInvestigator
+  supervisors: dh-job-supervisors-detective
+  guides: [ Forensics ]
+  access:
+  - Security
+  - Brig
+  - Maintenance
+  - Detective
+  - Cryogenics
+  - External
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+
+- type: startingGear
+  id: DHInvestigatorGear
+  equipment:
+    eyes: ClothingEyesGlassesSecurity
+    id: DHDogtags
+    ears: DHClothingHeadsetInvestigations
+    belt: ClothingBeltHolsterFilled
+  storage:
+    back:
+    - Flash
+    - ForensicPad
+    - ForensicScanner
+
+- type: chameleonOutfit
+  id: DHInvestigatorChameleonOutfit
+  job: DHInvestigator
+  hasMindShield: true
+  equipment:
+    head: ClothingHeadHatFedoraBrown
+    mask: ClothingMaskGasSecurity
+    neck: ClothingNeckTieDet
+    gloves: ClothingHandsGlovesForensic
+
+- type: job
+  id: DHSecurityOfficer
+  name: dh-job-security-officer-name
+  description: dh-job-security-officer-description
+  playTimeTracker: JobDHSecurityOfficer
+  startingGear: DHSecurityOfficerGear
+  icon: JobIconDHSecurityOfficer
+  supervisors: dh-job-supervisors-security-chief
+  guides: [ Security ]
+  access:
+  - Security
+  - Brig
+  - Maintenance
+  - External
+  - Cryogenics
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+
+- type: startingGear
+  id: DHSecurityOfficerGear
+  equipment:
+    eyes: ClothingEyesGlassesSecurity
+    ears: ClothingHeadsetSecurity
+    pocket1: WeaponPistolMk58
+    id: DHDogtags
+  storage:
+    back:
+    - Flash
+    - MagazinePistol
+
+- type: chameleonOutfit
+  id: DHSecurityOfficerChameleonOutfit
+  job: DHSecurityOfficer
+  hasMindShield: true
+  equipment:
+    head: ClothingHeadHatBeretSecurity
+    mask: ClothingMaskGasSecurity
+    neck: Dinkystar
+    gloves: ClothingHandsGlovesColorBlack
+
+- type: job
+  id: DHSecurityPilot
+  name: dh-job-security-pilot-name
+  description: dh-job-security-pilot-description
+  playTimeTracker: JobDHSecurityPilot
+  startingGear: DHSecurityPilotGear
+  icon: JobIconDHSecurityPilot
+  supervisors: dh-job-supervisors-security-chief
+  guides: [ Security ]
+  access:
+  - Security
+  - Brig
+  - Maintenance
+  - External
+  - Cryogenics
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+
+- type: startingGear
+  id: DHSecurityPilotGear
+  equipment:
+    eyes: ClothingEyesGlassesSecurity
+    ears: ClothingHeadsetSecurity
+    pocket1: WeaponPistolMk58
+    id: DHDogtags
+  storage:
+    back:
+    - Flash
+    - MagazinePistol
+
+- type: chameleonOutfit
+  id: DHSecurityPilotChameleonOutfit
+  job: DHSecurityPilot
+  hasMindShield: true
+  equipment:
+    head: ClothingHeadHatBeretSecurity
+    mask: ClothingMaskGasSecurity
+    neck: Dinkystar
+    gloves: ClothingHandsGlovesColorBlack
+
+- type: job
+  id: DHSecurityInstructor
+  name: dh-job-security-instructor-name
+  description: dh-job-security-instructor-description
+  playTimeTracker: JobDHSecurityInstructor
+  startingGear: DHSecurityInstructorGear
+  icon: JobIconDHSecurityInstructor
+  supervisors: dh-job-supervisors-security-chief
+  guides: [ Security ]
+  access:
+  - Security
+  - Brig
+  - Maintenance
+  - External
+  - Cryogenics
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+
+- type: startingGear
+  id: DHSecurityInstructorGear
+  equipment:
+    eyes: ClothingEyesGlassesSecurity
+    ears: ClothingHeadsetSecurity
+    pocket1: WeaponPistolMk58
+    id: DHDogtags
+  storage:
+    back:
+    - Flash
+    - MagazinePistol
+
+- type: chameleonOutfit
+  id: DHSecurityInstructorChameleonOutfit
+  job: DHSecurityInstructor
+  hasMindShield: true
+  equipment:
+    head: ClothingHeadHatBeretSecurity
+    mask: ClothingMaskGasSecurity
+    neck: Dinkystar
+    gloves: ClothingHandsGlovesColorBlack
+
+- type: job
+  id: DHSecurityCadet
+  name: dh-job-security-cadet-name
+  description: dh-job-security-cadet-description
+  playTimeTracker: JobDHSecurityCadet
+  startingGear: DHSecurityCadetGear
+  icon: JobIconDHSecurityCadet
+  supervisors: dh-job-supervisors-security-instructor
+  guides: [ Security ]
+  access:
+  - Security
+  - Brig
+  - Maintenance
+  - External
+  - Cryogenics
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+
+- type: startingGear
+  id: DHSecurityCadetGear
+  equipment:
+    shoes: ClothingShoesBootsJackFilled
+    outerClothing: ClothingOuterArmorBasic
+    id: DHDogtags
+    ears: ClothingHeadsetSecurity
+    belt: ClothingBeltSecurityFilled
+    pocket1: WeaponPistolMk58
+    pocket2: BookSecurity
+  storage:
+    back:
+    - Flash
+    - MagazinePistol
+
+- type: chameleonOutfit
+  id: DHSecurityCadetChameleonOutfit
+  job: DHSecurityCadet
+  hasMindShield: true
+  equipment:
+    head: ClothingHeadHelmetBasic
+    eyes: ClothingEyesHudSecurity
+    mask: ClothingMaskGasSecurity
+    neck: ClothingNeckScarfStripedRed
+    belt: ClothingBeltSecurity
+    gloves: ClothingHandsGlovesColorBlack

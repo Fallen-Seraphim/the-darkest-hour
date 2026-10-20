@@ -1,0 +1,6 @@
+# DarkestHour: станционный ИИ Metallistick Group.
+- type: localizedDataset
+  id: DHNamesMARS
+  values:
+    prefix: dh-names-mars-dataset-
+    count: 1

@@ -30,6 +30,14 @@ public sealed partial class RadioChannelPrototype : IPrototype
     [DataField("keycode")]
     public char KeyCode { get; private set; } = '\0';
 
+    // DarkestHour: дополнительные префиксы канала — латинская буква на той же клавише, что и кириллическая
+    // (например, «о» и «j»), чтобы канал работал при любой раскладке.
+    /// <summary>
+    /// Additional single-character prefixes that also select this channel.
+    /// </summary>
+    [DataField]
+    public List<char> AltKeyCodes { get; private set; } = new();
+
     /// <summary>
     /// Color used to display the channel.
     /// </summary>

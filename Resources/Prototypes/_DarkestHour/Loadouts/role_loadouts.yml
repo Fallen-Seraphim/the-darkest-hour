@@ -1,0 +1,405 @@
+# DarkestHour: лоадауты должностей — группы ванильных аналогов.
+
+- type: roleLoadout
+  id: JobDHCaptain
+  groups:
+  - CaptainHead
+  - CaptainNeck
+  - CaptainJumpsuit
+  - CaptainBackpack
+  - CaptainOuterClothing
+  - AssistiveItems
+  - Survival
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHAdjutant
+  groups:
+  - HoPHead
+  - HoPNeck
+  - HoPJumpsuit
+  - HoPBackpack
+  - HoPOuterClothing
+  - Glasses
+  - AssistiveItems
+  - Survival
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHMetallArmedSpecialist
+  groups:
+  - SecurityHead
+  - SecurityJumpsuit
+  - SecurityBackpack
+  - SecurityOuterClothing
+  - SecurityShoes
+  - SecurityPDA
+  - SecurityBelt
+  - AssistiveItems
+  - SurvivalSecurity
+  - Trinkets
+  - SecurityJobTrinkets
+
+- type: roleLoadout
+  id: JobDHSecurityChief
+  groups:
+  - HeadofSecurityHead
+  - HeadofSecurityNeck
+  - HeadofSecurityJumpsuit
+  - SecurityBackpack
+  - SecurityBelt
+  - HeadofSecurityOuterClothing
+  - SecurityShoes
+  - AssistiveItems
+  - SurvivalSecurity
+  - Trinkets
+  - HeadofSecurityJobTrinkets
+
+- type: roleLoadout
+  id: JobDHWarden
+  groups:
+  - WardenHead
+  - WardenJumpsuit
+  - SecurityBackpack
+  - SecurityBelt
+  - WardenOuterClothing
+  - SecurityShoes
+  - AssistiveItems
+  - SurvivalSecurity
+  - Trinkets
+  - WardenJobTrinkets
+
+- type: roleLoadout
+  id: JobDHDetective
+  groups:
+  - DetectiveHead
+  - DetectiveNeck
+  - DetectiveJumpsuit
+  - SecurityBackpack
+  - DetectiveOuterClothing
+  - SecurityShoes
+  - AssistiveItems
+  - SurvivalSecurity
+  - Trinkets
+  - DetectiveJobTrinkets
+
+- type: roleLoadout
+  id: JobDHInvestigator
+  groups:
+  - DetectiveHead
+  - DetectiveNeck
+  - DetectiveJumpsuit
+  - SecurityBackpack
+  - DetectiveOuterClothing
+  - SecurityShoes
+  - AssistiveItems
+  - SurvivalSecurity
+  - Trinkets
+  - DetectiveJobTrinkets
+
+- type: roleLoadout
+  id: JobDHSecurityOfficer
+  groups:
+  - SecurityHead
+  - SecurityJumpsuit
+  - SecurityBackpack
+  - SecurityOuterClothing
+  - SecurityShoes
+  - SecurityPDA
+  - SecurityBelt
+  - AssistiveItems
+  - SurvivalSecurity
+  - Trinkets
+  - SecurityJobTrinkets
+
+- type: roleLoadout
+  id: JobDHSecurityPilot
+  groups:
+  - SecurityHead
+  - SecurityJumpsuit
+  - SecurityBackpack
+  - SecurityOuterClothing
+  - SecurityShoes
+  - SecurityPDA
+  - SecurityBelt
+  - AssistiveItems
+  - SurvivalSecurity
+  - Trinkets
+  - SecurityJobTrinkets
+
+- type: roleLoadout
+  id: JobDHSecurityInstructor
+  groups:
+  - SecurityHead
+  - SecurityJumpsuit
+  - SecurityBackpack
+  - SecurityOuterClothing
+  - SecurityShoes
+  - SecurityPDA
+  - SecurityBelt
+  - AssistiveItems
+  - SurvivalSecurity
+  - Trinkets
+  - SecurityJobTrinkets
+
+- type: roleLoadout
+  id: JobDHSecurityCadet
+  groups:
+  - SecurityCadetJumpsuit
+  - SecurityBackpack
+  - AssistiveItems
+  - SurvivalSecurity
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHChiefPhysician
+  groups:
+  - ChiefMedicalOfficerHead
+  - MedicalMask
+  - ChiefMedicalOfficerJumpsuit
+  - MedicalBackpack
+  - ChiefMedicalOfficerOuterClothing
+  - ChiefMedicalOfficerNeck
+  - ChiefMedicalOfficerShoes
+  - Glasses
+  - AssistiveItems
+  - SurvivalMedical
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHLeadPhysician
+  groups:
+  - MedicalDoctorHead
+  - MedicalMask
+  - MedicalDoctorJumpsuit
+  - MedicalBackpack
+  - MedicalDoctorOuterClothing
+  - MedicalShoes
+  - MedicalDoctorPDA
+  - Glasses
+  - AssistiveItems
+  - SurvivalMedical
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHChemist
+  groups:
+  - MedicalMask
+  - ChemistJumpsuit
+  - ChemistBackpack
+  - ChemistOuterClothing
+  - MedicalShoes
+  - Glasses
+  - AssistiveItems
+  - SurvivalMedical
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHPhysician
+  groups:
+  - MedicalDoctorHead
+  - MedicalMask
+  - MedicalDoctorJumpsuit
+  - MedicalBackpack
+  - MedicalDoctorOuterClothing
+  - MedicalShoes
+  - MedicalDoctorPDA
+  - Glasses
+  - AssistiveItems
+  - SurvivalMedical
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHParamedic
+  groups:
+  - ParamedicHead
+  - MedicalMask
+  - ParamedicJumpsuit
+  - MedicalBackpack
+  - ParamedicOuterClothing
+  - ParamedicShoes
+  - Glasses
+  - AssistiveItems
+  - SurvivalMedical
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHMedicalIntern
+  groups:
+  - MedicalInternJumpsuit
+  - MedicalBackpack
+  - Glasses
+  - AssistiveItems
+  - SurvivalMedical
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHQuartermaster
+  groups:
+  - QuartermasterHead
+  - QuartermasterNeck
+  - QuartermasterJumpsuit
+  - CargoTechnicianBackpack
+  - QuartermasterOuterClothing
+  - QuartermasterShoes
+  - Glasses
+  - AssistiveItems
+  - Survival
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHExpeditor
+  groups:
+  - SalvageSpecialistBackpack
+  - SalvageSpecialistOuterClothing
+  - SalvageSpecialistShoes
+  - Glasses
+  - AssistiveItems
+  - Survival
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHLoader
+  groups:
+  - CargoTechnicianHead
+  - CargoTechnicianJumpsuit
+  - CargoTechnicianBackpack
+  - CargoTechnicianOuterClothing
+  - CargoTechnicianShoes
+  - CargoTechnicianID
+  - Glasses
+  - AssistiveItems
+  - Survival
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHResearchDirector
+  groups:
+  - ResearchDirectorHead
+  - ResearchDirectorNeck
+  - ResearchDirectorJumpsuit
+  - ScientistBackpack
+  - ResearchDirectorOuterClothing
+  - ScientistGloves
+  - ResearchDirectorShoes
+  - Glasses
+  - AssistiveItems
+  - Survival
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHLeadScientist
+  groups:
+  - ScientistHead
+  - ScientistNeck
+  - ScientistJumpsuit
+  - ScientistBackpack
+  - ScientistOuterClothing
+  - ScientistGloves
+  - ScientistShoes
+  - ScientistPDA
+  - Glasses
+  - AssistiveItems
+  - Survival
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHMaterialsScientist
+  groups:
+  - ScientistHead
+  - ScientistNeck
+  - ScientistJumpsuit
+  - ScientistBackpack
+  - ScientistOuterClothing
+  - ScientistGloves
+  - ScientistShoes
+  - ScientistPDA
+  - Glasses
+  - AssistiveItems
+  - Survival
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHVirologist
+  groups:
+  - ScientistHead
+  - ScientistNeck
+  - ScientistJumpsuit
+  - ScientistBackpack
+  - ScientistOuterClothing
+  - ScientistGloves
+  - ScientistShoes
+  - ScientistPDA
+  - Glasses
+  - AssistiveItems
+  - Survival
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHLabAssistant
+  groups:
+  - ResearchAssistantJumpsuit
+  - ScientistBackpack
+  - Glasses
+  - AssistiveItems
+  - Survival
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHChiefTechnician
+  groups:
+  - ChiefEngineerHead
+  - ChiefEngineerJumpsuit
+  - StationEngineerBackpack
+  - ChiefEngineerNeck
+  - ChiefEngineerOuterClothing
+  - ChiefEngineerShoes
+  - AssistiveItems
+  - SurvivalExtended
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHLeadTechnician
+  groups:
+  - StationEngineerHead
+  - StationEngineerJumpsuit
+  - StationEngineerBackpack
+  - StationEngineerOuterClothing
+  - StationEngineerShoes
+  - StationEngineerID
+  - AssistiveItems
+  - SurvivalExtended
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHAtmosTechnician
+  groups:
+  - AtmosphericTechnicianJumpsuit
+  - AtmosphericTechnicianBackpack
+  - AtmosphericTechnicianOuterClothing
+  - AtmosphericTechnicianShoes
+  - AssistiveItems
+  - SurvivalExtended
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHTechnician
+  groups:
+  - StationEngineerHead
+  - StationEngineerJumpsuit
+  - StationEngineerBackpack
+  - StationEngineerOuterClothing
+  - StationEngineerShoes
+  - StationEngineerID
+  - AssistiveItems
+  - SurvivalExtended
+  - Trinkets
+
+- type: roleLoadout
+  id: JobDHJuniorTechnician
+  groups:
+  - TechnicalAssistantJumpsuit
+  - StationEngineerBackpack
+  - AssistiveItems
+  - SurvivalExtended
+  - Trinkets

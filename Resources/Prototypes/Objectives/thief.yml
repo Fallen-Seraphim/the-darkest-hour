@@ -154,7 +154,7 @@
   id: OfficerHandgunsStealCollectionObjective
   components:
   - type: NotJobRequirement
-    jobs: [ SecurityOfficer, HeadOfSecurity, Detective, Warden ]
+    jobs: [ SecurityOfficer, HeadOfSecurity, Detective, Warden, DHSecurityOfficer, DHSecurityPilot, DHSecurityInstructor, DHSecurityCadet, DHSecurityChief, DHDetective, DHInvestigator, DHWarden ] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: OfficerHandgun
     minCollectionSize: 2
@@ -182,7 +182,7 @@
   id: ForensicScannerStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Detective ]
+    jobs: [ Detective, DHDetective, DHInvestigator ] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: ForensicScanner
   - type: Objective
@@ -193,7 +193,7 @@
   id: FlippoEngravedLighterStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Detective ]
+    jobs: [ Detective, DHDetective, DHInvestigator ] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: FlippoEngravedLighter
   - type: Objective
@@ -244,7 +244,7 @@
   id: ClothingHeadsetAltMedicalStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ ChiefMedicalOfficer ]
+    jobs: [ ChiefMedicalOfficer, DHChiefPhysician ] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: ClothingHeadsetAltMedical
   - type: Objective
@@ -321,7 +321,7 @@
   id: ClothingNeckGoldmedalStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ HeadOfPersonnel ]
+    jobs: [ HeadOfPersonnel, DHAdjutant ] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: ClothingNeckGoldmedal
   - type: Objective
@@ -332,7 +332,7 @@
   id: ClothingNeckClownmedalStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Captain ]
+    jobs: [ Captain, DHCaptain ] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: ClothingNeckClownmedal
   - type: Objective
@@ -343,7 +343,7 @@
   id: CaptainSwordStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Captain ]
+    jobs: [ Captain, DHCaptain ] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: CaptainSword
   - type: Objective
@@ -356,7 +356,7 @@
   id: NuclearBombStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Captain ]
+    jobs: [ Captain, DHCaptain ] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: NuclearBomb
   - type: Objective
@@ -367,7 +367,7 @@
   id: FaxMachineCaptainStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Captain ]
+    jobs: [ Captain, DHCaptain ] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: FaxMachineCaptain
   - type: Objective
@@ -455,7 +455,7 @@
   id: ToiletGoldenStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Captain ]
+    jobs: [ Captain, DHCaptain ] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: ToiletGoldenDirtyWater
   - type: Objective
@@ -468,7 +468,7 @@
   id: IanStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ HeadOfPersonnel ]
+    jobs: [ HeadOfPersonnel, DHAdjutant ] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: AnimalIan
   - type: Objective
@@ -488,7 +488,7 @@
   id: McGriffStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Detective ]
+    jobs: [ Detective, DHDetective, DHInvestigator ] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: AnimalMcGriff
   - type: Objective
@@ -519,7 +519,7 @@
   id: RenaultStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Captain ]
+    jobs: [ Captain, DHCaptain ] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: AnimalRenault
   - type: Objective
@@ -530,7 +530,7 @@
   id: ShivaStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ SecurityOfficer ]
+    jobs: [ SecurityOfficer, DHSecurityOfficer, DHSecurityPilot, DHSecurityInstructor, DHSecurityCadet ] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: AnimalShiva
   - type: Objective

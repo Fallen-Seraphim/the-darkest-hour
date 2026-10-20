@@ -34,8 +34,8 @@
 
 - type: roleLoadout
   id: JobStationAi
-  nameDataset: NamesAI
-  canCustomizeName: true
+  nameDataset: DHNamesMARS # DarkestHour: ИИ станции всегда M.A.R.S. 1.0
+  canCustomizeName: false # DarkestHour
 
 # Civilian
 - type: roleLoadout

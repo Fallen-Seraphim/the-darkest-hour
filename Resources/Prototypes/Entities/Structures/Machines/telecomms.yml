@@ -197,6 +197,7 @@
       - EncryptionKeyMedical
       - EncryptionKeyScience
       - EncryptionKeySecurity
+      - DHEncryptionKeyInvestigations # DarkestHour: канал расследований
       - EncryptionKeyService
       - EncryptionKeyCommand
 
@@ -259,6 +260,7 @@
     containers:
       key_slots:
       - EncryptionKeySecurity
+      - DHEncryptionKeyInvestigations # DarkestHour: канал расследований
 
 - type: entity
   parent: TelecomServer

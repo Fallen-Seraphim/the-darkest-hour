@@ -1,12 +1,12 @@
 - type: department
   id: Cargo
-  name: department-Cargo
-  description: department-Cargo-description
-  color: "#A46106"
-  roles:
-  - CargoTechnician
-  - Quartermaster
-  - SalvageSpecialist
+  name: dh-department-supply # DarkestHour
+  description: dh-department-supply-description # DarkestHour
+  color: "#B08452" # DarkestHour
+  roles: # DarkestHour: свои должности
+  - DHQuartermaster
+  - DHExpeditor
+  - DHLoader
 
 - type: department
   id: CentralCommand
@@ -25,78 +25,87 @@
   color: "#7F7F7F"
   weight: -10 # Lowest weight of all "regular" crew departments
   ignoreForDepartmentFallback: true
+  editorHidden: true # DarkestHour: отдела нет на станции
   roles:
   - Passenger
   - Visitor
 
 - type: department
   id: Command
-  name: department-Command
-  description: department-Command-description
-  color: "#334E6D"
+  name: dh-department-command # DarkestHour
+  description: dh-department-command-description # DarkestHour
+  color: "#C8AE72" # DarkestHour
   weight: 100 # Highest weight of all "regular" crew departments
   primary: false
-  roles:
-  - Captain
-  - ChiefEngineer
-  - ChiefMedicalOfficer
-  - HeadOfPersonnel
-  - HeadOfSecurity
-  - ResearchDirector
-  - Quartermaster
+  roles: # DarkestHour: свои должности
+  - DHCaptain
+  - DHAdjutant
+  - DHMetallArmedSpecialist
+  - DHSecurityChief
+  - DHChiefPhysician
+  - DHQuartermaster
+  - DHResearchDirector
+  - DHChiefTechnician
 
 - type: department
   id: Engineering
-  name: department-Engineering
-  description: department-Engineering-description
-  color: "#EFB341"
-  roles:
-  - AtmosphericTechnician
-  - ChiefEngineer
-  - StationEngineer
-  - TechnicalAssistant
+  name: dh-department-engineering # DarkestHour
+  description: dh-department-engineering-description # DarkestHour
+  color: "#D4893A" # DarkestHour
+  roles: # DarkestHour: свои должности
+  - DHChiefTechnician
+  - DHLeadTechnician
+  - DHAtmosTechnician
+  - DHTechnician
+  - DHJuniorTechnician
 
 - type: department
   id: Medical
-  name: department-Medical
-  description: department-Medical-description
-  color: "#52B4E9"
-  roles:
-  - Chemist
-  - ChiefMedicalOfficer
-  - MedicalDoctor
-  - MedicalIntern
-  - Psychologist
-  - Paramedic
+  name: dh-department-medical # DarkestHour
+  description: dh-department-medical-description # DarkestHour
+  color: "#5FA8C8" # DarkestHour
+  roles: # DarkestHour: свои должности
+  - DHChiefPhysician
+  - DHLeadPhysician
+  - DHPhysician
+  - DHChemist
+  - DHParamedic
+  - DHMedicalIntern
 
 - type: department
   id: Science
-  name: department-Science
-  description: department-Science-description
-  color: "#D381C9"
-  roles:
-  - ResearchDirector
-  - Scientist
-  - ResearchAssistant
+  name: dh-department-science # DarkestHour
+  description: dh-department-science-description # DarkestHour
+  color: "#A982C4" # DarkestHour
+  roles: # DarkestHour: свои должности
+  - DHResearchDirector
+  - DHLeadScientist
+  - DHMaterialsScientist
+  - DHVirologist
+  - DHLabAssistant
 
 - type: department
   id: Security
-  name: department-Security
-  description: department-Security-description
-  color: "#DE3A3A"
+  name: dh-department-security # DarkestHour
+  description: dh-department-security-description # DarkestHour
+  color: "#B5A877" # DarkestHour
   weight: 20 # Raised priority compared to most other crew departments
-  roles:
-  - HeadOfSecurity
-  - SecurityCadet
-  - SecurityOfficer
-  - Detective
-  - Warden
+  roles: # DarkestHour: свои должности
+  - DHSecurityChief
+  - DHWarden
+  - DHDetective
+  - DHInvestigator
+  - DHSecurityInstructor
+  - DHSecurityPilot
+  - DHSecurityOfficer
+  - DHSecurityCadet
 
 - type: department
   id: Service
   name: department-Service
   description: department-Service-description
   color: "#9FED58"
+  editorHidden: true # DarkestHour: отдела нет на станции
   roles:
   - Bartender
   - Botanist
@@ -115,12 +124,11 @@
 
 - type: department
   id: Silicon
-  name: department-Silicon
-  description: department-Silicon-description
-  color: "#D381C9"
+  name: dh-department-silicon # DarkestHour
+  description: dh-department-silicon-description # DarkestHour
+  color: "#7FC4B0" # DarkestHour
   weight: -20 # Displays after all regular crew departments, including Civilian, both because they're mechanically distinct and because they're subordinate to all crew by default
-  roles:
-  - Borg
+  roles: # DarkestHour: свои должности
   - StationAi
 
 - type: department
@@ -147,6 +155,7 @@
   color: "#9FED58"
   weight: -100 # Displays after all other departments, since that makes them obviously distinct in the lobby's jobs list
   ignoreForDepartmentFallback: true
+  editorHidden: true # DarkestHour: отдела нет на станции
   roles:
   - Reporter
   - Psychologist

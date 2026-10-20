@@ -204,7 +204,7 @@
   id: BaseCMOStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ ChiefMedicalOfficer ]
+    jobs: [ ChiefMedicalOfficer, DHChiefPhysician ] # DarkestHour: свои должности
   - type: StealCondition
     owner: job-name-cmo
 
@@ -230,7 +230,7 @@
   id: BaseRDStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ ResearchDirector ]
+    jobs: [ ResearchDirector, DHResearchDirector ] # DarkestHour: свои должности
   - type: StealCondition
     owner: job-name-rd
 
@@ -261,7 +261,7 @@
     # HoS will have this on them a lot of the time so..
     difficulty: 3
   - type: NotJobRequirement
-    jobs: [ HeadOfSecurity ]
+    jobs: [ HeadOfSecurity, DHSecurityChief ] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: WeaponEnergyMagnum
     owner: job-name-hos
@@ -273,7 +273,7 @@
   id: MagbootsStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ ChiefEngineer ]
+    jobs: [ ChiefEngineer, DHChiefTechnician ] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: ClothingShoesBootsMagAdv
     owner: job-name-ce
@@ -285,7 +285,7 @@
   id: ClipboardStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Quartermaster ]
+    jobs: [ Quartermaster, DHQuartermaster ] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: BoxFolderQmClipboard
     owner: job-name-qm
@@ -295,7 +295,7 @@
   id: KnuckleDustersStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Quartermaster ]
+    jobs: [ Quartermaster, DHQuartermaster ] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: ClothingHandsKnuckleDustersQM
     owner: job-name-qm
@@ -307,7 +307,7 @@
   id: CorgiMeatStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ HeadOfPersonnel ]
+    jobs: [ HeadOfPersonnel, DHAdjutant ] # DarkestHour: свои должности
   - type: ObjectiveLimit
     limit: 3 # ian only has 2 slices, 3 obj for drama
   - type: StealCondition
@@ -325,7 +325,7 @@
     # sorry ce but your jordans are not as high security as the caps gear
     difficulty: 3.5
   - type: NotJobRequirement
-    jobs: [ Captain ]
+    jobs: [ Captain, DHCaptain ] # DarkestHour: свои должности
 
 - type: entity
   parent: BaseCaptainObjective

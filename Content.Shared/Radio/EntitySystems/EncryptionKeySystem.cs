@@ -215,6 +215,12 @@ public sealed partial class EncryptionKeySystem : EntitySystem
                 ? SharedChatSystem.RadioCommonPrefix.ToString()
                 : $"{SharedChatSystem.RadioChannelPrefix}{proto.KeyCode}";
 
+            // DarkestHour: показываем и дополнительные префиксы канала (латиница на той же клавише).
+            foreach (var alt in proto.AltKeyCodes)
+            {
+                key += $" / {SharedChatSystem.RadioChannelPrefix}{alt}";
+            }
+
             examineEvent.PushMarkup(Loc.GetString(channelFTLPattern,
                 ("color", proto.Color),
                 ("key", key),

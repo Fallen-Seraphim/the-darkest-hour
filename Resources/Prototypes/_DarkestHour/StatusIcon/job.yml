@@ -1,0 +1,249 @@
+# DarkestHour: иконки своих должностей (HUD, манифест).
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHCaptain
+  icon:
+    sprite: &icon-rsi /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: Captain
+  jobName: dh-job-captain-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHAdjutant
+  icon:
+    sprite: *icon-rsi
+    state: Adjutant
+  jobName: dh-job-adjutant-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHMetallArmedSpecialist
+  icon:
+    sprite: *icon-rsi
+    state: MetallArmedSpecialist
+  jobName: dh-job-metall-armed-specialist-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHSecurityChief
+  icon:
+    sprite: *icon-rsi
+    state: SecurityChief
+  jobName: dh-job-security-chief-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHWarden
+  icon:
+    sprite: *icon-rsi
+    state: Warden
+  jobName: dh-job-warden-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHDetective
+  icon:
+    sprite: *icon-rsi
+    state: Detective
+  jobName: dh-job-detective-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHInvestigator
+  icon:
+    sprite: *icon-rsi
+    state: Investigator
+  jobName: dh-job-investigator-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHSecurityOfficer
+  icon:
+    sprite: *icon-rsi
+    state: SecurityOfficer
+  jobName: dh-job-security-officer-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHSecurityPilot
+  icon:
+    sprite: *icon-rsi
+    state: SecurityPilot
+  jobName: dh-job-security-pilot-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHSecurityInstructor
+  icon:
+    sprite: *icon-rsi
+    state: SecurityInstructor
+  jobName: dh-job-security-instructor-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHSecurityCadet
+  icon:
+    sprite: *icon-rsi
+    state: SecurityCadet
+  jobName: dh-job-security-cadet-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHChiefPhysician
+  icon:
+    sprite: *icon-rsi
+    state: ChiefPhysician
+  jobName: dh-job-chief-physician-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLeadPhysician
+  icon:
+    sprite: *icon-rsi
+    state: LeadPhysician
+  jobName: dh-job-lead-physician-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHChemist
+  icon:
+    sprite: *icon-rsi
+    state: Chemist
+  jobName: dh-job-chemist-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHPhysician
+  icon:
+    sprite: *icon-rsi
+    state: Physician
+  jobName: dh-job-physician-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHParamedic
+  icon:
+    sprite: *icon-rsi
+    state: Paramedic
+  jobName: dh-job-paramedic-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHMedicalIntern
+  icon:
+    sprite: *icon-rsi
+    state: MedicalIntern
+  jobName: dh-job-medical-intern-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHQuartermaster
+  icon:
+    sprite: *icon-rsi
+    state: Quartermaster
+  jobName: dh-job-quartermaster-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHExpeditor
+  icon:
+    sprite: *icon-rsi
+    state: Expeditor
+  jobName: dh-job-expeditor-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLoader
+  icon:
+    sprite: *icon-rsi
+    state: Loader
+  jobName: dh-job-loader-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHResearchDirector
+  icon:
+    sprite: *icon-rsi
+    state: ResearchDirector
+  jobName: dh-job-research-director-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLeadScientist
+  icon:
+    sprite: *icon-rsi
+    state: LeadScientist
+  jobName: dh-job-lead-scientist-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHMaterialsScientist
+  icon:
+    sprite: *icon-rsi
+    state: MaterialsScientist
+  jobName: dh-job-materials-scientist-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHVirologist
+  icon:
+    sprite: *icon-rsi
+    state: Virologist
+  jobName: dh-job-virologist-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLabAssistant
+  icon:
+    sprite: *icon-rsi
+    state: LabAssistant
+  jobName: dh-job-lab-assistant-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHChiefTechnician
+  icon:
+    sprite: *icon-rsi
+    state: ChiefTechnician
+  jobName: dh-job-chief-technician-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLeadTechnician
+  icon:
+    sprite: *icon-rsi
+    state: LeadTechnician
+  jobName: dh-job-lead-technician-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHAtmosTechnician
+  icon:
+    sprite: *icon-rsi
+    state: AtmosTechnician
+  jobName: dh-job-atmos-technician-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHTechnician
+  icon:
+    sprite: *icon-rsi
+    state: Technician
+  jobName: dh-job-technician-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHJuniorTechnician
+  icon:
+    sprite: *icon-rsi
+    state: JuniorTechnician
+  jobName: dh-job-junior-technician-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHStationAi
+  icon:
+    sprite: *icon-rsi
+    state: StationAi
+  jobName: dh-job-station-ai-name

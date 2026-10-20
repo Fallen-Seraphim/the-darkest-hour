@@ -35,7 +35,8 @@ public sealed partial class SpawnPointSystem : EntitySystem
 
             if (_gameTicker.RunLevel != GameRunLevel.InRound &&
                 spawnPoint.SpawnType == SpawnPointType.Job &&
-                (args.Job == null || spawnPoint.Job == null || spawnPoint.Job == args.Job))
+                (args.Job == null || spawnPoint.Job == null || spawnPoint.Job == args.Job
+                 || spawnPoint.Jobs.Contains(args.Job.Value))) // DarkestHour: дополнительные должности точки
             {
                 possiblePositions.Add(xform.Coordinates);
             }
