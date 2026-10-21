@@ -11,6 +11,7 @@
     OreUranium: 0.20
     DHOreAluminium: 0.6 # DarkestHour: базовые металлы
     DHOreTitanium: 0.15 # DarkestHour: базовые металлы
+    DHOreKane: 0.1 # DarkestHour: кристаллы Кейна
     DHOreCopper: 0.4 # DarkestHour: базовые металлы
     DHOreNickel: 0.25 # DarkestHour: базовые металлы
     # OreArtifactFragment: 0.10 # DarkestHour: нет аномалий и ксеноархеологии

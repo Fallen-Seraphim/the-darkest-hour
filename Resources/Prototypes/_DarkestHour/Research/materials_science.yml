@@ -306,9 +306,12 @@
       tags:
       - Sheet
       - Ingot
+      - RawMaterial
   - type: Lathe
     idleState: smelter0
     runningState: smelter1
+    staticPacks:
+    - DHKaneStatic
     dynamicPacks:
     - DHAlloys
   - type: ApcPowerReceiver
@@ -379,3 +382,5 @@
   - DHMaterialLabMachineCircuitboard
   - DHMaterialScannerMachineCircuitboard
   - DHAlloyFurnaceMachineCircuitboard
+  - DHKaneCrystallizerMachineCircuitboard
+  - DHKaneLithographMachineCircuitboard

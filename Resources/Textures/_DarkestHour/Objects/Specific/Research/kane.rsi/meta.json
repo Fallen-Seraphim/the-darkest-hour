@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Made by Claude for The Darkest Hour",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "shard"
+    },
+    {
+      "name": "seed"
+    },
+    {
+      "name": "crystal"
+    },
+    {
+      "name": "board"
+    },
+    {
+      "name": "microboard"
+    },
+    {
+      "name": "casing"
+    }
+  ]
+}
