@@ -111,3 +111,107 @@
     state: cpu_medical
   - type: ComputerBoard
     prototype: DHVirologyComputer
+
+# --- Стерильность: автоклав и вытяжной шкаф ---
+
+- type: entity
+  abstract: true
+  parent: [ BaseMachinePowered, ConstructibleMachine, BaseConstructibleMachineDestructible ]
+  id: DHSterilityMachineBase
+  components:
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: InteractionOutline
+  - type: Anchorable
+  - type: ContainerContainer
+    containers:
+      machine_board: !type:Container
+      machine_parts: !type:Container
+
+- type: entity
+  parent: DHSterilityMachineBase
+  id: DHAutoclave
+  name: autoclave
+  description: Steam sterilizer. Use a surgical tool or a contaminated item on it to sterilize it; needs power.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/vaccinator.rsi
+    snapCardinals: true
+    layers:
+    - state: icon
+    - state: unlit
+      shader: unshaded
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+  - type: Machine
+    board: DHAutoclaveMachineCircuitboard
+  - type: DHAutoclave
+  - type: ApcPowerReceiver
+    powerLoad: 400
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: DHAutoclaveMachineCircuitboard
+  name: autoclave machine board
+  description: A machine printed circuit board for an autoclave.
+  components:
+  - type: Sprite
+    state: medical
+  - type: MachineBoard
+    prototype: DHAutoclave
+    stackRequirements:
+      Manipulator: 1
+      Steel: 5
+
+- type: entity
+  parent: DHSterilityMachineBase
+  id: DHFumeHood
+  name: fume hood
+  description: An extraction cabinet. A pathogen analyzer next to a working hood keeps its aerosol out of the lab.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Machines/fume_hood.rsi
+    snapCardinals: true
+    layers:
+    - state: icon
+    - state: unlit
+      shader: unshaded
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+  - type: Machine
+    board: DHFumeHoodMachineCircuitboard
+  - type: DHFumeHood
+  - type: ApcPowerReceiver
+    powerLoad: 250
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: DHFumeHoodMachineCircuitboard
+  name: fume hood machine board
+  description: A machine printed circuit board for a fume hood.
+  components:
+  - type: Sprite
+    state: medical
+  - type: MachineBoard
+    prototype: DHFumeHood
+    stackRequirements:
+      Glass: 2
+      Steel: 5

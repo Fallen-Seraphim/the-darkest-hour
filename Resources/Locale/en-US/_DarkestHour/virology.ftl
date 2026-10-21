@@ -124,3 +124,14 @@ dh-virology-recipe-black-mold = Fluconazole: fluorine + phenol + silicon, 1:1:1,
 dh-virology-recipe-grey-scab = Fluconazole: fluorine + phenol + silicon, 1:1:1, and dressings for the cracked skin. Gloves — spreads by touch.
 dh-virology-recipe-helminths = Albendazole: sulfur + nitrogen + copper, 1:1:1. Feed the patient. Cook meat properly.
 dh-virology-recipe-planetary-worm = Surgical removal: open the torso (incision, clamp, retract) and extract the larva with a hemostat. Albendazole only slows it down until the operation.
+
+## Стерильность
+
+dh-contaminated-examine = [color=#9a8a3a]It is smeared with something — not sterile.[/color]
+dh-disinfectant-examine = Wipes left: {$uses}.
+dh-disinfectant-empty = The pack is empty.
+dh-disinfectant-done = You wipe down {THE($target)} until it is sterile.
+dh-autoclave-no-power = The autoclave has no power.
+dh-autoclave-start = You load {THE($item)} into the autoclave.
+dh-autoclave-done = {CAPITALIZE(THE($item))} comes out of the autoclave hot and sterile.
+dh-analyzer-aerosol = A puff of aerosol escapes the analyzer — there is no fume hood!

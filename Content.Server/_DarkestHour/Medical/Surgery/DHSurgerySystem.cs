@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Server._DarkestHour.Medical.Disease;
 using Content.Server._DarkestHour.Medical.Radiation;
+using Content.Server._DarkestHour.Medical.Virology;
 using Content.Shared._DarkestHour.Medical.Radiation;
 using Content.Server._DarkestHour.Medical.Trauma;
 using Content.Shared._DarkestHour.Medical.Disease;
@@ -60,6 +61,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
     [Dependency] private StatusEffectsSystem _status = default!;
     [Dependency] private ItemToggleSystem _toggle = default!;
     [Dependency] private SharedToolSystem _tool = default!;
+    [Dependency] private DHContaminationSystem _contamination = default!;
     [Dependency] private UserInterfaceSystem _ui = default!;
     [Dependency] private DHDiseaseSystem _disease = default!;
     [Dependency] private DHTraumaSystem _trauma = default!;
@@ -381,7 +383,10 @@ public sealed partial class DHSurgerySystem : EntitySystem
             _bloodstream.TryModifyBleedAmount(ent.Owner, step.Bleed);
 
         if (step.Invasive)
+        {
             RollInfection(ent, user);
+            _contamination.OnSurgeryStep(ent, item);
+        }
 
         _audio.PlayPvs(step.Sound, ent);
 

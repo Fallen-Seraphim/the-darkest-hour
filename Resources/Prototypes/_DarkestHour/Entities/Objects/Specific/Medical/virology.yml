@@ -139,3 +139,18 @@
     state: grey
   - type: DHCultureJar
     disease: DHDiseaseGreyScab
+
+# Дезинфицирующие салфетки: протереть заражённый инструмент или предмет (10 раз).
+- type: entity
+  parent: BaseItem
+  id: DHDisinfectantWipes
+  name: disinfectant wipes
+  description: A soft pack of alcohol wipes. Wipe down a contaminated tool or object to sterilize it.
+  components:
+  - type: Item
+    size: Small
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Specific/Medical/disinfectant_wipes.rsi
+    state: icon
+  - type: DHDisinfectant
+    uses: 10

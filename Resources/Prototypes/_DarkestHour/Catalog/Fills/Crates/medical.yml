@@ -37,7 +37,7 @@
   parent: CrateMedical
   id: DHCrateVirologyEquipment
   name: virology equipment crate
-  description: Machine boards for a pathogen analyzer and a virology computer, a pathogen scanner and sterile swabs.
+  description: Machine boards for a pathogen analyzer, a virology computer, an autoclave and a fume hood, a pathogen scanner, sterile swabs and disinfectant wipes.
   components:
   - type: EntityTableContainerFill
     containers:
@@ -45,7 +45,11 @@
         children:
         - id: DHPathogenAnalyzerMachineCircuitboard
         - id: DHVirologyComputerCircuitboard
+        - id: DHAutoclaveMachineCircuitboard
+        - id: DHFumeHoodMachineCircuitboard
         - id: DHPathogenScanner
+        - id: DHDisinfectantWipes
+          amount: 2
         - id: DHPathogenSwab
           amount: 6
         - id: ClothingMaskSterile

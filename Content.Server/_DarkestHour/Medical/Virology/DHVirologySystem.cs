@@ -31,6 +31,7 @@ public sealed partial class DHVirologySystem : EntitySystem
 {
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private DHContaminationSystem _contamination = default!;
     [Dependency] private DHDiseaseSystem _disease = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private ItemSlotsSystem _itemSlots = default!;
@@ -117,6 +118,9 @@ public sealed partial class DHVirologySystem : EntitySystem
         {
             ent.Comp.Samples.Add(jar.Disease);
         }
+
+        // Мазок с больного или культуры сам заразен — после анализатора он уходит, но в руках и на полу опасен.
+        _contamination.Contaminate(ent, ent.Comp.Samples);
 
         ent.Comp.Used = true;
         ent.Comp.Source = Name(target);
@@ -257,6 +261,9 @@ public sealed partial class DHVirologySystem : EntitySystem
         }
 
         text.AppendLine(Loc.GetString("dh-analyzer-report-footer"));
+
+        // Без вытяжного шкафа образец выходит аэрозолем в лабораторию.
+        _contamination.TryAerosolLeak(ent, swab.Samples.Distinct().ToList());
 
         QueueDel(swabUid);
         Print(ent, ent.Comp.PaperPrototype, Loc.GetString("dh-analyzer-report-name"), text.ToString());

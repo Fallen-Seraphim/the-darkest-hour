@@ -72,9 +72,28 @@
   id: DHVirologyComputerCircuitboard
   result: DHVirologyComputerCircuitboard
 
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: DHAutoclaveMachineCircuitboard
+  result: DHAutoclaveMachineCircuitboard
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: DHFumeHoodMachineCircuitboard
+  result: DHFumeHoodMachineCircuitboard
+
+- type: latheRecipe
+  id: DHDisinfectantWipes
+  result: DHDisinfectantWipes
+  completetime: 1
+  materials:
+    Plastic: 50
+
 # DarkestHour: свои медицинские платы в принтере плат, статично до переделки РнД.
 - type: latheRecipePack
   id: DHMedicalBoardsStatic
   recipes:
   - DHPathogenAnalyzerMachineCircuitboard
   - DHVirologyComputerCircuitboard
+  - DHAutoclaveMachineCircuitboard
+  - DHFumeHoodMachineCircuitboard
