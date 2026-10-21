@@ -70,3 +70,31 @@
   - AdvancedShuttleWeapon
   discount: 0.3
   researchPoints: 5000
+
+# --- Арсенал: управление огнём корабельных и станционных орудий ---
+
+- type: technology
+  id: DHShipFireControl
+  name: research-technology-dh-ship-fire-control
+  icon:
+    sprite: _Mono/Objects/ShuttleWeapons/L85.rsi
+    state: icon
+  discipline: Arsenal
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+  - DHGunneryComputerCircuitboard
+  - DHPointDefenseComputerCircuitboard
+  technologyPrerequisites:
+  - BasicShuttleArmament
+  position: 21, 2
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: DHGunneryComputerCircuitboard
+  result: DHGunneryComputerCircuitboard
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: DHPointDefenseComputerCircuitboard
+  result: DHPointDefenseComputerCircuitboard

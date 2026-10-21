@@ -386,3 +386,5 @@
   recipes:
   - DHKaneCrystallizerMachineCircuitboard
   - DHKaneLithographMachineCircuitboard
+  - DHGunneryComputerCircuitboard
+  - DHPointDefenseComputerCircuitboard
