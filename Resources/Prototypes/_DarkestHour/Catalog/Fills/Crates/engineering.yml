@@ -8,3 +8,14 @@
     contents:
     - id: DHFusionFuelCassette
       amount: 2
+
+- type: entity
+  id: DHCrateChroniteCells
+  parent: CrateEngineeringSecure
+  name: chronite cell crate
+  description: Four chronite cells for rift accumulators. Mildly radioactive with chronite — do not open next to people.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHChroniteCell
+      amount: 4

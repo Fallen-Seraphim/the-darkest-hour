@@ -184,6 +184,16 @@ public sealed partial class DHDoseSystem : EntitySystem
         return dose.Chronite >= dose.ChroniteStages[1] && dose.Chronite < dose.ChroniteStages[^1];
     }
 
+    /// <summary>Облучить хронитом (разрывной прыжок, авария реактора).</summary>
+    public void AddChronite(EntityUid uid, float amount)
+    {
+        if (amount <= 0f || !TryComp<DHDoseComponent>(uid, out var dose))
+            return;
+
+        dose.Chronite += amount;
+        Wake((uid, dose));
+    }
+
     /// <summary>Иссечение поражённой кожи убирает часть накопленного хронита.</summary>
     public void ExciseChronite(EntityUid uid, float amount)
     {

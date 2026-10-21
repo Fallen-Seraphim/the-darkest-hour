@@ -1,4 +1,5 @@
 using Content.Server.Shuttles.Components;
+using Content.Shared._DarkestHour.Shuttles.Rift; // DarkestHour
 using Content.Server.Shuttles.Events;
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Events;
@@ -137,6 +138,12 @@ public sealed partial class ShuttleConsoleSystem
         {
             return;
         }
+
+        // DarkestHour: прыжок в другую звёздную систему — только разрывом (генератор, накопитель, хронит).
+        var riftEv = new DHConsoleFTLTargetEvent(shuttleUid.Value, targetMap, ent.Owner);
+        RaiseLocalEvent(shuttleUid.Value, ref riftEv, true);
+        if (riftEv.Cancelled)
+            return;
 
         List<ShuttleExclusionObject>? exclusions = null;
         GetExclusions(ref exclusions);

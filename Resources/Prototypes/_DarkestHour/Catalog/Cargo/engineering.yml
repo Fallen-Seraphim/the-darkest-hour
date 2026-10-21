@@ -7,3 +7,13 @@
   cost: 4000
   category: cargoproduct-category-name-engineering
   group: market
+
+- type: cargoProduct
+  id: DHEngineeringChroniteCells
+  icon:
+    sprite: _DarkestHour/Objects/Power/chronite_cell.rsi
+    state: icon
+  product: DHCrateChroniteCells
+  cost: 4000
+  category: cargoproduct-category-name-engineering
+  group: market
