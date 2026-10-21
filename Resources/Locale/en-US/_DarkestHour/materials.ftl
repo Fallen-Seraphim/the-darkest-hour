@@ -108,3 +108,4 @@ research-technology-dh-republic-special-ammo = Republic Special Rounds
 research-technology-dh-imperial-calibers = Imperial Calibers
 research-technology-dh-imperial-special-ammo = Imperial Special Rounds
 research-technology-dh-ship-munitions = Light Ship Munitions
+research-technology-dh-alloys = Alloys
