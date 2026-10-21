@@ -7,3 +7,4 @@ research-console-required-text = Prerequisites:
 research-console-tech-cost-label = { $cost } R.P.
 research-console-tier-percentage = : { $perc }%
 research-console-unlocks-text = Unlocked recipes:
+dh-research-console-tech-cost-discount = { $cost } R.P. (was { $base })

@@ -1,8 +1,9 @@
 research-discipline-none = None
-research-discipline-industrial = Industrial
+# DarkestHour: ветки дерева технологий
+research-discipline-industrial = Industry & Materials
 research-discipline-arsenal = Arsenal
-research-discipline-experimental = Experimental
-research-discipline-civilian-services = Civilian Services
+research-discipline-experimental = Chronite & Experiments
+research-discipline-civilian-services = Medicine & Biology
 
 research-technology-fulton = Fultons
 research-technology-salvage-equipment = Salvage Equipment

@@ -7,12 +7,12 @@
   icon:
     sprite: Structures/Machines/exosuit_fabricator.rsi
     state: fab-idle
-  discipline: Experimental
+  discipline: Experimental # DarkestHour: ветка дерева
   tier: 1
   cost: 5000
   recipeUnlocks:
   - ProximitySensor
-  position: 20, 0 # DarkestHour: место в дереве технологий
+  position: 25, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: AlternativeResearch
@@ -20,12 +20,12 @@
   icon:
     sprite: Structures/Machines/tech_disk_printer.rsi
     state: display
-  discipline: Experimental
+  discipline: Experimental # DarkestHour: ветка дерева
   tier: 1
   cost: 5000
   recipeUnlocks:
   - TechDiskComputerCircuitboard
-  position: 21, 0 # DarkestHour: место в дереве технологий
+  position: 27, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: MagnetsTech
@@ -33,7 +33,7 @@
   icon:
     sprite: Clothing/Shoes/Boots/magboots-science.rsi
     state: icon
-  discipline: Experimental
+  discipline: Experimental # DarkestHour: ветка дерева
   tier: 1
   cost: 7500
   recipeUnlocks:
@@ -41,7 +41,7 @@
   - ClothingShoesBootsMoon
 
 # Tier 2
-  position: 22, 0 # DarkestHour: место в дереве технологий
+  position: 26, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: DeterrenceTechnologies
@@ -49,7 +49,7 @@
   icon:
     sprite: Objects/Weapons/Guns/Battery/particle_decelerator.rsi
     state: base
-  discipline: Experimental
+  discipline: Experimental # DarkestHour: ветка дерева
   tier: 2
   cost: 7500
   recipeUnlocks:
@@ -57,7 +57,7 @@
   - HoloprojectorField
   technologyPrerequisites: # DarkestHour: дерево технологий
   - BasicRobotics
-  position: 20, 2 # DarkestHour: место в дереве технологий
+  position: 25, 2 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: GravityManipulation
@@ -65,7 +65,7 @@
   icon:
     sprite: Objects/Weapons/Guns/Launchers/tether_gun.rsi
     state: base
-  discipline: Experimental
+  discipline: Experimental # DarkestHour: ветка дерева
   tier: 2
   cost: 10000
   recipeUnlocks:
@@ -81,5 +81,4 @@
 # TeleSci удалён # DarkestHour: нет блюспейса
   technologyPrerequisites: # DarkestHour: дерево технологий
   - MagnetsTech
-  position: 22, 2 # DarkestHour: место в дереве технологий
-
+  position: 26, 2 # DarkestHour: место в дереве технологий

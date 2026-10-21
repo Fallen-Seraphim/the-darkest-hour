@@ -6,14 +6,14 @@
   icon:
     sprite: Objects/Weapons/Guns/Basic/kinetic_accelerator.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Arsenal # DarkestHour: ветка дерева
   tier: 1
   cost: 5000
   recipeUnlocks:
   - WeaponProtoKineticAccelerator
   - ShuttleGunKineticCircuitboard
   # These are roundstart but not replenishable for salvage
-  position: 10, 0 # DarkestHour: место в дереве технологий
+  position: 19, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: DraconicMunitions
@@ -21,7 +21,7 @@
   icon:
     sprite: Objects/Weapons/Guns/Ammunition/Boxes/pistol.rsi
     state: incendiarydisplay
-  discipline: Arsenal
+  discipline: Arsenal # DarkestHour: ветка дерева
   tier: 1
   cost: 10000
   recipeUnlocks:
@@ -35,7 +35,7 @@
   - MagazineBoxMagnumIncendiary
   - MagazineBoxLightRifleIncendiary
   - MagazineBoxRifleIncendiary
-  position: 11, 0 # DarkestHour: место в дереве технологий
+  position: 17, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: WeaponizedLaserManipulation
@@ -43,12 +43,12 @@
   icon:
     sprite: Objects/Weapons/Guns/Battery/laser_gun.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Arsenal # DarkestHour: ветка дерева
   tier: 1
   cost: 7500
   recipeUnlocks:
   - WeaponLaserCarbine
-  position: 12, 0 # DarkestHour: место в дереве технологий
+  position: 14, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: NonlethalAmmunition
@@ -56,7 +56,7 @@
   icon:
     sprite: Objects/Weapons/Guns/Battery/disabler_smg.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Arsenal # DarkestHour: ветка дерева
   tier: 1
   cost: 5000
   recipeUnlocks:
@@ -72,7 +72,7 @@
   icon:
     sprite: Objects/Materials/Sheets/other.rsi
     state: uranium
-  discipline: Arsenal
+  discipline: Arsenal # DarkestHour: ветка дерева
   tier: 1
   cost: 7500
   recipeUnlocks:
@@ -86,7 +86,7 @@
   - MagazineBoxLightRifleUranium
   - MagazineBoxRifleUranium
   - BoxShotgunUranium
-  position: 14, 0 # DarkestHour: место в дереве технологий
+  position: 16, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: ExplosiveTechnology
@@ -94,7 +94,7 @@
   icon:
     sprite: Objects/Devices/payload.rsi
     state: payload-explosive-armed
-  discipline: Arsenal
+  discipline: Arsenal # DarkestHour: ветка дерева
   tier: 1
   cost: 10000
   recipeUnlocks:
@@ -107,7 +107,7 @@
   - ChemicalPayload
   - CableDetStack1
   - EmptyDetonator
-  position: 15, 0 # DarkestHour: место в дереве технологий
+  position: 18, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: SpecialMeans
@@ -122,7 +122,8 @@
   - ClothingBackpackElectropack
 
 # Tier 2
-  position: 16, 0 # DarkestHour: место в дереве технологий
+  hidden: true # DarkestHour: не подходит сеттингу
+  position: 0, 0
 
 - type: technology
   id: AdvancedRiotControl
@@ -130,7 +131,7 @@
   icon:
     sprite: Objects/Weapons/Melee/truncheon.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Arsenal # DarkestHour: ветка дерева
   tier: 2
   cost: 8000
   recipeUnlocks:
@@ -147,14 +148,14 @@
   icon:
     sprite: Objects/Weapons/Guns/Battery/laser_cannon.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Arsenal # DarkestHour: ветка дерева
   tier: 2
   cost: 10000
   recipeUnlocks:
   - WeaponLaserCannon
   technologyPrerequisites: # DarkestHour: дерево технологий
   - WeaponizedLaserManipulation
-  position: 12, 2 # DarkestHour: место в дереве технологий
+  position: 14, 2 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: WaveParticleHarnessing
@@ -162,14 +163,14 @@
   icon:
     sprite: Objects/Weapons/Guns/Battery/xray.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Arsenal # DarkestHour: ветка дерева
   tier: 2
   cost: 10000
   recipeUnlocks:
   - WeaponXrayCannon
   technologyPrerequisites: # DarkestHour: дерево технологий
   - WeaponizedLaserManipulation
-  position: 10, 2 # DarkestHour: место в дереве технологий
+  position: 15, 2 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: KineticModifications
@@ -177,7 +178,7 @@
   icon:
     sprite: Objects/Tools/upgrade.rsi
     state: display
-  discipline: Arsenal
+  discipline: Arsenal # DarkestHour: ветка дерева
   tier: 2
   cost: 7500
   recipeUnlocks:
@@ -186,7 +187,7 @@
   - PKAUpgradeFireRate
   technologyPrerequisites: # DarkestHour: дерево технологий
   - SalvageWeapons
-  position: 11, 2 # DarkestHour: место в дереве технологий
+  position: 19, 2 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: BasicShuttleArmament
@@ -194,7 +195,7 @@
   icon:
     sprite: Structures/Power/cage_recharger.rsi
     state: full
-  discipline: Arsenal
+  discipline: Arsenal # DarkestHour: ветка дерева
   tier: 2
   cost: 10500
   recipeUnlocks:
@@ -207,9 +208,9 @@
   - ShuttleGunSvalinnMachineGunCircuitboard
   - ShuttleGunPerforatorCircuitboard
   - ShuttleGunFriendshipCircuitboard
-  technologyPrerequisites:
+  technologyPrerequisites: # DarkestHour: дерево технологий
   - SalvageWeapons
-  position: 14, 2 # DarkestHour: место в дереве технологий
+  position: 20, 2 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: DualWieldingTechnology
@@ -224,9 +225,8 @@
   - ClothingBackpackHarmpack
 
 # Tier 3
-  technologyPrerequisites: # DarkestHour: дерево технологий
-  - SpecialMeans
-  position: 16, 2 # DarkestHour: место в дереве технологий
+  hidden: true # DarkestHour: не подходит сеттингу
+  position: 0, 0
 
 - type: technology
   id: PortableMicrofusionWeaponry
@@ -234,7 +234,7 @@
   icon:
     sprite: Objects/Weapons/Guns/Battery/advancedlasergun.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Arsenal # DarkestHour: ветка дерева
   tier: 3
   cost: 15000
   recipeUnlocks:
@@ -242,7 +242,7 @@
   - PortableRecharger
   technologyPrerequisites: # DarkestHour: дерево технологий
   - ConcentratedLaserWeaponry
-  position: 12, 4 # DarkestHour: место в дереве технологий
+  position: 14, 4 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: ThermalWeaponry
@@ -250,14 +250,14 @@
   icon:
     sprite: Objects/Weapons/Guns/Battery/temp_gun.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Arsenal # DarkestHour: ветка дерева
   tier: 3
   cost: 15000
   recipeUnlocks:
   - WeaponTemperatureGun
   technologyPrerequisites: # DarkestHour: дерево технологий
   - WaveParticleHarnessing
-  position: 10, 4 # DarkestHour: место в дереве технологий
+  position: 15, 4 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: AdvancedShuttleWeapon
@@ -265,14 +265,13 @@
   icon:
     sprite: Objects/Weapons/Guns/Ammunition/Magazine/Grenade/grenade_cartridge.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Arsenal # DarkestHour: ветка дерева
   tier: 3
   cost: 15000
   recipeUnlocks:
   - GrenadeEMP
   - PowerCageHigh
   - ShuttleGunDusterCircuitboard
-  technologyPrerequisites:
+  technologyPrerequisites: # DarkestHour: дерево технологий
   - BasicShuttleArmament
-  position: 14, 4 # DarkestHour: место в дереве технологий
-
+  position: 20, 4 # DarkestHour: место в дереве технологий

@@ -49,6 +49,11 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
     public Dictionary<string, ResearchAvailability> List = new();
 
     /// <summary>
+    /// DarkestHour: цены со скидкой реверс-инжиниринга (только изменённые).
+    /// </summary>
+    public Dictionary<string, int> Costs = new();
+
+    /// <summary>
     /// Cached research points
     /// </summary>
     public int Points = 0;
@@ -257,7 +262,7 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
             return;
 
         CurrentTech = proto.ID;
-        var control = new FancyTechnologyInfoPanel(proto, _accessReader.IsAllowed(_player.LocalEntity.Value, Entity), availability, _sprite);
+        var control = new FancyTechnologyInfoPanel(proto, Costs.GetValueOrDefault(proto.ID, proto.Cost), _accessReader.IsAllowed(_player.LocalEntity.Value, Entity), availability, _sprite);
         control.BuyAction += args => OnTechnologyCardPressed?.Invoke(args.ID);
         InfoContainer.AddChild(control);
     }

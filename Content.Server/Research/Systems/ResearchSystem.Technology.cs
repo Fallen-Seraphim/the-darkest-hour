@@ -82,7 +82,7 @@ public sealed partial class ResearchSystem
 
         AddTechnology(serverEnt.Value, prototype);
         TrySetMainDiscipline(prototype, serverEnt.Value);
-        ModifyServerPoints(serverEnt.Value, -prototype.Cost);
+        ModifyServerPoints(serverEnt.Value, -GetTechnologyCost(serverEnt.Value, prototype)); // DarkestHour: скидки реверс-инжиниринга
         UpdateTechnologyCards(serverEnt.Value);
 
         _adminLog.Add(LogType.Action, LogImpact.Medium,
@@ -148,13 +148,13 @@ public sealed partial class ResearchSystem
         if (!Resolve(uid, ref client, ref database, false))
             return false;
 
-        if (!TryGetClientServer(uid, out _, out var serverComp, client))
+        if (!TryGetClientServer(uid, out var serverUid, out var serverComp, client))
             return false;
 
         if (!IsTechnologyAvailable(database, technology))
             return false;
 
-        if (technology.Cost > serverComp.Points)
+        if (GetTechnologyCost(serverUid, technology) > serverComp.Points) // DarkestHour: скидки реверс-инжиниринга
             return false;
 
         return true;

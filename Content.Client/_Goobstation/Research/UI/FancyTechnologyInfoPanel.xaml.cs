@@ -24,7 +24,7 @@ public sealed partial class FancyTechnologyInfoPanel : Control
     public TechnologyPrototype Prototype;
     public Action<TechnologyPrototype>? BuyAction;
 
-    public FancyTechnologyInfoPanel(TechnologyPrototype proto, bool hasAccess, ResearchAvailability availability, SpriteSystem sprite)
+    public FancyTechnologyInfoPanel(TechnologyPrototype proto, int cost, bool hasAccess, ResearchAvailability availability, SpriteSystem sprite)
     {
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
@@ -60,8 +60,11 @@ public sealed partial class FancyTechnologyInfoPanel : Control
             ResearchAvailability.Unavailable => Color.Crimson,
             _ => null
         };
+        // DarkestHour: цена со скидкой реверс-инжиниринга.
         TechnologyCostLabel.SetMessage(
-            Loc.GetString("research-console-tech-cost-label", ("cost", proto.Cost)),
+            cost < proto.Cost
+                ? Loc.GetString("dh-research-console-tech-cost-discount", ("cost", cost), ("base", proto.Cost))
+                : Loc.GetString("research-console-tech-cost-label", ("cost", cost)),
             defaultColor: color
         );
 

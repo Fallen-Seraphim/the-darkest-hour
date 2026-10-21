@@ -8,6 +8,7 @@ using Content.Shared.Materials;
 using Content.Shared.Paper;
 using Content.Shared.Popups;
 using Content.Shared.Research.Components;
+using Content.Shared.Research.Prototypes;
 using Content.Shared.Station.Systems;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
@@ -227,8 +228,14 @@ public sealed partial class DHMaterialScienceSystem : EntitySystem
 
     private void OnScannerInserted(Entity<DHMaterialScannerComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
-        if (args.Container.ID != ent.Comp.SlotId || ent.Comp.ScanEnd != null || !HasComp<DHMaterialSampleComponent>(args.Entity))
+        if (args.Container.ID != ent.Comp.SlotId || ent.Comp.ScanEnd != null)
             return;
+
+        if (!HasComp<DHMaterialSampleComponent>(args.Entity) && GetReverseData(args.Entity) == null)
+        {
+            _popup.PopupEntity(Loc.GetString("dh-material-scanner-nothing"), ent);
+            return;
+        }
 
         ent.Comp.ScanEnd = _timing.CurTime + ent.Comp.Duration;
         _appearance.SetData(ent, DHMaterialScannerVisuals.Running, true);
@@ -255,6 +262,13 @@ public sealed partial class DHMaterialScienceSystem : EntitySystem
     {
         _appearance.SetData(ent, DHMaterialScannerVisuals.Running, false);
         _itemSlots.SetLock(ent.Owner, ent.Comp.SlotId, false);
+
+        if (_itemSlots.TryGetSlot(ent.Owner, ent.Comp.SlotId, out var trophySlot) && trophySlot.Item is { } trophy &&
+            GetReverseData(trophy) is { } reverse)
+        {
+            ReverseEngineer(ent, trophy, reverse.Technologies, reverse.Discount, reverse.Points);
+            return;
+        }
 
         if (!_itemSlots.TryGetSlot(ent.Owner, ent.Comp.SlotId, out var slot) || slot.Item is not { } sampleUid ||
             !TryComp<DHMaterialSampleComponent>(sampleUid, out var sample) ||
@@ -293,6 +307,90 @@ public sealed partial class DHMaterialScienceSystem : EntitySystem
             _paper.SetContent((paper, paperComp), report.ToString());
 
         _audio.PlayPvs(PrintSound, ent);
+    }
+
+    /// <summary>
+    /// Реверс-инжиниринг трофея: скидки на связанные технологии на сервере РнД станции, очки за первый трофей этого
+    /// вида за раунд, отчёт. Трофей остаётся в сканере — его можно вынуть.
+    /// </summary>
+    /// <summary>Данные реверс-инжиниринга предмета: компонент или прототип dhReverseEngineering по прототипу предмета.</summary>
+    private (List<ProtoId<TechnologyPrototype>> Technologies, float Discount, int Points)? GetReverseData(EntityUid item)
+    {
+        if (TryComp<DHReverseEngineerableComponent>(item, out var comp))
+            return (comp.Technologies, comp.Discount, comp.ResearchPoints);
+
+        if (MetaData(item).EntityPrototype?.ID is not { } id)
+            return null;
+
+        foreach (var proto in _proto.EnumeratePrototypes<DHReverseEngineeringPrototype>())
+        {
+            if (proto.Items.Contains(id))
+                return (proto.Technologies, proto.Discount, proto.ResearchPoints);
+        }
+
+        return null;
+    }
+
+    private void ReverseEngineer(Entity<DHMaterialScannerComponent> ent, EntityUid trophy,
+        List<ProtoId<TechnologyPrototype>> technologies, float discount, int points)
+    {
+        var name = Name(trophy);
+        var report = new StringBuilder();
+        report.AppendLine(Loc.GetString("dh-reverse-report-header", ("item", name)));
+        report.AppendLine();
+
+        var server = FindServer(ent);
+        var protoId = MetaData(trophy).EntityPrototype?.ID ?? name;
+        var first = _scanned.Add("reverse:" + protoId);
+
+        if (server == null)
+        {
+            report.AppendLine(Loc.GetString("dh-reverse-report-no-server"));
+        }
+        else if (!first)
+        {
+            report.AppendLine(Loc.GetString("dh-reverse-report-repeat"));
+        }
+        else
+        {
+            foreach (var tech in technologies)
+            {
+                if (!_proto.TryIndex(tech, out var techProto))
+                    continue;
+
+                var total = _research.AddTechnologyDiscount(server.Value, tech, discount);
+                report.AppendLine(Loc.GetString("dh-reverse-report-discount",
+                    ("technology", Loc.GetString(techProto.Name)), ("discount", (int) MathF.Round(total * 100f))));
+            }
+
+            if (points > 0)
+            {
+                _research.ModifyServerPoints(server.Value, points);
+                report.AppendLine(Loc.GetString("dh-material-scanner-report-points", ("points", points)));
+            }
+        }
+
+        var paper = Spawn(ent.Comp.PaperPrototype, Transform(ent).Coordinates);
+        _metaData.SetEntityName(paper, Loc.GetString("dh-reverse-report-name", ("item", name)));
+        if (TryComp<PaperComponent>(paper, out var paperComp))
+            _paper.SetContent((paper, paperComp), report.ToString());
+
+        _audio.PlayPvs(PrintSound, ent);
+    }
+
+    private EntityUid? FindServer(EntityUid machine)
+    {
+        var station = _station.GetOwningStation(machine);
+        var query = EntityQueryEnumerator<ResearchServerComponent>();
+        while (query.MoveNext(out var server, out _))
+        {
+            if (station != null && _station.GetOwningStation(server) != station)
+                continue;
+
+            return server;
+        }
+
+        return null;
     }
 
     private void AwardPoints(EntityUid scanner, int points)

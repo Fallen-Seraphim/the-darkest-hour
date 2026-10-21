@@ -81,6 +81,7 @@ public sealed partial class ResearchSystem
             // DarkestHour: дерево технологий — доступность каждой технологии (изучена / можно / не хватает очков /
             // не изучены пререквизиты). По образцу Goob Station / Monolith.
             var researches = new Dictionary<string, ResearchAvailability>();
+            var costs = new Dictionary<string, int>();
             if (TryComp<TechnologyDatabaseComponent>(serverUid, out var database))
             {
                 foreach (var tech in ProtoMan.EnumeratePrototypes<TechnologyPrototype>())
@@ -88,19 +89,23 @@ public sealed partial class ResearchSystem
                     if (tech.Hidden || !database.SupportedDisciplines.Contains(tech.Discipline))
                         continue;
 
+                    var cost = GetTechnologyCost(serverUid, tech); // DarkestHour: скидки реверс-инжиниринга
+                    if (cost != tech.Cost)
+                        costs[tech.ID] = cost;
+
                     ResearchAvailability availability;
                     if (database.UnlockedTechnologies.Contains(tech.ID))
                         availability = ResearchAvailability.Researched;
                     else if (!tech.TechnologyPrerequisites.All(p => database.UnlockedTechnologies.Contains(p)))
                         availability = ResearchAvailability.Unavailable;
                     else
-                        availability = points >= tech.Cost ? ResearchAvailability.Available : ResearchAvailability.PrereqsMet;
+                        availability = points >= cost ? ResearchAvailability.Available : ResearchAvailability.PrereqsMet;
 
                     researches[tech.ID] = availability;
                 }
             }
 
-            state = new ResearchConsoleBoundInterfaceState(points, researches);
+            state = new ResearchConsoleBoundInterfaceState(points, researches, costs);
         }
         else
         {

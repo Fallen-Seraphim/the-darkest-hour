@@ -36,10 +36,17 @@ namespace Content.Shared.Research.Components
         /// </summary>
         public Dictionary<string, ResearchAvailability> Researches;
 
-        public ResearchConsoleBoundInterfaceState(int points, Dictionary<string, ResearchAvailability>? researches = null)
+        /// <summary>
+        /// DarkestHour: цены со скидкой реверс-инжиниринга (только технологии, цена которых отличается от базовой).
+        /// </summary>
+        public Dictionary<string, int> Costs;
+
+        public ResearchConsoleBoundInterfaceState(int points, Dictionary<string, ResearchAvailability>? researches = null,
+            Dictionary<string, int>? costs = null)
         {
             Points = points;
             Researches = researches ?? new();
+            Costs = costs ?? new();
         }
     }
 }

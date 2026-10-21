@@ -1,0 +1,72 @@
+# DarkestHour: наше дерево технологий (этап 4). Пять веток (решение автора 2026-10-21):
+# промышленность и материалы (Industrial), энергетика и корабли (DHEnergy), арсенал (Arsenal),
+# медицина и биология (CivilianServices), хронит и эксперименты (Experimental).
+# Ванильные технологии разложены по веткам в Resources/Prototypes/Research (с пометками), неподходящие — hidden.
+
+- type: techDiscipline
+  id: DHEnergy
+  name: research-discipline-dh-energy
+  color: "#50c8e6"
+  icon:
+    sprite: _DarkestHour/Interface/research_disciplines.rsi
+    state: energy
+  tierPrerequisites:
+    1: 0
+    2: 0.75
+    3: 0.75
+
+# --- Энергетика: кристаллы Кейна ---
+
+- type: technology
+  id: DHKaneCrystals
+  name: research-technology-dh-kane-crystals
+  icon:
+    sprite: _DarkestHour/Objects/Specific/Research/kane.rsi
+    state: crystal
+  discipline: DHEnergy
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+  - DHKaneCrystallizerMachineCircuitboard
+  - DHKaneLithographMachineCircuitboard
+  technologyPrerequisites:
+  - AdvancedPowercells
+  position: 8, 2
+
+# --- Реверс-инжиниринг трофеев (сканер материаловедения): прототип предмета → скидки на технологии ---
+
+- type: dhReverseEngineering
+  id: DHReverseImperialRifles
+  items:
+  - DHWeaponRifleIR17
+  - DHWeaponSMGIMG17L
+  - DHWeaponLMGIMG17T
+  technologies:
+  - UraniumMunitions
+  - DraconicMunitions
+  - ExplosiveTechnology
+  discount: 0.25
+  researchPoints: 3000
+
+- type: dhReverseEngineering
+  id: DHReverseImperialCloseQuarters
+  items:
+  - DHWeaponPistolIMP17
+  - DHWeaponShotgunIMSH17
+  - DHWeaponShotgunIMPSH17P
+  technologies:
+  - NonlethalAmmunition
+  - AdvancedRiotControl
+  - DraconicMunitions
+  discount: 0.2
+  researchPoints: 2000
+
+- type: dhReverseEngineering
+  id: DHReverseImperialHeavy
+  items:
+  - DHWeaponHMGIHMG17
+  technologies:
+  - BasicShuttleArmament
+  - AdvancedShuttleWeapon
+  discount: 0.3
+  researchPoints: 5000

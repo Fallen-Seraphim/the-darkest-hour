@@ -29,6 +29,7 @@
     - Arsenal
     - Experimental
     - CivilianServices
+    - DHEnergy # DarkestHour: энергетика и корабли
   - type: ApcPowerReceiver
     powerLoad: 200
   - type: ExtensionCableReceiver

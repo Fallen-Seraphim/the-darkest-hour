@@ -6,7 +6,7 @@
   icon:
     sprite: Objects/Storage/EntityProvider/packaged_lights.rsi
     state: base # Doesn't seem to work with sprite layers.
-  discipline: CivilianServices
+  discipline: DHEnergy # DarkestHour: ветка дерева
   tier: 1
   cost: 5000
   recipeUnlocks:
@@ -20,7 +20,7 @@
   - BoxLedLightbulb
   - BoxLightMixed
   - BoxLedLightMixed
-  position: 25, 0 # DarkestHour: место в дереве технологий
+  position: 11, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: Hydroponics
@@ -35,7 +35,8 @@
   - SeedExtractorMachineCircuitboard
   - HydroponicsTrayMachineCircuitboard
   - ReagentGrinderIndustrialMachineCircuitboard
-  position: 26, 0 # DarkestHour: место в дереве технологий
+  hidden: true # DarkestHour: не подходит сеттингу
+  position: 0, 0
 
 - type: technology
   id: CritterMechs
@@ -56,7 +57,8 @@
   - HamtrPeripheralsElectronics
   - MechEquipmentGrabberSmall
   - VimHarness
-  position: 27, 0 # DarkestHour: место в дереве технологий
+  hidden: true # DarkestHour: не подходит сеттингу
+  position: 0, 0
 
 - type: technology
   id: AudioVisualCommunication
@@ -64,7 +66,7 @@
   icon:
     sprite: Structures/Wallmounts/camera.rsi
     state: cameracase
-  discipline: CivilianServices
+  discipline: Industrial # DarkestHour: ветка дерева
   tier: 1
   cost: 5000
   recipeUnlocks:
@@ -76,7 +78,7 @@
   - SurveillanceWirelessCameraMonitorCircuitboard
   - TelecomServerCircuitboard
   - HolopadMachineCircuitboard
-  position: 28, 0 # DarkestHour: место в дереве технологий
+  position: 3, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: AdvancedEntertainment
@@ -93,7 +95,8 @@
     - DawInstrumentMachineCircuitboard
     - MassMediaCircuitboard
     - JukeboxCircuitBoard
-  position: 29, 0 # DarkestHour: место в дереве технологий
+  hidden: true # DarkestHour: не подходит сеттингу
+  position: 0, 0
 
 - type: technology
   id: MeatManipulation
@@ -110,7 +113,8 @@
   - BiomassReclaimerMachineCircuitboard
 
 # Tier 2
-  position: 30, 0 # DarkestHour: место в дереве технологий
+  hidden: true # DarkestHour: не подходит сеттингу
+  position: 0, 0
 
 - type: technology
   id: FauxAstroTiles
@@ -133,9 +137,8 @@
   - FauxTileDesertAstroSand
   - FauxTileAstroIronsand
   - FauxTileAstroIronsandBorderless
-  technologyPrerequisites: # DarkestHour: дерево технологий
-  - Hydroponics
-  position: 26, 2 # DarkestHour: место в дереве технологий
+  hidden: true # DarkestHour: не подходит сеттингу
+  position: 0, 0
 
 - type: technology
   id: BiochemicalStasis
@@ -143,7 +146,7 @@
   icon:
     sprite: Structures/Machines/stasis_bed.rsi
     state: icon
-  discipline: CivilianServices
+  discipline: CivilianServices # DarkestHour: ветка дерева
   tier: 2
   cost: 7500
   recipeUnlocks:
@@ -151,9 +154,7 @@
   - CryoPodMachineCircuitboard
   - CryostasisBeaker
   - SyringeCryostasis
-  technologyPrerequisites: # DarkestHour: дерево технологий
-  - MeatManipulation
-  position: 30, 2 # DarkestHour: место в дереве технологий
+  position: 22, 0 # DarkestHour: место в дереве технологий
 
 - type: technology # Merge with other T2 medical research if possible!
   id: MechanizedTreatment
@@ -161,15 +162,13 @@
   icon:
     sprite: Mobs/Silicon/chassis.rsi
     state: medical
-  discipline: CivilianServices
+  discipline: CivilianServices # DarkestHour: ветка дерева
   tier: 2
   cost: 5000
   recipeUnlocks:
   - BorgModuleAdvancedTopical
   - AdvancedJetInjector
-  technologyPrerequisites: # DarkestHour: дерево технологий
-  - CritterMechs
-  position: 27, 2 # DarkestHour: место в дереве технологий
+  position: 23, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: AdvancedCleaning
@@ -185,9 +184,8 @@
   - MegaSprayBottle
   - BorgModuleAdvancedCleaning
   # - TrashBagHolding # DarkestHour: нет блюспейса
-  technologyPrerequisites: # DarkestHour: дерево технологий
-  - PackagedLights
-  position: 25, 2 # DarkestHour: место в дереве технологий
+  hidden: true # DarkestHour: не подходит сеттингу
+  position: 0, 0
 
 - type: technology
   id: HONKMech
@@ -208,9 +206,8 @@
   - HonkerPeripheralsElectronics
   - HonkerTargetingElectronics
   - MechEquipmentHorn
-  technologyPrerequisites: # DarkestHour: дерево технологий
-  - CritterMechs
-  position: 28, 2 # DarkestHour: место в дереве технологий
+  hidden: true # DarkestHour: не подходит сеттингу
+  position: 0, 0
 
 - type: technology
   id: AdvancedSpray
@@ -226,9 +223,8 @@
   - ClothingBackpackWaterTank
 
 # BluespaceCargoTransport удалён # DarkestHour: нет блюспейса
-  technologyPrerequisites: # DarkestHour: дерево технологий
-  - PackagedLights
-  position: 29, 2 # DarkestHour: место в дереве технологий
+  hidden: true # DarkestHour: не подходит сеттингу
+  position: 0, 0
 
 - type: technology
   id: PushHorn
@@ -244,9 +240,8 @@
   - BorgModuleAdvancedClowning
 
 # Tier 3
-  technologyPrerequisites: # DarkestHour: дерево технологий
-  - AdvancedEntertainment
-  position: 31, 2 # DarkestHour: место в дереве технологий
+  hidden: true # DarkestHour: не подходит сеттингу
+  position: 0, 0
 
 - type: technology
   id: QuantumFiberWeaving
@@ -254,7 +249,7 @@
   icon:
     sprite: Clothing/Shoes/Boots/speedboots.rsi
     state: icon
-  discipline: CivilianServices
+  discipline: Industrial # DarkestHour: ветка дерева
   tier: 3
   cost: 10000
   recipeUnlocks:
@@ -262,8 +257,8 @@
 
 # BluespaceChemistry удалён # DarkestHour: нет блюспейса
   technologyPrerequisites: # DarkestHour: дерево технологий
-  - AdvancedCleaning
-  position: 25, 4 # DarkestHour: место в дереве технологий
+  - AdvancedToolsTechnology
+  position: 1, 4 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: LauncherSyringe
@@ -271,7 +266,7 @@
   icon:
     sprite: Objects/Weapons/Guns/Cannons/syringe_gun.rsi
     state: syringe_gun
-  discipline: CivilianServices
+  discipline: CivilianServices # DarkestHour: ветка дерева
   tier: 3
   cost: 15000
   recipeUnlocks:
@@ -279,5 +274,4 @@
   - MiniSyringe
   technologyPrerequisites: # DarkestHour: дерево технологий
   - MechanizedTreatment
-  position: 27, 4 # DarkestHour: место в дереве технологий
-
+  position: 23, 2 # DarkestHour: место в дереве технологий

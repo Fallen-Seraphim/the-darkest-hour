@@ -225,7 +225,7 @@
   parent: [ BaseMachinePowered, ConstructibleMachine, BaseConstructibleMachineDestructible ]
   id: DHMaterialScanner
   name: chem-material scanner
-  description: Put a material sample in. After a scan it prints a technology disk with the material's recipes and a report.
+  description: Put a material sample in to get a technology disk with its recipes. Scan captured enemy equipment to make related technologies cheaper.
   components:
   - type: Sprite
     sprite: Structures/Machines/tech_disk_printer.rsi
@@ -270,9 +270,6 @@
     slots:
       sample:
         name: dh-material-scanner-slot
-        whitelist:
-          components:
-          - DHMaterialSample
   - type: ContainerContainer
     containers:
       sample: !type:ContainerSlot
@@ -382,5 +379,10 @@
   - DHMaterialLabMachineCircuitboard
   - DHMaterialScannerMachineCircuitboard
   - DHAlloyFurnaceMachineCircuitboard
+
+# Платы, которые открываются технологиями дерева.
+- type: latheRecipePack
+  id: DHScienceBoards
+  recipes:
   - DHKaneCrystallizerMachineCircuitboard
   - DHKaneLithographMachineCircuitboard
