@@ -6,7 +6,7 @@
   icon:
     sprite: Objects/Tools/handdrill.rsi
     state: handdrill
-  discipline: Industrial
+  discipline: Industrial # DarkestHour: ветка дерева
   tier: 1
   cost: 7500
   recipeUnlocks:
@@ -23,13 +23,13 @@
   icon:
     sprite: Objects/Tools/handheld_mass_scanner.rsi
     state: icon
-  discipline: Industrial
+  discipline: DHEnergy # DarkestHour: ветка дерева
   tier: 1
   cost: 5000
   recipeUnlocks:
   - RadarConsoleCircuitboard
   - HandHeldMassScanner
-  position: 1, 0 # DarkestHour: место в дереве технологий
+  position: 9, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: AdvancedPowercells
@@ -37,14 +37,14 @@
   icon:
     sprite: Structures/Power/turbo_recharger.rsi
     state: empty
-  discipline: Industrial
+  discipline: DHEnergy # DarkestHour: ветка дерева
   tier: 1
   cost: 7500
   recipeUnlocks:
   - PowerCellHigh
   - TurboItemRechargerCircuitboard
   - SMESAdvancedMachineCircuitboard
-  position: 2, 0 # DarkestHour: место в дереве технологий
+  position: 8, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: MechanicalCompression
@@ -52,12 +52,12 @@
   icon:
     sprite: Structures/Machines/flatpacker.rsi
     state: base
-  discipline: Industrial
+  discipline: Industrial # DarkestHour: ветка дерева
   tier: 1
   cost: 10000
   recipeUnlocks:
   - FlatpackerMachineCircuitboard
-  position: 3, 0 # DarkestHour: место в дереве технологий
+  position: 2, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: IndustrialEngineering
@@ -65,7 +65,7 @@
   icon:
     sprite: Structures/Machines/protolathe_hypercon.rsi
     state: building
-  discipline: Industrial
+  discipline: Industrial # DarkestHour: ветка дерева
   tier: 1
   cost: 10000
   recipeUnlocks:
@@ -73,7 +73,7 @@
   - ProtolatheHyperConvectionMachineCircuitboard
   - CircuitImprinterHyperConvectionMachineCircuitboard
   - SheetifierMachineCircuitboard
-  position: 4, 0 # DarkestHour: место в дереве технологий
+  position: 1, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: PowerGeneration
@@ -81,7 +81,7 @@
   icon:
     sprite: Structures/Power/Generation/portable_generator.rsi
     state: portgen0
-  discipline: Industrial
+  discipline: DHEnergy # DarkestHour: ветка дерева
   tier: 1
   cost: 7500
   recipeUnlocks:
@@ -91,7 +91,7 @@
   - SolarControlComputerCircuitboard
   - SolarTrackerElectronics
   - EmitterCircuitboard
-  position: 5, 0 # DarkestHour: место в дереве технологий
+  position: 7, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: AtmosphericTech
@@ -99,13 +99,13 @@
   icon:
     sprite: Structures/Piping/Atmospherics/thermomachine.rsi
     state: freezerOff
-  discipline: Industrial
+  discipline: DHEnergy # DarkestHour: ветка дерева
   tier: 1
   cost: 7500
   recipeUnlocks:
   - ThermomachineFreezerMachineCircuitBoard
   - GasRecyclerMachineCircuitboard
-  position: 6, 0 # DarkestHour: место в дереве технологий
+  position: 10, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: RipleyAPLU
@@ -113,7 +113,7 @@
   icon:
     sprite: Objects/Specific/Mech/mecha.rsi
     state: ripley
-  discipline: Industrial
+  discipline: Industrial # DarkestHour: ветка дерева
   tier: 1
   cost: 7500
   recipeUnlocks:
@@ -127,7 +127,7 @@
   - MechEquipmentGrabber
 
 # Tier 2
-  position: 7, 0 # DarkestHour: место в дереве технологий
+  position: 4, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: Shuttlecraft
@@ -135,7 +135,7 @@
   icon:
     sprite: Structures/Shuttles/gyroscope.rsi
     state: base
-  discipline: Industrial
+  discipline: DHEnergy # DarkestHour: ветка дерева
   tier: 2
   cost: 10000
   recipeUnlocks:
@@ -145,7 +145,7 @@
   - MiniGravityGeneratorCircuitboard
   technologyPrerequisites: # DarkestHour: дерево технологий
   - SpaceScanning
-  position: 1, 2 # DarkestHour: место в дереве технологий
+  position: 9, 2 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: AdvancedAtmospherics
@@ -153,16 +153,16 @@
   icon:
     sprite: Objects/Devices/Holoprojectors/atmos.rsi
     state: icon
-  discipline: Industrial
+  discipline: DHEnergy # DarkestHour: ветка дерева
   tier: 2
   cost: 7500
   recipeUnlocks:
   - HellfireFreezerMachineCircuitBoard
   - PortableScrubberMachineCircuitBoard
   - HolofanProjector
-  technologyPrerequisites:
+  technologyPrerequisites: # DarkestHour: дерево технологий
   - AtmosphericTech
-  position: 6, 2 # DarkestHour: место в дереве технологий
+  position: 10, 2 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: AdvancedToolsTechnology
@@ -170,7 +170,7 @@
   icon:
     sprite: Objects/Tools/welder_experimental.rsi
     state: icon
-  discipline: Industrial
+  discipline: Industrial # DarkestHour: ветка дерева
   tier: 2
   cost: 10000
   recipeUnlocks:
@@ -182,7 +182,7 @@
     - FultonBeacon
   technologyPrerequisites: # DarkestHour: дерево технологий
   - IndustrialEngineering
-  position: 4, 2 # DarkestHour: место в дереве технологий
+  position: 1, 2 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: MassExcavation
@@ -190,7 +190,7 @@
   icon:
     sprite: Objects/Tools/handdrilldiamond.rsi
     state: handdrill
-  discipline: Industrial
+  discipline: Industrial # DarkestHour: ветка дерева
   tier: 2
   cost: 12500
   recipeUnlocks:
@@ -212,13 +212,12 @@
   icon:
     sprite: Objects/Power/power_cells.rsi
     state: microreactor
-  discipline: Industrial
+  discipline: DHEnergy # DarkestHour: ветка дерева
   tier: 3
   cost: 10000
   recipeUnlocks:
   - PowerCellMicroreactor
   - PowerCellHyper
-  technologyPrerequisites:
-  - AdvancedPowercells
-  position: 2, 4 # DarkestHour: место в дереве технологий
-
+  technologyPrerequisites: # DarkestHour: дерево технологий
+  - DHKaneCrystals
+  position: 8, 4 # DarkestHour: место в дереве технологий

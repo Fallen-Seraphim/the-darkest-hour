@@ -9,6 +9,7 @@ using Content.Shared.Damage.Systems;
 using Content.Shared.Examine;
 using Content.Shared.FixedPoint;
 using Content.Shared.GameTicking;
+using Content.Shared.GameTicking.Events;
 using Content.Shared.Interaction;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Popups;

@@ -84,3 +84,18 @@ dh-kane-examine-density = Kane density: [color=#6ff0e1]{$density}[/color].
 dh-kane-crystallizer-slot = Crystal
 dh-kane-lithograph-slot = Input
 dh-kane-cell-assembled = You seat the microboard in the casing. Capacity: {$charge}.
+
+## DarkestHour: реверс-инжиниринг трофеев
+
+dh-reverse-report-name = reverse engineering: {$item}
+dh-reverse-report-header = REVERSE ENGINEERING — {$item}
+dh-reverse-report-no-server = No research server on this station — nothing to apply the data to.
+dh-reverse-report-repeat = This kind of equipment has already been studied this shift. No new data.
+dh-reverse-report-discount = {$technology}: now {$discount}% cheaper.
+
+## DarkestHour: дерево технологий
+
+research-discipline-dh-energy = Energy & Ships
+research-technology-dh-kane-crystals = Kane Crystals
+dh-material-scanner-nothing = The scanner finds nothing to analyse in this.
+research-technology-dh-ship-fire-control = Ship Fire Control

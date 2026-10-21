@@ -40,7 +40,7 @@
   color: "#7ecd48"
   icon:
     sprite: Interface/Misc/research_disciplines.rsi
-    state: civilianservices
+    state: biochemical # DarkestHour: ветка «медицина и биология»
   tierPrerequisites:
     1: 0
     2: 0.75

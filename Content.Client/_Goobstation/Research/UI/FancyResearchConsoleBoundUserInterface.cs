@@ -63,7 +63,12 @@ public sealed class FancyResearchConsoleBoundUserInterface : BoundUserInterface
         // Thats for avoiding refresh spam when only points are updated
         if (_consoleMenu == null)
             return;
-        if (!_consoleMenu.List.SequenceEqual(castState.Researches))
+
+        // DarkestHour: цены со скидкой реверс-инжиниринга — при изменении перерисовать дерево и панель.
+        var costsChanged = !_consoleMenu.Costs.OrderBy(p => p.Key).SequenceEqual(castState.Costs.OrderBy(p => p.Key));
+        _consoleMenu.Costs = castState.Costs;
+
+        if (costsChanged || !_consoleMenu.List.SequenceEqual(castState.Researches))
             _consoleMenu.UpdatePanels(castState.Researches);
         if (_consoleMenu.Points != castState.Points)
             _consoleMenu.UpdateInformationPanel(castState.Points);
