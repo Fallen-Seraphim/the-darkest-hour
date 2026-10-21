@@ -53,6 +53,7 @@
   - DHDosimeter # DarkestHour: радиация и хронит
   - DHSkinGraft # DarkestHour: хронит
   - DHPathogenSwab # DarkestHour: вирусология
+  - DHDisinfectantWipes # DarkestHour: стерильность
   - DHPathogenScanner # DarkestHour: вирусология
   - WhiteCane
   - OffsetCane
