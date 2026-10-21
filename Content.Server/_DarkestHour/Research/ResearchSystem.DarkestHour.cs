@@ -1,5 +1,6 @@
 using Content.Shared._DarkestHour.Research.Materials;
 using Content.Shared.Research.Prototypes;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.Research.Systems;
 
