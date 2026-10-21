@@ -1,0 +1,341 @@
+# DarkestHour: кристаллы Кейна (этап 4). Осколок (руда) или синтетическая затравка → кристаллизатор (растёт, пока есть
+# питание; плотность до 100) → литограф: кристалл → плата → микроплата → корпус ячейки + микроплата = ячейка Кейна.
+
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: DHKaneItemBase
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Specific/Research/kane.rsi
+  - type: Item
+    size: Small
+  - type: PointLight
+    radius: 1.1
+    energy: 0.6
+    color: "#6ff0e1"
+
+- type: entity
+  parent: DHKaneItemBase
+  id: DHKaneShard
+  name: Kane crystal shard
+  description: A raw shard of Kane crystal. Grow it into a full crystal in a crystallizer.
+  components:
+  - type: Sprite
+    state: shard
+  - type: Tag
+    tags:
+    - DHKaneGrowable
+  - type: DHKaneDensity
+    randomMin: 10
+    randomMax: 30
+  - type: DHKaneSeed
+  - type: StaticPrice
+    price: 300
+
+- type: entity
+  parent: DHKaneItemBase
+  id: DHKaneSyntheticSeed
+  name: synthetic Kane seed
+  description: A tiny lab-grown Kane crystal on a substrate. Grows slower to density than a natural shard starts at.
+  components:
+  - type: Sprite
+    state: seed
+  - type: Tag
+    tags:
+    - DHKaneGrowable
+  - type: DHKaneDensity
+    density: 5
+  - type: DHKaneSeed
+  - type: StaticPrice
+    price: 150
+
+- type: entity
+  parent: DHKaneItemBase
+  id: DHKaneCrystal
+  name: Kane crystal
+  description: A grown Kane crystal. Stores energy; the denser it is, the more. A lithograph etches it into a Kane board.
+  components:
+  - type: Sprite
+    state: crystal
+  - type: Tag
+    tags:
+    - DHKaneGrowable
+  - type: DHKaneDensity
+  - type: DHKaneProduct
+    next: DHKaneBoard
+    retain: 0.95
+  - type: StaticPrice
+    price: 800
+
+- type: entity
+  parent: DHKaneItemBase
+  id: DHKaneBoard
+  name: Kane board
+  description: A Kane crystal etched into a circuit board. A lithograph shrinks it into a Kane microboard.
+  components:
+  - type: Sprite
+    state: board
+  - type: DHKaneDensity
+  - type: DHKaneProduct
+    next: DHKaneMicroboard
+    retain: 0.95
+  - type: StaticPrice
+    price: 1200
+
+- type: entity
+  parent: DHKaneItemBase
+  id: DHKaneMicroboard
+  name: Kane microboard
+  description: A Kane microboard — the heart of large batteries, rare energy weapons and reactor fuel. Use it on a Kane cell casing.
+  components:
+  - type: Sprite
+    state: microboard
+  - type: DHKaneDensity
+  - type: DHKaneMicroboard
+  - type: StaticPrice
+    price: 1800
+
+- type: entity
+  parent: BaseItem
+  id: DHKaneCellCasing
+  name: Kane cell casing
+  description: An empty power cell casing. Insert a Kane microboard to get a Kane cell — its capacity depends on the microboard's density.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Specific/Research/kane.rsi
+    state: casing
+  - type: Item
+    size: Small
+  - type: DHKaneCasing
+    result: DHPowerCellKane
+    baseCharge: 1500
+    chargePerDensity: 80
+
+- type: entity
+  parent: BasePowerCell
+  id: DHPowerCellKane
+  name: Kane power cell
+  description: A power cell built around a Kane microboard. Holds far more charge than a hyper cell when the crystal is dense.
+  components:
+  - type: Sprite
+    layers:
+    - map: [ "enum.PowerCellVisualLayers.Base" ]
+      state: hyper
+      color: "#8ff5e8"
+    - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
+      state: o2
+      shader: unshaded
+  - type: Battery
+    maxCharge: 1500
+    startingCharge: 1500
+  - type: PointLight
+    radius: 1
+    energy: 0.5
+    color: "#6ff0e1"
+
+- type: Tag
+  id: DHKaneGrowable
+
+# --- Руда ---
+
+- type: ore
+  id: OreKane
+  oreEntity: DHKaneShard
+  minOreYield: 1
+  maxOreYield: 1
+
+- type: entity
+  abstract: true
+  id: DHBaseVeinKane
+  suffix: Kane
+  description: A vein glittering with Kane crystals.
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: OreKane
+  - type: Sprite
+    layers:
+    - state: rock_kane
+      sprite: _DarkestHour/Structures/Walls/stone-ore.rsi
+      map: [ "enum.MiningScannerVisualLayers.Overlay" ]
+
+- type: entity
+  parent: [ DHBaseVeinKane, AsteroidRock ]
+  id: DHAsteroidRockKane
+
+- type: oreDunGen
+  id: DHOreKane
+  replacement: AsteroidRock
+  entity: DHAsteroidRockKane
+  count: 2
+  minGroupSize: 2
+  maxGroupSize: 4
+
+# --- Машины ---
+
+- type: entity
+  abstract: true
+  parent: [ BaseMachinePowered, ConstructibleMachine, BaseConstructibleMachineDestructible ]
+  id: DHKaneMachineBase
+  components:
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHKaneMachineVisuals.Running:
+        running:
+          True: { visible: true }
+          False: { visible: false }
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: InteractionOutline
+  - type: Anchorable
+
+- type: entity
+  parent: DHKaneMachineBase
+  id: DHKaneCrystallizer
+  name: Kane crystallizer
+  description: Grows a Kane crystal from a shard or a synthetic seed while powered. The longer it grows, the denser it gets — but each extra point takes longer. Take it out whenever you like.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Machines/kane_crystallizer.rsi
+    snapCardinals: true
+    layers:
+    - state: icon
+    - state: running
+      map: [ "running" ]
+      visible: false
+    - state: unlit
+      shader: unshaded
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+  - type: ItemSlots
+    slots:
+      crystal:
+        name: dh-kane-crystallizer-slot
+        whitelist:
+          tags:
+          - DHKaneGrowable
+  - type: ContainerContainer
+    containers:
+      crystal: !type:ContainerSlot
+      machine_board: !type:Container
+      machine_parts: !type:Container
+  - type: Machine
+    board: DHKaneCrystallizerMachineCircuitboard
+  - type: DHKaneCrystallizer
+  - type: ApcPowerReceiver
+    powerLoad: 2000
+
+- type: entity
+  parent: DHKaneMachineBase
+  id: DHKaneLithograph
+  name: Kane lithograph
+  description: Etches a Kane crystal into a board, and a board into a microboard. A little density is lost at each step.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Machines/kane_lithograph.rsi
+    snapCardinals: true
+    layers:
+    - state: icon
+    - state: running
+      map: [ "running" ]
+      visible: false
+    - state: unlit
+      shader: unshaded
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+  - type: ItemSlots
+    slots:
+      input:
+        name: dh-kane-lithograph-slot
+        whitelist:
+          components:
+          - DHKaneProduct
+  - type: ContainerContainer
+    containers:
+      input: !type:ContainerSlot
+      machine_board: !type:Container
+      machine_parts: !type:Container
+  - type: Machine
+    board: DHKaneLithographMachineCircuitboard
+  - type: DHKaneLithograph
+  - type: ApcPowerReceiver
+    powerLoad: 800
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: DHKaneCrystallizerMachineCircuitboard
+  name: Kane crystallizer machine board
+  components:
+  - type: Sprite
+    state: science
+  - type: MachineBoard
+    prototype: DHKaneCrystallizer
+    stackRequirements:
+      Manipulator: 2
+      Glass: 5
+      Steel: 5
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: DHKaneLithographMachineCircuitboard
+  name: Kane lithograph machine board
+  components:
+  - type: Sprite
+    state: science
+  - type: MachineBoard
+    prototype: DHKaneLithograph
+    stackRequirements:
+      Manipulator: 2
+      Glass: 2
+      Steel: 5
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: DHKaneCrystallizerMachineCircuitboard
+  result: DHKaneCrystallizerMachineCircuitboard
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: DHKaneLithographMachineCircuitboard
+  result: DHKaneLithographMachineCircuitboard
+
+# Синтетическая затравка и корпус ячейки — в сплавной печи (статично).
+- type: latheRecipe
+  id: DHKaneSyntheticSeed
+  result: DHKaneSyntheticSeed
+  completetime: 8
+  materials:
+    Glass: 200
+    Silver: 50
+
+- type: latheRecipe
+  id: DHKaneCellCasing
+  result: DHKaneCellCasing
+  completetime: 3
+  materials:
+    Steel: 100
+    Plastic: 50
+    Copper: 50
+
+- type: latheRecipePack
+  id: DHKaneStatic
+  recipes:
+  - DHKaneSyntheticSeed
+  - DHKaneCellCasing

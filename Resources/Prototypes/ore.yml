@@ -103,6 +103,7 @@
     OreCopper: 5 # DarkestHour
     OreNickel: 3 # DarkestHour
     OreTitanium: 2 # DarkestHour: титана мало
+    OreKane: 0.4 # DarkestHour: кристаллы Кейна
 
 - type: weightedRandomOre
   id: OreCrab

@@ -77,3 +77,10 @@ dh-material-scanner-report-composition = Composition: {$composition}
 dh-material-scanner-report-points = First sample this shift: +{$points} research points.
 dh-material-scanner-report-disk = A technology disk with the recipes has been printed. Insert it into the research server.
 dh-material-scanner-report-no-disk = No recipes to print for this material yet.
+
+## DarkestHour: кристаллы Кейна
+
+dh-kane-examine-density = Kane density: [color=#6ff0e1]{$density}[/color].
+dh-kane-crystallizer-slot = Crystal
+dh-kane-lithograph-slot = Input
+dh-kane-cell-assembled = You seat the microboard in the casing. Capacity: {$charge}.
