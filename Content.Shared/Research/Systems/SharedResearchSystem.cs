@@ -11,6 +11,9 @@ namespace Content.Shared.Research.Systems;
 
 public abstract partial class SharedResearchSystem : EntitySystem
 {
+    // DarkestHour: дерево технологий без блокировки дисциплин.
+    private const bool DarkestHourNoLockout = true;
+
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private SharedLatheSystem _lathe = default!;
 
@@ -72,8 +75,9 @@ public abstract partial class SharedResearchSystem : EntitySystem
         if (!component.SupportedDisciplines.Contains(tech.Discipline))
             return false;
 
-        if (tech.Tier > disciplineTiers[tech.Discipline])
-            return false;
+        // DarkestHour: дерево технологий — доступность только по пререквизитам, без уровней дисциплин.
+        // if (tech.Tier > disciplineTiers[tech.Discipline])
+        //     return false;
 
         if (component.UnlockedTechnologies.Contains(tech.ID))
             return false;
@@ -218,6 +222,10 @@ public abstract partial class SharedResearchSystem : EntitySystem
 
     public void TrySetMainDiscipline(TechnologyPrototype prototype, EntityUid uid, TechnologyDatabaseComponent? component = null)
     {
+        // DarkestHour: без блокировки «главной дисциплины» — исследовать можно все ветки дерева.
+        if (DarkestHourNoLockout)
+            return;
+
         if (!Resolve(uid, ref component))
             return;
 

@@ -15,6 +15,7 @@
   - OreProcessorIndustrialMachineCircuitboard
   - ClothingMaskWeldingGas
   - ClothingShoesBootsJump
+  position: 0, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: SpaceScanning
@@ -28,6 +29,7 @@
   recipeUnlocks:
   - RadarConsoleCircuitboard
   - HandHeldMassScanner
+  position: 1, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: AdvancedPowercells
@@ -42,6 +44,7 @@
   - PowerCellHigh
   - TurboItemRechargerCircuitboard
   - SMESAdvancedMachineCircuitboard
+  position: 2, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: MechanicalCompression
@@ -54,6 +57,7 @@
   cost: 10000
   recipeUnlocks:
   - FlatpackerMachineCircuitboard
+  position: 3, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: IndustrialEngineering
@@ -69,6 +73,7 @@
   - ProtolatheHyperConvectionMachineCircuitboard
   - CircuitImprinterHyperConvectionMachineCircuitboard
   - SheetifierMachineCircuitboard
+  position: 4, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: PowerGeneration
@@ -86,6 +91,7 @@
   - SolarControlComputerCircuitboard
   - SolarTrackerElectronics
   - EmitterCircuitboard
+  position: 5, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: AtmosphericTech
@@ -99,6 +105,7 @@
   recipeUnlocks:
   - ThermomachineFreezerMachineCircuitBoard
   - GasRecyclerMachineCircuitboard
+  position: 6, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: RipleyAPLU
@@ -120,6 +127,7 @@
   - MechEquipmentGrabber
 
 # Tier 2
+  position: 7, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: Shuttlecraft
@@ -135,6 +143,9 @@
   - ThrusterMachineCircuitboard
   - GyroscopeMachineCircuitboard
   - MiniGravityGeneratorCircuitboard
+  technologyPrerequisites: # DarkestHour: дерево технологий
+  - SpaceScanning
+  position: 1, 2 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: AdvancedAtmospherics
@@ -151,6 +162,7 @@
   - HolofanProjector
   technologyPrerequisites:
   - AtmosphericTech
+  position: 6, 2 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: AdvancedToolsTechnology
@@ -168,6 +180,9 @@
     - BorgModuleAdvancedTool
     - Fulton
     - FultonBeacon
+  technologyPrerequisites: # DarkestHour: дерево технологий
+  - IndustrialEngineering
+  position: 4, 2 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: MassExcavation
@@ -187,6 +202,9 @@
 # Tier 3
 
 # BluespaceStorage удалён # DarkestHour: нет блюспейса
+  technologyPrerequisites: # DarkestHour: дерево технологий
+  - SalvageEquipment
+  position: 0, 2 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: OptimizedMicrogalvanism
@@ -202,3 +220,5 @@
   - PowerCellHyper
   technologyPrerequisites:
   - AdvancedPowercells
+  position: 2, 4 # DarkestHour: место в дереве технологий
+

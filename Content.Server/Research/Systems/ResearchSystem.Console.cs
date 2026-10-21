@@ -1,4 +1,6 @@
+using System.Linq;
 using Content.Server.Power.EntitySystems;
+using Content.Shared._Goobstation.Research; // DarkestHour
 using Content.Server.Research.Components;
 using Content.Shared.UserInterface;
 using Content.Shared.Access.Components;
@@ -72,10 +74,33 @@ public sealed partial class ResearchSystem
 
         ResearchConsoleBoundInterfaceState state;
 
-        if (TryGetClientServer(uid, out _, out var serverComponent, clientComponent))
+        if (TryGetClientServer(uid, out var serverUid, out var serverComponent, clientComponent))
         {
             var points = clientComponent.ConnectedToServer ? serverComponent.Points : 0;
-            state = new ResearchConsoleBoundInterfaceState(points);
+
+            // DarkestHour: дерево технологий — доступность каждой технологии (изучена / можно / не хватает очков /
+            // не изучены пререквизиты). По образцу Goob Station / Monolith.
+            var researches = new Dictionary<string, ResearchAvailability>();
+            if (TryComp<TechnologyDatabaseComponent>(serverUid, out var database))
+            {
+                foreach (var tech in ProtoMan.EnumeratePrototypes<TechnologyPrototype>())
+                {
+                    if (tech.Hidden || !database.SupportedDisciplines.Contains(tech.Discipline))
+                        continue;
+
+                    ResearchAvailability availability;
+                    if (database.UnlockedTechnologies.Contains(tech.ID))
+                        availability = ResearchAvailability.Researched;
+                    else if (!tech.TechnologyPrerequisites.All(p => database.UnlockedTechnologies.Contains(p)))
+                        availability = ResearchAvailability.Unavailable;
+                    else
+                        availability = points >= tech.Cost ? ResearchAvailability.Available : ResearchAvailability.PrereqsMet;
+
+                    researches[tech.ID] = availability;
+                }
+            }
+
+            state = new ResearchConsoleBoundInterfaceState(points, researches);
         }
         else
         {

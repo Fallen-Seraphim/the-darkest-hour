@@ -12,6 +12,7 @@
   cost: 5000
   recipeUnlocks:
   - ProximitySensor
+  position: 20, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: AlternativeResearch
@@ -24,6 +25,7 @@
   cost: 5000
   recipeUnlocks:
   - TechDiskComputerCircuitboard
+  position: 21, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: MagnetsTech
@@ -39,6 +41,7 @@
   - ClothingShoesBootsMoon
 
 # Tier 2
+  position: 22, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: DeterrenceTechnologies
@@ -52,6 +55,9 @@
   recipeUnlocks:
   - WeaponParticleDecelerator
   - HoloprojectorField
+  technologyPrerequisites: # DarkestHour: дерево технологий
+  - BasicRobotics
+  position: 20, 2 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: GravityManipulation
@@ -73,4 +79,7 @@
 # BluespaceTimeManipulation удалён # DarkestHour: нет блюспейса
 
 # TeleSci удалён # DarkestHour: нет блюспейса
+  technologyPrerequisites: # DarkestHour: дерево технологий
+  - MagnetsTech
+  position: 22, 2 # DarkestHour: место в дереве технологий
 

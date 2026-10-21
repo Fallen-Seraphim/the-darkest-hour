@@ -69,6 +69,38 @@ public sealed partial class TechnologyPrototype : IPrototype
     /// </summary>
     [DataField]
     public IReadOnlyList<GenericUnlock> GenericUnlocks = new List<GenericUnlock>();
+
+    // DarkestHour: дерево технологий (консоль РнД Goob Station / Monolith) — место в сетке и вид линий к пререквизитам.
+
+    /// <summary>
+    /// Положение технологии в сетке дерева (в клетках).
+    /// </summary>
+    [DataField]
+    public Vector2i Position { get; private set; }
+
+    /// <summary>
+    /// Как рисовать линии к пререквизитам.
+    /// </summary>
+    [DataField]
+    public PrerequisiteLineType PrerequisiteLineType { get; private set; } = PrerequisiteLineType.LShape;
+}
+
+/// <summary>
+/// DarkestHour (из Goob Station / Monolith): вид линий от пререквизитов в дереве технологий.
+/// </summary>
+public enum PrerequisiteLineType : byte
+{
+    /// <summary>Г-образные линии (по умолчанию).</summary>
+    LShape = 0,
+
+    /// <summary>Прямые диагональные линии.</summary>
+    Diagonal = 1,
+
+    /// <summary>Ветвление деревом от общего ствола.</summary>
+    Tree = 2,
+
+    /// <summary>Разнесённые линии без наложений.</summary>
+    Spread = 3,
 }
 
 [DataDefinition]
