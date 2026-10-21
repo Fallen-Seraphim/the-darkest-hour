@@ -1,0 +1,643 @@
+# DarkestHour: базовые металлы станции (этап 4) — алюминий, титан, медь, никель.
+# Руда в астероидах → переработчик руды → листы/слитки. Спрайты — перекраска ванильных (CC-BY-SA).
+
+- type: material
+  id: Aluminium
+  stackEntity: SheetAluminium1
+  name: materials-dh-aluminium
+  icon: { sprite: _DarkestHour/Objects/Materials/sheets.rsi, state: aluminium }
+  color: "#C9D3DC"
+  price: 0.12
+
+- type: material
+  id: RawAluminium
+  stackEntity: AluminiumOre1
+  name: materials-dh-raw-aluminium
+  unit: materials-unit-chunk
+  icon: { sprite: _DarkestHour/Objects/Materials/ore.rsi, state: bauxite }
+  color: "#C9D3DC"
+  price: 0.04
+
+- type: stack
+  parent: BaseSheetStack
+  id: Aluminium
+  name: stack-dh-aluminium
+  icon: { sprite: /Textures/_DarkestHour/Objects/Materials/sheets.rsi, state: aluminium }
+  spawn: SheetAluminium1
+
+- type: stack
+  parent: BaseMediumStack
+  id: AluminiumOre
+  name: stack-dh-aluminium-ore
+  icon: { sprite: /Textures/_DarkestHour/Objects/Materials/ore.rsi, state: bauxite }
+  spawn: AluminiumOre1
+
+- type: entity
+  parent: BaseSheet
+  id: SheetAluminium
+  name: aluminium
+  description: A light, corrosion-resistant metal sheet. Used in hull plating, wiring and alloys.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Materials/sheets.rsi
+    state: aluminium_3
+    layers:
+    - state: aluminium_3
+      map: ["base"]
+  - type: Item
+    sprite: _DarkestHour/Objects/Materials/sheets.rsi
+    heldPrefix: aluminium
+  - type: Tag
+    tags:
+    - Sheet
+    - Metal
+    - ConstructionMaterial
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Material
+  - type: PhysicalComposition
+    materialComposition:
+      Aluminium: 100
+  - type: Stack
+    stackType: Aluminium
+    baseLayer: base
+    layerStates:
+    - aluminium
+    - aluminium_2
+    - aluminium_3
+
+- type: entity
+  parent: SheetAluminium
+  id: SheetAluminium10
+  suffix: 10
+  components:
+  - type: Sprite
+    state: aluminium_2
+  - type: Stack
+    stackType: Aluminium
+    count: 10
+
+- type: entity
+  parent: SheetAluminium
+  id: SheetAluminium1
+  suffix: Single
+  components:
+  - type: Sprite
+    state: aluminium
+  - type: Stack
+    stackType: Aluminium
+    count: 1
+
+- type: entity
+  parent: OreBase
+  id: AluminiumOre
+  name: bauxite
+  description: aluminium ore. Smelt it in an ore processor.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Materials/ore.rsi
+    state: bauxite
+  - type: Item
+    sprite: _DarkestHour/Objects/Materials/ore.rsi
+    heldPrefix: bauxite
+  - type: Stack
+    stackType: AluminiumOre
+  - type: PhysicalComposition
+    materialComposition:
+      RawAluminium: 100
+  - type: Tag
+    tags:
+    - Ore
+
+- type: entity
+  parent: AluminiumOre
+  id: AluminiumOre1
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: ore
+  id: OreAluminium
+  oreEntity: AluminiumOre1
+  minOreYield: 1
+  maxOreYield: 4
+
+- type: latheRecipe
+  id: SheetAluminium1
+  result: SheetAluminium1
+  completetime: 0
+  materials:
+    RawAluminium: 100
+
+- type: material
+  id: Titanium
+  stackEntity: SheetTitanium1
+  name: materials-dh-titanium
+  icon: { sprite: _DarkestHour/Objects/Materials/sheets.rsi, state: titanium }
+  color: "#9AA4BC"
+  price: 0.35
+
+- type: material
+  id: RawTitanium
+  stackEntity: TitaniumOre1
+  name: materials-dh-raw-titanium
+  unit: materials-unit-chunk
+  icon: { sprite: _DarkestHour/Objects/Materials/ore.rsi, state: ilmenite }
+  color: "#9AA4BC"
+  price: 0.117
+
+- type: stack
+  parent: BaseSheetStack
+  id: Titanium
+  name: stack-dh-titanium
+  icon: { sprite: /Textures/_DarkestHour/Objects/Materials/sheets.rsi, state: titanium }
+  spawn: SheetTitanium1
+
+- type: stack
+  parent: BaseMediumStack
+  id: TitaniumOre
+  name: stack-dh-titanium-ore
+  icon: { sprite: /Textures/_DarkestHour/Objects/Materials/ore.rsi, state: ilmenite }
+  spawn: TitaniumOre1
+
+- type: entity
+  parent: BaseSheet
+  id: SheetTitanium
+  name: titanium
+  description: A strong, light titanium sheet. Rare on the frontier; the base for plastitanium.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Materials/sheets.rsi
+    state: titanium_3
+    layers:
+    - state: titanium_3
+      map: ["base"]
+  - type: Item
+    sprite: _DarkestHour/Objects/Materials/sheets.rsi
+    heldPrefix: titanium
+  - type: Tag
+    tags:
+    - Sheet
+    - Metal
+    - ConstructionMaterial
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Material
+  - type: PhysicalComposition
+    materialComposition:
+      Titanium: 100
+  - type: Stack
+    stackType: Titanium
+    baseLayer: base
+    layerStates:
+    - titanium
+    - titanium_2
+    - titanium_3
+
+- type: entity
+  parent: SheetTitanium
+  id: SheetTitanium10
+  suffix: 10
+  components:
+  - type: Sprite
+    state: titanium_2
+  - type: Stack
+    stackType: Titanium
+    count: 10
+
+- type: entity
+  parent: SheetTitanium
+  id: SheetTitanium1
+  suffix: Single
+  components:
+  - type: Sprite
+    state: titanium
+  - type: Stack
+    stackType: Titanium
+    count: 1
+
+- type: entity
+  parent: OreBase
+  id: TitaniumOre
+  name: ilmenite
+  description: titanium ore. Smelt it in an ore processor.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Materials/ore.rsi
+    state: ilmenite
+  - type: Item
+    sprite: _DarkestHour/Objects/Materials/ore.rsi
+    heldPrefix: ilmenite
+  - type: Stack
+    stackType: TitaniumOre
+  - type: PhysicalComposition
+    materialComposition:
+      RawTitanium: 100
+  - type: Tag
+    tags:
+    - Ore
+
+- type: entity
+  parent: TitaniumOre
+  id: TitaniumOre1
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: ore
+  id: OreTitanium
+  oreEntity: TitaniumOre1
+  minOreYield: 1
+  maxOreYield: 2
+
+- type: latheRecipe
+  id: SheetTitanium1
+  result: SheetTitanium1
+  completetime: 0
+  materials:
+    RawTitanium: 100
+    Coal: 30
+
+- type: material
+  id: Copper
+  stackEntity: IngotCopper1
+  name: materials-dh-copper
+  unit: materials-unit-bar
+  icon: { sprite: _DarkestHour/Objects/Materials/ingots.rsi, state: copper }
+  color: "#D9804A"
+  price: 0.15
+
+- type: material
+  id: RawCopper
+  stackEntity: CopperOre1
+  name: materials-dh-raw-copper
+  unit: materials-unit-chunk
+  icon: { sprite: _DarkestHour/Objects/Materials/ore.rsi, state: malachite }
+  color: "#D9804A"
+  price: 0.05
+
+- type: stack
+  parent: BaseMediumStack
+  id: Copper
+  name: stack-dh-copper
+  icon: { sprite: /Textures/_DarkestHour/Objects/Materials/ingots.rsi, state: copper }
+  spawn: IngotCopper1
+
+- type: stack
+  parent: BaseMediumStack
+  id: CopperOre
+  name: stack-dh-copper-ore
+  icon: { sprite: /Textures/_DarkestHour/Objects/Materials/ore.rsi, state: malachite }
+  spawn: CopperOre1
+
+- type: entity
+  parent: MaterialBase
+  id: IngotCopper
+  name: copper
+  description: A bar of copper. Wiring, electronics and rift equipment are made of it.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Materials/ingots.rsi
+    state: copper_3
+    layers:
+    - state: copper_3
+      map: ["base"]
+  - type: Item
+    sprite: _DarkestHour/Objects/Materials/ingots.rsi
+    heldPrefix: copper
+  - type: Tag
+    tags:
+    - Ingot
+    - ConstructionMaterial
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Material
+  - type: PhysicalComposition
+    materialComposition:
+      Copper: 100
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Copper
+        Quantity: 10
+  - type: Stack
+    stackType: Copper
+    baseLayer: base
+    layerStates:
+    - copper
+    - copper_2
+    - copper_3
+
+- type: entity
+  parent: IngotCopper
+  id: IngotCopper10
+  suffix: 10
+  components:
+  - type: Sprite
+    state: copper_2
+  - type: Stack
+    stackType: Copper
+    count: 10
+
+- type: entity
+  parent: IngotCopper
+  id: IngotCopper1
+  suffix: Single
+  components:
+  - type: Sprite
+    state: copper
+  - type: Stack
+    stackType: Copper
+    count: 1
+
+- type: entity
+  parent: OreBase
+  id: CopperOre
+  name: malachite
+  description: copper ore. Smelt it in an ore processor.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Materials/ore.rsi
+    state: malachite
+  - type: Item
+    sprite: _DarkestHour/Objects/Materials/ore.rsi
+    heldPrefix: malachite
+  - type: Stack
+    stackType: CopperOre
+  - type: PhysicalComposition
+    materialComposition:
+      RawCopper: 100
+  - type: Tag
+    tags:
+    - Ore
+
+- type: entity
+  parent: CopperOre
+  id: CopperOre1
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: ore
+  id: OreCopper
+  oreEntity: CopperOre1
+  minOreYield: 1
+  maxOreYield: 4
+
+- type: latheRecipe
+  id: IngotCopper1
+  result: IngotCopper1
+  completetime: 0
+  materials:
+    RawCopper: 100
+
+- type: material
+  id: Nickel
+  stackEntity: IngotNickel1
+  name: materials-dh-nickel
+  unit: materials-unit-bar
+  icon: { sprite: _DarkestHour/Objects/Materials/ingots.rsi, state: nickel }
+  color: "#D8D4BF"
+  price: 0.2
+
+- type: material
+  id: RawNickel
+  stackEntity: NickelOre1
+  name: materials-dh-raw-nickel
+  unit: materials-unit-chunk
+  icon: { sprite: _DarkestHour/Objects/Materials/ore.rsi, state: pentlandite }
+  color: "#D8D4BF"
+  price: 0.067
+
+- type: stack
+  parent: BaseMediumStack
+  id: Nickel
+  name: stack-dh-nickel
+  icon: { sprite: /Textures/_DarkestHour/Objects/Materials/ingots.rsi, state: nickel }
+  spawn: IngotNickel1
+
+- type: stack
+  parent: BaseMediumStack
+  id: NickelOre
+  name: stack-dh-nickel-ore
+  icon: { sprite: /Textures/_DarkestHour/Objects/Materials/ore.rsi, state: pentlandite }
+  spawn: NickelOre1
+
+- type: entity
+  parent: MaterialBase
+  id: IngotNickel
+  name: nickel
+  description: A bar of nickel. Used in alloys and plastnickel.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Materials/ingots.rsi
+    state: nickel_3
+    layers:
+    - state: nickel_3
+      map: ["base"]
+  - type: Item
+    sprite: _DarkestHour/Objects/Materials/ingots.rsi
+    heldPrefix: nickel
+  - type: Tag
+    tags:
+    - Ingot
+    - ConstructionMaterial
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Material
+  - type: PhysicalComposition
+    materialComposition:
+      Nickel: 100
+  - type: Stack
+    stackType: Nickel
+    baseLayer: base
+    layerStates:
+    - nickel
+    - nickel_2
+    - nickel_3
+
+- type: entity
+  parent: IngotNickel
+  id: IngotNickel10
+  suffix: 10
+  components:
+  - type: Sprite
+    state: nickel_2
+  - type: Stack
+    stackType: Nickel
+    count: 10
+
+- type: entity
+  parent: IngotNickel
+  id: IngotNickel1
+  suffix: Single
+  components:
+  - type: Sprite
+    state: nickel
+  - type: Stack
+    stackType: Nickel
+    count: 1
+
+- type: entity
+  parent: OreBase
+  id: NickelOre
+  name: pentlandite
+  description: nickel ore. Smelt it in an ore processor.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Materials/ore.rsi
+    state: pentlandite
+  - type: Item
+    sprite: _DarkestHour/Objects/Materials/ore.rsi
+    heldPrefix: pentlandite
+  - type: Stack
+    stackType: NickelOre
+  - type: PhysicalComposition
+    materialComposition:
+      RawNickel: 100
+  - type: Tag
+    tags:
+    - Ore
+
+- type: entity
+  parent: NickelOre
+  id: NickelOre1
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: ore
+  id: OreNickel
+  oreEntity: NickelOre1
+  minOreYield: 1
+  maxOreYield: 3
+
+- type: latheRecipe
+  id: IngotNickel1
+  result: IngotNickel1
+  completetime: 0
+  materials:
+    RawNickel: 100
+    Coal: 15
+
+# DarkestHour: жилы базовых металлов в астероидах (магнит утилизаторов).
+
+- type: entity
+  abstract: true
+  id: DHBaseVeinAluminium
+  suffix: Aluminium
+  description: An ore vein rich with bauxite.
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: OreAluminium
+  - type: Sprite
+    layers:
+    - state: rock_bauxite
+      sprite: _DarkestHour/Structures/Walls/stone-ore.rsi
+      map: [ "enum.MiningScannerVisualLayers.Overlay" ]
+
+- type: entity
+  parent: [ DHBaseVeinAluminium, AsteroidRock ]
+  id: DHAsteroidRockAluminium
+
+- type: oreDunGen
+  id: DHOreAluminium
+  replacement: AsteroidRock
+  entity: DHAsteroidRockAluminium
+  count: 5
+  minGroupSize: 5
+  maxGroupSize: 7
+
+- type: entity
+  abstract: true
+  id: DHBaseVeinTitanium
+  suffix: Titanium
+  description: An ore vein rich with ilmenite.
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: OreTitanium
+  - type: Sprite
+    layers:
+    - state: rock_ilmenite
+      sprite: _DarkestHour/Structures/Walls/stone-ore.rsi
+      map: [ "enum.MiningScannerVisualLayers.Overlay" ]
+
+- type: entity
+  parent: [ DHBaseVeinTitanium, AsteroidRock ]
+  id: DHAsteroidRockTitanium
+
+- type: oreDunGen
+  id: DHOreTitanium
+  replacement: AsteroidRock
+  entity: DHAsteroidRockTitanium
+  count: 3
+  minGroupSize: 5
+  maxGroupSize: 7
+
+- type: entity
+  abstract: true
+  id: DHBaseVeinCopper
+  suffix: Copper
+  description: An ore vein rich with malachite.
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: OreCopper
+  - type: Sprite
+    layers:
+    - state: rock_malachite
+      sprite: _DarkestHour/Structures/Walls/stone-ore.rsi
+      map: [ "enum.MiningScannerVisualLayers.Overlay" ]
+
+- type: entity
+  parent: [ DHBaseVeinCopper, AsteroidRock ]
+  id: DHAsteroidRockCopper
+
+- type: oreDunGen
+  id: DHOreCopper
+  replacement: AsteroidRock
+  entity: DHAsteroidRockCopper
+  count: 4
+  minGroupSize: 5
+  maxGroupSize: 7
+
+- type: entity
+  abstract: true
+  id: DHBaseVeinNickel
+  suffix: Nickel
+  description: An ore vein rich with pentlandite.
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: OreNickel
+  - type: Sprite
+    layers:
+    - state: rock_pentlandite
+      sprite: _DarkestHour/Structures/Walls/stone-ore.rsi
+      map: [ "enum.MiningScannerVisualLayers.Overlay" ]
+
+- type: entity
+  parent: [ DHBaseVeinNickel, AsteroidRock ]
+  id: DHAsteroidRockNickel
+
+- type: oreDunGen
+  id: DHOreNickel
+  replacement: AsteroidRock
+  entity: DHAsteroidRockNickel
+  count: 4
+  minGroupSize: 5
+  maxGroupSize: 7

@@ -99,6 +99,10 @@
     OreSilver: 1
     OreUranium: 1
     OreArtifactFragment: 0.5
+    OreAluminium: 6 # DarkestHour: базовые металлы
+    OreCopper: 5 # DarkestHour
+    OreNickel: 3 # DarkestHour
+    OreTitanium: 2 # DarkestHour: титана мало
 
 - type: weightedRandomOre
   id: OreCrab
