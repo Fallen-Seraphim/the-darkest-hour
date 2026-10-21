@@ -1,0 +1,62 @@
+# DarkestHour: боеприпасы корабельных и станционных орудий.
+
+- type: entity
+  id: DHCrateShipAmmo20mm
+  parent: CrateWeaponSecure
+  name: 20mm ammo loader crate
+  description: Two 20mm ammo loaders for point-defense autocannons. Requires armory access to open.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHShipMagazine20mm
+      amount: 2
+
+- type: entity
+  id: DHCrateShipAmmo30mm
+  parent: CrateWeaponSecure
+  name: 30mm ammo loader crate
+  description: One armour-piercing and one high-explosive 30mm ammo loader. Requires armory access to open.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHShipMagazine30mmAP
+    - id: DHShipMagazine30mmHE
+
+- type: entity
+  id: DHCrateShipShells90mm
+  parent: CrateWeaponSecure
+  name: 90mm shell crate
+  description: Four armour-piercing and four high-explosive 90mm shells. Requires armory access to open.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHShipShell90mmAP
+      amount: 4
+    - id: DHShipShell90mmHE
+      amount: 4
+
+- type: entity
+  id: DHCrateShipShells155mm
+  parent: CrateWeaponSecure
+  name: 155mm shell crate
+  description: Two armour-piercing and two high-explosive 155mm shells. Requires armory access to open.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHShipShell155mmAP
+      amount: 2
+    - id: DHShipShell155mmHE
+      amount: 2
+
+- type: entity
+  id: DHCrateShipShells220mm
+  parent: CrateWeaponSecure
+  name: 220mm shell crate
+  description: Two APHE and two HE 220mm shells. Requires armory access to open.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHShipShell220mmAPHE
+      amount: 2
+    - id: DHShipShell220mmHE
+      amount: 2
