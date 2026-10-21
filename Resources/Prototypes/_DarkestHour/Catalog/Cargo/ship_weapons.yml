@@ -1,0 +1,51 @@
+# DarkestHour: боеприпасы корабельных и станционных орудий через карго.
+
+- type: cargoProduct
+  id: DHShipAmmo20mm
+  icon:
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/generic_shipgun_box.rsi
+    state: base
+  product: DHCrateShipAmmo20mm
+  cost: 1500
+  category: cargoproduct-category-name-security
+  group: market
+
+- type: cargoProduct
+  id: DHShipAmmo30mm
+  icon:
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/generic_shipgun_box.rsi
+    state: base
+  product: DHCrateShipAmmo30mm
+  cost: 2000
+  category: cargoproduct-category-name-security
+  group: market
+
+- type: cargoProduct
+  id: DHShipShells90mm
+  icon:
+    sprite: _Mono/Objects/SpaceArtillery/shells.rsi
+    state: 90mmAP
+  product: DHCrateShipShells90mm
+  cost: 2500
+  category: cargoproduct-category-name-security
+  group: market
+
+- type: cargoProduct
+  id: DHShipShells155mm
+  icon:
+    sprite: _Mono/Objects/SpaceArtillery/shells.rsi
+    state: 150mmAP
+  product: DHCrateShipShells155mm
+  cost: 3500
+  category: cargoproduct-category-name-security
+  group: market
+
+- type: cargoProduct
+  id: DHShipShells220mm
+  icon:
+    sprite: _Mono/Objects/SpaceArtillery/shells.rsi
+    state: 220mmAPHE
+  product: DHCrateShipShells220mm
+  cost: 5000
+  category: cargoproduct-category-name-security
+  group: market
