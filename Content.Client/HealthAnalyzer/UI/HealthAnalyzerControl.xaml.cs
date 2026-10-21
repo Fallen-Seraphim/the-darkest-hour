@@ -1,3 +1,4 @@
+using Content.Shared._DarkestHour.Medical.Trauma; // DarkestHour
 using System.Linq;
 using System.Numerics;
 using Content.Shared.Atmos;
@@ -129,7 +130,11 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         DamageLabel.Text = _damageable.GetTotalDamage(target.Value).ToString();
 
         // Alerts
-        var showAlerts = unrevivable || bleeding;
+        // DarkestHour: травмы по частям тела (переломы, внутреннее кровотечение, осколки, органы, боль).
+        var traumaLines = _entityManager.TryGetComponent<DHTraumaComponent>(target.Value, out var trauma)
+            ? trauma.Summary
+            : null;
+        var showAlerts = unrevivable || bleeding || traumaLines is { Count: > 0 };
 
         AlertsDivider.Visible = showAlerts;
         AlertsContainer.Visible = showAlerts;
@@ -154,6 +159,21 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
                 Margin = new Thickness(0, 4),
                 MaxWidth = 300,
             });
+        }
+
+        // DarkestHour: травмы.
+        if (traumaLines != null)
+        {
+            foreach (var line in traumaLines)
+            {
+                var label = new RichTextLabel
+                {
+                    Margin = new Thickness(0, 2),
+                    MaxWidth = 300,
+                };
+                label.SetMessage(FormattedMessage.FromMarkupPermissive(line));
+                AlertsContainer.AddChild(label);
+            }
         }
 
         // Damage Groups

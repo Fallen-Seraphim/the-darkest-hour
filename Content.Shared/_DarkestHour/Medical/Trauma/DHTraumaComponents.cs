@@ -123,6 +123,13 @@ public sealed partial class DHTraumaComponent : Component
     /// <summary>Множитель скорости от переломов ног и боли.</summary>
     [DataField, AutoNetworkedField]
     public float SpeedModifier = 1f;
+
+    /// <summary>
+    /// Готовые строки травм для анализатора здоровья (переломы, кровотечения, осколки, органы, боль).
+    /// Сервер обновляет раз в секунду и шлёт клиенту, только если изменились.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public List<string> Summary = new();
 }
 
 /// <summary>

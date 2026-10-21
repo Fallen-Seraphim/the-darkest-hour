@@ -65,3 +65,10 @@ dh-surgery-repair-organs-desc = Suture the damaged organs inside. A failing orga
 
 reagent-name-dh-morphine = morphine
 reagent-desc-dh-morphine = A strong painkiller. Prevents pain shock and fainting from pain, slows you slightly. Above 20u it depresses breathing.
+
+## Анализатор здоровья
+dh-trauma-analyzer-part = [color=#d0a040]{CAPITALIZE($part)}:[/color] {$findings}
+dh-trauma-analyzer-pain-mild = [color=#d0c040]Pain: mild.[/color]
+dh-trauma-analyzer-pain-moderate = [color=#d08040]Pain: moderate — slowed.[/color]
+dh-trauma-analyzer-pain-shock = [color=#d04040]Pain: pain shock! Give painkillers.[/color]
+dh-trauma-analyzer-pain-unconscious = [color=#d04040]Pain: unconscious from pain! Give painkillers.[/color]
