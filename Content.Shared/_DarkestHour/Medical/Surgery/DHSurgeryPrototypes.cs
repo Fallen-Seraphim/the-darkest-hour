@@ -85,6 +85,8 @@ public enum DHSurgeryEffect : byte
     ExciseChronite,
     /// <summary>Пересадить кожу (кожный трансплантат из руки хирурга).</summary>
     GraftSkin,
+    /// <summary>Извлечь паразита из тканей (болезни, которые лечатся хирургически).</summary>
+    RemoveParasite,
 }
 
 /// <summary>
@@ -99,6 +101,8 @@ public enum DHInjuryKind : byte
     OrganDamage,
     /// <summary>Кристаллизация кожи хронитом (стадия 2–3 хронитовой болезни, не последняя).</summary>
     ChroniteSkin,
+    /// <summary>Тканевый паразит (болезнь, которая лечится хирургическим извлечением).</summary>
+    Parasite,
 }
 
 /// <summary>

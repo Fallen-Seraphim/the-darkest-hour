@@ -1,7 +1,7 @@
 # DarkestHour: болезни (этап 2, шаг 3). Список и лечение — claude/medicine-design.md (утверждено автором 2026-10-20).
 # Прогресс: N = стадия N; progressRate — рост в секунду, immuneGain/immuneStrength — как организм сам сбивает болезнь.
 # Первая стадия — инкубация: без симптомов, не заразна, не видна на медицинском HUD.
-# Остальные болезни списка (пневмония, лихорадка Келвина, MRS-14, грибки, паразиты) — вместе с их лекарствами и вирусологией.
+# resistance — устойчивость к обычным лекарствам (резервные действуют в полную силу).
 
 # 1. Простуда — вирус, воздух. Проходит сама за ~10 минут, оставляет иммунитет.
 - type: dhDisease
@@ -96,6 +96,10 @@
       time: 3
       type: Update
       probability: 0.03
+    # Осложнение: бактериальная пневмония.
+    - !type:DHInfectDisease
+      disease: DHDiseasePneumonia
+      probability: 0.004
 
 # 6. Станционная дизентерия — бактерия, контакт (и испорченная еда — эффект DHInfectDisease). Лечится антибиотиком.
 - type: dhDisease
@@ -352,3 +356,387 @@
     - !type:DHAddPain
       amount: 30
       probability: 0.5
+
+# 3. Лихорадка Келвина — вирус, кровь и контакт. Геморрагическая: кровотечения, кровопотеря, без лечения смерть.
+# Сам организм почти не справляется: вакцина + переливание + транексамовая кислота.
+- type: dhDisease
+  id: DHDiseaseKelvinFever
+  name: dh-disease-kelvin-fever
+  group: Virus
+  spread: [ Blood, Contact ]
+  infectivity: 0.15
+  progressRate: 0.005
+  immuneGain: 0.0003
+  immuneStrength: 0.008
+  grantsImmunity: true
+  symptoms: [ dh-symptom-fever, dh-symptom-bleeding-gums, dh-symptom-bruising, dh-symptom-bleeding ]
+  structure: dh-virology-structure-kelvin-fever
+  treatment: Vaccine
+  recipe: dh-virology-recipe-kelvin-fever
+  researchPoints: 12000
+  stages:
+  - contagious: false
+    symptomatic: false
+  - interval: 6
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Small
+      messages: [ "dh-disease-symptom-fever", "dh-disease-symptom-bleeding-gums" ]
+      probability: 0.2
+    - !type:ModifyBleed
+      amount: 0.3
+      probability: 0.2
+  - interval: 5
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Medium
+      messages: [ "dh-disease-symptom-bruising", "dh-disease-symptom-high-fever" ]
+      probability: 0.2
+    - !type:ModifyBleed
+      amount: 1
+      probability: 0.4
+    - !type:HealthChange
+      probability: 0.5
+      damage:
+        types:
+          Bloodloss: 1
+  - interval: 5
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Large
+      messages: [ "dh-disease-symptom-kelvin-terminal" ]
+      probability: 0.2
+    - !type:ModifyBleed
+      amount: 2
+      probability: 0.6
+    - !type:HealthChange
+      damage:
+        types:
+          Bloodloss: 2
+          Cellular: 0.5
+    - !type:Jitter
+      probability: 0.15
+
+# 4. Бактериальная пневмония — бактерия, воздух; осложнение гриппа. Кашель, одышка, удушье. Спейсациллин + Dexalin.
+- type: dhDisease
+  id: DHDiseasePneumonia
+  name: dh-disease-pneumonia
+  group: Bacteria
+  spread: [ Airborne ]
+  infectivity: 0.08
+  progressRate: 0.006
+  immuneGain: 0.0004
+  immuneStrength: 0.006
+  symptoms: [ dh-symptom-cough, dh-symptom-short-breath, dh-symptom-fever, dh-symptom-chest-pain ]
+  structure: dh-virology-structure-pneumonia
+  treatment: Antibiotic
+  recipe: dh-virology-recipe-pneumonia
+  researchPoints: 6000
+  stages:
+  - contagious: false
+    symptomatic: false
+  - interval: 6
+    effects:
+    - !type:Emote
+      emote: Cough
+      showInChat: true
+      probability: 0.25
+    - !type:PopupMessage
+      type: Local
+      visualType: Small
+      messages: [ "dh-disease-symptom-short-breath", "dh-disease-symptom-fever" ]
+      probability: 0.15
+    - !type:HealthChange
+      probability: 0.4
+      damage:
+        types:
+          Asphyxiation: 1
+  - interval: 5
+    effects:
+    - !type:Emote
+      emote: Cough
+      showInChat: true
+      probability: 0.35
+    - !type:PopupMessage
+      type: Local
+      visualType: Medium
+      messages: [ "dh-disease-symptom-chest-pain", "dh-disease-symptom-gasping" ]
+      probability: 0.2
+    - !type:HealthChange
+      probability: 0.7
+      damage:
+        types:
+          Asphyxiation: 2.5
+
+# 7. Устойчивый штамм MRS-14 — бактерия, контакт (больничная инфекция). Как раневая инфекция, но тяжелее;
+# Спейсациллин бесполезен — только Карбапенем-R.
+- type: dhDisease
+  id: DHDiseaseMRS14
+  name: dh-disease-mrs14
+  group: Bacteria
+  spread: [ Contact ]
+  infectivity: 0.1
+  resistance: 1
+  progressRate: 0.006
+  immuneGain: 0.0001
+  immuneStrength: 0.004
+  symptoms: [ dh-symptom-fever, dh-symptom-wound-inflammation, dh-symptom-pus, dh-symptom-abscess ]
+  structure: dh-virology-structure-mrs14
+  treatment: ReserveAntibiotic
+  recipe: dh-virology-recipe-mrs14
+  researchPoints: 10000
+  stages:
+  - contagious: false
+    symptomatic: false
+  - interval: 8
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Small
+      messages: [ "dh-disease-symptom-wound-throb", "dh-disease-symptom-fever" ]
+      probability: 0.25
+    - !type:HealthChange
+      damage:
+        types:
+          Poison: 1
+  - interval: 8
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Medium
+      messages: [ "dh-disease-symptom-abscess", "dh-disease-symptom-high-fever" ]
+      probability: 0.25
+    - !type:HealthChange
+      damage:
+        types:
+          Poison: 2
+    - !type:DHAddPain
+      amount: 10
+      probability: 0.3
+  - interval: 8
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Large
+      messages: [ "dh-disease-symptom-sepsis" ]
+      probability: 0.25
+    - !type:HealthChange
+      damage:
+        types:
+          Poison: 3
+          Cellular: 1
+    - !type:Jitter
+      probability: 0.2
+
+# 8. Чёрная плесень — грибок, споры в воздухе (вентиляция, плесень в еде). Медленная: кашель, хрипы, удушье. Флуконазол.
+- type: dhDisease
+  id: DHDiseaseBlackMold
+  name: dh-disease-black-mold
+  group: Fungus
+  spread: [ Airborne ]
+  infectivity: 0.06
+  progressRate: 0.003
+  immuneGain: 0.0002
+  immuneStrength: 0.004
+  symptoms: [ dh-symptom-cough, dh-symptom-wheezing, dh-symptom-short-breath, dh-symptom-dark-sputum ]
+  structure: dh-virology-structure-black-mold
+  treatment: Antifungal
+  recipe: dh-virology-recipe-black-mold
+  researchPoints: 7000
+  stages:
+  - contagious: false
+    symptomatic: false
+  - interval: 8
+    effects:
+    - !type:Emote
+      emote: Cough
+      showInChat: true
+      probability: 0.2
+    - !type:PopupMessage
+      type: Local
+      visualType: Small
+      messages: [ "dh-disease-symptom-wheezing", "dh-disease-symptom-dark-sputum" ]
+      probability: 0.15
+    - !type:HealthChange
+      probability: 0.3
+      damage:
+        types:
+          Asphyxiation: 0.5
+  - interval: 6
+    effects:
+    - !type:Emote
+      emote: Cough
+      showInChat: true
+      probability: 0.3
+    - !type:PopupMessage
+      type: Local
+      visualType: Medium
+      messages: [ "dh-disease-symptom-gasping", "dh-disease-symptom-dark-sputum" ]
+      probability: 0.2
+    - !type:HealthChange
+      probability: 0.6
+      damage:
+        types:
+          Asphyxiation: 1.5
+          Poison: 0.5
+
+# 9. Серая парша — грибок, контакт кожи. Зуд, серые чешуйки, трещины кожи. Флуконазол + перевязки.
+- type: dhDisease
+  id: DHDiseaseGreyScab
+  name: dh-disease-grey-scab
+  group: Fungus
+  spread: [ Contact ]
+  infectivity: 0.18
+  progressRate: 0.004
+  immuneGain: 0.0003
+  immuneStrength: 0.005
+  symptoms: [ dh-symptom-itch, dh-symptom-grey-scales, dh-symptom-skin-cracks ]
+  structure: dh-virology-structure-grey-scab
+  treatment: Antifungal
+  recipe: dh-virology-recipe-grey-scab
+  researchPoints: 6000
+  stages:
+  - contagious: false
+    symptomatic: false
+  - interval: 6
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Small
+      messages: [ "dh-disease-symptom-itch", "dh-disease-symptom-grey-scales" ]
+      probability: 0.25
+    - !type:HealthChange
+      probability: 0.3
+      damage:
+        types:
+          Caustic: 0.5
+  - interval: 5
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Medium
+      messages: [ "dh-disease-symptom-skin-cracks" ]
+      probability: 0.2
+    - !type:HealthChange
+      probability: 0.6
+      damage:
+        types:
+          Caustic: 1
+          Slash: 0.5
+    - !type:ModifyBleed
+      amount: 0.3
+      probability: 0.2
+
+# 10. Кишечные гельминты — паразит, сырое мясо и экспедиционная еда. Не заразны. Сильный голод, слабость. Альбендазол.
+- type: dhDisease
+  id: DHDiseaseHelminths
+  name: dh-disease-helminths
+  group: Parasite
+  infectivity: 0
+  progressRate: 0.004
+  immuneGain: 0.0001
+  immuneStrength: 0.003
+  symptoms: [ dh-symptom-constant-hunger, dh-symptom-weakness, dh-symptom-cramps ]
+  structure: dh-virology-structure-helminths
+  treatment: Antiparasitic
+  recipe: dh-virology-recipe-helminths
+  researchPoints: 5000
+  stages:
+  - contagious: false
+    symptomatic: false
+  - contagious: false
+    interval: 8
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Small
+      messages: [ "dh-disease-symptom-hungry", "dh-disease-symptom-cramps" ]
+      probability: 0.25
+    - !type:Satiate
+      satiationType: Hunger
+      factor: -2
+  - contagious: false
+    interval: 6
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Medium
+      messages: [ "dh-disease-symptom-starving", "dh-disease-symptom-weak" ]
+      probability: 0.25
+    - !type:Satiate
+      satiationType: Hunger
+      factor: -4
+    - !type:HealthChange
+      probability: 0.3
+      damage:
+        types:
+          Poison: 0.5
+
+# 11. Планетарный червь — паразит (укусы фауны планеты, вода; экспедиции). Личинка в тканях торса: боль, урон органам.
+# Альбендазол только сдерживает (resistance 0.95) — нужна операция извлечения на вскрытом торсе.
+- type: dhDisease
+  id: DHDiseasePlanetaryWorm
+  name: dh-disease-planetary-worm
+  group: Parasite
+  infectivity: 0
+  resistance: 0.95
+  progressRate: 0.004
+  immuneGain: 0
+  symptoms: [ dh-symptom-pain, dh-symptom-moving-lump, dh-symptom-weakness ]
+  structure: dh-virology-structure-planetary-worm
+  treatment: Surgery
+  recipe: dh-virology-recipe-planetary-worm
+  researchPoints: 15000
+  stages:
+  - contagious: false
+    symptomatic: false
+  - contagious: false
+    interval: 8
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Small
+      messages: [ "dh-disease-symptom-moving-lump", "dh-disease-symptom-belly-pain" ]
+      probability: 0.25
+    - !type:DHAddPain
+      amount: 10
+      probability: 0.4
+  - contagious: false
+    interval: 6
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Medium
+      messages: [ "dh-disease-symptom-worm-gnawing" ]
+      probability: 0.25
+    - !type:DHAddPain
+      amount: 25
+      probability: 0.5
+    - !type:HealthChange
+      probability: 0.6
+      damage:
+        types:
+          Cellular: 1
+          Piercing: 0.5
+  - contagious: false
+    interval: 5
+    effects:
+    - !type:PopupMessage
+      type: Local
+      visualType: Large
+      messages: [ "dh-disease-symptom-worm-terminal" ]
+      probability: 0.25
+    - !type:DHAddPain
+      amount: 40
+      probability: 0.6
+    - !type:HealthChange
+      damage:
+        types:
+          Cellular: 2
+          Piercing: 1
+    - !type:ModifyBleed
+      amount: 1
+      probability: 0.3

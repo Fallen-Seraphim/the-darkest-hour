@@ -148,6 +148,38 @@ public sealed partial class DHDiseaseSystem : EntitySystem
     public bool HasDisease(EntityUid uid, ProtoId<DHDiseasePrototype> disease) =>
         TryComp<DHDiseaseCarrierComponent>(uid, out var carrier) && carrier.Diseases.ContainsKey(disease);
 
+    /// <summary>Есть ли тканевый паразит, которого нужно извлечь хирургически (болезнь с лечением Surgery).</summary>
+    public bool HasSurgicalParasite(EntityUid uid)
+    {
+        if (!TryComp<DHDiseaseCarrierComponent>(uid, out var carrier))
+            return false;
+
+        foreach (var id in carrier.Diseases.Keys)
+        {
+            if (_proto.TryIndex(id, out var proto) && proto.Treatment == DHTreatmentKind.Surgery)
+                return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>Хирургическое извлечение: снимает все болезни с лечением Surgery (без иммунитета).</summary>
+    public void RemoveSurgicalParasites(EntityUid uid)
+    {
+        if (!TryComp<DHDiseaseCarrierComponent>(uid, out var carrier))
+            return;
+
+        var removed = false;
+        foreach (var id in carrier.Diseases.Keys.ToList())
+        {
+            if (_proto.TryIndex(id, out var proto) && proto.Treatment == DHTreatmentKind.Surgery)
+                removed |= carrier.Diseases.Remove(id);
+        }
+
+        if (removed)
+            UpdateSymptomatic((uid, carrier));
+    }
+
     /// <summary>Биозащита надетой одежды по пути передачи (0…0.95).</summary>
     public float GetProtection(EntityUid uid, DHSpreadVector vector)
     {

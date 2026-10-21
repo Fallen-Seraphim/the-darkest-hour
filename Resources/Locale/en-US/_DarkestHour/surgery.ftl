@@ -104,3 +104,8 @@ dh-surgery-insert-appendix = Transplant appendix
 
 reagent-name-dh-spacecillin = spacecillin
 reagent-desc-dh-spacecillin = A broad-spectrum antibiotic. Treats bacterial diseases, including wound infections. Overdose above 30u is toxic.
+
+dh-surgery-extract-parasite = Extract parasite
+dh-surgery-extract-parasite-desc = Pull a burrowed parasite larva out of the torso tissue. Slow — it clings on.
+dh-surgery-step-extract-parasite = extract the larva
+dh-surgery-injury-parasite = parasite larva in the tissue

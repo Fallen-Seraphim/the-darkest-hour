@@ -71,3 +71,51 @@
       amount: 1
   products:
     DHVaccineFluTaurus: 2
+
+- type: reaction
+  id: DHVaccineKelvinFever
+  reactants:
+    DHViracide:
+      amount: 1
+    TranexamicAcid:
+      amount: 1
+    Sugar:
+      amount: 1
+  products:
+    DHVaccineKelvinFever: 2
+
+- type: reaction
+  id: DHCarbapenemR
+  reactants:
+    DHSpacecillin:
+      amount: 1
+    Fluorine:
+      amount: 1
+    Lithium:
+      amount: 1
+  products:
+    DHCarbapenemR: 2
+
+- type: reaction
+  id: DHFluconazole
+  reactants:
+    Fluorine:
+      amount: 1
+    Phenol:
+      amount: 1
+    Silicon:
+      amount: 1
+  products:
+    DHFluconazole: 3
+
+- type: reaction
+  id: DHAlbendazole
+  reactants:
+    Sulfur:
+      amount: 1
+    Nitrogen:
+      amount: 1
+    Copper:
+      amount: 1
+  products:
+    DHAlbendazole: 3

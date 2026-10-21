@@ -11,6 +11,16 @@
   group: market
 
 - type: cargoProduct
+  id: DHMedicalCultureSamplesHazard
+  icon:
+    sprite: _DarkestHour/Objects/Specific/Medical/culture_jar.rsi
+    state: red
+  product: DHCrateCultureSamplesHazard
+  cost: 4000
+  category: cargoproduct-category-name-medical
+  group: market
+
+- type: cargoProduct
   id: DHMedicalVirologyEquipment
   icon:
     sprite: Structures/Machines/diagnoser.rsi
