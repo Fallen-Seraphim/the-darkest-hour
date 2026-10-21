@@ -1,0 +1,381 @@
+# DarkestHour: материаловедение (этап 4). Лабораторный стол → образец → химико-материальный сканер → технодиск.
+# Технодиск вставить в сервер РнД — открываются рецепты сплавной печи.
+
+# --- Рецепты материалов: решётка, атомы в узлах, расход исходных материалов ---
+
+- type: dhMaterialRecipe
+  id: DHMaterialPlasteel
+  name: materials-plasteel
+  order: 1
+  lattice: Cubic
+  elements: [ Fe, Fe, C, H ]
+  consumes:
+    Steel: 100
+    Plastic: 100
+  disk: DHTechDiskPlasteel
+  researchPoints: 3000
+
+- type: dhMaterialRecipe
+  id: DHMaterialDuralumin
+  name: materials-dh-duralumin
+  order: 2
+  lattice: Cubic
+  elements: [ Al, Al, Al, Cu ]
+  consumes:
+    Aluminium: 100
+    Copper: 100
+  disk: DHTechDiskDuralumin
+  researchPoints: 4000
+
+- type: dhMaterialRecipe
+  id: DHMaterialPlastitanium
+  name: materials-dh-plastitanium
+  order: 3
+  lattice: Hexagonal
+  elements: [ Ti, Ti, Fe, C, H ]
+  consumes:
+    Plasteel: 100
+    Titanium: 100
+  disk: DHTechDiskPlastitanium
+  researchPoints: 6000
+
+- type: dhMaterialRecipe
+  id: DHMaterialPlastnickel
+  name: materials-dh-plastnickel
+  order: 4
+  lattice: Tetragonal
+  elements: [ Ni, Ni, Fe, C, H ]
+  consumes:
+    Plasteel: 100
+    Nickel: 100
+  disk: DHTechDiskPlastnickel
+  researchPoints: 6000
+
+# --- Технодиски с рецептами сплавной печи ---
+
+- type: entity
+  abstract: true
+  parent: TechnologyDisk
+  id: DHTechDiskAlloyBase
+  components:
+  - type: TechnologyDisk
+    discipline: Industrial
+    tier: 1
+
+- type: entity
+  parent: DHTechDiskAlloyBase
+  id: DHTechDiskPlasteel
+  name: technology disk (plasteel)
+  components:
+  - type: TechnologyDisk
+    recipes:
+    - DHAlloySheetPlasteel
+
+- type: entity
+  parent: DHTechDiskAlloyBase
+  id: DHTechDiskDuralumin
+  name: technology disk (duralumin)
+  components:
+  - type: TechnologyDisk
+    recipes:
+    - DHAlloySheetDuralumin
+
+- type: entity
+  parent: DHTechDiskAlloyBase
+  id: DHTechDiskPlastitanium
+  name: technology disk (plastitanium)
+  components:
+  - type: TechnologyDisk
+    recipes:
+    - DHAlloySheetPlastitanium
+
+- type: entity
+  parent: DHTechDiskAlloyBase
+  id: DHTechDiskPlastnickel
+  name: technology disk (plastnickel)
+  components:
+  - type: TechnologyDisk
+    recipes:
+    - DHAlloySheetPlastnickel
+
+# --- Рецепты сплавной печи (открываются технодисками) ---
+
+- type: latheRecipe
+  id: DHAlloySheetPlasteel
+  result: SheetPlasteel1
+  completetime: 2
+  materials:
+    Steel: 100
+    Plastic: 100
+
+- type: latheRecipe
+  id: DHAlloySheetDuralumin
+  result: SheetDuralumin1
+  completetime: 2
+  materials:
+    Aluminium: 100
+    Copper: 100
+
+- type: latheRecipe
+  id: DHAlloySheetPlastitanium
+  result: SheetPlastitanium1
+  completetime: 3
+  materials:
+    Plasteel: 100
+    Titanium: 100
+
+- type: latheRecipe
+  id: DHAlloySheetPlastnickel
+  result: SheetPlastnickel1
+  completetime: 3
+  materials:
+    Plasteel: 100
+    Nickel: 100
+
+- type: latheRecipePack
+  id: DHAlloys
+  recipes:
+  - DHAlloySheetPlasteel
+  - DHAlloySheetDuralumin
+  - DHAlloySheetPlastitanium
+  - DHAlloySheetPlastnickel
+
+# --- Образец ---
+
+- type: entity
+  parent: BaseItem
+  id: DHMaterialSample
+  name: material sample
+  description: A sealed sample of a newly assembled material. Put it into a chem-material scanner.
+  components:
+  - type: Item
+    size: Small
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Specific/Research/material_sample.rsi
+    state: icon
+  - type: DHMaterialSample
+  - type: StaticPrice
+    price: 200
+
+# --- Лабораторный стол ---
+
+- type: entity
+  parent: [ BaseMachinePowered, ConstructibleMachine, BaseConstructibleMachineDestructible ]
+  id: DHMaterialLab
+  name: materials science lab table
+  description: A lab bench with a lattice projector. Load source materials, then assemble the crystal lattice of a new material — lattice type, atoms in the nodes, electrons on the outer shell.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Machines/material_lab.rsi
+    snapCardinals: true
+    layers:
+    - state: icon
+    - state: unlit
+      shader: unshaded
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 190
+        mask:
+        - TableMask
+        layer:
+        - TableLayer
+  - type: InteractionOutline
+  - type: Anchorable
+  - type: MaterialStorage
+    whitelist:
+      tags:
+      - Sheet
+      - Ingot
+  - type: DHMaterialLab
+  - type: ActivatableUI
+    key: enum.DHMaterialLabUiKey.Key
+  - type: ActivatableUIRequiresPower
+  - type: UserInterface
+    interfaces:
+      enum.DHMaterialLabUiKey.Key:
+        type: DHMaterialLabBoundUserInterface
+  - type: Machine
+    board: DHMaterialLabMachineCircuitboard
+  - type: ContainerContainer
+    containers:
+      machine_board: !type:Container
+      machine_parts: !type:Container
+  - type: ApcPowerReceiver
+    powerLoad: 300
+
+# --- Химико-материальный сканер ---
+
+- type: entity
+  parent: [ BaseMachinePowered, ConstructibleMachine, BaseConstructibleMachineDestructible ]
+  id: DHMaterialScanner
+  name: chem-material scanner
+  description: Put a material sample in. After a scan it prints a technology disk with the material's recipes and a report.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/tech_disk_printer.rsi
+    snapCardinals: true
+    layers:
+    - state: icon
+    - state: printing
+      map: [ "running" ]
+      visible: false
+    - state: unshaded
+      shader: unshaded
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHMaterialScannerVisuals.Running:
+        running:
+          True: { visible: true }
+          False: { visible: false }
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: InteractionOutline
+  - type: Anchorable
+  - type: ItemSlots
+    slots:
+      sample:
+        name: dh-material-scanner-slot
+        whitelist:
+          components:
+          - DHMaterialSample
+  - type: ContainerContainer
+    containers:
+      sample: !type:ContainerSlot
+      machine_board: !type:Container
+      machine_parts: !type:Container
+  - type: Machine
+    board: DHMaterialScannerMachineCircuitboard
+  - type: DHMaterialScanner
+  - type: ApcPowerReceiver
+    powerLoad: 400
+
+# --- Сплавная печь ---
+
+- type: entity
+  parent: BaseLathe
+  id: DHAlloyFurnace
+  name: alloy furnace
+  description: Melts metals and polymers into alloys. Recipes are unlocked by technology disks from materials science.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/smelter.rsi
+    offset: 0, 0.5
+    snapCardinals: true
+    layers:
+    - state: smelter0
+      map: ["enum.LatheVisualLayers.IsRunning"]
+  - type: Machine
+    board: DHAlloyFurnaceMachineCircuitboard
+  - type: MaterialStorage
+    whitelist:
+      tags:
+      - Sheet
+      - Ingot
+  - type: Lathe
+    idleState: smelter0
+    runningState: smelter1
+    dynamicPacks:
+    - DHAlloys
+  - type: ApcPowerReceiver
+    powerLoad: 1500
+
+# --- Платы ---
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: DHMaterialLabMachineCircuitboard
+  name: materials science lab table machine board
+  components:
+  - type: Sprite
+    state: science
+  - type: MachineBoard
+    prototype: DHMaterialLab
+    stackRequirements:
+      Manipulator: 1
+      Glass: 2
+      Steel: 5
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: DHMaterialScannerMachineCircuitboard
+  name: chem-material scanner machine board
+  components:
+  - type: Sprite
+    state: science
+  - type: MachineBoard
+    prototype: DHMaterialScanner
+    stackRequirements:
+      Manipulator: 1
+      Glass: 2
+      Steel: 5
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: DHAlloyFurnaceMachineCircuitboard
+  name: alloy furnace machine board
+  components:
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: DHAlloyFurnace
+    stackRequirements:
+      Manipulator: 2
+      Steel: 10
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: DHMaterialLabMachineCircuitboard
+  result: DHMaterialLabMachineCircuitboard
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: DHMaterialScannerMachineCircuitboard
+  result: DHMaterialScannerMachineCircuitboard
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: DHAlloyFurnaceMachineCircuitboard
+  result: DHAlloyFurnaceMachineCircuitboard
+
+# Платы материаловедения — в принтере плат статично (это вход в материаловедение).
+- type: latheRecipePack
+  id: DHScienceBoardsStatic
+  recipes:
+  - DHMaterialLabMachineCircuitboard
+  - DHMaterialScannerMachineCircuitboard
+  - DHAlloyFurnaceMachineCircuitboard

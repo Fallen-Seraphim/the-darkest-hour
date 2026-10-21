@@ -26,6 +26,6 @@
 - type: latheRecipePack
   id: AdvancedSmelting
   recipes:
-  - SheetPlasteel1
+  # - SheetPlasteel1 # DarkestHour: пластсталь — только сплавной печью (материаловедение)
   - SheetUGlass1
   - SheetRUGlass1
