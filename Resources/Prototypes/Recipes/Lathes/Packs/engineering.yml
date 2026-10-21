@@ -71,11 +71,6 @@
   - HolofanProjector
 
 - type: latheRecipePack
-  id: EngineeringWeapons
-  recipes:
-  - WeaponParticleDecelerator
-
-- type: latheRecipePack
   id: EngineeringBoards
   recipes:
   - ThermomachineFreezerMachineCircuitBoard

@@ -26,7 +26,6 @@
     outerClothing: ClothingOuterArmorCentcommCarapace
     id: CentcomPDA
     ears: ClothingHeadsetAltCentCom
-    belt: WeaponPistolN1984
     pocket1: BoxFolderCentComClipboardThreePapers
     pocket2: PenCentcom
 

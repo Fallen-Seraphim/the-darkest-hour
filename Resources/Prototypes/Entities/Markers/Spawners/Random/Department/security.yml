@@ -40,7 +40,6 @@
         - BoxHandcuff
         - BoxFlashbang
         - TearGasGrenade
-        - WeaponDisabler
         - Stunbaton
       rareChance: 0.05
       prototypes:
@@ -71,7 +70,6 @@
     - type: RandomSpawner
       rarePrototypes:
         - ClothingHeadHelmetSwat
-        - WeaponShotgunEnforcer
 #        - WeaponRifleAk
       rareChance: 0.05
       prototypes:
@@ -84,39 +82,6 @@
         - ClothingOuterArmorRiot
         - ClothingOuterArmorBulletproof
 #        - WeaponSubMachineGunWt550
-        - WeaponDisabler
-        - WeaponPistolMk58
-        - WeaponRifleLecter
-        - WeaponSubMachineGunDrozd
-        - WeaponLaserCarbine
-        - WeaponShotgunKammerer
-      chance: 0.95
-      offset: 0.0
-
-- type: entity
-  name: armory loot spawner
-  suffix: Guns
-  id: LootSpawnerArmoryGunsOnly
-  parent: MarkerBase
-  components:
-    - type: Sprite
-      layers:
-        - state: red
-        - sprite: Objects/Weapons/Guns/Shotguns/pump.rsi
-          state: icon
-    - type: RandomSpawner
-      rarePrototypes:
-        - WeaponShotgunEnforcer
-#        - WeaponRifleAk
-      rareChance: 0.05
-      prototypes:
-#        - WeaponSubMachineGunWt550
-        - WeaponDisabler
-        - WeaponPistolMk58
-        - WeaponRifleLecter
-        - WeaponSubMachineGunDrozd
-        - WeaponLaserCarbine
-        - WeaponShotgunKammerer
       chance: 0.95
       offset: 0.0
 

@@ -146,7 +146,6 @@
       borg_module:
       - XenoborgModuleBasic
       - XenoborgModuleTool
-      - XenoborgModuleLaser
       - XenoborgModuleJammer
   - type: ItemSlots
     slots:
@@ -298,7 +297,6 @@
       borg_module:
       - XenoborgModuleBasic
       - XenoborgModuleTool
-      - XenoborgModuleLaser
       - XenoborgModuleJammer
   - type: ItemSlots
     slots:

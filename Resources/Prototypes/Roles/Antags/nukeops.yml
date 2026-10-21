@@ -137,7 +137,6 @@
     belt: ClothingBeltMilitaryWebbing
   storage:
     back:
-    - WeaponPistolViper
     - PinpointerSyndicateNuclear
     - DeathAcidifierImplanter
 
@@ -192,7 +191,6 @@
     - SawAdvanced
     - Cautery
     - CombatKnife
-    - WeaponPistolViper
     - PinpointerSyndicateNuclear
     - HandheldHealthAnalyzer
     - CombatMedipen

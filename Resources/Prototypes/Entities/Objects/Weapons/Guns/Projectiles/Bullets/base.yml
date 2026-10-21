@@ -72,21 +72,6 @@
 
 - type: entity
   parent: BaseBullet
-  id: BaseBulletPractice
-  categories: [ HideSpawnMenu ]
-  name: base bullet practice
-  components:
-  - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
-    layers:
-    - state: practice
-  - type: Projectile
-    damage:
-      types:
-        Blunt: 1
-
-- type: entity
-  parent: BaseBullet
   id: BaseBulletIncendiary
   categories: [ HideSpawnMenu ]
   name: base bullet incendiary
@@ -104,38 +89,3 @@
   - type: IgniteOnCollide
     fireStacks: 0.25
 
-- type: entity
-  parent: BaseBullet
-  id: BaseBulletAP
-  categories: [ HideSpawnMenu ]
-  name: base bullet armor-piercing
-  components:
-  - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
-    layers:
-    - state: piercing
-  - type: Projectile
-    damage:
-      types:
-        Piercing: 11 # 20% decrease
-    ignoreResistances: true
-
-- type: entity
-  parent: BaseBullet
-  id: BaseBulletUranium
-  categories: [ HideSpawnMenu ]
-  name: base bullet uranium
-  components:
-  - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
-    layers:
-    - state: uranium
-      shader: unshaded
-  - type: PointLight
-    enabled: true
-    color: "#059919"
-    radius: 2.0
-  - type: Projectile
-    damage:
-      types:
-        Radiation: 11

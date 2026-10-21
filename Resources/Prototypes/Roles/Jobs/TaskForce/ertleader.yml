@@ -39,7 +39,6 @@
     ears: ClothingHeadsetAltCentCom
     belt: ClothingBeltMilitaryWebbingERT
     pocket2: CombatKnife
-    suitstorage: WeaponDisablerSMG
   storage:
     back:
     - Binoculars
@@ -56,25 +55,16 @@
     - Handcuffs
     - Handcuffs
     - CrowbarRed
-    - WeaponPistolN1984
-    - MagazineMagnum
     - EmergencyMedipen
 
 - type: startingGear
   parent: ERTLeaderGearEVA
   id: ERTLeaderGearArmed
-  equipment:
-    pocket2: WeaponDisabler
-    suitstorage: WeaponRifleLecterXL8
   storage:
     back:
     - HoloprojectorField
     - PhoneInstrument
     - PinpointerNuclear
-    - MagazineRifle
-    - MagazineRifle
-    - MagazineRifleIncendiary
-    - MagazineRifleUranium
     - MedkitCombatFilled # End of first line
     - GrenadeShrapnel
     - EmpGrenade
@@ -83,8 +73,6 @@
     - Handcuffs
     - Handcuffs
     - CrowbarRed
-    - WeaponPistolN1984
-    - MagazineMagnum
     - EmergencyMedipen
 
 - type: chameleonOutfit

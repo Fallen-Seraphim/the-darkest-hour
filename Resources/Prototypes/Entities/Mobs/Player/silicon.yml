@@ -558,10 +558,6 @@
     containers:
       borg_brain:
         - PositronicBrain
-      borg_module:
-        - BorgModuleOperative
-        - BorgModuleL6C
-        - BorgModuleDoubleEsword
   - type: ItemSlots
     slots:
       cell_slot:
@@ -592,10 +588,6 @@
     containers:
       borg_brain:
         - PositronicBrain
-      borg_module:
-        - BorgModuleTool
-        - BorgModuleOperative
-        - BorgModuleSyndicateWeapon
   - type: ItemSlots
     slots:
       cell_slot:
@@ -642,13 +634,6 @@
     containers:
       borg_brain:
       - PositronicBrain
-      borg_module:
-      - BorgModulePrying
-      - BorgModuleTool
-      - BorgModuleFireExtinguisher
-      - BorgModuleConstruction
-      - BorgModuleRCD
-      - BorgModuleCable
   - type: ItemSlots
     slots:
       cell_slot:
@@ -681,10 +666,6 @@
     containers:
       borg_brain:
         - PositronicBrain
-      borg_module:
-        - BorgModulePrying
-        - BorgModuleTool
-        - BorgModuleFireExtinguisher
   - type: ItemSlots
     slots:
       cell_slot:
@@ -717,12 +698,6 @@
     containers:
       borg_brain:
       - PositronicBrain
-      borg_module:
-      - BorgModulePrying
-      - BorgModuleTool
-      - BorgModuleFireExtinguisher
-      - BorgModuleCleaning
-      - BorgModuleCustodial
   - type: ItemSlots
     slots:
       cell_slot:
@@ -755,13 +730,6 @@
     containers:
       borg_brain:
       - PositronicBrain
-      borg_module:
-      - BorgModulePrying
-      - BorgModuleTool
-      - BorgModuleFireExtinguisher
-      - BorgModuleChemical
-      - BorgModuleTopicals
-      - BorgModuleRescue
   - type: ItemSlots
     slots:
       cell_slot:
@@ -794,12 +762,6 @@
     containers:
       borg_brain:
       - PositronicBrain
-      borg_module:
-      - BorgModulePrying
-      - BorgModuleTool #No fire extinguisher, traversal is better
-      - BorgModuleMining
-      - BorgModuleTraversal
-      - BorgModuleAppraisal
   - type: ItemSlots
     slots:
       cell_slot:
@@ -832,10 +794,6 @@
     containers:
       borg_brain:
       - PositronicBrain
-      borg_module:
-      - BorgModuleOperative
-      - BorgModuleC20r
-      - BorgModuleEsword
   - type: ItemSlots
     slots:
       cell_slot:

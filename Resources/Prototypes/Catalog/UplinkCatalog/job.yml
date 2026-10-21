@@ -35,24 +35,6 @@
     - Chaplain
 
 - type: listing
-  id: UplinkRevolverCapGunFake
-  name: uplink-revolver-cap-gun-fake-name
-  description: uplink-revolver-cap-gun-fake-desc
-  productEntity: RevolverCapGunFake
-  discountCategory: rareDiscounts
-  discountDownTo:
-    Telecrystal: 2
-  cost:
-    Telecrystal: 3
-  categories:
-  - UplinkJob
-  conditions:
-  - !type:BuyerJobCondition
-    whitelist:
-    - Mime
-    - Clown
-
-- type: listing
   id: UplinkClusterBananaPeel
   name: uplink-cluster-banana-peel-name
   description: uplink-cluster-banana-peel-desc
@@ -238,19 +220,3 @@
     whitelist:
     - MedicalDoctor
 
-- type: listing
-  id: UplinkBriefcaseGun
-  name: uplink-briefcase-gun-name
-  description: uplink-briefcase-gun-desc
-  productEntity: WeaponSubMachineGunBriefcase
-  discountCategory: veryRareDiscounts
-  discountDownTo:
-    Telecrystal: 10
-  cost:
-    Telecrystal: 14
-  categories:
-  - UplinkJob
-  conditions:
-  - !type:BuyerJobCondition
-    whitelist:
-    - Lawyer

@@ -1,0 +1,571 @@
+# DarkestHour: ветка «Арсенал» дерева технологий (этап 4). Ванильное оружие, калибры и лазеры вырезаны;
+# здесь — производство боеприпасов наших калибров в оружейном техфабе СБ и снарядов корабельных орудий.
+# Сгенерировано по таблице калибров (Tools/_DarkestHour/weapons/gen_yaml.py): цена коробки = патроны × ставка калибра;
+# бронебойные добавляют пластсталь (материаловедение), экспансивные и зажигательные — пластик.
+
+- type: technology
+  id: DHAmmoProduction
+  name: research-technology-dh-ammo-production
+  icon:
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/45_ACP.rsi
+    state: base
+  discipline: Arsenal
+  tier: 1
+  cost: 5000
+  recipeUnlocks:
+  - DHAmmoBox10x24E
+  - DHAmmoBox762x39FMG
+  - DHMagazine10x24Empty
+  - DHMagazine10x24ShortEmpty
+  - DHMagazine762x39Empty
+  position: 13, 0
+
+- type: technology
+  id: DHArmorPiercingAmmo
+  name: research-technology-dh-armor-piercing-ammo
+  icon:
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/45_ACP.rsi
+    state: synthAP
+  discipline: Arsenal
+  tier: 2
+  cost: 8000
+  recipeUnlocks:
+  - DHAmmoBox10x24SVP
+  - DHAmmoBox762x39BB
+  - DHAmmoBox762x39E
+  technologyPrerequisites:
+  - DHAmmoProduction
+  position: 14, 2
+
+- type: technology
+  id: DHRepublicCalibers
+  name: research-technology-dh-republic-calibers
+  icon:
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/5.56x45mm.rsi
+    state: base
+  discipline: Arsenal
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+  - DHAmmoBox556x45FMG
+  - DHAmmoBox762x51FMG
+  - DHAmmoBox9x51FMG
+  - DHAmmoBox10x51FMG
+  - DHMagazine556x45Empty
+  - DHMagazine556x45ShortEmpty
+  - DHMagazine762x51Empty
+  - DHMagazine762x51ShortEmpty
+  - DHMagazine9x51Empty
+  - DHMagazine9x51ShortEmpty
+  - DHMagazine10x51Empty
+  technologyPrerequisites:
+  - DHAmmoProduction
+  position: 15, 2
+
+- type: technology
+  id: DHRepublicSpecialAmmo
+  name: research-technology-dh-republic-special-ammo
+  icon:
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/12.7x99mm.rsi
+    state: base
+  discipline: Arsenal
+  tier: 3
+  cost: 15000
+  recipeUnlocks:
+  - DHAmmoBox556x45BB
+  - DHAmmoBox556x45E
+  - DHAmmoBox762x51BB
+  - DHAmmoBox9x51EB
+  - DHAmmoBox9x51DZ
+  - DHAmmoBox10x51SVP
+  - DHAmmoBox1066EPP
+  - DHAmmoBox127x105SVP
+  - DHMagazine1066Empty
+  - DHMagazine127x105Empty
+  technologyPrerequisites:
+  - DHRepublicCalibers
+  - DHArmorPiercingAmmo
+  position: 15, 4
+
+- type: technology
+  id: DHImperialCalibers
+  name: research-technology-dh-imperial-calibers
+  icon:
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/7.62x54mmR.rsi
+    state: base
+  discipline: Arsenal
+  tier: 2
+  cost: 12000
+  recipeUnlocks:
+  - DHAmmoBox842x54ImpS
+  - DHAmmoBox104x16ImpB
+  - DHAmmoBox14gShot
+  - DHMagazine842x54Empty
+  - DHMagazine104x16Empty
+  - DHMagazineDrum14gEmpty
+  technologyPrerequisites:
+  - DHAmmoProduction
+  position: 16, 2
+
+- type: technology
+  id: DHImperialSpecialAmmo
+  name: research-technology-dh-imperial-special-ammo
+  icon:
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/12_gauge.rsi
+    state: flechette
+  discipline: Arsenal
+  tier: 3
+  cost: 15000
+  recipeUnlocks:
+  - DHAmmoBox842x54ImpR
+  - DHAmmoBox842x54ImpZ
+  - DHAmmoBox14gFlech
+  - DHAmmoBox14gSlug
+  - DHAmmoBox145x114Std
+  - DHMagazineDrum842x54Empty
+  - DHMagazine145x114Empty
+  technologyPrerequisites:
+  - DHImperialCalibers
+  position: 16, 4
+
+- type: technology
+  id: DHShipMunitions
+  name: research-technology-dh-ship-munitions
+  icon:
+    sprite: _Mono/Objects/ShuttleWeapons/L85.rsi
+    state: icon
+  discipline: Arsenal
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+  - DHShipMagazine20mm
+  - DHShipMagazine30mmAP
+  - DHShipMagazine30mmHE
+  technologyPrerequisites:
+  - BasicShuttleArmament
+  position: 19, 2
+
+# --- Рецепты ---
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox10x24E
+  result: DHAmmoBox10x24E
+  materials:
+    Steel: 600
+    Plastic: 150
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox762x39FMG
+  result: DHAmmoBox762x39FMG
+  materials:
+    Steel: 720
+
+- type: latheRecipe
+  parent: BaseEmptyAmmoRecipe
+  id: DHMagazine10x24Empty
+  result: DHMagazine10x24Empty
+  materials:
+    Steel: 50
+    Plastic: 25
+
+- type: latheRecipe
+  parent: BaseEmptyAmmoRecipe
+  id: DHMagazine10x24ShortEmpty
+  result: DHMagazine10x24ShortEmpty
+  materials:
+    Steel: 50
+    Plastic: 25
+
+- type: latheRecipe
+  parent: BaseEmptyAmmoRecipe
+  id: DHMagazine762x39Empty
+  result: DHMagazine762x39Empty
+  materials:
+    Steel: 50
+    Plastic: 25
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox10x24SVP
+  result: DHAmmoBox10x24SVP
+  materials:
+    Steel: 600
+    Plasteel: 150
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox762x39BB
+  result: DHAmmoBox762x39BB
+  materials:
+    Steel: 720
+    Plasteel: 180
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox762x39E
+  result: DHAmmoBox762x39E
+  materials:
+    Steel: 720
+    Plastic: 180
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox556x45FMG
+  result: DHAmmoBox556x45FMG
+  materials:
+    Steel: 720
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox762x51FMG
+  result: DHAmmoBox762x51FMG
+  materials:
+    Steel: 720
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox9x51FMG
+  result: DHAmmoBox9x51FMG
+  materials:
+    Steel: 360
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox10x51FMG
+  result: DHAmmoBox10x51FMG
+  materials:
+    Steel: 720
+
+- type: latheRecipe
+  parent: BaseEmptyAmmoRecipe
+  id: DHMagazine556x45Empty
+  result: DHMagazine556x45Empty
+  materials:
+    Steel: 50
+    Plastic: 25
+
+- type: latheRecipe
+  parent: BaseEmptyAmmoRecipe
+  id: DHMagazine556x45ShortEmpty
+  result: DHMagazine556x45ShortEmpty
+  materials:
+    Steel: 50
+    Plastic: 25
+
+- type: latheRecipe
+  parent: BaseEmptyAmmoRecipe
+  id: DHMagazine762x51Empty
+  result: DHMagazine762x51Empty
+  materials:
+    Steel: 50
+    Plastic: 25
+
+- type: latheRecipe
+  parent: BaseEmptyAmmoRecipe
+  id: DHMagazine762x51ShortEmpty
+  result: DHMagazine762x51ShortEmpty
+  materials:
+    Steel: 50
+    Plastic: 25
+
+- type: latheRecipe
+  parent: BaseEmptyAmmoRecipe
+  id: DHMagazine9x51Empty
+  result: DHMagazine9x51Empty
+  materials:
+    Steel: 50
+    Plastic: 25
+
+- type: latheRecipe
+  parent: BaseEmptyAmmoRecipe
+  id: DHMagazine9x51ShortEmpty
+  result: DHMagazine9x51ShortEmpty
+  materials:
+    Steel: 50
+    Plastic: 25
+
+- type: latheRecipe
+  parent: BaseEmptyAmmoRecipe
+  id: DHMagazine10x51Empty
+  result: DHMagazine10x51Empty
+  materials:
+    Steel: 50
+    Plastic: 25
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox556x45BB
+  result: DHAmmoBox556x45BB
+  materials:
+    Steel: 720
+    Plasteel: 180
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox556x45E
+  result: DHAmmoBox556x45E
+  materials:
+    Steel: 720
+    Plastic: 180
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox762x51BB
+  result: DHAmmoBox762x51BB
+  materials:
+    Steel: 720
+    Plasteel: 180
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox9x51EB
+  result: DHAmmoBox9x51EB
+  materials:
+    Steel: 360
+    Plasteel: 90
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox9x51DZ
+  result: DHAmmoBox9x51DZ
+  materials:
+    Steel: 360
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox10x51SVP
+  result: DHAmmoBox10x51SVP
+  materials:
+    Steel: 720
+    Plasteel: 180
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox1066EPP
+  result: DHAmmoBox1066EPP
+  materials:
+    Steel: 504
+    Plasteel: 126
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox127x105SVP
+  result: DHAmmoBox127x105SVP
+  materials:
+    Steel: 600
+    Plasteel: 150
+
+- type: latheRecipe
+  parent: BaseEmptyAmmoRecipe
+  id: DHMagazine1066Empty
+  result: DHMagazine1066Empty
+  materials:
+    Steel: 50
+    Plastic: 25
+
+- type: latheRecipe
+  parent: BaseEmptyAmmoRecipe
+  id: DHMagazine127x105Empty
+  result: DHMagazine127x105Empty
+  materials:
+    Steel: 50
+    Plastic: 25
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox842x54ImpS
+  result: DHAmmoBox842x54ImpS
+  materials:
+    Steel: 720
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox104x16ImpB
+  result: DHAmmoBox104x16ImpB
+  materials:
+    Steel: 600
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox14gShot
+  result: DHAmmoBox14gShot
+  materials:
+    Steel: 320
+
+- type: latheRecipe
+  parent: BaseEmptyAmmoRecipe
+  id: DHMagazine842x54Empty
+  result: DHMagazine842x54Empty
+  materials:
+    Steel: 50
+    Plastic: 25
+
+- type: latheRecipe
+  parent: BaseEmptyAmmoRecipe
+  id: DHMagazine104x16Empty
+  result: DHMagazine104x16Empty
+  materials:
+    Steel: 50
+    Plastic: 25
+
+- type: latheRecipe
+  parent: BaseEmptyAmmoRecipe
+  id: DHMagazineDrum14gEmpty
+  result: DHMagazineDrum14gEmpty
+  materials:
+    Steel: 50
+    Plastic: 25
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox842x54ImpR
+  result: DHAmmoBox842x54ImpR
+  materials:
+    Steel: 720
+    Plasteel: 180
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox842x54ImpZ
+  result: DHAmmoBox842x54ImpZ
+  materials:
+    Steel: 720
+    Plastic: 180
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox14gFlech
+  result: DHAmmoBox14gFlech
+  materials:
+    Steel: 320
+    Plasteel: 80
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox14gSlug
+  result: DHAmmoBox14gSlug
+  materials:
+    Steel: 320
+    Plastic: 80
+
+- type: latheRecipe
+  parent: BaseAmmoBoxRecipe
+  id: DHAmmoBox145x114Std
+  result: DHAmmoBox145x114Std
+  materials:
+    Steel: 720
+
+- type: latheRecipe
+  parent: BaseEmptyAmmoRecipe
+  id: DHMagazineDrum842x54Empty
+  result: DHMagazineDrum842x54Empty
+  materials:
+    Steel: 50
+    Plastic: 25
+
+- type: latheRecipe
+  parent: BaseEmptyAmmoRecipe
+  id: DHMagazine145x114Empty
+  result: DHMagazine145x114Empty
+  materials:
+    Steel: 50
+    Plastic: 25
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: DHShipMagazine20mm
+  result: DHShipMagazine20mm
+  materials:
+    Steel: 1500
+    Plasteel: 200
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: DHShipMagazine30mmAP
+  result: DHShipMagazine30mmAP
+  materials:
+    Steel: 1200
+    Plasteel: 500
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: DHShipMagazine30mmHE
+  result: DHShipMagazine30mmHE
+  materials:
+    Steel: 1200
+    Plastic: 400
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: DHShipShell90mmAP
+  result: DHShipShell90mmAP
+  materials:
+    Steel: 600
+    Plasteel: 300
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: DHShipShell90mmHE
+  result: DHShipShell90mmHE
+  materials:
+    Steel: 600
+    Plastic: 300
+
+# Оружейный техфаб СБ (dynamicPacks): боеприпасы наших калибров и снаряды корабельных орудий.
+
+- type: latheRecipePack
+  id: DHSecurityAmmo
+  recipes:
+  - DHAmmoBox10x24E
+  - DHAmmoBox762x39FMG
+  - DHMagazine10x24Empty
+  - DHMagazine10x24ShortEmpty
+  - DHMagazine762x39Empty
+  - DHAmmoBox10x24SVP
+  - DHAmmoBox762x39BB
+  - DHAmmoBox762x39E
+  - DHAmmoBox556x45FMG
+  - DHAmmoBox762x51FMG
+  - DHAmmoBox9x51FMG
+  - DHAmmoBox10x51FMG
+  - DHMagazine556x45Empty
+  - DHMagazine556x45ShortEmpty
+  - DHMagazine762x51Empty
+  - DHMagazine762x51ShortEmpty
+  - DHMagazine9x51Empty
+  - DHMagazine9x51ShortEmpty
+  - DHMagazine10x51Empty
+  - DHAmmoBox556x45BB
+  - DHAmmoBox556x45E
+  - DHAmmoBox762x51BB
+  - DHAmmoBox9x51EB
+  - DHAmmoBox9x51DZ
+  - DHAmmoBox10x51SVP
+  - DHAmmoBox1066EPP
+  - DHAmmoBox127x105SVP
+  - DHMagazine1066Empty
+  - DHMagazine127x105Empty
+  - DHAmmoBox842x54ImpS
+  - DHAmmoBox104x16ImpB
+  - DHAmmoBox14gShot
+  - DHMagazine842x54Empty
+  - DHMagazine104x16Empty
+  - DHMagazineDrum14gEmpty
+  - DHAmmoBox842x54ImpR
+  - DHAmmoBox842x54ImpZ
+  - DHAmmoBox14gFlech
+  - DHAmmoBox14gSlug
+  - DHAmmoBox145x114Std
+  - DHMagazineDrum842x54Empty
+  - DHMagazine145x114Empty
+
+- type: latheRecipePack
+  id: DHShipAmmo
+  recipes:
+  - DHShipMagazine20mm
+  - DHShipMagazine30mmAP
+  - DHShipMagazine30mmHE
+  - DHShipShell90mmAP
+  - DHShipShell90mmHE

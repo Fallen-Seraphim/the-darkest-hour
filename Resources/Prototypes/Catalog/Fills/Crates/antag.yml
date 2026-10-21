@@ -22,14 +22,6 @@
     containers:
       entity_storage: !type:AllSelector
         children:
-        - id: WeaponLauncherPirateCannon
-          amount: 2
         - id: ClothingOuterCoatGentle
         - id: Cutlass
-          amount: 2
-        - id: CannonBall
-          amount: 2
-        - id: WeaponPistolFlintlock
-          amount: 4
-        - id: WeaponShotgunBlunderbuss
           amount: 2

@@ -81,30 +81,6 @@
   result: SMESMachineCircuitboard
 
 # Security techfab
-- type: latheRecipe
-  parent: [ BaseCircuitboardRecipe, BaseMachineRecipeCategory ]
-  id: ShuttleGunSvalinnMachineGunCircuitboard
-  result: ShuttleGunSvalinnMachineGunCircuitboard
-  completetime: 6
-
-- type: latheRecipe
-  parent: [ BaseGoldCircuitboardRecipe, BaseMachineRecipeCategory ]
-  id: ShuttleGunPerforatorCircuitboard
-  result: ShuttleGunPerforatorCircuitboard
-  completetime: 10
-
-- type: latheRecipe
-  parent: [ BaseGoldCircuitboardRecipe, BaseMachineRecipeCategory ]
-  id: ShuttleGunFriendshipCircuitboard
-  result: ShuttleGunFriendshipCircuitboard
-  completetime: 8
-
-- type: latheRecipe
-  parent: [ BaseGoldCircuitboardRecipe, BaseMachineRecipeCategory ]
-  id: ShuttleGunDusterCircuitboard
-  result: ShuttleGunDusterCircuitboard
-  completetime: 12
-
 ## Circuit imprinter
 
 ## Engineering
@@ -320,12 +296,6 @@
   parent: [ BaseCircuitboardRecipe, BaseSecurityMachineRecipeCategory ]
   id: PowerCageRechargerCircuitboard
   result: PowerCageRechargerCircuitboard
-
-- type: latheRecipe
-  parent: [ BaseCircuitboardRecipe, BaseSecurityMachineRecipeCategory ]
-  id: ShuttleGunKineticCircuitboard
-  result: ShuttleGunKineticCircuitboard
-  completetime: 6
 
 ## Miscellaneous
 

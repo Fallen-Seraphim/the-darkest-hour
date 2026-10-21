@@ -12,12 +12,7 @@
     - BorgModuleGeneric
     - BorgModuleScience #until sciborgs are added
 
-  defaultModules:
-  - BorgModulePrying
-  - BorgModuleTool
-  - BorgModuleInflatable
-  - BorgModuleArtifact
-  - BorgModuleAnomaly
+  defaultModules: []
   radioChannels:
   - Science
 
@@ -47,12 +42,7 @@
     - BorgModuleGeneric
     - BorgModuleEngineering
 
-  defaultModules:
-  - BorgModulePrying
-  - BorgModuleTool
-  - BorgModuleConstruction
-  - BorgModuleRCD
-  - BorgModuleCable
+  defaultModules: []
 
   radioChannels:
   - Engineering
@@ -84,12 +74,7 @@
     - BorgModuleGeneric
     - BorgModuleCargo
 
-  defaultModules:
-  - BorgModulePrying
-  - BorgModuleTool
-  - BorgModuleMining
-  - BorgModuleTraversal
-  - BorgModuleAppraisal
+  defaultModules: []
 
   radioChannels:
   - Supply
@@ -122,10 +107,7 @@
     - BorgModuleGeneric
     - BorgModuleJanitor
 
-  defaultModules:
-  - BorgModulePrying
-  - BorgModuleCleaning
-  - BorgModuleCustodial
+  defaultModules: []
 
   radioChannels:
   - Science
@@ -158,11 +140,7 @@
     - BorgModuleGeneric
     - BorgModuleMedical
 
-  defaultModules:
-  - BorgModulePrying
-  - BorgModuleChemical
-  - BorgModuleTopicals
-  - BorgModuleRescue
+  defaultModules: []
 
   radioChannels:
   - Science
@@ -208,11 +186,7 @@
     - BorgModuleGeneric
     - BorgModuleService
 
-  defaultModules:
-  - BorgModulePrying
-  - BorgModuleService
-  - BorgModuleBotany
-  - BorgModuleCooking
+  defaultModules: []
   radioChannels:
   - Science
   - Service

@@ -414,8 +414,8 @@ def write_attachments():
                     '    minSpreadModifier: 1.0', '    maxSpreadModifier: 0.9']))
     open(os.path.join(PROTO, 'Attachments/attachments.yml'), 'w').write(''.join(out))
 
-PARENT = {'rifle': 'BaseWeaponRifle', 'lmg': 'BaseWeaponRifle', 'smg': 'BaseWeaponRifle', 'sniper': 'BaseWeaponRifle',
-          'pistol': 'BaseWeaponPistol', 'autoshotgun': 'BaseWeaponRifle', 'pump': 'BaseWeaponShotgun'}
+PARENT = {'rifle': 'DHBaseWeaponRifle', 'lmg': 'DHBaseWeaponRifle', 'smg': 'DHBaseWeaponRifle', 'sniper': 'DHBaseWeaponRifle',
+          'pistol': 'DHBaseWeaponPistol', 'autoshotgun': 'DHBaseWeaponRifle', 'pump': 'DHBaseWeaponShotgun'}
 SLOT_NAME = {BARREL: 'es-gun-attachments-slot-name-barrel', GRIP: 'es-gun-attachments-slot-name-grip',
              OPTIC: 'es-gun-attachments-slot-name-optic', STOCK: 'es-gun-attachments-slot-name-stock',
              UNDER: 'es-gun-attachments-slot-name-underbarrel'}

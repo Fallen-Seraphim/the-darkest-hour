@@ -97,9 +97,6 @@
 
   Portable Particle Decelerators can be either researched and made by the Research Department, or they can be bought from Cargo.
 
-  <Box>
-    <GuideEntityEmbed Entity="WeaponParticleDecelerator"/>
-  </Box>
 
 
 </Document>

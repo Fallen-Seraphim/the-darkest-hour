@@ -12,11 +12,9 @@
     head: ClothingHeadHatCaptain
     neck: ClothingNeckCloakCap
     id: VisitorPDA
-    belt: WeaponDisabler
     back: ClothingBackpackCaptain
     ears: ClothingHeadsetAltCommand
     outerClothing: ClothingOuterArmorCaptainCarapace
-    pocket1: WeaponDisabler
 
 - type: startingGear
   id: VisitorCaptainAlt
@@ -28,11 +26,9 @@
     head: ClothingHeadHatCapcap
     neck: ClothingNeckMantleCap
     id: VisitorPDA
-    belt: WeaponDisabler
     back: ClothingBackpackSatchelCaptain
     ears: ClothingHeadsetAltCommand
     outerClothing: ClothingOuterArmorCaptainCarapace
-    pocket1: WeaponDisabler
 
 - type: startingGear
   id: VisitorCE
@@ -46,7 +42,6 @@
     back: ClothingBackpackDuffelEngineering
     ears: ClothingHeadsetCE
     outerClothing: ClothingOuterVestHazard
-    pocket1: WeaponDisabler
 
 - type: startingGear
   id: VisitorCEAlt
@@ -60,7 +55,6 @@
     back: ClothingBackpackSatchelEngineering
     ears: ClothingHeadsetCE
     outerClothing: ClothingOuterWinterCE
-    pocket1: WeaponDisabler
 
 - type: startingGear
   id: VisitorCMO
@@ -75,7 +69,6 @@
     ears: ClothingHeadsetCMO
     belt: ClothingBeltMedicalFilled
     outerClothing: ClothingOuterCoatLabCmo
-    pocket1: WeaponDisabler
 
 - type: startingGear
   id: VisitorCMOAlt
@@ -90,7 +83,6 @@
     ears: ClothingHeadsetCMO
     belt: ClothingBeltMedicalFilled
     outerClothing: ClothingOuterCoatLabCmo
-    pocket1: WeaponDisabler
 
 - type: startingGear
   id: VisitorHOP
@@ -100,11 +92,9 @@
     head: ClothingHeadHatHopcap
     neck: ClothingNeckCloakHop
     id: VisitorPDA
-    belt: WeaponDisabler
     back: ClothingBackpackDebug
     ears: ClothingHeadsetAltCommand
     outerClothing: ClothingOuterWinterHoP
-    pocket1: WeaponDisabler
 
 - type: startingGear
   id: VisitorHOPAlt
@@ -114,11 +104,9 @@
     head: ClothingHeadHatHopcap
     neck: ClothingNeckMantleHOP
     id: VisitorPDA
-    belt: WeaponDisabler
     back: ClothingBackpackSatchelLeather
     ears: ClothingHeadsetAltCommand
     outerClothing: ClothingOuterWinterHoP
-    pocket1: WeaponDisabler
 
 - type: startingGear
   id: VisitorHOS
@@ -134,10 +122,6 @@
     ears: ClothingHeadsetAltSecurity
     eyes: ClothingEyesGlassesSecurity
     outerClothing: ClothingOuterCoatHoSTrench
-    pocket1: WeaponDisabler
-    pocket2: MagazinePistolSubMachineGunTopMounted
-  inhand:
-  - WeaponSubMachineGunWt550
 
 - type: startingGear
   id: VisitorHOSAlt
@@ -152,10 +136,6 @@
     back: ClothingBackpackSatchelLeather
     ears: ClothingHeadsetAltSecurity
     eyes: ClothingEyesGlassesSecurity
-    pocket1: WeaponDisabler
-    pocket2: MagazinePistolSubMachineGunTopMounted
-  inhand:
-  - WeaponSubMachineGunWt550
 
 - type: startingGear
   id: VisitorRD
@@ -169,7 +149,6 @@
     back: ClothingBackpackScience
     ears: ClothingHeadsetRD
     outerClothing: ClothingOuterCoatRD
-    pocket1: WeaponDisabler
 
 - type: startingGear
   id: VisitorRDAlt
@@ -183,7 +162,6 @@
     back: ClothingBackpackSatchelScience
     ears: ClothingHeadsetRD
     outerClothing: ClothingOuterCoatRD
-    pocket1: WeaponDisabler
 
 - type: startingGear
   id: VisitorQM
@@ -196,7 +174,6 @@
     back: ClothingBackpackCargo
     ears: ClothingHeadsetQM
     outerClothing: ClothingOuterWinterQM
-    pocket1: WeaponDisabler
     pocket2: AppraisalTool
 
 - type: startingGear
@@ -210,7 +187,6 @@
     back: ClothingBackpackSatchelCargo
     ears: ClothingHeadsetQM
     outerClothing: ClothingOuterWinterQM
-    pocket1: WeaponDisabler
     pocket2: AppraisalTool
 
 # Security
@@ -227,8 +203,6 @@
     ears: ClothingHeadsetSecurity
     eyes: ClothingEyesGlassesSecurity
     outerClothing: ClothingOuterArmorBasic
-    pocket1: WeaponPistolMk58
-    pocket2: MagazinePistol
   inhand:
   - FlashlightSeclite
 
@@ -245,8 +219,6 @@
     ears: ClothingHeadsetSecurity
     eyes: ClothingEyesGlassesSecurity
     outerClothing: ClothingOuterArmorBasicSlim
-    pocket1: WeaponPistolMk58
-    pocket2: MagazinePistol
   inhand:
   - FlashlightSeclite
 
@@ -262,8 +234,6 @@
     ears: ClothingHeadsetSecurity
     eyes: ClothingEyesGlassesSecurity
     outerClothing: ClothingOuterArmorBasic
-    pocket1: WeaponPistolMk58
-    pocket2: MagazinePistol
   inhand:
   - FlashlightSeclite
 
@@ -280,8 +250,6 @@
     ears: ClothingHeadsetSecurity
     eyes: ClothingEyesGlassesSecurity
     outerClothing: ClothingOuterArmorBasicSlim
-    pocket1: WeaponPistolMk58
-    pocket2: MagazinePistol
   inhand:
   - FlashlightSeclite
 
@@ -293,7 +261,6 @@
     head: ClothingHeadHatFedoraBrown
     neck: ClothingNeckTieDet
     id: VisitorPDA
-    belt: ClothingBeltHolsterFilled
     back: ClothingBackpackSecurity
     ears: ClothingHeadsetSecurity
     eyes: ClothingEyesGlassesSecurity
@@ -311,7 +278,6 @@
     head: ClothingHeadHatFedoraGrey
     neck: ClothingNeckTieDet
     id: VisitorPDA
-    belt: ClothingBeltHolsterFilled
     back: ClothingBackpackSatchelSecurity
     ears: ClothingHeadsetSecurity
     eyes: ClothingEyesGlassesSecurity
@@ -335,11 +301,9 @@
     ears: ClothingHeadsetSecurity
     eyes: ClothingEyesGlassesSecurity
     outerClothing: ClothingOuterCoatWarden
-    pocket1: WeaponDisabler
     pocket2: Zipties
   inhand:
   - FlashlightSeclite
-  - WeaponShotgunKammerer
 
 - type: startingGear
   id: VisitorWardenAlt
@@ -354,11 +318,9 @@
     ears: ClothingHeadsetSecurity
     eyes: ClothingEyesGlassesSecurity
     outerClothing: ClothingOuterWinterWarden
-    pocket1: WeaponDisabler
     pocket2: Zipties
   inhand:
   - FlashlightSeclite
-  - WeaponShotgunKammerer
 
 # Cargo
 
@@ -932,7 +894,6 @@
     head: ClothingHeadHatTophat
     id: VisitorPDA
     back: ClothingBackpack
-    suitstorage: WeaponShotgunDoubleBarreledRubber
     ears: ClothingHeadsetService
     eyes: ClothingEyesGlassesSunglasses
     outerClothing: ClothingOuterArmorBasicSlim
@@ -951,7 +912,6 @@
     ears: ClothingHeadsetService
     eyes: ClothingEyesHudBeer
     outerClothing: ClothingOuterWinterBar
-    pocket1: WeaponShotgunSawn
     pocket2: DrinkTequilaBottleFull
 
 - type: startingGear
@@ -1568,7 +1528,6 @@
     head: ClothingHeadSafari
     id: VisitorPDA
     belt: ClothingBeltStorageWaistbag
-    back: WeaponShotgunDoubleBarreledRubber
     ears: ClothingHeadsetService
     pocket1: WeaponFlareGun
     pocket2: PillCanisterDylovene
@@ -1679,7 +1638,6 @@
     back: ClothingBackpackDuffelEngineering
     #ears: # No headsets.
     outerClothing: ClothingOuterVestHazard
-    pocket1: WeaponDisabler
 
 - type: startingGear
   id: ChallengeVictimCEAlt
@@ -1693,7 +1651,6 @@
     back: ClothingBackpackSatchelEngineering
     #ears: # No headsets.
     outerClothing: ClothingOuterWinterCE
-    pocket1: WeaponDisabler
 
 # CHALLENGE
 # carefully consider everything you add to these. These are meant for roles that are placed in survival situations where every item will be a resource.
@@ -1706,7 +1663,6 @@
     head: ClothingHeadHatHopcap
     neck: ClothingNeckCloakHop
     id: VisitorPDA
-    belt: WeaponDisabler
     back: ClothingBackpackDebug
     #ears: #No headsets.
     outerClothing: ClothingOuterWinterHoP
@@ -1719,7 +1675,6 @@
     head: ClothingHeadHatHopcap
     neck: ClothingNeckMantleHOP
     id: VisitorPDA
-    belt: WeaponDisabler
     back: ClothingBackpackSatchelLeather
     #ears: #No headsets.
     outerClothing: ClothingOuterWinterHoP
@@ -1840,7 +1795,6 @@
     back: ClothingBackpackSatchelLeather
     belt: ClothingBeltUtility
     ears: ClothingHeadsetFreelance
-    pocket1: WeaponPistolFlintlock
     pocket2: HandheldGPSBasic
   inhand:
     - Cutlass
@@ -1857,15 +1811,12 @@
   parent: PirateScoonerAltA
   equipment:
     head: ClothingHeadBandBlack
-  inhand:
-    - WeaponShotgunBlunderbuss
 
 - type: startingGear
   id: PirateScoonerAltD
   parent: PirateScoonerAltA
   equipment:
     head: ClothingHeadHatPirateTricord
-    pocket1: WeaponRevolverPirate
 
 - type: startingGear
   id: PirateCaptainScooner
@@ -1875,7 +1826,6 @@
     ears: ClothingHeadsetAltFreelancer
     neck: ClothingNeckCloakPirateCap
     outerClothing: ClothingOuterVestWeb
-    pocket1: WeaponRevolverPirate
 
 ### Other
 
@@ -1890,7 +1840,6 @@
     belt: ClothingBeltMercWebbing
     ears: ClothingHeadsetGrey
     outerClothing: ClothingOuterVestWebMerc
-    pocket1: WeaponLaserSvalinn
     pocket2: RadioHandheld
 
 - type: startingGear

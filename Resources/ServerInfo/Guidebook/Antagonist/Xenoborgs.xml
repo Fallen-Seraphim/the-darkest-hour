@@ -84,14 +84,10 @@
 
   [bold]Starting exclusive modules:[/bold]
   <Box>
-    <GuideEntityEmbed Entity="XenoborgModuleLaser" Caption="laser xenoborg module"/>
     <GuideEntityEmbed Entity="XenoborgModuleJammer" Caption="jammer xenoborg module"/>
   </Box>
 
   [bold]Upgrade exclusive modules:[/bold]
-  <Box>
-    <GuideEntityEmbed Entity="XenoborgModuleHeavyLaser" Caption="laser cannon xenoborg module"/>
-  </Box>
 
   ### The Scout Xenoborg
   <Box>

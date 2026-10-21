@@ -223,29 +223,6 @@
 
 - type: entity
   parent: VendingMachine
-  id: VendingMachineAmmo
-  name: liberation station
-  description: An overwhelming amount of ancient patriotism washes over you just by looking at the machine.
-  components:
-  - type: VendingMachine
-    pack: AmmoVendInventory
-  - type: DatasetVocalizer
-    dataset: CondimentVendAds
-  - type: SpeakOnUIClosed
-    pack: GenericVendGoodbyes
-  - type: Sprite
-    sprite: Structures/Machines/VendingMachines/ammo.rsi
-    layers:
-    - state: "off"
-      map: ["enum.VendingMachineVisualLayers.Base"]
-    - state: "off"
-      map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
-      shader: unshaded
-    - state: panel
-      map: ["enum.WiresVisualLayers.MaintenancePanel"]
-
-- type: entity
-  parent: VendingMachine
   id: VendingMachineBooze
   name: Booze-O-Mat
   description: A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one.

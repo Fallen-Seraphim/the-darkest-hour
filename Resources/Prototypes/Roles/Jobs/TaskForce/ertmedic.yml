@@ -56,16 +56,11 @@
     - DefibrillatorCompact
     - MedkitCombatFilled
     - CrowbarRed
-    - WeaponPistolMk58
-    - MagazinePistol
     - EmergencyMedipen
 
 - type: startingGear
   parent: ERTMedicalGearEVA
   id: ERTMedicalGearArmed
-  equipment:
-    suitstorage: WeaponRifleLecter
-    pocket2: WeaponDisabler
   storage:
     back:
     - Hypospray
@@ -82,10 +77,6 @@
     belt:
     - Zipties
     - CrowbarRed
-    - MagazineRifle
-    - MagazineRifle
-    - MagazineRifleIncendiary
-    - MagazineRifleUranium # End of first line
     - Zipties
 
 - type: chameleonOutfit

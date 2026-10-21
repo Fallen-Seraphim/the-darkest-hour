@@ -99,3 +99,12 @@ research-discipline-dh-energy = Energy & Ships
 research-technology-dh-kane-crystals = Kane Crystals
 dh-material-scanner-nothing = The scanner finds nothing to analyse in this.
 research-technology-dh-ship-fire-control = Ship Fire Control
+
+## Арсенал: боеприпасы наших калибров (ванильное оружие вырезано)
+research-technology-dh-ammo-production = Ammunition Production
+research-technology-dh-armor-piercing-ammo = Armour-Piercing Rounds
+research-technology-dh-republic-calibers = Republic Calibers
+research-technology-dh-republic-special-ammo = Republic Special Rounds
+research-technology-dh-imperial-calibers = Imperial Calibers
+research-technology-dh-imperial-special-ammo = Imperial Special Rounds
+research-technology-dh-ship-munitions = Light Ship Munitions

@@ -38,7 +38,7 @@ public sealed partial class RevolverAmmoProviderComponent : AmmoProviderComponen
     public bool?[] Chambers = Array.Empty<bool?>();
 
     [DataField("proto")]
-    public EntProtoId? FillPrototype = "CartridgeMagnum";
+    public EntProtoId? FillPrototype; // DarkestHour: ванильный CartridgeMagnum вырезан, патрон задаётся в прототипе
 
     [DataField]
     public SoundSpecifier? SoundEject = new SoundPathSpecifier("/Audio/Weapons/Guns/MagOut/revolver_magout.ogg");
