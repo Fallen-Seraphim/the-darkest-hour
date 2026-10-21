@@ -316,14 +316,69 @@ public sealed partial class DHTraumaSystem : EntitySystem
             if (comp.Parts.Count == 0 && comp.Organs.Count == 0 && comp.PainSpike <= 0f && comp.SpeedModifier >= 1f)
             {
                 comp.Pain = 0f;
+                UpdateSummary((uid, comp));
                 continue;
             }
 
-            if (_mobState.IsDead(uid))
-                continue;
+            if (!_mobState.IsDead(uid))
+                Tick((uid, comp), now);
 
-            Tick((uid, comp), now);
+            UpdateSummary((uid, comp));
         }
+    }
+
+    /// <summary>Строки для анализатора здоровья: по частям тела (без общего урона) и уровень боли.</summary>
+    private void UpdateSummary(Entity<DHTraumaComponent> ent)
+    {
+        var comp = ent.Comp;
+        var lines = new List<string>();
+
+        foreach (var category in DHTraumaConstants.Parts)
+        {
+            var findings = new List<string>();
+            if (comp.Parts.TryGetValue(category, out var part))
+            {
+                if (part.Fracture)
+                    findings.Add(Loc.GetString(part.Splinted ? "dh-trauma-desc-fracture-splinted" : "dh-trauma-desc-fracture"));
+                if (part.InternalBleeding > 0f)
+                    findings.Add(Loc.GetString("dh-trauma-desc-internal-bleeding"));
+                if (part.Shrapnel > 0)
+                    findings.Add(Loc.GetString("dh-trauma-desc-shrapnel", ("count", part.Shrapnel)));
+            }
+
+            if (DHTraumaConstants.OrgansIn.TryGetValue(category, out var inside))
+            {
+                foreach (var organ in inside)
+                {
+                    if (!comp.Organs.TryGetValue(organ, out var damage) || damage < 1f)
+                        continue;
+
+                    var organName = Loc.TryGetString($"dh-trauma-organ-{organ}", out var n) ? n : organ;
+                    findings.Add(Loc.GetString(damage >= comp.OrganMaxDamage ? "dh-trauma-desc-organ-failing" : "dh-trauma-desc-organ-damaged",
+                        ("organ", organName), ("percent", (int) (damage / comp.OrganMaxDamage * 100f))));
+                }
+            }
+
+            if (findings.Count > 0)
+                lines.Add(Loc.GetString("dh-trauma-analyzer-part", ("part", PartName(category)), ("findings", string.Join(", ", findings))));
+        }
+
+        var painKey = comp.Pain switch
+        {
+            >= PainUnconscious => "dh-trauma-analyzer-pain-unconscious",
+            >= PainShock => "dh-trauma-analyzer-pain-shock",
+            >= PainModerate => "dh-trauma-analyzer-pain-moderate",
+            >= PainMild => "dh-trauma-analyzer-pain-mild",
+            _ => null,
+        };
+        if (painKey != null)
+            lines.Add(Loc.GetString(painKey));
+
+        if (lines.SequenceEqual(comp.Summary))
+            return;
+
+        comp.Summary = lines;
+        Dirty(ent);
     }
 
     private void Tick(Entity<DHTraumaComponent> ent, TimeSpan now)
