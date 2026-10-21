@@ -216,7 +216,8 @@ WEAPONS = [
     W(id='DHWeaponPistolMk58', sprite='mk58', name='Mk 58', faction='corp', kind='pistol',
       desc='The standard sidearm of Metallistick Group corporate security, rebuilt for the 10x24mm police round. Simple, reliable, takes RPR-M-9 magazines.',
       mags=['DHMagazine10x24Short'], start='DHMagazine10x24ShortE', cal='10x24', rate=5, modes=['SemiAuto'],
-      spread=(2, 17), wield=None, snd=('/Audio/Weapons/Guns/Gunshots/mk58.ogg',) + SND_HPISTOL[1:], slots=[], size='Small'),
+      spread=(2, 17), wield=None, snd=('/Audio/Weapons/Guns/Gunshots/mk58.ogg',) + SND_HPISTOL[1:], slots=[], size='Small',
+      steal=['OfficerHandgun']),
 ]
 
 # which attachment overlay states a slot can show on each gun (must match build.py SLOTS)
@@ -524,6 +525,8 @@ def write_weapons():
                           '          tags:', f'          - {tag}']
         if w.get('wieldreq'):
             c += ['  - type: GunRequiresWield']
+        if w.get('steal'):
+            c += ['  - type: StealTarget', '    stealGroup:'] + [f'    - {g}' for g in w['steal']]
         if w.get('zoom'):
             c += ['  - type: CursorOffsetRequiresWield', '  - type: EyeCursorOffset', '    maxOffset: 2',
                   '    pvsIncrease: 0.2']

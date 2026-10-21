@@ -323,7 +323,7 @@ BoxMagazineLightRifleRubber: null # DarkestHour: BoxMagazineLightRifle удал�
 BoxMagazineRifleRubber: null # DarkestHour: BoxMagazineRifle удалён
 BoxMagazineCaselessRifleRubber: null # DarkestHour: BoxMagazinePistolCaselessRifle удалён
 BoxMagazineMagnumSubMachineGunRubber: null
-WeaponPistolMk58Nonlethal: null # DarkestHour: WeaponPistolMk58 удалён
+WeaponPistolMk58Nonlethal: DHWeaponPistolMk58 # DarkestHour: ванильный Mk 58 вырезан
 WeaponPistolN1984Nonlethal: null # DarkestHour: WeaponPistolN1984 удалён
 WeaponSubMachineGunDrozdRubber: null # DarkestHour: WeaponSubMachineGunDrozd удалён
 WeaponRifleLecterRubber: null # DarkestHour: WeaponRifleLecter удалён
@@ -1318,7 +1318,7 @@ WeaponPistolCHIMP: null
 WeaponPistolCHIMPUpgraded: null
 WeaponPistolCobra: null
 WeaponPistolFlintlock: null
-WeaponPistolMk58: null
+WeaponPistolMk58: DHWeaponPistolMk58 # DarkestHour: ванильный Mk 58 вырезан, на картах — наш
 WeaponPistolN1984: null
 WeaponPistolViper: null
 WeaponProtoKineticAccelerator: null
