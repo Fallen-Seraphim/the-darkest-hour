@@ -1,0 +1,41 @@
+# DarkestHour: базовые металлы через карго (пока руды мало).
+
+- type: cargoProduct
+  id: DHMaterialAluminium
+  icon:
+    sprite: _DarkestHour/Objects/Materials/sheets.rsi
+    state: aluminium_3
+  product: DHCrateMaterialAluminium
+  cost: 1500
+  category: cargoproduct-category-name-materials
+  group: market
+
+- type: cargoProduct
+  id: DHMaterialTitanium
+  icon:
+    sprite: _DarkestHour/Objects/Materials/sheets.rsi
+    state: titanium_3
+  product: DHCrateMaterialTitanium
+  cost: 3500
+  category: cargoproduct-category-name-materials
+  group: market
+
+- type: cargoProduct
+  id: DHMaterialCopper
+  icon:
+    sprite: _DarkestHour/Objects/Materials/ingots.rsi
+    state: copper_3
+  product: DHCrateMaterialCopper
+  cost: 1800
+  category: cargoproduct-category-name-materials
+  group: market
+
+- type: cargoProduct
+  id: DHMaterialNickel
+  icon:
+    sprite: _DarkestHour/Objects/Materials/ingots.rsi
+    state: nickel_3
+  product: DHCrateMaterialNickel
+  cost: 2200
+  category: cargoproduct-category-name-materials
+  group: market

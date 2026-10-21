@@ -11,6 +11,10 @@
   - IngotSilver1
   - MaterialBananium1
   - MaterialDiamond
+  - SheetAluminium1 # DarkestHour: базовые металлы
+  - SheetTitanium1 # DarkestHour
+  - IngotCopper1 # DarkestHour
+  - IngotNickel1 # DarkestHour
 
 - type: latheRecipePack
   id: RGlassSmelting

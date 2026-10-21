@@ -1,0 +1,45 @@
+# DarkestHour: ящики базовых металлов.
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHCrateMaterialAluminium
+  name: aluminium crate
+  description: 60 units of aluminium.
+  components:
+  - type: StorageFill
+    contents:
+    - id: SheetAluminium
+      amount: 2
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHCrateMaterialTitanium
+  name: titanium crate
+  description: 60 units of titanium.
+  components:
+  - type: StorageFill
+    contents:
+    - id: SheetTitanium
+      amount: 2
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHCrateMaterialCopper
+  name: copper crate
+  description: 60 units of copper.
+  components:
+  - type: StorageFill
+    contents:
+    - id: IngotCopper
+      amount: 2
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHCrateMaterialNickel
+  name: nickel crate
+  description: 60 units of nickel.
+  components:
+  - type: StorageFill
+    contents:
+    - id: IngotNickel
+      amount: 2
