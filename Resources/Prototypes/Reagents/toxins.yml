@@ -114,6 +114,10 @@
   metabolisms:
     Bloodstream:
       effects:
+      # DarkestHour: споры чёрной плесени
+      - !type:DHInfectDisease
+        disease: DHDiseaseBlackMold
+        probability: 0.05
       - !type:HealthChange
         damage:
           types:
@@ -486,6 +490,13 @@
   metabolisms:
     Bloodstream:
       effects:
+      # DarkestHour: сырое мясо — гельминты и дизентерия
+      - !type:DHInfectDisease
+        disease: DHDiseaseHelminths
+        probability: 0.02
+      - !type:DHInfectDisease
+        disease: DHDiseaseDysentery
+        probability: 0.01
       - !type:PopupMessage
         conditions:
         - !type:MetabolizerTypeCondition

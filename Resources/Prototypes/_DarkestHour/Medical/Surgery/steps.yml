@@ -336,3 +336,24 @@
   effect: GraftSkin
   sound:
     collection: DHSurgeryOrgan
+
+# Извлечь тканевого паразита (планетарный червь): зажимом, медленно — личинка цепляется за ткани.
+- type: dhSurgeryStep
+  id: DHSurgeryStepExtractParasite
+  name: dh-surgery-step-extract-parasite
+  toolHint: dh-surgery-tool-hemostat
+  tools:
+  - kind: Hemostat
+  - quality: Cutting
+    speed: 0.4
+    success: 0.6
+  duration: 8
+  pain: 0.8
+  invasive: true
+  bleed: 1
+  effect: RemoveParasite
+  failDamage:
+    types:
+      Slash: 5
+  sound:
+    collection: DHSurgeryOrgan

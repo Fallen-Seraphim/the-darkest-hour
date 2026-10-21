@@ -124,3 +124,91 @@
       effects:
       - !type:DHVaccinate
         disease: DHDiseaseFluTaurus
+
+- type: reagent
+  id: DHVaccineKelvinFever
+  name: reagent-name-dh-vaccine-kelvin-fever
+  group: Medicine
+  desc: reagent-desc-dh-vaccine
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: medicine
+  color: "#e8b8b8"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DHVaccinate
+        disease: DHDiseaseKelvinFever
+
+# Карбапенем-R — антибиотик резерва: действует и на устойчивые штаммы (MRS-14). Токсичнее Спейсациллина.
+- type: reagent
+  id: DHCarbapenemR
+  name: reagent-name-dh-carbapenem-r
+  group: Medicine
+  desc: reagent-desc-dh-carbapenem-r
+  physicalDesc: reagent-physical-desc-opaque
+  flavor: medicine
+  color: "#c8b060"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DHTreatDisease
+        group: Bacteria
+        amount: 0.1
+        reserve: true
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHCarbapenemR
+          min: 20
+        damage:
+          types:
+            Poison: 2
+
+# Флуконазол — противогрибковое: лечит медленно, курс долгий.
+- type: reagent
+  id: DHFluconazole
+  name: reagent-name-dh-fluconazole
+  group: Medicine
+  desc: reagent-desc-dh-fluconazole
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: medicine
+  color: "#b8d0e8"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.25
+      effects:
+      - !type:DHTreatDisease
+        group: Fungus
+        amount: 0.04
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHFluconazole
+          min: 30
+        damage:
+          types:
+            Poison: 1
+
+# Альбендазол — противопаразитарное. Кишечных гельминтов выводит, тканевых паразитов (планетарный червь) только сдерживает.
+- type: reagent
+  id: DHAlbendazole
+  name: reagent-name-dh-albendazole
+  group: Medicine
+  desc: reagent-desc-dh-albendazole
+  physicalDesc: reagent-physical-desc-chalky
+  flavor: bitter
+  color: "#e0d8c0"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DHTreatDisease
+        group: Parasite
+        amount: 0.05
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHAlbendazole
+          min: 30
+        damage:
+          types:
+            Poison: 1

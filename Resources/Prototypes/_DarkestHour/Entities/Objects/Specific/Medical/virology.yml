@@ -98,3 +98,44 @@
     state: brown
   - type: DHCultureJar
     disease: DHDiseaseDysentery
+
+# Опасные культуры (ящик опасных культур в карго).
+- type: entity
+  parent: DHCultureJarBase
+  id: DHCultureJarKelvinFever
+  suffix: Kelvin fever
+  components:
+  - type: Sprite
+    state: red
+  - type: DHCultureJar
+    disease: DHDiseaseKelvinFever
+
+- type: entity
+  parent: DHCultureJarBase
+  id: DHCultureJarMRS14
+  suffix: MRS-14
+  components:
+  - type: Sprite
+    state: cyan
+  - type: DHCultureJar
+    disease: DHDiseaseMRS14
+
+- type: entity
+  parent: DHCultureJarBase
+  id: DHCultureJarBlackMold
+  suffix: Black mold
+  components:
+  - type: Sprite
+    state: black
+  - type: DHCultureJar
+    disease: DHDiseaseBlackMold
+
+- type: entity
+  parent: DHCultureJarBase
+  id: DHCultureJarGreyScab
+  suffix: Grey scab
+  components:
+  - type: Sprite
+    state: grey
+  - type: DHCultureJar
+    disease: DHDiseaseGreyScab

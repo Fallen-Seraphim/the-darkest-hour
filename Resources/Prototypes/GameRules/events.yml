@@ -26,6 +26,7 @@
     - id: VentClog
     - id: DHDiseaseOutbreak # DarkestHour: вспышка болезни
     - id: DHLabLeak # DarkestHour: утечка из лаборатории
+    - id: DHDiseaseOutbreakSevere # DarkestHour: тяжёлая вспышка болезни
 
 - type: entityTable
   id: BasicAntagEventsTable

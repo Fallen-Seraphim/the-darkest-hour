@@ -17,6 +17,28 @@
     - DHDiseaseCold
     - DHDiseaseFluTaurus
     - DHDiseaseDysentery
+    - DHDiseasePneumonia
+    - DHDiseaseHelminths
+    - DHDiseaseBlackMold
+
+# Тяжёлая вспышка — редкая и поздняя: опасные болезни (лихорадка Келвина, MRS-14, серая парша), один нулевой пациент.
+- type: entity
+  parent: BaseGameRule
+  id: DHDiseaseOutbreakSevere
+  components:
+  - type: StationEvent
+    weight: 2
+    earliestStart: 40
+    reoccurrenceDelay: 45
+    minimumPlayers: 10
+    duration: 1
+  - type: DHDiseaseOutbreakRule
+    minPatients: 1
+    maxPatients: 1
+    diseases:
+    - DHDiseaseKelvinFever
+    - DHDiseaseMRS14
+    - DHDiseaseGreyScab
 
 - type: entity
   parent: BaseGameRule

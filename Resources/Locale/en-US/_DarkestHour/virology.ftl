@@ -93,3 +93,34 @@ dh-entity-effect-guidebook-vaccinate =
 reagent-name-dh-vaccine-cold = cold vaccine
 reagent-name-dh-vaccine-flu-taurus = "Taurus" flu vaccine
 reagent-desc-dh-vaccine = A vaccine. Gives immunity to one disease and breaks it if it is already running.
+
+dh-virology-structure-kelvin-fever = RNA, filamentous enveloped virion up to 1 μm long. Attacks blood vessel walls and clotting factors.
+dh-virology-structure-pneumonia = Gram-positive cocci in pairs with a thick capsule. Fills the lung alveoli.
+dh-virology-structure-mrs14 = Gram-positive cocci in clusters, altered cell wall proteins — resistant to common antibiotics. Strain marker MRS-14.
+dh-virology-structure-black-mold = Dark septate hyphae with chains of black spores. Grows in the airways.
+dh-virology-structure-grey-scab = Grey filamentous fungus in the outer skin layers, spores in the scales.
+dh-virology-structure-helminths = Roundworm eggs with a thick shell. Adult worms live in the gut.
+dh-virology-structure-planetary-worm = Larval segments with hooks, not from any station fauna. Burrows into tissue and grows.
+
+dh-symptom-bleeding-gums = bleeding gums
+dh-symptom-bruising = bruising
+dh-symptom-bleeding = bleeding
+dh-symptom-short-breath = shortness of breath
+dh-symptom-chest-pain = chest pain
+dh-symptom-abscess = abscesses
+dh-symptom-wheezing = wheezing
+dh-symptom-dark-sputum = dark sputum
+dh-symptom-itch = itching
+dh-symptom-grey-scales = grey scales on the skin
+dh-symptom-skin-cracks = cracked skin
+dh-symptom-constant-hunger = constant hunger
+dh-symptom-pain = pain
+dh-symptom-moving-lump = moving lump under the skin
+
+dh-virology-recipe-kelvin-fever = Vaccine: viracide + tranexamic acid + sugar, 1:1:1. Until it works — blood transfusions and tranexamic acid. Blood and contact spread: gloves, no melee near patients.
+dh-virology-recipe-pneumonia = Spacecillin (dylovene + ethanol + sulfur) with dexalin for the breathing. Masks near patients.
+dh-virology-recipe-mrs14 = Spacecillin does not work. Carbapenem-R: spacecillin + fluorine + lithium, 1:1:1, keep under 20u. Gloves and isolation — spreads through medbay by contact.
+dh-virology-recipe-black-mold = Fluconazole: fluorine + phenol + silicon, 1:1:1, a long course. Dexalin for breathing. Find and clean the source of the spores.
+dh-virology-recipe-grey-scab = Fluconazole: fluorine + phenol + silicon, 1:1:1, and dressings for the cracked skin. Gloves — spreads by touch.
+dh-virology-recipe-helminths = Albendazole: sulfur + nitrogen + copper, 1:1:1. Feed the patient. Cook meat properly.
+dh-virology-recipe-planetary-worm = Surgical removal: open the torso (incision, clamp, retract) and extract the larva with a hemostat. Albendazole only slows it down until the operation.

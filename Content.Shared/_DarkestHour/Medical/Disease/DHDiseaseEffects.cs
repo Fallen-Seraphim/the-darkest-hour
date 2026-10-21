@@ -20,10 +20,15 @@ public sealed partial class DHTreatDiseaseEntityEffectSystem : EntityEffectSyste
             if (effect.Disease is { } only && only != id)
                 continue;
 
-            if (effect.Group is { } group && (!_proto.TryIndex(id, out var proto) || proto.Group != group))
+            if (!_proto.TryIndex(id, out var proto))
                 continue;
 
-            disease.Progress -= effect.Amount * args.Scale;
+            if (effect.Group is { } group && proto.Group != group)
+                continue;
+
+            // Устойчивые штаммы: обычное лекарство слабее, резервное — в полную силу.
+            var potency = effect.Reserve ? 1f : MathF.Max(0f, 1f - proto.Resistance);
+            disease.Progress -= effect.Amount * potency * args.Scale;
             disease.Immunity = MathF.Min(1f, disease.Immunity + effect.Immunity * args.Scale);
         }
     }
@@ -43,6 +48,10 @@ public sealed partial class DHTreatDisease : EntityEffectBase<DHTreatDisease>
     /// <summary>На сколько снижается прогресс болезни за срабатывание.</summary>
     [DataField]
     public float Amount;
+
+    /// <summary>Резервное лекарство: действует и на устойчивые штаммы (<see cref="DHDiseasePrototype.Resistance"/>).</summary>
+    [DataField]
+    public bool Reserve;
 
     /// <summary>На сколько растёт иммунный ответ за срабатывание.</summary>
     [DataField]

@@ -108,6 +108,13 @@ public sealed partial class DHDiseasePrototype : IPrototype
     [DataField]
     public float ImmuneStrength = 0.01f;
 
+    /// <summary>
+    /// Устойчивость к обычным лекарствам (0…1): во сколько раз слабее действует лечение без флага «резерв».
+    /// MRS-14 — 1 (Спейсациллин бесполезен, нужен Карбапенем-R), планетарный червь — Альбендазол только сдерживает.
+    /// </summary>
+    [DataField]
+    public float Resistance;
+
     /// <summary>После выздоровления — иммунитет к этой болезни (вирусы).</summary>
     [DataField]
     public bool GrantsImmunity;

@@ -347,3 +347,16 @@
   steps:
   - DHSurgeryStepExciseSkin
   - DHSurgeryStepGraftSkin
+
+# --- Паразиты: извлечение личинки планетарного червя из тканей торса. ---
+
+- type: dhSurgery
+  id: DHSurgeryExtractParasite
+  name: dh-surgery-extract-parasite
+  description: dh-surgery-extract-parasite-desc
+  order: 65
+  parts: [ Torso ]
+  requires: [ Retracted ]
+  injury: Parasite
+  steps:
+  - DHSurgeryStepExtractParasite

@@ -588,6 +588,9 @@ public sealed partial class DHSurgerySystem : EntitySystem
             case DHSurgeryEffect.GraftSkin:
                 QueueDel(item);
                 return true;
+            case DHSurgeryEffect.RemoveParasite:
+                _disease.RemoveSurgicalParasites(patient);
+                return true;
             default:
                 return true;
         }
@@ -724,6 +727,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
             DHInjuryKind.Shrapnel => _trauma.HasShrapnel(patient, category),
             DHInjuryKind.OrganDamage => _trauma.HasOrganDamage(patient, category),
             DHInjuryKind.ChroniteSkin => _dose.CanExciseChronite(patient),
+            DHInjuryKind.Parasite => _disease.HasSurgicalParasite(patient),
             _ => true,
         };
     }
@@ -786,6 +790,9 @@ public sealed partial class DHSurgerySystem : EntitySystem
                 State = progress?.State ?? DHPartState.None,
                 Injuries = _trauma.DescribePart(patient, categoryId),
             };
+
+            if (categoryId == "Torso" && _disease.HasSurgicalParasite(patient))
+                part.Injuries.Add(Loc.GetString("dh-surgery-injury-parasite"));
 
             if (progress?.Active is { } active && _proto.TryIndex(active, out var activeProto))
             {
