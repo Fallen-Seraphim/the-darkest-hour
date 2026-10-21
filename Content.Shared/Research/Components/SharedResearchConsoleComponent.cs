@@ -1,3 +1,4 @@
+using Content.Shared._Goobstation.Research; // DarkestHour
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.Research.Components
@@ -29,9 +30,16 @@ namespace Content.Shared.Research.Components
     public sealed class ResearchConsoleBoundInterfaceState : BoundUserInterfaceState
     {
         public int Points;
-        public ResearchConsoleBoundInterfaceState(int points)
+
+        /// <summary>
+        /// DarkestHour (из Goob Station / Monolith): все технологии и их доступность — для дерева технологий.
+        /// </summary>
+        public Dictionary<string, ResearchAvailability> Researches;
+
+        public ResearchConsoleBoundInterfaceState(int points, Dictionary<string, ResearchAvailability>? researches = null)
         {
             Points = points;
+            Researches = researches ?? new();
         }
     }
 }

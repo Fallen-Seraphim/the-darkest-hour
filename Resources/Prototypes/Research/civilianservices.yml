@@ -20,6 +20,7 @@
   - BoxLedLightbulb
   - BoxLightMixed
   - BoxLedLightMixed
+  position: 25, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: Hydroponics
@@ -34,6 +35,7 @@
   - SeedExtractorMachineCircuitboard
   - HydroponicsTrayMachineCircuitboard
   - ReagentGrinderIndustrialMachineCircuitboard
+  position: 26, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: CritterMechs
@@ -54,6 +56,7 @@
   - HamtrPeripheralsElectronics
   - MechEquipmentGrabberSmall
   - VimHarness
+  position: 27, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: AudioVisualCommunication
@@ -73,6 +76,7 @@
   - SurveillanceWirelessCameraMonitorCircuitboard
   - TelecomServerCircuitboard
   - HolopadMachineCircuitboard
+  position: 28, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: AdvancedEntertainment
@@ -89,6 +93,7 @@
     - DawInstrumentMachineCircuitboard
     - MassMediaCircuitboard
     - JukeboxCircuitBoard
+  position: 29, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: MeatManipulation
@@ -105,6 +110,7 @@
   - BiomassReclaimerMachineCircuitboard
 
 # Tier 2
+  position: 30, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: FauxAstroTiles
@@ -127,6 +133,9 @@
   - FauxTileDesertAstroSand
   - FauxTileAstroIronsand
   - FauxTileAstroIronsandBorderless
+  technologyPrerequisites: # DarkestHour: дерево технологий
+  - Hydroponics
+  position: 26, 2 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: BiochemicalStasis
@@ -142,6 +151,9 @@
   - CryoPodMachineCircuitboard
   - CryostasisBeaker
   - SyringeCryostasis
+  technologyPrerequisites: # DarkestHour: дерево технологий
+  - MeatManipulation
+  position: 30, 2 # DarkestHour: место в дереве технологий
 
 - type: technology # Merge with other T2 medical research if possible!
   id: MechanizedTreatment
@@ -155,6 +167,9 @@
   recipeUnlocks:
   - BorgModuleAdvancedTopical
   - AdvancedJetInjector
+  technologyPrerequisites: # DarkestHour: дерево технологий
+  - CritterMechs
+  position: 27, 2 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: AdvancedCleaning
@@ -170,6 +185,9 @@
   - MegaSprayBottle
   - BorgModuleAdvancedCleaning
   # - TrashBagHolding # DarkestHour: нет блюспейса
+  technologyPrerequisites: # DarkestHour: дерево технологий
+  - PackagedLights
+  position: 25, 2 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: HONKMech
@@ -190,6 +208,9 @@
   - HonkerPeripheralsElectronics
   - HonkerTargetingElectronics
   - MechEquipmentHorn
+  technologyPrerequisites: # DarkestHour: дерево технологий
+  - CritterMechs
+  position: 28, 2 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: AdvancedSpray
@@ -205,6 +226,9 @@
   - ClothingBackpackWaterTank
 
 # BluespaceCargoTransport удалён # DarkestHour: нет блюспейса
+  technologyPrerequisites: # DarkestHour: дерево технологий
+  - PackagedLights
+  position: 29, 2 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: PushHorn
@@ -220,6 +244,9 @@
   - BorgModuleAdvancedClowning
 
 # Tier 3
+  technologyPrerequisites: # DarkestHour: дерево технологий
+  - AdvancedEntertainment
+  position: 31, 2 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: QuantumFiberWeaving
@@ -234,6 +261,9 @@
   - ClothingShoesBootsSpeed
 
 # BluespaceChemistry удалён # DarkestHour: нет блюспейса
+  technologyPrerequisites: # DarkestHour: дерево технологий
+  - AdvancedCleaning
+  position: 25, 4 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: LauncherSyringe
@@ -247,3 +277,7 @@
   recipeUnlocks:
   - LauncherSyringe
   - MiniSyringe
+  technologyPrerequisites: # DarkestHour: дерево технологий
+  - MechanizedTreatment
+  position: 27, 4 # DarkestHour: место в дереве технологий
+
