@@ -261,6 +261,7 @@
     - MedicalBoardsStatic
     - DHEngineeringBoardsStatic # DarkestHour: own engineering boards, static until the R&D rework
     - DHMedicalBoardsStatic # DarkestHour: вирусология, статично до переделки РнД
+    - DHScienceBoardsStatic # DarkestHour: материаловедение
     - EngineeringBoardsStatic
     dynamicPacks:
     - EngineeringBoards

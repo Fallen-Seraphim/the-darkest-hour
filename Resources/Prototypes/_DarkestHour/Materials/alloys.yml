@@ -1,0 +1,217 @@
+# DarkestHour: сплавы (этап 4). Рецепты сплавной печи открывает технодиск из материаловедения.
+
+- type: material
+  id: Plastitanium
+  stackEntity: SheetPlastitanium1
+  name: materials-dh-plastitanium
+  icon: { sprite: _DarkestHour/Objects/Materials/alloys.rsi, state: plastitanium }
+  color: "#5F6A86"
+  price: 0.6
+
+- type: stack
+  parent: BaseSheetStack
+  id: Plastitanium
+  name: stack-dh-plastitanium
+  icon: { sprite: /Textures/_DarkestHour/Objects/Materials/alloys.rsi, state: plastitanium }
+  spawn: SheetPlastitanium1
+
+- type: entity
+  parent: BaseSheet
+  id: SheetPlastitanium
+  name: plastitanium
+  description: Plasteel reinforced with titanium. Very strong and light; armour and hull plating for warships.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Materials/alloys.rsi
+    state: plastitanium_3
+    layers:
+    - state: plastitanium_3
+      map: ["base"]
+  - type: Item
+    sprite: _DarkestHour/Objects/Materials/alloys.rsi
+    heldPrefix: plastitanium
+  - type: Tag
+    tags:
+    - Sheet
+    - Metal
+    - ConstructionMaterial
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Material
+  - type: PhysicalComposition
+    materialComposition:
+      Plastitanium: 100
+  - type: Stack
+    stackType: Plastitanium
+    baseLayer: base
+    layerStates:
+    - plastitanium
+    - plastitanium_2
+    - plastitanium_3
+
+- type: entity
+  parent: SheetPlastitanium
+  id: SheetPlastitanium10
+  suffix: 10
+  components:
+  - type: Sprite
+    state: plastitanium_2
+  - type: Stack
+    stackType: Plastitanium
+    count: 10
+
+- type: entity
+  parent: SheetPlastitanium
+  id: SheetPlastitanium1
+  suffix: Single
+  components:
+  - type: Sprite
+    state: plastitanium
+  - type: Stack
+    stackType: Plastitanium
+    count: 1
+
+- type: material
+  id: Plastnickel
+  stackEntity: SheetPlastnickel1
+  name: materials-dh-plastnickel
+  icon: { sprite: _DarkestHour/Objects/Materials/alloys.rsi, state: plastnickel }
+  color: "#B8AE88"
+  price: 0.5
+
+- type: stack
+  parent: BaseSheetStack
+  id: Plastnickel
+  name: stack-dh-plastnickel
+  icon: { sprite: /Textures/_DarkestHour/Objects/Materials/alloys.rsi, state: plastnickel }
+  spawn: SheetPlastnickel1
+
+- type: entity
+  parent: BaseSheet
+  id: SheetPlastnickel
+  name: plastnickel
+  description: Plasteel alloyed with nickel. Tough and heat-resistant; reactor and engine parts.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Materials/alloys.rsi
+    state: plastnickel_3
+    layers:
+    - state: plastnickel_3
+      map: ["base"]
+  - type: Item
+    sprite: _DarkestHour/Objects/Materials/alloys.rsi
+    heldPrefix: plastnickel
+  - type: Tag
+    tags:
+    - Sheet
+    - Metal
+    - ConstructionMaterial
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Material
+  - type: PhysicalComposition
+    materialComposition:
+      Plastnickel: 100
+  - type: Stack
+    stackType: Plastnickel
+    baseLayer: base
+    layerStates:
+    - plastnickel
+    - plastnickel_2
+    - plastnickel_3
+
+- type: entity
+  parent: SheetPlastnickel
+  id: SheetPlastnickel10
+  suffix: 10
+  components:
+  - type: Sprite
+    state: plastnickel_2
+  - type: Stack
+    stackType: Plastnickel
+    count: 10
+
+- type: entity
+  parent: SheetPlastnickel
+  id: SheetPlastnickel1
+  suffix: Single
+  components:
+  - type: Sprite
+    state: plastnickel
+  - type: Stack
+    stackType: Plastnickel
+    count: 1
+
+- type: material
+  id: Duralumin
+  stackEntity: SheetDuralumin1
+  name: materials-dh-duralumin
+  icon: { sprite: _DarkestHour/Objects/Materials/alloys.rsi, state: duralumin }
+  color: "#B4C2D4"
+  price: 0.3
+
+- type: stack
+  parent: BaseSheetStack
+  id: Duralumin
+  name: stack-dh-duralumin
+  icon: { sprite: /Textures/_DarkestHour/Objects/Materials/alloys.rsi, state: duralumin }
+  spawn: SheetDuralumin1
+
+- type: entity
+  parent: BaseSheet
+  id: SheetDuralumin
+  name: duralumin
+  description: A hard aluminium-copper alloy. Light frames, shuttle hulls and tools.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Materials/alloys.rsi
+    state: duralumin_3
+    layers:
+    - state: duralumin_3
+      map: ["base"]
+  - type: Item
+    sprite: _DarkestHour/Objects/Materials/alloys.rsi
+    heldPrefix: duralumin
+  - type: Tag
+    tags:
+    - Sheet
+    - Metal
+    - ConstructionMaterial
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Material
+  - type: PhysicalComposition
+    materialComposition:
+      Duralumin: 100
+  - type: Stack
+    stackType: Duralumin
+    baseLayer: base
+    layerStates:
+    - duralumin
+    - duralumin_2
+    - duralumin_3
+
+- type: entity
+  parent: SheetDuralumin
+  id: SheetDuralumin10
+  suffix: 10
+  components:
+  - type: Sprite
+    state: duralumin_2
+  - type: Stack
+    stackType: Duralumin
+    count: 10
+
+- type: entity
+  parent: SheetDuralumin
+  id: SheetDuralumin1
+  suffix: Single
+  components:
+  - type: Sprite
+    state: duralumin
+  - type: Stack
+    stackType: Duralumin
+    count: 1
