@@ -99,3 +99,12 @@ research-discipline-dh-energy = Energy & Ships
 research-technology-dh-kane-crystals = Kane Crystals
 dh-material-scanner-nothing = The scanner finds nothing to analyse in this.
 research-technology-dh-ship-fire-control = Ship Fire Control
+
+## Хронит
+materials-dh-chronite = chronite
+materials-dh-raw-chronite = raw chronite
+materials-unit-crystal = crystal
+stack-dh-chronite = chronite
+stack-dh-chronite-ore = chronite ore
+construction-graph-component-dh-kane-microboard = Kane microboard
+research-technology-dh-chronite-fuel = Chronite Fuel
