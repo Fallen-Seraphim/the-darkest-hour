@@ -84,7 +84,7 @@ public sealed partial class DHRiftSystem : EntitySystem
     }
 
     /// <summary>Звёздная система карты; null — домашняя система станции.</summary>
-    private string? SystemOf(EntityUid? map)
+    public string? SystemOf(EntityUid? map)
     {
         if (map == null || !TryComp<DHStarSystemMapComponent>(map, out var comp) || comp.System == null)
             return null;
@@ -106,6 +106,14 @@ public sealed partial class DHRiftSystem : EntitySystem
         if (source == target)
             return;
 
+        // Между системами прыгают только с навигационной консоли разрыва: там карта системы и точка выхода.
+        if (!HasComp<DHRiftNavConsoleComponent>(ev.Console))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-rift-use-nav-console"), ev.Console, PopupType.MediumCaution);
+            ev.Cancelled = true;
+            return;
+        }
+
         if (!TryGetRiftGear(ev.Shuttle, out var generator, out var accumulator, out var reason))
         {
             _popup.PopupEntity(reason, ev.Console, PopupType.MediumCaution);
@@ -121,7 +129,7 @@ public sealed partial class DHRiftSystem : EntitySystem
     }
 
     /// <summary>Генератор и подходящий накопитель на корабле; иначе — причина отказа.</summary>
-    private bool TryGetRiftGear(EntityUid shuttle, out EntityUid generator, out EntityUid accumulator, out string reason)
+    public bool TryGetRiftGear(EntityUid shuttle, out EntityUid generator, out EntityUid accumulator, out string reason)
     {
         generator = EntityUid.Invalid;
         accumulator = EntityUid.Invalid;
