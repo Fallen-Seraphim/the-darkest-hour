@@ -39,7 +39,6 @@
     ears: ClothingHeadsetAltCentCom
     belt: ClothingBeltMilitaryWebbingERT
     pocket2: CombatKnife
-    suitstorage: WeaponDisablerSMG
   storage:
     back:
     - BoxZiptie
@@ -56,8 +55,6 @@
     - Handcuffs
     - Handcuffs
     - CrowbarRed
-    - WeaponPistolMk58
-    - MagazinePistol
     - EmergencyMedipen
 
 - type: startingGear
@@ -73,57 +70,30 @@
     ears: ClothingHeadsetAltCentCom
     belt: ClothingBeltMilitaryWebbingERT
     pocket2: CombatKnife
-    suitstorage: WeaponRifleLecter
   inhand:
-    - WeaponLaserCannon
     - PortableRecharger
   storage:
     belt:
     - CrowbarRed
     - Zipties
     - MedkitCombatFilled
-    - MagazineRifle
-    - MagazineRifle
-    - MagazineRifleIncendiary
-    - MagazineRifleUranium
     - Zipties
 
 - type: startingGear
   parent: ERTSecurityGearEVA
   id: ERTSecurityGearArmedGrenade
-  equipment:
-    pocket2: WeaponDisabler
-    suitstorage: WeaponLauncherHydraLethal
   storage:
     back:
-    - GrenadeBlast
-    - GrenadeBlast
-    - GrenadeBlast
-    - GrenadeBlast
-    - GrenadeBlast
-    - GrenadeBlast
-    - GrenadeFlash
-    - GrenadeFlash # End of first line
-    - GrenadeEMP
-    - GrenadeEMP
-    - GrenadeEMP
-    - MagazinePistol
     - Truncheon
     belt:
     - Handcuffs
     - CrowbarRed
     - EmergencyMedipen
-    - WeaponPistolMk58
-    - MagazinePistol
-    - MagazinePistol
     - MedkitCombatFilled
 
 - type: startingGear
   parent: ERTSecurityGearEVA
   id: ERTSecurityGearArmedVanguard
-  equipment:
-    pocket2: WeaponDisabler
-    suitstorage: WeaponSubMachineGunWt550
   storage:
     back:
     - ExGrenade
@@ -132,32 +102,20 @@
     - TelescopicShield
     - TelescopicShield # End of first line
     - MedkitCombatFilled
-    - MagazinePistolSubMachineGunTopMounted
-    - MagazinePistolSubMachineGunTopMounted
-    - MagazinePistolSubMachineGunTopMounted
-    - MagazinePistolSubMachineGunTopMounted
     - Truncheon
     belt:
     - Handcuffs
     - Handcuffs
     - CrowbarRed
-    - WeaponPistolMk58
-    - MagazinePistol
     - EmergencyMedipen
     - HoloprojectorSecurity
 
 - type: startingGear
   parent: ERTSecurityGearEVA
   id: ERTSecurityGearArmedShotgun
-  equipment:
-    pocket2: WeaponDisabler
-    suitstorage: WeaponShotgunEnforcer
   storage:
     back:
     - SmokeGrenade
-    - BoxLethalshot
-    - BoxShotgunSlug
-    - BoxShotgunIncendiary
     - MedkitCombatFilled # End of first line
     - ExGrenade
     - CableDetStack
@@ -167,8 +125,6 @@
     - Handcuffs
     - Handcuffs
     - CrowbarRed
-    - WeaponPistolMk58
-    - MagazinePistol
     - EmergencyMedipen
 
 - type: chameleonOutfit

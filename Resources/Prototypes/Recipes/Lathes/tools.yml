@@ -212,11 +212,3 @@
     Steel: 500
     Glass: 100
 
-- type: latheRecipe
-  parent: BaseToolRecipe
-  id: WeaponParticleDecelerator
-  result: WeaponParticleDecelerator
-  completetime: 6
-  materials:
-    Steel: 750
-    Uranium: 150

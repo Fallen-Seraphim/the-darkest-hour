@@ -30,6 +30,8 @@ DEPT = {
     'science': (hexc('5e4078'), hexc('f1e6f8')),
     'engineering': (hexc('a35a1f'), hexc('fff1d8')),
     'silicon': (hexc('275e57'), hexc('b8f5e6')),
+    # Metall Armed response team: dark graphite with beige
+    'metallarmed': (hexc('2b2d31'), hexc('d9cba8')),
 }
 
 FRAME = {
@@ -68,6 +70,8 @@ G = {
     'hammer': ['######', '######', '..##..', '..##..', '..##..', '..##..'],
     'screwdriver': ['......', '....#.', '...#..', '..##..', '.##...', '.#....'],
     'lens': ['......', '..##..', '.#..#.', '#.##.#', '.#..#.', '..##..'],
+    'crosshair': ['..#...', '.###..', '##.##.', '.###..', '..#...', '......'],
+    'rifle': ['......', '#.....', '######', '.####.', '.#....', '......'],
 }
 
 # icon state, department, rank, glyph
@@ -103,6 +107,10 @@ ICONS = [
     ('Technician', 'engineering', 'staff', 'hammer'),
     ('JuniorTechnician', 'engineering', 'trainee', 'screwdriver'),
     ('StationAi', 'silicon', 'staff', 'lens'),
+    ('MetallArmedCommander', 'metallarmed', 'head', 'metall'),
+    ('MetallArmedWeapons', 'metallarmed', 'lead', 'crosshair'),
+    ('MetallArmedMedic', 'metallarmed', 'staff', 'cross'),
+    ('MetallArmedRifleman', 'metallarmed', 'staff', 'rifle'),
 ]
 
 

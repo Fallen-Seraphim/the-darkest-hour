@@ -35,7 +35,7 @@
     id: DHDogtags
     gloves: ClothingHandsGlovesCombat
     ears: DHClothingHeadsetAltSecurityChief
-    pocket1: WeaponPistolMk58
+    pocket1: DHWeaponPistolMk58
   storage:
     back:
     - Flash
@@ -79,7 +79,7 @@
     eyes: ClothingEyesGlassesSecurity
     id: DHDogtags
     ears: ClothingHeadsetSecurity
-    pocket1: WeaponPistolMk58
+    pocket1: DHWeaponPistolMk58
   storage:
     back:
     - Flash
@@ -125,7 +125,6 @@
     eyes: ClothingEyesGlassesSecurity
     id: DHDogtags
     ears: DHClothingHeadsetInvestigations
-    belt: ClothingBeltHolsterFilled
   storage:
     back:
     - Flash
@@ -168,7 +167,6 @@
     eyes: ClothingEyesGlassesSecurity
     id: DHDogtags
     ears: DHClothingHeadsetInvestigations
-    belt: ClothingBeltHolsterFilled
   storage:
     back:
     - Flash
@@ -209,7 +207,7 @@
   equipment:
     eyes: ClothingEyesGlassesSecurity
     ears: ClothingHeadsetSecurity
-    pocket1: WeaponPistolMk58
+    pocket1: DHWeaponPistolMk58
     id: DHDogtags
   storage:
     back:
@@ -250,7 +248,7 @@
   equipment:
     eyes: ClothingEyesGlassesSecurity
     ears: ClothingHeadsetSecurity
-    pocket1: WeaponPistolMk58
+    pocket1: DHWeaponPistolMk58
     id: DHDogtags
   storage:
     back:
@@ -291,7 +289,7 @@
   equipment:
     eyes: ClothingEyesGlassesSecurity
     ears: ClothingHeadsetSecurity
-    pocket1: WeaponPistolMk58
+    pocket1: DHWeaponPistolMk58
     id: DHDogtags
   storage:
     back:
@@ -335,7 +333,7 @@
     id: DHDogtags
     ears: ClothingHeadsetSecurity
     belt: ClothingBeltSecurityFilled
-    pocket1: WeaponPistolMk58
+    pocket1: DHWeaponPistolMk58
     pocket2: BookSecurity
   storage:
     back:

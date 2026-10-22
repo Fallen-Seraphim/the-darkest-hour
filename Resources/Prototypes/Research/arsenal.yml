@@ -1,94 +1,6 @@
 # Tier 1
 
 - type: technology
-  id: SalvageWeapons
-  name: research-technology-salvage-weapons
-  icon:
-    sprite: Objects/Weapons/Guns/Basic/kinetic_accelerator.rsi
-    state: icon
-  discipline: Arsenal # DarkestHour: ветка дерева
-  tier: 1
-  cost: 5000
-  recipeUnlocks:
-  - WeaponProtoKineticAccelerator
-  - ShuttleGunKineticCircuitboard
-  # These are roundstart but not replenishable for salvage
-  position: 19, 0 # DarkestHour: место в дереве технологий
-
-- type: technology
-  id: DraconicMunitions
-  name: research-technology-draconic-munitions
-  icon:
-    sprite: Objects/Weapons/Guns/Ammunition/Boxes/pistol.rsi
-    state: incendiarydisplay
-  discipline: Arsenal # DarkestHour: ветка дерева
-  tier: 1
-  cost: 10000
-  recipeUnlocks:
-  - BoxShotgunIncendiary
-  - MagazineRifleIncendiary
-  - MagazinePistolIncendiary
-  - MagazinePistolSubMachineGunIncendiary
-  - MagazineLightRifleIncendiary
-  - SpeedLoaderMagnumIncendiary
-  - MagazineBoxPistolIncendiary
-  - MagazineBoxMagnumIncendiary
-  - MagazineBoxLightRifleIncendiary
-  - MagazineBoxRifleIncendiary
-  position: 17, 0 # DarkestHour: место в дереве технологий
-
-- type: technology
-  id: WeaponizedLaserManipulation
-  name: research-technology-weaponized-laser-manipulation
-  icon:
-    sprite: Objects/Weapons/Guns/Battery/laser_gun.rsi
-    state: icon
-  discipline: Arsenal # DarkestHour: ветка дерева
-  tier: 1
-  cost: 7500
-  recipeUnlocks:
-  - WeaponLaserCarbine
-  position: 14, 0 # DarkestHour: место в дереве технологий
-
-- type: technology
-  id: NonlethalAmmunition
-  name: research-technology-nonlethal-ammunition
-  icon:
-    sprite: Objects/Weapons/Guns/Battery/disabler_smg.rsi
-    state: icon
-  discipline: Arsenal # DarkestHour: ветка дерева
-  tier: 1
-  cost: 5000
-  recipeUnlocks:
-  - BoxShellTranquilizer
-  - BoxBeanbag
-  - WeaponDisabler
-  - WeaponDisablerSMG
-  position: 13, 0 # DarkestHour: место в дереве технологий
-
-- type: technology
-  id: UraniumMunitions
-  name: research-technology-uranium-munitions
-  icon:
-    sprite: Objects/Materials/Sheets/other.rsi
-    state: uranium
-  discipline: Arsenal # DarkestHour: ветка дерева
-  tier: 1
-  cost: 7500
-  recipeUnlocks:
-  - MagazineRifleUranium
-  - MagazinePistolUranium
-  - MagazinePistolSubMachineGunUranium
-  - MagazineLightRifleUranium
-  - SpeedLoaderMagnumUranium
-  - MagazineBoxPistolUranium
-  - MagazineBoxMagnumUranium
-  - MagazineBoxLightRifleUranium
-  - MagazineBoxRifleUranium
-  - BoxShotgunUranium
-  position: 16, 0 # DarkestHour: место в дереве технологий
-
-- type: technology
   id: ExplosiveTechnology
   name: research-technology-explosive-technology
   icon:
@@ -139,55 +51,8 @@
   - TelescopicShield
   - HoloprojectorSecurity
   technologyPrerequisites: # DarkestHour: дерево технологий
-  - NonlethalAmmunition
+  - DHAmmoProduction
   position: 13, 2 # DarkestHour: место в дереве технологий
-
-- type: technology
-  id: ConcentratedLaserWeaponry
-  name: research-technology-concentrated-laser-weaponry
-  icon:
-    sprite: Objects/Weapons/Guns/Battery/laser_cannon.rsi
-    state: icon
-  discipline: Arsenal # DarkestHour: ветка дерева
-  tier: 2
-  cost: 10000
-  recipeUnlocks:
-  - WeaponLaserCannon
-  technologyPrerequisites: # DarkestHour: дерево технологий
-  - WeaponizedLaserManipulation
-  position: 14, 2 # DarkestHour: место в дереве технологий
-
-- type: technology
-  id: WaveParticleHarnessing
-  name: research-technology-wave-particle-harnessing
-  icon:
-    sprite: Objects/Weapons/Guns/Battery/xray.rsi
-    state: icon
-  discipline: Arsenal # DarkestHour: ветка дерева
-  tier: 2
-  cost: 10000
-  recipeUnlocks:
-  - WeaponXrayCannon
-  technologyPrerequisites: # DarkestHour: дерево технологий
-  - WeaponizedLaserManipulation
-  position: 15, 2 # DarkestHour: место в дереве технологий
-
-- type: technology
-  id: KineticModifications
-  name: research-technology-kinetic-modifications
-  icon:
-    sprite: Objects/Tools/upgrade.rsi
-    state: display
-  discipline: Arsenal # DarkestHour: ветка дерева
-  tier: 2
-  cost: 7500
-  recipeUnlocks:
-  - PKAUpgradeDamage
-  - PKAUpgradeRange
-  - PKAUpgradeFireRate
-  technologyPrerequisites: # DarkestHour: дерево технологий
-  - SalvageWeapons
-  position: 19, 2 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: BasicShuttleArmament
@@ -202,15 +67,7 @@
   - PowerCageRechargerCircuitboard
   - PowerCageSmall
   - PowerCageMedium
-  - MagazineGrenadeEmpty
-  - GrenadeFlash
-  - GrenadeBlast
-  - ShuttleGunSvalinnMachineGunCircuitboard
-  - ShuttleGunPerforatorCircuitboard
-  - ShuttleGunFriendshipCircuitboard
-  technologyPrerequisites: # DarkestHour: дерево технологий
-  - SalvageWeapons
-  position: 20, 2 # DarkestHour: место в дереве технологий
+  position: 20, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: DualWieldingTechnology
@@ -229,37 +86,6 @@
   position: 0, 0
 
 - type: technology
-  id: PortableMicrofusionWeaponry
-  name: research-technology-portable-microfusion-weaponry
-  icon:
-    sprite: Objects/Weapons/Guns/Battery/advancedlasergun.rsi
-    state: icon
-  discipline: Arsenal # DarkestHour: ветка дерева
-  tier: 3
-  cost: 15000
-  recipeUnlocks:
-  - WeaponAdvancedLaser
-  - PortableRecharger
-  technologyPrerequisites: # DarkestHour: дерево технологий
-  - ConcentratedLaserWeaponry
-  position: 14, 4 # DarkestHour: место в дереве технологий
-
-- type: technology
-  id: ThermalWeaponry
-  name: research-technology-thermal-weaponry
-  icon:
-    sprite: Objects/Weapons/Guns/Battery/temp_gun.rsi
-    state: icon
-  discipline: Arsenal # DarkestHour: ветка дерева
-  tier: 3
-  cost: 15000
-  recipeUnlocks:
-  - WeaponTemperatureGun
-  technologyPrerequisites: # DarkestHour: дерево технологий
-  - WaveParticleHarnessing
-  position: 15, 4 # DarkestHour: место в дереве технологий
-
-- type: technology
   id: AdvancedShuttleWeapon
   name: research-technology-advanced-shuttle-weapon
   icon:
@@ -269,9 +95,9 @@
   tier: 3
   cost: 15000
   recipeUnlocks:
-  - GrenadeEMP
   - PowerCageHigh
-  - ShuttleGunDusterCircuitboard
+  - DHShipShell90mmAP # DarkestHour: снаряды 90 мм
+  - DHShipShell90mmHE
   technologyPrerequisites: # DarkestHour: дерево технологий
-  - BasicShuttleArmament
-  position: 20, 4 # DarkestHour: место в дереве технологий
+  - DHShipMunitions
+  position: 19, 4 # DarkestHour: место в дереве технологий

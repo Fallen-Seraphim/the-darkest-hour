@@ -166,7 +166,6 @@
   tier: 2
   cost: 5000
   recipeUnlocks:
-  - BorgModuleAdvancedTopical
   - AdvancedJetInjector
   position: 23, 0 # DarkestHour: место в дереве технологий
 
@@ -182,7 +181,6 @@
   recipeUnlocks:
   - AdvMopItem
   - MegaSprayBottle
-  - BorgModuleAdvancedCleaning
   # - TrashBagHolding # DarkestHour: нет блюспейса
   hidden: true # DarkestHour: не подходит сеттингу
   position: 0, 0
@@ -237,28 +235,10 @@
   cost: 4000
   recipeUnlocks:
   - PushHorn
-  - BorgModuleAdvancedClowning
 
 # Tier 3
   hidden: true # DarkestHour: не подходит сеттингу
   position: 0, 0
-
-- type: technology
-  id: QuantumFiberWeaving
-  name: research-technology-quantum-fiber-weaving
-  icon:
-    sprite: Clothing/Shoes/Boots/speedboots.rsi
-    state: icon
-  discipline: Industrial # DarkestHour: ветка дерева
-  tier: 3
-  cost: 10000
-  recipeUnlocks:
-  - ClothingShoesBootsSpeed
-
-# BluespaceChemistry удалён # DarkestHour: нет блюспейса
-  technologyPrerequisites: # DarkestHour: дерево технологий
-  - AdvancedToolsTechnology
-  position: 1, 4 # DarkestHour: место в дереве технологий
 
 - type: technology
   id: LauncherSyringe

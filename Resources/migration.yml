@@ -33,38 +33,38 @@ lantern: Lantern
 lanternextrabright: LanternFlash
 
 # 2023-08-04
-BoxMagazineLightRifleHighVelocity: BoxMagazineLightRifle
+BoxMagazineLightRifleHighVelocity: null # DarkestHour: BoxMagazineLightRifle удалён
 BoxMagazineMagnumSubMachineGunHighVelocity: null
-BoxMagazinePistolCaselessRifleHighVelocity: BoxMagazinePistolCaselessRifle
-BoxMagazinePistolHighCapacityHighVelocity: BoxMagazinePistolHighCapacity
-BoxMagazinePistolHighVelocity: BoxMagazinePistol
-BoxMagazinePistolSubMachineGunHighVelocity: BoxMagazinePistolSubMachineGun
-BoxMagazineRifleHighVelocity: BoxMagazineRifle
-BulletCaselessRifleHighVelocity: BulletCaselessRifle
-BulletLightRifleHighVelocity: BulletLightRifle
-BulletMagnumHighVelocity: BulletMagnum
-BulletPistolHighVelocity: BulletPistol
-BulletRifleHighVelocity: BulletRifle
-CartridgeCaselessRifleHighVelocity: CartridgeCaselessRifle
-CartridgeLightRifleHighVelocity: CartridgeLightRifle
-CartridgeMagnumHighVelocity: CartridgeMagnum
-CartridgePistolHighVelocity: CartridgePistol
-CartridgeRifleHighVelocity: CartridgeRifle
-MagazineBoxCaselessRifleHighVelocity: MagazineBoxCaselessRifle
-MagazineBoxLightRifleHighVelocity: MagazineBoxLightRifle
-MagazineBoxMagnumHighVelocity: MagazineBoxMagnum
-MagazineBoxPistolHighVelocity: MagazineBoxPistol
-MagazineBoxRifleHighVelocity: MagazineBoxRifle
-MagazineCaselessRifleHighVelocity: MagazinePistolCaselessRifle
+BoxMagazinePistolCaselessRifleHighVelocity: null # DarkestHour: BoxMagazinePistolCaselessRifle удалён
+BoxMagazinePistolHighCapacityHighVelocity: null # DarkestHour: BoxMagazinePistolHighCapacity удалён
+BoxMagazinePistolHighVelocity: null # DarkestHour: BoxMagazinePistol удалён
+BoxMagazinePistolSubMachineGunHighVelocity: null # DarkestHour: BoxMagazinePistolSubMachineGun удалён
+BoxMagazineRifleHighVelocity: null # DarkestHour: BoxMagazineRifle удалён
+BulletCaselessRifleHighVelocity: null # DarkestHour: BulletCaselessRifle удалён
+BulletLightRifleHighVelocity: null # DarkestHour: BulletLightRifle удалён
+BulletMagnumHighVelocity: null # DarkestHour: BulletMagnum удалён
+BulletPistolHighVelocity: null # DarkestHour: BulletPistol удалён
+BulletRifleHighVelocity: null # DarkestHour: BulletRifle удалён
+CartridgeCaselessRifleHighVelocity: null # DarkestHour: CartridgeCaselessRifle удалён
+CartridgeLightRifleHighVelocity: null # DarkestHour: CartridgeLightRifle удалён
+CartridgeMagnumHighVelocity: null # DarkestHour: CartridgeMagnum удалён
+CartridgePistolHighVelocity: null # DarkestHour: CartridgePistol удалён
+CartridgeRifleHighVelocity: null # DarkestHour: CartridgeRifle удалён
+MagazineBoxCaselessRifleHighVelocity: null # DarkestHour: MagazineBoxCaselessRifle удалён
+MagazineBoxLightRifleHighVelocity: null # DarkestHour: MagazineBoxLightRifle удалён
+MagazineBoxMagnumHighVelocity: null # DarkestHour: MagazineBoxMagnum удалён
+MagazineBoxPistolHighVelocity: null # DarkestHour: MagazineBoxPistol удалён
+MagazineBoxRifleHighVelocity: null # DarkestHour: MagazineBoxRifle удалён
+MagazineCaselessRifleHighVelocity: null # DarkestHour: MagazinePistolCaselessRifle удалён
 MagazineCaselessRifleShortHighVelocity: null
-MagazineLightRifleHighVelocity: MagazineLightRifle
+MagazineLightRifleHighVelocity: null # DarkestHour: MagazineLightRifle удалён
 MagazineMagnumSubMachineGunHighVelocity: null
-MagazinePistolCaselessRifleHighVelocity: MagazinePistolCaselessRifle
-MagazinePistolHighCapacityHighVelocity: MagazinePistolHighCapacity
-MagazinePistolHighVelocity: MagazinePistol
-MagazinePistolSubMachineGunHighVelocity: MagazinePistolSubMachineGun
-MagazineRifleHighVelocity: MagazineRifle
-SpeedLoaderMagnumHighVelocity: SpeedLoaderMagnum
+MagazinePistolCaselessRifleHighVelocity: null # DarkestHour: MagazinePistolCaselessRifle удалён
+MagazinePistolHighCapacityHighVelocity: null # DarkestHour: MagazinePistolHighCapacity удалён
+MagazinePistolHighVelocity: null # DarkestHour: MagazinePistol удалён
+MagazinePistolSubMachineGunHighVelocity: null # DarkestHour: MagazinePistolSubMachineGun удалён
+MagazineRifleHighVelocity: null # DarkestHour: MagazineRifle удалён
+SpeedLoaderMagnumHighVelocity: null # DarkestHour: SpeedLoaderMagnum удалён
 SpeedLoaderPistolHighVelocity: null
 
 # 2023-08-07
@@ -288,45 +288,45 @@ BodyBag_Folded: BodyBagFolded
 
 # 2024-04-26
 BaseBulletRubber: null
-BulletPistolRubber: BulletPistol
-BulletMagnumRubber: BulletMagnum
-BulletLightRifleRubber: BulletLightRifle
-BulletRifleRubber: BulletRifle
-BulletCaselessRifleRubber: BulletCaselessRifle
-CartridgePistolRubber: CartridgePistol
-CartridgeMagnumRubber: CartridgeMagnum
-CartridgeLightRifleRubber: CartridgeLightRifle
-CartridgeRifleRubber: CartridgeRifle
-CartridgeCaselessRifleRubber: CartridgeCaselessRifle
-MagazinePistolRubber: MagazinePistol
-MagazinePistolSubMachineGunRubber: MagazinePistolSubMachineGun
-MagazinePistolCaselessRifleRubber: MagazinePistolCaselessRifle
-MagazineMagnumRubber: MagazineMagnum
+BulletPistolRubber: null # DarkestHour: BulletPistol удалён
+BulletMagnumRubber: null # DarkestHour: BulletMagnum удалён
+BulletLightRifleRubber: null # DarkestHour: BulletLightRifle удалён
+BulletRifleRubber: null # DarkestHour: BulletRifle удалён
+BulletCaselessRifleRubber: null # DarkestHour: BulletCaselessRifle удалён
+CartridgePistolRubber: null # DarkestHour: CartridgePistol удалён
+CartridgeMagnumRubber: null # DarkestHour: CartridgeMagnum удалён
+CartridgeLightRifleRubber: null # DarkestHour: CartridgeLightRifle удалён
+CartridgeRifleRubber: null # DarkestHour: CartridgeRifle удалён
+CartridgeCaselessRifleRubber: null # DarkestHour: CartridgeCaselessRifle удалён
+MagazinePistolRubber: null # DarkestHour: MagazinePistol удалён
+MagazinePistolSubMachineGunRubber: null # DarkestHour: MagazinePistolSubMachineGun удалён
+MagazinePistolCaselessRifleRubber: null # DarkestHour: MagazinePistolCaselessRifle удалён
+MagazineMagnumRubber: null # DarkestHour: MagazineMagnum удалён
 MagazineMagnumSubMachineGunRubber: null
-MagazineLightRifleRubber: MagazineLightRifle
-MagazineRifleRubber: MagazineRifle
-MagazineCaselessRifleRubber: MagazinePistolCaselessRifle
+MagazineLightRifleRubber: null # DarkestHour: MagazineLightRifle удалён
+MagazineRifleRubber: null # DarkestHour: MagazineRifle удалён
+MagazineCaselessRifleRubber: null # DarkestHour: MagazinePistolCaselessRifle удалён
 MagazineCaselessRifleShortRubber: null
 SpeedLoaderPistolRubber: null
-SpeedLoaderMagnumRubber: SpeedLoaderMagnum
-MagazineBoxPistolRubber: MagazineBoxPistol
+SpeedLoaderMagnumRubber: null # DarkestHour: SpeedLoaderMagnum удалён
+MagazineBoxPistolRubber: null # DarkestHour: MagazineBoxPistol удалён
 # RIP box of magnum rubbers 202X to 2024
-MagazineBoxMagnumRubber: MagazineBoxMagnum
-MagazineBoxLightRifleRubber: MagazineBoxLightRifle
-MagazineBoxRifleRubber: MagazineBoxRifle
-MagazineBoxRifleBigRubber: MagazineBoxRifleBig
-MagazineBoxCaselessRifleRubber: MagazineBoxCaselessRifle
-BoxMagazinePistolRubber: BoxMagazinePistol
-BoxMagazinePistolHighCapacityRubber: BoxMagazinePistolHighCapacity
-BoxMagazinePistolSubMachineGunRubber: BoxMagazinePistolSubMachineGun
-BoxMagazineLightRifleRubber: BoxMagazineLightRifle
-BoxMagazineRifleRubber: BoxMagazineRifle
-BoxMagazineCaselessRifleRubber: BoxMagazinePistolCaselessRifle
+MagazineBoxMagnumRubber: null # DarkestHour: MagazineBoxMagnum удалён
+MagazineBoxLightRifleRubber: null # DarkestHour: MagazineBoxLightRifle удалён
+MagazineBoxRifleRubber: null # DarkestHour: MagazineBoxRifle удалён
+MagazineBoxRifleBigRubber: null # DarkestHour: MagazineBoxRifleBig удалён
+MagazineBoxCaselessRifleRubber: null # DarkestHour: MagazineBoxCaselessRifle удалён
+BoxMagazinePistolRubber: null # DarkestHour: BoxMagazinePistol удалён
+BoxMagazinePistolHighCapacityRubber: null # DarkestHour: BoxMagazinePistolHighCapacity удалён
+BoxMagazinePistolSubMachineGunRubber: null # DarkestHour: BoxMagazinePistolSubMachineGun удалён
+BoxMagazineLightRifleRubber: null # DarkestHour: BoxMagazineLightRifle удалён
+BoxMagazineRifleRubber: null # DarkestHour: BoxMagazineRifle удалён
+BoxMagazineCaselessRifleRubber: null # DarkestHour: BoxMagazinePistolCaselessRifle удалён
 BoxMagazineMagnumSubMachineGunRubber: null
-WeaponPistolMk58Nonlethal: WeaponPistolMk58
-WeaponPistolN1984Nonlethal: WeaponPistolN1984
-WeaponSubMachineGunDrozdRubber: WeaponSubMachineGunDrozd
-WeaponRifleLecterRubber: WeaponRifleLecter
+WeaponPistolMk58Nonlethal: DHWeaponPistolMk58 # DarkestHour: ванильный Mk 58 вырезан
+WeaponPistolN1984Nonlethal: null # DarkestHour: WeaponPistolN1984 удалён
+WeaponSubMachineGunDrozdRubber: null # DarkestHour: WeaponSubMachineGunDrozd удалён
+WeaponRifleLecterRubber: null # DarkestHour: WeaponRifleLecter удалён
 
 # 2024-04-26
 GlassBoxLaserBroken: GlassBoxBroken
@@ -541,7 +541,7 @@ DrinkIrishCarBomb: DrinkIrishSlammer
 # 2025-01-06
 BorgModuleRadiationDetection: null
 BorgModuleGPS: null
-BorgModuleLightReplacer: BorgModuleCustodial
+BorgModuleLightReplacer: null # DarkestHour: BorgModuleCustodial удалён
 BorgModuleAdvancedTreatment: null
 ClothingMaskSexyClown: ClothingMaskBlushingClown
 ClothingMaskSexyMime: ClothingMaskBlushingMime
@@ -643,9 +643,9 @@ MatterBinStockPart: MicroManipulatorStockPart
 CapacitorStockPart: MicroManipulatorStockPart
 
 # 2025-05-26 Turrets
-WeaponEnergyTurretStation: WeaponEnergyTurretSecurity
-WeaponEnergyTurretStationControlPanel: WeaponEnergyTurretSecurityControlPanel
-WeaponEnergyTurretStationMachineCircuitboard: WeaponEnergyTurretSecurityMachineCircuitboard
+WeaponEnergyTurretStation: null # DarkestHour: WeaponEnergyTurretSecurity удалён
+WeaponEnergyTurretStationControlPanel: null # DarkestHour: WeaponEnergyTurretSecurityControlPanel удалён
+WeaponEnergyTurretStationMachineCircuitboard: null # DarkestHour: WeaponEnergyTurretSecurityMachineCircuitboard удалён
 
 # 2025-05-30
 SpawnHonkBot: SpawnMobHonkBot
@@ -754,8 +754,8 @@ DebugSMES: SMESBasicEmpty
 DebugSubstation: SubstationBasicEmpty
 DebugSubstationWall: BaseSubstationWall
 DebugAPC: BaseAPC
-MagazineCaselessRifle: MagazinePistolCaselessRifle
-MagazineCaselessRiflePractice: MagazinePistolCaselessRiflePractice
+MagazineCaselessRifle: null # DarkestHour: MagazinePistolCaselessRifle удалён
+MagazineCaselessRiflePractice: null # DarkestHour: MagazinePistolCaselessRiflePractice удалён
 SpeedLoaderPistol: null
 SpeedLoaderPistolPractice: null
 
@@ -776,7 +776,7 @@ HandheldHealthAnalyzerUnpowered: HandheldHealthAnalyzer
 HandheldHealthAnalyzerEmpty: HandheldHealthAnalyzer
 
 #2026-01-09
-BorgModuleAdvancedChemical: BorgModuleAdvancedTopical
+BorgModuleAdvancedChemical: null # DarkestHour: BorgModuleAdvancedTopical удалён
 
 # 2026-01-14
 HeadHuman: OrganHumanHead
@@ -1145,8 +1145,8 @@ ClothingShoesTourist: ClothingShoesSandalsBlack
 ClothingShoesWizard: ClothingShoesSandalsBrown
 
 #2026-09-28
-BorgModuleGardening: BorgModuleBotany
-BorgModuleHarvesting: BorgModuleBotany
+BorgModuleGardening: null # DarkestHour: BorgModuleBotany удалён
+BorgModuleHarvesting: null # DarkestHour: BorgModuleBotany удалён
 
 # 2026-09-29
 WallMalign: WallSolid
@@ -1172,3 +1172,188 @@ hydroponicsSoil: HydroponicsSoil
 hydroponicsTray: HydroponicsTray
 trayScanner: TRayScanner
 voicesensor: VoiceSensor
+
+# DarkestHour: вырезаны ванильное оружие, калибры, лазеры, турели, модули боргов, скороходы/джамп/лунные сапоги, гравипушки
+AmmoTechFab: null
+BorgModuleAdvancedTool: null
+BorgModuleAnomaly: null
+BorgModuleArtifact: null
+BorgModuleFireExtinguisher: null
+BorgModuleL6C: null
+BorgModuleMining: null
+BorgModuleRCD: null
+BorgModuleSyndicateWeapon: null
+BoxBeanbag: null
+BoxCartridgeCap: null
+BoxLethalshot: null
+BoxMagazineLightRifle: null
+BoxMagazinePistol: null
+BoxMagazinePistolCaselessRifle: null
+BoxMagazinePistolCaselessRiflePractice: null
+BoxMagazinePistolPractice: null
+BoxMagazinePistolSubMachineGun: null
+BoxMagazinePistolSubMachineGunPractice: null
+BoxMagazinePistolSubMachineGunTopMounted: null
+BoxMagazineRifle: null
+BoxMagazineRiflePractice: null
+BoxMagazineShotgun: null
+BoxMagazineShotgunBeanbag: null
+BoxMagazineShotgunIncendiary: null
+BoxMagazineShotgunSlug: null
+BoxShellTranquilizer: null
+BoxShotgunIncendiary: null
+BoxShotgunPractice: null
+BoxShotgunSlug: null
+BoxShotgunUranium: null
+CannonBall: null
+CannonBallGlassshot: null
+CannonBallGrapeshot: null
+CartridgeCap: null
+CartridgeMagnum: null
+CartridgePistol: null
+CartridgePistolSpent: null
+CartridgeRifle: null
+CartridgeRocket: null
+ClothingBackpackDuffelSyndicateAmmoFilled: null
+ClothingShoesBootsSpeed: null
+GlassBoxLaserFilled: null
+GrenadeBaton: null
+GrenadeBlast: null
+GrenadeCleanade: null
+GrenadeEMP: null
+GrenadeFlash: null
+GrenadeFrag: null
+GunSafeDisabler: null
+GunSafeLaserCarbine: null
+GunSafeRifleLecter: null
+GunSafeShotgunEnforcer: null
+GunSafeShotgunKammerer: null
+GunSafeSubMachineGunDrozd: null
+LootSpawnerArmoryGunsOnly: null
+LootSpawnerRoboticsBorgModule: null
+MagazineBoxAntiMateriel: null
+MagazineBoxLightRifle: null
+MagazineBoxLightRifleBig: null
+MagazineBoxLightRifleIncendiary: null
+MagazineBoxLightRiflePractice: null
+MagazineBoxLightRifleUranium: null
+MagazineBoxMagnum: null
+MagazineBoxMagnumPractice: null
+MagazineBoxPistol: null
+MagazineBoxPistolIncendiary: null
+MagazineBoxPistolPractice: null
+MagazineBoxPistolUranium: null
+MagazineGrenadeBaton: null
+MagazineGrenadeBlast: null
+MagazineGrenadeEMP: null
+MagazineGrenadeFlash: null
+MagazineGrenadeFrag: null
+MagazineLightRifle: null
+MagazineLightRifleBox: null
+MagazineLightRifleIncendiary: null
+MagazineLightRiflePractice: null
+MagazineLightRifleUranium: null
+MagazineMagnum: null
+MagazinePistol: null
+MagazinePistolCaselessRifle: null
+MagazinePistolEmpty: null
+MagazinePistolIncendiary: null
+MagazinePistolSubMachineGun: null
+MagazinePistolSubMachineGunEmpty: null
+MagazinePistolSubMachineGunPractice: null
+MagazinePistolSubMachineGunTopMounted: null
+MagazinePistolSubMachineGunTopMountedEmpty: null
+MagazinePistolSubMachineGunUranium: null
+MagazineRifle: null
+MagazineRifleIncendiary: null
+MagazineRiflePractice: null
+MagazineRifleUranium: null
+MagazineShotgun: null
+MagazineShotgunBeanbag: null
+MagazineShotgunEmpty: null
+MagazineShotgunIncendiary: null
+MagazineShotgunSlug: null
+NukeOpsAmmoSpawner: null
+RevolverCapGun: null
+ShellShotgunImprovised: null
+ShellShotgunIncendiary: null
+ShellShotgunSlug: null
+ShellTranquilizer: null
+ShotGunCabinetFilled: null
+ShuttleGunDuster: null
+ShuttleGunFriendship: null
+ShuttleGunKineticOld: null
+ShuttleGunPerforator: null
+ShuttleGunPirateCannon: null
+ShuttleGunSvalinnMachineGun: null
+SpawnPointHeadOfSecurityWeapon: null
+SpawnPointWardenWeapon: null
+SpeedLoaderLightRifle: null
+SpeedLoaderMagnum: null
+SpeedLoaderMagnumAP: null
+ToolboxElectricalTurret: null
+WeaponAdvancedLaser: null
+WeaponAntiqueLaser: null
+WeaponDisabler: null
+WeaponDisablerPractice: null
+WeaponDisablerSMG: null
+WeaponEnergyShotgun: null
+WeaponEnergyTurretAI: null
+WeaponEnergyTurretCommand: null
+WeaponEnergyTurretSecurity: null
+WeaponForceGun: null
+WeaponLaserCannon: null
+WeaponLaserCarbine: null
+WeaponLaserCarbinePractice: null
+WeaponLaserGun: null
+WeaponLaserSvalinn: null
+WeaponLauncherHydra: null
+WeaponLauncherPirateCannon: null
+WeaponLauncherRocket: null
+WeaponLightMachineGunL6C: null
+WeaponMakeshiftLaser: null
+WeaponMinigun: null
+WeaponParticleDecelerator: null
+WeaponPistolCHIMP: null
+WeaponPistolCHIMPUpgraded: null
+WeaponPistolCobra: null
+WeaponPistolFlintlock: null
+WeaponPistolMk58: DHWeaponPistolMk58 # DarkestHour: ванильный Mk 58 вырезан, на картах — наш
+WeaponPistolN1984: null
+WeaponPistolViper: null
+WeaponProtoKineticAccelerator: null
+WeaponPulseCarbine: null
+WeaponPulsePistol: null
+WeaponRevolverDeckard: null
+WeaponRevolverInspector: null
+WeaponRevolverMatebaAP: null
+WeaponRevolverPirate: null
+WeaponRevolverPython: null
+WeaponRifleAk: null
+WeaponRifleFoam: null
+WeaponRifleLecter: null
+WeaponShotgunBlunderbuss: null
+WeaponShotgunBulldog: null
+WeaponShotgunDoubleBarreled: null
+WeaponShotgunDoubleBarreledRubber: null
+WeaponShotgunEnforcer: null
+WeaponShotgunImprovised: null
+WeaponShotgunKammerer: null
+WeaponShotgunSawn: null
+WeaponSniperHristov: null
+WeaponSniperMosin: null
+WeaponSubMachineGunC20r: null
+WeaponSubMachineGunDrozd: null
+WeaponSubMachineGunWt550: null
+WeaponTaser: null
+WeaponTaserSuper: null
+WeaponTetherGun: null
+WeaponTurretAllHostile: null
+WeaponTurretHostile: null
+WeaponTurretSyndicate: null
+WeaponTurretSyndicateBroken: null
+WeaponTurretXeno: null
+WeaponXrayCannon: null
+WeaponEnergyTurretAIControlPanel: null
+WeaponEnergyTurretCommandControlPanel: null
+WeaponEnergyTurretSecurityControlPanel: null

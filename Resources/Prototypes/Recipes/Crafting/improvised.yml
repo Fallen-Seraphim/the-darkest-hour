@@ -21,27 +21,9 @@
 
 - type: construction
   parent: BaseWeapon
-  id: MakeshiftLaser
-  graph: MakeshiftLaserGraph
-  targetNode: mslaser
-
-- type: construction
-  parent: BaseWeapon
   id: pneumaticcannon
   graph: PneumaticCannon
   targetNode: cannon
-
-- type: construction
-  parent: BaseWeapon
-  id: improvisedshotgun
-  graph: ImprovisedShotgunGraph
-  targetNode: shotgun
-
-- type: construction
-  parent: BaseWeapon
-  id: ShellShotgunImprovised
-  graph: ImprovisedShotgunShellGraph
-  targetNode: shell
 
 - type: construction
   parent: BaseWeapon

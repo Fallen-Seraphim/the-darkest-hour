@@ -1863,8 +1863,6 @@
   - type: Produce
     plantId: GatfruitPlants
   - type: Edible
-    trash:
-    - WeaponRevolverPython
   - type: ToolRefinable
     refineResult: [] # Spawns trash on refine
   - type: Tag
@@ -1900,8 +1898,6 @@
   - type: Produce
     plantId: RealCapfruitPlants
   - type: Edible
-    trash:
-    - RevolverCapGun
   - type: ToolRefinable
     refineResult: [] # Spawns trash on refine
   - type: Tag
@@ -1921,8 +1917,6 @@
   - type: Produce
     plantId: FakeCapfruitPlants
   - type: Edible
-    trash:
-    - RevolverCapGunFake
   - type: ToolRefinable
     refineResult: [] # Spawns trash on refine
 

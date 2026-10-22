@@ -1,0 +1,69 @@
+# ОБР Metall Armed: должности отряда (только призраки, на станции их нет). Доступ — весь станционный + ЦентКом.
+
+- type: job
+  id: DHMetallArmedCommander
+  name: dh-job-metall-armed-commander-name
+  description: dh-job-metall-armed-commander-desc
+  playTimeTracker: JobDHMetallArmedCommander
+  setPreference: false
+  startingGear: DHMetallArmedCommanderGear
+  icon: JobIconDHMetallArmedCommander
+  supervisors: dh-job-metall-armed-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
+
+- type: job
+  id: DHMetallArmedWeapons
+  name: dh-job-metall-armed-weapons-name
+  description: dh-job-metall-armed-weapons-desc
+  playTimeTracker: JobDHMetallArmedWeapons
+  setPreference: false
+  startingGear: DHMetallArmedWeaponsGear
+  icon: JobIconDHMetallArmedWeapons
+  supervisors: dh-job-metall-armed-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
+
+- type: job
+  id: DHMetallArmedMedic
+  name: dh-job-metall-armed-medic-name
+  description: dh-job-metall-armed-medic-desc
+  playTimeTracker: JobDHMetallArmedMedic
+  setPreference: false
+  startingGear: DHMetallArmedMedicGear
+  icon: JobIconDHMetallArmedMedic
+  supervisors: dh-job-metall-armed-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
+
+- type: job
+  id: DHMetallArmedRifleman
+  name: dh-job-metall-armed-rifleman-name
+  description: dh-job-metall-armed-rifleman-desc
+  playTimeTracker: JobDHMetallArmedRifleman
+  setPreference: false
+  startingGear: DHMetallArmedRiflemanGear
+  icon: JobIconDHMetallArmedRifleman
+  supervisors: dh-job-metall-armed-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]

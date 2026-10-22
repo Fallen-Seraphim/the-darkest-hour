@@ -1,0 +1,121 @@
+# ОБР Metall Armed: точки появления призраков (ставятся на шаттл ОБР).
+
+- type: entity
+  id: DHSpawnerMetallArmedCommander
+  name: Metall Armed commander
+  suffix: Ghost role
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/Hardsuits/metall_armed_commander.rsi
+    state: icon
+  - type: RandomHumanoidSpawner
+    settings: DHMetallArmedCommander
+
+- type: randomHumanoidSettings
+  id: DHMetallArmedCommander
+  parent: EventHumanoidCentcomm
+  components:
+  - type: GhostRole
+    name: dh-ghost-role-metall-armed-commander-name
+    description: dh-ghost-role-metall-armed-commander-desc
+    rules: ghost-role-information-nonantagonist-rules
+    raffle:
+      settings: short
+    job: DHMetallArmedCommander
+  - type: Loadout
+    prototypes: [ DHMetallArmedCommanderGear ]
+    roleLoadout: [ RoleSurvivalMilitaryDouble ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-metall-armed-commander
+
+- type: entity
+  id: DHSpawnerMetallArmedWeapons
+  name: Metall Armed weapons
+  suffix: Ghost role
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/Hardsuits/metall_armed_weapons.rsi
+    state: icon
+  - type: RandomHumanoidSpawner
+    settings: DHMetallArmedWeapons
+
+- type: randomHumanoidSettings
+  id: DHMetallArmedWeapons
+  parent: EventHumanoidCentcomm
+  components:
+  - type: GhostRole
+    name: dh-ghost-role-metall-armed-weapons-name
+    description: dh-ghost-role-metall-armed-weapons-desc
+    rules: ghost-role-information-nonantagonist-rules
+    raffle:
+      settings: short
+    job: DHMetallArmedWeapons
+  - type: Loadout
+    prototypes: [ DHMetallArmedWeaponsGear ]
+    roleLoadout: [ RoleSurvivalMilitaryDouble ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-metall-armed-weapons
+
+- type: entity
+  id: DHSpawnerMetallArmedMedic
+  name: Metall Armed medic
+  suffix: Ghost role
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/Hardsuits/metall_armed_medic.rsi
+    state: icon
+  - type: RandomHumanoidSpawner
+    settings: DHMetallArmedMedic
+
+- type: randomHumanoidSettings
+  id: DHMetallArmedMedic
+  parent: EventHumanoidCentcomm
+  components:
+  - type: GhostRole
+    name: dh-ghost-role-metall-armed-medic-name
+    description: dh-ghost-role-metall-armed-medic-desc
+    rules: ghost-role-information-nonantagonist-rules
+    raffle:
+      settings: short
+    job: DHMetallArmedMedic
+  - type: Loadout
+    prototypes: [ DHMetallArmedMedicGear ]
+    roleLoadout: [ RoleSurvivalMilitaryDouble ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-metall-armed-medic
+
+- type: entity
+  id: DHSpawnerMetallArmedRifleman
+  name: Metall Armed rifleman
+  suffix: Ghost role
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/Hardsuits/metall_armed_rifleman.rsi
+    state: icon
+  - type: RandomHumanoidSpawner
+    settings: DHMetallArmedRifleman
+
+- type: randomHumanoidSettings
+  id: DHMetallArmedRifleman
+  parent: EventHumanoidCentcomm
+  components:
+  - type: GhostRole
+    name: dh-ghost-role-metall-armed-rifleman-name
+    description: dh-ghost-role-metall-armed-rifleman-desc
+    rules: ghost-role-information-nonantagonist-rules
+    raffle:
+      settings: short
+    job: DHMetallArmedRifleman
+  - type: Loadout
+    prototypes: [ DHMetallArmedRiflemanGear ]
+    roleLoadout: [ RoleSurvivalMilitaryDouble ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-metall-armed-rifleman

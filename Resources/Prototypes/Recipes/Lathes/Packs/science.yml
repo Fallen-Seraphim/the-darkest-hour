@@ -30,9 +30,6 @@
   id: ScienceClothing
   recipes:
   - ClothingShoesBootsMagSci
-  - ClothingShoesBootsMoon
-  - ClothingShoesBootsSpeed
-  - ClothingShoesBootsJump
   # - ClothingBackpackHolding # DarkestHour: нет блюспейса
   # - ClothingBackpackSatchelHolding # DarkestHour: нет блюспейса
   # - ClothingBackpackDuffelHolding # DarkestHour: нет блюспейса
@@ -44,16 +41,7 @@
   - PowerCellHigh
   - PowerCellHyper
 
-- type: latheRecipePack
-  id: ScienceWeapons
-  recipes:
   # - WeaponPistolCHIMP # DarkestHour: нет аномалий и ксеноархеологии
-  - WeaponForceGun
-  - WeaponProtoKineticAccelerator
-  - PKAUpgradeDamage
-  - PKAUpgradeRange
-  - PKAUpgradeFireRate
-  - WeaponTetherGun
   # - WeaponGauntletGorilla # DarkestHour: нет аномалий и ксеноархеологии
 
 # Only contains parts for making basic modular grenades, no actual explosives

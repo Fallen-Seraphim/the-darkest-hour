@@ -20,13 +20,9 @@
   - XenoborgModuleDoorControlRecipe
   - XenoborgModuleDeflectorFieldRecipe
   - XenoborgModuleZapRecipe
-  - XenoborgModuleOilGunRecipe
-  - XenoborgModuleNaniteGunRecipe
   # heavy xenoborg
-  - XenoborgModuleHeavyLaserRecipe
   - XenoborgModuleGuidedMissileLauncherRecipe
   - XenoborgModuleRocketRecipe
-  - XenoborgModuleBurstFireLaserRecipe
   - XenoborgModuleHeavyRadioactiveRecipe
   # scout xenoborg
   - XenoborgModuleEnergySwordRecipe

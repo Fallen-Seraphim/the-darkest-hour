@@ -1,4 +1,4 @@
-﻿- type: entity
+- type: entity
   parent: FireAxeCabinetConstructed
   id: ShotGunCabinetConstructed
   name: shotgun cabinet
@@ -52,17 +52,3 @@
   - type: Lock
     locked: false
 
-- type: entity
-  parent: ShotGunCabinet
-  id: ShotGunCabinetFilled
-  suffix: Filled
-  components:
-  - type: ContainerFill
-    containers:
-      ItemCabinet:
-      - WeaponShotgunKammerer
-
-- type: entity
-  parent: [ShotGunCabinetFilled, ShotGunCabinetOpen]
-  id: ShotGunCabinetFilledOpen
-  suffix: Filled, Open

@@ -128,21 +128,6 @@
     locked: false
 
 - type: entity
-  parent: GlassBoxLaser
-  id: GlassBoxLaserFilled
-  suffix: AntiqueLaser, Filled
-  components:
-  - type: ContainerFill
-    containers:
-      ItemCabinet:
-      - WeaponAntiqueLaser
-
-- type: entity
-  parent: [GlassBoxLaserFilled, GlassBoxLaserOpen]
-  id: GlassBoxLaserFilledOpen
-  suffix: AntiqueLaser, Filled, Open
-
-- type: entity
   parent: [ BaseGlassBox, StructureHealthContainerWeak ]
   id: GlassBoxFrame
   name: glass box frame

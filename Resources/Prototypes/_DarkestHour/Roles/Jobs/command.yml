@@ -124,7 +124,7 @@
   equipment:
     eyes: ClothingEyesGlassesSecurity
     ears: DHClothingHeadsetAltMetallArmed
-    pocket1: WeaponPistolMk58
+    pocket1: DHWeaponPistolMk58
     id: DHDogtags
   storage:
     back:

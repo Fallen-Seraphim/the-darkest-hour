@@ -105,30 +105,15 @@
   id: LotteryWeaponsEntityTable
   table: !type:GroupSelector
     children:
-    - id: WeaponPulseCarbine
-      weight: 0.01
-    - id: WeaponRifleAk
-      weight: 0.01
-    - id: WeaponLauncherPirateCannon
-      weight: 0.1
     - id: Throngler
       weight: 0.0001
-    - id: WeaponPistolCHIMP
-      weight: 0.1
-    - id: WeaponSniperMosin
-    - id: WeaponMakeshiftLaser
-      weight: 0.1
     - id: Sledgehammer
       weight: 0.1
     - id: WeaponMeleeToolboxRobust
     - id: ThrowingStar
-    - id: WeaponLaserGun
-      weight: 0.1
-    - id: WeaponShotgunHandmade
     - id: WeaponFlareGun
     - id: Bola
     - id: Shovel
-    - id: WeaponTurretXeno
     - !type:NestedSelector
       tableId: AllToyWeaponsTable
 
@@ -238,15 +223,12 @@
     - id: FoodDonutChaos
     - id: RagItem
     - id: ClothingHandsGlovesColorYellowBudget
-    - id: CartridgeCap
     - id: EncryptionKeyCommon
     - id: CableHVStack1
     - id: DrinkMugBlue
     - id: CablecuffsBroken
     - id: FoodPlateTin
     - id: WeakKudzu
-    - id: MagazineFoamBox
-      weight: 0.1
     - id: BoxDonkSoftBox
       weight: 0.8
     - id: GrenadeFoamDart

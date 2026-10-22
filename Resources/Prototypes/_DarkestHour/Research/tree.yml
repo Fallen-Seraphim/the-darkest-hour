@@ -42,9 +42,9 @@
   - DHWeaponSMGIMG17L
   - DHWeaponLMGIMG17T
   technologies:
-  - UraniumMunitions
-  - DraconicMunitions
-  - ExplosiveTechnology
+  - DHImperialCalibers
+  - DHImperialSpecialAmmo
+  - DHArmorPiercingAmmo
   discount: 0.25
   researchPoints: 3000
 
@@ -55,9 +55,9 @@
   - DHWeaponShotgunIMSH17
   - DHWeaponShotgunIMPSH17P
   technologies:
-  - NonlethalAmmunition
+  - DHImperialCalibers
+  - DHImperialSpecialAmmo
   - AdvancedRiotControl
-  - DraconicMunitions
   discount: 0.2
   researchPoints: 2000
 
@@ -66,7 +66,8 @@
   items:
   - DHWeaponHMGIHMG17
   technologies:
-  - BasicShuttleArmament
+  - DHImperialSpecialAmmo
+  - DHShipMunitions
   - AdvancedShuttleWeapon
   discount: 0.3
   researchPoints: 5000

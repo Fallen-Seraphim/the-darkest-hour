@@ -72,6 +72,30 @@
   - type: BallisticAmmoProvider
     proto: DHCartridge556x45EP
 - type: entity
+  parent: DHMagazine556x45Base
+  id: DHMagazine556x45URA
+  name: "RAR-M-11 magazine (5.56x45mm URA)"
+  description: "30-round magazine. Depleted-uranium core: punches through heavy armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge556x45URA
+- type: entity
+  parent: DHMagazine556x45Base
+  id: DHMagazine556x45EXP
+  name: "RAR-M-11 magazine (5.56x45mm EXP)"
+  description: "30-round magazine. Expanding: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge556x45EXP
+- type: entity
+  parent: DHMagazine556x45Base
+  id: DHMagazine556x45A
+  name: "RAR-M-11 magazine (5.56x45mm A)"
+  description: "30-round magazine. Advanced: improved ballistics for elite units."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge556x45A
+- type: entity
   abstract: true
   parent: [ BaseItem, BaseSecurityContraband ]
   id: DHMagazine556x45ShortBase
@@ -143,6 +167,30 @@
   components:
   - type: BallisticAmmoProvider
     proto: DHCartridge556x45EP
+- type: entity
+  parent: DHMagazine556x45ShortBase
+  id: DHMagazine556x45ShortURA
+  name: "RAR-M-11 short magazine (5.56x45mm URA)"
+  description: "15-round magazine. Depleted-uranium core: punches through heavy armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge556x45URA
+- type: entity
+  parent: DHMagazine556x45ShortBase
+  id: DHMagazine556x45ShortEXP
+  name: "RAR-M-11 short magazine (5.56x45mm EXP)"
+  description: "15-round magazine. Expanding: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge556x45EXP
+- type: entity
+  parent: DHMagazine556x45ShortBase
+  id: DHMagazine556x45ShortA
+  name: "RAR-M-11 short magazine (5.56x45mm A)"
+  description: "15-round magazine. Advanced: improved ballistics for elite units."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge556x45A
 - type: entity
   abstract: true
   parent: [ BaseItem, BaseSecurityContraband ]
@@ -216,6 +264,30 @@
   - type: BallisticAmmoProvider
     proto: DHCartridge556x45EP
 - type: entity
+  parent: DHMagazineBox556x45Base
+  id: DHMagazineBox556x45URA
+  name: "RAMG-M-14-1 ammunition box (5.56x45mm URA)"
+  description: "100-round magazine. Depleted-uranium core: punches through heavy armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge556x45URA
+- type: entity
+  parent: DHMagazineBox556x45Base
+  id: DHMagazineBox556x45EXP
+  name: "RAMG-M-14-1 ammunition box (5.56x45mm EXP)"
+  description: "100-round magazine. Expanding: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge556x45EXP
+- type: entity
+  parent: DHMagazineBox556x45Base
+  id: DHMagazineBox556x45A
+  name: "RAMG-M-14-1 ammunition box (5.56x45mm A)"
+  description: "100-round magazine. Advanced: improved ballistics for elite units."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge556x45A
+- type: entity
   abstract: true
   parent: [ BaseItem, BaseSecurityContraband ]
   id: DHMagazine762x51Base
@@ -279,6 +351,30 @@
   components:
   - type: BallisticAmmoProvider
     proto: DHCartridge762x51E
+- type: entity
+  parent: DHMagazine762x51Base
+  id: DHMagazine762x51URA
+  name: "RAR-M-11-2 magazine (7.62x51mm URA)"
+  description: "20-round magazine. Depleted-uranium core: punches through heavy armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51URA
+- type: entity
+  parent: DHMagazine762x51Base
+  id: DHMagazine762x51EXP
+  name: "RAR-M-11-2 magazine (7.62x51mm EXP)"
+  description: "20-round magazine. Expanding: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51EXP
+- type: entity
+  parent: DHMagazine762x51Base
+  id: DHMagazine762x51A
+  name: "RAR-M-11-2 magazine (7.62x51mm A)"
+  description: "20-round magazine. Advanced: improved ballistics for elite units."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51A
 - type: entity
   abstract: true
   parent: [ BaseItem, BaseSecurityContraband ]
@@ -344,6 +440,30 @@
   - type: BallisticAmmoProvider
     proto: DHCartridge762x51E
 - type: entity
+  parent: DHMagazine762x51ShortBase
+  id: DHMagazine762x51ShortURA
+  name: "RAR-M-11-2 short magazine (7.62x51mm URA)"
+  description: "10-round magazine. Depleted-uranium core: punches through heavy armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51URA
+- type: entity
+  parent: DHMagazine762x51ShortBase
+  id: DHMagazine762x51ShortEXP
+  name: "RAR-M-11-2 short magazine (7.62x51mm EXP)"
+  description: "10-round magazine. Expanding: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51EXP
+- type: entity
+  parent: DHMagazine762x51ShortBase
+  id: DHMagazine762x51ShortA
+  name: "RAR-M-11-2 short magazine (7.62x51mm A)"
+  description: "10-round magazine. Advanced: improved ballistics for elite units."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51A
+- type: entity
   abstract: true
   parent: [ BaseItem, BaseSecurityContraband ]
   id: DHMagazineBox762x51Base
@@ -407,6 +527,30 @@
   components:
   - type: BallisticAmmoProvider
     proto: DHCartridge762x51E
+- type: entity
+  parent: DHMagazineBox762x51Base
+  id: DHMagazineBox762x51URA
+  name: "RAMG-M-14-2 ammunition box (7.62x51mm URA)"
+  description: "75-round magazine. Depleted-uranium core: punches through heavy armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51URA
+- type: entity
+  parent: DHMagazineBox762x51Base
+  id: DHMagazineBox762x51EXP
+  name: "RAMG-M-14-2 ammunition box (7.62x51mm EXP)"
+  description: "75-round magazine. Expanding: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51EXP
+- type: entity
+  parent: DHMagazineBox762x51Base
+  id: DHMagazineBox762x51A
+  name: "RAMG-M-14-2 ammunition box (7.62x51mm A)"
+  description: "75-round magazine. Advanced: improved ballistics for elite units."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51A
 - type: entity
   abstract: true
   parent: [ BaseItem, BaseSecurityContraband ]
@@ -599,6 +743,30 @@
   components:
   - type: BallisticAmmoProvider
     proto: DHCartridge762x39E
+- type: entity
+  parent: DHMagazine762x39Base
+  id: DHMagazine762x39URA
+  name: "Ravenger magazine (7.62x39mm URA)"
+  description: "30-round magazine. Depleted-uranium core: punches through heavy armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x39URA
+- type: entity
+  parent: DHMagazine762x39Base
+  id: DHMagazine762x39EXP
+  name: "Ravenger magazine (7.62x39mm EXP)"
+  description: "30-round magazine. Expanding: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x39EXP
+- type: entity
+  parent: DHMagazine762x39Base
+  id: DHMagazine762x39A
+  name: "Ravenger magazine (7.62x39mm A)"
+  description: "30-round magazine. Advanced: improved ballistics for elite units."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x39A
 - type: entity
   abstract: true
   parent: [ BaseItem, BaseSecurityContraband ]
@@ -879,6 +1047,46 @@
   components:
   - type: BallisticAmmoProvider
     proto: DHCartridge127x105EB
+- type: entity
+  parent: DHMagazine127x105Base
+  id: DHMagazine127x105FMG
+  name: "RMAR-AS magazine (12.7x105mm FMG)"
+  description: "10-round magazine. Standard full metal jacket."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge127x105FMG
+- type: entity
+  parent: DHMagazine127x105Base
+  id: DHMagazine127x105BB
+  name: "RMAR-AS magazine (12.7x105mm BB)"
+  description: "10-round magazine. Armour-piercing: steel core, goes through armour and cover."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge127x105BB
+- type: entity
+  parent: DHMagazine127x105Base
+  id: DHMagazine127x105URA
+  name: "RMAR-AS magazine (12.7x105mm URA)"
+  description: "10-round magazine. Depleted-uranium core: punches through heavy armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge127x105URA
+- type: entity
+  parent: DHMagazine127x105Base
+  id: DHMagazine127x105EXP
+  name: "RMAR-AS magazine (12.7x105mm EXP)"
+  description: "10-round magazine. Expanding: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge127x105EXP
+- type: entity
+  parent: DHMagazine127x105Base
+  id: DHMagazine127x105A
+  name: "RMAR-AS magazine (12.7x105mm A)"
+  description: "10-round magazine. Advanced: improved ballistics for elite units."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge127x105A
 - type: entity
   abstract: true
   parent: [ BaseItem, BaseSyndicateContraband ]
@@ -1162,6 +1370,30 @@
   - type: BallisticAmmoProvider
     proto: DHCartridge762x51E
 - type: entity
+  parent: DHMagazineBelt762x51Base
+  id: DHMagazineBelt762x51URA
+  name: "RSPMG-10-54 ammunition belt (7.62x51mm URA)"
+  description: "100-round magazine. Depleted-uranium core: punches through heavy armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51URA
+- type: entity
+  parent: DHMagazineBelt762x51Base
+  id: DHMagazineBelt762x51EXP
+  name: "RSPMG-10-54 ammunition belt (7.62x51mm EXP)"
+  description: "100-round magazine. Expanding: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51EXP
+- type: entity
+  parent: DHMagazineBelt762x51Base
+  id: DHMagazineBelt762x51A
+  name: "RSPMG-10-54 ammunition belt (7.62x51mm A)"
+  description: "100-round magazine. Advanced: improved ballistics for elite units."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51A
+- type: entity
   abstract: true
   parent: [ BaseItem, BaseSyndicateContraband ]
   id: DHMagazineBelt145x114Base
@@ -1273,3 +1505,235 @@
   components:
   - type: BallisticAmmoProvider
     proto: DHCartridge14gSlug
+- type: entity
+  abstract: true
+  parent: [ BaseItem, BaseSecurityContraband ]
+  id: DHMagazine556x45LongBase
+  name: "TIT/MG-10 extended magazine (5.56x45mm)"
+  components:
+  - type: Tag
+    tags:
+    - DHMagazine556x45
+  - type: Item
+    size: Small
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - DHCartridge556x45
+    capacity: 40
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/5.56x45mm/5.56x45mm_mag.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: false
+  - type: Appearance
+- type: entity
+  parent: DHMagazine556x45LongBase
+  id: DHMagazine556x45LongEmpty
+  suffix: Empty
+  description: "40-round magazine."
+  components:
+  - type: BallisticAmmoProvider
+    proto: null
+- type: entity
+  parent: DHMagazine556x45LongBase
+  id: DHMagazine556x45LongFMG
+  name: "TIT/MG-10 extended magazine (5.56x45mm FMG)"
+  description: "40-round magazine. Standard full metal jacket."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge556x45FMG
+- type: entity
+  parent: DHMagazine556x45LongBase
+  id: DHMagazine556x45LongBB
+  name: "TIT/MG-10 extended magazine (5.56x45mm BB)"
+  description: "40-round magazine. Armour-piercing: steel core, goes through armour and cover."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge556x45BB
+- type: entity
+  parent: DHMagazine556x45LongBase
+  id: DHMagazine556x45LongE
+  name: "TIT/MG-10 extended magazine (5.56x45mm E)"
+  description: "40-round magazine. Expanding: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge556x45E
+- type: entity
+  parent: DHMagazine556x45LongBase
+  id: DHMagazine556x45LongEP
+  name: "TIT/MG-10 extended magazine (5.56x45mm E+)"
+  description: "40-round magazine. Enhanced load, non-expanding: more energy without the restricted effects."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge556x45EP
+- type: entity
+  parent: DHMagazine556x45LongBase
+  id: DHMagazine556x45LongURA
+  name: "TIT/MG-10 extended magazine (5.56x45mm URA)"
+  description: "40-round magazine. Depleted-uranium core: punches through heavy armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge556x45URA
+- type: entity
+  parent: DHMagazine556x45LongBase
+  id: DHMagazine556x45LongEXP
+  name: "TIT/MG-10 extended magazine (5.56x45mm EXP)"
+  description: "40-round magazine. Expanding: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge556x45EXP
+- type: entity
+  parent: DHMagazine556x45LongBase
+  id: DHMagazine556x45LongA
+  name: "TIT/MG-10 extended magazine (5.56x45mm A)"
+  description: "40-round magazine. Advanced: improved ballistics for elite units."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge556x45A
+- type: entity
+  abstract: true
+  parent: [ BaseItem, BaseSecurityContraband ]
+  id: DHMagazine762x51LongBase
+  name: "ALT/R-16 extended magazine (7.62x51mm)"
+  components:
+  - type: Tag
+    tags:
+    - DHMagazine762x51
+  - type: Item
+    size: Small
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - DHCartridge762x51
+    capacity: 30
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/7.62x51mm/7.62x51mm_mag.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: false
+  - type: Appearance
+- type: entity
+  parent: DHMagazine762x51LongBase
+  id: DHMagazine762x51LongEmpty
+  suffix: Empty
+  description: "30-round magazine."
+  components:
+  - type: BallisticAmmoProvider
+    proto: null
+- type: entity
+  parent: DHMagazine762x51LongBase
+  id: DHMagazine762x51LongFMG
+  name: "ALT/R-16 extended magazine (7.62x51mm FMG)"
+  description: "30-round magazine. Standard full metal jacket."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51FMG
+- type: entity
+  parent: DHMagazine762x51LongBase
+  id: DHMagazine762x51LongBB
+  name: "ALT/R-16 extended magazine (7.62x51mm BB)"
+  description: "30-round magazine. Armour-piercing: steel core, goes through armour and cover."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51BB
+- type: entity
+  parent: DHMagazine762x51LongBase
+  id: DHMagazine762x51LongE
+  name: "ALT/R-16 extended magazine (7.62x51mm E)"
+  description: "30-round magazine. Expanding: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51E
+- type: entity
+  parent: DHMagazine762x51LongBase
+  id: DHMagazine762x51LongURA
+  name: "ALT/R-16 extended magazine (7.62x51mm URA)"
+  description: "30-round magazine. Depleted-uranium core: punches through heavy armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51URA
+- type: entity
+  parent: DHMagazine762x51LongBase
+  id: DHMagazine762x51LongEXP
+  name: "ALT/R-16 extended magazine (7.62x51mm EXP)"
+  description: "30-round magazine. Expanding: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51EXP
+- type: entity
+  parent: DHMagazine762x51LongBase
+  id: DHMagazine762x51LongA
+  name: "ALT/R-16 extended magazine (7.62x51mm A)"
+  description: "30-round magazine. Advanced: improved ballistics for elite units."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x51A
+- type: entity
+  abstract: true
+  parent: [ BaseItem, BaseTaskForceContraband ]
+  id: DHMagazine189x110Base
+  name: "PRO/AMR-16 magazine (18.9x110mm)"
+  components:
+  - type: Tag
+    tags:
+    - DHMagazine189x110
+  - type: Item
+    size: Small
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - DHCartridge189x110
+    capacity: 5
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/12.7x99mm/12.7x99mm_mag.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: false
+  - type: Appearance
+- type: entity
+  parent: DHMagazine189x110Base
+  id: DHMagazine189x110Empty
+  suffix: Empty
+  description: "5-round magazine."
+  components:
+  - type: BallisticAmmoProvider
+    proto: null
+- type: entity
+  parent: DHMagazine189x110Base
+  id: DHMagazine189x110SPC
+  name: "PRO/AMR-16 magazine (18.9x110mm special)"
+  description: "5-round magazine. Hybrid penetrator for the powder and electromagnetic stages of the PRO/AMR-16."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge189x110SPC

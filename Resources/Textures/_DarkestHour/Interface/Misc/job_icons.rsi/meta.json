@@ -99,6 +99,18 @@
         },
         {
             "name": "StationAi"
+        },
+        {
+            "name": "MetallArmedCommander"
+        },
+        {
+            "name": "MetallArmedWeapons"
+        },
+        {
+            "name": "MetallArmedMedic"
+        },
+        {
+            "name": "MetallArmedRifleman"
         }
     ]
 }

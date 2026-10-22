@@ -247,3 +247,35 @@
     sprite: *icon-rsi
     state: StationAi
   jobName: dh-job-station-ai-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHMetallArmedCommander
+  icon:
+    sprite: *icon-rsi
+    state: MetallArmedCommander
+  jobName: dh-job-metall-armed-commander-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHMetallArmedWeapons
+  icon:
+    sprite: *icon-rsi
+    state: MetallArmedWeapons
+  jobName: dh-job-metall-armed-weapons-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHMetallArmedMedic
+  icon:
+    sprite: *icon-rsi
+    state: MetallArmedMedic
+  jobName: dh-job-metall-armed-medic-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHMetallArmedRifleman
+  icon:
+    sprite: *icon-rsi
+    state: MetallArmedRifleman
+  jobName: dh-job-metall-armed-rifleman-name

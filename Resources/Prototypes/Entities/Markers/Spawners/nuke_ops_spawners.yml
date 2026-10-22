@@ -14,9 +14,6 @@
       tableId: NukeOpsGrenadeTable
       weight: 0.75
     - !type:NestedSelector
-      tableId: NukeOpsAmmoTable
-      weight: 0.75
-    - !type:NestedSelector
       tableId: NukeOpsMedKitGeneral
       weight: 0.75
 
@@ -39,7 +36,6 @@
     - id: CameraBug
     - id: SyndicateJawsOfLife
     - id: RadioJammer
-    - id: BorgModuleMartyr
     - id: ScramImplant
     - id: FakeMindShieldImplanter
       amount: !type:RangeNumberSelector
@@ -65,32 +61,6 @@
     - id: ThrowingKnivesKit
     - id: ClothingHandsKnuckleDustersSyndicate
     - id: EnergyDaggerLoud
-      weight: 0.5
-    - id: WeaponRevolverPython
-    - id: WeaponPistolCobra
-    - id: WeaponShotgunSawn
-    - id: RevolverCapGunFake
-      weight: .01
-
-- type: entityTable
-  id: NukeOpsAmmoTable
-  table: !type:GroupSelector
-    children:
-    - id: MagazinePistolSubMachineGun
-    - id: MagazineRifle
-    - id: MagazineBoxLightRifle
-      weight: 0.5
-    - id: MagazineShotgunSlug
-      weight: 0.5
-    - id: MagazineShotgun
-      weight: 0.5
-    - id: MagazinePistol
-      weight: 0.5
-    - id: MagazineBoxAntiMateriel
-      weight: 0.5
-    - id: MagazinePistolCaselessRifle
-      weight: 0.5
-    - id: SpeedLoaderMagnumAP
       weight: 0.5
 
 - type: entityTable
@@ -223,21 +193,3 @@
   placement:
     mode: AlignTileAny
 
-- type: entity
-  name: nuke ops ammo spawner
-  id: NukeOpsAmmoSpawner
-  parent: MarkerBase
-  components:
-  - type: Sprite
-    layers:
-    - state: green
-    - sprite: Objects/Weapons/Guns/Ammunition/Magazine/Pistol/smg_mag.rsi
-      state: base
-  - type: EntityTableSpawner
-    offset: 0.15
-    table: !type:NestedSelector
-      tableId: NukeOpsAmmoTable
-      rolls: !type:RangeNumberSelector
-        range: 1, 2
-  placement:
-    mode: AlignTileAny
