@@ -12,7 +12,7 @@ s = s.replace('NT-Griffin', 'MA-Bastion')
 
 
 def remap(m):
-    hexa = m.group(1)
+    hexa = m.group(2)
     rgb = tuple(int(hexa[i:i + 2], 16) for i in (0, 2, 4))
     a = hexa[6:8] if len(hexa) == 8 else 'FF'
     h, sat, v = colorsys.rgb_to_hsv(*(c / 255 for c in rgb))
@@ -30,10 +30,11 @@ def remap(m):
             new = '646970'
         else:
             new = '6E6656'
-    return f"color: '#{new}{a}'"
+    return m.group(1) + f"'#{new}{a}'"
 
 
-s = re.sub(r"color: '#([0-9A-Fa-f]{6,8})'", remap, s)
+# only decal colours (pipes, lights and the like keep theirs)
+s = re.sub(r"(- node:\n\s+color: )'#([0-9A-Fa-f]{6,8})'", remap, s)
 
 
 def drop_proto(text, proto):
