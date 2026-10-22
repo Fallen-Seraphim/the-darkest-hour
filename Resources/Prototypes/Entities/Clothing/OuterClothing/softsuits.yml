@@ -101,22 +101,12 @@
   description: A void suit made for paramedics.
   components:
   - type: Sprite
-    sprite: Clothing/OuterClothing/Hardsuits/paramed.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Hardsuits/paramed.rsi # DarkestHour: скафандр Monolith в цветах Metallistick (Tools/_DarkestHour/hardsuits)
     layers:
     - state: icon
   - type: Appearance
   - type: Clothing
-    sprite: Clothing/OuterClothing/Hardsuits/paramed.rsi
-  - type: ClothingSpeedModifier
-    walkModifier: 0.9
-    sprintModifier: 0.9
-    requireActivated: false
-  - type: Armor
-    modifiers:
-      coefficients:
-        Heat: 0.90
-        Radiation: 0.75
-        Caustic: 0.5
+    sprite: _DarkestHour/Clothing/OuterClothing/Hardsuits/paramed.rsi # DarkestHour: скафандр Monolith в цветах Metallistick (Tools/_DarkestHour/hardsuits)
   - type: GroupExamine
   - type: StealTarget
     stealGroup:
@@ -151,3 +141,19 @@
   - type: Tag
     tags:
     - WhitelistChameleon
+  # DarkestHour: защита, скорость и давление — как у Monolith (Tools/_DarkestHour/hardsuits/apply.py)
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.95
+        Slash: 0.95
+        Piercing: 0.95
+        Heat: 0.9
+        Radiation: 0.75
+        Caustic: 0.5
+  - type: ClothingSpeedModifier
+    walkModifier: 1
+    sprintModifier: 1
+  - type: PressureProtection
+    highPressureMultiplier: 0.5
+    lowPressureMultiplier: 1000

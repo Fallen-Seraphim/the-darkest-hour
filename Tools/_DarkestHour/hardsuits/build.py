@@ -94,10 +94,38 @@ TARGETS = [
     ('helmet', 'Clothing/Head/Hardsuits/ERThelmets/ertengineer.rsi', 'metall_armed_weapons', 'ma_weapons'),
     ('helmet', 'Clothing/Head/Hardsuits/ERThelmets/ertmedical.rsi', 'metall_armed_medic', 'ma_medic'),
     ('helmet', 'Clothing/Head/Hardsuits/ERThelmets/ertsecurity.rsi', 'metall_armed_rifleman', 'ma_rifle'),
+
+    # --- station hardsuits (Monolith sprites, department schemes of Tools/_DarkestHour/recolor)
+    ('outer', 'Clothing/OuterClothing/Hardsuits/capspace.rsi', 'capspace', 'command'),
+    ('helmet', 'Clothing/Head/Hardsuits/capspace.rsi', 'capspace', 'command'),
+    ('outer', 'Clothing/OuterClothing/Hardsuits/security.rsi', 'security', 'security'),
+    ('helmet', 'Clothing/Head/Hardsuits/security.rsi', 'security', 'security'),
+    ('outer', 'Clothing/OuterClothing/Hardsuits/security-red.rsi', 'security-red', 'security'),
+    ('helmet', 'Clothing/Head/Hardsuits/security-red.rsi', 'security-red', 'security'),
+    ('outer', 'Clothing/OuterClothing/Hardsuits/security-warden.rsi', 'security-warden', 'security'),
+    ('helmet', 'Clothing/Head/Hardsuits/security-warden.rsi', 'security-warden', 'security'),
+    ('outer', 'Clothing/OuterClothing/Hardsuits/brigmedic.rsi', 'brigmedic', 'security'),
+    ('helmet', 'Clothing/Head/Hardsuits/brigmedic.rsi', 'brigmedic', 'security'),
+    ('outer', 'Clothing/OuterClothing/Hardsuits/medical.rsi', 'medical', 'medical'),
+    ('helmet', 'Clothing/Head/Hardsuits/medical.rsi', 'medical', 'medical'),
+    ('outer', 'Clothing/OuterClothing/Hardsuits/paramed.rsi', 'paramed', 'medical'),
+    ('helmet', 'Clothing/Head/Hardsuits/paramedhelm.rsi', 'paramedhelm', 'medical'),
+    ('outer', 'Clothing/OuterClothing/Hardsuits/rd.rsi', 'rd', 'science'),
+    ('helmet', 'Clothing/Head/Hardsuits/rd.rsi', 'rd', 'science'),
+    ('outer', 'Clothing/OuterClothing/Hardsuits/engineering-white.rsi', 'engineering-white', 'engineering'),
+    ('helmet', 'Clothing/Head/Hardsuits/engineering-white.rsi', 'engineering-white', 'engineering'),
+    ('outer', 'Clothing/OuterClothing/Hardsuits/engineering.rsi', 'engineering', 'engineering'),
+    ('helmet', 'Clothing/Head/Hardsuits/engineering.rsi', 'engineering', 'engineering'),
+    ('outer', 'Clothing/OuterClothing/Hardsuits/atmospherics.rsi', 'atmospherics', 'engineering'),
+    ('helmet', 'Clothing/Head/Hardsuits/atmospherics.rsi', 'atmospherics', 'engineering'),
+    ('outer', 'Clothing/OuterClothing/Hardsuits/salvage.rsi', 'salvage', 'supply'),
+    ('helmet', 'Clothing/Head/Hardsuits/salvage.rsi', 'salvage', 'supply'),
+    ('outer', 'Clothing/OuterClothing/Hardsuits/spatio.rsi', 'spatio', 'supply'),
+    ('helmet', 'Clothing/Head/Hardsuits/spatiohelm.rsi', 'spatiohelm', 'supply'),
 ]
 
 # species suffixes our game has; others in the source are dropped
-SPECIES = ['', '-vox', '-reptilian']
+SPECIES = ['', '-vox', '-reptilian', '-vulpkanin']
 
 
 def build_outer(src, dst, fn, meta):
@@ -121,6 +149,30 @@ def build_helmet(src, dst, fn, meta):
         st['name'] = name
         states.append(st)
 
+    def empty(like):
+        return Image.new('RGBA', Image.open(os.path.join(src, like + '.png')).size, (0, 0, 0, 0))
+
+    if 'equipped-head' in have:
+        # already our convention: recolour, keep our species, fill in missing unshaded layers
+        for name in have:
+            base = name
+            for sp in SPECIES[1:]:
+                if name.endswith(sp):
+                    base = name[:-len(sp)]
+            suffix = name[len(base):]
+            if base not in ('icon', 'icon-unshaded', 'light-overlay', 'equipped-head', 'equipped-head-light',
+                            'equipped-head-unshaded') or suffix not in SPECIES:
+                continue
+            save(name, recolor(Image.open(os.path.join(src, name + '.png')), fn), name)
+        for sp in SPECIES:
+            if 'equipped-head' + sp in have and 'equipped-head-unshaded' + sp not in have:
+                save('equipped-head-unshaded' + sp, empty('equipped-head' + sp), 'equipped-head' + sp)
+        if 'icon-unshaded' not in have:
+            save('icon-unshaded', empty('icon'), 'icon')
+        if 'light-overlay' not in have:
+            save('light-overlay', empty('icon'), 'icon')
+        return states
+
     icon = Image.open(os.path.join(src, 'icon.png'))
     save('icon', recolor(icon, fn), 'icon')
     save('icon-unshaded', Image.new('RGBA', icon.size, (0, 0, 0, 0)), 'icon')
@@ -128,7 +180,9 @@ def build_helmet(src, dst, fn, meta):
     save('light-overlay', recolor(lit_pixels(Image.open(os.path.join(src, flash + '.png')), icon), fn), 'icon')
 
     for sp in SPECIES:
-        off, on = 'off-equipped-HELMET' + sp, 'on-equipped-HELMET' + sp
+        # old convention: off-/on-equipped-HELMET; helmets without a lamp have plain equipped-HELMET
+        off = 'off-equipped-HELMET' + sp if 'off-equipped-HELMET' + sp in have else 'equipped-HELMET' + sp
+        on = 'on-equipped-HELMET' + sp
         if off not in have:
             continue
         off_im = Image.open(os.path.join(src, off + '.png'))
