@@ -1,0 +1,151 @@
+# Орбита станции (этап 5): высоту держат манёвровые двигатели на любом газе, управляет ими компьютер орбиты.
+# Ниже порога «Терринум» — автоматический код угрозы (гамма), ниже «Экс» — орбита неисправима (свой код дельта).
+
+- type: alertLevel
+  parent: BaseDelta
+  id: DHEx
+  announcement: dh-alert-level-ex-announcement
+  sound:
+    path: /Audio/Misc/delta.ogg
+    params:
+      volume: -3
+  color: DarkRed
+  emergencyLightColor: Orange
+
+# Компьютер орбиты.
+- type: entity
+  parent: BaseComputerAiAccess
+  id: DHComputerOrbit
+  name: orbit control computer
+  description: Shows the station's orbit over REP-27-5D and fires the orbital correction thrusters.
+  components:
+  - type: ComputerVisuals
+    stateScreen: helm
+    stateKeys: tech_key
+  - type: DHOrbitConsole
+  - type: ActivatableUI
+    key: enum.DHOrbitUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHOrbitUiKey.Key:
+        type: DHOrbitConsoleBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: Computer
+    board: DHOrbitComputerCircuitboard
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#6fa3d9"
+
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: DHOrbitComputerCircuitboard
+  name: orbit control computer board
+  description: A computer printed circuit board for an orbit control computer.
+  components:
+  - type: Sprite
+    state: cpu_engineering
+  - type: ComputerBoard
+    prototype: DHComputerOrbit
+
+# Манёвровый двигатель орбиты: сжигает любой газ из подключённой трубы, когда компьютер орбиты включил коррекцию.
+# Чем больше молей сожжено, тем выше поднимается станция. Корабельной тяги не даёт.
+- type: entity
+  parent: [ BaseStructureDynamic, ConstructibleMachine, BaseConstructibleMachineDestructible ]
+  id: DHOrbitalThruster
+  name: orbital correction thruster
+  description: A big station-keeping engine. Burns whatever gas is piped into it to keep the station from falling.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: false
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-1.45,1.45,0.45"
+        density: 1750
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Rotatable
+    rotateWhileAnchored: false
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: Structures/Shuttles/thruster_large.rsi
+    offset: 0.5,-0.5
+    color: "#b8c8e0"
+    layers:
+    - state: base
+    - state: thrust_burn_unshaded
+      map: [ "burn" ]
+      shader: unshaded
+      visible: false
+      offset: 0, 2
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHOrbitalThrusterVisuals.Burning:
+        burn:
+          True: { visible: true }
+          False: { visible: false }
+  - type: ApcPowerReceiver
+    powerLoad: 5000
+  - type: ExtensionCableReceiver
+  - type: AtmosDevice
+  - type: NodeContainer
+    nodes:
+      pipe:
+        !type:PipeNode
+        nodeGroupID: Pipe
+        pipeDirection: South
+  - type: DHOrbitalThruster
+  - type: Machine
+    board: DHOrbitalThrusterMachineCircuitboard
+  - type: Damageable
+    damageModifierSet: PlastitaniumMod
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:ChangeConstructionNodeBehavior
+        node: machineFrame
+  - type: StaticPrice
+    price: 2500
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: DHOrbitalThrusterMachineCircuitboard
+  name: orbital correction thruster machine board
+  description: A machine printed circuit board for an orbital correction thruster.
+  components:
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: DHOrbitalThruster
+    stackRequirements:
+      Manipulator: 4
+      Plasteel: 10
+      Steel: 10
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: DHOrbitComputerCircuitboard
+  result: DHOrbitComputerCircuitboard
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: DHOrbitalThrusterMachineCircuitboard
+  result: DHOrbitalThrusterMachineCircuitboard
