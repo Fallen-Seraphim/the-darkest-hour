@@ -3,17 +3,18 @@
   parent: BaseStructure
   id: BaseStructureComputerIndestructible
   components:
+  # DarkestHour: компьютеры настольные — ставятся на столы (слои как у настольных машин), см. desktop_computers.rsi
   - type: Fixtures
     fixtures:
       fix1:
         shape:
           !type:PhysShapeAabb
-          bounds: "-0.25,-0.35,0.25,0.35"
-        density: 190
+          bounds: "-0.3,-0.3,0.3,0.25"
+        density: 100
         mask:
-        - MachineMask
+        - TabletopMachineMask
         layer:
-        - MachineLayer
+        - TabletopMachineLayer
   - type: InteractionOutline
   - type: Rotatable
   - type: Anchorable
@@ -76,7 +77,7 @@
     graph: Computer
     node: monitorBroken
   - type: Sprite
-    sprite: Structures/Machines/computers.rsi
+    sprite: _DarkestHour/Structures/Machines/desktop_computers.rsi # DarkestHour: настольный компьютер
     drawdepth: Objects
     state: broken
   - type: Damageable
