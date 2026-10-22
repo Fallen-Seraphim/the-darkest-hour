@@ -392,6 +392,7 @@
     - SecurityWeapons
     - DHSecurityAmmo # DarkestHour: боеприпасы наших калибров
     - DHShipAmmo # DarkestHour: снаряды корабельных орудий
+    - DHKaneWeapons # DarkestHour: лучевое оружие Кейна
   - type: EmagLatheRecipes
   - type: MaterialStorage
     whitelist: *StandardMaterialWhitelist
