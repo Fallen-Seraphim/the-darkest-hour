@@ -678,7 +678,7 @@
 - type: entity
   parent: BasePDA
   id: HoPPDA
-  name: head of personnel PDA
+  name: adjutant PDA
   description: Looks like it's been chewed on.
   components:
   - type: Pda
@@ -703,7 +703,7 @@
 - type: entity
   parent: BasePDA
   id: CEPDA
-  name: chief engineer PDA
+  name: chief technician PDA
   description: Looks like it's barely been used.
   components:
   - type: Pda
@@ -741,7 +741,7 @@
 - type: entity
   parent: BaseMedicalPDA
   id: CMOPDA
-  name: chief medical officer PDA
+  name: chief physician PDA
   description: Extraordinarily shiny and sterile.
   components:
   - type: Pda
@@ -871,7 +871,7 @@
 - type: entity
   parent: BaseSecurityPDA
   id: HoSPDA
-  name: head of security PDA
+  name: security chief PDA
   description: Whosoever bears this PDA is the law.
   components:
   - type: Pda
@@ -1464,7 +1464,7 @@
 - type: entity
   parent: BasePDA
   id: SeniorEngineerPDA
-  name: senior engineer PDA
+  name: lead technician PDA
   description: Seems to have been taken apart and put back together several times.
   components:
   - type: Pda
@@ -1483,7 +1483,7 @@
 - type: entity
   parent: BasePDA
   id: SeniorResearcherPDA
-  name: senior researcher PDA
+  name: lead scientist PDA
   description: Looks like it's been through years of chemical burns and explosions.
   components:
   - type: Pda
@@ -1503,7 +1503,7 @@
 - type: entity
   parent: BaseMedicalPDA
   id: SeniorPhysicianPDA
-  name: senior physician PDA
+  name: lead physician PDA
   description: Smells faintly like iron and chemicals.
   components:
   - type: Pda
@@ -1523,7 +1523,7 @@
 - type: entity
   parent: BaseSecurityPDA
   id: SeniorOfficerPDA
-  name: senior officer PDA
+  name: security instructor PDA
   description: Beaten, battered and broken, but just barely useable.
   components:
   - type: Pda

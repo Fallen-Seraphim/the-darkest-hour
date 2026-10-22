@@ -29,11 +29,11 @@ loadout-group-captain-neck = Captain neck
 loadout-group-captain-backpack = Captain backpack
 loadout-group-captain-outerclothing = Captain outer clothing
 
-loadout-group-hop-head = Head of Personnel head
-loadout-group-hop-jumpsuit = Head of Personnel jumpsuit
-loadout-group-hop-neck = Head of Personnel neck
-loadout-group-hop-backpack = Head of Personnel backpack
-loadout-group-hop-outerclothing = Head of Personnel outer clothing
+loadout-group-hop-head = Adjutant head
+loadout-group-hop-jumpsuit = Adjutant jumpsuit
+loadout-group-hop-neck = Adjutant neck
+loadout-group-hop-backpack = Adjutant backpack
+loadout-group-hop-outerclothing = Adjutant outer clothing
 
 # Civilian
 loadout-group-passenger-jumpsuit = Passenger jumpsuit
@@ -100,32 +100,32 @@ loadout-group-quartermaster-neck = Quartermaster neck
 loadout-group-quartermaster-outerclothing = Quartermaster outer clothing
 loadout-group-quartermaster-shoes = Quartermaster shoes
 
-loadout-group-cargo-technician-head = Cargo Technician head
-loadout-group-cargo-technician-jumpsuit = Cargo Technician jumpsuit
-loadout-group-cargo-technician-backpack = Cargo Technician backpack
-loadout-group-cargo-technician-outerclothing = Cargo Technician outer clothing
-loadout-group-cargo-technician-shoes = Cargo Technician shoes
-loadout-group-cargo-technician-id = Cargo Technician ID
+loadout-group-cargo-technician-head = Loader head
+loadout-group-cargo-technician-jumpsuit = Loader jumpsuit
+loadout-group-cargo-technician-backpack = Loader backpack
+loadout-group-cargo-technician-outerclothing = Loader outer clothing
+loadout-group-cargo-technician-shoes = Loader shoes
+loadout-group-cargo-technician-id = Loader ID
 
-loadout-group-salvage-specialist-backpack = Salvage Specialist backpack
-loadout-group-salvage-specialist-outerclothing = Salvage Specialist outer clothing
-loadout-group-salvage-specialist-shoes = Salvage Specialist shoes
+loadout-group-salvage-specialist-backpack = Expeditor backpack
+loadout-group-salvage-specialist-outerclothing = Expeditor outer clothing
+loadout-group-salvage-specialist-shoes = Expeditor shoes
 
 # Engineering
-loadout-group-chief-engineer-head = Chief Engineer head
-loadout-group-chief-engineer-jumpsuit = Chief Engineer jumpsuit
-loadout-group-chief-engineer-outerclothing = Chief Engineer outer clothing
-loadout-group-chief-engineer-neck = Chief Engineer neck
-loadout-group-chief-engineer-shoes = Chief Engineer shoes
+loadout-group-chief-engineer-head = Chief Technician head
+loadout-group-chief-engineer-jumpsuit = Chief Technician jumpsuit
+loadout-group-chief-engineer-outerclothing = Chief Technician outer clothing
+loadout-group-chief-engineer-neck = Chief Technician neck
+loadout-group-chief-engineer-shoes = Chief Technician shoes
 
 loadout-group-technical-assistant-jumpsuit = Technical Assistant jumpsuit
 
-loadout-group-station-engineer-head = Station Engineer head
-loadout-group-station-engineer-jumpsuit = Station Engineer jumpsuit
-loadout-group-station-engineer-backpack = Station Engineer backpack
-loadout-group-station-engineer-outerclothing = Station Engineer outer clothing
-loadout-group-station-engineer-shoes = Station Engineer shoes
-loadout-group-station-engineer-id = Station Engineer ID
+loadout-group-station-engineer-head = Technician head
+loadout-group-station-engineer-jumpsuit = Technician jumpsuit
+loadout-group-station-engineer-backpack = Technician backpack
+loadout-group-station-engineer-outerclothing = Technician outer clothing
+loadout-group-station-engineer-shoes = Technician shoes
+loadout-group-station-engineer-id = Technician ID
 
 loadout-group-atmospheric-technician-jumpsuit = Atmospheric Technician jumpsuit
 loadout-group-atmospheric-technician-backpack = Atmospheric Technician backpack
@@ -151,10 +151,10 @@ loadout-group-scientist-id = Scientist ID
 loadout-group-research-assistant-jumpsuit = Research Assistant jumpsuit
 
 # Security
-loadout-group-head-of-security-head = Head of Security head
-loadout-group-head-of-security-jumpsuit = Head of Security jumpsuit
-loadout-group-head-of-security-neck = Head of Security neck
-loadout-group-head-of-security-outerclothing = Head of Security outer clothing
+loadout-group-head-of-security-head = Security Chief head
+loadout-group-head-of-security-jumpsuit = Security Chief jumpsuit
+loadout-group-head-of-security-neck = Security Chief neck
+loadout-group-head-of-security-outerclothing = Security Chief outer clothing
 
 loadout-group-warden-head = Warden head
 loadout-group-warden-jumpsuit = Warden jumpsuit
@@ -179,18 +179,18 @@ loadout-group-security-star = Security Star
 # Medical
 loadout-group-medical-mask = Medical mask
 
-loadout-group-chief-medical-officer-head = Chief Medical Officer head
-loadout-group-chief-medical-officer-jumpsuit = Chief Medical Officer jumpsuit
-loadout-group-chief-medical-officer-outerclothing = Chief Medical Officer outer clothing
-loadout-group-chief-medical-officer-shoes = Chief Medical Officer shoes
-loadout-group-chief-medical-officer-neck = Chief Medical Officer neck
+loadout-group-chief-medical-officer-head = Chief Physician head
+loadout-group-chief-medical-officer-jumpsuit = Chief Physician jumpsuit
+loadout-group-chief-medical-officer-outerclothing = Chief Physician outer clothing
+loadout-group-chief-medical-officer-shoes = Chief Physician shoes
+loadout-group-chief-medical-officer-neck = Chief Physician neck
 
-loadout-group-medical-doctor-head = Medical Doctor head
-loadout-group-medical-doctor-jumpsuit = Medical Doctor jumpsuit
-loadout-group-medical-doctor-outerclothing = Medical Doctor outer clothing
-loadout-group-medical-doctor-backpack = Medical Doctor backpack
-loadout-group-medical-doctor-shoes = Medical Doctor shoes
-loadout-group-medical-doctor-id = Medical Doctor ID
+loadout-group-medical-doctor-head = Physician head
+loadout-group-medical-doctor-jumpsuit = Physician jumpsuit
+loadout-group-medical-doctor-outerclothing = Physician outer clothing
+loadout-group-medical-doctor-backpack = Physician backpack
+loadout-group-medical-doctor-shoes = Physician shoes
+loadout-group-medical-doctor-id = Physician ID
 
 loadout-group-medical-intern-jumpsuit = Medical intern jumpsuit
 

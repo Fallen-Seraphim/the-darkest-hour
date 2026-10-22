@@ -1,8 +1,8 @@
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband, ClothingUniformFoldableBase]
   id: ClothingUniformJumpsuitChiefEngineer
-  name: chief engineer's jumpsuit
-  description: It's a high visibility jumpsuit given to those engineers insane enough to achieve the rank of Chief Engineer.
+  name: chief technician's jumpsuit
+  description: It's a high visibility jumpsuit given to those engineers insane enough to achieve the rank of Chief Technician.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Engineering/ce.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
@@ -10,7 +10,7 @@
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
   id: ClothingUniformJumpsuitChiefEngineerTurtle
-  name: chief engineer's turtleneck
+  name: chief technician's turtleneck
   description: A yellow turtleneck designed specifically for work in conditions of the engineering department.
   components:
   - type: Sprite
@@ -57,7 +57,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitSeniorEngineer
-  name: senior engineer jumpsuit
+  name: lead technician jumpsuit
   description: A sign of skill and prestige within the engineering department.
   components:
   - type: Sprite

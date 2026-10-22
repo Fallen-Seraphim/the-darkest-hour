@@ -77,7 +77,7 @@
 - type: entity
   parent: IDCardStandard
   id: HoPIDCard
-  name: head of personnel ID card
+  name: adjutant ID card
   components:
   - type: Sprite
     layers:
@@ -97,7 +97,7 @@
 - type: entity
   parent: IDCardStandard
   id: CEIDCard
-  name: chief engineer ID card
+  name: chief technician ID card
   components:
   - type: Sprite
     layers:
@@ -117,7 +117,7 @@
 - type: entity
   parent: IDCardStandard
   id: CMOIDCard
-  name: chief medical officer ID card
+  name: chief physician ID card
   components:
   - type: Sprite
     layers:
@@ -157,7 +157,7 @@
 - type: entity
   parent: IDCardStandard
   id: HoSIDCard
-  name: head of security ID card
+  name: security chief ID card
   components:
   - type: Sprite
     layers:
@@ -253,7 +253,7 @@
 - type: entity
   parent: EngineeringIDCard
   id: SeniorEngineerIDCard
-  name: senior engineer ID card
+  name: lead technician ID card
   components:
   - type: Sprite
     layers:
@@ -361,7 +361,7 @@
 - type: entity
   parent: MedicalIDCard
   id: SeniorPhysicianIDCard
-  name: senior physician ID card
+  name: lead physician ID card
   components:
   - type: Sprite
     layers:
@@ -415,7 +415,7 @@
 - type: entity
   parent: ResearchIDCard
   id: SeniorResearcherIDCard
-  name: senior researcher ID card
+  name: lead scientist ID card
   components:
   - type: Sprite
     layers:
@@ -521,7 +521,7 @@
 - type: entity
   parent: SecurityIDCard
   id: SeniorOfficerIDCard
-  name: senior officer ID card
+  name: security instructor ID card
   components:
   - type: Sprite
     layers:

@@ -48,7 +48,7 @@
 - type: entity
   parent: LockerBase
   id: LockerSalvageSpecialist
-  name: salvage specialist's equipment
+  name: expeditor's equipment
   description: Nevermind the pickaxe.
   components:
   - type: Appearance
@@ -76,7 +76,7 @@
 - type: entity
   parent: LockerBase
   id: LockerHeadOfPersonnel
-  name: head of personnel's locker
+  name: adjutant's locker
   components:
   - type: Appearance
   - type: EntityStorageVisuals
@@ -90,7 +90,7 @@
 - type: entity
   parent: LockerBase
   id: LockerChiefEngineer
-  name: chief engineer's locker
+  name: chief technician's locker
   components:
   - type: Appearance
   - type: EntityStorageVisuals
@@ -236,7 +236,7 @@
 - type: entity
   parent: LockerBase
   id: LockerMedical
-  name: medical doctor's locker
+  name: physician's locker
   components:
   - type: Appearance
   - type: EntityStorageVisuals
@@ -278,7 +278,7 @@
 - type: entity
   parent: LockerBase
   id: LockerChiefMedicalOfficer
-  name: chief medical officer's locker
+  name: chief physician's locker
   components:
   - type: Appearance
   - type: EntityStorageVisuals
@@ -319,7 +319,7 @@
 - type: entity
   parent: LockerBase
   id: LockerHeadOfSecurity
-  name: head of security's locker
+  name: security chief's locker
   components:
   - type: Appearance
   - type: EntityStorageVisuals

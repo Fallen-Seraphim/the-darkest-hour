@@ -163,7 +163,7 @@
         color: "#ff33cc"
 
 - type: entity
-  name: chief engineer's rubber stamp
+  name: chief technician's rubber stamp
   parent: [RubberStampBase, BaseCommandContraband]
   id: RubberStampCE
   categories: [ DoNotMap ]
@@ -186,7 +186,7 @@
         color: "#e09e00"
 
 - type: entity
-  name: chief medical officer's rubber stamp
+  name: chief physician's rubber stamp
   parent: [RubberStampBase, BaseCommandContraband]
   id: RubberStampCMO
   categories: [ DoNotMap ]
@@ -209,7 +209,7 @@
         color: "#3366ff"
 
 - type: entity
-  name: head of personnel's rubber stamp
+  name: adjutant's rubber stamp
   parent: [RubberStampBase, BaseCommandContraband]
   id: RubberStampHop
   categories: [ DoNotMap ]
@@ -232,7 +232,7 @@
         color: "#004f71"
 
 - type: entity
-  name: head of security's rubber stamp
+  name: security chief's rubber stamp
   parent: [RubberStampBase, BaseCommandContraband]
   id: RubberStampHos
   categories: [ DoNotMap ]

@@ -34,7 +34,7 @@
 - type: entity
   parent: ClothingUniformSkirtBase
   id: ClothingUniformJumpskirtSeniorResearcher
-  name: senior researcher jumpskirt
+  name: lead scientist jumpskirt
   description: A sign of skill and prestige within the science department.
   components:
   - type: Sprite

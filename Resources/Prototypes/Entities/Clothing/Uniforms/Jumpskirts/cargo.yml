@@ -1,7 +1,7 @@
 - type: entity
   parent: ClothingUniformSkirtBase
   id: ClothingUniformJumpskirtCargo
-  name: cargo tech jumpskirt
+  name: loader jumpskirt
   description: A sturdy jumpskirt, issued to members of the Cargo department.
   components:
   - type: Sprite

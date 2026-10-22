@@ -35,7 +35,7 @@ steal-target-groups-ammo-tech-fab-circuitboard = ammo techfab circuit board
 steal-target-groups-clothing-head-hat-warden = warden's cap
 steal-target-groups-clothing-outer-hardsuit-void-paramed = paramedic void suit
 steal-target-groups-medical-tech-fab-circuitboard = medical techfab machine board
-steal-target-groups-clothing-headset-alt-medical = chief medical officer's over-ear headset
+steal-target-groups-clothing-headset-alt-medical = chief physician's over-ear headset
 steal-target-groups-research-and-development-server-machine-circuitboard = R&D server machine board
 steal-target-groups-fire-axe = fireaxe
 steal-target-groups-ame-part-flatpack =  AME flatpack
@@ -45,7 +45,7 @@ steal-target-groups-bible = bible
 steal-target-groups-clothing-neck-goldmedal = gold medal of crewmanship
 steal-target-groups-clothing-neck-clownmedal = clown medal
 steal-target-groups-wanted-list-cartridge = wanted list cartridge
-steal-target-groups-belt-ce = chief engineer's toolbelt
+steal-target-groups-belt-ce = chief technician's toolbelt
 steal-target-groups-captain-sword = captain's sabre
 
 # Thief structures
@@ -62,7 +62,7 @@ steal-target-groups-plant-rd = "RD's potted plant"
 steal-target-groups-toilet-golden-dirty-water = golden toilet
 
 # Thief Animal
-steal-target-groups-animal-named-cat = CMO's Cat
+steal-target-groups-animal-named-cat = Chief Physician's Cat
 
 steal-target-groups-animal-ian = Ian
 steal-target-groups-animal-mc-griff = McGriff

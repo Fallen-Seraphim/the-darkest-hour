@@ -69,7 +69,7 @@
 - type: entity
   parent: LockerWallMedical
   id: LockerWallMedicalDoctorFilled
-  name: medical doctor's wall locker
+  name: physician's wall locker
   suffix: Filled
   components:
   - type: EntityTableContainerFill

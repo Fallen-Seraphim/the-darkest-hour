@@ -39,7 +39,7 @@
 - type: entity
   parent: BaseFigurine
   id: ToyFigurineHeadOfPersonnel
-  name: head of personnel figure
+  name: adjutant figure
   description: A figurine depicting the glorious head of all personnel, away from their office as usual.
   components:
   - type: Sprite
@@ -138,7 +138,7 @@
 - type: entity
   parent: BaseFigurine
   id: ToyFigurineHeadOfSecurity
-  name: head of security figure
+  name: security chief figure
   description: A figurine depicting the glorious head of the Security department.
   components:
   - type: Sprite
@@ -193,8 +193,8 @@
 - type: entity
   parent: BaseFigurine
   id: ToyFigurineCargoTech
-  name: cargo technican figure
-  description: A figurine depicting a reptillian Cargo Technican.
+  name: loadernican figure
+  description: A figurine depicting a reptillian Loadernican.
   components:
   - type: Sprite
     state: cargotech
@@ -204,8 +204,8 @@
 - type: entity
   parent: BaseFigurine
   id: ToyFigurineSalvage
-  name: salvage specialist figure
-  description: A figurine depicting a Salvage Specialist holding a survival knife.
+  name: expeditor figure
+  description: A figurine depicting a Expeditor holding a survival knife.
   components:
   - type: Sprite
     state: salvage
@@ -226,7 +226,7 @@
 - type: entity
   parent: BaseFigurine
   id: ToyFigurineChiefEngineer
-  name: chief engineer figure
+  name: chief technician figure
   description: A figurine depicting the glorious head of the Engineering department.
   components:
   - type: Sprite
@@ -237,8 +237,8 @@
 - type: entity
   parent: BaseFigurine
   id: ToyFigurineEngineer
-  name: station engineer figure
-  description: A figurine depicting a Station Engineer holding a crowbar at-ready.
+  name: technician figure
+  description: A figurine depicting a Technician holding a crowbar at-ready.
   components:
   - type: Sprite
     state: engineer
@@ -281,7 +281,7 @@
 - type: entity
   parent: BaseFigurine
   id: ToyFigurineChiefMedicalOfficer
-  name: chief medical officer figure
+  name: chief physician figure
   description: A figurine depicting the glorious head of the Medical department.
   components:
   - type: Sprite
@@ -314,8 +314,8 @@
 - type: entity
   parent: BaseFigurine
   id: ToyFigurineMedicalDoctor
-  name: medical doctor figure
-  description: A figurine depicting a Medical Doctor, donning a labcoat & syringe.
+  name: physician figure
+  description: A figurine depicting a Physician, donning a labcoat & syringe.
   components:
   - type: Sprite
     state: medical

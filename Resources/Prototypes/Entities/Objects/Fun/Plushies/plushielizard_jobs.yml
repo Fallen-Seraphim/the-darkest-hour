@@ -107,8 +107,8 @@
 - type: entity
   parent: BasePlushieLizardJob
   id: PlushieLizardJobCargotechnician
-  name: cargo technician lizard plushie
-  description: An adorable stuffed toy that resembles a lizardperson as a cargo technician. Crumbs of packing peanuts are stuck to its scales.
+  name: loader lizard plushie
+  description: An adorable stuffed toy that resembles a lizardperson as a loader. Crumbs of packing peanuts are stuck to its scales.
   components:
   - type: Sprite
     sprite: Objects/Fun/plushielizard_jobs/cargotech.rsi
@@ -187,8 +187,8 @@
 - type: entity
   parent: BasePlushieLizardJob
   id: PlushieLizardJobChiefengineer
-  name: chief engineer lizard plushie
-  description: An adorable stuffed toy that resembles a lizardperson as the chief engineer. It's covered in metal shavings and welding splatter.
+  name: chief technician lizard plushie
+  description: An adorable stuffed toy that resembles a lizardperson as the chief technician. It's covered in metal shavings and welding splatter.
   components:
   - type: Sprite
     sprite: Objects/Fun/plushielizard_jobs/chiefengineer.rsi
@@ -207,8 +207,8 @@
 - type: entity
   parent: BasePlushieLizardJob
   id: PlushieLizardJobChiefmedicalofficer
-  name: chief medical officer lizard plushie
-  description: An adorable stuffed toy that resembles a lizardperson as the chief medical officer. The plushie's tail has been sewn off and on again, probably from practicing surgery.
+  name: chief physician lizard plushie
+  description: An adorable stuffed toy that resembles a lizardperson as the chief physician. The plushie's tail has been sewn off and on again, probably from practicing surgery.
   components:
   - type: Sprite
     sprite: Objects/Fun/plushielizard_jobs/cmo.rsi
@@ -286,8 +286,8 @@
 - type: entity
   parent: BasePlushieLizardJob
   id: PlushieLizardJobHeadofpersonnel
-  name: head of personnel lizard plushie
-  description: An adorable stuffed toy that resembles a lizardperson as the head of personnel. While it seems thrilled on the outside, it's probably just as bored as you are.
+  name: adjutant lizard plushie
+  description: An adorable stuffed toy that resembles a lizardperson as the adjutant. While it seems thrilled on the outside, it's probably just as bored as you are.
   components:
   - type: Sprite
     sprite: Objects/Fun/plushielizard_jobs/hop.rsi
@@ -306,8 +306,8 @@
 - type: entity
   parent: BasePlushieLizardJob
   id: PlushieLizardJobHeadofsecurity
-  name: head of security lizard plushie
-  description: An adorable stuffed toy that resembles a lizardperson as the head of security. It seems to have been ripped and re-stitched a few times.
+  name: security chief lizard plushie
+  description: An adorable stuffed toy that resembles a lizardperson as the security chief. It seems to have been ripped and re-stitched a few times.
   components:
   - type: Sprite
     sprite: Objects/Fun/plushielizard_jobs/hos.rsi
@@ -386,8 +386,8 @@
 - type: entity
   parent: BasePlushieLizardJob
   id: PlushieLizardJobMedicaldoctor
-  name: medical doctor lizard plushie
-  description: An adorable stuffed toy that resembles a lizardperson as a medical doctor. Seems to be well-washed.
+  name: physician lizard plushie
+  description: An adorable stuffed toy that resembles a lizardperson as a physician. Seems to be well-washed.
   components:
   - type: Sprite
     sprite: Objects/Fun/plushielizard_jobs/meddoctor.rsi
@@ -621,8 +621,8 @@
 - type: entity
   parent: BasePlushieLizardJob
   id: PlushieLizardJobSalvagespecialist
-  name: salvage specialist lizard plushie
-  description: An adorable stuffed toy that resembles a lizardperson as a salvage specialist. Seems like it's seen the coldness of space for a while.
+  name: expeditor lizard plushie
+  description: An adorable stuffed toy that resembles a lizardperson as a expeditor. Seems like it's seen the coldness of space for a while.
   components:
   - type: Sprite
     sprite: Objects/Fun/plushielizard_jobs/salvager.rsi
@@ -721,8 +721,8 @@
 - type: entity
   parent: BasePlushieLizardJob
   id: PlushieLizardJobStationengineer
-  name: station engineer lizard plushie
-  description: An adorable stuffed toy that resembles a lizardperson as a station engineer. It has oil stains on its hands.
+  name: technician lizard plushie
+  description: An adorable stuffed toy that resembles a lizardperson as a technician. It has oil stains on its hands.
   components:
   - type: Sprite
     sprite: Objects/Fun/plushielizard_jobs/stationengi.rsi
@@ -802,7 +802,7 @@
   parent: BasePlushieLizardJob
   id: PlushieLizardJobMultiweh
   name: multiweh lizard plushie
-  description: An adorable stuffed toy that resembles a lizardperson as every job! It's a plushie of many talents. You can hear a HoP crying in the distance.
+  description: An adorable stuffed toy that resembles a lizardperson as every job! It's a plushie of many talents. You can hear a Adjutant crying in the distance.
   components:
   - type: Sprite
     sprite: Objects/Fun/plushielizard_jobs/multiweh.rsi
