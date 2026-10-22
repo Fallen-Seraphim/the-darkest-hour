@@ -1,0 +1,33 @@
+# ОБР Metall Armed: жетоны с доступом должности.
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsDHMetallArmedCommander
+  suffix: Metall Armed Commander
+  components:
+  - type: PresetIdCard
+    job: DHMetallArmedCommander
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsDHMetallArmedWeapons
+  suffix: Metall Armed Weapons
+  components:
+  - type: PresetIdCard
+    job: DHMetallArmedWeapons
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsDHMetallArmedMedic
+  suffix: Metall Armed Medic
+  components:
+  - type: PresetIdCard
+    job: DHMetallArmedMedic
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsDHMetallArmedRifleman
+  suffix: Metall Armed Rifleman
+  components:
+  - type: PresetIdCard
+    job: DHMetallArmedRifleman

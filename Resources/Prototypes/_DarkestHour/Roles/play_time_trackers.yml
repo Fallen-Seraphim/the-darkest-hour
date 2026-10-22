@@ -89,3 +89,15 @@
 
 - type: playTimeTracker
   id: JobDHJuniorTechnician
+
+- type: playTimeTracker
+  id: JobDHMetallArmedCommander
+
+- type: playTimeTracker
+  id: JobDHMetallArmedWeapons
+
+- type: playTimeTracker
+  id: JobDHMetallArmedMedic
+
+- type: playTimeTracker
+  id: JobDHMetallArmedRifleman
