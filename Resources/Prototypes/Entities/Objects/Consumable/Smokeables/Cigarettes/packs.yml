@@ -184,9 +184,9 @@
   description: Elite cigarettes for elite syndicate agents. Infused with medicine for when you need to do more than calm your nerves.
   components:
   - type: Sprite
-    sprite: Objects/Consumable/Smokeables/Cigarettes/Packs/syndicate.rsi
+    sprite: _DarkestHour/Objects/Consumable/Smokeables/Cigarettes/Packs/syndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Item
-    sprite: Objects/Consumable/Smokeables/Cigarettes/Packs/syndicate.rsi
+    sprite: _DarkestHour/Objects/Consumable/Smokeables/Cigarettes/Packs/syndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: EntityTableContainerFill
     containers:
       storagebase:

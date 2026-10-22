@@ -586,10 +586,10 @@
   description: "Plastitanium knuckle dusters branded with the blood-red S. A real man beats someone to death with these."
   components:
   - type: Sprite
-    sprite: Clothing/Hands/Gloves/KnuckleDusters/syndicateknuckleduster.rsi
+    sprite: _DarkestHour/Clothing/Hands/Gloves/KnuckleDusters/syndicateknuckleduster.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
     state: syndicateknuckleduster
   - type: Clothing
-    sprite: Clothing/Hands/Gloves/KnuckleDusters/syndicateknuckleduster.rsi
+    sprite: _DarkestHour/Clothing/Hands/Gloves/KnuckleDusters/syndicateknuckleduster.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: MeleeWeapon
     attackRate: 1.5
     damage:

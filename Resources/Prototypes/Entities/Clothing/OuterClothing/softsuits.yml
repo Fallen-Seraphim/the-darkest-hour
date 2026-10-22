@@ -23,9 +23,9 @@
   description: "Has a tag on the back that reads: 'Totally not property of an enemy corporation, honest!'"
   components:
   - type: Sprite
-    sprite: Clothing/OuterClothing/Suits/eva_syndicate.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Suits/eva_syndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/OuterClothing/Suits/eva_syndicate.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Suits/eva_syndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Tag
     tags:
     - SuitEVA

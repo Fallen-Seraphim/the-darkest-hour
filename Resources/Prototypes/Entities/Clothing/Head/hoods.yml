@@ -515,9 +515,9 @@
   name: syndicate coat hood
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hoods/Coat/hoodsyndicate.rsi
+    sprite: _DarkestHour/Clothing/Head/Hoods/Coat/hoodsyndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Hoods/Coat/hoodsyndicate.rsi
+    sprite: _DarkestHour/Clothing/Head/Hoods/Coat/hoodsyndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: ClothingHeadHatHoodWinterBase

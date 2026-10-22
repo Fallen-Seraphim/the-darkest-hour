@@ -285,9 +285,9 @@
   description: "A 'Valid' choice in lighters. Contains no copper."
   components:
   - type: Sprite
-    sprite: Objects/Tools/Lighters/syndielighter.rsi
+    sprite: _DarkestHour/Objects/Tools/Lighters/syndielighter.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Item
-    sprite: Objects/Tools/Lighters/syndielighter.rsi
+    sprite: _DarkestHour/Objects/Tools/Lighters/syndielighter.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: PointLight
     color: green
 

@@ -165,7 +165,7 @@
     canMicrowaveIdsSafely: false
     explosionChance: 0.3
   - type: Sprite
-    sprite: Structures/Machines/microwave_syndie.rsi
+    sprite: _DarkestHour/Structures/Machines/microwave_syndie.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
     drawdepth: SmallObjects
     snapCardinals: true
   - type: Machine
@@ -175,7 +175,7 @@
     - RecipeBaguetteSword
     - RecipeThrowingCroissant
   - type: Item
-    sprite: Structures/Machines/microwave_syndie.rsi
+    sprite: _DarkestHour/Structures/Machines/microwave_syndie.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
     size: Ginormous
     shape:
     - 0,0,5,4

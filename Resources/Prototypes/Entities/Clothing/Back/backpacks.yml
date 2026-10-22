@@ -293,7 +293,7 @@
   description:
   components:
   - type: Sprite
-    sprite: Clothing/Back/Backpacks/syndicate.rsi
+    sprite: _DarkestHour/Clothing/Back/Backpacks/syndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: ExplosionResistance
     damageCoefficient: 0.1
   - type: Storage

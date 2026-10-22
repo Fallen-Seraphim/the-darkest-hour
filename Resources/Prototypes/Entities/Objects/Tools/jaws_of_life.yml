@@ -69,15 +69,16 @@
       collection: MetalThud
 
 - type: entity
-  name: syndicate jaws of death
+  name: imperial jaws of death # DarkestHour
   parent: [ JawsOfLife, BaseSyndicateContraband]
   id: SyndicateJawsOfLife
   description: Useful for breaking into secure areas and other nefarious activities.
   components:
   - type: Sprite
-    sprite: Objects/Tools/jaws_of_life.rsi
+    sprite: _DarkestHour/Objects/Tools/jaws_of_life_imperial.rsi # DarkestHour: имперские цвета
     state: syn_jaws_pry
   - type: Item
+    sprite: _DarkestHour/Objects/Tools/jaws_of_life_imperial.rsi # DarkestHour
     inhandVisuals:
       left:
       - state: syn_inhand-left
@@ -91,7 +92,7 @@
     entries:
       - behavior: [ Prying ]
         sprite:
-          sprite: Objects/Tools/jaws_of_life.rsi
+          sprite: _DarkestHour/Objects/Tools/jaws_of_life_imperial.rsi # DarkestHour: имперские цвета
           state: syn_jaws_pry
         useSound: !type:SoundPathSpecifier
           path: /Audio/Items/jaws_pry.ogg
@@ -103,7 +104,7 @@
             volume: -5
       - behavior: [ Cutting ]
         sprite:
-          sprite: Objects/Tools/jaws_of_life.rsi
+          sprite: _DarkestHour/Objects/Tools/jaws_of_life_imperial.rsi # DarkestHour: имперские цвета
           state: syn_jaws_cutter
         useSound: !type:SoundPathSpecifier
           path: /Audio/Items/jaws_cut.ogg

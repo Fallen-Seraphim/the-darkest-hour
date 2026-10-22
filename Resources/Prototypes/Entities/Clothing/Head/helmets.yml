@@ -109,9 +109,9 @@
   description: An extremely robust helmet, commonly used by paramilitary forces. It is adorned in a nefarious red and black stripe pattern.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Helmets/swat_syndicate.rsi
+    sprite: _DarkestHour/Clothing/Head/Helmets/swat_syndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Helmets/swat_syndicate.rsi
+    sprite: _DarkestHour/Clothing/Head/Helmets/swat_syndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: HideLayerClothing
     layers:
       Hair: HEAD
@@ -482,9 +482,9 @@
   description: An armored helmet for use with the syndicate raid suit. Very stylish.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Helmets/syndie-raid.rsi
+    sprite: _DarkestHour/Clothing/Head/Helmets/syndie-raid.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Helmets/syndie-raid.rsi
+    sprite: _DarkestHour/Clothing/Head/Helmets/syndie-raid.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Armor
     modifiers: #There's gotta be SOME reason to use this over other helmets.
       coefficients:

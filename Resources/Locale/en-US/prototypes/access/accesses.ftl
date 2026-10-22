@@ -41,8 +41,8 @@ id-card-access-level-maintenance = Maintenance
 
 id-card-access-level-external = External
 
-id-card-access-level-nuclear-operative = Nuclear Operative
-id-card-access-level-syndicate-agent = Syndicate Agent
+id-card-access-level-nuclear-operative = Imperial Marine Corps
+id-card-access-level-syndicate-agent = Imperial Security Bureau
 
 id-card-access-level-central-command = Central Command
 

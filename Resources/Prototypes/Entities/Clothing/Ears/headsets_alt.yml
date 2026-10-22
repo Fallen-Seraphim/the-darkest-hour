@@ -136,9 +136,9 @@
       key_slots:
       - EncryptionKeySyndie
   - type: Sprite
-    sprite: Clothing/Ears/Headsets/syndicate.rsi
+    sprite: _DarkestHour/Clothing/Ears/Headsets/syndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Ears/Headsets/syndicate.rsi
+    sprite: _DarkestHour/Clothing/Ears/Headsets/syndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: ClothingHeadsetAlt

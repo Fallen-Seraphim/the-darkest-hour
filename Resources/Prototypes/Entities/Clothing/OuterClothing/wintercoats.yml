@@ -787,9 +787,9 @@
   description: "The syndicate's armored winter coat is made of durable fabric, with gilded patterns, and coarse wool."
   components:
   - type: Sprite
-    sprite: Clothing/OuterClothing/WinterCoats/syndicate/coatsyndiecaparmored.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/WinterCoats/syndicate/coatsyndiecaparmored.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/OuterClothing/WinterCoats/syndicate/coatsyndiecaparmored.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/WinterCoats/syndicate/coatsyndiecaparmored.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHatHoodWinterSyndie
 ##############################################################

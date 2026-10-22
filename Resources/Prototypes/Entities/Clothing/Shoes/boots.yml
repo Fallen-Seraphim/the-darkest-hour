@@ -160,9 +160,9 @@
   description: Durable heavy boots, looks like merch from "Syndieland".
   components:
   - type: Sprite
-    sprite: Clothing/Shoes/Boots/winterbootssyndicate.rsi
+    sprite: _DarkestHour/Clothing/Shoes/Boots/winterbootssyndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Shoes/Boots/winterbootssyndicate.rsi
+    sprite: _DarkestHour/Clothing/Shoes/Boots/winterbootssyndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [ClothingShoesBaseWinterBoots, BaseSlicingRefinable]

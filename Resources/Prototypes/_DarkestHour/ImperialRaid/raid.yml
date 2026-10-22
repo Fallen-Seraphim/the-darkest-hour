@@ -1,0 +1,549 @@
+# DarkestHour: Имперский Рейд (этап 6) — восемь морпехов Имперской Морской Пехоты на основе ядерных оперативников.
+# Командир 1, специалисты по вооружению 2, полевые медики 2, пулемётчик 1, стрелки 2. Вместо аплинка — выбор набора
+# снаряжения подкласса (оружие + модульная броня ИМБ-1 со спецсистемой). Наборы — `thiefBackpackSet`, выбирается один.
+
+- type: antag
+  id: DHImperialCommander
+  name: dh-imperial-commander-name
+  antagonist: true
+  setPreference: true
+  objective: dh-imperial-commander-objective
+  guides: [ NuclearOperatives ]
+  tags:
+  - OffStation
+  - Roundstart
+
+- type: antagSpecifier
+  parent: BaseNukeops
+  id: DHImperialCommander
+  prefRoles:
+  - DHImperialCommander
+  spawnerPrototype: DHSpawnPointImperialCommander
+  startingGear: DHImperialCommanderGear
+  components:
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-imperial-commander
+  mindRoles:
+  - DHMindRoleImperialCommander
+
+- type: entity
+  parent: MindRoleNukeopsCommander
+  id: DHMindRoleImperialCommander
+  name: Imperial Commander Role
+  components:
+  - type: MindRole
+    antagPrototype: DHImperialCommander
+
+- type: entity
+  categories: [ HideSpawnMenu, Spawner ]
+  parent: SpawnPointLoneNukeOperative
+  id: DHSpawnPointImperialCommander
+  components:
+  - type: GhostRole
+    name: dh-imperial-commander-name
+    description: dh-imperial-commander-objective
+    rules: ghost-role-information-rules-default-team-antagonist
+    mindRoles:
+    - DHMindRoleImperialCommander
+
+- type: antag
+  id: DHImperialWeaponsSpecialist
+  name: dh-imperial-weapons-name
+  antagonist: true
+  setPreference: true
+  objective: dh-imperial-weapons-objective
+  guides: [ NuclearOperatives ]
+  tags:
+  - OffStation
+  - Roundstart
+
+- type: antagSpecifier
+  parent: BaseNukeops
+  id: DHImperialWeaponsSpecialist
+  prefRoles:
+  - DHImperialWeaponsSpecialist
+  spawnerPrototype: DHSpawnPointImperialWeaponsSpecialist
+  startingGear: DHImperialWeaponsSpecialistGear
+  components:
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-imperial-weapons
+  mindRoles:
+  - DHMindRoleImperialWeaponsSpecialist
+
+- type: entity
+  parent: MindRoleNukeops
+  id: DHMindRoleImperialWeaponsSpecialist
+  name: Imperial WeaponsSpecialist Role
+  components:
+  - type: MindRole
+    antagPrototype: DHImperialWeaponsSpecialist
+
+- type: entity
+  categories: [ HideSpawnMenu, Spawner ]
+  parent: SpawnPointLoneNukeOperative
+  id: DHSpawnPointImperialWeaponsSpecialist
+  components:
+  - type: GhostRole
+    name: dh-imperial-weapons-name
+    description: dh-imperial-weapons-objective
+    rules: ghost-role-information-rules-default-team-antagonist
+    mindRoles:
+    - DHMindRoleImperialWeaponsSpecialist
+
+- type: antag
+  id: DHImperialFieldMedic
+  name: dh-imperial-medic-name
+  antagonist: true
+  setPreference: true
+  objective: dh-imperial-medic-objective
+  guides: [ NuclearOperatives ]
+  tags:
+  - OffStation
+  - Roundstart
+
+- type: antagSpecifier
+  parent: BaseNukeops
+  id: DHImperialFieldMedic
+  prefRoles:
+  - DHImperialFieldMedic
+  spawnerPrototype: DHSpawnPointImperialFieldMedic
+  startingGear: DHImperialFieldMedicGear
+  components:
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-imperial-medic
+  mindRoles:
+  - DHMindRoleImperialFieldMedic
+
+- type: entity
+  parent: MindRoleNukeopsMedic
+  id: DHMindRoleImperialFieldMedic
+  name: Imperial FieldMedic Role
+  components:
+  - type: MindRole
+    antagPrototype: DHImperialFieldMedic
+
+- type: entity
+  categories: [ HideSpawnMenu, Spawner ]
+  parent: SpawnPointLoneNukeOperative
+  id: DHSpawnPointImperialFieldMedic
+  components:
+  - type: GhostRole
+    name: dh-imperial-medic-name
+    description: dh-imperial-medic-objective
+    rules: ghost-role-information-rules-default-team-antagonist
+    mindRoles:
+    - DHMindRoleImperialFieldMedic
+
+- type: antag
+  id: DHImperialMachinegunner
+  name: dh-imperial-machinegunner-name
+  antagonist: true
+  setPreference: true
+  objective: dh-imperial-machinegunner-objective
+  guides: [ NuclearOperatives ]
+  tags:
+  - OffStation
+  - Roundstart
+
+- type: antagSpecifier
+  parent: BaseNukeops
+  id: DHImperialMachinegunner
+  prefRoles:
+  - DHImperialMachinegunner
+  spawnerPrototype: DHSpawnPointImperialMachinegunner
+  startingGear: DHImperialMachinegunnerGear
+  components:
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-imperial-machinegunner
+  mindRoles:
+  - DHMindRoleImperialMachinegunner
+
+- type: entity
+  parent: MindRoleNukeops
+  id: DHMindRoleImperialMachinegunner
+  name: Imperial Machinegunner Role
+  components:
+  - type: MindRole
+    antagPrototype: DHImperialMachinegunner
+
+- type: entity
+  categories: [ HideSpawnMenu, Spawner ]
+  parent: SpawnPointLoneNukeOperative
+  id: DHSpawnPointImperialMachinegunner
+  components:
+  - type: GhostRole
+    name: dh-imperial-machinegunner-name
+    description: dh-imperial-machinegunner-objective
+    rules: ghost-role-information-rules-default-team-antagonist
+    mindRoles:
+    - DHMindRoleImperialMachinegunner
+
+- type: antag
+  id: DHImperialRifleman
+  name: dh-imperial-rifleman-name
+  antagonist: true
+  setPreference: true
+  objective: dh-imperial-rifleman-objective
+  guides: [ NuclearOperatives ]
+  tags:
+  - OffStation
+  - Roundstart
+
+- type: antagSpecifier
+  parent: BaseNukeops
+  id: DHImperialRifleman
+  prefRoles:
+  - DHImperialRifleman
+  spawnerPrototype: DHSpawnPointImperialRifleman
+  startingGear: DHImperialRiflemanGear
+  components:
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-imperial-rifleman
+  mindRoles:
+  - DHMindRoleImperialRifleman
+
+- type: entity
+  parent: MindRoleNukeops
+  id: DHMindRoleImperialRifleman
+  name: Imperial Rifleman Role
+  components:
+  - type: MindRole
+    antagPrototype: DHImperialRifleman
+
+- type: entity
+  categories: [ HideSpawnMenu, Spawner ]
+  parent: SpawnPointLoneNukeOperative
+  id: DHSpawnPointImperialRifleman
+  components:
+  - type: GhostRole
+    name: dh-imperial-rifleman-name
+    description: dh-imperial-rifleman-objective
+    rules: ghost-role-information-rules-default-team-antagonist
+    mindRoles:
+    - DHMindRoleImperialRifleman
+
+- type: startingGear
+  id: DHImperialGearBase
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitOperative
+    back: ClothingBackpackDuffelSyndicate
+    eyes: ClothingEyesHudSyndicate
+    ears: ClothingHeadsetAltSyndicate
+    gloves: ClothingHandsGlovesCombat
+    shoes: ClothingShoesBootsMagSyndie
+    id: SyndiOperativePDA
+    belt: ClothingBeltMilitaryWebbing
+    pocket1: CombatKnife
+  storage:
+    back:
+    - PinpointerSyndicateNuclear
+    - CombatMedipen
+
+- type: startingGear
+  parent: DHImperialGearBase
+  id: DHImperialCommanderGear
+  equipment:
+    id: SyndiCommanderPDA
+    neck: SyndicateWhistle
+    outerClothing: DHClothingOuterModularIMB1Composite
+    suitstorage: DHWeaponPistolIMP17
+  storage:
+    back:
+    - DHMagazine145x114Std
+    - DHMagazine145x114Std
+    - DHMagazine145x114Std
+    - Binoculars
+    - PinpointerSyndicateNuclear
+
+- type: startingGear
+  parent: DHImperialGearBase
+  id: DHImperialWeaponsSpecialistGear
+  inhand:
+  - DHImperialKitWeaponsSpecialist
+
+- type: startingGear
+  parent: DHImperialGearBase
+  id: DHImperialFieldMedicGear
+  equipment:
+    id: SyndiCorpsmanPDA
+    belt: ClothingBeltMilitaryWebbingMedFilled
+  inhand:
+  - DHImperialKitFieldMedic
+  storage:
+    back:
+    - PinpointerSyndicateNuclear
+    - SyndiHypo
+    - HandheldHealthAnalyzer
+    - Cautery
+    - SawAdvanced
+    - CombatMedipen
+
+- type: startingGear
+  parent: DHImperialGearBase
+  id: DHImperialMachinegunnerGear
+  inhand:
+  - DHImperialKitMachinegunner
+
+- type: startingGear
+  parent: DHImperialGearBase
+  id: DHImperialRiflemanGear
+  inhand:
+  - DHImperialKitRifleman
+
+- type: entity
+  parent: ToolboxThief
+  id: DHImperialKitWeaponsSpecialist
+  name: Imperial weapons kit selector
+  description: A sealed requisition case of the Imperial Marine Corps. Open it and choose your loadout; the case turns into the chosen gear.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Tools/Toolboxes/toolbox_syn.rsi
+    state: icon
+  - type: ThiefUndeterminedBackpack
+    maxSelectedSets: 1
+    toolName: dh-imperial-kit-window-title
+    toolDesc: dh-imperial-kit-window-description
+    possibleSets:
+    - DHImperialSetWeaponsSpecialistAssault
+    - DHImperialSetWeaponsSpecialistRifle
+    - DHImperialSetWeaponsSpecialistFlamer
+
+- type: thiefBackpackSet
+  id: DHImperialSetWeaponsSpecialistAssault
+  name: dh-imperial-set-weapons-assault-name
+  description: dh-imperial-set-weapons-assault-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/imsh17.rsi
+    state: base
+  content:
+  - DHClothingOuterModularIMB1StandardAutoMed
+  - DHWeaponShotgunIMSH17
+  - DHMagazineDrum14gShot
+  - DHMagazineDrum14gShot
+  - DHMagazineDrum14gSlug
+  - DHMagazineDrum14gFlech
+
+- type: thiefBackpackSet
+  id: DHImperialSetWeaponsSpecialistRifle
+  name: dh-imperial-set-weapons-rifle-name
+  description: dh-imperial-set-weapons-rifle-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/ir17.rsi
+    state: base
+  content:
+  - DHClothingOuterModularIMB1StandardStorage
+  - DHWeaponRifleIR17
+  - DHMagazine842x54ImpS
+  - DHMagazine842x54ImpS
+  - DHMagazine842x54ImpS
+  - DHMagazine842x54ImpR
+  - DHMagazine842x54ImpZ
+
+- type: thiefBackpackSet
+  id: DHImperialSetWeaponsSpecialistFlamer
+  name: dh-imperial-set-weapons-flamer-name
+  description: dh-imperial-set-weapons-flamer-description
+  sprite:
+    sprite: _RMC14/Objects/Weapons/Guns/Flamethrower/colony.rsi
+    state: base
+  content:
+  - DHClothingOuterModularIMB1StandardTanks
+  - DHWeaponFlamerImperial
+  - DHFlamerTankNapalm
+  - DHFlamerTankNapalm
+  - DHFlamerTankNapalm
+  - DHFlamerTankWeldingFuel
+
+- type: entity
+  parent: ToolboxThief
+  id: DHImperialKitFieldMedic
+  name: Imperial medic kit selector
+  description: A sealed requisition case of the Imperial Marine Corps. Open it and choose your loadout; the case turns into the chosen gear.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Tools/Toolboxes/toolbox_syn.rsi
+    state: icon
+  - type: ThiefUndeterminedBackpack
+    maxSelectedSets: 1
+    toolName: dh-imperial-kit-window-title
+    toolDesc: dh-imperial-kit-window-description
+    possibleSets:
+    - DHImperialSetFieldMedicSmg
+    - DHImperialSetFieldMedicRifle
+
+- type: thiefBackpackSet
+  id: DHImperialSetFieldMedicSmg
+  name: dh-imperial-set-medic-smg-name
+  description: dh-imperial-set-medic-smg-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/img17l.rsi
+    state: base
+  content:
+  - DHClothingOuterModularIMB1LightFlamer
+  - DHWeaponSMGIMG17L
+  - DHMagazine104x16ImpB
+  - DHMagazine104x16ImpB
+  - DHMagazine104x16ImpB
+  - DHMagazine104x16ImpB
+
+- type: thiefBackpackSet
+  id: DHImperialSetFieldMedicRifle
+  name: dh-imperial-set-medic-rifle-name
+  description: dh-imperial-set-medic-rifle-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/ir17.rsi
+    state: base
+  content:
+  - DHClothingOuterModularIMB1LightShotgun
+  - DHWeaponRifleIR17
+  - DHMagazine842x54ImpS
+  - DHMagazine842x54ImpS
+  - DHMagazine842x54ImpS
+  - DHAmmoBox14gShot
+
+- type: entity
+  parent: ToolboxThief
+  id: DHImperialKitMachinegunner
+  name: Imperial machinegunner kit selector
+  description: A sealed requisition case of the Imperial Marine Corps. Open it and choose your loadout; the case turns into the chosen gear.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Tools/Toolboxes/toolbox_syn.rsi
+    state: icon
+  - type: ThiefUndeterminedBackpack
+    maxSelectedSets: 1
+    toolName: dh-imperial-kit-window-title
+    toolDesc: dh-imperial-kit-window-description
+    possibleSets:
+    - DHImperialSetMachinegunnerLight
+    - DHImperialSetMachinegunnerHeavy
+
+- type: thiefBackpackSet
+  id: DHImperialSetMachinegunnerLight
+  name: dh-imperial-set-machinegunner-light-name
+  description: dh-imperial-set-machinegunner-light-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/img17t.rsi
+    state: base
+  content:
+  - DHClothingOuterModularIMB1LightAutoMed
+  - DHWeaponLMGIMG17T
+  - DHMagazineDrum842x54ImpS
+  - DHMagazineDrum842x54ImpS
+  - DHMagazineDrum842x54ImpR
+
+- type: thiefBackpackSet
+  id: DHImperialSetMachinegunnerHeavy
+  name: dh-imperial-set-machinegunner-heavy-name
+  description: dh-imperial-set-machinegunner-heavy-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/Emplacements/ihmg_17.rsi
+    state: folded
+  content:
+  - DHClothingOuterModularIMB1HeavyAutoMed
+  - DHWeaponHMGIHMG17
+  - DHMagazineBelt145x114Std
+  - DHMagazineBelt145x114Std
+  - DHMagazineBelt145x114Std
+
+- type: entity
+  parent: ToolboxThief
+  id: DHImperialKitRifleman
+  name: Imperial rifleman kit selector
+  description: A sealed requisition case of the Imperial Marine Corps. Open it and choose your loadout; the case turns into the chosen gear.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Tools/Toolboxes/toolbox_syn.rsi
+    state: icon
+  - type: ThiefUndeterminedBackpack
+    maxSelectedSets: 1
+    toolName: dh-imperial-kit-window-title
+    toolDesc: dh-imperial-kit-window-description
+    possibleSets:
+    - DHImperialSetRiflemanRifle
+    - DHImperialSetRiflemanSmg
+    - DHImperialSetRiflemanShotgun
+
+- type: thiefBackpackSet
+  id: DHImperialSetRiflemanRifle
+  name: dh-imperial-set-rifleman-rifle-name
+  description: dh-imperial-set-rifleman-rifle-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/ir17.rsi
+    state: base
+  content:
+  - DHClothingOuterModularIMB1StandardAutoMed
+  - DHWeaponRifleIR17
+  - DHMagazine842x54ImpS
+  - DHMagazine842x54ImpS
+  - DHMagazine842x54ImpS
+  - DHMagazine842x54ImpS
+
+- type: thiefBackpackSet
+  id: DHImperialSetRiflemanSmg
+  name: dh-imperial-set-rifleman-smg-name
+  description: dh-imperial-set-rifleman-smg-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/img17l.rsi
+    state: base
+  content:
+  - DHClothingOuterModularIMB1StandardAutoMed
+  - DHWeaponSMGIMG17L
+  - DHMagazine104x16ImpB
+  - DHMagazine104x16ImpB
+  - DHMagazine104x16ImpB
+  - DHMagazine104x16ImpB
+  - DHMagazine104x16ImpB
+
+- type: thiefBackpackSet
+  id: DHImperialSetRiflemanShotgun
+  name: dh-imperial-set-rifleman-shotgun-name
+  description: dh-imperial-set-rifleman-shotgun-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/impsh17p.rsi
+    state: base
+  content:
+  - DHClothingOuterModularIMB1StandardStorage
+  - DHWeaponShotgunIMPSH17P
+  - DHAmmoBox14gShot
+  - DHAmmoBox14gShot
+  - DHAmmoBox14gSlug
+
+# Улучшенный огнемёт специалиста по вооружению: дальше бьёт, по умолчанию с напалмом.
+- type: entity
+  parent: DHWeaponFlamer
+  id: DHWeaponFlamerImperial
+  name: IFL-17 incinerator
+  description: An Imperial Marine Corps incinerator with a high-pressure pump and a long nozzle. Throws burning fuel twice as far as a civilian unit. Alt-click to light the pilot flame.
+  components:
+  - type: DHFlamer
+    maxRange: 9
+    igniteSound:
+      path: /Audio/_RMC14/Weapons/Guns/Flamer/surv_flamer_ignite.ogg
+  - type: Gun
+    fireRate: 1
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Tank
+        startingItem: DHFlamerTankNapalm
+        insertSound: /Audio/_RMC14/Weapons/Handling/flamer_reload.ogg
+        ejectSound: /Audio/_RMC14/Weapons/Handling/flamer_unload.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - DHFlamerTank
+  - type: StaticPrice
+    price: 2500
+
+# Стойки обслуживания брони на базе и шаттле Рейда ставятся картой (DHArmorRack).
