@@ -485,6 +485,7 @@
     - SurgeryStatic
     dynamicPacks:
     - Chemistry
+    - DHExperimentalMedicine # DarkestHour: экспериментальное лечение хронитовой болезни
   - type: Machine
     board: MedicalTechFabCircuitboard
   - type: StealTarget
