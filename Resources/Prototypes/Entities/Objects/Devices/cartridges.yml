@@ -109,7 +109,7 @@
     - type: Cartridge
       programName: log-probe-program-name
       icon:
-        sprite: Structures/Doors/Airlocks/Standard/security-base.rsi
+        sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/security-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
         state: closed
     - type: LogProbeCartridge
     - type: GuideHelp

@@ -21,7 +21,7 @@
           "/Audio/Weapons/smash.ogg"
   - type: InteractionOutline
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Standard/airlock-base.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/airlock-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     layers:
     - state: closed
       map: ["enum.DoorVisualLayers.Base"]
@@ -245,7 +245,7 @@
   - type: Occluder
     enabled: false
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Glass/airlock-base.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Glass/airlock-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
   - type: Fixtures
     fixtures:
       fix1:

@@ -26,6 +26,7 @@
     - BaseStationAllEventsEligible
     - BaseStationNanotrasen
     - BaseStationDeliveries
+    - BaseStationDHHomeSystem # DarkestHour: домашняя система REP-27
   categories: [ HideSpawnMenu ]
   components:
     - type: Transform

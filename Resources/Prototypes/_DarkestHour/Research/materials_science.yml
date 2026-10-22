@@ -379,6 +379,9 @@
   - DHMaterialLabMachineCircuitboard
   - DHMaterialScannerMachineCircuitboard
   - DHAlloyFurnaceMachineCircuitboard
+  # Орбита: без компьютера и двигателей станция падает — платы всегда доступны.
+  - DHOrbitComputerCircuitboard
+  - DHOrbitalThrusterMachineCircuitboard
 
 # Платы, которые открываются технологиями дерева.
 - type: latheRecipePack

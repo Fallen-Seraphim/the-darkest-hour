@@ -9,7 +9,7 @@
   suffix: Atmospherics
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Standard/engineering-atmos.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/engineering-atmos.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 - type: entity
@@ -19,7 +19,7 @@
   suffix: Atmospherics, Glass
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Glass/engineering-atmos.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Glass/engineering-atmos.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 #Cargo
@@ -30,7 +30,7 @@
   suffix: Cargo
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Standard/cargo-base.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/cargo-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 - type: entity
@@ -40,7 +40,7 @@
   suffix: Cargo, Glass
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Glass/cargo-base.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Glass/cargo-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 #Command
@@ -51,7 +51,7 @@
   suffix: Command
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Standard/command-base.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/command-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 - type: entity
@@ -61,7 +61,7 @@
   suffix: Command, Glass
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Glass/command-base.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Glass/command-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 #Engineering
@@ -72,7 +72,7 @@
   suffix: Engineering
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Standard/engineering-base.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/engineering-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 - type: entity
@@ -82,7 +82,7 @@
   suffix: Engineering, Glass
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Glass/engineering-base.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Glass/engineering-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 #External
@@ -115,7 +115,7 @@
   suffix: Glass
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Glass/airlock-base.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Glass/airlock-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 #Freezer
@@ -158,7 +158,7 @@
   suffix: Maintenance
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Standard/airlock-maints.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/airlock-maints.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 - type: entity
@@ -168,7 +168,7 @@
   suffix: Maintenance, Glass
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Glass/airlock-maints.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Glass/airlock-maints.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 #Medical
@@ -179,7 +179,7 @@
   suffix: Medical
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Standard/medical-base.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/medical-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 - type: entity
@@ -189,7 +189,7 @@
   suffix: Medical, Glass
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Glass/medical-base.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Glass/medical-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 #Salvage
@@ -200,7 +200,7 @@
   suffix: Salvage
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Standard/cargo-salvage.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/cargo-salvage.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 - type: entity
@@ -210,7 +210,7 @@
   suffix: Salvage, Glass
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Glass/cargo-salvage.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Glass/cargo-salvage.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 #Science
@@ -221,7 +221,7 @@
   suffix: Science
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Standard/science-base.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/science-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 - type: entity
@@ -231,7 +231,7 @@
   suffix: Science, Glass
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Glass/science-base.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Glass/science-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 #Security
@@ -242,7 +242,7 @@
   suffix: Security
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Standard/security-base.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/security-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 - type: entity
@@ -252,7 +252,7 @@
   suffix: Security, Glass
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Glass/security-base.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Glass/security-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 #Shuttle
@@ -287,7 +287,7 @@
   suffix: Virology
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Standard/medical-viro.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/medical-viro.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 - type: entity
@@ -297,7 +297,7 @@
   suffix: Virology, Glass
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Glass/medical-viro.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Glass/medical-viro.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 #CentralCommand
@@ -329,7 +329,7 @@
   suffix: Mining
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Standard/cargo-mining.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/cargo-mining.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 - type: entity
@@ -339,7 +339,7 @@
   suffix: Mining, Glass
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Glass/cargo-mining.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Glass/cargo-mining.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
 
 #Syndicate
@@ -392,5 +392,5 @@
   suffix: HighSec
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Standard/airlock-vault.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/airlock-vault.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
