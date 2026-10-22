@@ -74,5 +74,11 @@ namespace Content.Server.Communications
         /// </summary>
         [DataField]
         public bool AnnounceSentBy = true;
+
+        /// <summary>
+        /// DarkestHour: заголовок объявления — название станции, на которой стоит консоль.
+        /// </summary>
+        [DataField]
+        public bool DHStationTitle;
     }
 }

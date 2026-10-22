@@ -53,13 +53,13 @@
   - type: WiresVisuals
   - type: AlertLevelDisplay
     alertVisuals:
-      Green: fire_0
-      Blue: fire_1
-      Red: fire_2
-      Violet: fire_1
-      Yellow: fire_1
-      DeltaNuke: fire_3
-      # TODO: add missing alarm states
+      # DarkestHour: коды угрозы
+      DHEllow: fire_0
+      DHAlter: fire_1
+      DHDaybreak: fire_2
+      DHTerrinum: fire_2
+      DHEx: fire_3
+      DHIndomitus: fire_3
   - type: UserInterface
     interfaces:
       enum.WiresUiKey.Key:

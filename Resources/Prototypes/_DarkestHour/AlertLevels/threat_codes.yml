@@ -1,0 +1,82 @@
+# Коды угрозы The Darkest Hour (вместо ванильных уровней тревоги, вырезаны).
+# Эллоу, Альтер, Дейбрейк — ставит Капитан с консоли связи. Терринум и Экс — автоматически от системы орбиты.
+# Индомитус — только извне (админ, событие).
+
+- type: alertLevel
+  id: DHEllow
+  name: dh-alert-level-ellow
+  announcement: dh-alert-level-ellow-announcement
+  instructions: dh-alert-level-ellow-instructions
+  color: "#3FBF3F"
+  emergencyLightColor: LawnGreen
+  shuttleTime: 600
+
+- type: alertLevel
+  id: DHAlter
+  name: dh-alert-level-alter
+  announcement: dh-alert-level-alter-announcement
+  instructions: dh-alert-level-alter-instructions
+  sound: /Audio/Misc/notice1.ogg
+  color: "#FF8C1A"
+  emergencyLightColor: "#FF8C1A"
+  forceEnableEmergencyLights: true
+  shuttleTime: 600
+
+- type: alertLevel
+  id: DHDaybreak
+  name: dh-alert-level-daybreak
+  announcement: dh-alert-level-daybreak-announcement
+  instructions: dh-alert-level-daybreak-instructions
+  sound: /Audio/Misc/redalert.ogg
+  color: "#D62828"
+  emergencyLightColor: Red
+  forceEnableEmergencyLights: true
+  shuttleTime: 600
+
+- type: alertLevel
+  id: DHTerrinum
+  name: dh-alert-level-terrinum
+  announcement: dh-alert-level-terrinum-announcement
+  instructions: dh-alert-level-terrinum-instructions
+  selectable: false
+  disableSelection: true
+  sound:
+    path: /Audio/Misc/gamma.ogg
+    params:
+      volume: -2
+  color: "#2F6FDB"
+  emergencyLightColor: "#2F6FDB"
+  forceEnableEmergencyLights: true
+  shuttleTime: 600
+
+- type: alertLevel
+  id: DHEx
+  name: dh-alert-level-ex
+  announcement: dh-alert-level-ex-announcement
+  instructions: dh-alert-level-ex-instructions
+  selectable: false
+  disableSelection: true
+  sound:
+    path: /Audio/Misc/delta.ogg
+    params:
+      volume: -3
+  color: "#7A0A0A"
+  emergencyLightColor: "#B01010"
+  forceEnableEmergencyLights: true
+  shuttleTime: 300
+
+- type: alertLevel
+  id: DHIndomitus
+  name: dh-alert-level-indomitus
+  announcement: dh-alert-level-indomitus-announcement
+  instructions: dh-alert-level-indomitus-instructions
+  selectable: false
+  disableSelection: true
+  sound:
+    path: /Audio/_DarkestHour/Announcements/indomitus.ogg
+    params:
+      volume: -4
+  color: "#5E8C2A"
+  emergencyLightColor: "#5E8C2A"
+  forceEnableEmergencyLights: true
+  shuttleTime: 1200

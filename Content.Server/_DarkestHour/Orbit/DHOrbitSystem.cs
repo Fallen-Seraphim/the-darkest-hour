@@ -112,9 +112,9 @@ public sealed partial class DHOrbitSystem : EntitySystem
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private UserInterfaceSystem _ui = default!;
 
-    public static readonly ProtoId<AlertLevelPrototype> Terrinum = "Gamma";
+    public static readonly ProtoId<AlertLevelPrototype> Terrinum = "DHTerrinum";
     public static readonly ProtoId<AlertLevelPrototype> Ex = "DHEx";
-    public static readonly ProtoId<AlertLevelPrototype> Ellow = "Green";
+    public static readonly ProtoId<AlertLevelPrototype> Ellow = "DHEllow";
 
     private static readonly TimeSpan UpdateInterval = TimeSpan.FromSeconds(1);
     private static readonly EntProtoId[] Debris = { "MeteorSpaceDust", "MeteorSmall", "MeteorSmall", "MeteorMedium" };
@@ -269,14 +269,14 @@ public sealed partial class DHOrbitSystem : EntitySystem
             orbit.TerrinumSet = true;
             if (current != Ex)
                 _alert.SetLevel(ent.Owner, Terrinum, true, true, true, false);
-            Announce(ent, "dh-orbit-announce-terrinum", Color.PaleVioletRed);
+            Announce(ent, "dh-orbit-announce-terrinum", Color.FromHex("#2F6FDB"));
         }
         else if (orbit.TerrinumSet && orbit.Altitude >= orbit.TerrinumAltitude + orbit.RecoveryMargin)
         {
             orbit.TerrinumSet = false;
             if (current == Terrinum)
                 _alert.SetLevel(ent.Owner, Ellow, true, true, true, false);
-            Announce(ent, "dh-orbit-announce-recovered", Color.LightGreen);
+            Announce(ent, "dh-orbit-announce-recovered", Color.FromHex("#3FBF3F"));
         }
     }
 

@@ -1,11 +1,9 @@
 ## DarkestHour: орбита станции
 
-dh-alert-level-ex-announcement = The station's orbit can no longer be corrected. The station is falling. All work is cancelled: get to the evacuation shuttle and escape pods.
-
 dh-orbit-announce-sender = Orbit control
-dh-orbit-announce-terrinum = Orbital altitude has dropped to {$altitude} km. The station is on a falling trajectory. Fire the orbital correction thrusters immediately.
+dh-orbit-announce-terrinum = Orbital altitude: {$altitude} km.
 dh-orbit-announce-recovered = Orbital altitude restored to {$altitude} km. The trajectory is stable.
-dh-orbit-announce-ex = Orbital altitude is {$altitude} km. The orbit is beyond correction. The station will hit the surface in ten minutes.
+dh-orbit-announce-ex = Orbital altitude: {$altitude} km. Ten minutes to impact.
 dh-orbit-announce-impact = The station has entered the atmosphere of the moon.
 
 dh-orbit-ui-title = Orbit control
