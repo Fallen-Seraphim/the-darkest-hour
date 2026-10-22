@@ -128,7 +128,11 @@ public sealed partial class DHTraumaSystem : EntitySystem
         var far = origin is { } o && o != ent.Owner &&
                   !_transform.InRange(Transform(o).Coordinates, Transform(ent).Coordinates, MeleeRange);
 
-        var category = ResolvePresent(PickPart(ent, origin, far), organs);
+        var picked = ent.Comp.PendingHitPart != null && ent.Comp.PendingHitTick == _timing.CurTick
+            ? ent.Comp.PendingHitPart
+            : PickPart(ent, origin, far);
+        ent.Comp.PendingHitPart = null;
+        var category = ResolvePresent(picked, organs);
         if (category == null)
             return;
 
@@ -185,6 +189,25 @@ public sealed partial class DHTraumaSystem : EntitySystem
         {
             Sever(ent, category, limb);
         }
+    }
+
+    /// <summary>
+    /// Выбирает часть тела для удара заранее, до брони (модульная броня защищает часть, в которую попали), и
+    /// запоминает её: травмы этого же удара придутся туда же. Без травм — просто случайная часть.
+    /// </summary>
+    public string PickHitPart(EntityUid target, EntityUid? origin)
+    {
+        var far = origin is { } o && o != target && Exists(o) &&
+                  !_transform.InRange(Transform(o).Coordinates, Transform(target).Coordinates, MeleeRange);
+
+        if (!TryComp<DHTraumaComponent>(target, out var trauma))
+            return PickPart((target, null!), origin, far);
+
+        var part = PickPart((target, trauma), origin, far);
+        part = ResolvePresent(part, GetOrgans((target, trauma))) ?? part;
+        trauma.PendingHitPart = part;
+        trauma.PendingHitTick = _timing.CurTick;
+        return part;
     }
 
     /// <summary>Куда пришёлся удар: в выбранную атакующим зону (с точностью) или случайно.</summary>

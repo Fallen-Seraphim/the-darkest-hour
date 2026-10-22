@@ -1,0 +1,663 @@
+# DarkestHour: модульная броня IMB-1 (Imperial Marine Corps). Сгенерировано Tools/_DarkestHour/modular_armor/gen_yaml.py —
+# правьте генератор. Спрайты — Tools/_DarkestHour/modular_armor/build.py.
+
+- type: entity
+  parent: [ ClothingOuterHardsuitBase, BaseSyndicateContraband ]
+  id: DHClothingOuterModularIMB1
+  name: IMB-1 body suit
+  description: "The sealed black body suit of the IMB-1 modular armour of the Imperial Marine Corps. White armour modules lock onto it at the arms, legs and torso; a special system fits on the back."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_body.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_body.rsi
+  - type: Item
+    size: Huge
+    shape:
+    - 0,0,3,3
+  - type: PressureProtection
+    highPressureMultiplier: 0.1
+    lowPressureMultiplier: 1000
+  - type: ExplosionResistance
+    damageCoefficient: 0.8
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.95
+        Slash: 0.95
+        Piercing: 0.95
+        Heat: 0.9
+        Radiation: 0.6
+        Caustic: 0.6
+  - type: ClothingSpeedModifier
+    walkModifier: 1
+    sprintModifier: 1
+  - type: HeldSpeedModifier
+  - type: ToggleableClothing
+    clothingPrototype: DHClothingHeadHelmetModularIMB1
+  - type: DHModularArmor
+    faction: imb1
+  - type: ContainerContainer
+    containers:
+      toggleable-clothing: !type:ContainerSlot {}
+      dh_armor_torso: !type:ContainerSlot {}
+      dh_armor_armleft: !type:ContainerSlot {}
+      dh_armor_armright: !type:ContainerSlot {}
+      dh_armor_legleft: !type:ContainerSlot {}
+      dh_armor_legright: !type:ContainerSlot {}
+      dh_armor_special: !type:ContainerSlot {}
+  - type: Tag
+    tags:
+    - Hardsuit
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 4000
+
+- type: entity
+  parent: [ ClothingHeadHardsuitBase, BaseSyndicateContraband ]
+  id: DHClothingHeadHelmetModularIMB1
+  name: IMB-1 helmet
+  description: "The IMB-1 helmet: a white combat helmet over a twin-filter gas mask. Seals the suit."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/Head/ModularArmor/imb1_helmet.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Clothing/Head/ModularArmor/imb1_helmet.rsi
+  - type: PressureProtection
+    highPressureMultiplier: 0.1
+    lowPressureMultiplier: 1000
+  # Шлем защищает только голову (часть тела выбирают травмы), общей брони у него нет.
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 1
+        Slash: 1
+        Piercing: 1
+        Heat: 1
+        Radiation: 1
+  - type: DHPartArmor
+    parts: [ Head ]
+    modifiers:
+      coefficients:
+        Blunt: 0.6
+        Slash: 0.6
+        Piercing: 0.6
+        Heat: 0.7
+
+- type: entity
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: DHArmorModuleIMB1LightTorso
+  name: IMB-1 light torso plate
+  description: "A light armour module: thin plates, barely slows you down. Can be swapped in the field."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_light.rsi
+    state: icon_torso
+  - type: Item
+    size: Normal
+  - type: DHArmorModule
+    slot: Torso
+    class: Light
+    faction: imb1
+    speed: 0.99
+    maxIntegrity: 150
+    integrity: 150
+    equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_light.rsi
+    equippedState: torso
+    modifiers:
+      coefficients:
+        Blunt: 0.8
+        Slash: 0.8
+        Piercing: 0.8
+        Heat: 0.85
+  - type: StaticPrice
+    price: 300
+
+- type: entity
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: DHArmorModuleIMB1LightArmLeft
+  name: IMB-1 light left arm guard
+  description: "A light armour module: thin plates, barely slows you down. Can be swapped in the field."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_light.rsi
+    state: icon_arm_left
+  - type: Item
+    size: Normal
+  - type: DHArmorModule
+    slot: ArmLeft
+    class: Light
+    faction: imb1
+    speed: 0.99
+    maxIntegrity: 100
+    integrity: 100
+    equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_light.rsi
+    equippedState: arm_left
+    modifiers:
+      coefficients:
+        Blunt: 0.8
+        Slash: 0.8
+        Piercing: 0.8
+        Heat: 0.85
+  - type: StaticPrice
+    price: 300
+
+- type: entity
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: DHArmorModuleIMB1LightArmRight
+  name: IMB-1 light right arm guard
+  description: "A light armour module: thin plates, barely slows you down. Can be swapped in the field."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_light.rsi
+    state: icon_arm_right
+  - type: Item
+    size: Normal
+  - type: DHArmorModule
+    slot: ArmRight
+    class: Light
+    faction: imb1
+    speed: 0.99
+    maxIntegrity: 100
+    integrity: 100
+    equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_light.rsi
+    equippedState: arm_right
+    modifiers:
+      coefficients:
+        Blunt: 0.8
+        Slash: 0.8
+        Piercing: 0.8
+        Heat: 0.85
+  - type: StaticPrice
+    price: 300
+
+- type: entity
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: DHArmorModuleIMB1LightLegLeft
+  name: IMB-1 light left leg guard
+  description: "A light armour module: thin plates, barely slows you down. Can be swapped in the field."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_light.rsi
+    state: icon_leg_left
+  - type: Item
+    size: Normal
+  - type: DHArmorModule
+    slot: LegLeft
+    class: Light
+    faction: imb1
+    speed: 0.99
+    maxIntegrity: 100
+    integrity: 100
+    equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_light.rsi
+    equippedState: leg_left
+    modifiers:
+      coefficients:
+        Blunt: 0.8
+        Slash: 0.8
+        Piercing: 0.8
+        Heat: 0.85
+  - type: StaticPrice
+    price: 300
+
+- type: entity
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: DHArmorModuleIMB1LightLegRight
+  name: IMB-1 light right leg guard
+  description: "A light armour module: thin plates, barely slows you down. Can be swapped in the field."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_light.rsi
+    state: icon_leg_right
+  - type: Item
+    size: Normal
+  - type: DHArmorModule
+    slot: LegRight
+    class: Light
+    faction: imb1
+    speed: 0.99
+    maxIntegrity: 100
+    integrity: 100
+    equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_light.rsi
+    equippedState: leg_right
+    modifiers:
+      coefficients:
+        Blunt: 0.8
+        Slash: 0.8
+        Piercing: 0.8
+        Heat: 0.85
+  - type: StaticPrice
+    price: 300
+
+- type: entity
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: DHArmorModuleIMB1HeavyTorso
+  name: IMB-1 heavy torso plate
+  description: "A heavy armour module: thick plates that stop rifle rounds but weigh you down. Can only be fitted or removed at an armour maintenance rack."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_heavy.rsi
+    state: icon_torso
+  - type: Item
+    size: Large
+  - type: DHArmorModule
+    slot: Torso
+    class: Heavy
+    faction: imb1
+    speed: 0.95
+    maxIntegrity: 390
+    integrity: 390
+    equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_heavy.rsi
+    equippedState: torso
+    modifiers:
+      coefficients:
+        Blunt: 0.45
+        Slash: 0.45
+        Piercing: 0.45
+        Heat: 0.7
+        Caustic: 0.8
+  - type: StaticPrice
+    price: 900
+
+- type: entity
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: DHArmorModuleIMB1HeavyArmLeft
+  name: IMB-1 heavy left arm guard
+  description: "A heavy armour module: thick plates that stop rifle rounds but weigh you down. Can only be fitted or removed at an armour maintenance rack."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_heavy.rsi
+    state: icon_arm_left
+  - type: Item
+    size: Large
+  - type: DHArmorModule
+    slot: ArmLeft
+    class: Heavy
+    faction: imb1
+    speed: 0.95
+    maxIntegrity: 260
+    integrity: 260
+    equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_heavy.rsi
+    equippedState: arm_left
+    modifiers:
+      coefficients:
+        Blunt: 0.45
+        Slash: 0.45
+        Piercing: 0.45
+        Heat: 0.7
+        Caustic: 0.8
+  - type: StaticPrice
+    price: 900
+
+- type: entity
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: DHArmorModuleIMB1HeavyArmRight
+  name: IMB-1 heavy right arm guard
+  description: "A heavy armour module: thick plates that stop rifle rounds but weigh you down. Can only be fitted or removed at an armour maintenance rack."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_heavy.rsi
+    state: icon_arm_right
+  - type: Item
+    size: Large
+  - type: DHArmorModule
+    slot: ArmRight
+    class: Heavy
+    faction: imb1
+    speed: 0.95
+    maxIntegrity: 260
+    integrity: 260
+    equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_heavy.rsi
+    equippedState: arm_right
+    modifiers:
+      coefficients:
+        Blunt: 0.45
+        Slash: 0.45
+        Piercing: 0.45
+        Heat: 0.7
+        Caustic: 0.8
+  - type: StaticPrice
+    price: 900
+
+- type: entity
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: DHArmorModuleIMB1HeavyLegLeft
+  name: IMB-1 heavy left leg guard
+  description: "A heavy armour module: thick plates that stop rifle rounds but weigh you down. Can only be fitted or removed at an armour maintenance rack."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_heavy.rsi
+    state: icon_leg_left
+  - type: Item
+    size: Large
+  - type: DHArmorModule
+    slot: LegLeft
+    class: Heavy
+    faction: imb1
+    speed: 0.95
+    maxIntegrity: 260
+    integrity: 260
+    equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_heavy.rsi
+    equippedState: leg_left
+    modifiers:
+      coefficients:
+        Blunt: 0.45
+        Slash: 0.45
+        Piercing: 0.45
+        Heat: 0.7
+        Caustic: 0.8
+  - type: StaticPrice
+    price: 900
+
+- type: entity
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: DHArmorModuleIMB1HeavyLegRight
+  name: IMB-1 heavy right leg guard
+  description: "A heavy armour module: thick plates that stop rifle rounds but weigh you down. Can only be fitted or removed at an armour maintenance rack."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_heavy.rsi
+    state: icon_leg_right
+  - type: Item
+    size: Large
+  - type: DHArmorModule
+    slot: LegRight
+    class: Heavy
+    faction: imb1
+    speed: 0.95
+    maxIntegrity: 260
+    integrity: 260
+    equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_heavy.rsi
+    equippedState: leg_right
+    modifiers:
+      coefficients:
+        Blunt: 0.45
+        Slash: 0.45
+        Piercing: 0.45
+        Heat: 0.7
+        Caustic: 0.8
+  - type: StaticPrice
+    price: 900
+
+- type: entity
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: DHArmorModuleIMB1CompositeTorso
+  name: IMB-1 composite torso plate
+  description: "A composite armour module: layered plates, good against fire and bullets alike, light enough to swap in the field."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_composite.rsi
+    state: icon_torso
+  - type: Item
+    size: Normal
+  - type: DHArmorModule
+    slot: Torso
+    class: Composite
+    faction: imb1
+    speed: 0.98
+    maxIntegrity: 255
+    integrity: 255
+    equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_composite.rsi
+    equippedState: torso
+    modifiers:
+      coefficients:
+        Blunt: 0.6
+        Slash: 0.6
+        Piercing: 0.55
+        Heat: 0.55
+        Caustic: 0.7
+  - type: StaticPrice
+    price: 700
+
+- type: entity
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: DHArmorModuleIMB1CompositeArmLeft
+  name: IMB-1 composite left arm guard
+  description: "A composite armour module: layered plates, good against fire and bullets alike, light enough to swap in the field."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_composite.rsi
+    state: icon_arm_left
+  - type: Item
+    size: Normal
+  - type: DHArmorModule
+    slot: ArmLeft
+    class: Composite
+    faction: imb1
+    speed: 0.98
+    maxIntegrity: 170
+    integrity: 170
+    equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_composite.rsi
+    equippedState: arm_left
+    modifiers:
+      coefficients:
+        Blunt: 0.6
+        Slash: 0.6
+        Piercing: 0.55
+        Heat: 0.55
+        Caustic: 0.7
+  - type: StaticPrice
+    price: 700
+
+- type: entity
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: DHArmorModuleIMB1CompositeArmRight
+  name: IMB-1 composite right arm guard
+  description: "A composite armour module: layered plates, good against fire and bullets alike, light enough to swap in the field."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_composite.rsi
+    state: icon_arm_right
+  - type: Item
+    size: Normal
+  - type: DHArmorModule
+    slot: ArmRight
+    class: Composite
+    faction: imb1
+    speed: 0.98
+    maxIntegrity: 170
+    integrity: 170
+    equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_composite.rsi
+    equippedState: arm_right
+    modifiers:
+      coefficients:
+        Blunt: 0.6
+        Slash: 0.6
+        Piercing: 0.55
+        Heat: 0.55
+        Caustic: 0.7
+  - type: StaticPrice
+    price: 700
+
+- type: entity
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: DHArmorModuleIMB1CompositeLegLeft
+  name: IMB-1 composite left leg guard
+  description: "A composite armour module: layered plates, good against fire and bullets alike, light enough to swap in the field."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_composite.rsi
+    state: icon_leg_left
+  - type: Item
+    size: Normal
+  - type: DHArmorModule
+    slot: LegLeft
+    class: Composite
+    faction: imb1
+    speed: 0.98
+    maxIntegrity: 170
+    integrity: 170
+    equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_composite.rsi
+    equippedState: leg_left
+    modifiers:
+      coefficients:
+        Blunt: 0.6
+        Slash: 0.6
+        Piercing: 0.55
+        Heat: 0.55
+        Caustic: 0.7
+  - type: StaticPrice
+    price: 700
+
+- type: entity
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: DHArmorModuleIMB1CompositeLegRight
+  name: IMB-1 composite right leg guard
+  description: "A composite armour module: layered plates, good against fire and bullets alike, light enough to swap in the field."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_composite.rsi
+    state: icon_leg_right
+  - type: Item
+    size: Normal
+  - type: DHArmorModule
+    slot: LegRight
+    class: Composite
+    faction: imb1
+    speed: 0.98
+    maxIntegrity: 170
+    integrity: 170
+    equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_composite.rsi
+    equippedState: leg_right
+    modifiers:
+      coefficients:
+        Blunt: 0.6
+        Slash: 0.6
+        Piercing: 0.55
+        Heat: 0.55
+        Caustic: 0.7
+  - type: StaticPrice
+    price: 700
+
+- type: entity
+  parent: DHClothingOuterModularIMB1
+  id: DHClothingOuterModularIMB1Composite
+  suffix: Composite
+  components:
+  - type: DHModularArmor
+    faction: imb1
+    startingModules:
+      Torso: DHArmorModuleIMB1CompositeTorso
+      ArmLeft: DHArmorModuleIMB1CompositeArmLeft
+      ArmRight: DHArmorModuleIMB1CompositeArmRight
+      LegLeft: DHArmorModuleIMB1CompositeLegLeft
+      LegRight: DHArmorModuleIMB1CompositeLegRight
+
+- type: entity
+  parent: DHClothingOuterModularIMB1
+  id: DHClothingOuterModularIMB1Standard
+  suffix: Standard
+  components:
+  - type: DHModularArmor
+    faction: imb1
+    startingModules:
+      Torso: DHArmorModuleIMB1CompositeTorso
+      ArmLeft: DHArmorModuleIMB1LightArmLeft
+      ArmRight: DHArmorModuleIMB1LightArmRight
+      LegLeft: DHArmorModuleIMB1LightLegLeft
+      LegRight: DHArmorModuleIMB1LightLegRight
+
+- type: entity
+  parent: DHClothingOuterModularIMB1
+  id: DHClothingOuterModularIMB1StandardAutoMed
+  suffix: StandardAutoMed
+  components:
+  - type: DHModularArmor
+    faction: imb1
+    startingModules:
+      Torso: DHArmorModuleIMB1CompositeTorso
+      ArmLeft: DHArmorModuleIMB1LightArmLeft
+      ArmRight: DHArmorModuleIMB1LightArmRight
+      LegLeft: DHArmorModuleIMB1LightLegLeft
+      LegRight: DHArmorModuleIMB1LightLegRight
+      Special: DHArmorSpecialAutoMed
+
+- type: entity
+  parent: DHClothingOuterModularIMB1
+  id: DHClothingOuterModularIMB1StandardStorage
+  suffix: StandardStorage
+  components:
+  - type: DHModularArmor
+    faction: imb1
+    startingModules:
+      Torso: DHArmorModuleIMB1CompositeTorso
+      ArmLeft: DHArmorModuleIMB1LightArmLeft
+      ArmRight: DHArmorModuleIMB1LightArmRight
+      LegLeft: DHArmorModuleIMB1LightLegLeft
+      LegRight: DHArmorModuleIMB1LightLegRight
+      Special: DHArmorSpecialStorage
+
+- type: entity
+  parent: DHClothingOuterModularIMB1
+  id: DHClothingOuterModularIMB1StandardTanks
+  suffix: StandardTanks
+  components:
+  - type: DHModularArmor
+    faction: imb1
+    startingModules:
+      Torso: DHArmorModuleIMB1CompositeTorso
+      ArmLeft: DHArmorModuleIMB1LightArmLeft
+      ArmRight: DHArmorModuleIMB1LightArmRight
+      LegLeft: DHArmorModuleIMB1LightLegLeft
+      LegRight: DHArmorModuleIMB1LightLegRight
+      Special: DHArmorSpecialTankStorage
+
+- type: entity
+  parent: DHClothingOuterModularIMB1
+  id: DHClothingOuterModularIMB1LightFlamer
+  suffix: LightFlamer
+  components:
+  - type: DHModularArmor
+    faction: imb1
+    startingModules:
+      Torso: DHArmorModuleIMB1LightTorso
+      ArmLeft: DHArmorModuleIMB1LightArmLeft
+      ArmRight: DHArmorModuleIMB1LightArmRight
+      LegLeft: DHArmorModuleIMB1LightLegLeft
+      LegRight: DHArmorModuleIMB1LightLegRight
+      Special: DHArmorSpecialFlamer
+
+- type: entity
+  parent: DHClothingOuterModularIMB1
+  id: DHClothingOuterModularIMB1LightShotgun
+  suffix: LightShotgun
+  components:
+  - type: DHModularArmor
+    faction: imb1
+    startingModules:
+      Torso: DHArmorModuleIMB1LightTorso
+      ArmLeft: DHArmorModuleIMB1LightArmLeft
+      ArmRight: DHArmorModuleIMB1LightArmRight
+      LegLeft: DHArmorModuleIMB1LightLegLeft
+      LegRight: DHArmorModuleIMB1LightLegRight
+      Special: DHArmorSpecialShotgun
+
+- type: entity
+  parent: DHClothingOuterModularIMB1
+  id: DHClothingOuterModularIMB1LightAutoMed
+  suffix: LightAutoMed
+  components:
+  - type: DHModularArmor
+    faction: imb1
+    startingModules:
+      Torso: DHArmorModuleIMB1LightTorso
+      ArmLeft: DHArmorModuleIMB1LightArmLeft
+      ArmRight: DHArmorModuleIMB1LightArmRight
+      LegLeft: DHArmorModuleIMB1LightLegLeft
+      LegRight: DHArmorModuleIMB1LightLegRight
+      Special: DHArmorSpecialAutoMed
+
+- type: entity
+  parent: DHClothingOuterModularIMB1
+  id: DHClothingOuterModularIMB1HeavyAutoMed
+  suffix: HeavyAutoMed
+  components:
+  - type: DHModularArmor
+    faction: imb1
+    startingModules:
+      Torso: DHArmorModuleIMB1HeavyTorso
+      ArmLeft: DHArmorModuleIMB1HeavyArmLeft
+      ArmRight: DHArmorModuleIMB1HeavyArmRight
+      LegLeft: DHArmorModuleIMB1HeavyLegLeft
+      LegRight: DHArmorModuleIMB1HeavyLegRight
+      Special: DHArmorSpecialAutoMed

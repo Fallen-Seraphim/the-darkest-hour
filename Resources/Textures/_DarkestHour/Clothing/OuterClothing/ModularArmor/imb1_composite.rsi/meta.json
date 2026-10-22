@@ -1,0 +1,46 @@
+{
+    "version": 1,
+    "license": "CC0-1.0",
+    "copyright": "Original work by TJohnson. lamia & segment by @noctyrnal, equipped-OUTERCLOTHING-reptilian sprite by Zethine / @synthetic_086 (discord) | Cut into armour modules by body part and recoloured for The Darkest Hour (Tools/_DarkestHour/modular_armor)",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "torso",
+            "directions": 4
+        },
+        {
+            "name": "icon_torso"
+        },
+        {
+            "name": "arm_left",
+            "directions": 4
+        },
+        {
+            "name": "icon_arm_left"
+        },
+        {
+            "name": "arm_right",
+            "directions": 4
+        },
+        {
+            "name": "icon_arm_right"
+        },
+        {
+            "name": "leg_left",
+            "directions": 4
+        },
+        {
+            "name": "icon_leg_left"
+        },
+        {
+            "name": "leg_right",
+            "directions": 4
+        },
+        {
+            "name": "icon_leg_right"
+        }
+    ]
+}
