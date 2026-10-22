@@ -101,3 +101,21 @@
 
 - type: playTimeTracker
   id: JobDHMetallArmedRifleman
+
+- type: playTimeTracker
+  id: JobDHRepublicCommander
+
+- type: playTimeTracker
+  id: JobDHRepublicSniper
+
+- type: playTimeTracker
+  id: JobDHRepublicMachinegunner
+
+- type: playTimeTracker
+  id: JobDHRepublicRifleman
+
+- type: playTimeTracker
+  id: JobDHRepublicMedic
+
+- type: playTimeTracker
+  id: JobDHRepublicFlamer

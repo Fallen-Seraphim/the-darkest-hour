@@ -1,0 +1,77 @@
+# Соединённая Республика: доступ Республиканского Армейского Корпуса, его двери и шлюзы.
+# Спрайты шлюзов — Tools/_DarkestHour/airlocks (зелёный корпус, хаки).
+
+- type: accessLevel
+  id: DHRepublic
+  name: id-card-access-level-dh-republic
+
+- type: entity
+  parent: DoorElectronics
+  id: DHDoorElectronicsRepublic
+  suffix: Republic, Locked
+  components:
+  - type: AccessReader
+    access: [["DHRepublic"]]
+
+- type: entity
+  parent: Airlock
+  id: DHAirlockRepublic
+  suffix: Republic
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/republic-base.rsi
+  - type: Paintable
+    group: null
+
+- type: entity
+  parent: AirlockGlass
+  id: DHAirlockRepublicGlass
+  suffix: Republic
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Glass/republic-base.rsi
+  - type: Paintable
+    group: null
+
+- type: entity
+  parent: DHAirlockRepublic
+  id: DHAirlockRepublicLocked
+  suffix: Republic, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DHDoorElectronicsRepublic ]
+
+- type: entity
+  parent: DHAirlockRepublicGlass
+  id: DHAirlockRepublicGlassLocked
+  suffix: Republic, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DHDoorElectronicsRepublic ]
+
+- type: entity
+  parent: AirlockShuttle
+  id: DHAirlockShuttleRepublic
+  suffix: Republic
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/shuttle-republic.rsi
+
+- type: entity
+  parent: AirlockGlassShuttle
+  id: DHAirlockGlassShuttleRepublic
+  suffix: Republic, Glass
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Glass/shuttle-republic.rsi
+
+- type: entity
+  parent: WindoorCommandLocked
+  id: DHWindoorRepublicLocked
+  suffix: Republic, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DHDoorElectronicsRepublic ]

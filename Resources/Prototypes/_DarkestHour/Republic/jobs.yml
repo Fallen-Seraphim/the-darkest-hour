@@ -1,0 +1,85 @@
+# Соединённая Республика: должности отряда зачистки (только призраки). Доступ — весь станционный + республиканский.
+
+- type: job
+  id: DHRepublicCommander
+  name: dh-job-republic-commander-name
+  description: dh-job-republic-commander-desc
+  playTimeTracker: JobDHRepublicCommander
+  setPreference: false
+  startingGear: DHRepublicCommanderGear
+  icon: JobIconDHRepublicCommander
+  supervisors: dh-job-republic-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - DHRepublic
+
+- type: job
+  id: DHRepublicSniper
+  name: dh-job-republic-sniper-name
+  description: dh-job-republic-sniper-desc
+  playTimeTracker: JobDHRepublicSniper
+  setPreference: false
+  startingGear: DHRepublicSniperGear
+  icon: JobIconDHRepublicSniper
+  supervisors: dh-job-republic-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - DHRepublic
+
+- type: job
+  id: DHRepublicMachinegunner
+  name: dh-job-republic-machinegunner-name
+  description: dh-job-republic-machinegunner-desc
+  playTimeTracker: JobDHRepublicMachinegunner
+  setPreference: false
+  startingGear: DHRepublicMachinegunnerGear
+  icon: JobIconDHRepublicMachinegunner
+  supervisors: dh-job-republic-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - DHRepublic
+
+- type: job
+  id: DHRepublicRifleman
+  name: dh-job-republic-rifleman-name
+  description: dh-job-republic-rifleman-desc
+  playTimeTracker: JobDHRepublicRifleman
+  setPreference: false
+  startingGear: DHRepublicRiflemanGear
+  icon: JobIconDHRepublicRifleman
+  supervisors: dh-job-republic-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - DHRepublic
+
+- type: job
+  id: DHRepublicMedic
+  name: dh-job-republic-medic-name
+  description: dh-job-republic-medic-desc
+  playTimeTracker: JobDHRepublicMedic
+  setPreference: false
+  startingGear: DHRepublicMedicGear
+  icon: JobIconDHRepublicMedic
+  supervisors: dh-job-republic-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - DHRepublic
+
+- type: job
+  id: DHRepublicFlamer
+  name: dh-job-republic-flamer-name
+  description: dh-job-republic-flamer-desc
+  playTimeTracker: JobDHRepublicFlamer
+  setPreference: false
+  startingGear: DHRepublicFlamerGear
+  icon: JobIconDHRepublicFlamer
+  supervisors: dh-job-republic-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - DHRepublic

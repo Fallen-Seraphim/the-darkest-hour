@@ -35,6 +35,17 @@ public sealed class DHAdminTab : Control
         callMetallArmed.OnPressed += _ => _console.ExecuteCommand("dhcallmetallarmed");
         root.AddChild(callMetallArmed);
 
+        var callRepublic = new ConfirmButton
+        {
+            Text = Loc.GetString("dh-admin-tab-call-republic"),
+            ToolTip = Loc.GetString("dh-admin-tab-call-republic-tooltip"),
+            HorizontalAlignment = HAlignment.Left,
+            MinWidth = 260,
+            ModulateSelfOverride = Color.FromHex("#5E8C2A"),
+        };
+        callRepublic.OnPressed += _ => _console.ExecuteCommand("dhcallrepublic");
+        root.AddChild(callRepublic);
+
         AddChild(root);
     }
 }
