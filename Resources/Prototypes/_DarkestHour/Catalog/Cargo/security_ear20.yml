@@ -1,0 +1,44 @@
+# DarkestHour: довоенная энергетическая винтовка Ассоциации EAR-20/LR для СБ станции.
+- type: cargoProduct
+  id: DHSecurityEAR20
+  icon:
+    sprite: _DarkestHour/Objects/Weapons/Guns/ear20.rsi
+    state: base
+  product: DHCrateSecurityEAR20
+  cost: 9000
+  category: cargoproduct-category-name-security
+  group: market
+
+- type: cargoProduct
+  id: DHSecurityKaneCartridges
+  icon:
+    sprite: Objects/Power/power_cells.rsi
+    state: hyper
+  product: DHCrateSecurityKaneCartridges
+  cost: 2000
+  category: cargoproduct-category-name-security
+  group: market
+
+- type: entity
+  id: DHCrateSecurityEAR20
+  parent: CrateWeaponSecure
+  name: EAR-20/LR rifle crate
+  description: Two pre-Collapse EAR-20/LR energy rifles with two spare Kane cartridges. Requires armory access to open.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHWeaponEnergyEAR20
+      amount: 2
+    - id: DHKaneCartridgeEAR
+      amount: 2
+
+- type: entity
+  id: DHCrateSecurityKaneCartridges
+  parent: CrateWeaponSecure
+  name: Kane cartridge crate
+  description: Four Kane cartridges for the EAR-20/LR. Requires armory access to open.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHKaneCartridgeEAR
+      amount: 4
