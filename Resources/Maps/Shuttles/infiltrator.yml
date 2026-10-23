@@ -39,6 +39,7 @@ entities:
     components:
     - type: MetaData
       name: IL-7 Gladius
+    - type: NukeOpsShuttle
     - type: Transform
       parent: invalid
       pos: 0.64252126,4.1776605

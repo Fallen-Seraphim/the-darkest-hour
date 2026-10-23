@@ -11,6 +11,7 @@ FILES = {
         'names': [('GX-13 Infiltrator', 'IL-7 Gladius')],
         'racks': [(1, '-4.5,-16.5')],
         # точки появления морпехов, назначенных админом (правило DHImperialRaidSpawn грузит только этот шаттл)
+        'raid_shuttle': True,
         'spawns': [(1, '-2.5,-16.5'), (1, '-0.5,-16.5'), (1, '1.5,-16.5'), (1, '-1.5,-17.5'), (1, '0.5,-17.5')],
     },
     'Resources/Maps/Nonstations/nukieplanet.yml': {
@@ -55,6 +56,11 @@ def main():
             s = body + '\n'
             count = len(re.findall(r'^  - uid: \d+$', s, re.M))
             s = re.sub(r'entityCount: \d+', 'entityCount: %d' % count, s, count=1)
+        # отдельный Gladius (правило DHImperialRaidSpawn) должен считаться шаттлом Рейда — ради ультиматума;
+        # на базе Рейда этот же файл грузится с addComponents NukeOpsShuttle, повторно компонент не добавится
+        if spec.get('raid_shuttle') and 'type: NukeOpsShuttle' not in s:
+            s = s.replace('    - type: MetaData\n      name: IL-7 Gladius\n',
+                          '    - type: MetaData\n      name: IL-7 Gladius\n    - type: NukeOpsShuttle\n', 1)
         open(path, 'w', encoding='utf-8').write(s)
         print(path, 'ok')
 
