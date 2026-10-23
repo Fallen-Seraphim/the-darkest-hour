@@ -257,7 +257,7 @@ public sealed partial class DHModularArmorSystem : EntitySystem
         _hands.PickupOrDrop(args.User, module);
     }
 
-    private void AddRemoveVerbs(Entity<DHModularArmorComponent> ent, EntityUid user, List<Verb> verbs)
+    private void AddRemoveVerbs(Entity<DHModularArmorComponent> ent, EntityUid user, SortedSet<Verb> verbs)
     {
         foreach (var (slot, module, _) in GetModules(ent))
         {
