@@ -133,6 +133,10 @@
     radius: 1
     energy: 0.5
     color: "#6ff0e1"
+  - type: Tag # DarkestHour: для плат машин на ячейках Кейна (СМЭС Кейна)
+    tags:
+    - PowerCell
+    - DHKanePowerCell
 
 - type: Tag
   id: DHKaneGrowable
