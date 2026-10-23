@@ -218,8 +218,8 @@
 - type: entity
   parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
   id: ClothingHeadHelmetHardsuitEngineeringWhite
-  name: chief engineer's hardsuit helmet
-  description: Special hardsuit helmet, made for the chief engineer of the station.
+  name: chief technician's hardsuit helmet
+  description: Special hardsuit helmet, made for the chief technician of the station.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Head/Hardsuits/engineering-white.rsi # DarkestHour: скафандр Monolith в цветах Metallistick (Tools/_DarkestHour/hardsuits)
@@ -240,7 +240,7 @@
 - type: entity
   parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
   id: ClothingHeadHelmetHardsuitMedical
-  name: chief medical officer's hardsuit helmet
+  name: chief physician's hardsuit helmet
   description: Lightweight medical hardsuit helmet that doesn't restrict your head movements.
   components:
   - type: Sprite
@@ -276,8 +276,8 @@
 - type: entity
   parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
   id: ClothingHeadHelmetHardsuitSecurityRed
-  name: head of security's hardsuit helmet
-  description: Security hardsuit helmet with the latest top secret NT-HUD software. Belongs to the HoS.
+  name: security chief's hardsuit helmet
+  description: Security hardsuit helmet with the latest top secret NT-HUD software. Belongs to the Security Chief.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Head/Hardsuits/security-red.rsi # DarkestHour: скафандр Monolith в цветах Metallistick (Tools/_DarkestHour/hardsuits)

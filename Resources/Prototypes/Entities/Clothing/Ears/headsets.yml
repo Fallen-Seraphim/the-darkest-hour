@@ -126,7 +126,7 @@
   parent: [ClothingHeadsetEngineering, BaseCommandContraband]
   id: ClothingHeadsetCE
   name: ce headset
-  description: A headset for the chief engineer to ignore all emergency calls on.
+  description: A headset for the chief technician to ignore all emergency calls on.
   components:
   - type: ContainerFill
     containers:
@@ -154,8 +154,8 @@
 - type: entity
   parent: [ClothingHeadsetMedical, BaseCommandContraband]
   id: ClothingHeadsetCMO
-  name: cmo headset
-  description: A headset used by the CMO.
+  name: chief physician headset
+  description: A headset used by the Chief Physician.
   components:
   - type: ContainerFill
     containers:

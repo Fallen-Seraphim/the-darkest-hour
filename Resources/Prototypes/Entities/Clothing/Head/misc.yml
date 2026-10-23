@@ -117,7 +117,7 @@
   parent: ClothingHeadBase
   id: ClothingHeadMirror
   name: head mirror
-  description: I doubt even the CMO knows how to use this thing.
+  description: I doubt even the Chief Physician knows how to use this thing.
   components:
   - type: Sprite
     sprite: Clothing/Head/Misc/head_mirror.rsi

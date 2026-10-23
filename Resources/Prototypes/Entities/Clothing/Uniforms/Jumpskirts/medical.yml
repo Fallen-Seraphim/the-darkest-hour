@@ -34,8 +34,8 @@
 - type: entity
   parent: [ClothingUniformSkirtBase, BaseCommandContraband]
   id: ClothingUniformJumpskirtCMO
-  name: chief medical officer's jumpskirt
-  description: It's a jumpskirt worn by those with the experience to be Chief Medical Officer. It provides minor biological protection.
+  name: chief physician's jumpskirt
+  description: It's a jumpskirt worn by those with the experience to be Chief Physician. It provides minor biological protection.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Medical/cmo.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
@@ -45,8 +45,8 @@
 - type: entity
   parent: [ClothingUniformSkirtBase, BaseCommandContraband]
   id: ClothingUniformJumpskirtCMOTurtle
-  name: chief medical officer's turtleneck jumpskirt
-  description: It's a turtleneck worn by those with the experience to be Chief Medical Officer. It provides minor biological protection.
+  name: chief physician's turtleneck jumpskirt
+  description: It's a turtleneck worn by those with the experience to be Chief Physician. It provides minor biological protection.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Medical/cmo_turtle.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
@@ -56,7 +56,7 @@
 - type: entity
   parent: ClothingUniformSkirtBase
   id: ClothingUniformJumpskirtMedicalDoctor
-  name: medical doctor jumpskirt
+  name: physician jumpskirt
   description: It's made of a special fiber that provides minor protection against biohazards. It has a cross on the chest denoting that the wearer is trained medical personnel.
   components:
   - type: Sprite
@@ -78,7 +78,7 @@
 - type: entity
   parent: ClothingUniformSkirtBase
   id: ClothingUniformJumpskirtSeniorPhysician
-  name: senior physician jumpskirt
+  name: lead physician jumpskirt
   description: A sign of skill and prestige within the medical department.
   components:
   - type: Sprite

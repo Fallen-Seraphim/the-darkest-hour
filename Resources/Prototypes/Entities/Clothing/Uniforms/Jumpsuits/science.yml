@@ -41,7 +41,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitSeniorResearcher
-  name: senior researcher jumpsuit
+  name: lead scientist jumpsuit
   description: A sign of skill and prestige within the science department.
   components:
   - type: Sprite

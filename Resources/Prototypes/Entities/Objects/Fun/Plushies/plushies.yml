@@ -85,7 +85,7 @@
   parent: BasePlushieGinormous
   id: PlushieThrongler
   name: throngler plushie
-  description: A stuffed toy to remind cargo techs of what they can no longer have.
+  description: A stuffed toy to remind loaders of what they can no longer have.
   components:
   - type: Sprite
     sprite: Objects/Weapons/Melee/ThronglerPlushie.rsi

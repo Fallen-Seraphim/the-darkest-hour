@@ -157,7 +157,7 @@
 - type: entity
   parent: ClothingHeadBase
   id: ClothingHeadHatBeretHoS
-  name: head of security's beret
+  name: security chief's beret
   description: A black beret with a commander's rank emblem. For officers that are more inclined towards style than safety.
   components:
   - type: Sprite
@@ -411,8 +411,8 @@
 - type: entity
   parent: [ClothingHeadBase, BaseCommandContraband]
   id: ClothingHeadHatHopcap
-  name: head of personnel's cap
-  description: A stylish cap worn by the Head of Personnel. Shows paperwork who's in charge.
+  name: adjutant's cap
+  description: A stylish cap worn by the Adjutant. Shows paperwork who's in charge.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Head/Hats/hopcap.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
@@ -430,8 +430,8 @@
 - type: entity
   parent: [ClothingHeadBase, BaseCommandContraband]
   id: ClothingHeadHatHoshat
-  name: head of security cap
-  description: A stylish cap worn by the Head of Security. Shows the officers who's in charge.
+  name: security chief cap
+  description: A stylish cap worn by the Security Chief. Shows the officers who's in charge.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Head/Hats/hoshat.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
@@ -1046,7 +1046,7 @@
 - type: entity
   parent: [ClothingHeadBase, BaseCommandContraband]
   id: ClothingHeadHatBeretCmo
-  name: chief medical officer's beret
+  name: chief physician's beret
   description: A turquoise beret with a cross on the front. The sight of it calms you down and makes it clear that you will be cured.
   components:
   - type: Sprite

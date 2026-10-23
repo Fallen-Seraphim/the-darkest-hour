@@ -1023,7 +1023,7 @@
   parent: PosterBase
   id: PosterLegitSafetyMothMeth
   name: "Safety Moth - Methamphetamine"
-  description: "This informational poster uses Safety Moth™ to tell the viewer to seek CMO approval before cooking methamphetamine. \"Stay close to the target temperature, and never go over!\" ...You shouldn't ever be making this."
+  description: "This informational poster uses Safety Moth™ to tell the viewer to seek Chief Physician approval before cooking methamphetamine. \"Stay close to the target temperature, and never go over!\" ...You shouldn't ever be making this."
   components:
     - type: Sprite
       state: poster46_legit
