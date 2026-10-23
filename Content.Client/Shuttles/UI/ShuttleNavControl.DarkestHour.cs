@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Client._DarkestHour.Shuttles.Rift;
 using Content.Shared._DarkestHour.Shuttles.Rift;
 using Robust.Client.Graphics;
 using Robust.Shared.Prototypes;
@@ -9,8 +10,6 @@ namespace Content.Client.Shuttles.UI;
 // с расстоянием до поверхности. Тела огромные, поэтому рисуется только видимая дуга.
 public sealed partial class ShuttleNavControl
 {
-    private const int DHArcSegments = 96;
-
     private static readonly Color DHOrbitColor = Color.FromHex("#8FA6C8").WithAlpha(0.35f);
     private static readonly Color DHRadiationColor = Color.FromHex("#E8D44D").WithAlpha(0.45f);
 
@@ -64,69 +63,11 @@ public sealed partial class ShuttleNavControl
         }
     }
 
-    /// <summary>
-    /// Окружность в мировых координатах. Огромные окружности рисуются только видимой дугой, иначе многоугольник
-    /// заметно отходит от настоящей окружности.
-    /// </summary>
     private void DHDrawCircleWorld(DrawingHandleScreen handle, Matrix3x2 worldToView, Vector2 worldCenter, float worldRadius,
         Color outline, Color? fill)
     {
-        var center = Vector2.Transform(worldCenter, worldToView);
-        var radius = worldRadius * MinimapScale;
-        var size = (Vector2) PixelSize;
-        var mid = size / 2f;
-        var viewRadius = size.Length() / 2f;
-        var toMid = mid - center;
-        var distance = toMid.Length();
-
-        // Целиком вне вида.
-        if (distance - radius > viewRadius || radius < 0.5f)
-            return;
-
-        // Вид целиком внутри тела: заливаем весь вид.
-        if (distance + viewRadius < radius)
-        {
-            if (fill != null)
-                handle.DrawRect(new UIBox2(Vector2.Zero, size), fill.Value);
-
-            return;
-        }
-
-        float from, to;
-        bool closed;
-        if (radius < viewRadius * 2f || distance < 1f)
-        {
-            from = 0f;
-            to = MathF.Tau;
-            closed = true;
-        }
-        else
-        {
-            // Видимая дуга: угол, под которым окружность пересекает круг обзора, с запасом.
-            var cos = (radius * radius + distance * distance - viewRadius * viewRadius) / (2f * radius * distance);
-            var half = MathF.Min(MathF.PI, MathF.Acos(Math.Clamp(cos, -1f, 1f)) * 1.15f + 0.002f);
-            var dir = MathF.Atan2(toMid.Y, toMid.X);
-            from = dir - half;
-            to = dir + half;
-            closed = half >= MathF.PI;
-        }
-
-        _dhArc.Clear();
-        var segments = closed ? Math.Clamp((int) (radius / 3f), 24, DHArcSegments * 2) : DHArcSegments;
-        for (var i = 0; i <= segments; i++)
-        {
-            var angle = from + (to - from) * i / segments;
-            _dhArc.Add(center + new Vector2(MathF.Cos(angle), MathF.Sin(angle)) * radius);
-        }
-
-        if (fill != null)
-        {
-            _dhArc.Insert(0, center);
-            handle.DrawPrimitives(DrawPrimitiveTopology.TriangleFan, _dhArc, fill.Value);
-            _dhArc.RemoveAt(0);
-        }
-
-        handle.DrawPrimitives(DrawPrimitiveTopology.LineStrip, _dhArc, outline);
+        DHCelestialDraw.Circle(handle, Vector2.Transform(worldCenter, worldToView), worldRadius * MinimapScale,
+            (Vector2) PixelSize, outline, fill, _dhArc);
     }
 
     /// <summary>Подпись у ближайшей к центру сканера точки поверхности; за краем — прижата к краю.</summary>

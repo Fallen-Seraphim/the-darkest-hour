@@ -214,45 +214,6 @@
 
 # Equipment
 - type: listing
-  id: SpellbookWandDoor
-  name: spellbook-wand-polymorph-door-name
-  description: spellbook-wand-polymorph-door-description
-  productEntity: WeaponWandPolymorphDoor
-  cost:
-    WizCoin: 3
-  categories:
-  - SpellbookEquipment
-  conditions:
-  - !type:ListingLimitedStockCondition
-    stock: 1
-
-- type: listing
-  id: SpellbookWandPolymorphCarp
-  name: spellbook-wand-polymorph-carp-name
-  description: spellbook-wand-polymorph-carp-description
-  productEntity: WeaponWandPolymorphCarp
-  cost:
-    WizCoin: 3
-  categories:
-  - SpellbookEquipment
-  conditions:
-  - !type:ListingLimitedStockCondition
-    stock: 1
-
-- type: listing
-  id: SpellbookWandLocker
-  name: spellbook-wand-locker-name
-  description: spellbook-wand-locker-description
-  productEntity: WeaponWandLocker
-  cost:
-    WizCoin: 3
-  categories:
-  - SpellbookEquipment
-  conditions:
-  - !type:ListingLimitedStockCondition
-    stock: 1
-
-- type: listing
   id: SpellbookHammerMjollnir
   name: spellbook-hammer-mjollnir-name
   description: spellbook-hammer-mjollnir-description

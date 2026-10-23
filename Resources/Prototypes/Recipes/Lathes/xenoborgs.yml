@@ -85,28 +85,7 @@
   materials:
     XenoborgCrystal: 100
 
-- type: latheRecipe
-  parent: BaseXenoborgModulesRecipe
-  id: XenoborgModuleOilGunRecipe
-  result: XenoborgModuleOilGun
-  materials:
-    XenoborgCrystal: 300
-
-- type: latheRecipe
-  parent: BaseXenoborgModulesRecipe
-  id: XenoborgModuleNaniteGunRecipe
-  result: XenoborgModuleNaniteGun
-  materials:
-    XenoborgCrystal: 200
-
 ## heavy xenoborg modules
-
-- type: latheRecipe
-  parent: BaseXenoborgModulesRecipe
-  id: XenoborgModuleHeavyLaserRecipe
-  result: XenoborgModuleHeavyLaser
-  materials:
-    XenoborgCrystal: 200
 
 - type: latheRecipe
   parent: BaseXenoborgModulesRecipe
@@ -121,13 +100,6 @@
   result: XenoborgModuleRocket
   materials:
     XenoborgCrystal: 400
-
-- type: latheRecipe
-  parent: BaseXenoborgModulesRecipe
-  id: XenoborgModuleBurstFireLaserRecipe
-  result: XenoborgModuleBurstFireLaser
-  materials:
-    XenoborgCrystal: 200
 
 - type: latheRecipe
   parent: BaseXenoborgModulesRecipe

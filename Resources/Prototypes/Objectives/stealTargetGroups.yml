@@ -71,24 +71,10 @@
     state: icon
 
 - type: stealTargetGroup
-  id: WeaponAntiqueLaser
-  name: steal-target-groups-weapon-antique-laser
-  sprite:
-    sprite: Objects/Weapons/Guns/Battery/antiquelasergun.rsi
-    state: base
-
-- type: stealTargetGroup
   id: NukeDisk
   name: steal-target-groups-nuke-disk
   sprite:
     sprite: Objects/Misc/nukedisk.rsi
-    state: icon
-
-- type: stealTargetGroup
-  id: WeaponEnergyMagnum
-  name: steal-target-groups-weapon-energy-magnum
-  sprite:
-    sprite: Objects/Weapons/Guns/Battery/energy_magnum.rsi
     state: icon
 
 # Thief Collection
@@ -192,13 +178,6 @@
   sprite:
     sprite: Objects/Tools/Lighters/lighters.rsi
     state: zippo_engraved_icon_base
-
-- type: stealTargetGroup
-  id: AmmoTechFabCircuitboard
-  name: steal-target-groups-ammo-tech-fab-circuitboard
-  sprite:
-    sprite: Objects/Misc/module.rsi
-    state: security
 
 - type: stealTargetGroup
   id: ClothingHeadHatWarden

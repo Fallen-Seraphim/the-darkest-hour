@@ -179,14 +179,110 @@
     price: 800
 
 # Звёздные системы: для каждой при старте раунда создаётся своя карта. Названия — заглушки, автор переименует.
+# Тела — заглушки, автор переделает. Координаты — метры от центра карты системы (точки прибытия у центра).
 - type: dhStarSystem
   id: DHSystemTau
   name: dh-star-system-tau
+  bodies:
+  - id: Star
+    name: dh-celestial-tau
+    kind: Star
+    position: -380000, 240000
+    radius: 70000
+    color: "#FFE2A8"
+    radiation: 70
+    radiationFalloff: 240000
+  - id: T1
+    name: dh-celestial-tau-1
+    position: 30000, -40000
+    radius: 5000
+    color: "#7FA36B"
+    orbitParent: Star
+    landable: true
+    biome: Grasslands
+    surfaceGases:
+      Oxygen: 21.8
+      Nitrogen: 82.1
+    surfaceTemperature: 291
+    surfaceLight: "#D8B059"
+  - id: T2
+    name: dh-celestial-tau-2
+    kind: GasGiant
+    position: 260000, 420000
+    radius: 30000
+    color: "#C9B27A"
+    orbitParent: Star
+    radiation: 0.1
+    radiationFalloff: 7000
+    enterableDepth: 3000
+    layerGases:
+      Nitrogen: 0.5
+      Oxygen: 0.3
+      CarbonDioxide: 0.2
+    layerTemperature: 180
 
 - type: dhStarSystem
   id: DHSystemVarda
   name: dh-star-system-varda
+  bodies:
+  - id: Star
+    name: dh-celestial-varda
+    kind: Star
+    position: 520000, -420000
+    radius: 45000
+    color: "#FF7A5C"
+    radiation: 40
+    radiationFalloff: 180000
+  - id: V1
+    name: dh-celestial-varda-1
+    position: 12000, 26000
+    radius: 1200
+    color: "#8E8577"
+    orbitParent: Star
+  - id: V2
+    name: dh-celestial-varda-2
+    position: -30000, -14000
+    radius: 900
+    color: "#9A9282"
+    orbitParent: Star
+  - id: V3
+    name: dh-celestial-varda-3
+    position: 45000, -52000
+    radius: 1500
+    color: "#7D776C"
+    orbitParent: Star
 
 - type: dhStarSystem
   id: DHSystemHelios
   name: dh-star-system-helios
+  bodies:
+  - id: Star
+    name: dh-celestial-helios
+    kind: Star
+    position: 0, 500000
+    radius: 90000
+    color: "#FFFFFF"
+    radiation: 90
+    radiationFalloff: 280000
+  - id: H1
+    name: dh-celestial-helios-1
+    position: -60000, -20000
+    radius: 6000
+    color: "#5D7FA8"
+    orbitParent: Star
+  - id: H2
+    name: dh-celestial-helios-2
+    kind: GasGiant
+    position: 420000, -150000
+    radius: 40000
+    color: "#A87FC9"
+    orbitParent: Star
+    radiation: 0.15
+    radiationFalloff: 10000
+    enterableDepth: 4000
+    layerGases:
+      Nitrogen: 0.5
+      CarbonDioxide: 0.25
+      Tritium: 0.2
+      Frezon: 0.05
+    layerTemperature: 200

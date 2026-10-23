@@ -29,7 +29,7 @@ public sealed partial class DHHomeStarSystemComponent : Component
 /// Небесные тела на картах звёздных систем: привязка домашней системы к карте станции, радиация звезды и газовых
 /// гигантов, выталкивание кораблей из недр тел (садиться — только через посадочную консоль).
 /// </summary>
-public sealed class DHCelestialSystem : EntitySystem
+public sealed partial class DHCelestialSystem : EntitySystem
 {
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedMapSystem _map = default!;

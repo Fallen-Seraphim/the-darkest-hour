@@ -256,8 +256,6 @@
         - id: WeaponWaterPistol
       - !type:NestedSelector
         tableId: RandomFoamGunTable
-      - !type:NestedSelector
-        tableId: RandomCapGunTable
 
 - type: entityTable # price 100
   id: RandomFoamGunTable
@@ -266,23 +264,7 @@
     - !type:GroupSelector
       children:
       - id: FoamCrossbow
-      - id: WeaponRifleFoam
     - id: BoxDonkSoftBox
-
-- type: entityTable
-  id: RandomCapGunTable
-  table: !type:AllSelector
-    children:
-    - !type:GroupSelector # real or fake?
-      children:
-      - id: RevolverCapGun
-      - id: RevolverCapGunFake
-        weight: 0.01 # 1 in 101
-    - !type:GroupSelector # ready for reload
-      prob: 0.9
-      children:
-      - id: SpeedLoaderCap
-      - id: BoxCartridgeCap
 
 # A group of items with fun or unique properties. Highly varied (some are more fun than others)
 - type: entityTable # size 2x2  # price 100
@@ -467,22 +449,6 @@
   - type: EntityTableSpawner
     table: !type:NestedSelector
       tableId: AllToyWeaponsTable
-      prob: 0.9
-
-- type: entity
-  parent: MarkerBase
-  id: CapGunSpawner90
-  name: Cap Gun Spawner
-  suffix: 90
-  components:
-  - type: Sprite
-    layers:
-    - state: red
-    - sprite: Objects/Fun/capgun.rsi
-      state: base
-  - type: EntityTableSpawner
-    table: !type:NestedSelector
-      tableId: RandomCapGunTable
       prob: 0.9
 
 - type: entity

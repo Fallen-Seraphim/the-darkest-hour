@@ -135,7 +135,7 @@
 - type: entity
   parent: [ClothingOuterWinterCoatToggleable, BaseCommandContraband]
   id: ClothingOuterWinterCE
-  name: chief engineer's winter coat
+  name: chief technician's winter coat
   components:
   - type: Sprite
     sprite: Clothing/OuterClothing/WinterCoats/coat.rsi
@@ -233,7 +233,7 @@
 - type: entity
   parent: [ClothingOuterWinterCoatToggleable, BaseCommandContraband]
   id: ClothingOuterWinterCMO
-  name: chief medical officer's winter coat
+  name: chief physician's winter coat
   components:
   - type: Sprite
     sprite: Clothing/OuterClothing/WinterCoats/coat.rsi
@@ -326,7 +326,7 @@
 - type: entity
   parent: [ClothingOuterWinterCoatToggleable, BaseCommandContraband]
   id: ClothingOuterWinterHoP
-  name: head of personnel's winter coat
+  name: adjutant's winter coat
   components:
   - type: Sprite
     sprite: Clothing/OuterClothing/WinterCoats/coat.rsi
@@ -351,8 +351,8 @@
 - type: entity
   parent: [ClothingOuterArmorHoS, ClothingOuterWinterCoatToggleable, BaseSecurityCommandContraband]
   id: ClothingOuterWinterHoS
-  name: head of security's armored winter coat
-  description: A sturdy, utilitarian winter coat designed to protect a head of security from any brig-bound threats and hypothermic events.
+  name: security chief's armored winter coat
+  description: A sturdy, utilitarian winter coat designed to protect a security chief from any brig-bound threats and hypothermic events.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/WinterCoats/coathosarmored.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
@@ -370,7 +370,7 @@
 - type: entity
   parent: [ClothingOuterWinterCoatToggleable, BaseSecurityCommandContraband]
   id: ClothingOuterWinterHoSUnarmored
-  name: head of security's winter coat
+  name: security chief's winter coat
   description: A sturdy coat, a warm coat, but not an armored coat.
   components:
   - type: Sprite

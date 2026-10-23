@@ -19,7 +19,7 @@ namespace Content.Server._DarkestHour.Power.Fusion;
 /// Runs <see cref="GasTurbineComponent"/>: passes heat from the hot circuit into the cold circuit
 /// and turns part of it into power on the HV network.
 /// </summary>
-public sealed class GasTurbineSystem : EntitySystem
+public sealed partial class GasTurbineSystem : EntitySystem
 {
     [Dependency] private AtmosphereSystem _atmos = default!;
     [Dependency] private MachineGasPortsSystem _ports = default!;

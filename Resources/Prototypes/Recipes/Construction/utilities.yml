@@ -185,9 +185,4 @@
 # endregion Timers
 
 # region Defenses
-- type: construction
-  parent: BaseUtilityWallmount
-  id: WeaponEnergyTurretControlPanel
-  graph: WeaponEnergyTurretControlPanel
-  targetNode: finish
 # endregion Defenses

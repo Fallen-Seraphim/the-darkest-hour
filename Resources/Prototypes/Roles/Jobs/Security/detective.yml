@@ -28,7 +28,6 @@
     eyes: ClothingEyesGlassesSecurity
     id: DHDogtags # DarkestHour: жетоны вместо КПК/ID (DetectivePDA)
     ears: ClothingHeadsetSecurity
-    belt: ClothingBeltHolsterFilled
   storage:
     back:
     - Flash

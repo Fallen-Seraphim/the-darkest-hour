@@ -1,0 +1,88 @@
+# DarkestHour: СМЭС Кейна (этап 4) — накопитель на ячейках Кейна: втрое больше продвинутого СМЭС.
+# Плата требует 4 ячейки Кейна (тег DHKanePowerCell); открывается технологией «Накопители Кейна».
+
+- type: Tag
+  id: DHKanePowerCell
+
+- type: entity
+  parent: SMESAdvanced
+  id: DHSMESKane
+  name: Kane SMES
+  description: A superconducting energy storage unit built around a bank of Kane cells. Three times the capacity of an advanced SMES.
+  suffix: Kane, 48MJ
+  components:
+  - type: Sprite
+    sprite: Structures/Power/smes.rsi
+    snapCardinals: true
+    layers:
+    - state: advancedsmes
+      color: "#a8f0e6"
+    - map: [ "enum.SmesVisualLayers.Charge" ]
+      state: "smes-og1"
+      shader: unshaded
+      visible: false
+    - map: [ "enum.SmesVisualLayers.Input" ]
+      state: "smes-oc0"
+      shader: unshaded
+    - map: [ "enum.SmesVisualLayers.Output" ]
+      state: "smes-op1"
+      shader: unshaded
+    - map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      state: advancedsmes-open
+  - type: Machine
+    board: DHSMESKaneMachineCircuitboard
+  - type: Battery
+    maxCharge: 48000000
+    startingCharge: 48000000
+  - type: PointLight
+    radius: 1.5
+    energy: 0.8
+    color: "#6ff0e1"
+
+- type: entity
+  parent: DHSMESKane
+  id: DHSMESKaneEmpty
+  suffix: Kane, Empty
+  components:
+  - type: Battery
+    startingCharge: 0
+
+- type: entity
+  id: DHSMESKaneMachineCircuitboard
+  parent: BaseMachineCircuitboard
+  name: Kane SMES machine board
+  description: A machine printed circuit board for a Kane SMES.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: power_mod
+    color: "#8ff5e8"
+  - type: MachineBoard
+    prototype: DHSMESKaneEmpty
+    stackRequirements:
+      Manipulator: 2
+      CableHV: 30
+    tagRequirements:
+      DHKanePowerCell:
+        amount: 4
+        defaultPrototype: DHPowerCellKane
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: DHSMESKaneMachineCircuitboard
+  result: DHSMESKaneMachineCircuitboard
+
+- type: technology
+  id: DHKaneEnergyStorage
+  name: research-technology-dh-kane-energy-storage
+  icon:
+    sprite: Structures/Power/smes.rsi
+    state: advancedsmes-static
+  discipline: DHEnergy
+  tier: 3
+  cost: 12500
+  recipeUnlocks:
+  - DHSMESKaneMachineCircuitboard
+  technologyPrerequisites:
+  - DHKaneCrystals
+  position: 7, 4

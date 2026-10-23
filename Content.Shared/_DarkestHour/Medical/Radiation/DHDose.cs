@@ -92,7 +92,7 @@ public sealed partial class DHReduceDoseEntityEffectSystem : EntityEffectSystem<
                 break;
             case DHDoseKind.Chronite:
                 var terminal = comp.ChroniteStages.Count > 0 ? comp.ChroniteStages[^1] : float.MaxValue;
-                if (comp.Chronite >= terminal)
+                if (comp.Chronite >= terminal && !args.Effect.BypassTerminal)
                     break;
                 comp.Chronite = MathF.Max(0f, comp.Chronite - amount);
                 break;
@@ -108,6 +108,10 @@ public sealed partial class DHReduceDose : EntityEffectBase<DHReduceDose>
 
     [DataField]
     public float Amount = 1f;
+
+    /// <summary>Действует и на последней (неизлечимой лекарствами) стадии хронитовой болезни — экспериментальный Хронолизин.</summary>
+    [DataField]
+    public bool BypassTerminal;
 
     public override string EntityEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
         Loc.GetString("dh-entity-effect-guidebook-reduce-dose", ("chance", Probability),

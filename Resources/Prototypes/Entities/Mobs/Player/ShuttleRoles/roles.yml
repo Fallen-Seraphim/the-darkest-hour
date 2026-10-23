@@ -16,7 +16,7 @@
 
 - type: entity
   id: RandomHumanoidVisitorCE
-  name: visiting CE ghost role
+  name: visiting Chief Technician ghost role
   components:
     - type: Sprite
       sprite: Markers/jobs.rsi
@@ -26,7 +26,7 @@
 
 - type: entity
   id: RandomHumanoidVisitorCMO
-  name: visiting CMO ghost role
+  name: visiting Chief Physician ghost role
   components:
     - type: Sprite
       sprite: Markers/jobs.rsi
@@ -36,7 +36,7 @@
 
 - type: entity
   id: RandomHumanoidVisitorHOP
-  name: visiting HOP ghost role
+  name: visiting Adjutant ghost role
   components:
     - type: Sprite
       sprite: Markers/jobs.rsi
@@ -46,7 +46,7 @@
 
 - type: entity
   id: RandomHumanoidVisitorHOS
-  name: visiting HOS ghost role
+  name: visiting Security Chief ghost role
   components:
     - type: Sprite
       sprite: Markers/jobs.rsi
@@ -120,7 +120,7 @@
 
 - type: entity
   id: RandomHumanoidVisitorCargoTechnician
-  name: visiting cargo technician ghost role
+  name: visiting loader ghost role
   components:
     - type: Sprite
       sprite: Markers/jobs.rsi
@@ -130,7 +130,7 @@
 
 - type: entity
   id: RandomHumanoidVisitorSalvageSpecialist
-  name: visiting salvage specialist ghost role
+  name: visiting expeditor ghost role
   components:
     - type: Sprite
       sprite: Markers/jobs.rsi
@@ -184,7 +184,7 @@
 
 - type: entity
   id: RandomHumanoidVisitorMedicalDoctor
-  name: visiting medical doctor ghost role
+  name: visiting physician ghost role
   components:
     - type: Sprite
       sprite: Markers/jobs.rsi
@@ -475,7 +475,7 @@
 - type: entity
   id: RandomHumanoidChallengeVictimCE
   parent: RandomHumanoidChallengeVictimCaptain
-  name: disaster victim CE ghost role
+  name: disaster victim Chief Technician ghost role
   suffix: CHALLENGE
   # This is supposed to be for challenge events. Its intentionally missing QOL gear to make interesting scenarios.
   components:
@@ -485,7 +485,7 @@
 - type: entity
   id: RandomHumanoidChallengeVictimCMO
   parent: RandomHumanoidChallengeVictimCaptain
-  name: disaster victim CMO ghost role
+  name: disaster victim Chief Physician ghost role
   suffix: CHALLENGE
   # This is supposed to be for challenge events. Its intentionally missing QOL gear to make interesting scenarios.
   components:
@@ -495,7 +495,7 @@
 - type: entity
   id: RandomHumanoidChallengeVictimHOP
   parent: RandomHumanoidChallengeVictimCaptain
-  name: disaster victim HOP ghost role
+  name: disaster victim Adjutant ghost role
   suffix: CHALLENGE
   # This is supposed to be for challenge events. Its intentionally missing QOL gear to make interesting scenarios.
   components:
@@ -505,7 +505,7 @@
 - type: entity
   id: RandomHumanoidChallengeVictimHOS
   parent: RandomHumanoidChallengeVictimCaptain
-  name: disaster victim HOS ghost role
+  name: disaster victim Security Chief ghost role
   suffix: CHALLENGE
   # This is supposed to be for challenge events. Its intentionally missing QOL gear to make interesting scenarios.
   components:
@@ -539,7 +539,7 @@
 - type: entity
   id: RandomHumanoidChallengeCargoTechnician
   parent: RandomHumanoidChallengeVictimCaptain
-  name: disaster cargo technician ghost role
+  name: disaster loader ghost role
   suffix: CHALLENGE
   # This is supposed to be for challenge events. Its intentionally missing QOL gear to make interesting scenarios.
   components:

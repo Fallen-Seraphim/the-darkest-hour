@@ -1,0 +1,256 @@
+# DarkestHour: хронит как материал (этап 4). Редкая руда в астероидах магнита — фонит хронитом (хронитовая болезнь!),
+# переплавка в переработчике руды → кристаллы хронита. Из хронита: топливные кассеты реактора (уран-235 + хронит,
+# опечатать микроплатой Кейна) и хронитовые ячейки для накопителей разрыва — по технологии «Хронитовое топливо».
+
+- type: material
+  id: Chronite
+  stackEntity: DHChronite1
+  name: materials-dh-chronite
+  unit: materials-unit-crystal
+  icon: { sprite: _DarkestHour/Objects/Materials/chronite.rsi, state: chronite }
+  color: "#9b4dff"
+  price: 1.5
+
+- type: material
+  id: RawChronite
+  stackEntity: DHChroniteOre1
+  name: materials-dh-raw-chronite
+  unit: materials-unit-chunk
+  icon: { sprite: _DarkestHour/Objects/Materials/chronite.rsi, state: ore }
+  color: "#9b4dff"
+  price: 0.5
+
+- type: stack
+  parent: BaseMediumStack
+  id: Chronite
+  name: stack-dh-chronite
+  icon: { sprite: /Textures/_DarkestHour/Objects/Materials/chronite.rsi, state: chronite }
+  spawn: DHChronite1
+
+- type: stack
+  parent: BaseMediumStack
+  id: ChroniteOre
+  name: stack-dh-chronite-ore
+  icon: { sprite: /Textures/_DarkestHour/Objects/Materials/chronite.rsi, state: ore }
+  spawn: DHChroniteOre1
+
+- type: entity
+  parent: MaterialBase
+  id: DHChronite
+  name: chronite
+  description: Refined chronite crystals. They glow violet and make your skin tingle. Keep them in a shielded locker.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Materials/chronite.rsi
+    state: chronite_3
+    layers:
+    - state: chronite_3
+      map: ["base"]
+  - type: Item
+    sprite: _DarkestHour/Objects/Materials/chronite.rsi
+    heldPrefix: chronite
+  - type: Tag
+    tags:
+    - RawMaterial
+  - type: Material
+  - type: PhysicalComposition
+    materialComposition:
+      Chronite: 100
+  - type: Stack
+    stackType: Chronite
+    baseLayer: base
+    layerStates:
+    - chronite
+    - chronite_2
+    - chronite_3
+  - type: PointLight
+    radius: 1.2
+    energy: 0.8
+    color: "#9b4dff"
+  - type: DHChroniteEmitter
+    rate: 0.01
+    range: 1
+
+- type: entity
+  parent: DHChronite
+  id: DHChronite10
+  suffix: 10
+  components:
+  - type: Sprite
+    state: chronite_2
+  - type: Stack
+    stackType: Chronite
+    count: 10
+
+- type: entity
+  parent: DHChronite
+  id: DHChronite1
+  suffix: Single
+  components:
+  - type: Sprite
+    state: chronite
+  - type: Stack
+    stackType: Chronite
+    count: 1
+
+- type: entity
+  parent: OreBase
+  id: DHChroniteOre
+  name: chronite ore
+  description: Rock threaded with violet chronite. It hums faintly. Smelt it in an ore processor — and don't sleep next to it.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Materials/chronite.rsi
+    state: ore
+  - type: Item
+    sprite: _DarkestHour/Objects/Materials/chronite.rsi
+    heldPrefix: ore
+  - type: Stack
+    stackType: ChroniteOre
+  - type: PhysicalComposition
+    materialComposition:
+      RawChronite: 100
+  - type: Tag
+    tags:
+    - Ore
+  - type: DHChroniteEmitter
+    rate: 0.008
+    range: 1
+
+- type: entity
+  parent: DHChroniteOre
+  id: DHChroniteOre1
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: ore
+  id: OreChronite
+  oreEntity: DHChroniteOre1
+  minOreYield: 1
+  maxOreYield: 2
+
+# Переплавка в переработчике руды (пакет OreSmelting).
+- type: latheRecipe
+  id: DHChronite1
+  result: DHChronite1
+  completetime: 0
+  materials:
+    RawChronite: 100
+    Coal: 25
+
+# Жила в астероидах магнита: редкая и фонит.
+- type: entity
+  abstract: true
+  id: DHBaseVeinChronite
+  suffix: Chronite
+  description: A rock vein glowing faintly violet. Chronite. Don't linger.
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: OreChronite
+  - type: Sprite
+    layers:
+    - state: rock_chronite
+      sprite: _DarkestHour/Structures/Walls/stone-ore.rsi
+      map: [ "enum.MiningScannerVisualLayers.Overlay" ]
+  - type: DHChroniteEmitter
+    rate: 0.01
+    range: 1.5
+
+- type: entity
+  parent: [ DHBaseVeinChronite, AsteroidRock ]
+  id: DHAsteroidRockChronite
+
+- type: oreDunGen
+  id: DHOreChronite
+  replacement: AsteroidRock
+  entity: DHAsteroidRockChronite
+  count: 2
+  minGroupSize: 2
+  maxGroupSize: 4
+
+# --- Топливная кассета: уран-235 + хронит → неопечатанная кассета; опечатать микроплатой Кейна ---
+
+- type: entity
+  parent: BaseItem
+  id: DHFusionFuelCassetteUnsealed
+  name: unsealed fusion fuel cassette
+  description: A filled fuel cassette without its control microboard. Insert a Kane microboard to seal it.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Power/fuel_cassette.rsi
+    state: unsealed
+  - type: Item
+    size: Normal
+  - type: DHChroniteEmitter
+    rate: 0.03
+    range: 1.5
+  - type: Construction
+    graph: DHFusionFuelCassette
+    node: unsealed
+  - type: StaticPrice
+    price: 800
+
+- type: constructionGraph
+  id: DHFusionFuelCassette
+  start: unsealed
+  graph:
+  - node: unsealed
+    entity: DHFusionFuelCassetteUnsealed
+    edges:
+    - to: sealed
+      steps:
+      - component: DHKaneMicroboard
+        name: construction-graph-component-dh-kane-microboard
+        icon:
+          sprite: _DarkestHour/Objects/Specific/Research/kane.rsi
+          state: microboard
+        doAfter: 3
+      - tool: Screwing
+        doAfter: 2
+  - node: sealed
+    entity: DHFusionFuelCassette
+
+- type: latheRecipe
+  id: DHFusionFuelCassetteUnsealed
+  result: DHFusionFuelCassetteUnsealed
+  completetime: 20
+  materials:
+    UraniumFissile: 30
+    Chronite: 100
+    Steel: 200
+
+- type: latheRecipe
+  id: DHChroniteCell
+  result: DHChroniteCell
+  completetime: 10
+  materials:
+    Chronite: 100
+    Steel: 100
+    Glass: 50
+
+- type: latheRecipePack
+  id: DHChroniteFuel
+  recipes:
+  - DHFusionFuelCassetteUnsealed
+  - DHChroniteCell
+
+- type: technology
+  id: DHChroniteFuel
+  name: research-technology-dh-chronite-fuel
+  icon:
+    sprite: _DarkestHour/Objects/Power/fuel_cassette.rsi
+    state: icon
+  discipline: DHEnergy
+  tier: 3
+  cost: 15000
+  recipeUnlocks:
+  - DHFusionFuelCassetteUnsealed
+  - DHChroniteCell
+  technologyPrerequisites:
+  - DHKaneCrystals
+  position: 9, 4

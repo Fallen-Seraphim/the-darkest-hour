@@ -76,7 +76,6 @@
   - type: MobState
   - type: InnateTool
     tools:
-    - id: WeaponBehonkerLaser
     - id: BikeHorn
   - type: UserInterface
     interfaces:
@@ -102,7 +101,6 @@
     refineResult:
     - id: MaterialBananium1
       amount: 2
-    - id: WeaponBehonkerLaser
   - type: MeleeWeapon
     soundHit:
       path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg

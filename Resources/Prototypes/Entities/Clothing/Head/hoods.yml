@@ -34,7 +34,7 @@
   id: ClothingHeadHatHoodBioCmo
   name: bio hood
   suffix: CMO
-  description: An advanced hood for chief medical officers that protects the head and face from biological contaminants.
+  description: An advanced hood for chief physicians that protects the head and face from biological contaminants.
   components:
   - type: IdentityBlocker
   - type: Sprite
@@ -313,7 +313,7 @@
   parent: ClothingHeadHatHoodWinterBase
   id: ClothingHeadHatHoodWinterCE
   categories: [ HideSpawnMenu ]
-  name: chief engineer's winter coat hood
+  name: chief technician's winter coat hood
   components:
   - type: Sprite
     sprite: Clothing/Head/Hoods/Coat/hoodce.rsi
@@ -347,7 +347,7 @@
   parent: ClothingHeadHatHoodWinterBase
   id: ClothingHeadHatHoodWinterCMO
   categories: [ HideSpawnMenu ]
-  name: chief medical officer's winter coat hood
+  name: chief physician's winter coat hood
   components:
   - type: Sprite
     sprite: Clothing/Head/Hoods/Coat/hoodcmo.rsi
@@ -369,7 +369,7 @@
   parent: ClothingHeadHatHoodWinterBase
   id: ClothingHeadHatHoodWinterHOP
   categories: [ HideSpawnMenu ]
-  name: head of personnel's winter coat hood
+  name: adjutant's winter coat hood
   components:
   - type: Sprite
     sprite: Clothing/Head/Hoods/Coat/hoodhop.rsi
@@ -380,7 +380,7 @@
   parent: ClothingHeadHatHoodWinterBase
   id: ClothingHeadHatHoodWinterHOS
   categories: [ HideSpawnMenu ]
-  name: head of security's winter coat hood
+  name: security chief's winter coat hood
   components:
   - type: Sprite
     sprite: Clothing/Head/Hoods/Coat/hoodhos.rsi

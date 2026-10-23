@@ -18,8 +18,6 @@
     containers:
       storagebase: !type:AllSelector
         children:
-        - id: WeaponSniperHristov
-        - id: MagazineBoxAntiMateriel
         - id: ClothingNeckTieRed
         - id: ClothingHandsGlovesLatex
         - id: ClothingUniformJumpsuitLawyerBlack
@@ -67,38 +65,5 @@
     containers:
       storagebase: !type:AllSelector
         children:
-        - id: WeaponShotgunHushpup
         - id: TreasureCoinIron
 
-- type: entity
-  id: BriefcaseWeaponC20Filled
-  parent: BriefcaseWeaponSmall
-  name: secure C-20r case
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase:
-        id: WeaponSubMachineGunC20r
-
-- type: entity
-  id: BriefcaseWeaponBulldogFilled
-  parent: BriefcaseWeaponSmall
-  name: secure bulldog case
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase:
-        id: WeaponShotgunBulldog
-
-- type: entity
-  id: BriefcaseWeaponChinaLakeFilled
-  parent: BriefcaseWeapon
-  name: secure China Lake case
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: WeaponLauncherChinaLake
-        - id: GrenadeFrag
-          amount: 2

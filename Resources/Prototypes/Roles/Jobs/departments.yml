@@ -147,6 +147,11 @@
   - ERTSecurity
   - ERTEngineer
   - DeathSquad
+  # DarkestHour: ОБР Metall Armed
+  - DHMetallArmedCommander
+  - DHMetallArmedWeapons
+  - DHMetallArmedMedic
+  - DHMetallArmedRifleman
 
 - type: department
   id: Specific

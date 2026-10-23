@@ -99,6 +99,15 @@ SLOTS = {
     'wspr': ['optic2x', 'optic4x', 'optic8x'],
     'ravenger': ['suppressed', 'flashhider', 'compensator', 'vgrip', 'agrip', 'optic2x', 'optic4x', 'optic8x'],
     'mk58': [],
+    'tit_mg10': ['suppressed', 'flashhider', 'compensator', 'vgrip', 'agrip', 'optic2x', 'optic4x', 'optic8x'],
+    'tit_r15': ['suppressed', 'flashhider', 'compensator', 'vgrip', 'agrip', 'optic2x', 'optic4x'],
+    'alt_r16': ['suppressed', 'flashhider', 'compensator', 'vgrip', 'agrip', 'optic2x', 'optic4x', 'optic8x'],
+    'pro_r12': ['optic4x', 'optic8x'],
+    'pro_amr16': ['optic4x', 'optic8x'],
+    'pro_lr17': ['optic2x', 'optic4x'],
+    'ear20': [],
+    'kl1': [],
+    'kr3': ['optic2x', 'optic4x'],
 }
 
 

@@ -1,0 +1,29 @@
+# Консоль связи Metallistick Group: объявления от лица корпорации серым цветом на все станции и корабли.
+# Только для админов (спавн), платы и рецепта нет.
+- type: entity
+  parent: BaseComputer
+  id: DHComputerCommsMetallistick
+  name: Metallistick Group communications computer
+  description: A corporate uplink to every Metallistick Group facility in the system.
+  suffix: Admeme
+  components:
+  - type: ComputerVisuals
+    stateScreen: comm_logs
+  - type: CommunicationsConsole
+    title: dh-comms-console-announcement-title-metallistick
+    color: "#9A9A9A"
+    canShuttle: false
+    global: true
+    announceSentBy: false
+    initialDelay: 0
+    delay: 10
+  - type: ActivatableUI
+    key: enum.CommunicationsConsoleUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.CommunicationsConsoleUiKey.Key:
+        type: CommunicationsConsoleBoundUserInterface
+  - type: PointLight
+    radius: 1.5
+    energy: 3.0
+    color: "#9A9A9A"

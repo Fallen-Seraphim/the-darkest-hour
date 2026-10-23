@@ -5,7 +5,7 @@ namespace Content.IntegrationTests.Tests.Clumsy;
 public static class ClumsyTestPrototypes
 {
     public static readonly EntProtoId TargetProto = "MobHuman";
-    public static readonly EntProtoId GunProto = "WeaponPistolMk58";
+    public static readonly EntProtoId GunProto = "DHWeaponPistolMk58";
     public static readonly EntProtoId SyringeProto = "Syringe";
 
     public const string ClumsyStatusAll100 = "ClumsyStatusAll100";

@@ -13,7 +13,7 @@
   description: A special hardsuit helmet designed for working in low-pressure, high thermal environments.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/atmospherics.rsi
+    sprite: _DarkestHour/Clothing/Head/Hardsuits/atmospherics.rsi # DarkestHour: скафандр Monolith в цветах Metallistick (Tools/_DarkestHour/hardsuits)
   - type: HandheldLight
     addPrefix: false
   - type: PointLight
@@ -35,7 +35,7 @@
   description: An engineering hardsuit helmet designed for working in low-pressure, high radioactive environments.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/engineering.rsi
+    sprite: _DarkestHour/Clothing/Head/Hardsuits/engineering.rsi # DarkestHour: скафандр Monolith в цветах Metallistick (Tools/_DarkestHour/hardsuits)
   - type: HandheldLight
     addPrefix: false
   - type: PointLight
@@ -55,7 +55,7 @@
   description: A sturdy helmet designed for complex industrial operations in space.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/spatiohelm.rsi
+    sprite: _DarkestHour/Clothing/Head/Hardsuits/spatiohelm.rsi # DarkestHour: скафандр Monolith в цветах Metallistick (Tools/_DarkestHour/hardsuits)
   - type: HandheldLight
     addPrefix: false
   - type: PointLight
@@ -75,7 +75,7 @@
   description: A special helmet designed for work in a hazardous, low pressure environment. Has reinforced plating for wildlife encounters and dual floodlights.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/salvage.rsi
+    sprite: _DarkestHour/Clothing/Head/Hardsuits/salvage.rsi # DarkestHour: скафандр Monolith в цветах Metallistick (Tools/_DarkestHour/hardsuits)
   - type: PressureProtection
     highPressureMultiplier: 0.525
     lowPressureMultiplier: 1000
@@ -135,7 +135,7 @@
   description: Armored hardsuit helmet for security needs.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/security.rsi
+    sprite: _DarkestHour/Clothing/Head/Hardsuits/security.rsi # DarkestHour: скафандр Monolith в цветах Metallistick (Tools/_DarkestHour/hardsuits)
   - type: PointLight
     color: "#ffeead"
   - type: PressureProtection
@@ -160,7 +160,7 @@
   description: The lightweight helmet of the brigmedic hardsuit. Protects against viruses, and clowns.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/brigmedic.rsi
+    sprite: _DarkestHour/Clothing/Head/Hardsuits/brigmedic.rsi # DarkestHour: скафандр Monolith в цветах Metallistick (Tools/_DarkestHour/hardsuits)
   - type: PointLight
     color: "#00FFFF"
   - type: Armor
@@ -184,7 +184,7 @@
   description: A modified riot helmet. Oddly comfortable.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/security-warden.rsi
+    sprite: _DarkestHour/Clothing/Head/Hardsuits/security-warden.rsi # DarkestHour: скафандр Monolith в цветах Metallistick (Tools/_DarkestHour/hardsuits)
   - type: PointLight
     color: "#ffeead"
   - type: PressureProtection
@@ -206,7 +206,7 @@
   description: Special hardsuit helmet, made for the captain of the station.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/capspace.rsi
+    sprite: _DarkestHour/Clothing/Head/Hardsuits/capspace.rsi # DarkestHour: скафандр Monolith в цветах Metallistick (Tools/_DarkestHour/hardsuits)
   - type: PressureProtection
     highPressureMultiplier: 0.3
     lowPressureMultiplier: 1000
@@ -218,11 +218,11 @@
 - type: entity
   parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
   id: ClothingHeadHelmetHardsuitEngineeringWhite
-  name: chief engineer's hardsuit helmet
-  description: Special hardsuit helmet, made for the chief engineer of the station.
+  name: chief technician's hardsuit helmet
+  description: Special hardsuit helmet, made for the chief technician of the station.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/engineering-white.rsi
+    sprite: _DarkestHour/Clothing/Head/Hardsuits/engineering-white.rsi # DarkestHour: скафандр Monolith в цветах Metallistick (Tools/_DarkestHour/hardsuits)
   - type: HandheldLight
     addPrefix: false
   - type: PointLight
@@ -240,11 +240,11 @@
 - type: entity
   parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
   id: ClothingHeadHelmetHardsuitMedical
-  name: chief medical officer's hardsuit helmet
+  name: chief physician's hardsuit helmet
   description: Lightweight medical hardsuit helmet that doesn't restrict your head movements.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/medical.rsi
+    sprite: _DarkestHour/Clothing/Head/Hardsuits/medical.rsi # DarkestHour: скафандр Monolith в цветах Metallistick (Tools/_DarkestHour/hardsuits)
   - type: PointLight
     color: "#adf1ff"
   - type: PressureProtection
@@ -262,7 +262,7 @@
   description: Lightweight hardsuit helmet that doesn't restrict your head movements.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/rd.rsi
+    sprite: _DarkestHour/Clothing/Head/Hardsuits/rd.rsi # DarkestHour: скафандр Monolith в цветах Metallistick (Tools/_DarkestHour/hardsuits)
   - type: PointLight
     color: "#d6adff"
   - type: PressureProtection
@@ -276,11 +276,11 @@
 - type: entity
   parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
   id: ClothingHeadHelmetHardsuitSecurityRed
-  name: head of security's hardsuit helmet
-  description: Security hardsuit helmet with the latest top secret NT-HUD software. Belongs to the HoS.
+  name: security chief's hardsuit helmet
+  description: Security hardsuit helmet with the latest top secret NT-HUD software. Belongs to the Security Chief.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/security-red.rsi
+    sprite: _DarkestHour/Clothing/Head/Hardsuits/security-red.rsi # DarkestHour: скафандр Monolith в цветах Metallistick (Tools/_DarkestHour/hardsuits)
   - type: PointLight
     color: "#ffeead"
   - type: PressureProtection

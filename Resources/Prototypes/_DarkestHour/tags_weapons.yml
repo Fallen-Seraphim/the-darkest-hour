@@ -63,6 +63,9 @@
   id: DHCartridge14g
 
 - type: Tag
+  id: DHCartridge189x110
+
+- type: Tag
   id: DHCartridge556x45
 
 - type: Tag
@@ -97,6 +100,9 @@
 
 - type: Tag
   id: DHMagazine145x114
+
+- type: Tag
+  id: DHMagazine189x110
 
 - type: Tag
   id: DHMagazine556x45

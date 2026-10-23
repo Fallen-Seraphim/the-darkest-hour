@@ -253,19 +253,6 @@
 
 ## hos
 
-- type: entity
-  parent: BaseTraitorStealObjective
-  id: EnergyMagnumStealObjective
-  components:
-  - type: Objective
-    # HoS will have this on them a lot of the time so..
-    difficulty: 3
-  - type: NotJobRequirement
-    jobs: [ HeadOfSecurity, DHSecurityChief ] # DarkestHour: свои должности
-  - type: StealCondition
-    stealGroup: WeaponEnergyMagnum
-    owner: job-name-hos
-
 ## ce
 
 - type: entity
@@ -340,14 +327,6 @@
   components:
   - type: StealCondition
     stealGroup: JetpackCaptainFilled
-
-- type: entity
-  parent: BaseCaptainObjective
-  id: CaptainGunStealObjective
-  components:
-  - type: StealCondition
-    stealGroup: WeaponAntiqueLaser
-    owner: job-name-captain
 
 - type: entity
   parent: BaseCaptainObjective

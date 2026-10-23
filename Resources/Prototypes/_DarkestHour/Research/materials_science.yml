@@ -132,6 +132,25 @@
     Plasteel: 100
     Nickel: 100
 
+# Скрытая технология: рецепты сплавов открываются только технодисками материаловедения, но тест AllTechPrintableTest
+# требует, чтобы каждый динамический рецепт лата открывался какой-то технологией.
+- type: technology
+  id: DHAlloysDiskOnly
+  name: research-technology-dh-alloys
+  icon:
+    sprite: Structures/Machines/smelter.rsi
+    state: smelter0
+  discipline: Industrial
+  tier: 1
+  cost: 0
+  hidden: true
+  recipeUnlocks:
+  - DHAlloySheetPlasteel
+  - DHAlloySheetDuralumin
+  - DHAlloySheetPlastitanium
+  - DHAlloySheetPlastnickel
+  position: 0, 0
+
 - type: latheRecipePack
   id: DHAlloys
   recipes:
@@ -391,3 +410,4 @@
   - DHKaneLithographMachineCircuitboard
   - DHGunneryComputerCircuitboard
   - DHPointDefenseComputerCircuitboard
+  - DHSMESKaneMachineCircuitboard

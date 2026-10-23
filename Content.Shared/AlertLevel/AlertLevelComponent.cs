@@ -23,13 +23,13 @@ public sealed partial class AlertLevelComponent : Component
     /// The default alert level for this station.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public ProtoId<AlertLevelPrototype> DefaultAlertLevel = "Green";
+    public ProtoId<AlertLevelPrototype> DefaultAlertLevel = "DHEllow"; // DarkestHour
 
     /// <summary>
     /// The current level on the station.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public ProtoId<AlertLevelPrototype> CurrentAlertLevel = "Green";
+    public ProtoId<AlertLevelPrototype> CurrentAlertLevel = "DHEllow"; // DarkestHour
 
     /// <summary>
     /// Is changing the alert level currently locked?
