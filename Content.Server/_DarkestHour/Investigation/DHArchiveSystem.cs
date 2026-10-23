@@ -25,7 +25,7 @@ namespace Content.Server._DarkestHour.Investigation;
 public sealed partial class DHArchiveSystem : EntitySystem
 {
     [Dependency] private ExamineSystemShared _examine = default!;
-    [Dependency] private GameTicker _gameTicker = default!;
+    [Dependency] private ServerGameTicker _gameTicker = default!;
     [Dependency] private SharedIdCardSystem _idCard = default!;
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;

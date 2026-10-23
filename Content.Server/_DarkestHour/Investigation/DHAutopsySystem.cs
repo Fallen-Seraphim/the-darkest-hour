@@ -48,7 +48,7 @@ public sealed partial class DHAutopsySystem : EntitySystem
     [Dependency] private DHDiseaseSystem _disease = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private DHDoseSystem _dose = default!;
-    [Dependency] private GameTicker _gameTicker = default!;
+    [Dependency] private ServerGameTicker _gameTicker = default!;
     [Dependency] private MetaDataSystem _metaData = default!;
     [Dependency] private MobStateSystem _mobState = default!;
     [Dependency] private PaperSystem _paper = default!;
