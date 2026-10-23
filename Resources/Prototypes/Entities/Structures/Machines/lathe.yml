@@ -208,6 +208,7 @@
     - Janitor
     - Instruments
     - Equipment
+    - DHChroniteFuel # DarkestHour: топливные кассеты и хронитовые ячейки
   - type: EmagLatheRecipes
     emagDynamicPacks:
     - SecurityExplosives
