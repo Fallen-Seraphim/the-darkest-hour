@@ -25,7 +25,7 @@ public sealed partial class DHMetallArmedSystem : EntitySystem
     [Dependency] private SharedMapSystem _map = default!;
     [Dependency] private MetaDataSystem _meta = default!;
     [Dependency] private ShuttleSystem _shuttle = default!;
-    [Dependency] private StationSystem _station = default!;
+    [Dependency] private ServerStationSystem _station = default!;
 
     public static readonly ResPath ShuttlePath = new("/Maps/_DarkestHour/Shuttles/metall_armed_response.yml");
 
