@@ -277,6 +277,20 @@ WEAPONS = [
       snd=('/Audio/Weapons/Guns/Gunshots/laser.ogg', '/Audio/Weapons/Guns/MagIn/batrifle_magin.ogg',
            '/Audio/Weapons/Guns/MagOut/batrifle_magout.ogg', None),
       slots=[], size='Huge', cell='DHKaneCartridgeEAR', firemodes=[('DHBoltEARStun', 50), ('DHLaserEARBurn', 50)]),
+    # ------------------------------------------------ Kane beam weapons of the station (Metallistick, R&D)
+    W(id='DHWeaponEnergyKL1', sprite='kl1', name='KL-1', faction='corp', kind='energy', sidearm=True,
+      desc='A Kane beam pistol of station security. A hitscan beam from a Kane power cell in the grip: the denser the crystal, the more shots.',
+      mags=[], start=None, cal=None, rate=2.5, modes=['SemiAuto'], spread=(2, 16), wield=None,
+      snd=('/Audio/Weapons/Guns/Gunshots/laser.ogg', '/Audio/Weapons/Guns/MagIn/pistol_magin.ogg',
+           '/Audio/Weapons/Guns/MagOut/pistol_magout.ogg', None),
+      slots=[], size='Small', cell='DHKanePowerCell', startcell='DHPowerCellKane', firemodes=[('DHLaserKaneLight', 150)]),
+    W(id='DHWeaponEnergyKR3', sprite='kr3', name='KR-3', faction='corp', kind='energy',
+      desc='A Kane beam rifle of station security. A heavier hitscan beam from a Kane power cell; overheats under sustained fire.',
+      mags=[], start=None, cal=None, rate=3, modes=['SemiAuto', 'FullAuto'], spread=(1, 18), wield=(-1, -14),
+      snd=('/Audio/Weapons/Guns/Gunshots/laser3.ogg', '/Audio/Weapons/Guns/MagIn/batrifle_magin.ogg',
+           '/Audio/Weapons/Guns/MagOut/batrifle_magout.ogg', None),
+      slots=[OPTIC], size='Huge', cell='DHKanePowerCell', startcell='DHPowerCellKane',
+      firemodes=[('DHLaserKaneHeavy', 200)], overheat=(16, 1, 2)),
 ]
 
 # which attachment overlay states a slot can show on each gun (must match build.py SLOTS)
@@ -490,7 +504,7 @@ def slot_whitelist(w, slot):
         states = {'ramg_m14_1': ['2x', '4x'], 'ramg_m14_2': ['2x', '4x'], 'img17t': ['2x', '4x'], 'img17l': ['2x'],
                   'raptor_m12_16': ['2x'], 'rpr_m9_02': ['2x'], 'imsh17': ['2x'], 'rmar_as_m15_18': ['4x', '8x'],
                   'vympel': ['2x', '4x'], 'tit_r15': ['2x', '4x'], 'pro_r12': ['4x', '8x'],
-                  'pro_amr16': ['4x', '8x'], 'pro_lr17': ['2x', '4x']}.get(w['sprite'])
+                  'pro_amr16': ['4x', '8x'], 'pro_lr17': ['2x', '4x'], 'kr3': ['2x', '4x']}.get(w['sprite'])
         return [f'DHAttachmentOptic{s}' for s in states] if states else ['DHAttachmentOptic']
     if slot == BARREL and w['sprite'] == 'ir17' or slot == BARREL and w['sprite'] == 'img17l':
         return ['DHAttachmentSuppressor']
@@ -542,7 +556,7 @@ def write_weapons():
             c += ['    shape:', '    - 0,0,3,1']
         elif w['size'] == 'Large':
             c += ['    shape:', '    - 0,0,2,1']
-        clothing_slots = ['suitStorage', 'Belt'] if w['kind'] == 'pistol' else ['Back', 'suitStorage']
+        clothing_slots = ['suitStorage', 'Belt'] if w['kind'] == 'pistol' or w.get('sidearm') else ['Back', 'suitStorage']
         c += ['  - type: Clothing', f'    sprite: {inh}', '    quickEquip: false', '    slots:',
               *[f'    - {s}' for s in clothing_slots]]
         if w.get('wield'):
@@ -565,7 +579,7 @@ def write_weapons():
                 for p, fc in w['firemodes']:
                     c += [f'    - proto: {p}', f'      fireCost: {fc}']
             c += ['  - type: ItemSlots', '    slots:', '      cell_slot:', '        name: dh-gun-slot-energy-cell',
-                  f'        startingItem: {w["cell"]}', f'        insertSound: {magin}', f'        ejectSound: {magout}',
+                  f'        startingItem: {w.get("startcell", w["cell"])}', f'        insertSound: {magin}', f'        ejectSound: {magout}',
                   '        priority: 2', '        whitelist:', '          tags:', f'          - {w["cell"]}']
             for slot in w['slots']:
                 c += [f'      attachment_{slot}:', '        insertSound: /Audio/Items/screwdriver2.ogg',

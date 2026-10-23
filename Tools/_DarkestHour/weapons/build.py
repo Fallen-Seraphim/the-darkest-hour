@@ -106,6 +106,8 @@ SLOTS = {
     'pro_amr16': ['optic4x', 'optic8x'],
     'pro_lr17': ['optic2x', 'optic4x'],
     'ear20': [],
+    'kl1': [],
+    'kr3': ['optic2x', 'optic4x'],
 }
 
 

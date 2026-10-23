@@ -1,0 +1,82 @@
+# DarkestHour: лучевое оружие Кейна станции (этап 4) — хитскан-лучи на ячейках Кейна (DHKanePowerCell).
+# Пистолет KL-1 и винтовка KR-3 (стволы — в weapons.yml, генератор Tools/_DarkestHour/weapons).
+# Технология «Лучевое оружие Кейна» открывает их в оружейном техфабе СБ.
+
+- type: entity
+  parent: LaserHitscanBase
+  id: DHLaserKaneLight
+  name: Kane beam
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Heat: 20
+  - type: HitscanBasicVisuals
+    muzzleFlash:
+      sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+      state: muzzle_omni
+    travelFlash:
+      sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+      state: beam_omni
+    impactFlash:
+      sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+      state: impact_omni
+
+- type: entity
+  parent: DHLaserKaneLight
+  id: DHLaserKaneHeavy
+  name: heavy Kane beam
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Heat: 28
+
+- type: latheRecipe
+  id: DHWeaponEnergyKL1
+  result: DHWeaponEnergyKL1
+  categories:
+  - Weapons
+  completetime: 10
+  materials:
+    Steel: 600
+    Glass: 200
+    Plastic: 200
+    Gold: 100
+
+- type: latheRecipe
+  id: DHWeaponEnergyKR3
+  result: DHWeaponEnergyKR3
+  categories:
+  - Weapons
+  completetime: 15
+  materials:
+    Steel: 1500
+    Glass: 400
+    Plastic: 400
+    Gold: 200
+
+- type: latheRecipePack
+  id: DHKaneWeapons
+  recipes:
+  - DHWeaponEnergyKL1
+  - DHWeaponEnergyKR3
+
+- type: technology
+  id: DHKaneBeamWeapons
+  name: research-technology-dh-kane-beam-weapons
+  icon:
+    sprite: _DarkestHour/Objects/Weapons/Guns/kr3.rsi
+    state: icon
+  discipline: Arsenal
+  tier: 3
+  cost: 15000
+  recipeUnlocks:
+  - DHWeaponEnergyKL1
+  - DHWeaponEnergyKR3
+  technologyPrerequisites:
+  - DHKaneCrystals
+  - DHArmorPiercingAmmo
+  position: 17, 4
