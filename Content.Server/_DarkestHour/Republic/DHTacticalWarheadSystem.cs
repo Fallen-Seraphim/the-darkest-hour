@@ -137,7 +137,7 @@ public sealed partial class DHTacticalWarheadSystem : EntitySystem
     [Dependency] private ChatSystem _chat = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private ExplosionSystem _explosions = default!;
-    [Dependency] private GameTicker _gameTicker = default!;
+    [Dependency] private ServerGameTicker _gameTicker = default!;
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private NavMapSystem _navMap = default!;
     [Dependency] private PaperSystem _paper = default!;
