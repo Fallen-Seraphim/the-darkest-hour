@@ -39,7 +39,7 @@ public sealed partial class DHLandedComponent : Component
 /// Консоль посадки (спуск на поверхность тела и взлёт на орбиту) и газозаборник (набор газа в верхних слоях
 /// газовых гигантов).
 /// </summary>
-public sealed class DHLandingSystem : EntitySystem
+public sealed partial class DHLandingSystem : EntitySystem
 {
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private AtmosphereSystem _atmos = default!;

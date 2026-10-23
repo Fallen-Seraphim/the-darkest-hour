@@ -15,7 +15,7 @@ namespace Content.Server._DarkestHour.Shuttles.Rift;
 /// <summary>
 /// Навигационная консоль разрывных прыжков: карта системы, выбор системы и точки выхода, прыжок.
 /// </summary>
-public sealed class DHRiftNavSystem : EntitySystem
+public sealed partial class DHRiftNavSystem : EntitySystem
 {
     [Dependency] private DHCelestialSystem _celestial = default!;
     [Dependency] private SharedMapSystem _map = default!;

@@ -28,7 +28,7 @@ namespace Content.Server._DarkestHour.Atmos.Fire;
 /// поджигает горючие лужи (в том числе соседние) и атмосферу тайла. Гасится водой.
 /// По образцу SharedRMCFlammableSystem из RMC-14 (MIT), без привязки к системам RMC.
 /// </summary>
-public sealed class DHFireSystem : EntitySystem
+public sealed partial class DHFireSystem : EntitySystem
 {
     [Dependency] private AppearanceSystem _appearance = default!;
     [Dependency] private AtmosphereSystem _atmosphere = default!;
