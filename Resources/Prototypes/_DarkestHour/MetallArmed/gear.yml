@@ -1,0 +1,110 @@
+# ОБР Metall Armed: снаряжение отряда, выдаётся сразу при появлении.
+
+- type: startingGear
+  id: DHMetallArmedCommanderGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTSecurity
+    outerClothing: DHClothingOuterHardsuitMetallArmedCommander
+    suitstorage: DHWeaponRifleALTR16
+    back: ClothingBackpackERTSecurity
+    shoes: ClothingShoesBootsMagERT
+    mask: ClothingMaskGasERT
+    gloves: ClothingHandsGlovesCombat
+    eyes: ClothingEyesHudMedSec
+    ears: DHClothingHeadsetAltMetallArmed
+    belt: ClothingBeltMilitaryWebbing
+    id: DHDogtagsDHMetallArmedCommander
+    pocket1: DHWeaponPistolMk58
+    pocket2: DoubleEmergencyOxygenTankFilled
+  storage:
+    back:
+    - DHMagazine762x51FMG
+    - DHMagazine762x51FMG
+    - DHMagazine762x51FMG
+    - DHMagazine762x51URA
+    - DHMagazine10x24ShortE
+    - Binoculars
+    - MedkitCombatFilled
+    - Handcuffs
+    - Handcuffs
+
+- type: startingGear
+  id: DHMetallArmedWeaponsGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTSecurity
+    outerClothing: DHClothingOuterHardsuitMetallArmedWeapons
+    suitstorage: DHWeaponRifleTITMG10
+    back: ClothingBackpackERTSecurity
+    shoes: ClothingShoesBootsMagERT
+    mask: ClothingMaskGasERT
+    gloves: ClothingHandsGlovesCombat
+    eyes: ClothingEyesHudMedSec
+    ears: DHClothingHeadsetAltMetallArmed
+    belt: ClothingBeltMilitaryWebbing
+    id: DHDogtagsDHMetallArmedWeapons
+    pocket1: CombatKnife
+    pocket2: DoubleEmergencyOxygenTankFilled
+  storage:
+    back:
+    - DHMagazine556x45LongFMG
+    - DHMagazine556x45LongFMG
+    - DHMagazine556x45LongFMG
+    - DHMagazine556x45LongEXP
+    - DHMagazine556x45LongURA
+    - ExGrenade
+    - ExGrenade
+    - MedkitCombatFilled
+
+- type: startingGear
+  id: DHMetallArmedMedicGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTSecurity
+    outerClothing: DHClothingOuterHardsuitMetallArmedMedic
+    suitstorage: DHWeaponRifleTITR15
+    back: ClothingBackpackERTSecurity
+    shoes: ClothingShoesBootsMagERT
+    mask: ClothingMaskGasERT
+    gloves: ClothingHandsGlovesCombat
+    eyes: ClothingEyesHudMedSec
+    ears: DHClothingHeadsetAltMetallArmed
+    belt: ClothingBeltMilitaryWebbing
+    id: DHDogtagsDHMetallArmedMedic
+    pocket1: CombatKnife
+    pocket2: DoubleEmergencyOxygenTankFilled
+  storage:
+    back:
+    - DHMagazine762x39FMG
+    - DHMagazine762x39FMG
+    - DHMagazine762x39FMG
+    - MedkitCombatFilled
+    - MedkitCombatFilled
+    - MedkitAdvancedFilled
+    - DefibrillatorCompact
+    - DHFlamerTankWeldingFuel
+
+- type: startingGear
+  id: DHMetallArmedRiflemanGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTSecurity
+    outerClothing: DHClothingOuterHardsuitMetallArmedRifleman
+    suitstorage: DHWeaponRifleTITR15
+    back: ClothingBackpackERTSecurity
+    shoes: ClothingShoesBootsMagERT
+    mask: ClothingMaskGasERT
+    gloves: ClothingHandsGlovesCombat
+    eyes: ClothingEyesHudMedSec
+    ears: DHClothingHeadsetAltMetallArmed
+    belt: ClothingBeltMilitaryWebbing
+    id: DHDogtagsDHMetallArmedRifleman
+    pocket1: CombatKnife
+    pocket2: DoubleEmergencyOxygenTankFilled
+  storage:
+    back:
+    - DHMagazine762x39FMG
+    - DHMagazine762x39FMG
+    - DHMagazine762x39FMG
+    - DHMagazine762x39FMG
+    - DHMagazine762x39URA
+    - ExGrenade
+    - MedkitCombatFilled
+    - Handcuffs

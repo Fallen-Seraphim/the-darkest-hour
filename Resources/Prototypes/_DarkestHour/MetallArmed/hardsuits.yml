@@ -1,0 +1,286 @@
+# ОБР Metall Armed (этап 6): скафандры отряда. Спрайты — ERT-скафандры Monolith (CC-BY-SA-3.0), перекрашены в
+# цвета Metallistick генератором Tools/_DarkestHour/hardsuits. Характеристики: командир — хорошая защита;
+# специалист по вооружению — быстрый, защиты меньше; боевой медик — самый быстрый, слабая защита, встроенный
+# мини-огнемёт; стрелок — средний.
+
+- type: entity
+  abstract: true
+  parent: [ ClothingOuterHardsuitBase, BaseTaskForceContraband ]
+  id: DHClothingOuterHardsuitMetallArmedBase
+  components:
+  - type: Item
+    size: Huge
+    shape:
+    - 0,0,3,3
+  - type: PressureProtection
+    highPressureMultiplier: 0.05
+    lowPressureMultiplier: 1000
+  - type: HeldSpeedModifier
+  - type: Tag
+    tags:
+    - Hardsuit
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 6000
+
+- type: entity
+  abstract: true
+  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseTaskForceContraband ]
+  id: DHClothingHeadHelmetHardsuitMetallArmedBase
+  components:
+  - type: PointLight
+    color: "#e8dcbf"
+    radius: 5
+    energy: 2.5
+  - type: PressureProtection
+    highPressureMultiplier: 0.05
+    lowPressureMultiplier: 1000
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.9
+
+# --- Командир отряда
+- type: entity
+  parent: DHClothingOuterHardsuitMetallArmedBase
+  id: DHClothingOuterHardsuitMetallArmedCommander
+  name: Metall Armed commander's hardsuit
+  description: A heavy command hardsuit of a Metall Armed response team. Brass trim marks the squad leader.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/Hardsuits/metall_armed_commander.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Clothing/OuterClothing/Hardsuits/metall_armed_commander.rsi
+  - type: ExplosionResistance
+    damageCoefficient: 0.55
+  - type: StaminaResistance
+    damageCoefficient: 0.7
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.5
+        Slash: 0.5
+        Piercing: 0.45
+        Heat: 0.55
+        Radiation: 0.4
+        Caustic: 0.6
+  - type: ClothingSpeedModifier
+    walkModifier: 0.9
+    sprintModifier: 0.9
+  - type: ToggleableClothing
+    clothingPrototype: DHClothingHeadHelmetHardsuitMetallArmedCommander
+
+- type: entity
+  parent: DHClothingHeadHelmetHardsuitMetallArmedBase
+  id: DHClothingHeadHelmetHardsuitMetallArmedCommander
+  name: Metall Armed commander's hardsuit helmet
+  description: The helmet of a Metall Armed squad leader.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/Head/Hardsuits/metall_armed_commander.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.85
+        Slash: 0.85
+        Piercing: 0.85
+        Heat: 0.85
+
+# --- Специалист по вооружению
+- type: entity
+  parent: DHClothingOuterHardsuitMetallArmedBase
+  id: DHClothingOuterHardsuitMetallArmedWeapons
+  name: Metall Armed weapons specialist's hardsuit
+  description: "A light hardsuit cut down for speed: lighter plates, more room for heavy weapons and ammunition."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/Hardsuits/metall_armed_weapons.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Clothing/OuterClothing/Hardsuits/metall_armed_weapons.rsi
+  - type: ExplosionResistance
+    damageCoefficient: 0.75
+  - type: StaminaResistance
+    damageCoefficient: 0.85
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.75
+        Slash: 0.75
+        Piercing: 0.7
+        Heat: 0.75
+        Radiation: 0.6
+        Caustic: 0.75
+  - type: ClothingSpeedModifier
+    walkModifier: 1.0
+    sprintModifier: 1.0
+  - type: ToggleableClothing
+    clothingPrototype: DHClothingHeadHelmetHardsuitMetallArmedWeapons
+
+- type: entity
+  parent: DHClothingHeadHelmetHardsuitMetallArmedBase
+  id: DHClothingHeadHelmetHardsuitMetallArmedWeapons
+  name: Metall Armed weapons specialist's hardsuit helmet
+  description: The helmet of a Metall Armed weapons specialist.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/Head/Hardsuits/metall_armed_weapons.rsi
+
+# --- Боевой медик
+- type: entity
+  parent: DHClothingOuterHardsuitMetallArmedBase
+  id: DHClothingOuterHardsuitMetallArmedMedic
+  name: Metall Armed combat medic's hardsuit
+  description: A fast, lightly armoured hardsuit for field medics, sealed against chemicals and radiation. A compact incinerator with a 20-unit fuel reservoir is built into the forearm.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/Hardsuits/metall_armed_medic.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Clothing/OuterClothing/Hardsuits/metall_armed_medic.rsi
+  - type: ExplosionResistance
+    damageCoefficient: 0.85
+  - type: StaminaResistance
+    damageCoefficient: 0.9
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.85
+        Slash: 0.85
+        Piercing: 0.8
+        Heat: 0.6
+        Radiation: 0.35
+        Caustic: 0.3
+  - type: ClothingSpeedModifier
+    walkModifier: 1.05
+    sprintModifier: 1.1
+  - type: ToggleableClothing
+    clothingPrototype: DHClothingHeadHelmetHardsuitMetallArmedMedic
+  - type: DHSuitWeapon
+    weapon: DHWeaponFlamerSuit
+  - type: ContainerContainer
+    containers:
+      toggleable-clothing: !type:ContainerSlot {}
+      dh_suit_weapon: !type:ContainerSlot {}
+
+- type: entity
+  parent: DHClothingHeadHelmetHardsuitMetallArmedBase
+  id: DHClothingHeadHelmetHardsuitMetallArmedMedic
+  name: Metall Armed combat medic's hardsuit helmet
+  description: The helmet of a Metall Armed combat medic.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/Head/Hardsuits/metall_armed_medic.rsi
+
+# --- Стрелок
+- type: entity
+  parent: DHClothingOuterHardsuitMetallArmedBase
+  id: DHClothingOuterHardsuitMetallArmedRifleman
+  name: Metall Armed rifleman's hardsuit
+  description: "The standard combat hardsuit of a Metall Armed rifleman: balanced protection and mobility."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/Hardsuits/metall_armed_rifleman.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Clothing/OuterClothing/Hardsuits/metall_armed_rifleman.rsi
+  - type: ExplosionResistance
+    damageCoefficient: 0.65
+  - type: StaminaResistance
+    damageCoefficient: 0.8
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.6
+        Slash: 0.6
+        Piercing: 0.55
+        Heat: 0.65
+        Radiation: 0.5
+        Caustic: 0.7
+  - type: ClothingSpeedModifier
+    walkModifier: 0.95
+    sprintModifier: 0.95
+  - type: ToggleableClothing
+    clothingPrototype: DHClothingHeadHelmetHardsuitMetallArmedRifleman
+
+- type: entity
+  parent: DHClothingHeadHelmetHardsuitMetallArmedBase
+  id: DHClothingHeadHelmetHardsuitMetallArmedRifleman
+  name: Metall Armed rifleman's hardsuit helmet
+  description: The helmet of a Metall Armed rifleman.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/Head/Hardsuits/metall_armed_rifleman.rsi
+
+# --- Встроенный мини-огнемёт медика (выдвигается действием, бак на 20 единиц, заправляется как обычный бак)
+- type: entity
+  parent: BaseAction
+  id: DHActionToggleSuitWeapon
+  name: Deploy built-in weapon
+  description: Extend the weapon built into your hardsuit into your hand, or retract it.
+  components:
+  - type: Action
+    itemIconStyle: BigItem
+    useDelay: 1
+  - type: InstantAction
+    event: !type:DHToggleSuitWeaponEvent
+
+- type: entity
+  parent: BaseItem
+  id: DHWeaponFlamerSuit
+  name: forearm incinerator
+  description: A compact incinerator built into a combat medic's hardsuit. Holds 20 units of fuel; refill it from a fuel tank like any incinerator tank. Alt-click to light the pilot flame.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Weapons/Guns/Flamethrower/colony.rsi
+    scale: 0.8,0.8
+    layers:
+    - state: base
+    - state: lit
+      map: [ "enum.DHFlamerVisuals.Ignited" ]
+      visible: false
+      shader: unshaded
+  - type: Item
+    sprite: _RMC14/Objects/Weapons/Guns/Flamethrower/colony.rsi
+    size: Huge
+  - type: Gun
+    fireRate: 0.75
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    minAngle: 0
+    maxAngle: 4
+    angleIncrease: 0
+    cameraRecoilScalar: 0
+    soundGunshot:
+      collection: DHFlamerShoot
+    soundEmpty:
+      path: /Audio/_RMC14/Weapons/Guns/Flamer/gun_flamethrower_empty.ogg
+  - type: AmmoCounter
+  - type: DHFlamer
+    maxRange: 4
+    igniteSound:
+      path: /Audio/_RMC14/Weapons/Guns/Flamer/surv_flamer_ignite.ogg
+  - type: DHFlamerTank
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 20
+      reagents:
+      - ReagentId: WeldingFuel
+        Quantity: 20
+  - type: ExaminableSolution
+    solution: tank
+    exactVolume: true
+  - type: RefillableSolution
+    solution: tank
+  - type: Unremoveable
+    deleteOnDrop: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHFlamerVisuals.Ignited:
+        enum.DHFlamerVisuals.Ignited:
+          True: { visible: true }
+          False: { visible: false }
