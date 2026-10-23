@@ -39,7 +39,7 @@ public sealed partial class DHLandedComponent : Component
 /// Консоль посадки (спуск на поверхность тела и взлёт на орбиту) и газозаборник (набор газа в верхних слоях
 /// газовых гигантов).
 /// </summary>
-public sealed class DHLandingSystem : EntitySystem
+public sealed partial class DHLandingSystem : EntitySystem
 {
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private AtmosphereSystem _atmos = default!;
@@ -314,7 +314,8 @@ public sealed class DHLandingSystem : EntitySystem
         if (!_celestial.TryGetSystem(map, out var system, out var origin))
             return;
 
-        var body = system.Bodies.Find(b => b.Id == args.Body);
+        var bodyId = args.Body; // ref-параметр нельзя захватывать в лямбде
+        var body = system.Bodies.Find(b => b.Id == bodyId);
         if (body == null || !body.Landable ||
             !float.IsFinite(args.Position.X) || !float.IsFinite(args.Position.Y) ||
             MathF.Abs(args.Position.X) > ent.Comp.ZoneSize || MathF.Abs(args.Position.Y) > ent.Comp.ZoneSize)

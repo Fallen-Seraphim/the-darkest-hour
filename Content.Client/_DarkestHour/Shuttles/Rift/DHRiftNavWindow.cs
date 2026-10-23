@@ -10,9 +10,9 @@ namespace Content.Client._DarkestHour.Shuttles.Rift;
 /// <summary>
 /// Навигационная консоль разрывных прыжков: список систем, карта выбранной системы, точка выхода, прыжок.
 /// </summary>
-public sealed class DHRiftNavWindow : DefaultWindow
+public sealed partial class DHRiftNavWindow : DefaultWindow
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
 
     public event Action<string>? OnViewSystem;
     public event Action<string, Vector2>? OnJump;

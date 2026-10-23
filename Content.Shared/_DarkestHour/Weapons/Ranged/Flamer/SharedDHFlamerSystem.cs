@@ -21,7 +21,7 @@ namespace Content.Shared._DarkestHour.Weapons.Ranged.Flamer;
 /// Сама струя огня считается на сервере (DHFlamerSystem).
 /// По образцу SharedRMCFlamerSystem из RMC-14 (MIT).
 /// </summary>
-public abstract class SharedDHFlamerSystem : EntitySystem
+public abstract partial class SharedDHFlamerSystem : EntitySystem
 {
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
