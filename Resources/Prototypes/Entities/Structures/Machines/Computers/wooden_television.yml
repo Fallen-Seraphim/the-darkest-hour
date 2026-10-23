@@ -5,6 +5,7 @@
   description: Finally, some decent reception around here...
   components:
   - type: Sprite
+    sprite: Structures/Machines/computers.rsi # DarkestHour: база стала настольным компьютером, телевизор — свой спрайт
     noRot: true
     drawdepth: SmallObjects
   - type: ComputerVisuals
