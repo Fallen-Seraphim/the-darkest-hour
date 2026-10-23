@@ -36,3 +36,6 @@
   id: DHEngineeringBoardsStatic
   recipes:
   - UraniumEnrichmentCentrifugeMachineCircuitboard
+  # Посадка и газозаборник (этап 5).
+  - DHLandingComputerCircuitboard
+  - DHGasScoopMachineCircuitboard

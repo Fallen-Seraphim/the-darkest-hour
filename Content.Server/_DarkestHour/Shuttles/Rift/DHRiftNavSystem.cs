@@ -104,6 +104,9 @@ public sealed class DHRiftNavSystem : EntitySystem
         if (map != null && TryComp<DHStarSystemMapComponent>(map, out var comp) && comp.System != null)
             return comp.System.Value.Id;
 
+        if (map != null && TryComp<DHPlanetSurfaceMapComponent>(map, out var surface))
+            return surface.System;
+
         return HomeSystem();
     }
 
@@ -182,6 +185,12 @@ public sealed class DHRiftNavSystem : EntitySystem
         if (!_shuttle.CanFTL(shuttle.Value, out var reason))
         {
             status = reason;
+            return false;
+        }
+
+        if (HasComp<DHPlanetSurfaceMapComponent>(Transform(shuttle.Value).MapUid))
+        {
+            status = Loc.GetString("dh-landing-use-console");
             return false;
         }
 

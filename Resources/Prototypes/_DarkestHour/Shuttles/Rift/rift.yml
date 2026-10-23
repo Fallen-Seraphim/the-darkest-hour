@@ -198,6 +198,13 @@
     radius: 5000
     color: "#7FA36B"
     orbitParent: Star
+    landable: true
+    biome: Grasslands
+    surfaceGases:
+      Oxygen: 21.8
+      Nitrogen: 82.1
+    surfaceTemperature: 291
+    surfaceLight: "#D8B059"
   - id: T2
     name: dh-celestial-tau-2
     kind: GasGiant
@@ -205,9 +212,14 @@
     radius: 30000
     color: "#C9B27A"
     orbitParent: Star
-    radiation: 3
+    radiation: 0.1
     radiationFalloff: 7000
     enterableDepth: 3000
+    layerGases:
+      Nitrogen: 0.5
+      Oxygen: 0.3
+      CarbonDioxide: 0.2
+    layerTemperature: 180
 
 - type: dhStarSystem
   id: DHSystemVarda
@@ -265,6 +277,12 @@
     radius: 40000
     color: "#A87FC9"
     orbitParent: Star
-    radiation: 5
+    radiation: 0.15
     radiationFalloff: 10000
     enterableDepth: 4000
+    layerGases:
+      Nitrogen: 0.5
+      CarbonDioxide: 0.25
+      Tritium: 0.2
+      Frezon: 0.05
+    layerTemperature: 200

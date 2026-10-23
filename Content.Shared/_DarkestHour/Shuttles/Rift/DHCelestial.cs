@@ -1,4 +1,7 @@
 using System.Numerics;
+using Content.Shared.Atmos;
+using Content.Shared.Parallax.Biomes;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared._DarkestHour.Shuttles.Rift;
@@ -66,6 +69,31 @@ public sealed partial class DHCelestialBody
     /// <summary>Тело можно выбрать целью посадки (консоль посадки).</summary>
     [DataField]
     public bool Landable;
+
+    /// <summary>Биом поверхности: карта поверхности создаётся при первой посадке.</summary>
+    [DataField]
+    public ProtoId<BiomeTemplatePrototype>? Biome;
+
+    /// <summary>Атмосфера поверхности, моль на тайл. Пусто — вакуум.</summary>
+    [DataField]
+    public Dictionary<Gas, float> SurfaceGases = new();
+
+    [DataField]
+    public float SurfaceTemperature = Atmospherics.T20C;
+
+    /// <summary>Освещение поверхности.</summary>
+    [DataField]
+    public Color SurfaceLight = Color.FromHex("#9DB4CC");
+
+    /// <summary>
+    /// Состав верхних слоёв газового гиганта (доли, нормируются): его набирает газозаборник корабля, пока корабль
+    /// в слоях.
+    /// </summary>
+    [DataField]
+    public Dictionary<Gas, float> LayerGases = new();
+
+    [DataField]
+    public float LayerTemperature = 120f;
 }
 
 public static class DHCelestial
@@ -95,6 +123,12 @@ public static class DHCelestial
     public static float SolidRadius(DHCelestialBody body)
     {
         return MathF.Max(0f, body.Radius - body.EnterableDepth);
+    }
+
+    /// <summary>Корабль в верхних слоях тела (между поверхностью облаков и нижней границей).</summary>
+    public static bool InGasLayer(DHCelestialBody body, float distance)
+    {
+        return body.EnterableDepth > 0f && distance < body.Radius && distance >= SolidRadius(body);
     }
 
     /// <summary>Расстояние до поверхности в читаемом виде: метры или километры.</summary>

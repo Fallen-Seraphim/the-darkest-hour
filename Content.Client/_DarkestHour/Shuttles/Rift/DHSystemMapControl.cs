@@ -28,6 +28,12 @@ public sealed class DHSystemMapControl : Control
     public List<DHRiftNavGrid> Grids = new();
     public Vector2? Target;
 
+    /// <summary>
+    /// Квадрат с половиной стороны ZoneHalfSize вокруг начала координат: зона, в которой можно выбрать точку
+    /// (зона посадки). 0 — без ограничений.
+    /// </summary>
+    public float ZoneHalfSize;
+
     private readonly Font _font;
     private readonly List<Vector2> _buffer = new();
 
@@ -88,6 +94,13 @@ public sealed class DHSystemMapControl : Control
         var max = new Vector2(float.MinValue);
         var any = false;
 
+        if (ZoneHalfSize > 0f)
+        {
+            min = new Vector2(-ZoneHalfSize);
+            max = new Vector2(ZoneHalfSize);
+            any = true;
+        }
+
         if (StarSystem != null)
         {
             foreach (var body in StarSystem.Bodies)
@@ -144,8 +157,12 @@ public sealed class DHSystemMapControl : Control
         if (_dragDistance > ClickTolerance)
             return;
 
-        Target = FromPixel(args.RelativePixelPosition);
-        OnTargetSelected?.Invoke(Target.Value);
+        var target = FromPixel(args.RelativePixelPosition);
+        if (ZoneHalfSize > 0f)
+            target = Vector2.Clamp(target, new Vector2(-ZoneHalfSize), new Vector2(ZoneHalfSize));
+
+        Target = target;
+        OnTargetSelected?.Invoke(target);
     }
 
     protected override void MouseMove(GUIMouseMoveEventArgs args)
@@ -188,6 +205,9 @@ public sealed class DHSystemMapControl : Control
 
         if (StarSystem != null)
             DrawSystem(handle, StarSystem, size);
+
+        if (ZoneHalfSize > 0f)
+            DrawZone(handle);
 
         DrawGrids(handle);
         DrawTarget(handle);
@@ -249,6 +269,23 @@ public sealed class DHSystemMapControl : Control
                 continue;
 
             handle.DrawString(_font, position, text, body.Color);
+        }
+    }
+
+    private void DrawZone(DrawingHandleScreen handle)
+    {
+        var a = ToPixel(new Vector2(-ZoneHalfSize, ZoneHalfSize));
+        var b = ToPixel(new Vector2(ZoneHalfSize, -ZoneHalfSize));
+        var box = new UIBox2(Vector2.Min(a, b), Vector2.Max(a, b));
+        handle.DrawRect(box, OrbitColor.WithAlpha(0.06f));
+        handle.DrawRect(box, OrbitColor, false);
+
+        // Сетка по 500 м.
+        const float step = 500f;
+        for (var x = -ZoneHalfSize + step; x < ZoneHalfSize; x += step)
+        {
+            handle.DrawLine(ToPixel(new Vector2(x, -ZoneHalfSize)), ToPixel(new Vector2(x, ZoneHalfSize)), OrbitColor.WithAlpha(0.12f));
+            handle.DrawLine(ToPixel(new Vector2(-ZoneHalfSize, x)), ToPixel(new Vector2(ZoneHalfSize, x)), OrbitColor.WithAlpha(0.12f));
         }
     }
 

@@ -1,0 +1,105 @@
+# Консоль посадки: спуск на поверхность тела (с орбиты не выше 3 км) и взлёт обратно на орбиту.
+- type: entity
+  parent: BaseComputer
+  id: DHComputerLanding
+  name: landing console
+  description: Plots a descent to the surface of a nearby world and the climb back to orbit.
+  components:
+  - type: ComputerVisuals
+    stateScreen: mining
+    stateKeys: mining_key
+  - type: DHLandingConsole
+  - type: ActivatableUI
+    key: enum.DHLandingUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHLandingUiKey.Key:
+        type: DHLandingBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: Computer
+    board: DHLandingComputerCircuitboard
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#b89a5e"
+
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: DHLandingComputerCircuitboard
+  name: landing console board
+  description: A computer printed circuit board for a landing console.
+  components:
+  - type: Sprite
+    state: cpu_supply
+  - type: ComputerBoard
+    prototype: DHComputerLanding
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: DHLandingComputerCircuitboard
+  result: DHLandingComputerCircuitboard
+
+# Газозаборник: ставится на корабль, выход — труба. Пока корабль в верхних слоях газового гиганта, набирает
+# газ слоя (глубже — быстрее). Газ годится в манёвровые двигатели станции.
+- type: entity
+  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  id: DHGasScoop
+  name: gas scoop
+  description: Rams the upper atmosphere of a gas giant into the ship's pipes. Only works while the ship is inside the cloud layers.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    noRot: false
+  - type: Rotatable
+  - type: Sprite
+    sprite: Structures/Piping/Atmospherics/miners.rsi
+    color: "#9fb4d0"
+    layers:
+    - state: miner
+    - state: on
+      map: [ "working" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHGasScoopVisuals.Working:
+        working:
+          True: { visible: true }
+          False: { visible: false }
+  - type: ApcPowerReceiver
+    powerLoad: 3000
+  - type: AtmosDevice
+  - type: NodeContainer
+    nodes:
+      pipe:
+        !type:PipeNode
+        nodeGroupID: Pipe
+        pipeDirection: South
+  - type: DHGasScoop
+  - type: Machine
+    board: DHGasScoopMachineCircuitboard
+  - type: StaticPrice
+    price: 1500
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: DHGasScoopMachineCircuitboard
+  name: gas scoop machine board
+  description: A machine printed circuit board for a gas scoop.
+  components:
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: DHGasScoop
+    stackRequirements:
+      Manipulator: 2
+      Steel: 10
+      Glass: 2
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: DHGasScoopMachineCircuitboard
+  result: DHGasScoopMachineCircuitboard
