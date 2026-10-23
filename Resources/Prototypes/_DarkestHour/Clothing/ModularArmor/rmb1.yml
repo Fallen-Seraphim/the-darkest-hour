@@ -545,6 +545,21 @@
 
 - type: entity
   parent: DHClothingOuterModularRMB1
+  id: DHClothingOuterModularRMB1CompositeAutoMed
+  suffix: CompositeAutoMed
+  components:
+  - type: DHModularArmor
+    faction: rmb1
+    startingModules:
+      Torso: DHArmorModuleRMB1CompositeTorso
+      ArmLeft: DHArmorModuleRMB1CompositeArmLeft
+      ArmRight: DHArmorModuleRMB1CompositeArmRight
+      LegLeft: DHArmorModuleRMB1CompositeLegLeft
+      LegRight: DHArmorModuleRMB1CompositeLegRight
+      Special: DHArmorSpecialAutoMed
+
+- type: entity
+  parent: DHClothingOuterModularRMB1
   id: DHClothingOuterModularRMB1StandardAutoMed
   suffix: StandardAutoMed
   components:

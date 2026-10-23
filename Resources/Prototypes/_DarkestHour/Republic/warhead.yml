@@ -1,0 +1,116 @@
+# Соединённая Республика: тактическая ядерная боеголовка усиленного отряда зачистки (код «Деаденд») и её ключи.
+# Спрайты — Tools/_DarkestHour/republic/warhead_sprites.py. Механика — DHTacticalWarheadSystem.
+
+- type: entity
+  parent: [ BaseStructure, StructureWheeled, BaseMajorContraband ]
+  id: DHTacticalWarhead
+  name: RTW-9 tactical nuclear warhead
+  description: A Republican Army Corps tactical nuclear warhead on a wheeled cradle. Opened with the panel key, armed with the authorisation key and the nuclear authentication code.
+  components:
+  - type: Transform
+    anchored: false
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Devices/tactical_warhead.rsi
+    noRot: true
+    layers:
+    - state: base
+    - state: panel_closed
+      map: [ "panel" ]
+    - state: screen_idle
+      map: [ "screen" ]
+      shader: unshaded
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHWarheadVisuals.Panel:
+        panel:
+          True: { state: panel_open }
+          False: { state: panel_closed }
+      enum.DHWarheadVisuals.State:
+        screen:
+          Idle: { state: screen_idle }
+          Authorized: { state: screen_auth }
+          Armed: { state: screen_armed }
+          Final: { state: screen_final }
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.45
+        density: 255
+        mask:
+        - MachineMask
+        layer:
+        - HalfWallLayer
+  - type: PointLight
+    enabled: false
+    radius: 4
+    energy: 2.0
+    color: "#B040FF"
+    lightMask: ConeDouble
+  - type: RotatingLight
+    speed: 120
+  - type: NavMapBeacon
+    color: "#B040FF"
+    text: tactical nuclear warhead
+    enabled: false
+  - type: DHTacticalWarhead
+  - type: InteractionOutline
+  - type: UserInterface
+    interfaces:
+      enum.DHWarheadUiKey.Key:
+        type: DHWarheadBoundUserInterface
+  - type: StaticPrice
+    price: 50000
+  - type: CargoSellBlacklist
+  - type: ArrivalsBlacklist
+  - type: WarpPoint
+    follow: true
+    location: location-dh-tactical-warhead
+  - type: FTLSmashImmune
+
+- type: entity
+  parent: [ Clothing, BaseMajorContraband ]
+  id: DHWarheadAuthKey
+  name: warhead authorisation key
+  description: A Republican Army Corps authorisation pass on a lanyard. Swipe it on a tactical nuclear warhead with an open panel — worn on the neck it works too.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Devices/warhead_auth_key.rsi
+    state: icon
+  - type: Clothing
+    sprite: _DarkestHour/Objects/Devices/warhead_auth_key.rsi
+    quickEquip: true
+    slots:
+    - neck
+  - type: Item
+    size: Tiny
+  - type: DHWarheadAuthKey
+  - type: StaticPrice
+    price: 5000
+
+- type: entity
+  parent: [ BaseItem, BaseMajorContraband ]
+  id: DHWarheadPanelKey
+  name: warhead panel key
+  description: A heavy key with a green Republican tag. Opens and closes the input panel of a tactical nuclear warhead.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Devices/warhead_panel_key.rsi
+    state: icon
+  - type: Item
+    size: Tiny
+  - type: DHWarheadPanelKey
+  - type: StaticPrice
+    price: 2000
+
+- type: entity
+  parent: Paper
+  id: DHWarheadCodePaper
+  name: nuclear authentication code
+  description: A sealed Republican order sheet with the nuclear authentication code of a tactical warhead.
+  components:
+  - type: DHWarheadCodePaper

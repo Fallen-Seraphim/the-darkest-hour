@@ -46,6 +46,17 @@ public sealed partial class DHAdminTab : Control
         callRepublic.OnPressed += _ => _console.ExecuteCommand("dhcallrepublic");
         root.AddChild(callRepublic);
 
+        var callDeadend = new ConfirmButton
+        {
+            Text = Loc.GetString("dh-admin-tab-call-republic-deadend"),
+            ToolTip = Loc.GetString("dh-admin-tab-call-republic-deadend-tooltip"),
+            HorizontalAlignment = HAlignment.Left,
+            MinWidth = 260,
+            ModulateSelfOverride = Color.FromHex("#7B2FBE"),
+        };
+        callDeadend.OnPressed += _ => _console.ExecuteCommand("dhcallrepublicdeadend");
+        root.AddChild(callDeadend);
+
         AddChild(root);
     }
 }
