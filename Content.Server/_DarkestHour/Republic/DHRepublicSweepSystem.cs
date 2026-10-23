@@ -31,7 +31,7 @@ public sealed partial class DHRepublicSweepSystem : EntitySystem
     [Dependency] private SharedMapSystem _map = default!;
     [Dependency] private MetaDataSystem _meta = default!;
     [Dependency] private ShuttleSystem _shuttle = default!;
-    [Dependency] private StationSystem _station = default!;
+    [Dependency] private ServerStationSystem _station = default!;
 
     public static readonly ResPath ShuttlePath = new("/Maps/_DarkestHour/Shuttles/republic_sweep.yml");
     public static readonly ResPath ReinforcedShuttlePath = new("/Maps/_DarkestHour/Shuttles/republic_deadend.yml");
