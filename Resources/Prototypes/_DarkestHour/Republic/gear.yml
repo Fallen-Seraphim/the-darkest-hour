@@ -118,3 +118,28 @@
   id: DHWeaponFlamerRepublic
   name: RFL-M-13 incinerator
   description: A Republican Army Corps incinerator with a high-pressure pump and a long nozzle. Throws burning fuel twice as far as a civilian unit. Alt-click to light the pilot flame.
+
+# Усиленный отряд зачистки (код «Деаденд»): командир несёт ключи и код боеголовки, автоматчики — в полном композите.
+- type: startingGear
+  parent: DHRepublicCommanderGear
+  id: DHRepublicDeadendCommanderGear
+  equipment:
+    outerClothing: DHClothingOuterModularRMB1CompositeAutoMed
+    neck: DHWarheadAuthKey
+    pocket1: DHWarheadPanelKey
+  storage:
+    back:
+    - DHWarheadCodePaper
+    - CombatKnife
+    - DHMagazine762x51FMG
+    - DHMagazine762x51FMG
+    - DHMagazine762x51FMG
+    - DHMagazine762x51EXP
+    - Binoculars
+    - MedkitCombatFilled
+
+- type: startingGear
+  parent: DHRepublicRiflemanGear
+  id: DHRepublicDeadendRiflemanGear
+  equipment:
+    outerClothing: DHClothingOuterModularRMB1CompositeAutoMed

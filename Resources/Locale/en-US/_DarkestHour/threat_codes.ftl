@@ -24,6 +24,10 @@ dh-alert-level-indomitus = Indomitus
 dh-alert-level-indomitus-announcement = By order of the United Republic, all contracts with Metallistick Group in this system are terminated. Martial law is declared. The Republican Army Corps is at combat readiness. A Republic sweep team is en route to the station. The crew is to comply with its orders without resistance.
 dh-alert-level-indomitus-instructions = Contracts terminated. Obey the Republic sweep team.
 
+dh-alert-level-deadend = Deadend
+dh-alert-level-deadend-announcement = By decree of the Supreme Command of the United Republic, the crew of this station is found guilty of high treason and separatism for capitulating to the forces of the First Empire. The Republican citizenship and all civil rights of every member of the crew are annulled. The entire crew is placed on the Republic's wanted list. The station is condemned. A reinforced Republic sweep team is en route with orders to suppress the separatists, eliminate all resistance and destroy the station with a tactical nuclear warhead. There will be no evacuation. Glory to the United Republic!
+dh-alert-level-deadend-instructions = The station is condemned for treason. Citizenship annulled. No evacuation. Glory to the United Republic!
+
 ## Консоли связи
 dh-comms-console-title-station = {$station}
 dh-comms-console-announcement-title-metallistick = Metallistick Group

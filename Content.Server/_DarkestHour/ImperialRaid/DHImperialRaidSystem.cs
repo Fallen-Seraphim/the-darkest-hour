@@ -1,7 +1,7 @@
 using Content.Server._DarkestHour.Orbit;
+using Content.Server._DarkestHour.Republic;
 using Content.Server.Chat.Systems;
 using Content.Server.GameTicking.Rules.Components;
-using Content.Server.RoundEnd;
 using Content.Server.Shuttles.Events;
 using Content.Shared.Station.Systems;
 using Content.Shared.Station.Components;
@@ -19,17 +19,22 @@ public sealed partial class DHImperialUltimatumComponent : Component
 
     [DataField]
     public bool Resolved;
+
+    /// <summary>Станция сдалась Империи: когда Республика ответит кодом «Деаденд» и усиленным отрядом зачистки.</summary>
+    [DataField]
+    public TimeSpan? DeadendAt;
 }
 
 /// <summary>
 /// Имперский Рейд: когда шаттл Рейда выходит из прыжка у станции, Имперская Морская Пехота объявляет ультиматум
 /// (жёлтым): десять минут на сдачу. Сдача — подъём станции на высокую орбиту (компьютер орбиты). Сдались — Рейд
-/// принимает капитуляцию и вызывается эвакуация; не сдались — объявляется штурм.
+/// принимает капитуляцию, а Республика объявляет станцию изменнической: код «Деаденд» и усиленный отряд зачистки
+/// с тактической ядерной боеголовкой. Не сдались — объявляется штурм.
 /// </summary>
 public sealed partial class DHImperialRaidSystem : EntitySystem
 {
     [Dependency] private ChatSystem _chat = default!;
-    [Dependency] private RoundEndSystem _roundEnd = default!;
+    [Dependency] private DHRepublicSweepSystem _republic = default!;
     [Dependency] private StationSystem _station = default!;
     [Dependency] private IGameTiming _timing = default!;
 
@@ -38,6 +43,9 @@ public sealed partial class DHImperialRaidSystem : EntitySystem
 
     /// <summary>Сколько даётся на сдачу.</summary>
     public static readonly TimeSpan SurrenderTime = TimeSpan.FromMinutes(10);
+
+    /// <summary>Через сколько после капитуляции Республика отвечает «Деадендом».</summary>
+    public static readonly TimeSpan DeadendDelay = TimeSpan.FromSeconds(45);
 
     /// <summary>Высокая орбита: станция на этой высоте или выше считается сдавшейся.</summary>
     public const float HighOrbit = 380f;
@@ -93,6 +101,13 @@ public sealed partial class DHImperialRaidSystem : EntitySystem
         var query = EntityQueryEnumerator<DHImperialUltimatumComponent>();
         while (query.MoveNext(out var station, out var ultimatum))
         {
+            if (ultimatum.DeadendAt is { } deadendAt && now >= deadendAt)
+            {
+                ultimatum.DeadendAt = null;
+                _republic.TryCallSweep(station, out _, reinforced: true);
+                continue;
+            }
+
             if (ultimatum.Resolved)
                 continue;
 
@@ -100,9 +115,9 @@ public sealed partial class DHImperialRaidSystem : EntitySystem
             if (surrendered)
             {
                 ultimatum.Resolved = true;
+                ultimatum.DeadendAt = now + DeadendDelay;
                 _chat.DispatchStationAnnouncement(station, Loc.GetString("dh-imperial-surrender-accepted"),
                     Loc.GetString("dh-imperial-sender"), true, null, ImperialYellow);
-                _roundEnd.RequestRoundEnd(TimeSpan.FromMinutes(10), checkCooldown: false, cantRecall: true);
                 continue;
             }
 

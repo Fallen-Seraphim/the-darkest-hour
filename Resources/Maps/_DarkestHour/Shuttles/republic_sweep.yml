@@ -1256,6 +1256,26 @@ entities:
       rot: 3.141592653589793 rad
       pos: -2.5,-3.5
       parent: 1
+  - uid: 101
+    components:
+    - type: Transform
+      pos: -4.5,-0.5
+      parent: 1
+  - uid: 102
+    components:
+    - type: Transform
+      pos: -1.5,-0.5
+      parent: 1
+  - uid: 103
+    components:
+    - type: Transform
+      pos: -0.5,-0.5
+      parent: 1
+  - uid: 104
+    components:
+    - type: Transform
+      pos: -3.5,-0.5
+      parent: 1
 - proto: PottedPlant29
   entities:
   - uid: 198
@@ -1754,28 +1774,6 @@ entities:
     components:
     - type: Transform
       pos: -2.5,-0.5
-      parent: 1
-- proto: WindowReinforcedDirectional
-  entities:
-  - uid: 101
-    components:
-    - type: Transform
-      pos: -4.5,-0.5
-      parent: 1
-  - uid: 102
-    components:
-    - type: Transform
-      pos: -1.5,-0.5
-      parent: 1
-  - uid: 103
-    components:
-    - type: Transform
-      pos: -0.5,-0.5
-      parent: 1
-  - uid: 104
-    components:
-    - type: Transform
-      pos: -3.5,-0.5
       parent: 1
 - proto: Wrench
   entities:

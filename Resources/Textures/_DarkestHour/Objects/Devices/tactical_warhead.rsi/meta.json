@@ -1,0 +1,47 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Drawn for The Darkest Hour (Tools/_DarkestHour/republic/warhead_sprites.py)",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "base"
+        },
+        {
+            "name": "icon"
+        },
+        {
+            "name": "panel_closed"
+        },
+        {
+            "name": "panel_open"
+        },
+        {
+            "name": "screen_idle"
+        },
+        {
+            "name": "screen_auth"
+        },
+        {
+            "name": "screen_armed",
+            "delays": [
+                [
+                    0.5,
+                    0.5
+                ]
+            ]
+        },
+        {
+            "name": "screen_final",
+            "delays": [
+                [
+                    0.15,
+                    0.15
+                ]
+            ]
+        }
+    ]
+}

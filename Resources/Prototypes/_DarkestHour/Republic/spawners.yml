@@ -203,3 +203,215 @@
     nameSegments:
     - NamesMilitaryLast
     nameFormat: dh-name-format-republic-flamer
+
+# Усиленный отряд зачистки (код «Деаденд»): те же должности, свои правила, усиленное снаряжение командира и автоматчиков.
+
+- type: entity
+  id: DHSpawnerRepublicDeadendCommander
+  name: Republic deadend commander
+  suffix: Ghost role
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+      state: icon
+      color: "#C9A8F0"
+    - sprite: _DarkestHour/Objects/Devices/tactical_warhead.rsi
+      state: icon
+      scale: 0.75, 0.75
+  - type: RandomHumanoidSpawner
+    settings: DHRepublicDeadendCommander
+
+- type: randomHumanoidSettings
+  id: DHRepublicDeadendCommander
+  parent: EventHumanoidCentcomm
+  components:
+  - type: GhostRole
+    name: dh-ghost-role-republic-deadend-commander-name
+    description: dh-ghost-role-republic-deadend-commander-desc
+    rules: dh-ghost-role-republic-deadend-rules
+    raffle:
+      settings: short
+    job: DHRepublicCommander
+  - type: Loadout
+    prototypes: [ DHRepublicDeadendCommanderGear ]
+    roleLoadout: [ RoleSurvivalMilitaryDouble ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-republic-commander
+
+- type: entity
+  id: DHSpawnerRepublicDeadendSniper
+  name: Republic deadend sniper
+  suffix: Ghost role
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+      state: icon
+      color: "#C9A8F0"
+    - sprite: _DarkestHour/Objects/Weapons/Guns/rmar_as_m15_18.rsi
+      state: icon
+      scale: 0.75, 0.75
+  - type: RandomHumanoidSpawner
+    settings: DHRepublicDeadendSniper
+
+- type: randomHumanoidSettings
+  id: DHRepublicDeadendSniper
+  parent: EventHumanoidCentcomm
+  components:
+  - type: GhostRole
+    name: dh-ghost-role-republic-deadend-sniper-name
+    description: dh-ghost-role-republic-deadend-sniper-desc
+    rules: dh-ghost-role-republic-deadend-rules
+    raffle:
+      settings: short
+    job: DHRepublicSniper
+  - type: Loadout
+    prototypes: [ DHRepublicSniperGear ]
+    roleLoadout: [ RoleSurvivalMilitaryDouble ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-republic-sniper
+
+- type: entity
+  id: DHSpawnerRepublicDeadendMachinegunner
+  name: Republic deadend machinegunner
+  suffix: Ghost role
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+      state: icon
+      color: "#C9A8F0"
+    - sprite: _DarkestHour/Objects/Weapons/Guns/ramg_m14_1.rsi
+      state: icon
+      scale: 0.75, 0.75
+  - type: RandomHumanoidSpawner
+    settings: DHRepublicDeadendMachinegunner
+
+- type: randomHumanoidSettings
+  id: DHRepublicDeadendMachinegunner
+  parent: EventHumanoidCentcomm
+  components:
+  - type: GhostRole
+    name: dh-ghost-role-republic-deadend-machinegunner-name
+    description: dh-ghost-role-republic-deadend-machinegunner-desc
+    rules: dh-ghost-role-republic-deadend-rules
+    raffle:
+      settings: short
+    job: DHRepublicMachinegunner
+  - type: Loadout
+    prototypes: [ DHRepublicMachinegunnerGear ]
+    roleLoadout: [ RoleSurvivalMilitaryDouble ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-republic-machinegunner
+
+- type: entity
+  id: DHSpawnerRepublicDeadendRifleman
+  name: Republic deadend rifleman
+  suffix: Ghost role
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+      state: icon
+      color: "#C9A8F0"
+    - sprite: _DarkestHour/Objects/Weapons/Guns/rar_m11_1.rsi
+      state: icon
+      scale: 0.75, 0.75
+  - type: RandomHumanoidSpawner
+    settings: DHRepublicDeadendRifleman
+
+- type: randomHumanoidSettings
+  id: DHRepublicDeadendRifleman
+  parent: EventHumanoidCentcomm
+  components:
+  - type: GhostRole
+    name: dh-ghost-role-republic-deadend-rifleman-name
+    description: dh-ghost-role-republic-deadend-rifleman-desc
+    rules: dh-ghost-role-republic-deadend-rules
+    raffle:
+      settings: short
+    job: DHRepublicRifleman
+  - type: Loadout
+    prototypes: [ DHRepublicDeadendRiflemanGear ]
+    roleLoadout: [ RoleSurvivalMilitaryDouble ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-republic-rifleman
+
+- type: entity
+  id: DHSpawnerRepublicDeadendMedic
+  name: Republic deadend medic
+  suffix: Ghost role
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+      state: icon
+      color: "#C9A8F0"
+    - sprite: _DarkestHour/Objects/Weapons/Guns/raptor_m12_16.rsi
+      state: icon
+      scale: 0.75, 0.75
+  - type: RandomHumanoidSpawner
+    settings: DHRepublicDeadendMedic
+
+- type: randomHumanoidSettings
+  id: DHRepublicDeadendMedic
+  parent: EventHumanoidCentcomm
+  components:
+  - type: GhostRole
+    name: dh-ghost-role-republic-deadend-medic-name
+    description: dh-ghost-role-republic-deadend-medic-desc
+    rules: dh-ghost-role-republic-deadend-rules
+    raffle:
+      settings: short
+    job: DHRepublicMedic
+  - type: Loadout
+    prototypes: [ DHRepublicMedicGear ]
+    roleLoadout: [ RoleSurvivalMilitaryDouble ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-republic-medic
+
+- type: entity
+  id: DHSpawnerRepublicDeadendFlamer
+  name: Republic deadend flamer
+  suffix: Ghost role
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+      state: icon
+      color: "#C9A8F0"
+    - sprite: _RMC14/Objects/Weapons/Guns/Flamethrower/colony.rsi
+      state: base
+      scale: 0.75, 0.75
+  - type: RandomHumanoidSpawner
+    settings: DHRepublicDeadendFlamer
+
+- type: randomHumanoidSettings
+  id: DHRepublicDeadendFlamer
+  parent: EventHumanoidCentcomm
+  components:
+  - type: GhostRole
+    name: dh-ghost-role-republic-deadend-flamer-name
+    description: dh-ghost-role-republic-deadend-flamer-desc
+    rules: dh-ghost-role-republic-deadend-rules
+    raffle:
+      settings: short
+    job: DHRepublicFlamer
+  - type: Loadout
+    prototypes: [ DHRepublicFlamerGear ]
+    roleLoadout: [ RoleSurvivalMilitaryDouble ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-republic-flamer

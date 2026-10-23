@@ -43,5 +43,5 @@ dh-imperial-set-rifleman-shotgun-description = IMPSH-17P pump shotgun with three
 
 dh-imperial-sender = Imperial Marine Corps
 dh-imperial-ultimatum = Attention, {$station}! This is the Imperial Marine Corps. Your station is surrounded. You have {$minutes} minutes to surrender. To surrender, raise the station to a high orbit — {$altitude} km or higher — and lay down your arms. If you refuse, we take the station by storm. Glory to the First Empire!
-dh-imperial-surrender-accepted = Your surrender is accepted. Lay down your arms and await the boarding party. The crew will be evacuated. Glory to the First Empire!
+dh-imperial-surrender-accepted = Your surrender is accepted. Lay down your arms and await the boarding party. From this hour the station is under the protection of the First Empire. Glory to the First Empire!
 dh-imperial-assault = Time is up. The station has not surrendered. The assault begins. Glory to the First Empire!

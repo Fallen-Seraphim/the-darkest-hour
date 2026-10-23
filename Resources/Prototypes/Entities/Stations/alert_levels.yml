@@ -11,5 +11,6 @@
     - DHTerrinum
     - DHEx
     - DHIndomitus
+    - DHDeadend
     defaultAlertLevel: DHEllow
     currentAlertLevel: DHEllow

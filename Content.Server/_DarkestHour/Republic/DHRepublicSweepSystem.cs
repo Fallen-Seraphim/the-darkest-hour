@@ -18,6 +18,10 @@ namespace Content.Server._DarkestHour.Republic;
 /// Отряд зачистки Соединённой Республики: вызов одной кнопкой из админ-панели. Шаттл RAC Cordon с точками появления
 /// восьми бойцов (командир, снайпер, пулемётчик, два автоматчика, два медика, огнемётчик) грузится на отдельной
 /// карте и прыгает к станции, а станция сразу переходит на код Индомитус (его объявление и есть оповещение экипажа).
+/// <para>
+/// Усиленный отряд (код «Деаденд», станция объявлена изменнической — например, сдалась Империи): шаттл RAC Verdict,
+/// десять бойцов и тактическая ядерная боеголовка, ключи и код которой — у командира. Задача — уничтожить станцию.
+/// </para>
 /// </summary>
 public sealed partial class DHRepublicSweepSystem : EntitySystem
 {
@@ -30,13 +34,17 @@ public sealed partial class DHRepublicSweepSystem : EntitySystem
     [Dependency] private StationSystem _station = default!;
 
     public static readonly ResPath ShuttlePath = new("/Maps/_DarkestHour/Shuttles/republic_sweep.yml");
+    public static readonly ResPath ReinforcedShuttlePath = new("/Maps/_DarkestHour/Shuttles/republic_deadend.yml");
     public static readonly ProtoId<AlertLevelPrototype> Indomitus = "DHIndomitus";
+    public static readonly ProtoId<AlertLevelPrototype> Deadend = "DHDeadend";
 
     /// <summary>
     /// Вызывает отряд зачистки к станции. <paramref name="station"/> — станция-цель; без неё — первая станция с экипажем.
+    /// <paramref name="reinforced"/> — усиленный отряд с боеголовкой и код «Деаденд» вместо Индомитуса.
     /// </summary>
-    public bool TryCallSweep(EntityUid? station, out string message)
+    public bool TryCallSweep(EntityUid? station, out string message, bool reinforced = false)
     {
+        var path = reinforced ? ReinforcedShuttlePath : ShuttlePath;
         station ??= FindStation();
         if (station == null || _station.GetLargestGrid(station.Value) is not { } target)
         {
@@ -47,20 +55,23 @@ public sealed partial class DHRepublicSweepSystem : EntitySystem
         var mapUid = _map.CreateMap(out var mapId);
         _meta.SetEntityName(mapUid, Loc.GetString("dh-republic-staging-map"));
 
-        if (!_loader.TryLoadGrid(mapId, ShuttlePath, out var grid) ||
+        if (!_loader.TryLoadGrid(mapId, path, out var grid) ||
             !TryComp<ShuttleComponent>(grid.Value, out var shuttle))
         {
             Del(mapUid);
-            message = Loc.GetString("dh-republic-call-load-failed", ("path", ShuttlePath.ToString()));
+            message = Loc.GetString("dh-republic-call-load-failed", ("path", path.ToString()));
             return false;
         }
 
         _shuttle.FTLToDock(grid.Value, shuttle, target);
 
-        // Индомитус: контракты расторгнуты, военное положение. Ставится принудительно (код не выбирается с консоли).
-        _alert.SetLevel(station.Value, Indomitus, playSound: true, announce: true, force: true, locked: true);
+        // Индомитус: контракты расторгнуты, военное положение. Деаденд: станция объявлена изменнической и обречена.
+        // Ставится принудительно (код не выбирается с консоли).
+        _alert.SetLevel(station.Value, reinforced ? Deadend : Indomitus, playSound: true, announce: true, force: true,
+            locked: true);
 
-        message = Loc.GetString("dh-republic-call-done", ("station", Name(station.Value)));
+        message = Loc.GetString(reinforced ? "dh-republic-call-deadend-done" : "dh-republic-call-done",
+            ("station", Name(station.Value)));
         return true;
     }
 
@@ -75,10 +86,34 @@ public sealed partial class DHRepublicSweepSystem : EntitySystem
         return null;
     }
 
-    public void LogCall(IConsoleShell shell, EntityUid? station)
+    /// <summary>Общая часть консольных команд вызова: разбор станции, вызов, лог.</summary>
+    public void ExecuteCall(IConsoleShell shell, string[] args, bool reinforced)
+    {
+        EntityUid? station = null;
+        if (args.Length > 0)
+        {
+            if (!NetEntity.TryParse(args[0], out var net) || !TryGetEntity(net, out station))
+            {
+                shell.WriteError(Loc.GetString("shell-entity-uid-must-be-number"));
+                return;
+            }
+        }
+
+        if (TryCallSweep(station, out var message, reinforced))
+        {
+            LogCall(shell, station, reinforced);
+            shell.WriteLine(message);
+        }
+        else
+        {
+            shell.WriteError(message);
+        }
+    }
+
+    public void LogCall(IConsoleShell shell, EntityUid? station, bool reinforced)
     {
         _adminLog.Add(LogType.Action, LogImpact.Extreme,
-            $"{shell.Player?.Name ?? "server"} called the Republic sweep team (Indomitus) to {ToPrettyString(station)}");
+            $"{shell.Player?.Name ?? "server"} called the {(reinforced ? "reinforced Republic sweep team (Deadend)" : "Republic sweep team (Indomitus)")} to {ToPrettyString(station)}");
     }
 }
 
@@ -91,24 +126,20 @@ public sealed partial class DHCallRepublicCommand : LocalizedEntityCommands
 
     public override void Execute(IConsoleShell shell, string argStr, string[] args)
     {
-        EntityUid? station = null;
-        if (args.Length > 0)
-        {
-            if (!NetEntity.TryParse(args[0], out var net) || !EntityManager.TryGetEntity(net, out station))
-            {
-                shell.WriteError(Loc.GetString("shell-entity-uid-must-be-number"));
-                return;
-            }
-        }
+        _republic.ExecuteCall(shell, args, reinforced: false);
+    }
+}
 
-        if (_republic.TryCallSweep(station, out var message))
-        {
-            _republic.LogCall(shell, station);
-            shell.WriteLine(message);
-        }
-        else
-        {
-            shell.WriteError(message);
-        }
+/// <summary>Усиленный отряд зачистки с боеголовкой и код «Деаденд».</summary>
+[AdminCommand(AdminFlags.Admin)]
+public sealed partial class DHCallRepublicDeadendCommand : LocalizedEntityCommands
+{
+    [Dependency] private DHRepublicSweepSystem _republic = default!;
+
+    public override string Command => "dhcallrepublicdeadend";
+
+    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    {
+        _republic.ExecuteCall(shell, args, reinforced: true);
     }
 }

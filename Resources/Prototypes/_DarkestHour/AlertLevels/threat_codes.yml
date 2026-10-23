@@ -1,6 +1,6 @@
 # Коды угрозы The Darkest Hour (вместо ванильных уровней тревоги, вырезаны).
 # Эллоу, Альтер, Дейбрейк — ставит Капитан с консоли связи. Терринум и Экс — автоматически от системы орбиты.
-# Индомитус — только извне (админ, событие).
+# Индомитус и Деаденд — только извне (админ, событие; Деаденд — ответ Республики на капитуляцию перед Империей).
 
 - type: alertLevel
   id: DHEllow
@@ -78,5 +78,19 @@
       volume: -4
   color: "#5E8C2A"
   emergencyLightColor: "#5E8C2A"
+  forceEnableEmergencyLights: true
+  shuttleTime: 1200
+
+- type: alertLevel
+  id: DHDeadend
+  name: dh-alert-level-deadend
+  announcement: dh-alert-level-deadend-announcement
+  instructions: dh-alert-level-deadend-instructions
+  selectable: false
+  disableSelection: true
+  sound:
+    path: /Audio/Misc/epsilon.ogg
+  color: "#7B2FBE"
+  emergencyLightColor: "#7B2FBE"
   forceEnableEmergencyLights: true
   shuttleTime: 1200

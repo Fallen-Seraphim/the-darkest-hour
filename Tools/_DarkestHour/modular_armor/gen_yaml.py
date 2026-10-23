@@ -58,6 +58,7 @@ PRESETS = {
     },
     'rmb1': {
         'Composite': ('Composite', 'Composite', 'Composite', None),
+        'CompositeAutoMed': ('Composite', 'Composite', 'Composite', 'DHArmorSpecialAutoMed'),
         'StandardAutoMed': ('Composite', 'Light', 'Light', 'DHArmorSpecialAutoMed'),
         'LightAutoMed': ('Light', 'Light', 'Light', 'DHArmorSpecialAutoMed'),
         'HeavyAutoMed': ('Heavy', 'Heavy', 'Heavy', 'DHArmorSpecialAutoMed'),
