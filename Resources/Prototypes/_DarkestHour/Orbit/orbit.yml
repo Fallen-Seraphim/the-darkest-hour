@@ -1,16 +1,5 @@
 # Орбита станции (этап 5): высоту держат манёвровые двигатели на любом газе, управляет ими компьютер орбиты.
-# Ниже порога «Терринум» — автоматический код угрозы (гамма), ниже «Экс» — орбита неисправима (свой код дельта).
-
-- type: alertLevel
-  parent: BaseDelta
-  id: DHEx
-  announcement: dh-alert-level-ex-announcement
-  sound:
-    path: /Audio/Misc/delta.ogg
-    params:
-      volume: -3
-  color: DarkRed
-  emergencyLightColor: Orange
+# Ниже порога «Терринум» — автоматический код угрозы Терринум, ниже «Экс» — орбита неисправима (код Экс).
 
 # Компьютер орбиты.
 - type: entity

@@ -3,12 +3,13 @@
   abstract: true
   components:
   - type: AlertLevel
+    # DarkestHour: свои коды угрозы вместо ванильных уровней тревоги.
     availableAlertLevels:
-    - Blue
-    - DeltaNuke
-    - Epsilon
-    - Gamma
-    - Green
-    - Red
-    - Violet
-    - Yellow
+    - DHEllow
+    - DHAlter
+    - DHDaybreak
+    - DHTerrinum
+    - DHEx
+    - DHIndomitus
+    defaultAlertLevel: DHEllow
+    currentAlertLevel: DHEllow

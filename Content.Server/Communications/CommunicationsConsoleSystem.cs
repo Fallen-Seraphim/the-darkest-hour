@@ -229,6 +229,10 @@ namespace Content.Server.Communications
             Loc.TryGetString(comp.Title, out var title);
             title ??= comp.Title;
 
+            // DarkestHour: консоль на мостике подписывает объявление названием станции.
+            if (comp.DHStationTitle && !comp.Global && _stationSystem.GetOwningStation(uid) is { } dhStation)
+                title = Loc.GetString("dh-comms-console-title-station", ("station", Name(dhStation)));
+
             var signature = comp.AnnounceSentBy ? author : null;
             var scope = comp.Global ? "global" : "station";
 
