@@ -77,10 +77,10 @@ dh-admin-tab-call-republic-deadend-tooltip = Loads the RAC Verdict shuttle with 
 location-dh-tactical-warhead = tactical nuclear warhead
 
 dh-warhead-code-paper-content = [head=2]UNITED REPUBLIC — REPUBLICAN ARMY CORPS[/head]
-    [bold]Order: Deadend.[/bold] Eyes of the sweep team commander only.
+    Order: [bold]Deadend[/bold]. Eyes of the sweep team commander only.
 
     Nuclear authentication code of the RTW-9 tactical warhead:
-    [head=1]{$code}[/head]
+    {"[head=1]"}{$code}{"[/head]"}
 
     1. Open the input panel with the panel key.
     2. Swipe the authorisation key on the warhead.
