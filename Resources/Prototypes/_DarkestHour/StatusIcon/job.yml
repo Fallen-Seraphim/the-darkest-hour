@@ -327,3 +327,57 @@
     sprite: *icon-rsi
     state: RepublicFlamer
   jobName: dh-job-republic-flamer-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHImperialCommander
+  icon:
+    sprite: *icon-rsi
+    state: ImperialCommander
+  jobName: dh-imperial-job-commander
+  isCrewJob: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHImperialWeapons
+  icon:
+    sprite: *icon-rsi
+    state: ImperialWeapons
+  jobName: dh-imperial-job-weapons
+  isCrewJob: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHImperialMedic
+  icon:
+    sprite: *icon-rsi
+    state: ImperialMedic
+  jobName: dh-imperial-job-medic
+  isCrewJob: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHImperialMachinegunner
+  icon:
+    sprite: *icon-rsi
+    state: ImperialMachinegunner
+  jobName: dh-imperial-job-machinegunner
+  isCrewJob: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHImperialRifleman
+  icon:
+    sprite: *icon-rsi
+    state: ImperialRifleman
+  jobName: dh-imperial-job-rifleman
+  isCrewJob: false
+
+# Значок принадлежности к Имперской Морской Пехоте (вместо значка Синдиката у ядерных оперативников)
+- type: statusIcon
+  id: DHImperialFaction
+  priority: 0
+  locationPreference: Left
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: ImperialFaction

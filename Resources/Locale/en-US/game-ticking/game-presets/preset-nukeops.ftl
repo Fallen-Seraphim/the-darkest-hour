@@ -1,28 +1,29 @@
-nukeops-title = Nuclear Operatives
-nukeops-description = Nuclear operatives have targeted the station. Try to keep them from arming and detonating the nuke by protecting the nuke disk!
+# DarkestHour: тексты ядерных оперативников переписаны под Имперский Рейд.
+nukeops-title = Imperial Raid
+nukeops-description = An Imperial Marine Corps raid has targeted the station. Keep them from arming and detonating the nuke by protecting the nuke disk — or surrender.
 
 nukeops-welcome =
-    You are a nuclear operative. Your goal is to blow up {$station}, and ensure that it is nothing but a pile of rubble. Your bosses, the Syndicate, have provided you with the tools you'll need for the task.
-    Operation {$name} is a go! Death to Nanotrasen!
-nukeops-briefing = Your objectives are simple. Deliver the payload and get out before the payload detonates. Begin mission.
+    You are a marine of the Imperial Marine Corps. Your goal is {$station}: make it surrender to the First Empire — or take it by storm and blow it up, so that nothing is left but a pile of rubble. The Empire has given you everything you need for the task.
+    Operation {$name} is a go! Glory to the First Empire!
+nukeops-briefing = When your shuttle arrives, the station is given ten minutes to surrender (raise the station to a high orbit). If it refuses — deliver the payload and get out before it detonates. Glory to the First Empire!
 
-nukeops-opsmajor = [color=crimson]Syndicate major victory![/color]
-nukeops-opsminor = [color=crimson]Syndicate minor victory![/color]
+nukeops-opsmajor = [color=crimson]Imperial major victory![/color]
+nukeops-opsminor = [color=crimson]Imperial minor victory![/color]
 nukeops-neutral = [color=yellow]Neutral outcome![/color]
 nukeops-crewminor = [color=green]Crew minor victory![/color]
 nukeops-crewmajor = [color=green]Crew major victory![/color]
 
-nukeops-cond-nukeexplodedoncorrectstation = The nuclear operatives managed to blow up the station.
-nukeops-cond-nukeexplodedonnukieoutpost = The nuclear operative outpost was destroyed by a nuclear blast!
+nukeops-cond-nukeexplodedoncorrectstation = The Imperial marines managed to blow up the station.
+nukeops-cond-nukeexplodedonnukieoutpost = The Imperial forward base was destroyed by a nuclear blast!
 nukeops-cond-nukeexplodedonincorrectlocation = The nuclear bomb detonated off-station.
 nukeops-cond-nukeactiveinstation = The nuclear bomb was left armed on-station.
-nukeops-cond-nukeactiveatcentcom = The nuclear bomb was armed and delivered to Central Command!
+nukeops-cond-nukeactiveatcentcom = The nuclear bomb was armed and delivered to Metallistick Group!
 nukeops-cond-nukediskoncentcom = The crew escaped with the nuclear authentication disk.
 nukeops-cond-nukedisknotoncentcom = The crew left the nuclear authentication disk behind.
-nukeops-cond-nukiesabandoned = The nuclear operatives were abandoned.
-nukeops-cond-allnukiesdead = All nuclear operatives have died.
-nukeops-cond-somenukiesalive = Some nuclear operatives died.
-nukeops-cond-allnukiesalive = No nuclear operatives died.
+nukeops-cond-nukiesabandoned = The Imperial marines were abandoned.
+nukeops-cond-allnukiesdead = All Imperial marines have died.
+nukeops-cond-somenukiesalive = Some Imperial marines died.
+nukeops-cond-allnukiesalive = No Imperial marines died.
 
 nukeops-disk-location-title = Final location of Disk:
 nukeops-disk-carried-by = {" "}carried by [color=White]{$name}[/color], [color=orange]{$job}[/color], {$location} { $user ->
@@ -35,7 +36,7 @@ storage-hierarchy-list = { $items-left ->
   *[other] { $existing-text } { $item }, in
 }
 
-nukeops-list-start = The nuclear operatives were:
+nukeops-list-start = The Imperial marines were:
 nukeops-list-name = - [color=White]{$name}[/color]
 nukeops-list-name-user = - [color=White]{$name}[/color] ([color=gray]{$user}[/color])
 nukeops-not-enough-ready-players = Not enough players readied up for the game! There were {$readyPlayersCount} players readied up out of {$minimumPlayers} needed. Can't start Nukeops.

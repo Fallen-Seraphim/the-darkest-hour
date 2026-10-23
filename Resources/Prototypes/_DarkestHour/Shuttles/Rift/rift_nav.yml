@@ -7,7 +7,7 @@
   description: Charts the star system and plots rift jumps. Jumps to other star systems are only possible from here.
   components:
   - type: ComputerVisuals
-    stateScreen: telesci
+    stateScreen: teleporters_station
     stateKeys: telesci_key
   - type: DHRiftNavConsole
   - type: ActivatableUI

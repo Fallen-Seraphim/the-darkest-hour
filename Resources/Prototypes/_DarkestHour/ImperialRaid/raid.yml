@@ -21,6 +21,8 @@
   spawnerPrototype: DHSpawnPointImperialCommander
   startingGear: DHImperialCommanderGear
   components:
+  - type: NukeOperative
+    syndStatusIcon: DHImperialFaction
   - type: RandomMetadata
     nameSegments:
     - NamesMilitaryLast
@@ -67,6 +69,8 @@
   spawnerPrototype: DHSpawnPointImperialWeaponsSpecialist
   startingGear: DHImperialWeaponsSpecialistGear
   components:
+  - type: NukeOperative
+    syndStatusIcon: DHImperialFaction
   - type: RandomMetadata
     nameSegments:
     - NamesMilitaryLast
@@ -113,6 +117,8 @@
   spawnerPrototype: DHSpawnPointImperialFieldMedic
   startingGear: DHImperialFieldMedicGear
   components:
+  - type: NukeOperative
+    syndStatusIcon: DHImperialFaction
   - type: RandomMetadata
     nameSegments:
     - NamesMilitaryLast
@@ -159,6 +165,8 @@
   spawnerPrototype: DHSpawnPointImperialMachinegunner
   startingGear: DHImperialMachinegunnerGear
   components:
+  - type: NukeOperative
+    syndStatusIcon: DHImperialFaction
   - type: RandomMetadata
     nameSegments:
     - NamesMilitaryLast
@@ -205,6 +213,8 @@
   spawnerPrototype: DHSpawnPointImperialRifleman
   startingGear: DHImperialRiflemanGear
   components:
+  - type: NukeOperative
+    syndStatusIcon: DHImperialFaction
   - type: RandomMetadata
     nameSegments:
     - NamesMilitaryLast
@@ -241,7 +251,7 @@
     ears: ClothingHeadsetAltSyndicate
     gloves: ClothingHandsGlovesCombat
     shoes: ClothingShoesBootsMagSyndie
-    id: SyndiOperativePDA
+    id: DHDogtagsImperialRifleman
     belt: ClothingBeltMilitaryWebbing
     pocket1: CombatKnife
   storage:
@@ -253,7 +263,7 @@
   parent: DHImperialGearBase
   id: DHImperialCommanderGear
   equipment:
-    id: SyndiCommanderPDA
+    id: DHDogtagsImperialCommander
     neck: SyndicateWhistle
     outerClothing: DHClothingOuterModularIMB1Composite
     suitstorage: DHWeaponPistolIMP17
@@ -268,6 +278,8 @@
 - type: startingGear
   parent: DHImperialGearBase
   id: DHImperialWeaponsSpecialistGear
+  equipment:
+    id: DHDogtagsImperialWeaponsSpecialist
   inhand:
   - DHImperialKitWeaponsSpecialist
 
@@ -275,7 +287,7 @@
   parent: DHImperialGearBase
   id: DHImperialFieldMedicGear
   equipment:
-    id: SyndiCorpsmanPDA
+    id: DHDogtagsImperialFieldMedic
     belt: ClothingBeltMilitaryWebbingMedFilled
   inhand:
   - DHImperialKitFieldMedic
@@ -291,6 +303,8 @@
 - type: startingGear
   parent: DHImperialGearBase
   id: DHImperialMachinegunnerGear
+  equipment:
+    id: DHDogtagsImperialMachinegunner
   inhand:
   - DHImperialKitMachinegunner
 
@@ -547,3 +561,70 @@
     price: 2500
 
 # Стойки обслуживания брони на базе и шаттле Рейда ставятся картой (DHArmorRack).
+
+# Жетоны морпехов: доступ Имперской Морской Пехоты и Имперской Службы Безопасности, иконка подкласса.
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsImperialCommander
+  suffix: Imperial Commander
+  components:
+  - type: IdCard
+    jobTitle: dh-imperial-job-commander
+    jobIcon: JobIconDHImperialCommander
+  - type: Access
+    tags:
+    - NuclearOperative
+    - SyndicateAgent
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsImperialWeaponsSpecialist
+  suffix: Imperial WeaponsSpecialist
+  components:
+  - type: IdCard
+    jobTitle: dh-imperial-job-weapons
+    jobIcon: JobIconDHImperialWeapons
+  - type: Access
+    tags:
+    - NuclearOperative
+    - SyndicateAgent
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsImperialFieldMedic
+  suffix: Imperial FieldMedic
+  components:
+  - type: IdCard
+    jobTitle: dh-imperial-job-medic
+    jobIcon: JobIconDHImperialMedic
+  - type: Access
+    tags:
+    - NuclearOperative
+    - SyndicateAgent
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsImperialMachinegunner
+  suffix: Imperial Machinegunner
+  components:
+  - type: IdCard
+    jobTitle: dh-imperial-job-machinegunner
+    jobIcon: JobIconDHImperialMachinegunner
+  - type: Access
+    tags:
+    - NuclearOperative
+    - SyndicateAgent
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsImperialRifleman
+  suffix: Imperial Rifleman
+  components:
+  - type: IdCard
+    jobTitle: dh-imperial-job-rifleman
+    jobIcon: JobIconDHImperialRifleman
+  - type: Access
+    tags:
+    - NuclearOperative
+    - SyndicateAgent
