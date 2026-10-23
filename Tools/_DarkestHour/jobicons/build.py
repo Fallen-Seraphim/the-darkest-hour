@@ -32,6 +32,8 @@ DEPT = {
     'silicon': (hexc('275e57'), hexc('b8f5e6')),
     # Metall Armed response team: dark graphite with beige
     'metallarmed': (hexc('2b2d31'), hexc('d9cba8')),
+    # Republic sweep team: republic green with khaki
+    'republic': (hexc('35502f'), hexc('ddd1a0')),
 }
 
 FRAME = {
@@ -72,6 +74,8 @@ G = {
     'lens': ['......', '..##..', '.#..#.', '#.##.#', '.#..#.', '..##..'],
     'crosshair': ['..#...', '.###..', '##.##.', '.###..', '..#...', '......'],
     'rifle': ['......', '#.....', '######', '.####.', '.#....', '......'],
+    'flame': ['..#...', '..##..', '.###..', '.####.', '######', '.####.'],
+    'belt': ['#.#.#.', '######', '######', '#.#.#.', '......', '......'],
 }
 
 # icon state, department, rank, glyph
@@ -111,6 +115,12 @@ ICONS = [
     ('MetallArmedWeapons', 'metallarmed', 'lead', 'crosshair'),
     ('MetallArmedMedic', 'metallarmed', 'staff', 'cross'),
     ('MetallArmedRifleman', 'metallarmed', 'staff', 'rifle'),
+    ('RepublicCommander', 'republic', 'head', 'star'),
+    ('RepublicSniper', 'republic', 'lead', 'crosshair'),
+    ('RepublicMachinegunner', 'republic', 'staff', 'belt'),
+    ('RepublicRifleman', 'republic', 'staff', 'rifle'),
+    ('RepublicMedic', 'republic', 'staff', 'cross'),
+    ('RepublicFlamer', 'republic', 'staff', 'flame'),
 ]
 
 

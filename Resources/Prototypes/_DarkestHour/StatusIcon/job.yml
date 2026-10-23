@@ -279,3 +279,51 @@
     sprite: *icon-rsi
     state: MetallArmedRifleman
   jobName: dh-job-metall-armed-rifleman-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHRepublicCommander
+  icon:
+    sprite: *icon-rsi
+    state: RepublicCommander
+  jobName: dh-job-republic-commander-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHRepublicSniper
+  icon:
+    sprite: *icon-rsi
+    state: RepublicSniper
+  jobName: dh-job-republic-sniper-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHRepublicMachinegunner
+  icon:
+    sprite: *icon-rsi
+    state: RepublicMachinegunner
+  jobName: dh-job-republic-machinegunner-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHRepublicRifleman
+  icon:
+    sprite: *icon-rsi
+    state: RepublicRifleman
+  jobName: dh-job-republic-rifleman-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHRepublicMedic
+  icon:
+    sprite: *icon-rsi
+    state: RepublicMedic
+  jobName: dh-job-republic-medic-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHRepublicFlamer
+  icon:
+    sprite: *icon-rsi
+    state: RepublicFlamer
+  jobName: dh-job-republic-flamer-name

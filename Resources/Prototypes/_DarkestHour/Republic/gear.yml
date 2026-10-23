@@ -1,0 +1,120 @@
+# Соединённая Республика: снаряжение отряда зачистки, выдаётся сразу при появлении (без выбора).
+# Броня — собранная РМБ-1 (Clothing/ModularArmor/rmb1.yml).
+
+- type: startingGear
+  id: DHRepublicGearBase
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitColorDarkGreen
+    back: ClothingBackpackMerc
+    shoes: ClothingShoesBootsMagERT
+    gloves: ClothingHandsGlovesCombat
+    eyes: ClothingEyesHudMedSec
+    ears: ClothingHeadsetAltCentCom
+    belt: ClothingBeltMilitaryWebbing
+    pocket1: CombatKnife
+    pocket2: DoubleEmergencyOxygenTankFilled
+  storage:
+    back:
+    - CombatMedipen
+    - Handcuffs
+    - Handcuffs
+
+- type: startingGear
+  parent: DHRepublicGearBase
+  id: DHRepublicCommanderGear
+  equipment:
+    id: DHDogtagsDHRepublicCommander
+    outerClothing: DHClothingOuterModularRMB1Composite
+    suitstorage: DHWeaponRifleRARM112
+  storage:
+    back:
+    - DHMagazine762x51FMG
+    - DHMagazine762x51FMG
+    - DHMagazine762x51FMG
+    - DHMagazine762x51EXP
+    - Binoculars
+    - MedkitCombatFilled
+
+- type: startingGear
+  parent: DHRepublicGearBase
+  id: DHRepublicSniperGear
+  equipment:
+    id: DHDogtagsDHRepublicSniper
+    outerClothing: DHClothingOuterModularRMB1LightAutoMed
+    suitstorage: DHWeaponSniperRMARASM1518
+  storage:
+    back:
+    - DHMagazine127x105SVP
+    - DHMagazine127x105SVP
+    - DHMagazine127x105SVP
+    - DHMagazine127x105A
+    - Binoculars
+
+- type: startingGear
+  parent: DHRepublicGearBase
+  id: DHRepublicMachinegunnerGear
+  equipment:
+    id: DHDogtagsDHRepublicMachinegunner
+    outerClothing: DHClothingOuterModularRMB1HeavyAutoMed
+    suitstorage: DHWeaponLMGRAMGM141
+  storage:
+    back:
+    - DHMagazineBox556x45FMG
+    - DHMagazineBox556x45FMG
+    - DHMagazineBox556x45FMG
+
+- type: startingGear
+  parent: DHRepublicGearBase
+  id: DHRepublicRiflemanGear
+  equipment:
+    id: DHDogtagsDHRepublicRifleman
+    outerClothing: DHClothingOuterModularRMB1StandardAutoMed
+    suitstorage: DHWeaponRifleRARM111
+  storage:
+    back:
+    - DHMagazine556x45FMG
+    - DHMagazine556x45FMG
+    - DHMagazine556x45FMG
+    - DHMagazine556x45FMG
+    - DHMagazine556x45EXP
+    - ExGrenade
+
+- type: startingGear
+  parent: DHRepublicGearBase
+  id: DHRepublicMedicGear
+  equipment:
+    id: DHDogtagsDHRepublicMedic
+    outerClothing: DHClothingOuterModularRMB1LightAutoMed
+    suitstorage: DHWeaponSMGRAPTORM1216
+    belt: ClothingBeltMilitaryWebbingMedFilled
+  storage:
+    back:
+    - DHMagazine10x24SVP
+    - DHMagazine10x24SVP
+    - DHMagazine10x24SVP
+    - HandheldHealthAnalyzer
+    - MedkitCombatFilled
+    - Hypospray
+    - Cautery
+    - SawAdvanced
+
+- type: startingGear
+  parent: DHRepublicGearBase
+  id: DHRepublicFlamerGear
+  equipment:
+    id: DHDogtagsDHRepublicFlamer
+    outerClothing: DHClothingOuterModularRMB1HeavyTanks
+  inhand:
+  - DHWeaponFlamerRepublic
+  storage:
+    back:
+    - DHFlamerTankNapalm
+    - DHFlamerTankNapalm
+    - DHFlamerTankNapalm
+    - DHFlamerTankWeldingFuel
+
+- type: entity
+  parent: DHWeaponFlamerImperial
+  id: DHWeaponFlamerRepublic
+  name: RFL-M-13 incinerator
+  description: A Republican Army Corps incinerator with a high-pressure pump and a long nozzle. Throws burning fuel twice as far as a civilian unit. Alt-click to light the pilot flame.

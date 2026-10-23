@@ -111,6 +111,24 @@
         },
         {
             "name": "MetallArmedRifleman"
+        },
+        {
+            "name": "RepublicCommander"
+        },
+        {
+            "name": "RepublicSniper"
+        },
+        {
+            "name": "RepublicMachinegunner"
+        },
+        {
+            "name": "RepublicRifleman"
+        },
+        {
+            "name": "RepublicMedic"
+        },
+        {
+            "name": "RepublicFlamer"
         }
     ]
 }

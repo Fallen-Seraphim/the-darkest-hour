@@ -4,7 +4,8 @@ The steel-blue body of every station airlock becomes the corporate warm grey; de
 department colour of the uniforms (Tools/_DarkestHour/recolor): command graphite with brass, security khaki,
 medical teal, science violet, engineering ochre, supply tobacco. Glass panes and status lights keep their colour.
 External, firelock and blast doors keep their safety red/yellow; CentComm, syndicate, shuttle, exo and service
-doors are left as they are.
+doors are left as they are. Syndicate doors become Imperial (black and white); Republican doors are new ones made
+from the CentComm and shuttle doors (green and khaki).
 
 Run from the repository root:  python3 Tools/_DarkestHour/airlocks/build.py
 Writes Resources/Textures/_DarkestHour/Structures/Doors/Airlocks/{Standard,Glass}/<name>.rsi and points the
@@ -61,6 +62,14 @@ DOORS = {
     'syndicate-base': 'imperial', 'shuttle-syndicate': 'imperial', 'airlock-hatch-syndicate': 'imperial',
 }
 
+# new doors made from a vanilla one: output name -> (source name, department). Their prototypes point at them directly.
+EXTRA = {
+    'republic-base': ('centcomm-base', 'republic'),
+    'shuttle-republic': ('shuttle-base', 'republic'),
+}
+# faction doors whose glass panes share the plain glass airlock layout (kept blue)
+KEEP_GLASS = {'republic-base'}
+
 
 def door_px(c, dept):
     r, g, b = c
@@ -94,10 +103,10 @@ def glass_mask(state_file):
     return mask
 
 
-def recolor(path_in, path_out, dept, glass):
+def recolor(path_in, path_out, dept, glass, keep_glass=False):
     im = Image.open(path_in).convert('RGBA')
     px = im.load()
-    mask = glass_mask(os.path.basename(path_in)) if glass and dept not in BODY else None
+    mask = glass_mask(os.path.basename(path_in)) if glass and (dept not in BODY or keep_glass) else None
     cache = {}
     for yy in range(im.height):
         for xx in range(im.width):
@@ -113,8 +122,9 @@ def recolor(path_in, path_out, dept, glass):
 def build():
     done = []
     for kind in ('Standard', 'Glass'):
-        for name, dept in DOORS.items():
-            src = os.path.join(TEX, SRC, kind, name + '.rsi')
+        jobs = [(n, n, d) for n, d in DOORS.items()] + [(n, s, d) for n, (s, d) in EXTRA.items()]
+        for name, source, dept in jobs:
+            src = os.path.join(TEX, SRC, kind, source + '.rsi')
             if not os.path.isdir(src):
                 continue
             dst = os.path.join(OUT, kind, name + '.rsi')
@@ -123,7 +133,7 @@ def build():
                 os.remove(os.path.join(dst, f))
             for f in os.listdir(src):
                 if f.endswith('.png'):
-                    recolor(os.path.join(src, f), os.path.join(dst, f), dept, kind == 'Glass')
+                    recolor(os.path.join(src, f), os.path.join(dst, f), dept, kind == 'Glass', name in KEEP_GLASS)
             with open(os.path.join(src, 'meta.json'), encoding='utf-8-sig') as f:
                 meta = json.load(f)
             meta['copyright'] = (meta.get('copyright', '') +
@@ -160,7 +170,8 @@ def preview(done):
     S, Z = 32, 3
     cells = []
     for kind, name in done:
-        a = Image.open(os.path.join(TEX, SRC, kind, name + '.rsi', 'closed.png')).convert('RGBA').crop((0, 0, S, S))
+        source = EXTRA[name][0] if name in EXTRA else name
+        a = Image.open(os.path.join(TEX, SRC, kind, source + '.rsi', 'closed.png')).convert('RGBA').crop((0, 0, S, S))
         b = Image.open(os.path.join(OUT, kind, name + '.rsi', 'closed.png')).convert('RGBA').crop((0, 0, S, S))
         cells.append((kind[0] + ':' + name, a, b))
     cols = 8

@@ -1,0 +1,205 @@
+# Соединённая Республика: точки появления призраков отряда зачистки (ставятся на шаттл RAC Cordon).
+
+- type: entity
+  id: DHSpawnerRepublicCommander
+  name: Republic sweep commander
+  suffix: Ghost role
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+      state: icon
+    - sprite: _DarkestHour/Objects/Weapons/Guns/rar_m11_2.rsi
+      state: icon
+      scale: 0.75, 0.75
+  - type: RandomHumanoidSpawner
+    settings: DHRepublicCommander
+
+- type: randomHumanoidSettings
+  id: DHRepublicCommander
+  parent: EventHumanoidCentcomm
+  components:
+  - type: GhostRole
+    name: dh-ghost-role-republic-commander-name
+    description: dh-ghost-role-republic-commander-desc
+    rules: dh-ghost-role-republic-rules
+    raffle:
+      settings: short
+    job: DHRepublicCommander
+  - type: Loadout
+    prototypes: [ DHRepublicCommanderGear ]
+    roleLoadout: [ RoleSurvivalMilitaryDouble ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-republic-commander
+
+- type: entity
+  id: DHSpawnerRepublicSniper
+  name: Republic sweep sniper
+  suffix: Ghost role
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+      state: icon
+    - sprite: _DarkestHour/Objects/Weapons/Guns/rmar_as_m15_18.rsi
+      state: icon
+      scale: 0.75, 0.75
+  - type: RandomHumanoidSpawner
+    settings: DHRepublicSniper
+
+- type: randomHumanoidSettings
+  id: DHRepublicSniper
+  parent: EventHumanoidCentcomm
+  components:
+  - type: GhostRole
+    name: dh-ghost-role-republic-sniper-name
+    description: dh-ghost-role-republic-sniper-desc
+    rules: dh-ghost-role-republic-rules
+    raffle:
+      settings: short
+    job: DHRepublicSniper
+  - type: Loadout
+    prototypes: [ DHRepublicSniperGear ]
+    roleLoadout: [ RoleSurvivalMilitaryDouble ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-republic-sniper
+
+- type: entity
+  id: DHSpawnerRepublicMachinegunner
+  name: Republic sweep machinegunner
+  suffix: Ghost role
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+      state: icon
+    - sprite: _DarkestHour/Objects/Weapons/Guns/ramg_m14_1.rsi
+      state: icon
+      scale: 0.75, 0.75
+  - type: RandomHumanoidSpawner
+    settings: DHRepublicMachinegunner
+
+- type: randomHumanoidSettings
+  id: DHRepublicMachinegunner
+  parent: EventHumanoidCentcomm
+  components:
+  - type: GhostRole
+    name: dh-ghost-role-republic-machinegunner-name
+    description: dh-ghost-role-republic-machinegunner-desc
+    rules: dh-ghost-role-republic-rules
+    raffle:
+      settings: short
+    job: DHRepublicMachinegunner
+  - type: Loadout
+    prototypes: [ DHRepublicMachinegunnerGear ]
+    roleLoadout: [ RoleSurvivalMilitaryDouble ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-republic-machinegunner
+
+- type: entity
+  id: DHSpawnerRepublicRifleman
+  name: Republic sweep rifleman
+  suffix: Ghost role
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+      state: icon
+    - sprite: _DarkestHour/Objects/Weapons/Guns/rar_m11_1.rsi
+      state: icon
+      scale: 0.75, 0.75
+  - type: RandomHumanoidSpawner
+    settings: DHRepublicRifleman
+
+- type: randomHumanoidSettings
+  id: DHRepublicRifleman
+  parent: EventHumanoidCentcomm
+  components:
+  - type: GhostRole
+    name: dh-ghost-role-republic-rifleman-name
+    description: dh-ghost-role-republic-rifleman-desc
+    rules: dh-ghost-role-republic-rules
+    raffle:
+      settings: short
+    job: DHRepublicRifleman
+  - type: Loadout
+    prototypes: [ DHRepublicRiflemanGear ]
+    roleLoadout: [ RoleSurvivalMilitaryDouble ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-republic-rifleman
+
+- type: entity
+  id: DHSpawnerRepublicMedic
+  name: Republic sweep medic
+  suffix: Ghost role
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+      state: icon
+    - sprite: _DarkestHour/Objects/Weapons/Guns/raptor_m12_16.rsi
+      state: icon
+      scale: 0.75, 0.75
+  - type: RandomHumanoidSpawner
+    settings: DHRepublicMedic
+
+- type: randomHumanoidSettings
+  id: DHRepublicMedic
+  parent: EventHumanoidCentcomm
+  components:
+  - type: GhostRole
+    name: dh-ghost-role-republic-medic-name
+    description: dh-ghost-role-republic-medic-desc
+    rules: dh-ghost-role-republic-rules
+    raffle:
+      settings: short
+    job: DHRepublicMedic
+  - type: Loadout
+    prototypes: [ DHRepublicMedicGear ]
+    roleLoadout: [ RoleSurvivalMilitaryDouble ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-republic-medic
+
+- type: entity
+  id: DHSpawnerRepublicFlamer
+  name: Republic sweep flamer
+  suffix: Ghost role
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+      state: icon
+    - sprite: _RMC14/Objects/Weapons/Guns/Flamethrower/colony.rsi
+      state: base
+      scale: 0.75, 0.75
+  - type: RandomHumanoidSpawner
+    settings: DHRepublicFlamer
+
+- type: randomHumanoidSettings
+  id: DHRepublicFlamer
+  parent: EventHumanoidCentcomm
+  components:
+  - type: GhostRole
+    name: dh-ghost-role-republic-flamer-name
+    description: dh-ghost-role-republic-flamer-desc
+    rules: dh-ghost-role-republic-rules
+    raffle:
+      settings: short
+    job: DHRepublicFlamer
+  - type: Loadout
+    prototypes: [ DHRepublicFlamerGear ]
+    roleLoadout: [ RoleSurvivalMilitaryDouble ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-republic-flamer

@@ -1,0 +1,49 @@
+# Соединённая Республика: жетоны с доступом должности.
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsDHRepublicCommander
+  suffix: Republic Commander
+  components:
+  - type: PresetIdCard
+    job: DHRepublicCommander
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsDHRepublicSniper
+  suffix: Republic Sniper
+  components:
+  - type: PresetIdCard
+    job: DHRepublicSniper
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsDHRepublicMachinegunner
+  suffix: Republic Machinegunner
+  components:
+  - type: PresetIdCard
+    job: DHRepublicMachinegunner
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsDHRepublicRifleman
+  suffix: Republic Rifleman
+  components:
+  - type: PresetIdCard
+    job: DHRepublicRifleman
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsDHRepublicMedic
+  suffix: Republic Medic
+  components:
+  - type: PresetIdCard
+    job: DHRepublicMedic
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsDHRepublicFlamer
+  suffix: Republic Flamer
+  components:
+  - type: PresetIdCard
+    job: DHRepublicFlamer
