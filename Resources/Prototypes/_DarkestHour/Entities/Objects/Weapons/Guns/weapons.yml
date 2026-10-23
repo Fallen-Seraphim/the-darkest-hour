@@ -2554,3 +2554,907 @@
   - type: StealTarget
     stealGroup:
     - OfficerHandgun
+- type: entity
+  name: "TIT/MG-10"
+  parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseTaskForceContraband ]
+  id: DHWeaponRifleTITMG10
+  description: "The main rifle of the Association Army, made on Titan. Holds two magazines side by side: switch to the standby one in a second when it matters most. Takes 30- and 40-round 5.56x45mm magazines."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Guns/tit_mg10.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+    - map: ["barrelAttachment"]
+    - map: ["gripAttachment"]
+    - map: ["opticAttachment"]
+  - type: Item
+    size: Huge
+    sprite: _DarkestHour/Objects/Weapons/Guns/tit_mg10_inhands.rsi
+    shape:
+    - 0,0,3,1
+  - type: Clothing
+    sprite: _DarkestHour/Objects/Weapons/Guns/tit_mg10_inhands.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: GunWieldBonus
+    minAngle: -3
+    maxAngle: -28
+  - type: Gun
+    fireRate: 8
+    selectedMode: FullAuto
+    availableModes:
+    - FullAuto
+    - SemiAuto
+    minAngle: 3
+    maxAngle: 38
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/rifle2.ogg
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/sf_rifle_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: "Magazine"
+        startingItem: DHMagazine556x45LongFMG
+        insertSound: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - DHMagazine556x45
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: "Chamber"
+        startingItem: DHCartridge556x45FMG
+        priority: 1
+        whitelist:
+          tags:
+          - DHCartridge556x45
+      gun_magazine_2:
+        name: "dh-gun-slot-standby-magazine"
+        startingItem: DHMagazine556x45LongFMG
+        insertSound: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHMagazine556x45
+      attachment_barrel:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentBarrel
+      attachment_grip:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentGrip
+      attachment_optic:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentOptic
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+      attachment_barrel: !type:ContainerSlot
+      attachment_grip: !type:ContainerSlot
+      attachment_optic: !type:ContainerSlot
+      gun_magazine_2: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+  - type: ESAttachableGun
+    slots:
+    - name: es-gun-attachments-slot-name-barrel
+      containerId: attachment_barrel
+      whitelist:
+        tags:
+        - DHAttachmentBarrel
+    - name: es-gun-attachments-slot-name-grip
+      containerId: attachment_grip
+      whitelist:
+        tags:
+        - DHAttachmentGrip
+    - name: es-gun-attachments-slot-name-optic
+      containerId: attachment_optic
+      whitelist:
+        tags:
+        - DHAttachmentOptic
+  - type: ActivatableUI
+    key: enum.ESAttachableGunUiKey.Key
+    verbOnly: true
+    verbText: es-gun-attachments-verb-text
+  - type: UserInterface
+    interfaces:
+      enum.ESAttachableGunUiKey.Key:
+        type: ESGunAttachmentBui
+  - type: ESItemMapper
+    mappings:
+      barrelAttachment:
+      - containerId: attachment_barrel
+        state: suppressed
+        whitelist:
+          tags:
+          - DHAttachmentSuppressor
+      - containerId: attachment_barrel
+        state: flashhider
+        whitelist:
+          tags:
+          - DHAttachmentFlashHider
+      - containerId: attachment_barrel
+        state: compensator
+        whitelist:
+          tags:
+          - DHAttachmentCompensator
+      gripAttachment:
+      - containerId: attachment_grip
+        state: vgrip
+        whitelist:
+          tags:
+          - DHAttachmentVerticalGrip
+      - containerId: attachment_grip
+        state: agrip
+        whitelist:
+          tags:
+          - DHAttachmentAngledGrip
+      opticAttachment:
+      - containerId: attachment_optic
+        state: optic2x
+        whitelist:
+          tags:
+          - DHAttachmentOptic2x
+      - containerId: attachment_optic
+        state: optic4x
+        whitelist:
+          tags:
+          - DHAttachmentOptic4x
+      - containerId: attachment_optic
+        state: optic8x
+        whitelist:
+          tags:
+          - DHAttachmentOptic8x
+  - type: DHDualMagazine
+- type: entity
+  name: "TIT/R-15"
+  parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseTaskForceContraband ]
+  id: DHWeaponRifleTITR15
+  description: "A second-line automatic rifle from Titan: the old Eurasian pattern, rebuilt. Reliable, cheap and deadly up close. For garrisons, crews and colonial self-defence forces. Uses 7.62x39mm."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Guns/tit_r15.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+    - map: ["barrelAttachment"]
+    - map: ["gripAttachment"]
+    - map: ["opticAttachment"]
+  - type: Item
+    size: Large
+    sprite: _DarkestHour/Objects/Weapons/Guns/tit_r15_inhands.rsi
+    shape:
+    - 0,0,2,1
+  - type: Clothing
+    sprite: _DarkestHour/Objects/Weapons/Guns/tit_r15_inhands.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: GunWieldBonus
+    minAngle: -3
+    maxAngle: -28
+  - type: Gun
+    fireRate: 6.5
+    selectedMode: FullAuto
+    availableModes:
+    - FullAuto
+    - SemiAuto
+    minAngle: 4
+    maxAngle: 40
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/rifle2.ogg
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/sf_rifle_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: "Magazine"
+        startingItem: DHMagazine762x39FMG
+        insertSound: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - DHMagazine762x39
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: "Chamber"
+        startingItem: DHCartridge762x39FMG
+        priority: 1
+        whitelist:
+          tags:
+          - DHCartridge762x39
+      attachment_barrel:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentBarrel
+      attachment_grip:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentGrip
+      attachment_optic:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentOptic2x
+          - DHAttachmentOptic4x
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+      attachment_barrel: !type:ContainerSlot
+      attachment_grip: !type:ContainerSlot
+      attachment_optic: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+  - type: ESAttachableGun
+    slots:
+    - name: es-gun-attachments-slot-name-barrel
+      containerId: attachment_barrel
+      whitelist:
+        tags:
+        - DHAttachmentBarrel
+    - name: es-gun-attachments-slot-name-grip
+      containerId: attachment_grip
+      whitelist:
+        tags:
+        - DHAttachmentGrip
+    - name: es-gun-attachments-slot-name-optic
+      containerId: attachment_optic
+      whitelist:
+        tags:
+        - DHAttachmentOptic2x
+        - DHAttachmentOptic4x
+  - type: ActivatableUI
+    key: enum.ESAttachableGunUiKey.Key
+    verbOnly: true
+    verbText: es-gun-attachments-verb-text
+  - type: UserInterface
+    interfaces:
+      enum.ESAttachableGunUiKey.Key:
+        type: ESGunAttachmentBui
+  - type: ESItemMapper
+    mappings:
+      barrelAttachment:
+      - containerId: attachment_barrel
+        state: suppressed
+        whitelist:
+          tags:
+          - DHAttachmentSuppressor
+      - containerId: attachment_barrel
+        state: flashhider
+        whitelist:
+          tags:
+          - DHAttachmentFlashHider
+      - containerId: attachment_barrel
+        state: compensator
+        whitelist:
+          tags:
+          - DHAttachmentCompensator
+      gripAttachment:
+      - containerId: attachment_grip
+        state: vgrip
+        whitelist:
+          tags:
+          - DHAttachmentVerticalGrip
+      - containerId: attachment_grip
+        state: agrip
+        whitelist:
+          tags:
+          - DHAttachmentAngledGrip
+      opticAttachment:
+      - containerId: attachment_optic
+        state: optic2x
+        whitelist:
+          tags:
+          - DHAttachmentOptic2x
+      - containerId: attachment_optic
+        state: optic4x
+        whitelist:
+          tags:
+          - DHAttachmentOptic4x
+- type: entity
+  name: "ALT/R-16"
+  parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseTaskForceContraband ]
+  id: DHWeaponRifleALTR16
+  description: "The Altair marksman rifle: a powerful round and accurate single shots at medium and long range, built for harsh worlds. Takes 20- and 30-round 7.62x51mm magazines."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Guns/alt_r16.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+    - map: ["barrelAttachment"]
+    - map: ["gripAttachment"]
+    - map: ["opticAttachment"]
+  - type: Item
+    size: Huge
+    sprite: _DarkestHour/Objects/Weapons/Guns/alt_r16_inhands.rsi
+    shape:
+    - 0,0,3,1
+  - type: Clothing
+    sprite: _DarkestHour/Objects/Weapons/Guns/alt_r16_inhands.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: GunWieldBonus
+    minAngle: -2
+    maxAngle: -22
+  - type: Gun
+    fireRate: 4
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    - FullAuto
+    minAngle: 2
+    maxAngle: 28
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/batrifle.ogg
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/batrifle_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: "Magazine"
+        startingItem: DHMagazine762x51FMG
+        insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/batrifle_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - DHMagazine762x51
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: "Chamber"
+        startingItem: DHCartridge762x51FMG
+        priority: 1
+        whitelist:
+          tags:
+          - DHCartridge762x51
+      attachment_barrel:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentBarrel
+      attachment_grip:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentGrip
+      attachment_optic:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentOptic
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+      attachment_barrel: !type:ContainerSlot
+      attachment_grip: !type:ContainerSlot
+      attachment_optic: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+  - type: ESAttachableGun
+    slots:
+    - name: es-gun-attachments-slot-name-barrel
+      containerId: attachment_barrel
+      whitelist:
+        tags:
+        - DHAttachmentBarrel
+    - name: es-gun-attachments-slot-name-grip
+      containerId: attachment_grip
+      whitelist:
+        tags:
+        - DHAttachmentGrip
+    - name: es-gun-attachments-slot-name-optic
+      containerId: attachment_optic
+      whitelist:
+        tags:
+        - DHAttachmentOptic
+  - type: ActivatableUI
+    key: enum.ESAttachableGunUiKey.Key
+    verbOnly: true
+    verbText: es-gun-attachments-verb-text
+  - type: UserInterface
+    interfaces:
+      enum.ESAttachableGunUiKey.Key:
+        type: ESGunAttachmentBui
+  - type: ESItemMapper
+    mappings:
+      barrelAttachment:
+      - containerId: attachment_barrel
+        state: suppressed
+        whitelist:
+          tags:
+          - DHAttachmentSuppressor
+      - containerId: attachment_barrel
+        state: flashhider
+        whitelist:
+          tags:
+          - DHAttachmentFlashHider
+      - containerId: attachment_barrel
+        state: compensator
+        whitelist:
+          tags:
+          - DHAttachmentCompensator
+      gripAttachment:
+      - containerId: attachment_grip
+        state: vgrip
+        whitelist:
+          tags:
+          - DHAttachmentVerticalGrip
+      - containerId: attachment_grip
+        state: agrip
+        whitelist:
+          tags:
+          - DHAttachmentAngledGrip
+      opticAttachment:
+      - containerId: attachment_optic
+        state: optic2x
+        whitelist:
+          tags:
+          - DHAttachmentOptic2x
+      - containerId: attachment_optic
+        state: optic4x
+        whitelist:
+          tags:
+          - DHAttachmentOptic4x
+      - containerId: attachment_optic
+        state: optic8x
+        whitelist:
+          tags:
+          - DHAttachmentOptic8x
+  - type: CursorOffsetRequiresWield
+  - type: EyeCursorOffset
+    maxOffset: 2
+    pvsIncrease: 0.2
+- type: entity
+  name: "PRO/R-12"
+  parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseTaskForceContraband ]
+  id: DHWeaponSniperPROR12
+  description: "A Procyon anti-materiel rifle against vehicles, fortifications, heavy armour and automatons. One shot, one target. Uses 12.7x105mm."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Guns/pro_r12.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+    - map: ["opticAttachment"]
+  - type: Item
+    size: Huge
+    sprite: _DarkestHour/Objects/Weapons/Guns/pro_r12_inhands.rsi
+    shape:
+    - 0,0,3,1
+  - type: Clothing
+    sprite: _DarkestHour/Objects/Weapons/Guns/pro_r12_inhands.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: GunWieldBonus
+    minAngle: -1
+    maxAngle: -26
+  - type: Gun
+    fireRate: 0.8
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    minAngle: 1
+    maxAngle: 28
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/sniper.ogg
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/sf_rifle_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: "Magazine"
+        startingItem: DHMagazine127x105FMG
+        insertSound: /Audio/Weapons/Guns/MagIn/sfrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/sfrifle_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - DHMagazine127x105
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: "Chamber"
+        startingItem: DHCartridge127x105FMG
+        priority: 1
+        whitelist:
+          tags:
+          - DHCartridge127x105
+      attachment_optic:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentOptic4x
+          - DHAttachmentOptic8x
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+      attachment_optic: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+  - type: ESAttachableGun
+    slots:
+    - name: es-gun-attachments-slot-name-optic
+      containerId: attachment_optic
+      whitelist:
+        tags:
+        - DHAttachmentOptic4x
+        - DHAttachmentOptic8x
+  - type: ActivatableUI
+    key: enum.ESAttachableGunUiKey.Key
+    verbOnly: true
+    verbText: es-gun-attachments-verb-text
+  - type: UserInterface
+    interfaces:
+      enum.ESAttachableGunUiKey.Key:
+        type: ESGunAttachmentBui
+  - type: ESItemMapper
+    mappings:
+      opticAttachment:
+      - containerId: attachment_optic
+        state: optic4x
+        whitelist:
+          tags:
+          - DHAttachmentOptic4x
+      - containerId: attachment_optic
+        state: optic8x
+        whitelist:
+          tags:
+          - DHAttachmentOptic8x
+  - type: GunRequiresWield
+  - type: CursorOffsetRequiresWield
+  - type: EyeCursorOffset
+    maxOffset: 2
+    pvsIncrease: 0.2
+- type: entity
+  name: "PRO/AMR-16"
+  parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseTaskForceContraband ]
+  id: DHWeaponSniperPROAMR16
+  description: "An experimental Procyon hybrid: powder starts the 18.9x110mm penetrator, an electromagnetic stage finishes the job. Each shot also drains the battery pack (five shots per battery). Not for a mass army."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Guns/pro_amr16.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+    - map: ["opticAttachment"]
+  - type: Item
+    size: Huge
+    sprite: _DarkestHour/Objects/Weapons/Guns/pro_amr16_inhands.rsi
+    shape:
+    - 0,0,3,1
+  - type: Clothing
+    sprite: _DarkestHour/Objects/Weapons/Guns/pro_amr16_inhands.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: GunWieldBonus
+    minAngle: -1
+    maxAngle: -22
+  - type: Gun
+    fireRate: 0.4
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    minAngle: 1
+    maxAngle: 24
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/laser_cannon.ogg
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/sf_rifle_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: "Magazine"
+        startingItem: DHMagazine189x110SPC
+        insertSound: /Audio/Weapons/Guns/MagIn/sfrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/sfrifle_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - DHMagazine189x110
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: "Chamber"
+        startingItem: DHCartridge189x110SPC
+        priority: 1
+        whitelist:
+          tags:
+          - DHCartridge189x110
+      cell_slot:
+        name: "dh-gun-slot-battery"
+        startingItem: DHBatteryAMR16
+        insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/batrifle_magout.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHBatteryAMR16
+      attachment_optic:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentOptic4x
+          - DHAttachmentOptic8x
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+      attachment_optic: !type:ContainerSlot
+      cell_slot: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+  - type: ESAttachableGun
+    slots:
+    - name: es-gun-attachments-slot-name-optic
+      containerId: attachment_optic
+      whitelist:
+        tags:
+        - DHAttachmentOptic4x
+        - DHAttachmentOptic8x
+  - type: ActivatableUI
+    key: enum.ESAttachableGunUiKey.Key
+    verbOnly: true
+    verbText: es-gun-attachments-verb-text
+  - type: UserInterface
+    interfaces:
+      enum.ESAttachableGunUiKey.Key:
+        type: ESGunAttachmentBui
+  - type: ESItemMapper
+    mappings:
+      opticAttachment:
+      - containerId: attachment_optic
+        state: optic4x
+        whitelist:
+          tags:
+          - DHAttachmentOptic4x
+      - containerId: attachment_optic
+        state: optic8x
+        whitelist:
+          tags:
+          - DHAttachmentOptic8x
+  - type: PowerCellSlot
+    cellSlotId: cell_slot
+  - type: DHGunChargePerShot
+    charge: 200
+  - type: GunRequiresWield
+  - type: CursorOffsetRequiresWield
+  - type: EyeCursorOffset
+    maxOffset: 2
+    pvsIncrease: 0.2
+- type: entity
+  name: "PRO/LR-17"
+  parent: [ BaseItem, BaseGunWieldable, BaseTaskForceContraband ]
+  id: DHWeaponEnergyPROLR17
+  description: "A new-generation Procyon energy rifle: 10mm focusing lenses, no recoil, no casings, works in vacuum. Twenty shots per energy cell; overheats under sustained fire."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Guns/pro_lr17.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - map: ["opticAttachment"]
+  - type: Item
+    size: Huge
+    sprite: _DarkestHour/Objects/Weapons/Guns/pro_lr17_inhands.rsi
+    shape:
+    - 0,0,3,1
+  - type: Clothing
+    sprite: _DarkestHour/Objects/Weapons/Guns/pro_lr17_inhands.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: GunWieldBonus
+    minAngle: -1
+    maxAngle: -16
+  - type: Gun
+    fireRate: 3
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    - FullAuto
+    minAngle: 1
+    maxAngle: 20
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/laser3.ogg
+  - type: AmmoCounter
+  - type: BatteryAmmoProvider
+    proto: DHLaserLR17
+    fireCost: 50
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: "dh-gun-slot-energy-cell"
+        startingItem: DHEnergyCellPRO
+        insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/batrifle_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - DHEnergyCellPRO
+      attachment_optic:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentOptic2x
+          - DHAttachmentOptic4x
+  - type: PowerCellSlot
+    cellSlotId: cell_slot
+  - type: ContainerContainer
+    containers:
+      cell_slot: !type:ContainerSlot
+      attachment_optic: !type:ContainerSlot
+  - type: Appearance
+  - type: DHOverheat
+    maxHeat: 14
+    heatPerShot: 1
+    cooldownRate: 2
+    overheatLockout: 4
+  - type: ESAttachableGun
+    slots:
+    - name: es-gun-attachments-slot-name-optic
+      containerId: attachment_optic
+      whitelist:
+        tags:
+        - DHAttachmentOptic2x
+        - DHAttachmentOptic4x
+  - type: ActivatableUI
+    key: enum.ESAttachableGunUiKey.Key
+    verbOnly: true
+    verbText: es-gun-attachments-verb-text
+  - type: UserInterface
+    interfaces:
+      enum.ESAttachableGunUiKey.Key:
+        type: ESGunAttachmentBui
+  - type: ESItemMapper
+    mappings:
+      opticAttachment:
+      - containerId: attachment_optic
+        state: optic2x
+        whitelist:
+          tags:
+          - DHAttachmentOptic2x
+      - containerId: attachment_optic
+        state: optic4x
+        whitelist:
+          tags:
+          - DHAttachmentOptic4x
+- type: entity
+  name: "EAR-20/LR"
+  parent: [ BaseItem, BaseGunWieldable, BaseSecurityContraband ]
+  id: DHWeaponEnergyEAR20
+  description: "A pre-Collapse Association energy assault rifle. Poor against armour — plasteel plates held its shots — but lethal to unarmoured infantry. A Kane cartridge holds twenty shots; two modes: a paralysing stun pulse and a thermal burn."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Guns/ear20.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+  - type: Item
+    size: Huge
+    sprite: _DarkestHour/Objects/Weapons/Guns/ear20_inhands.rsi
+    shape:
+    - 0,0,3,1
+  - type: Clothing
+    sprite: _DarkestHour/Objects/Weapons/Guns/ear20_inhands.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: GunWieldBonus
+    minAngle: -2
+    maxAngle: -18
+  - type: Gun
+    fireRate: 2
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    minAngle: 2
+    maxAngle: 24
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/laser.ogg
+  - type: AmmoCounter
+  - type: BatteryAmmoProvider
+    proto: DHBoltEARStun
+    fireCost: 50
+  - type: BatteryWeaponFireModes
+    fireModes:
+    - proto: DHBoltEARStun
+      fireCost: 50
+    - proto: DHLaserEARBurn
+      fireCost: 50
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: "dh-gun-slot-energy-cell"
+        startingItem: DHKaneCartridgeEAR
+        insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/batrifle_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - DHKaneCartridgeEAR
+  - type: PowerCellSlot
+    cellSlotId: cell_slot
+  - type: ContainerContainer
+    containers:
+      cell_slot: !type:ContainerSlot
+  - type: Appearance

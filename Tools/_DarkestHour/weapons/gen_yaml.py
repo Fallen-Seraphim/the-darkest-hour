@@ -28,6 +28,11 @@ TYPES = {
     'Shot':  ('buckshot', 'Buckshot: a cloud of heavy pellets.', None),
     'Flech': ('flechette', 'Flechettes: steel darts that slip through armour.', None),
     'Slug':  ('slug', 'A solid 14.5x115 slug against armoured targets.', None),
+    # Earth General Association (ZGA) nomenclature
+    'URA':   ('URA', 'Depleted-uranium core: punches through heavy armour.', '#5fbf3f'),
+    'EXP':   ('EXP', 'Expanding: devastating against unarmoured targets, poor against armour.', '#d9534f'),
+    'A':     ('A', 'Advanced: improved ballistics for elite units.', '#4a78d8'),
+    'SPC':   ('special', 'Hybrid penetrator for the powder and electromagnetic stages of the PRO/AMR-16.', '#6ad0ff'),
 }
 
 # All damage (and penetration thresholds, which are measured in damage) is scaled by this factor.
@@ -56,14 +61,20 @@ CASING_TIP = {'14.5x114mm_casing', 'rifle_ammo_casing', 'rifle_ammo_casing_steel
 CALIBERS = [
     ('556x45', '5.56x45mm', 'rep', 'rifle_ammo_casing', '5.56x45mm', 60, {
         'FMG': T(23), 'BB': T(18, ap=0.45, box='steelAP'), 'E': T(30, unarm=1.35, arm=0.6, box='HP'),
-        'EP': T(28, box='RIP')}),
+        'EP': T(28, box='RIP'),
+        'URA': T(21, ap=0.55, extra={'Radiation': 3}, box='uranium'), 'EXP': T(30, unarm=1.35, arm=0.6, box='HP'),
+        'A': T(26, ap=0.25, box='plasteelAP')}),
     ('762x51', '7.62x51mm', 'rep', 'rifle_ammo_casing', '7.62x51mm', 40, {
-        'FMG': T(36), 'BB': T(30, ap=0.5, box='steelAP'), 'E': T(37, unarm=1.35, arm=0.6, box='HP')}),
+        'FMG': T(36), 'BB': T(30, ap=0.5, box='steelAP'), 'E': T(37, unarm=1.35, arm=0.6, box='HP'),
+        'URA': T(33, ap=0.6, extra={'Radiation': 4}, box='uranium'), 'EXP': T(37, unarm=1.35, arm=0.6, box='HP'),
+        'A': T(40, ap=0.3, box='plasteelAP')}),
     ('9x51', '9x51mm', 'rep', 'rifle_ammo_casing', '9x19mm', 30, {
         'EB': T(32, ap=0.35, unarm=1.2, box='plasteelAP'), 'FMG': T(32), 'DZ': T(28, box='practice')}),
     # station security (Metallistick): Ravenger
     ('762x39', '7.62x39mm', 'rep', 'rifle_ammo_casing', '7.62x39mm', 60, {
-        'FMG': T(25), 'BB': T(20, ap=0.45, box='steelAP'), 'E': T(35, unarm=1.35, arm=0.6, box='HP')}),
+        'FMG': T(25), 'BB': T(20, ap=0.45, box='steelAP'), 'E': T(35, unarm=1.35, arm=0.6, box='HP'),
+        'URA': T(23, ap=0.55, extra={'Radiation': 3}, box='uranium'), 'EXP': T(35, unarm=1.35, arm=0.6, box='HP'),
+        'A': T(28, ap=0.25, box='plasteelAP')}),
     ('10x24', '10x24mm', 'rep', 'pistol_ammo_casing', '45_ACP', 60, {
         'SVP': T(24, ap=0.6, box='synthAP'), 'E': T(28, unarm=1.35, arm=0.6, box='HP')}),
     ('10x51', '10x51mm', 'rep', 'rifle_ammo_casing', '68x52mm_caseless', 40, {
@@ -72,7 +83,11 @@ CALIBERS = [
         'EPP': T(48, ap=0.8, pen=60), 'EPPP': T(55, ap=1.0, pen=110, extra={'Structural': 40}, box='base-b')}),
     ('127x105', '12.7x105mm', 'rep', 'big_ammo_casing', '12.7x99mm', 10, {
         'SVP': T(90, ap=0.7, extra={'Structural': 150}, pen=400),
-        'EB': T(95, ap=0.4, unarm=1.2, extra={'Structural': 100})}),
+        'EB': T(95, ap=0.4, unarm=1.2, extra={'Structural': 100}),
+        'FMG': T(80, extra={'Structural': 100}), 'BB': T(75, ap=0.6, extra={'Structural': 120}),
+        'URA': T(78, ap=0.7, extra={'Radiation': 6, 'Structural': 120}),
+        'EXP': T(95, unarm=1.35, arm=0.6, extra={'Structural': 60}),
+        'A': T(88, ap=0.5, extra={'Structural': 150}, pen=300)}),
     ('842x54', '8.42x54mm Imp', 'emp', 'rifle_ammo_casing_steel', '7.62x54mmR', 40, {
         'ImpS': T(45, ap=0.15), 'ImpR': T(38, ap=0.55, box='steelAP'),
         'ImpZ': T(30, extra={'Heat': 12}, fire=0.4, box='incendiary')}),
@@ -84,9 +99,13 @@ CALIBERS = [
         'Shot': T(15, pellets=6, spread=15, extra={'Structural': 10}, box='lethal'),
         'Flech': T(10, ap=0.5, pellets=6, spread=10, extra={'Structural': 10}, box='flechette'),
         'Slug': T(70, ap=0.4, extra={'Structural': 200}, box='slug')}),
+    # Earth General Association: PRO/AMR-16 hybrid round
+    ('189x110', '18.9x110mm', 'zga', 'big_ammo_casing', '14.5x114mm', 10, {
+        'SPC': T(140, ap=0.85, extra={'Structural': 300}, pen=600)}),
 ]
 CAL = {c[0]: c for c in CALIBERS}
-CONTRA = {'rep': 'BaseSecurityContraband', 'emp': 'BaseSyndicateContraband'}
+CONTRA = {'rep': 'BaseSecurityContraband', 'emp': 'BaseSyndicateContraband', 'zga': 'BaseTaskForceContraband',
+          'zgaold': 'BaseSecurityContraband'}
 
 def cart_id(cal, t): return f'DHCartridge{cal}{t}'
 def bullet_id(cal, t): return f'DHBullet{cal}{t}'
@@ -117,6 +136,10 @@ MAGS = [
     ('DHMagazineBelt762x51', 'DHMagazineBelt762x51', '762x51', 100, '8x65mm/8x65mm_box', 'RSPMG-10-54 ammunition belt', 'Normal', 2),
     ('DHMagazineBelt145x114', 'DHMagazineBelt145x114', '145x114', 50, '7.62x39mm/pk_box', 'IHMG-17 ammunition belt', 'Normal', 8),
     ('DHMagazineDrum14g', 'DHMagazineDrum14g', '14g', 12, '12_gauge/12_gauge_drum', 'IMSH-17 drum', 'Normal', 2),
+    # Earth General Association: the same calibres and magazine tags (standardisation), longer magazines
+    ('DHMagazine556x45Long', 'DHMagazine556x45', '556x45', 40, '5.56x45mm/5.56x45mm_mag', 'TIT/MG-10 extended magazine', 'Small', 2),
+    ('DHMagazine762x51Long', 'DHMagazine762x51', '762x51', 30, '7.62x51mm/7.62x51mm_mag', 'ALT/R-16 extended magazine', 'Small', 2),
+    ('DHMagazine189x110', 'DHMagazine189x110', '189x110', 5, '12.7x99mm/12.7x99mm_mag', 'PRO/AMR-16 magazine', 'Small', 2),
 ]
 
 # ----------------------------------------------------------------------------- weapons
@@ -218,6 +241,42 @@ WEAPONS = [
       mags=['DHMagazine10x24Short'], start='DHMagazine10x24ShortE', cal='10x24', rate=5, modes=['SemiAuto'],
       spread=(2, 17), wield=None, snd=('/Audio/Weapons/Guns/Gunshots/mk58.ogg',) + SND_HPISTOL[1:], slots=[], size='Small',
       steal=['OfficerHandgun']),
+
+    # ------------------------------------------------ Earth General Association (weapons of Metall Armed)
+    W(id='DHWeaponRifleTITMG10', sprite='tit_mg10', name='TIT/MG-10', faction='zga', kind='rifle',
+      desc='The main rifle of the Association Army, made on Titan. Holds two magazines side by side: switch to the standby one in a second when it matters most. Takes 30- and 40-round 5.56x45mm magazines.',
+      mags=['DHMagazine556x45'], start='DHMagazine556x45LongFMG', cal='556x45', rate=8, modes=['FullAuto', 'SemiAuto'],
+      spread=(3, 38), wield=(-3, -28), snd=SND_RIFLE, slots=[BARREL, GRIP, OPTIC], size='Huge',
+      dualmag='DHMagazine556x45LongFMG'),
+    W(id='DHWeaponRifleTITR15', sprite='tit_r15', name='TIT/R-15', faction='zga', kind='rifle',
+      desc='A second-line automatic rifle from Titan: the old Eurasian pattern, rebuilt. Reliable, cheap and deadly up close. For garrisons, crews and colonial self-defence forces. Uses 7.62x39mm.',
+      mags=['DHMagazine762x39'], start='DHMagazine762x39FMG', cal='762x39', rate=6.5, modes=['FullAuto', 'SemiAuto'],
+      spread=(4, 40), wield=(-3, -28), snd=SND_RIFLE, slots=[BARREL, GRIP, OPTIC], size='Large'),
+    W(id='DHWeaponRifleALTR16', sprite='alt_r16', name='ALT/R-16', faction='zga', kind='rifle',
+      desc='The Altair marksman rifle: a powerful round and accurate single shots at medium and long range, built for harsh worlds. Takes 20- and 30-round 7.62x51mm magazines.',
+      mags=['DHMagazine762x51'], start='DHMagazine762x51FMG', cal='762x51', rate=4, modes=['SemiAuto', 'FullAuto'],
+      spread=(2, 28), wield=(-2, -22), snd=SND_BATTLE, slots=[BARREL, GRIP, OPTIC], size='Huge', zoom=True),
+    W(id='DHWeaponSniperPROR12', sprite='pro_r12', name='PRO/R-12', faction='zga', kind='sniper',
+      desc='A Procyon anti-materiel rifle against vehicles, fortifications, heavy armour and automatons. One shot, one target. Uses 12.7x105mm.',
+      mags=['DHMagazine127x105'], start='DHMagazine127x105FMG', cal='127x105', rate=0.8, modes=['SemiAuto'],
+      spread=(1, 28), wield=(-1, -26), snd=SND_SNIPER, slots=[OPTIC], size='Huge', wieldreq=True, zoom=True),
+    W(id='DHWeaponSniperPROAMR16', sprite='pro_amr16', name='PRO/AMR-16', faction='zga', kind='sniper',
+      desc='An experimental Procyon hybrid: powder starts the 18.9x110mm penetrator, an electromagnetic stage finishes the job. Each shot also drains the battery pack (five shots per battery). Not for a mass army.',
+      mags=['DHMagazine189x110'], start='DHMagazine189x110SPC', cal='189x110', rate=0.4, modes=['SemiAuto'],
+      spread=(1, 24), wield=(-1, -22), snd=('/Audio/Weapons/Guns/Gunshots/laser_cannon.ogg',) + SND_SNIPER[1:],
+      slots=[OPTIC], size='Huge', wieldreq=True, zoom=True, charge=('DHBatteryAMR16', 200)),
+    W(id='DHWeaponEnergyPROLR17', sprite='pro_lr17', name='PRO/LR-17', faction='zga', kind='energy',
+      desc='A new-generation Procyon energy rifle: 10mm focusing lenses, no recoil, no casings, works in vacuum. Twenty shots per energy cell; overheats under sustained fire.',
+      mags=[], start=None, cal=None, rate=3, modes=['SemiAuto', 'FullAuto'], spread=(1, 20), wield=(-1, -16),
+      snd=('/Audio/Weapons/Guns/Gunshots/laser3.ogg', '/Audio/Weapons/Guns/MagIn/batrifle_magin.ogg',
+           '/Audio/Weapons/Guns/MagOut/batrifle_magout.ogg', None),
+      slots=[OPTIC], size='Huge', cell='DHEnergyCellPRO', firemodes=[('DHLaserLR17', 50)], overheat=(14, 1, 2)),
+    W(id='DHWeaponEnergyEAR20', sprite='ear20', name='EAR-20/LR', faction='zgaold', kind='energy',
+      desc='A pre-Collapse Association energy assault rifle. Poor against armour — plasteel plates held its shots — but lethal to unarmoured infantry. A Kane cartridge holds twenty shots; two modes: a paralysing stun pulse and a thermal burn.',
+      mags=[], start=None, cal=None, rate=2, modes=['SemiAuto'], spread=(2, 24), wield=(-2, -18),
+      snd=('/Audio/Weapons/Guns/Gunshots/laser.ogg', '/Audio/Weapons/Guns/MagIn/batrifle_magin.ogg',
+           '/Audio/Weapons/Guns/MagOut/batrifle_magout.ogg', None),
+      slots=[], size='Huge', cell='DHKaneCartridgeEAR', firemodes=[('DHBoltEARStun', 50), ('DHLaserEARBurn', 50)]),
 ]
 
 # which attachment overlay states a slot can show on each gun (must match build.py SLOTS)
@@ -416,7 +475,8 @@ def write_attachments():
     open(os.path.join(PROTO, 'Attachments/attachments.yml'), 'w').write(''.join(out))
 
 PARENT = {'rifle': 'DHBaseWeaponRifle', 'lmg': 'DHBaseWeaponRifle', 'smg': 'DHBaseWeaponRifle', 'sniper': 'DHBaseWeaponRifle',
-          'pistol': 'DHBaseWeaponPistol', 'autoshotgun': 'DHBaseWeaponRifle', 'pump': 'DHBaseWeaponShotgun'}
+          'pistol': 'DHBaseWeaponPistol', 'autoshotgun': 'DHBaseWeaponRifle', 'pump': 'DHBaseWeaponShotgun',
+          'energy': 'BaseItem'}
 SLOT_NAME = {BARREL: 'es-gun-attachments-slot-name-barrel', GRIP: 'es-gun-attachments-slot-name-grip',
              OPTIC: 'es-gun-attachments-slot-name-optic', STOCK: 'es-gun-attachments-slot-name-stock',
              UNDER: 'es-gun-attachments-slot-name-underbarrel'}
@@ -429,7 +489,8 @@ def slot_whitelist(w, slot):
     if slot == OPTIC:
         states = {'ramg_m14_1': ['2x', '4x'], 'ramg_m14_2': ['2x', '4x'], 'img17t': ['2x', '4x'], 'img17l': ['2x'],
                   'raptor_m12_16': ['2x'], 'rpr_m9_02': ['2x'], 'imsh17': ['2x'], 'rmar_as_m15_18': ['4x', '8x'],
-                  'vympel': ['2x', '4x']}.get(w['sprite'])
+                  'vympel': ['2x', '4x'], 'tit_r15': ['2x', '4x'], 'pro_r12': ['4x', '8x'],
+                  'pro_amr16': ['4x', '8x'], 'pro_lr17': ['2x', '4x']}.get(w['sprite'])
         return [f'DHAttachmentOptic{s}' for s in states] if states else ['DHAttachmentOptic']
     if slot == BARREL and w['sprite'] == 'ir17' or slot == BARREL and w['sprite'] == 'img17l':
         return ['DHAttachmentSuppressor']
@@ -445,6 +506,15 @@ def mapper_states(w, slot):
             res.append((state, tag))
     return res
 
+def chamber_cartridge(w):
+    """Cartridge for the chamber: the starting magazine id without its magazine prefix (longest match)."""
+    mags = sorted((m[0] for m in MAGS if w['start'].startswith(m[0])), key=len, reverse=True)
+    for m in mags:
+        t = w['start'][len(m):]
+        if t in CAL[w['cal']][6]:
+            return cart_id(w['cal'], t)
+    raise ValueError(w['id'])
+
 def write_weapons():
     out = [HEADER]
     for w in WEAPONS:
@@ -459,7 +529,7 @@ def write_weapons():
         c = [f'- type: entity', f'  name: {w["name"]}', f'  parent: [ {", ".join(parents)} ]', f'  id: {w["id"]}',
              f'  description: {w["desc"]}', '  components:']
         layers = ['  - type: Sprite', f'    sprite: {sprite}', '    layers:']
-        if w['kind'] == 'pump':
+        if w['kind'] in ('pump', 'energy'):
             layers += ['    - state: base', '      map: ["enum.GunVisualLayers.Base"]']
         else:
             layers += ['    - state: base', '      map: ["enum.GunVisualLayers.Base"]', '    - state: mag-0',
@@ -487,7 +557,28 @@ def write_weapons():
             gun += [f'    burstFireRate: {w["burstrate"]}', '    burstCooldown: 0.6']
         gun += ['    soundGunshot:', f'      path: {gs}']
         c += gun
-        if w['kind'] == 'pump':
+        if w['kind'] == 'energy':
+            proto, cost = w['firemodes'][0]
+            c += ['  - type: AmmoCounter', '  - type: BatteryAmmoProvider', f'    proto: {proto}', f'    fireCost: {cost}']
+            if len(w['firemodes']) > 1:
+                c += ['  - type: BatteryWeaponFireModes', '    fireModes:']
+                for p, fc in w['firemodes']:
+                    c += [f'    - proto: {p}', f'      fireCost: {fc}']
+            c += ['  - type: ItemSlots', '    slots:', '      cell_slot:', '        name: dh-gun-slot-energy-cell',
+                  f'        startingItem: {w["cell"]}', f'        insertSound: {magin}', f'        ejectSound: {magout}',
+                  '        priority: 2', '        whitelist:', '          tags:', f'          - {w["cell"]}']
+            for slot in w['slots']:
+                c += [f'      attachment_{slot}:', '        insertSound: /Audio/Items/screwdriver2.ogg',
+                      '        ejectSound: /Audio/Items/screwdriver2.ogg', '        priority: 0', '        whitelist:',
+                      '          tags:', *[f'          - {t}' for t in slot_whitelist(w, slot)]]
+            c += ['  - type: PowerCellSlot', '    cellSlotId: cell_slot', '  - type: ContainerContainer',
+                  '    containers:', '      cell_slot: !type:ContainerSlot',
+                  *[f'      attachment_{s}: !type:ContainerSlot' for s in w['slots']], '  - type: Appearance']
+            if w.get('overheat'):
+                mx, per, cool = w['overheat']
+                c += ['  - type: DHOverheat', f'    maxHeat: {mx}', f'    heatPerShot: {per}', f'    cooldownRate: {cool}',
+                      '    overheatLockout: 4']
+        elif w['kind'] == 'pump':
             c += ['  - type: BallisticAmmoProvider', '    whitelist:', '      tags:', f'      - {cal_tag(w["cal"])}',
                   f'    capacity: {w["tube"]}', f'    proto: {cart_id(w["cal"], "Shot")}', '  - type: GunSpreadModifier',
                   '    spread: 0.5', '  - type: GunRequiresWield']
@@ -499,14 +590,25 @@ def write_weapons():
                   f'        startingItem: {w["start"]}', f'        insertSound: {magin}', f'        ejectSound: {magout}',
                   '        priority: 2', '        whitelist:', '          tags:', *[f'          - {m}' for m in w['mags']],
                   '        whitelistFailPopup: gun-magazine-whitelist-fail', '      gun_chamber:', '        name: Chamber',
-                  f'        startingItem: {w["start"].replace(next(m for m in w["mags"] if w["start"].startswith(m)), "DHCartridge" + w["cal"])}',
+                  f'        startingItem: {chamber_cartridge(w)}',
                   '        priority: 1', '        whitelist:', '          tags:', f'          - {cal_tag(w["cal"])}']
+            if w.get('dualmag'):
+                c += ['      gun_magazine_2:', '        name: dh-gun-slot-standby-magazine',
+                      f'        startingItem: {w["dualmag"]}', f'        insertSound: {magin}', f'        ejectSound: {magout}',
+                      '        priority: 0', '        whitelist:', '          tags:', *[f'          - {m}' for m in w['mags']]]
+            if w.get('charge'):
+                c += ['      cell_slot:', '        name: dh-gun-slot-battery', f'        startingItem: {w["charge"][0]}',
+                      '        insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg',
+                      '        ejectSound: /Audio/Weapons/Guns/MagOut/batrifle_magout.ogg', '        priority: 0',
+                      '        whitelist:', '          tags:', f'          - {w["charge"][0]}']
             for slot in w['slots']:
                 c += [f'      attachment_{slot}:', '        insertSound: /Audio/Items/screwdriver2.ogg',
                       '        ejectSound: /Audio/Items/screwdriver2.ogg', '        priority: 0', '        whitelist:',
                       '          tags:', *[f'          - {t}' for t in slot_whitelist(w, slot)]]
             c += ['  - type: ContainerContainer', '    containers:', '      gun_magazine: !type:ContainerSlot',
                   '      gun_chamber: !type:ContainerSlot', *[f'      attachment_{s}: !type:ContainerSlot' for s in w['slots']],
+                  *(['      gun_magazine_2: !type:ContainerSlot'] if w.get('dualmag') else []),
+                  *(['      cell_slot: !type:ContainerSlot'] if w.get('charge') else []),
                   '  - type: MagazineVisuals', '    magState: mag', '    steps: 1', '    zeroVisible: true',
                   '  - type: Appearance']
         if w['slots']:
@@ -523,6 +625,11 @@ def write_weapons():
                 for state, tag in mapper_states(w, slot):
                     c += [f'      - containerId: attachment_{slot}', f'        state: {state}', '        whitelist:',
                           '          tags:', f'          - {tag}']
+        if w.get('dualmag'):
+            c += ['  - type: DHDualMagazine']
+        if w.get('charge'):
+            c += ['  - type: PowerCellSlot', '    cellSlotId: cell_slot', '  - type: DHGunChargePerShot',
+                  f'    charge: {w["charge"][1]}']
         if w.get('wieldreq'):
             c += ['  - type: GunRequiresWield']
         if w.get('steal'):
