@@ -2,6 +2,7 @@ using Content.Shared.Body;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
+using Robust.Shared.Timing;
 
 namespace Content.Shared._DarkestHour.Medical.Trauma;
 
@@ -123,6 +124,16 @@ public sealed partial class DHTraumaComponent : Component
     /// <summary>Множитель скорости от переломов ног и боли.</summary>
     [DataField, AutoNetworkedField]
     public float SpeedModifier = 1f;
+
+    /// <summary>
+    /// Часть тела, уже выбранная для текущего удара бронёй по частям тела (модульная броня): травмы бьют в неё же.
+    /// Действует только в тот же тик.
+    /// </summary>
+    [ViewVariables]
+    public string? PendingHitPart;
+
+    [ViewVariables]
+    public GameTick PendingHitTick;
 
     /// <summary>
     /// Готовые строки травм для анализатора здоровья (переломы, кровотечения, осколки, органы, боль).

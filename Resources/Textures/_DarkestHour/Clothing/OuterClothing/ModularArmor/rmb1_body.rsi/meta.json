@@ -1,0 +1,18 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Body suit cut from Monolith TSFMC experimental hardsuit (CC0, original work by TJohnson), recoloured for The Darkest Hour (Tools/_DarkestHour/modular_armor)",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "icon"
+        },
+        {
+            "name": "equipped-OUTERCLOTHING",
+            "directions": 4
+        }
+    ]
+}

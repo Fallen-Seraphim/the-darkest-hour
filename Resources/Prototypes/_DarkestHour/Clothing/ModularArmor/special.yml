@@ -1,0 +1,244 @@
+# DarkestHour: спецсистемы модульной брони (слот на спине корпуса), встроенное оружие, стойка обслуживания.
+# Спецсистемы подходят к любому корпусу (ИМБ-1 и РМБ-1).
+
+- type: entity
+  parent: BaseAction
+  id: DHActionArmorSpecial
+  name: Use special system
+  description: Use the special system of your modular armour — extend or retract the built-in weapon, open the extra storage, or check the auto-medic.
+  components:
+  - type: Action
+    itemIconStyle: BigItem
+    useDelay: 1
+  - type: InstantAction
+    event: !type:DHArmorSpecialActionEvent
+
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: DHArmorSpecialBase
+  components:
+  - type: Item
+    size: Normal
+  - type: DHArmorModule
+    slot: Special
+    speed: 1
+    maxIntegrity: 1
+    integrity: 1
+  - type: StaticPrice
+    price: 600
+
+- type: entity
+  parent: DHArmorSpecialBase
+  id: DHArmorSpecialAutoMed
+  name: armour auto-medic
+  description: "A special system for modular armour: injects 10 units of its medicine mix into the wearer's blood when they are badly hurt, at most once a minute. Refill it with a syringe."
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Medical/firstaidkits.rsi
+    state: blackkit
+  - type: DHArmorSpecial
+    kind: AutoMed
+    threshold: 70
+    dose: 10
+  - type: SolutionContainerManager
+    solutions:
+      automed:
+        maxVol: 40
+        reagents:
+        - ReagentId: Tricordrazine
+          Quantity: 20
+        - ReagentId: Epinephrine
+          Quantity: 20
+  - type: RefillableSolution
+    solution: automed
+  - type: ExaminableSolution
+    solution: automed
+    exactVolume: true
+
+- type: entity
+  parent: [ DHArmorSpecialBase, ClothingBeltStorageBase ]
+  id: DHArmorSpecialStorage
+  name: armour storage pack
+  description: "A special system for modular armour: an extra storage pack on the back of the suit. Open it with the special system action."
+  components:
+  - type: Sprite
+    sprite: Clothing/Belt/militarywebbing.rsi
+    state: icon
+  - type: Item
+    size: Large
+  - type: Storage
+    maxItemSize: Normal
+    grid:
+    - 0,0,5,1
+
+- type: entity
+  parent: DHArmorSpecialBase
+  id: DHArmorSpecialTankStorage
+  name: armour fuel tank rack
+  description: "A special system for modular armour: a rack on the back of the suit that holds four incinerator fuel tanks."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Weapons/Guns/Ammunition/flamethrower.rsi
+    state: flametank
+  - type: Item
+    size: Large
+  - type: Storage
+    maxItemSize: Normal
+    grid:
+    - 0,0,7,1
+    whitelist:
+      tags:
+      - DHFlamerTank
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+        ents: []
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+
+- type: entity
+  parent: DHArmorSpecialBase
+  id: DHArmorSpecialShotgun
+  name: armour built-in shotgun
+  description: "A special system for modular armour: a pump shotgun on a folding arm mount. Extend it into your hands with the special system action."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Guns/impsh17p.rsi
+    state: base
+  - type: DHArmorSpecial
+    kind: Weapon
+    weapon: DHWeaponShotgunArmorBuiltin
+  - type: ContainerContainer
+    containers:
+      dh_armor_weapon: !type:ContainerSlot {}
+
+- type: entity
+  parent: DHArmorSpecialBase
+  id: DHArmorSpecialFlamer
+  name: armour built-in incinerator
+  description: "A special system for modular armour: a compact incinerator on the forearm with a 30-unit fuel reservoir. Extend it into your hand with the special system action."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Weapons/Guns/Flamethrower/colony.rsi
+    state: base
+  - type: DHArmorSpecial
+    kind: Weapon
+    weapon: DHWeaponFlamerArmorBuiltin
+  - type: ContainerContainer
+    containers:
+      dh_armor_weapon: !type:ContainerSlot {}
+
+- type: entity
+  parent: DHWeaponShotgunIMPSH17P
+  id: DHWeaponShotgunArmorBuiltin
+  name: built-in IMPSH-17P
+  description: An IMPSH-17P pump shotgun on a folding mount of a modular armour suit. It cannot be dropped; retract it with the special system action.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Unremoveable
+    deleteOnDrop: false
+
+- type: entity
+  parent: BaseItem
+  id: DHWeaponFlamerArmorBuiltin
+  name: built-in incinerator
+  description: A compact incinerator built into a modular armour suit. Holds 30 units of fuel; refill it from a fuel tank like any incinerator tank. Alt-click to light the pilot flame.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Weapons/Guns/Flamethrower/colony.rsi
+    layers:
+    - state: base
+    - state: lit
+      map: [ "enum.DHFlamerVisuals.Ignited" ]
+      visible: false
+      shader: unshaded
+  - type: Item
+    sprite: _RMC14/Objects/Weapons/Guns/Flamethrower/colony.rsi
+    size: Huge
+  - type: Gun
+    fireRate: 0.75
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    minAngle: 0
+    maxAngle: 4
+    angleIncrease: 0
+    cameraRecoilScalar: 0
+    soundGunshot:
+      collection: DHFlamerShoot
+    soundEmpty:
+      path: /Audio/_RMC14/Weapons/Guns/Flamer/gun_flamethrower_empty.ogg
+  - type: AmmoCounter
+  - type: DHFlamer
+    maxRange: 5
+    igniteSound:
+      path: /Audio/_RMC14/Weapons/Guns/Flamer/surv_flamer_ignite.ogg
+  - type: DHFlamerTank
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 30
+      reagents:
+      - ReagentId: WeldingFuel
+        Quantity: 30
+  - type: ExaminableSolution
+    solution: tank
+    exactVolume: true
+  - type: RefillableSolution
+    solution: tank
+  - type: Unremoveable
+    deleteOnDrop: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHFlamerVisuals.Ignited:
+        enum.DHFlamerVisuals.Ignited:
+          True: { visible: true }
+          False: { visible: false }
+
+# Стойка обслуживания брони: только рядом с ней ставятся и снимаются тяжёлые модули.
+- type: entity
+  parent: BaseStructure
+  id: DHArmorRack
+  name: armour maintenance rack
+  description: A rack with clamps and power tools for fitting and removing heavy modules of modular armour. Heavy modules can only be swapped within a couple of steps of it.
+  components:
+  - type: Sprite
+    sprite: Structures/Storage/SuitStorage/generic.rsi
+    layers:
+    - state: base
+    - state: panel
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.3,-0.45,0.3,0.45"
+        density: 200
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: DHArmorRack
+  - type: Anchorable
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: StructuralMetallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: StaticPrice
+    price: 1500
