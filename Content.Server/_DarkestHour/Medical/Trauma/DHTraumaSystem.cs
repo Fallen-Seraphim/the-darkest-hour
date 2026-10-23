@@ -204,7 +204,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
             return PickPart((target, null!), origin, far);
 
         var part = PickPart((target, trauma), origin, far);
-        part = ResolvePresent(part, GetOrgans((target, trauma))) ?? part;
+        part = ResolvePresent(part, GetOrgans(target)) ?? part;
         trauma.PendingHitPart = part;
         trauma.PendingHitTick = _timing.CurTick;
         return part;

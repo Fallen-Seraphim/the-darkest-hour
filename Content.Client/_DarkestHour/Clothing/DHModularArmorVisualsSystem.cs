@@ -8,7 +8,8 @@ namespace Content.Client._DarkestHour.Clothing;
 
 /// <summary>
 /// Модули брони рисуются отдельными слоями поверх корпуса на персонаже: видно, что надето.
-/// Разбитый модуль затемнён.
+/// Разбитый модуль затемнён. Смену модулей (вставка/извлечение) отслеживает общая система брони — повторная
+/// подписка на те же события здесь уронила бы клиент.
 /// </summary>
 public sealed partial class DHModularArmorVisualsSystem : EntitySystem
 {
@@ -23,19 +24,7 @@ public sealed partial class DHModularArmorVisualsSystem : EntitySystem
 
         SubscribeLocalEvent<DHModularArmorComponent, GetEquipmentVisualsEvent>(OnGetVisuals,
             after: [typeof(ClientClothingSystem)]);
-        SubscribeLocalEvent<DHModularArmorComponent, EntInsertedIntoContainerMessage>(OnChanged);
-        SubscribeLocalEvent<DHModularArmorComponent, EntRemovedFromContainerMessage>(OnRemoved);
         SubscribeLocalEvent<DHArmorModuleComponent, AfterAutoHandleStateEvent>(OnModuleState);
-    }
-
-    private void OnChanged(Entity<DHModularArmorComponent> ent, ref EntInsertedIntoContainerMessage args)
-    {
-        _item.VisualsChanged(ent);
-    }
-
-    private void OnRemoved(Entity<DHModularArmorComponent> ent, ref EntRemovedFromContainerMessage args)
-    {
-        _item.VisualsChanged(ent);
     }
 
     private void OnModuleState(Entity<DHArmorModuleComponent> ent, ref AfterAutoHandleStateEvent args)
