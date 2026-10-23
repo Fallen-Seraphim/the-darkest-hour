@@ -94,10 +94,10 @@
   description: A sinister looking toolbox filled with elite syndicate tools.
   components:
   - type: Sprite
-    sprite: Objects/Tools/Toolboxes/toolbox_syn.rsi
+    sprite: _DarkestHour/Objects/Tools/Toolboxes/toolbox_syn.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
     state: icon
   - type: Item
-    sprite: Objects/Tools/Toolboxes/toolbox_syn.rsi
+    sprite: _DarkestHour/Objects/Tools/Toolboxes/toolbox_syn.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Storage
     maxItemSize: Huge
     grid:

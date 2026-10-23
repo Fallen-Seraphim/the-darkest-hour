@@ -36,6 +36,8 @@ TEAL = ramp('14313a', '1f4a56', '2d6676', '3f8496', '5ea3b3', '8cc4cf')
 VIOLET = ramp('261b33', '3a2a4c', '503c66', '685283', '846fa0', 'a896bf')
 OCHRE = ramp('3a250e', '5c3a14', '82531c', 'a86d27', 'c98a3a', 'e3ad5c')
 TAN = ramp('33261a', '503c28', '6e553a', '8d6f4e', 'ad8d68', 'cdb08a')
+# Imperial Marine Corps (IMB-1): white plates over black
+IVORY = ramp('4a4741', '6f6b64', '938f88', 'b7b3ab', 'd8d4cc', 'f3f1ea')
 
 WARM_WHITE = (238, 232, 218)
 
@@ -59,6 +61,8 @@ SCHEMES = {
     'engineering': [(20, 70, 0.3, OCHRE), (345, 20, 0.4, OCHRE)],
     # supply: browns/oranges -> tan, gold stays brass, salvage purple -> steel
     'supply': [(15, 45, 0.2, TAN, 0.1), (45, 62, 0.35, BRASS), (255, 335, 0.2, STEEL, 0.15)],
+    # Imperial Marine Corps (former syndicate gear): blood red -> imperial white, black stays, gold stays
+    'imperial': [(330, 25, 0.3, IVORY, 0.2), (260, 330, 0.3, IVORY, 0.2)],
 }
 
 

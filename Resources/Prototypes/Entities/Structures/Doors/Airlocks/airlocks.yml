@@ -165,7 +165,7 @@
   suffix: Syndicate
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Standard/syndicate-base.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/syndicate-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
 
 - type: entity
   parent: AirlockCargo
@@ -261,7 +261,7 @@
   suffix: Syndicate
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Standard/airlock-hatch-syndicate.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/airlock-hatch-syndicate.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
 
 # Glass
 - type: entity
@@ -384,7 +384,7 @@
   suffix: Syndicate
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Glass/syndicate-base.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Glass/syndicate-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
 
 - type: entity
   parent: AirlockCargoGlass

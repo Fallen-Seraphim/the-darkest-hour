@@ -234,9 +234,9 @@
   description: The syndicate's professional head-up display, designed for better detection of humanoids and their subsequent elimination.
   components:
   - type: Sprite
-    sprite: Clothing/Eyes/Hud/synd.rsi
+    sprite: _DarkestHour/Clothing/Eyes/Hud/synd.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Eyes/Hud/synd.rsi
+    sprite: _DarkestHour/Clothing/Eyes/Hud/synd.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: ShowSyndicateIcons
   - type: Tag
     tags:
@@ -250,9 +250,9 @@
   description: The Syndicate Corpsman's professional heads-up display, designed for quick diagnosis of their team's status.
   components:
   - type: Sprite
-    sprite: Clothing/Eyes/Hud/syndagent.rsi
+    sprite: _DarkestHour/Clothing/Eyes/Hud/syndagent.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Eyes/Hud/syndagent.rsi
+    sprite: _DarkestHour/Clothing/Eyes/Hud/syndagent.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: ShowSyndicateIcons
   - type: ShowHealthBars
   - type: Tag

@@ -103,7 +103,7 @@
   description: Doubles as a self-defense weapon against war-crime inclined tiders.
   components:
   - type: Sprite
-    sprite: Objects/Specific/Medical/defibsyndi.rsi
+    sprite: _DarkestHour/Objects/Specific/Medical/defibsyndi.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
     layers:
       - state: icon
       - state: screen

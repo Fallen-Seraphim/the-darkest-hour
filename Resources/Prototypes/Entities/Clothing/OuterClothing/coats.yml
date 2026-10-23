@@ -379,9 +379,9 @@
   description: The syndicate's coat is made of durable fabric, with gilded patterns.
   components:
   - type: Sprite
-    sprite: Clothing/OuterClothing/Coats/syndicate/coatsyndiecap.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/syndicate/coatsyndiecap.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/OuterClothing/Coats/syndicate/coatsyndiecap.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/syndicate/coatsyndiecap.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [BaseSyndicateContraband, ClothingOuterCoatHoSTrench] # BaseSyndicateContraband as first parent so contraband system takes that as priority, yeah I know
@@ -390,9 +390,9 @@
   description: The syndicate's armored coat is made of durable fabric, with gilded patterns.
   components:
   - type: Sprite
-    sprite: Clothing/OuterClothing/Coats/syndicate/coatsyndiecaparmored.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/syndicate/coatsyndiecaparmored.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/OuterClothing/Coats/syndicate/coatsyndiecaparmored.rsi
+    sprite: _DarkestHour/Clothing/OuterClothing/Coats/syndicate/coatsyndiecaparmored.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: ClothingOuterStorageBase

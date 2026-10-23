@@ -83,7 +83,7 @@
   id: SyndieMiniBomb
   components:
   - type: Sprite
-    sprite: Objects/Weapons/Grenades/syndgrenade.rsi
+    sprite: _DarkestHour/Objects/Weapons/Grenades/syndgrenade.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: ExplosionResistance
     damageCoefficient: 0.1
   - type: TimerTrigger
@@ -435,7 +435,7 @@
   id: SyndieTrickyBomb
   components:
   - type: Sprite
-    sprite: Objects/Weapons/Grenades/syndgrenade.rsi
+    sprite: _DarkestHour/Objects/Weapons/Grenades/syndgrenade.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: TimerTrigger
     delay: 5
   - type: EmitSoundOnTrigger

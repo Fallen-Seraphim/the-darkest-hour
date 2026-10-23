@@ -28,6 +28,8 @@ OUT = os.path.join(TEX, '_DarkestHour', SRC)
 MARK = '# DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)'
 
 WARM_GREY = rc.ramp('121110', '211f1c', '35322d', '4f4b44', '6f6a61', '958f84', 'bdb6a9')
+IMPERIAL_BLACK = rc.ramp('060607', '0e0e10', '18191c', '24252a', '33353b', '484b52', '62666e')
+REPUBLIC_GREEN = rc.ramp('0b130a', '142113', '1d2e1b', '283d24', '35502f', '46643d', '5a7a4f')
 COMMAND = rc.ramp('141518', '23252a', '383632', '5d5038', '8f7442', 'c09d5a', 'e0c27c')
 
 # paint rules: (hue from, hue to, ramp); first match wins, None = any hue
@@ -39,7 +41,14 @@ DEPT = {
     'science': [(None, None, rc.VIOLET)],
     'engineering': [(160, 215, rc.TEAL), (None, None, rc.OCHRE)],
     'supply': [(255, 335, rc.STEEL), (None, None, rc.TAN)],
+    # Imperial Marine Corps (former syndicate doors): white paint on a black body, gold stays
+    'imperial': [(35, 65, None), (None, None, rc.IVORY)],
+    # Republican Army Corps: khaki paint on a green body, republic green trim
+    'republic': [(70, 170, rc.ramp('1c2b0c', '2f4714', '43641d', '5e8c2a', '7fae46', 'a9cf72')), (None, None, rc.KHAKI)],
 }
+
+# body ramp per department (default: corporate warm grey)
+BODY = {'imperial': IMPERIAL_BLACK, 'republic': REPUBLIC_GREEN}
 
 DOORS = {
     'airlock-base': 'neutral', 'airlock-maints': 'neutral', 'airlock-hatch': 'neutral',
@@ -49,6 +58,7 @@ DOORS = {
     'science-base': 'science',
     'engineering-base': 'engineering', 'engineering-atmos': 'engineering',
     'cargo-base': 'supply', 'cargo-mining': 'supply', 'cargo-salvage': 'supply',
+    'syndicate-base': 'imperial', 'shuttle-syndicate': 'imperial', 'airlock-hatch-syndicate': 'imperial',
 }
 
 
@@ -59,10 +69,10 @@ def door_px(c, dept):
     if s >= 0.38 and v >= 0.1:
         for lo, hi, rmp in DEPT[dept]:
             if lo is None or rc.hue_in(h, lo, hi):
-                return rc.from_ramp(rmp, (y - 0.02) / 0.8)
+                return c if rmp is None else rc.from_ramp(rmp, (y - 0.02) / 0.8)
         return c
-    # steel-blue body and dark greys -> warm corporate grey
-    return rc.from_ramp(WARM_GREY, y / 0.75)
+    # steel-blue body and dark greys -> warm corporate grey (or the faction body colour)
+    return rc.from_ramp(BODY.get(dept, WARM_GREY), y / 0.75)
 
 
 def glass_mask(state_file):
@@ -87,7 +97,7 @@ def glass_mask(state_file):
 def recolor(path_in, path_out, dept, glass):
     im = Image.open(path_in).convert('RGBA')
     px = im.load()
-    mask = glass_mask(os.path.basename(path_in)) if glass else None
+    mask = glass_mask(os.path.basename(path_in)) if glass and dept not in BODY else None
     cache = {}
     for yy in range(im.height):
         for xx in range(im.width):

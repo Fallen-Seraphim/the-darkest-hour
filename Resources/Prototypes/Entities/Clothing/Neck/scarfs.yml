@@ -106,9 +106,9 @@
   description: A stylish striped syndicate red scarf. The perfect winter accessory for those with a keen fashion sense, and those who are in the mood to steal something.
   components:
     - type: Sprite
-      sprite: Clothing/Neck/Scarfs/syndiered.rsi
+      sprite: _DarkestHour/Clothing/Neck/Scarfs/syndiered.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
     - type: Clothing
-      sprite: Clothing/Neck/Scarfs/syndiered.rsi
+      sprite: _DarkestHour/Clothing/Neck/Scarfs/syndiered.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
     - type: StaticPrice
       price: 500
 

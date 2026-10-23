@@ -40,9 +40,9 @@
   description: A simple, stylish EVA helmet. Designed for maximum humble space-badassery.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Helmets/eva_syndicate.rsi
+    sprite: _DarkestHour/Clothing/Head/Helmets/eva_syndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Head/Helmets/eva_syndicate.rsi
+    sprite: _DarkestHour/Clothing/Head/Helmets/eva_syndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: StaticPrice
     price: 500 # Suit is 1000
 

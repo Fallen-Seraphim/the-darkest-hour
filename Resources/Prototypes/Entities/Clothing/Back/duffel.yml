@@ -169,7 +169,7 @@
   description: A large duffel bag for holding various traitor goods.
   components:
   - type: Sprite
-    sprite: Clothing/Back/Duffels/syndicate.rsi
+    sprite: _DarkestHour/Clothing/Back/Duffels/syndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: ExplosionResistance
     damageCoefficient: 0.1
   - type: Storage
@@ -199,7 +199,7 @@
   id: ClothingBackpackDuffelSyndicateAmmo
   components:
   - type: Sprite
-    sprite: Clothing/Back/Duffels/syndicate.rsi
+    sprite: _DarkestHour/Clothing/Back/Duffels/syndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
     state: icon-ammo
   - type: Item
     heldPrefix: ammo
@@ -220,7 +220,7 @@
   id: ClothingBackpackDuffelSyndicateMedical
   components:
   - type: Sprite
-    sprite: Clothing/Back/Duffels/syndicate.rsi
+    sprite: _DarkestHour/Clothing/Back/Duffels/syndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
     state: icon-med
   - type: Item
     heldPrefix: med

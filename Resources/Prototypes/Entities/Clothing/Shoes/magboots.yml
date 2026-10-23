@@ -95,10 +95,10 @@
   description: Reverse-engineered from ERT magboots, they have a heavy magnetic pull and integrated thrusters. It can hold 0.75 L of gas.
   components:
   - type: Sprite
-    sprite: Clothing/Shoes/Boots/magboots-syndicate.rsi
+    sprite: _DarkestHour/Clothing/Shoes/Boots/magboots-syndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
     state: icon
   - type: Clothing
-    sprite: Clothing/Shoes/Boots/magboots-syndicate.rsi
+    sprite: _DarkestHour/Clothing/Shoes/Boots/magboots-syndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.9

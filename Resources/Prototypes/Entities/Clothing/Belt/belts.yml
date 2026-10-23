@@ -135,9 +135,9 @@
   description: A deep shoulder holster capable of holding many types of ballistics.
   components:
   - type: Sprite
-    sprite: Clothing/Belt/syndieholster.rsi
+    sprite: _DarkestHour/Clothing/Belt/syndieholster.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Clothing
-    sprite: Clothing/Belt/syndieholster.rsi
+    sprite: _DarkestHour/Clothing/Belt/syndieholster.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Storage
     maxItemSize: Huge
     grid:

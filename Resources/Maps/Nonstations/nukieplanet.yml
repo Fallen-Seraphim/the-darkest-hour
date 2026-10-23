@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 09/05/2026 14:50:38
-  entityCount: 2549
+  entityCount: 2550
 maps:
 - 1295
 grids:
@@ -47,7 +47,7 @@ entities:
   - uid: 104
     components:
     - type: MetaData
-      name: Syndicate Outpost
+      name: Imperial Forward Base
     - type: Transform
       parent: 1295
     - type: MapLight
@@ -15641,4 +15641,11 @@ entities:
       parent: 104
       rot: 1.5707963267948966 rad
       pos: 5.5,-10.5
+- proto: DHArmorRack
+  entities:
+  - uid: 4000
+    components:
+    - type: Transform
+      pos: 6.5,-4.5
+      parent: 104
 ...

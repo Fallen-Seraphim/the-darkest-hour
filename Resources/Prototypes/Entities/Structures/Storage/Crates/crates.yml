@@ -334,9 +334,9 @@
   description: A dark steel crate with red bands and a letter S embossed on the front.
   components:
   - type: Icon
-    sprite: Structures/Storage/Crates/syndicate_secure.rsi
+    sprite: _DarkestHour/Structures/Storage/Crates/syndicate_secure.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Sprite
-    sprite: Structures/Storage/Crates/syndicate_secure.rsi
+    sprite: _DarkestHour/Structures/Storage/Crates/syndicate_secure.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: AccessReader
     access: [["SyndicateAgent", "NuclearOperative"]]
 
@@ -811,9 +811,9 @@
   description: A dark steel crate with red bands and a letter S embossed on the front.
   components:
   - type: Icon
-    sprite: Structures/Storage/Crates/syndicate.rsi
+    sprite: _DarkestHour/Structures/Storage/Crates/syndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
   - type: Sprite
-    sprite: Structures/Storage/Crates/syndicate.rsi
+    sprite: _DarkestHour/Structures/Storage/Crates/syndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
 
 - type: entity
   parent: [StructureWheeled, CrateBaseWeldable]
