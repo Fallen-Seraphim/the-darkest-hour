@@ -70,6 +70,10 @@ public sealed partial class DHRiftSystem : EntitySystem
     {
         foreach (var system in _proto.EnumeratePrototypes<DHStarSystemPrototype>())
         {
+            // DarkestHour: домашняя система привязывается к карте станции (DHCelestialSystem).
+            if (system.Home)
+                continue;
+
             var mapUid = _map.CreateMap(out _);
             _meta.SetEntityName(mapUid, Loc.GetString(system.Name));
             EnsureComp<DHStarSystemMapComponent>(mapUid).System = system.ID;
@@ -82,7 +86,11 @@ public sealed partial class DHRiftSystem : EntitySystem
     /// <summary>Звёздная система карты; null — домашняя система станции.</summary>
     private string? SystemOf(EntityUid? map)
     {
-        return map != null && TryComp<DHStarSystemMapComponent>(map, out var comp) ? comp.System?.Id : null;
+        if (map == null || !TryComp<DHStarSystemMapComponent>(map, out var comp) || comp.System == null)
+            return null;
+
+        // Домашняя система — та же, что у карт без компонента (планеты, экспедиции).
+        return _proto.TryIndex(comp.System.Value, out var proto) && proto.Home ? null : comp.System.Value.Id;
     }
 
     #endregion

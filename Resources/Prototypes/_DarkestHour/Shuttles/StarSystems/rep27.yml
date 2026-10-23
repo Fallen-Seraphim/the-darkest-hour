@@ -1,0 +1,107 @@
+# Домашняя система станции: REP-27. Координаты — метры от станции (начало отсчёта — центр крупнейшего грида
+# станции при создании). Станция висит на низкой орбите над REP-27-5D — морозным спутником газового гиганта
+# REP-27-5. К звезде не подлететь: радиация. В верхние слои гигантов можно нырнуть за газом; глубже — выталкивает.
+
+- type: entity
+  id: BaseStationDHHomeSystem
+  abstract: true
+  components:
+    - type: DHHomeStarSystem
+      system: DHSystemREP27
+
+- type: dhStarSystem
+  id: DHSystemREP27
+  name: dh-star-system-rep27
+  home: true
+  bodies:
+  - id: Star
+    name: dh-celestial-rep27
+    description: dh-celestial-rep27-desc
+    kind: Star
+    position: 520000, 260000
+    radius: 60000
+    color: "#FFB25C"
+    radiation: 60
+    radiationFalloff: 220000
+
+  - id: P1
+    name: dh-celestial-rep27-1
+    description: dh-celestial-rep27-1-desc
+    position: 380000, 260000
+    radius: 2500
+    color: "#B5651D"
+    orbitParent: Star
+
+  - id: P2
+    name: dh-celestial-rep27-2
+    description: dh-celestial-rep27-2-desc
+    position: 520000, 0
+    radius: 4000
+    color: "#C9A66B"
+    orbitParent: Star
+
+  - id: P3
+    name: dh-celestial-rep27-3
+    description: dh-celestial-rep27-3-desc
+    kind: GasGiant
+    position: 190000, 60000
+    radius: 22000
+    color: "#D98C5F"
+    orbitParent: Star
+    radiation: 3
+    radiationFalloff: 6000
+    enterableDepth: 2500
+
+  - id: P4
+    name: dh-celestial-rep27-4
+    description: dh-celestial-rep27-4-desc
+    position: 70000, 410000
+    radius: 3000
+    color: "#8C8C8C"
+    orbitParent: Star
+
+  - id: P5
+    name: dh-celestial-rep27-5
+    description: dh-celestial-rep27-5-desc
+    kind: GasGiant
+    position: 0, 96000
+    radius: 34000
+    color: "#6FA3D9"
+    orbitParent: Star
+    radiation: 4
+    radiationFalloff: 9000
+    enterableDepth: 3500
+
+  - id: P5A
+    name: dh-celestial-rep27-5a
+    kind: Moon
+    position: 48000, 116000
+    radius: 1500
+    color: "#A89F91"
+    orbitParent: P5
+
+  - id: P5B
+    name: dh-celestial-rep27-5b
+    kind: Moon
+    position: -62000, 66000
+    radius: 2200
+    color: "#9C8E7A"
+    orbitParent: P5
+
+  - id: P5C
+    name: dh-celestial-rep27-5c
+    kind: Moon
+    position: 70000, 51000
+    radius: 1800
+    color: "#B3B3A1"
+    orbitParent: P5
+
+  - id: P5D
+    name: dh-celestial-rep27-5d
+    description: dh-celestial-rep27-5d-desc
+    kind: Moon
+    position: 0, -6300
+    radius: 6000
+    color: "#CFE6F2"
+    orbitParent: P5
+    landable: true

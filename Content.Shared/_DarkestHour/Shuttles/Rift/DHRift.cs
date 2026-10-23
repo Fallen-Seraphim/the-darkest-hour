@@ -1,3 +1,4 @@
+using System.Numerics;
 using Content.Shared.DoAfter;
 using Robust.Shared.GameStates;
 using Robust.Shared.Map;
@@ -24,16 +25,30 @@ public sealed partial class DHStarSystemPrototype : IPrototype
 
     [DataField(required: true)]
     public LocId Name;
+
+    /// <summary>
+    /// Домашняя система станции: своей карты не получает, привязывается к карте станции (см. DHCelestialSystem).
+    /// </summary>
+    [DataField]
+    public bool Home;
+
+    /// <summary>Небесные тела системы: видны на сканере масс и навигационных консолях, опасны вблизи.</summary>
+    [DataField]
+    public List<DHCelestialBody> Bodies = new();
 }
 
 /// <summary>
 /// Карта принадлежит звёздной системе. Карты без компонента — домашняя система станции (планеты, экспедиции).
 /// </summary>
-[RegisterComponent, NetworkedComponent]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class DHStarSystemMapComponent : Component
 {
-    [DataField]
+    [DataField, AutoNetworkedField]
     public ProtoId<DHStarSystemPrototype>? System;
+
+    /// <summary>Точка карты, от которой отсчитываются координаты тел системы.</summary>
+    [DataField, AutoNetworkedField]
+    public Vector2 Origin;
 }
 
 /// <summary>
