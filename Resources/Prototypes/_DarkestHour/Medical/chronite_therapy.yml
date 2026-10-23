@@ -1,0 +1,109 @@
+# DarkestHour: экспериментальное лечение хронитовой кожно-покровной болезни (этап 4, РнД).
+# Хронолизин выводит хронит и на последней стадии, которую не берут Хроносорб и операция, — ценой тяжёлых побочных
+# эффектов: клеточный урон, боль, судороги, дрожь; иногда — обратная кристаллизация (+хронит). Химики его не синтезируют:
+# только автоинъектор из медицинского техфаба после технологии «Экспериментальная хронотерапия».
+
+- type: reagent
+  id: DHChronolysin
+  name: reagent-name-dh-chronolysin
+  group: Medicine
+  desc: reagent-desc-dh-chronolysin
+  physicalDesc: reagent-physical-desc-glowing
+  flavor: bitter
+  color: "#b45cff"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.5
+      effects:
+      - !type:DHReduceDose
+        kind: Chronite
+        amount: 6
+        bypassTerminal: true
+      - !type:HealthChange
+        damage:
+          types:
+            Cellular: 1.5
+      - !type:DHAddPain
+        amount: 2
+      - !type:Jitter
+        probability: 0.3
+      - !type:Electrocute
+        electrocuteTime: 1
+        probability: 0.06
+      - !type:DHAddChroniteDose
+        amount: 4
+        probability: 0.05
+      - !type:PopupMessage
+        type: Local
+        visualType: MediumCaution
+        messages:
+        - dh-chronolysin-effect-1
+        - dh-chronolysin-effect-2
+        - dh-chronolysin-effect-3
+        probability: 0.15
+
+- type: entity
+  parent: ChemicalMedipen
+  id: DHChronolysinMedipen
+  name: experimental chronolysin injector
+  description: A single-dose experimental injector. Breaks chronite crystals out of tissue even at the last stage of chronite skin disease — at a heavy cost to the patient's cells. Not approved for routine use.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Specific/Medical/chronolysin_pen.rsi
+    layers:
+    - state: icon
+      map: ["enum.SolutionContainerLayers.Fill"]
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: base-needle-inhand-left
+      - state: base-colorA-inhand-left
+        color: "#9b4dff"
+      - state: base-colorB-inhand-left
+      right:
+      - state: base-needle-inhand-right
+      - state: base-colorA-inhand-right
+        color: "#9b4dff"
+      - state: base-colorB-inhand-right
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    changeColor: false
+    emptySpriteName: icon_empty
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHChronolysin
+        Quantity: 10
+  - type: StaticPrice
+    price: 400
+
+- type: latheRecipe
+  id: DHChronolysinMedipen
+  result: DHChronolysinMedipen
+  categories:
+  - Chemicals
+  completetime: 10
+  materials:
+    Plastic: 100
+    Uranium: 100
+    Silver: 50
+
+- type: latheRecipePack
+  id: DHExperimentalMedicine
+  recipes:
+  - DHChronolysinMedipen
+
+- type: technology
+  id: DHExperimentalChronotherapy
+  name: research-technology-dh-experimental-chronotherapy
+  icon:
+    sprite: _DarkestHour/Objects/Specific/Medical/chronolysin_pen.rsi
+    state: icon
+  discipline: Experimental
+  tier: 2
+  cost: 12000
+  recipeUnlocks:
+  - DHChronolysinMedipen
+  technologyPrerequisites:
+  - AlternativeResearch
+  position: 27, 2

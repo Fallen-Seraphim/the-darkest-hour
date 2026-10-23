@@ -208,6 +208,7 @@
     - Janitor
     - Instruments
     - Equipment
+    - DHChroniteFuel # DarkestHour: топливные кассеты и хронитовые ячейки
   - type: EmagLatheRecipes
     emagDynamicPacks:
     - SecurityExplosives
@@ -256,6 +257,7 @@
     - DHEngineeringBoardsStatic # DarkestHour: own engineering boards, static until the R&D rework
     - DHMedicalBoardsStatic # DarkestHour: вирусология, статично до переделки РнД
     - DHScienceBoardsStatic # DarkestHour: материаловедение
+    - DHInvestigationBoardsStatic # DarkestHour: следствие (архив наблюдения)
     - EngineeringBoardsStatic
     dynamicPacks:
     - EngineeringBoards
@@ -392,6 +394,7 @@
     - SecurityWeapons
     - DHSecurityAmmo # DarkestHour: боеприпасы наших калибров
     - DHShipAmmo # DarkestHour: снаряды корабельных орудий
+    - DHKaneWeapons # DarkestHour: лучевое оружие Кейна
   - type: EmagLatheRecipes
   - type: MaterialStorage
     whitelist: *StandardMaterialWhitelist
@@ -433,6 +436,7 @@
     - SurgeryStatic
     dynamicPacks:
     - Chemistry
+    - DHExperimentalMedicine # DarkestHour: экспериментальное лечение хронитовой болезни
   - type: Machine
     board: MedicalTechFabCircuitboard
   - type: StealTarget

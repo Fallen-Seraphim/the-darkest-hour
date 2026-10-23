@@ -244,6 +244,9 @@ namespace Content.Server.Lathe
                 if (currentRecipe.Result is { } resultProto)
                 {
                     var result = Spawn(resultProto, Transform(uid).Coordinates);
+                    // DarkestHour: опытные образцы — пометка напечатанного по рецепту свежеизученной технологии
+                    var dhProduced = new Content.Server._DarkestHour.Research.Prototypes.DHLatheProducedEvent(currentRecipe.ID, result);
+                    RaiseLocalEvent(uid, ref dhProduced);
                     _stack.TryMergeToContacts(result);
                 }
 

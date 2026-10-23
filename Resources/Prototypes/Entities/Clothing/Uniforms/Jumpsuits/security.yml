@@ -23,7 +23,7 @@
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
   id: ClothingUniformJumpsuitHoS
-  name: head of security's jumpsuit
+  name: security chief's jumpsuit
   description: It's bright red and rather crisp, much like security's victims tend to be.
   components:
   - type: Sprite
@@ -46,8 +46,8 @@
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
   id: ClothingUniformJumpsuitHoSAlt
-  name: head of security's turtleneck
-  description: It's a turtleneck worn by those strong and disciplined enough to achieve the position of Head of Security.
+  name: security chief's turtleneck
+  description: It's a turtleneck worn by those strong and disciplined enough to achieve the position of Security Chief.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Security/hos_alt.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
@@ -57,8 +57,8 @@
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
   id: ClothingUniformJumpsuitHoSBlue
-  name: head of security's blue jumpsuit
-  description: A blue jumpsuit of Head of Security.
+  name: security chief's blue jumpsuit
+  description: A blue jumpsuit of Security Chief.
   components:
   - type: Sprite
     sprite: Clothing/Uniforms/Jumpsuits/Security/hos_blue.rsi
@@ -68,8 +68,8 @@
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
   id: ClothingUniformJumpsuitHoSGrey
-  name: head of security's grey jumpsuit
-  description: A grey jumpsuit of Head of Security, which make him look somewhat like a passenger.
+  name: security chief's grey jumpsuit
+  description: A grey jumpsuit of Security Chief, which make him look somewhat like a passenger.
   components:
   - type: Sprite
     sprite: Clothing/Uniforms/Jumpsuits/Security/hos_grey.rsi
@@ -79,8 +79,8 @@
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
   id: ClothingUniformJumpsuitHoSParadeMale
-  name: head of security's parade uniform
-  description: A male head of security's luxury-wear, for special occasions.
+  name: security chief's parade uniform
+  description: A male security chief's luxury-wear, for special occasions.
   components:
   - type: Sprite
     sprite: Clothing/Uniforms/Jumpsuits/Security/hos_parade.rsi
@@ -218,7 +218,7 @@
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
   id: ClothingUniformJumpsuitHosFormal
-  name: hos's formal suit
+  name: security chief's formal suit
   description: A suit for special occasions.
   components:
   - type: Sprite
@@ -229,7 +229,7 @@
 - type: entity
   parent: [ClothingUniformBase, BaseSecurityContraband]
   id: ClothingUniformJumpsuitSeniorOfficer
-  name: senior officer jumpsuit
+  name: security instructor jumpsuit
   description: A sign of skill and prestige within the security department.
   components:
   - type: Sprite

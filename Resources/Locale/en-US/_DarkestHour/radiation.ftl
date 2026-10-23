@@ -47,3 +47,11 @@ dh-surgery-excise-chronite-desc = Cut away the skin crystallised by chronite and
 
 reagent-name-dh-chronosorb = chronosorb
 reagent-desc-dh-chronosorb = Binds chronite in the body and flushes it out. Toxic on its own: give it together with dylovene. Useless once chronite disease reaches its last stage.
+
+## Экспериментальное лечение хронитовой болезни
+reagent-name-dh-chronolysin = chronolysin
+reagent-desc-dh-chronolysin = An experimental agent that dissolves chronite crystals in tissue, even at the last stage of chronite skin disease. Badly damages cells and causes pain and seizures.
+dh-chronolysin-effect-1 = Your skin crawls as something cracks deep inside it.
+dh-chronolysin-effect-2 = A violet shimmer runs under your skin. It burns.
+dh-chronolysin-effect-3 = Every muscle in your body twitches at once.
+research-technology-dh-experimental-chronotherapy = Experimental Chronotherapy

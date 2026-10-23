@@ -8,9 +8,9 @@ namespace Content.Client._DarkestHour.Administration;
 /// <summary>
 /// Вкладка админ-панели «Darkest Hour»: вызовы внешних отрядов одной кнопкой.
 /// </summary>
-public sealed class DHAdminTab : Control
+public sealed partial class DHAdminTab : Control
 {
-    [Dependency] private readonly IClientConsoleHost _console = default!;
+    [Dependency] private IClientConsoleHost _console = default!;
 
     public DHAdminTab()
     {

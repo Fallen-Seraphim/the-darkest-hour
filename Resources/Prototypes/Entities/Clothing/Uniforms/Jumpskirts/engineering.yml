@@ -1,8 +1,8 @@
 - type: entity
   parent: [ClothingUniformSkirtBase, BaseCommandContraband]
   id: ClothingUniformJumpskirtChiefEngineer
-  name: chief engineer's jumpskirt
-  description: It's a high visibility jumpskirt given to those engineers insane enough to achieve the rank of Chief Engineer.
+  name: chief technician's jumpskirt
+  description: It's a high visibility jumpskirt given to those engineers insane enough to achieve the rank of Chief Technician.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Engineering/ce.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
@@ -12,7 +12,7 @@
 - type: entity
   parent: [ClothingUniformSkirtBase, BaseCommandContraband]
   id: ClothingUniformJumpskirtChiefEngineerTurtle
-  name: chief engineer's turtleneck
+  name: chief technician's turtleneck
   description: A yellow turtleneck designed specifically for work in conditions of the engineering department.
   components:
   - type: Sprite
@@ -45,7 +45,7 @@
 - type: entity
   parent: ClothingUniformSkirtBase
   id: ClothingUniformJumpskirtSeniorEngineer
-  name: senior engineer jumpskirt
+  name: lead technician jumpskirt
   description: A sign of skill and prestige within the engineering department.
   components:
   - type: Sprite

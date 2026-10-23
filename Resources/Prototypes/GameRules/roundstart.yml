@@ -159,6 +159,10 @@
     minPlayers: 20
   - type: LoadMapRule
     mapPath: /Maps/Nonstations/nukieplanet.yml
+  # DarkestHour: звук выдачи роли имперскому морпеху
+  - type: NukeopsRule
+    greetSoundNotification:
+      path: /Audio/_DarkestHour/Antag/imperial_raid_start.ogg
   # DarkestHour: Имперский Рейд — восемь морпехов вместо ядерных оперативников
   - type: AntagSelection
     antags:

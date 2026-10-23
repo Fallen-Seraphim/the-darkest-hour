@@ -15,6 +15,7 @@
   - SheetTitanium1 # DarkestHour
   - IngotCopper1 # DarkestHour
   - IngotNickel1 # DarkestHour
+  - DHChronite1 # DarkestHour: хронит
 
 - type: latheRecipePack
   id: RGlassSmelting

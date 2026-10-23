@@ -793,7 +793,7 @@
   name: frog
   parent: [SimpleMobBase, BaseSlicingRefinableButchering]
   id: MobFrog
-  description: Hop hop hop. Lookin' moist.
+  description: Adjutant adjutant adjutant. Lookin' moist.
   components:
   - type: MovementSpeedModifier
     baseWalkSpeed: 3

@@ -196,7 +196,7 @@
 - type: entity
   parent: WardrobeWhite
   id: WardrobeMedicalDoctor
-  name: medical doctor's wardrobe
+  name: physician's wardrobe
 
 - type: entity
   parent: WardrobeBlack
