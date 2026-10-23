@@ -30,7 +30,7 @@
   - [color=cyan]Oxygen/Nitrogen[/color]: Depending on your species, you will need [color=cyan]Nitrogen[/color] (slimes & vox) or [color=cyan]Oxygen[/color] (every other species). The [color=cyan]Gas Tank Dispenser[/color] has all the tanks needed, so stock up.
 
   <Box>
-    <GuideEntityEmbed Entity="WeaponProtoKineticAccelerator"/>
+    <GuideEntityEmbed Entity="WeaponCrusher"/>
   </Box>
 
   All Salvage Specialists must be armed, in case they need to defend themselves from hostiles.
@@ -120,7 +120,6 @@
   <Box>
     <GuideEntityEmbed Entity="SurvivalKnife"/>
     <GuideEntityEmbed Entity="Fulton"/>
-    <GuideEntityEmbed Entity="WeaponProtoKineticAccelerator"/>
   </Box>
 
   The Salvage Magnet provides information on the size of a Wreck. Salvage Wrecks vary wildly in both threat and value, but they often have more diverse threats than [color=cyan]Space Debris[/color]. Keep your distance from hostiles and shoot at them with the [color=cyan]Proto-Kinetic Accelerator[/color]. Look out for valuable loot and machinery, and use your [color=cyan]Appraisal Tool[/color] to check the value of different things.
@@ -165,7 +164,6 @@
   <Box>
     <GuideEntityEmbed Entity="MiningDrill"/>
     <GuideEntityEmbed Entity="HandHeldMassScanner"/>
-    <GuideEntityEmbed Entity="PKAUpgradeRange"/>
   </Box>
 
   Science is the only source for a variety of extremely useful gear, including:

@@ -242,7 +242,6 @@
         prob: 0.9
         children:
         - id: CrateWeaponSecure
-        - id: CrateArmoryLaser
         - id: CrateArmoryPistols
         - id: CrateTrainingBombs
         - id: CrateTrackingImplants
@@ -253,8 +252,6 @@
         - id: CrateSecurityBiosuit
       - !type:GroupSelector #Very useful stuff we probably don't want random people getting on space ruins often, even if there are hurdles to open it
         children:
-        - id: CrateArmoryShotgun
-        - id: CrateArmorySMG
         - id: CrateSecurityRiot
         - id: CrateSecurityNonlethal
     offset: 0.0

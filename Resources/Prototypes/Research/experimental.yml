@@ -38,7 +38,6 @@
   cost: 7500
   recipeUnlocks:
   - ClothingShoesBootsMagSci
-  - ClothingShoesBootsMoon
 
 # Tier 2
   position: 26, 0 # DarkestHour: место в дереве технологий
@@ -53,32 +52,8 @@
   tier: 2
   cost: 7500
   recipeUnlocks:
-  - WeaponParticleDecelerator
   - HoloprojectorField
   technologyPrerequisites: # DarkestHour: дерево технологий
   - BasicRobotics
   position: 25, 2 # DarkestHour: место в дереве технологий
 
-- type: technology
-  id: GravityManipulation
-  name: research-technology-gravity-manipulation
-  icon:
-    sprite: Objects/Weapons/Guns/Launchers/tether_gun.rsi
-    state: base
-  discipline: Experimental # DarkestHour: ветка дерева
-  tier: 2
-  cost: 10000
-  recipeUnlocks:
-    - WeaponForceGun
-    - WeaponTetherGun
-
-# Tier 3
-
-# QuantumLeaping удалён # DarkestHour: нет блюспейса
-
-# BluespaceTimeManipulation удалён # DarkestHour: нет блюспейса
-
-# TeleSci удалён # DarkestHour: нет блюспейса
-  technologyPrerequisites: # DarkestHour: дерево технологий
-  - MagnetsTech
-  position: 26, 2 # DarkestHour: место в дереве технологий

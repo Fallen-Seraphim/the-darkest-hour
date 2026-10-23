@@ -224,9 +224,6 @@
   id: CaneBlade # Storage whitelist: CaneSheath. ItemMapper: CaneSheath
 
 - type: Tag
-  id: CannonBall # Ammo: WeaponLauncherPirateCannon, ShuttleGunPirateCannon
-
-- type: Tag
   id: CannotSuicide # Used by SuicideSystem. Tagged entities ghost when attempting to suicide.
 
 - type: Tag
@@ -255,36 +252,6 @@
 
 # Entities tagged with the following are some fashion of bullet. Guns, magazines, and ammo boxes have storage whitelists for these tags.
 # Tagged entities always have CartridgeAmmoComponent.
-
-- type: Tag
-  id: CartridgeAntiMateriel # .60 high caliber ammo for powerful rifles like WeaponSniperHristov, Musket.
-
-- type: Tag
-  id: CartridgeCap # Specialty ammo for RevolverCapGun, RevolverCapGunFake.
-
-- type: Tag
-  id: CartridgeCaselessRifle # Specialty ammo for WeaponPistolCobra.
-
-- type: Tag
-  id: CartridgeDebug # Specialty ammo for debug guns like the deadly WeaponPistolDebug.
-
-- type: Tag
-  id: CartridgeHeavyRifle # .10 caliber ammo type only used by WeaponMinigun (but the tag is unused).
-
-- type: Tag
-  id: CartridgeLightRifle # .30 caliber used by lmgs and middle range rifles like WeaponLightMachineGunL6, WeaponRifleAk, WeaponSniperMosin.
-
-- type: Tag
-  id: CartridgeMagnum # .45 caliber used by revolvers and big boy pistols like BaseWeaponRevolver, WeaponPistolN1984.
-
-- type: Tag
-  id: CartridgePistol # .35 caliber used by pistols and smgs like WeaponPistolMk58, WeaponSubMachineGunC20r, WeaponSubMachineGunDrozd.
-
-- type: Tag
-  id: CartridgeRifle # .20 caliber used by precise rifles like WeaponRifleLecter, WeaponRifleEstoc.
-
-- type: Tag
-  id: CartridgeRocket # Specialty ammo for WeaponLauncherRocket.
 
 #endregion
 
@@ -678,23 +645,11 @@
 - type: Tag
   id: GPS # Storage whitelist: BaseClothingBeltEngineering
 
-- type: Tag # Exists for propelled explosives, not hand grenades.
-  id: Grenade # Ammo: ShuttleGunFriendship, WeaponLauncherChinaLake, WeaponLauncherHydra, BaseMagazineGrenade
-
 - type: Tag
   id: GrenadeFlashBang # Storage whitelist: ClusterBang
 
 - type: Tag
   id: GuideEmbeded # Applied by GuideEntityEmbed and used by GuidebookSystem. This tag hides the guidebook link when examining an entity inside a guide book.
-
-- type: Tag
-  id: GunUpgradeDamage # Used by PKAUpgradeDamage:GunUpgrade to ensure mutually exclusive upgrades.
-
-- type: Tag
-  id: GunUpgradeRange # Used by PKAUpgradeRange:GunUpgrade to ensure mutually exclusive upgrades.
-
-- type: Tag
-  id: GunUpgradeReloadSpeed # Used by PKAUpgradeFireRate:GunUpgrade to ensure mutually exclusive upgrades.
 
 ## H ##
 
@@ -871,9 +826,6 @@
 
 ## L ##
 
-- type: Tag
-  id: LaserWeapon # Used for a cargo bounty. Added to all hitscan weapons that shoot lasers.
-
 - type: Tag # Used on DungeonRoom prototypes.
   id: LavaBrig # PrefabDunGen whitelist on LavaBrig DungeonConfig.
 
@@ -897,40 +849,10 @@
 # Tagged entities always have BallisticAmmoProviderComponent.
 
 - type: Tag
-  id: MagazineDebug # WeaponPistolDebug
-
-- type: Tag
-  id: MagazineGrenade # ShuttleGunDuster
-
-- type: Tag
-  id: MagazineLightRifle # WeaponRifleAk
-
-- type: Tag
-  id: MagazineLightRifleBox # WeaponLightMachineGunL6
-
-- type: Tag
   id: MagazineMagnum # WeaponPistolN1984
 
 - type: Tag
   id: MagazinePistol # WeaponPistolMk58, WeaponPistolViper, ClothingBeltSecurity
-
-- type: Tag
-  id: MagazinePistolCaselessRifle # WeaponPistolCobra
-
-- type: Tag
-  id: MagazinePistolHighCapacity # WeaponPistolViper
-
-- type: Tag
-  id: MagazinePistolSubMachineGun # WeaponSubMachineGunC20r, WeaponSubMachineGunDrozd, WeaponSubMachineGunAtreides
-
-- type: Tag
-  id: MagazinePistolSubMachineGunTopMounted # WeaponSubMachineGunWt550
-
-- type: Tag
-  id: MagazineRifle # WeaponRifleLecter, WeaponRifleEstoc
-
-- type: Tag
-  id: MagazineShotgun # WeaponShotgunBulldog
 
 #endregion
 
@@ -1120,9 +1042,6 @@
 
 - type: Tag
   id: Pizza # Storage whitelist: FoodBoxPizza
-
-- type: Tag
-  id: PKAUpgrade # UpgradeableGun whitelist for WeaponProtoKineticAccelerator.
 
 - type: Tag
   id: PlantBGone # Storage whitelist: ClothingBeltPlant. ItemMapper: ClothingBeltPlant
@@ -1347,12 +1266,6 @@
   id: Spear # CargoBounty: BountySpear
 
 - type: Tag
-  id: SpeedLoaderCap # Ammo: RevolverCapGun, RevolverCapGunFake
-
-- type: Tag
-  id: SpeedLoaderMagnum # Ammo: BaseWeaponRevolver, XenoArtifactGun
-
-- type: Tag
   id: SpiderCraft # Used on various ConstructionPrototypes to create exclusive recipes for tagged entity.
 
 - type: Tag
@@ -1484,12 +1397,6 @@
 
 - type: Tag
   id: Truncheon # Storage whitelist: ClothingBeltSecurity
-
-- type: Tag
-  id: TurretCompatibleWeapon # Used in the construction of sentry turrets
-
-- type: Tag
-  id: TurretControlElectronics # Used in the construction of sentry turret control panels
 
 ## U ##
 

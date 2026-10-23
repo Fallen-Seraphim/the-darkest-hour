@@ -58,23 +58,17 @@
     - PowerDrill
     - WelderIndustrialAdvanced
     - Multitool
-    - WeaponPistolMk58
-    - MagazinePistol
     - EmergencyMedipen
 
 - type: startingGear
   parent: ERTEngineerGearEVA
   id: ERTEngineerGearArmed
-  equipment:
-    suitstorage: WeaponShotgunEnforcer
   storage:
     back:
     - RCD
     - GasAnalyzer
     - HolofanProjector
     - MiningDrillDiamond
-    - BoxLethalshot
-    - BoxShotgunSlug # End of first line
     - RCDAmmo
     - RCDAmmo
     - RCDAmmo

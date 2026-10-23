@@ -38,27 +38,18 @@
     ears: ClothingHeadsetAltCentCom
     belt: ClothingBeltMilitaryWebbingERT
     pocket2: CombatKnife
-    suitstorage: WeaponLauncherHydra
   storage:
     back:
     - SoapNT
     - Plunger
     - Screwdriver
     - AdvMopItem
-    - GrenadeCleanade
-    - GrenadeCleanade # End of first line
-    - GrenadeCleanade
-    - GrenadeCleanade
-    - GrenadeCleanade
-    - GrenadeCleanade
     belt:
     - MegaSprayBottleSpaceCleaner
     - Holoprojector
     - LightReplacerFilled
     - WireBrush
     - CrowbarRed
-    - WeaponPistolMk58
-    - MagazinePistol
     - EmergencyMedipen
   inhand:
     - TrashBag

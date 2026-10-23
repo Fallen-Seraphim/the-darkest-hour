@@ -33,18 +33,3 @@
     angle: 180
   - type: LandAtCursor
 
-- type: entity
-  parent: BaseBullet
-  id: BulletCap
-  categories: [ HideSpawnMenu ]
-  name: cap bullet
-  components:
-  - type: Sprite
-    sprite: Objects/Fun/capgun.rsi
-    layers:
-    - state: capbullet
-  - type: Projectile
-    deleteOnCollide: true
-    damage:
-      types:
-        Piercing: 0

@@ -43,15 +43,3 @@
   - type: TimedDespawn
     lifetime: 0.10
 
-- type: entity
-  parent: BaseBullet
-  id: PelletClusterLessLethal
-  categories: [ HideSpawnMenu ]
-  name: pellet (ball, less lethal)
-  components:
-  - type: Projectile
-    damage:
-      types:
-        Piercing: 5
-  - type: TimedDespawn
-    lifetime: 0.10

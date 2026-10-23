@@ -32,18 +32,12 @@
     belt: ClothingBeltMilitaryWebbingMedFilled
   storage:
     back:
-    - WeaponPulsePistol
-    - WeaponRevolverMatebaAP
-    - SpeedLoaderMagnumAP
-    - SpeedLoaderMagnumAP
     - BoxFlashbang
     - ToolDebug # spanish army knife
     - WelderExperimental
     - Hypospray
     - DeathAcidifierImplanter # crew will try to steal their amazing hardsuits
     - FreedomImplanter
-  inhand:
-  - WeaponPulseRifle
 
 - type: chameleonOutfit
   id: DeathSquadChameleonOutfit

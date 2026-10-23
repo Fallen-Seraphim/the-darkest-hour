@@ -11,10 +11,6 @@
   - Service
   - Janitor
   - Maintenance
-  special:
-  - !type:GiveItemOnHolidaySpecial
-    holiday: GarbageDay
-    prototype: WeaponRevolverInspector
 
 - type: startingGear
   id: JanitorGear

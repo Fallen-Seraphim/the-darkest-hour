@@ -13,7 +13,6 @@
   table: !type:AllSelector
     children:
     - id: ClothingOuterArmorBasicSlim
-    - id: WeaponShotgunDoubleBarreledRubber
     - id: DrinkShaker
     - id: ClothingEyesHudBeer
     - id: HandLabeler
@@ -23,7 +22,6 @@
     - !type:AllSelector
       rolls: 2
       children:
-      - id: BoxBeanbag
       - id: RagItem
     - id: PlushieLizardJobBartender
       prob: 0.02

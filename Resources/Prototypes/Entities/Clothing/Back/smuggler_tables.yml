@@ -7,8 +7,6 @@
       weight: 85
     - id: BriefcaseSmugglerCash
       weight: 10
-    - id: ClothingBackpackDuffelClownSmuggler
-      weight: 5
 
 #Table
 - type: entityTable
@@ -231,7 +229,6 @@
     - id: ReagentGrinderIndustrialMachineCircuitboard
     - id: BoozeDispenserMachineCircuitboard
     - id: MiniGravityGeneratorCircuitboard
-    - id: AmmoTechFabCircuitboard
     - id: CryoPodMachineCircuitboard
     - id: PowerCageRechargerCircuitboard
     - id: ShuttleConsoleCircuitboard

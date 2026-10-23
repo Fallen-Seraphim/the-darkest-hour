@@ -17,3 +17,6 @@
   скопировать `<out>/*.rsi` в `Resources/Textures/_DarkestHour/Objects/Weapons/Guns/Emplacements/`.
 - Гильза 14.5x114 (`Resources/Textures/_DarkestHour/Objects/Weapons/Guns/Ammunition/Casings/14.5x114mm_casing.rsi`) —
   стальная, сделана из `big_ammo_casing` Monolith (CC-BY-SA-3.0); путь задаётся в `CASING_PATH` в `gen_yaml.py`.
+- `gen_arsenal.py` — ветка «Арсенал» дерева технологий: технологии, рецепты коробок и пустых магазинов наших калибров,
+  снаряды корабельных орудий, наборы `DHSecurityAmmo`/`DHShipAmmo` для техфаба СБ → `Resources/Prototypes/_DarkestHour/Research/arsenal.yml`.
+  Базы стволов (`DHBaseWeaponPistol/Rifle/Shotgun`) — в `bases.yml` рядом с `weapons.yml`, ванильных калибров в них нет.

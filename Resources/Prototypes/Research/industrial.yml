@@ -14,7 +14,6 @@
   - MineralScannerEmpty
   - OreProcessorIndustrialMachineCircuitboard
   - ClothingMaskWeldingGas
-  - ClothingShoesBootsJump
   position: 0, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
@@ -44,6 +43,7 @@
   - PowerCellHigh
   - TurboItemRechargerCircuitboard
   - SMESAdvancedMachineCircuitboard
+  - PortableRecharger # DarkestHour: перенесено из вырезанной PortableMicrofusionWeaponry
   position: 8, 0 # DarkestHour: место в дереве технологий
 
 - type: technology
@@ -177,7 +177,6 @@
     - WelderExperimental
     - PowerDrill
     - JawsOfLife
-    - BorgModuleAdvancedTool
     - Fulton
     - FultonBeacon
   technologyPrerequisites: # DarkestHour: дерево технологий
@@ -197,7 +196,6 @@
     # - OreBagOfHolding # DarkestHour: нет блюспейса
     - MiningDrillDiamond
     - AdvancedMineralScannerEmpty
-    - BorgModuleAdvancedMining
 
 # Tier 3
 

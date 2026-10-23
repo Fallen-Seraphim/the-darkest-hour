@@ -95,19 +95,6 @@
           defaultPrototype: Beaker
 
 - type: entity
-  id: AmmoTechFabCircuitboard
-  parent: BaseMachineCircuitboard
-  name: ammo techfab circuit board
-  description: A machine printed circuit board for an ammo techfab.
-  components:
-    - type: Sprite
-      state: security
-    - type: MachineBoard
-      prototype: AmmoTechFab
-      stackRequirements:
-        Manipulator: 2
-
-- type: entity
   id: MedicalTechFabCircuitboard
   parent: BaseMachineCircuitboard
   name: medical techfab machine board
