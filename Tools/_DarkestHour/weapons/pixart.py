@@ -31,7 +31,8 @@ PAL = {
     # Metallistick corporate security: gunmetal, khaki polymer, beige trim
     'corp': dict(BASE, **dict(zip('012345', [(22, 24, 28), (38, 41, 46), (56, 60, 66), (78, 83, 90), (108, 114, 122), (150, 156, 164)])),
                  **dict(zip('abcd', [(62, 58, 38), (88, 82, 56), (116, 108, 76), (146, 137, 100)])),
-                 **dict(zip('uvxy', [(150, 140, 112), (184, 172, 140), (210, 198, 166), (232, 222, 194)]))),
+                 **dict(zip('uvxy', [(150, 140, 112), (184, 172, 140), (210, 198, 166), (232, 222, 194)])),
+                 T=(128, 240, 226), t=(52, 150, 142)),
     # Earth General Association (TSF reference from Monolith): black steel, graphite-grey polymer, steel-blue accents,
     # cyan status lights; 'T'/'t' — Kane teal for energy cells
     'zga': dict(BASE, **dict(zip('012345', [(14, 15, 18), (26, 28, 32), (40, 43, 49), (58, 62, 70), (84, 90, 100), (122, 130, 142)])),

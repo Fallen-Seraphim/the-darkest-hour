@@ -1,0 +1,37 @@
+# Навигационная консоль разрывных прыжков: карта звёздной системы, выбор точки выхода, прыжок между системами.
+# Ставится на корабли с разрывным оборудованием (шаттл Пилота СБ, внешние корабли).
+- type: entity
+  parent: BaseComputer
+  id: DHComputerRiftNav
+  name: rift navigation console
+  description: Charts the star system and plots rift jumps. Jumps to other star systems are only possible from here.
+  components:
+  - type: ComputerVisuals
+    stateScreen: telesci
+    stateKeys: telesci_key
+  - type: DHRiftNavConsole
+  - type: ActivatableUI
+    key: enum.DHRiftNavUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHRiftNavUiKey.Key:
+        type: DHRiftNavBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: Computer
+    board: DHRiftNavComputerCircuitboard
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#9b4dff"
+
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: DHRiftNavComputerCircuitboard
+  name: rift navigation console board
+  description: A computer printed circuit board for a rift navigation console.
+  components:
+  - type: Sprite
+    state: cpu_command
+  - type: ComputerBoard
+    prototype: DHComputerRiftNav

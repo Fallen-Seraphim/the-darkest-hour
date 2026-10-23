@@ -884,3 +884,46 @@ def ear20():
 
 for f in (tit_mg10, tit_r15, alt_r16, pro_lr17, pro_r12, pro_amr16, ear20):
     add(f())
+
+
+# ================================================================== Kane beam weapons (station, Metallistick)
+def kl1():
+    """KL-1 - Kane beam pistol of station security: compact gunmetal body, khaki grip, a Kane cell in the grip
+    (teal window) and a ringed emitter with a teal lens."""
+    a = Art()
+    a.shade_poly([(13, 9), (31, 9), (33, 11), (33, 14), (13, 14)], '1234')
+    a.hline(15, 30, 10, '4')
+    a.vline(24, 10, 13, '1').vline(27, 10, 13, '1')                         # emitter rings
+    a.hline(14, 32, 14, '0')
+    a.vline(34, 11, 12, 'T').vline(35, 11, 12, 't')                         # lens
+    a.dot(15, 8, '2').dot(30, 8, '3')                                       # sights
+    a.shade_poly([(15, 15), (21, 15), (19, 23), (14, 23), (13, 22)], 'abcd')
+    a.vline(16, 17, 21, 't').vline(17, 17, 21, 'T')                         # Kane cell window
+    a.hline(15, 21, 15, 'x')
+    guard(a, 21, 25, 18, 15, c='a')
+    return Gun('kl1', 'corp', 'pistol', a, Art(), Art(), muzzle=(36, 11), rail=(16, 28, 8), under=(27, 15))
+
+
+def kr3():
+    """KR-3 - Kane beam rifle of station security: navy/khaki furniture like the Ravenger, a long gunmetal body
+    with cooling slots, a Kane cell housing behind the grip and a finned emitter with a teal lens."""
+    a = Art()
+    a.shade_poly([(2, 10), (12, 10), (16, 12), (16, 15), (11, 16), (2, 18)], 'abcd')
+    a.vline(2, 10, 18, '1').hline(4, 11, 15, 'x')
+    a.bevel(16, 8, 38, 14, '1234', left=True)
+    a.rail(18, 36, 7)
+    a.vents(22, 36, 10, 11, '0', step=3)
+    a.hline(17, 38, 13, 'x')
+    a.bevel(18, 15, 23, 18, 'ttTT', left=True, right=True)                 # Kane cell housing
+    a.dot(36, 12, 'T')
+    grip(a, 25, 15, h=6, w=4, slant=2)
+    guard(a, 28, 32, 18, 15)
+    a.bevel(39, 10, 50, 13, '0123')
+    a.vline(42, 9, 14, '2').vline(45, 9, 14, '2').vline(48, 9, 14, '2')     # fins
+    a.vline(51, 11, 12, 'T').vline(52, 11, 12, 't')
+    return Gun('kr3', 'corp', 'rifle', a, Art(), Art(), muzzle=(53, 11), rail=(18, 36, 6), under=(44, 14),
+               width=64)
+
+
+for f in (kl1, kr3):
+    add(f())

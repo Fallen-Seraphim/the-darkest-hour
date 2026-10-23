@@ -39,6 +39,13 @@
     radius: 4000
     color: "#C9A66B"
     orbitParent: Star
+    landable: true
+    biome: LowDesert
+    surfaceGases:
+      CarbonDioxide: 20
+      Nitrogen: 6
+    surfaceTemperature: 330
+    surfaceLight: "#E6CB8B"
 
   - id: P3
     name: dh-celestial-rep27-3
@@ -48,9 +55,15 @@
     radius: 22000
     color: "#D98C5F"
     orbitParent: Star
-    radiation: 3
+    radiation: 0.15
     radiationFalloff: 6000
     enterableDepth: 2500
+    layerGases:
+      CarbonDioxide: 0.45
+      Nitrogen: 0.3
+      NitrousOxide: 0.15
+      Tritium: 0.1
+    layerTemperature: 260
 
   - id: P4
     name: dh-celestial-rep27-4
@@ -68,9 +81,15 @@
     radius: 34000
     color: "#6FA3D9"
     orbitParent: Star
-    radiation: 4
+    radiation: 0.1
     radiationFalloff: 9000
     enterableDepth: 3500
+    layerGases:
+      Nitrogen: 0.55
+      Ammonia: 0.2
+      CarbonDioxide: 0.15
+      WaterVapor: 0.1
+    layerTemperature: 110
 
   - id: P5A
     name: dh-celestial-rep27-5a
@@ -105,3 +124,9 @@
     color: "#CFE6F2"
     orbitParent: P5
     landable: true
+    biome: Snow
+    surfaceGases:
+      Nitrogen: 70
+      CarbonDioxide: 12
+    surfaceTemperature: 150
+    surfaceLight: "#9DB4CC"

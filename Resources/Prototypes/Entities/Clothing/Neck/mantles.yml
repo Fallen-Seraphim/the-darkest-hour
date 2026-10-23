@@ -12,8 +12,8 @@
 - type: entity
   parent: [ClothingNeckBase, BaseCommandContraband]
   id: ClothingNeckMantleCE
-  name: chief engineer's mantle
-  description: High visibility, check. RIG system, check. High capacity cell, check. Everything a chief engineer could need in a stylish mantle.
+  name: chief technician's mantle
+  description: High visibility, check. RIG system, check. High capacity cell, check. Everything a chief technician could need in a stylish mantle.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Neck/mantles/cemantle.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
@@ -23,8 +23,8 @@
 - type: entity
   parent: [ClothingNeckBase, BaseCommandContraband]
   id: ClothingNeckMantleCMO
-  name: chief medical officer's mantle
-  description: For a CMO that has been in enough medbays to know that more PPE means less central command dry cleaning visits when the shift is over.
+  name: chief physician's mantle
+  description: For a Chief Physician that has been in enough medbays to know that more PPE means less central command dry cleaning visits when the shift is over.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Neck/mantles/cmomantle.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
@@ -34,8 +34,8 @@
 - type: entity
   parent: [ClothingNeckBase, BaseCommandContraband]
   id: ClothingNeckMantleHOP
-  name: head of personnel's mantle
-  description: A good HOP knows that paper pushing is only half the job... petting your dog and looking fashionable is the other half.
+  name: adjutant's mantle
+  description: A good Adjutant knows that paper pushing is only half the job... petting your dog and looking fashionable is the other half.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Neck/mantles/hopmantle.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
@@ -45,8 +45,8 @@
 - type: entity
   parent: [ClothingNeckBase, BaseCommandContraband]
   id: ClothingNeckMantleHOS
-  name: head of security's mantle
-  description: Shootouts with syndicate agents are just another Tuesday for this HoS. This mantle is a symbol of commitment to the station.
+  name: security chief's mantle
+  description: Shootouts with syndicate agents are just another Tuesday for this Security Chief. This mantle is a symbol of commitment to the station.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Neck/mantles/hosmantle.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)

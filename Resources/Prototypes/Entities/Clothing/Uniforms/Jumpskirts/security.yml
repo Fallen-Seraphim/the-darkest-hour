@@ -23,7 +23,7 @@
 - type: entity
   parent: [ClothingUniformSkirtBase, BaseCommandContraband]
   id: ClothingUniformJumpskirtHoS
-  name: head of security's jumpskirt
+  name: security chief's jumpskirt
   description: It's bright red and rather crisp, much like security's victims tend to be.
   components:
   - type: Sprite
@@ -48,8 +48,8 @@
 - type: entity
   parent: [ClothingUniformSkirtBase, BaseCommandContraband]
   id: ClothingUniformJumpskirtHoSAlt
-  name: head of security's turtleneck
-  description: It's a turtleneck worn by those strong and disciplined enough to achieve the position of Head of Security.
+  name: security chief's turtleneck
+  description: It's a turtleneck worn by those strong and disciplined enough to achieve the position of Security Chief.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Uniforms/Jumpskirts/Security/hos_alt.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
@@ -59,8 +59,8 @@
 - type: entity
   parent: [ClothingUniformSkirtBase, BaseCommandContraband]
   id: ClothingUniformJumpskirtHoSParadeMale
-  name: head of security's parade uniform
-  description: A head of security's luxury-wear, for special occasions.
+  name: security chief's parade uniform
+  description: A security chief's luxury-wear, for special occasions.
   components:
   - type: Sprite
     sprite: Clothing/Uniforms/Jumpskirts/Security/hos_parade.rsi
@@ -171,7 +171,7 @@
 - type: entity
   parent: [ClothingUniformSkirtBase, BaseCommandContraband]
   id: ClothingUniformJumpskirtHosFormal
-  name: hos's formal dress
+  name: security chief's formal dress
   description: A dress for special occasions.
   components:
   - type: Sprite
@@ -182,7 +182,7 @@
 - type: entity
   parent: [ClothingUniformSkirtBase, BaseSecurityContraband]
   id: ClothingUniformJumpskirtSeniorOfficer
-  name: senior officer jumpskirt
+  name: security instructor jumpskirt
   description: A sign of skill and prestige within the security department.
   components:
   - type: Sprite

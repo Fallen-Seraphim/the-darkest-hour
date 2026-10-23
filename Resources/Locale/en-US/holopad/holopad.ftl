@@ -62,12 +62,12 @@ holopad-command-bridge-hallway = Command - Bridge Hallway
 holopad-command-meeting-room = Command - Meeting Room
 holopad-command-lounge = Command - Lounge
 holopad-command-captain = Command - Captain
-holopad-command-hop = Command - HoP
-holopad-command-cmo = Command - CMO
+holopad-command-hop = Command - Adjutant
+holopad-command-cmo = Command - Chief Physician
 holopad-command-qm = Command - QM
-holopad-command-ce = Command - CE
+holopad-command-ce = Command - Chief Technician
 holopad-command-rd = Command - RD
-holopad-command-hos = Command - HoS
+holopad-command-hos = Command - Security Chief
 
 # Science
 holopad-science-anomaly = Science - Anomaly

@@ -40,6 +40,7 @@
   - DHBoneGel # DarkestHour: хирургия
   - DHBoneSetter # DarkestHour: хирургия
   - DHSurgicalDrapes # DarkestHour: хирургия
+  - DHAutopsyScanner # DarkestHour: следствие (вскрытие)
 
 - type: latheRecipePack
   id: MedicalStatic

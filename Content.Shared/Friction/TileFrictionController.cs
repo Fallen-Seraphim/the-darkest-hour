@@ -52,9 +52,13 @@ namespace Content.Shared.Friction
             Subs.CVar(_configManager, CCVars.OffgridFriction, value => _offGridDamping = value, true);
         }
 
+        // DarkestHour: мобы, которым вернуть KinematicController после обхода AwakeBodies (нельзя менять тип тела внутри обхода).
+        private readonly List<EntityUid> _dhFixBodyType = new();
+
         public override void UpdateBeforeSolve(bool prediction, float frameTime)
         {
             base.UpdateBeforeSolve(prediction, frameTime);
+            _dhFixBodyType.Clear();
 
             foreach (var ent in PhysicsSystem.AwakeBodies)
             {
@@ -114,8 +118,16 @@ namespace Content.Shared.Friction
                      * Block movement shouldn't be added and removed frivolously so it should be reliable to use this
                      * as a check for brains and such which have input mover purely for ghosting behavior.
                      */
-                    DebugTools.Assert(!_moverQuery.HasComp(uid) || _blockMoverQuery.HasComp(uid),
-                        $"Input mover: {ToPrettyString(uid)} in TileFrictionController is not the correct BodyType, BodyType found: {body.BodyType}, expected: KinematicController.");
+                    // DarkestHour: вместо падения сервера в Debug (ассерт ловил админ-призрака с телом Kinematic —
+                    // значение BodyType по умолчанию) возвращаем незакреплённому мобу KinematicController после цикла
+                    // и пишем предупреждение, чтобы найти, кто сбрасывает тип тела.
+                    if (_moverQuery.HasComp(uid) && !_blockMoverQuery.HasComp(uid))
+                    {
+                        if (body.BodyType == BodyType.Kinematic && !xform.Anchored)
+                            _dhFixBodyType.Add(uid);
+                        else
+                            Log.Error($"Input mover: {ToPrettyString(uid)} in TileFrictionController is not the correct BodyType, BodyType found: {body.BodyType}, expected: KinematicController.");
+                    }
                     continue;
                 }
 
@@ -129,6 +141,16 @@ namespace Content.Shared.Friction
                 _mover.Friction(0f, frameTime, friction, ref angVelocity);
                 PhysicsSystem.SetLinearVelocity(uid, velocity, body: body);
                 PhysicsSystem.SetAngularVelocity(uid, angVelocity, body: body);
+            }
+
+            // DarkestHour: см. выше — вернуть мобам KinematicController.
+            foreach (var uid in _dhFixBodyType)
+            {
+                if (!TryComp<PhysicsComponent>(uid, out var fixBody) || fixBody.BodyType != BodyType.Kinematic)
+                    continue;
+
+                Log.Warning($"Input mover {ToPrettyString(uid)} had BodyType Kinematic, restored KinematicController.");
+                PhysicsSystem.SetBodyType(uid, BodyType.KinematicController, body: fixBody);
             }
         }
 

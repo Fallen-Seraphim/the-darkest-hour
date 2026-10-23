@@ -1,7 +1,7 @@
 - type: entity
   parent: [ClothingUniformBase, ClothingUniformFoldableBase]
   id: ClothingUniformJumpsuitCargo
-  name: cargo tech jumpsuit
+  name: loader jumpsuit
   description: A sturdy jumpsuit, issued to members of the Cargo department.
   components:
   - type: Sprite
@@ -10,7 +10,7 @@
 - type: entity
   parent: [ClothingUniformBase, ClothingUniformFoldableBase]
   id: ClothingUniformJumpsuitSalvageSpecialist
-  name: salvage specialist's jumpsuit
+  name: expeditor's jumpsuit
   description: It's a snappy jumpsuit with a sturdy set of overalls. It's very dirty.
   components:
   - type: Sprite

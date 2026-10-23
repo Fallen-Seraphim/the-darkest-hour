@@ -19,7 +19,7 @@ namespace Content.Server._DarkestHour.Weapons.Ranged.Flamer;
 /// Серверная часть огнемёта: по выстрелу считает тайлы струи, списывает горючее и
 /// поджигает тайлы по очереди, чтобы огонь «бежал» от ствола.
 /// </summary>
-public sealed class DHFlamerSystem : SharedDHFlamerSystem
+public sealed partial class DHFlamerSystem : SharedDHFlamerSystem
 {
     [Dependency] private IAdminLogManager _adminLog = default!;
     [Dependency] private AtmosphereSystem _atmosphere = default!;

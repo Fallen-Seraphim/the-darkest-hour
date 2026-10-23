@@ -39,7 +39,7 @@
     - RandomHumanoidVisitorCaptain
 
 - type: entity
-  name: visiting chief engineer spawner
+  name: visiting chief technician spawner
   id: VisitorCESpawner
   parent: MarkerBase
   components:
@@ -53,7 +53,7 @@
     - RandomHumanoidVisitorCE
 
 - type: entity
-  name: visiting chief medical officer spawner
+  name: visiting chief physician spawner
   id: VisitorCMOSpawner
   parent: MarkerBase
   components:
@@ -67,7 +67,7 @@
     - RandomHumanoidVisitorCMO
 
 - type: entity
-  name: visiting head of personnel spawner
+  name: visiting adjutant spawner
   id: VisitorHOPSpawner
   parent: MarkerBase
   components:
@@ -81,7 +81,7 @@
     - RandomHumanoidVisitorHOP
 
 - type: entity
-  name: visiting head of security spawner
+  name: visiting security chief spawner
   id: VisitorHOSSpawner
   parent: MarkerBase
   components:
@@ -221,7 +221,7 @@
     rareChance: 0.05
 
 - type: entity
-  name: visiting cargo technician spawner
+  name: visiting loader spawner
   id: VisitorCargoTechnicianSpawner
   parent: MarkerBase
   components:
@@ -235,7 +235,7 @@
     - RandomHumanoidVisitorCargoTechnician
 
 - type: entity
-  name: visiting salvage specialist spawner
+  name: visiting expeditor spawner
   id: VisitorSalvageSpecialistSpawner
   parent: MarkerBase
   components:
@@ -366,7 +366,7 @@
     - RandomHumanoidVisitorMedicalIntern
 
 - type: entity
-  name: visiting medical doctor spawner
+  name: visiting physician spawner
   id: VisitorMedicalDoctorSpawner
   parent: MarkerBase
   components:
@@ -800,7 +800,7 @@
 # Cargo
 
 - type: entity
-  name: challenge cargo technician spawner
+  name: challenge loader spawner
   id: ChallengeCargoTechnicianSpawner
   parent: MarkerBase
   suffix: CHALLENGE

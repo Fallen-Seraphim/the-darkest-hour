@@ -31,7 +31,7 @@
   id: ClothingOuterBioCmo
   name: bio suit
   suffix: CMO
-  description: An advanced suit that protects against biological contamination, in CMO colors.
+  description: An advanced suit that protects against biological contamination, in Chief Physician colors.
   components:
   - type: Sprite
     sprite: Clothing/OuterClothing/Bio/cmo.rsi

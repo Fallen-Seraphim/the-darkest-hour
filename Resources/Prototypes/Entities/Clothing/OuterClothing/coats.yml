@@ -91,7 +91,7 @@
 - type: entity
   parent: [BaseSecurityCommandContraband, ClothingOuterArmorHoS]
   id: ClothingOuterCoatHoSTrench
-  name: head of security's armored trenchcoat
+  name: security chief's armored trenchcoat
   description: A greatcoat enhanced with a special alloy for some extra protection and style for those with a commanding presence.
   components:
   - type: Sprite
@@ -220,8 +220,8 @@
 - type: entity
   parent: ClothingOuterStorageFoldableBase
   id: ClothingOuterCoatLabCmo
-  name: chief medical officer's lab coat
-  description: Custom made blue lab coat for the Chief Medical Officer, offers improved protection against chemical spills and minor cuts.
+  name: chief physician's lab coat
+  description: Custom made blue lab coat for the Chief Physician, offers improved protection against chemical spills and minor cuts.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/Coats/labcoat_cmo.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
@@ -237,7 +237,7 @@
 - type: entity
   parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatLabCmo]
   id: ClothingOuterCoatLabCmoOpened
-  name: chief medical officer's lab coat
+  name: chief physician's lab coat
 
 - type: entity
   parent: ClothingOuterStorageFoldableBase
@@ -416,7 +416,7 @@
 - type: entity
   parent: ClothingOuterStorageFoldableBase
   id: ClothingOuterCoatLabSeniorResearcher
-  name: senior researcher lab coat
+  name: lead scientist lab coat
   description: A suit that protects against minor chemical spills. Has a purple collar and wrist trims.
   components:
   - type: Sprite
@@ -431,12 +431,12 @@
 - type: entity
   parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatLabSeniorResearcher]
   id: ClothingOuterCoatLabSeniorResearcherOpened
-  name: senior researcher lab coat
+  name: lead scientist lab coat
 
 - type: entity
   parent: ClothingOuterStorageFoldableBase
   id: ClothingOuterCoatLabSeniorPhysician
-  name: senior physician lab coat
+  name: lead physician lab coat
   description: A suit that protects against minor chemical spills. Has light blue sleeves and an orange waist trim.
   components:
   - type: Sprite
@@ -451,7 +451,7 @@
 - type: entity
   parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatLabSeniorPhysician]
   id: ClothingOuterCoatLabSeniorPhysicianOpened
-  name: senior physician lab coat
+  name: lead physician lab coat
 
 - type: entity
   parent: ClothingOuterStorageBase

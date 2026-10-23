@@ -98,7 +98,7 @@
 - type: entity
   parent: BaseClothingBeltEngineering
   id: ClothingBeltChiefEngineer
-  name: chief engineer's toolbelt
+  name: chief technician's toolbelt
   description: Holds tools, looks snazzy.
   components:
   - type: Sprite

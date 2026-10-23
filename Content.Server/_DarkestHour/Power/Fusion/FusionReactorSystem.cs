@@ -23,7 +23,7 @@ namespace Content.Server._DarkestHour.Power.Fusion;
 /// Runs <see cref="FusionReactorComponent"/>: heats gas passing through the core, burns fuel,
 /// keeps the containment field up and breaches the reactor when the field collapses.
 /// </summary>
-public sealed class FusionReactorSystem : EntitySystem
+public sealed partial class FusionReactorSystem : EntitySystem
 {
     [Dependency] private AtmosphereSystem _atmos = default!;
     [Dependency] private MachineGasPortsSystem _ports = default!;

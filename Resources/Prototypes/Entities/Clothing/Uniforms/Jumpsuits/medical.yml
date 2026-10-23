@@ -32,8 +32,8 @@
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband, ClothingUniformFoldableBase]
   id: ClothingUniformJumpsuitCMO
-  name: chief medical officer's jumpsuit
-  description: It's a jumpsuit worn by those with the experience to be Chief Medical Officer. It provides minor biological protection.
+  name: chief physician's jumpsuit
+  description: It's a jumpsuit worn by those with the experience to be Chief Physician. It provides minor biological protection.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Medical/cmo.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
@@ -41,8 +41,8 @@
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
   id: ClothingUniformJumpsuitCMOTurtle
-  name: chief medical officer's turtleneck jumpsuit
-  description: It's a turtleneck worn by those with the experience to be Chief Medical Officer. It provides minor biological protection.
+  name: chief physician's turtleneck jumpsuit
+  description: It's a turtleneck worn by those with the experience to be Chief Physician. It provides minor biological protection.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Uniforms/Jumpsuits/Medical/cmo_turtle.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
@@ -52,7 +52,7 @@
 - type: entity
   parent: [ClothingUniformBase, ClothingUniformFoldableBase]
   id: ClothingUniformJumpsuitMedicalDoctor
-  name: medical doctor jumpsuit
+  name: physician jumpsuit
   description: It's made of a special fiber that provides minor protection against biohazards. It has a cross on the chest denoting that the wearer is trained medical personnel.
   components:
   - type: Sprite
@@ -72,7 +72,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitSeniorPhysician
-  name: senior physician jumpsuit
+  name: lead physician jumpsuit
   description: A sign of skill and prestige within the medical department.
   components:
   - type: Sprite

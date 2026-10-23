@@ -3458,3 +3458,153 @@
     containers:
       cell_slot: !type:ContainerSlot
   - type: Appearance
+- type: entity
+  name: "KL-1"
+  parent: [ BaseItem, BaseSecurityContraband ]
+  id: DHWeaponEnergyKL1
+  description: "A Kane beam pistol of station security. A hitscan beam from a Kane power cell in the grip: the denser the crystal, the more shots."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Guns/kl1.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+  - type: Item
+    size: Small
+    sprite: _DarkestHour/Objects/Weapons/Guns/kl1_inhands.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Objects/Weapons/Guns/kl1_inhands.rsi
+    quickEquip: false
+    slots:
+    - suitStorage
+    - Belt
+  - type: Gun
+    fireRate: 2.5
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    minAngle: 2
+    maxAngle: 16
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/laser.ogg
+  - type: AmmoCounter
+  - type: BatteryAmmoProvider
+    proto: DHLaserKaneLight
+    fireCost: 150
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: "dh-gun-slot-energy-cell"
+        startingItem: DHPowerCellKane
+        insertSound: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - DHKanePowerCell
+  - type: PowerCellSlot
+    cellSlotId: cell_slot
+  - type: ContainerContainer
+    containers:
+      cell_slot: !type:ContainerSlot
+  - type: Appearance
+- type: entity
+  name: "KR-3"
+  parent: [ BaseItem, BaseGunWieldable, BaseSecurityContraband ]
+  id: DHWeaponEnergyKR3
+  description: "A Kane beam rifle of station security. A heavier hitscan beam from a Kane power cell; overheats under sustained fire."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Guns/kr3.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - map: ["opticAttachment"]
+  - type: Item
+    size: Huge
+    sprite: _DarkestHour/Objects/Weapons/Guns/kr3_inhands.rsi
+    shape:
+    - 0,0,3,1
+  - type: Clothing
+    sprite: _DarkestHour/Objects/Weapons/Guns/kr3_inhands.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: GunWieldBonus
+    minAngle: -1
+    maxAngle: -14
+  - type: Gun
+    fireRate: 3
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    - FullAuto
+    minAngle: 1
+    maxAngle: 18
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/laser3.ogg
+  - type: AmmoCounter
+  - type: BatteryAmmoProvider
+    proto: DHLaserKaneHeavy
+    fireCost: 200
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: "dh-gun-slot-energy-cell"
+        startingItem: DHPowerCellKane
+        insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/batrifle_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - DHKanePowerCell
+      attachment_optic:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentOptic2x
+          - DHAttachmentOptic4x
+  - type: PowerCellSlot
+    cellSlotId: cell_slot
+  - type: ContainerContainer
+    containers:
+      cell_slot: !type:ContainerSlot
+      attachment_optic: !type:ContainerSlot
+  - type: Appearance
+  - type: DHOverheat
+    maxHeat: 16
+    heatPerShot: 1
+    cooldownRate: 2
+    overheatLockout: 4
+  - type: ESAttachableGun
+    slots:
+    - name: es-gun-attachments-slot-name-optic
+      containerId: attachment_optic
+      whitelist:
+        tags:
+        - DHAttachmentOptic2x
+        - DHAttachmentOptic4x
+  - type: ActivatableUI
+    key: enum.ESAttachableGunUiKey.Key
+    verbOnly: true
+    verbText: es-gun-attachments-verb-text
+  - type: UserInterface
+    interfaces:
+      enum.ESAttachableGunUiKey.Key:
+        type: ESGunAttachmentBui
+  - type: ESItemMapper
+    mappings:
+      opticAttachment:
+      - containerId: attachment_optic
+        state: optic2x
+        whitelist:
+          tags:
+          - DHAttachmentOptic2x
+      - containerId: attachment_optic
+        state: optic4x
+        whitelist:
+          tags:
+          - DHAttachmentOptic4x

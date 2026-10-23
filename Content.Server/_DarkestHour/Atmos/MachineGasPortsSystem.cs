@@ -12,7 +12,7 @@ namespace Content.Server._DarkestHour.Atmos;
 /// <summary>
 /// Spawns, keeps and removes the gas port entities of large machines (see <see cref="MachineGasPortsComponent"/>).
 /// </summary>
-public sealed class MachineGasPortsSystem : EntitySystem
+public sealed partial class MachineGasPortsSystem : EntitySystem
 {
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private NodeContainerSystem _nodeContainer = default!;

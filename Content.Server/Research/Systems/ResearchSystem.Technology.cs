@@ -81,6 +81,7 @@ public sealed partial class ResearchSystem
             return false;
 
         AddTechnology(serverEnt.Value, prototype);
+        DHStartPrototypeTrial(serverEnt.Value, prototype); // DarkestHour: рецепты сначала печатаются опытными образцами
         TrySetMainDiscipline(prototype, serverEnt.Value);
         ModifyServerPoints(serverEnt.Value, -GetTechnologyCost(serverEnt.Value, prototype)); // DarkestHour: скидки реверс-инжиниринга
         UpdateTechnologyCards(serverEnt.Value);

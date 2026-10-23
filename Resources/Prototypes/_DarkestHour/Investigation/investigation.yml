@@ -1,0 +1,76 @@
+# DarkestHour: следствие (этап 4) — сканер вскрытия, архив наблюдения (память камер и история датчиков экипажа).
+
+- type: entity
+  parent: BaseItem
+  id: DHAutopsyScanner
+  name: autopsy scanner
+  description: A pathologist's handheld scanner. Use it on a body to print an autopsy report — estimated time of death, injuries, doses, infections and chemicals in the blood.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Specific/Medical/autopsy_scanner.rsi
+    state: icon
+  - type: Item
+    size: Small
+    storedRotation: 90
+  - type: Clothing
+    sprite: _DarkestHour/Objects/Specific/Medical/autopsy_scanner.rsi
+    quickEquip: false
+    slots:
+    - Belt
+  - type: DHAutopsyScanner
+  - type: StaticPrice
+    price: 300
+
+- type: latheRecipe
+  id: DHAutopsyScanner
+  result: DHAutopsyScanner
+  categories:
+  - Tools
+  completetime: 4
+  materials:
+    Steel: 200
+    Glass: 100
+    Plastic: 100
+
+- type: entity
+  parent: BaseComputer
+  id: DHComputerArchive
+  name: surveillance archive computer
+  description: The station's surveillance archive. Cameras remember who they saw and who fell in their view; suit sensors log critical states and deaths.
+  components:
+  - type: DHArchiveConsole
+  - type: ComputerVisuals
+    stateScreen: cameras
+    stateKeys: security_key
+  - type: Computer
+    board: DHArchiveComputerCircuitboard
+  - type: ActivatableUI
+    key: enum.DHArchiveUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHArchiveUiKey.Key:
+        type: DHArchiveBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: DHArchiveComputerCircuitboard
+  name: surveillance archive computer board
+  description: A computer printed circuit board for a surveillance archive computer.
+  components:
+  - type: Sprite
+    state: cpu_security
+  - type: ComputerBoard
+    prototype: DHComputerArchive
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: DHArchiveComputerCircuitboard
+  result: DHArchiveComputerCircuitboard
+
+# Платы следствия — в принтере плат статично.
+- type: latheRecipePack
+  id: DHInvestigationBoardsStatic
+  recipes:
+  - DHArchiveComputerCircuitboard

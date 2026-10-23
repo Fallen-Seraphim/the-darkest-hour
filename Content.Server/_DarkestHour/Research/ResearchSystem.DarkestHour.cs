@@ -21,6 +21,12 @@ public sealed partial class ResearchSystem
         return (int) MathF.Round(technology.Cost * (1f - Math.Clamp(discount, 0f, discounts.MaxDiscount)));
     }
 
+    /// <summary>Опытные образцы: пробный период для рецептов изученной технологии.</summary>
+    private void DHStartPrototypeTrial(EntityUid server, TechnologyPrototype technology)
+    {
+        EntityManager.System<Content.Server._DarkestHour.Research.Prototypes.DHPrototypeSystem>().StartTrial(server, technology);
+    }
+
     /// <summary>Добавить скидку на технологию. Возвращает итоговую скидку (с учётом предела).</summary>
     public float AddTechnologyDiscount(EntityUid server, ProtoId<TechnologyPrototype> technology, float discount)
     {

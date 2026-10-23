@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Text;
+using Content.Server._DarkestHour.Research.Prototypes;
 using Content.Server.Research.Systems;
 using Content.Shared._DarkestHour.Research.Materials;
 using Content.Shared.Containers.ItemSlots;
@@ -32,6 +33,7 @@ public sealed partial class DHMaterialScienceSystem : EntitySystem
     [Dependency] private SharedMaterialStorageSystem _materials = default!;
     [Dependency] private MetaDataSystem _metaData = default!;
     [Dependency] private PaperSystem _paper = default!;
+    [Dependency] private DHPrototypeSystem _prototypes = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private IPrototypeManager _proto = default!;
     [Dependency] private IRobustRandom _random = default!;
@@ -231,7 +233,8 @@ public sealed partial class DHMaterialScienceSystem : EntitySystem
         if (args.Container.ID != ent.Comp.SlotId || ent.Comp.ScanEnd != null)
             return;
 
-        if (!HasComp<DHMaterialSampleComponent>(args.Entity) && GetReverseData(args.Entity) == null)
+        if (!HasComp<DHMaterialSampleComponent>(args.Entity) && GetReverseData(args.Entity) == null &&
+            !HasComp<DHPrototypeItemComponent>(args.Entity))
         {
             _popup.PopupEntity(Loc.GetString("dh-material-scanner-nothing"), ent);
             return;
@@ -267,6 +270,13 @@ public sealed partial class DHMaterialScienceSystem : EntitySystem
             GetReverseData(trophy) is { } reverse)
         {
             ReverseEngineer(ent, trophy, reverse.Technologies, reverse.Discount, reverse.Points);
+            return;
+        }
+
+        if (_itemSlots.TryGetSlot(ent.Owner, ent.Comp.SlotId, out var protoSlot) && protoSlot.Item is { } protoItem &&
+            TryComp<DHPrototypeItemComponent>(protoItem, out var protoComp))
+        {
+            RefinePrototype(ent, (protoItem, protoComp));
             return;
         }
 
@@ -372,6 +382,41 @@ public sealed partial class DHMaterialScienceSystem : EntitySystem
 
         var paper = Spawn(ent.Comp.PaperPrototype, Transform(ent).Coordinates);
         _metaData.SetEntityName(paper, Loc.GetString("dh-reverse-report-name", ("item", name)));
+        if (TryComp<PaperComponent>(paper, out var paperComp))
+            _paper.SetContent((paper, paperComp), report.ToString());
+
+        _audio.PlayPvs(PrintSound, ent);
+    }
+
+    /// <summary>
+    /// Доводка опытного образца: испытанный образец (наработка или отказ) делает рецепт серийным, за это — очки.
+    /// Образец остаётся в сканере.
+    /// </summary>
+    private void RefinePrototype(Entity<DHMaterialScannerComponent> ent, Entity<DHPrototypeItemComponent> item)
+    {
+        var name = Name(item);
+        var report = new StringBuilder();
+        report.AppendLine(Loc.GetString("dh-prototype-report-header", ("item", name)));
+        report.AppendLine(Loc.GetString("dh-prototype-report-stats", ("uses", item.Comp.Uses), ("failures", item.Comp.Failures)));
+        report.AppendLine();
+
+        if (FindServer(ent) is not { } server)
+        {
+            report.AppendLine(Loc.GetString("dh-reverse-report-no-server"));
+        }
+        else
+        {
+            report.AppendLine(Loc.GetString(_prototypes.Refine(server, item, out var refined)));
+            if (refined)
+            {
+                const int points = 1500;
+                _research.ModifyServerPoints(server, points);
+                report.AppendLine(Loc.GetString("dh-material-scanner-report-points", ("points", points)));
+            }
+        }
+
+        var paper = Spawn(ent.Comp.PaperPrototype, Transform(ent).Coordinates);
+        _metaData.SetEntityName(paper, Loc.GetString("dh-prototype-report-name", ("item", name)));
         if (TryComp<PaperComponent>(paper, out var paperComp))
             _paper.SetContent((paper, paperComp), report.ToString());
 
