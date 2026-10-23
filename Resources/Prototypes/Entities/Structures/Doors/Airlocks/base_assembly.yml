@@ -8,7 +8,7 @@
   - type: Clickable
   - type: InteractionOutline
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Standard/airlock-base.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/airlock-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
     state: "assembly"
   - type: Physics
   - type: Fixtures

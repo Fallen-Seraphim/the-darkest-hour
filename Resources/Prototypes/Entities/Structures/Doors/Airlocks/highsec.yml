@@ -5,7 +5,7 @@
   description: Keeps the bad out and keeps the good in.
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Standard/airlock-vault.rsi
+    sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/airlock-vault.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
   - type: Door
     crushDamage:
       types:
