@@ -139,6 +139,9 @@
     - state: omnilaser
       shader: unshaded
   - type: Physics
+    bodyType: Dynamic # без этого импульс висел на месте
+  - type: TileFrictionModifier
+    modifier: 0
   - type: Fixtures
     fixtures:
       projectile:

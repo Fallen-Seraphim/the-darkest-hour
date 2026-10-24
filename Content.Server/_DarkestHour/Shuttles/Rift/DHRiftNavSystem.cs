@@ -271,7 +271,7 @@ public sealed partial class DHRiftNavSystem : EntitySystem
 
         var coordinates = new EntityCoordinates(targetMap, origin + args.Position);
         var angle = Angle.Zero;
-        if (!_shuttle.FTLFree(shuttle.Value, coordinates, angle, null))
+        if (!_rift.ExitFree(shuttle.Value, coordinates))
         {
             _popup.PopupEntity(Loc.GetString("dh-rift-nav-exit-blocked"), ent, PopupType.MediumCaution);
             return;

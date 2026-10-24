@@ -17,6 +17,9 @@ using Content.Shared.Shuttles.Components;
 using Content.Shared.Timing;
 using Content.Shared.Tools;
 using Content.Shared.Tools.Systems;
+using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
+using Robust.Shared.Physics.Collision.Shapes;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
@@ -40,6 +43,7 @@ public sealed partial class DHRiftSystem : EntitySystem
     [Dependency] private IPrototypeManager _proto = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private ShuttleConsoleSystem _shuttleConsole = default!;
+    [Dependency] private ShuttleSystem _shuttle = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedToolSystem _tool = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
@@ -137,6 +141,35 @@ public sealed partial class DHRiftSystem : EntitySystem
     }
 
     /// <summary>Генератор и подходящий накопитель на корабле; иначе — причина отказа.</summary>
+    private List<Entity<MapGridComponent>> _exitGrids = new();
+
+    /// <summary>
+    /// Свободна ли точка выхода: в радиусе корабля (плюс запас) нет других сеток. В отличие от ванильного
+    /// <c>FTLFree</c> не ограничивает дальность прыжка 256 м — консоли разрыва и посадки прыгают через всю
+    /// систему и на поверхность.
+    /// </summary>
+    public bool ExitFree(EntityUid shuttle, EntityCoordinates coordinates)
+    {
+        var target = _transform.ToMapCoordinates(coordinates);
+        if (target.MapId == MapId.Nullspace)
+            return false;
+
+        var radius = _shuttle.GetFTLBufferRange(shuttle) + ShuttleSystem.FTLBufferRange;
+        var circle = new PhysShapeCircle(radius, target.Position);
+
+        _exitGrids.Clear();
+        _map.FindGridsIntersecting(target.MapId, circle, Robust.Shared.Physics.Transform.Empty, ref _exitGrids,
+            includeMap: false);
+
+        foreach (var grid in _exitGrids)
+        {
+            if (grid.Owner != shuttle)
+                return false;
+        }
+
+        return true;
+    }
+
     public bool TryGetRiftGear(EntityUid shuttle, out EntityUid generator, out EntityUid accumulator, out string reason)
     {
         generator = EntityUid.Invalid;
