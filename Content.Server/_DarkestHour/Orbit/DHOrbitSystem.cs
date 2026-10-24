@@ -117,6 +117,7 @@ public sealed partial class DHOrbitSystem : EntitySystem
     public static readonly ProtoId<AlertLevelPrototype> Ellow = "DHEllow";
     public static readonly ProtoId<AlertLevelPrototype> Indomitus = "DHIndomitus";
     public static readonly ProtoId<AlertLevelPrototype> Deadend = "DHDeadend";
+    public static readonly ProtoId<AlertLevelPrototype> DeadendRevolution = "DHDeadendRevolution";
 
     private static readonly TimeSpan UpdateInterval = TimeSpan.FromSeconds(1);
     private static readonly EntProtoId[] Debris = { "MeteorSpaceDust", "MeteorSmall", "MeteorSmall", "MeteorMedium" };
@@ -270,7 +271,7 @@ public sealed partial class DHOrbitSystem : EntitySystem
         {
             orbit.TerrinumSet = true;
             // Внешние коды (Индомитус, Деаденд) орбита не перебивает
-            if (current != Ex && current != Indomitus && current != Deadend)
+            if (current != Ex && current != Indomitus && current != Deadend && current != DeadendRevolution)
                 _alert.SetLevel(ent.Owner, Terrinum, true, true, true, false);
             Announce(ent, "dh-orbit-announce-terrinum", Color.FromHex("#2F6FDB"));
         }

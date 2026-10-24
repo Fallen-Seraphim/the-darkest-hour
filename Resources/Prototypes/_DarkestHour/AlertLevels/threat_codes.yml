@@ -1,6 +1,7 @@
 # Коды угрозы The Darkest Hour (вместо ванильных уровней тревоги, вырезаны).
 # Эллоу, Альтер, Дейбрейк — ставит Капитан с консоли связи. Терринум и Экс — автоматически от системы орбиты.
-# Индомитус и Деаденд — только извне (админ, событие; Деаденд — ответ Республики на капитуляцию перед Империей).
+# Индомитус и Деаденд — только извне (админ, событие; Деаденд — ответ Республики на капитуляцию перед Империей
+# или победу Революции ОФСК — тогда DHDeadendRevolution со своим объявлением).
 
 - type: alertLevel
   id: DHEllow
@@ -85,6 +86,23 @@
   id: DHDeadend
   name: dh-alert-level-deadend
   announcement: dh-alert-level-deadend-announcement
+  instructions: dh-alert-level-deadend-instructions
+  selectable: false
+  disableSelection: true
+  sound:
+    path: /Audio/_DarkestHour/Announcements/deadend.ogg
+    params:
+      volume: -4
+  color: "#7B2FBE"
+  emergencyLightColor: "#7B2FBE"
+  forceEnableEmergencyLights: true
+  shuttleTime: 1200
+
+# «Деаденд» после победы Революции ОФСК: тот же код и звук, объявление — о захвате станции сепаратистами.
+- type: alertLevel
+  id: DHDeadendRevolution
+  name: dh-alert-level-deadend
+  announcement: dh-alert-level-deadend-revolution-announcement
   instructions: dh-alert-level-deadend-instructions
   selectable: false
   disableSelection: true

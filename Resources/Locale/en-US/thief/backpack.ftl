@@ -19,7 +19,7 @@ thief-backpack-category-chameleon-name = Chameleon Kit
 thief-backpack-category-chameleon-description =
     You are everyone and no one; you are a master of disguise.
     Includes: A full set of chameleon clothing with Agent ID,
-    a chameleon projector, and a fake mindshield implant.
+    a chameleon projector, and a fake loyalty implant.
     Disguise as anyone and anything.
 
 thief-backpack-category-tools-name = Breacher Kit

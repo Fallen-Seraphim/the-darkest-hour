@@ -38,11 +38,16 @@ public sealed partial class DHRepublicSweepSystem : EntitySystem
     public static readonly ProtoId<AlertLevelPrototype> Indomitus = "DHIndomitus";
     public static readonly ProtoId<AlertLevelPrototype> Deadend = "DHDeadend";
 
+    /// <summary>«Деаденд» после победы Революции ОФСК: тот же код, своё объявление (станция пала сепаратистам).</summary>
+    public static readonly ProtoId<AlertLevelPrototype> DeadendRevolution = "DHDeadendRevolution";
+
     /// <summary>
     /// Вызывает отряд зачистки к станции. <paramref name="station"/> — станция-цель; без неё — первая станция с экипажем.
     /// <paramref name="reinforced"/> — усиленный отряд с боеголовкой и код «Деаденд» вместо Индомитуса.
+    /// <paramref name="level"/> — свой код угрозы вместо стандартного (например, «Деаденд» Революции).
     /// </summary>
-    public bool TryCallSweep(EntityUid? station, out string message, bool reinforced = false)
+    public bool TryCallSweep(EntityUid? station, out string message, bool reinforced = false,
+        ProtoId<AlertLevelPrototype>? level = null)
     {
         var path = reinforced ? ReinforcedShuttlePath : ShuttlePath;
         station ??= FindStation();
@@ -67,7 +72,7 @@ public sealed partial class DHRepublicSweepSystem : EntitySystem
 
         // Индомитус: контракты расторгнуты, военное положение. Деаденд: станция объявлена изменнической и обречена.
         // Ставится принудительно (код не выбирается с консоли).
-        _alert.SetLevel(station.Value, reinforced ? Deadend : Indomitus, playSound: true, announce: true, force: true,
+        _alert.SetLevel(station.Value, level ?? (reinforced ? Deadend : Indomitus), playSound: true, announce: true, force: true,
             locked: true);
 
         message = Loc.GetString(reinforced ? "dh-republic-call-deadend-done" : "dh-republic-call-done",

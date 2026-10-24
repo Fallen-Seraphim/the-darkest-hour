@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Server._DarkestHour.Revolution;
 using Content.Server.Administration.Logs;
 using Content.Server.EUI;
 using Content.Server.Mind;
@@ -81,9 +82,15 @@ public sealed partial class ServerRevolutionaryRuleSystem : RevolutionaryRuleSys
         {
             component.CommandCheck = Timing.CurTime + component.TimerWait;
 
-            if (CheckCommandLose())
+            // DarkestHour: без командования на станции (никто не занял должности) победы нет — ждём, пока появится
+            // хотя бы один глава, иначе «Деаденд» прилетал бы через 20 секунд после начала раунда
+            if (CheckCommandLose() && AllEntityQuery<CommandStaffComponent>().MoveNext(out _, out _))
             {
-                _roundEnd.DoRoundEndBehavior(RoundEndBehavior.ShuttleCall, component.ShuttleCallTime);
+                // DarkestHour: победа Фронта — Республика отвечает «Деадендом» (DHRevolutionSystem), а не эвакуацией
+                var wonEv = new DHRevolutionWonEvent();
+                RaiseLocalEvent(uid, ref wonEv);
+                if (!wonEv.Handled)
+                    _roundEnd.DoRoundEndBehavior(RoundEndBehavior.ShuttleCall, component.ShuttleCallTime);
                 GameTicker.EndGameRule((uid, gameRule));
             }
         }
@@ -171,7 +178,7 @@ public sealed partial class ServerRevolutionaryRuleSystem : RevolutionaryRuleSys
         }
 
         if (mind is { UserId: not null } && _player.TryGetSessionById(mind.UserId, out var session))
-            _antag.SendBriefing(session, Loc.GetString("rev-role-greeting"), Color.Red, revComp.RevStartSound);
+            _antag.SendBriefing(session, Loc.GetString("rev-role-greeting"), DHRevolutionSystem.FrontRed, revComp.RevStartSound); // DarkestHour: цвет Фронта
     }
 
     //TODO: Enemies of the revolution

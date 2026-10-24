@@ -236,6 +236,13 @@
   - type: GameRule
     minPlayers: 15
   - type: RevolutionaryRule
+  # DarkestHour: Революция ОФСК — «спонсированная революция» (5%) и «Деаденд» при победе Фронта
+  - type: DHRevolutionRule
+    sponsoredChance: 0.05
+    sponsoredGear:
+    - AccessBreaker
+    - DHWeaponSMGRPRM902
+    - DHMagazine10x24ShortE
   - type: AntagSelection
     selectionTime: PrePlayerSpawn
     antags:
