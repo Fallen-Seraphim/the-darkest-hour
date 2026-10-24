@@ -1,13 +1,5 @@
 - type: gameMapPool
   id: DefaultMapPool
   maps:
-  - Bagel
-  - Box
-  - Elkridge
-  - Marathon
-  - Packed
-  - Plasma
-  - Exo
-  - Snowball
-  - Sushi
-  - Tram2
+  # DarkestHour: «Штурм» — станции вырезаны, одна карта: военная база Республики на планете
+  - DHTerminus

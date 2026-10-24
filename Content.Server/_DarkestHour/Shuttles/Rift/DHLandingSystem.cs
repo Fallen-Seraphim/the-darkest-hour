@@ -112,6 +112,26 @@ public sealed partial class DHLandingSystem : EntitySystem
         return _celestial.GetSystemMap(system);
     }
 
+    /// <summary>
+    /// Готовая карта становится поверхностью тела (например, карта военной базы «Штурма»): посадка на это тело
+    /// ведёт на неё, а не на новую карту.
+    /// </summary>
+    public void RegisterSurface(string system, string body, EntityUid map)
+    {
+        var surface = EnsureComp<DHPlanetSurfaceMapComponent>(map);
+        surface.System = system;
+        surface.Body = body;
+        Dirty(map, surface);
+
+        _surfaces[(system, body)] = map;
+    }
+
+    /// <summary>Карта поверхности тела (если уже есть).</summary>
+    public EntityUid? GetSurface(string system, string body)
+    {
+        return _surfaces.TryGetValue((system, body), out var map) && !TerminatingOrDeleted(map) ? map : null;
+    }
+
     /// <summary>Карта поверхности тела; создаётся при первой посадке.</summary>
     private EntityUid? GetOrCreateSurface(DHStarSystemPrototype system, DHCelestialBody body)
     {

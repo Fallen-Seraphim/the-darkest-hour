@@ -82,6 +82,8 @@ G = {
     'crown': ['.#..#.', '#.##.#', '######', '######', '.####.', '......'],
     'flame': ['..#...', '..##..', '.###..', '.####.', '######', '.####.'],
     'belt': ['#.#.#.', '######', '######', '#.#.#.', '......', '......'],
+    'anchor': ['..##..', '.####.', '..##..', '#.##.#', '#.##.#', '.####.'],
+    'shell': ['..##..', '.####.', '.####.', '.####.', '.####.', '######'],
 }
 
 # icon state, department, rank, glyph
@@ -133,6 +135,14 @@ ICONS = [
     ('RepublicRifleman', 'republic', 'staff', 'rifle'),
     ('RepublicMedic', 'republic', 'staff', 'cross'),
     ('RepublicFlamer', 'republic', 'staff', 'flame'),
+    # «Штурм»: гарнизон Республики и экипаж имперского авианосца
+    ('RepublicOfficer', 'republic', 'lead', 'chevron2'),
+    ('RepublicAAGunner', 'republic', 'staff', 'rocket'),
+    ('RepublicSapper', 'republic', 'staff', 'wrench'),
+    ('ImperialCaptain', 'imperial', 'head', 'anchor'),
+    ('ImperialPilot', 'imperial', 'staff', 'plane'),
+    ('ImperialArtillerist', 'imperial', 'staff', 'shell'),
+    ('ImperialTechnician', 'imperial', 'staff', 'wrench'),
 ]
 
 
