@@ -1,0 +1,37 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Made for The Darkest Hour (Tools/_DarkestHour/field_medicine/build.py)",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "tourniquet_cat"
+        },
+        {
+            "name": "tourniquet_rubber"
+        },
+        {
+            "name": "hemostatic"
+        },
+        {
+            "name": "chest_seal"
+        },
+        {
+            "name": "ifak"
+        },
+        {
+            "name": "surgery_kit"
+        },
+        {
+            "name": "inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "inhand-right",
+            "directions": 4
+        }
+    ]
+}

@@ -72,3 +72,15 @@ dh-trauma-analyzer-pain-mild = [color=#d0c040]Pain: mild.[/color]
 dh-trauma-analyzer-pain-moderate = [color=#d08040]Pain: moderate — slowed.[/color]
 dh-trauma-analyzer-pain-shock = [color=#d04040]Pain: pain shock! Give painkillers.[/color]
 dh-trauma-analyzer-pain-unconscious = [color=#d04040]Pain: unconscious from pain! Give painkillers.[/color]
+
+## Полевая медицина: жгуты, турникеты и полевые повязки
+
+dh-tourniquet-no-limb = Every limb already has a tourniquet on it.
+dh-tourniquet-applied = {CAPITALIZE(THE($user))} applies a tourniquet to {POSS-ADJ($target)} {$part}.
+dh-tourniquet-removed = {CAPITALIZE(THE($user))} takes the tourniquet off {POSS-ADJ($target)} {$part}.
+dh-tourniquet-remove-verb = Remove the tourniquet ({$part})
+dh-tourniquet-necrosis = Your {$part} is numb and cold — the tourniquet has been on too long!
+dh-tourniquet-desc = tourniquet on ({$minutes} min)
+dh-tourniquet-desc-necrosis = [color=red]tourniquet on too long ({$minutes} min), the limb is dying[/color]
+dh-tourniquet-examine = [color=orange]{CAPITALIZE(SUBJECT($target))} has a tourniquet on the {$part} ({$minutes} min).[/color]
+dh-field-dressing-applied = {CAPITALIZE(THE($user))} applies {THE($item)} to {POSS-ADJ($target)} {$part}.

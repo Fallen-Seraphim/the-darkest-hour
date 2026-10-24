@@ -18,6 +18,7 @@
     - CombatMedipen
     - Handcuffs
     - Handcuffs
+    - DHIFAKFilled
 
 - type: startingGear
   parent: DHRepublicGearBase
@@ -34,6 +35,7 @@
     - DHMagazine762x51EXP
     - Binoculars
     - MedkitCombatFilled
+    - DHIFAKFilled
 
 - type: startingGear
   parent: DHRepublicGearBase
@@ -49,6 +51,7 @@
     - DHMagazine127x105SVP
     - DHMagazine127x105A
     - Binoculars
+    - DHIFAKFilled
 
 - type: startingGear
   parent: DHRepublicGearBase
@@ -62,6 +65,7 @@
     - DHMagazineBox556x45FMG
     - DHMagazineBox556x45FMG
     - DHMagazineBox556x45FMG
+    - DHIFAKFilled
 
 - type: startingGear
   parent: DHRepublicGearBase
@@ -78,6 +82,7 @@
     - DHMagazine556x45FMG
     - DHMagazine556x45EXP
     - ExGrenade
+    - DHIFAKFilled
 
 - type: startingGear
   parent: DHRepublicGearBase
@@ -97,6 +102,8 @@
     - Hypospray
     - Cautery
     - SawAdvanced
+    - DHIFAKFilled
+    - DHFieldSurgeryKitFilled
 
 - type: startingGear
   parent: DHRepublicGearBase
@@ -112,6 +119,7 @@
     - DHFlamerTankNapalm
     - DHFlamerTankNapalm
     - DHFlamerTankWeldingFuel
+    - DHIFAKFilled
 
 - type: entity
   parent: DHWeaponFlamerImperial
@@ -137,6 +145,7 @@
     - DHMagazine762x51EXP
     - Binoculars
     - MedkitCombatFilled
+    - DHIFAKFilled
 
 - type: startingGear
   parent: DHRepublicRiflemanGear

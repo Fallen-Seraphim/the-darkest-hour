@@ -1,0 +1,182 @@
+# DarkestHour: полевая медицина «Штурма» — жгуты и турникеты, гемостатик, окклюзионная повязка, обезболивающий
+# автоинъектор, аптечка бойца (IFAK) и полевой хирургический набор. Механика жгутов и повязок — DHTraumaSystem
+# (FieldMedicine), спрайты — Tools/_DarkestHour/field_medicine/build.py.
+
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: DHFieldMedicineBase
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Specific/Medical/field_medicine.rsi
+  - type: Item
+    size: Small
+    sprite: _DarkestHour/Objects/Specific/Medical/field_medicine.rsi
+  - type: StaticPrice
+    price: 20
+
+- type: entity
+  parent: DHFieldMedicineBase
+  id: DHTourniquetCombat
+  name: combat tourniquet
+  description: A windlass tourniquet. Applied above a wound on an arm or a leg in seconds, it stops the bleeding from the limb. Do not keep it on longer than ten minutes, or the limb starts to die; take it off with an alternative action on the patient.
+  components:
+  - type: Sprite
+    state: tourniquet_cat
+  - type: DHTourniquet
+    delay: 2.5
+    bleedReduction: 8
+
+- type: entity
+  parent: DHFieldMedicineBase
+  id: DHTourniquetRubber
+  name: rubber tourniquet
+  description: An old-fashioned rubber strap tourniquet. Slower to apply than a combat tourniquet but works the same; ten minutes at most.
+  components:
+  - type: Sprite
+    state: tourniquet_rubber
+  - type: DHTourniquet
+    delay: 4
+    bleedReduction: 6
+
+- type: entity
+  parent: DHFieldMedicineBase
+  id: DHHemostaticDressing
+  name: hemostatic dressing
+  description: Gauze soaked in a clotting agent. Packed into a wound, it stops heavy bleeding fast.
+  components:
+  - type: Sprite
+    state: hemostatic
+  - type: Healing
+    damageContainers:
+    - Biological
+    damage:
+      types:
+        Slash: -4
+        Piercing: -6
+    bloodlossModifier: -15
+    delay: 2.5
+    healingBeginSound:
+      path: "/Audio/Items/Medical/brutepack_begin.ogg"
+    healingEndSound:
+      path: "/Audio/Items/Medical/brutepack_end.ogg"
+
+- type: entity
+  parent: DHFieldMedicineBase
+  id: DHChestSeal
+  name: occlusive chest seal
+  description: An airtight adhesive seal for penetrating chest wounds. Slows bleeding inside the chest and seals the wound.
+  components:
+  - type: Sprite
+    state: chest_seal
+  - type: DHFieldDressing
+    delay: 3
+    part: Torso
+    internalBleedingFactor: 0.4
+    bleedReduction: 5
+    heal:
+      types:
+        Piercing: -6
+
+- type: entity
+  parent: ChemicalMedipen
+  id: DHPainkillerAutoinjector
+  name: painkiller auto-injector
+  description: A single-dose morphine auto-injector from a soldier's first aid kit. Dulls the pain of wounds and broken bones; slows you a little.
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Medical/medipen.rsi
+    layers:
+    - state: morphen
+      map: ["enum.SolutionContainerLayers.Fill"]
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    changeColor: false
+    emptySpriteName: morphen_empty
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHMorphine
+        Quantity: 10
+
+# Аптечка бойца: у каждого бойца обеих сторон.
+- type: entity
+  parent: BaseStorageItem
+  id: DHIFAK
+  name: individual first aid kit
+  description: The soldier's own first aid kit, for self-aid and buddy-aid under fire.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Specific/Medical/field_medicine.rsi
+    state: ifak
+  - type: Item
+    size: Normal
+    sprite: _DarkestHour/Objects/Specific/Medical/field_medicine.rsi
+  - type: Storage
+    maxItemSize: Small
+    grid:
+    - 0,0,3,1
+  - type: StaticPrice
+    price: 80
+
+- type: entity
+  parent: DHIFAK
+  id: DHIFAKFilled
+  suffix: Filled
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: DHTourniquetCombat
+          amount: 2
+        - id: DHHemostaticDressing
+          amount: 2
+        - id: DHChestSeal
+        - id: DHSplint
+        - id: DHPainkillerAutoinjector
+
+# Полевой хирургический набор: у медиков обеих сторон.
+- type: entity
+  parent: BaseStorageItem
+  id: DHFieldSurgeryKit
+  name: field surgical kit
+  description: "A compact surgical roll for operating in the field: enough to dig out shrapnel, clamp a bleeder and set a bone."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Specific/Medical/field_medicine.rsi
+    state: surgery_kit
+  - type: Item
+    size: Large
+    sprite: _DarkestHour/Objects/Specific/Medical/field_medicine.rsi
+  - type: Storage
+    maxItemSize: Normal
+    grid:
+    - 0,0,5,2
+  - type: StaticPrice
+    price: 300
+
+- type: entity
+  parent: DHFieldSurgeryKit
+  id: DHFieldSurgeryKitFilled
+  suffix: Filled
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: Scalpel
+        - id: Hemostat
+        - id: Retractor
+        - id: Cautery
+        - id: DHBoneSetter
+        - id: DHBoneGel
+        - id: DHSurgicalDrapes
+        - id: DHTourniquetRubber
+          amount: 2
+        - id: DHHemostaticDressing
+          amount: 2
+        - id: DHChestSeal
+          amount: 2
+        - id: DHSplint
+          amount: 2
