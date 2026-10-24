@@ -1,0 +1,4 @@
+- files: ["sky_desert_base.png", "sky_desert_clouds_far.png", "sky_desert_clouds_near.png"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Made for The Darkest Hour (Tools/_DarkestHour/sky/build.py)"
+  source: "https://github.com/Fallen-Seraphim/the-darkest-hour"

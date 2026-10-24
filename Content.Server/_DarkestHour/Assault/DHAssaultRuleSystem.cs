@@ -9,7 +9,6 @@ using Content.Server.Explosion.EntitySystems;
 using Content.Server.GameTicking;
 using Content.Server.RoundEnd;
 using Content.Shared.Shuttles.Components;
-using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Systems;
 using Content.Shared._DarkestHour.Assault;
 using Content.Shared._DarkestHour.Shuttles.Rift;
@@ -69,7 +68,6 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
     [Dependency] private DHRiftSystem _rift = default!;
     [Dependency] private RoundEndSystem _roundEnd = default!;
     [Dependency] private ServerGameTicker _serverTicker = default!;
-    [Dependency] private ShuttleSystem _shuttle = default!;
     [Dependency] private ServerStationSystem _station = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
 
@@ -511,13 +509,9 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
             carrier.Comp.CrashAt = null;
             carrier.Comp.ImpactAt = now + ImpactDelay;
 
-            // Не на поверхности — рушится на неё рядом с базой.
-            if (!HasComp<DHPlanetSurfaceMapComponent>(Transform(carrier).MapUid) &&
-                CrashSite(carrier) is { } site &&
-                TryComp<ShuttleComponent>(carrier, out var shuttle))
-            {
-                _shuttle.FTLToCoordinates(carrier, shuttle, site, _random.NextAngle(), 2f, 5f);
-            }
+            // Не на поверхности — рушится на неё: из атмосферы — под собой, с орбиты — рядом с базой.
+            if (!HasComp<DHPlanetSurfaceMapComponent>(Transform(carrier).MapUid) && CrashSite(carrier) is { } site)
+                _landing.PlaceShuttle(carrier, site);
         }
 
         if (carrier.Comp.ImpactAt is { } impactAt && now >= impactAt)
@@ -531,9 +525,22 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
         }
     }
 
-    /// <summary>Точка падения: на поверхности тела базы, в стороне от неё.</summary>
+    /// <summary>Точка падения: из атмосферы — под авианосцем, иначе на поверхности тела базы в стороне от неё.</summary>
     private EntityCoordinates? CrashSite(EntityUid carrier)
     {
+        if (TryComp<DHPlanetAtmosphereMapComponent>(Transform(carrier).MapUid, out var atmosphere) &&
+            _landing.GetSurface(atmosphere.System, atmosphere.Body) is { } below)
+        {
+            var above = _transform.GetWorldPosition(carrier);
+            for (var i = 0; i < 12; i++)
+            {
+                var offset = i == 0 ? Vector2.Zero : _random.NextAngle().ToVec() * _random.NextFloat(10f, 80f);
+                var coordinates = new EntityCoordinates(below, above + offset);
+                if (_rift.ExitFree(carrier, coordinates))
+                    return coordinates;
+            }
+        }
+
         var bases = EntityQueryEnumerator<DHPlanetBaseComponent>();
         while (bases.MoveNext(out var station, out var planetBase))
         {
@@ -606,7 +613,7 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
         return result;
     }
 
-    /// <summary>Звёздная система карты: карта системы или поверхность тела; null — в пути (FTL).</summary>
+    /// <summary>Звёздная система карты: карта системы, поверхность или атмосфера тела; null — в пути (FTL).</summary>
     private string? SystemOfMap(EntityUid? map)
     {
         if (TryComp<DHStarSystemMapComponent>(map, out var systemMap) && systemMap.System is { } system)
@@ -614,6 +621,9 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
 
         if (TryComp<DHPlanetSurfaceMapComponent>(map, out var surface))
             return surface.System;
+
+        if (TryComp<DHPlanetAtmosphereMapComponent>(map, out var atmosphere))
+            return atmosphere.System;
 
         return null;
     }

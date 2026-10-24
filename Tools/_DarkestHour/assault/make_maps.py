@@ -496,6 +496,8 @@ def main():
             ('DHMissileLauncher', [p(10, -3), p(10, -21), p(13, -9), p(13, -16)]),
             ('DHInterceptorMissile', [p(8, -21), p(8, -21), p(8, -3), p(8, -3)]),
             ('LightPostSmall', [p(11, -8), p(11, -16)]),
+            # paradrop beacons for the landing force
+            ('DHDropBeacon', [p(11, -21), p(11, -21), p(12, -21), p(12, -21)]),
         ] + shells,
         floor=wing)
 

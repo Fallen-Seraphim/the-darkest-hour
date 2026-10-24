@@ -4,9 +4,11 @@ using Robust.Shared.Serialization;
 
 namespace Content.Shared._DarkestHour.Shuttles.Rift;
 
-// Посадка (этап 5): корабль садится на тело только через консоль посадки — подлетает к телу на орбиту (не выше
-// LandingRange над поверхностью), выбирает точку на поверхности и спускается. Поверхность — отдельная карта
-// с биомом, создаётся при первой посадке. Взлёт возвращает корабль на орбиту над тем же местом.
+// Посадка (этап 5, «Штурм»): корабль садится на тело только через консоль посадки. С орбиты (не выше LandingRange)
+// спускается в атмосферу — отдельная карта слоя атмосферы с небом вместо звёзд, где корабль висит над поверхностью
+// (координаты те же, что на поверхности) и летает на своих двигателях. Из атмосферы садится на поверхность под
+// собой или поднимается на орбиту; с поверхности взлетает в атмосферу. Кто выходит с корабля в атмосфере — прыгает
+// с парашютом и приземляется под собой или у ближайшего включённого маяка высадки.
 // Газозаборник набирает газ, пока корабль в верхних слоях газового гиганта.
 
 [RegisterComponent, NetworkedComponent]
@@ -33,6 +35,35 @@ public sealed partial class DHPlanetSurfaceMapComponent : Component
 
     [DataField, AutoNetworkedField]
     public string Body = string.Empty;
+}
+
+/// <summary>Карта слоя атмосферы тела: небо вместо звёзд, корабли висят над поверхностью (координаты как на ней).</summary>
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class DHPlanetAtmosphereMapComponent : Component
+{
+    [DataField, AutoNetworkedField]
+    public string System = string.Empty;
+
+    [DataField, AutoNetworkedField]
+    public string Body = string.Empty;
+}
+
+/// <summary>Маяк высадки: включённый на поверхности — парашютисты приземляются у него.</summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class DHDropBeaconComponent : Component
+{
+    [DataField]
+    public bool Active;
+
+    /// <summary>Парашютисты, выпрыгнувшие не дальше этого (по горизонтали), летят к маяку, м.</summary>
+    [DataField]
+    public float Range = 80f;
+}
+
+[Serializable, NetSerializable]
+public enum DHDropBeaconVisuals : byte
+{
+    Active,
 }
 
 /// <summary>Газозаборник: набирает газ в трубу, пока корабль в верхних слоях газового гиганта.</summary>
@@ -78,6 +109,7 @@ public sealed class DHLandingBodyEntry(string id, string name, float altitude, b
 [Serializable, NetSerializable]
 public sealed class DHLandingState(
     string? surfaceBody,
+    string? atmosphereBody,
     List<DHLandingBodyEntry> bodies,
     string? selectedBody,
     List<DHRiftNavGrid> surfaceGrids,
@@ -88,6 +120,9 @@ public sealed class DHLandingState(
 {
     /// <summary>Имя тела, на поверхности которого стоит корабль; null — корабль в космосе.</summary>
     public readonly string? SurfaceBody = surfaceBody;
+
+    /// <summary>Имя тела, в атмосфере которого висит корабль; null — не в атмосфере.</summary>
+    public readonly string? AtmosphereBody = atmosphereBody;
 
     public readonly List<DHLandingBodyEntry> Bodies = bodies;
     public readonly string? SelectedBody = selectedBody;
@@ -116,3 +151,7 @@ public sealed class DHLandingDescendMessage(string body, Vector2 position) : Bou
 
 [Serializable, NetSerializable]
 public sealed class DHLandingAscendMessage : BoundUserInterfaceMessage;
+
+/// <summary>Из атмосферы — посадка на поверхность под кораблём.</summary>
+[Serializable, NetSerializable]
+public sealed class DHLandingLandMessage : BoundUserInterfaceMessage;

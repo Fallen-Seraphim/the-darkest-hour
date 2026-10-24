@@ -1,0 +1,27 @@
+# Небо слоя атмосферы тела (DHPlanetAtmosphereMapComponent): корабль висит над поверхностью, вместо звёзд — дымка
+# и облака. Текстуры — Tools/_DarkestHour/sky/build.py.
+- type: parallax
+  id: DHSky
+  layers:
+  - texture:
+      !type:ImageParallaxTextureSource
+      path: "/Textures/_DarkestHour/Parallaxes/sky_desert_base.png"
+    slowness: 0.998
+    scale: "2, 2"
+  - texture:
+      !type:ImageParallaxTextureSource
+      path: "/Textures/_DarkestHour/Parallaxes/sky_desert_clouds_far.png"
+    slowness: 0.85
+    scale: "2, 2"
+  - texture:
+      !type:ImageParallaxTextureSource
+      path: "/Textures/_DarkestHour/Parallaxes/sky_desert_clouds_near.png"
+    slowness: 0.55
+    scale: "3, 3"
+  layersLQ:
+  - texture:
+      !type:ImageParallaxTextureSource
+      path: "/Textures/_DarkestHour/Parallaxes/sky_desert_base.png"
+    slowness: 0.998
+    scale: "2, 2"
+  layersLQUseHQ: false

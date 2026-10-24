@@ -562,7 +562,7 @@
   parent: DHInterceptorBase
   id: DHMissileSilo
   name: interceptor missile silo
-  description: A Republican silo of interceptor missiles. Shoots down artillery shells falling within 150 m; each attempt costs a missile.
+  description: A Republican silo of interceptor missiles. Shoots down artillery shells falling within 150 m and fires at a carrier hovering in the atmosphere within 1.5 km; each shot costs a missile.
   components:
   - type: Sprite
     state: silo
@@ -573,12 +573,15 @@
     chance: 0.4
     radius: 150
     cooldown: 6
+    airRange: 1500
+    airChance: 0.5
+    airDamage: 4
 
 - type: entity
   parent: DHInterceptorBase
   id: DHAutocannonTwin30
   name: twin 30 mm autocannon
-  description: A Republican twin 30 mm air-defence autocannon. Puts up flak against artillery shells falling within 100 m; each attempt costs a box of rounds.
+  description: A Republican twin 30 mm air-defence autocannon. Puts up flak against artillery shells falling within 100 m and fires at a carrier hovering in the atmosphere within 700 m; each burst costs one charge, a box holds four.
   components:
   - type: Sprite
     state: autocannon
@@ -589,6 +592,9 @@
     chance: 0.25
     radius: 100
     cooldown: 3
+    airRange: 700
+    airChance: 0.4
+    airDamage: 1.5
 
 - type: entity
   parent: BaseItem
@@ -616,7 +622,7 @@
   parent: BaseItem
   id: DHAutocannonAmmoBox30
   name: 30 mm flak ammunition box
-  description: Belted 30 mm flak rounds for a twin autocannon. Enough for four bursts.
+  description: Belted 30 mm flak rounds for a twin autocannon. Enough for four bursts (four charges).
   components:
   - type: Sprite
     sprite: _DarkestHour/Objects/Weapons/HeavyGuns/interceptor_ammo.rsi
@@ -649,3 +655,33 @@
     color: "#ff3020"
   - type: TimedDespawn
     lifetime: 5.5
+
+# --- Маяк высадки: включённый на поверхности — парашютисты из корабля в атмосфере приземляются у него ---
+
+- type: entity
+  parent: BaseItem
+  id: DHDropBeacon
+  name: paradrop beacon
+  description: A tripod radio beacon of the Imperial Marine Corps. Switched on and set down on the surface, it guides paratroopers jumping from a ship in the atmosphere above to land next to it.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/HeavyGuns/drop_beacon.rsi
+    layers:
+    - state: icon
+    - state: light
+      map: [ "light" ]
+      shader: unshaded
+      visible: false
+  - type: Item
+    size: Normal
+    sprite: _DarkestHour/Objects/Weapons/HeavyGuns/drop_beacon.rsi
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHDropBeaconVisuals.Active:
+        light:
+          True: { visible: true }
+          False: { visible: false }
+  - type: DHDropBeacon
+  - type: StaticPrice
+    price: 200

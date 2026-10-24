@@ -81,6 +81,10 @@ public sealed partial class DHCelestialBody
     [DataField]
     public float SurfaceTemperature = Atmospherics.T20C;
 
+    /// <summary>Небо слоя атмосферы (прототип parallax). Пусто — DHSky.</summary>
+    [DataField]
+    public string? Sky;
+
     /// <summary>Освещение поверхности.</summary>
     [DataField]
     public Color SurfaceLight = Color.FromHex("#9DB4CC");
