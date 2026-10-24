@@ -55,18 +55,53 @@ public sealed partial class DHCelestialSystem : EntitySystem
 
     private void OnStationPostInit(Entity<DHHomeStarSystemComponent> ent, ref StationPostInitEvent args)
     {
+        if (BindHomeMap(ent) == null)
+            Log.Warning($"{ToPrettyString(ent)}: station has no grid yet, home star system map is bound later on demand.");
+    }
+
+    /// <summary>Привязывает карту станции к её домашней системе; возвращает карту.</summary>
+    private EntityUid? BindHomeMap(Entity<DHHomeStarSystemComponent> ent)
+    {
         var grid = _station.GetLargestGrid(ent.Owner);
         if (grid == null)
-            return;
+            return null;
 
         var mapUid = Transform(grid.Value).MapUid;
         if (mapUid == null)
-            return;
+            return null;
 
         var comp = EnsureComp<DHStarSystemMapComponent>(mapUid.Value);
-        comp.System = ent.Comp.System;
-        comp.Origin = _transform.GetWorldPosition(grid.Value);
-        Dirty(mapUid.Value, comp);
+        if (comp.System != ent.Comp.System)
+        {
+            comp.System = ent.Comp.System;
+            comp.Origin = _transform.GetWorldPosition(grid.Value);
+            Dirty(mapUid.Value, comp);
+        }
+
+        return mapUid;
+    }
+
+    /// <summary>
+    /// Карта звёздной системы. Домашняя — карта станции; если она ещё не привязана (станция создана без грида,
+    /// карта пересоздана и т. п.), привязывается сейчас.
+    /// </summary>
+    public EntityUid? GetSystemMap(string system)
+    {
+        var query = EntityQueryEnumerator<DHStarSystemMapComponent>();
+        while (query.MoveNext(out var uid, out var comp))
+        {
+            if (comp.System?.Id == system)
+                return uid;
+        }
+
+        var homes = EntityQueryEnumerator<DHHomeStarSystemComponent>();
+        while (homes.MoveNext(out var station, out var home))
+        {
+            if (home.System.Id == system && BindHomeMap((station, home)) is { } map)
+                return map;
+        }
+
+        return null;
     }
 
     /// <summary>Тела системы карты и начало отсчёта.</summary>
