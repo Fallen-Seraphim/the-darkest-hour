@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 11:47:06
-  entityCount: 833
+  entityCount: 838
 maps: []
 grids:
 - 1
@@ -39,6 +39,7 @@ entities:
     components:
     - type: MetaData
       name: IL-7 Gladius
+    - type: NukeOpsShuttle
     - type: Transform
       parent: invalid
       pos: 0.64252126,4.1776605
@@ -5680,5 +5681,32 @@ entities:
     components:
     - type: Transform
       pos: -4.5,-16.5
+      parent: 1
+- proto: SpawnPointNukies
+  entities:
+  - uid: 835
+    components:
+    - type: Transform
+      pos: -2.5,-16.5
+      parent: 1
+  - uid: 836
+    components:
+    - type: Transform
+      pos: -0.5,-16.5
+      parent: 1
+  - uid: 837
+    components:
+    - type: Transform
+      pos: 1.5,-16.5
+      parent: 1
+  - uid: 838
+    components:
+    - type: Transform
+      pos: -1.5,-17.5
+      parent: 1
+  - uid: 839
+    components:
+    - type: Transform
+      pos: 0.5,-17.5
       parent: 1
 ...

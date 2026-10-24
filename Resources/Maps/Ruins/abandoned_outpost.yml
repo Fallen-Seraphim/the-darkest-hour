@@ -1266,7 +1266,7 @@ entities:
     - type: ContainerContainer
       containers:
         entity_storage: !type:Container
-          ents:
+          ents: []
           showEnts: False
           occludes: True
         paper_label: !type:ContainerSlot
@@ -1283,7 +1283,7 @@ entities:
     - type: ContainerContainer
       containers:
         entity_storage: !type:Container
-          ents:
+          ents: []
           showEnts: False
           occludes: True
         paper_label: !type:ContainerSlot

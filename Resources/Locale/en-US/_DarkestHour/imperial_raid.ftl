@@ -51,3 +51,5 @@ dh-imperial-job-weapons = Imperial Marine weapons specialist
 dh-imperial-job-medic = Imperial Marine field medic
 dh-imperial-job-machinegunner = Imperial Marine machinegunner
 dh-imperial-job-rifleman = Imperial Marine rifleman
+
+dh-admin-verb-make-imperial-marine = Make the target an Imperial marine of the raid. The IL-7 Gladius arrives once per round; everyone made a marine spawns aboard it.

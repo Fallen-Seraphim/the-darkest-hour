@@ -628,3 +628,27 @@
     tags:
     - NuclearOperative
     - SyndicateAgent
+
+# Морпехи Рейда, назначенные админом из меню антагонистов: шаттл IL-7 Gladius прилетает один раз на раунд,
+# все назначенные появляются на нём. Само правило никого не выбирает и гост-ролей не создаёт.
+- type: entity
+  parent: [ BaseAntagGhostRoleRule, BaseNukeopsRule ]
+  id: DHImperialRaidSpawn
+  components:
+  - type: RuleGrids
+  - type: LoadMapRule
+    gridPath: /Maps/Shuttles/infiltrator.yml
+  - type: NukeopsRule
+    roundEndBehavior: Nothing
+  - type: AntagSelection
+    antags:
+    - !type:DHNoAntagCount
+      proto: DHImperialCommander
+    - !type:DHNoAntagCount
+      proto: DHImperialWeaponsSpecialist
+    - !type:DHNoAntagCount
+      proto: DHImperialFieldMedic
+    - !type:DHNoAntagCount
+      proto: DHImperialMachinegunner
+    - !type:DHNoAntagCount
+      proto: DHImperialRifleman

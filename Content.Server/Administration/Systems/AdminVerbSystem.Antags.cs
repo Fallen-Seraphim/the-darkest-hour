@@ -31,8 +31,17 @@ public sealed partial class AdminVerbSystem
     private static readonly ProtoId<AntagSpecifierPrototype> TraitorSpec = "Traitor";
     private static readonly EntProtoId InitialInfectedRule = "Zombie";
     private static readonly ProtoId<AntagSpecifierPrototype> InitialInfectedSpec = "InitialInfected";
-    private static readonly EntProtoId LoneOpRule = "LoneOpsSpawn";
-    private static readonly ProtoId<AntagSpecifierPrototype> LoneOpSpec = "LoneOp";
+
+    // DarkestHour: морпехи Имперского Рейда в меню антагонистов админа
+    private static readonly EntProtoId ImperialRaidRule = "DHImperialRaidSpawn";
+    private static readonly (ProtoId<AntagSpecifierPrototype> Spec, string Name, string Icon)[] ImperialMarines =
+    {
+        ("DHImperialCommander", "dh-imperial-commander-name", "ImperialCommander"),
+        ("DHImperialWeaponsSpecialist", "dh-imperial-weapons-name", "ImperialWeapons"),
+        ("DHImperialFieldMedic", "dh-imperial-medic-name", "ImperialMedic"),
+        ("DHImperialMachinegunner", "dh-imperial-machinegunner-name", "ImperialMachinegunner"),
+        ("DHImperialRifleman", "dh-imperial-rifleman-name", "ImperialRifleman"),
+    };
     private static readonly EntProtoId RevsRule = "Revolutionary";
     private static readonly ProtoId<AntagSpecifierPrototype> RevsSpec = "HeadRev";
     private static readonly EntProtoId ThiefRule = "Thief";
@@ -107,20 +116,26 @@ public sealed partial class AdminVerbSystem
         };
         args.Verbs.Add(zombie);
 
-        var nukeOpName = Loc.GetString("admin-verb-text-make-nuclear-operative");
-        Verb nukeOp = new()
+        // DarkestHour: вместо ядерного оперативника-одиночки — морпехи Имперского Рейда (по подклассу),
+        // все на одном шаттле IL-7 Gladius (правило DHImperialRaidSpawn).
+        foreach (var (spec, nameLoc, iconState) in ImperialMarines)
         {
-            Text = nukeOpName,
-            Category = VerbCategory.Antag,
-            Icon = new SpriteSpecifier.Rsi(new("/Textures/Clothing/Head/Hardsuits/syndicate.rsi"), "icon"),
-            Act = () =>
+            var marineName = Loc.GetString(nameLoc);
+            var marineSpec = spec;
+            Verb marine = new()
             {
-                _antag.ForceMakeAntag<NukeopsRuleComponent>(targetPlayer, LoneOpRule, LoneOpSpec);
-            },
-            Impact = LogImpact.High,
-            Message = string.Join(": ", nukeOpName, Loc.GetString("admin-verb-make-nuclear-operative")),
-        };
-        args.Verbs.Add(nukeOp);
+                Text = marineName,
+                Category = VerbCategory.Antag,
+                Icon = new SpriteSpecifier.Rsi(new("/Textures/_DarkestHour/Interface/Misc/job_icons.rsi"), iconState),
+                Act = () =>
+                {
+                    _antag.ForceMakeAntag<NukeopsRuleComponent>(targetPlayer, ImperialRaidRule, marineSpec);
+                },
+                Impact = LogImpact.High,
+                Message = string.Join(": ", marineName, Loc.GetString("dh-admin-verb-make-imperial-marine")),
+            };
+            args.Verbs.Add(marine);
+        }
 
         var pirateName = Loc.GetString("admin-verb-text-make-pirate");
         Verb pirate = new()

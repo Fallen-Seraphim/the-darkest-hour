@@ -1066,7 +1066,7 @@ entities:
     - type: ContainerContainer
       containers:
         machine_board: !type:Container
-          ents:
+          ents: []
         machine_parts: !type:Container
           ents:
           - 233
@@ -1082,7 +1082,7 @@ entities:
     - type: ContainerContainer
       containers:
         machine_board: !type:Container
-          ents:
+          ents: []
         machine_parts: !type:Container
           ents:
           - 237
