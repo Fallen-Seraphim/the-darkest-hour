@@ -2,7 +2,7 @@
   id: MothershipCore
   name: roles-antag-mothership-core-name
   antagonist: true
-  setPreference: true
+  setPreference: false # DarkestHour: антагонисты вырезаны, остались только Республика и Империя
   objective: roles-antag-mothership-core-objective
   guides: [ Xenoborgs ]
   tags:
@@ -23,7 +23,7 @@
   id: Xenoborg
   name: roles-antag-xenoborg-name
   antagonist: true
-  setPreference: true
+  setPreference: false # DarkestHour: антагонисты вырезаны, остались только Республика и Империя
   objective: roles-antag-xenoborg-objective
   guides: [ Xenoborgs ]
   tags:
