@@ -77,7 +77,6 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
     /// <summary>
     /// Tracks if first initialization has happened
     /// </summary>
-    private bool _firstInitialization = true;
 
     /// <summary>
     /// Frontier: the distance between elements on the grid.
@@ -96,7 +95,6 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
 
     private ParallaxControl _parallaxControl; // Frontier: Parallax control for the background
 
-    private float _verticalScrollSpeed = 50; // Frontier: Allow mouse scroll
 
     public FancyResearchConsoleMenu()
     {
@@ -291,7 +289,6 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
 
         DragContainer.RemoveAllChildren();
         InfoContainer.RemoveAllChildren();
-        _firstInitialization = true;
     }
 
     private sealed partial class DisciplineButton(TechDisciplinePrototype proto) : Button

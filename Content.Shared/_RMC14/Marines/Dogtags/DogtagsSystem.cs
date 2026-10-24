@@ -15,7 +15,7 @@ using Robust.Shared.Utility;
 
 namespace Content.Shared._RMC14.Marines.Dogtags;
 
-public sealed class DogtagsSystem : EntitySystem
+public sealed partial class DogtagsSystem : EntitySystem // DarkestHour: partial (RA0049 — ошибка в Release)
 {
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private MobStateSystem _mob = default!;

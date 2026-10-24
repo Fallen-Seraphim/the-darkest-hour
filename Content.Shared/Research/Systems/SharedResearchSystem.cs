@@ -12,7 +12,7 @@ namespace Content.Shared.Research.Systems;
 public abstract partial class SharedResearchSystem : EntitySystem
 {
     // DarkestHour: дерево технологий без блокировки дисциплин.
-    private const bool DarkestHourNoLockout = true;
+    private static readonly bool DarkestHourNoLockout = true; // static readonly, не const: иначе Release ругается на недостижимый код
 
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private SharedLatheSystem _lathe = default!;
