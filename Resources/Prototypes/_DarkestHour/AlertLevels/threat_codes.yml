@@ -89,7 +89,9 @@
   selectable: false
   disableSelection: true
   sound:
-    path: /Audio/Misc/epsilon.ogg
+    path: /Audio/_DarkestHour/Announcements/deadend.ogg
+    params:
+      volume: -4
   color: "#7B2FBE"
   emergencyLightColor: "#7B2FBE"
   forceEnableEmergencyLights: true
