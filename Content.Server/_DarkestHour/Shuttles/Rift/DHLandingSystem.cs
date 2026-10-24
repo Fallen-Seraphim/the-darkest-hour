@@ -36,8 +36,8 @@ public sealed partial class DHLandedComponent : Component
 }
 
 /// <summary>
-/// Консоль посадки (спуск на поверхность тела и взлёт на орбиту) и газозаборник (набор газа в верхних слоях
-/// газовых гигантов).
+/// Консоль посадки (орбита → атмосфера → поверхность и обратно; переходы — DHLandingSystem.Atmosphere), прыжки
+/// с парашютом из кораблей в атмосфере и газозаборник (набор газа в верхних слоях газовых гигантов).
 /// </summary>
 public sealed partial class DHLandingSystem : EntitySystem
 {
@@ -79,12 +79,16 @@ public sealed partial class DHLandingSystem : EntitySystem
             subs.Event<DHLandingSelectBodyMessage>(OnSelectBody);
             subs.Event<DHLandingDescendMessage>(OnDescend);
             subs.Event<DHLandingAscendMessage>(OnAscend);
+            subs.Event<DHLandingLandMessage>(OnLand);
         });
+
+        InitializeAtmosphere();
     }
 
     private void OnRoundRestart(RoundRestartCleanupEvent ev)
     {
         _surfaces.Clear();
+        _atmospheres.Clear();
     }
 
     public override void Update(float frameTime)
@@ -92,6 +96,8 @@ public sealed partial class DHLandingSystem : EntitySystem
         base.Update(frameTime);
 
         var now = _timing.CurTime;
+        UpdateAtmosphere(now);
+
         if (now < _nextUpdate)
             return;
 
@@ -211,7 +217,13 @@ public sealed partial class DHLandingSystem : EntitySystem
         string status;
         var canAct = false;
 
-        if (map != null && TryComp<DHPlanetSurfaceMapComponent>(map, out var surface))
+        string? atmosphereName = null;
+
+        if (shuttle != null && TryComp<DHAtmosphereTransitComponent>(shuttle, out var transit))
+        {
+            status = Loc.GetString(transit.Status, ("seconds", Math.Max(0, (int) (transit.At - _timing.CurTime).TotalSeconds)));
+        }
+        else if (map != null && TryComp<DHPlanetSurfaceMapComponent>(map, out var surface))
         {
             surfaceName = TryGetBody(surface.System, surface.Body, out _, out var body)
                 ? Loc.GetString(body.Name)
@@ -220,7 +232,25 @@ public sealed partial class DHLandingSystem : EntitySystem
             CollectGrids(map.Value, shuttle, grids);
             canAct = CanFly(shuttle, out status);
             if (canAct)
-                status = Loc.GetString("dh-landing-ready-ascend");
+                status = Loc.GetString("dh-landing-ready-take-off");
+        }
+        else if (map != null && shuttle != null && TryComp<DHPlanetAtmosphereMapComponent>(map, out var atmosphere))
+        {
+            atmosphereName = TryGetBody(atmosphere.System, atmosphere.Body, out _, out var body)
+                ? Loc.GetString(body.Name)
+                : MetaData(map.Value).EntityName;
+
+            // Поверхность под кораблём и сам корабль (координаты слоя атмосферы — те же, что на поверхности).
+            if (GetSurface(atmosphere.System, atmosphere.Body) is { } surfaceMap)
+                CollectGrids(surfaceMap, null, grids);
+
+            TryComp<IFFComponent>(shuttle, out var iff);
+            grids.Add(new DHRiftNavGrid(_shuttle.GetIFFLabel(shuttle.Value, true, iff) ?? string.Empty,
+                _transform.GetWorldPosition(shuttle.Value), _shuttle.GetIFFColor(shuttle.Value, true, iff), true));
+
+            canAct = CanFly(shuttle, out status);
+            if (canAct)
+                status = Loc.GetString("dh-landing-ready-hover");
         }
         else if (_celestial.TryGetSystem(map, out var system, out var origin) && shuttle != null)
         {
@@ -269,8 +299,8 @@ public sealed partial class DHLandingSystem : EntitySystem
             status = shuttle == null ? Loc.GetString("dh-rift-nav-no-shuttle") : Loc.GetString("dh-landing-no-bodies");
         }
 
-        _ui.SetUiState(ent.Owner, DHLandingUiKey.Key, new DHLandingState(surfaceName, bodies, ent.Comp.SelectedBody,
-            grids, ent.Comp.ZoneSize, ent.Comp.LandingRange, status, canAct));
+        _ui.SetUiState(ent.Owner, DHLandingUiKey.Key, new DHLandingState(surfaceName, atmosphereName, bodies,
+            ent.Comp.SelectedBody, grids, ent.Comp.ZoneSize, ent.Comp.LandingRange, status, canAct));
     }
 
     private void CollectGrids(EntityUid map, EntityUid? self, List<DHRiftNavGrid> grids)
@@ -298,6 +328,12 @@ public sealed partial class DHLandingSystem : EntitySystem
         if (shuttle == null || !TryComp<ShuttleComponent>(shuttle, out var comp) || !comp.Enabled)
         {
             status = Loc.GetString("dh-rift-nav-no-shuttle");
+            return false;
+        }
+
+        if (HasComp<DHAtmosphereTransitComponent>(shuttle))
+        {
+            status = Loc.GetString("dh-landing-in-transit");
             return false;
         }
 
@@ -346,25 +382,23 @@ public sealed partial class DHLandingSystem : EntitySystem
             return;
         }
 
-        if (GetOrCreateSurface(system, body) is not { } surfaceMap)
+        // Поверхность создаётся заранее: из атмосферы видно, что внизу, и на неё прыгают с парашютом.
+        if (GetOrCreateSurface(system, body) == null || GetOrCreateAtmosphere(system, body) is not { } atmosphereMap)
             return;
 
-        var coordinates = new EntityCoordinates(surfaceMap, args.Position);
+        var coordinates = new EntityCoordinates(atmosphereMap, args.Position);
         if (!_rift.ExitFree(shuttle.Value, coordinates))
         {
             _popup.PopupEntity(Loc.GetString("dh-rift-nav-exit-blocked"), ent, PopupType.MediumCaution);
             return;
         }
 
-        if (TryComp<PhysicsComponent>(shuttle, out var physics))
-            coordinates = coordinates.Offset(-physics.LocalCenter);
-
         var landed = EnsureComp<DHLandedComponent>(shuttle.Value);
         landed.System = system.ID;
         landed.Body = body.Id;
         landed.OrbitPosition = position;
 
-        _shuttle.FTLToCoordinates(shuttle.Value, Comp<ShuttleComponent>(shuttle.Value), coordinates, Angle.Zero);
+        StartTransit(shuttle.Value, coordinates, DescentTime, "dh-landing-transit-descent");
         _popup.PopupEntity(Loc.GetString("dh-landing-descending", ("body", Loc.GetString(body.Name))), ent, PopupType.Medium);
         UpdateUi(ent);
     }
@@ -379,8 +413,32 @@ public sealed partial class DHLandingSystem : EntitySystem
         }
 
         var map = Transform(shuttle!.Value).MapUid;
-        if (!TryComp<DHPlanetSurfaceMapComponent>(map, out var surface) ||
-            !TryGetBody(surface.System, surface.Body, out var system, out var body) ||
+
+        // С поверхности — взлёт в атмосферу над тем же местом.
+        if (TryComp<DHPlanetSurfaceMapComponent>(map, out var surface))
+        {
+            if (!TryGetBody(surface.System, surface.Body, out var surfaceSystem, out var surfaceBody) ||
+                GetOrCreateAtmosphere(surfaceSystem, surfaceBody) is not { } atmosphereMap)
+            {
+                return;
+            }
+
+            var above = new EntityCoordinates(atmosphereMap, ShuttleCenter(shuttle.Value));
+            if (!_rift.ExitFree(shuttle.Value, above))
+            {
+                _popup.PopupEntity(Loc.GetString("dh-rift-nav-exit-blocked"), ent, PopupType.MediumCaution);
+                return;
+            }
+
+            StartTransit(shuttle.Value, above, TakeOffTime, "dh-landing-transit-take-off");
+            _popup.PopupEntity(Loc.GetString("dh-landing-taking-off"), ent, PopupType.Medium);
+            UpdateUi(ent);
+            return;
+        }
+
+        // Из атмосферы — на орбиту.
+        if (!TryComp<DHPlanetAtmosphereMapComponent>(map, out var atmosphere) ||
+            !TryGetBody(atmosphere.System, atmosphere.Body, out var system, out var body) ||
             SystemMap(system.ID) is not { } systemMap ||
             !_celestial.TryGetSystem(systemMap, out _, out var origin))
         {
@@ -406,12 +464,38 @@ public sealed partial class DHLandingSystem : EntitySystem
             return;
         }
 
-        if (TryComp<PhysicsComponent>(shuttle, out var physics))
-            coordinates = coordinates.Offset(-physics.LocalCenter);
-
         RemComp<DHLandedComponent>(shuttle.Value);
-        _shuttle.FTLToCoordinates(shuttle.Value, Comp<ShuttleComponent>(shuttle.Value), coordinates, Angle.Zero);
+        StartTransit(shuttle.Value, coordinates, ClimbTime, "dh-landing-transit-climb");
         _popup.PopupEntity(Loc.GetString("dh-landing-ascending"), ent, PopupType.Medium);
+        UpdateUi(ent);
+    }
+
+    /// <summary>Из атмосферы — посадка на поверхность под кораблём.</summary>
+    private void OnLand(Entity<DHLandingConsoleComponent> ent, ref DHLandingLandMessage args)
+    {
+        var shuttle = Transform(ent).GridUid;
+        if (!CanFly(shuttle, out var status))
+        {
+            _popup.PopupEntity(status, ent, PopupType.MediumCaution);
+            return;
+        }
+
+        if (!TryComp<DHPlanetAtmosphereMapComponent>(Transform(shuttle!.Value).MapUid, out var atmosphere) ||
+            !TryGetBody(atmosphere.System, atmosphere.Body, out var system, out var body) ||
+            GetOrCreateSurface(system, body) is not { } surfaceMap)
+        {
+            return;
+        }
+
+        var below = new EntityCoordinates(surfaceMap, ShuttleCenter(shuttle.Value));
+        if (!_rift.ExitFree(shuttle.Value, below))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-landing-site-blocked"), ent, PopupType.MediumCaution);
+            return;
+        }
+
+        StartTransit(shuttle.Value, below, LandTime, "dh-landing-transit-land");
+        _popup.PopupEntity(Loc.GetString("dh-landing-landing", ("body", Loc.GetString(body.Name))), ent, PopupType.Medium);
         UpdateUi(ent);
     }
 

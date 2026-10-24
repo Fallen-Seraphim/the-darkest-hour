@@ -6,14 +6,15 @@ using Robust.Client.UserInterface.CustomControls;
 namespace Content.Client._DarkestHour.Shuttles.Rift;
 
 /// <summary>
-/// Консоль посадки: на орбите — тела в пределах досягаемости и зона посадки на поверхности выбранного тела;
-/// на поверхности — взлёт на орбиту.
+/// Консоль посадки: на орбите — тела в пределах досягаемости и точка спуска в атмосферу выбранного тела;
+/// в атмосфере — посадка под кораблём или подъём на орбиту; на поверхности — взлёт в атмосферу.
 /// </summary>
 public sealed class DHLandingWindow : DefaultWindow
 {
     public event Action<string>? OnSelectBody;
     public event Action<string, Vector2>? OnDescend;
     public event Action? OnAscend;
+    public event Action? OnLand;
 
     private readonly Label _header = new();
     private readonly BoxContainer _bodies = new() { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 4 };
@@ -21,6 +22,7 @@ public sealed class DHLandingWindow : DefaultWindow
     private readonly Label _target = new();
     private readonly Label _status = new();
     private readonly Button _action = new() { HorizontalExpand = true };
+    private readonly Button _climb = new() { HorizontalExpand = true, Visible = false };
 
     private DHLandingState? _state;
     private bool? _onSurface;
@@ -57,6 +59,7 @@ public sealed class DHLandingWindow : DefaultWindow
         right.AddChild(_target);
         right.AddChild(_status);
         right.AddChild(_action);
+        right.AddChild(_climb);
         root.AddChild(right);
 
         Contents.AddChild(root);
@@ -69,9 +72,12 @@ public sealed class DHLandingWindow : DefaultWindow
 
             if (_state.SurfaceBody != null)
                 OnAscend?.Invoke();
+            else if (_state.AtmosphereBody != null)
+                OnLand?.Invoke();
             else if (_state.SelectedBody != null && _zone.Target is { } target)
                 OnDescend?.Invoke(_state.SelectedBody, target);
         };
+        _climb.OnPressed += _ => OnAscend?.Invoke();
     }
 
     public void UpdateState(DHLandingState state)
@@ -79,7 +85,7 @@ public sealed class DHLandingWindow : DefaultWindow
         var previousBody = _state?.SelectedBody;
         _state = state;
 
-        var onSurface = state.SurfaceBody != null;
+        var onSurface = state.SurfaceBody != null || state.AtmosphereBody != null;
         if (_onSurface != onSurface || previousBody != state.SelectedBody)
         {
             _zone.Target = null;
@@ -91,9 +97,13 @@ public sealed class DHLandingWindow : DefaultWindow
         _zone.Grids = state.SurfaceGrids;
 
         _bodies.RemoveAllChildren();
-        if (onSurface)
+        if (state.SurfaceBody != null)
         {
-            _header.Text = Loc.GetString("dh-landing-on-surface", ("body", state.SurfaceBody!));
+            _header.Text = Loc.GetString("dh-landing-on-surface", ("body", state.SurfaceBody));
+        }
+        else if (state.AtmosphereBody != null)
+        {
+            _header.Text = Loc.GetString("dh-landing-in-atmosphere", ("body", state.AtmosphereBody));
         }
         else
         {
@@ -124,11 +134,22 @@ public sealed class DHLandingWindow : DefaultWindow
         if (_state == null)
             return;
 
+        _climb.Visible = _state.AtmosphereBody != null;
         if (_state.SurfaceBody != null)
         {
             _target.Text = Loc.GetString("dh-landing-surface-hint");
-            _action.Text = Loc.GetString("dh-landing-ascend");
+            _action.Text = Loc.GetString("dh-landing-take-off");
             _action.Disabled = !_state.CanAct;
+            return;
+        }
+
+        if (_state.AtmosphereBody != null)
+        {
+            _target.Text = Loc.GetString("dh-landing-atmosphere-hint");
+            _action.Text = Loc.GetString("dh-landing-land");
+            _action.Disabled = !_state.CanAct;
+            _climb.Text = Loc.GetString("dh-landing-ascend");
+            _climb.Disabled = !_state.CanAct;
             return;
         }
 

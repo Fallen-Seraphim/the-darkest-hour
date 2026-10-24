@@ -284,6 +284,8 @@
     - DHMagazine145x114Std
     - Binoculars
     - PinpointerSyndicateNuclear
+    - DHDropBeacon
+    - DHDropBeacon
 
 - type: startingGear
   parent: DHImperialGearBase

@@ -132,8 +132,8 @@ public enum DHInterceptorKind : byte
 }
 
 /// <summary>
-/// ПВО: перехватывает тяжёлые снаряды противника — на своём гриде (корабль) или в радиусе на поверхности (планета).
-/// Каждая попытка тратит заряд.
+/// ПВО: перехватывает тяжёлые снаряды противника — на своём гриде (корабль) или в радиусе на поверхности (планета);
+/// с поверхности ещё и бьёт по авианосцу, висящему в атмосфере над ней. Каждая попытка тратит заряд.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
 public sealed partial class DHInterceptorComponent : Component
@@ -158,6 +158,21 @@ public sealed partial class DHInterceptorComponent : Component
     /// <summary>Между попытками.</summary>
     [DataField]
     public TimeSpan Cooldown = TimeSpan.FromSeconds(6);
+
+    /// <summary>
+    /// На поверхности: дальность огня по авианосцу, висящему в атмосфере над этим местом (по горизонтали), м.
+    /// 0 — не стреляет по воздушным целям.
+    /// </summary>
+    [DataField]
+    public float AirRange;
+
+    /// <summary>Шанс попадания по авианосцу в атмосфере одним выстрелом.</summary>
+    [DataField]
+    public float AirChance = 0.5f;
+
+    /// <summary>Урон прочности авианосца при попадании.</summary>
+    [DataField]
+    public float AirDamage = 2f;
 
     [ViewVariables]
     public TimeSpan NextReady;

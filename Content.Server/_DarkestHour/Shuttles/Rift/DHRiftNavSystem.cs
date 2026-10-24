@@ -106,6 +106,9 @@ public sealed partial class DHRiftNavSystem : EntitySystem
         if (map != null && TryComp<DHPlanetSurfaceMapComponent>(map, out var surface))
             return surface.System;
 
+        if (map != null && TryComp<DHPlanetAtmosphereMapComponent>(map, out var atmosphere))
+            return atmosphere.System;
+
         return HomeSystem();
     }
 
@@ -180,7 +183,8 @@ public sealed partial class DHRiftNavSystem : EntitySystem
             return false;
         }
 
-        if (HasComp<DHPlanetSurfaceMapComponent>(Transform(shuttle.Value).MapUid))
+        if (HasComp<DHPlanetSurfaceMapComponent>(Transform(shuttle.Value).MapUid) ||
+            HasComp<DHPlanetAtmosphereMapComponent>(Transform(shuttle.Value).MapUid))
         {
             status = Loc.GetString("dh-landing-use-console");
             return false;

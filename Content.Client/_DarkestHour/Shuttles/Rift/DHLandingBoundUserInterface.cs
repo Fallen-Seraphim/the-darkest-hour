@@ -21,6 +21,7 @@ public sealed class DHLandingBoundUserInterface : BoundUserInterface
         _window.OnSelectBody += body => SendMessage(new DHLandingSelectBodyMessage(body));
         _window.OnDescend += (body, position) => SendMessage(new DHLandingDescendMessage(body, position));
         _window.OnAscend += () => SendMessage(new DHLandingAscendMessage());
+        _window.OnLand += () => SendMessage(new DHLandingLandMessage());
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)

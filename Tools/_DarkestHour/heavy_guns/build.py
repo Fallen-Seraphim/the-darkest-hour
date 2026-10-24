@@ -1,6 +1,6 @@
 """Sprites of the heavy guns of the Assault mode: breeches and barrels (artillery and anti-orbital guns), shells with
-four warheads, air-defence interceptors (missile launcher, missile silo, twin 30 mm autocannon), their ammunition and
-the red target marker of an incoming strike.
+four warheads, air-defence interceptors (missile launcher, missile silo, twin 30 mm autocannon), their ammunition,
+the red target marker of an incoming strike and the paradrop beacon.
 
 All art faces north (rotation 0); barrels are drawn centred on their tile and reach forward over the tiles ahead.
 
@@ -229,6 +229,28 @@ def ammo_box():
     return img
 
 
+def beacon():
+    img = Image.new('RGBA', (32, 32))
+    d = ImageDraw.Draw(img)
+    # tripod legs, body and antenna
+    d.line((16, 18, 9, 28), OUT, 2)
+    d.line((16, 18, 23, 28), OUT, 2)
+    d.line((16, 18, 16, 29), OUT, 2)
+    rect(d, (12, 11, 19, 19), OLIVE, OUT)
+    rect(d, (13, 12, 18, 13), OLIVE_L)
+    d.line((16, 3, 16, 11), STEEL_D)
+    rect(d, (15, 2, 17, 4), STEEL_DD)
+    return img
+
+
+def beacon_light():
+    img = Image.new('RGBA', (32, 32))
+    d = ImageDraw.Draw(img)
+    rect(d, (14, 14, 17, 16), (255, 70, 50, 255))
+    rect(d, (15, 2, 17, 4), (255, 120, 90, 255))
+    return img
+
+
 def marker():
     img = Image.new('RGBA', (32, 32))
     d = ImageDraw.Draw(img)
@@ -264,6 +286,12 @@ def main():
     states.append(('inhand-right', held(BRASS), 4))
     save_rsi(os.path.join(ITEMS, 'shells.rsi'), (32, 32), states)
 
+    save_rsi(os.path.join(ITEMS, 'drop_beacon.rsi'), (32, 32), [
+        ('icon', beacon(), 1),
+        ('light', beacon_light(), 1),
+        ('inhand-left', held(OLIVE), 4),
+        ('inhand-right', held(OLIVE), 4),
+    ])
     save_rsi(os.path.join(ITEMS, 'interceptor_ammo.rsi'), (32, 32), [
         ('missile', missile(), 1),
         ('box', ammo_box(), 1),

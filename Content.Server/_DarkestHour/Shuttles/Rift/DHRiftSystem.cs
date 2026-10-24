@@ -105,8 +105,9 @@ public sealed partial class DHRiftSystem : EntitySystem
     {
         RemComp<DHRiftJumpPendingComponent>(ev.Shuttle);
 
-        // С поверхности тела взлетают только консолью посадки.
-        if (HasComp<DHPlanetSurfaceMapComponent>(Transform(ev.Shuttle).MapUid))
+        // С поверхности тела и из его атмосферы уходят только консолью посадки.
+        if (HasComp<DHPlanetSurfaceMapComponent>(Transform(ev.Shuttle).MapUid) ||
+            HasComp<DHPlanetAtmosphereMapComponent>(Transform(ev.Shuttle).MapUid))
         {
             _popup.PopupEntity(Loc.GetString("dh-landing-use-console"), ev.Console, PopupType.MediumCaution);
             ev.Cancelled = true;

@@ -447,6 +447,54 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         return true;
     }
 
+    /// <summary>ПКО: корабль на орбите тела не выше дальности или в атмосфере тела.</summary>
+    private bool InReach(EntityUid target, DHStarSystemPrototype system, DHCelestialBody body, EntityUid systemMap,
+        Vector2 origin, float range)
+    {
+        var map = Transform(target).MapUid;
+        if (map != null && map == _landing.GetAtmosphere(system.ID, body.Id))
+            return true;
+
+        return map == systemMap &&
+               Vector2.Distance(_transform.GetWorldPosition(target) - origin, body.Position) - body.Radius <= range;
+    }
+
+    /// <summary>Артиллерия: тела под кораблём — с орбиты в пределах дальности или тело, в атмосфере которого он висит.</summary>
+    private List<(DHStarSystemPrototype System, DHCelestialBody Body, float Altitude)> ArtilleryBodies(
+        Entity<DHHeavyGunConsoleComponent> ent)
+    {
+        var result = new List<(DHStarSystemPrototype, DHCelestialBody, float)>();
+        var xform = Transform(ent);
+        if (xform.GridUid is not { } grid)
+            return result;
+
+        if (TryComp<DHPlanetAtmosphereMapComponent>(xform.MapUid, out var atmosphere) &&
+            _celestial.GetSystemMap(atmosphere.System) is { } atmosphereSystemMap &&
+            _celestial.TryGetSystem(atmosphereSystemMap, out var atmosphereSystem, out _) &&
+            atmosphereSystem.Bodies.Find(b => b.Id == atmosphere.Body) is { } below &&
+            _landing.GetSurface(atmosphereSystem.ID, below.Id) != null)
+        {
+            result.Add((atmosphereSystem, below, DHLandingSystem.HoverAltitude));
+            return result;
+        }
+
+        if (!_celestial.TryGetSystem(xform.MapUid, out var system, out var origin))
+            return result;
+
+        var position = _transform.GetWorldPosition(grid) - origin;
+        foreach (var body in system.Bodies)
+        {
+            if (_landing.GetSurface(system.ID, body.Id) == null)
+                continue;
+
+            var altitude = Vector2.Distance(position, body.Position) - body.Radius;
+            if (altitude <= ent.Comp.ArtilleryRange)
+                result.Add((system, body, altitude));
+        }
+
+        return result;
+    }
+
     private void UpdateUi(Entity<DHHeavyGunConsoleComponent> ent)
     {
         var guns = new List<DHGunEntry>();
@@ -462,7 +510,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
 
         if (ent.Comp.Role == DHGunRole.AntiOrbital)
         {
-            if (TryGetSurfaceBody(ent, out _, out var body, out var systemMap, out var origin))
+            if (TryGetSurfaceBody(ent, out var surfaceSystem, out var body, out var systemMap, out var origin))
             {
                 var query = EntityQueryEnumerator<ShuttleComponent, TransformComponent>();
                 while (query.MoveNext(out var uid, out _, out var xform))
@@ -478,6 +526,20 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
                     targets.Add(new DHGunTargetEntry(GetNetEntity(uid), label, altitude));
                 }
 
+                // Корабли в атмосфере над этим телом.
+                if (_landing.GetAtmosphere(surfaceSystem.ID, body.Id) is { } atmosphereMap)
+                {
+                    var hovering = EntityQueryEnumerator<ShuttleComponent, TransformComponent>();
+                    while (hovering.MoveNext(out var uid, out _, out var xform))
+                    {
+                        if (xform.MapUid != atmosphereMap || !HasComp<MapGridComponent>(uid))
+                            continue;
+
+                        var label = _shuttle.GetIFFLabel(uid) ?? Name(uid);
+                        targets.Add(new DHGunTargetEntry(GetNetEntity(uid), label, DHLandingSystem.HoverAltitude));
+                    }
+                }
+
                 targets.Sort((a, b) => a.Altitude.CompareTo(b.Altitude));
                 status2 = targets.Count == 0
                     ? Loc.GetString("dh-heavy-gun-no-targets")
@@ -490,18 +552,13 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         }
         else
         {
-            var shipMap = Transform(ent).MapUid;
-            if (Transform(ent).GridUid is { } grid && _celestial.TryGetSystem(shipMap, out var system, out var origin))
+            var reachable = ArtilleryBodies(ent);
+            if (reachable.Count > 0 || TryComp<DHPlanetAtmosphereMapComponent>(Transform(ent).MapUid, out _) ||
+                _celestial.TryGetSystem(Transform(ent).MapUid, out _, out _))
             {
-                var position = _transform.GetWorldPosition(grid) - origin;
-                foreach (var body in system.Bodies)
+                foreach (var (_, body, altitude) in reachable)
                 {
-                    if (_landing.GetSurface(system.ID, body.Id) == null)
-                        continue;
-
-                    var altitude = Vector2.Distance(position, body.Position) - body.Radius;
-                    if (altitude <= ent.Comp.ArtilleryRange)
-                        bodies.Add(new DHGunBodyEntry(body.Id, Loc.GetString(body.Name), altitude));
+                    bodies.Add(new DHGunBodyEntry(body.Id, Loc.GetString(body.Name), altitude));
                 }
 
                 if (ent.Comp.SelectedBody == null || bodies.Find(b => b.Id == ent.Comp.SelectedBody) == null)
@@ -550,10 +607,8 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         if (ent.Comp.Role == DHGunRole.AntiOrbital)
         {
             if (args.Target is not { } targetNet || !TryGetEntity(targetNet, out var target) ||
-                !TryGetSurfaceBody(ent, out _, out var body, out var systemMap, out var origin) ||
-                Transform(target.Value).MapUid != systemMap ||
-                Vector2.Distance(_transform.GetWorldPosition(target.Value) - origin, body.Position) - body.Radius >
-                ent.Comp.OrbitalRange)
+                !TryGetSurfaceBody(ent, out var targetSystem, out var body, out var systemMap, out var origin) ||
+                !InReach(target.Value, targetSystem, body, systemMap, origin, ent.Comp.OrbitalRange))
             {
                 _popup.PopupEntity(Loc.GetString("dh-heavy-gun-bad-target"), ent, args.Actor);
                 return;
@@ -563,13 +618,10 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         }
         else
         {
-            var grid = Transform(ent).GridUid;
-            if (args.Body is not { } bodyId || grid == null ||
-                !_celestial.TryGetSystem(Transform(ent).MapUid, out var system, out var origin) ||
-                system.Bodies.Find(b => b.Id == bodyId) is not { } body ||
-                _landing.GetSurface(system.ID, body.Id) is not { } surface ||
-                Vector2.Distance(_transform.GetWorldPosition(grid.Value) - origin, body.Position) - body.Radius >
-                ent.Comp.ArtilleryRange ||
+            var bodyId = args.Body;
+            var reachable = ArtilleryBodies(ent).Find(r => r.Body.Id == bodyId);
+            if (bodyId == null || reachable.Body == null ||
+                _landing.GetSurface(reachable.System.ID, reachable.Body.Id) is not { } surface ||
                 !float.IsFinite(args.Position.X) || !float.IsFinite(args.Position.Y) ||
                 MathF.Abs(args.Position.X) > ent.Comp.TargetZone || MathF.Abs(args.Position.Y) > ent.Comp.TargetZone)
             {
@@ -688,11 +740,65 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             UpdateAppearance((uid, comp));
         }
 
+        UpdateAirDefence(now);
+
         var consoles = EntityQueryEnumerator<DHHeavyGunConsoleComponent>();
         while (consoles.MoveNext(out var uid, out var comp))
         {
             if (_ui.IsUiOpen(uid, DHHeavyGunUiKey.Key))
                 UpdateUi((uid, comp));
+        }
+    }
+
+    /// <summary>ПВО на поверхности бьёт по авианосцу, висящему в атмосфере над ней в пределах дальности.</summary>
+    private void UpdateAirDefence(TimeSpan now)
+    {
+        var interceptors = EntityQueryEnumerator<DHInterceptorComponent, TransformComponent>();
+        while (interceptors.MoveNext(out var uid, out var comp, out var xform))
+        {
+            if (comp.AirRange <= 0f || comp.Ammo <= 0 || now < comp.NextReady || !xform.Anchored ||
+                !TryComp<DHPlanetSurfaceMapComponent>(xform.MapUid, out var surface) ||
+                _landing.GetAtmosphere(surface.System, surface.Body) is not { } sky)
+            {
+                continue;
+            }
+
+            var position = _transform.GetWorldPosition(xform);
+            EntityUid? target = null;
+            var carriers = EntityQueryEnumerator<DHAssaultCarrierComponent, TransformComponent>();
+            while (carriers.MoveNext(out var carrier, out var carrierComp, out var carrierXform))
+            {
+                if (carrierComp.Downed || carrierXform.MapUid != sky ||
+                    Vector2.Distance(_transform.GetWorldPosition(carrierXform), position) > comp.AirRange)
+                {
+                    continue;
+                }
+
+                target = carrier;
+                break;
+            }
+
+            if (target is not { } grid || !TryComp<MapGridComponent>(grid, out var gridComp))
+                continue;
+
+            comp.Ammo--;
+            comp.NextReady = now + comp.Cooldown;
+            _audio.PlayPvs(comp.Kind == DHInterceptorKind.Missile ? MissileSound : AutocannonSound, uid,
+                AudioParams.Default.WithMaxDistance(40f));
+
+            if (!_random.Prob(comp.AirChance))
+                continue;
+
+            var tiles = _map.GetAllTiles(grid, gridComp).ToList();
+            if (tiles.Count > 0)
+            {
+                var tile = _random.Pick(tiles);
+                var hit = _map.GridTileToWorld(grid, gridComp, tile.GridIndices);
+                _explosion.QueueExplosion(hit, "Default", comp.Kind == DHInterceptorKind.Missile ? 80f : 30f, 4f, 10f,
+                    null);
+            }
+
+            _assault.DamageCarrier(grid, comp.AirDamage);
         }
     }
 
