@@ -224,7 +224,7 @@
   - type: MindRole
     antagPrototype: HeadRev
     exclusiveAntag: true
-    roleType: TeamAntagonist
+    roleType: DHFrontRevolutionary # DarkestHour: «Your role is United Front of Free Colonies»
     subtype: role-subtype-head-revolutionary
   - type: RevolutionaryRole
 

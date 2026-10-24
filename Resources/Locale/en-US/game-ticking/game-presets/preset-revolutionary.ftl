@@ -1,70 +1,72 @@
 ## Rev Head
 
-roles-antag-rev-head-name = Head Revolutionary
-roles-antag-rev-head-objective = Assume control of the station by converting people to your cause and eliminating all members of Command.
+roles-antag-rev-head-name = Front Commissar
+roles-antag-rev-head-objective = Overthrow the old elite: recruit the crew to the United Front of Free Colonies and remove every member of Command.
 
 head-rev-role-greeting =
-    You are a head revolutionary. You are tasked with removing all of Command from power through death, restraint, or conversion.
-    The Syndicate has sponsored you with a flash that converts others to your cause. Beware, this won't work on those with eye protection or mindshield implants. Remember that Command and Security are implanted with mindshields as part of the hiring process.
-    Viva la revolución!
+    You are a commissar of the United Front of Free Colonies, an infiltrator planted among the crew. Once you sat in a prison of the United Independent Colonies on a firing list; you took the deal instead — a weapon, a one-way ticket and freedom on whatever ground you can tear away from the old elites.
+    Your task is to remove all of Command from power through death, restraint, or recruitment.
+    Your flash recruits the crew to the Front. It won't work on those with eye protection or a Metallistick loyalty implant — Command and Security receive one when they are hired.
+    For liberty and justice for all!
 
 head-rev-briefing =
-    Use flashes to convert people to your cause.
-    Kill, restrain, or convert all members of Command to take over the station.
+    Use your flash to recruit the crew to the Front.
+    Kill, restrain, or recruit all members of Command to seize the station.
+    If the Front wins, the Republic will condemn the station — be ready for its sweep team.
 
-head-rev-break-mindshield = The mindshield implant was destroyed!
+head-rev-break-mindshield = The loyalty implant was destroyed!
 
 ## Rev
 
-roles-antag-rev-name = Revolutionary
-roles-antag-rev-objective = Ensure the safety of the head revolutionaries, and follow their orders to help them assume control of the station.
+roles-antag-rev-name = Front Partisan
+roles-antag-rev-objective = Protect the commissars of the Front and follow their orders to seize the station.
 
-rev-break-control = {$name} has remembered their true allegiance!
+rev-break-control = {$name} has broken with the Front!
 
 rev-role-greeting =
-    You are a revolutionary. You are tasked with protecting the head revolutionaries and helping them take over the station.
-    The revolution must work together to kill, restrain, or convert all members of Command.
-    Viva la revolución!
+    You are a partisan of the United Front of Free Colonies. Protect the commissars and help them seize the station from the old elites.
+    The Front must work together to kill, restrain, or recruit all members of Command.
+    For liberty and justice for all!
 
-rev-briefing = Help the head revolutionaries kill, restrain, or convert all members of Command to take over the station.
+rev-briefing = Help the commissars of the Front kill, restrain, or recruit all members of Command to seize the station.
 
 ## General
 
-rev-title = Revolutionaries
-rev-description = Revolutionaries hidden among the crew are seeking to convert others to their cause and overthrow Command.
+rev-title = Revolution
+rev-description = Commissars of the United Front of Free Colonies hidden among the crew are recruiting partisans to overthrow Command.
 
-rev-not-enough-ready-players = Not enough players readied up for the game. There were {$readyPlayersCount} players readied up out of {$minimumPlayers} needed. Can't start Revolutionaries.
-rev-no-one-ready = No players readied up! Can't start Revolutionaries.
-rev-no-heads = There were no Head Revolutionaries to be selected. Can't start Revolutionaries.
+rev-not-enough-ready-players = Not enough players readied up for the game. There were {$readyPlayersCount} players readied up out of {$minimumPlayers} needed. Can't start the Revolution.
+rev-no-one-ready = No players readied up! Can't start the Revolution.
+rev-no-heads = There were no Front commissars to be selected. Can't start the Revolution.
 
-rev-won = The head revolutionaries survived and successfully seized control of the station.
+rev-won = The commissars of the Front survived and seized the station. The Republic condemned it as a separatist nest.
 
-rev-lost = All head revolutionaries have died, and Command survived.
+rev-lost = All commissars of the Front have died, and Command survived.
 
-rev-stalemate = Both Command and the head revolutionaries have all died. It's a draw.
+rev-stalemate = Both Command and the commissars of the Front have all died. It's a draw.
 
-rev-reverse-stalemate = Both Command and the head revolutionaries survived.
+rev-reverse-stalemate = Both Command and the commissars of the Front survived.
 
 rev-headrev-count = {$initialCount ->
-    [one] There was one head revolutionary:
-    *[other] There were {$initialCount} head revolutionaries:
+    [one] There was one Front commissar:
+    *[other] There were {$initialCount} Front commissars:
 }
 
-rev-headrev-name-user = [color=#5e9cff]{$name}[/color] ([color=gray]{$username}[/color]) converted {$count} {$count ->
+rev-headrev-name-user = [color=#c8322b]{$name}[/color] ([color=gray]{$username}[/color]) converted {$count} {$count ->
     [one] person
     *[other] people
 }
 
-rev-headrev-name = [color=#5e9cff]{$name}[/color] converted {$count} {$count ->
+rev-headrev-name = [color=#c8322b]{$name}[/color] converted {$count} {$count ->
     [one] person
     *[other] people
 }
 
 ## Deconverted window
 
-rev-deconverted-title = Deconverted!
+rev-deconverted-title = Free of the Front!
 rev-deconverted-text =
-    As the last head revolutionary has died, the revolution is over.
+    The last commissar of the Front is dead, and the uprising is over.
 
-    You are no longer a revolutionary, so be nice.
+    You are no longer a partisan of the Front, so be nice.
 rev-deconverted-confirm = Confirm

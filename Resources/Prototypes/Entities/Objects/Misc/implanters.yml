@@ -305,7 +305,7 @@
 
 - type: entity
   id: FakeMindShieldImplanter
-  name: fake mindshield implanter
+  name: fake loyalty implanter
   parent: BaseImplantOnlyImplanterSyndi
   components:
   - type: Implanter
@@ -315,7 +315,7 @@
 
 - type: entity
   id: MindShieldImplanter
-  name: mindshield implanter
+  name: Metallistick loyalty implanter
   parent: BaseImplantOnlyImplanter
   components:
   - type: Implanter

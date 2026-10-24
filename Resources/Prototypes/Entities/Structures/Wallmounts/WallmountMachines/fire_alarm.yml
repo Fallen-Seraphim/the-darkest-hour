@@ -61,6 +61,7 @@
       DHEx: fire_3
       DHIndomitus: fire_3
       DHDeadend: fire_3
+      DHDeadendRevolution: fire_3
   - type: UserInterface
     interfaces:
       enum.WiresUiKey.Key:

@@ -472,8 +472,8 @@
 - type: entity
   parent: BaseAction
   id: FakeMindShieldToggleAction
-  name: '[color=green]Toggle Fake Mindshield[/color]'
-  description: Turn the Fake Mindshield implant's transmission on/off
+  name: '[color=green]Toggle Fake Loyalty Implant[/color]'
+  description: Turn the fake loyalty implant's transmission on/off
   components:
   - type: Action
     itemIconStyle: NoItem

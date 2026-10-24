@@ -29,7 +29,7 @@
   - HeadRev
   briefing:
     text: head-rev-role-greeting
-    color: CornflowerBlue
+    color: "#C8322B" # DarkestHour: цвет Фронта
     sound: "/Audio/Ambience/Antag/headrev_start.ogg"
   startingGear: HeadRevGear
   components:

@@ -1,0 +1,9 @@
+# Революция ОФСК (Объединённый Фронт Свободных Колоний). Основа — ванильная революция (правило Revolutionary),
+# механика — DHRevolutionSystem: «спонсированная революция» (5%) и «Деаденд» при победе Фронта.
+
+# Тип роли комиссаров и партизан: «Your role is United Front of Free Colonies» цветом Фронта
+- type: roleType
+  id: DHFrontRevolutionary
+  name: dh-role-type-front
+  color: '#C8322B'
+  symbol: "⚔"

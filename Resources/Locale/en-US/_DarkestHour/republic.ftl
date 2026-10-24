@@ -50,7 +50,7 @@ dh-admin-tab-call-republic-tooltip = Loads the RAC Cordon shuttle with eight gho
 
 ## Усиленный отряд зачистки (код «Деаденд»)
 
-dh-ghost-role-republic-deadend-rules = You are a soldier of a reinforced Republic sweep team. The station capitulated to the First Empire and is condemned for treason (threat code Deadend): the crew's citizenship is annulled and every one of them is wanted by the Republic. Your mission is to destroy the station with the tactical nuclear warhead. Follow your commander, suppress all resistance and protect the warhead until it detonates. You may let unarmed crew who surrender flee the station.
+dh-ghost-role-republic-deadend-rules = You are a soldier of a reinforced Republic sweep team. The station capitulated to the First Empire or fell to the separatists of the United Front of Free Colonies and is condemned for treason (threat code Deadend): the crew's citizenship is annulled and every one of them is wanted by the Republic. Your mission is to destroy the station with the tactical nuclear warhead. Follow your commander, suppress all resistance and protect the warhead until it detonates. You may let unarmed crew who surrender flee the station.
 dh-ghost-role-republic-deadend-commander-name = Reinforced sweep team commander
 dh-ghost-role-republic-deadend-commander-desc = Lead a ten-strong reinforced Republican sweep team and destroy a condemned station with a tactical nuclear warhead. You carry the warhead keys and the authentication code.
 dh-ghost-role-republic-deadend-sniper-name = Reinforced sweep team marksman
@@ -70,7 +70,7 @@ cmd-dhcallrepublicdeadend-desc = Sends the reinforced Republic sweep team (tacti
 cmd-dhcallrepublicdeadend-help = Usage: dhcallrepublicdeadend [station EntityUid]
 
 dh-admin-tab-call-republic-deadend = Call the reinforced sweep team (Deadend)
-dh-admin-tab-call-republic-deadend-tooltip = Loads the RAC Verdict shuttle with ten ghost roles and a tactical nuclear warhead (keys and code go to the commander), jumps it to the station and sets threat code Deadend. Happens automatically when a station surrenders to the Imperial Raid.
+dh-admin-tab-call-republic-deadend-tooltip = Loads the RAC Verdict shuttle with ten ghost roles and a tactical nuclear warhead (keys and code go to the commander), jumps it to the station and sets threat code Deadend. Happens automatically when a station surrenders to the Imperial Raid or the Front wins the Revolution.
 
 ## Тактическая ядерная боеголовка
 

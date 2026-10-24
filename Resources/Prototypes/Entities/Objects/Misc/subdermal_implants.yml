@@ -361,8 +361,8 @@
 - type: entity
   parent: BaseSubdermalImplant
   id: FakeMindShieldImplant
-  name: fake mindshield implant
-  description: This implant allows the implanter to produce a fake signal that NT security huds use to identify individuals implanted with a mindshield.
+  name: fake loyalty implant
+  description: This implant produces a fake signal that security HUDs use to identify individuals carrying a Metallistick loyalty implant.
   categories: [ HideSpawnMenu ]
   components:
   - type: SubdermalImplant
@@ -374,8 +374,8 @@
 - type: entity
   parent: BaseSubdermalImplant
   id: MindShieldImplant
-  name: mindshield implant
-  description: This implant will ensure loyalty to Nanotrasen and prevent mind control devices.
+  name: Metallistick loyalty implant
+  description: Issued by Metallistick Group to Command and Security on hiring. Ensures loyalty to the company and shields the mind from recruitment by the United Front of Free Colonies.
   categories: [ HideSpawnMenu ]
   components:
    - type: SubdermalImplant
