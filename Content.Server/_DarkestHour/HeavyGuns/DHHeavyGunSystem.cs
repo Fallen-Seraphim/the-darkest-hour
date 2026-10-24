@@ -47,7 +47,6 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     [Dependency] private DHLandingSystem _landing = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private SharedMapSystem _map = default!;
-    [Dependency] private IMapManager _mapManager = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private SharedCameraRecoilSystem _recoil = default!;
@@ -811,10 +810,10 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             return;
         }
 
-        if (_mapManager.GetMapEntityId(strike.Target.MapId) is not { Valid: true } map)
+        if (!_map.TryGetMap(strike.Target.MapId, out var map))
             return;
 
-        var coordinates = new EntityCoordinates(map, strike.Target.Position);
+        var coordinates = new EntityCoordinates(map.Value, strike.Target.Position);
         _audio.PlayPvs(IncomingSound, coordinates, AudioParams.Default.WithMaxDistance(30f));
         Spawn("DHStrikeMarker", strike.Target);
     }
@@ -825,9 +824,9 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             ? _transform.GetMapCoordinates(grid)
             : strike.Target;
 
-        if (_mapManager.GetMapEntityId(coordinates.MapId) is { Valid: true } map)
+        if (_map.TryGetMap(coordinates.MapId, out var map))
         {
-            _audio.PlayPvs(InterceptSound, new EntityCoordinates(map, coordinates.Position),
+            _audio.PlayPvs(InterceptSound, new EntityCoordinates(map.Value, coordinates.Position),
                 AudioParams.Default.WithMaxDistance(60f));
         }
     }
@@ -913,7 +912,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
                     continue;
 
                 var point = new MapCoordinates(center.Position + new Vector2(x, y), center.MapId);
-                if (!_mapManager.TryFindGridAt(point, out var gridUid, out var grid))
+                if (!_map.TryFindGridAt(point, out var gridUid, out var grid))
                     continue;
 
                 var tile = _map.TileIndicesFor(gridUid, grid, point);
