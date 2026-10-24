@@ -147,6 +147,27 @@
         },
         {
             "name": "RepublicFlamer"
+        },
+        {
+            "name": "RepublicOfficer"
+        },
+        {
+            "name": "RepublicAAGunner"
+        },
+        {
+            "name": "RepublicSapper"
+        },
+        {
+            "name": "ImperialCaptain"
+        },
+        {
+            "name": "ImperialPilot"
+        },
+        {
+            "name": "ImperialArtillerist"
+        },
+        {
+            "name": "ImperialTechnician"
         }
     ]
 }

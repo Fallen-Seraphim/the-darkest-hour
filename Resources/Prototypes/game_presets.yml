@@ -161,7 +161,7 @@
   name: death-match-title
   description: death-match-description
   maxPlayers: 15
-  showInVote: true
+  showInVote: false # DarkestHour: в голосовании только «Штурм» и «Секрет»
   supportedMaps: DeathMatchMapPool
   rules:
     - DeathMatch31

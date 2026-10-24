@@ -12,7 +12,8 @@
 - type: dhStarSystem
   id: DHSystemREP27
   name: dh-star-system-rep27
-  home: true
+  # «Штурм»: станции больше нет — система получает свою карту при старте раунда, как остальные.
+  home: false
   bodies:
   - id: Star
     name: dh-celestial-rep27
@@ -130,3 +131,19 @@
       CarbonDioxide: 12
     surfaceTemperature: 150
     surfaceLight: "#9DB4CC"
+
+  # «Штурм»: планета военной базы Республики (Firebase Terminus). Земной воздух, умеренный климат.
+  - id: P7
+    name: dh-celestial-rep27-7
+    description: dh-celestial-rep27-7-desc
+    position: -26000, -18000
+    radius: 5000
+    color: "#6E9A5A"
+    orbitParent: Star
+    landable: true
+    biome: Grasslands
+    surfaceGases:
+      Oxygen: 21.82
+      Nitrogen: 82.10
+    surfaceTemperature: 291
+    surfaceLight: "#D8C08A"

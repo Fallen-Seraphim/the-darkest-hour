@@ -1,0 +1,248 @@
+# «Штурм» — базовый режим (решение автора 2026-10-24): имперский десантный авианосец прыгает из соседней системы
+# и штурмует военную базу Республики на планете REP-27-7, чтобы вывезти экспериментальный образец.
+# Механика — DHAssaultRuleSystem (правило), DHPlanetBaseSystem (база на поверхности планеты).
+
+# --- Снаряжение новых должностей (остальные берут наборы отряда зачистки и Рейда) ---
+
+- type: startingGear
+  parent: DHRepublicCommanderGear
+  id: DHGarrisonCommanderGear
+  equipment:
+    pocket2: DHWeaponPistolMk58
+
+- type: startingGear
+  parent: DHRepublicCommanderGear
+  id: DHGarrisonOfficerGear
+
+- type: startingGear
+  parent: DHRepublicGearBase
+  id: DHGarrisonAAGunnerGear
+  equipment:
+    id: DHDogtagsDHRepublicRifleman
+    outerClothing: DHClothingOuterModularRMB1LightAutoMed
+    suitstorage: DHWeaponSMGRAPTORM1216
+  storage:
+    back:
+    - DHMagazine10x24SVP
+    - DHMagazine10x24SVP
+    - DHMagazine10x24SVP
+    - Binoculars
+    - Wrench
+
+- type: startingGear
+  parent: DHRepublicRiflemanGear
+  id: DHGarrisonSapperGear
+  equipment:
+    belt: ClothingBeltUtilityEngineering
+  storage:
+    back:
+    - DHMagazine556x45FMG
+    - DHMagazine556x45FMG
+    - DHMagazine556x45FMG
+    - Shovel
+    - SheetSteel10
+
+- type: startingGear
+  id: DHCarrierCrewGearBase
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitOperative
+    back: ClothingBackpackDuffelSyndicate
+    ears: ClothingHeadsetAltSyndicate
+    gloves: ClothingHandsGlovesCombat
+    shoes: ClothingShoesBootsMagSyndie
+    id: DHDogtagsImperialRifleman
+    pocket1: DHWeaponPistolIMP17
+  storage:
+    back:
+    - DHMagazine145x114Std
+    - DHMagazine145x114Std
+
+- type: startingGear
+  parent: DHCarrierCrewGearBase
+  id: DHCarrierCaptainGear
+  equipment:
+    id: DHDogtagsImperialCommander
+    neck: SyndicateWhistle
+    outerClothing: DHClothingOuterModularIMB1Composite
+  storage:
+    back:
+    - DHMagazine145x114Std
+    - DHMagazine145x114Std
+    - Binoculars
+
+- type: startingGear
+  parent: DHCarrierCrewGearBase
+  id: DHCarrierPilotGear
+
+- type: startingGear
+  parent: DHCarrierCrewGearBase
+  id: DHCarrierArtilleristGear
+  storage:
+    back:
+    - DHMagazine145x114Std
+    - DHMagazine145x114Std
+    - Binoculars
+
+- type: startingGear
+  parent: DHCarrierCrewGearBase
+  id: DHCarrierTechnicianGear
+  equipment:
+    belt: ClothingBeltUtilityEngineering
+
+# --- Доступ к хранилищу образца: командир базы и офицеры ---
+
+- type: accessLevel
+  id: DHRepublicCommand
+  name: id-card-access-level-dh-republic-command
+
+- type: entity
+  parent: DoorElectronics
+  id: DHDoorElectronicsRepublicCommand
+  suffix: Republic Command, Locked
+  components:
+  - type: AccessReader
+    access: [["DHRepublicCommand"]]
+
+- type: entity
+  parent: DHAirlockRepublic
+  id: DHAirlockRepublicCommandLocked
+  suffix: Republic Command, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DHDoorElectronicsRepublicCommand ]
+
+# --- Экспериментальный образец ---
+
+- type: entity
+  parent: BaseItem
+  id: DHExperimentalSample
+  name: experimental sample
+  description: A sealed cryogenic container stamped with the Republican Army Corps seal. Whatever sleeps inside glows faintly through the viewport. The Republic guards it; the Empire wants it.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Specific/experimental_sample.rsi
+    layers:
+    - state: icon
+    - state: glow
+      shader: unshaded
+  - type: Item
+    size: Huge
+    sprite: _DarkestHour/Objects/Specific/experimental_sample.rsi
+  - type: PointLight
+    radius: 1.6
+    energy: 1.2
+    color: "#5CE0FF"
+  - type: DHExperimentalSample
+  - type: WarpPoint
+    follow: true
+    location: location-dh-experimental-sample
+  - type: StaticPrice
+    price: 100000
+
+# --- Разрывное оборудование авианосца: без внешнего питания (черновой авианосец без проводки) ---
+
+- type: entity
+  parent: DHRiftGenerator
+  id: DHRiftGeneratorShip
+  suffix: Self-powered
+  components:
+  - type: ApcPowerReceiver
+    needsPower: false
+    powerLoad: 0
+
+- type: entity
+  parent: DHRiftSupercapacitor
+  id: DHRiftSupercapacitorShip
+  suffix: Self-powered
+  components:
+  - type: ApcPowerReceiver
+    needsPower: false
+    powerLoad: 0
+
+# --- Станции сторон ---
+
+# Военная база Республики на поверхности REP-27-7 (gameMap DHTerminus задаёт должности гарнизона).
+- type: entity
+  id: DHStationRepublicBase
+  parent:
+  - BaseStation
+  - BaseStationJobsSpawning
+  - BaseStationRecords
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+  - type: DHPlanetBase
+    system: DHSystemREP27
+    body: P7
+  - type: DHAssaultFactionStation
+    faction: Republic
+
+# Имперский десантный авианосец: создаётся правилом «Штурма» в соседней системе.
+- type: entity
+  id: DHStationImperialCarrier
+  parent:
+  - BaseStation
+  - BaseStationJobsSpawning
+  - BaseStationRecords
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+  - type: StationJobs
+    availableJobs:
+      # Экипаж авианосца (7)
+      DHCarrierCaptain: [ 1, 1 ]
+      DHCarrierPilot: [ 2, 2 ]
+      DHCarrierArtillerist: [ 2, 2 ]
+      DHCarrierTechnician: [ 2, 2 ]
+      # Десант (18)
+      DHMarineCommander: [ 1, 1 ]
+      DHMarineWeaponsSpecialist: [ 2, 2 ]
+      DHMarineFieldMedic: [ 3, 3 ]
+      DHMarineMachinegunner: [ 2, 2 ]
+      DHMarineRifleman: [ 10, 10 ]
+  - type: DHAssaultFactionStation
+    faction: Empire
+
+# --- Правило и режим ---
+
+- type: entity
+  id: DHAssaultRule
+  parent: BaseGameRule
+  components:
+  - type: DHAssaultRule
+
+- type: gamePreset
+  id: DHAssault
+  alias:
+  - assault
+  - shturm
+  name: dh-assault-title
+  description: dh-assault-description
+  showInVote: true
+  rules:
+  - DHAssaultRule
+
+- type: gameMap
+  id: DHTerminus
+  mapName: Firebase Terminus
+  mapPath: /Maps/_DarkestHour/Assault/terminus.yml
+  minPlayers: 0
+  stations:
+    Terminus:
+      stationProto: DHStationRepublicBase
+      components:
+      - type: StationNameSetup
+        mapNameTemplate: "Firebase Terminus"
+      - type: StationJobs
+        availableJobs:
+          # Гарнизон Республики (25)
+          DHGarrisonCommander: [ 1, 1 ]
+          DHGarrisonOfficer: [ 2, 2 ]
+          DHGarrisonRifleman: [ 10, 10 ]
+          DHGarrisonMachinegunner: [ 2, 2 ]
+          DHGarrisonSniper: [ 2, 2 ]
+          DHGarrisonFlamer: [ 1, 1 ]
+          DHGarrisonAAGunner: [ 3, 3 ]
+          DHGarrisonMedic: [ 2, 2 ]
+          DHGarrisonSapper: [ 2, 2 ]
