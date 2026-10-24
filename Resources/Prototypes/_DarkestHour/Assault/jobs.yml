@@ -1,0 +1,331 @@
+# «Штурм» (базовый режим, решение автора 2026-10-24): должности двух сторон.
+# Гарнизон Республики — станция-база на планете (gameMap DHTerminus), Империя — станция-авианосец (правило DHAssaultRule).
+# Снаряжение — наборы отряда зачистки Республики (Republic/gear.yml) и Имперского Рейда (ImperialRaid/raid.yml).
+
+- type: job
+  id: DHGarrisonCommander
+  name: dh-job-garrison-commander-name
+  description: dh-job-garrison-commander-desc
+  playTimeTracker: JobDHGarrisonCommander
+  startingGear: DHGarrisonCommanderGear
+  icon: JobIconDHRepublicCommander
+  supervisors: dh-job-garrison-supervisors
+  joinNotifyCrew: true
+  access:
+  - DHRepublic
+  - DHRepublicCommand
+
+- type: job
+  id: DHGarrisonOfficer
+  name: dh-job-garrison-officer-name
+  description: dh-job-garrison-officer-desc
+  playTimeTracker: JobDHGarrisonOfficer
+  startingGear: DHGarrisonOfficerGear
+  icon: JobIconDHRepublicOfficer
+  supervisors: dh-job-garrison-supervisors
+  access:
+  - DHRepublic
+  - DHRepublicCommand
+
+- type: job
+  id: DHGarrisonRifleman
+  name: dh-job-garrison-rifleman-name
+  description: dh-job-garrison-rifleman-desc
+  playTimeTracker: JobDHGarrisonRifleman
+  startingGear: DHRepublicRiflemanGear
+  icon: JobIconDHRepublicRifleman
+  supervisors: dh-job-garrison-supervisors
+  access:
+  - DHRepublic
+
+- type: job
+  id: DHGarrisonMachinegunner
+  name: dh-job-garrison-machinegunner-name
+  description: dh-job-garrison-machinegunner-desc
+  playTimeTracker: JobDHGarrisonMachinegunner
+  startingGear: DHRepublicMachinegunnerGear
+  icon: JobIconDHRepublicMachinegunner
+  supervisors: dh-job-garrison-supervisors
+  access:
+  - DHRepublic
+
+- type: job
+  id: DHGarrisonSniper
+  name: dh-job-garrison-sniper-name
+  description: dh-job-garrison-sniper-desc
+  playTimeTracker: JobDHGarrisonSniper
+  startingGear: DHRepublicSniperGear
+  icon: JobIconDHRepublicSniper
+  supervisors: dh-job-garrison-supervisors
+  access:
+  - DHRepublic
+
+- type: job
+  id: DHGarrisonFlamer
+  name: dh-job-garrison-flamer-name
+  description: dh-job-garrison-flamer-desc
+  playTimeTracker: JobDHGarrisonFlamer
+  startingGear: DHRepublicFlamerGear
+  icon: JobIconDHRepublicFlamer
+  supervisors: dh-job-garrison-supervisors
+  access:
+  - DHRepublic
+
+- type: job
+  id: DHGarrisonAAGunner
+  name: dh-job-garrison-aa-gunner-name
+  description: dh-job-garrison-aa-gunner-desc
+  playTimeTracker: JobDHGarrisonAAGunner
+  startingGear: DHGarrisonAAGunnerGear
+  icon: JobIconDHRepublicAAGunner
+  supervisors: dh-job-garrison-supervisors
+  access:
+  - DHRepublic
+
+- type: job
+  id: DHGarrisonMedic
+  name: dh-job-garrison-medic-name
+  description: dh-job-garrison-medic-desc
+  playTimeTracker: JobDHGarrisonMedic
+  startingGear: DHRepublicMedicGear
+  icon: JobIconDHRepublicMedic
+  supervisors: dh-job-garrison-supervisors
+  access:
+  - DHRepublic
+
+- type: job
+  id: DHGarrisonSapper
+  name: dh-job-garrison-sapper-name
+  description: dh-job-garrison-sapper-desc
+  playTimeTracker: JobDHGarrisonSapper
+  startingGear: DHGarrisonSapperGear
+  icon: JobIconDHRepublicSapper
+  supervisors: dh-job-garrison-supervisors
+  access:
+  - DHRepublic
+
+- type: job
+  id: DHCarrierCaptain
+  name: dh-job-carrier-captain-name
+  description: dh-job-carrier-captain-desc
+  playTimeTracker: JobDHCarrierCaptain
+  startingGear: DHCarrierCaptainGear
+  icon: JobIconDHImperialCaptain
+  supervisors: dh-job-empire-supervisors
+  joinNotifyCrew: true
+  accessGroups:
+  - AllAccess
+  access:
+  - NuclearOperative
+  - SyndicateAgent
+
+- type: job
+  id: DHCarrierPilot
+  name: dh-job-carrier-pilot-name
+  description: dh-job-carrier-pilot-desc
+  playTimeTracker: JobDHCarrierPilot
+  startingGear: DHCarrierPilotGear
+  icon: JobIconDHImperialPilot
+  supervisors: dh-job-empire-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - NuclearOperative
+  - SyndicateAgent
+
+- type: job
+  id: DHCarrierArtillerist
+  name: dh-job-carrier-artillerist-name
+  description: dh-job-carrier-artillerist-desc
+  playTimeTracker: JobDHCarrierArtillerist
+  startingGear: DHCarrierArtilleristGear
+  icon: JobIconDHImperialArtillerist
+  supervisors: dh-job-empire-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - NuclearOperative
+  - SyndicateAgent
+
+- type: job
+  id: DHCarrierTechnician
+  name: dh-job-carrier-technician-name
+  description: dh-job-carrier-technician-desc
+  playTimeTracker: JobDHCarrierTechnician
+  startingGear: DHCarrierTechnicianGear
+  icon: JobIconDHImperialTechnician
+  supervisors: dh-job-empire-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - NuclearOperative
+  - SyndicateAgent
+
+- type: job
+  id: DHMarineCommander
+  name: dh-job-marine-commander-name
+  description: dh-job-marine-commander-desc
+  playTimeTracker: JobDHMarineCommander
+  startingGear: DHImperialCommanderGear
+  icon: JobIconDHImperialCommander
+  supervisors: dh-job-empire-supervisors
+  joinNotifyCrew: true
+  accessGroups:
+  - AllAccess
+  access:
+  - NuclearOperative
+  - SyndicateAgent
+
+- type: job
+  id: DHMarineWeaponsSpecialist
+  name: dh-job-marine-weapons-specialist-name
+  description: dh-job-marine-weapons-specialist-desc
+  playTimeTracker: JobDHMarineWeaponsSpecialist
+  startingGear: DHImperialWeaponsSpecialistGear
+  icon: JobIconDHImperialWeapons
+  supervisors: dh-job-empire-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - NuclearOperative
+  - SyndicateAgent
+
+- type: job
+  id: DHMarineFieldMedic
+  name: dh-job-marine-field-medic-name
+  description: dh-job-marine-field-medic-desc
+  playTimeTracker: JobDHMarineFieldMedic
+  startingGear: DHImperialFieldMedicGear
+  icon: JobIconDHImperialMedic
+  supervisors: dh-job-empire-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - NuclearOperative
+  - SyndicateAgent
+
+- type: job
+  id: DHMarineMachinegunner
+  name: dh-job-marine-machinegunner-name
+  description: dh-job-marine-machinegunner-desc
+  playTimeTracker: JobDHMarineMachinegunner
+  startingGear: DHImperialMachinegunnerGear
+  icon: JobIconDHImperialMachinegunner
+  supervisors: dh-job-empire-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - NuclearOperative
+  - SyndicateAgent
+
+- type: job
+  id: DHMarineRifleman
+  name: dh-job-marine-rifleman-name
+  description: dh-job-marine-rifleman-desc
+  playTimeTracker: JobDHMarineRifleman
+  startingGear: DHImperialRiflemanGear
+  icon: JobIconDHImperialRifleman
+  supervisors: dh-job-empire-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - NuclearOperative
+  - SyndicateAgent
+
+# Отделы: в лобби должности сгруппированы по сторонам
+
+- type: department
+  id: DHRepublicGarrison
+  name: dh-department-republic-garrison
+  description: dh-department-republic-garrison-description
+  color: "#4E6B2E"
+  weight: 90
+  roles:
+  - DHGarrisonCommander
+  - DHGarrisonOfficer
+  - DHGarrisonRifleman
+  - DHGarrisonMachinegunner
+  - DHGarrisonSniper
+  - DHGarrisonFlamer
+  - DHGarrisonAAGunner
+  - DHGarrisonMedic
+  - DHGarrisonSapper
+
+- type: department
+  id: DHImperialCarrier
+  name: dh-department-imperial-carrier
+  description: dh-department-imperial-carrier-description
+  color: "#D8D4CC"
+  weight: 80
+  roles:
+  - DHCarrierCaptain
+  - DHCarrierPilot
+  - DHCarrierArtillerist
+  - DHCarrierTechnician
+
+- type: department
+  id: DHImperialMarines
+  name: dh-department-imperial-marines
+  description: dh-department-imperial-marines-description
+  color: "#F2C230"
+  weight: 70
+  roles:
+  - DHMarineCommander
+  - DHMarineWeaponsSpecialist
+  - DHMarineFieldMedic
+  - DHMarineMachinegunner
+  - DHMarineRifleman
+
+- type: playTimeTracker
+  id: JobDHGarrisonCommander
+
+- type: playTimeTracker
+  id: JobDHGarrisonOfficer
+
+- type: playTimeTracker
+  id: JobDHGarrisonRifleman
+
+- type: playTimeTracker
+  id: JobDHGarrisonMachinegunner
+
+- type: playTimeTracker
+  id: JobDHGarrisonSniper
+
+- type: playTimeTracker
+  id: JobDHGarrisonFlamer
+
+- type: playTimeTracker
+  id: JobDHGarrisonAAGunner
+
+- type: playTimeTracker
+  id: JobDHGarrisonMedic
+
+- type: playTimeTracker
+  id: JobDHGarrisonSapper
+
+- type: playTimeTracker
+  id: JobDHCarrierCaptain
+
+- type: playTimeTracker
+  id: JobDHCarrierPilot
+
+- type: playTimeTracker
+  id: JobDHCarrierArtillerist
+
+- type: playTimeTracker
+  id: JobDHCarrierTechnician
+
+- type: playTimeTracker
+  id: JobDHMarineCommander
+
+- type: playTimeTracker
+  id: JobDHMarineWeaponsSpecialist
+
+- type: playTimeTracker
+  id: JobDHMarineFieldMedic
+
+- type: playTimeTracker
+  id: JobDHMarineMachinegunner
+
+- type: playTimeTracker
+  id: JobDHMarineRifleman

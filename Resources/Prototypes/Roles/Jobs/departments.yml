@@ -3,6 +3,7 @@
   name: dh-department-supply # DarkestHour
   description: dh-department-supply-description # DarkestHour
   color: "#B08452" # DarkestHour
+  editorHidden: true # DarkestHour: «Штурм» — станционных отделов нет
   roles: # DarkestHour: свои должности
   - DHQuartermaster
   - DHExpeditor
@@ -37,6 +38,7 @@
   color: "#C8AE72" # DarkestHour
   weight: 100 # Highest weight of all "regular" crew departments
   primary: false
+  editorHidden: true # DarkestHour: «Штурм» — станционных отделов нет
   roles: # DarkestHour: свои должности
   - DHCaptain
   - DHAdjutant
@@ -52,6 +54,7 @@
   name: dh-department-engineering # DarkestHour
   description: dh-department-engineering-description # DarkestHour
   color: "#D4893A" # DarkestHour
+  editorHidden: true # DarkestHour: «Штурм» — станционных отделов нет
   roles: # DarkestHour: свои должности
   - DHChiefTechnician
   - DHLeadTechnician
@@ -64,6 +67,7 @@
   name: dh-department-medical # DarkestHour
   description: dh-department-medical-description # DarkestHour
   color: "#5FA8C8" # DarkestHour
+  editorHidden: true # DarkestHour: «Штурм» — станционных отделов нет
   roles: # DarkestHour: свои должности
   - DHChiefPhysician
   - DHLeadPhysician
@@ -77,6 +81,7 @@
   name: dh-department-science # DarkestHour
   description: dh-department-science-description # DarkestHour
   color: "#A982C4" # DarkestHour
+  editorHidden: true # DarkestHour: «Штурм» — станционных отделов нет
   roles: # DarkestHour: свои должности
   - DHResearchDirector
   - DHLeadScientist
@@ -90,6 +95,7 @@
   description: dh-department-security-description # DarkestHour
   color: "#B5A877" # DarkestHour
   weight: 20 # Raised priority compared to most other crew departments
+  editorHidden: true # DarkestHour: «Штурм» — станционных отделов нет
   roles: # DarkestHour: свои должности
   - DHSecurityChief
   - DHWarden
@@ -128,6 +134,7 @@
   description: dh-department-silicon-description # DarkestHour
   color: "#7FC4B0" # DarkestHour
   weight: -20 # Displays after all regular crew departments, including Civilian, both because they're mechanically distinct and because they're subordinate to all crew by default
+  editorHidden: true # DarkestHour: «Штурм» — станционных отделов нет
   roles: # DarkestHour: свои должности
   - StationAi
 

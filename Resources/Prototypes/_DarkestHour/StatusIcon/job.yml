@@ -373,6 +373,62 @@
   jobName: dh-imperial-job-rifleman
   isCrewJob: false
 
+# «Штурм»: новые должности гарнизона Республики и экипажа имперского авианосца
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHRepublicOfficer
+  icon:
+    sprite: *icon-rsi
+    state: RepublicOfficer
+  jobName: dh-job-garrison-officer-name
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHRepublicAAGunner
+  icon:
+    sprite: *icon-rsi
+    state: RepublicAAGunner
+  jobName: dh-job-garrison-aa-gunner-name
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHRepublicSapper
+  icon:
+    sprite: *icon-rsi
+    state: RepublicSapper
+  jobName: dh-job-garrison-sapper-name
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHImperialCaptain
+  icon:
+    sprite: *icon-rsi
+    state: ImperialCaptain
+  jobName: dh-job-carrier-captain-name
+  isCrewJob: false
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHImperialPilot
+  icon:
+    sprite: *icon-rsi
+    state: ImperialPilot
+  jobName: dh-job-carrier-pilot-name
+  isCrewJob: false
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHImperialArtillerist
+  icon:
+    sprite: *icon-rsi
+    state: ImperialArtillerist
+  jobName: dh-job-carrier-artillerist-name
+  isCrewJob: false
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHImperialTechnician
+  icon:
+    sprite: *icon-rsi
+    state: ImperialTechnician
+  jobName: dh-job-carrier-technician-name
+  isCrewJob: false
+
+
 # Значок принадлежности к Имперской Морской Пехоте (вместо значка Синдиката у ядерных оперативников)
 - type: statusIcon
   id: DHImperialFaction
