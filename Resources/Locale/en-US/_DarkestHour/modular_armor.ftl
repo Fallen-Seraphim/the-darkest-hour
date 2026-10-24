@@ -20,4 +20,3 @@ dh-armor-class-composite = composite
 
 dh-armor-automed-status = The auto-medic is armed and watches your vitals.
 dh-armor-automed-injected = Your armour injects you with medicine.
-dh-suit-weapon-no-hand = You need a free hand.
