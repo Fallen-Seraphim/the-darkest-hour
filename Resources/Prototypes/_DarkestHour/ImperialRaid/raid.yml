@@ -36,6 +36,8 @@
   name: Imperial Commander Role
   components:
   - type: MindRole
+    roleType: DHImperialMarine
+    subtype: dh-role-subtype-imperial-marine
     antagPrototype: DHImperialCommander
 
 - type: entity
@@ -46,7 +48,7 @@
   - type: GhostRole
     name: dh-imperial-commander-name
     description: dh-imperial-commander-objective
-    rules: ghost-role-information-rules-default-team-antagonist
+    rules: dh-imperial-ghost-role-rules
     mindRoles:
     - DHMindRoleImperialCommander
 
@@ -84,6 +86,8 @@
   name: Imperial WeaponsSpecialist Role
   components:
   - type: MindRole
+    roleType: DHImperialMarine
+    subtype: dh-role-subtype-imperial-marine
     antagPrototype: DHImperialWeaponsSpecialist
 
 - type: entity
@@ -94,7 +98,7 @@
   - type: GhostRole
     name: dh-imperial-weapons-name
     description: dh-imperial-weapons-objective
-    rules: ghost-role-information-rules-default-team-antagonist
+    rules: dh-imperial-ghost-role-rules
     mindRoles:
     - DHMindRoleImperialWeaponsSpecialist
 
@@ -132,6 +136,8 @@
   name: Imperial FieldMedic Role
   components:
   - type: MindRole
+    roleType: DHImperialMarine
+    subtype: dh-role-subtype-imperial-marine
     antagPrototype: DHImperialFieldMedic
 
 - type: entity
@@ -142,7 +148,7 @@
   - type: GhostRole
     name: dh-imperial-medic-name
     description: dh-imperial-medic-objective
-    rules: ghost-role-information-rules-default-team-antagonist
+    rules: dh-imperial-ghost-role-rules
     mindRoles:
     - DHMindRoleImperialFieldMedic
 
@@ -180,6 +186,8 @@
   name: Imperial Machinegunner Role
   components:
   - type: MindRole
+    roleType: DHImperialMarine
+    subtype: dh-role-subtype-imperial-marine
     antagPrototype: DHImperialMachinegunner
 
 - type: entity
@@ -190,7 +198,7 @@
   - type: GhostRole
     name: dh-imperial-machinegunner-name
     description: dh-imperial-machinegunner-objective
-    rules: ghost-role-information-rules-default-team-antagonist
+    rules: dh-imperial-ghost-role-rules
     mindRoles:
     - DHMindRoleImperialMachinegunner
 
@@ -228,6 +236,8 @@
   name: Imperial Rifleman Role
   components:
   - type: MindRole
+    roleType: DHImperialMarine
+    subtype: dh-role-subtype-imperial-marine
     antagPrototype: DHImperialRifleman
 
 - type: entity
@@ -238,7 +248,7 @@
   - type: GhostRole
     name: dh-imperial-rifleman-name
     description: dh-imperial-rifleman-objective
-    rules: ghost-role-information-rules-default-team-antagonist
+    rules: dh-imperial-ghost-role-rules
     mindRoles:
     - DHMindRoleImperialRifleman
 
@@ -652,3 +662,10 @@
       proto: DHImperialMachinegunner
     - !type:DHNoAntagCount
       proto: DHImperialRifleman
+
+# Тип роли морпеха: «Your role is Imperial Marine» имперским жёлтым вместо «Team Antagonist»
+- type: roleType
+  id: DHImperialMarine
+  name: dh-role-type-imperial-marine
+  color: '#F2C230'
+  symbol: "⚔"

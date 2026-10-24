@@ -63,7 +63,7 @@ public abstract partial class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComp
             Loc.GetString("nukeops-welcome",
                 ("station", target),
                 ("name", Name(ent))),
-            Color.Red,
+            Color.FromHex("#F2C230"), // DarkestHour: приветствие морпеха — имперским жёлтым
             ent.Comp.GreetSoundNotification);
     }
 }

@@ -53,3 +53,7 @@ dh-imperial-job-machinegunner = Imperial Marine machinegunner
 dh-imperial-job-rifleman = Imperial Marine rifleman
 
 dh-admin-verb-make-imperial-marine = Make the target an Imperial marine of the raid. The IL-7 Gladius arrives once per round; everyone made a marine spawns aboard it.
+
+dh-role-type-imperial-marine = Imperial Marine
+dh-role-subtype-imperial-marine = Imperial Marine
+dh-imperial-ghost-role-rules = You are an [color=#F2C230][bold]Imperial Marine[/bold][/color]. Your squad's intentions are clear: make the station surrender to the First Empire or take it by storm. Work together with the other marines and follow your commander.
