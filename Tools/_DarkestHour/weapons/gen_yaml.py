@@ -36,8 +36,8 @@ TYPES = {
 }
 
 # All damage (and penetration thresholds, which are measured in damage) is scaled by this factor.
-# 1.0 = Monolith's scale; the author asked for 1.5x (2026-10-19).
-DAMAGE_MULT = 1.5
+# 1.0 = Monolith's scale; the author asked for 1.5x (2026-10-19), then 25% less for the Assault (2026-10-24): 1.125.
+DAMAGE_MULT = 1.125
 
 def dmg_num(v):
     v = round(v * DAMAGE_MULT, 1)

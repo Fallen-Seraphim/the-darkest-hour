@@ -20,7 +20,16 @@ FACTIONS = {
                  helmet_desc='The RMB-1 helmet: a khaki combat helmet over a twin-filter gas mask. Seals the suit.'),
 }
 
-# class: (name, coefficients, speed per module, integrity, swap note)
+# «Штурм» (решение автора 2026-10-24): урон оружия −25%, резисты брони выше — защита модулей и шлема ×1.25
+# (коэффициент урона = 1 − (1 − база) × RESIST_BOOST, не ниже 0.25).
+RESIST_BOOST = 1.25
+
+
+def boost(c):
+    return round(max(0.25, 1 - (1 - c) * RESIST_BOOST), 2)
+
+
+# class: (name, base coefficients — boosted on output, speed per module, integrity, swap note)
 CLASSES = {
     'Light': ('light', dict(Blunt=0.8, Slash=0.8, Piercing=0.8, Heat=0.85), 0.99, 100),
     'Heavy': ('heavy', dict(Blunt=0.45, Slash=0.45, Piercing=0.45, Heat=0.7, Caustic=0.8), 0.95, 260),
@@ -155,16 +164,16 @@ def gen(f):
     parts: [ Head ]
     modifiers:
       coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.6
-        Heat: 0.7
-''' % dict(F, f=f, outer=outer))
+        Blunt: %(helmet_kinetic)s
+        Slash: %(helmet_kinetic)s
+        Piercing: %(helmet_kinetic)s
+        Heat: %(helmet_heat)s
+''' % dict(F, f=f, outer=outer, helmet_kinetic=boost(0.6), helmet_heat=boost(0.7)))
 
     for cls, (cname, coef, speed, integrity) in CLASSES.items():
         for slot, (enum, state, iname, mult) in SLOTS.items():
             hp = int(integrity * mult)
-            coefs = '\n'.join('        %s: %s' % (k, v) for k, v in coef.items())
+            coefs = '\n'.join('        %s: %s' % (k, boost(v)) for k, v in coef.items())
             out.append('''
 - type: entity
   parent: [ BaseItem, %(contra)s ]
