@@ -71,6 +71,14 @@
     maxItemSize: Normal
     grid:
     - 0,0,5,1
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+        ents: []
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
 
 - type: entity
   parent: DHArmorSpecialBase

@@ -1,5 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Actions;
+using Content.Shared.Chemistry.EntitySystems;
+using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Clothing;
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
@@ -16,6 +18,7 @@ using Content.Shared.Verbs;
 using Robust.Shared.Containers;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
 namespace Content.Shared._DarkestHour.Clothing.ModularArmor;
@@ -36,7 +39,10 @@ public sealed partial class DHModularArmorSystem : EntitySystem
     [Dependency] private MovementSpeedModifierSystem _movement = default!;
     [Dependency] private INetManager _net = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private SharedSolutionContainerSystem _solutions = default!;
     [Dependency] private SharedStorageSystem _storage = default!;
+    [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedToolSystem _tool = default!;
 
     private static readonly ProtoId<ToolQualityPrototype> Welding = "Welding";
@@ -66,6 +72,7 @@ public sealed partial class DHModularArmorSystem : EntitySystem
 
         SubscribeLocalEvent<DHArmorSpecialComponent, MapInitEvent>(OnSpecialMapInit);
         SubscribeLocalEvent<DHArmorSpecialComponent, ComponentShutdown>(OnSpecialShutdown);
+        SubscribeLocalEvent<DHArmorSpecialComponent, AccessibleOverrideEvent>(OnSpecialAccessible);
     }
 
     #region Корпус и модули
@@ -338,10 +345,16 @@ public sealed partial class DHModularArmorSystem : EntitySystem
             foreach (var (slot, module, comp) in GetModules(ent))
             {
                 any = true;
-                args.PushMarkup(comp == null || slot == DHArmorSlot.Special
-                    ? Loc.GetString("dh-armor-examine-special", ("module", Name(module)))
-                    : Loc.GetString("dh-armor-examine-module", ("module", Name(module)),
-                        ("percent", (int) MathF.Round(comp.Integrity / MathF.Max(1f, comp.MaxIntegrity) * 100f))));
+                if (comp == null || slot == DHArmorSlot.Special)
+                {
+                    args.PushMarkup(Loc.GetString("dh-armor-examine-special", ("module", Name(module))));
+                    if (TryComp<DHArmorSpecialComponent>(module, out var special))
+                        PushSpecialStatus((module, special), ref args);
+                    continue;
+                }
+
+                args.PushMarkup(Loc.GetString("dh-armor-examine-module", ("module", Name(module)),
+                    ("percent", (int) MathF.Round(comp.Integrity / MathF.Max(1f, comp.MaxIntegrity) * 100f))));
             }
 
             if (!any)
@@ -360,12 +373,85 @@ public sealed partial class DHModularArmorSystem : EntitySystem
 
         args.PushMarkup(Loc.GetString("dh-armor-module-examine-class", ("class", Loc.GetString("dh-armor-class-" + ent.Comp.Class.ToString().ToLowerInvariant()))));
         if (ent.Comp.Slot == DHArmorSlot.Special)
+        {
+            if (TryComp<DHArmorSpecialComponent>(ent, out var special))
+                PushSpecialStatus((ent, special), ref args);
             return;
+        }
 
         args.PushMarkup(ent.Comp.Broken
             ? Loc.GetString("dh-armor-module-examine-broken")
             : Loc.GetString("dh-armor-module-examine-integrity",
                 ("percent", (int) MathF.Round(ent.Comp.Integrity / MathF.Max(1f, ent.Comp.MaxIntegrity) * 100f))));
+    }
+
+    /// <summary>
+    /// Спецсистема лежит в слоте корпуса, а не прямо в инвентаре носителя — для движка она «недоступна», и окно
+    /// хранилища сразу закрылось бы. Носитель корпуса до своей спецсистемы дотягивается.
+    /// </summary>
+    private void OnSpecialAccessible(Entity<DHArmorSpecialComponent> ent, ref AccessibleOverrideEvent args)
+    {
+        if (args.Target != ent.Owner ||
+            !_container.TryGetContainingContainer((ent.Owner, null, null), out var container) ||
+            container.ID != DHModularArmor.ContainerId(DHArmorSlot.Special) ||
+            GetWearer(container.Owner) != args.User)
+        {
+            return;
+        }
+
+        args.Handled = true;
+        args.Accessible = true;
+    }
+
+    /// <summary>Что внутри спецсистемы и готова ли она: лекарство автоаптечки, вещи в хранилище, встроенное оружие.</summary>
+    private void PushSpecialStatus(Entity<DHArmorSpecialComponent> ent, ref ExaminedEvent args)
+    {
+        switch (ent.Comp.Kind)
+        {
+            case DHArmorSpecialKind.AutoMed:
+            {
+                if (!_solutions.TryGetSolution(ent.Owner, ent.Comp.Solution, out _, out var solution))
+                    break;
+
+                var doses = (int) MathF.Floor(solution.Volume.Float() / MathF.Max(1f, ent.Comp.Dose));
+                args.PushMarkup(Loc.GetString("dh-armor-automed-examine-volume",
+                    ("volume", solution.Volume.Int()), ("max", solution.MaxVolume.Int()), ("doses", doses)));
+
+                foreach (var reagent in solution.Contents)
+                {
+                    var name = _proto.TryIndex<ReagentPrototype>(reagent.Reagent.Prototype, out var proto)
+                        ? proto.LocalizedName
+                        : reagent.Reagent.Prototype;
+                    args.PushMarkup(Loc.GetString("dh-armor-automed-examine-reagent",
+                        ("reagent", name), ("amount", reagent.Quantity.Int())));
+                }
+
+                var left = ent.Comp.NextUse - _timing.CurTime;
+                args.PushMarkup(doses == 0
+                    ? Loc.GetString("dh-armor-automed-examine-empty")
+                    : left > TimeSpan.Zero
+                        ? Loc.GetString("dh-armor-automed-examine-cooldown", ("seconds", (int) MathF.Ceiling((float) left.TotalSeconds)))
+                        : Loc.GetString("dh-armor-automed-examine-ready", ("threshold", (int) ent.Comp.Threshold)));
+                break;
+            }
+            case DHArmorSpecialKind.Storage:
+            {
+                if (_container.TryGetContainer(ent.Owner, "storagebase", out var storage))
+                    args.PushMarkup(Loc.GetString("dh-armor-storage-examine", ("count", storage.ContainedEntities.Count)));
+                break;
+            }
+            case DHArmorSpecialKind.Weapon:
+            {
+                if (ent.Comp.WeaponEntity is { } weapon && Exists(weapon))
+                {
+                    args.PushMarkup(_container.TryGetContainer(ent.Owner, ent.Comp.WeaponContainer, out var slot) &&
+                                    slot.Contains(weapon)
+                        ? Loc.GetString("dh-armor-weapon-examine-stowed", ("weapon", Name(weapon)))
+                        : Loc.GetString("dh-armor-weapon-examine-out", ("weapon", Name(weapon))));
+                }
+                break;
+            }
+        }
     }
 
     private void OnModuleInteractUsing(Entity<DHArmorModuleComponent> ent, ref InteractUsingEvent args)

@@ -20,3 +20,18 @@ dh-armor-class-composite = composite
 
 dh-armor-automed-status = The auto-medic is armed and watches your vitals.
 dh-armor-automed-injected = Your armour injects you with medicine.
+
+dh-armor-automed-examine-volume = Medicine: [color=#7fd4ff]{ $volume }/{ $max } u[/color] — { $doses } { $doses ->
+    [one] dose
+   *[other] doses
+} left.
+dh-armor-automed-examine-reagent = — { $reagent }: { $amount } u
+dh-armor-automed-examine-ready = [color=#5fd35f]Ready[/color]: injects when the wearer's damage reaches { $threshold }.
+dh-armor-automed-examine-cooldown = [color=yellow]Recharging[/color]: { $seconds } s.
+dh-armor-automed-examine-empty = [color=red]Empty[/color] — refill it with a syringe.
+dh-armor-storage-examine = Holds { $count } { $count ->
+    [one] item
+   *[other] items
+}. Open it with the special system action.
+dh-armor-weapon-examine-stowed = Built-in { $weapon }: stowed.
+dh-armor-weapon-examine-out = Built-in { $weapon }: [color=yellow]extended[/color].
