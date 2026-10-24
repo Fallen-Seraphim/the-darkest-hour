@@ -45,6 +45,7 @@
   - type: ContainerFill
     containers:
       key_slots:
+      - DHEncryptionKeyMetallArmed
       - EncryptionKeySecurity
       - EncryptionKeyCommand
       - EncryptionKeyCommon
