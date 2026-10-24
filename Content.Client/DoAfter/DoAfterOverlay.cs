@@ -169,6 +169,9 @@ public sealed class DoAfterOverlay : Overlay
                     color = GetProgressColor(elapsedRatio, alpha);
                 }
 
+                // DarkestHour: время клиента может быть чуть раньше начала do-after (предсказание) — отрицательная доля
+                // давала прямоугольник «справа налево» и падение на проверке Box2 в Debug.
+                elapsedRatio = Math.Clamp(elapsedRatio, 0f, 1f);
                 var xProgress = (EndX - StartX) * elapsedRatio + StartX;
                 var box = new Box2(new Vector2(StartX, 3f) / EyeManager.PixelsPerMeter, new Vector2(xProgress, 4f) / EyeManager.PixelsPerMeter);
                 box = box.Translated(position);
