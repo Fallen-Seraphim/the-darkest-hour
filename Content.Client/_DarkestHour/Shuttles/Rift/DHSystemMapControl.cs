@@ -239,6 +239,17 @@ public sealed class DHSystemMapControl : Control
                     RadiationColor, RadiationColor.WithAlpha(0.05f), _buffer);
             }
 
+            // Радиационный пояс гиганта: кольцо по краям пояса (пик — между ними).
+            if (body.BeltRadiation > 0f)
+            {
+                var beltColor = RadiationColor.WithAlpha(0.6f);
+                DHCelestialDraw.Circle(handle, center, (body.Radius + body.BeltAltitude + body.BeltWidth) * _scale, size,
+                    beltColor, null, _buffer);
+                DHCelestialDraw.Circle(handle, center,
+                    (body.Radius + MathF.Max(0f, body.BeltAltitude - body.BeltWidth)) * _scale, size, beltColor, null,
+                    _buffer);
+            }
+
             var radius = body.Radius * _scale;
             if (radius < MinBodyPixels)
             {

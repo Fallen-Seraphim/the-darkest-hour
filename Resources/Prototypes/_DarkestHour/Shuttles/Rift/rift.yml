@@ -219,7 +219,15 @@
       Nitrogen: 0.5
       Oxygen: 0.3
       CarbonDioxide: 0.2
+    # Реалистичнее (как у Юпитера): глубже — горячее и плотнее; над облаками — радиационный пояс магнитосферы,
+    # в самих облаках атмосфера экранирует.
     layerTemperature: 180
+    layerTemperatureBottom: 420
+    layerPressureTop: 100
+    layerPressureBottom: 2500
+    beltRadiation: 0.8
+    beltAltitude: 12000
+    beltWidth: 5000
 
 - type: dhStarSystem
   id: DHSystemVarda
@@ -286,6 +294,12 @@
       Tritium: 0.2
       Frezon: 0.05
     layerTemperature: 200
+    layerTemperatureBottom: 480
+    layerPressureTop: 100
+    layerPressureBottom: 3000
+    beltRadiation: 1.4
+    beltAltitude: 18000
+    beltWidth: 7000
 
 # --- Разрывное пространство: молнии вокруг корпуса (только вид, без урона) ---
 

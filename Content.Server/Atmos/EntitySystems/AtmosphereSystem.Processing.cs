@@ -207,7 +207,8 @@ namespace Content.Server.Atmos.EntitySystems
             {
                 if (!tile.MapAtmosphere)
                 {
-                    (tile.Air, tile.Space) = GetDefaultMapAtmosphere(mapAtmos);
+                    // DarkestHour: грид в слоях газового гиганта — за бортом газ слоя, а не пустота карты.
+                    (tile.Air, tile.Space) = DHGridMapAtmosphere(ent.Owner) ?? GetDefaultMapAtmosphere(mapAtmos);
                     tile.MapAtmosphere = true;
                     ent.Comp1.MapTiles.Add(tile);
                 }
