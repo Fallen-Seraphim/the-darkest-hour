@@ -421,7 +421,7 @@ public sealed partial class DHModularArmorSystem : EntitySystem
                 {
                     var name = _proto.TryIndex<ReagentPrototype>(reagent.Reagent.Prototype, out var proto)
                         ? proto.LocalizedName
-                        : reagent.Reagent.Prototype;
+                        : reagent.Reagent.Prototype.ToString();
                     args.PushMarkup(Loc.GetString("dh-armor-automed-examine-reagent",
                         ("reagent", name), ("amount", reagent.Quantity.Int())));
                 }

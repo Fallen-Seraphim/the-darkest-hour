@@ -18,7 +18,6 @@ namespace Content.Server._DarkestHour.Shuttles.Rift;
 public sealed partial class DHRiftNavSystem : EntitySystem
 {
     [Dependency] private DHCelestialSystem _celestial = default!;
-    [Dependency] private SharedMapSystem _map = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private IPrototypeManager _proto = default!;
     [Dependency] private DHRiftSystem _rift = default!;
