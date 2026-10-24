@@ -23,3 +23,4 @@ dh-rift-accumulator-examine = Chronite: [color=#9b4dff]{$chronite}/{$max}[/color
 dh-rift-generator-examine-unpowered = [color=red]No power.[/color]
 dh-rift-generator-examine-cooldown = [color=yellow]Cooling down: {$seconds} s.[/color]
 dh-rift-generator-examine-ready = [color=#9b4dff]Ready for a rift jump.[/color]
+dh-rift-space-name = Rift

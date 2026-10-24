@@ -66,6 +66,8 @@ public sealed partial class DHRiftSystem : EntitySystem
         SubscribeLocalEvent<DHRiftAccumulatorComponent, ExaminedEvent>(OnAccumulatorExamined);
         SubscribeLocalEvent<DHRiftAccumulatorComponent, InteractUsingEvent>(OnAccumulatorInteractUsing);
         SubscribeLocalEvent<DHRiftAccumulatorComponent, DHRiftRepairDoAfterEvent>(OnRepairDoAfter);
+
+        InitializeSpace();
     }
 
     #region Star systems
@@ -297,6 +299,7 @@ public sealed partial class DHRiftSystem : EntitySystem
         generator.NextJump = _timing.CurTime + generator.Cooldown;
 
         Flash(ent, generatorUid, generator, intensity);
+        EnterRiftSpace(ent);
     }
 
     /// <summary>

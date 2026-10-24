@@ -286,3 +286,41 @@
       Tritium: 0.2
       Frezon: 0.05
     layerTemperature: 200
+
+# --- Разрывное пространство: молнии вокруг корпуса (только вид, без урона) ---
+
+- type: entity
+  id: DHRiftLightningAnchor
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: TimedDespawn
+    lifetime: 4
+
+- type: entity
+  parent: BaseLightning
+  id: DHRiftLightning
+  name: rift lightning
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: /Textures/Effects/lightning.rsi
+    drawdepth: Effects
+    layers:
+    - state: "lightning_3"
+      color: "#c58bff"
+      shader: unshaded
+  - type: PointLight
+    enabled: true
+    color: "#9b4dff"
+    radius: 6
+    energy: 2.5
+    softness: 1
+    autoRot: true
+    castShadows: false
+  - type: Electrified
+    enabled: false
+    requirePower: false
+  - type: Lightning
+    canArc: false
+  - type: TimedDespawn
+    lifetime: 1.2
