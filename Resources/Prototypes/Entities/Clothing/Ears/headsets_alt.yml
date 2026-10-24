@@ -125,8 +125,8 @@
 - type: entity
   parent: [ClothingHeadsetAlt, BaseSyndicateContraband]
   id: ClothingHeadsetAltSyndicate
-  name: blood-red over-ear headset
-  description: An updated, modular syndicate intercom that fits over the head and takes encryption keys (there are 5 key slots.).
+  name: imperial over-ear headset # DarkestHour
+  description: A modular Imperial Marine Corps intercom that fits over the head and takes encryption keys (there are 5 key slots). # DarkestHour
   components:
   - type: Headset
   - type: EncryptionKeyHolder

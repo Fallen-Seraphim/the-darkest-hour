@@ -13,7 +13,7 @@
 
 - type: randomHumanoidSettings
   id: DHMetallArmedCommander
-  parent: EventHumanoidCentcomm
+  parent: DHEventHumanoidMetallArmed
   components:
   - type: GhostRole
     name: dh-ghost-role-metall-armed-commander-name
@@ -43,7 +43,7 @@
 
 - type: randomHumanoidSettings
   id: DHMetallArmedWeapons
-  parent: EventHumanoidCentcomm
+  parent: DHEventHumanoidMetallArmed
   components:
   - type: GhostRole
     name: dh-ghost-role-metall-armed-weapons-name
@@ -73,7 +73,7 @@
 
 - type: randomHumanoidSettings
   id: DHMetallArmedMedic
-  parent: EventHumanoidCentcomm
+  parent: DHEventHumanoidMetallArmed
   components:
   - type: GhostRole
     name: dh-ghost-role-metall-armed-medic-name
@@ -103,7 +103,7 @@
 
 - type: randomHumanoidSettings
   id: DHMetallArmedRifleman
-  parent: EventHumanoidCentcomm
+  parent: DHEventHumanoidMetallArmed
   components:
   - type: GhostRole
     name: dh-ghost-role-metall-armed-rifleman-name

@@ -80,10 +80,10 @@
 
 - type: radioChannel
   id: Syndicate
-  name: chat-radio-syndicate
-  keycode: 't'
+  name: dh-chat-radio-imperial # DarkestHour: канал Синдиката — имперский
+  keycode: 'и' # DarkestHour: кириллический префикс
   frequency: 121.3
-  color: "#8f4a4b"
+  color: "#f2c230" # DarkestHour: имперский жёлтый
   longRange: true
 
 - type: radioChannel

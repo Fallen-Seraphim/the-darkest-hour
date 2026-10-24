@@ -1,0 +1,101 @@
+# Каналы внешних сил: Республиканский Армейский Корпус и ОБР Metall Armed (имперский — бывший канал Синдиката,
+# radio_channels.yml). Ключи шифрования, гарнитура Республики, импланты «предсмертного хрипа» в свой канал и
+# настройки гост-ролей, которые их вживляют.
+
+- type: radioChannel
+  id: DHRepublic
+  name: dh-chat-radio-republic
+  keycode: 'п'
+  frequency: 147.5
+  color: "#7fae46"
+  longRange: true
+
+- type: radioChannel
+  id: DHMetallArmed
+  name: dh-chat-radio-metall-armed
+  keycode: 'а'
+  frequency: 147.7
+  color: "#a8a8a8"
+  longRange: true
+
+- type: entity
+  parent: [ EncryptionKey, BaseCentcommContraband ]
+  id: DHEncryptionKeyRepublic
+  name: Republican encryption key
+  description: An encryption key of the Republican Army Corps.
+  components:
+  - type: EncryptionKey
+    channels:
+    - DHRepublic
+    defaultChannel: DHRepublic
+  - type: Sprite
+    layers:
+    - state: crypt_rusted
+    - state: sec_label
+
+- type: entity
+  parent: [ EncryptionKey, BaseCentcommContraband ]
+  id: DHEncryptionKeyMetallArmed
+  name: Metall Armed encryption key
+  description: An encryption key of the Metall Armed response force.
+  components:
+  - type: EncryptionKey
+    channels:
+    - DHMetallArmed
+    defaultChannel: DHMetallArmed
+  - type: Sprite
+    layers:
+    - state: crypt_gray
+    - state: sec_label
+
+- type: entity
+  parent: ClothingHeadsetAltCentCom
+  id: DHClothingHeadsetAltRepublic
+  name: Republican over-ear headset
+  description: A rugged over-ear headset of the Republican Army Corps.
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - DHEncryptionKeyRepublic
+      - EncryptionKeyCommon
+
+- type: entity
+  parent: DeathRattleImplant
+  id: DHDeathRattleImplantRepublic
+  name: Republican death rattle implant
+  description: This implant will inform the Republican radio channel should the user fall into critical condition or die.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: RattleOnTrigger
+    radioChannel: DHRepublic
+
+- type: entity
+  parent: DeathRattleImplant
+  id: DHDeathRattleImplantMetallArmed
+  name: Metall Armed death rattle implant
+  description: This implant will inform the Metall Armed radio channel should the user fall into critical condition or die.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: RattleOnTrigger
+    radioChannel: DHMetallArmed
+
+- type: randomHumanoidSettings
+  id: DHEventHumanoidRepublic
+  parent: EventHumanoidMindShielded
+  randomizeName: false
+  components:
+  - type: AutoImplant
+    implants:
+    - MindShieldImplant
+    - DHDeathRattleImplantRepublic
+
+- type: randomHumanoidSettings
+  id: DHEventHumanoidMetallArmed
+  parent: EventHumanoidMindShielded
+  randomizeName: false
+  components:
+  - type: AutoImplant
+    implants:
+    - MindShieldImplant
+    - DHDeathRattleImplantMetallArmed

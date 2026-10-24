@@ -1,4 +1,5 @@
 # ОБР Metall Armed: должности отряда (только призраки, на станции их нет). Доступ — весь станционный + ЦентКом.
+# Импланты (защита разума, «предсмертный хрип» в канал Metall Armed) вживляют настройки гост-ролей (spawners.yml).
 
 - type: job
   id: DHMetallArmedCommander
@@ -13,9 +14,6 @@
   - AllAccess
   access:
   - CentralCommand
-  special:
-  - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
 
 - type: job
   id: DHMetallArmedWeapons
@@ -30,9 +28,6 @@
   - AllAccess
   access:
   - CentralCommand
-  special:
-  - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
 
 - type: job
   id: DHMetallArmedMedic
@@ -47,9 +42,6 @@
   - AllAccess
   access:
   - CentralCommand
-  special:
-  - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
 
 - type: job
   id: DHMetallArmedRifleman
@@ -64,6 +56,3 @@
   - AllAccess
   access:
   - CentralCommand
-  special:
-  - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
