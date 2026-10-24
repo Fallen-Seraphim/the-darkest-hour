@@ -28,7 +28,8 @@ using Robust.Shared.Timing;
 namespace Content.Server._DarkestHour.HeavyGuns;
 
 /// <summary>
-/// Тяжёлые орудия: сборка (казённик + ствол), заряжание, консоль наведения (оператор сидит), полёт снаряда,
+/// Тяжёлые орудия: сборка (казённик + ствол), заряжание, своя консоль наведения у каждой пушки (оператор сидит),
+/// полёт снаряда,
 /// перехват ПВО, попадание и следы взрывов. Корабельная артиллерия бьёт по точке поверхности тела, над которым
 /// висит корабль; ПКО — по кораблю на орбите над телом, на поверхности которого стоит. Попадание ПКО по авианосцу
 /// «Штурма» ещё и снимает его прочность.
@@ -341,22 +342,58 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         return false;
     }
 
-    /// <summary>Орудия той же роли на гриде консоли.</summary>
+    /// <summary>
+    /// Орудие консоли (под каждую пушку своя консоль): привязанный казённик, а если его нет — ближайший казённик той
+    /// же роли на том же гриде в радиусе привязки, к которому не привязана другая консоль.
+    /// </summary>
     private List<Entity<DHHeavyGunBreechComponent>> Guns(Entity<DHHeavyGunConsoleComponent> console)
     {
-        var grid = Transform(console).GridUid;
         var result = new List<Entity<DHHeavyGunBreechComponent>>();
-        if (grid == null)
+        var xform = Transform(console);
+        if (xform.GridUid is not { } grid)
             return result;
 
-        var query = EntityQueryEnumerator<DHHeavyGunBreechComponent, TransformComponent>();
-        while (query.MoveNext(out var uid, out var comp, out var xform))
+        if (console.Comp.Gun is { } linked &&
+            TryComp<DHHeavyGunBreechComponent>(linked, out var linkedComp) &&
+            Transform(linked).GridUid == grid &&
+            linkedComp.Role == console.Comp.Role)
         {
-            if (xform.GridUid == grid && comp.Role == console.Comp.Role)
-                result.Add((uid, comp));
+            result.Add((linked, linkedComp));
+            return result;
         }
 
-        result.Sort((a, b) => b.Comp.Caliber.CompareTo(a.Comp.Caliber));
+        console.Comp.Gun = null;
+        var taken = new HashSet<EntityUid>();
+        var consoles = EntityQueryEnumerator<DHHeavyGunConsoleComponent>();
+        while (consoles.MoveNext(out var other, out var otherComp))
+        {
+            if (other != console.Owner && otherComp.Gun is { } otherGun)
+                taken.Add(otherGun);
+        }
+
+        var position = _transform.GetWorldPosition(xform);
+        Entity<DHHeavyGunBreechComponent>? best = null;
+        var bestDistance = console.Comp.LinkRange;
+        var query = EntityQueryEnumerator<DHHeavyGunBreechComponent, TransformComponent>();
+        while (query.MoveNext(out var uid, out var comp, out var gunXform))
+        {
+            if (gunXform.GridUid != grid || comp.Role != console.Comp.Role || taken.Contains(uid))
+                continue;
+
+            var distance = Vector2.Distance(_transform.GetWorldPosition(gunXform), position);
+            if (distance > bestDistance)
+                continue;
+
+            bestDistance = distance;
+            best = (uid, comp);
+        }
+
+        if (best is { } found)
+        {
+            console.Comp.Gun = found.Owner;
+            result.Add(found);
+        }
+
         return result;
     }
 

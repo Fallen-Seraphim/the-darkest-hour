@@ -91,7 +91,7 @@ public sealed partial class DHHeavyShellComponent : Component
     public DHWarhead Warhead = DHWarhead.HighExplosive;
 }
 
-/// <summary>Консоль наведения тяжёлых орудий своего грида. Работает, только если оператор сидит (пристёгнут).</summary>
+/// <summary>Консоль наведения одного тяжёлого орудия. Работает, только если оператор сидит (пристёгнут).</summary>
 [RegisterComponent, NetworkedComponent]
 public sealed partial class DHHeavyGunConsoleComponent : Component
 {
@@ -109,6 +109,16 @@ public sealed partial class DHHeavyGunConsoleComponent : Component
     /// <summary>Артиллерия: половина стороны зоны, куда можно навести, м.</summary>
     [DataField]
     public float TargetZone = 1500f;
+
+    /// <summary>
+    /// Под каждую пушку своя консоль: консоль сама привязывается к ближайшему казённику своей роли на том же гриде
+    /// в пределах этого радиуса, если к нему ещё не привязана другая консоль.
+    /// </summary>
+    [DataField]
+    public float LinkRange = 5f;
+
+    [ViewVariables]
+    public EntityUid? Gun;
 
     [ViewVariables]
     public string? SelectedBody;

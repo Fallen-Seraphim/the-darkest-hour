@@ -196,7 +196,7 @@ def build_base():
 def build_massif(b):
     """Mountain massif north of the compound with the anti-orbital battery dug into it: a tunnel from the north gate,
     a gun gallery with the 700 mm and two 400 mm guns facing north (barrels in open pits), the shell store (west) and
-    the fire control bunker (east)."""
+    the battery command post (east); every gun has its own fire control console."""
     b.fill(X0, Y1 + 1, X1, M1, 'FloorDesert')
     for x in range(X0, X1 + 1):
         for y in range(Y1 + 1, M1 + 1):
@@ -234,9 +234,12 @@ def build_massif(b):
             b.put('DHHeavyShell400' + wh, -23 + i, 30 - n, solid=False)
     b.put('LightPostSmall', -18, 33)
 
-    # fire control: the console with the gunner's chair in front of it
-    b.put('DHComputerAntiOrbital', 21, 33)
-    b.put('ChairOfficeDark', 21, 32, solid=False, rot='3.141592653589793')
+    # every gun has its own fire control console with the gunner's chair in front of it (the console links to
+    # the nearest breech); the bunker is the battery command post
+    for x in (-13, -2, 9):
+        b.put('DHComputerAntiOrbital', x, 32)
+        b.put('ChairOfficeDark', x, 31, solid=False, rot='3.141592653589793')
+    b.put('TableReinforced', 21, 33)
     b.put('TableReinforced', 23, 33)
     b.put('Binoculars', 23, 33, solid=False)
     b.put('LightPostSmall', 18, 29)
@@ -485,8 +488,10 @@ def main():
             ('DHHeavyGunBarrel570', [(p(13, -12), east)]),
             ('DHHeavyGunBreech300', [(p(12, -5), east), (p(12, -19), east)]),
             ('DHHeavyGunBarrel300', [(p(13, -5), east), (p(13, -19), east)]),
-            ('DHComputerNavalArtillery', [p(9, -14)]),
-            ('ChairOfficeDark', [(p(9, -15), '3.141592653589793')]),
+            # every gun has its own fire control console with the gunner's chair in front of it
+            ('DHComputerNavalArtillery', [p(9, -5), p(10, -13), p(10, -19)]),
+            ('ChairOfficeDark', [(p(9, -6), '3.141592653589793'), (p(10, -14), '3.141592653589793'),
+                                 (p(10, -20), '3.141592653589793')]),
             # point defence: four interceptor missile launchers and spare missiles
             ('DHMissileLauncher', [p(10, -3), p(10, -21), p(13, -9), p(13, -16)]),
             ('DHInterceptorMissile', [p(8, -21), p(8, -21), p(8, -3), p(8, -3)]),

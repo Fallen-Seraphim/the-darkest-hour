@@ -33,14 +33,14 @@ dh-heavy-gun-bodies-found = Choose the world and the coordinates on its surface.
 dh-heavy-gun-not-in-orbit = The ship is not in orbit of a world: naval artillery fires only from orbit.
 
 dh-heavy-gun-ui-title = Fire control
-dh-heavy-gun-ui-guns = Guns
+dh-heavy-gun-ui-guns = Gun
 dh-heavy-gun-ui-target = Target
 dh-heavy-gun-ui-defenses = Air defence of this hull
 dh-heavy-gun-ui-fire = SALVO
 dh-heavy-gun-ui-seated = The gunner is seated.
 dh-heavy-gun-ui-not-seated = Sit down at the console to fire.
 dh-heavy-gun-ui-gun = {$name} ({$caliber} mm): {$status}
-dh-heavy-gun-ui-no-guns = No guns of this kind on this hull.
+dh-heavy-gun-ui-no-guns = No gun linked: every gun has its own console, set it next to the breech (within 5 m).
 dh-heavy-gun-ui-target-entry = {$name} — {$altitude} m above the surface
 dh-heavy-gun-ui-body-entry = {$name} ({$altitude} m below)
 dh-heavy-gun-ui-zone = Surface coordinates in metres from the landing zone centre, within ±{$zone}.
