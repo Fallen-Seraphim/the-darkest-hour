@@ -112,14 +112,7 @@ public sealed partial class DHRiftNavSystem : EntitySystem
     /// <summary>Карта системы. Для домашней — карта станции (с телами), а не планеты и экспедиции.</summary>
     private EntityUid? MapOf(string system)
     {
-        var query = EntityQueryEnumerator<DHStarSystemMapComponent>();
-        while (query.MoveNext(out var uid, out var comp))
-        {
-            if (comp.System?.Id == system)
-                return uid;
-        }
-
-        return null;
+        return _celestial.GetSystemMap(system);
     }
 
     #endregion

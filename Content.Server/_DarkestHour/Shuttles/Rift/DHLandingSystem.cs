@@ -109,14 +109,7 @@ public sealed partial class DHLandingSystem : EntitySystem
 
     private EntityUid? SystemMap(string system)
     {
-        var query = EntityQueryEnumerator<DHStarSystemMapComponent>();
-        while (query.MoveNext(out var uid, out var comp))
-        {
-            if (comp.System?.Id == system)
-                return uid;
-        }
-
-        return null;
+        return _celestial.GetSystemMap(system);
     }
 
     /// <summary>Карта поверхности тела; создаётся при первой посадке.</summary>
