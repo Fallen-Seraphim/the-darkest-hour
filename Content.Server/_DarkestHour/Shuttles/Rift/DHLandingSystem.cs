@@ -50,6 +50,7 @@ public sealed partial class DHLandingSystem : EntitySystem
     [Dependency] private NodeContainerSystem _nodes = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private DHRiftSystem _rift = default!;
     [Dependency] private ShuttleSystem _shuttle = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
@@ -336,7 +337,7 @@ public sealed partial class DHLandingSystem : EntitySystem
             return;
 
         var coordinates = new EntityCoordinates(surfaceMap, args.Position);
-        if (!_shuttle.FTLFree(shuttle.Value, coordinates, Angle.Zero, null))
+        if (!_rift.ExitFree(shuttle.Value, coordinates))
         {
             _popup.PopupEntity(Loc.GetString("dh-rift-nav-exit-blocked"), ent, PopupType.MediumCaution);
             return;
@@ -386,7 +387,7 @@ public sealed partial class DHLandingSystem : EntitySystem
         }
 
         var coordinates = new EntityCoordinates(systemMap, origin + orbit);
-        if (!_shuttle.FTLFree(shuttle.Value, coordinates, Angle.Zero, null))
+        if (!_rift.ExitFree(shuttle.Value, coordinates))
         {
             _popup.PopupEntity(Loc.GetString("dh-rift-nav-exit-blocked"), ent, PopupType.MediumCaution);
             return;
