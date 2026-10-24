@@ -202,6 +202,7 @@
   - type: DHPlanetBase
     system: DHSystemREP27
     body: P7
+    underground: /Maps/_DarkestHour/Assault/terminus_bunker.yml
   - type: DHAssaultFactionStation
     faction: Republic
 

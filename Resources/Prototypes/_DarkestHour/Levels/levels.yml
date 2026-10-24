@@ -1,0 +1,148 @@
+# Уровни (по образцу RMC-14): люки и лестницы между поверхностью и бункером, грузовой лифт. Механика — DHLevelSystem.
+# Пары связаны полем link; на карту ставятся готовые прототипы пар (суффикс — какая пара).
+
+- type: entity
+  abstract: true
+  parent: BaseStructure
+  id: DHLevelPassageBase
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Levels/levels.rsi
+    drawdepth: FloorObjects
+  - type: InteractionOutline
+  - type: Clickable
+  - type: Physics
+    bodyType: Static
+    canCollide: false
+  - type: Tag
+    tags:
+    - Structure
+
+- type: entity
+  abstract: true
+  parent: DHLevelPassageBase
+  id: DHHatchBase
+  name: bunker hatch
+  description: A heavy steel hatch with a ladder going down into the dark. Use it to climb down.
+  components:
+  - type: Sprite
+    state: hatch
+
+- type: entity
+  abstract: true
+  parent: DHLevelPassageBase
+  id: DHLadderUpBase
+  name: ladder
+  description: A steel ladder leading up to the surface. Use it to climb up.
+  components:
+  - type: Sprite
+    state: ladder
+    drawdepth: Objects
+
+# --- Пары «Терминуса» ---
+
+- type: entity
+  parent: DHHatchBase
+  id: DHHatchTerminusHQ
+  suffix: Terminus HQ
+  components:
+  - type: DHLadder
+    link: TerminusHQ
+    down: true
+
+- type: entity
+  parent: DHLadderUpBase
+  id: DHLadderTerminusHQ
+  suffix: Terminus HQ
+  components:
+  - type: DHLadder
+    link: TerminusHQ
+
+- type: entity
+  parent: DHHatchBase
+  id: DHHatchTerminusBarracks
+  suffix: Terminus barracks
+  components:
+  - type: DHLadder
+    link: TerminusBarracks
+    down: true
+
+- type: entity
+  parent: DHLadderUpBase
+  id: DHLadderTerminusBarracks
+  suffix: Terminus barracks
+  components:
+  - type: DHLadder
+    link: TerminusBarracks
+
+# --- Грузовой лифт ---
+
+- type: entity
+  abstract: true
+  id: DHLiftPlatformBase
+  name: cargo lift platform
+  description: A heavy freight platform between the surface and the bunker. Whatever stands on it rides along.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Levels/lift.rsi
+    state: platform
+    drawdepth: FloorTiles
+  - type: Clickable
+  - type: Physics
+    bodyType: Static
+    canCollide: false
+
+- type: entity
+  abstract: true
+  parent: BaseStructure
+  id: DHLiftPanelBase
+  name: cargo lift panel
+  description: "Press to send everything on the platform to the other level. Alternative action: call the lift and bring the cargo from the other level."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Levels/levels.rsi
+    state: lift_panel
+  - type: InteractionOutline
+  - type: Clickable
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.2,-0.4,0.2,0.2"
+        density: 100
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+
+- type: entity
+  parent: DHLiftPlatformBase
+  id: DHLiftPlatformTerminus
+  suffix: Terminus
+  components:
+  - type: DHLift
+    link: TerminusLift
+
+- type: entity
+  parent: DHLiftPanelBase
+  id: DHLiftPanelTerminus
+  suffix: Terminus
+  components:
+  - type: DHLiftPanel
+    link: TerminusLift

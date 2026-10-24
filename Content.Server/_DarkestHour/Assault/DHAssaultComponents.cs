@@ -200,4 +200,21 @@ public sealed partial class DHPlanetBaseComponent : Component
     /// <summary>Запас вокруг базы, где биом не ставит деревья и камни, тайлов.</summary>
     [DataField]
     public int ClearMargin = 6;
+
+    /// <summary>
+    /// Подземный уровень (бункер): грид, который грузится на свою карту «под» базой с тем же смещением, так что
+    /// координаты уровней совпадают. Связь — лестницы, люки и лифт (DHLevelSystem). Нет — бункера нет.
+    /// </summary>
+    [DataField]
+    public ResPath? Underground;
+
+    [DataField]
+    public LocId UndergroundName = "dh-bunker-name";
+
+    /// <summary>Окружающий свет под землёй (почти темно: светят лампы бункера).</summary>
+    [DataField]
+    public Color UndergroundLight = Color.FromHex("#0d0c0b");
+
+    [ViewVariables]
+    public EntityUid? UndergroundGrid;
 }
