@@ -32,6 +32,10 @@ DEPT = {
     'silicon': (hexc('275e57'), hexc('b8f5e6')),
     # Metall Armed response team: dark graphite with beige
     'metallarmed': (hexc('2b2d31'), hexc('d9cba8')),
+    # Imperial Marine Corps: imperial black with white
+    'imperial': (hexc('141416'), hexc('ece6d6')),
+    # faction badge of the Imperial Marine Corps: white with a black crown
+    'imperialfaction': (hexc('ece6d6'), hexc('141416')),
     # Republic sweep team: republic green with khaki
     'republic': (hexc('35502f'), hexc('ddd1a0')),
 }
@@ -43,6 +47,7 @@ FRAME = {
     'trainee': None,            # same, dashed
 }
 SECURITY_FRAME = hexc('6a6c6e')  # grey frame for corporate security staff
+IMPERIAL_FRAME = hexc('8a8c92')  # steel frame: the black imperial badge needs a visible edge
 
 G = {
     'star': ['..##..', '..##..', '######', '.####.', '.#..#.', '#....#'],
@@ -74,6 +79,7 @@ G = {
     'lens': ['......', '..##..', '.#..#.', '#.##.#', '.#..#.', '..##..'],
     'crosshair': ['..#...', '.###..', '##.##.', '.###..', '..#...', '......'],
     'rifle': ['......', '#.....', '######', '.####.', '.#....', '......'],
+    'crown': ['.#..#.', '#.##.#', '######', '######', '.####.', '......'],
     'flame': ['..#...', '..##..', '.###..', '.####.', '######', '.####.'],
     'belt': ['#.#.#.', '######', '######', '#.#.#.', '......', '......'],
 }
@@ -115,6 +121,12 @@ ICONS = [
     ('MetallArmedWeapons', 'metallarmed', 'lead', 'crosshair'),
     ('MetallArmedMedic', 'metallarmed', 'staff', 'cross'),
     ('MetallArmedRifleman', 'metallarmed', 'staff', 'rifle'),
+    ('ImperialFaction', 'imperialfaction', 'head', 'crown'),
+    ('ImperialCommander', 'imperial', 'head', 'star'),
+    ('ImperialWeapons', 'imperial', 'lead', 'crosshair'),
+    ('ImperialMedic', 'imperial', 'staff', 'cross'),
+    ('ImperialMachinegunner', 'imperial', 'staff', 'belt'),
+    ('ImperialRifleman', 'imperial', 'staff', 'rifle'),
     ('RepublicCommander', 'republic', 'head', 'star'),
     ('RepublicSniper', 'republic', 'lead', 'crosshair'),
     ('RepublicMachinegunner', 'republic', 'staff', 'belt'),
@@ -133,6 +145,8 @@ def icon(dept, rank, glyph):
     frame = FRAME[rank] or shade(fill, 0.62)
     if dept == 'security' and rank in ('staff', 'trainee'):
         frame = SECURITY_FRAME
+    if dept == 'imperial' and rank in ('staff', 'trainee'):
+        frame = IMPERIAL_FRAME
     img = Image.new('RGBA', (8, 8), (0, 0, 0, 0))
     px = img.load()
     for y in range(8):

@@ -7,7 +7,7 @@
   components:
   - type: ComputerVisuals
     stateScreen: mining
-    stateKeys: mining_key
+    stateKeys: tech_key
   - type: DHLandingConsole
   - type: ActivatableUI
     key: enum.DHLandingUiKey.Key

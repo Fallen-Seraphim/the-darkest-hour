@@ -113,6 +113,24 @@
             "name": "MetallArmedRifleman"
         },
         {
+            "name": "ImperialFaction"
+        },
+        {
+            "name": "ImperialCommander"
+        },
+        {
+            "name": "ImperialWeapons"
+        },
+        {
+            "name": "ImperialMedic"
+        },
+        {
+            "name": "ImperialMachinegunner"
+        },
+        {
+            "name": "ImperialRifleman"
+        },
+        {
             "name": "RepublicCommander"
         },
         {
