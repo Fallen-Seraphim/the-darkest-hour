@@ -634,6 +634,13 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
     /// </summary>
     private void Announce(DHAssaultFaction faction, string message, SoundSpecifier? sound = null)
     {
+        var text = Loc.TryGetString(message, out var localized) ? localized : message;
+        AnnounceToFaction(faction, Loc.GetString(SenderOf(faction)), text, sound);
+    }
+
+    /// <summary>Сообщение только бойцам стороны (по радио, без утечки соседям): текст уже готовый, не ключ локали.</summary>
+    public void AnnounceToFaction(DHAssaultFaction faction, string sender, string text, SoundSpecifier? sound = null)
+    {
         var sessions = new HashSet<ICommonSession>();
         var fighters = EntityQueryEnumerator<DHAssaultFighterComponent, ActorComponent>();
         while (fighters.MoveNext(out _, out var fighter, out var actor))
@@ -655,9 +662,8 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
             return;
 
         var filter = Filter.Empty().AddPlayers(sessions);
-        var text = Loc.TryGetString(message, out var localized) ? localized : message;
         var wrapped = Loc.GetString("chat-manager-sender-announcement-wrap-message",
-            ("sender", Loc.GetString(SenderOf(faction))), ("message", FormattedMessage.EscapeText(text)));
+            ("sender", FormattedMessage.EscapeText(sender)), ("message", FormattedMessage.EscapeText(text)));
         _chatManager.ChatMessageToManyFiltered(filter, ChatChannel.Radio, text, wrapped, EntityUid.Invalid, false, true,
             FactionColor(faction));
         _audio.PlayGlobal(sound ?? AnnounceSound, filter, true, AudioParams.Default.WithVolume(-2f));

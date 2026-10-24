@@ -1,0 +1,137 @@
+# Наблюдение («оверватч», по образцу RMC-14): бойцы своей стороны, вид их глазами и приказы стороне.
+# Механика — DHOverwatchSystem. Работает между картами: с авианосца видно десант на поверхности.
+
+- type: entity
+  abstract: true
+  id: DHOverwatchBase
+  components:
+  - type: ActivatableUI
+    key: enum.DHOverwatchUiKey.Key
+  - type: ActivatableUIRequiresVision
+  - type: UserInterface
+    interfaces:
+      enum.DHOverwatchUiKey.Key:
+        type: DHOverwatchBoundUserInterface
+
+# --- Стационарные консоли ---
+
+- type: entity
+  parent: [ BaseComputer, DHOverwatchBase ]
+  id: DHComputerOverwatchRepublic
+  name: garrison overwatch console
+  description: Shows every soldier of the garrison, their condition and position, and the view from their helmet cameras. Orders typed here reach the whole garrison.
+  components:
+  - type: ComputerVisuals
+    stateScreen: cameras
+    stateKeys: tech_key
+  - type: DHOverwatchConsole
+    faction: Republic
+  - type: UserInterface
+    interfaces:
+      enum.DHOverwatchUiKey.Key:
+        type: DHOverwatchBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: Computer
+    board: DHOverwatchRepublicComputerCircuitboard
+  - type: ApcPowerReceiver
+    needsPower: false
+    powerLoad: 0
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#8fd66b"
+
+- type: entity
+  parent: [ BaseComputer, DHOverwatchBase ]
+  id: DHComputerOverwatchEmpire
+  name: landing overwatch console
+  description: Shows every Imperial marine and crewman, their condition and position, and the view from their helmet cameras, even on the surface below. Orders typed here reach the whole landing force.
+  components:
+  - type: ComputerVisuals
+    stateScreen: cameras
+    stateKeys: syndie_key
+  - type: DHOverwatchConsole
+    faction: Empire
+  - type: UserInterface
+    interfaces:
+      enum.DHOverwatchUiKey.Key:
+        type: DHOverwatchBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: Computer
+    board: DHOverwatchEmpireComputerCircuitboard
+  - type: ApcPowerReceiver
+    needsPower: false
+    powerLoad: 0
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#e8b04a"
+
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: DHOverwatchRepublicComputerCircuitboard
+  name: garrison overwatch console board
+  description: A computer printed circuit board for a garrison overwatch console.
+  components:
+  - type: Sprite
+    state: cpu_security
+  - type: ComputerBoard
+    prototype: DHComputerOverwatchRepublic
+
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: DHOverwatchEmpireComputerCircuitboard
+  name: landing overwatch console board
+  description: A computer printed circuit board for a landing overwatch console.
+  components:
+  - type: Sprite
+    state: cpu_security
+  - type: ComputerBoard
+    prototype: DHComputerOverwatchEmpire
+
+# --- Полевые планшеты командиров ---
+
+- type: entity
+  abstract: true
+  parent: [ BaseItem, DHOverwatchBase ]
+  id: DHOverwatchTabletBase
+  components:
+  - type: Item
+    size: Small
+    sprite: Objects/Devices/tablets.rsi
+  - type: ActivatableUI
+    key: enum.DHOverwatchUiKey.Key
+    inHandsOnly: true
+  - type: Sprite
+    sprite: Objects/Devices/tablets.rsi
+    layers:
+    - state: tablet
+    - state: generic
+      shader: unshaded
+
+- type: entity
+  parent: DHOverwatchTabletBase
+  id: DHOverwatchTabletRepublic
+  name: garrison command tablet
+  description: A field tablet linked to the helmet cameras of the garrison. Orders typed here reach every soldier of the base.
+  components:
+  - type: DHOverwatchConsole
+    faction: Republic
+
+- type: entity
+  parent: DHOverwatchTabletBase
+  id: DHOverwatchTabletEmpire
+  name: landing command tablet
+  description: A field tablet linked to the helmet cameras of the landing force. Orders typed here reach every marine and crewman.
+  components:
+  - type: Item
+    sprite: Objects/Devices/tablets.rsi
+  - type: Sprite
+    layers:
+    - state: tablet
+    - state: syndie
+      shader: unshaded
+  - type: DHOverwatchConsole
+    faction: Empire

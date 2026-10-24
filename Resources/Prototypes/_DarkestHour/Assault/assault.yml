@@ -9,10 +9,30 @@
   id: DHGarrisonCommanderGear
   equipment:
     pocket2: DHWeaponPistolMk58
+  storage:
+    back:
+    - DHMagazine762x51FMG
+    - DHMagazine762x51FMG
+    - DHMagazine762x51FMG
+    - DHMagazine762x51EXP
+    - Binoculars
+    - MedkitCombatFilled
+    - DHIFAKFilled
+    - DHOverwatchTabletRepublic
 
 - type: startingGear
   parent: DHRepublicCommanderGear
   id: DHGarrisonOfficerGear
+  storage:
+    back:
+    - DHMagazine762x51FMG
+    - DHMagazine762x51FMG
+    - DHMagazine762x51FMG
+    - DHMagazine762x51EXP
+    - Binoculars
+    - MedkitCombatFilled
+    - DHIFAKFilled
+    - DHOverwatchTabletRepublic
 
 - type: startingGear
   parent: DHRepublicGearBase
@@ -74,6 +94,7 @@
     - DHMagazine145x114Std
     - Binoculars
     - DHIFAKFilled
+    - DHOverwatchTabletEmpire
 
 - type: startingGear
   parent: DHCarrierCrewGearBase

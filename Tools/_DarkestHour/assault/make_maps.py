@@ -106,6 +106,10 @@ def build_base():
         b.put('Chair', x, 15)
         b.put('Chair', x, 13)
     b.put('Binoculars', -5, 14, solid=False)
+    # overwatch: two consoles at the north wall of the command room, chairs in front of them
+    for x in (-3, -1):
+        b.put('DHComputerOverwatchRepublic', x, 18)
+        b.put('ChairOfficeDark', x, 17, solid=False, rot='3.141592653589793')
     # vault: the sample on a reinforced table
     b.put('TableReinforced', 6, 17)
     b.put('DHExperimentalSample', 6, 17, solid=False)
@@ -508,6 +512,9 @@ def main():
             ('DHMissileLauncher', [p(10, -3), p(10, -21), p(13, -9), p(13, -16)]),
             ('DHInterceptorMissile', [p(8, -21), p(8, -21), p(8, -3), p(8, -3)]),
             ('LightPostSmall', [p(11, -8), p(11, -16)]),
+            # overwatch console on the bridge: the landing force is watched from orbit and from the air
+            ('DHComputerOverwatchEmpire', [p(5, -4)]),
+            ('ChairOfficeDark', [(p(5, -5), '3.141592653589793')]),
             # paradrop beacons for the landing force
             ('DHDropBeacon', [p(11, -21), p(11, -21), p(12, -21), p(12, -21)]),
             # field tents and sandbags for a forward position

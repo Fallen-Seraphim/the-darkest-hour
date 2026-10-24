@@ -288,6 +288,7 @@
     - DHDropBeacon
     - DHDropBeacon
     - DHIFAKFilled
+    - DHOverwatchTabletEmpire
 
 - type: startingGear
   parent: DHImperialGearBase
