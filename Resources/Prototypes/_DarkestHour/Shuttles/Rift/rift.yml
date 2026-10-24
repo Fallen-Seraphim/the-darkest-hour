@@ -122,7 +122,7 @@
       shader: unshaded
       map: [ "enum.PowerDeviceVisualLayers.Powered" ]
   - type: DHRiftAccumulator
-    maxMass: 80000
+    maxMass: 600000 # ~750 тайлов: IL-7 Gladius, MA-Bastion, эвакуационный шаттл
     chronite: 160
     chroniteMax: 160
     chronitePerJump: 40
@@ -145,7 +145,7 @@
       shader: unshaded
       map: [ "enum.PowerDeviceVisualLayers.Powered" ]
   - type: DHRiftAccumulator
-    maxMass: 250000
+    maxMass: 2500000 # ~3000 тайлов: крупные военные корабли
     chronite: 240
     chroniteMax: 240
     chronitePerJump: 60
