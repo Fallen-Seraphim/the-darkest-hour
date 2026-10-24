@@ -2,3 +2,8 @@
   license: "Custom"
   copyright: "\"Through Hell\" by bobik_music (SS14 Colonial Marines). Added at the request of the project owner; licence to be confirmed. Converted from MP3 to OGG."
   source: "https://github.com/Fallen-Seraphim/the-darkest-hour"
+
+- files: ["deadend.ogg"]
+  license: "Custom"
+  copyright: "\"The moment when the station was gone\" by Enigma code (SS14). Added at the request of the project owner; licence to be confirmed. Converted to OGG."
+  source: "https://github.com/Fallen-Seraphim/the-darkest-hour"
