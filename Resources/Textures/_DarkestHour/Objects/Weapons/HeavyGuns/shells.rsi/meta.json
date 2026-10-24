@@ -1,0 +1,43 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Made for The Darkest Hour (Tools/_DarkestHour/heavy_guns/build.py)",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "medium_he"
+        },
+        {
+            "name": "medium_ap"
+        },
+        {
+            "name": "medium_inc"
+        },
+        {
+            "name": "medium_cluster"
+        },
+        {
+            "name": "heavy_he"
+        },
+        {
+            "name": "heavy_ap"
+        },
+        {
+            "name": "heavy_inc"
+        },
+        {
+            "name": "heavy_cluster"
+        },
+        {
+            "name": "inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "inhand-right",
+            "directions": 4
+        }
+    ]
+}
