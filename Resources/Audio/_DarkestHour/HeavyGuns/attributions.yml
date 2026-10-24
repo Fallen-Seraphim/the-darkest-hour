@@ -1,0 +1,14 @@
+- files: ["gun_orbital_travel.ogg", "gun_mortar_travel.ogg", "gun_mortar_fire.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13 via RMC-14"
+  source: "https://github.com/RMC-14/RMC-14/tree/master/Resources/Audio/_RMC14/Weapons"
+
+- files: ["incoming_rocket.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13 via RMC-14. Length modified by kleinerstation13 (Github)"
+  source: "https://github.com/RMC-14/RMC-14/tree/master/Resources/Audio/_RMC14/Effects"
+
+- files: ["ob_alert.ogg", "rocketpod_fire.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13 via RMC-14"
+  source: "https://github.com/RMC-14/RMC-14/tree/master/Resources/Audio/_RMC14/Effects"

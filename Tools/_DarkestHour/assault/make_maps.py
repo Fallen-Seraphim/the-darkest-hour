@@ -25,10 +25,12 @@ TILES = {
     'FloorReinforced': 4,
     'FloorWhite': 5,
     'FloorTechMaint': 6,
+    'FloorDesert': 7,
 }
 
 X0, X1 = -30, 29   # inclusive
-Y0, Y1 = -22, 21
+Y0, Y1 = -22, 21   # walled compound
+M1 = 44            # top of the mountain massif north of the compound
 
 
 class Base:
@@ -45,16 +47,15 @@ class Base:
             for y in range(y0, y1 + 1):
                 self.tile(x, y, name)
 
-    def put(self, proto, x, y, solid=True):
-        self.ents.setdefault(proto, []).append((x, y))
+    def put(self, proto, x, y, solid=True, rot=None):
+        self.ents.setdefault(proto, []).append((x, y, rot))
         if solid:
             self.blocked.add((x, y))
 
     def clear(self, x, y):
         """Removes walls/windows at a tile (doors and gates)."""
-        for proto in ('WallReinforced', 'WallSolid', 'ReinforcedWindow'):
-            if (x, y) in self.ents.get(proto, []):
-                self.ents[proto].remove((x, y))
+        for proto in ('WallReinforced', 'WallSolid', 'ReinforcedWindow', 'WallRockSand'):
+            self.ents[proto] = [e for e in self.ents.get(proto, []) if e[:2] != (x, y)]
         self.blocked.discard((x, y))
 
     def walls(self, x0, y0, x1, y1, proto):
@@ -171,9 +172,16 @@ def build_base():
     b.put('ClothingBeltUtilityFilled', 19, -10, solid=False)
     b.put('Shovel', 21, -10, solid=False)
 
-    # pads for the future anti-air batteries
-    for cx, cy in ((-24, -18), (23, -18), (-6, 3)):
+    # air defence of the base: two interceptor missile silos and two twin 30 mm autocannons on reinforced pads
+    for cx, cy, proto in ((-24, -18, 'DHMissileSilo'), (23, -18, 'DHMissileSilo'),
+                          (-6, 3, 'DHAutocannonTwin30'), (6, 3, 'DHAutocannonTwin30')):
         b.fill(cx - 1, cy - 1, cx + 1, cy + 1, 'FloorReinforced')
+        b.put(proto, cx, cy)
+        ammo = 'DHInterceptorMissile' if proto == 'DHMissileSilo' else 'DHAutocannonAmmoBox30'
+        for dx in (-1, 1):
+            b.put(ammo, cx + dx, cy - 1, solid=False)
+
+    build_massif(b)
 
     # light posts: yard and rooms (the planet has nights)
     for x, y in ((-10, -16), (10, -16), (-10, 0), (10, 0), (0, -8), (-6, 21 - 2), (12, 21 - 2), (-20, 2),
@@ -183,6 +191,59 @@ def build_base():
             b.put('LightPostSmall', x, y)
 
     return b
+
+
+def build_massif(b):
+    """Mountain massif north of the compound with the anti-orbital battery dug into it: a tunnel from the north gate,
+    a gun gallery with the 700 mm and two 400 mm guns facing north (barrels in open pits), the shell store (west) and
+    the fire control bunker (east)."""
+    b.fill(X0, Y1 + 1, X1, M1, 'FloorDesert')
+    for x in range(X0, X1 + 1):
+        for y in range(Y1 + 1, M1 + 1):
+            # ragged outline of the massif
+            edge = min(x - X0, X1 - x, M1 - y)
+            if edge < 2 and (x * 7 + y * 3) % 5 < 2:
+                continue
+            b.put('WallRockSand', x, y)
+
+    def carve(x0, y0, x1, y1, tile):
+        for x in range(x0, x1 + 1):
+            for y in range(y0, y1 + 1):
+                b.clear(x, y)
+                b.tile(x, y, tile)
+
+    carve(-2, Y1 + 1, 1, 29, 'FloorConcrete')         # tunnel from the north gate
+    carve(-15, 30, 15, 33, 'FloorReinforced')         # gun gallery
+    carve(-24, 28, -17, 34, 'FloorSteel')             # shell store
+    carve(-16, 31, -16, 32, 'FloorReinforced')
+    carve(17, 28, 24, 34, 'FloorDark')                # fire control bunker
+    carve(16, 31, 16, 32, 'FloorReinforced')
+
+    # guns: breech on the gallery's north row, barrel in a pit in front of it
+    for x, cal in ((0, '700'), (-11, '400'), (11, '400')):
+        carve(x, 34, x, 34, 'FloorReinforced')
+        b.put('DHHeavyGunBreech' + cal, x, 33)
+        b.put('DHHeavyGunBarrel' + cal, x, 34)
+
+    # the shell store: per calibre and warhead
+    warheads = ('HighExplosive', 'ArmorPiercing', 'Incendiary', 'Cluster')
+    for i, wh in enumerate(warheads):
+        for n in range(2):
+            b.put('DHHeavyShell700' + wh, -23 + i, 33 - n, solid=False)
+        for n in range(3):
+            b.put('DHHeavyShell400' + wh, -23 + i, 30 - n, solid=False)
+    b.put('LightPostSmall', -18, 33)
+
+    # fire control: the console with the gunner's chair in front of it
+    b.put('DHComputerAntiOrbital', 21, 33)
+    b.put('ChairOfficeDark', 21, 32, solid=False, rot='3.141592653589793')
+    b.put('TableReinforced', 23, 33)
+    b.put('Binoculars', 23, 33, solid=False)
+    b.put('LightPostSmall', 18, 29)
+
+    for x in (-12, -4, 4, 12):
+        b.put('LightPostSmall', x, 30)
+    b.put('LightPostSmall', -1, 25)
 
 
 def chunks(tiles):
@@ -271,10 +332,12 @@ def write_base(b, path):
             continue
         w('- proto: %s' % proto)
         w('  entities:')
-        for x, y in positions:
+        for x, y, rot in positions:
             w('  - uid: %d' % uid)
             w('    components:')
             w('    - type: Transform')
+            if rot is not None:
+                w('      rot: %s rad' % rot)
             w('      pos: %s,%s' % (x + 0.5, y + 0.5))
             w('      parent: 2')
             uid += 1
@@ -319,9 +382,48 @@ def uid_of(e):
     return int(re.match(r'  - uid: (\d+)', e).group(1))
 
 
-def build_carrier(src, dst, name, drop, adds):
+def decode_tiles(s):
+    """Tiles of a grid file (format 7 chunks): {(x, y): tile id} and the byte size per tile."""
+    tiles = {}
+    for ind, data, ver in re.findall(r'ind: (-?\d+,-?\d+)\n\s+tiles: (\S+)\n\s+version: (\d+)', s):
+        cx, cy = map(int, ind.split(','))
+        raw = base64.b64decode(data)
+        size = 7 if ver == '7' else 6
+        for i in range(256):
+            tiles[(cx * 16 + i % 16, cy * 16 + i // 16)] = raw[i * size:(i + 1) * size]
+    return tiles
+
+
+def encode_chunks(tiles, space):
+    """Back to format 7 chunks: tiles {(x, y): 7 bytes}; missing tiles are `space`."""
+    by_chunk = {}
+    for (x, y), raw in tiles.items():
+        by_chunk.setdefault((x // 16, y // 16), {})[(x % 16, y % 16)] = raw
+    out = []
+    for (cx, cy), cells in sorted(by_chunk.items()):
+        data = bytearray()
+        for i in range(256):
+            data += cells.get((i % 16, i // 16), space)
+        out.append('        %d,%d:\n          ind: %d,%d\n          tiles: %s\n          version: 7\n'
+                   % (cx, cy, cx, cy, base64.b64encode(bytes(data)).decode()))
+    return ''.join(out)
+
+
+def build_carrier(src, dst, name, drop, adds, floor=None):
     s = open(src, encoding='utf-8').read()
     s = s.replace('GL Evac Serpent', name)
+
+    if floor:
+        # extra floor tiles (the gun deck wing): FloorDark of the file's own tile map
+        dark = int(re.search(r'^  (\d+): FloorDark$', s, re.M).group(1))
+        space = int(re.search(r'^  (\d+): Space$', s, re.M).group(1))
+        tiles = decode_tiles(s)
+        for pos in floor:
+            tiles[pos] = struct.pack('<iBBB', dark, 0, 0, 0)
+        tiles = {k: (v if len(v) == 7 else v + b'\x00') for k, v in tiles.items()}
+        chunks_text = encode_chunks(tiles, struct.pack('<iBBB', space, 0, 0, 0))
+        s = re.sub(r'(    - type: MapGrid\n      chunks:\n)(?:        .*\n|          .*\n)+', lambda m: m.group(1) + chunks_text, s, count=1)
+
     head, protos, tail = blocks(s)
     dropped = set()
     for proto, ents in protos:
@@ -334,8 +436,11 @@ def build_carrier(src, dst, name, drop, adds):
     for proto, positions in adds:
         ents = []
         for pos in positions:
-            ents.append('  - uid: %d\n    components:\n    - type: Transform\n      pos: %s\n      parent: 1\n'
-                        % (nxt, pos))
+            rot = None
+            if isinstance(pos, tuple):
+                pos, rot = pos
+            ents.append('  - uid: %d\n    components:\n    - type: Transform\n%s      pos: %s\n      parent: 1\n'
+                        % (nxt, '      rot: %s rad\n' % rot if rot else '', pos))
             nxt += 1
         protos.append([proto, ents])
 
@@ -351,6 +456,16 @@ def main():
 
     seats = ['%s,%s' % (x + 0.5, y + 0.5) for y in (-9, -16) for x in (-3, -2, -1, 1, 2, 3)]
     seats += ['%s,%s' % (x + 0.5, -17.5) for x in (-5, -4, -2, -1, 1, 2, 4, 5)]
+
+    # gun deck wing on the starboard side (east of the hull, x 8..14): the docking airlocks of the hull lead into it
+    wing = [(x, y) for x in range(8, 15) for y in range(-22, -1)]
+    walls = ['%s,%s' % (x + 0.5, y + 0.5) for x, y in wing if x == 14 or y in (-22, -2)]
+    east = '-1.5707963267948966'
+    p = lambda x, y: '%s,%s' % (x + 0.5, y + 0.5)
+    shells = []
+    for i, wh in enumerate(('HighExplosive', 'ArmorPiercing', 'Incendiary', 'Cluster')):
+        shells.append(('DHHeavyShell570' + wh, [p(8 + i, -11)] * 2))
+        shells.append(('DHHeavyShell300' + wh, [p(8 + i, -7)] * 3))
     build_carrier(
         'Resources/Maps/Shuttles/emergency_syndicate.yml',
         'Resources/Maps/_DarkestHour/Shuttles/imperial_carrier.yml',
@@ -364,7 +479,20 @@ def main():
             ('DHArmorRack', ['-5.5,-21.5']),
             ('SpawnPointAnyJob', seats),
             ('SpawnPointLatejoin', ['-1.5,-7.5', '-0.5,-7.5', '0.5,-7.5', '1.5,-7.5']),
-        ])
+            # gun deck: 570 mm main gun and two 300 mm guns facing starboard, barrels through the hull
+            ('WallPlastitanium', walls),
+            ('DHHeavyGunBreech570', [(p(12, -12), east)]),
+            ('DHHeavyGunBarrel570', [(p(13, -12), east)]),
+            ('DHHeavyGunBreech300', [(p(12, -5), east), (p(12, -19), east)]),
+            ('DHHeavyGunBarrel300', [(p(13, -5), east), (p(13, -19), east)]),
+            ('DHComputerNavalArtillery', [p(9, -14)]),
+            ('ChairOfficeDark', [(p(9, -15), '3.141592653589793')]),
+            # point defence: four interceptor missile launchers and spare missiles
+            ('DHMissileLauncher', [p(10, -3), p(10, -21), p(13, -9), p(13, -16)]),
+            ('DHInterceptorMissile', [p(8, -21), p(8, -21), p(8, -3), p(8, -3)]),
+            ('LightPostSmall', [p(11, -8), p(11, -16)]),
+        ] + shells,
+        floor=wing)
 
 
 if __name__ == '__main__':

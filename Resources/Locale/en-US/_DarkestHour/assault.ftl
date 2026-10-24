@@ -5,7 +5,7 @@ dh-assault-description = An Imperial landing carrier jumps in from a neighbourin
 
 dh-assault-carrier-name = IC-3 Sovereign
 dh-celestial-rep27-7 = REP-27-7
-dh-celestial-rep27-7-desc = A temperate world of the REP-27 system with breathable air. The Republican Army Corps keeps Firebase Terminus here.
+dh-celestial-rep27-7-desc = A hot desert world of the REP-27 system with thin but breathable air. The Republican Army Corps keeps Firebase Terminus here, its anti-orbital guns dug into a mountain massif.
 location-dh-experimental-sample = experimental sample
 id-card-access-level-dh-republic-command = Republican Garrison Command
 

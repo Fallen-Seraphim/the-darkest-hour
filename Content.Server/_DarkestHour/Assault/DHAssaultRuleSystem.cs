@@ -1,6 +1,8 @@
 using System.Linq;
 using System.Numerics;
 using Content.Server._DarkestHour.Shuttles.Rift;
+using Content.Shared.Atmos.Components;
+using Content.Server.Atmos.EntitySystems;
 using Content.Server.Chat.Managers;
 using Content.Server.Chat.Systems;
 using Content.Server.Explosion.EntitySystems;
@@ -51,6 +53,7 @@ namespace Content.Server._DarkestHour.Assault;
 public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleComponent>
 {
     [Dependency] private AntagSelectionSystem _antag = default!;
+    [Dependency] private AtmosphereSystem _atmos = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private DHCelestialSystem _celestial = default!;
     [Dependency] private ChatSystem _chat = default!;
@@ -141,6 +144,10 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
 
         var name = Loc.GetString(rule.Comp.CarrierName);
         _meta.SetEntityName(grid.Value, name);
+
+        // Палуба орудий пристроена к корпусу генератором карт — у её тайлов нет сохранённого воздуха.
+        if (TryComp<GridAtmosphereComponent>(grid.Value, out var gridAtmos))
+            _atmos.RebuildGridAtmosphere((grid.Value.Owner, gridAtmos, grid.Value.Comp));
 
         var carrier = EnsureComp<DHAssaultCarrierComponent>(grid.Value);
         carrier.Hull = rule.Comp.CarrierHull;
@@ -454,13 +461,25 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
 
     #region Авианосец
 
-    /// <summary>Урон авианосцу (ПКО). На нуле — падение на планету.</summary>
+    /// <summary>Урон авианосцу (админская команда): первому авианосцу активного «Штурма».</summary>
     public bool DamageCarrier(float amount)
+    {
+        return DamageCarrier(null, amount);
+    }
+
+    /// <summary>
+    /// Попадание ПКО по гриду: если это авианосец «Штурма» — урон прочности; на нуле — падение на планету.
+    /// <paramref name="grid"/> null — первый авианосец активного «Штурма».
+    /// </summary>
+    public bool DamageCarrier(EntityUid? grid, float amount)
     {
         foreach (var rule in ActiveRules())
         {
-            if (rule.Comp.Carrier is not { } carrier || !TryComp<DHAssaultCarrierComponent>(carrier, out var comp))
+            if (rule.Comp.Carrier is not { } carrier || !TryComp<DHAssaultCarrierComponent>(carrier, out var comp) ||
+                grid != null && grid != carrier)
+            {
                 continue;
+            }
 
             if (comp.Downed)
                 return false;
@@ -468,6 +487,8 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
             comp.Hull = MathF.Max(0f, comp.Hull - amount);
             if (comp.Hull <= 0f)
                 Down(rule.Comp, (carrier, comp));
+            else
+                Announce(DHAssaultFaction.Empire, Loc.GetString("dh-assault-carrier-damaged", ("hull", (int) MathF.Ceiling(comp.Hull))));
 
             return true;
         }
