@@ -1,3 +1,4 @@
+using Content.Shared.Damage;
 using Content.Shared.Body;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
@@ -58,7 +59,15 @@ public sealed partial class DHPartTrauma
     [DataField]
     public int Shrapnel;
 
-    public bool HasInjury => Fracture || InternalBleeding > 0f || Shrapnel > 0;
+    /// <summary>Наложенный жгут/турникет (прототип — его возвращают при снятии); null — нет.</summary>
+    [DataField]
+    public string? Tourniquet;
+
+    /// <summary>Когда наложен жгут: через 10 минут конечность начинает отмирать.</summary>
+    [DataField]
+    public TimeSpan TourniquetSince;
+
+    public bool HasInjury => Fracture || InternalBleeding > 0f || Shrapnel > 0 || Tourniquet != null;
 
     public bool IsEmpty => Brute <= 0.01f && Burn <= 0.01f && !HasInjury;
 }
@@ -184,3 +193,49 @@ public static class DHTraumaConstants
 
 [Serializable, NetSerializable]
 public sealed partial class DHSplintDoAfterEvent : Content.Shared.DoAfter.SimpleDoAfterEvent;
+
+/// <summary>
+/// Жгут или турникет: накладывается на руку или ногу (выбранная зона или самая кровоточащая конечность),
+/// останавливает кровотечение из неё. Держать дольше 10 минут нельзя — конечность начинает отмирать.
+/// Снимается действием на пациенте — жгут возвращается в руки.
+/// </summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class DHTourniquetComponent : Component
+{
+    [DataField]
+    public TimeSpan Delay = TimeSpan.FromSeconds(3);
+
+    /// <summary>На сколько уменьшается наружное кровотечение при наложении.</summary>
+    [DataField]
+    public float BleedReduction = 8f;
+}
+
+/// <summary>
+/// Полевая повязка на часть тела (окклюзионная повязка — на грудь): уменьшает внутреннее кровотечение в ней,
+/// наружное кровотечение и немного лечит.
+/// </summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class DHFieldDressingComponent : Component
+{
+    [DataField]
+    public TimeSpan Delay = TimeSpan.FromSeconds(3);
+
+    [DataField]
+    public string Part = "Torso";
+
+    /// <summary>Во сколько раз остаётся внутреннее кровотечение части.</summary>
+    [DataField]
+    public float InternalBleedingFactor = 0.5f;
+
+    [DataField]
+    public float BleedReduction = 6f;
+
+    [DataField]
+    public DamageSpecifier Heal = new();
+}
+
+[Serializable, NetSerializable]
+public sealed partial class DHTourniquetDoAfterEvent : Content.Shared.DoAfter.SimpleDoAfterEvent;
+
+[Serializable, NetSerializable]
+public sealed partial class DHFieldDressingDoAfterEvent : Content.Shared.DoAfter.SimpleDoAfterEvent;

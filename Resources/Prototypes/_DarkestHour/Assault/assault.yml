@@ -28,6 +28,7 @@
     - DHMagazine10x24SVP
     - Binoculars
     - Wrench
+    - DHIFAKFilled
 
 - type: startingGear
   parent: DHRepublicRiflemanGear
@@ -41,6 +42,7 @@
     - DHMagazine556x45FMG
     - Shovel
     - SheetSteel10
+    - DHIFAKFilled
 
 - type: startingGear
   id: DHCarrierCrewGearBase
@@ -56,6 +58,7 @@
     back:
     - DHMagazine145x114Std
     - DHMagazine145x114Std
+    - DHIFAKFilled
 
 - type: startingGear
   parent: DHCarrierCrewGearBase
@@ -69,6 +72,7 @@
     - DHMagazine145x114Std
     - DHMagazine145x114Std
     - Binoculars
+    - DHIFAKFilled
 
 - type: startingGear
   parent: DHCarrierCrewGearBase
@@ -82,6 +86,7 @@
     - DHMagazine145x114Std
     - DHMagazine145x114Std
     - Binoculars
+    - DHIFAKFilled
 
 - type: startingGear
   parent: DHCarrierCrewGearBase

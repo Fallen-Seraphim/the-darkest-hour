@@ -268,6 +268,7 @@
     back:
     - PinpointerSyndicateNuclear
     - CombatMedipen
+    - DHIFAKFilled
 
 - type: startingGear
   parent: DHImperialGearBase
@@ -286,6 +287,7 @@
     - PinpointerSyndicateNuclear
     - DHDropBeacon
     - DHDropBeacon
+    - DHIFAKFilled
 
 - type: startingGear
   parent: DHImperialGearBase
@@ -311,6 +313,8 @@
     - Cautery
     - SawAdvanced
     - CombatMedipen
+    - DHIFAKFilled
+    - DHFieldSurgeryKitFilled
 
 - type: startingGear
   parent: DHImperialGearBase

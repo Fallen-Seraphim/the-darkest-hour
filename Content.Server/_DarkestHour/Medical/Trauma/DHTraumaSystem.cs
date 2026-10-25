@@ -87,6 +87,8 @@ public sealed partial class DHTraumaSystem : EntitySystem
         SubscribeLocalEvent<DHTraumaComponent, ExaminedEvent>(OnExamined);
         SubscribeLocalEvent<DHSplintComponent, AfterInteractEvent>(OnSplintAfterInteract);
         SubscribeLocalEvent<DHTraumaComponent, DHSplintDoAfterEvent>(OnSplintDoAfter);
+
+        InitializeFieldMedicine();
     }
 
     #region Damage
@@ -367,6 +369,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
                     findings.Add(Loc.GetString("dh-trauma-desc-internal-bleeding"));
                 if (part.Shrapnel > 0)
                     findings.Add(Loc.GetString("dh-trauma-desc-shrapnel", ("count", part.Shrapnel)));
+                AddTourniquetFindings(part, findings);
             }
 
             if (DHTraumaConstants.OrgansIn.TryGetValue(category, out var inside))
@@ -409,11 +412,17 @@ public sealed partial class DHTraumaSystem : EntitySystem
         var comp = ent.Comp;
 
         // Кровопотеря: внутреннее кровотечение и осколки.
+        // Под жгутом конечность (и её кисть/стопа) не кровоточит.
         var bloodLoss = 0f;
-        foreach (var part in comp.Parts.Values)
+        foreach (var (category, part) in comp.Parts)
         {
+            if (Compressed(comp, category))
+                continue;
+
             bloodLoss += part.InternalBleeding + part.Shrapnel * 0.05f;
         }
+
+        TickTourniquets(ent, now);
 
         if (now < comp.BleedingSlowedUntil)
             bloodLoss *= 0.25f;
@@ -423,7 +432,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
 
         // Боль.
         comp.PainSpike = MathF.Max(0f, comp.PainSpike - 8f);
-        var pain = CalculatePain(comp);
+        var pain = CalculatePain(comp) + TourniquetPain(comp, now);
         if (now < comp.PainSuppressionUntil)
             pain = MathF.Max(0f, pain - comp.PainSuppression);
         comp.Pain = pain;
@@ -729,6 +738,8 @@ public sealed partial class DHTraumaSystem : EntitySystem
             if (part.Shrapnel > 0)
                 args.PushMarkup(Loc.GetString("dh-trauma-examine-shrapnel", ("target", ent.Owner), ("part", partName)));
         }
+
+        ExamineTourniquets(ent, args);
 
         if (ent.Comp.Pain >= PainShock && !_mobState.IsIncapacitated(ent))
             args.PushMarkup(Loc.GetString("dh-trauma-examine-pain", ("target", ent.Owner)));
