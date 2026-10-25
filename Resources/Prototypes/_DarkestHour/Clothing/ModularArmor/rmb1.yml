@@ -79,10 +79,10 @@
     parts: [ Head ]
     modifiers:
       coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.6
-        Heat: 0.7
+        Blunt: 0.5
+        Slash: 0.5
+        Piercing: 0.5
+        Heat: 0.62
 
 - type: entity
   parent: [ BaseItem, BaseTaskForceContraband ]
@@ -106,10 +106,10 @@
     equippedState: torso
     modifiers:
       coefficients:
-        Blunt: 0.8
-        Slash: 0.8
-        Piercing: 0.8
-        Heat: 0.85
+        Blunt: 0.75
+        Slash: 0.75
+        Piercing: 0.75
+        Heat: 0.81
   - type: StaticPrice
     price: 300
 
@@ -135,10 +135,10 @@
     equippedState: arm_left
     modifiers:
       coefficients:
-        Blunt: 0.8
-        Slash: 0.8
-        Piercing: 0.8
-        Heat: 0.85
+        Blunt: 0.75
+        Slash: 0.75
+        Piercing: 0.75
+        Heat: 0.81
   - type: StaticPrice
     price: 300
 
@@ -164,10 +164,10 @@
     equippedState: arm_right
     modifiers:
       coefficients:
-        Blunt: 0.8
-        Slash: 0.8
-        Piercing: 0.8
-        Heat: 0.85
+        Blunt: 0.75
+        Slash: 0.75
+        Piercing: 0.75
+        Heat: 0.81
   - type: StaticPrice
     price: 300
 
@@ -193,10 +193,10 @@
     equippedState: leg_left
     modifiers:
       coefficients:
-        Blunt: 0.8
-        Slash: 0.8
-        Piercing: 0.8
-        Heat: 0.85
+        Blunt: 0.75
+        Slash: 0.75
+        Piercing: 0.75
+        Heat: 0.81
   - type: StaticPrice
     price: 300
 
@@ -222,10 +222,10 @@
     equippedState: leg_right
     modifiers:
       coefficients:
-        Blunt: 0.8
-        Slash: 0.8
-        Piercing: 0.8
-        Heat: 0.85
+        Blunt: 0.75
+        Slash: 0.75
+        Piercing: 0.75
+        Heat: 0.81
   - type: StaticPrice
     price: 300
 
@@ -251,11 +251,11 @@
     equippedState: torso
     modifiers:
       coefficients:
-        Blunt: 0.45
-        Slash: 0.45
-        Piercing: 0.45
-        Heat: 0.7
-        Caustic: 0.8
+        Blunt: 0.31
+        Slash: 0.31
+        Piercing: 0.31
+        Heat: 0.62
+        Caustic: 0.75
   - type: StaticPrice
     price: 900
 
@@ -281,11 +281,11 @@
     equippedState: arm_left
     modifiers:
       coefficients:
-        Blunt: 0.45
-        Slash: 0.45
-        Piercing: 0.45
-        Heat: 0.7
-        Caustic: 0.8
+        Blunt: 0.31
+        Slash: 0.31
+        Piercing: 0.31
+        Heat: 0.62
+        Caustic: 0.75
   - type: StaticPrice
     price: 900
 
@@ -311,11 +311,11 @@
     equippedState: arm_right
     modifiers:
       coefficients:
-        Blunt: 0.45
-        Slash: 0.45
-        Piercing: 0.45
-        Heat: 0.7
-        Caustic: 0.8
+        Blunt: 0.31
+        Slash: 0.31
+        Piercing: 0.31
+        Heat: 0.62
+        Caustic: 0.75
   - type: StaticPrice
     price: 900
 
@@ -341,11 +341,11 @@
     equippedState: leg_left
     modifiers:
       coefficients:
-        Blunt: 0.45
-        Slash: 0.45
-        Piercing: 0.45
-        Heat: 0.7
-        Caustic: 0.8
+        Blunt: 0.31
+        Slash: 0.31
+        Piercing: 0.31
+        Heat: 0.62
+        Caustic: 0.75
   - type: StaticPrice
     price: 900
 
@@ -371,11 +371,11 @@
     equippedState: leg_right
     modifiers:
       coefficients:
-        Blunt: 0.45
-        Slash: 0.45
-        Piercing: 0.45
-        Heat: 0.7
-        Caustic: 0.8
+        Blunt: 0.31
+        Slash: 0.31
+        Piercing: 0.31
+        Heat: 0.62
+        Caustic: 0.75
   - type: StaticPrice
     price: 900
 
@@ -401,11 +401,11 @@
     equippedState: torso
     modifiers:
       coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.55
-        Heat: 0.55
-        Caustic: 0.7
+        Blunt: 0.5
+        Slash: 0.5
+        Piercing: 0.44
+        Heat: 0.44
+        Caustic: 0.62
   - type: StaticPrice
     price: 700
 
@@ -431,11 +431,11 @@
     equippedState: arm_left
     modifiers:
       coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.55
-        Heat: 0.55
-        Caustic: 0.7
+        Blunt: 0.5
+        Slash: 0.5
+        Piercing: 0.44
+        Heat: 0.44
+        Caustic: 0.62
   - type: StaticPrice
     price: 700
 
@@ -461,11 +461,11 @@
     equippedState: arm_right
     modifiers:
       coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.55
-        Heat: 0.55
-        Caustic: 0.7
+        Blunt: 0.5
+        Slash: 0.5
+        Piercing: 0.44
+        Heat: 0.44
+        Caustic: 0.62
   - type: StaticPrice
     price: 700
 
@@ -491,11 +491,11 @@
     equippedState: leg_left
     modifiers:
       coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.55
-        Heat: 0.55
-        Caustic: 0.7
+        Blunt: 0.5
+        Slash: 0.5
+        Piercing: 0.44
+        Heat: 0.44
+        Caustic: 0.62
   - type: StaticPrice
     price: 700
 
@@ -521,11 +521,11 @@
     equippedState: leg_right
     modifiers:
       coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.55
-        Heat: 0.55
-        Caustic: 0.7
+        Blunt: 0.5
+        Slash: 0.5
+        Piercing: 0.44
+        Heat: 0.44
+        Caustic: 0.62
   - type: StaticPrice
     price: 700
 

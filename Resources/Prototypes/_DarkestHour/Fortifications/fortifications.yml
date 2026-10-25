@@ -1,0 +1,391 @@
+# Полевые укрепления «Штурма» по образцу RMC-14: мешки с песком и палатки. Механика — DHFortificationSystem,
+# укрытие за мешками — DHSandbagCoverSystem. Спрайты — RMC-14 (cmss13, CC-BY-SA-3.0/4.0, см. meta.json).
+
+# --- Мешки с песком ---
+
+- type: stack
+  parent: BaseMediumStack
+  id: DHSandbagsEmpty
+  name: dh-stack-sandbags-empty
+  icon: { sprite: "/Textures/_RMC14/Objects/Misc/sandbags.rsi", state: sandbag_stack }
+  spawn: DHSandbagsEmpty
+
+- type: stack
+  parent: BaseMediumStack
+  id: DHSandbagsFull
+  name: dh-stack-sandbags-full
+  icon: { sprite: "/Textures/_RMC14/Objects/Misc/sandbags.rsi", state: sandbag_pile }
+  spawn: DHSandbagsFull
+
+- type: entity
+  parent: BaseItem
+  id: DHSandbagsEmpty
+  name: empty sandbags
+  description: Empty sandbags. Fill them with a shovel while standing on bare ground.
+  components:
+  - type: Item
+    size: Small
+    sprite: _RMC14/Objects/Misc/sandbags.rsi
+    inhandVisuals:
+      left:
+      - state: stack-inhand-left
+      right:
+      - state: stack-inhand-right
+  - type: Sprite
+    sprite: _RMC14/Objects/Misc/sandbags.rsi
+    state: sandbag_stack
+  - type: Stack
+    stackType: DHSandbagsEmpty
+    count: 1
+  - type: DHSandbagsEmpty
+
+- type: entity
+  parent: DHSandbagsEmpty
+  id: DHSandbagsEmpty25
+  suffix: "25"
+  components:
+  - type: Stack
+    stackType: DHSandbagsEmpty
+    count: 25
+
+- type: entity
+  parent: BaseItem
+  id: DHSandbagsFull
+  name: sandbags
+  description: Bags filled with sand. Use them in hand to build a barricade facing where you look (five bags).
+  components:
+  - type: Item
+    size: Large
+    sprite: _RMC14/Objects/Misc/sandbags.rsi
+    inhandVisuals:
+      left:
+      - state: pile-inhand-left
+      right:
+      - state: pile-inhand-right
+  - type: Sprite
+    sprite: _RMC14/Objects/Misc/sandbags.rsi
+    state: sandbag_pile
+  - type: Stack
+    stackType: DHSandbagsFull
+    count: 1
+  - type: DHSandbagsFull
+
+- type: entity
+  parent: DHSandbagsFull
+  id: DHSandbagsFull25
+  suffix: "25"
+  components:
+  - type: Stack
+    stackType: DHSandbagsFull
+    count: 25
+
+- type: damageModifierSet
+  id: DHSandbag
+  coefficients:
+    Blunt: 0.5
+    Slash: 0.3
+    Piercing: 0.15
+    Heat: 0.2
+    Structural: 1.0
+
+- type: entity
+  parent: BaseStructure
+  id: DHSandbagBarricade
+  name: sandbag barricade
+  description: A low wall of sandbags. Stops most bullets coming from the front; you can shoot over it from behind and climb across. Dig it up with a shovel.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _RMC14/Structures/Walls/Barricades/sandbag_barricade.rsi
+    layers:
+    - state: sandbag
+    - state: DamageOverlay_0
+      map: [ "damage" ]
+      sprite: _RMC14/Structures/Walls/Barricades/sandbag_cracks.rsi
+    drawdepth: WallTops
+  - type: Appearance
+  - type: DamageVisuals
+    thresholds: [4, 8, 12]
+    damageDivisor: 28.125
+    trackAllDamage: true
+    overlay: false
+    targetLayers:
+    - "damage"
+    damageGroup: "Brute"
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.49,-0.49,0.49,-0.38"
+        density: 500
+        mask:
+        - FullTileMask
+        layer:
+        - TableLayer
+        - BulletImpassable
+  - type: Climbable
+  - type: InteractionOutline
+  - type: Damageable
+    damageContainer: Inorganic
+    damageModifierSet: DHSandbag
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 450
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: DHSandbagBarricade
+    blockChance: 0.6
+    refund: 5
+  - type: Tag
+    tags:
+    - Structure
+
+# --- Палатки ---
+
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: DHTentFoldedBase
+  components:
+  - type: Item
+    size: Huge
+    sprite: _RMC14/Objects/Tents/folded_tents.rsi
+  - type: Sprite
+    sprite: _RMC14/Objects/Tents/folded_tents.rsi
+    state: base_tent
+
+- type: entity
+  abstract: true
+  parent: BaseStructure
+  id: DHTentBase
+  name: field tent
+  description: A field tent. The entrance is to the south. Fold it with an alternative action.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Sprite
+    sprite: _RMC14/Objects/Tents/deployed_tents.rsi
+    offset: 1,0
+    drawdepth: Overdoors
+    layers:
+    - state: standard_frame
+    - state: standard_canvas
+      map: [ "canvas" ]
+    - state: standard_roof
+      map: [ "roof" ]
+  - type: SpriteFade
+  - type: InteractionOutline
+  - type: Fixtures
+    fixtures:
+      fix1: # левая стенка
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.5,-2.5,-1.4,1"
+        density: 20000
+        hard: true
+        mask:
+        - FullTileMask
+        layer:
+        - HighImpassable
+        - MidImpassable
+        - LowImpassable
+        - Opaque
+      fix-2: # правая стенка
+        shape:
+          !type:PhysShapeAabb
+          bounds: "0.4,-2.5,0.5,1"
+        density: 20000
+        hard: true
+        mask:
+        - FullTileMask
+        layer:
+        - HighImpassable
+        - MidImpassable
+        - LowImpassable
+        - Opaque
+      fix-3: # задняя стенка
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.5,0.4,0.5,1.5"
+        density: 20000
+        hard: true
+        mask:
+        - FullTileMask
+        layer:
+        - HighImpassable
+        - MidImpassable
+        - LowImpassable
+        - Opaque
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+# Республика: хаки
+- type: entity
+  parent: DHTentFoldedBase
+  id: DHTentRepublicFolded
+  name: folded Republican field tent
+  description: A folded field tent of the Republican Army Corps. Use it in hand to pitch it in front of you, entrance to the south.
+  components:
+  - type: Sprite
+    color: "#c2b27a"
+  - type: DHFoldedTent
+    tent: DHTentRepublic
+
+- type: entity
+  parent: DHTentBase
+  id: DHTentRepublic
+  name: Republican field tent
+  components:
+  - type: Sprite
+    color: "#c2b27a"
+  - type: DHTent
+    folded: DHTentRepublicFolded
+
+- type: entity
+  parent: DHTentFoldedBase
+  id: DHTentRepublicMedicalFolded
+  name: folded Republican medical tent
+  description: A folded medical tent of the Republican Army Corps. The wounded inside slowly mend. Use it in hand to pitch it in front of you.
+  components:
+  - type: Sprite
+    color: "#c2b27a"
+    layers:
+    - state: base_tent
+    - state: med_base
+  - type: DHFoldedTent
+    tent: DHTentRepublicMedical
+
+- type: entity
+  parent: DHTentBase
+  id: DHTentRepublicMedical
+  name: Republican medical tent
+  description: A medical tent. The wounded inside slowly mend. The entrance is to the south. Fold it with an alternative action.
+  components:
+  - type: Sprite
+    color: "#c2b27a"
+    layers:
+    - state: standard_frame
+    - state: standard_canvas
+      map: [ "canvas" ]
+    - state: standard_roof
+      map: [ "roof" ]
+    - state: med_standard_canvas
+    - state: med_standard_roof
+  - type: DHTent
+    folded: DHTentRepublicMedicalFolded
+    heal:
+      types:
+        Blunt: -0.5
+        Slash: -0.5
+        Piercing: -0.5
+        Heat: -0.3
+
+- type: entity
+  parent: DHTentFoldedBase
+  id: DHTentRepublicCommandFolded
+  name: folded Republican command tent
+  description: A folded command tent of the Republican Army Corps. Use it in hand to pitch it in front of you.
+  components:
+  - type: Sprite
+    color: "#c2b27a"
+    layers:
+    - state: base_tent
+    - state: cmd_base
+  - type: DHFoldedTent
+    tent: DHTentRepublicCommand
+
+- type: entity
+  parent: DHTentBase
+  id: DHTentRepublicCommand
+  name: Republican command tent
+  components:
+  - type: Sprite
+    color: "#c2b27a"
+    layers:
+    - state: standard_frame
+    - state: standard_canvas
+      map: [ "canvas" ]
+    - state: standard_roof
+      map: [ "roof" ]
+    - state: cmd_standard_canvas
+  - type: DHTent
+    folded: DHTentRepublicCommandFolded
+
+# Империя: серые
+- type: entity
+  parent: DHTentFoldedBase
+  id: DHTentImperialFolded
+  name: folded Imperial field tent
+  description: A folded field tent of the Imperial Marine Corps. Use it in hand to pitch it in front of you, entrance to the south.
+  components:
+  - type: Sprite
+    color: "#a6aab2"
+  - type: DHFoldedTent
+    tent: DHTentImperial
+
+- type: entity
+  parent: DHTentBase
+  id: DHTentImperial
+  name: Imperial field tent
+  components:
+  - type: Sprite
+    color: "#a6aab2"
+  - type: DHTent
+    folded: DHTentImperialFolded
+
+- type: entity
+  parent: DHTentFoldedBase
+  id: DHTentImperialMedicalFolded
+  name: folded Imperial medical tent
+  description: A folded medical tent of the Imperial Marine Corps. The wounded inside slowly mend. Use it in hand to pitch it in front of you.
+  components:
+  - type: Sprite
+    color: "#a6aab2"
+    layers:
+    - state: base_tent
+    - state: med_base
+  - type: DHFoldedTent
+    tent: DHTentImperialMedical
+
+- type: entity
+  parent: DHTentBase
+  id: DHTentImperialMedical
+  name: Imperial medical tent
+  description: A medical tent. The wounded inside slowly mend. The entrance is to the south. Fold it with an alternative action.
+  components:
+  - type: Sprite
+    color: "#a6aab2"
+    layers:
+    - state: standard_frame
+    - state: standard_canvas
+      map: [ "canvas" ]
+    - state: standard_roof
+      map: [ "roof" ]
+    - state: med_standard_canvas
+    - state: med_standard_roof
+  - type: DHTent
+    folded: DHTentImperialMedicalFolded
+    heal:
+      types:
+        Blunt: -0.5
+        Slash: -0.5
+        Piercing: -0.5
+        Heat: -0.3

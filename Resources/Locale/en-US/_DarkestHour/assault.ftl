@@ -104,3 +104,19 @@ cmd-dhcarrierdamage-desc = Damages the Imperial carrier of the Assault round (an
 cmd-dhcarrierdamage-help = Usage: dhcarrierdamage <amount> (the carrier has 100 hull)
 cmd-dhcarrierdamage-done = The carrier took {$amount} damage.
 cmd-dhcarrierdamage-no-carrier = No active Assault round with a carrier that can still be hit.
+
+## Укрепления: мешки с песком и палатки
+
+dh-stack-sandbags-empty = empty sandbags
+dh-stack-sandbags-full = sandbags
+dh-sandbags-not-enough = You need at least {$count} sandbags for a barricade.
+dh-sandbags-blocked = There is no room for a barricade in front of you.
+dh-sandbags-built = You stack the sandbags into a barricade.
+dh-sandbags-need-ground = Stand on bare ground to fill the bags.
+dh-sandbags-filled = You fill {$count} {$count ->
+    [one] sandbag
+   *[other] sandbags
+}.
+dh-tent-no-room = There is no room for the tent in front of you.
+dh-tent-deployed = You pitch the tent.
+dh-tent-fold-verb = Fold the tent

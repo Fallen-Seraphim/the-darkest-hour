@@ -172,6 +172,18 @@ def build_base():
     b.put('ClothingBeltUtilityFilled', 19, -10, solid=False)
     b.put('Shovel', 21, -10, solid=False)
 
+    # fortifications: tents and sandbags for the garrison
+    for x in (23, 24, 25):
+        b.put('Table', x, -10)
+    b.put('DHTentRepublicFolded', 23, -10, solid=False)
+    b.put('DHTentRepublicMedicalFolded', 24, -10, solid=False)
+    b.put('DHTentRepublicCommandFolded', 25, -10, solid=False)
+    for x in (17, 19, 21, 23):
+        b.put('DHSandbagsFull25', x, -7, solid=False)
+        b.put('DHSandbagsEmpty25', x, -5, solid=False)
+    b.put('Shovel', 25, -7, solid=False)
+    b.put('Shovel', 25, -5, solid=False)
+
     # air defence of the base: two interceptor missile silos and two twin 30 mm autocannons on reinforced pads
     for cx, cy, proto in ((-24, -18, 'DHMissileSilo'), (23, -18, 'DHMissileSilo'),
                           (-6, 3, 'DHAutocannonTwin30'), (6, 3, 'DHAutocannonTwin30')):
@@ -498,6 +510,11 @@ def main():
             ('LightPostSmall', [p(11, -8), p(11, -16)]),
             # paradrop beacons for the landing force
             ('DHDropBeacon', [p(11, -21), p(11, -21), p(12, -21), p(12, -21)]),
+            # field tents and sandbags for a forward position
+            ('DHTentImperialFolded', [p(-6, -20)]),
+            ('DHTentImperialMedicalFolded', [p(-6, -20)]),
+            ('DHSandbagsEmpty25', [p(-5, -22), p(-5, -22)]),
+            ('Shovel', [p(-4, -22), p(-4, -22)]),
         ] + shells,
         floor=wing)
 
