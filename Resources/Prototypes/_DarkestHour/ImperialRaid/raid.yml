@@ -6,7 +6,7 @@
   id: DHImperialCommander
   name: dh-imperial-commander-name
   antagonist: true
-  setPreference: true
+  setPreference: false # DarkestHour: антагонисты вырезаны, остались только Республика и Империя
   objective: dh-imperial-commander-objective
   guides: [ NuclearOperatives ]
   tags:
@@ -56,7 +56,7 @@
   id: DHImperialWeaponsSpecialist
   name: dh-imperial-weapons-name
   antagonist: true
-  setPreference: true
+  setPreference: false # DarkestHour: антагонисты вырезаны, остались только Республика и Империя
   objective: dh-imperial-weapons-objective
   guides: [ NuclearOperatives ]
   tags:
@@ -106,7 +106,7 @@
   id: DHImperialFieldMedic
   name: dh-imperial-medic-name
   antagonist: true
-  setPreference: true
+  setPreference: false # DarkestHour: антагонисты вырезаны, остались только Республика и Империя
   objective: dh-imperial-medic-objective
   guides: [ NuclearOperatives ]
   tags:
@@ -156,7 +156,7 @@
   id: DHImperialMachinegunner
   name: dh-imperial-machinegunner-name
   antagonist: true
-  setPreference: true
+  setPreference: false # DarkestHour: антагонисты вырезаны, остались только Республика и Империя
   objective: dh-imperial-machinegunner-objective
   guides: [ NuclearOperatives ]
   tags:
@@ -206,7 +206,7 @@
   id: DHImperialRifleman
   name: dh-imperial-rifleman-name
   antagonist: true
-  setPreference: true
+  setPreference: false # DarkestHour: антагонисты вырезаны, остались только Республика и Империя
   objective: dh-imperial-rifleman-objective
   guides: [ NuclearOperatives ]
   tags:

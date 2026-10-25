@@ -2,7 +2,7 @@
   id: InitialInfected
   name: roles-antag-initial-infected-name
   antagonist: true
-  setPreference: true
+  setPreference: false # DarkestHour: антагонисты вырезаны, остались только Республика и Империя
   objective: roles-antag-initial-infected-objective
   guides: [ Zombies ]
   tags:

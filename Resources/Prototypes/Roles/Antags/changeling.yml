@@ -2,7 +2,7 @@
   id: Changeling
   name: roles-antag-changeling-name
   antagonist: true
-  setPreference: true
+  setPreference: false # DarkestHour: антагонисты вырезаны, остались только Республика и Империя
   objective: roles-antag-changeling-objective
   guides: [ Changelings ]
   tags:

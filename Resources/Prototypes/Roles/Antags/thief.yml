@@ -2,7 +2,7 @@
   id: Thief
   name: roles-antag-thief-name
   antagonist: true
-  setPreference: true
+  setPreference: false # DarkestHour: антагонисты вырезаны, остались только Республика и Империя
   objective: roles-antag-thief-objective
   guides: [ Thieves ]
   tags:

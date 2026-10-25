@@ -154,7 +154,7 @@ public sealed partial class DHCelestialSystem
     }
 
     /// <summary>
-    /// Глубже рабочего давления корпус трещит (тряска, скрежет у всех на борту), а стены по краям корпуса
+    /// Глубже рабочего давления корпус трещит (тряска, скрежет у всех на борту), а случайные стены корабля
     /// сминаются: чем больше перегрузка, тем чаще и сильнее.
     /// </summary>
     private void StressHull(EntityUid grid, DHCelestialBody body, float pressure)
