@@ -479,6 +479,9 @@
         type: WiresBoundUserInterface
   - type: Computer
     board: DHNavalArtilleryComputerCircuitboard
+  - type: ApcPowerReceiver # у полевых позиций и палубы авианосца своя бортовая сеть, без проводки
+    needsPower: false
+    powerLoad: 0
   - type: PointLight
     radius: 1.5
     energy: 1.6
@@ -505,6 +508,9 @@
         type: WiresBoundUserInterface
   - type: Computer
     board: DHAntiOrbitalComputerCircuitboard
+  - type: ApcPowerReceiver # у полевых позиций и палубы авианосца своя бортовая сеть, без проводки
+    needsPower: false
+    powerLoad: 0
   - type: PointLight
     radius: 1.5
     energy: 1.6
