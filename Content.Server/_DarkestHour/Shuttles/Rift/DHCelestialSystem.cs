@@ -148,9 +148,13 @@ public sealed partial class DHCelestialSystem : EntitySystem
                 rads += DHCelestial.RadiationAt(body, Vector2.Distance(pos, body.Position));
             }
 
+            // Корпус корабля экранирует тех, кто на борту.
+            rads *= HullFactor(xform);
             if (rads > 0.01f)
                 _radiation.IrradiateEntity(uid, rads, seconds);
         }
+
+        UpdateGasLayers();
 
         // Корабли не проходят сквозь тела: ниже допустимой глубины их выталкивает наружу.
         var grids = EntityQueryEnumerator<MapGridComponent, PhysicsComponent, TransformComponent>();

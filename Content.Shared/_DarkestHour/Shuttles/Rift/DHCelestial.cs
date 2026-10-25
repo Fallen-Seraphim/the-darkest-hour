@@ -1,6 +1,7 @@
 using System.Numerics;
 using Content.Shared.Atmos;
 using Content.Shared.Parallax.Biomes;
+using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
@@ -96,31 +97,105 @@ public sealed partial class DHCelestialBody
     [DataField]
     public Dictionary<Gas, float> LayerGases = new();
 
+    /// <summary>Температура у верхней границы облаков, К.</summary>
     [DataField]
     public float LayerTemperature = 120f;
+
+    /// <summary>Температура у нижней границы слоёв, куда может опуститься корабль, К (вглубь гиганта теплеет).</summary>
+    [DataField]
+    public float LayerTemperatureBottom = 450f;
+
+    /// <summary>Давление у верхней границы облаков, кПа (растёт с глубиной экспоненциально).</summary>
+    [DataField]
+    public float LayerPressureTop = 100f;
+
+    /// <summary>Давление у нижней границы слоёв, кПа.</summary>
+    [DataField]
+    public float LayerPressureBottom = 2500f;
+
+    /// <summary>
+    /// Радиационный пояс (магнитосфера газового гиганта): пиковая мощность, рад/с. 0 — пояса нет.
+    /// </summary>
+    [DataField]
+    public float BeltRadiation;
+
+    /// <summary>Высота пика пояса над облаками, м.</summary>
+    [DataField]
+    public float BeltAltitude;
+
+    /// <summary>Полуширина пояса, м.</summary>
+    [DataField]
+    public float BeltWidth = 1f;
 }
 
 public static class DHCelestial
 {
-    /// <summary>Мощность радиации тела в точке на расстоянии <paramref name="distance"/> от центра, рад/с.</summary>
+    /// <summary>
+    /// Мощность радиации тела в точке на расстоянии <paramref name="distance"/> от центра, рад/с: излучение тела,
+    /// спадающее с высотой, плюс радиационный пояс магнитосферы. В облаках гиганта атмосфера экранирует —
+    /// чем глубже, тем тише.
+    /// </summary>
     public static float RadiationAt(DHCelestialBody body, float distance)
+    {
+        var altitude = distance - body.Radius;
+        if (altitude <= 0f)
+        {
+            var top = SurfaceRadiation(body, 0f) + BeltRadiationAt(body, 0f);
+            if (body.EnterableDepth <= 0f)
+                return top;
+
+            // Шкала экранирования — четверть глубины слоёв: на дне остаётся ~2 %.
+            return top * MathF.Exp(altitude / (body.EnterableDepth * 0.25f));
+        }
+
+        return SurfaceRadiation(body, altitude) + BeltRadiationAt(body, altitude);
+    }
+
+    private static float SurfaceRadiation(DHCelestialBody body, float altitude)
     {
         if (body.Radiation <= 0f)
             return 0f;
 
-        var altitude = distance - body.Radius;
-        if (altitude <= 0f)
-        {
-            // В верхних слоях гиганта радиация растёт с глубиной.
-            var depth = body.EnterableDepth > 0f ? -altitude / body.EnterableDepth : 1f;
-            return body.Radiation * (1f + Math.Clamp(depth, 0f, 1f));
-        }
+        if (body.RadiationFalloff <= 0f)
+            return altitude <= 0f ? body.Radiation : 0f;
 
-        if (body.RadiationFalloff <= 0f || altitude >= body.RadiationFalloff)
+        if (altitude >= body.RadiationFalloff)
             return 0f;
 
         var k = 1f - altitude / body.RadiationFalloff;
         return body.Radiation * k * k;
+    }
+
+    private static float BeltRadiationAt(DHCelestialBody body, float altitude)
+    {
+        if (body.BeltRadiation <= 0f)
+            return 0f;
+
+        var x = (altitude - body.BeltAltitude) / MathF.Max(body.BeltWidth, 1f);
+        return body.BeltRadiation * MathF.Exp(-x * x);
+    }
+
+    /// <summary>Глубина в слоях гиганта, 0 (облака) .. 1 (нижняя граница); null — не в слоях.</summary>
+    public static float? LayerDepth(DHCelestialBody body, float distance)
+    {
+        if (!InGasLayer(body, distance))
+            return null;
+
+        return Math.Clamp((body.Radius - distance) / body.EnterableDepth, 0f, 1f);
+    }
+
+    /// <summary>Давление слоя на глубине (0..1), кПа: экспоненциальный рост, как в настоящей атмосфере.</summary>
+    public static float LayerPressure(DHCelestialBody body, float depth)
+    {
+        var top = MathF.Max(body.LayerPressureTop, 1f);
+        var bottom = MathF.Max(body.LayerPressureBottom, top);
+        return top * MathF.Pow(bottom / top, Math.Clamp(depth, 0f, 1f));
+    }
+
+    /// <summary>Температура слоя на глубине (0..1), К.</summary>
+    public static float LayerTemperatureAt(DHCelestialBody body, float depth)
+    {
+        return body.LayerTemperature + (body.LayerTemperatureBottom - body.LayerTemperature) * Math.Clamp(depth, 0f, 1f);
     }
 
     /// <summary>Нижняя граница, ниже которой корабль не опускается.</summary>
@@ -143,4 +218,24 @@ public static class DHCelestial
 
         return meters < 10000f ? $"{meters:0} m" : $"{meters / 1000f:0.0} km";
     }
+}
+
+/// <summary>
+/// Грид в слоях газового гиганта: клиенту — облака за бортом и дымка, тем гуще, чем глубже.
+/// </summary>
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class DHGasLayerComponent : Component
+{
+    [DataField, AutoNetworkedField]
+    public Color Color = Color.Gray;
+
+    /// <summary>0 (облака) .. 1 (нижняя граница).</summary>
+    [DataField, AutoNetworkedField]
+    public float Depth;
+
+    [DataField, AutoNetworkedField]
+    public float Pressure;
+
+    [DataField, AutoNetworkedField]
+    public float Temperature;
 }

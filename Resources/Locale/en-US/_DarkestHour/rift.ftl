@@ -24,3 +24,4 @@ dh-rift-generator-examine-unpowered = [color=red]No power.[/color]
 dh-rift-generator-examine-cooldown = [color=yellow]Cooling down: {$seconds} s.[/color]
 dh-rift-generator-examine-ready = [color=#9b4dff]Ready for a rift jump.[/color]
 dh-rift-space-name = Rift
+dh-gas-layer-hull-creak = The hull groans under the crushing weight of {$body}'s atmosphere!
