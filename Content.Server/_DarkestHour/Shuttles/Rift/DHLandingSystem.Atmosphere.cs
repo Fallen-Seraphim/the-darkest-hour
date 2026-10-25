@@ -90,6 +90,18 @@ public sealed partial class DHLandingSystem
         return _atmospheres.TryGetValue((system, body), out var map) && !TerminatingOrDeleted(map) ? map : null;
     }
 
+    /// <summary>Карта слоя атмосферы тела по id системы и тела (создаётся при необходимости).</summary>
+    public EntityUid? EnsureAtmosphere(string system, string body)
+    {
+        return TryGetBody(system, body, out var proto, out var found) ? GetOrCreateAtmosphere(proto, found) : null;
+    }
+
+    /// <summary>Тряска у всех на борту грида.</summary>
+    public void Shake(EntityUid grid, float strength)
+    {
+        ShakeGrid(grid, strength);
+    }
+
     /// <summary>Карта слоя атмосферы тела: небо, воздух тела, без тяготения (вне корабля — свободное падение).</summary>
     private EntityUid? GetOrCreateAtmosphere(DHStarSystemPrototype system, DHCelestialBody body)
     {

@@ -3,6 +3,8 @@ using Content.Server.Atmos.EntitySystems;
 using Content.Server.Parallax;
 using Content.Server.Station.Events;
 using Content.Server.Station.Systems;
+using System.Numerics;
+using Content.Shared._DarkestHour.Assault;
 using Content.Shared._DarkestHour.HeavyGuns;
 using Content.Shared._DarkestHour.Shuttles.Rift;
 using Content.Shared.Atmos;
@@ -70,6 +72,17 @@ public sealed partial class DHPlanetBaseSystem : EntitySystem
         }
 
         _landing.RegisterSurface(system.ID, body.Id, map);
+
+        // Готовые зоны посадки челноков: маяки на поверхности, вокруг них биом не ставит камни.
+        foreach (var (zoneName, position) in ent.Comp.LandingZones)
+        {
+            var zone = Spawn("DHLandingZonePad", new MapCoordinates(position, Transform(map).MapID));
+            var zoneComp = EnsureComp<DHLandingZoneComponent>(zone);
+            zoneComp.ZoneName = zoneName;
+            _meta.SetEntityName(zone, zoneName);
+            _biome.ReserveTiles(map, Box2.CenteredAround(position, new Vector2(ent.Comp.LandingZoneClear * 2)),
+                new List<(Vector2i Index, Tile Tile)>());
+        }
 
         // В постройках базы — обычный воздух с самого начала (иначе грид получает пустую атмосферу).
         FillAir(grid);

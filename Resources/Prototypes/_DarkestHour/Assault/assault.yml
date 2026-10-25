@@ -203,6 +203,10 @@
     system: DHSystemREP27
     body: P7
     underground: /Maps/_DarkestHour/Assault/terminus_bunker.yml
+    landingZones:
+      LZ-1 Wasteland: -75,-40
+      LZ-2 Quarry: 75,-45
+      LZ-3 South Flats: 0,-95
   - type: DHAssaultFactionStation
     faction: Republic
 

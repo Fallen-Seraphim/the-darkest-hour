@@ -57,6 +57,7 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
     [Dependency] private DHCelestialSystem _celestial = default!;
     [Dependency] private ChatSystem _chat = default!;
     [Dependency] private IChatManager _chatManager = default!;
+    [Dependency] private DHDropshipSystem _dropships = default!;
     [Dependency] private ExplosionSystem _explosion = default!;
     [Dependency] private DHLandingSystem _landing = default!;
     [Dependency] private MapLoaderSystem _loader = default!;
@@ -158,6 +159,11 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
             StationComponentOverrides = new ComponentRegistry(),
         };
         rule.Comp.CarrierStationUid = _station.InitializeNewStation(config, new[] { grid.Value.Owner }, name);
+
+        // Авианосец не садится: на поверхность ходят челноки, пристыкованные к нему.
+        EnsureComp<DHNoSurfaceLandingComponent>(grid.Value);
+        var dropshipNames = rule.Comp.DropshipNames.Select(n => Loc.GetString(n)).ToList();
+        _dropships.SpawnDropships(grid.Value, rule.Comp.CarrierStationUid, rule.Comp.DropshipPath, dropshipNames);
 
         // Фаза подготовки: разрывной генератор заблокирован до её конца.
         var generators = EntityQueryEnumerator<DHRiftGeneratorComponent, TransformComponent>();

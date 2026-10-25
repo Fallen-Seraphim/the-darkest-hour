@@ -9,6 +9,8 @@
 - Terminus Bunker (Resources/Maps/_DarkestHour/Assault/terminus_bunker.yml) — the garrison bunker under the HQ, a level
   of its own (Grid category, loaded by DHPlanetBaseSystem): command post with overwatch, the vault with the sample,
   shelter, the store with the cargo lift; hatches in the HQ and the barracks lead down.
+- Imperial dropship (Resources/Maps/_DarkestHour/Shuttles/imperial_dropship.yml) — the suborbital dropship, two of
+  them dock to the carrier's port airlocks (DHDropshipSystem flies them between the carrier and the landing zones).
 - IC-3 Sovereign (Resources/Maps/_DarkestHour/Shuttles/imperial_carrier.yml) — the Imperial landing carrier, made from
   the Syndicate evacuation shuttle: rift navigation and landing consoles, a self-powered rift generator and
   supercapacitor, an armour rack, 20 job and 4 late-join spawn points; cash and the CentComm holopad removed.
@@ -57,7 +59,7 @@ class Base:
 
     def clear(self, x, y):
         """Removes walls/windows at a tile (doors and gates)."""
-        for proto in ('WallReinforced', 'WallSolid', 'ReinforcedWindow', 'WallRockSand'):
+        for proto in ('WallReinforced', 'WallSolid', 'ReinforcedWindow', 'WallRockSand', 'WallPlastitanium'):
             self.ents[proto] = [e for e in self.ents.get(proto, []) if e[:2] != (x, y)]
         self.blocked.discard((x, y))
 
@@ -462,7 +464,7 @@ def build_bunker():
     return b
 
 
-def write_grid(b, path, name):
+def write_grid(b, path, name, extra=()):
     """A Grid-category file (loaded onto its own map by DHPlanetBaseSystem)."""
     lines = []
     w = lines.append
@@ -515,6 +517,8 @@ def write_grid(b, path, name):
     w('        version: 2')
     w('        nodes: []')
     w('    - type: SpreaderGrid')
+    for line in extra:
+        w(line)
     uid = 2
     for proto in sorted(b.ents):
         positions = b.ents[proto]
@@ -537,6 +541,31 @@ def write_grid(b, path, name):
     with open(path, 'w', encoding='utf-8') as f:
         f.write(text)
     print(path, 'entities', uid - 1, 'tiles', len(b.tiles))
+
+
+def build_dropship():
+    """A suborbital dropship of the landing force (9x11): cockpit with the flight console, ten seats, two docking
+    airlocks on the starboard side (they dock to the carrier's port airlocks) and a rear ramp of three doors."""
+    b = Base()
+    b.fill(0, 0, 8, 10, 'FloorDark')
+    b.fill(1, 8, 7, 9, 'FloorReinforced')
+    b.walls(0, 0, 8, 10, 'WallPlastitanium')
+    east = '1.5707963267948966'
+    for y in (5, 7):
+        b.clear(8, y)
+        b.put('AirlockGlassShuttleSyndicate', 8, y, rot=east)
+    for x in (3, 4, 5):
+        b.door('AirlockSyndicateGlass', x, 0)
+    b.put('DHComputerDropship', 4, 9)
+    b.put('ChairOfficeDark', 4, 8, solid=False, rot='3.141592653589793')
+    for y in range(2, 7):
+        b.put('Chair', 1, y, solid=False, rot='-1.5707963267948966')
+        b.put('Chair', 6, y, solid=False, rot=east)
+    for x, y in ((2, 9), (6, 9)):
+        b.put('AlwaysPoweredWallLight', x, y, solid=False)
+    for x in (2, 6):
+        b.put('AlwaysPoweredWallLight', x, 1, solid=False, rot='3.141592653589793')
+    return b
 
 
 # ---------------------------------------------------------------- carrier
@@ -644,6 +673,8 @@ def build_carrier(src, dst, name, drop, adds, floor=None):
 def main():
     write_base(build_base(), 'Resources/Maps/_DarkestHour/Assault/terminus.yml')
     write_grid(build_bunker(), 'Resources/Maps/_DarkestHour/Assault/terminus_bunker.yml', 'Terminus Bunker')
+    write_grid(build_dropship(), 'Resources/Maps/_DarkestHour/Shuttles/imperial_dropship.yml', 'Dropship',
+               extra=['    - type: Shuttle', '    - type: Gravity', '      enabled: True', '      inherent: True'])
 
     seats = ['%s,%s' % (x + 0.5, y + 0.5) for y in (-9, -16) for x in (-3, -2, -1, 1, 2, 3)]
     seats += ['%s,%s' % (x + 0.5, -17.5) for x in (-5, -4, -2, -1, 1, 2, 4, 5)]
