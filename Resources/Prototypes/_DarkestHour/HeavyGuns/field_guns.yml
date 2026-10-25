@@ -1,0 +1,275 @@
+# Пехотные пушки (решение автора 2026-10-25). Механика — DHHeavyGunSystem.FieldGun, буксировка — DHFieldGunTowSystem.
+# Чтобы стрелять, пушку ставят на позицию ключом (закрепить); чтобы катить — открепляют и тянут (медленно).
+# Направление лафета меняется поворотом, пока пушка не закреплена; ствол ходит в секторе ±30° от него.
+
+- type: entity
+  abstract: true
+  parent: [ BaseStructureDynamic, StructureWheeled ]
+  id: DHFieldGunBase
+  components:
+  - type: Sprite
+    state: deployed
+    noRot: false
+    drawdepth: Objects
+  - type: InteractionOutline
+  - type: Rotatable
+  - type: Anchorable
+    delay: 3
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 400
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+  - type: Damageable
+    damageContainer: Inorganic
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: ActivatableUI
+    key: enum.DHFieldGunUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHFieldGunUiKey.Key:
+        type: DHFieldGunBoundUserInterface
+
+- type: entity
+  parent: DHFieldGunBase
+  id: DHFieldGun75
+  name: 75 mm infantry gun
+  description: "A light Imperial infantry gun on a wheeled carriage. Wrench it down to fire; the gunner sets the traverse and elevation, a second crewman loads faster. Up to 10° it fires point-blank, higher — over obstacles. Can be dropped by parachute from a ship hovering in the atmosphere."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/FieldGuns/field_gun_75.rsi
+  - type: DHFieldGun
+    caliber: 75
+    towSpeed: 0.6
+  - type: DHParadroppable
+
+- type: entity
+  parent: DHFieldGunBase
+  id: DHFieldGun90
+  name: 90 mm infantry gun
+  description: "A heavy Republican infantry gun on a wheeled carriage. Wrench it down to fire; the gunner sets the traverse and elevation, a second crewman loads faster. Up to 10° it fires point-blank, higher — over obstacles. It can be rolled, slowly."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/FieldGuns/field_gun_90.rsi
+  - type: DHFieldGun
+    caliber: 90
+    towSpeed: 0.35
+    loadTime: 2.5
+    soloLoadTime: 6
+    reloadTime: 4
+
+# --- Снаряды ---
+
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: DHFieldGunShellBase
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/FieldGuns/shells.rsi
+  - type: Item
+    size: Large
+    shape:
+    - 0,0,1,1
+
+- type: entity
+  parent: DHFieldGunShellBase
+  id: DHFieldShell75HE
+  name: 75 mm HE-frag shell
+  description: A high-explosive fragmentation shell for the 75 mm infantry gun.
+  components:
+  - type: Sprite
+    state: he
+  - type: DHFieldGunShell
+    caliber: 75
+    warhead: HighExplosive
+    maxRange: 100
+    directSpeed: 32
+    projectile: DHFieldShellFlightHE
+
+- type: entity
+  parent: DHFieldGunShellBase
+  id: DHFieldShell75Incendiary
+  name: 75 mm incendiary shell
+  description: An incendiary shell for the 75 mm infantry gun.
+  components:
+  - type: Sprite
+    state: incendiary
+  - type: DHFieldGunShell
+    caliber: 75
+    warhead: Incendiary
+    maxRange: 90
+    directSpeed: 30
+    projectile: DHFieldShellFlightIncendiary
+
+- type: entity
+  parent: DHFieldGunShellBase
+  id: DHFieldShell75APFSDS
+  name: 75 mm APFSDS shell
+  description: An armour-piercing fin-stabilised discarding-sabot round for the 75 mm infantry gun. Flat and fast, it punches through several obstacles, but is useless for lobbing.
+  components:
+  - type: Sprite
+    state: apfsds
+  - type: DHFieldGunShell
+    caliber: 75
+    warhead: ArmorPiercing
+    maxRange: 240
+    directSpeed: 60
+    maxElevation: 10
+    projectile: DHFieldShellFlightAPFSDS
+
+- type: entity
+  parent: DHFieldGunShellBase
+  id: DHFieldShell90HE
+  name: 90 mm HE-frag shell
+  description: A high-explosive fragmentation shell for the 90 mm infantry gun.
+  components:
+  - type: Sprite
+    state: he
+  - type: DHFieldGunShell
+    caliber: 90
+    warhead: HighExplosive
+    maxRange: 120
+    directSpeed: 34
+    projectile: DHFieldShellFlightHE
+
+- type: entity
+  parent: DHFieldGunShellBase
+  id: DHFieldShell90Incendiary
+  name: 90 mm incendiary shell
+  description: An incendiary shell for the 90 mm infantry gun.
+  components:
+  - type: Sprite
+    state: incendiary
+  - type: DHFieldGunShell
+    caliber: 90
+    warhead: Incendiary
+    maxRange: 110
+    directSpeed: 32
+    projectile: DHFieldShellFlightIncendiary
+
+- type: entity
+  parent: DHFieldGunShellBase
+  id: DHFieldShell90APFSDS
+  name: 90 mm APFSDS shell
+  description: An armour-piercing fin-stabilised discarding-sabot round for the 90 mm infantry gun. Flat and fast, it punches through several obstacles, but is useless for lobbing.
+  components:
+  - type: Sprite
+    state: apfsds
+  - type: DHFieldGunShell
+    caliber: 90
+    warhead: ArmorPiercing
+    maxRange: 280
+    directSpeed: 65
+    maxElevation: 10
+    projectile: DHFieldShellFlightAPFSDS
+
+# --- Снаряд в полёте (прямая наводка); урон дан для 75 мм, у 90 мм умножается на 1.2 ---
+
+- type: entity
+  abstract: true
+  parent: BaseBullet
+  id: DHFieldShellFlightBase
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/FieldGuns/shells.rsi
+    layers:
+    - state: flight
+  - type: Reflective
+    reflective: None
+
+- type: entity
+  parent: DHFieldShellFlightBase
+  id: DHFieldShellFlightHE
+  name: HE shell
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Blunt: 40
+        Piercing: 30
+        Structural: 150
+
+- type: entity
+  parent: DHFieldShellFlightBase
+  id: DHFieldShellFlightIncendiary
+  name: incendiary shell
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Blunt: 30
+        Heat: 30
+        Structural: 80
+
+- type: entity
+  parent: DHFieldShellFlightBase
+  id: DHFieldShellFlightAPFSDS
+  name: APFSDS dart
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 120
+        Structural: 400
+    # прошивает цели, пока не отдаст столько урона (2–3 препятствия)
+    penetrationThreshold: 900
+
+# --- Ящики снарядов ---
+
+- type: entity
+  abstract: true
+  parent: CrateGenericSteel
+  id: DHCrateFieldGunBase
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: DHParadroppable
+
+- type: entity
+  parent: DHCrateFieldGunBase
+  id: DHCrateFieldGun75
+  name: 75 mm shell crate
+  description: Shells for the 75 mm infantry gun. Can be dropped by parachute.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHFieldShell75HE
+      amount: 6
+    - id: DHFieldShell75Incendiary
+      amount: 3
+    - id: DHFieldShell75APFSDS
+      amount: 3
+
+- type: entity
+  parent: DHCrateFieldGunBase
+  id: DHCrateFieldGun90
+  name: 90 mm shell crate
+  description: Shells for the 90 mm infantry gun.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHFieldShell90HE
+      amount: 6
+    - id: DHFieldShell90Incendiary
+      amount: 3
+    - id: DHFieldShell90APFSDS
+      amount: 3
