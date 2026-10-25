@@ -6,6 +6,9 @@
   workshop, three reinforced pads for the future anti-air batteries and light posts (the planet has nights).
   The map is the planet surface: the base grid becomes station "Terminus" (gameMap DHTerminus); biome, air and light
   are added at round start (DHPlanetBaseSystem).
+- Terminus Bunker (Resources/Maps/_DarkestHour/Assault/terminus_bunker.yml) — the garrison bunker under the HQ, a level
+  of its own (Grid category, loaded by DHPlanetBaseSystem): command post with overwatch, the vault with the sample,
+  shelter, the store with the cargo lift; hatches in the HQ and the barracks lead down.
 - IC-3 Sovereign (Resources/Maps/_DarkestHour/Shuttles/imperial_carrier.yml) — the Imperial landing carrier, made from
   the Syndicate evacuation shuttle: rift navigation and landing consoles, a self-powered rift generator and
   supercapacitor, an armour rack, 20 job and 4 late-join spawn points; cash and the CentComm holopad removed.
@@ -110,9 +113,8 @@ def build_base():
     for x in (-3, -1):
         b.put('DHComputerOverwatchRepublic', x, 18)
         b.put('ChairOfficeDark', x, 17, solid=False, rot='3.141592653589793')
-    # vault: the sample on a reinforced table
+    # vault: the sample was moved down into the bunker vault (artillery could destroy it here)
     b.put('TableReinforced', 6, 17)
-    b.put('DHExperimentalSample', 6, 17, solid=False)
     # comms room: tables
     for x in (5, 6, 7):
         b.put('Table', x, 12)
@@ -196,6 +198,13 @@ def build_base():
         ammo = 'DHInterceptorMissile' if proto == 'DHMissileSilo' else 'DHAutocannonAmmoBox30'
         for dx in (-1, 1):
             b.put(ammo, cx + dx, cy - 1, solid=False)
+
+    # passages to the bunker below: hatches in the command room and the barracks, the cargo lift in the yard
+    b.put('DHHatchTerminusHQ', 1, 10)
+    b.put('DHHatchTerminusBarracks', -15, 14)
+    b.fill(7, -4, 9, -2, 'FloorReinforced')
+    b.put('DHLiftPlatformTerminus', 8, -3, solid=False)
+    b.put('DHLiftPanelTerminus', 10, -3)
 
     build_massif(b)
 
@@ -368,6 +377,162 @@ def write_base(b, path):
     print(path, 'entities', uid - 1, 'tiles', len(b.tiles))
 
 
+# ---------------------------------------------------------------- bunker
+
+def build_bunker():
+    """The garrison bunker under the HQ (a level of its own, same coordinates as the surface): corridor with the
+    ladders, command post with overwatch, the vault with the experimental sample, shelter and the store with the
+    cargo lift."""
+    b = Base()
+    bx0, bx1, by0, by1 = -16, 16, -2, 22
+    b.fill(bx0, by0, bx1, by1, 'FloorDark')
+    b.walls(bx0, by0, bx1, by1, 'WallReinforced')
+    for x in range(bx0, bx1 + 1):
+        b.put('WallReinforced', x, 12)
+        b.put('WallReinforced', x, 8)
+    for y in list(range(by0, 9)) + list(range(12, by1 + 1)):
+        b.put('WallReinforced', 0, y)
+    b.fill(-15, 9, 15, 11, 'FloorSteel')
+
+    b.door('DHAirlockRepublicLocked', -8, 12)          # command post
+    b.door('DHAirlockRepublicCommandLocked', 8, 12)    # vault
+    b.door('DHAirlockRepublicLocked', -8, 8)           # shelter
+    for x in (11, 12, 13):                             # wide opening into the store for the lift cargo
+        b.clear(x, 8)
+
+    # ladders up (same links as the hatches above)
+    b.put('DHLadderTerminusHQ', 1, 10)
+    b.put('DHLadderTerminusBarracks', -15, 10)
+
+    # command post: overwatch and the map table
+    b.fill(-15, 13, -1, 21, 'FloorReinforced')
+    for x in (-12, -10):
+        b.put('DHComputerOverwatchRepublic', x, 21)
+        b.put('ChairOfficeDark', x, 20, solid=False, rot='3.141592653589793')
+    for x in range(-12, -5):
+        b.put('TableReinforced', x, 16)
+    for x in (-11, -9, -7):
+        b.put('Chair', x, 15, solid=False)
+        b.put('Chair', x, 17, solid=False, rot='3.141592653589793')
+    b.put('Binoculars', -9, 16, solid=False)
+
+    # the vault: the experimental sample
+    b.fill(1, 13, 15, 21, 'FloorReinforced')
+    b.put('TableReinforced', 8, 18)
+    b.put('DHExperimentalSample', 8, 18, solid=False)
+
+    # shelter: bunks and two medical beds
+    for x in range(-14, -1, 2):
+        b.put('Bed', x, 6, solid=False)
+    b.put('MedicalBed', -14, 0)
+    b.put('MedicalBed', -12, 0)
+    b.put('Table', -4, 0)
+    b.put('MedkitCombatFilled', -4, 0, solid=False)
+    b.put('Table', -3, 0)
+    b.put('DHIFAKFilled', -3, 0, solid=False)
+    b.put('DHIFAKFilled', -3, 0, solid=False)
+
+    # store: the cargo lift, ammunition and field fortifications
+    b.fill(7, 3, 9, 5, 'FloorReinforced')
+    b.put('DHLiftPlatformTerminus', 8, 4, solid=False)
+    b.put('DHLiftPanelTerminus', 10, 4)
+    for x in (2, 3, 4, 5):
+        b.put('TableReinforced', x, 6)
+    for x, proto in ((2, 'DHMagazine556x45FMG'), (3, 'DHMagazine556x45FMG'), (4, 'DHMagazine762x51FMG'),
+                     (5, 'DHMagazineBox556x45FMG')):
+        b.put(proto, x, 6, solid=False)
+        b.put(proto, x, 6, solid=False)
+    for x in (13, 14):
+        b.put('DHSandbagsFull25', x, 1, solid=False)
+        b.put('DHSandbagsEmpty25', x, 0, solid=False)
+    b.put('Shovel', 15, 0, solid=False)
+    b.put('Shovel', 15, 1, solid=False)
+
+    # lights (always powered: the bunker has no wiring), on the tiles under the north walls
+    for x, y in ((-12, 21), (-4, 21), (4, 21), (12, 21), (-12, 11), (-4, 11), (4, 11), (12, 11),
+                 (-12, 7), (-4, 7), (4, 7), (13, 7)):
+        if (x, y) not in b.blocked:
+            b.put('AlwaysPoweredWallLight', x, y, solid=False)
+    return b
+
+
+def write_grid(b, path, name):
+    """A Grid-category file (loaded onto its own map by DHPlanetBaseSystem)."""
+    lines = []
+    w = lines.append
+    w('meta:')
+    w('  format: 7')
+    w('  category: Grid')
+    w('  engineVersion: 266.0.0')
+    w('  forkId: ""')
+    w('  forkVersion: ""')
+    w('  time: 10/24/2026 12:00:00')
+    w('  entityCount: ENTITY_COUNT')
+    w('maps: []')
+    w('grids:')
+    w('- 1')
+    w('orphans:')
+    w('- 1')
+    w('nullspace: []')
+    w('tilemap:')
+    for tname, idx in sorted(TILES.items(), key=lambda kv: kv[1]):
+        w('  %d: %s' % (idx, tname))
+    w('entities:')
+    w('- proto: ""')
+    w('  entities:')
+    w('  - uid: 1')
+    w('    components:')
+    w('    - type: MetaData')
+    w('      name: %s' % name)
+    w('    - type: Transform')
+    w('      parent: invalid')
+    w('    - type: MapGrid')
+    w('      chunks:')
+    for cx, cy, data in chunks(b.tiles):
+        w('        %d,%d:' % (cx, cy))
+        w('          ind: %d,%d' % (cx, cy))
+        w('          tiles: %s' % data)
+        w('          version: 6')
+    w('    - type: Broadphase')
+    w('    - type: Physics')
+    w('      bodyStatus: InAir')
+    w('      angularDamping: 0.05')
+    w('      linearDamping: 0.05')
+    w('      fixedRotation: False')
+    w('      bodyType: Dynamic')
+    w('    - type: Fixtures')
+    w('      fixtures: {}')
+    w('    - type: OccluderTree')
+    w('    - type: GridPathfinding')
+    w('    - type: DecalGrid')
+    w('      chunkCollection:')
+    w('        version: 2')
+    w('        nodes: []')
+    w('    - type: SpreaderGrid')
+    uid = 2
+    for proto in sorted(b.ents):
+        positions = b.ents[proto]
+        if not positions:
+            continue
+        w('- proto: %s' % proto)
+        w('  entities:')
+        for x, y, rot in positions:
+            w('  - uid: %d' % uid)
+            w('    components:')
+            w('    - type: Transform')
+            if rot is not None:
+                w('      rot: %s rad' % rot)
+            w('      pos: %s,%s' % (x + 0.5, y + 0.5))
+            w('      parent: 1')
+            uid += 1
+    w('...')
+    text = '\n'.join(lines) + '\n'
+    text = text.replace('ENTITY_COUNT', str(uid - 1))
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(text)
+    print(path, 'entities', uid - 1, 'tiles', len(b.tiles))
+
+
 # ---------------------------------------------------------------- carrier
 
 def blocks(text):
@@ -472,6 +637,7 @@ def build_carrier(src, dst, name, drop, adds, floor=None):
 
 def main():
     write_base(build_base(), 'Resources/Maps/_DarkestHour/Assault/terminus.yml')
+    write_grid(build_bunker(), 'Resources/Maps/_DarkestHour/Assault/terminus_bunker.yml', 'Terminus Bunker')
 
     seats = ['%s,%s' % (x + 0.5, y + 0.5) for y in (-9, -16) for x in (-3, -2, -1, 1, 2, 3)]
     seats += ['%s,%s' % (x + 0.5, -17.5) for x in (-5, -4, -2, -1, 1, 2, 4, 5)]

@@ -120,3 +120,19 @@ dh-sandbags-filled = You fill {$count} {$count ->
 dh-tent-no-room = There is no room for the tent in front of you.
 dh-tent-deployed = You pitch the tent.
 dh-tent-fold-verb = Fold the tent
+
+## Bunker and levels
+dh-bunker-name = Terminus Bunker
+dh-ladder-blocked = The passage is blocked.
+dh-ladder-start-down = {CAPITALIZE(THE($user))} starts climbing down.
+dh-ladder-start-up = {CAPITALIZE(THE($user))} starts climbing up.
+dh-ladder-arrived-down = {CAPITALIZE(THE($user))} climbs down the ladder.
+dh-ladder-arrived-up = {CAPITALIZE(THE($user))} climbs up out of the hatch.
+dh-ladder-somewhere = somewhere
+dh-ladder-examine-down = It leads down to [color=yellow]{$where}[/color].
+dh-ladder-examine-up = It leads up to [color=yellow]{$where}[/color].
+dh-lift-verb-call = Call the lift
+dh-lift-broken = The lift does not respond.
+dh-lift-busy = The lift is already moving.
+dh-lift-departing = The lift departs in {$seconds} s! Clear the platform or ride along.
+dh-lift-arriving = The lift is coming in {$seconds} s! Clear the platform.
