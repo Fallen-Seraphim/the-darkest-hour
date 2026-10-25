@@ -172,3 +172,23 @@ dh-dropship-ui-state-flight = In flight.
 dh-dropship-ui-state-landed = On the ground.
 dh-dropship-ui-location = Location: {$location}
 dh-dropship-ui-flight = Course: {$destination}, {$seconds} s.
+
+## Comms
+dh-chat-radio-republic-command = Garrison Command
+dh-chat-radio-imperial-command = Landing Command
+dh-relay-broken = The relay falls silent!
+dh-relay-repaired = The relay hums back to life.
+dh-relay-examine-active = It is [color=green]relaying[/color] the radio nets.
+dh-relay-examine-broken = It is [color=red]silent[/color]: weld it back into working order.
+dh-phone-busy-self = The line is already in use.
+dh-phone-busy = {$phone} is busy.
+dh-phone-ui-title = Field telephone
+dh-phone-ui-answer = Answer
+dh-phone-ui-hang-up = Hang up
+dh-phone-ui-book = Directory
+dh-phone-ui-empty = No other telephones on the line.
+dh-phone-ui-entry-busy = {$name} (busy)
+dh-phone-ui-idle = The line is free.
+dh-phone-ui-calling = Calling {$other}...
+dh-phone-ui-ringing = Incoming call: {$other}!
+dh-phone-ui-in-call = On the line with {$other}. Speak near the telephone.

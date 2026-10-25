@@ -9,6 +9,7 @@
   id: DHGarrisonCommanderGear
   equipment:
     pocket2: DHWeaponPistolMk58
+    ears: DHClothingHeadsetAltRepublicCommand
   storage:
     back:
     - DHMagazine762x51FMG
@@ -23,6 +24,8 @@
 - type: startingGear
   parent: DHRepublicCommanderGear
   id: DHGarrisonOfficerGear
+  equipment:
+    ears: DHClothingHeadsetAltRepublicCommand
   storage:
     back:
     - DHMagazine762x51FMG
@@ -64,6 +67,7 @@
     - DHSandbagsFull25
     - DHSandbagsEmpty25
     - DHIFAKFilled
+    - DHFieldRadioJammer
 
 - type: startingGear
   id: DHCarrierCrewGearBase
@@ -85,6 +89,7 @@
   parent: DHCarrierCrewGearBase
   id: DHCarrierCaptainGear
   equipment:
+    ears: DHClothingHeadsetAltImperialCommand
     id: DHDogtagsImperialCommander
     neck: SyndicateWhistle
     outerClothing: DHClothingOuterModularIMB1Composite
@@ -99,6 +104,8 @@
 - type: startingGear
   parent: DHCarrierCrewGearBase
   id: DHCarrierPilotGear
+  equipment:
+    ears: DHClothingHeadsetAltImperialCommand
 
 - type: startingGear
   parent: DHCarrierCrewGearBase
@@ -115,6 +122,12 @@
   id: DHCarrierTechnicianGear
   equipment:
     belt: ClothingBeltUtilityEngineering
+  storage:
+    back:
+    - DHMagazine145x114Std
+    - DHMagazine145x114Std
+    - DHIFAKFilled
+    - DHFieldRadioJammer
 
 # --- Доступ к хранилищу образца: командир базы и офицеры ---
 

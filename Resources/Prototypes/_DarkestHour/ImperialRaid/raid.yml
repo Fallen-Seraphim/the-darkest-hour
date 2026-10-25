@@ -274,6 +274,7 @@
   parent: DHImperialGearBase
   id: DHImperialCommanderGear
   equipment:
+    ears: DHClothingHeadsetAltImperialCommand
     id: DHDogtagsImperialCommander
     neck: SyndicateWhistle
     outerClothing: DHClothingOuterModularIMB1Composite
