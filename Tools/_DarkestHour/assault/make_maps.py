@@ -191,8 +191,9 @@ def build_base():
         b.put('DHSandbagsEmpty25', x, -5, solid=False)
     b.put('Shovel', 25, -7, solid=False)
     b.put('Shovel', 25, -5, solid=False)
-    # comms: the garrison relay in the comms room, field telephones at the HQ, the main gate and the battery
-    b.put('DHCommsRelayRepublic', 9, 12)
+    # comms: the garrison comms tower in the yard east of the main gate, field telephones at the HQ, the main gate
+    # and the battery
+    b.put('DHCommsRelayRepublic', 16, -16)
     b.put('DHFieldPhoneRepublicHQ', -8, 10)
     b.put('DHFieldPhoneRepublicGate', -1, -19)
     b.put('DHFieldPhoneRepublicBattery', 3, 31)

@@ -81,11 +81,6 @@
   parent: BaseStructure
   id: DHCommsRelayBase
   components:
-  - type: Sprite
-    sprite: Structures/Machines/telecomms.rsi
-    layers:
-    - state: telecom-on
-    - state: telecom-stripe
   - type: InteractionOutline
   - type: Damageable
     damageContainer: Inorganic
@@ -93,6 +88,7 @@
   - type: Repairable
     fuelCost: 15
     doAfterDelay: 8
+  - type: Appearance
   - type: PointLight
     radius: 1.5
     energy: 1.2
@@ -101,9 +97,22 @@
 - type: entity
   parent: DHCommsRelayBase
   id: DHCommsRelayRepublic
-  name: garrison comms node
+  name: garrison comms tower
   description: Relays the garrison's radio nets between the surface, the bunker and the sky. If it falls silent, the bunker and the base hear each other only by field telephone. Can be welded back into working order.
   components:
+  - type: Sprite
+    sprite: _RMC14/Structures/communications_tower.rsi
+    offset: 0,1.5
+    drawdepth: Overdoors
+    layers:
+    - state: static1
+      map: [ "tower" ]
+  - type: GenericVisualizer
+    visuals:
+      enum.DHCommsRelayVisuals.Active:
+        tower:
+          True: { state: static1 }
+          False: { state: static1_broken }
   - type: DHCommsRelay
     channels:
     - DHRepublic
@@ -115,6 +124,19 @@
   name: carrier comms antenna
   description: Relays the landing force's radio nets between the carrier in orbit and the troops below. If it falls silent, the carrier loses touch with the ground. Can be welded back into working order.
   components:
+  - type: Sprite
+    sprite: _RMC14/Structures/communications_tower_dish.rsi
+    offset: 0,1
+    drawdepth: Overdoors
+    layers:
+    - state: comm_tower
+      map: [ "tower" ]
+  - type: GenericVisualizer
+    visuals:
+      enum.DHCommsRelayVisuals.Active:
+        tower:
+          True: { state: comm_tower }
+          False: { state: comm_tower_broken }
   - type: DHCommsRelay
     channels:
     - Syndicate

@@ -16,6 +16,7 @@ namespace Content.Server._DarkestHour.Comms;
 /// </summary>
 public sealed class DHCommsSystem : EntitySystem
 {
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private TelephoneSystem _telephone = default!;
     [Dependency] private IGameTiming _timing = default!;
@@ -32,6 +33,7 @@ public sealed class DHCommsSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<RadioReceiveAttemptEvent>(OnRadioReceiveAttempt);
+        SubscribeLocalEvent<DHCommsRelayComponent, MapInitEvent>(OnRelayMapInit);
         SubscribeLocalEvent<DHCommsRelayComponent, DamageChangedEvent>(OnRelayDamaged);
         SubscribeLocalEvent<DHCommsRelayComponent, ExaminedEvent>(OnRelayExamined);
 
@@ -74,6 +76,11 @@ public sealed class DHCommsSystem : EntitySystem
             args.Cancelled = true;
     }
 
+    private void OnRelayMapInit(Entity<DHCommsRelayComponent> ent, ref MapInitEvent args)
+    {
+        _appearance.SetData(ent, DHCommsRelayVisuals.Active, ent.Comp.Active);
+    }
+
     private void OnRelayDamaged(Entity<DHCommsRelayComponent> ent, ref DamageChangedEvent args)
     {
         var broken = args.Damageable.TotalDamage.Float() >= RelayBreakDamage;
@@ -81,6 +88,7 @@ public sealed class DHCommsSystem : EntitySystem
             return;
 
         ent.Comp.Active = !broken;
+        _appearance.SetData(ent, DHCommsRelayVisuals.Active, ent.Comp.Active);
         _popup.PopupEntity(Loc.GetString(broken ? "dh-relay-broken" : "dh-relay-repaired"), ent,
             broken ? PopupType.LargeCaution : PopupType.Medium);
     }

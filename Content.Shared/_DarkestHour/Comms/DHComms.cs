@@ -23,6 +23,13 @@ public sealed partial class DHCommsRelayComponent : Component
     public bool Active = true;
 }
 
+[Serializable, NetSerializable]
+public enum DHCommsRelayVisuals : byte
+{
+    /// <summary>bool: ретранслятор цел и работает.</summary>
+    Active,
+}
+
 /// <summary>Полевой телефон: звонит только телефонам своей сети.</summary>
 [RegisterComponent]
 public sealed partial class DHFieldPhoneComponent : Component

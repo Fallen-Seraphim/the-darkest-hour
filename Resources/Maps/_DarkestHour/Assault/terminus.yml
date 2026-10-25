@@ -427,7 +427,7 @@ entities:
   - uid: 54
     components:
     - type: Transform
-      pos: 9.5,12.5
+      pos: 16.5,-15.5
       parent: 2
 - proto: DHComputerAntiOrbital
   entities:
