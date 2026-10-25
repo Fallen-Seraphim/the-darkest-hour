@@ -194,6 +194,11 @@ def build_base():
     # comms: the garrison comms tower in the yard east of the main gate, field telephones at the HQ, the main gate
     # and the battery
     b.put('DHCommsRelayRepublic', 16, -16)
+    # recon and camouflage: ghillie suits in the armoury, camouflage nets in the workshop
+    for _ in range(2):
+        b.put('DHClothingOuterGhillie', -16, -3, solid=False)
+        b.put('DHCamoNetFolded', 26, -6, solid=False)
+    b.put('DHCamoNetFolded', 26, -4, solid=False)
     # radar post west of the main gate: without it the anti-air is half-blind and the anti-orbital guns see no orbit
     b.put('DHRadarRepublic', -14, -16)
     b.put('DHFieldPhoneRepublicHQ', -8, 10)
@@ -730,6 +735,11 @@ def main():
             ('DHComputerOverwatchEmpire', [p(5, -4)]),
             # search radar on the gun deck: the missile launchers see incoming shells
             ('DHRadarEmpire', [p(9, -15)]),
+            # orbital scan console on the bridge, ghillie suits and camouflage nets for the landing force
+            ('DHComputerOrbitalScan', [p(4, -4)]),
+            ('ChairOfficeDark', [(p(4, -5), '3.141592653589793')]),
+            ('DHClothingOuterGhillie', [p(-4, -21), p(-4, -21)]),
+            ('DHCamoNetFolded', [p(-5, -22), p(-5, -22)]),
             # comms: the carrier antenna on the gun deck and the bridge telephone
             ('DHCommsRelayEmpire', [p(12, -3)]),
             ('DHFieldPhoneEmpireBridge', [p(4, -5)]),

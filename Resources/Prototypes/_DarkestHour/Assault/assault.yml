@@ -20,6 +20,7 @@
     - MedkitCombatFilled
     - DHIFAKFilled
     - DHOverwatchTabletRepublic
+    - DHMotionDetector
 
 - type: startingGear
   parent: DHRepublicCommanderGear
@@ -36,6 +37,7 @@
     - MedkitCombatFilled
     - DHIFAKFilled
     - DHOverwatchTabletRepublic
+    - DHMotionDetector
 
 - type: startingGear
   parent: DHRepublicGearBase
