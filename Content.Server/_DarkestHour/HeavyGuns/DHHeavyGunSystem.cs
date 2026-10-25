@@ -118,6 +118,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
 
         InitializeMortar();
         InitializeFieldGun();
+        InitializeRadar();
     }
 
     #region Сборка и заряжание
@@ -316,7 +317,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             _audio.PlayPvs(defender.Comp.Kind == DHInterceptorKind.Missile ? MissileSound : AutocannonSound, defender,
                 AudioParams.Default.WithMaxDistance(40f));
 
-            if (_random.Prob(defender.Comp.Chance))
+            if (_random.Prob(defender.Comp.Chance * RadarFactor(defender)))
                 return true;
         }
 
@@ -524,10 +525,12 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         {
             if (TryGetSurfaceBody(ent, out var surfaceSystem, out var body, out var systemMap, out var origin))
             {
+                // Корабли на орбите видно только РЛС; висящие в атмосфере — и так.
+                var radar = RadarCovers(ent);
                 var query = EntityQueryEnumerator<ShuttleComponent, TransformComponent>();
                 while (query.MoveNext(out var uid, out _, out var xform))
                 {
-                    if (xform.MapUid != systemMap || !HasComp<MapGridComponent>(uid))
+                    if (!radar || xform.MapUid != systemMap || !HasComp<MapGridComponent>(uid))
                         continue;
 
                     var altitude = Vector2.Distance(_transform.GetWorldPosition(xform) - origin, body.Position) - body.Radius;
@@ -620,7 +623,8 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         {
             if (args.Target is not { } targetNet || !TryGetEntity(targetNet, out var target) ||
                 !TryGetSurfaceBody(ent, out var targetSystem, out var body, out var systemMap, out var origin) ||
-                !InReach(target.Value, targetSystem, body, systemMap, origin, ent.Comp.OrbitalRange))
+                !InReach(target.Value, targetSystem, body, systemMap, origin, ent.Comp.OrbitalRange) ||
+                Transform(target.Value).MapUid == systemMap && !RadarCovers(ent))
             {
                 _popup.PopupEntity(Loc.GetString("dh-heavy-gun-bad-target"), ent, args.Actor);
                 return;
@@ -832,7 +836,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             _audio.PlayPvs(comp.Kind == DHInterceptorKind.Missile ? MissileSound : AutocannonSound, uid,
                 AudioParams.Default.WithMaxDistance(40f));
 
-            if (!_random.Prob(comp.AirChance))
+            if (!_random.Prob(comp.AirChance * RadarFactor(uid)))
                 continue;
 
             var tiles = _map.GetAllTiles(grid, gridComp).ToList();

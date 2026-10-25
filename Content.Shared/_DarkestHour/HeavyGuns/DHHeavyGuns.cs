@@ -289,3 +289,28 @@ public sealed partial class DHHeavyGunLoadDoAfterEvent : SimpleDoAfterEvent;
 
 [Serializable, NetSerializable]
 public sealed partial class DHInterceptorLoadDoAfterEvent : SimpleDoAfterEvent;
+
+/// <summary>
+/// РЛС стороны: пока цела, ПВО на её гриде или карте бьёт в полную силу, ПКО видит корабли на орбите, а о
+/// челноке противника на подлёте к ЗП её карты сторона узнаёт по радио. Разбитая (от <see cref="BreakDamage"/>)
+/// молчит до сварки.
+/// </summary>
+[RegisterComponent]
+public sealed partial class DHRadarComponent : Component
+{
+    [DataField]
+    public Content.Shared._DarkestHour.Assault.DHAssaultFaction Faction;
+
+    [DataField]
+    public float BreakDamage = 150f;
+
+    [ViewVariables]
+    public bool Active = true;
+}
+
+[Serializable, NetSerializable]
+public enum DHRadarVisuals : byte
+{
+    /// <summary>bool: РЛС цела и работает.</summary>
+    Active,
+}

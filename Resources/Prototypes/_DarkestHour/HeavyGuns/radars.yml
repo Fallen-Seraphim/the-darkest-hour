@@ -1,0 +1,52 @@
+# РЛС сторон. Механика — DHHeavyGunSystem.Radar: без своей РЛС ПВО бьёт в 0.4 силы, ПКО не видит орбиту;
+# о челноке противника на подлёте к ЗП своей карты сторона узнаёт по радио. Спрайт — сенсорная вышка cmss13 через
+# RMC-14 (CC-BY-SA-3.0).
+
+- type: entity
+  abstract: true
+  parent: BaseStructure
+  id: DHRadarBase
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Machines/sensor_tower.rsi
+    offset: 0,2
+    drawdepth: Overdoors
+    layers:
+    - state: sensor_
+      map: [ "radar" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHRadarVisuals.Active:
+        radar:
+          True: { state: sensor_ }
+          False: { state: sensor_broken }
+  - type: InteractionOutline
+  - type: Damageable
+    damageContainer: Inorganic
+    damageModifierSet: Metallic
+  - type: Repairable
+    fuelCost: 15
+    doAfterDelay: 8
+  - type: PointLight
+    radius: 1.5
+    energy: 1.2
+    color: "#ff6b5c"
+
+- type: entity
+  parent: DHRadarBase
+  id: DHRadarRepublic
+  name: garrison radar post
+  description: Watches the sky over the base. While it turns, the anti-air sees what it shoots at, the anti-orbital guns see ships in orbit, and enemy dropships are reported on approach. Can be welded back into working order.
+  components:
+  - type: DHRadar
+    faction: Republic
+
+- type: entity
+  parent: DHRadarBase
+  id: DHRadarEmpire
+  name: carrier radar mast
+  description: The carrier's search radar. While it turns, the ship's missile launchers see incoming shells. Can be welded back into working order.
+  components:
+  - type: DHRadar
+    faction: Empire

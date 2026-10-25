@@ -194,6 +194,8 @@ def build_base():
     # comms: the garrison comms tower in the yard east of the main gate, field telephones at the HQ, the main gate
     # and the battery
     b.put('DHCommsRelayRepublic', 16, -16)
+    # radar post west of the main gate: without it the anti-air is half-blind and the anti-orbital guns see no orbit
+    b.put('DHRadarRepublic', -14, -16)
     b.put('DHFieldPhoneRepublicHQ', -8, 10)
     b.put('DHFieldPhoneRepublicGate', -1, -19)
     b.put('DHFieldPhoneRepublicBattery', 3, 31)
@@ -726,6 +728,8 @@ def main():
             ('LightPostSmall', [p(11, -8), p(11, -16)]),
             # overwatch console on the bridge: the landing force is watched from orbit and from the air
             ('DHComputerOverwatchEmpire', [p(5, -4)]),
+            # search radar on the gun deck: the missile launchers see incoming shells
+            ('DHRadarEmpire', [p(9, -15)]),
             # comms: the carrier antenna on the gun deck and the bridge telephone
             ('DHCommsRelayEmpire', [p(12, -3)]),
             ('DHFieldPhoneEmpireBridge', [p(4, -5)]),
