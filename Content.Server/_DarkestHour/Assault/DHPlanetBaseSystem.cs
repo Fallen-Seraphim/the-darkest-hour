@@ -3,6 +3,7 @@ using Content.Server.Atmos.EntitySystems;
 using Content.Server.Parallax;
 using Content.Server.Station.Events;
 using Content.Server.Station.Systems;
+using Content.Shared._DarkestHour.HeavyGuns;
 using Content.Shared._DarkestHour.Shuttles.Rift;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
@@ -103,6 +104,7 @@ public sealed partial class DHPlanetBaseSystem : EntitySystem
 
         var mapUid = _map.CreateMap(out var mapId);
         _meta.SetEntityName(mapUid, Loc.GetString(ent.Comp.UndergroundName));
+        EnsureComp<DHUndergroundMapComponent>(mapUid);
 
         var moles = new float[Atmospherics.AdjustedNumberOfGases];
         foreach (var (gas, amount) in body.SurfaceGases)
