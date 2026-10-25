@@ -137,3 +137,30 @@ public record struct DHConsoleFTLTargetEvent(EntityUid Shuttle, MapId TargetMap,
 
 [Serializable, NetSerializable]
 public sealed partial class DHRiftRepairDoAfterEvent : SimpleDoAfterEvent;
+
+/// <summary>
+/// Корабль идёт сквозь разрыв (своя карта «разрывного пространства» на время прыжка): клиенту — тень по краям
+/// экрана и вспышки молний для всех на борту.
+/// </summary>
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class DHRiftTransitComponent : Component
+{
+    [DataField, AutoNetworkedField]
+    public TimeSpan Since;
+
+    /// <summary>Следующий разряд молний вокруг корпуса (только сервер).</summary>
+    [ViewVariables]
+    public TimeSpan NextThunder;
+}
+
+/// <summary>Разряд молний у корпуса: вспышка экрана у тех, кто на борту.</summary>
+[Serializable, NetSerializable]
+public sealed class DHRiftThunderEvent : EntityEventArgs
+{
+    public float Strength;
+
+    public DHRiftThunderEvent(float strength)
+    {
+        Strength = strength;
+    }
+}

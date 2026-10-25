@@ -1,0 +1,31 @@
+# Разрывное пространство: фиолетово-чёрная туманность с прожилками и полосы, летящие мимо корабля.
+# Корабль в разрыве стоит на месте — движение даёт прокрутка слоёв. Текстуры: Tools/_DarkestHour/rift_space/build.py.
+- type: parallax
+  id: DHRiftSpace
+  layers:
+  - texture:
+      !type:ImageParallaxTextureSource
+      path: "/Textures/_DarkestHour/Parallaxes/rift_base.png"
+    slowness: 0.95
+    scrolling: "0, -2.5"
+    scale: "2, 2"
+  - texture:
+      !type:ImageParallaxTextureSource
+      path: "/Textures/_DarkestHour/Parallaxes/rift_streaks_far.png"
+    slowness: 0.9
+    scrolling: "0, -18"
+    scale: "1.5, 3"
+  - texture:
+      !type:ImageParallaxTextureSource
+      path: "/Textures/_DarkestHour/Parallaxes/rift_streaks_near.png"
+    slowness: 0.8
+    scrolling: "0, -42"
+    scale: "2, 4"
+  layersLQ:
+  - texture:
+      !type:ImageParallaxTextureSource
+      path: "/Textures/_DarkestHour/Parallaxes/rift_base.png"
+    slowness: 0.95
+    scrolling: "0, -2.5"
+    scale: "2, 2"
+  layersLQUseHQ: false
