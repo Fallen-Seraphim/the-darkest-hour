@@ -118,3 +118,11 @@ dh-field-gun-ui-mark = Mark {$code}: {$distance} m, traverse {$azimuth}°
 dh-field-gun-ui-mark-low = Flat {$elevation}°
 dh-field-gun-ui-mark-high = Lob {$elevation}°
 dh-field-gun-ui-no-marks = No laser marks in range.
+
+## Radars
+dh-radar-broken = The radar screen goes dark: the anti-air is blind!
+dh-radar-repaired = The radar comes back to life.
+dh-radar-examine-active = The antenna turns steadily: the radar is [color=green]working[/color].
+dh-radar-examine-broken = The radar is [color=red]silent[/color]. A welder could bring it back.
+dh-radar-sender = Radar post
+dh-radar-incoming-dropship = Enemy dropship ({$ship}) inbound to {$zone}!

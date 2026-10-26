@@ -78,6 +78,7 @@ public sealed class DHDropshipSystem : EntitySystem
     [Dependency] private DHCelestialSystem _celestial = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private DockingSystem _docking = default!;
+    [Dependency] private Content.Server._DarkestHour.HeavyGuns.DHHeavyGunSystem _guns = default!;
     [Dependency] private DHLandingSystem _landing = default!;
     [Dependency] private MapLoaderSystem _loader = default!;
     [Dependency] private MetaDataSystem _meta = default!;
@@ -270,6 +271,8 @@ public sealed class DHDropshipSystem : EntitySystem
         {
             // Уже в воздухе: сразу курс на новую цель, перелёт короче.
             comp.ArriveAt = _timing.CurTime + comp.AtmosphereFlightTime / 2;
+            if (comp.Destination is { } newTarget)
+                _guns.WarnIncomingDropship(newTarget, DHAssaultFaction.Empire, Name(ship));
             Announce(ship, Loc.GetString("dh-dropship-course", ("destination", DestinationName(comp))));
         }
         else
@@ -432,6 +435,10 @@ public sealed class DHDropshipSystem : EntitySystem
         comp.Zone = null;
         comp.ArriveAt = _timing.CurTime + (fromOrbit ? comp.OrbitFlightTime : comp.AtmosphereFlightTime);
         comp.NextShake = _timing.CurTime;
+        // РЛС противника на карте ЗП замечает челнок на подлёте.
+        if (!comp.ToHangar && comp.Destination is { } target)
+            _guns.WarnIncomingDropship(target, DHAssaultFaction.Empire, Name(ship));
+
         Announce(ship, Loc.GetString("dh-dropship-launched", ("destination", DestinationName(comp)),
             ("seconds", (int) (comp.ArriveAt - _timing.CurTime).TotalSeconds)));
     }
