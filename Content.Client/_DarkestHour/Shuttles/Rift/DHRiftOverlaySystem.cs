@@ -11,7 +11,7 @@ namespace Content.Client._DarkestHour.Shuttles.Rift;
 /// <summary>
 /// Пока корабль игрока идёт сквозь разрыв: тень по краям экрана (дышит), при разрядах молний у корпуса — вспышка.
 /// </summary>
-public sealed class DHRiftOverlaySystem : EntitySystem
+public sealed partial class DHRiftOverlaySystem : EntitySystem
 {
     [Dependency] private IOverlayManager _overlays = default!;
     [Dependency] private IPlayerManager _player = default!;
@@ -58,7 +58,7 @@ public sealed class DHRiftOverlaySystem : EntitySystem
     }
 }
 
-public sealed class DHRiftOverlay : Overlay
+public sealed partial class DHRiftOverlay : Overlay
 {
     [Dependency] private IEntityManager _entities = default!;
     [Dependency] private IPlayerManager _player = default!;

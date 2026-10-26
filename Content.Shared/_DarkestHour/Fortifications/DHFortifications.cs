@@ -103,7 +103,7 @@ public sealed partial class DHTentFoldDoAfterEvent : SimpleDoAfterEvent;
 /// Укрытие за мешками (общая логика, чтобы клиент предсказывал так же): пуля, летящая в переднюю стенку, задерживается
 /// с шансом; летящая из-за спины проходит. Шанс — детерминированный по паре сущностей.
 /// </summary>
-public sealed class DHSandbagCoverSystem : EntitySystem
+public sealed partial class DHSandbagCoverSystem : EntitySystem
 {
     [Dependency] private SharedTransformSystem _transform = default!;
 

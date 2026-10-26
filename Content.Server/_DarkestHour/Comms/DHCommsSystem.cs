@@ -14,7 +14,7 @@ namespace Content.Server._DarkestHour.Comms;
 /// Ретрансляторы (каналы стороны между картами только через живой ретранслятор) и полевые телефоны
 /// (справочник своей сети, звонок, ответ, отбой поверх ванильной телефонии).
 /// </summary>
-public sealed class DHCommsSystem : EntitySystem
+public sealed partial class DHCommsSystem : EntitySystem
 {
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
