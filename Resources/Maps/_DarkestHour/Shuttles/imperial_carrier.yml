@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/22/2026 21:38:24
-  entityCount: 779
+  entityCount: 785
 maps: []
 grids:
 - 1
@@ -4670,23 +4670,62 @@ entities:
     - type: Transform
       pos: 9.5,-14.5
       parent: 1
-- proto: DHCommsRelayEmpire
+- proto: DHComputerOrbitalScan
   entities:
   - uid: 749
+    components:
+    - type: Transform
+      pos: 4.5,-3.5
+      parent: 1
+- proto: ChairOfficeDark
+  entities:
+  - uid: 750
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 4.5,-4.5
+      parent: 1
+- proto: DHClothingOuterGhillie
+  entities:
+  - uid: 751
+    components:
+    - type: Transform
+      pos: -3.5,-20.5
+      parent: 1
+  - uid: 752
+    components:
+    - type: Transform
+      pos: -3.5,-20.5
+      parent: 1
+- proto: DHCamoNetFolded
+  entities:
+  - uid: 753
+    components:
+    - type: Transform
+      pos: -4.5,-21.5
+      parent: 1
+  - uid: 754
+    components:
+    - type: Transform
+      pos: -4.5,-21.5
+      parent: 1
+- proto: DHCommsRelayEmpire
+  entities:
+  - uid: 755
     components:
     - type: Transform
       pos: 12.5,-2.5
       parent: 1
 - proto: DHFieldPhoneEmpireBridge
   entities:
-  - uid: 750
+  - uid: 756
     components:
     - type: Transform
       pos: 4.5,-4.5
       parent: 1
 - proto: ChairOfficeDark
   entities:
-  - uid: 751
+  - uid: 757
     components:
     - type: Transform
       rot: 3.141592653589793 rad
@@ -4694,202 +4733,202 @@ entities:
       parent: 1
 - proto: DHDropBeacon
   entities:
-  - uid: 752
+  - uid: 758
     components:
     - type: Transform
       pos: 11.5,-20.5
       parent: 1
-  - uid: 753
+  - uid: 759
     components:
     - type: Transform
       pos: 11.5,-20.5
       parent: 1
-  - uid: 754
+  - uid: 760
     components:
     - type: Transform
       pos: 12.5,-20.5
       parent: 1
-  - uid: 755
+  - uid: 761
     components:
     - type: Transform
       pos: 12.5,-20.5
       parent: 1
 - proto: DHTentImperialFolded
   entities:
-  - uid: 756
+  - uid: 762
     components:
     - type: Transform
       pos: -5.5,-19.5
       parent: 1
 - proto: DHTentImperialMedicalFolded
   entities:
-  - uid: 757
+  - uid: 763
     components:
     - type: Transform
       pos: -5.5,-19.5
       parent: 1
 - proto: DHSandbagsEmpty25
   entities:
-  - uid: 758
+  - uid: 764
     components:
     - type: Transform
       pos: -4.5,-21.5
       parent: 1
-  - uid: 759
+  - uid: 765
     components:
     - type: Transform
       pos: -4.5,-21.5
       parent: 1
 - proto: DHCrateMortar
   entities:
-  - uid: 760
+  - uid: 766
     components:
     - type: Transform
       pos: -2.5,-20.5
       parent: 1
-  - uid: 761
+  - uid: 767
     components:
     - type: Transform
       pos: -1.5,-20.5
       parent: 1
 - proto: DHFieldGun75
   entities:
-  - uid: 762
+  - uid: 768
     components:
     - type: Transform
       pos: -2.5,-19.5
       parent: 1
 - proto: DHCrateFieldGun75
   entities:
-  - uid: 763
+  - uid: 769
     components:
     - type: Transform
       pos: -1.5,-21.5
       parent: 1
 - proto: Shovel
   entities:
-  - uid: 764
+  - uid: 770
     components:
     - type: Transform
       pos: -3.5,-21.5
       parent: 1
-  - uid: 765
+  - uid: 771
     components:
     - type: Transform
       pos: -3.5,-21.5
       parent: 1
 - proto: DHHeavyShell570HighExplosive
   entities:
-  - uid: 766
+  - uid: 772
     components:
     - type: Transform
       pos: 8.5,-10.5
       parent: 1
-  - uid: 767
+  - uid: 773
     components:
     - type: Transform
       pos: 8.5,-10.5
       parent: 1
 - proto: DHHeavyShell300HighExplosive
   entities:
-  - uid: 768
+  - uid: 774
     components:
     - type: Transform
       pos: 8.5,-6.5
       parent: 1
-  - uid: 769
+  - uid: 775
     components:
     - type: Transform
       pos: 8.5,-6.5
       parent: 1
-  - uid: 770
+  - uid: 776
     components:
     - type: Transform
       pos: 8.5,-6.5
       parent: 1
 - proto: DHHeavyShell570ArmorPiercing
   entities:
-  - uid: 771
+  - uid: 777
     components:
     - type: Transform
       pos: 9.5,-10.5
       parent: 1
-  - uid: 772
+  - uid: 778
     components:
     - type: Transform
       pos: 9.5,-10.5
       parent: 1
 - proto: DHHeavyShell300ArmorPiercing
   entities:
-  - uid: 773
+  - uid: 779
     components:
     - type: Transform
       pos: 9.5,-6.5
       parent: 1
-  - uid: 774
+  - uid: 780
     components:
     - type: Transform
       pos: 9.5,-6.5
       parent: 1
-  - uid: 775
+  - uid: 781
     components:
     - type: Transform
       pos: 9.5,-6.5
       parent: 1
 - proto: DHHeavyShell570Incendiary
   entities:
-  - uid: 776
+  - uid: 782
     components:
     - type: Transform
       pos: 10.5,-10.5
       parent: 1
-  - uid: 777
+  - uid: 783
     components:
     - type: Transform
       pos: 10.5,-10.5
       parent: 1
 - proto: DHHeavyShell300Incendiary
   entities:
-  - uid: 778
+  - uid: 784
     components:
     - type: Transform
       pos: 10.5,-6.5
       parent: 1
-  - uid: 779
+  - uid: 785
     components:
     - type: Transform
       pos: 10.5,-6.5
       parent: 1
-  - uid: 780
+  - uid: 786
     components:
     - type: Transform
       pos: 10.5,-6.5
       parent: 1
 - proto: DHHeavyShell570Cluster
   entities:
-  - uid: 781
+  - uid: 787
     components:
     - type: Transform
       pos: 11.5,-10.5
       parent: 1
-  - uid: 782
+  - uid: 788
     components:
     - type: Transform
       pos: 11.5,-10.5
       parent: 1
 - proto: DHHeavyShell300Cluster
   entities:
-  - uid: 783
+  - uid: 789
     components:
     - type: Transform
       pos: 11.5,-6.5
       parent: 1
-  - uid: 784
+  - uid: 790
     components:
     - type: Transform
       pos: 11.5,-6.5
       parent: 1
-  - uid: 785
+  - uid: 791
     components:
     - type: Transform
       pos: 11.5,-6.5

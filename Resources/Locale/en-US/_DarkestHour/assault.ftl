@@ -192,3 +192,22 @@ dh-phone-ui-idle = The line is free.
 dh-phone-ui-calling = Calling {$other}...
 dh-phone-ui-ringing = Incoming call: {$other}!
 dh-phone-ui-in-call = On the line with {$other}. Speak near the telephone.
+
+## Recon and camouflage
+dh-motion-detector-on = The motion detector clicks on.
+dh-motion-detector-off = The motion detector goes quiet.
+dh-camo-net-deployed = {CAPITALIZE(THE($user))} spreads a camouflage net.
+dh-camo-net-fold-verb = Fold the net
+dh-scan-sender = Orbital scan
+dh-scan-result = Scan at ({$x}, {$y}): {$count} hostile contacts, {$friends} friendly. Hostiles at: {$list}.
+dh-scan-result-clear = Scan at ({$x}, {$y}): no hostile contacts, {$friends} friendly.
+dh-scan-status-no-surface = No surface below to scan.
+dh-scan-status-cooldown = Recharging: {$seconds} s.
+dh-scan-status-ready = Ready to scan.
+dh-scan-ui-title = Orbital scan
+dh-scan-ui-surface = Surface below: {$surface}. Scan radius {$radius} m.
+dh-scan-ui-no-surface = No surface below.
+dh-scan-ui-scan = SCAN
+dh-scan-ui-marks = Laser marks
+dh-scan-ui-mark = Mark {$code}: ({$x}, {$y})
+dh-scan-ui-no-marks = No laser marks on the surface.

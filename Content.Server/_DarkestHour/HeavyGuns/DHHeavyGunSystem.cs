@@ -119,6 +119,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         InitializeMortar();
         InitializeFieldGun();
         InitializeRadar();
+        InitializeRecon();
     }
 
     #region Сборка и заряжание
@@ -773,6 +774,13 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         {
             if (_ui.IsUiOpen(uid, DHFieldGunUiKey.Key))
                 UpdateFieldGunUi((uid, comp));
+        }
+
+        var scans = EntityQueryEnumerator<Content.Shared._DarkestHour.Recon.DHOrbitalScanConsoleComponent>();
+        while (scans.MoveNext(out var uid, out var comp))
+        {
+            if (_ui.IsUiOpen(uid, Content.Shared._DarkestHour.Recon.DHOrbitalScanUiKey.Key))
+                UpdateScanUi((uid, comp));
         }
 
         var mortars = EntityQueryEnumerator<DHMortarComponent>();

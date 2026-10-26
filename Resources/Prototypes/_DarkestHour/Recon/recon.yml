@@ -1,0 +1,149 @@
+# Разведка и маскировка «Штурма» (по образцу RMC-14). Механика — DHReconSystem и DHHeavyGunSystem.Recon.
+# Спрайты детектора движения и маскхалата — cmss13 через RMC-14 (CC-BY-SA-3.0).
+
+# --- Детектор движения ---
+
+- type: entity
+  parent: BaseItem
+  id: DHMotionDetector
+  name: motion detector
+  description: Use it in hand to switch it on. Every second and a half it pings the movement of anyone within 14 metres — standing still hides you from it.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Tools/motion_detector.rsi
+    layers:
+    - state: detector
+      map: [ "base" ]
+  - type: Item
+    size: Small
+    sprite: _RMC14/Objects/Tools/motion_detector.rsi
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHMotionDetectorVisuals.Active:
+        base:
+          True: { state: detector_on_1 }
+          False: { state: detector }
+  - type: DHMotionDetector
+
+# --- Маскхалат ---
+
+- type: entity
+  id: DHCamoStealthPreset
+  name: camouflage preset
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Stealth
+    minVisibility: 0.15
+    maxVisibility: 1.5
+    examineThreshold: 0.6
+  - type: StealthOnMove
+    passiveVisibilityRate: -0.25
+    movementVisibilityRate: 0.6
+
+- type: entity
+  parent: ClothingOuterBase
+  id: DHClothingOuterGhillie
+  name: ghillie suit
+  description: A shaggy desert-coloured cloak of netting and burlap. Stand still in it, and you fade into the sand; move, and you are seen. Orbital scans miss a motionless wearer.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Armor/ghillie/desert.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Armor/ghillie/desert.rsi
+  - type: DHCamoCloak
+
+# --- Маскировочная сеть ---
+
+- type: entity
+  parent: BaseItem
+  id: DHCamoNetFolded
+  name: folded camouflage net
+  description: A rolled-up camouflage net. Use it in hand to spread it over your spot — a gun, a mortar or a squad under it is hidden from orbital scans.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/camo_net_folded.rsi
+    state: icon
+  - type: Item
+    size: Large
+    sprite: _DarkestHour/Structures/camo_net_folded.rsi
+  - type: DHCamoNetFolded
+
+- type: entity
+  id: DHCamoNet
+  name: camouflage net
+  description: A camouflage net stretched over a position. Hides what is under it from orbital scans. Fold it up with an alternative action.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _DarkestHour/Structures/camo_net.rsi
+    state: net
+    drawdepth: Overdoors
+    color: "#ffffffcc"
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+    canCollide: false
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 60
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: DHCamoNet
+
+# --- Орбитальный скан ---
+
+- type: entity
+  parent: BaseComputer
+  id: DHComputerOrbitalScan
+  name: orbital scan console
+  description: Sweeps a circle of the surface below with the carrier's sensors and reports the enemies found over the landing force net. Long recharge. Misses those under camouflage nets and motionless ghillie wearers.
+  components:
+  - type: ComputerVisuals
+    stateScreen: sensors
+    stateKeys: syndie_key
+  - type: DHOrbitalScanConsole
+  - type: ActivatableUI
+    key: enum.DHOrbitalScanUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHOrbitalScanUiKey.Key:
+        type: DHOrbitalScanBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: ApcPowerReceiver
+    needsPower: false
+    powerLoad: 0
+
+- type: entity
+  id: DHOrbitalScanBlip
+  name: scan contact
+  description: A contact marked by an orbital scan.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: false
+  - type: Sprite
+    sprite: _RMC14/Objects/Devices/binoculars.rsi
+    state: las_r
+    drawdepth: Effects
+    shader: unshaded
+  - type: PointLight
+    radius: 1
+    energy: 1
+    color: "#ff3030"
+    castShadows: false
+  - type: TimedDespawn
+    lifetime: 20
+  - type: Tag
+    tags:
+    - HideContextMenu
