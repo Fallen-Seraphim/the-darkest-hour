@@ -191,6 +191,12 @@ def build_base():
         b.put('DHSandbagsEmpty25', x, -5, solid=False)
     b.put('Shovel', 25, -7, solid=False)
     b.put('Shovel', 25, -5, solid=False)
+    # comms: the garrison comms tower in the yard east of the main gate, field telephones at the HQ, the main gate
+    # and the battery
+    b.put('DHCommsRelayRepublic', 16, -16)
+    b.put('DHFieldPhoneRepublicHQ', -8, 10)
+    b.put('DHFieldPhoneRepublicGate', -1, -19)
+    b.put('DHFieldPhoneRepublicBattery', 3, 31)
     # 90 mm infantry gun covering the main gate, with a crate of shells
     b.put('DHFieldGun90', 3, -18, rot='0')
     b.put('DHCrateFieldGun90', 5, -18)
@@ -424,6 +430,8 @@ def build_bunker():
         b.put('Chair', x, 17, solid=False, rot='3.141592653589793')
     b.put('Binoculars', -9, 16, solid=False)
 
+    b.put('DHFieldPhoneRepublicBunker', -14, 20)
+
     # the vault: the experimental sample
     b.fill(1, 13, 15, 21, 'FloorReinforced')
     b.put('TableReinforced', 8, 18)
@@ -558,6 +566,7 @@ def build_dropship():
         b.door('AirlockSyndicateGlass', x, 0)
     b.put('DHComputerDropship', 4, 9)
     b.put('ChairOfficeDark', 4, 8, solid=False, rot='3.141592653589793')
+    b.put('DHFieldPhoneEmpireDropship', 2, 8)
     for y in range(2, 7):
         b.put('Chair', 1, y, solid=False, rot='-1.5707963267948966')
         b.put('Chair', 6, y, solid=False, rot=east)
@@ -717,6 +726,9 @@ def main():
             ('LightPostSmall', [p(11, -8), p(11, -16)]),
             # overwatch console on the bridge: the landing force is watched from orbit and from the air
             ('DHComputerOverwatchEmpire', [p(5, -4)]),
+            # comms: the carrier antenna on the gun deck and the bridge telephone
+            ('DHCommsRelayEmpire', [p(12, -3)]),
+            ('DHFieldPhoneEmpireBridge', [p(4, -5)]),
             ('ChairOfficeDark', [(p(5, -5), '3.141592653589793')]),
             # paradrop beacons for the landing force
             ('DHDropBeacon', [p(11, -21), p(11, -21), p(12, -21), p(12, -21)]),

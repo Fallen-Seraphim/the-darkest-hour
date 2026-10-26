@@ -1,0 +1,263 @@
+# Связь «Штурма» (решение автора 2026-10-25). Механика — DHCommsSystem.
+# Каналы сторон: Республика — DHRepublic (:п) и командный DHRepublicCommand (:ш); Империя — бывший Синдиката
+# Syndicate (:и) и командный DHImperialCommand (:л). Между картами (орбита — атмосфера — поверхность — бункер) каналы
+# стороны идут только через её ретранслятор: узел связи базы и антенну авианосца.
+
+- type: radioChannel
+  id: DHRepublicCommand
+  name: dh-chat-radio-republic-command
+  keycode: 'ш'
+  frequency: 147.9
+  color: "#b9e07a"
+  longRange: true
+
+- type: radioChannel
+  id: DHImperialCommand
+  name: dh-chat-radio-imperial-command
+  keycode: 'л'
+  frequency: 121.5
+  color: "#ffdd73"
+  longRange: true
+
+- type: entity
+  parent: [ EncryptionKey, BaseCentcommContraband ]
+  id: DHEncryptionKeyRepublicCommand
+  name: Republican command encryption key
+  description: An encryption key of the Republican Army Corps command net.
+  components:
+  - type: EncryptionKey
+    channels:
+    - DHRepublicCommand
+    defaultChannel: DHRepublicCommand
+  - type: Sprite
+    layers:
+    - state: crypt_rusted
+    - state: cap_label
+
+- type: entity
+  parent: [ EncryptionKey, BaseCentcommContraband ]
+  id: DHEncryptionKeyImperialCommand
+  name: Imperial command encryption key
+  description: An encryption key of the Imperial landing force command net.
+  components:
+  - type: EncryptionKey
+    channels:
+    - DHImperialCommand
+    defaultChannel: DHImperialCommand
+  - type: Sprite
+    layers:
+    - state: crypt_red
+    - state: cap_label
+
+- type: entity
+  parent: DHClothingHeadsetAltRepublic
+  id: DHClothingHeadsetAltRepublicCommand
+  name: Republican command headset
+  description: A rugged over-ear headset of the Republican Army Corps with the command net.
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - DHEncryptionKeyRepublic
+      - DHEncryptionKeyRepublicCommand
+      - EncryptionKeyCommon
+
+- type: entity
+  parent: ClothingHeadsetAltSyndicate
+  id: DHClothingHeadsetAltImperialCommand
+  name: imperial command headset
+  description: A modular Imperial Marine Corps intercom with the command net.
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeySyndie
+      - DHEncryptionKeyImperialCommand
+
+# --- Ретрансляторы ---
+
+- type: entity
+  abstract: true
+  parent: BaseStructure
+  id: DHCommsRelayBase
+  components:
+  - type: InteractionOutline
+  - type: Damageable
+    damageContainer: Inorganic
+    damageModifierSet: Metallic
+  - type: Repairable
+    fuelCost: 15
+    doAfterDelay: 8
+  - type: Appearance
+  - type: PointLight
+    radius: 1.5
+    energy: 1.2
+    color: "#6fd0ff"
+
+- type: entity
+  parent: DHCommsRelayBase
+  id: DHCommsRelayRepublic
+  name: garrison comms tower
+  description: Relays the garrison's radio nets between the surface, the bunker and the sky. If it falls silent, the bunker and the base hear each other only by field telephone. Can be welded back into working order.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/communications_tower.rsi
+    offset: 0,1.5
+    drawdepth: Overdoors
+    layers:
+    - state: static1
+      map: [ "tower" ]
+  - type: GenericVisualizer
+    visuals:
+      enum.DHCommsRelayVisuals.Active:
+        tower:
+          True: { state: static1 }
+          False: { state: static1_broken }
+  - type: DHCommsRelay
+    channels:
+    - DHRepublic
+    - DHRepublicCommand
+
+- type: entity
+  parent: DHCommsRelayBase
+  id: DHCommsRelayEmpire
+  name: carrier comms antenna
+  description: Relays the landing force's radio nets between the carrier in orbit and the troops below. If it falls silent, the carrier loses touch with the ground. Can be welded back into working order.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/communications_tower_dish.rsi
+    offset: 0,1
+    drawdepth: Overdoors
+    layers:
+    - state: comm_tower
+      map: [ "tower" ]
+  - type: GenericVisualizer
+    visuals:
+      enum.DHCommsRelayVisuals.Active:
+        tower:
+          True: { state: comm_tower }
+          False: { state: comm_tower_broken }
+  - type: DHCommsRelay
+    channels:
+    - Syndicate
+    - DHImperialCommand
+
+# --- Полевые телефоны ---
+
+- type: entity
+  abstract: true
+  parent: BaseStructure
+  id: DHFieldPhoneBase
+  components:
+  - type: Sprite
+    sprite: Objects/Fun/Instruments/otherinstruments.rsi
+    state: red_phone
+    drawdepth: SmallObjects
+  - type: InteractionOutline
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.2,-0.2,0.2,0.2"
+        density: 50
+        mask:
+        - MachineMask
+  - type: Speech
+    speechBubbleOffset: 0.3
+  - type: Telephone
+    ringTone: /Audio/Machines/double_ring.ogg
+    listeningRange: 2
+    speakerVolume: Speak
+    transmissionRange: Unlimited
+    compatibleRanges:
+    - Unlimited
+  - type: ActivatableUI
+    key: enum.DHFieldPhoneUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHFieldPhoneUiKey.Key:
+        type: DHFieldPhoneBoundUserInterface
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 60
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  parent: DHFieldPhoneBase
+  id: DHFieldPhoneRepublicHQ
+  name: field telephone (HQ)
+  description: A wired field telephone of the garrison net. Works when the radio is jammed.
+  suffix: Republic, HQ
+  components:
+  - type: DHFieldPhone
+    network: Republic
+    phoneName: HQ
+
+- type: entity
+  parent: DHFieldPhoneBase
+  id: DHFieldPhoneRepublicBunker
+  name: field telephone (bunker)
+  description: A wired field telephone of the garrison net. Works when the radio is jammed.
+  suffix: Republic, Bunker
+  components:
+  - type: DHFieldPhone
+    network: Republic
+    phoneName: Bunker command post
+
+- type: entity
+  parent: DHFieldPhoneBase
+  id: DHFieldPhoneRepublicBattery
+  name: field telephone (battery)
+  description: A wired field telephone of the garrison net. Works when the radio is jammed.
+  suffix: Republic, Battery
+  components:
+  - type: DHFieldPhone
+    network: Republic
+    phoneName: Anti-orbital battery
+
+- type: entity
+  parent: DHFieldPhoneBase
+  id: DHFieldPhoneRepublicGate
+  name: field telephone (main gate)
+  description: A wired field telephone of the garrison net. Works when the radio is jammed.
+  suffix: Republic, Gate
+  components:
+  - type: DHFieldPhone
+    network: Republic
+    phoneName: Main gate
+
+- type: entity
+  parent: DHFieldPhoneBase
+  id: DHFieldPhoneEmpireBridge
+  name: field telephone (bridge)
+  description: A wired telephone of the landing force net. Works when the radio is jammed.
+  suffix: Empire, Bridge
+  components:
+  - type: DHFieldPhone
+    network: Empire
+    phoneName: Carrier bridge
+
+- type: entity
+  parent: DHFieldPhoneBase
+  id: DHFieldPhoneEmpireDropship
+  name: dropship telephone
+  description: A telephone of the landing force net, patched through the dropship's own transmitter. Works when the radio is jammed.
+  suffix: Empire, Dropship
+  components:
+  - type: DHFieldPhone
+    network: Empire
+
+# --- Глушилки ---
+
+- type: entity
+  parent: RadioJammer
+  id: DHFieldRadioJammer
+  name: field radio jammer
+  description: A field radio jammer. Smothers every radio around it, your own included; field telephones keep working.
