@@ -28,6 +28,7 @@ public sealed class DHHeavyGunWindow : DefaultWindow
     private readonly LineEdit _x = new() { Text = "0", MinWidth = 80 };
     private readonly LineEdit _y = new() { Text = "0", MinWidth = 80 };
     private readonly Label _zone = new();
+    private readonly BoxContainer _marks = new() { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 2 };
     private readonly BoxContainer _defenses = new() { Orientation = BoxContainer.LayoutOrientation.Vertical };
     private readonly Button _fire = new() { HorizontalExpand = true, Text = "" };
 
@@ -83,6 +84,8 @@ public sealed class DHHeavyGunWindow : DefaultWindow
         coordsY.AddChild(Nudge(_y, 50));
         _artillery.AddChild(coordsY);
         _artillery.AddChild(_zone);
+        _artillery.AddChild(new Label { Text = Loc.GetString("dh-heavy-gun-ui-marks"), FontColorOverride = Warn });
+        _artillery.AddChild(_marks);
         root.AddChild(_artillery);
 
         root.AddChild(Header("dh-heavy-gun-ui-defenses"));
@@ -209,6 +212,32 @@ public sealed class DHHeavyGunWindow : DefaultWindow
             }
 
             _zone.Text = Loc.GetString("dh-heavy-gun-ui-zone", ("zone", (int) state.TargetZone));
+
+            // Метки ЛЦУ: нажатие — тело и координаты метки в прицел.
+            _marks.RemoveAllChildren();
+            foreach (var mark in state.Marks)
+            {
+                var bodyName = state.Bodies.Find(b => b.Id == mark.Body)?.Name ?? mark.Body ?? string.Empty;
+                var button = new Button
+                {
+                    Text = Loc.GetString("dh-heavy-gun-ui-mark", ("code", mark.Code), ("body", bodyName),
+                        ("x", (int) MathF.Round(mark.Position.X)), ("y", (int) MathF.Round(mark.Position.Y))),
+                    HorizontalExpand = true,
+                };
+                var markBody = mark.Body;
+                var position = mark.Position;
+                button.OnPressed += _ =>
+                {
+                    _x.Text = MathF.Round(position.X).ToString("0", CultureInfo.InvariantCulture);
+                    _y.Text = MathF.Round(position.Y).ToString("0", CultureInfo.InvariantCulture);
+                    if (markBody != null && markBody != _state?.SelectedBody)
+                        OnSelectBody?.Invoke(markBody);
+                };
+                _marks.AddChild(button);
+            }
+
+            if (state.Marks.Count == 0)
+                _marks.AddChild(new Label { Text = Loc.GetString("dh-heavy-gun-ui-no-marks") });
         }
 
         // ПВО

@@ -189,6 +189,9 @@ def build_base():
         b.put('DHSandbagsEmpty25', x, -5, solid=False)
     b.put('Shovel', 25, -7, solid=False)
     b.put('Shovel', 25, -5, solid=False)
+    # mortar crates of the garrison (mortar, laser designator, 18 shells each)
+    b.put('DHCrateMortar', 27, -10)
+    b.put('DHCrateMortar', 27, -8)
 
     # air defence of the base: two interceptor missile silos and two twin 30 mm autocannons on reinforced pads
     for cx, cy, proto in ((-24, -18, 'DHMissileSilo'), (23, -18, 'DHMissileSilo'),
@@ -687,6 +690,7 @@ def main():
             ('DHTentImperialFolded', [p(-6, -20)]),
             ('DHTentImperialMedicalFolded', [p(-6, -20)]),
             ('DHSandbagsEmpty25', [p(-5, -22), p(-5, -22)]),
+            ('DHCrateMortar', [p(-3, -21), p(-2, -21)]),
             ('Shovel', [p(-4, -22), p(-4, -22)]),
         ] + shells,
         floor=wing)

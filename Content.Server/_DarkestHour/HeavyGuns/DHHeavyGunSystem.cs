@@ -5,6 +5,7 @@ using Content.Server._DarkestHour.Shuttles.Rift;
 using Content.Server.Decals;
 using Content.Server.Explosion.EntitySystems;
 using Content.Server.Shuttles.Systems;
+using Content.Shared._DarkestHour.Assault;
 using Content.Shared._DarkestHour.HeavyGuns;
 using Content.Shared._DarkestHour.Shuttles.Rift;
 using Content.Shared.Buckle.Components;
@@ -85,6 +86,12 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         public bool Warned;
         public bool InterceptChecked;
         public bool Intercepted;
+
+        /// <summary>Мина миномёта: свой свист на подлёте.</summary>
+        public bool Mortar;
+
+        /// <summary>Чей выстрел: своя ПВО его не сбивает.</summary>
+        public DHAssaultFaction? Faction;
     }
 
     public override void Initialize()
@@ -108,6 +115,8 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             subs.Event<DHHeavyGunSelectBodyMessage>(OnSelectBody);
             subs.Event<DHHeavyGunFireMessage>(OnFire);
         });
+
+        InitializeMortar();
     }
 
     #region Сборка и заряжание
@@ -272,6 +281,9 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         while (query.MoveNext(out var uid, out var comp, out var xform))
         {
             if (!xform.Anchored || comp.Ammo <= 0)
+                continue;
+
+            if (strike.Faction != null && FactionOf(uid) == strike.Faction)
                 continue;
 
             if (strike.TargetGrid is { } grid)
@@ -583,7 +595,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         }
 
         _ui.SetUiState(ent.Owner, DHHeavyGunUiKey.Key, new DHHeavyGunConsoleState(ent.Comp.Role, AnySeated(ent), guns,
-            targets, bodies, ent.Comp.SelectedBody, ent.Comp.TargetZone, defenses, status2));
+            targets, bodies, ent.Comp.SelectedBody, ent.Comp.TargetZone, defenses, ArtilleryMarks(ent), status2));
     }
 
     private void OnFire(Entity<DHHeavyGunConsoleComponent> ent, ref DHHeavyGunFireMessage args)
@@ -653,6 +665,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
                 HitChance = gun.Comp.HitChance,
                 TargetGrid = template.TargetGrid,
                 Target = template.Target,
+                Faction = FactionOf(ent),
                 ImpactAt = _timing.CurTime + gun.Comp.FlightTime + TimeSpan.FromSeconds(fired * 1.5),
             };
 
@@ -747,6 +760,13 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             if (_ui.IsUiOpen(uid, DHHeavyGunUiKey.Key))
                 UpdateUi((uid, comp));
         }
+
+        var mortars = EntityQueryEnumerator<DHMortarComponent>();
+        while (mortars.MoveNext(out var uid, out var comp))
+        {
+            if (_ui.IsUiOpen(uid, DHMortarUiKey.Key))
+                UpdateMortarUi((uid, comp));
+        }
     }
 
     /// <summary>ПВО на поверхности бьёт по авианосцу, висящему в атмосфере над ней в пределах дальности.</summary>
@@ -814,7 +834,8 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             return;
 
         var coordinates = new EntityCoordinates(map.Value, strike.Target.Position);
-        _audio.PlayPvs(IncomingSound, coordinates, AudioParams.Default.WithMaxDistance(30f));
+        _audio.PlayPvs(strike.Mortar ? MortarIncomingSound : IncomingSound, coordinates,
+            AudioParams.Default.WithMaxDistance(30f));
         Spawn("DHStrikeMarker", strike.Target);
     }
 
@@ -872,6 +893,9 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
 
         switch (warhead)
         {
+            case DHWarhead.Flare:
+                Flare(target);
+                return;
             case DHWarhead.ArmorPiercing:
                 _explosion.QueueExplosion(target, "Default", intensity * 0.6f, 10f, 60f, null, canCreateVacuum: vacuum);
                 radius *= 0.6f;
@@ -932,6 +956,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             DHWarhead.ArmorPiercing => "dh-warhead-armor-piercing",
             DHWarhead.Incendiary => "dh-warhead-incendiary",
             DHWarhead.Cluster => "dh-warhead-cluster",
+            DHWarhead.Flare => "dh-warhead-flare",
             _ => "dh-warhead-high-explosive",
         });
     }

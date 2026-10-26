@@ -52,3 +52,36 @@ dh-interceptor-full = It is fully loaded.
 dh-interceptor-examine = Ammunition: [color=yellow]{$ammo}/{$max}[/color].
 
 dh-assault-carrier-damaged = The carrier has been hit by anti-orbital fire! Hull integrity: {$hull}%.
+
+## Mortar and laser target designator
+dh-warhead-flare = illumination
+dh-heavy-gun-ui-marks = Laser marks
+dh-heavy-gun-ui-no-marks = No laser marks on the surfaces in range.
+dh-heavy-gun-ui-mark = Mark {$code}: {$body} ({$x}, {$y})
+dh-laser-underground = There is no sky to lase from down here.
+dh-laser-no-line = No line of sight, or farther than {$range} m.
+dh-laser-lasing = You hold the laser on the target...
+dh-laser-marked = Mark {$code} set at ({$x}, {$y}).
+dh-laser-sender = Laser designator ({$name})
+dh-laser-announce = Target marked: mark {$code} at ({$x}, {$y}).
+dh-mortar-no-ground = There is no ground here to set up a mortar.
+dh-mortar-deployed = {CAPITALIZE(THE($user))} sets up the mortar.
+dh-mortar-fold-verb = Fold the mortar
+dh-mortar-out-of-range = Out of range: from {$min} to {$max} m.
+dh-mortar-aimed = The mortar is laid on ({$x}, {$y}).
+dh-mortar-underground = The mortar can't fire underground.
+dh-mortar-status-not-aimed = Not laid on a target.
+dh-mortar-status-reloading = The tube is still hot.
+dh-mortar-status-ready = Ready: drop a shell down the tube.
+dh-mortar-examine-aimed = It is laid on [color=yellow]({$x}, {$y})[/color].
+dh-mortar-examine-not-aimed = It is not laid on a target.
+dh-mortar-ui-title = M402 mortar
+dh-mortar-ui-position = Mortar position: ({$x}, {$y})
+dh-mortar-ui-aimed = Laid on ({$x}, {$y}), {$distance} m.
+dh-mortar-ui-not-aimed = Not laid on a target.
+dh-mortar-ui-range = Range: {$min}-{$max} m.
+dh-mortar-ui-coordinates = Target coordinates
+dh-mortar-ui-aim = Lay the mortar
+dh-mortar-ui-marks = Laser marks in range
+dh-mortar-ui-mark = Mark {$code}: ({$x}, {$y}), {$distance} m
+dh-mortar-ui-no-marks = No laser marks nearby.

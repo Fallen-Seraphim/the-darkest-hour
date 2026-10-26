@@ -1,0 +1,227 @@
+# Миномёт и лазерный целеуказатель (ЛЦУ) по образцу RMC-14. Механика — DHHeavyGunSystem.Mortar.
+# Спрайты — cmss13 через RMC-14 (CC-BY-SA-3.0, см. meta.json).
+
+# --- ЛЦУ ---
+
+- type: entity
+  parent: Binoculars
+  id: DHLaserDesignator
+  name: laser target designator
+  description: Binoculars with a laser rangefinder. Click a point in line of sight to mark it for mortars and artillery; the mark's code and coordinates go out to your side over the radio. Hold it in both hands to look further.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Devices/binoculars.rsi
+    state: d_designator_r
+  - type: Item
+    size: Normal
+    sprite: _RMC14/Objects/Devices/binoculars.rsi
+    inhandVisuals:
+      left:
+      - state: d_rangefinder-inhand-left
+      right:
+      - state: d_rangefinder-inhand-right
+  - type: Clothing
+    sprite: _RMC14/Objects/Devices/binoculars.rsi
+  - type: EyeCursorOffset
+    maxOffset: 16
+    pvsIncrease: 0.6
+  - type: DHLaserDesignator
+    range: 60
+
+- type: entity
+  id: DHLaserMark
+  name: laser mark
+  description: A pulsing laser dot marking a target.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: false
+  - type: Sprite
+    sprite: _RMC14/Objects/Devices/binoculars.rsi
+    state: laslock_r
+    drawdepth: Effects
+    shader: unshaded
+  - type: PointLight
+    radius: 1.2
+    energy: 1.5
+    color: "#ff3030"
+    castShadows: false
+  - type: DHLaserMark
+  - type: TimedDespawn
+    lifetime: 180
+  - type: Tag
+    tags:
+    - HideContextMenu
+
+# --- Миномёт ---
+
+- type: entity
+  parent: BaseItem
+  id: DHMortarFolded
+  name: folded M402 mortar
+  description: An 81 mm infantry mortar, folded for carrying. Use it in hand to set it up where you stand.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Weapons/mortar.rsi
+    state: mortar_m402_carry
+  - type: Item
+    size: Huge
+    sprite: _RMC14/Objects/Weapons/mortar.rsi
+    inhandVisuals:
+      left:
+      - state: mortar-inhand-left
+      right:
+      - state: mortar-inhand-right
+  - type: HeldSpeedModifier
+    walkModifier: 0.85
+    sprintModifier: 0.85
+  - type: DHMortarFolded
+    mortar: DHMortar
+
+- type: entity
+  parent: BaseStructure
+  id: DHMortar
+  name: M402 mortar
+  description: An 81 mm infantry mortar. Open it to lay it on coordinates or a laser mark, then drop a shell down the tube. Fold it up with an alternative action.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Weapons/mortar.rsi
+    state: mortar_m402
+    drawdepth: Objects
+  - type: InteractionOutline
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.3,-0.3,0.3,0.3"
+        density: 100
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: ActivatableUI
+    key: enum.DHMortarUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHMortarUiKey.Key:
+        type: DHMortarBoundUserInterface
+  - type: DHMortar
+    folded: DHMortarFolded
+
+# --- Мины 81 мм ---
+
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: DHMortarShellBase
+  components:
+  - type: Item
+    size: Large
+    sprite: _RMC14/Objects/Weapons/mortar.rsi
+  - type: Sprite
+    sprite: _RMC14/Objects/Weapons/mortar.rsi
+
+- type: entity
+  parent: DHMortarShellBase
+  id: DHMortarShellHE
+  name: 81 mm high-explosive mortar shell
+  description: A mortar shell with a high-explosive charge.
+  components:
+  - type: Sprite
+    state: mortar_ammo_he
+  - type: Item
+    heldPrefix: he
+  - type: DHMortarShell
+    warhead: HighExplosive
+
+- type: entity
+  parent: DHMortarShellBase
+  id: DHMortarShellFrag
+  name: 81 mm fragmentation mortar shell
+  description: A mortar shell that bursts into a spray of small charges over the target area. Good against infantry in the open.
+  components:
+  - type: Sprite
+    state: mortar_ammo_frag
+  - type: Item
+    heldPrefix: frag
+  - type: DHMortarShell
+    warhead: Cluster
+
+- type: entity
+  parent: DHMortarShellBase
+  id: DHMortarShellIncendiary
+  name: 81 mm incendiary mortar shell
+  description: A mortar shell with an incendiary charge. Sets the impact area ablaze.
+  components:
+  - type: Sprite
+    state: mortar_ammo_inc
+  - type: Item
+    heldPrefix: inc
+  - type: DHMortarShell
+    warhead: Incendiary
+
+- type: entity
+  parent: DHMortarShellBase
+  id: DHMortarShellFlare
+  name: 81 mm illumination mortar shell
+  description: A mortar shell carrying a parachute flare. Lights up the impact area for a couple of minutes at night.
+  components:
+  - type: Sprite
+    state: mortar_ammo_flr
+  - type: Item
+    heldPrefix: flr
+  - type: DHMortarShell
+    warhead: Flare
+
+- type: entity
+  id: DHMortarFlare
+  name: illumination flare
+  description: It's really bright, and out of reach.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+  - type: PointLight
+    radius: 14
+    energy: 3.5
+    color: "#ffe8b0"
+    castShadows: true
+  - type: TimedDespawn
+    lifetime: 120
+
+# --- Ящик миномётного расчёта ---
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHCrateMortar
+  name: mortar crate
+  description: An M402 mortar with a laser target designator and a load of 81 mm shells.
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: StorageFill
+    contents:
+    - id: DHMortarFolded
+    - id: DHLaserDesignator
+    - id: DHMortarShellHE
+      amount: 8
+    - id: DHMortarShellFrag
+      amount: 4
+    - id: DHMortarShellIncendiary
+      amount: 3
+    - id: DHMortarShellFlare
+      amount: 3

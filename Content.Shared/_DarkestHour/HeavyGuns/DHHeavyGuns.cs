@@ -28,6 +28,9 @@ public enum DHWarhead : byte
     ArmorPiercing,
     Incendiary,
     Cluster,
+
+    /// <summary>Осветительная мина: над точкой падения долго горит яркий огонь (ночью планеты темно).</summary>
+    Flare,
 }
 
 /// <summary>Казённик тяжёлого орудия: сердце сборки, хранит заряженный снаряд.</summary>
@@ -246,6 +249,7 @@ public sealed class DHHeavyGunConsoleState(
     string? selectedBody,
     float targetZone,
     List<DHGunDefenseEntry> defenses,
+    List<DHLaserMarkEntry> marks,
     string status) : BoundUserInterfaceState
 {
     public readonly DHGunRole Role = role;
@@ -256,6 +260,10 @@ public sealed class DHHeavyGunConsoleState(
     public readonly string? SelectedBody = selectedBody;
     public readonly float TargetZone = targetZone;
     public readonly List<DHGunDefenseEntry> Defenses = defenses;
+
+    /// <summary>Метки ЛЦУ своей стороны на поверхностях, по которым может бить артиллерия.</summary>
+    public readonly List<DHLaserMarkEntry> Marks = marks;
+
     public readonly string Status = status;
 }
 
