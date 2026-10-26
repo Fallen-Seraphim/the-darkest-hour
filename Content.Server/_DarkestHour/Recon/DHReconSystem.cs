@@ -28,7 +28,7 @@ public sealed partial class DHCamoAppliedComponent : Component
 /// Детектор движения (отметки движущихся рядом — владельцу), маскхалат (невидимость, пока стоишь) и маскировочная
 /// сеть (развернуть над собой, свернуть). Орбитальный скан — в DHHeavyGunSystem.Recon.
 /// </summary>
-public sealed partial class DHReconSystem : EntitySystem
+public sealed class DHReconSystem : EntitySystem
 {
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private SharedAudioSystem _audio = default!;

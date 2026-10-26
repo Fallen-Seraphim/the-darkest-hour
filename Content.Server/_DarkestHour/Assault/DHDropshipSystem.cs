@@ -71,7 +71,7 @@ public sealed partial class DHDropshipComponent : Component
 /// (готовые площадки у базы или переносные маяки) и обратно в ангар. В полёте челнок висит в атмосфере над целью —
 /// по нему бьют ПКО и ПВО, из него можно прыгнуть с парашютом. Авианосец сам на поверхность не садится.
 /// </summary>
-public sealed partial class DHDropshipSystem : EntitySystem
+public sealed class DHDropshipSystem : EntitySystem
 {
     [Dependency] private AtmosphereSystem _atmos = default!;
     [Dependency] private SharedAudioSystem _audio = default!;

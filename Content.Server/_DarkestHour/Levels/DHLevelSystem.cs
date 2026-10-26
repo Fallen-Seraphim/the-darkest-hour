@@ -18,7 +18,7 @@ namespace Content.Server._DarkestHour.Levels;
 /// Переходы между уровнями: лестницы и люки (подъём/спуск с задержкой, тащимого бойца берёшь с собой) и грузовой
 /// лифт (всё незакреплённое на платформе переезжает на платформу-пару через несколько секунд).
 /// </summary>
-public sealed partial class DHLevelSystem : EntitySystem
+public sealed class DHLevelSystem : EntitySystem
 {
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;

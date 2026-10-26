@@ -116,7 +116,7 @@ public sealed partial class DHHeavyGunSystem
             return;
 
         args.Handled = true;
-        var coordinates = GetCoordinates(args.Point);
+        var coordinates = GetCoordinates(args.Target);
         if (!coordinates.IsValid(EntityManager))
             return;
 

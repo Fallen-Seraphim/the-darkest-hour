@@ -117,7 +117,7 @@ public sealed partial class DHUndergroundMapComponent : Component
 public sealed partial class DHLaserDoAfterEvent : DoAfterEvent
 {
     [DataField(required: true)]
-    public NetCoordinates Point;
+    public NetCoordinates Target;
 
     private DHLaserDoAfterEvent()
     {
@@ -125,7 +125,7 @@ public sealed partial class DHLaserDoAfterEvent : DoAfterEvent
 
     public DHLaserDoAfterEvent(NetCoordinates target)
     {
-        Point = target;
+        Target = target;
     }
 
     public override DoAfterEvent Clone() => this;

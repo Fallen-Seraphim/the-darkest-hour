@@ -9,7 +9,7 @@ using Robust.Shared.Utility;
 namespace Content.Client._DarkestHour.Recon;
 
 /// <summary>Отметки детектора движения: мигают на месте движущихся и гаснут за полторы секунды.</summary>
-public sealed partial class DHMotionDetectorOverlaySystem : EntitySystem
+public sealed class DHMotionDetectorOverlaySystem : EntitySystem
 {
     [Dependency] private IOverlayManager _overlays = default!;
     [Dependency] private SpriteSystem _sprite = default!;

@@ -21,7 +21,7 @@ namespace Content.Server._DarkestHour.Overwatch;
 /// Консоль наблюдения «Штурма»: бойцы своей стороны с состоянием и координатами, вид глазами бойца
 /// (подписка зрителя на его глаз — работает и между картами: с авианосца видно десант на поверхности), приказы стороне.
 /// </summary>
-public sealed partial class DHOverwatchSystem : EntitySystem
+public sealed class DHOverwatchSystem : EntitySystem
 {
     [Dependency] private DHAssaultRuleSystem _assault = default!;
     [Dependency] private SharedJobSystem _jobs = default!;

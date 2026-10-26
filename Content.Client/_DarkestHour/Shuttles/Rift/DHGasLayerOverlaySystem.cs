@@ -13,7 +13,7 @@ namespace Content.Client._DarkestHour.Shuttles.Rift;
 /// Корабль в облаках газового гиганта: за бортом вместо звёзд — сплошная толща цвета гиганта с полосами облаков,
 /// несущимися по ветру, поверх всего — дымка; чем глубже, тем гуще и темнее.
 /// </summary>
-public sealed partial class DHGasLayerOverlaySystem : EntitySystem
+public sealed class DHGasLayerOverlaySystem : EntitySystem
 {
     [Dependency] private IOverlayManager _overlays = default!;
     [Dependency] private IPlayerManager _player = default!;

@@ -8,7 +8,7 @@ using Robust.Shared.Graphics;
 namespace Content.Client._DarkestHour.Overwatch;
 
 [UsedImplicitly]
-public sealed partial class DHOverwatchBoundUserInterface : BoundUserInterface
+public sealed class DHOverwatchBoundUserInterface : BoundUserInterface
 {
     [Dependency] private IPlayerManager _player = default!;
 

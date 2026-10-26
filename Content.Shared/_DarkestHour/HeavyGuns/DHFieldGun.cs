@@ -249,7 +249,7 @@ public sealed class DHFieldGunAimMessage(float azimuth, float elevation) : Bound
 public sealed class DHFieldGunFireMessage : BoundUserInterfaceMessage;
 
 /// <summary>Кто катит пушку, идёт со скоростью лафета (общая система: движение предсказывается клиентом).</summary>
-public sealed partial class DHFieldGunTowSystem : EntitySystem
+public sealed class DHFieldGunTowSystem : EntitySystem
 {
     [Dependency] private MovementSpeedModifierSystem _movement = default!;
 
