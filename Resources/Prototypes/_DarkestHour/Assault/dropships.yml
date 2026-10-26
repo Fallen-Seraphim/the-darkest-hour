@@ -1,0 +1,106 @@
+# Челноки и зоны посадки «Штурма» (решение автора 2026-10-25). Механика — DHDropshipSystem.
+
+# --- Консоль пилота челнока ---
+
+- type: entity
+  parent: BaseComputer
+  id: DHComputerDropship
+  name: dropship flight console
+  description: The autopilot of a suborbital dropship. Pick a landing zone or the carrier's hangar, and the ship flies there on its own.
+  components:
+  - type: ComputerVisuals
+    stateScreen: syndishuttle
+    stateKeys: syndie_key
+  - type: DHDropshipConsole
+  - type: ActivatableUI
+    key: enum.DHDropshipUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHDropshipUiKey.Key:
+        type: DHDropshipBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: ApcPowerReceiver
+    needsPower: false
+    powerLoad: 0
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#e8b04a"
+
+# --- Зоны посадки ---
+
+- type: entity
+  abstract: true
+  id: DHLandingZoneBase
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/HeavyGuns/drop_beacon.rsi
+    layers:
+    - state: icon
+    - state: light
+      shader: unshaded
+    drawdepth: FloorObjects
+  - type: PointLight
+    radius: 3
+    energy: 2
+    color: "#58ff7a"
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+    canCollide: false
+  - type: Damageable
+    damageContainer: Inorganic
+    damageModifierSet: Metallic
+
+- type: entity
+  parent: DHLandingZoneBase
+  id: DHLandingZonePad
+  name: landing zone beacon
+  description: A hardened beacon marking a prepared landing zone. Dropships can land here. Destroy it, and the zone drops off their autopilot.
+  components:
+  - type: DHLandingZone
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  parent: DHLandingZoneBase
+  id: DHLandingZoneTemporary
+  name: temporary landing zone beacon
+  description: A field beacon marking a landing zone for dropships. Destroy it, and the zone drops off their autopilot.
+  components:
+  - type: DHLandingZone
+    temporary: true
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  parent: BaseItem
+  id: DHLandingZoneBeacon
+  name: landing zone beacon
+  description: A folded field beacon. Set it up on open ground on a planet's surface, and dropships can land beside it.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/HeavyGuns/drop_beacon.rsi
+    state: icon
+  - type: Item
+    size: Normal
+    sprite: _DarkestHour/Objects/Weapons/HeavyGuns/drop_beacon.rsi
+  - type: DHLandingZoneBeacon

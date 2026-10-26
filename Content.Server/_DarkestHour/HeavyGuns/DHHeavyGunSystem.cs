@@ -807,6 +807,23 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
                 break;
             }
 
+            // Челноки десанта на подлёте к ЗП.
+            if (target == null)
+            {
+                var dropships = EntityQueryEnumerator<DHDropshipComponent, TransformComponent>();
+                while (dropships.MoveNext(out var ship, out var shipComp, out var shipXform))
+                {
+                    if (shipComp.State != DHDropshipState.InFlight || shipXform.MapUid != sky ||
+                        Vector2.Distance(_transform.GetWorldPosition(shipXform), position) > comp.AirRange)
+                    {
+                        continue;
+                    }
+
+                    target = ship;
+                    break;
+                }
+            }
+
             if (target is not { } grid || !TryComp<MapGridComponent>(grid, out var gridComp))
                 continue;
 
@@ -827,7 +844,8 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
                     null);
             }
 
-            _assault.DamageCarrier(grid, comp.AirDamage);
+            if (HasComp<DHAssaultCarrierComponent>(grid))
+                _assault.DamageCarrier(grid, comp.AirDamage);
         }
     }
 

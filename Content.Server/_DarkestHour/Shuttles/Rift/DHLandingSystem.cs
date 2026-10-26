@@ -480,6 +480,13 @@ public sealed partial class DHLandingSystem : EntitySystem
             return;
         }
 
+        // «Штурм»: авианосец не садится — на поверхность ходят челноки (решение автора 2026-10-25).
+        if (HasComp<DHNoSurfaceLandingComponent>(shuttle))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-landing-no-surface-landing"), ent, PopupType.MediumCaution);
+            return;
+        }
+
         if (!TryComp<DHPlanetAtmosphereMapComponent>(Transform(shuttle!.Value).MapUid, out var atmosphere) ||
             !TryGetBody(atmosphere.System, atmosphere.Body, out var system, out var body) ||
             GetOrCreateSurface(system, body) is not { } surfaceMap)
@@ -555,4 +562,10 @@ public sealed partial class DHLandingSystem : EntitySystem
     }
 
     #endregion
+}
+
+/// <summary>Корабль не садится на поверхность (только спуск в атмосферу), например авианосец «Штурма».</summary>
+[RegisterComponent]
+public sealed partial class DHNoSurfaceLandingComponent : Component
+{
 }

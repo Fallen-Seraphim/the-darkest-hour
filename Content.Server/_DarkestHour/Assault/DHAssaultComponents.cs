@@ -37,6 +37,13 @@ public sealed partial class DHAssaultRuleComponent : Component
     [DataField]
     public ResPath CarrierPath = new("/Maps/_DarkestHour/Shuttles/imperial_carrier.yml");
 
+    /// <summary>Челноки десанта: грид и имена (по одному челноку на имя), стыкуются к авианосцу.</summary>
+    [DataField]
+    public ResPath DropshipPath = new("/Maps/_DarkestHour/Shuttles/imperial_dropship.yml");
+
+    [DataField]
+    public List<LocId> DropshipNames = new() { "dh-dropship-name-alpha", "dh-dropship-name-bravo" };
+
     /// <summary>Станция авианосца: должности экипажа и десанта.</summary>
     [DataField]
     public EntProtoId CarrierStation = "DHStationImperialCarrier";
@@ -200,6 +207,14 @@ public sealed partial class DHPlanetBaseComponent : Component
     /// <summary>Запас вокруг базы, где биом не ставит деревья и камни, тайлов.</summary>
     [DataField]
     public int ClearMargin = 6;
+
+    /// <summary>Готовые зоны посадки вокруг базы: имя → точка на поверхности (мировые координаты).</summary>
+    [DataField]
+    public Dictionary<string, System.Numerics.Vector2> LandingZones = new();
+
+    /// <summary>Сколько тайлов вокруг ЗП биом оставляет чистыми.</summary>
+    [DataField]
+    public int LandingZoneClear = 10;
 
     /// <summary>
     /// Подземный уровень (бункер): грид, который грузится на свою карту «под» базой с тем же смещением, так что
