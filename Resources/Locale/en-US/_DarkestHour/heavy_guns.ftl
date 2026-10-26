@@ -85,3 +85,36 @@ dh-mortar-ui-aim = Lay the mortar
 dh-mortar-ui-marks = Laser marks in range
 dh-mortar-ui-mark = Mark {$code}: ({$x}, {$y}), {$distance} m
 dh-mortar-ui-no-marks = No laser marks nearby.
+
+## Infantry guns
+dh-field-gun-wrong-caliber = This gun takes {$caliber} mm shells.
+dh-field-gun-already-loaded = The gun is already loaded.
+dh-field-gun-recoiling = The breech is still open after the last shot.
+dh-field-gun-examine-loaded = Loaded: [color=yellow]{$shell}[/color].
+dh-field-gun-examine-empty = It is not loaded.
+dh-field-gun-examine-aim = Laid at {$azimuth}° traverse, {$elevation}° elevation.
+dh-field-gun-status-not-deployed = Not wrenched down: the gun can't fire on the move.
+dh-field-gun-status-underground = The gun can't fire underground.
+dh-field-gun-status-empty = Not loaded.
+dh-field-gun-status-too-high = This shell can't be fired above {$max}°.
+dh-field-gun-status-ready = Ready to fire.
+dh-field-gun-ui-title = Infantry gun — gunner's seat
+dh-field-gun-ui-empty = Breech: empty.
+dh-field-gun-ui-loaded = Breech: {$shell}.
+dh-field-gun-ui-aim = Laying
+dh-field-gun-ui-azimuth = Traverse, °
+dh-field-gun-ui-elevation = Elevation, °
+dh-field-gun-ui-limits = Now {$current}° / {$elevation}°. Traverse ±{$traverse}° of the carriage, elevation {$min}–{$max}°; up to {$direct}° — point-blank.
+dh-field-gun-ui-set = Lay the gun
+dh-field-gun-ui-mode-direct = Point-blank fire: the shell flies straight and hits the first thing in its way.
+dh-field-gun-ui-mode-indirect = Indirect fire: the shell arcs over obstacles and lands at the computed range.
+dh-field-gun-ui-range = Computed range for the loaded shell: {$range} m.
+dh-field-gun-ui-range-unknown = Load a shell to see its range.
+dh-field-gun-ui-fire = FIRE
+dh-field-gun-ui-table = Range table, m
+dh-field-gun-ui-table-shell = Shell
+dh-field-gun-ui-marks = Laser marks
+dh-field-gun-ui-mark = Mark {$code}: {$distance} m, traverse {$azimuth}°
+dh-field-gun-ui-mark-low = Flat {$elevation}°
+dh-field-gun-ui-mark-high = Lob {$elevation}°
+dh-field-gun-ui-no-marks = No laser marks in range.

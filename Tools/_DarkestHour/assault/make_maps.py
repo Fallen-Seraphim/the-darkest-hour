@@ -189,6 +189,9 @@ def build_base():
         b.put('DHSandbagsEmpty25', x, -5, solid=False)
     b.put('Shovel', 25, -7, solid=False)
     b.put('Shovel', 25, -5, solid=False)
+    # 90 mm infantry gun covering the main gate, with a crate of shells
+    b.put('DHFieldGun90', 3, -18, rot='0')
+    b.put('DHCrateFieldGun90', 5, -18)
     # mortar crates of the garrison (mortar, laser designator, 18 shells each)
     b.put('DHCrateMortar', 27, -10)
     b.put('DHCrateMortar', 27, -8)
@@ -691,6 +694,9 @@ def main():
             ('DHTentImperialMedicalFolded', [p(-6, -20)]),
             ('DHSandbagsEmpty25', [p(-5, -22), p(-5, -22)]),
             ('DHCrateMortar', [p(-3, -21), p(-2, -21)]),
+            # 75 mm infantry gun for the landing (rolled off the landed carrier or dropped by parachute)
+            ('DHFieldGun75', [p(-3, -20)]),
+            ('DHCrateFieldGun75', [p(-2, -22)]),
             ('Shovel', [p(-4, -22), p(-4, -22)]),
         ] + shells,
         floor=wing)

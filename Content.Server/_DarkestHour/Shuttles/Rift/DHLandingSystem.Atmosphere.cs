@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Shared._DarkestHour.HeavyGuns;
 using Content.Shared._DarkestHour.Shuttles.Rift;
 using Content.Shared.Atmos;
 using Content.Shared.Camera;
@@ -235,7 +236,8 @@ public sealed partial class DHLandingSystem
             {
                 if (HasComp<MapGridComponent>(child) || HasComp<DHFallingComponent>(child) ||
                     HasComp<GhostComponent>(child) || HasComp<ProjectileComponent>(child) ||
-                    !HasComp<MobStateComponent>(child) && !HasComp<ItemComponent>(child))
+                    !HasComp<MobStateComponent>(child) && !HasComp<ItemComponent>(child) &&
+                    !HasComp<DHParadroppableComponent>(child))
                 {
                     continue;
                 }
@@ -313,7 +315,12 @@ public sealed partial class DHLandingSystem
             _physics.SetLinearVelocity(uid, Vector2.Zero, body: physics);
 
         if (!HasComp<MobStateComponent>(uid))
+        {
+            // Тяжёлый груз с парашютом (пушка, ящик): встаёт как стоял, со звуком посадки.
+            if (HasComp<DHParadroppableComponent>(uid))
+                _audio.PlayPvs(LandSound, uid);
             return;
+        }
 
         _audio.PlayPvs(LandSound, uid);
         _stun.TryKnockdown(uid, TimeSpan.FromSeconds(1.5), true);
