@@ -18,6 +18,7 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 
@@ -169,6 +170,30 @@ public sealed partial class DHLandingSystem
     /// Переставить корабль центром в точку (на любую карту) и погасить его скорость. Без FTL: вместо гиперпространства
     /// экипаж видит небо атмосферы.
     /// </summary>
+    /// <summary>
+    /// Поставить объект на грунт поверхности (грид самой карты планеты) и прикрепить к тайлу: если тайла ещё нет
+    /// (биом не подгружен), сначала ставится грунт биома.
+    /// </summary>
+    public EntityUid SpawnOnGround(EntProtoId proto, EntityUid map, Vector2 position)
+    {
+        if (!TryComp<MapGridComponent>(map, out var grid))
+            return Spawn(proto, new EntityCoordinates(map, position));
+
+        var tile = _map.WorldToTile(map, grid, position);
+        if (!_map.TryGetTileRef(map, grid, tile, out var tileRef) || tileRef.Tile.IsEmpty)
+        {
+            _biome.ReserveTiles(map, Box2.CenteredAround(_map.GridTileToWorldPos(map, grid, tile), new Vector2(0.5f)),
+                new List<(Vector2i Index, Tile Tile)>());
+        }
+
+        var uid = Spawn(proto, _map.GridTileToLocal(map, grid, tile));
+        var xform = Transform(uid);
+        if (!xform.Anchored)
+            _transform.AnchorEntity((uid, xform), (map, grid), tile);
+
+        return uid;
+    }
+
     public void PlaceShuttle(EntityUid shuttle, EntityCoordinates center)
     {
         var xform = Transform(shuttle);
