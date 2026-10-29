@@ -394,6 +394,7 @@ public sealed partial class DHHeavyGunSystem
         QueueDel(shell);
         ent.Comp.NextShot = _timing.CurTime + ent.Comp.ReloadTime;
         _audio.PlayPvs(MortarFireSound, ent, AudioParams.Default.WithMaxDistance(40f));
+        _hearing.Blast(_transform.GetMapCoordinates(ent), 35f, 4f);
         foreach (var actor in _lookup.GetEntitiesInRange<Robust.Shared.Player.ActorComponent>(
                      _transform.GetMapCoordinates(ent), 4f))
         {

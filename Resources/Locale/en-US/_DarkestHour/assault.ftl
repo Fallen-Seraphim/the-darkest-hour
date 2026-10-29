@@ -211,3 +211,6 @@ dh-scan-ui-scan = SCAN
 dh-scan-ui-marks = Laser marks
 dh-scan-ui-mark = Mark {$code}: ({$x}, {$y})
 dh-scan-ui-no-marks = No laser marks on the surface.
+
+## Hearing
+dh-tinnitus-start = Your ears ring!
