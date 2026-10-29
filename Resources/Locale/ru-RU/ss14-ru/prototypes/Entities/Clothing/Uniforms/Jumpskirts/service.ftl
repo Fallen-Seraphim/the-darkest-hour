@@ -1,0 +1,68 @@
+ent-ClothingUniformJumpskirtBartender = униформа бармена
+    .desc = Красивая и опрятная форма. Жаль только, что про бар этого не скажешь.
+
+ent-ClothingUniformJumpskirtChaplain = юбка-комбинезон священника
+    .desc = Это чёрная юбка-комбинезон, зачастую носимая религиозными людьми.
+
+ent-ClothingUniformJumpskirtChef = униформа шеф-повара
+    .desc = Без неё ничего не приготовить.
+
+ent-ClothingUniformJumpskirtClown = юбка клоуна
+    .desc = ХОНК!
+
+ent-ClothingUniformJumpskirtCurator = практичная юбка
+    .desc = Она практична. Слишком практична...
+
+ent-ClothingUniformJumpskirtHydroponics = юбка-комбинезон ботаника
+    .desc = Имеет сильный запах земли. Будем надеяться, что она просто грязная, а не вся в земле.
+
+ent-ClothingUniformJumpskirtJanimaid = форма горничной
+    .desc = Для профессионалов, а не позёров.
+
+ent-ClothingUniformJumpskirtJanimaidmini = форма горничной с миниюбкой
+    .desc = Элитный сервис, а не просто яркая обёртка.
+
+ent-ClothingUniformJumpskirtJanitor = юбка-комбинезон уборщика
+    .desc = Юбка-комбинезон для бедняги со шваброй.
+
+ent-ClothingUniformJumpskirtLawyerBlack = чёрная адвокатская юбка-костюм
+    .desc = Изысканный чёрный костюм с юбкой, который носят адвокаты и гангстеры.
+
+ent-ClothingUniformJumpskirtLawyerBlue = синяя адвокатская юбка-костюм
+    .desc = Яркий синий костюм с юбкой, который носят адвокаты и хвастуны.
+
+ent-ClothingUniformJumpskirtLawyerGood = хорошая адвокатская юбка-костюм
+    .desc = Кричащий костюм с юбкой, идеально подходящий УГОЛОВНОМУ адвокату!
+
+ent-ClothingUniformJumpskirtLawyerPurple = фиолетовая адвокатская юбка-костюм
+    .desc = Стильный фиолетовый костюм с юбкой, который носят адвокаты и шоумены.
+
+ent-ClothingUniformJumpskirtLawyerRed = красная адвокатская юбка-костюм
+    .desc = Яркий красный костюм с юбкой, который носят адвокаты и хвастуны.
+
+ent-ClothingUniformJumpskirtLibrarian = юбка-комбинезон библиотекаря
+    .desc = Уютный красный джемпер, подходящий для хранителя книг.
+
+ent-ClothingUniformJumpskirtMime = юбка-комбинезон мима
+    .desc = ...
+
+ent-ClothingUniformJumpskirtMusician = юбка музыканта
+    .desc = Модная юбка для музыкально настроенных людей. Идеально подойдёт для любого выступления в стиле лаунж!
+
+ent-ClothingUniformJumpskirtPsychologist = юбка-комбинезон психолога
+    .desc = Я не теряю вещи. Я кладу вещи в места, которые потом ускользают от меня.
+
+ent-ClothingUniformJumpskirtTramDriver = юбка-комбинезон водителя трамвая
+    .desc = Безупречно выглаженная юбка-комбинезон для настоящих профессионалов.
+
+ent-ClothingUniformJumpskirtVirtualChimera = блузка певца химеры
+    .desc = Одежда в военном стиле с розовой отделкой. К боковой части юбки прикреплён розовый пояс. Где-то на спине должны быть крылья.
+
+ent-ClothingUniformJumpskirtVirtualFan = блузка певца-фанатки
+    .desc = Наряд сделан из материалов, купленных в магазине "всё по 100 спесо". И всё же ткани не хватило, поэтому верх не скрывает живот, галстук получился коротким, а на спине две дырки.
+
+ent-ClothingUniformJumpskirtVirtualForeigner = платье иностранного певца
+    .desc = Платье было задумано так, чтобы выглядеть старомодным и напоминать поклонникам о прошлом. Если присмотреться, на плече можно заметить код "CV03".
+
+ent-ClothingUniformJumpskirtVirtualSinger = блузка виртуального певца
+    .desc = Рубашка без рукавов с ярко-бирюзовым галстуком; где-то на ней присутствует маркировка "CV01". Дизайн изделия напоминает модный синтезатор.
