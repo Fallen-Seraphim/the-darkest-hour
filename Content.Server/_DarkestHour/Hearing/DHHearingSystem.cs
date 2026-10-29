@@ -51,6 +51,12 @@ public sealed partial class DHHearingSystem : EntitySystem
 
     private const float BystanderRange = 3f;
 
+    /// <summary>Доля тряски самому стрелку.</summary>
+    private const float ShooterShake = 0.7f;
+
+    /// <summary>Обычная закрытая гарнитура глушит слабее настоящих наушников.</summary>
+    private const float HeadsetAltFactor = 0.7f;
+
     private static readonly TimeSpan MinRinging = TimeSpan.FromSeconds(6);
     private static readonly TimeSpan MaxRinging = TimeSpan.FromSeconds(20);
     private static readonly TimeSpan CleanupInterval = TimeSpan.FromSeconds(0.5);
@@ -71,8 +77,11 @@ public sealed partial class DHHearingSystem : EntitySystem
         if (id == null)
             return (3f, 0f, 0f);
 
+        // Станковые: крупнокалиберный имперский громче и трясёт сильнее.
+        if (id.Contains("IHMG"))
+            return (12f, 0.55f, 5f);
         if (id.Contains("MountedGun") || id.Contains("HMG"))
-            return (6f, 0.35f, 4f);
+            return (8f, 0.4f, 4f);
         if (id.Contains("AMR"))
             return (20f, 0.6f, 4f);
         if (id.Contains("Sniper"))
@@ -94,8 +103,16 @@ public sealed partial class DHHearingSystem : EntitySystem
             ? (custom.Noise, custom.Shake, custom.ShakeRadius)
             : DefaultNoise(MetaData(ent).EntityPrototype?.ID);
 
+        // За один тик сервера может выйти несколько выстрелов — шум за каждый.
+        var shots = Math.Max(1, args.Ammo.Count);
+        noise *= shots;
+
         var shooter = args.User;
         AddNoise(shooter, noise);
+
+        // Стрелка тоже трясёт (слабее, чем стоящих рядом: он держит оружие).
+        if (shake > 0f)
+            _recoil.KickCamera(shooter, _random.NextAngle().ToVec() * shake * ShooterShake);
 
         var center = _transform.GetMapCoordinates(shooter);
         var range = MathF.Max(BystanderRange, shake > 0f ? radius : 0f);
@@ -171,7 +188,7 @@ public sealed partial class DHHearingSystem : EntitySystem
                 factor = MathF.Min(factor, protection.Factor);
             // Закрытые «альтернативные» гарнитуры (ванильные ClothingHeadsetAlt* и их наследники) тоже глушат.
             else if (slot == "ears" && MetaData(item.Value).EntityPrototype?.ID.Contains("HeadsetAlt") == true)
-                factor = MathF.Min(factor, 0.5f);
+                factor = MathF.Min(factor, HeadsetAltFactor);
         }
 
         return factor;
