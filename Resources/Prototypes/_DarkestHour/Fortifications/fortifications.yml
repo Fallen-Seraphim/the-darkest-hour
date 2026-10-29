@@ -92,7 +92,7 @@
   parent: BaseStructure
   id: DHSandbagBarricade
   name: sandbag barricade
-  description: A low wall of sandbags. Stops most bullets coming from the front; you can shoot over it from behind and climb across. Dig it up with a shovel.
+  description: A low wall of sandbags. Stops most bullets coming from the front; you can shoot over it from behind and climb across. Barbed wire can be strung on top of it (whoever climbs over gets cut). Dig it up with a shovel; cut the wire with wirecutters.
   placement:
     mode: SnapgridCenter
   components:
@@ -105,8 +105,17 @@
     - state: DamageOverlay_0
       map: [ "damage" ]
       sprite: _RMC14/Structures/Walls/Barricades/sandbag_cracks.rsi
+    - state: sandbag_wire
+      map: [ "wire" ]
+      visible: false
     drawdepth: WallTops
   - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHSandbagVisuals.Wired:
+        wire:
+          True: { visible: true }
+          False: { visible: false }
   - type: DamageVisuals
     thresholds: [4, 8, 12]
     damageDivisor: 28.125

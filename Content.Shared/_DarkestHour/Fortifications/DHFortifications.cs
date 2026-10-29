@@ -1,4 +1,6 @@
+using Content.Shared.Damage;
 using Content.Shared.DoAfter;
+using Content.Shared.FixedPoint;
 using Content.Shared.Projectiles;
 using Robust.Shared.GameStates;
 using Robust.Shared.Physics.Events;
@@ -25,7 +27,40 @@ public sealed partial class DHSandbagBarricadeComponent : Component
 
     [DataField]
     public EntProtoId Sandbags = "DHSandbagsFull";
+
+    /// <summary>Поверх мешков натянута колючая проволока (перелезть — порезаться).</summary>
+    [ViewVariables]
+    public bool Wired;
+
+    /// <summary>Урон тому, кто перелез через баррикаду с колючкой.</summary>
+    [DataField]
+    public DamageSpecifier WireDamage = new() { DamageDict = { ["Slash"] = FixedPoint2.New(10) } };
+
+    /// <summary>Что возвращается, когда колючку срезают.</summary>
+    [DataField]
+    public EntProtoId Wire = "DHBarbedWire";
 }
+
+[Serializable, NetSerializable]
+public enum DHSandbagVisuals : byte
+{
+    /// <summary>bool: на баррикаде колючая проволока.</summary>
+    Wired,
+}
+
+/// <summary>Колючая проволока (стопка мотков): натянуть на мешки с песком; на земле её ставят через меню строительства.</summary>
+[RegisterComponent]
+public sealed partial class DHBarbedWireComponent : Component
+{
+    [DataField]
+    public TimeSpan WireTime = TimeSpan.FromSeconds(2);
+}
+
+[Serializable, NetSerializable]
+public sealed partial class DHSandbagWireDoAfterEvent : SimpleDoAfterEvent;
+
+[Serializable, NetSerializable]
+public sealed partial class DHSandbagUnwireDoAfterEvent : SimpleDoAfterEvent;
 
 /// <summary>Наполненные мешки: из них строят баррикаду (в руке — использовать).</summary>
 [RegisterComponent, NetworkedComponent]

@@ -1,0 +1,199 @@
+# Колючая проволока (решение автора 2026-10-29, по образцу RMC-14): мотки — из стали (руками в меню строительства
+# или на протолате); натягивается на мешки с песком (перелез — порезался) или ставится на землю заграждением
+# (через меню строительства: медленно и больно идти, срезается кусачками). Мешки — из ткани, тоже руками и на
+# протолате. Спрайт мотков и звук — cmss13 через RMC-14 (CC-BY-SA-3.0).
+
+- type: stack
+  parent: BaseMediumStack
+  id: DHBarbedWire
+  name: dh-stack-barbed-wire
+  icon: { sprite: "/Textures/_RMC14/Objects/barbed_wire.rsi", state: barbed_wire }
+  spawn: DHBarbedWire
+
+- type: entity
+  parent: BaseItem
+  id: DHBarbedWire
+  name: barbed wire
+  description: A coil of barbed wire. Use it on a sandbag barricade to string it on top, or lay it on the ground from the construction menu.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/barbed_wire.rsi
+    state: barbed_wire
+  - type: Item
+    size: Small
+    sprite: _RMC14/Objects/barbed_wire.rsi
+  - type: Stack
+    stackType: DHBarbedWire
+    count: 1
+  - type: DHBarbedWire
+
+- type: entity
+  parent: DHBarbedWire
+  id: DHBarbedWire10
+  suffix: "10"
+  components:
+  - type: Stack
+    stackType: DHBarbedWire
+    count: 10
+
+- type: entity
+  id: DHBarbedWireObstacle
+  name: barbed wire entanglement
+  description: Coils of barbed wire staked to the ground. Wading through it is slow and painful. Cut it with wirecutters.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _DarkestHour/Structures/barbed_wire_obstacle.rsi
+    state: wire
+    drawdepth: Objects
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        hard: false
+        density: 7
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        layer:
+        - MidImpassable
+  - type: SpeedModifierContacts
+    walkSpeedModifier: 0.35
+    sprintSpeedModifier: 0.35
+  - type: DamageContacts
+    damage:
+      types:
+        Slash: 3
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 80
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: Construction
+    graph: DHBarbedWireObstacle
+    node: wire
+
+# --- Строительство и крафт руками ---
+
+- type: constructionGraph
+  id: DHBarbedWireObstacle
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: wire
+      steps:
+      - material: DHBarbedWire
+        amount: 2
+        doAfter: 3
+  - node: wire
+    entity: DHBarbedWireObstacle
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DHBarbedWire
+        amount: 2
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Cutting
+        doAfter: 2
+
+- type: construction
+  id: DHBarbedWireObstacle
+  name: dh-construction-barbed-wire-obstacle
+  description: dh-construction-barbed-wire-obstacle-desc
+  graph: DHBarbedWireObstacle
+  startNode: start
+  targetNode: wire
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: constructionGraph
+  id: DHBarbedWireCoil
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: coil
+      steps:
+      - material: Steel
+        amount: 1
+        doAfter: 2
+  - node: coil
+    entity: DHBarbedWire
+
+- type: construction
+  id: DHBarbedWireCoil
+  name: dh-construction-barbed-wire
+  description: dh-construction-barbed-wire-desc
+  graph: DHBarbedWireCoil
+  startNode: start
+  targetNode: coil
+  category: construction-category-materials
+  objectType: Item
+
+- type: constructionGraph
+  id: DHSandbagEmpty
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: bag
+      steps:
+      - material: Cloth
+        amount: 1
+        doAfter: 2
+  - node: bag
+    entity: DHSandbagsEmpty
+
+- type: construction
+  id: DHSandbagEmpty
+  name: dh-construction-sandbag
+  description: dh-construction-sandbag-desc
+  graph: DHSandbagEmpty
+  startNode: start
+  targetNode: bag
+  category: construction-category-materials
+  objectType: Item
+
+# --- Протолат ---
+
+- type: latheRecipe
+  id: DHBarbedWire
+  result: DHBarbedWire
+  categories:
+  - Tools
+  completetime: 2
+  materials:
+    Steel: 100
+
+- type: latheRecipe
+  id: DHSandbagsEmpty
+  result: DHSandbagsEmpty
+  categories:
+  - Tools
+  completetime: 1
+  materials:
+    Cloth: 100
+
+- type: latheRecipePack
+  id: DHFortificationsStatic
+  recipes:
+  - DHBarbedWire
+  - DHSandbagsEmpty

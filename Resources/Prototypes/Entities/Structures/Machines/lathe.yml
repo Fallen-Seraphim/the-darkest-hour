@@ -196,6 +196,7 @@
     staticPacks:
     - ChemistryStatic
     - SurgeryStatic
+    - DHFortificationsStatic # DarkestHour: мешки с песком и колючая проволока
     dynamicPacks:
     - AdvancedTools
     - ScienceEquipment
