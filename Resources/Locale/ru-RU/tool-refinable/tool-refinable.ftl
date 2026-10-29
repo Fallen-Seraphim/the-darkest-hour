@@ -27,3 +27,5 @@ tool-refinable-component-hint = { CAPITALIZE(SUBJECT($target)) } может бы
 tool-refinable-component-hint-butchering = { CAPITALIZE(SUBJECT($target)) } может быть разделано используя инструмент с возможностью [color=cyan]{ $quality }[/color].
 
 tool-refinable-component-hint-slicing = { CAPITALIZE(SUBJECT($target)) } может быть разрезано используя инструмент с возможностью [color=cyan]{ $quality }[/color].
+
+tool-refinable-component-hint-screwing = Можно разобрать инструментом: [color=cyan]{$quality}[/color].

@@ -13,3 +13,9 @@ ent-LockerParamedicFilled = шкаф парамедика
 ent-LockerWallMedicalFilled = шкаф для медикаментов
     .desc = Стандартное хранилище Nanotrasen, теперь и на стене.
     .suffix = Заполненный
+
+ent-LockerMedicalFilled = шкаф врача
+    .desc = Стандартный шкаф для хранения.
+
+ent-LockerWallMedicalDoctorFilled = настенный шкаф врача
+    .desc = Стандартный шкаф для хранения, теперь на стене.

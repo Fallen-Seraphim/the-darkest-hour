@@ -95,3 +95,12 @@ ent-ClothingHeadHelmetHardsuitWarden = шлем скафандра смотри�
 
 ent-ClothingHeadHelmetHardsuitWizard = шлем скафандра волшебника
     .desc = Причудливый шлем, инкрустированный драгоценными камнями, излучающий магическую энергию.
+
+ent-ClothingHeadHelmetHardsuitEngineeringWhite = шлем скафандра главного техника
+    .desc = Особый шлем скафандра, сделанный для главного техника станции.
+
+ent-ClothingHeadHelmetHardsuitMedical = шлем скафандра главного врача
+    .desc = Лёгкий медицинский шлем скафандра, не стесняющий движений головы.
+
+ent-ClothingHeadHelmetHardsuitSecurityRed = шлем скафандра начальника корпоративной безопасности
+    .desc = Шлем скафандра службы безопасности с новейшим секретным HUD. Принадлежит начальнику корпоративной безопасности.

@@ -6,3 +6,6 @@ ent-ClothingUniformJumpskirtQMFormalDress = парадная форма квар
 
 ent-ClothingUniformJumpskirtQMTurtleneck = юбка-водолазка квартирмейстера
     .desc = Строгая водолазка, предназначенная для суровых условий работы в сфере снабжения.
+
+ent-ClothingUniformJumpskirtCargo = юбка-комбинезон грузчика
+    .desc = Прочная юбка-комбинезон для работников отдела снабжения.

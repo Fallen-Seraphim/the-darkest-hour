@@ -55,3 +55,5 @@ ent-SolutionVenomCobraSpace = solution
 
 ent-SolutionVenomSpiderSpace = solution
     .desc = { "" }
+
+ent-SolutionWoolSpaceSheep = раствор

@@ -37,3 +37,20 @@ storage-hierarchy-list = { $items-left ->
     [0] { $existing-text } { $item },
     *[other] { $existing-text } { $item }, в
 }
+
+nukeops-briefing = Когда ваш шаттл прибудет, станции дадут десять минут на капитуляцию (поднять станцию на высокую орбиту). Если откажется — доставьте заряд и уходите до взрыва. Слава Первой Империи!
+nukeops-cond-allnukiesalive = Ни один имперский морпех не погиб.
+nukeops-cond-allnukiesdead = Все имперские морпехи погибли.
+nukeops-cond-nukeactiveatcentcom = Ядерная бомба была взведена и доставлена в Metallistick Group!
+nukeops-cond-nukeexplodedoncorrectstation = Имперским морпехам удалось взорвать станцию.
+nukeops-cond-nukeexplodedonnukieoutpost = Передовая база Империи уничтожена ядерным взрывом!
+nukeops-cond-nukiesabandoned = Имперских морпехов бросили.
+nukeops-cond-somenukiesalive = Часть имперских морпехов погибла.
+nukeops-description = Рейд Имперского корпуса морской пехоты нацелен на станцию. Не дайте им взвести и взорвать ядерную бомбу — защитите диск ядерной аутентификации — или сдайтесь.
+nukeops-list-start = Имперскими морпехами были:
+nukeops-opsmajor = [color=crimson]Крупная победа Империи![/color]
+nukeops-opsminor = [color=crimson]Малая победа Империи![/color]
+nukeops-title = Имперский рейд
+nukeops-welcome =
+    Вы — морпех Имперского корпуса морской пехоты. Ваша цель — {$station}: заставьте её сдаться Первой Империи — или возьмите штурмом и взорвите, чтобы от неё осталась груда обломков. Империя дала вам всё необходимое для задачи.
+    Операция {$name} начинается! Слава Первой Империи!

@@ -17,3 +17,5 @@ color-selector-sliders-saturation = S
 color-selector-sliders-value = V
 
 option-button-filter = Фильтр
+
+color-selector-input-hex = Hex

@@ -4,3 +4,5 @@ ent-MobGiantSpiderHunter = паук-охотник
 ent-MobGiantSpiderHunterAngry = паук-охотник
     .desc = Быстрая и агрессивная разновидность гигантского паука.
     .suffix = Злой
+
+ent-SolutionVenomSpiderHunter = раствор

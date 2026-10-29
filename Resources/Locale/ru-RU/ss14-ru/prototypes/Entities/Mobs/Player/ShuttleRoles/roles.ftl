@@ -143,3 +143,27 @@ ent-RandomHumanoidVisitorWarden = посетитель смотритель ро
 
 ent-RandomHumanoidVisitorZookeeper = посетитель зоотехник роль призрака
     .desc = { "" }
+
+ent-RandomHumanoidChallengeCargoTechnician = гост-роль грузчика-жертвы катастрофы
+
+ent-RandomHumanoidChallengeVictimCE = гост-роль главного техника — жертвы катастрофы
+
+ent-RandomHumanoidChallengeVictimCMO = гост-роль главного врача — жертвы катастрофы
+
+ent-RandomHumanoidChallengeVictimHOP = гост-роль адъютанта — жертвы катастрофы
+
+ent-RandomHumanoidChallengeVictimHOS = гост-роль начальника корпоративной безопасности — жертвы катастрофы
+
+ent-RandomHumanoidVisitorCE = гост-роль приезжего главного техника
+
+ent-RandomHumanoidVisitorCMO = гост-роль приезжего главного врача
+
+ent-RandomHumanoidVisitorCargoTechnician = гост-роль приезжего грузчика
+
+ent-RandomHumanoidVisitorHOP = гост-роль приезжего адъютанта
+
+ent-RandomHumanoidVisitorHOS = гост-роль приезжего начальника корпоративной безопасности
+
+ent-RandomHumanoidVisitorMedicalDoctor = гост-роль приезжего врача
+
+ent-RandomHumanoidVisitorSalvageSpecialist = гост-роль приезжего экспедитора

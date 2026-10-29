@@ -6,3 +6,6 @@ ent-ClothingUniformJumpskirtCaptain = юбка-комбинезон капита
 
 ent-ClothingUniformJumpskirtCommandGeneric = юбка-комбинезон командования
     .desc = Универсальный комбинезон цвета командования, не связанный с каким-либо конкретным отделом.
+
+ent-ClothingUniformJumpskirtHoP = юбка-комбинезон адъютанта
+    .desc = Довольно скучная и безобидная. Идеальна, чтобы исчезнуть с лица вселенной.

@@ -143,3 +143,18 @@ ent-ClothingHeadHatHoodWinterWeb = капюшон паутинной зимне�
 
 ent-ClothingHeadHelmetHardsuitCarp = капюшон карпа
     .desc = Грубый капюшон, украшенный пластиковыми зубами космического карпа.
+
+ent-ClothingHeadHatHoodBioCmo = биозащитный капюшон
+    .desc = Продвинутый капюшон для главных врачей, защищающий голову и лицо от биологических загрязнений.
+
+ent-ClothingHeadHatHoodWinterCE = капюшон зимней куртки главного техника
+    .desc = Капюшон, чтобы голове было тепло.
+
+ent-ClothingHeadHatHoodWinterCMO = капюшон зимней куртки главного врача
+    .desc = Капюшон, чтобы голове было тепло.
+
+ent-ClothingHeadHatHoodWinterHOP = капюшон зимней куртки адъютанта
+    .desc = Капюшон, чтобы голове было тепло.
+
+ent-ClothingHeadHatHoodWinterHOS = капюшон зимней куртки начальника корпоративной безопасности
+    .desc = Капюшон, чтобы голове было тепло.

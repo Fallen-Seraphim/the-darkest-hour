@@ -6,3 +6,6 @@ ent-ClothingUniformJumpskirtRoboticist = юбка-комбинезон робо�
 
 ent-ClothingUniformJumpskirtScientist = юбка-комбинезон учёного
     .desc = Она изготовлена из особого волокна, которое повышает воспринимаемый интеллект и снижает личную этику. На ней есть обозначения, указывающие, что носитель является учёным.
+
+ent-ClothingUniformJumpskirtSeniorResearcher = юбка-комбинезон ведущего учёного
+    .desc = Знак мастерства и престижа в научном отделе.

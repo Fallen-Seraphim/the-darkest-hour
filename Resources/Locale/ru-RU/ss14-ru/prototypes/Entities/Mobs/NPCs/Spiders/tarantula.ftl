@@ -4,3 +4,5 @@ ent-MobGiantSpiderTarantula = тарантул
 ent-MobGiantSpiderTarantulaAngry = тарантул
     .desc = Общепризнанно, что это буквально худшее существо на свете.
     .suffix = Злой
+
+ent-SolutionVenomSpiderTarantula = раствор

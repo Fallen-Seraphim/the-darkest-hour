@@ -27,3 +27,5 @@ cmd-jobwhitelistremove-help = Использование: jobwhitelistremove <us
 cmd-jobwhitelistremove-removed = { $player } удалён из вайтлиста должности { $jobId } ({ $jobName }).
 
 cmd-jobwhitelistremove-was-not-whitelisted = { $player } не был в вайтлисте на игру в должности { $jobId } ({ $jobName }).
+
+cmd-jobwhitelistget-whitelisted-for = "Игрок {$player} в вайтлисте на:

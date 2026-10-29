@@ -103,3 +103,5 @@ device-net-id-reserved = Резерв
 device-net-id-wired = Проводные
 
 device-net-id-wireless = Беспроводные
+
+device-frequency-prototype-name-surveillance-camera = Камеры

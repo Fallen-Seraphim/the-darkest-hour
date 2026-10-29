@@ -32,7 +32,10 @@ namespace Content.Shared.Localizations
             _loc.LoadCulture(culture);
             _loc.LoadCulture(fallbackCulture); // DarkestHour
             _loc.SetFallbackCulture(fallbackCulture); // DarkestHour
-            _loc.AddFunction(culture, "MANY", FormatMany); // DarkestHour: переводы Corvax местами зовут MANY
+            // DarkestHour: переводы Corvax местами зовут английские MANY/MAKEPLURAL — в русском слово уже стоит
+            // в нужной форме, английское окончание «-s» ему не нужно.
+            _loc.AddFunction(culture, "MANY", args => args.Args[0]);
+            _loc.AddFunction(culture, "MAKEPLURAL", args => args.Args[0]);
             _loc.AddFunction(culture, "PRESSURE", FormatPressure);
             _loc.AddFunction(culture, "POWERWATTS", FormatPowerWatts);
             _loc.AddFunction(culture, "POWERJOULES", FormatPowerJoules);

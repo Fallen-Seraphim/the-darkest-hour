@@ -167,3 +167,5 @@ chat-emote-name-whine = Скулить
 chat-emote-name-whistle = Свистеть
 
 chat-emote-name-yawn = Зевать
+
+chat-emote-msg-deathgasp-kobold = слабо тявкает, падает и перестаёт двигаться...

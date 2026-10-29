@@ -740,3 +740,27 @@ cmd-vvwrite-help = Использование: { $command } <путь>
 cmd-watch-desc = Открывает окно просмотра переменных.
 
 cmd-watch-help = Использование: { $command }
+
+cmd-chunkentities-arg-range = <радиус>
+cmd-chunkentities-arg-root = <корневая сущность>
+cmd-chunkentities-arg-x = <x>
+cmd-chunkentities-arg-y = <y>
+cmd-chunkentities-desc = Показывает сущности чанков в области видимости клиента ИЛИ в заданном радиусе.
+cmd-chunkentities-entry = {$netEntity} uid={$uid} root={$root} chunk={$chunk} comps={$componentCount} {$name}
+cmd-chunkentities-error-invalid-root = Неверная корневая сущность: {$root}
+cmd-chunkentities-error-no-map = Нет сущности карты для текущей карты камеры {$map}.
+cmd-chunkentities-error-nullspace = Текущая камера в nullspace.
+cmd-chunkentities-error-parse = x, y и радиус должны быть числами.
+cmd-chunkentities-help = Использование: {$command} [<корневая сущность> <x> <y> <радиус>]
+cmd-chunkentities-range-header = Сущности чанков для {$root} вокруг ({$x}, {$y}), радиус {$range}:
+cmd-chunkentities-root-count = Корень {$root}: {$count}
+cmd-chunkentities-total = Всего: {$count}
+cmd-chunkentities-viewport-header = Сущности чанков в области видимости клиента на карте {$map} ({$viewport}):
+cmd-parse-failure-session-guid = Нет сессии с GUID: {$guid}
+cmd-pausemap-desc = Ставит карту на паузу, останавливая на ней всю симуляцию.
+cmd-pausemap-help = Использование: pausemap <ID карты>
+cmd-querymappaused-desc = Проверяет, стоит ли карта на паузе.
+cmd-querymappaused-help = Использование: querymappaused <ID карты>
+cmd-shutdown-hint-1 = Причина
+cmd-unpausemap-desc = Снимает карту с паузы, возобновляя на ней симуляцию.
+cmd-unpausemap-help = Использование: unpausemap <ID карты>

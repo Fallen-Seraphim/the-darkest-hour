@@ -9,3 +9,6 @@ ent-ClothingUniformJumpsuitCommandGeneric = комбинезон командо�
 
 ent-ClothingUniformJumpsuitNanotrasen = комбинезон Nanotrasen
     .desc = Статный синий комбинезон, символизирующий Nanotrasen.
+
+ent-ClothingUniformJumpsuitHoP = комбинезон адъютанта
+    .desc = Довольно скучный и безобидный. Идеален, чтобы исчезнуть с лица вселенной.

@@ -454,3 +454,30 @@ stack-xenoborg-crystal = {$amount ->
     [1] кристалл ксеноборгов
     *[other] кристаллы ксенобргов
 }
+
+stack-bananium = бананиум
+stack-brass = латунь
+stack-cardboard = картон
+stack-clockwork-glass = заводное стекло
+stack-dried-cannabis-leaves = сушёные листья конопли
+stack-dried-rainbow-cannabis-leaves = сушёные листья радужной конопли
+stack-dried-tobacco-leaves = сушёные листья табака
+stack-glass = стекло
+stack-gold = золото
+stack-goliath-hide = шкура голиафа
+stack-ground-cannabis = молотая конопля
+stack-ground-rainbow-cannabis = молотая радужная конопля
+stack-ground-tobacco = молотый табак
+stack-gunpowder = порох
+stack-plasma = плазма
+stack-plasma-glass = плазменное стекло
+stack-plasteel = пласталь
+stack-plastic = пластик
+stack-reinforced-glass = бронестекло
+stack-reinforced-plasma-glass = плазменное бронестекло
+stack-reinforced-uranium-glass = урановое бронестекло
+stack-sharkminnow-tooth = зуб акулоголовля
+stack-silver = серебро
+stack-steel = сталь
+stack-uranium = уран
+stack-uranium-glass = урановое стекло

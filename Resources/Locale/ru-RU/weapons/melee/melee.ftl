@@ -9,3 +9,5 @@ melee-balloon-pop = { CAPITALIZE($balloon) } лопнул!
 melee-inject-failed-hardsuit = Ваш { $weapon } не может проникнуть сквозь скафандр!
 
 melee-self-weapon-dealt-no-damage = Вы не наносите урона { $target }!
+
+melee-weapon-dealt-no-damage = {CAPITALIZE($weapon)} не наносит урона: {$target}!

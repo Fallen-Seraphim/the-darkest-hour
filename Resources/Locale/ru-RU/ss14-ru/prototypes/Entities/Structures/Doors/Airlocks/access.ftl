@@ -529,3 +529,48 @@ ent-HighSecCentralCommandLocked = бронированная дверь
 ent-HighSecCommandLocked = бронированная дверь
     .desc = Удерживает плохих снаружи, а хороших внутри.
     .suffix = Командование, Закрыт
+
+ent-AirlockExternalGlassAtmosphericsLocked = внешний шлюз
+    .desc = Открывается, закрывается, может вас раздавить, а за ним может оказаться только космос.
+
+ent-AirlockExternalGlassCargoLocked = внешний шлюз
+    .desc = Открывается, закрывается, может вас раздавить, а за ним может оказаться только космос.
+
+ent-AirlockExternalGlassCommandLocked = внешний шлюз
+    .desc = Открывается, закрывается, может вас раздавить, а за ним может оказаться только космос.
+
+ent-AirlockExternalGlassEngineeringLocked = внешний шлюз
+    .desc = Открывается, закрывается, может вас раздавить, а за ним может оказаться только космос.
+
+ent-AirlockExternalGlassLocked = внешний шлюз
+    .desc = Открывается, закрывается, может вас раздавить, а за ним может оказаться только космос.
+
+ent-AirlockExternalGlassNukeopLocked = внешний шлюз
+    .desc = Открывается, закрывается, может вас раздавить, а за ним может оказаться только космос.
+
+ent-AirlockExternalGlassShuttleArrivals = шлюз прибытия
+    .desc = Нужен для стыковки двух кораблей.
+
+ent-AirlockExternalGlassShuttleCargo = грузовой шлюз
+    .desc = Нужен для стыковки двух кораблей.
+
+ent-AirlockExternalGlassShuttleEmergencyLocked = стыковочный шлюз
+    .desc = Нужен для стыковки двух кораблей.
+
+ent-AirlockExternalGlassShuttleEscape = стыковочный шлюз
+    .desc = Нужен для стыковки двух кораблей.
+
+ent-AirlockExternalGlassShuttleLocked = стыковочный шлюз
+    .desc = Нужен для стыковки двух кораблей.
+
+ent-AirlockExternalGlassShuttleNukeopLocked = стыковочный шлюз
+    .desc = Нужен для стыковки двух кораблей.
+
+ent-AirlockExternalGlassShuttleSyndicateLocked = стыковочный шлюз
+    .desc = Нужен для стыковки двух кораблей.
+
+ent-AirlockExternalGlassSyndicateLocked = внешний шлюз
+    .desc = Открывается, закрывается, может вас раздавить, а за ним может оказаться только космос.
+
+ent-AirlockGlassShuttleXenoborgLocked = стыковочный шлюз мехадермиса
+    .desc = Нужен для стыковки двух кораблей.

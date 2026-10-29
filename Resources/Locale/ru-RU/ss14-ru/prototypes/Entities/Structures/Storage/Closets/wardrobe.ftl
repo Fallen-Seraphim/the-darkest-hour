@@ -72,3 +72,6 @@ ent-WardrobeWhite = белый гардероб
 
 ent-WardrobeYellow = жёлтый гардероб
     .desc = Гардероб, наполненный стильной жёлтой одеждой.
+
+ent-WardrobeMedicalDoctor = гардероб врача
+    .desc = Гардероб, набитый стильной белой одеждой.

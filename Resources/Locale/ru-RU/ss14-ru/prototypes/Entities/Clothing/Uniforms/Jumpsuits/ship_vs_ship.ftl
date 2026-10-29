@@ -12,3 +12,6 @@ ent-ClothingUniformJumpsuitRepairmanNT = комбинезон ремонтник
 
 ent-ClothingUniformJumpsuitRepairmanSyndie = комбинезон ремонтника Синдиката
     .desc = Функциональный, модный, крутой. Инженеры Nanotrasen мечтают выглядеть так же хорошо, как и вы.
+
+ent-ClothingUniformJumpsuitChiefEngineerSyndie = комбинезон главного техника синдиката
+    .desc = Зловещий комбинезон со светоотражающим жилетом и красной нательной рубашкой.

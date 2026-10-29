@@ -4,3 +4,5 @@ ent-MobGiantSpiderNurse = паук-пестунья
 ent-MobGiantSpiderNurseAngry = паук-пестунья
     .desc = Бледный, внушающий тревогу паук, из которого сочится едкое вещество.
     .suffix = Злой
+
+ent-SolutionVenomSpiderNurse = раствор

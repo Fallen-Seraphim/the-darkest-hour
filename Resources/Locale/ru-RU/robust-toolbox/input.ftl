@@ -153,3 +153,15 @@ input-key-Tab = Tab
 input-key-Up = Вверх
 
 input-key-unknown = <неизвестная клавиша>
+
+input-key-Again = Again
+input-key-Copy = Копировать
+input-key-Cut = Вырезать
+input-key-Find = Найти
+input-key-Help = Справка
+input-key-Open = Открыть
+input-key-Paste = Вставить
+input-key-Prop = Props
+input-key-ScrollLock = Scroll Lock
+input-key-Stop = Stop
+input-key-Undo = Отменить

@@ -45,3 +45,6 @@ ent-ClothingBeltUtilityEngineering = пояс для инструментов
 ent-ClothingBeltUtilityFilled = пояс для инструментов
     .desc = Может хранить различные предметы.
     .suffix = Заполненный
+
+ent-ClothingBeltChiefEngineerFilled = пояс для инструментов главного техника
+    .desc = Держит инструменты, выглядит шикарно.

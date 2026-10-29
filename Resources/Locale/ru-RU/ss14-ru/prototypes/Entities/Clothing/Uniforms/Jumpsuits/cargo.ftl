@@ -6,3 +6,9 @@ ent-ClothingUniformJumpsuitQMFormal = торжественный костюм к
 
 ent-ClothingUniformJumpsuitQMTurtleneck = водолазка квартирмейстера
     .desc = Строгая водолазка, предназначенная для суровых условий работы в области снабжения.
+
+ent-ClothingUniformJumpsuitCargo = комбинезон грузчика
+    .desc = Прочный комбинезон для работников отдела снабжения.
+
+ent-ClothingUniformJumpsuitSalvageSpecialist = комбинезон экспедитора
+    .desc = Щеголеватый комбинезон с прочным полукомбинезоном поверх. Очень грязный.

@@ -9,3 +9,6 @@ ent-ClothingUniformJumpsuitScientist = комбинезон учёного
 
 ent-ClothingUniformJumpsuitScientistFormal = торжественный комбинезон учёного
     .desc = Униформа для взыскательных учёных, которую лучше всего носить с подходящим к ней галстуком.
+
+ent-ClothingUniformJumpsuitSeniorResearcher = комбинезон ведущего учёного
+    .desc = Знак мастерства и престижа в научном отделе.

@@ -73,3 +73,5 @@ ghost-target-window-warp-to-random-followed-tooltip = Телепорт к слу
 ghost-target-window-warp-to-random-tooltip = Телепорт к случайному игроку
 
 ghost-target-window-warp-to-title = [bold]Быстрый телепорт[/bold]
+
+ghost-gui-toggle-all-ghosts-visibility-popup-off = Видимость всех призраков (включая вас) отключена.

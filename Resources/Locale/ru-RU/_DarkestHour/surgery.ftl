@@ -1,0 +1,109 @@
+## DarkestHour: хирургия (этап 2 медицины)
+
+dh-surgery-verb = Хирургия
+dh-surgery-not-lying = Для операции {$target} должен лежать.
+dh-surgery-no-active = Сначала выберите операцию в окне хирургии.
+dh-surgery-need-tool = Нужно: {$tool}.
+dh-surgery-step-begin = {CAPITALIZE($user)} приступает: {$step} ({$target}, {$part}).
+dh-surgery-step-done = {CAPITALIZE($user)} завершает: {$step} ({$part}).
+dh-surgery-step-fail = У {$user} дрогнула рука!
+dh-surgery-step-fail-pain = {CAPITALIZE($target)} дёргается от боли, и у {$user} соскальзывает рука!
+dh-surgery-pain-self = Жгучая боль! Вы чувствуете каждый разрез!
+dh-surgery-complete = Операция завершена: {$surgery}.
+
+dh-surgery-part-Head = Голова
+dh-surgery-part-Torso = Торс
+dh-surgery-part-ArmLeft = Левая рука
+dh-surgery-part-ArmRight = Правая рука
+dh-surgery-part-HandLeft = Левая кисть
+dh-surgery-part-HandRight = Правая кисть
+dh-surgery-part-LegLeft = Левая нога
+dh-surgery-part-LegRight = Правая нога
+dh-surgery-part-FootLeft = Левая стопа
+dh-surgery-part-FootRight = Правая стопа
+
+dh-surgery-warning-standing = Пациент не лежит.
+dh-surgery-warning-awake = Пациент в сознании: нет наркоза. Усыпите его закисью азота или снотворным, иначе любой болезненный этап может сорваться.
+dh-surgery-warning-floor = Операция на полу: вдвое медленнее, выше риск инфекции.
+dh-surgery-warning-bed = Это не операционный стол: медленнее.
+dh-surgery-warning-no-mask = На вас нет стерильной маски: риск инфекции.
+dh-surgery-warning-no-gloves = На вас нет стерильных перчаток: риск инфекции.
+
+dh-surgery-ui-title = Хирургия
+dh-surgery-ui-title-patient = Хирургия: {$patient}
+dh-surgery-ui-missing = (отсутствует)
+dh-surgery-ui-state = Состояние: {$state}
+dh-surgery-ui-active = Операция: {$surgery}
+dh-surgery-ui-step = Выполнить следующий этап предметом в руке
+dh-surgery-ui-cancel = Прервать
+dh-surgery-ui-step-hint = Или просто примените нужный инструмент на пациенте.
+dh-surgery-ui-options = Доступные операции
+dh-surgery-ui-no-options = Нет.
+dh-surgery-state-missing = отсутствует
+dh-surgery-state-intact = цела
+dh-surgery-state-incised = надрезана
+dh-surgery-state-clamped = сосуды зажаты
+dh-surgery-state-retracted = кожа разведена
+dh-surgery-state-bone-open = кость вскрыта
+
+dh-surgery-step-incise = надрез
+dh-surgery-step-clamp = зажим кровоточащих сосудов
+dh-surgery-step-retract = разведение кожи
+dh-surgery-step-saw-bone = распил кости
+dh-surgery-step-set-bone = вправление кости
+dh-surgery-step-mend-bone = склеивание кости гелем
+dh-surgery-step-cauterize = прижигание разреза
+dh-surgery-step-extract-organ = извлечение органа
+dh-surgery-step-place-organ = установка органа
+dh-surgery-step-connect = сшивание сосудов
+dh-surgery-step-amputate = ампутация
+dh-surgery-step-place-limb = установка конечности
+
+dh-surgery-tool-scalpel = скальпель или любой нож
+dh-surgery-tool-hemostat = зажим или кусачки
+dh-surgery-tool-retractor = ранорасширитель или лом
+dh-surgery-tool-saw = пила или хирургическая дрель
+dh-surgery-tool-bonesetter = костоправ или лом
+dh-surgery-tool-bonegel = костный гель
+dh-surgery-tool-cautery = прижигатель или зажжённая сварка
+dh-surgery-tool-organ = подходящий орган в руке
+dh-surgery-tool-limb = отсечённая конечность в руке
+
+dh-surgery-open = Разрез
+dh-surgery-open-desc = Надрезать, зажать сосуды и развести кожу. Нужно для любой операции на этой части тела.
+dh-surgery-open-bone = Вскрытие кости
+dh-surgery-open-bone-desc = Распилить рёбра или череп, чтобы добраться до внутренних органов.
+dh-surgery-close = Закрытие
+dh-surgery-close-desc = Вправить и склеить кость, если она вскрыта, затем прижечь разрез.
+dh-surgery-amputate = Ампутация
+dh-surgery-amputate-desc = Отпилить конечность. Культю после этого нужно закрыть.
+dh-surgery-attach-limb = Пришивание конечности
+dh-surgery-attach-limb-desc = Пришить отсечённую конечность: приложить, сшить сосуды, прижечь.
+dh-surgery-remove-brain = Удаление мозга
+dh-surgery-remove-eyes = Удаление глаз
+dh-surgery-remove-tongue = Удаление языка
+dh-surgery-remove-ears = Удаление ушей
+dh-surgery-remove-heart = Удаление сердца
+dh-surgery-remove-lungs = Удаление лёгких
+dh-surgery-remove-liver = Удаление печени
+dh-surgery-remove-kidneys = Удаление почек
+dh-surgery-remove-stomach = Удаление желудка
+dh-surgery-remove-appendix = Удаление аппендикса
+dh-surgery-insert-brain = Пересадка мозга
+dh-surgery-insert-eyes = Пересадка глаз
+dh-surgery-insert-tongue = Пересадка языка
+dh-surgery-insert-ears = Пересадка ушей
+dh-surgery-insert-heart = Пересадка сердца
+dh-surgery-insert-lungs = Пересадка лёгких
+dh-surgery-insert-liver = Пересадка печени
+dh-surgery-insert-kidneys = Пересадка почек
+dh-surgery-insert-stomach = Пересадка желудка
+dh-surgery-insert-appendix = Пересадка аппендикса
+
+reagent-name-dh-spacecillin = спейсциллин
+reagent-desc-dh-spacecillin = Антибиотик широкого спектра. Лечит бактериальные болезни, включая раневые инфекции. Передозировка свыше 30 ед. токсична.
+
+dh-surgery-extract-parasite = Извлечение паразита
+dh-surgery-extract-parasite-desc = Вытащить зарывшуюся в ткани торса личинку паразита. Медленно — она цепляется.
+dh-surgery-step-extract-parasite = извлечение личинки
+dh-surgery-injury-parasite = личинка паразита в тканях

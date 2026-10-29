@@ -66,3 +66,5 @@ player-leave-message = Игрок { $name } вышел!
 preset-no-one-ready = Не удалось запустить режим { $presetName }. Нет готовых игроков.
 
 preset-not-enough-ready-players = Не удалось запустить пресет { $presetName }. Требуется { $minimumPlayers } игроков, но готовы только { $readyPlayersCount }.
+
+latejoin-arrival-announcement = {$character} ({$job}) прибывает на станцию!

@@ -15,3 +15,5 @@ clumsy-vaulting-fail-forced-message = { CAPITALIZE($bonker) } стукает { $
 clumsy-vaulting-fail-message-others = { $victim } стукается своей головой о { $bonkable }!
 
 clumsy-vaulting-fail-message-user = Вы стукаетесь своей головой о { $bonkable }!
+
+clumsy-defibrillator-fail-message = Ой! Вы ударили током себя.

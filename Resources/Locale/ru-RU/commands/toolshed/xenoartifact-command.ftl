@@ -35,3 +35,6 @@ command-spawnartifactwithnode-spawn-artifact-structure-hint = использов
 command-spawnartifactwithnode-spawn-artifact-type-hint = <artifact entity proto id>
 
 command-xenoartifact-common-node-hint = глубина {$depth} узел {$nodeId} стимулятор: '{$trigger}', 'эффект': '{$effect}'
+
+command-description-xenoartifact-unlockallnodes =
+    Открывает все узлы артефакта.

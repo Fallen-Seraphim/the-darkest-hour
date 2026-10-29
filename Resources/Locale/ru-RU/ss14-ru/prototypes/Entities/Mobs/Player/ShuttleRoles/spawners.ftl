@@ -176,3 +176,19 @@ ent-VisitorWarden = посетитель смотритель спавнер
 
 ent-VisitorZookeeperSpawner = посетитель зоотехник спавнер
     .desc = { "" }
+
+ent-ChallengeCargoTechnicianSpawner = спавнер испытания: грузчик
+
+ent-VisitorCESpawner = спавнер приезжего главного техника
+
+ent-VisitorCMOSpawner = спавнер приезжего главного врача
+
+ent-VisitorCargoTechnicianSpawner = спавнер приезжего грузчика
+
+ent-VisitorHOPSpawner = спавнер приезжего адъютанта
+
+ent-VisitorHOSSpawner = спавнер приезжего начальника корпоративной безопасности
+
+ent-VisitorMedicalDoctorSpawner = спавнер приезжего врача
+
+ent-VisitorSalvageSpecialistSpawner = спавнер приезжего экспедитора

@@ -80,3 +80,5 @@ ent-OrganHorrorTongue = язык
 ent-OrganHorrorTorso = торс
     .desc = { "" }
     .suffix = Ужас
+
+ent-AppearanceHorror = облик ужаса

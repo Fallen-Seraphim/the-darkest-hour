@@ -3,3 +3,12 @@ ent-ClothingUniformJumpskirtAtmos = юбка-комбинезон атмосфе
 
 ent-ClothingUniformJumpskirtEngineering = инженерная юбка-комбинезон
     .desc = Если бы этот костюм был изолированным, возможно, инженеры действительно выполняли бы свою чёртову работу.
+
+ent-ClothingUniformJumpskirtChiefEngineer = юбка-комбинезон главного техника
+    .desc = Юбка-комбинезон повышенной заметности для инженеров, достаточно безумных, чтобы дослужиться до главного техника.
+
+ent-ClothingUniformJumpskirtChiefEngineerTurtle = водолазка главного техника
+    .desc = Жёлтая водолазка, созданная специально для работы в условиях инженерного отдела.
+
+ent-ClothingUniformJumpskirtSeniorEngineer = юбка-комбинезон ведущего техника
+    .desc = Знак мастерства и престижа в инженерном отделе.

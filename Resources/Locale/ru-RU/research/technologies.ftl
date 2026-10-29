@@ -145,3 +145,7 @@ research-technology-uranium-munitions = Урановые боеприпасы
 research-technology-wave-particle-harnessing = Применение волновых частиц
 
 research-technology-weaponized-laser-manipulation = Манипулирование лазерным оружием
+
+research-discipline-civilian-services = Медицина и биология
+research-discipline-experimental = Хронит и эксперименты
+research-discipline-industrial = Промышленность и материалы

@@ -18,3 +18,18 @@ ent-ClothingUniformJumpskirtSecGrey = серая юбка-комбинезон �
 
 ent-ClothingUniformJumpskirtWarden = униформа смотрителя
     .desc = Формальный костюм службы безопасности для офицеров в комплекте с пряжкой для ремня Nanotrasen.
+
+ent-ClothingUniformJumpskirtHoS = юбка-комбинезон начальника корпоративной безопасности
+    .desc = Ярко-красная и хрустящая — совсем как жертвы службы безопасности.
+
+ent-ClothingUniformJumpskirtHoSAlt = водолазка начальника корпоративной безопасности
+    .desc = Водолазка тех, кто достаточно силён и дисциплинирован, чтобы стать начальником корпоративной безопасности.
+
+ent-ClothingUniformJumpskirtHoSParadeMale = парадная форма начальника корпоративной безопасности
+    .desc = Роскошная одежда начальника для особых случаев.
+
+ent-ClothingUniformJumpskirtHosFormal = парадное платье начальника корпоративной безопасности
+    .desc = Платье для особых случаев.
+
+ent-ClothingUniformJumpskirtSeniorOfficer = юбка-комбинезон инструктора СБ
+    .desc = Знак мастерства и престижа в службе безопасности.

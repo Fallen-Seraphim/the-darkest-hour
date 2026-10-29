@@ -121,3 +121,21 @@ ent-LockerWarden = шкаф смотрителя
 
 ent-LockerWeldingSupplies = шкаф сварочного оборудования
     .desc = Стандартное хранилище Nanotrasen.
+
+ent-LockerChiefEngineer = шкаф главного техника
+    .desc = Стандартный шкаф для хранения.
+
+ent-LockerChiefMedicalOfficer = шкаф главного врача
+    .desc = Стандартный шкаф для хранения.
+
+ent-LockerHeadOfPersonnel = шкаф адъютанта
+    .desc = Стандартный шкаф для хранения.
+
+ent-LockerHeadOfSecurity = шкаф начальника корпоративной безопасности
+    .desc = Стандартный шкаф для хранения.
+
+ent-LockerMedical = шкаф врача
+    .desc = Стандартный шкаф для хранения.
+
+ent-LockerSalvageSpecialist = снаряжение экспедитора
+    .desc = Не обращайте внимания на кирку.

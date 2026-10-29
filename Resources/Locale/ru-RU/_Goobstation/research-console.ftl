@@ -11,3 +11,5 @@ research-console-tech-cost-label = { $cost } О.И.
 research-console-tier-percentage = : { $perc }%
 
 research-console-unlocks-text = Разблокированные рецепты:
+
+dh-research-console-tech-cost-discount = { $cost } О.И. (было { $base })

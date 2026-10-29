@@ -9,3 +9,12 @@ ent-ClothingUniformJumpsuitEngineering = инженерный комбинезо
 
 ent-ClothingUniformJumpsuitEngineeringHazard = защитный комбинезон
     .desc = Соткан в тёплом оранжевом цвете. Даёт окружающим понять, что вы действительно серьёзно относитесь к делу, когда речь идёт о работе.
+
+ent-ClothingUniformJumpsuitChiefEngineer = комбинезон главного техника
+    .desc = Комбинезон повышенной заметности для инженеров, достаточно безумных, чтобы дослужиться до главного техника.
+
+ent-ClothingUniformJumpsuitChiefEngineerTurtle = водолазка главного техника
+    .desc = Жёлтая водолазка, созданная специально для работы в условиях инженерного отдела.
+
+ent-ClothingUniformJumpsuitSeniorEngineer = комбинезон ведущего техника
+    .desc = Знак мастерства и престижа в инженерном отделе.
