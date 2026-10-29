@@ -9,6 +9,7 @@ using Content.Shared._DarkestHour.HeavyGuns;
 using Content.Shared._DarkestHour.Shuttles.Rift;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
+using Content.Shared.Gravity;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
@@ -74,14 +75,16 @@ public sealed partial class DHPlanetBaseSystem : EntitySystem
         _landing.RegisterSurface(system.ID, body.Id, map);
 
         // Готовые зоны посадки челноков: маяки на поверхности, вокруг них биом не ставит камни.
+        // Сначала грунт (биом ещё не подгружен — без тайла маяк не прикрепится), потом маяк, прикреплённый к грунту
+        // планеты: иначе он оказывался не прикреплён и севший сверху челнок уносил его с собой.
         foreach (var (zoneName, position) in ent.Comp.LandingZones)
         {
-            var zone = Spawn("DHLandingZonePad", new MapCoordinates(position, Transform(map).MapID));
+            _biome.ReserveTiles(map, Box2.CenteredAround(position, new Vector2(ent.Comp.LandingZoneClear * 2)),
+                new List<(Vector2i Index, Tile Tile)>());
+            var zone = _landing.SpawnOnGround("DHLandingZonePad", map, position);
             var zoneComp = EnsureComp<DHLandingZoneComponent>(zone);
             zoneComp.ZoneName = zoneName;
             _meta.SetEntityName(zone, zoneName);
-            _biome.ReserveTiles(map, Box2.CenteredAround(position, new Vector2(ent.Comp.LandingZoneClear * 2)),
-                new List<(Vector2i Index, Tile Tile)>());
         }
 
         // В постройках базы — обычный воздух с самого начала (иначе грид получает пустую атмосферу).
@@ -118,6 +121,12 @@ public sealed partial class DHPlanetBaseSystem : EntitySystem
         var mapUid = _map.CreateMap(out var mapId);
         _meta.SetEntityName(mapUid, Loc.GetString(ent.Comp.UndergroundName));
         EnsureComp<DHUndergroundMapComponent>(mapUid);
+
+        // Бункер — под поверхностью планеты: тяжесть та же, что наверху (без генератора и питания).
+        var gravity = EnsureComp<GravityComponent>(mapUid);
+        gravity.Enabled = true;
+        gravity.Inherent = true;
+        Dirty(mapUid, gravity);
 
         var moles = new float[Atmospherics.AdjustedNumberOfGases];
         foreach (var (gas, amount) in body.SurfaceGases)

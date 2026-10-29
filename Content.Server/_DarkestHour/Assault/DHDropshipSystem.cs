@@ -197,8 +197,12 @@ public sealed partial class DHDropshipSystem : EntitySystem
             return;
 
         args.Handled = true;
-        var zone = Spawn(ent.Comp.Zone, _transform.GetMapCoordinates(args.User));
-        _transform.AnchorEntity(zone, Transform(zone));
+        // Маяк — на грунт планеты, а не на грид под ногами (челнок, мешки): иначе челнок увозит его с собой.
+        var userXform = Transform(args.User);
+        if (userXform.MapUid is not { } map)
+            return;
+
+        var zone = _landing.SpawnOnGround(ent.Comp.Zone, map, _transform.GetWorldPosition(userXform));
         _popup.PopupEntity(Loc.GetString("dh-lz-beacon-deployed", ("zone", Name(zone))), args.User, args.User,
             PopupType.Medium);
         QueueDel(ent);
