@@ -2,6 +2,7 @@ using System.Numerics;
 using Content.Server.Stack;
 using Content.Shared._DarkestHour.Fortifications;
 using Content.Shared.Burial.Components;
+using Content.Shared.Climbing.Events;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
 using Content.Shared.DoAfter;
@@ -14,7 +15,11 @@ using Content.Shared.Parallax.Biomes;
 using Content.Shared.Popups;
 using Content.Shared.Stacks;
 using Content.Shared.Tag;
+using Content.Shared.Tools;
+using Content.Shared.Tools.Systems;
 using Content.Shared.Verbs;
+using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
@@ -38,11 +43,17 @@ public sealed partial class DHFortificationSystem : EntitySystem
     [Dependency] private MobStateSystem _mobState = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private StackSystem _stack = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private SharedToolSystem _tool = default!;
     [Dependency] private TagSystem _tag = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
 
     private static readonly ProtoId<TagPrototype> WallTag = "Wall";
+    private static readonly ProtoId<ToolQualityPrototype> CuttingQuality = "Cutting";
+    private static readonly SoundSpecifier WireSound = new SoundPathSpecifier("/Audio/_RMC14/Items/barbed_wire_movement.ogg",
+        AudioParams.Default.WithVariation(0.35f));
 
     /// <summary>Внутренность палатки относительно её центра (по стенкам палаток RMC).</summary>
     private static readonly Box2 TentInterior = new(-1.4f, -2.5f, 0.4f, 0.4f);
@@ -62,6 +73,9 @@ public sealed partial class DHFortificationSystem : EntitySystem
         SubscribeLocalEvent<DHSandbagsEmptyComponent, DHSandbagFillDoAfterEvent>(OnEmptyFilled);
         SubscribeLocalEvent<DHSandbagBarricadeComponent, InteractUsingEvent>(OnBarricadeInteractUsing);
         SubscribeLocalEvent<DHSandbagBarricadeComponent, DHSandbagDismantleDoAfterEvent>(OnBarricadeDismantled);
+        SubscribeLocalEvent<DHSandbagBarricadeComponent, DHSandbagWireDoAfterEvent>(OnBarricadeWired);
+        SubscribeLocalEvent<DHSandbagBarricadeComponent, DHSandbagUnwireDoAfterEvent>(OnBarricadeUnwired);
+        SubscribeLocalEvent<DHSandbagBarricadeComponent, ClimbedOnEvent>(OnBarricadeClimbed);
 
         SubscribeLocalEvent<DHFoldedTentComponent, UseInHandEvent>(OnFoldedTentUse);
         SubscribeLocalEvent<DHFoldedTentComponent, DHTentDeployDoAfterEvent>(OnTentDeployed);
@@ -197,7 +211,36 @@ public sealed partial class DHFortificationSystem : EntitySystem
 
     private void OnBarricadeInteractUsing(Entity<DHSandbagBarricadeComponent> ent, ref InteractUsingEvent args)
     {
-        if (args.Handled || !HasComp<ShovelComponent>(args.Used))
+        if (args.Handled)
+            return;
+
+        // Колючка: натянуть моток поверх мешков.
+        if (TryComp<DHBarbedWireComponent>(args.Used, out var wire))
+        {
+            args.Handled = true;
+            if (ent.Comp.Wired)
+            {
+                _popup.PopupEntity(Loc.GetString("dh-sandbag-already-wired"), ent, args.User);
+                return;
+            }
+
+            _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, wire.WireTime,
+                new DHSandbagWireDoAfterEvent(), ent, ent, args.Used)
+            {
+                BreakOnMove = true,
+                NeedHand = true,
+            });
+            return;
+        }
+
+        // Срезать колючку кусачками.
+        if (ent.Comp.Wired && _tool.HasQuality(args.Used, CuttingQuality.Id))
+        {
+            args.Handled = _tool.UseTool(args.Used, args.User, ent, 2f, CuttingQuality, new DHSandbagUnwireDoAfterEvent());
+            return;
+        }
+
+        if (!HasComp<ShovelComponent>(args.Used))
             return;
 
         args.Handled = true;
@@ -222,7 +265,47 @@ public sealed partial class DHFortificationSystem : EntitySystem
             refund = Math.Max(1, refund - (int) (_damageable.GetTotalDamage((ent.Owner, damageable)).Float() / 100f));
 
         _stack.SpawnMultipleAtPosition(ent.Comp.Sandbags, refund, Transform(ent).Coordinates);
+        if (ent.Comp.Wired)
+            Spawn(ent.Comp.Wire, Transform(ent).Coordinates);
         QueueDel(ent);
+    }
+
+    private void OnBarricadeWired(Entity<DHSandbagBarricadeComponent> ent, ref DHSandbagWireDoAfterEvent args)
+    {
+        if (args.Cancelled || args.Handled || ent.Comp.Wired || args.Used is not { } wire || !_stack.TryUse(wire, 1))
+            return;
+
+        args.Handled = true;
+        SetWired(ent, true);
+        _audio.PlayPvs(WireSound, ent);
+        _popup.PopupEntity(Loc.GetString("dh-sandbag-wired", ("user", args.User)), ent, PopupType.Small);
+    }
+
+    private void OnBarricadeUnwired(Entity<DHSandbagBarricadeComponent> ent, ref DHSandbagUnwireDoAfterEvent args)
+    {
+        if (args.Cancelled || args.Handled || !ent.Comp.Wired)
+            return;
+
+        args.Handled = true;
+        SetWired(ent, false);
+        _hands.PickupOrDrop(args.User, Spawn(ent.Comp.Wire, Transform(ent).Coordinates));
+    }
+
+    private void SetWired(Entity<DHSandbagBarricadeComponent> ent, bool wired)
+    {
+        ent.Comp.Wired = wired;
+        _appearance.SetData(ent, DHSandbagVisuals.Wired, wired);
+    }
+
+    /// <summary>Перелез через колючку — порезался.</summary>
+    private void OnBarricadeClimbed(Entity<DHSandbagBarricadeComponent> ent, ref ClimbedOnEvent args)
+    {
+        if (!ent.Comp.Wired)
+            return;
+
+        _damageable.TryChangeDamage(args.Climber, ent.Comp.WireDamage, origin: ent.Owner);
+        _audio.PlayPvs(WireSound, ent);
+        _popup.PopupEntity(Loc.GetString("dh-sandbag-wire-cut"), args.Climber, args.Climber, PopupType.SmallCaution);
     }
 
     #endregion

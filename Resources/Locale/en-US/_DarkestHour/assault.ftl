@@ -214,3 +214,15 @@ dh-scan-ui-no-marks = No laser marks on the surface.
 
 ## Hearing
 dh-tinnitus-start = Your ears ring!
+
+## Barbed wire
+dh-stack-barbed-wire = barbed wire
+dh-sandbag-already-wired = There is already barbed wire on it.
+dh-sandbag-wired = {CAPITALIZE(THE($user))} strings barbed wire on the sandbags.
+dh-sandbag-wire-cut = The barbed wire tears at you!
+dh-construction-barbed-wire-obstacle = barbed wire entanglement
+dh-construction-barbed-wire-obstacle-desc = Two coils of barbed wire staked to the ground: slow and painful to wade through.
+dh-construction-barbed-wire = barbed wire
+dh-construction-barbed-wire-desc = A coil of barbed wire twisted from a steel sheet.
+dh-construction-sandbag = empty sandbag
+dh-construction-sandbag-desc = A sandbag sewn from cloth. Fill it with a shovel on bare ground.

@@ -207,6 +207,10 @@ def build_base():
     # 90 mm infantry gun covering the main gate, with a crate of shells
     b.put('DHFieldGun90', 3, -18, rot='0')
     b.put('DHCrateFieldGun90', 5, -18)
+    # barbed wire and cloth for more sandbags (construction menu or a protolathe)
+    for _ in range(2):
+        b.put('DHBarbedWire10', 25, -8, solid=False)
+    b.put('MaterialCloth10', 25, -9, solid=False)
     # mortar crates of the garrison (mortar, laser designator, 18 shells each)
     b.put('DHCrateMortar', 27, -10)
     b.put('DHCrateMortar', 27, -8)
@@ -740,6 +744,7 @@ def main():
             ('ChairOfficeDark', [(p(4, -5), '3.141592653589793')]),
             ('DHClothingOuterGhillie', [p(-4, -21), p(-4, -21)]),
             ('DHCamoNetFolded', [p(-5, -22), p(-5, -22)]),
+            ('DHBarbedWire10', [p(-3, -22), p(-3, -22)]),
             # comms: the carrier antenna on the gun deck and the bridge telephone
             ('DHCommsRelayEmpire', [p(12, -3)]),
             ('DHFieldPhoneEmpireBridge', [p(4, -5)]),
