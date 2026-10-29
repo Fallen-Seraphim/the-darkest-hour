@@ -1,11 +1,14 @@
 using System.Linq;
 using System.Numerics;
 using Content.Server._DarkestHour.Assault;
+using Content.Server._DarkestHour.Atmos.Fire;
 using Content.Server._DarkestHour.Shuttles.Rift;
 using Content.Server.Decals;
 using Content.Server.Explosion.EntitySystems;
+using Content.Server.Parallax;
 using Content.Server.Shuttles.Systems;
 using Content.Shared._DarkestHour.Assault;
+using Content.Shared._DarkestHour.Atmos.Fire;
 using Content.Shared._DarkestHour.HeavyGuns;
 using Content.Shared._DarkestHour.Shuttles.Rift;
 using Content.Shared.Buckle.Components;
@@ -14,6 +17,7 @@ using Content.Shared.DoAfter;
 using Content.Shared.Examine;
 using Content.Shared.GameTicking;
 using Content.Shared.Interaction;
+using Content.Shared.Parallax.Biomes;
 using Content.Shared.Popups;
 using Content.Shared.Shuttles.Components;
 using Robust.Server.GameObjects;
@@ -40,11 +44,13 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private DHAssaultRuleSystem _assault = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private BiomeSystem _biome = default!;
     [Dependency] private DHCelestialSystem _celestial = default!;
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private DecalSystem _decals = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private ExplosionSystem _explosion = default!;
+    [Dependency] private DHFireSystem _fire = default!;
     [Dependency] private Content.Server._DarkestHour.Hearing.DHHearingSystem _hearing = default!;
     [Dependency] private DHLandingSystem _landing = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
@@ -66,6 +72,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     private static readonly SoundSpecifier LoadSound = new SoundPathSpecifier("/Audio/_DarkestHour/HeavyGuns/gun_mortar_travel.ogg");
 
     private static readonly string[] Scorch = { "burnt1", "burnt2", "burnt3", "burnt4" };
+    private static readonly Robust.Shared.Prototypes.ProtoId<DHFlammableReagentPrototype> IncendiaryFuel = "Napalm";
 
     private static readonly TimeSpan UpdateInterval = TimeSpan.FromSeconds(1);
     private static readonly TimeSpan WarningTime = TimeSpan.FromSeconds(5);
@@ -93,6 +100,9 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
 
         /// <summary>Чей выстрел: своя ПВО его не сбивает.</summary>
         public DHAssaultFaction? Faction;
+
+        /// <summary>Консоль, с которой стреляли: ей — доклад о результате (перехват, промах, попадание).</summary>
+        public EntityUid? Console;
     }
 
     public override void Initialize()
@@ -673,6 +683,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
                 TargetGrid = template.TargetGrid,
                 Target = template.Target,
                 Faction = FactionOf(ent),
+                Console = ent.Owner,
                 ImpactAt = _timing.CurTime + gun.Comp.FlightTime + TimeSpan.FromSeconds(fired * 1.5),
             };
 
@@ -737,6 +748,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
                 if (strike.Intercepted)
                 {
                     InterceptedEffect(strike);
+                    Report(strike, "dh-heavy-gun-report-intercepted");
                     _strikes.RemoveAt(i);
                     continue;
                 }
@@ -899,6 +911,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         if (strike.Role == DHGunRole.Artillery)
         {
             Detonate(strike.Warhead, strike.Caliber, strike.Target, 1f, false);
+            Report(strike, "dh-heavy-gun-report-impact");
             return;
         }
 
@@ -906,6 +919,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         if (strike.TargetGrid is not { } grid || !TryComp<MapGridComponent>(grid, out var gridComp) ||
             !_random.Prob(strike.HitChance))
         {
+            Report(strike, "dh-heavy-gun-report-miss");
             return;
         }
 
@@ -925,6 +939,62 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             _ => 1f,
         };
         _assault.DamageCarrier(grid, damage);
+        Report(strike, "dh-heavy-gun-report-hit");
+    }
+
+    /// <summary>Доклад стрелку у консоли: чем кончился выстрел.</summary>
+    private void Report(Strike strike, string loc)
+    {
+        if (strike.Console is not { } console || !Exists(console))
+            return;
+
+        var x = (int) MathF.Round(strike.Target.Position.X);
+        var y = (int) MathF.Round(strike.Target.Position.Y);
+        var text = Loc.GetString(loc, ("x", x), ("y", y));
+        foreach (var actor in _ui.GetActors(console, DHHeavyGunUiKey.Key))
+        {
+            _popup.PopupEntity(text, console, actor, PopupType.Medium);
+        }
+    }
+
+    /// <summary>
+    /// Грунт планеты подгружается только вокруг живых игроков (призраки его не грузят): там, где никого нет, тайлов
+    /// ещё нет и взрыву нечего ломать. Перед разрывом ставим грунт биома в зоне поражения (как под базой).
+    /// </summary>
+    private void PrepareGround(MapCoordinates target, float radius)
+    {
+        if (!_map.TryGetMap(target.MapId, out var map) || !TryComp<BiomeComponent>(map, out var biome) ||
+            !TryComp<MapGridComponent>(map, out var grid))
+        {
+            return;
+        }
+
+        _biome.ReserveTiles(map.Value, Box2.CenteredAround(target.Position, new Vector2(radius * 2f)),
+            new List<(Vector2i Index, Tile Tile)>(), biome, grid);
+    }
+
+    /// <summary>Зажигательный: огонь на тайлах вокруг разрыва (своя система огня, горит и без кислорода).</summary>
+    private void Ignite(MapCoordinates center, float radius, float duration)
+    {
+        if (!_protoManager.TryIndex(IncendiaryFuel, out var fuel))
+            return;
+
+        var r = (int) MathF.Ceiling(radius);
+        for (var x = -r; x <= r; x++)
+        {
+            for (var y = -r; y <= r; y++)
+            {
+                if (x * x + y * y > radius * radius || !_random.Prob(0.8f))
+                    continue;
+
+                var point = new MapCoordinates(center.Position + new Vector2(x, y), center.MapId);
+                if (!_map.TryFindGridAt(point, out var gridUid, out var grid))
+                    continue;
+
+                var tile = _map.TileIndicesFor(gridUid, grid, point);
+                _fire.SpawnFire(gridUid, tile, fuel, duration * _random.NextFloat(0.7f, 1.2f));
+            }
+        }
     }
 
     /// <summary>Подрыв боеголовки и следы на земле. <paramref name="vacuum"/> — можно пробить корпус в космос.</summary>
@@ -932,6 +1002,8 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     {
         var intensity = caliber * 1.2f * scale;
         var radius = 2f + caliber / 150f;
+
+        PrepareGround(target, Math.Min(4f + caliber / 40f, 20f));
 
         // Разрыв глушит всех вокруг (осветительная мина — тихая).
         if (warhead != DHWarhead.Flare)
@@ -948,6 +1020,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
                 break;
             case DHWarhead.Incendiary:
                 _explosion.QueueExplosion(target, "FireBomb", intensity * 0.5f, 3f, 18f, null, canCreateVacuum: vacuum);
+                Ignite(target, Math.Min(1.5f + caliber * scale / 60f, 8f), Math.Min(15f + caliber / 10f, 45f));
                 break;
             case DHWarhead.Cluster:
                 var bomblets = 6 + caliber / 100;
