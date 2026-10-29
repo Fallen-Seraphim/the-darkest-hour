@@ -25,6 +25,10 @@ dh-heavy-gun-fired = Salvo: {$count} {$count ->
    *[other] guns
 } fired.
 dh-heavy-gun-nothing-fired = No selected gun is ready to fire.
+dh-heavy-gun-report-intercepted = Shell intercepted by enemy air defence.
+dh-heavy-gun-report-impact = Shell landed at {$x}, {$y}.
+dh-heavy-gun-report-miss = Miss: the shell went past the ship.
+dh-heavy-gun-report-hit = Hit on the ship!
 dh-heavy-gun-no-targets = No ships in orbit within reach.
 dh-heavy-gun-targets-found = Ships in orbit within reach: {$count}.
 dh-heavy-gun-not-on-surface = The console is not on the surface of a world: anti-orbital guns fire only from the ground.
