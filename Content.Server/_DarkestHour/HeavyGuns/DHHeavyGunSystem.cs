@@ -45,6 +45,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     [Dependency] private DecalSystem _decals = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private ExplosionSystem _explosion = default!;
+    [Dependency] private Content.Server._DarkestHour.Hearing.DHHearingSystem _hearing = default!;
     [Dependency] private DHLandingSystem _landing = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private SharedMapSystem _map = default!;
@@ -701,6 +702,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         _audio.PlayPvs(FireSound, gun, AudioParams.Default.WithMaxDistance(60f).WithVolume(4f));
 
         var center = _transform.GetMapCoordinates(gun);
+        _hearing.Blast(center, 90f, 14f);
         foreach (var actor in _lookup.GetEntitiesInRange<ActorComponent>(center, 12f))
         {
             var kick = _random.NextAngle().ToVec() * 0.6f;
@@ -930,6 +932,10 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     {
         var intensity = caliber * 1.2f * scale;
         var radius = 2f + caliber / 150f;
+
+        // Разрыв глушит всех вокруг (осветительная мина — тихая).
+        if (warhead != DHWarhead.Flare)
+            _hearing.Blast(target, caliber * 0.8f * scale, 6f + caliber / 25f, 0.4f + caliber / 500f);
 
         switch (warhead)
         {
