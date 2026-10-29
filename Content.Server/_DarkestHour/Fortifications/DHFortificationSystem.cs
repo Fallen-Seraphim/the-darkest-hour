@@ -219,7 +219,7 @@ public sealed partial class DHFortificationSystem : EntitySystem
         // Порванные мешки не вернуть: чем сильнее побита баррикада, тем меньше.
         var refund = ent.Comp.Refund;
         if (TryComp<DamageableComponent>(ent, out var damageable))
-            refund = Math.Max(1, refund - (int) (damageable.TotalDamage.Float() / 100f));
+            refund = Math.Max(1, refund - (int) (_damageable.GetTotalDamage((ent.Owner, damageable)).Float() / 100f));
 
         _stack.SpawnMultipleAtPosition(ent.Comp.Sandbags, refund, Transform(ent).Coordinates);
         QueueDel(ent);
@@ -331,7 +331,9 @@ public sealed partial class DHFortificationSystem : EntitySystem
             tent.NextHeal = now + HealInterval;
             var center = _transform.GetMapCoordinates(xform);
             var box = TentInterior.Translated(center.Position);
-            foreach (var mob in _lookup.GetEntitiesIntersecting<MobStateComponent>(center.MapId, box))
+            var inside = new HashSet<Entity<MobStateComponent>>();
+            _lookup.GetEntitiesIntersecting(center.MapId, box, inside);
+            foreach (var mob in inside)
             {
                 if (_mobState.IsDead(mob))
                     continue;

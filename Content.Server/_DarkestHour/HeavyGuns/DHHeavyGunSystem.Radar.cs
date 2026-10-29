@@ -15,6 +15,8 @@ public sealed partial class DHHeavyGunSystem
     /// <summary>Во сколько раз хуже бьёт ПВО без своей РЛС.</summary>
     private const float RadarBlindFactor = 0.4f;
 
+    [Dependency] private DamageableSystem _damageableRadar = default!;
+
     private void InitializeRadar()
     {
         SubscribeLocalEvent<DHRadarComponent, MapInitEvent>(OnRadarMapInit);
@@ -29,7 +31,7 @@ public sealed partial class DHHeavyGunSystem
 
     private void OnRadarDamaged(Entity<DHRadarComponent> ent, ref DamageChangedEvent args)
     {
-        var broken = args.Damageable.TotalDamage.Float() >= ent.Comp.BreakDamage;
+        var broken = _damageableRadar.GetTotalDamage((ent.Owner, args.Damageable)).Float() >= ent.Comp.BreakDamage;
         if (broken == !ent.Comp.Active)
             return;
 

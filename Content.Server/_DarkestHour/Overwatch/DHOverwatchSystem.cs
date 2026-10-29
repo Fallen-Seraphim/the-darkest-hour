@@ -3,6 +3,7 @@ using Content.Shared._DarkestHour.Assault;
 using Content.Shared._DarkestHour.Overwatch;
 using Content.Shared._DarkestHour.Shuttles.Rift;
 using Content.Shared.Damage.Components;
+using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
 using Content.Shared.Mind;
 using Content.Shared.Mobs;
@@ -24,6 +25,7 @@ namespace Content.Server._DarkestHour.Overwatch;
 public sealed partial class DHOverwatchSystem : EntitySystem
 {
     [Dependency] private DHAssaultRuleSystem _assault = default!;
+    [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private SharedJobSystem _jobs = default!;
     [Dependency] private SharedMindSystem _mind = default!;
     [Dependency] private MobThresholdSystem _thresholds = default!;
@@ -206,7 +208,7 @@ public sealed partial class DHOverwatchSystem : EntitySystem
             TryComp<DamageableComponent>(uid, out var damageable) &&
             _thresholds.TryGetIncapThreshold(uid, out var incap) && incap.Value > FixedPoint2.Zero)
         {
-            var left = 1f - damageable.TotalDamage.Float() / incap.Value.Float();
+            var left = 1f - _damageable.GetTotalDamage((uid, damageable)).Float() / incap.Value.Float();
             entry.Health = Math.Clamp((int) MathF.Round(left * 100f), 0, 100);
         }
 
