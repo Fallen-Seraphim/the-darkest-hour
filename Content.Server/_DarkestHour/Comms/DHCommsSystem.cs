@@ -17,6 +17,7 @@ namespace Content.Server._DarkestHour.Comms;
 public sealed partial class DHCommsSystem : EntitySystem
 {
     [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private TelephoneSystem _telephone = default!;
     [Dependency] private IGameTiming _timing = default!;
@@ -83,7 +84,7 @@ public sealed partial class DHCommsSystem : EntitySystem
 
     private void OnRelayDamaged(Entity<DHCommsRelayComponent> ent, ref DamageChangedEvent args)
     {
-        var broken = args.Damageable.TotalDamage.Float() >= RelayBreakDamage;
+        var broken = _damageable.GetTotalDamage((ent.Owner, args.Damageable)).Float() >= RelayBreakDamage;
         if (broken == !ent.Comp.Active)
             return;
 

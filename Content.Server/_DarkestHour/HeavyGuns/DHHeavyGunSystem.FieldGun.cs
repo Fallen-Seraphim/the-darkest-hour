@@ -71,7 +71,8 @@ public sealed partial class DHHeavyGunSystem
         }
 
         // Расчёт: за прицелом кто-то другой — заряжающий не отвлекается, быстрее.
-        var crew = _ui.GetActors(ent.Owner, DHFieldGunUiKey.Key).Any(a => a != args.User);
+        var loader = args.User;
+        var crew = _ui.GetActors(ent.Owner, DHFieldGunUiKey.Key).Any(a => a != loader);
         var delay = crew ? ent.Comp.LoadTime : ent.Comp.SoloLoadTime;
 
         _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, delay, new DHFieldGunLoadDoAfterEvent(), ent,
