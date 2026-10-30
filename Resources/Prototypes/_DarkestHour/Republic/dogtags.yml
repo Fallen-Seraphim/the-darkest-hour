@@ -3,7 +3,7 @@
 - type: entity
   parent: DHDogtags
   id: DHDogtagsDHRepublicCommander
-  suffix: Republic Commander
+  suffix: Sweep Team Commander
   components:
   - type: PresetIdCard
     job: DHRepublicCommander
@@ -11,7 +11,7 @@
 - type: entity
   parent: DHDogtags
   id: DHDogtagsDHRepublicSniper
-  suffix: Republic Sniper
+  suffix: Sweep Team Sniper
   components:
   - type: PresetIdCard
     job: DHRepublicSniper
@@ -19,7 +19,7 @@
 - type: entity
   parent: DHDogtags
   id: DHDogtagsDHRepublicMachinegunner
-  suffix: Republic Machinegunner
+  suffix: Sweep Team Machinegunner
   components:
   - type: PresetIdCard
     job: DHRepublicMachinegunner
@@ -27,7 +27,7 @@
 - type: entity
   parent: DHDogtags
   id: DHDogtagsDHRepublicRifleman
-  suffix: Republic Rifleman
+  suffix: Sweep Team Rifleman
   components:
   - type: PresetIdCard
     job: DHRepublicRifleman
@@ -35,7 +35,7 @@
 - type: entity
   parent: DHDogtags
   id: DHDogtagsDHRepublicMedic
-  suffix: Republic Medic
+  suffix: Sweep Team Medic
   components:
   - type: PresetIdCard
     job: DHRepublicMedic
@@ -43,7 +43,7 @@
 - type: entity
   parent: DHDogtags
   id: DHDogtagsDHRepublicFlamer
-  suffix: Republic Flamer
+  suffix: Sweep Team Flamer
   components:
   - type: PresetIdCard
     job: DHRepublicFlamer
