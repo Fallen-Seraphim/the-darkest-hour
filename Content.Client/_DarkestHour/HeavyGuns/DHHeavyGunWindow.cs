@@ -1,3 +1,4 @@
+using Content.Client._DarkestHour.UI;
 using System.Globalization;
 using System.Numerics;
 using Content.Shared._DarkestHour.HeavyGuns;
@@ -39,6 +40,7 @@ public sealed class DHHeavyGunWindow : DefaultWindow
 
     public DHHeavyGunWindow()
     {
+        DHFonts.RegisterTerminal(this); // DarkestHour: терминальный шрифт
         Title = Loc.GetString("dh-heavy-gun-ui-title");
         MinSize = new Vector2(460, 520);
 

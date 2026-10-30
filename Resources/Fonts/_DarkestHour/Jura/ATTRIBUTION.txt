@@ -1,0 +1,4 @@
+Jura — Copyright 2019 The Jura Project Authors (https://github.com/ossobuffo/jura).
+Licensed under the SIL Open Font License 1.1 (LICENSE.txt).
+Source: https://github.com/google/fonts/tree/main/ofl/jura
+Static Regular (wght 500) and Bold (wght 700) instances were produced from the variable font with fontTools varLib.instancer.

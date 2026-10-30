@@ -1,3 +1,4 @@
+using Content.Client._DarkestHour.UI;
 using System.Numerics;
 using Content.Shared._DarkestHour.Assault;
 using Robust.Client.UserInterface.Controls;
@@ -27,6 +28,7 @@ public sealed class DHDropshipWindow : DefaultWindow
 
     public DHDropshipWindow()
     {
+        DHFonts.RegisterTerminal(this); // DarkestHour: терминальный шрифт
         Title = Loc.GetString("dh-dropship-ui-title");
         MinSize = new Vector2(420, 380);
 

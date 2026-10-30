@@ -1,3 +1,4 @@
+using Content.Client._DarkestHour.UI;
 using Content.Client.Resources;
 using Content.Client.Stylesheets.Fonts;
 using Content.Client.Stylesheets.Palette;
@@ -12,19 +13,20 @@ public sealed class LabelSheetlet : Sheetlet<PalettedStylesheet>
 {
     public override StyleRule[] GetRules(PalettedStylesheet sheet, object config)
     {
-        var robotoMonoBold11 = ResCache.GetFont("/Fonts/RobotoMono/RobotoMono-Bold.ttf", size: 11);
-        var robotoMonoBold12 = ResCache.GetFont("/Fonts/RobotoMono/RobotoMono-Bold.ttf", size: 12);
-        var robotoMonoBold14 = ResCache.GetFont("/Fonts/RobotoMono/RobotoMono-Bold.ttf", size: 14);
+        // DarkestHour: консольный текст — IBM Plex Mono, заголовки — Jura.
+        var robotoMonoBold11 = DHFonts.Terminal(ResCache, 11, true);
+        var robotoMonoBold12 = DHFonts.Terminal(ResCache, 12, true);
+        var robotoMonoBold14 = DHFonts.Terminal(ResCache, 14, true);
 
         return
         [
             E<Label>()
                 .Class(StyleClass.LabelHeading)
-                .Font(sheet.BaseFont.GetFont(16, FontKind.Bold))
+                .Font(DHFonts.Header(ResCache, 16)) // DarkestHour
                 .FontColor(sheet.HighlightPalette.Text),
             E<Label>()
                 .Class(StyleClass.LabelHeadingBigger)
-                .Font(sheet.BaseFont.GetFont(20, FontKind.Bold))
+                .Font(DHFonts.Header(ResCache, 20)) // DarkestHour
                 .FontColor(sheet.HighlightPalette.Text),
             E<Label>()
                 .Class(StyleClass.LabelSubHeading)

@@ -1,3 +1,4 @@
+using Content.Client._DarkestHour.UI;
 using System.Numerics;
 using Content.Shared._DarkestHour.Research.Materials;
 using Robust.Client.UserInterface.Controls;
@@ -36,6 +37,7 @@ public sealed class DHMaterialLabWindow : DefaultWindow
 
     public DHMaterialLabWindow()
     {
+        DHFonts.RegisterTerminal(this); // DarkestHour: терминальный шрифт
         Title = Loc.GetString("dh-material-lab-ui-title");
         MinSize = new Vector2(460, 520);
 

@@ -1,3 +1,4 @@
+using Content.Client._DarkestHour.UI;
 using System.Numerics;
 using Content.Shared._DarkestHour.Orbit;
 using Robust.Client.Graphics;
@@ -31,6 +32,7 @@ public sealed class DHOrbitConsoleWindow : DefaultWindow
 
     public DHOrbitConsoleWindow()
     {
+        DHFonts.RegisterTerminal(this); // DarkestHour: терминальный шрифт
         Title = Loc.GetString("dh-orbit-ui-title");
         MinSize = new Vector2(520, 320);
 

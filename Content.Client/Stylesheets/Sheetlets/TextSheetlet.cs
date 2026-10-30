@@ -1,3 +1,4 @@
+using Content.Client._DarkestHour.UI;
 using Content.Client.Resources;
 using Content.Client.Stylesheets.Fonts;
 using Robust.Client.UserInterface;
@@ -12,7 +13,8 @@ public sealed class TextSheetlet : Sheetlet<PalettedStylesheet>
     public override StyleRule[] GetRules(PalettedStylesheet sheet, object config)
     {
         // TODO: once fonts are reworked, change this!
-        var mono = ResCache.GetFont("/EngineFonts/NotoSans/NotoSansMono-Regular.ttf", 12);
+        // DarkestHour: IBM Plex Mono вместо Noto Sans Mono.
+        var mono = DHFonts.Terminal(ResCache, 12);
 
         return
         [

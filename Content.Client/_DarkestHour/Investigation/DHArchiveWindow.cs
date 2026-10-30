@@ -1,3 +1,4 @@
+using Content.Client._DarkestHour.UI;
 using System.Linq;
 using System.Numerics;
 using Content.Shared._DarkestHour.Investigation;
@@ -23,6 +24,7 @@ public sealed class DHArchiveWindow : DefaultWindow
 
     public DHArchiveWindow()
     {
+        DHFonts.RegisterTerminal(this); // DarkestHour: терминальный шрифт
         Title = Loc.GetString("dh-archive-ui-title");
         MinSize = new Vector2(560, 480);
 

@@ -1,3 +1,4 @@
+using Content.Client._DarkestHour.UI;
 using System.Linq;
 using System.Numerics;
 using Content.Shared._DarkestHour.Medical.Disease;
@@ -31,6 +32,7 @@ public sealed class DHVirologyConsoleWindow : DefaultWindow
 
     public DHVirologyConsoleWindow()
     {
+        DHFonts.RegisterTerminal(this); // DarkestHour: терминальный шрифт
         Title = Loc.GetString("dh-virology-ui-title");
         MinSize = new Vector2(520, 560);
 

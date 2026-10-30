@@ -1,18 +1,18 @@
 - type: font
   id: Default
-  path: /Fonts/NotoSans/NotoSans-Regular.ttf
+  path: /Fonts/_DarkestHour/IBMPlexSans/IBMPlexSans-Regular.ttf # DarkestHour
 
 - type: font
   id: DefaultItalic
-  path: /Fonts/NotoSans/NotoSans-Italic.ttf
+  path: /Fonts/_DarkestHour/IBMPlexSans/IBMPlexSans-Italic.ttf # DarkestHour
 
 - type: font
   id: DefaultBold
-  path: /Fonts/NotoSans/NotoSans-Bold.ttf
+  path: /Fonts/_DarkestHour/IBMPlexSans/IBMPlexSans-Bold.ttf # DarkestHour
 
 - type: font
   id: DefaultBoldItalic
-  path: /Fonts/NotoSans/NotoSans-BoldItalic.ttf
+  path: /Fonts/_DarkestHour/IBMPlexSans/IBMPlexSans-BoldItalic.ttf # DarkestHour
 
 - type: font
   id: NotoSansDisplay
@@ -40,8 +40,17 @@
 
 - type: font
   id: Monospace
-  path: /EngineFonts/NotoSans/NotoSansMono-Regular.ttf
+  path: /Fonts/_DarkestHour/IBMPlexMono/IBMPlexMono-Regular.ttf # DarkestHour
 
 - type: font
   id: Emoji
   path: /Fonts/NotoEmoji.ttf
+
+# DarkestHour
+- type: font
+  id: DHHeader
+  path: /Fonts/_DarkestHour/Jura/Jura-Bold.ttf
+
+- type: font
+  id: DHTerminal
+  path: /Fonts/_DarkestHour/IBMPlexMono/IBMPlexMono-Regular.ttf

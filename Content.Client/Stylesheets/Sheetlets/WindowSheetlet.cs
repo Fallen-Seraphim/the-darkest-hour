@@ -1,3 +1,4 @@
+using Content.Client._DarkestHour.UI;
 using Content.Client.Resources;
 using Content.Client.Stylesheets.Fonts;
 using Content.Client.Stylesheets.Palette;
@@ -60,11 +61,11 @@ public sealed class WindowSheetlet<T> : Sheetlet<T>
             E<Label>()
                 .Class(DefaultWindow.StyleClassWindowTitle)
                 .FontColor(sheet.HighlightPalette.Text)
-                .Font(sheet.BaseFont.GetFont(14, FontKind.Bold)),
+                .Font(DHFonts.Header(ResCache, 14)), // DarkestHour: Jura
             E<Label>()
                 .Class("windowTitleAlert")
                 .FontColor(Color.White)
-                .Font(sheet.BaseFont.GetFont(14, FontKind.Bold)),
+                .Font(DHFonts.Header(ResCache, 14)), // DarkestHour: Jura
             // TODO: maybe also change everything here to `NanoWindow` or something
             E()
                 .Class(DefaultWindow.StyleClassWindowPanel)
@@ -104,7 +105,7 @@ public sealed class WindowSheetlet<T> : Sheetlet<T>
             // Title
             E<Label>()
                 .Class("FancyWindowTitle") // TODO: hardcoding class name
-                .Font(ResCache.GetFont("/Fonts/Boxfont-round/Boxfont Round.ttf", 13)) // TODO: hardcoding font
+                .Font(DHFonts.Header(ResCache, 14)) // DarkestHour: Jura вместо Boxfont
                 .FontColor(sheet.HighlightPalette.Text),
 
             // Help Button
