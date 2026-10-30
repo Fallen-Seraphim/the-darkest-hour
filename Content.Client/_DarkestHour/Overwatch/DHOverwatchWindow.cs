@@ -19,6 +19,7 @@ public sealed class DHOverwatchWindow : DefaultWindow
 {
     public event Action<NetEntity?>? OnWatch;
     public event Action<string>? OnOrder;
+    public event Action? OnTacticalMap;
 
     private static readonly Color Ok = Color.FromHex("#8FD66B");
     private static readonly Color Warn = Color.FromHex("#E8B04A");
@@ -107,6 +108,9 @@ public sealed class DHOverwatchWindow : DefaultWindow
         };
         var viewHeader = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal };
         viewHeader.AddChild(_viewTitle);
+        var tacmap = new Button { Text = Loc.GetString("dh-overwatch-ui-tacmap") };
+        tacmap.OnPressed += _ => OnTacticalMap?.Invoke();
+        viewHeader.AddChild(tacmap);
         var disconnect = new Button { Text = Loc.GetString("dh-overwatch-ui-disconnect") };
         disconnect.OnPressed += _ => OnWatch?.Invoke(null);
         viewHeader.AddChild(disconnect);

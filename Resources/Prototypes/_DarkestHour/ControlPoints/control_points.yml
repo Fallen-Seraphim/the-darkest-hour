@@ -1,0 +1,178 @@
+# Зоны захвата «Штурма» (решение автора 2026-10-30). Терминал ставится картой в центре локации.
+# Механика — DHControlPointSystem, спрайт — Tools/_DarkestHour/control_points/build.py.
+
+- type: entity
+  abstract: true
+  parent: BaseStructure
+  id: DHControlPointBase
+  name: capture terminal
+  description: A field terminal with a flag mast. Hold it to bring the area under your side's control.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _DarkestHour/Structures/control_point.rsi
+    offset: 0,0.5
+    drawdepth: Overdoors
+    noRot: true
+    layers:
+    - state: base
+    - state: flag_neutral
+      map: [ "flag" ]
+    - state: screen
+      shader: unshaded
+  - type: Icon
+    sprite: _DarkestHour/Structures/control_point.rsi
+    state: icon
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHControlPointVisuals.Owner:
+        flag:
+          0: { state: flag_neutral }
+          1: { state: flag_republic }
+          2: { state: flag_empire }
+  - type: InteractionOutline
+  - type: Clickable
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.3,-0.45,0.3,0.1"
+        density: 500
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: PointLight
+    radius: 1.6
+    energy: 0.8
+    color: "#7fd890"
+
+- type: entity
+  parent: DHControlPointBase
+  id: DHControlPointVillage
+  suffix: Village
+  components:
+  - type: DHControlPoint
+    pointId: village
+    pointName: dh-control-point-village
+    pointDescription: dh-control-point-village-desc
+    radius: 16
+    republicOutput: [ DHCrateControlPointMedical ]
+    empireOutput: [ DHCrateControlPointMedical ]
+
+- type: entity
+  parent: DHControlPointBase
+  id: DHControlPointSpaceport
+  suffix: Spaceport
+  components:
+  - type: DHControlPoint
+    pointId: spaceport
+    pointName: dh-control-point-spaceport
+    pointDescription: dh-control-point-spaceport-desc
+    radius: 20
+    republicOutput: [ DHCrateControlPointAmmoRepublic ]
+    empireOutput: [ DHCrateControlPointAmmoEmpire ]
+
+- type: entity
+  parent: DHControlPointBase
+  id: DHControlPointConstruction
+  suffix: Construction site
+  components:
+  - type: DHControlPoint
+    pointId: construction
+    pointName: dh-control-point-construction
+    pointDescription: dh-control-point-construction-desc
+    radius: 14
+    republicOutput: [ DHCrateControlPointConstruction ]
+    empireOutput: [ DHCrateControlPointConstruction ]
+
+- type: entity
+  parent: DHControlPointBase
+  id: DHControlPointPowerPlant
+  suffix: Power plant
+  components:
+  - type: DHControlPoint
+    pointId: npp
+    pointName: dh-control-point-npp
+    pointDescription: dh-control-point-npp-desc
+    radius: 18
+    owner: Republic
+
+- type: entity
+  parent: DHControlPointBase
+  id: DHControlPointDam
+  suffix: Dam
+  components:
+  - type: DHControlPoint
+    pointId: dam
+    pointName: dh-control-point-dam
+    pointDescription: dh-control-point-dam-desc
+    radius: 14
+
+# --- Ящики снабжения зон ---
+
+- type: entity
+  parent: CrateMedical
+  id: DHCrateControlPointMedical
+  name: village medical supplies
+  description: Medicine requisitioned from the village clinic.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHIFAKFilled
+      amount: 3
+    - id: MedkitCombatFilled
+    - id: DHPainkillerAutoinjector
+      amount: 4
+    - id: DHSplint
+      amount: 2
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHCrateControlPointAmmoRepublic
+  name: spaceport munitions cache
+  description: Armour-piercing ammunition from the spaceport's security stores.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHMagazine556x45BB
+      amount: 4
+    - id: DHMagazine762x51BB
+      amount: 2
+    - id: DHMagazine10x24SVP
+      amount: 2
+    - id: DHMagazine127x105SVP
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHCrateControlPointAmmoEmpire
+  name: spaceport munitions cache
+  description: Armour-piercing ammunition from the spaceport's security stores, repacked for Imperial weapons.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHMagazine842x54ImpR
+      amount: 4
+    - id: DHMagazineDrum842x54ImpR
+    - id: DHMagazineDrum14gSlug
+      amount: 2
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHCrateControlPointConstruction
+  name: construction site materials
+  description: Sandbags and steel rods salvaged from the construction site.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHSandbagsFull25
+    - id: DHSandbagsEmpty25
+    - id: PartRodMetal10
+      amount: 2

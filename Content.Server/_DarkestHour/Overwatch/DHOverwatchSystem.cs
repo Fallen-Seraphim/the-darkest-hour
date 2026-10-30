@@ -1,4 +1,5 @@
 using Content.Server._DarkestHour.Assault;
+using Content.Server._DarkestHour.ControlPoints;
 using Content.Shared._DarkestHour.Assault;
 using Content.Shared._DarkestHour.Overwatch;
 using Content.Shared._DarkestHour.Shuttles.Rift;
@@ -25,6 +26,7 @@ namespace Content.Server._DarkestHour.Overwatch;
 public sealed partial class DHOverwatchSystem : EntitySystem
 {
     [Dependency] private DHAssaultRuleSystem _assault = default!;
+    [Dependency] private DHTacticalMapSystem _tacmap = default!;
     [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private SharedJobSystem _jobs = default!;
     [Dependency] private SharedMindSystem _mind = default!;
@@ -50,6 +52,7 @@ public sealed partial class DHOverwatchSystem : EntitySystem
             subs.Event<BoundUIClosedEvent>(OnClosed);
             subs.Event<DHOverwatchWatchMessage>(OnWatch);
             subs.Event<DHOverwatchOrderMessage>(OnOrder);
+            subs.Event<DHTacticalMapRequestMessage>(OnTacticalMapRequest);
         });
 
         SubscribeLocalEvent<DHOverwatchConsoleComponent, ComponentShutdown>(OnShutdown);
@@ -114,6 +117,12 @@ public sealed partial class DHOverwatchSystem : EntitySystem
         _assault.AnnounceToFaction(ent.Comp.Faction, sender, text, OrderSound);
     }
 
+    private void OnTacticalMapRequest(Entity<DHOverwatchConsoleComponent> ent, ref DHTacticalMapRequestMessage args)
+    {
+        if (_tacmap.GetSurfaceMap() is { } map && TryComp<ActorComponent>(args.Actor, out var actor))
+            _tacmap.SendTerrain(map, actor.PlayerSession);
+    }
+
     private void StopWatching(Entity<DHOverwatchConsoleComponent> ent, EntityUid viewer)
     {
         if (!ent.Comp.Watching.Remove(viewer, out var target))
@@ -149,13 +158,16 @@ public sealed partial class DHOverwatchSystem : EntitySystem
     private void UpdateUi(Entity<DHOverwatchConsoleComponent> ent)
     {
         var fighters = new List<DHOverwatchEntry>();
+        var surface = _tacmap.GetSurfaceMap();
         var query = EntityQueryEnumerator<DHAssaultFighterComponent, MobStateComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var fighter, out var mobState, out var xform))
         {
             if (fighter.Faction != ent.Comp.Faction)
                 continue;
 
-            fighters.Add(Entry(uid, mobState, xform));
+            var entry = Entry(uid, mobState, xform);
+            entry.OnSurface = surface != null && xform.MapUid == surface;
+            fighters.Add(entry);
         }
 
         fighters.Sort((a, b) =>
@@ -170,7 +182,11 @@ public sealed partial class DHOverwatchSystem : EntitySystem
             watching[GetNetEntity(viewer)] = GetNetEntity(target);
         }
 
-        _ui.SetUiState(ent.Owner, DHOverwatchUiKey.Key, new DHOverwatchState(ent.Comp.Faction, fighters, watching));
+        var markers = surface is { } map ? _tacmap.Markers(ent.Comp.Faction, map) : new List<DHTacticalMarker>();
+        var version = surface is { } terrainMap ? _tacmap.TerrainVersion(terrainMap) : 0;
+
+        _ui.SetUiState(ent.Owner, DHOverwatchUiKey.Key, new DHOverwatchState(ent.Comp.Faction, fighters, watching,
+            GetNetEntity(surface), version, markers));
     }
 
     private DHOverwatchEntry Entry(EntityUid uid, MobStateComponent mobState, TransformComponent xform)

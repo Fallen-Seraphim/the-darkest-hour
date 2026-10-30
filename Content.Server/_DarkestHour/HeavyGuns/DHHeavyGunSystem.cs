@@ -288,13 +288,20 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     }
 
     /// <summary>ПВО, прикрывающие удар: на гриде-цели (корабль) или в радиусе от точки удара (поверхность).</summary>
+    /// <summary>ПВО, запитанная от зоны захвата (АЭС), молчит, пока зона не у своей стороны.</summary>
+    private bool Unpowered(EntityUid uid)
+    {
+        return TryComp<Content.Shared._DarkestHour.ControlPoints.DHControlPointPoweredComponent>(uid, out var powered) &&
+               powered.Disabled;
+    }
+
     private List<Entity<DHInterceptorComponent>> Defenders(Strike strike)
     {
         var result = new List<Entity<DHInterceptorComponent>>();
         var query = EntityQueryEnumerator<DHInterceptorComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var comp, out var xform))
         {
-            if (!xform.Anchored || comp.Ammo <= 0)
+            if (!xform.Anchored || comp.Ammo <= 0 || Unpowered(uid))
                 continue;
 
             if (strike.Faction != null && FactionOf(uid) == strike.Faction)
@@ -811,7 +818,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         var interceptors = EntityQueryEnumerator<DHInterceptorComponent, TransformComponent>();
         while (interceptors.MoveNext(out var uid, out var comp, out var xform))
         {
-            if (comp.AirRange <= 0f || comp.Ammo <= 0 || now < comp.NextReady || !xform.Anchored ||
+            if (comp.AirRange <= 0f || comp.Ammo <= 0 || now < comp.NextReady || !xform.Anchored || Unpowered(uid) ||
                 !TryComp<DHPlanetSurfaceMapComponent>(xform.MapUid, out var surface) ||
                 _landing.GetAtmosphere(surface.System, surface.Body) is not { } sky)
             {

@@ -60,6 +60,9 @@ public sealed class DHOverwatchEntry
     public int Health;
 
     public bool Disconnected;
+
+    /// <summary>Боец на поверхности планеты (рисуется на тактической карте).</summary>
+    public bool OnSurface;
 }
 
 [Serializable, NetSerializable]
@@ -71,13 +74,66 @@ public sealed class DHOverwatchState : BoundUserInterfaceState
     /// <summary>Кто за консолью → за кем следит: у каждого зрителя своя камера.</summary>
     public Dictionary<NetEntity, NetEntity> Watching;
 
+    /// <summary>Тактическая карта: карта поверхности, версия её местности и отметки.</summary>
+    public NetEntity? TacticalMap;
+    public int TerrainVersion;
+    public List<DHTacticalMarker> Markers;
+
     public DHOverwatchState(DHAssaultFaction faction, List<DHOverwatchEntry> fighters,
-        Dictionary<NetEntity, NetEntity> watching)
+        Dictionary<NetEntity, NetEntity> watching, NetEntity? tacticalMap, int terrainVersion,
+        List<DHTacticalMarker> markers)
     {
         Faction = faction;
         Fighters = fighters;
         Watching = watching;
+        TacticalMap = tacticalMap;
+        TerrainVersion = terrainVersion;
+        Markers = markers;
     }
+}
+
+[Serializable, NetSerializable]
+public enum DHTacticalMarkerKind : byte
+{
+    /// <summary>Зона захвата (радиус, владелец).</summary>
+    ControlPoint,
+    LandingZone,
+
+    /// <summary>Противник, замеченный своими РЛС или детекторами движения.</summary>
+    Enemy,
+    LaserMark,
+    Radar,
+}
+
+[Serializable, NetSerializable]
+public sealed class DHTacticalMarker
+{
+    public DHTacticalMarkerKind Kind;
+    public float X;
+    public float Y;
+    public string Name = string.Empty;
+    public DHAssaultFaction? Owner;
+    public float Radius;
+}
+
+/// <summary>Запрос местности тактической карты (клиент кэширует её по версии).</summary>
+[Serializable, NetSerializable]
+public sealed class DHTacticalMapRequestMessage : BoundUserInterfaceMessage;
+
+/// <summary>
+/// Местность тактической карты: по тайлу — <see cref="Content.Shared._DarkestHour.ControlPoints.DHTacticalTerrain"/>,
+/// строками снизу вверх, RLE (пары «сколько, что»). Left/Bottom — мировые координаты левого нижнего тайла.
+/// </summary>
+[Serializable, NetSerializable]
+public sealed class DHTacticalMapTerrainEvent : EntityEventArgs
+{
+    public NetEntity Map;
+    public int Version;
+    public int Left;
+    public int Bottom;
+    public int Width;
+    public int Height;
+    public byte[] Data = Array.Empty<byte>();
 }
 
 /// <summary>Смотреть глазами бойца (null — отключиться).</summary>
