@@ -70,8 +70,9 @@
     damage:
       types:
         Slash: 3
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
+  - type: Damageable
   - type: Destructible
     thresholds:
     - trigger:

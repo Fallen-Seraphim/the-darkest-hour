@@ -82,8 +82,9 @@
   id: DHCommsRelayBase
   components:
   - type: InteractionOutline
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
+  - type: Damageable
     damageModifierSet: Metallic
   - type: Repairable
     fuelCost: 15
@@ -178,8 +179,9 @@
     interfaces:
       enum.DHFieldPhoneUiKey.Key:
         type: DHFieldPhoneBoundUserInterface
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
+  - type: Damageable
   - type: Destructible
     thresholds:
     - trigger:

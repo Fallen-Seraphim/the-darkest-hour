@@ -143,7 +143,7 @@
 - entity: WindowReinforcedDirectional
   assignments:
   - 5: 2
-- entity: PlasmaWindowDirectional
+- entity: UraniumWindowDirectional # DarkestHour: плазмы нет
   assignments:
   - 5: 3
 - entity: Railing

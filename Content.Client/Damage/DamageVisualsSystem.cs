@@ -445,6 +445,10 @@ public sealed partial class DamageVisualsSystem : VisualizerSystem<DamageVisuals
     /// </summary>
     private void CheckOverlayOrdering(Entity<SpriteComponent> spriteEnt, DamageVisualsComponent damageVisComp)
     {
+        // DarkestHour: визуализатор не инициализирован (нет Injurable/Appearance) — слоя оверлея нет, иначе исключение каждый кадр.
+        if (damageVisComp.TopMostLayerKey == null)
+            return;
+
         if (spriteEnt.Comp[damageVisComp.TopMostLayerKey] != spriteEnt.Comp[spriteEnt.Comp.AllLayers.Count() - 1])
         {
             if (!damageVisComp.TrackAllDamage && damageVisComp.DamageOverlayGroups != null)

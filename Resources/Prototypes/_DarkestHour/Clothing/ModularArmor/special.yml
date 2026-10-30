@@ -237,8 +237,9 @@
         - MachineLayer
   - type: DHArmorRack
   - type: Anchorable
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: StructuralMetallic
   - type: Destructible
     thresholds:

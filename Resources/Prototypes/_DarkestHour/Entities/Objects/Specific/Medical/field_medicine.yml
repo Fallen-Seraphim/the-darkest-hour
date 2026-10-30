@@ -152,7 +152,7 @@
   - type: Storage
     maxItemSize: Normal
     grid:
-    - 0,0,5,2
+    - 0,0,7,3
   - type: StaticPrice
     price: 300
 

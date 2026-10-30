@@ -27,8 +27,9 @@
         layer:
         - MidImpassable
         - LowImpassable
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
+  - type: Damageable
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
