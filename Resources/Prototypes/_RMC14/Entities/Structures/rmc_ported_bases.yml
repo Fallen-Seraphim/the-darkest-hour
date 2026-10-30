@@ -1,0 +1,138 @@
+# Базовые прототипы RMC-14, от которых наследуется портированный декор.
+
+- type: entity
+  id: RMCBaseRockIndistructable
+  abstract: true
+  components:
+  - type: Clickable
+  - type: Sprite
+    noRot: true
+    sprite: _RMC14/Objects/Flora/rocks.rsi
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.4
+        density: 1000
+        layer:
+        - HalfWallLayer
+        - Opaque
+  - type: Climbable
+
+- type: entity
+  parent: RMCBaseRockIndistructable
+  id: RMCBaseRockDestructible
+  abstract: true
+  components:
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+      - trigger:
+          !type:DamageTrigger
+          damage: 200
+        behaviors:
+          - !type:DoActsBehavior
+            acts: [ "Destruction" ]
+
+- type: entity
+  parent: RMCBaseBush
+  id: RMCBaseGrass
+  suffix: RMCBaseGrass
+  abstract: true
+  name: grass
+  components:
+  - type: Sprite
+    sprite: Decals/Flora/flora_grass.rsi
+
+- type: entity
+  id: RMCBaseTree
+  description: Yep, it's a tree.
+  abstract: true
+  components:
+  - type: SpriteFade
+  - type: Clickable
+  - type: Sprite
+    noRot: true
+    sprite: Objects/Decoration/Flora/flora_trees.rsi
+    drawdepth: Overdoors
+    offset: 0,0.9
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.35,-0.4,0.35,0.4"
+        density: 1000
+        layer:
+        - WallLayer
+  - type: Damageable
+    damageModifierSet: Wood
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: MeleeSound
+    soundGroups:
+      Brute:
+        path: /Audio/Effects/chop.ogg
+        params:
+          variation: 0.05
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 400
+      behaviors:
+        - !type:DoActsBehavior
+          acts: [ "Destruction" ]
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/tree_fell.ogg
+          params:
+            volume: 5
+            variation: 0.05
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  id: RMCBaseBush
+  suffix: RMCBaseBush
+  abstract: true
+  name: bush
+  components:
+  - type: SpriteFade
+  - type: Clickable
+  - type: Sprite
+    noRot: true
+    sprite: Decals/Flora/flora_bushes.rsi
+    drawdepth: FloorObjects
+  - type: Physics
+    bodyType: Static
+    canCollide: false
+  - type: Damageable
+    damageModifierSet: Wood
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/tree_fell.ogg
+          params:
+            volume: 5
+            variation: 0.05
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
