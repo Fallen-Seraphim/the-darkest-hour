@@ -228,3 +228,32 @@ dh-construction-barbed-wire = barbed wire
 dh-construction-barbed-wire-desc = A coil of barbed wire twisted from a steel sheet.
 dh-construction-sandbag = empty sandbag
 dh-construction-sandbag-desc = A sandbag sewn from cloth. Fill it with a shovel on bare ground.
+
+dh-trench-need-ground = You can only dig a trench in bare ground.
+dh-trench-blocked = Something is in the way.
+dh-weapon-mount-examine-nest = [color=#9fd06f]Machine-gun nest[/color]: dug in or behind sandbags, the gun spreads less.
+
+dh-republic-kit-window-title = Republic requisition
+dh-republic-kit-window-description = Choose your loadout. The case turns into the chosen gear: weapon, ammunition and an RMB-1 modular armour suit with its special system.
+dh-republic-set-rifleman-rifle-name = Rifle: RAR-M-11-1
+dh-republic-set-rifleman-rifle-description = The standard RAR-M-11-1 rifle with four FMG magazines, one armour-piercing BB and a grenade. RMB-1 with a composite torso; special system: auto-medic.
+dh-republic-set-rifleman-marksman-name = Marksman: RAR-M-11-2
+dh-republic-set-rifleman-marksman-description = The RAR-M-11-2 marksman rifle with four 7.62 mm FMG magazines. RMB-1 with a composite torso; special system: extra storage.
+dh-republic-set-rifleman-smg-name = SMG: RAP-TOR-M-12-16
+dh-republic-set-rifleman-smg-description = The RAP-TOR-M-12-16 SMG with three expanding and two armour-piercing SVP magazines. RMB-1 with a composite torso; special system: auto-medic.
+dh-republic-set-machinegunner-light-name = Light machine gun: RAMG-M-14-1
+dh-republic-set-machinegunner-light-description = The RAMG-M-14-1 squad machine gun with three 100-round boxes. Light RMB-1 plates; special system: auto-medic.
+dh-republic-set-machinegunner-heavy-name = Mounted machine gun: RSPMG-10-54
+dh-republic-set-machinegunner-heavy-description = The RSPMG-10-54 tripod machine gun with three belts. Heavy RMB-1 plates and heavy armoured magboots (change into them); special system: auto-medic.
+dh-republic-set-sniper-antimateriel-name = Anti-materiel rifle: RMAR-AS-M-15-18
+dh-republic-set-sniper-antimateriel-description = The 12.7 mm RMAR-AS-M-15-18 with three SVP and one A magazine, binoculars. Light RMB-1 plates; special system: auto-medic.
+dh-republic-set-sniper-marksman-name = Marksman rifle: RMAD-AS-M-15-17
+dh-republic-set-sniper-marksman-description = The 10x51 mm RMAD-AS-M-15-17 with three FMG and two SVP magazines, binoculars. Light RMB-1 plates; special system: auto-medic.
+dh-republic-set-medic-smg-name = SMG: RAP-TOR-M-12-16
+dh-republic-set-medic-smg-description = The RAP-TOR-M-12-16 SMG with two expanding and two SVP magazines. Light RMB-1 plates; special system: auto-medic.
+dh-republic-set-medic-rifle-name = Rifle: RAR-M-11-1
+dh-republic-set-medic-rifle-description = The RAR-M-11-1 rifle with four FMG magazines. Light RMB-1 plates; special system: auto-medic.
+dh-republic-set-officer-rifle-name = Rifle: RAR-M-11-2
+dh-republic-set-officer-rifle-description = The RAR-M-11-2 rifle with three FMG and one expanding magazine. Composite RMB-1 plates.
+dh-republic-set-officer-smg-name = SMG: RAP-TOR-M-12-16
+dh-republic-set-officer-smg-description = The RAP-TOR-M-12-16 SMG with two expanding and two SVP magazines. Composite RMB-1 plates.

@@ -230,3 +230,32 @@ dh-construction-barbed-wire = колючая проволока
 dh-construction-barbed-wire-desc = Моток колючей проволоки, скрученный из листа стали.
 dh-construction-sandbag = пустой мешок для песка
 dh-construction-sandbag-desc = Мешок для песка, сшитый из ткани. Наполните его лопатой на голой земле.
+
+dh-trench-need-ground = Окоп можно выкопать только в голой земле.
+dh-trench-blocked = Здесь что-то мешает.
+dh-weapon-mount-examine-nest = [color=#9fd06f]Пулемётное гнездо[/color]: в окопе или за мешками пулемёт бьёт кучнее.
+
+dh-republic-kit-window-title = Республиканское снабжение
+dh-republic-kit-window-description = Выберите снаряжение. Кейс превратится в выбранный комплект: оружие, боеприпасы и модульная броня РМБ-1 с особой системой.
+dh-republic-set-rifleman-rifle-name = Винтовка: RAR-M-11-1
+dh-republic-set-rifleman-rifle-description = Базовая винтовка RAR-M-11-1: четыре магазина FMG, один бронебойный BB и граната. РМБ-1 с композитным торсом; особая система: автомедик.
+dh-republic-set-rifleman-marksman-name = Марксман: RAR-M-11-2
+dh-republic-set-rifleman-marksman-description = Марксманская винтовка RAR-M-11-2 с четырьмя магазинами 7,62 мм FMG. РМБ-1 с композитным торсом; особая система: дополнительное хранилище.
+dh-republic-set-rifleman-smg-name = ПП: RAP-TOR-M-12-16
+dh-republic-set-rifleman-smg-description = Пистолет-пулемёт RAP-TOR-M-12-16: три магазина экспансивных и два бронебойных SVP. РМБ-1 с композитным торсом; особая система: автомедик.
+dh-republic-set-machinegunner-light-name = Ручной пулемёт: RAMG-M-14-1
+dh-republic-set-machinegunner-light-description = Пулемёт поддержки RAMG-M-14-1 с тремя коробами по 100 патронов. Лёгкие пластины РМБ-1; особая система: автомедик.
+dh-republic-set-machinegunner-heavy-name = Станковый пулемёт: RSPMG-10-54
+dh-republic-set-machinegunner-heavy-description = Станковый пулемёт RSPMG-10-54 с тремя лентами. Тяжёлые пластины РМБ-1 и тяжёлые бронированные магнитные сапоги (переобуйтесь); особая система: автомедик.
+dh-republic-set-sniper-antimateriel-name = Противотанковое ружьё: RMAR-AS-M-15-18
+dh-republic-set-sniper-antimateriel-description = Ружьё 12,7 мм RMAR-AS-M-15-18: три магазина SVP и один A, бинокль. Лёгкие пластины РМБ-1; особая система: автомедик.
+dh-republic-set-sniper-marksman-name = Марксманская винтовка: RMAD-AS-M-15-17
+dh-republic-set-sniper-marksman-description = Винтовка 10×51 мм RMAD-AS-M-15-17: три магазина FMG и два SVP, бинокль. Лёгкие пластины РМБ-1; особая система: автомедик.
+dh-republic-set-medic-smg-name = ПП: RAP-TOR-M-12-16
+dh-republic-set-medic-smg-description = Пистолет-пулемёт RAP-TOR-M-12-16: два магазина экспансивных и два SVP. Лёгкие пластины РМБ-1; особая система: автомедик.
+dh-republic-set-medic-rifle-name = Винтовка: RAR-M-11-1
+dh-republic-set-medic-rifle-description = Винтовка RAR-M-11-1 с четырьмя магазинами FMG. Лёгкие пластины РМБ-1; особая система: автомедик.
+dh-republic-set-officer-rifle-name = Винтовка: RAR-M-11-2
+dh-republic-set-officer-rifle-description = Винтовка RAR-M-11-2: три магазина FMG и один экспансивный. Композитные пластины РМБ-1.
+dh-republic-set-officer-smg-name = ПП: RAP-TOR-M-12-16
+dh-republic-set-officer-smg-description = Пистолет-пулемёт RAP-TOR-M-12-16: два магазина экспансивных и два SVP. Композитные пластины РМБ-1.

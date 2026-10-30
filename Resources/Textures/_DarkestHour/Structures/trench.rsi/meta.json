@@ -1,0 +1,46 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Procedurally drawn for The Darkest Hour (Tools/_DarkestHour/trench/build.py)",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "full"
+        },
+        {
+            "name": "trench0",
+            "directions": 4
+        },
+        {
+            "name": "trench1",
+            "directions": 4
+        },
+        {
+            "name": "trench2",
+            "directions": 4
+        },
+        {
+            "name": "trench3",
+            "directions": 4
+        },
+        {
+            "name": "trench4",
+            "directions": 4
+        },
+        {
+            "name": "trench5",
+            "directions": 4
+        },
+        {
+            "name": "trench6",
+            "directions": 4
+        },
+        {
+            "name": "trench7",
+            "directions": 4
+        }
+    ]
+}

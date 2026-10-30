@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Shared._DarkestHour.Fortifications;
 using Content.Shared.Actions;
 using Content.Shared.Buckle;
 using Content.Shared.Buckle.Components;
@@ -47,6 +48,8 @@ public sealed partial class DHWeaponMountSystem : EntitySystem
     [Dependency] private SharedHandsSystem _hands = default!;
     [Dependency] private SharedMapSystem _map = default!;
     [Dependency] private DHOverheatSystem _overheat = default!;
+    [Dependency] private SharedGunSystem _gun = default!;
+    [Dependency] private DHTrenchCoverSystem _trench = default!;
     [Dependency] private INetManager _net = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private ItemSlotsSystem _slots = default!;
@@ -78,6 +81,7 @@ public sealed partial class DHWeaponMountSystem : EntitySystem
         SubscribeLocalEvent<DHMountableWeaponComponent, EntInsertedIntoContainerMessage>(OnWeaponMagazineChanged);
         SubscribeLocalEvent<DHMountableWeaponComponent, EntRemovedFromContainerMessage>(OnWeaponMagazineChanged);
         SubscribeLocalEvent<DHMountableWeaponComponent, DHWeaponOverheatedEvent>(OnWeaponOverheated);
+        SubscribeLocalEvent<DHMountableWeaponComponent, GunRefreshModifiersEvent>(OnWeaponRefreshModifiers);
 
         SubscribeLocalEvent<DHWeaponControllerComponent, DHDismountWeaponActionEvent>(OnDismountAction);
         SubscribeLocalEvent<DHWeaponControllerComponent, MobStateChangedEvent>(OnControllerMobState);
@@ -189,13 +193,55 @@ public sealed partial class DHWeaponMountSystem : EntitySystem
         _transform.AnchorEntity((ent.Owner, xform));
 
         ent.Comp.Deployed = true;
+        ent.Comp.Nested = IsNest(coords, args.User);
         Dirty(ent);
+        RefreshWeapon(ent);
         _buckle.StrapSetEnabled(ent, true);
         UpdateAppearance(ent);
         _audio.PlayPredicted(ent.Comp.DeploySound, ent, args.User);
 
         // Стрелок стоит прямо за развёрнутым станком — сразу ставим его к пулемёту.
         _buckle.TryBuckle(args.User, args.User, ent, popup: false);
+    }
+
+    /// <summary>Гнездо: на клетке станка окоп или мешки с песком, или стрелок ставит станок из окопа.</summary>
+    private bool IsNest(EntityCoordinates mountCoords, EntityUid user)
+    {
+        if (_trench.TrenchAt(mountCoords) != null || _trench.TrenchOf(user) != null)
+            return true;
+
+        if (_transform.GetGrid(mountCoords) is not { } gridUid || !TryComp(gridUid, out MapGridComponent? grid))
+            return false;
+
+        var anchored = _map.GetAnchoredEntitiesEnumerator(gridUid, grid, _map.TileIndicesFor(gridUid, grid, mountCoords));
+        while (anchored.MoveNext(out var uid))
+        {
+            if (HasComp<DHSandbagBarricadeComponent>(uid))
+                return true;
+        }
+
+        return false;
+    }
+
+    private void RefreshWeapon(Entity<DHWeaponMountComponent> ent)
+    {
+        if (ent.Comp.MountedWeapon is { } weapon)
+            _gun.RefreshModifiers(weapon);
+    }
+
+    private void OnWeaponRefreshModifiers(Entity<DHMountableWeaponComponent> ent, ref GunRefreshModifiersEvent args)
+    {
+        if (ent.Comp.MountedTo is not { } mount || !TryComp(mount, out DHWeaponMountComponent? mountComp) ||
+            !mountComp.Deployed || !mountComp.Nested)
+        {
+            return;
+        }
+
+        var k = mountComp.NestSpreadMultiplier;
+        args.MinAngle *= k;
+        args.MaxAngle *= k;
+        args.AngleIncrease *= k;
+        args.CameraRecoilScalar *= k;
     }
 
     private void TryUndeploy(Entity<DHWeaponMountComponent> ent, EntityUid user)
@@ -229,7 +275,9 @@ public sealed partial class DHWeaponMountSystem : EntitySystem
         _transform.SetLocalRotation(ent, Angle.Zero, xform);
 
         ent.Comp.Deployed = false;
+        ent.Comp.Nested = false;
         Dirty(ent);
+        RefreshWeapon(ent);
         _buckle.StrapSetEnabled(ent, false);
         UpdateAppearance(ent);
         _audio.PlayPredicted(ent.Comp.UndeploySound, ent, args.User);
@@ -332,6 +380,9 @@ public sealed partial class DHWeaponMountSystem : EntitySystem
             args.PushMarkup(Loc.GetString(ent.Comp.Deployed
                 ? "dh-weapon-mount-examine-deployed"
                 : "dh-weapon-mount-examine-folded"));
+
+            if (ent.Comp.Deployed && ent.Comp.Nested)
+                args.PushMarkup(Loc.GetString("dh-weapon-mount-examine-nest"));
         }
     }
 

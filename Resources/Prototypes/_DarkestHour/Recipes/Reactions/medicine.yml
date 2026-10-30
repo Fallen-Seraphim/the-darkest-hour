@@ -119,3 +119,28 @@
       amount: 1
   products:
     DHAlbendazole: 3
+
+- type: reaction
+  id: DHTramadex
+  reactants:
+    DHMorphine:
+      amount: 1
+    Dylovene:
+      amount: 1
+    Ethanol:
+      amount: 1
+  products:
+    DHTramadex: 2
+
+- type: reaction
+  id: DHNeuroblocker
+  minTemp: 370
+  reactants:
+    DHTramadex:
+      amount: 1
+    Epinephrine:
+      amount: 1
+    Lithium:
+      amount: 1
+  products:
+    DHNeuroblocker: 2

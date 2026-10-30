@@ -1,0 +1,83 @@
+# DarkestHour: бронеботинки к модульной броне (решение автора 2026-10-30). Защищают стопы классом защиты
+# (DHPartArmor, как шлем голову): лёгкие — класс 2, тяжёлые — класс 3. Магнитные — на основе магнитных сапог фракции.
+
+- type: entity
+  parent: ClothingShoesBootsCombat
+  id: DHClothingShoesArmoredLight
+  name: light armoured boots
+  description: Combat boots with plated toecaps and shin guards. Protection class 2 for the feet.
+  components:
+  - type: DHPartArmor
+    parts: [ FootLeft, FootRight ]
+    armorClass: 2
+  - type: ClothingSpeedModifier
+    walkModifier: 0.98
+    sprintModifier: 0.98
+  - type: StaticPrice
+    price: 200
+
+- type: entity
+  parent: ClothingShoesBootsCombat
+  id: DHClothingShoesArmoredHeavy
+  name: heavy armoured boots
+  description: Heavy plated boots for assault troops. Protection class 3 for the feet; they weigh you down.
+  components:
+  - type: Sprite
+    sprite: Clothing/Shoes/Boots/jackboots.rsi
+  - type: Clothing
+    sprite: Clothing/Shoes/Boots/jackboots.rsi
+  - type: DHPartArmor
+    parts: [ FootLeft, FootRight ]
+    armorClass: 3
+  - type: ClothingSpeedModifier
+    walkModifier: 0.95
+    sprintModifier: 0.95
+  - type: StaticPrice
+    price: 400
+
+# Магнитные: Республика — на основе сапог ERT, Империя — красных магнитных.
+- type: entity
+  parent: ClothingShoesBootsMagERT
+  id: DHClothingShoesMagArmoredLightRepublic
+  name: light armoured magboots
+  description: RMB-1 magnetic boots with plated toecaps. Protection class 2 for the feet. Can hold 0.75 L of gas for the thrusters.
+  components:
+  - type: DHPartArmor
+    parts: [ FootLeft, FootRight ]
+    armorClass: 2
+
+- type: entity
+  parent: ClothingShoesBootsMagERT
+  id: DHClothingShoesMagArmoredHeavyRepublic
+  name: heavy armoured magboots
+  description: RMB-1 heavy plated magnetic boots. Protection class 3 for the feet; slower than the light pair.
+  components:
+  - type: DHPartArmor
+    parts: [ FootLeft, FootRight ]
+    armorClass: 3
+  - type: ClothingSpeedModifier
+    walkModifier: 0.85
+    sprintModifier: 0.85
+
+- type: entity
+  parent: ClothingShoesBootsMagSyndie
+  id: DHClothingShoesMagArmoredLightImperial
+  name: light armoured magboots
+  description: IMB-1 magnetic boots with plated toecaps. Protection class 2 for the feet. Can hold 0.75 L of gas for the thrusters.
+  components:
+  - type: DHPartArmor
+    parts: [ FootLeft, FootRight ]
+    armorClass: 2
+
+- type: entity
+  parent: ClothingShoesBootsMagSyndie
+  id: DHClothingShoesMagArmoredHeavyImperial
+  name: heavy armoured magboots
+  description: IMB-1 heavy plated magnetic boots. Protection class 3 for the feet; slower than the light pair.
+  components:
+  - type: DHPartArmor
+    parts: [ FootLeft, FootRight ]
+    armorClass: 3
+  - type: ClothingSpeedModifier
+    walkModifier: 0.85
+    sprintModifier: 0.85
