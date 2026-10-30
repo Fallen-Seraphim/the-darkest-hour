@@ -330,7 +330,7 @@
 - type: entity
   parent: CrateBaseSecure
   id: CrateSyndicateSecure
-  name: secure syndicate crate
+  name: secure imperial crate
   description: A dark steel crate with red bands and a letter S embossed on the front.
   components:
   - type: Icon
@@ -807,7 +807,7 @@
 - type: entity
   parent: CrateGenericSteel
   id: CrateSyndicate
-  name: syndicate crate
+  name: imperial crate
   description: A dark steel crate with red bands and a letter S embossed on the front.
   components:
   - type: Icon

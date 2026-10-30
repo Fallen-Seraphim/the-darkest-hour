@@ -23,13 +23,13 @@ ent-BorgChassisSelectable = киборг
 ent-BorgChassisService = киборг-официант
     .desc = Гибрид машины и человека, помогающий в работе станции. Они обожают, когда их снова и снова просят назвать свои законы.
 
-ent-BorgChassisSyndicateAssault = штурмовой киборг Синдиката
+ent-BorgChassisSyndicateAssault = штурмовой киборг Империи
     .desc = Машина для убийств с доступом к различным смертоносным модулям.
 
-ent-BorgChassisSyndicateMedical = медицинский киборг Синдиката
+ent-BorgChassisSyndicateMedical = медицинский киборг Империи
     .desc = Боевой медицинский киборг. Имеет ограниченный наступательный потенциал, но с лихвой компенсирует его своими вспомогательными возможностями.
 
-ent-BorgChassisSyndicateSaboteur = саботажный киборг Синдиката
+ent-BorgChassisSyndicateSaboteur = саботажный киборг Империи
     .desc = Изящный инженерный киборг, оснащённый модулями скрытности. Проектор-хамелеон позволяет ему маскироваться под киборга Nanotrasen.
 
 ent-EngineeringBorgChassisDerelict = брошенный киборг-инженер
@@ -44,5 +44,5 @@ ent-MedicalBorgChassisDerelict = брошенный киборг-доктор
 ent-MiningBorgChassisDerelict = брошенный киборг-шахтёр
     .desc = Гибрид человека и машины, помогающий отделу снабжения. Этот увидел не ту сторону гибтонита.
 
-ent-SyndicateAssaultBorgChassisDerelict = брошенный штурмовой киборг Синдиката
+ent-SyndicateAssaultBorgChassisDerelict = брошенный штурмовой киборг Империи
     .desc = Ловкая, жестокая, убивающая машина с доступом к разнообразным смертоносным модулям. Этот больше ржаво-оранжевый, чем кроваво-красный.

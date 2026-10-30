@@ -1,24 +1,24 @@
-ent-BaseUplinkRadio = аплинк синдиката
+ent-BaseUplinkRadio = аплинк Империи
     .desc = Подозрительно выглядящее старое радио...
     .suffix = Пустой
 
-ent-BaseUplinkRadio20TC = аплинк синдиката
+ent-BaseUplinkRadio20TC = аплинк Империи
     .desc = Подозрительно выглядящее старое радио...
     .suffix = 20 ТК
 
-ent-BaseUplinkRadio25TC = аплинк синдиката
+ent-BaseUplinkRadio25TC = аплинк Империи
     .desc = Подозрительно выглядящее старое радио...
     .suffix = 25 ТК
 
-ent-BaseUplinkRadio40TC = аплинк синдиката
+ent-BaseUplinkRadio40TC = аплинк Империи
     .desc = Подозрительно выглядящее старое радио...
     .suffix = 40 ТК, ЯдерныйОперативник
 
-ent-BaseUplinkRadio60TC = аплинк синдиката
+ent-BaseUplinkRadio60TC = аплинк Империи
     .desc = Подозрительно выглядящее старое радио...
     .suffix = 60 ТК, СолоОпер
 
-ent-BaseUplinkRadioDebug = аплинк синдиката
+ent-BaseUplinkRadioDebug = аплинк Империи
     .desc = Подозрительно выглядящее старое радио...
     .suffix = DEBUG
 

@@ -21,26 +21,26 @@ uplink-clothing-outer-vest-web-elite-desc = A synthetic armor vest. This one has
 uplink-clothing-shoes-boots-mag-syndie-name = Blood-red Magboots
 uplink-clothing-shoes-boots-mag-syndie-desc = A pair of boots that when turned on prevent slipping and, in zero gravity, allow you to move normally, at the cost of a slight slowdown. Additionally, they have jetpack functionality and come fueled, but don't last for long.
 
-uplink-eva-syndie-name = Syndicate EVA Bundle
+uplink-eva-syndie-name = Imperial EVA Bundle
 uplink-eva-syndie-desc = A simple EVA suit that offers no protection other than what's needed to survive in space.
 
 uplink-hardsuit-carp-name = Carp Hardsuit
 uplink-hardsuit-carp-desc = Looks like an ordinary carp suit, except fully spaceproof and tricks space carp into thinking you are one of them.
 
-uplink-hardsuit-syndie-name = Syndicate Hardsuit
-uplink-hardsuit-syndie-desc = The Syndicate's well known armored blood red hardsuit, capable of space walks and bullet resistant.
+uplink-hardsuit-syndie-name = Imperial Hardsuit
+uplink-hardsuit-syndie-desc = The Empire's well known armored blood red hardsuit, capable of space walks and bullet resistant.
 
-uplink-syndie-raid-name = Syndicate Raid Suit
+uplink-syndie-raid-name = Imperial Raid Suit
 uplink-syndie-raid-desc = A very durable and reasonably flexible suit of blood-red armor, reinforced against all common forms of damage but not capable of space walks. Comes with a sick helmet.
 
-uplink-hardsuit-syndieelite-name = Syndicate Elite Hardsuit
+uplink-hardsuit-syndieelite-name = Imperial Elite Hardsuit
 uplink-hardsuit-syndieelite-desc = A modified version of the blood-red hardsuit trading some ballistic protection for strong resistance to explosives, energy weapons and the most intense of atmospheric conditions. Used by the truly elite.
 
 uplink-clothing-outer-hardsuit-juggernaut-name = Cybersun Juggernaut Suit
 uplink-clothing-outer-hardsuit-juggernaut-desc = Hyper resilient armor made of materials tested in the Tau chromosphere facility. The only thing that's going to be slowing you down is this suit... and disablers.
 
-uplink-clothing-eyes-hud-syndicate-name = Syndicate Visor
-uplink-clothing-eyes-hud-syndicate-desc = The syndicate's professional head-up display, designed for better detection of humanoids and their subsequent elimination.
+uplink-clothing-eyes-hud-syndicate-name = Imperial Visor
+uplink-clothing-eyes-hud-syndicate-desc = The Empire's professional head-up display, designed for better detection of humanoids and their subsequent elimination.
 
-uplink-backpack-syndicate-name = Syndicate backpack
+uplink-backpack-syndicate-name = Imperial backpack
 uplink-backpack-syndicate-desc = A lightweight expanded backpack with explosion proofing for holding various traitor goods.

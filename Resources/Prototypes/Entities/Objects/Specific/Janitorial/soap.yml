@@ -157,7 +157,7 @@
   parent: BaseSoap
   id: SoapletSyndie
   name: soaplet
-  description: A tiny piece of syndicate soap.
+  description: A tiny piece of imperial soap.
   categories: [ HideSpawnMenu ]
   components:
   - type: Solution

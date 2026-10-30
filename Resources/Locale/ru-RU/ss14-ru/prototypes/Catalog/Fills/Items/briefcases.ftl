@@ -4,7 +4,7 @@ ent-BriefcaseBrownFilled = коричневый чемодан
 
 ent-BriefcaseSyndieLobbyingBundleFilled = коричневый чемодан
     .desc = Пригодится для переноски предметов в руках.
-    .suffix = Синдикат, Кредиты
+    .suffix = Империя, Кредиты
 
 ent-BriefcaseSyndieSniperBundleFilled = коричневый чемодан
     .desc = Пригодится для переноски предметов в руках.

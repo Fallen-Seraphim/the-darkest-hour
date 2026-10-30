@@ -64,8 +64,8 @@
 - type: entity
   parent: BaseTarget
   id: TargetSyndicate
-  name: syndicate target
-  description: A shooting target. This one is a syndicate agent.
+  name: imperial target
+  description: A shooting target. This one is an imperial agent.
   components:
   - type: Sprite
     sprite: Objects/Specific/Security/target.rsi

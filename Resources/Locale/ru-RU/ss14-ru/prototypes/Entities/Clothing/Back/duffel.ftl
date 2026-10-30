@@ -49,13 +49,13 @@ ent-ClothingBackpackDuffelScience = вещмешок учёного
 ent-ClothingBackpackDuffelSecurity = вещмешок охраны
     .desc = Большой вещмешок для хранения дополнительных припасов охраны.
 
-ent-ClothingBackpackDuffelSyndicate = вещмешок Синдиката
+ent-ClothingBackpackDuffelSyndicate = вещмешок Империи
     .desc = Большой вещмешок для хранения дополнительных предательских предметов.
 
-ent-ClothingBackpackDuffelSyndicateAmmo = вещмешок Синдиката
+ent-ClothingBackpackDuffelSyndicateAmmo = вещмешок Империи
     .desc = Большой вещмешок для хранения дополнительных предательских предметов.
 
-ent-ClothingBackpackDuffelSyndicateMedical = вещмешок Синдиката
+ent-ClothingBackpackDuffelSyndicateMedical = вещмешок Империи
     .desc = Большой вещмешок для хранения дополнительных предательских предметов.
 
 ent-ClothingBackpackDuffelVirology = вещмешок вирусолога

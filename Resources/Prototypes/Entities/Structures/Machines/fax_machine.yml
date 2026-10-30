@@ -114,8 +114,8 @@
 - type: entity
   parent: FaxMachineBase
   id: FaxMachineSyndie
-  name: syndicate long range fax machine
-  suffix: Syndicate
+  name: imperial long range fax machine
+  suffix: Imperial
   components:
   - type: Sprite
     layers:

@@ -1105,7 +1105,7 @@
 - type: entity
   parent: [ BasePDA, BaseSyndicateContraband ]
   id: SyndiPDA
-  name: syndicate PDA
+  name: imperial PDA
   description: Ok, time to be a productive member of- oh cool I'm a bad guy time to kill people!
   components:
   - type: Pda
@@ -1129,7 +1129,7 @@
 - type: entity
   parent: [ SyndiPDA, BaseSyndicateContraband ]
   id: SyndiOperativePDA
-  name: syndicate operative PDA
+  name: imperial operative PDA
   description: Death to NT!
   components:
   - type: Pda
@@ -1145,7 +1145,7 @@
 - type: entity
   parent: [ SyndiOperativePDA, BaseSyndicateContraband ]
   id: SyndiCorpsmanPDA
-  name: syndicate corpsman PDA
+  name: imperial corpsman PDA
   description: Commander... I need to cook!
   components:
   - type: Pda
@@ -1168,7 +1168,7 @@
 - type: entity
   parent: [ SyndiOperativePDA, BaseSyndicateContraband ]
   id: SyndiCommanderPDA
-  name: syndicate commander PDA
+  name: imperial commander PDA
   description: So what are we, some kind of Nukie squad?
   components:
   - type: Pda

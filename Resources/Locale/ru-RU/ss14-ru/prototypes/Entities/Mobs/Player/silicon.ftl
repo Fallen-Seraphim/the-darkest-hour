@@ -20,26 +20,26 @@ ent-PlayerBorgDerelictGhostRole = брошенный киборг
     .desc = Гибрид человека и машины, помогающий в работе станции. Этот находится в очень запущенном состоянии.
     .suffix = Роль призрака
 
-ent-PlayerBorgSyndicateAssaultBattery = штурмовой киборг Синдиката
+ent-PlayerBorgSyndicateAssaultBattery = штурмовой киборг Империи
     .desc = Машина для убийств с доступом к различным смертоносным модулям.
     .suffix = Батарея, Модуль, Оперативник
 
-ent-PlayerBorgSyndicateAssaultGhostRole = штурмовой киборг Синдиката
+ent-PlayerBorgSyndicateAssaultGhostRole = штурмовой киборг Империи
     .desc = Машина для убийств с доступом к различным смертоносным модулям.
     .suffix = Роль призрака
 
-ent-PlayerBorgSyndicateDerelictGhostRole = брошенный штурмовой киборг Синдиката
+ent-PlayerBorgSyndicateDerelictGhostRole = брошенный штурмовой киборг Империи
     .desc = Ловкая, жестокая, убивающая машина с доступом к разнообразным смертоносным модулям. Этот больше ржаво-оранжевый, чем кроваво-красный.
     .suffix = Роль призрака
 
-ent-PlayerBorgSyndicateInvasionGhostRoleSpawner = спавнер борг синдикат вторженец
+ent-PlayerBorgSyndicateInvasionGhostRoleSpawner = спавнер борг имперский вторженец
     .desc = { "" }
 
-ent-PlayerBorgSyndicateSaboteurBattery = саботажный киборг Синдиката
+ent-PlayerBorgSyndicateSaboteurBattery = саботажный киборг Империи
     .desc = Изящный инженерный киборг, оснащённый модулями скрытности. Проектор-хамелеон позволяет ему маскироваться под киборга Nanotrasen.
     .suffix = Батарея, Модуль, Оперативник
 
-ent-PlayerBorgSyndicateSaboteurGhostRole = саботажный киборг Синдиката
+ent-PlayerBorgSyndicateSaboteurGhostRole = саботажный киборг Империи
     .desc = Изящный инженерный киборг, оснащённый модулями скрытности. Проектор-хамелеон позволяет ему маскироваться под киборга Nanotrasen.
     .suffix = Роль призрака
 
@@ -86,7 +86,7 @@ ent-PlayerStationAiEmpty = ядро ИИ
     .desc = Последние достижения в области искусственного интеллекта.
     .suffix = Пустой
 
-ent-PlayerSyndicateAssaultBorgDerelict = брошенный штурмовой киборг Синдиката
+ent-PlayerSyndicateAssaultBorgDerelict = брошенный штурмовой киборг Империи
     .desc = Ловкая, жестокая, убивающая машина с доступом к разнообразным смертоносным модулям. Этот больше ржаво-оранжевый, чем кроваво-красный.
     .suffix = Батарея, Модуль
 

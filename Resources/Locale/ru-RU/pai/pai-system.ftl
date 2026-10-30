@@ -13,14 +13,14 @@ pai-system-role-description = Станьте чьим-то персональн�
 
 pai-system-role-description-potato = Это детская игрушка. И теперь вы в ней живёте.
 
-pai-system-role-description-syndicate = Станьте чьим-нибудь приятелем из Синдиката!
+pai-system-role-description-syndicate = Станьте чьим-нибудь приятелем из Империи!
                                         (Воспоминания *не* прилагаются.)
 
 pai-system-role-name = Персональный ИИ
 
 pai-system-role-name-potato = Картофельный Искусственный Интеллект
 
-pai-system-role-name-syndicate = Персональный ИИ Синдиката
+pai-system-role-name-syndicate = Персональный ИИ Империи
 
 pai-system-scramble-popup = Микросхемы пИИ перенапряжены электричеством!
 

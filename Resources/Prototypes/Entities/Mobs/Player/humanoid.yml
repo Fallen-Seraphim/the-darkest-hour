@@ -594,7 +594,7 @@
 
 - type: entity
   id: RandomHumanoidSpawnerSyndicateAgent
-  name: syndicate agent
+  name: imperial agent
   components:
     - type: Sprite
       sprite: Mobs/Species/Human/parts.rsi

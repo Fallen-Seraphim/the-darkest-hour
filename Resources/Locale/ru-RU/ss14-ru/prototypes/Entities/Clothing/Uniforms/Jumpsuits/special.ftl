@@ -5,22 +5,22 @@ ent-ClothingUniformJumpsuitNinja = комбинезон ниндзя
     .desc = Комбинезон с наноусилением, разработанный для максимального комфорта и тактичности.
 
 ent-ClothingUniformJumpsuitOperative = комбинезон оперативника
-    .desc = Униформа элитных агентов Синдиката, выполняющих тактические операции в глубоком космосе.
+    .desc = Униформа элитных агентов Империи, выполняющих тактические операции в глубоком космосе.
 
 ent-ClothingUniformJumpsuitPirate = пиратская форма
     .desc = Пиратская вариация комбинезона космического моряка.
 
-ent-ClothingUniformJumpsuitPyjamaSyndicateBlack = чёрная пижама Синдиката
+ent-ClothingUniformJumpsuitPyjamaSyndicateBlack = чёрная пижама Империи
     .desc = Для долгих ночей в перме.
 
-ent-ClothingUniformJumpsuitPyjamaSyndicatePink = розовая пижама Синдиката
+ent-ClothingUniformJumpsuitPyjamaSyndicatePink = розовая пижама Империи
     .desc = Для долгих ночей в перме.
 
-ent-ClothingUniformJumpsuitPyjamaSyndicateRed = красная пижама Синдиката
+ent-ClothingUniformJumpsuitPyjamaSyndicateRed = красная пижама Империи
     .desc = Для долгих ночей в перме.
 
-ent-ClothingUniformJumpsuitSyndieFormal = торжественный костюм Синдиката
-    .desc = Форма Синдиката выполнена в элегантном стиле, в ней даже жалко проделывать грязные трюки.
+ent-ClothingUniformJumpsuitSyndieFormal = торжественный костюм Империи
+    .desc = Форма Империи выполнена в элегантном стиле, в ней даже жалко проделывать грязные трюки.
 
 ent-ClothingUniformJumpsuitTacticool = тактический комбинезон
     .desc = Униформа для оперативных ролевиков, выполняющих тактические кражи изолированных перчаток в глубоком космосе.

@@ -283,7 +283,7 @@
 - type: entity
   parent: MindRoleTraitor
   id: MindRoleTraitorReinforcement
-  name: Syndicate Reinforcement Role
+  name: Imperial Reinforcement Role
   components:
   - type: MindRole
     roleType: TeamAntagonist

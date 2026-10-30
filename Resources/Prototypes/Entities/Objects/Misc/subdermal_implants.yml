@@ -142,7 +142,7 @@
   parent: BaseSubdermalImplant
   id: RadioImplant
   name: radio implant
-  description: This implant grants access to the Syndicate channel without a headset.
+  description: This implant grants access to the Imperial channel without a headset.
   categories: [ HideSpawnMenu ]
   components:
   - type: SubdermalImplant
@@ -154,7 +154,7 @@
   parent: BaseSubdermalImplant
   id: UplinkImplant
   name: uplink implant
-  description: This implant lets the user access a hidden Syndicate uplink at will.
+  description: This implant lets the user access a hidden Imperial uplink at will.
   categories: [ HideSpawnMenu ]
   components:
   - type: SubdermalImplant
@@ -343,7 +343,7 @@
   parent: BaseSubdermalImplant
   id: DeathRattleImplant
   name: death rattle implant
-  description: This implant will inform the Syndicate radio channel should the user fall into critical condition or die.
+  description: This implant will inform the Imperial radio channel should the user fall into critical condition or die.
   categories: [ HideSpawnMenu ]
   components:
     - type: SubdermalImplant

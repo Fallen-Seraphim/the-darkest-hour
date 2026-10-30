@@ -10,5 +10,5 @@ ent-NTFlag = флаг Nanotrasen
 ent-PirateFlag = пиратский флаг
     .desc = Поднять Весёлого Роджера, ублюдки!
 
-ent-SyndieFlag = флаг Синдиката
+ent-SyndieFlag = флаг Империи
     .desc = Пахнет кровью. Смерть Nanotrasen!

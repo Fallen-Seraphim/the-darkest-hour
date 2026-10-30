@@ -164,11 +164,11 @@ ent-AirlockExternalShuttleNukeopLocked = стыковочный шлюз
 
 ent-AirlockExternalShuttleSyndicateLocked = стыковочный шлюз
     .desc = Необходим для соединения двух космических кораблей вместе.
-    .suffix = Синдикат, Стыковочный, Закрыт
+    .suffix = Империя, Стыковочный, Закрыт
 
 ent-AirlockExternalSyndicateLocked = внешний шлюз
     .desc = Он открывается, он закрывается, он может раздавить вас, а за ним лишь космос.
-    .suffix = Внешний, Синдикат, Закрыт
+    .suffix = Внешний, Империя, Закрыт
 
 ent-AirlockFreezerHydroponicsLocked = шлюз
     .desc = Он открывается, он закрывается и он может вас раздавить.
@@ -188,7 +188,7 @@ ent-AirlockHatchMaintenanceLocked = герметичный люк техобсл
 
 ent-AirlockHatchSyndicateLocked = герметичный люк
     .desc = Он открывается, он закрывается и он может вас раздавить.
-    .suffix = Синдикат, Закрыт
+    .suffix = Империя, Закрыт
 
 ent-AirlockHeadOfPersonnelGlassLocked = стеклянный шлюз
     .desc = Он открывается, он закрывается и он может вас раздавить.
@@ -472,11 +472,11 @@ ent-AirlockServiceTheatreLocked = шлюз
 
 ent-AirlockSyndicateGlassLocked = стеклянный шлюз
     .desc = Он открывается, он закрывается и он может вас раздавить.
-    .suffix = Синдикат, Закрыт
+    .suffix = Империя, Закрыт
 
 ent-AirlockSyndicateLocked = шлюз
     .desc = Он открывается, он закрывается и он может вас раздавить.
-    .suffix = Синдикат, Закрыт
+    .suffix = Империя, Закрыт
 
 ent-AirlockSyndicateNukeopGlassLocked = стеклянный шлюз
     .desc = Он открывается, он закрывается и он может вас раздавить.

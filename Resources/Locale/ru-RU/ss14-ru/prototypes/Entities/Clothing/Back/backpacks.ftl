@@ -100,7 +100,7 @@ ent-ClothingBackpackScience = рюкзак учёного
 ent-ClothingBackpackSecurity = рюкзак охраны
     .desc = Это очень робастный рюкзак.
 
-ent-ClothingBackpackSyndicate = рюкзак Синдиката
+ent-ClothingBackpackSyndicate = рюкзак Империи
     .desc = Вы носите это на спине и кладёте в него предметы.
 
 ent-ClothingBackpackVirology = рюкзак вирусолога

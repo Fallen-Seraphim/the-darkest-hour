@@ -77,8 +77,8 @@
 # Tuned to be a general bomb that deals equipment damage without explicitly gibbing, however it will still gladly instakill anyone that mishandles it.
 # One of the few syndie bombs that should punch holes in space.
 - type: entity
-  name: syndicate minibomb
-  description: A syndicate-manufactured explosive used to stow destruction and cause chaos.
+  name: imperial minibomb
+  description: An Imperial-manufactured explosive used to stow destruction and cause chaos.
   parent: [VolatileGrenadeBase, TimerGrenadeBase, BaseSyndicateContraband]
   id: SyndieMiniBomb
   components:
@@ -429,8 +429,8 @@
       path: /Audio/Effects/countdown.ogg
 
 - type: entity
-  name: syndicate trickybomb
-  description: A syndicate-manufactured explosive used to make an excellent distraction.
+  name: imperial trickybomb
+  description: An Imperial-manufactured explosive used to make an excellent distraction.
   parent: [GrenadeDummy, BaseSyndicateContraband]
   id: SyndieTrickyBomb
   components:

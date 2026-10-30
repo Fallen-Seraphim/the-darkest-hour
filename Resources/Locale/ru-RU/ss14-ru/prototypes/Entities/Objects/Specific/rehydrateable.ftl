@@ -45,4 +45,4 @@ ent-SpaceTickCube = клещевой кубик
 
 ent-SyndicateSponge = обезьяний кубик
     .desc = Просто добавь воды!
-    .suffix = Синдикат
+    .suffix = Империя

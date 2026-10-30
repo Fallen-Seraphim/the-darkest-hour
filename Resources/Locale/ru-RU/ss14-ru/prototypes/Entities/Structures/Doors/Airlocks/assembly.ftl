@@ -123,19 +123,19 @@ ent-AirlockAssemblyShuttleGlass = каркас стыковочного шлюз
 
 ent-AirlockAssemblyShuttleSyndicate = каркас стыковочного шлюза
     .desc = Он открывается, он закрывается и он может вас раздавить.
-    .suffix = Шаттл Синдиката
+    .suffix = Шаттл Империи
 
 ent-AirlockAssemblyShuttleSyndicateGlass = каркас стыковочного шлюза
     .desc = Он открывается, он закрывается и он может вас раздавить.
-    .suffix = Шаттл Синдиката, Стеклянный
+    .suffix = Шаттл Империи, Стеклянный
 
 ent-AirlockAssemblySyndicate = каркас шлюза
     .desc = Он открывается, он закрывается и он может вас раздавить.
-    .suffix = Синдикат
+    .suffix = Империя
 
 ent-AirlockAssemblySyndicateGlass = каркас шлюза
     .desc = Он открывается, он закрывается и он может вас раздавить.
-    .suffix = Синдикат, Стеклянный
+    .suffix = Империя, Стеклянный
 
 ent-AirlockAssemblyVirology = каркас шлюза
     .desc = Он открывается, он закрывается и он может вас раздавить.

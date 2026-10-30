@@ -873,7 +873,7 @@
 - type: entity
   parent: [ ClothingHeadBase, BaseSyndicateContraband ]
   id: ClothingHeadPyjamaSyndicateBlack
-  name: syndicate black pyjama hat
+  name: imperial black pyjama hat
   description: For keeping that traitor head of yours warm.
   components:
   - type: Sprite
@@ -889,7 +889,7 @@
 - type: entity
   parent: [ ClothingHeadBase, BaseSyndicateContraband ]
   id: ClothingHeadPyjamaSyndicatePink
-  name: syndicate pink pyjama hat
+  name: imperial pink pyjama hat
   description: For keeping that traitor head of yours warm.
   components:
   - type: Sprite
@@ -905,7 +905,7 @@
 - type: entity
   parent: [ ClothingHeadBase, BaseSyndicateContraband ]
   id: ClothingHeadPyjamaSyndicateRed
-  name: syndicate red pyjama hat
+  name: imperial red pyjama hat
   description: For keeping that traitor head of yours warm.
   components:
   - type: Sprite
@@ -1109,7 +1109,7 @@
 - type: entity
   parent: [ClothingHeadBase, BaseSyndicateContraband]
   id: ClothingHeadHatSyndie
-  name: syndicate hat
+  name: imperial hat
   description: A souvenir hat from "Syndieland", their production has already been closed.
   components:
   - type: Sprite

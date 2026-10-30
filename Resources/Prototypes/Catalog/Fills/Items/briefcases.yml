@@ -12,7 +12,7 @@
 - type: entity
   id: BriefcaseSyndieSniperBundleFilled
   parent: BriefcaseBrown
-  suffix: Syndicate, Sniper Bundle
+  suffix: Imperial, Sniper Bundle
   components:
   - type: EntityTableContainerFill
     containers:
@@ -26,7 +26,7 @@
 - type: entity
   id: BriefcaseSyndieLobbyingBundleFilled
   parent: BriefcaseSyndie
-  suffix: Syndicate, Spesos
+  suffix: Imperial, Spesos
   components:
   - type: EntityTableContainerFill
     containers:

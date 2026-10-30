@@ -52,7 +52,7 @@ ent-FoodPacketSemkiTrash = пакетик от семечек
 ent-FoodPacketSusTrash = пакетик от джерки Сас
     .desc = Это мусор.
 
-ent-FoodPacketSyndiTrash = коробка от синди-кексов
+ent-FoodPacketSyndiTrash = коробка от имперских кексов
     .desc = Это мусор.
 
 ent-FoodSnackBoritos = боритос
@@ -119,5 +119,5 @@ ent-FoodSnackSus = джерки Сас
 ent-FoodSnackSwirlLollipop = леденец-спиралька
     .desc = Спираль чистого концентрированного сахара. Кто сейчас самый большой ребёнок в песочнице?
 
-ent-FoodSnackSyndi = синди-кексы
+ent-FoodSnackSyndi = имперские кексы
     .desc = Очень вкусные кексы, которые сохраняют свой вкус даже после ядерного взрыва.

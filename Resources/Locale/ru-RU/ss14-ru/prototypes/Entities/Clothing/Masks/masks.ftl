@@ -68,7 +68,7 @@ ent-ClothingMaskGasSecurity = противогаз СБ
 ent-ClothingMaskGasSwat = противогаз спецназа
     .desc = Элитный противогаз Службы безопасности.
 
-ent-ClothingMaskGasSyndicate = противогаз синдиката
+ent-ClothingMaskGasSyndicate = противогаз Империи
     .desc = Плотно прилегающая тактическая маска, которую можно подключить к дыхательному баллону.
 
 ent-ClothingMaskItalianMoustache = итальянские усы

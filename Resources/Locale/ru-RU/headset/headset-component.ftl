@@ -28,7 +28,7 @@ chat-radio-service = Сервис
 
 chat-radio-supply = Снабжение
 
-chat-radio-syndicate = Синдикат
+chat-radio-syndicate = Империя
 
 chat-radio-xenoborg = Ксеноборг
 

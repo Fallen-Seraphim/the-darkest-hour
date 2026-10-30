@@ -96,5 +96,5 @@ ent-RandomHumanoidSpawnerERTSecurityEVA = ОБР офицер безопасно
 ent-RandomHumanoidSpawnerNukeOp = Ядерный оперативник
     .desc = { "" }
 
-ent-RandomHumanoidSpawnerSyndicateAgent = Агент Синдиката
+ent-RandomHumanoidSpawnerSyndicateAgent = Агент Империи
     .desc = { "" }

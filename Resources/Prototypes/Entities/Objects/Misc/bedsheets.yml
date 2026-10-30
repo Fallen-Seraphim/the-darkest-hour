@@ -315,8 +315,8 @@
 - type: entity
   id: BedsheetSyndie
   parent: [ BedsheetBase, BaseSyndicateContraband ]
-  name: syndicate bedsheet
-  description: It has a syndicate emblem and it has an aura of evil.
+  name: imperial bedsheet
+  description: It has an imperial emblem and it has an aura of evil.
   components:
   - type: Sprite
     state: sheetsyndie

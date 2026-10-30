@@ -5,7 +5,7 @@ roles-antag-rev-head-objective = Assume control of the station by converting peo
 
 head-rev-role-greeting =
     You are a head revolutionary. You are tasked with removing all of Command from power through death, restraint, or conversion.
-    The Syndicate has sponsored you with a flash that converts others to your cause. Beware, this won't work on those with eye protection or mindshield implants. Remember that Command and Security are implanted with mindshields as part of the hiring process.
+    The Empire has sponsored you with a flash that converts others to your cause. Beware, this won't work on those with eye protection or mindshield implants. Remember that Command and Security are implanted with mindshields as part of the hiring process.
     Viva la revolución!
 
 head-rev-briefing =

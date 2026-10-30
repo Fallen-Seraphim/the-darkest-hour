@@ -259,7 +259,7 @@
   parent: [ EncryptionKey, BaseSyndicateContraband ]
   id: EncryptionKeyBinarySyndicate
   name: binary translator key
-  description: A syndicate encryption key that translates binary signals used by silicons.
+  description: An imperial encryption key that translates binary signals used by silicons.
   components:
   - type: EncryptionKey
     channels:

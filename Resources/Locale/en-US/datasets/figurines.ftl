@@ -282,7 +282,7 @@ figurines-AI-7 = { law-nutimov-4 }
 
 figurines-footsoldier-1 = I'm an evil boy. Less boy every day, more evil every day.
 figurines-footsoldier-2 = Who will you choose? Them or us? Us or them?
-figurines-footsoldier-3 = Glory to the Syndicate!
+figurines-footsoldier-3 = Glory to the Empire!
 figurines-footsoldier-4 = Down with Nanotrasen!
 figurines-footsoldier-5 = I'd rather die than join Nanotrasen.
 
@@ -302,7 +302,7 @@ figurines-nukie-5 = Commander...? ...That's a balloon...
 
 figurines-nukie-commander-1 = GET DAT FUKKEN DISK!
 figurines-nukie-commander-2 = Fuckin' flukies.
-figurines-nukie-commander-3 = The Syndicate sends its regards.
+figurines-nukie-commander-3 = The Empire sends its regards.
 figurines-nukie-commander-4 = Failure is not an option.
 figurines-nukie-commander-5 = Whoops.
 

@@ -160,7 +160,7 @@
 - type: entity
   parent: AirlockExternal
   id: AirlockExternalSyndicateLocked
-  suffix: External, Syndicate, Locked
+  suffix: External, Imperial, Locked
   components:
   - type: ContainerFill
     containers:
@@ -532,7 +532,7 @@
 - type: entity
   parent: AirlockExternalGlass
   id: AirlockExternalGlassSyndicateLocked
-  suffix: External, Glass, Syndicate, Locked
+  suffix: External, Glass, Imperial, Locked
   components:
   - type: ContainerFill
     containers:
@@ -857,7 +857,7 @@
 - type: entity
   parent: AirlockSyndicateGlass
   id: AirlockSyndicateGlassLocked
-  suffix: Syndicate, Locked
+  suffix: Imperial, Locked
   components:
   - type: ContainerFill
     containers:
@@ -1128,7 +1128,7 @@
 - type: entity
   parent: AirlockSyndicate
   id: AirlockSyndicateLocked
-  suffix: Syndicate, Locked
+  suffix: Imperial, Locked
   components:
   - type: ContainerFill
     containers:
@@ -1167,7 +1167,7 @@
 - type: entity
   parent: AirlockShuttleSyndicate
   id: AirlockExternalShuttleSyndicateLocked
-  suffix: Syndicate, Docking, Locked
+  suffix: Imperial, Docking, Locked
   components:
   - type: ContainerFill
     containers:
@@ -1205,7 +1205,7 @@
 - type: entity
   parent: AirlockGlassShuttleSyndicate
   id: AirlockExternalGlassShuttleSyndicateLocked
-  suffix: Syndicate, Docking, Glass
+  suffix: Imperial, Docking, Glass
   components:
   - type: ContainerFill
     containers:
@@ -1318,7 +1318,7 @@
 - type: entity
   parent: AirlockHatchSyndicate
   id: AirlockHatchSyndicateLocked
-  suffix: Syndicate, Locked
+  suffix: Imperial, Locked
   components:
   - type: ContainerFill
     containers:

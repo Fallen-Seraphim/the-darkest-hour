@@ -2,7 +2,7 @@
   id: SingularityBeacon
   parent: [BaseMachinePowered, BaseSyndicateContraband, BaseMachineDestructible]
   name: singularity beacon
-  description: A syndicate device that attracts the singularity. If it's loose and you're seeing this, run.
+  description: An imperial device that attracts the singularity. If it's loose and you're seeing this, run.
   components:
   - type: Sprite
     sprite: Objects/Devices/singularity_beacon.rsi

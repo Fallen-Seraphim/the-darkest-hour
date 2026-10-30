@@ -2,7 +2,7 @@
 - type: entity
   parent: MobHuman
   id: MobHumanSyndicateAgentBase
-  name: syndicate agent
+  name: imperial agent
   suffix: Human, Base
   components:
   - type: RandomHumanoidAppearance
@@ -22,7 +22,7 @@
 - type: entity
   parent: MobHumanSyndicateAgentBase
   id: MobHumanSyndicateAgent
-  name: syndicate agent
+  name: imperial agent
   suffix: Human, Traitor
   components:
   # make the player a traitor once its taken
@@ -43,7 +43,7 @@
 - type: entity
   parent: MobHumanSyndicateReinforcement
   id: MobHumanSyndicateAgentMedic
-  name: syndicate combat medic
+  name: imperial combat medic
   components:
   - type: Loadout
     prototypes: [SyndicateReinforcementMedic]
@@ -52,7 +52,7 @@
 - type: entity
   parent: MobHumanSyndicateReinforcement
   id: MobHumanSyndicateAgentSpy
-  name: syndicate spy
+  name: imperial spy
   components:
   - type: Loadout
     prototypes: [SyndicateReinforcementSpy]
@@ -61,7 +61,7 @@
 - type: entity
   parent: MobHumanSyndicateReinforcement
   id: MobHumanSyndicateAgentThief
-  name: syndicate thief
+  name: imperial thief
   components:
   - type: Loadout
     prototypes: [SyndicateReinforcementThief]

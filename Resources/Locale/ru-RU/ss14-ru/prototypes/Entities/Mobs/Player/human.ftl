@@ -4,25 +4,25 @@ ent-MobHumanLoneNuclearOperative = Одинокий оперативник
 ent-MobHumanNukeOp = Ядерный оперативник
     .desc = { "" }
 
-ent-MobHumanSyndicateAgent = агент Синдиката
+ent-MobHumanSyndicateAgent = агент Империи
     .desc = { "" }
     .suffix = Человек, Предатель
 
-ent-MobHumanSyndicateAgentBase = агент Синдиката
+ent-MobHumanSyndicateAgentBase = агент Империи
     .desc = { "" }
     .suffix = Человек, Базовый
 
-ent-MobHumanSyndicateAgentMedic = боевой медик Синдиката
+ent-MobHumanSyndicateAgentMedic = боевой медик Империи
     .desc = { "" }
 
-ent-MobHumanSyndicateAgentNukeops = агент Синдиката
+ent-MobHumanSyndicateAgentNukeops = агент Империи
     .desc = { "" }
     .suffix = Человек, Ядерный оперативник
 
-ent-MobHumanSyndicateAgentSpy = шпион Синдиката
+ent-MobHumanSyndicateAgentSpy = шпион Империи
     .desc = { "" }
 
-ent-MobHumanSyndicateAgentThief = вор Синдиката
+ent-MobHumanSyndicateAgentThief = вор Империи
     .desc = { "" }
 
 ent-MobHumanWizard = Волшебник

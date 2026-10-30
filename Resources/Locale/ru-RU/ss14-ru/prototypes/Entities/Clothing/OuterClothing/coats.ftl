@@ -31,7 +31,7 @@ ent-ClothingOuterCoatJensen = пальто Дженсена
 
 ent-ClothingOuterCoatJensenSyndie = пальто Дженсена
     .desc = Пальто Дженсена.
-    .suffix = Синдикат
+    .suffix = Империя
 
 ent-ClothingOuterCoatLab = лабораторный халат
     .desc = Халат, защищающий от небольших разливов химикатов.
@@ -91,11 +91,11 @@ ent-ClothingOuterCoatRoboOpened = лабораторный халат робот
 ent-ClothingOuterCoatSpaceAsshole = куртка космического мудака
     .desc = И вот он появился...
 
-ent-ClothingOuterCoatSyndieCap = тренч Синдиката
-    .desc = Плащ Синдиката, изготовлен из прочной ткани, украшен позолоченными узорами.
+ent-ClothingOuterCoatSyndieCap = тренч Империи
+    .desc = Плащ Империи, изготовлен из прочной ткани, украшен позолоченными узорами.
 
-ent-ClothingOuterCoatSyndieCapArmored = бронированный тренч Синдиката
-    .desc = Бронированный плащ Синдиката, изготовлен из прочной ткани, украшен позолоченными узорами.
+ent-ClothingOuterCoatSyndieCapArmored = бронированный тренч Империи
+    .desc = Бронированный плащ Империи, изготовлен из прочной ткани, украшен позолоченными узорами.
 
 ent-ClothingOuterCoatTrench = тренчкот
     .desc = Удобный тренч.

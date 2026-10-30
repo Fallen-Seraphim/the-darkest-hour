@@ -136,7 +136,7 @@ descriptions-cookie-fortune-dataset-70 = НА ЭТОЙ СТАНЦИИ НЕТ К�
 
 descriptions-cookie-fortune-dataset-71 = Включить сенсоры костюма в последний режим — всегда хорошая идея.
 
-descriptions-cookie-fortune-dataset-72 = Синдикат набирает сотрудников. Свяжитесь с нами.
+descriptions-cookie-fortune-dataset-72 = Империя набирает сотрудников. Свяжитесь с нами.
 
 descriptions-cookie-fortune-dataset-73 = Персона около тебя что-то замышляет. Ты знаешь что нужно делать.
 

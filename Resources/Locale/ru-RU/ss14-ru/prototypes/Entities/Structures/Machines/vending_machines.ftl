@@ -37,8 +37,8 @@ ent-VendingMachineChemDrobe = ХимШкаф
 ent-VendingMachineChemicals = ХимкоМат
     .desc = Вероятно, не кофемашина.
 
-ent-VendingMachineChemicalsSyndicate = СиндиСоки
-    .desc = Надеюсь, не из свежевыжатых синдикатовцев?
+ent-VendingMachineChemicalsSyndicate = ИмпериСоки
+    .desc = Надеюсь, не из свежевыжатых имперцев?
 
 ent-VendingMachineCigs = ShadyCigs Делюкс
     .desc = Если вы хотите заболеть раком, то лучше сделать это стильно.
@@ -193,8 +193,8 @@ ent-VendingMachineStarkist = торгомат Стар-кист
 ent-VendingMachineSustenance = тюремный торгомат
     .desc = Торговый автомат, который реализует продукты питания, как того требует раздел 47-C Соглашения об этическом обращении с заключёнными NT.
 
-ent-VendingMachineSyndieDrobe = СиндиШкаф
-    .desc = Шкаф-машина, закодированная Синдикатом, содержит элитную экипировку для различных операций.
+ent-VendingMachineSyndieDrobe = ИмпериШкаф
+    .desc = Шкаф-машина, закодированная Империей, содержит элитную экипировку для различных операций.
 
 ent-VendingMachineTankDispenserEVA = раздатчик газовых баллонов
     .desc = Автомат по выдаче газовых баллонов.

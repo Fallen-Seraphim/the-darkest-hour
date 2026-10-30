@@ -58,8 +58,8 @@ ent-ClothingShoesBootsWinterSci = научные зимние ботинки
 ent-ClothingShoesBootsWinterSec = зимние ботинки охраны
     .desc = Меховые ботинки, которые помогут пережить даже самую холодную зиму.
 
-ent-ClothingShoesBootsWinterSyndicate = зимние ботинки Синдиката
-    .desc = Прочные тяжёлые ботинки, выглядят как мерч из "Синдиленда".
+ent-ClothingShoesBootsWinterSyndicate = зимние ботинки Империи
+    .desc = Прочные тяжёлые ботинки, выглядят как мерч из "Империленда".
 
 ent-ClothingShoesBootsWinterWeb = зимние ботинки из паутины
     .desc = Ботинки из плотной паутины, которые помогут пережить даже самую холодную зиму.

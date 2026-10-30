@@ -37,7 +37,7 @@ ent-RubberStampQm = печать квартирмейстера
 ent-RubberStampRd = печать научного руководителя
     .desc = Печать из резины для проставления печатей на важных документах.
 
-ent-RubberStampSyndicate = печать Синдиката
+ent-RubberStampSyndicate = печать Империи
     .desc = Печать из резины для проставления печатей на важных документах.
 
 ent-RubberStampTrader = печать торговца

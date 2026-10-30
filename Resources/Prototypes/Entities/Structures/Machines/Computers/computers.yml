@@ -140,8 +140,8 @@
 - type: entity
   parent: BaseComputerShuttle
   id: ComputerShuttleSyndie
-  name: syndicate shuttle computer
-  description: Used to pilot a syndicate shuttle.
+  name: imperial shuttle computer
+  description: Used to pilot an imperial shuttle.
   components:
   - type: ComputerVisuals
     stateScreen: syndishuttle
@@ -205,7 +205,7 @@
   parent: ComputerIFF
   id: ComputerIFFSyndicate
   name: IFF computer
-  suffix: Syndicate
+  suffix: Imperial
   description: Allows you to control the IFF and stealth characteristics of this vessel.
   components:
   - type: IFFConsole
@@ -432,7 +432,7 @@
 - type: entity
   parent: ComputerStationTeleportersControl
   id: ComputerSyndicateTeleportersControl
-  name: syndicate teleporters control computer
+  name: imperial teleporters control computer
   components:
   - type: ComputerVisuals
     stateScreen: teleporters_syndicate
@@ -637,7 +637,7 @@
 - type: entity
   parent: ComputerComms
   id: SyndicateComputerComms
-  name: syndicate communications computer
+  name: imperial communications computer
   description: A computer capable of remotely hacking into the station's communications systems. Using this to make an announcement will alert the station to your presence.
   components:
   - type: ComputerVisuals
@@ -1431,7 +1431,7 @@
 - type: entity
   parent: BaseComputer
   id: ComputerNukieDelivery
-  name: syndicate delivery computer
+  name: imperial delivery computer
   description: "A computer that can bluespace in certain equipment for Nuclear Operations. \nThe circuitboard is integrated into the frame and can't be recovered if deconstructed."
   components:
   - type: ComputerVisuals

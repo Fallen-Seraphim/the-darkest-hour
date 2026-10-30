@@ -222,7 +222,7 @@ figurines-footsoldier-1 = Я злой мальчик. С каждым днём �
 
 figurines-footsoldier-2 = Кого ты выберешь? Их или нас? Нас или их?
 
-figurines-footsoldier-3 = Слава Синдикату!
+figurines-footsoldier-3 = Слава Империи!
 
 figurines-footsoldier-4 = Долой Nanotrasen!
 
@@ -438,7 +438,7 @@ figurines-nukie-commander-1 = ДОСТАНЬТЕ ЭТОТ ЧЁРТОВ ДИСК!
 
 figurines-nukie-commander-2 = Ну и хрюкеры.
 
-figurines-nukie-commander-3 = Синдикат передаёт привет.
+figurines-nukie-commander-3 = Империя передаёт привет.
 
 figurines-nukie-commander-4 = Провал — это не вариант.
 

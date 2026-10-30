@@ -582,7 +582,7 @@
 - type: entity
   parent: [ClothingHandsBase, BaseSyndicateContraband]
   id: ClothingHandsKnuckleDustersSyndicate
-  name: syndicate knuckle dusters
+  name: imperial knuckle dusters
   description: "Plastitanium knuckle dusters branded with the blood-red S. A real man beats someone to death with these."
   components:
   - type: Sprite

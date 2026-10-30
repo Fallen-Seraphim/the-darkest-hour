@@ -611,7 +611,7 @@
 - type: entity
   parent: MarkerBase
   id: PlayerBorgSyndicateInvasionGhostRoleSpawner
-  name: syndicate invasion borg spawner
+  name: imperial invasion borg spawner
   components:
   - type: Sprite
     layers:

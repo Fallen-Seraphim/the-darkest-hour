@@ -20,7 +20,7 @@
 - type: entity
   parent: ClothingBackpackDuffelSyndicateMedicalBundle
   id: ClothingBackpackDuffelSyndicateFilledMedical
-  name: syndicate surgical duffel bag
+  name: imperial surgical duffel bag
   description: A large duffel bag containing a full suite of surgical tools.
   components:
   - type: EntityTableContainerFill
@@ -41,7 +41,7 @@
 - type: entity
   parent: ClothingBackpackDuffelSyndicateMedicalBundle
   id: ClothingBackpackDuffelSyndicateFilledMedicine
-  name: syndicate medicine duffel bag
+  name: imperial medicine duffel bag
   description: A large duffel bag containing essential medicinal reagents.
   components:
   - type: EntityTableContainerFill
@@ -92,8 +92,8 @@
 - type: entity
   parent: ClothingBackpackDuffelSyndicateBundle
   id: ClothingBackpackDuffelSyndicatePyjamaBundle
-  name: syndicate pyjama duffel bag
-  description: Contains 3 pairs of syndicate pyjamas and 4 plushies for the ultimate sleepover.
+  name: imperial pyjama duffel bag
+  description: Contains 3 pairs of imperial pyjamas and 4 plushies for the ultimate sleepover.
   components:
   - type: Storage
     grid:
@@ -120,7 +120,7 @@
 - type: entity
   parent: ClothingBackpackDuffelSyndicateBundle
   id: ClothingBackpackDuffelSyndicateC4tBundle
-  name: syndicate C-4 bundle
+  name: imperial C-4 bundle
   description: "Contains a lot of C-4 charges."
   components:
   - type: EntityTableContainerFill
@@ -153,7 +153,7 @@
 - type: entity
   parent: ClothingBackpackChameleon
   id: ClothingBackpackChameleonFillAgent
-  suffix: Fill, Chameleon, Syndie
+  suffix: Fill, Chameleon, Imperial
   components:
   - type: EntityTableContainerFill
     containers:
@@ -174,8 +174,8 @@
 - type: entity
   parent: ClothingBackpackDuffelSyndicateBundle
   id: ClothingBackpackDuffelSyndicateEVABundle
-  name: syndicate EVA bundle
-  description: "Contains the Syndicate approved EVA suit."
+  name: imperial EVA bundle
+  description: "Contains the Empire approved EVA suit."
   components:
   - type: EntityTableContainerFill
     containers:
@@ -191,8 +191,8 @@
 - type: entity
   parent: ClothingBackpackDuffelSyndicateBundle
   id: ClothingBackpackDuffelSyndicateHardsuitBundle
-  name: syndicate hardsuit bundle
-  description: "Contains the Syndicate's signature blood red hardsuit."
+  name: imperial hardsuit bundle
+  description: "Contains the Empire's signature blood red hardsuit."
   components:
   - type: EntityTableContainerFill
     containers:
@@ -205,8 +205,8 @@
 - type: entity
   parent: ClothingBackpackDuffelSyndicateBundle
   id: ClothingBackpackDuffelSyndicateEliteHardsuitBundle
-  name: syndicate elite hardsuit bundle
-  description: "Contains the Syndicate's elite hardsuit, which comes with some more stuff in it."
+  name: imperial elite hardsuit bundle
+  description: "Contains the Empire's elite hardsuit, which comes with some more stuff in it."
   components:
   - type: EntityTableContainerFill
     containers:
@@ -219,7 +219,7 @@
 - type: entity
   parent: ClothingBackpackDuffelSyndicateBundle
   id: ClothingBackpackDuffelSyndicateHardsuitExtrasBundle
-  name: syndicate hardsuit extras bundle
+  name: imperial hardsuit extras bundle
   description: "Contains stuff that you will absolutely want to have when purchasing a hardsuit."
   components:
   - type: EntityTableContainerFill
@@ -239,7 +239,7 @@
 - type: entity
   parent: ClothingBackpackDuffelSyndicateBundle
   id: ClothingBackpackDuffelZombieBundle
-  name: syndicate zombie bundle
+  name: imperial zombie bundle
   description: "An all-in-one kit for unleashing the undead upon a station."
   components:
   - type: EntityTableContainerFill

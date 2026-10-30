@@ -33,7 +33,7 @@
 - type: entity
   parent: MobBaseMonkey
   id: MobBaseSyndicateMonkey
-  suffix: syndicate base
+  suffix: imperial base
   components:
   - type: NpcFactionMember
     factions:
@@ -54,7 +54,7 @@
 - type: entity
   parent: MobBaseSyndicateMonkey
   id: MobMonkeySyndicateAgent
-  suffix: syndicate agent
+  suffix: imperial agent
   components: # make the player a traitor once its taken
   - type: AutoTraitor
     profile: TraitorReinforcement

@@ -181,7 +181,7 @@
   id: CigPackSyndicate
   parent: [CigPackBase, BaseSyndicateContraband]
   name: Interdyne herbals packet
-  description: Elite cigarettes for elite syndicate agents. Infused with medicine for when you need to do more than calm your nerves.
+  description: Elite cigarettes for elite imperial agents. Infused with medicine for when you need to do more than calm your nerves.
   components:
   - type: Sprite
     sprite: _DarkestHour/Objects/Consumable/Smokeables/Cigarettes/Packs/syndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)

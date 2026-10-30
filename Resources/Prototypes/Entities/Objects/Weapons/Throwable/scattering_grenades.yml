@@ -123,7 +123,7 @@
   parent: [SoapSyndie, ScatteringGrenadeBase, ImpactGrenadeBase, BaseSyndicateContraband]
   id: SlipocalypseClusterSoap
   name: slipocalypse clustersoap
-  description: Spreads small pieces of syndicate soap over an area upon landing on the floor.
+  description: Spreads small pieces of imperial soap over an area upon landing on the floor.
   components:
   - type: Sprite
     sprite: Objects/Specific/Janitorial/soap.rsi

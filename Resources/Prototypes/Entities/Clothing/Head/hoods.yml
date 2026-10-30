@@ -512,7 +512,7 @@
   parent: ClothingHeadHatHoodWinterBase
   id: ClothingHeadHatHoodWinterSyndie
   categories: [ HideSpawnMenu ]
-  name: syndicate coat hood
+  name: imperial coat hood
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Head/Hoods/Coat/hoodsyndicate.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)

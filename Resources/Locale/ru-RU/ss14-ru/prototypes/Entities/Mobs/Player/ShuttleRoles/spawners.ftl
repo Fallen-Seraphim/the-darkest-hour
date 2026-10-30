@@ -45,13 +45,13 @@ ent-PirateScoonerSpawner = пират член экипажа спавнер
 ent-SecurityVisitorSpawner = посетитель СБ спавнер
     .desc = { "" }
 
-ent-SyndieSoldierSpawner = Синдикат солдат спавнер
+ent-SyndieSoldierSpawner = Имперский солдат спавнер
     .desc = { "" }
 
-ent-SyndieSoldierTeamLeaderSpawner = Синдикат руководитель спавнер
+ent-SyndieSoldierTeamLeaderSpawner = Имперский руководитель спавнер
     .desc = { "" }
 
-ent-SyndieVisitorSpawner = Синдикат жертва катастрофы спавнер
+ent-SyndieVisitorSpawner = Имперская жертва катастрофы спавнер
     .desc = { "" }
 
 ent-VisitingCargonianSpawner = посетитель карго спавнер

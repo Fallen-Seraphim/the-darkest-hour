@@ -280,7 +280,7 @@
 - type: entity
   parent: Windoor
   id: WindoorSyndicateLocked
-  suffix: Syndicate, Locked
+  suffix: Imperial, Locked
   components:
   - type: ContainerFill
     containers:
@@ -334,7 +334,7 @@
 - type: entity
   parent: WindoorUranium
   id: UraniumWindoorSyndicateLocked
-  suffix: Syndicate, Locked, Uranium
+  suffix: Imperial, Locked, Uranium
   components:
   - type: ContainerFill
     containers:

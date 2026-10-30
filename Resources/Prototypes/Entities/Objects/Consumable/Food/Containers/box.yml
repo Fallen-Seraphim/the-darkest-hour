@@ -552,7 +552,7 @@
   parent: HappyHonkNukie
   id: HappyHonkNukieSnacks
   suffix: Toy Unsafe, Snacks
-  name: syndicate snack box
+  name: imperial snack box
   components:
   - type: Storage
     grid:

@@ -62,7 +62,7 @@ ent-AirlockHatchMaintenance = герметичный люк техобслужи
 
 ent-AirlockHatchSyndicate = герметичный люк
     .desc = Он открывается, он закрывается и он может вас раздавить.
-    .suffix = Синдикат
+    .suffix = Империя
 
 ent-AirlockHydroponics = шлюз
     .desc = Он открывается, он закрывается и он может вас раздавить.
@@ -125,11 +125,11 @@ ent-AirlockStandardGlass = стеклянный шлюз
 
 ent-AirlockSyndicate = шлюз
     .desc = Он открывается, он закрывается и он может вас раздавить.
-    .suffix = Синдикат
+    .suffix = Империя
 
 ent-AirlockSyndicateGlass = стеклянный шлюз
     .desc = Он открывается, он закрывается и он может вас раздавить.
-    .suffix = Синдикат
+    .suffix = Империя
 
 ent-AirlockVirology = шлюз
     .desc = Он открывается, он закрывается и он может вас раздавить.

@@ -1,4 +1,4 @@
-advertisement-sectech-1 = Крушите черепа агентов Синдиката!
+advertisement-sectech-1 = Крушите черепа агентов Империи!
 
 advertisement-sectech-2 = Пробейте несколько голов!
 

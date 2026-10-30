@@ -14,6 +14,11 @@
     layers:
     - state: detector
       map: [ "base" ]
+    # Состояние «включён» — только огонёк экрана: рисуется поверх корпуса, а не вместо него.
+    - state: detector_on_1
+      map: [ "screen" ]
+      visible: false
+      shader: unshaded
   - type: Item
     size: Small
     sprite: _RMC14/Objects/Tools/motion_detector.rsi
@@ -21,9 +26,9 @@
   - type: GenericVisualizer
     visuals:
       enum.DHMotionDetectorVisuals.Active:
-        base:
-          True: { state: detector_on_1 }
-          False: { state: detector }
+        screen:
+          True: { visible: true }
+          False: { visible: false }
   - type: DHMotionDetector
 
 # --- Маскхалат ---

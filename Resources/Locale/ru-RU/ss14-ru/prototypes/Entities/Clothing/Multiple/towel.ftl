@@ -4,7 +4,7 @@ ent-TowelColorCentcom = полотенце ЦК
 ent-TowelColorNT = полотенце марки Nanotrasen
     .desc = Если вы хотите выжить здесь, вы должны знать, где находится ваше полотенце.
 
-ent-TowelColorSyndicate = полотенце Синдиката
+ent-TowelColorSyndicate = полотенце Империи
     .desc = Если вы хотите выжить здесь, вы должны знать, где находится ваше полотенце.
 
 ent-TowelColorWhite = белое полотенце

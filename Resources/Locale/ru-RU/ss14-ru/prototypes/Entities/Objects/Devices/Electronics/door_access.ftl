@@ -148,7 +148,7 @@ ent-DoorElectronicsServiceTheatre = микросхема шлюза
 
 ent-DoorElectronicsSyndicateAgent = микросхема шлюза
     .desc = Электронная плата, используемая в шлюзах.
-    .suffix = Агенты Синдиката, Закрыт
+    .suffix = Агенты Империи, Закрыт
 
 ent-DoorElectronicsTheatre = микросхема шлюза
     .desc = Электронная плата, используемая в шлюзах.

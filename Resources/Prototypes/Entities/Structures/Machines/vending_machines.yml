@@ -1839,7 +1839,7 @@
   parent: VendingMachine
   id: VendingMachineSyndieDrobe
   name: SyndieDrobe
-  description: Wardrobe machine encoded by the syndicate, contains elite outfits for various operations.
+  description: Wardrobe machine encoded by the Empire, contains elite outfits for various operations.
   components:
   - type: VendingMachine
     pack: SyndieDrobeInventory

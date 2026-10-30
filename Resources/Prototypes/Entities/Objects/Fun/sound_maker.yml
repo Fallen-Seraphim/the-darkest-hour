@@ -245,7 +245,7 @@
   parent: [BaseWhistle, BaseMinorContraband]
   id: SyndicateWhistle
   name: trench whistle
-  description: A whistle used by Syndicate commanders to draw attention. Avanti!
+  description: A whistle used by Imperial commanders to draw attention. Avanti!
   components:
   - type: Sprite
     state: trench

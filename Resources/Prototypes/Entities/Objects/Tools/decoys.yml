@@ -68,7 +68,7 @@
   parent: BaseDecoy
   id: BalloonOperative
   name: operative balloon
-  description: Upon closer inspection, this Syndicate operative is actually a balloon.
+  description: Upon closer inspection, this Imperial operative is actually a balloon.
   components:
   - type: Sprite
     sprite: Objects/Tools/Decoys/operative_decoy.rsi
@@ -83,7 +83,7 @@
   parent: BaseDecoy
   id: BalloonAgent
   name: corpsman balloon
-  description: Upon closer inspection, this Syndicate corpsman is actually a balloon.
+  description: Upon closer inspection, this Imperial corpsman is actually a balloon.
   components:
   - type: Sprite
     sprite: Objects/Tools/Decoys/agent_decoy.rsi
@@ -98,7 +98,7 @@
   parent: BaseDecoy
   id: BalloonElite
   name: elite operative balloon
-  description: Upon closer inspection, this Syndicate elite operative is actually a balloon.
+  description: Upon closer inspection, this Imperial elite operative is actually a balloon.
   components:
   - type: Sprite
     sprite: Objects/Tools/Decoys/elite_decoy.rsi
@@ -115,7 +115,7 @@
   parent: BaseDecoy
   id: BalloonJuggernaut
   name: juggernaut balloon
-  description: Upon closer inspection, this Syndicate juggernaut is actually a balloon.
+  description: Upon closer inspection, this Imperial juggernaut is actually a balloon.
   components:
   - type: Sprite
     sprite: Objects/Tools/Decoys/juggernaut_decoy.rsi
@@ -130,7 +130,7 @@
   parent: BaseDecoy
   id: BalloonCommander
   name: commander balloon
-  description: Upon closer inspection, this Syndicate commander is actually a balloon.
+  description: Upon closer inspection, this Imperial commander is actually a balloon.
   components:
   - type: Sprite
     sprite: Objects/Tools/Decoys/commander_decoy.rsi

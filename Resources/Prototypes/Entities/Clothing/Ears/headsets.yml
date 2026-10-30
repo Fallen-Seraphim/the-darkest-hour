@@ -321,7 +321,7 @@
   parent: ClothingHeadsetGrey
   id: ClothingHeadsetSyndicateCovert
   name: passenger headset
-  suffix: Syndicate
+  suffix: Imperial
   components:
   - type: ContainerFill
     containers:
