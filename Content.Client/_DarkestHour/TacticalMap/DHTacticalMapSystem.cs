@@ -3,6 +3,7 @@ using Content.Shared._DarkestHour.Overwatch;
 using Robust.Client.Graphics;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using Color = Robust.Shared.Maths.Color;
 
 namespace Content.Client._DarkestHour.TacticalMap;
 

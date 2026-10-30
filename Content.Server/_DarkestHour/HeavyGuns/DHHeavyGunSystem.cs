@@ -295,13 +295,6 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     }
 
     /// <summary>ПВО, прикрывающие удар: на гриде-цели (корабль) или в радиусе от точки удара (поверхность).</summary>
-    /// <summary>ПВО, запитанная от зоны захвата (АЭС), молчит, пока зона не у своей стороны.</summary>
-    private bool Unpowered(EntityUid uid)
-    {
-        return TryComp<Content.Shared._DarkestHour.ControlPoints.DHControlPointPoweredComponent>(uid, out var powered) &&
-               powered.Disabled;
-    }
-
     private List<Entity<DHInterceptorComponent>> Defenders(Strike strike)
     {
         var result = new List<Entity<DHInterceptorComponent>>();

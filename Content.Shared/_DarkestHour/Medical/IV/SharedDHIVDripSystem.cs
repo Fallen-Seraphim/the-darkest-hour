@@ -350,7 +350,7 @@ public abstract partial class SharedDHIVDripSystem : EntitySystem
             return;
         }
 
-        if (_containers.TryGetContainingContainer((pack, null), out var container) &&
+        if (_containers.TryGetContainingContainer((pack.Owner, null, null), out var container) &&
             TryComp(container.Owner, out DHIVDripComponent? iv))
         {
             iv.FillColor = solution.GetColor(_prototype);
