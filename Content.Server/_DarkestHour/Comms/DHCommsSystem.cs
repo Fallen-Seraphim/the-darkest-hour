@@ -105,8 +105,14 @@ public sealed partial class DHCommsSystem : EntitySystem
 
     private string PhoneName(EntityUid uid)
     {
-        if (TryComp<DHFieldPhoneComponent>(uid, out var phone) && !string.IsNullOrEmpty(phone.PhoneName))
-            return phone.PhoneName;
+        if (TryComp<DHFieldPhoneComponent>(uid, out var phone))
+        {
+            if (!string.IsNullOrEmpty(phone.PhoneName))
+                return phone.PhoneName;
+
+            if (phone.UseEntityName)
+                return Name(uid);
+        }
 
         // Без имени — по кораблю или постройке, где стоит (у челноков — их позывной).
         return Transform(uid).GridUid is { } grid ? Name(grid) : Name(uid);

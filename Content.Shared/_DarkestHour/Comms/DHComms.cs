@@ -40,6 +40,13 @@ public sealed partial class DHFieldPhoneComponent : Component
     /// <summary>Имя в справочнике; пусто — имя сущности.</summary>
     [DataField]
     public string PhoneName = string.Empty;
+
+    /// <summary>
+    /// Без <see cref="PhoneName"/> брать имя самой сущности, а не грида (общие телефоны: маппер ставит и
+    /// переименовывает каждый — «rename» или VV → MetaData → Name, имя сохраняется в карте).
+    /// </summary>
+    [DataField]
+    public bool UseEntityName;
 }
 
 [Serializable, NetSerializable]

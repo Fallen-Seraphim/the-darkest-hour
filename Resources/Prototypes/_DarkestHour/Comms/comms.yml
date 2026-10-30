@@ -254,6 +254,31 @@
   - type: DHFieldPhone
     network: Empire
 
+# --- Общие полевые телефоны: ставятся на карту и переименовываются (rename <uid> "Название" или VV → MetaData → Name);
+# в справочнике показывается имя сущности. ---
+
+- type: entity
+  parent: DHFieldPhoneBase
+  id: DHFieldPhoneRepublic
+  name: field telephone
+  description: A wired field telephone of the garrison net. Works when the radio is jammed.
+  suffix: Republic
+  components:
+  - type: DHFieldPhone
+    network: Republic
+    useEntityName: true
+
+- type: entity
+  parent: DHFieldPhoneBase
+  id: DHFieldPhoneEmpire
+  name: field telephone
+  description: A wired telephone of the landing force net. Works when the radio is jammed.
+  suffix: Empire
+  components:
+  - type: DHFieldPhone
+    network: Empire
+    useEntityName: true
+
 # --- Глушилки ---
 
 - type: entity
