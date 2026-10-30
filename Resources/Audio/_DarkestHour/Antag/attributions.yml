@@ -2,3 +2,8 @@
   license: "Custom"
   copyright: "\"The Might of the Empire\" by James Hannigan, Command & Conquer: Red Alert 3 soundtrack (Electronic Arts). Added at the request of the project owner; not under a free licence, permission to be confirmed. Converted from MP3 to OGG."
   source: "https://github.com/Fallen-Seraphim/the-darkest-hour"
+
+- files: ["republic_anthem.ogg"]
+  license: "Custom"
+  copyright: "\"American Anarchy\" (TFR; track tag \"AmericanCaligula\"). Added at the request of the project owner as the Republic role theme; not under a free licence, permission to be confirmed. Converted from WAV to OGG, metadata stripped."
+  source: "https://github.com/Fallen-Seraphim/the-darkest-hour"

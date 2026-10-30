@@ -194,7 +194,8 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
             var briefing = faction == DHAssaultFaction.Republic
                 ? Loc.GetString("dh-assault-briefing-republic", ("minutes", minutes))
                 : Loc.GetString("dh-assault-briefing-empire", ("minutes", minutes));
-            _antag.SendBriefing(ev.Player, briefing, FactionColor(faction), null);
+            _antag.SendBriefing(ev.Player, briefing, FactionColor(faction),
+                rule.Comp.BriefingSound.GetValueOrDefault(faction));
         }
     }
 
@@ -320,7 +321,7 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
             _serverTicker.DoSpawn(session, profile, station, job, true, out var mob, out _, out _);
             EnsureComp<DHAssaultFighterComponent>(mob).Faction = faction;
             _antag.SendBriefing(session, Loc.GetString("dh-assault-reinforced",
-                ("tickets", rule.Tickets[faction])), FactionColor(faction), null);
+                ("tickets", rule.Tickets[faction])), FactionColor(faction), rule.BriefingSound.GetValueOrDefault(faction));
             returned++;
         }
 
