@@ -14,7 +14,7 @@
   parent: BaseItem
   id: DHBarbedWire
   name: barbed wire
-  description: A coil of barbed wire. Use it on a sandbag barricade to string it on top, or lay it on the ground from the construction menu.
+  description: A coil of barbed wire. Use it on a sandbag barricade or a chain link fence to string it on top, or lay it on the ground from the construction menu.
   components:
   - type: Sprite
     sprite: _RMC14/Objects/barbed_wire.rsi

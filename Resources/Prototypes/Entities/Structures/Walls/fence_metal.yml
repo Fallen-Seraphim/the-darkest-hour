@@ -66,6 +66,11 @@
         enum.ElectrifiedLayers.Sparks:
           True: { visible: True }
           False: { visible: False }
+      # DarkestHour: колючая проволока на сетке
+      enum.DHWireVisuals.Wired:
+        dhwire:
+          True: { visible: True }
+          False: { visible: False }
   - type: AnimationPlayer
   - type: RCDDeconstructable
     cost: 2
@@ -119,11 +124,17 @@
   - type: Sprite
     layers:
     - state: straight
+    # DarkestHour: колючая проволока на сетке
+    - state: straight
+      sprite: _DarkestHour/Structures/fence_wire.rsi
+      map: ["dhwire"]
+      visible: false
     - state: electrified
       sprite: Effects/electricity.rsi
       map: ["enum.ElectrifiedLayers.Sparks"]
       shader: unshaded
       visible: false
+  - type: DHWireable # DarkestHour
   - type: Fixtures
     fixtures:
       fix1:
@@ -159,11 +170,17 @@
   - type: Sprite
     layers:
     - state: corner
+    # DarkestHour: колючая проволока на сетке
+    - state: corner
+      sprite: _DarkestHour/Structures/fence_wire.rsi
+      map: ["dhwire"]
+      visible: false
     - state: electrified
       sprite: Effects/electricity.rsi
       map: ["enum.ElectrifiedLayers.Sparks"]
       shader: unshaded
       visible: false
+  - type: DHWireable # DarkestHour
   - type: Fixtures
     fixtures:
       # needs two shapes to properly handle a triangle corner without weirdness
@@ -206,11 +223,17 @@
   - type: Sprite
     layers:
     - state: end
+    # DarkestHour: колючая проволока на сетке
+    - state: end
+      sprite: _DarkestHour/Structures/fence_wire.rsi
+      map: ["dhwire"]
+      visible: false
     - state: electrified
       sprite: Effects/electricity.rsi
       map: ["enum.ElectrifiedLayers.Sparks"]
       shader: unshaded
       visible: false
+  - type: DHWireable # DarkestHour
   - type: Fixtures
     fixtures:
       fix1:

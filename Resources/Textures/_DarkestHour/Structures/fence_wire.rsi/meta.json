@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Barbed wire overlay drawn procedurally for The Darkest Hour (Tools/_DarkestHour/fence_wire) from the shape of the chain link fence sprites (Structures/Walls/fence.rsi).",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "straight",
+      "directions": 4
+    },
+    {
+      "name": "corner",
+      "directions": 4
+    },
+    {
+      "name": "end",
+      "directions": 4
+    }
+  ]
+}
