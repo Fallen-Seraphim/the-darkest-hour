@@ -1,0 +1,169 @@
+ent-RandomHumanoidChallengeVictimCaptain = жертва катастрофы Капитан роль призрака
+    .desc = { "" }
+    .suffix = ЧЕЛЛЕНДЖ
+
+ent-RandomHumanoidChallengeVictimQM = жертва катастрофы КМ роль призрака
+    .desc = { "" }
+    .suffix = ЧЕЛЛЕНДЖ
+
+ent-RandomHumanoidChallengeVictimRD = жертва катастрофы НР роль призрака
+    .desc = { "" }
+    .suffix = ЧЕЛЛЕНДЖ
+
+ent-RandomHumanoidClownTroupeBanana = труппа банановых клоунов
+    .desc = { "" }
+
+ent-RandomHumanoidCossack = казак роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidPirateCaptainScooner = пират капитан роль призрака
+    .desc = { "" }
+    .suffix = scooner
+
+ent-RandomHumanoidPirateScooner = пират член экипажа роль призрака
+    .desc = { "" }
+    .suffix = scooner
+
+ent-RandomHumanoidSyndieSoldier = Синдикат солдат роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidSyndieSoldierTeamLeader = Синдикат руководитель роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidSyndieVisitor = Синдикат жертва катастрофы роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorAtmosTech = посетитель атмосферный техник роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorBartender = посетитель бармен роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorBlackmarketeer = посетитель торговец чёрного рынка роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorBotanist = посетитель ботаник роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorBoxer = посетитель боксёр роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorCaptain = посетитель Капитан роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorChaplain = посетитель священник роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorChef = посетитель шеф роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorChemist = посетитель химик роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorClown = посетитель клоун роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorDentist = посетитель стоматолог роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorDetective = посетитель детектив роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorEngineer = посетитель инженер роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorGeneticist = посетитель генетик роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorJanitor = посетитель уборщик роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorLawyer = посетитель адвокат роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorLawyerCentcom = посетитель адвокат ЦК роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorLibrarian = посетитель библиотекарь роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorMedicalIntern = посетитель интерн роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorMime = посетитель мим роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorMusician = посетитель музыкант роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorMusicianFancy = посетитель модный музыкант роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorMusicianRelaxed = посетитель расслабленый музыкант роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorParamedic = посетитель парамедик роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorPsychologist = посетитель психолог роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorQM = посетитель КМ роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorRD = посетитель НР роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorReporter = посетитель репортёр роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorResearchAssistant = посетитель научный ассистент роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorScientist = посетитель учёный роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorSecurityCadet = посетитель кадет СБ роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorSecurityOfficer = посетитель офицер СБ роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorServiceWorker = посетитель сервисный работник роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorTechnicalAssistant = посетитель технический ассистент роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorVirologist = посетитель вирусолог роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorWarden = посетитель смотритель роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidVisitorZookeeper = посетитель зоотехник роль призрака
+    .desc = { "" }
+
+ent-RandomHumanoidChallengeCargoTechnician = гост-роль грузчика-жертвы катастрофы
+
+ent-RandomHumanoidChallengeVictimCE = гост-роль главного техника — жертвы катастрофы
+
+ent-RandomHumanoidChallengeVictimCMO = гост-роль главного врача — жертвы катастрофы
+
+ent-RandomHumanoidChallengeVictimHOP = гост-роль адъютанта — жертвы катастрофы
+
+ent-RandomHumanoidChallengeVictimHOS = гост-роль начальника корпоративной безопасности — жертвы катастрофы
+
+ent-RandomHumanoidVisitorCE = гост-роль приезжего главного техника
+
+ent-RandomHumanoidVisitorCMO = гост-роль приезжего главного врача
+
+ent-RandomHumanoidVisitorCargoTechnician = гост-роль приезжего грузчика
+
+ent-RandomHumanoidVisitorHOP = гост-роль приезжего адъютанта
+
+ent-RandomHumanoidVisitorHOS = гост-роль приезжего начальника корпоративной безопасности
+
+ent-RandomHumanoidVisitorMedicalDoctor = гост-роль приезжего врача
+
+ent-RandomHumanoidVisitorSalvageSpecialist = гост-роль приезжего экспедитора

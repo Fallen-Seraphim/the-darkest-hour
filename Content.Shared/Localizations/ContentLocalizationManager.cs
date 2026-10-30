@@ -10,7 +10,8 @@ namespace Content.Shared.Localizations
         [Dependency] private ILocalizationManager _loc = default!;
 
         // If you want to change your codebase's language, do it here.
-        private const string Culture = "en-US";
+        private const string Culture = "ru-RU"; // DarkestHour: русская локализация (по образцу Corvax)
+        private const string FallbackCulture = "en-US"; // DarkestHour: чего нет в ru-RU — по-английски
 
         /// <summary>
         /// Custom format strings used for parsing and displaying minutes:seconds timespans.
@@ -26,8 +27,15 @@ namespace Content.Shared.Localizations
         public void Initialize()
         {
             var culture = new CultureInfo(Culture);
+            var fallbackCulture = new CultureInfo(FallbackCulture); // DarkestHour
 
             _loc.LoadCulture(culture);
+            _loc.LoadCulture(fallbackCulture); // DarkestHour
+            _loc.SetFallbackCulture(fallbackCulture); // DarkestHour
+            // DarkestHour: переводы Corvax местами зовут английские MANY/MAKEPLURAL — в русском слово уже стоит
+            // в нужной форме, английское окончание «-s» ему не нужно.
+            _loc.AddFunction(culture, "MANY", args => args.Args[0]);
+            _loc.AddFunction(culture, "MAKEPLURAL", args => args.Args[0]);
             _loc.AddFunction(culture, "PRESSURE", FormatPressure);
             _loc.AddFunction(culture, "POWERWATTS", FormatPowerWatts);
             _loc.AddFunction(culture, "POWERJOULES", FormatPowerJoules);
@@ -50,6 +58,18 @@ namespace Content.Shared.Localizations
 
             _loc.AddFunction(cultureEn, "MAKEPLURAL", FormatMakePlural);
             _loc.AddFunction(cultureEn, "MANY", FormatMany);
+
+            // DarkestHour: английская культура — запасная, ей нужны те же функции, что и основной.
+            _loc.AddFunction(cultureEn, "PRESSURE", FormatPressure);
+            _loc.AddFunction(cultureEn, "POWERWATTS", FormatPowerWatts);
+            _loc.AddFunction(cultureEn, "POWERJOULES", FormatPowerJoules);
+            _loc.AddFunction(cultureEn, "ENERGYWATTHOURS", FormatEnergyWattHours);
+            _loc.AddFunction(cultureEn, "UNITS", FormatUnits);
+            _loc.AddFunction(cultureEn, "TOSTRING", args => FormatToString(cultureEn, args));
+            _loc.AddFunction(cultureEn, "LOC", FormatLoc);
+            _loc.AddFunction(cultureEn, "NATURALFIXED", FormatNaturalFixed);
+            _loc.AddFunction(cultureEn, "NATURALPERCENT", FormatNaturalPercent);
+            _loc.AddFunction(cultureEn, "PLAYTIME", FormatPlaytime);
         }
 
         private ILocValue FormatMany(LocArgs args)

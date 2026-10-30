@@ -1,0 +1,843 @@
+adjectives-dataset-1 = очаровательный
+
+adjectives-dataset-10 = краснеющий
+
+adjectives-dataset-100 = сонный
+
+adjectives-dataset-101 = глупый
+
+adjectives-dataset-102 = превосходный
+
+adjectives-dataset-103 = талантливый
+
+adjectives-dataset-104 = ручной
+
+adjectives-dataset-105 = нежный
+
+adjectives-dataset-106 = крепкий
+
+adjectives-dataset-107 = незаинтересованный
+
+adjectives-dataset-108 = обширный
+
+adjectives-dataset-109 = странствующий
+
+adjectives-dataset-11 = яркий
+
+adjectives-dataset-110 = дикий
+
+adjectives-dataset-111 = неправильный
+
+adjectives-dataset-112 = злой
+
+adjectives-dataset-113 = раздражённый
+
+adjectives-dataset-114 = встревоженный
+
+adjectives-dataset-115 = высокомерный
+
+adjectives-dataset-116 = пристыженный
+
+adjectives-dataset-117 = ужасный
+
+adjectives-dataset-118 = плохой
+
+adjectives-dataset-119 = озадаченный
+
+adjectives-dataset-12 = чистый
+
+adjectives-dataset-120 = чёрный
+
+adjectives-dataset-121 = грустный
+
+adjectives-dataset-122 = скучающий
+
+adjectives-dataset-123 = неуклюжий
+
+adjectives-dataset-124 = задиристый
+
+adjectives-dataset-125 = осуждённый
+
+adjectives-dataset-126 = растерянный
+
+adjectives-dataset-127 = обезумевший
+
+adjectives-dataset-128 = жуткий
+
+adjectives-dataset-129 = жестокий
+
+adjectives-dataset-13 = ясный
+
+adjectives-dataset-130 = опасный
+
+adjectives-dataset-131 = побеждённый
+
+adjectives-dataset-132 = вызывающий
+
+adjectives-dataset-133 = подавленный
+
+adjectives-dataset-134 = брезгливый
+
+adjectives-dataset-135 = встревоженный
+
+adjectives-dataset-136 = головокружащийся
+
+adjectives-dataset-137 = скучный
+
+adjectives-dataset-138 = смущённый
+
+adjectives-dataset-139 = завистливый
+
+adjectives-dataset-14 = облачный
+
+adjectives-dataset-140 = злой
+
+adjectives-dataset-141 = свирепый
+
+adjectives-dataset-142 = глупый
+
+adjectives-dataset-143 = обезумевший
+
+adjectives-dataset-144 = испуганный
+
+adjectives-dataset-145 = скорбящий
+
+adjectives-dataset-146 = ворчливый
+
+adjectives-dataset-147 = беспомощный
+
+adjectives-dataset-148 = бездомный
+
+adjectives-dataset-149 = голодный
+
+adjectives-dataset-15 = красочный
+
+adjectives-dataset-150 = раненый
+
+adjectives-dataset-151 = больной
+
+adjectives-dataset-152 = зудящий
+
+adjectives-dataset-153 = ревнивый
+
+adjectives-dataset-154 = нервный
+
+adjectives-dataset-155 = ленивый
+
+adjectives-dataset-156 = одинокий
+
+adjectives-dataset-157 = загадочный
+
+adjectives-dataset-158 = мерзкий
+
+adjectives-dataset-159 = непослушный
+
+adjectives-dataset-16 = переполненный
+
+adjectives-dataset-160 = нервничающий
+
+adjectives-dataset-161 = чокнутый
+
+adjectives-dataset-162 = отвратительный
+
+adjectives-dataset-163 = возмутительный
+
+adjectives-dataset-164 = смятенный
+
+adjectives-dataset-165 = отталкивающий
+
+adjectives-dataset-166 = пугающий
+
+adjectives-dataset-167 = эгоистичный
+
+adjectives-dataset-168 = болезненный
+
+adjectives-dataset-169 = напряжённый
+
+adjectives-dataset-17 = милый
+
+adjectives-dataset-170 = ужасный
+
+adjectives-dataset-171 = раздражительный
+
+adjectives-dataset-172 = бездумный
+
+adjectives-dataset-173 = уставший
+
+adjectives-dataset-174 = обеспокоенный
+
+adjectives-dataset-175 = расстроенный
+
+adjectives-dataset-176 = скованный
+
+adjectives-dataset-177 = утомлённый
+
+adjectives-dataset-178 = злой
+
+adjectives-dataset-179 = встревоженный
+
+adjectives-dataset-18 = тёмный
+
+adjectives-dataset-180 = приятный
+
+adjectives-dataset-181 = развесёлый
+
+adjectives-dataset-182 = храбрый
+
+adjectives-dataset-183 = спокойный
+
+adjectives-dataset-184 = обаятельный
+
+adjectives-dataset-185 = жизнерадостный
+
+adjectives-dataset-186 = комфортный
+
+adjectives-dataset-187 = кооперативный
+
+adjectives-dataset-188 = мужественный
+
+adjectives-dataset-189 = восхитительный
+
+adjectives-dataset-19 = невзрачный
+
+adjectives-dataset-190 = решительный
+
+adjectives-dataset-191 = увлечённый
+
+adjectives-dataset-192 = ликующий
+
+adjectives-dataset-193 = очаровательный
+
+adjectives-dataset-194 = ободряющий
+
+adjectives-dataset-195 = энергичный
+
+adjectives-dataset-196 = увлеченный
+
+adjectives-dataset-197 = взволнованный
+
+adjectives-dataset-198 = радостный
+
+adjectives-dataset-199 = справедливый
+
+adjectives-dataset-2 = авантюрный
+
+adjectives-dataset-20 = отчётливый
+
+adjectives-dataset-200 = верный
+
+adjectives-dataset-201 = фантастический
+
+adjectives-dataset-202 = хороший
+
+adjectives-dataset-203 = дружелюбный
+
+adjectives-dataset-204 = забавный
+
+adjectives-dataset-205 = нежный
+
+adjectives-dataset-206 = славный
+
+adjectives-dataset-207 = хороший
+
+adjectives-dataset-208 = счастливый
+
+adjectives-dataset-209 = здоровый
+
+adjectives-dataset-21 = тусклый
+
+adjectives-dataset-210 = полезный
+
+adjectives-dataset-211 = уморительный
+
+adjectives-dataset-212 = весёлый
+
+adjectives-dataset-213 = радостный
+
+adjectives-dataset-214 = добрый
+
+adjectives-dataset-215 = оживлённый
+
+adjectives-dataset-216 = милый
+
+adjectives-dataset-217 = удачливый
+
+adjectives-dataset-218 = приятный
+
+adjectives-dataset-219 = послушный
+
+adjectives-dataset-22 = элегантный
+
+adjectives-dataset-220 = идеальный
+
+adjectives-dataset-221 = приятный
+
+adjectives-dataset-222 = гордый
+
+adjectives-dataset-223 = облегчённый
+
+adjectives-dataset-224 = глупый
+
+adjectives-dataset-225 = улыбающийся
+
+adjectives-dataset-226 = великолепный
+
+adjectives-dataset-227 = успешный
+
+adjectives-dataset-228 = благодарный
+
+adjectives-dataset-229 = вдумчивый
+
+adjectives-dataset-23 = взволнованный
+
+adjectives-dataset-230 = победоносный
+
+adjectives-dataset-231 = жизнерадостный
+
+adjectives-dataset-232 = остроумный
+
+adjectives-dataset-233 = чудесный
+
+adjectives-dataset-234 = рьяный
+
+adjectives-dataset-235 = чудаковатый
+
+adjectives-dataset-236 = широкий
+
+adjectives-dataset-237 = пухлый
+
+adjectives-dataset-238 = кривой
+
+adjectives-dataset-239 = изогнутый
+
+adjectives-dataset-24 = изысканный
+
+adjectives-dataset-240 = глубокий
+
+adjectives-dataset-241 = плоский
+
+adjectives-dataset-242 = высокий
+
+adjectives-dataset-243 = полый
+
+adjectives-dataset-244 = низкий
+
+adjectives-dataset-245 = узкий
+
+adjectives-dataset-246 = круглый
+
+adjectives-dataset-247 = мелкий
+
+adjectives-dataset-248 = худой
+
+adjectives-dataset-249 = квадратный
+
+adjectives-dataset-25 = грязный
+
+adjectives-dataset-250 = крутой
+
+adjectives-dataset-251 = прямой
+
+adjectives-dataset-252 = широкий
+
+adjectives-dataset-253 = большой
+
+adjectives-dataset-254 = колоссальный
+
+adjectives-dataset-255 = толстый
+
+adjectives-dataset-256 = гигантский
+
+adjectives-dataset-257 = великий
+
+adjectives-dataset-258 = огромный
+
+adjectives-dataset-259 = необъятный
+
+adjectives-dataset-26 = гламурный
+
+adjectives-dataset-260 = знатный
+
+adjectives-dataset-261 = маленький
+
+adjectives-dataset-262 = громадный
+
+adjectives-dataset-263 = массивный
+
+adjectives-dataset-264 = миниатюрный
+
+adjectives-dataset-265 = карликовый
+
+adjectives-dataset-266 = крошечный
+
+adjectives-dataset-267 = тощий
+
+adjectives-dataset-268 = короткий
+
+adjectives-dataset-269 = компактный
+
+adjectives-dataset-27 = сияющий
+
+adjectives-dataset-270 = высокий
+
+adjectives-dataset-271 = крохотный
+
+adjectives-dataset-272 = мизерный
+
+adjectives-dataset-273 = невеликий
+
+adjectives-dataset-274 = воркующий
+
+adjectives-dataset-275 = оглушительный
+
+adjectives-dataset-276 = тихий
+
+adjectives-dataset-277 = резкий
+
+adjectives-dataset-278 = пронзительный
+
+adjectives-dataset-279 = шипящий
+
+adjectives-dataset-28 = великолепный
+
+adjectives-dataset-280 = приглушённый
+
+adjectives-dataset-281 = хриплый
+
+adjectives-dataset-282 = громкий
+
+adjectives-dataset-283 = мелодичный
+
+adjectives-dataset-284 = стонущий
+
+adjectives-dataset-285 = немой
+
+adjectives-dataset-286 = шумный
+
+adjectives-dataset-287 = мурлыкающий
+
+adjectives-dataset-288 = тихий
+
+adjectives-dataset-289 = хриплый
+
+adjectives-dataset-29 = грациозный
+
+adjectives-dataset-290 = звучный
+
+adjectives-dataset-291 = визгливый
+
+adjectives-dataset-292 = пронзительный
+
+adjectives-dataset-293 = безмолвный
+
+adjectives-dataset-294 = мягкий
+
+adjectives-dataset-295 = визжащий
+
+adjectives-dataset-296 = громоподобный
+
+adjectives-dataset-297 = безголосый
+
+adjectives-dataset-298 = шепчущий
+
+adjectives-dataset-299 = древний
+
+adjectives-dataset-3 = агрессивный
+
+adjectives-dataset-30 = гротескный
+
+adjectives-dataset-300 = краткий
+
+adjectives-dataset-301 = ранний
+
+adjectives-dataset-302 = быстрый
+
+adjectives-dataset-303 = поздний
+
+adjectives-dataset-304 = длинный
+
+adjectives-dataset-305 = современный
+
+adjectives-dataset-306 = старый
+
+adjectives-dataset-307 = старомодный
+
+adjectives-dataset-308 = быстрый
+
+adjectives-dataset-309 = стремительный
+
+adjectives-dataset-31 = красивый
+
+adjectives-dataset-310 = короткий
+
+adjectives-dataset-311 = медленный
+
+adjectives-dataset-312 = скорый
+
+adjectives-dataset-313 = молодой
+
+adjectives-dataset-314 = горький
+
+adjectives-dataset-315 = вкусный
+
+adjectives-dataset-316 = свежий
+
+adjectives-dataset-317 = сочный
+
+adjectives-dataset-318 = спелый
+
+adjectives-dataset-319 = гнилой
+
+adjectives-dataset-32 = невзрачный
+
+adjectives-dataset-320 = солёный
+
+adjectives-dataset-321 = кислый
+
+adjectives-dataset-322 = острый
+
+adjectives-dataset-323 = несвежий
+
+adjectives-dataset-324 = липкий
+
+adjectives-dataset-325 = сильный
+
+adjectives-dataset-326 = сладкий
+
+adjectives-dataset-327 = терпкий
+
+adjectives-dataset-328 = безвкусный
+
+adjectives-dataset-329 = аппетитный
+
+adjectives-dataset-33 = светлый
+
+adjectives-dataset-330 = иссохший
+
+adjectives-dataset-331 = порхающий
+
+adjectives-dataset-332 = пушистый
+
+adjectives-dataset-333 = жирный
+
+adjectives-dataset-334 = грязный
+
+adjectives-dataset-335 = твёрдый
+
+adjectives-dataset-336 = горячий
+
+adjectives-dataset-337 = ледяной
+
+adjectives-dataset-338 = свободный
+
+adjectives-dataset-339 = растаявший
+
+adjectives-dataset-34 = длинный
+
+adjectives-dataset-340 = питательный
+
+adjectives-dataset-341 = пластиковый
+
+adjectives-dataset-342 = колючий
+
+adjectives-dataset-343 = дождливый
+
+adjectives-dataset-344 = грубый
+
+adjectives-dataset-345 = разбросанный
+
+adjectives-dataset-346 = лохматый
+
+adjectives-dataset-347 = подрагивающий
+
+adjectives-dataset-348 = острый
+
+adjectives-dataset-349 = дрожащий
+
+adjectives-dataset-35 = величественный
+
+adjectives-dataset-350 = шелковистый
+
+adjectives-dataset-351 = склизкий
+
+adjectives-dataset-352 = скользкий
+
+adjectives-dataset-353 = гладкий
+
+adjectives-dataset-354 = мягкий
+
+adjectives-dataset-355 = твёрдый
+
+adjectives-dataset-356 = устойчивый
+
+adjectives-dataset-357 = липкий
+
+adjectives-dataset-358 = нежный
+
+adjectives-dataset-359 = тугой
+
+adjectives-dataset-36 = туманный
+
+adjectives-dataset-360 = неровный
+
+adjectives-dataset-361 = слабый
+
+adjectives-dataset-362 = мокрый
+
+adjectives-dataset-363 = деревянный
+
+adjectives-dataset-364 = вкуснейший
+
+adjectives-dataset-365 = кипящий
+
+adjectives-dataset-366 = ветреный
+
+adjectives-dataset-367 = сломанный
+
+adjectives-dataset-368 = ухабистый
+
+adjectives-dataset-369 = прохладный
+
+adjectives-dataset-37 = неподвижный
+
+adjectives-dataset-370 = холодный
+
+adjectives-dataset-371 = прохладный
+
+adjectives-dataset-372 = жуткий
+
+adjectives-dataset-373 = кривой
+
+adjectives-dataset-374 = приятный
+
+adjectives-dataset-375 = кудрявый
+
+adjectives-dataset-376 = повреждённый
+
+adjectives-dataset-377 = влажный
+
+adjectives-dataset-378 = грязный
+
+adjectives-dataset-379 = сухой
+
+adjectives-dataset-38 = грязный
+
+adjectives-dataset-380 = пыльный
+
+adjectives-dataset-381 = грязный
+
+adjectives-dataset-382 = шелушащийся
+
+adjectives-dataset-383 = пушистый
+
+adjectives-dataset-384 = морозный
+
+adjectives-dataset-385 = горячий
+
+adjectives-dataset-386 = тёплый
+
+adjectives-dataset-387 = мокрый
+
+adjectives-dataset-388 = обильный
+
+adjectives-dataset-389 = пустой
+
+adjectives-dataset-39 = старомодный
+
+adjectives-dataset-390 = малочисленный
+
+adjectives-dataset-391 = тяжёлый
+
+adjectives-dataset-392 = лёгкий
+
+adjectives-dataset-393 = частый
+
+adjectives-dataset-394 = многочисленный
+
+adjectives-dataset-395 = существенный
+
+adjectives-dataset-396 = капиталистический
+
+adjectives-dataset-397 = шустрый
+
+adjectives-dataset-398 = пикантный
+
+adjectives-dataset-399 = ненасытный
+
+adjectives-dataset-4 = бдительный
+
+adjectives-dataset-40 = простой
+
+adjectives-dataset-400 = отвратительный
+
+adjectives-dataset-401 = людоедский
+
+adjectives-dataset-402 = хитрый
+
+adjectives-dataset-403 = отчуждённый
+
+adjectives-dataset-404 = вялый
+
+adjectives-dataset-405 = мудрый
+
+adjectives-dataset-406 = благородный
+
+adjectives-dataset-407 = скрытный
+
+adjectives-dataset-408 = трусливый
+
+adjectives-dataset-409 = хнычущий
+
+adjectives-dataset-41 = уравновешенный
+
+adjectives-dataset-410 = извивающийся
+
+adjectives-dataset-411 = скользящий
+
+adjectives-dataset-412 = жалкий
+
+adjectives-dataset-413 = крадущийся
+
+adjectives-dataset-414 = коварный
+
+adjectives-dataset-415 = сетчатый
+
+adjectives-dataset-416 = щёлкающий
+
+adjectives-dataset-417 = гигантский
+
+adjectives-dataset-418 = подозрительный
+
+adjectives-dataset-419 = подозрительный
+
+adjectives-dataset-42 = драгоценный
+
+adjectives-dataset-420 = пылающий
+
+adjectives-dataset-421 = ворчливый
+
+adjectives-dataset-422 = пухлый
+
+adjectives-dataset-43 = старинный
+
+adjectives-dataset-44 = блестящий
+
+adjectives-dataset-45 = задымлённый
+
+adjectives-dataset-46 = искрящийся
+
+adjectives-dataset-47 = чистейший
+
+adjectives-dataset-48 = бурный
+
+adjectives-dataset-49 = странный
+
+adjectives-dataset-5 = привлекательный
+
+adjectives-dataset-50 = уродливый
+
+adjectives-dataset-51 = уродливейший
+
+adjectives-dataset-52 = неприглядный
+
+adjectives-dataset-53 = необычный
+
+adjectives-dataset-54 = широкоглазый
+
+adjectives-dataset-55 = живой
+
+adjectives-dataset-56 = раздражающий
+
+adjectives-dataset-57 = плохой
+
+adjectives-dataset-58 = лучший
+
+adjectives-dataset-59 = красивый
+
+adjectives-dataset-6 = средний
+
+adjectives-dataset-60 = умный
+
+adjectives-dataset-61 = бьющийся
+
+adjectives-dataset-62 = занятый
+
+adjectives-dataset-63 = осторожный
+
+adjectives-dataset-64 = осмотрительный
+
+adjectives-dataset-65 = сообразительный
+
+adjectives-dataset-66 = неуклюжий
+
+adjectives-dataset-67 = обеспокоенный
+
+adjectives-dataset-68 = сумасшедший
+
+adjectives-dataset-69 = любопытный
+
+adjectives-dataset-7 = красивый
+
+adjectives-dataset-70 = мёртвый
+
+adjectives-dataset-71 = другой
+
+adjectives-dataset-72 = трудный
+
+adjectives-dataset-73 = сомнительный
+
+adjectives-dataset-74 = лёгкий
+
+adjectives-dataset-75 = дорогой
+
+adjectives-dataset-76 = знаменитый
+
+adjectives-dataset-77 = хрупкий
+
+adjectives-dataset-78 = хилый
+
+adjectives-dataset-79 = одарённый
+
+adjectives-dataset-8 = голубоглазый
+
+adjectives-dataset-80 = полезный
+
+adjectives-dataset-81 = беспомощный
+
+adjectives-dataset-82 = ужасный
+
+adjectives-dataset-83 = важный
+
+adjectives-dataset-84 = невозможный
+
+adjectives-dataset-85 = недорогой
+
+adjectives-dataset-86 = невинный
+
+adjectives-dataset-87 = пытливый
+
+adjectives-dataset-88 = современный
+
+adjectives-dataset-89 = размякший
+
+adjectives-dataset-9 = кровавый
+
+adjectives-dataset-90 = странный
+
+adjectives-dataset-91 = открытый
+
+adjectives-dataset-92 = выдающийся
+
+adjectives-dataset-93 = бедный
+
+adjectives-dataset-94 = могущественный
+
+adjectives-dataset-95 = колючий
+
+adjectives-dataset-96 = озадаченный
+
+adjectives-dataset-97 = настоящий
+
+adjectives-dataset-98 = богатый
+
+adjectives-dataset-99 = застенчивый

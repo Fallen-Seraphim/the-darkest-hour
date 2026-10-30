@@ -1,0 +1,15 @@
+parcel-wrap-examine-detail-uses = Осталось [color={ $markupUsesColor }]{ $uses }[/color] { $uses ->
+    [one] использование
+    [few] использования
+    *[other] использований
+}.
+
+parcel-wrap-popup-being-wrapped = { CAPITALIZE(THE($user)) } пытается завернуть вас в обёртку!
+
+parcel-wrap-popup-being-wrapped-self = Вы начинаете завёртывать себя в обёртку.
+
+parcel-wrap-popup-parcel-destroyed = Упаковка, содержащая { THE($contents) }, уничтожена!
+
+parcel-wrap-verb-unwrap = Развернуть
+
+parcel-wrap-verb-wrap = Завернуть
