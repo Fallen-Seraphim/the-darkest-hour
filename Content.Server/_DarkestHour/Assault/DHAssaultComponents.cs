@@ -1,6 +1,7 @@
 using Content.Shared._DarkestHour.Assault;
 using Content.Shared._DarkestHour.Shuttles.Rift;
 using Content.Shared.Roles;
+using Robust.Shared.Audio;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
@@ -89,6 +90,14 @@ public sealed partial class DHAssaultRuleComponent : Component
     {
         { DHAssaultFaction.Republic, TimeSpan.FromMinutes(6) },
         { DHAssaultFaction.Empire, TimeSpan.FromMinutes(5) },
+    };
+
+    /// <summary>Музыка стороны при выдаче роли (появление в раунде и с волной подкреплений).</summary>
+    [DataField]
+    public Dictionary<DHAssaultFaction, SoundSpecifier> BriefingSound = new()
+    {
+        { DHAssaultFaction.Republic, new SoundPathSpecifier("/Audio/_DarkestHour/Antag/republic_anthem.ogg") },
+        { DHAssaultFaction.Empire, new SoundPathSpecifier("/Audio/_DarkestHour/Antag/imperial_raid_start.ogg") },
     };
 
     /// <summary>Должность, в которой возвращаются погибшие.</summary>
