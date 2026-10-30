@@ -180,11 +180,7 @@ public sealed partial class DHLandingSystem
             return Spawn(proto, new EntityCoordinates(map, position));
 
         var tile = _map.WorldToTile(map, grid, position);
-        if (!_map.TryGetTileRef(map, grid, tile, out var tileRef) || tileRef.Tile.IsEmpty)
-        {
-            _biome.ReserveTiles(map, Box2.CenteredAround(_map.GridTileToWorldPos(map, grid, tile), new Vector2(0.5f)),
-                new List<(Vector2i Index, Tile Tile)>());
-        }
+        _ground.EnsureGround(map, grid, tile);
 
         var uid = Spawn(proto, _map.GridTileToLocal(map, grid, tile));
         var xform = Transform(uid);

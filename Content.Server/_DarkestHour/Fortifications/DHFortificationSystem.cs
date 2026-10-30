@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Server._DarkestHour.Assault;
 using Content.Server.Stack;
 using Content.Shared._DarkestHour.Fortifications;
 using Content.Shared.Burial.Components;
@@ -11,7 +12,6 @@ using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
-using Content.Shared.Parallax.Biomes;
 using Content.Shared.Popups;
 using Content.Shared.Stacks;
 using Content.Shared.Tag;
@@ -36,6 +36,7 @@ namespace Content.Server._DarkestHour.Fortifications;
 public sealed partial class DHFortificationSystem : EntitySystem
 {
     [Dependency] private DamageableSystem _damageable = default!;
+    [Dependency] private DHGroundSystem _ground = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
@@ -182,11 +183,10 @@ public sealed partial class DHFortificationSystem : EntitySystem
         });
     }
 
-    /// <summary>Стоит на грунте планеты (сетка карты с биомом), а не на полу постройки.</summary>
+    /// <summary>Стоит на грунте планеты (биом или голая земля нарисованной карты), а не на полу постройки.</summary>
     private bool OnGround(EntityUid user)
     {
-        var xform = Transform(user);
-        return xform.GridUid is { } grid && HasComp<BiomeComponent>(grid);
+        return _ground.OnGround(user);
     }
 
     private void OnEmptyFilled(Entity<DHSandbagsEmptyComponent> ent, ref DHSandbagFillDoAfterEvent args)

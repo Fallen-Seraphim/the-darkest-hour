@@ -1,0 +1,25 @@
+# Местность нарисованных вручную планет (DHPlanetBase mapped: true).
+
+# Край района операции: неразрушимый песчаник по границе карты. Ставится и обновляется скриптом
+# Tools/_DarkestHour/planet_map/prepare.py — вручную не расставлять.
+- type: entity
+  parent: BaseWall
+  id: DHWorldEdgeSand
+  name: sandstone cliff
+  description: A sheer cliff of solid sandstone. The operation area ends here.
+  suffix: world edge, indestructible
+  components:
+  - type: Transform
+    noRot: true
+  - type: Sprite
+    sprite: Structures/Walls/stone-sand.rsi
+  - type: Icon
+    sprite: Structures/Walls/stone-sand.rsi
+    state: full
+  - type: IconSmooth
+    key: stone
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ stone, doors ]
+      base: stone
+      index: 0

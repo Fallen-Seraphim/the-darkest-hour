@@ -213,6 +213,22 @@ public sealed partial class DHPlanetBaseComponent : Component
     [DataField(required: true)]
     public string Body = string.Empty;
 
+    /// <summary>
+    /// Поверхность нарисована вручную: карта станции — сама поверхность (база и вся местность на одном гриде карты),
+    /// биома нет. Тело даёт только свет, тяжесть и воздух; воздух открытой местности и построек — из атмосферы карты,
+    /// без потайловой симуляции. Зоны посадки — маяки <c>DHLandingZonePad</c>, расставленные на карте.
+    /// </summary>
+    [DataField]
+    public bool Mapped;
+
+    /// <summary>Нарисованная поверхность: тайл грунта — им застилаются пустые места (маяк ЗП, обстрел).</summary>
+    [DataField]
+    public ProtoId<Content.Shared.Maps.ContentTileDefinition> GroundTile = "FloorAsteroidSand";
+
+    /// <summary>Нарисованная поверхность: какие ещё тайлы считаются голой землёй (мешки с песком).</summary>
+    [DataField]
+    public HashSet<ProtoId<Content.Shared.Maps.ContentTileDefinition>> GroundTiles = new();
+
     /// <summary>Запас вокруг базы, где биом не ставит деревья и камни, тайлов.</summary>
     [DataField]
     public int ClearMargin = 6;

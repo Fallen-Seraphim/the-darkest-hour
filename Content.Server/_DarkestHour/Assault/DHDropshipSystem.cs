@@ -165,6 +165,14 @@ public sealed partial class DHDropshipSystem : EntitySystem
         if (!string.IsNullOrEmpty(ent.Comp.ZoneName))
             return;
 
+        // Маяк, расставленный на карте и переименованный мапером: его имя и есть имя зоны.
+        var meta = MetaData(ent);
+        if (!ent.Comp.Temporary && meta.EntityPrototype is { } proto && meta.EntityName != proto.Name)
+        {
+            ent.Comp.ZoneName = meta.EntityName;
+            return;
+        }
+
         ent.Comp.ZoneName = ent.Comp.Temporary
             ? Loc.GetString("dh-lz-temporary-name", ("number", ++_temporaryZones))
             : Loc.GetString("dh-lz-name", ("number", ++_zones));
