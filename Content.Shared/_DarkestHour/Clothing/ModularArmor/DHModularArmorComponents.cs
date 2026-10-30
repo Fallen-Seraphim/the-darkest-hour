@@ -86,10 +86,6 @@ public sealed partial class DHArmorModuleComponent : Component
     [DataField]
     public string Faction = string.Empty;
 
-    /// <summary>Защита части тела, пока модуль цел (не для спецсистем).</summary>
-    [DataField]
-    public DamageModifierSet Modifiers = new();
-
     /// <summary>Множитель скорости носителя.</summary>
     [DataField]
     public float Speed = 1f;
@@ -156,8 +152,9 @@ public sealed partial class DHPartArmorComponent : Component
     [DataField(required: true)]
     public List<string> Parts = new();
 
+    /// <summary>Класс брони (0–3): пули ниже этого класса не пробивают.</summary>
     [DataField]
-    public DamageModifierSet Modifiers = new();
+    public int ArmorClass = 1;
 }
 
 /// <summary>Стойка обслуживания брони: рядом с ней ставятся и снимаются тяжёлые модули.</summary>
@@ -219,6 +216,30 @@ public sealed partial class DHArmorSpecialActionEvent : InstantActionEvent;
 
 public static class DHModularArmor
 {
+    /// <summary>
+    /// Класс брони модуля (решение автора 2026-10-30): без брони — 0, композитный — 1, лёгкий — 2, тяжёлый — 3.
+    /// Пуля с классом бронепробития не ниже класса брони пробивает (полный урон), иначе — заброневая травма.
+    /// </summary>
+    public static int Level(DHArmorClass cls)
+    {
+        return cls switch
+        {
+            DHArmorClass.Composite => 1,
+            DHArmorClass.Light => 2,
+            DHArmorClass.Heavy => 3,
+            _ => 0,
+        };
+    }
+
+    /// <summary>Доля урона, проходящая через непробитую броню (тупым уроном).</summary>
+    public const float BlockedFraction = 0.15f;
+
+    /// <summary>Доля физического урона не от пуль (холодное оружие, взрывы), проходящая через броню.</summary>
+    public const float NonBulletFraction = 0.5f;
+
+    /// <summary>Износ модуля при пробитии — доля урона пули.</summary>
+    public const float PenetratedWear = 0.5f;
+
     public static string ContainerId(DHArmorSlot slot) => "dh_armor_" + slot.ToString().ToLowerInvariant();
 
     public static readonly DHArmorSlot[] Slots =

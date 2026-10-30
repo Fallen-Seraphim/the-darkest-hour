@@ -20,13 +20,10 @@
     lowPressureMultiplier: 1000
   - type: ExplosionResistance
     damageCoefficient: 0.8
+  # Физическую защиту дают только модули (классы брони); корпус — от радиации и кислоты.
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.95
-        Slash: 0.95
-        Piercing: 0.95
-        Heat: 0.9
         Radiation: 0.6
         Caustic: 0.6
   - type: ClothingSpeedModifier
@@ -77,18 +74,13 @@
         Radiation: 1
   - type: DHPartArmor
     parts: [ Head ]
-    modifiers:
-      coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.5
-        Heat: 0.62
+    armorClass: 1
 
 - type: entity
   parent: [ BaseItem, BaseTaskForceContraband ]
   id: DHArmorModuleRMB1LightTorso
   name: RMB-1 light torso plate
-  description: "A light armour module: thin plates, barely slows you down. Can be swapped in the field."
+  description: "A light armour module, protection class 2: stops ordinary rounds, barely slows you down. Can be swapped in the field."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_light.rsi
@@ -104,12 +96,6 @@
     integrity: 150
     equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_light.rsi
     equippedState: torso
-    modifiers:
-      coefficients:
-        Blunt: 0.75
-        Slash: 0.75
-        Piercing: 0.75
-        Heat: 0.81
   - type: StaticPrice
     price: 300
 
@@ -117,7 +103,7 @@
   parent: [ BaseItem, BaseTaskForceContraband ]
   id: DHArmorModuleRMB1LightArmLeft
   name: RMB-1 light left arm guard
-  description: "A light armour module: thin plates, barely slows you down. Can be swapped in the field."
+  description: "A light armour module, protection class 2: stops ordinary rounds, barely slows you down. Can be swapped in the field."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_light.rsi
@@ -133,12 +119,6 @@
     integrity: 100
     equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_light.rsi
     equippedState: arm_left
-    modifiers:
-      coefficients:
-        Blunt: 0.75
-        Slash: 0.75
-        Piercing: 0.75
-        Heat: 0.81
   - type: StaticPrice
     price: 300
 
@@ -146,7 +126,7 @@
   parent: [ BaseItem, BaseTaskForceContraband ]
   id: DHArmorModuleRMB1LightArmRight
   name: RMB-1 light right arm guard
-  description: "A light armour module: thin plates, barely slows you down. Can be swapped in the field."
+  description: "A light armour module, protection class 2: stops ordinary rounds, barely slows you down. Can be swapped in the field."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_light.rsi
@@ -162,12 +142,6 @@
     integrity: 100
     equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_light.rsi
     equippedState: arm_right
-    modifiers:
-      coefficients:
-        Blunt: 0.75
-        Slash: 0.75
-        Piercing: 0.75
-        Heat: 0.81
   - type: StaticPrice
     price: 300
 
@@ -175,7 +149,7 @@
   parent: [ BaseItem, BaseTaskForceContraband ]
   id: DHArmorModuleRMB1LightLegLeft
   name: RMB-1 light left leg guard
-  description: "A light armour module: thin plates, barely slows you down. Can be swapped in the field."
+  description: "A light armour module, protection class 2: stops ordinary rounds, barely slows you down. Can be swapped in the field."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_light.rsi
@@ -191,12 +165,6 @@
     integrity: 100
     equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_light.rsi
     equippedState: leg_left
-    modifiers:
-      coefficients:
-        Blunt: 0.75
-        Slash: 0.75
-        Piercing: 0.75
-        Heat: 0.81
   - type: StaticPrice
     price: 300
 
@@ -204,7 +172,7 @@
   parent: [ BaseItem, BaseTaskForceContraband ]
   id: DHArmorModuleRMB1LightLegRight
   name: RMB-1 light right leg guard
-  description: "A light armour module: thin plates, barely slows you down. Can be swapped in the field."
+  description: "A light armour module, protection class 2: stops ordinary rounds, barely slows you down. Can be swapped in the field."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_light.rsi
@@ -220,12 +188,6 @@
     integrity: 100
     equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_light.rsi
     equippedState: leg_right
-    modifiers:
-      coefficients:
-        Blunt: 0.75
-        Slash: 0.75
-        Piercing: 0.75
-        Heat: 0.81
   - type: StaticPrice
     price: 300
 
@@ -233,7 +195,7 @@
   parent: [ BaseItem, BaseTaskForceContraband ]
   id: DHArmorModuleRMB1HeavyTorso
   name: RMB-1 heavy torso plate
-  description: "A heavy armour module: thick plates that stop rifle rounds but weigh you down. Can only be fitted or removed at an armour maintenance rack."
+  description: "A heavy armour module, protection class 3: only the heaviest armour-piercing rounds get through, but it weighs you down. Can only be fitted or removed at an armour maintenance rack."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_heavy.rsi
@@ -249,13 +211,6 @@
     integrity: 390
     equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_heavy.rsi
     equippedState: torso
-    modifiers:
-      coefficients:
-        Blunt: 0.31
-        Slash: 0.31
-        Piercing: 0.31
-        Heat: 0.62
-        Caustic: 0.75
   - type: StaticPrice
     price: 900
 
@@ -263,7 +218,7 @@
   parent: [ BaseItem, BaseTaskForceContraband ]
   id: DHArmorModuleRMB1HeavyArmLeft
   name: RMB-1 heavy left arm guard
-  description: "A heavy armour module: thick plates that stop rifle rounds but weigh you down. Can only be fitted or removed at an armour maintenance rack."
+  description: "A heavy armour module, protection class 3: only the heaviest armour-piercing rounds get through, but it weighs you down. Can only be fitted or removed at an armour maintenance rack."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_heavy.rsi
@@ -279,13 +234,6 @@
     integrity: 260
     equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_heavy.rsi
     equippedState: arm_left
-    modifiers:
-      coefficients:
-        Blunt: 0.31
-        Slash: 0.31
-        Piercing: 0.31
-        Heat: 0.62
-        Caustic: 0.75
   - type: StaticPrice
     price: 900
 
@@ -293,7 +241,7 @@
   parent: [ BaseItem, BaseTaskForceContraband ]
   id: DHArmorModuleRMB1HeavyArmRight
   name: RMB-1 heavy right arm guard
-  description: "A heavy armour module: thick plates that stop rifle rounds but weigh you down. Can only be fitted or removed at an armour maintenance rack."
+  description: "A heavy armour module, protection class 3: only the heaviest armour-piercing rounds get through, but it weighs you down. Can only be fitted or removed at an armour maintenance rack."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_heavy.rsi
@@ -309,13 +257,6 @@
     integrity: 260
     equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_heavy.rsi
     equippedState: arm_right
-    modifiers:
-      coefficients:
-        Blunt: 0.31
-        Slash: 0.31
-        Piercing: 0.31
-        Heat: 0.62
-        Caustic: 0.75
   - type: StaticPrice
     price: 900
 
@@ -323,7 +264,7 @@
   parent: [ BaseItem, BaseTaskForceContraband ]
   id: DHArmorModuleRMB1HeavyLegLeft
   name: RMB-1 heavy left leg guard
-  description: "A heavy armour module: thick plates that stop rifle rounds but weigh you down. Can only be fitted or removed at an armour maintenance rack."
+  description: "A heavy armour module, protection class 3: only the heaviest armour-piercing rounds get through, but it weighs you down. Can only be fitted or removed at an armour maintenance rack."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_heavy.rsi
@@ -339,13 +280,6 @@
     integrity: 260
     equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_heavy.rsi
     equippedState: leg_left
-    modifiers:
-      coefficients:
-        Blunt: 0.31
-        Slash: 0.31
-        Piercing: 0.31
-        Heat: 0.62
-        Caustic: 0.75
   - type: StaticPrice
     price: 900
 
@@ -353,7 +287,7 @@
   parent: [ BaseItem, BaseTaskForceContraband ]
   id: DHArmorModuleRMB1HeavyLegRight
   name: RMB-1 heavy right leg guard
-  description: "A heavy armour module: thick plates that stop rifle rounds but weigh you down. Can only be fitted or removed at an armour maintenance rack."
+  description: "A heavy armour module, protection class 3: only the heaviest armour-piercing rounds get through, but it weighs you down. Can only be fitted or removed at an armour maintenance rack."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_heavy.rsi
@@ -369,13 +303,6 @@
     integrity: 260
     equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_heavy.rsi
     equippedState: leg_right
-    modifiers:
-      coefficients:
-        Blunt: 0.31
-        Slash: 0.31
-        Piercing: 0.31
-        Heat: 0.62
-        Caustic: 0.75
   - type: StaticPrice
     price: 900
 
@@ -383,7 +310,7 @@
   parent: [ BaseItem, BaseTaskForceContraband ]
   id: DHArmorModuleRMB1CompositeTorso
   name: RMB-1 composite torso plate
-  description: "A composite armour module: layered plates, good against fire and bullets alike, light enough to swap in the field."
+  description: "A composite armour module, protection class 1: layered plates that stop only the weakest rounds, light enough to swap in the field."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_composite.rsi
@@ -399,13 +326,6 @@
     integrity: 255
     equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_composite.rsi
     equippedState: torso
-    modifiers:
-      coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.44
-        Heat: 0.44
-        Caustic: 0.62
   - type: StaticPrice
     price: 700
 
@@ -413,7 +333,7 @@
   parent: [ BaseItem, BaseTaskForceContraband ]
   id: DHArmorModuleRMB1CompositeArmLeft
   name: RMB-1 composite left arm guard
-  description: "A composite armour module: layered plates, good against fire and bullets alike, light enough to swap in the field."
+  description: "A composite armour module, protection class 1: layered plates that stop only the weakest rounds, light enough to swap in the field."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_composite.rsi
@@ -429,13 +349,6 @@
     integrity: 170
     equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_composite.rsi
     equippedState: arm_left
-    modifiers:
-      coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.44
-        Heat: 0.44
-        Caustic: 0.62
   - type: StaticPrice
     price: 700
 
@@ -443,7 +356,7 @@
   parent: [ BaseItem, BaseTaskForceContraband ]
   id: DHArmorModuleRMB1CompositeArmRight
   name: RMB-1 composite right arm guard
-  description: "A composite armour module: layered plates, good against fire and bullets alike, light enough to swap in the field."
+  description: "A composite armour module, protection class 1: layered plates that stop only the weakest rounds, light enough to swap in the field."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_composite.rsi
@@ -459,13 +372,6 @@
     integrity: 170
     equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_composite.rsi
     equippedState: arm_right
-    modifiers:
-      coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.44
-        Heat: 0.44
-        Caustic: 0.62
   - type: StaticPrice
     price: 700
 
@@ -473,7 +379,7 @@
   parent: [ BaseItem, BaseTaskForceContraband ]
   id: DHArmorModuleRMB1CompositeLegLeft
   name: RMB-1 composite left leg guard
-  description: "A composite armour module: layered plates, good against fire and bullets alike, light enough to swap in the field."
+  description: "A composite armour module, protection class 1: layered plates that stop only the weakest rounds, light enough to swap in the field."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_composite.rsi
@@ -489,13 +395,6 @@
     integrity: 170
     equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_composite.rsi
     equippedState: leg_left
-    modifiers:
-      coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.44
-        Heat: 0.44
-        Caustic: 0.62
   - type: StaticPrice
     price: 700
 
@@ -503,7 +402,7 @@
   parent: [ BaseItem, BaseTaskForceContraband ]
   id: DHArmorModuleRMB1CompositeLegRight
   name: RMB-1 composite right leg guard
-  description: "A composite armour module: layered plates, good against fire and bullets alike, light enough to swap in the field."
+  description: "A composite armour module, protection class 1: layered plates that stop only the weakest rounds, light enough to swap in the field."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_composite.rsi
@@ -519,13 +418,6 @@
     integrity: 170
     equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_composite.rsi
     equippedState: leg_right
-    modifiers:
-      coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.44
-        Heat: 0.44
-        Caustic: 0.62
   - type: StaticPrice
     price: 700
 

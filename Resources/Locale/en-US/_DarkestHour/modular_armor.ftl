@@ -11,7 +11,8 @@ dh-armor-verb-remove = Remove { $module }
 dh-armor-examine-module = { CAPITALIZE($module) }: { $percent }%
 dh-armor-examine-special = Special system: { $module }
 dh-armor-examine-empty = No armour modules fitted.
-dh-armor-module-examine-class = Class: { $class }.
+dh-armor-module-examine-class = Protection class: { $level } ({ $class }).
+dh-armor-part-examine-class = Protection class: { $level }.
 dh-armor-module-examine-integrity = Integrity: { $percent }%.
 dh-armor-module-examine-broken = [color=red]Broken[/color] — weld it to repair.
 dh-armor-class-light = light

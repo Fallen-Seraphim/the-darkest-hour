@@ -1,3 +1,4 @@
+using Content.Shared.Damage;
 using Robust.Shared.GameStates;
 
 namespace Content.Shared._DarkestHour.Weapons.Ballistics;
@@ -10,7 +11,14 @@ namespace Content.Shared._DarkestHour.Weapons.Ballistics;
 public sealed partial class DHBallisticsComponent : Component
 {
     /// <summary>
-    /// Share of the target's armour this bullet ignores, 0..1.
+    /// DarkestHour: класс бронепробития (0–3). Модульную броню и шлем пуля пробивает, если её класс не ниже класса
+    /// брони части тела: тогда полный урон, иначе заброневая травма (<see cref="Content.Shared._DarkestHour.Clothing.ModularArmor.DHModularArmor.BlockedFraction"/>).
+    /// </summary>
+    [DataField]
+    public int PenetrationClass;
+
+    /// <summary>
+    /// Share of the target's armour this bullet ignores, 0..1. Used against ordinary (non-modular) armour only.
     /// 0 = armour works as usual, 1 = armour is ignored entirely.
     /// </summary>
     [DataField]
@@ -33,4 +41,28 @@ public sealed partial class DHBallisticsComponent : Component
     /// </summary>
     [DataField]
     public float ArmoredThreshold = 0.9f;
+}
+
+/// <summary>
+/// DarkestHour: пуля попадает в цель — поднимается на цели до урона. Обработчик модульной брони (сервер) выбирает часть
+/// тела, сравнивает классы и выставляет итоговый урон; <see cref="Handled"/> — урон посчитан, обычная логика
+/// бронепробития не нужна.
+/// </summary>
+[ByRefEvent]
+public struct DHBulletHitEvent
+{
+    public readonly EntityUid Bullet;
+    public readonly DHBallisticsComponent Ballistics;
+    public readonly EntityUid? Shooter;
+    public DamageSpecifier Damage;
+    public bool Handled;
+
+    public DHBulletHitEvent(EntityUid bullet, DHBallisticsComponent ballistics, DamageSpecifier damage, EntityUid? shooter)
+    {
+        Bullet = bullet;
+        Ballistics = ballistics;
+        Damage = damage;
+        Shooter = shooter;
+        Handled = false;
+    }
 }

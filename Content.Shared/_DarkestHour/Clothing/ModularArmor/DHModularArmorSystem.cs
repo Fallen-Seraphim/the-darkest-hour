@@ -69,6 +69,7 @@ public sealed partial class DHModularArmorSystem : EntitySystem
         SubscribeLocalEvent<DHArmorModuleComponent, InteractUsingEvent>(OnModuleInteractUsing);
         SubscribeLocalEvent<DHArmorModuleComponent, DHArmorModuleRepairDoAfterEvent>(OnRepairDoAfter);
         SubscribeLocalEvent<DHArmorModuleComponent, ExaminedEvent>(OnModuleExamined);
+        SubscribeLocalEvent<DHPartArmorComponent, ExaminedEvent>(OnPartArmorExamined);
 
         SubscribeLocalEvent<DHArmorSpecialComponent, MapInitEvent>(OnSpecialMapInit);
         SubscribeLocalEvent<DHArmorSpecialComponent, ComponentShutdown>(OnSpecialShutdown);
@@ -366,12 +367,19 @@ public sealed partial class DHModularArmorSystem : EntitySystem
 
     #region Модуль: осмотр и ремонт
 
+    private void OnPartArmorExamined(Entity<DHPartArmorComponent> ent, ref ExaminedEvent args)
+    {
+        if (!args.IsInDetailsRange || ent.Comp.ArmorClass <= 0)
+            return;
+
+        args.PushMarkup(Loc.GetString("dh-armor-part-examine-class", ("level", ent.Comp.ArmorClass)));
+    }
+
     private void OnModuleExamined(Entity<DHArmorModuleComponent> ent, ref ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
 
-        args.PushMarkup(Loc.GetString("dh-armor-module-examine-class", ("class", Loc.GetString("dh-armor-class-" + ent.Comp.Class.ToString().ToLowerInvariant()))));
         if (ent.Comp.Slot == DHArmorSlot.Special)
         {
             if (TryComp<DHArmorSpecialComponent>(ent, out var special))
@@ -379,6 +387,9 @@ public sealed partial class DHModularArmorSystem : EntitySystem
             return;
         }
 
+        args.PushMarkup(Loc.GetString("dh-armor-module-examine-class",
+            ("class", Loc.GetString("dh-armor-class-" + ent.Comp.Class.ToString().ToLowerInvariant())),
+            ("level", DHModularArmor.Level(ent.Comp.Class))));
         args.PushMarkup(ent.Comp.Broken
             ? Loc.GetString("dh-armor-module-examine-broken")
             : Loc.GetString("dh-armor-module-examine-integrity",

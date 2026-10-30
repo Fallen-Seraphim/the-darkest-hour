@@ -27,6 +27,15 @@ public sealed class DHBallisticsSystem : EntitySystem
     {
         var comp = ent.Comp;
 
+        // Модульная броня и шлемы: классы брони и бронепробития (считает сервер, DHModularArmorDamageSystem).
+        var hit = new DHBulletHitEvent(ent, comp, args.Damage, args.Shooter);
+        RaiseLocalEvent(args.Target, ref hit);
+        if (hit.Handled)
+        {
+            args.Damage = hit.Damage;
+            return;
+        }
+
         var query = new CoefficientQueryEvent(~SlotFlags.POCKET);
         RaiseLocalEvent(args.Target, query);
         var coefficients = query.DamageModifiers.Coefficients;
