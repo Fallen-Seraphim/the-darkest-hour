@@ -203,7 +203,7 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
             if (xform.MapUid != map)
                 continue;
 
-            markers.Add(Marker(DHTacticalMarkerKind.ControlPoint, xform, Loc.GetString(point.PointName), point.Owner,
+            markers.Add(Marker(DHTacticalMarkerKind.ControlPoint, xform, Loc.GetString(point.PointName), point.Holder,
                 point.Radius));
         }
 

@@ -60,7 +60,7 @@ public sealed partial class DHControlPointSystem : EntitySystem
         {
             if (point.PointId == ent.Comp.Point)
             {
-                ApplyPower(ent, point.Owner);
+                ApplyPower(ent, point.Holder);
                 return;
             }
         }
@@ -83,7 +83,7 @@ public sealed partial class DHControlPointSystem : EntitySystem
             return;
         }
 
-        if (ent.Comp.Owner == fighter.Faction)
+        if (ent.Comp.Holder == fighter.Faction)
         {
             _popup.PopupEntity(Loc.GetString("dh-control-point-already-ours"), ent, user);
             return;
@@ -125,7 +125,7 @@ public sealed partial class DHControlPointSystem : EntitySystem
             return;
 
         args.Handled = true;
-        if (!TryComp<DHAssaultFighterComponent>(args.User, out var fighter) || ent.Comp.Owner == fighter.Faction)
+        if (!TryComp<DHAssaultFighterComponent>(args.User, out var fighter) || ent.Comp.Holder == fighter.Faction)
             return;
 
         if (Contested(ent, fighter.Faction))
@@ -134,7 +134,7 @@ public sealed partial class DHControlPointSystem : EntitySystem
             return;
         }
 
-        var previous = ent.Comp.Owner;
+        var previous = ent.Comp.Holder;
         SetOwner(ent, fighter.Faction);
 
         var name = Loc.GetString(ent.Comp.PointName);
@@ -151,7 +151,7 @@ public sealed partial class DHControlPointSystem : EntitySystem
     /// <summary>Сменить владельца зоны (захват, админ, правило).</summary>
     public void SetOwner(Entity<DHControlPointComponent> ent, DHAssaultFaction? owner)
     {
-        ent.Comp.Owner = owner;
+        ent.Comp.Holder = owner;
         ent.Comp.NextOutput = _timing.CurTime + ent.Comp.Interval;
         Dirty(ent);
         UpdateAppearance(ent);
@@ -166,7 +166,7 @@ public sealed partial class DHControlPointSystem : EntitySystem
 
     private void UpdateAppearance(Entity<DHControlPointComponent> ent)
     {
-        var value = ent.Comp.Owner switch
+        var value = ent.Comp.Holder switch
         {
             DHAssaultFaction.Republic => 1,
             DHAssaultFaction.Empire => 2,
@@ -192,7 +192,7 @@ public sealed partial class DHControlPointSystem : EntitySystem
     private void OnExamined(Entity<DHControlPointComponent> ent, ref ExaminedEvent args)
     {
         args.PushMarkup(Loc.GetString("dh-control-point-examine-name", ("point", Loc.GetString(ent.Comp.PointName))));
-        args.PushMarkup(Loc.GetString(ent.Comp.Owner switch
+        args.PushMarkup(Loc.GetString(ent.Comp.Holder switch
         {
             DHAssaultFaction.Republic => "dh-control-point-examine-republic",
             DHAssaultFaction.Empire => "dh-control-point-examine-empire",
@@ -216,7 +216,7 @@ public sealed partial class DHControlPointSystem : EntitySystem
         var query = EntityQueryEnumerator<DHControlPointComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var point, out var xform))
         {
-            if (point.Owner is not { } owner || now < point.NextOutput)
+            if (point.Holder is not { } owner || now < point.NextOutput)
                 continue;
 
             point.NextOutput = now + point.Interval;
