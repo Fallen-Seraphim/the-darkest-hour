@@ -20,9 +20,9 @@ public sealed partial class PuddleSystem
 
 
     /// <returns>true — лужа нарисована набором, ванильную отрисовку пропустить.</returns>
-    private bool DHUpdatePuddleSprite(EntityUid uid, PuddleComponent puddle, ref AppearanceChangeEvent args, float volume)
+    private bool DHUpdatePuddleSprite(EntityUid uid, PuddleComponent puddle, SpriteComponent sprite,
+        AppearanceChangeEvent args, float volume)
     {
-        var sprite = args.Sprite!;
         if (!args.TryGetData<string>(DHPuddleVisuals.SpriteSet, out var setId) || string.IsNullOrEmpty(setId) ||
             !_dhProto.TryIndex<DHPuddleSpriteSetPrototype>(setId, out var set))
         {
