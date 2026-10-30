@@ -210,7 +210,9 @@ public sealed partial class GunSystem : SharedGunSystem
         // Define target coordinates relative to gun entity, so that network latency on moving grids doesn't fuck up the target location.
         var target = GetBestTarget(_eyeManager.CurrentEye, mousePos);
 
-        var coordinates = TransformSystem.ToCoordinates(entity, mousePos);
+        // DarkestHour: стрелок в отсеке техники сидит на другой карте — прицел считаем от орудия, а не от стрелка.
+        var anchor = Transform(entity).MapID == mousePos.MapId ? entity : gun.Owner;
+        var coordinates = TransformSystem.ToCoordinates(anchor, mousePos);
 
         Log.Debug($"Sending shoot request tick {Timing.CurTick} / {Timing.CurTime}");
 

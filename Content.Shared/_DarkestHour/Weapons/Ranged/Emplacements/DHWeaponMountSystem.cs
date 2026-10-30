@@ -442,6 +442,21 @@ public sealed partial class DHWeaponMountSystem : EntitySystem
         Dirty(ent);
     }
 
+    /// <summary>Стрелок управляет оружием без станка (башня техники): его выстрелы идут из <paramref name="weapon"/>.</summary>
+    public void SetController(EntityUid gunner, EntityUid weapon)
+    {
+        var controller = EnsureComp<DHWeaponControllerComponent>(gunner);
+        controller.Weapon = weapon;
+        controller.Mount = null;
+        Dirty(gunner, controller);
+    }
+
+    public void ClearController(EntityUid gunner, EntityUid weapon)
+    {
+        if (TryComp<DHWeaponControllerComponent>(gunner, out var controller) && controller.Weapon == weapon)
+            RemComp<DHWeaponControllerComponent>(gunner);
+    }
+
     private void OnDismountAction(Entity<DHWeaponControllerComponent> ent, ref DHDismountWeaponActionEvent args)
     {
         if (args.Handled)

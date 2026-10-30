@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 10/30/2026 11:55:31
-  entityCount: 34153
+  entityCount: 34155
 maps:
 - 1
 grids:
@@ -11485,6 +11485,20 @@ entities:
     - type: Transform
       parent: 1
       pos: -2.5,-19.5
+- proto: DHVehicleRAM45
+  entities:
+  - uid: 34896
+    components:
+    - type: Transform
+      parent: 1
+      pos: -26.5,-6.5
+- proto: DHVehicleTankRepublic
+  entities:
+  - uid: 34897
+    components:
+    - type: Transform
+      parent: 1
+      pos: -24.5,-20.5
 - proto: DHWeaponFlamerRepublic
   entities:
   - uid: 389

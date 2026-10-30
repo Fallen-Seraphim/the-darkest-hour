@@ -1,0 +1,659 @@
+# Бронетехника «Штурма» (решение автора 2026-10-30): по БТР и танку на сторону.
+# Код — Content.*/_DarkestHour/Vehicles. Спрайты корпусов, башен и модулей — RMC-14 (cmss13, CC-BY-SA-3.0).
+#
+# Как пользоваться:
+#  * войти — клик по машине (2 с; кого тащите — затаскивается с вами), выйти — клик по люку в отсеке;
+#  * кресло водителя — ведёте машину и видите то, что вокруг неё; кресла стрелков — стреляете из орудия (боевой
+#    режим), башня доворачивается за прицелом; командир — ещё и дымовая завеса (если есть);
+#  * броня: пули её почти не берут (10 % урона по постройкам), бронебойные снаряды и взрывы — полностью;
+#  * уничтоженная машина выбрасывает экипаж и десант наружу ранеными и оставляет остов.
+
+# ------------------------------------------------------------------ основа
+
+- type: entity
+  abstract: true
+  id: DHVehicleBase
+  placement:
+    mode: AlignTileAny
+  components:
+  - type: Transform
+    anchored: false
+  - type: Clickable
+  - type: InteractionOutline
+  - type: InputMover
+  - type: Physics
+    bodyType: KinematicController
+  - type: Vehicle
+    transferDamage: false
+  - type: MovementSpeedModifier
+    weightlessModifier: 0
+    acceleration: 1.5
+    friction: 2
+    frictionNoInput: 4
+    baseWalkSpeed: 3
+    baseSprintSpeed: 4.5
+  - type: GravityAffected
+  - type: Damageable
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: DHFortified
+    multiplier: 1
+    bulletStructuralMultiplier: 0.1
+  - type: Appearance
+  - type: AmbientSound
+    volume: -4
+    range: 8
+    sound:
+      path: /Audio/Ambience/Objects/engine_hum.ogg
+  - type: PointLight
+    radius: 6
+    energy: 1.5
+    softness: 2
+    autoRot: true
+    offset: "0,-1.6"
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+
+# ------------------------------------------------------------------ БТР
+
+- type: entity
+  abstract: true
+  parent: DHVehicleBase
+  id: DHVehicleAPCBase
+  components:
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1,-1.7,1,1.7"
+        density: 5000
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+      runover:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.05,-1.75,1.05,1.75"
+        hard: false
+        mask:
+        - MobLayer
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1500
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  parent: DHVehicleAPCBase
+  id: DHVehicleRAM45
+  name: RAM-45 armoured personnel carrier
+  description: A Republic command APC. Twin autocannon in the turret, a heavy machine gun in the bow, a radio relay mast on the roof and seats for a squad in the back.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/apc.rsi
+    drawdepth: Mobs
+    layers:
+    - state: apc_base_com
+      map: [ "base" ]
+    - state: frontalcannon_0
+      map: [ "secondary" ]
+    - state: comms_relay_0
+      map: [ "support" ]
+    - state: dualcannon_0
+      map: [ "primary" ]
+    - state: wheels_1
+      map: [ "wheels" ]
+  - type: SpriteMovement
+    movementLayers:
+      wheels:
+        state: wheels_0
+    noMovementLayers:
+      wheels:
+        state: wheels_1
+  - type: DHVehicle
+    interior: DHInteriorAPC
+    turretLayers: [ primary ]
+    exitOffset: 0,2.3
+    wreck: DHVehicleWreckRAM45
+    weapons:
+      primary: DHVehicleGunAutocannon30
+      secondary: DHVehicleGunHMG
+  - type: DHCommsRelay
+    channels:
+    - DHRepublic
+    - DHRepublicCommand
+
+- type: entity
+  parent: DHVehicleAPCBase
+  id: DHVehicleIM30
+  name: IM-30 armoured personnel carrier
+  description: An Imperial APC. A turret with an autocannon and a coaxial heavy machine gun, a relay set for the Imperial channels and seats for a squad in the back.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/sppapc.rsi
+    drawdepth: Mobs
+    layers:
+    - state: sppapc_base
+      map: [ "base" ]
+    - state: spp_flare_launcher_0
+      map: [ "support" ]
+    - state: apc_turret_0
+      map: [ "turret" ]
+    - state: apc_autocannon_0
+      map: [ "primary" ]
+    - state: wheels_1
+      map: [ "wheels" ]
+  - type: SpriteMovement
+    movementLayers:
+      wheels:
+        state: wheels_0
+    noMovementLayers:
+      wheels:
+        state: wheels_1
+  - type: DHVehicle
+    interior: DHInteriorAPC
+    turretLayers: [ turret, primary ]
+    exitOffset: 0,2.3
+    wreck: DHVehicleWreckIM30
+    weapons:
+      primary: DHVehicleGunAutocannon30
+      secondary: DHVehicleGunHMG
+  - type: DHCommsRelay
+    channels:
+    - Syndicate
+    - DHImperialCommand
+
+# ------------------------------------------------------------------ танки
+
+- type: entity
+  abstract: true
+  parent: DHVehicleBase
+  id: DHVehicleTankBase
+  components:
+  - type: MovementSpeedModifier
+    weightlessModifier: 0
+    acceleration: 1
+    friction: 2
+    frictionNoInput: 4
+    baseWalkSpeed: 2
+    baseSprintSpeed: 3.2
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.2,-1.6,1.2,1.6"
+        density: 8000
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+      runover:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.25,-1.65,1.25,1.65"
+        hard: false
+        mask:
+        - MobLayer
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 3000
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  parent: DHVehicleTankBase
+  id: DHVehicleTankRepublic
+  name: Republic main battle tank
+  description: A heavy tank of the Republic garrison. A long-barrelled main gun, a coaxial machine gun, reactive armour and smoke dischargers.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/spptank.rsi
+    drawdepth: Mobs
+    layers:
+    - state: tank_base
+      map: [ "base" ]
+    - state: reactive_armor_0
+      map: [ "armor" ]
+    - state: tank_turret_0
+      map: [ "turret" ]
+    - state: p17702_0
+      map: [ "primary" ]
+    - state: t60p3m_0
+      map: [ "secondary" ]
+    - state: slauncher_0
+      map: [ "support" ]
+    - state: wheels_1
+      map: [ "wheels" ]
+  - type: SpriteMovement
+    movementLayers:
+      wheels:
+        state: wheels_0
+    noMovementLayers:
+      wheels:
+        state: wheels_1
+  - type: DHVehicle
+    interior: DHInteriorTank
+    turretLayers: [ turret, primary, secondary, support ]
+    exitOffset: 0,2.2
+    wreck: DHVehicleWreckTankRepublic
+    smoke: true
+    weapons:
+      primary: DHVehicleGunTankCannon
+      secondary: DHVehicleGunCoaxMG
+
+- type: entity
+  parent: DHVehicleTankBase
+  id: DHVehicleTankEmpire
+  name: Imperial main battle tank
+  description: An Imperial marine tank. A long-barrelled main gun, a machine gun cupola, ballistic armour and smoke dischargers.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/tank.rsi
+    drawdepth: Mobs
+    layers:
+    - state: tank_base
+      map: [ "base" ]
+    - state: ballistic_armor_0
+      map: [ "armor" ]
+    - state: tank_turret_0
+      map: [ "turret" ]
+    - state: ltb_cannon_0
+      map: [ "primary" ]
+    - state: m56cupola_0
+      map: [ "secondary" ]
+    - state: slauncher_0
+      map: [ "support" ]
+    - state: wheels_1
+      map: [ "wheels" ]
+  - type: SpriteMovement
+    movementLayers:
+      wheels:
+        state: wheels_0
+    noMovementLayers:
+      wheels:
+        state: wheels_1
+  - type: DHVehicle
+    interior: DHInteriorTank
+    turretLayers: [ turret, primary, secondary, support ]
+    exitOffset: 0,2.2
+    wreck: DHVehicleWreckTankEmpire
+    smoke: true
+    weapons:
+      primary: DHVehicleGunTankCannon
+      secondary: DHVehicleGunCoaxMG
+
+# ------------------------------------------------------------------ остовы
+
+- type: entity
+  abstract: true
+  id: DHVehicleWreckBase
+  name: burnt-out vehicle
+  description: What is left of an armoured vehicle. Nothing to salvage but cover.
+  placement:
+    mode: AlignTileAny
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1,-1.6,1,1.6"
+        density: 5000
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+        - BulletImpassable
+
+- type: entity
+  parent: DHVehicleWreckBase
+  id: DHVehicleWreckRAM45
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/apc.rsi
+    drawdepth: Mobs
+    color: "#5a5a5a"
+    layers:
+    - state: apc_base_com
+    - state: damaged_frame
+
+- type: entity
+  parent: DHVehicleWreckBase
+  id: DHVehicleWreckIM30
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/sppapc.rsi
+    drawdepth: Mobs
+    color: "#5a5a5a"
+    layers:
+    - state: sppapc_base
+    - state: damaged_frame
+
+- type: entity
+  parent: DHVehicleWreckBase
+  id: DHVehicleWreckTankRepublic
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/spptank.rsi
+    drawdepth: Mobs
+    color: "#5a5a5a"
+    layers:
+    - state: tank_base
+    - state: damaged_frame
+    - state: damaged_turret
+
+- type: entity
+  parent: DHVehicleWreckBase
+  id: DHVehicleWreckTankEmpire
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/tank.rsi
+    drawdepth: Mobs
+    color: "#5a5a5a"
+    layers:
+    - state: tank_base
+    - state: damaged_frame
+
+# ------------------------------------------------------------------ поддоны сброса (техника Империи)
+
+- type: entity
+  abstract: true
+  parent: BaseStructureDynamic
+  id: DHVehicleDropPalletBase
+  description: A vehicle packed onto a drop pallet. Clip three parachutes to it and push it overboard from a ship hovering in the atmosphere — it unpacks on landing.
+  components:
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+    layers:
+    - state: base
+    - state: closed
+  - type: InteractionOutline
+  - type: Pullable
+  - type: DHParadroppable
+    requiredParachutes: 3
+
+- type: entity
+  parent: DHVehicleDropPalletBase
+  id: DHVehicleDropPalletIM30
+  name: drop pallet (IM-30 APC)
+  components:
+  - type: DHDropPallet
+    spawn: DHVehicleIM30
+
+- type: entity
+  parent: DHVehicleDropPalletBase
+  id: DHVehicleDropPalletTankEmpire
+  name: drop pallet (Imperial tank)
+  components:
+  - type: DHDropPallet
+    spawn: DHVehicleTankEmpire
+
+# ------------------------------------------------------------------ орудия (сидят в машине, стрелок — в отсеке)
+
+- type: entity
+  abstract: true
+  id: DHVehicleGunBase
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: DHVehicleGun
+  - type: Gun
+    selectedMode: FullAuto
+    availableModes:
+    - FullAuto
+    minAngle: 0
+    maxAngle: 2
+    angleIncrease: 0
+    angleDecay: 10
+
+- type: entity
+  parent: DHVehicleGunBase
+  id: DHVehicleGunAutocannon30
+  name: 30 mm autocannon
+  components:
+  - type: Gun
+    fireRate: 2
+    soundGunshot:
+      path: /Audio/_Mono/Weapons/Guns/Gunshots/flak_fire.ogg
+  - type: DHVehicleGun
+    muzzleOffset: 2.2
+  - type: BasicEntityAmmoProvider
+    proto: DHVehicleBullet30mmAP
+    capacity: 60
+    count: 60
+  - type: RechargeBasicEntityAmmo
+    rechargeCooldown: 2
+
+- type: entity
+  parent: DHVehicleGunBase
+  id: DHVehicleGunHMG
+  name: heavy machine gun
+  components:
+  - type: Gun
+    fireRate: 7
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/lmg.ogg
+  - type: DHVehicleGun
+    muzzleOffset: 2.2
+    turret: false
+  - type: BasicEntityAmmoProvider
+    proto: DHBullet127x105FMG
+    capacity: 200
+    count: 200
+  - type: RechargeBasicEntityAmmo
+    rechargeCooldown: 0.4
+
+- type: entity
+  parent: DHVehicleGunBase
+  id: DHVehicleGunTankCannon
+  name: tank main gun
+  components:
+  - type: Gun
+    fireRate: 0.2
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+      path: /Audio/_Mono/Weapons/Guns/Gunshots/cannon.ogg
+  - type: DHVehicleGun
+    muzzleOffset: 2.4
+  - type: BasicEntityAmmoProvider
+    proto: DHVehicleShellTankAP
+    capacity: 24
+    count: 24
+  - type: RechargeBasicEntityAmmo
+    rechargeCooldown: 15
+
+- type: entity
+  parent: DHVehicleGunBase
+  id: DHVehicleGunCoaxMG
+  name: coaxial machine gun
+  components:
+  - type: Gun
+    fireRate: 8
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/lmg.ogg
+  - type: DHVehicleGun
+    muzzleOffset: 2.2
+  - type: BasicEntityAmmoProvider
+    proto: DHBullet127x105FMG
+    capacity: 250
+    count: 250
+  - type: RechargeBasicEntityAmmo
+    rechargeCooldown: 0.3
+
+# ------------------------------------------------------------------ боеприпасы техники
+
+- type: entity
+  parent: DHShipBullet30mmAP
+  id: DHVehicleBullet30mmAP
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: DHAntiArmor
+
+- type: entity
+  parent: DHShipBullet90mmHE
+  id: DHVehicleShellTankAP
+  name: tank shell
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: DHAntiArmor
+
+# ------------------------------------------------------------------ отсек
+
+- type: entity
+  parent: ChairPilotSeat
+  id: DHVehicleSeatPassenger
+  name: troop seat
+  description: A folding seat bolted to the hull.
+  suffix: Vehicle
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Anchorable
+    flags: []
+  - type: DHVehicleSeat
+    role: Passenger
+
+- type: entity
+  parent: DHVehicleSeatPassenger
+  id: DHVehicleSeatDriver
+  name: driver's seat
+  description: Take the controls and the periscopes — you see what is around the vehicle and drive it.
+  components:
+  - type: DHVehicleSeat
+    role: Driver
+
+- type: entity
+  parent: DHVehicleSeatPassenger
+  id: DHVehicleSeatGunner
+  name: gunner's seat
+  description: The main gun's sight and controls. Switch to combat mode to fire; the turret follows your aim.
+  components:
+  - type: DHVehicleSeat
+    role: Gunner
+    weapon: primary
+
+- type: entity
+  parent: DHVehicleSeatPassenger
+  id: DHVehicleSeatCommander
+  name: commander's seat
+  description: The commander's cupola with the machine gun and the smoke discharger controls.
+  components:
+  - type: DHVehicleSeat
+    role: Gunner
+    weapon: secondary
+    smokeControl: true
+
+- type: entity
+  id: DHVehicleHatch
+  name: hatch
+  description: The way out.
+  categories: [ HideSpawnMenu ]
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/Interiors/tank.rsi
+    state: hatch
+    drawdepth: WallTops
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+  - type: DHVehicleHatch
+
+- type: dhVehicleInterior
+  id: DHInteriorAPC
+  size: 7,11
+  floor: FloorSteelMono
+  entry: 3,8
+  entities:
+  - { proto: DHVehicleSeatDriver, pos: "2,1" }
+  - { proto: DHVehicleSeatGunner, pos: "4,1" }
+  - { proto: DHVehicleSeatCommander, pos: "3,2" }
+  - { proto: DHVehicleSeatPassenger, pos: "1,4", rot: 90 }
+  - { proto: DHVehicleSeatPassenger, pos: "1,5", rot: 90 }
+  - { proto: DHVehicleSeatPassenger, pos: "1,6", rot: 90 }
+  - { proto: DHVehicleSeatPassenger, pos: "1,7", rot: 90 }
+  - { proto: DHVehicleSeatPassenger, pos: "5,4", rot: -90 }
+  - { proto: DHVehicleSeatPassenger, pos: "5,5", rot: -90 }
+  - { proto: DHVehicleSeatPassenger, pos: "5,6", rot: -90 }
+  - { proto: DHVehicleSeatPassenger, pos: "5,7", rot: -90 }
+  - { proto: DHVehicleHatch, pos: "3,10" }
+
+- type: dhVehicleInterior
+  id: DHInteriorTank
+  size: 5,6
+  floor: FloorSteelMono
+  entry: 2,4
+  entities:
+  - { proto: DHVehicleSeatDriver, pos: "2,1" }
+  - { proto: DHVehicleSeatGunner, pos: "1,2" }
+  - { proto: DHVehicleSeatCommander, pos: "3,2" }
+  - { proto: DHVehicleSeatPassenger, pos: "3,4", rot: -90 }
+  - { proto: DHVehicleHatch, pos: "2,5" }
+
+# ------------------------------------------------------------------ дымовая завеса
+
+- type: entity
+  parent: BaseAction
+  id: DHActionVehicleSmoke
+  name: Smoke screen
+  description: Fire the smoke dischargers — a ring of smoke hides the vehicle for a while.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 60
+  - type: Sprite
+    sprite: Objects/Weapons/Grenades/smoke.rsi
+    layers:
+    - state: icon
+  - type: InstantAction
+    event: !type:DHVehicleSmokeActionEvent
+
+- type: entity
+  id: DHVehicleSmokeCharge
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: TriggerOnSpawn
+  - type: SmokeOnTrigger
+    duration: 25
+    spreadAmount: 15
+  - type: EmitSoundOnTrigger
+    sound: /Audio/Items/smoke_grenade_smoke.ogg
+    positional: true
+  - type: DeleteOnTrigger
