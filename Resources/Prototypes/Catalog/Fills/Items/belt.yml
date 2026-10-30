@@ -126,7 +126,7 @@
     containers:
       storagebase: !type:AllSelector
         children:
-        - id: Bloodpack
+        - id: DHBloodPackFull
           amount: 2
         - id: Gauze
         # Reagents focused on emergency response rather than outright healing

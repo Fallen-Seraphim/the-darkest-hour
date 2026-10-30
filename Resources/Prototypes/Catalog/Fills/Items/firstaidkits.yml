@@ -98,8 +98,8 @@
         children:
         - id: MedicatedSuture
         - id: RegenerativeMesh
-        - id: Bloodpack
-          amount: 2
+        - id: DHBloodPackFull
+          amount: 1
 
 - type: entity
   id: MedkitCombatFilled

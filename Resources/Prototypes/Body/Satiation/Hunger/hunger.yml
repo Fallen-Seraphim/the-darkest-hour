@@ -1,6 +1,6 @@
 - type: satiation
   id: NormalSatiationHunger
-  baseChangeRate: -0.01666666666
+  baseChangeRate: -0.00416666666 # DarkestHour: голод в 4 раза медленнее (было -0.01666666666)
   maximumValue: 200
   thresholds:
     Overfed: 200
@@ -92,4 +92,4 @@
 - type: satiation
   id: DionaHunger
   parent: NormalSatiationHunger
-  baseChangeRate: -0.0083
+  baseChangeRate: -0.002075 # DarkestHour: ×1/4 (было -0.0083)

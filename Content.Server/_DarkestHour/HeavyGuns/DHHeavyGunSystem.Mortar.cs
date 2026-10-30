@@ -8,6 +8,7 @@ using Content.Shared.Examine;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
+using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Verbs;
 using Robust.Shared.Audio;
@@ -25,6 +26,7 @@ namespace Content.Server._DarkestHour.HeavyGuns;
 public sealed partial class DHHeavyGunSystem
 {
     [Dependency] private SharedHandsSystem _hands = default!;
+    [Dependency] private MobStateSystem _mobState = default!;
     [Dependency] private ExamineSystemShared _examine = default!;
     [Dependency] private ServerStationSystem _station = default!;
 
@@ -33,6 +35,9 @@ public sealed partial class DHHeavyGunSystem
     private static readonly SoundSpecifier LaserSound = new SoundPathSpecifier("/Audio/Machines/quickbeep.ogg");
 
     private const string LaserMarkProto = "DHLaserMark";
+
+    /// <summary>На сколько метров наводчик может сдвинуться, не сбив лазер.</summary>
+    private const float LaserMoveTolerance = 0.6f;
     private const string FlareProto = "DHMortarFlare";
 
     private void InitializeMortar()
@@ -129,6 +134,8 @@ public sealed partial class DHHeavyGunSystem
         markComp.Code = NewLaserCode();
         markComp.Faction = FactionOf(args.User);
         markComp.Designator = ent;
+        markComp.User = args.User;
+        markComp.UserPosition = _transform.GetMapCoordinates(args.User);
         EnsureComp<TimedDespawnComponent>(mark).Lifetime = (float) ent.Comp.MarkLifetime.TotalSeconds;
         ent.Comp.Mark = mark;
 
@@ -143,6 +150,36 @@ public sealed partial class DHHeavyGunSystem
         {
             _assault.AnnounceToFaction(faction, Loc.GetString("dh-laser-sender", ("name", Name(args.User))),
                 Loc.GetString("dh-laser-announce", ("code", markComp.Code), ("x", x), ("y", y)));
+        }
+    }
+
+    /// <summary>
+    /// Метка ЛЦУ держится, только пока наводчик держит лазер на цели: целеуказатель в руках, наводчик жив,
+    /// в сознании и не сошёл с места. Иначе метка гаснет.
+    /// </summary>
+    private void UpdateLaserMarks()
+    {
+        var query = EntityQueryEnumerator<DHLaserMarkComponent>();
+        while (query.MoveNext(out var uid, out var mark))
+        {
+            if (mark.User is not { } user || mark.Designator is not { } designator)
+                continue;
+
+            var position = Exists(user) ? _transform.GetMapCoordinates(user) : MapCoordinates.Nullspace;
+            var held = Exists(designator) && Exists(user) && _hands.IsHolding(user, designator) &&
+                       _mobState.IsAlive(user) &&
+                       position.MapId == mark.UserPosition.MapId &&
+                       (position.Position - mark.UserPosition.Position).Length() <= LaserMoveTolerance;
+            if (held)
+                continue;
+
+            if (TryComp<DHLaserDesignatorComponent>(designator, out var designatorComp) && designatorComp.Mark == uid)
+                designatorComp.Mark = null;
+
+            if (Exists(user))
+                _popup.PopupEntity(Loc.GetString("dh-laser-lost", ("code", mark.Code)), user, user, PopupType.SmallCaution);
+
+            QueueDel(uid);
         }
     }
 

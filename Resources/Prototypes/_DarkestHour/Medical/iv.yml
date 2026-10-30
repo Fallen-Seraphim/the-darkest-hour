@@ -1,0 +1,142 @@
+# Капельница и пакеты крови — порт RMC-14 (спрайты cmss13, CC-BY-SA-3.0). Код — _DarkestHour/Medical/IV.
+# Пакет держат в руке и тычут в пациента (1 с) — переливание 3 ед./2 с, пока пакет в руке и пациент рядом;
+# или вешают в капельницу и перетаскивают её на пациента — 4,5 ед./3 с. Отошли дальше 2 м — игла вырывается.
+# Режим «вливать / брать кровь» переключается в меню действий.
+
+- type: entity
+  parent: BaseStructureDynamic
+  id: DHIVDrip
+  name: IV drip
+  description: A stand with a hanging blood pack and a tube. Drag it onto a patient to start a transfusion or to draw blood.
+  components:
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.45,0.25,0.25"
+        density: 60
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+  - type: InteractionOutline
+  - type: Sprite
+    noRot: true
+    sprite: _RMC14/Structures/Machines/Medical/iv_drip.rsi
+    layers:
+    - state: unhooked
+      map: [ "enum.DHIVDripVisualLayers.Base" ]
+    - state: reagent0
+      map: [ "enum.DHIVDripVisualLayers.Reagent" ]
+      visible: false
+  - type: DHIVDrip
+    reagentStates:
+    - 0: reagent0
+    - 10: reagent10
+    - 25: reagent25
+    - 50: reagent50
+    - 75: reagent75
+    - 80: reagent80
+    - 100: reagent100
+    ripDamage:
+      types:
+        Piercing: 3
+  - type: ItemSlots
+    slots:
+      pack:
+        name: dh-iv-slot-pack
+        whitelist:
+          components:
+          - DHBloodPack
+  - type: ContainerContainer
+    containers:
+      pack: !type:ContainerSlot {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          PartRodMetal1:
+            min: 1
+            max: 2
+
+- type: entity
+  parent: DHIVDrip
+  id: DHIVDripFilled
+  suffix: Blood pack
+  components:
+  - type: ItemSlots
+    slots:
+      pack:
+        name: dh-iv-slot-pack
+        startingItem: DHBloodPackFull
+        whitelist:
+          components:
+          - DHBloodPack
+
+- type: entity
+  parent: BaseItem
+  id: DHBloodPack
+  name: blood pack
+  description: A sealed bag for transfusions. Poke a patient with it while holding it, or hang it on an IV drip.
+  suffix: Empty
+  components:
+  - type: DHBloodPack
+    ripDamage:
+      types:
+        Piercing: 2
+  - type: Sprite
+    sprite: _RMC14/Objects/Medical/blood_pack.rsi
+    layers:
+    - state: bloodpack1
+      map: [ "enum.DHBloodPackVisuals.Fill" ]
+      visible: false
+    - state: bloodpack
+    - state: blank
+      map: [ "enum.DHBloodPackVisuals.Label" ]
+  - type: Item
+    size: Small
+    sprite: _RMC14/Objects/Medical/blood_pack.rsi
+  - type: SolutionContainerManager
+    solutions:
+      pack:
+        maxVol: 300
+  - type: SolutionTransfer
+    canChangeTransferAmount: true
+  - type: Appearance
+  - type: DrawableSolution
+    solution: pack
+  - type: InjectableSolution
+    solution: pack
+  - type: ExaminableSolution
+    solution: pack
+  - type: Tag
+    tags:
+    - Bloodpack
+  - type: StaticPrice
+    price: 30
+
+- type: entity
+  parent: DHBloodPack
+  id: DHBloodPackFull
+  suffix: Blood, 300
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      pack:
+        maxVol: 300
+        reagents:
+        - ReagentId: Blood
+          Quantity: 300

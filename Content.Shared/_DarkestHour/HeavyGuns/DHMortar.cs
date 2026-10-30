@@ -23,7 +23,7 @@ public sealed partial class DHLaserDesignatorComponent : Component
     [DataField]
     public TimeSpan LaseTime = TimeSpan.FromSeconds(3);
 
-    /// <summary>Сколько держится метка.</summary>
+    /// <summary>Сколько метка держится самое большее (пока наводчик держит лазер).</summary>
     [DataField]
     public TimeSpan MarkLifetime = TimeSpan.FromMinutes(3);
 
@@ -45,6 +45,14 @@ public sealed partial class DHLaserMarkComponent : Component
 
     [ViewVariables]
     public EntityUid? Designator;
+
+    /// <summary>Кто держит лазер. Метка живёт, пока он держит целеуказатель в руках и стоит на месте.</summary>
+    [ViewVariables]
+    public EntityUid? User;
+
+    /// <summary>Где стоял наводчик, когда поставил метку.</summary>
+    [ViewVariables]
+    public MapCoordinates UserPosition;
 }
 
 /// <summary>Развёрнутый миномёт.</summary>

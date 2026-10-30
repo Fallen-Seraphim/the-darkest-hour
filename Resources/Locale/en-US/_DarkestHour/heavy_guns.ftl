@@ -68,6 +68,7 @@ dh-laser-lasing = You hold the laser on the target...
 dh-laser-marked = Mark {$code} set at ({$x}, {$y}).
 dh-laser-sender = Laser designator ({$name})
 dh-laser-announce = Target marked: mark {$code} at ({$x}, {$y}).
+dh-laser-lost = The laser slipped off target — mark {$code} is gone.
 dh-mortar-no-ground = There is no ground here to set up a mortar.
 dh-mortar-deployed = {CAPITALIZE(THE($user))} sets up the mortar.
 dh-mortar-fold-verb = Fold the mortar

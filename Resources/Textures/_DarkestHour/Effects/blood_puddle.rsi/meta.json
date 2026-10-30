@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from tgstation at https://github.com/tgstation/tgstation/blob/b4061f1800152a832ea62feca841350412ad1617/icons/effects/blood.dmi, via Ephemeral Space / Goob Station (_ES/Effects/puddle.rsi)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "blood-small-1"
+    },
+    {
+      "name": "blood-small-2"
+    },
+    {
+      "name": "blood-small-3"
+    },
+    {
+      "name": "blood-small-4"
+    },
+    {
+      "name": "blood-small-5"
+    },
+    {
+      "name": "blood-medium-1"
+    },
+    {
+      "name": "blood-medium-2"
+    },
+    {
+      "name": "blood-medium-3"
+    },
+    {
+      "name": "blood-medium-4"
+    },
+    {
+      "name": "blood-medium-5"
+    },
+    {
+      "name": "blood-large-1"
+    },
+    {
+      "name": "blood-large-2"
+    },
+    {
+      "name": "blood-large-3"
+    },
+    {
+      "name": "blood-large-4"
+    },
+    {
+      "name": "blood-large-5"
+    },
+    {
+      "name": "blood-large-6"
+    },
+    {
+      "name": "blood-large-7"
+    }
+  ]
+}
