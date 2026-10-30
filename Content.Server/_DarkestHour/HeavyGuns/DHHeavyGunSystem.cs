@@ -1012,6 +1012,10 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         }
     }
 
+    /// <summary>Взрывы артиллерии: с уроном по постройкам (стены и скалы — DHFortified).</summary>
+    private const string ArtilleryExplosion = "DHArtillery";
+    private const string ArtilleryFireExplosion = "DHArtilleryFire";
+
     /// <summary>Подрыв боеголовки и следы на земле. <paramref name="vacuum"/> — можно пробить корпус в космос.</summary>
     private void Detonate(DHWarhead warhead, int caliber, MapCoordinates target, float scale, bool vacuum)
     {
@@ -1030,11 +1034,11 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
                 Flare(target);
                 return;
             case DHWarhead.ArmorPiercing:
-                _explosion.QueueExplosion(target, "Default", intensity * 0.6f, 10f, 60f, null, canCreateVacuum: vacuum);
+                _explosion.QueueExplosion(target, ArtilleryExplosion, intensity * 0.6f, 10f, 60f, null, canCreateVacuum: vacuum);
                 radius *= 0.6f;
                 break;
             case DHWarhead.Incendiary:
-                _explosion.QueueExplosion(target, "FireBomb", intensity * 0.5f, 3f, 18f, null, canCreateVacuum: vacuum);
+                _explosion.QueueExplosion(target, ArtilleryFireExplosion, intensity * 0.5f, 3f, 18f, null, canCreateVacuum: vacuum);
                 Ignite(target, Math.Min(1.5f + caliber * scale / 60f, 8f), Math.Min(15f + caliber / 10f, 45f));
                 break;
             case DHWarhead.Cluster:
@@ -1044,14 +1048,14 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
                 {
                     var offset = _random.NextAngle().ToVec() * _random.NextFloat(0f, spread);
                     var point = new MapCoordinates(target.Position + offset, target.MapId);
-                    _explosion.QueueExplosion(point, "Default", intensity * 0.15f, 4f, 10f, null, canCreateVacuum: vacuum);
+                    _explosion.QueueExplosion(point, ArtilleryExplosion, intensity * 0.15f, 4f, 10f, null, canCreateVacuum: vacuum);
                     ScorchAt(point, 1.5f);
                 }
 
                 radius = spread;
                 break;
             default:
-                _explosion.QueueExplosion(target, "Default", intensity, 3f, 25f, null, canCreateVacuum: vacuum);
+                _explosion.QueueExplosion(target, ArtilleryExplosion, intensity, 3f, 25f, null, canCreateVacuum: vacuum);
                 break;
         }
 

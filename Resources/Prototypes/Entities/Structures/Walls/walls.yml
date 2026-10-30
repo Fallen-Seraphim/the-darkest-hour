@@ -9,6 +9,7 @@
     snap:
     - Wall
   components:
+  - type: DHFortified # DarkestHour: прочность ×5, пули не ломают, артиллерия — да
   - type: Anchorable
     flags:
     - Anchorable
