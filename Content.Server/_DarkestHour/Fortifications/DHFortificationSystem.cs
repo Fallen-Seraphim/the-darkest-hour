@@ -375,8 +375,10 @@ public sealed partial class DHFortificationSystem : EntitySystem
     }
 
     /// <summary>Забор сломали (стал обломком) или перестроили: колючка переходит на новый или падает мотком.</summary>
-    private void OnWireableChanged(Entity<DHWireableComponent> ent, ConstructionChangeEntityEvent args)
+    // Событие-класс (не by-ref): обработчик со старой сигнатурой (uid, comp, args).
+    private void OnWireableChanged(EntityUid uid, DHWireableComponent comp, ConstructionChangeEntityEvent args)
     {
+        var ent = new Entity<DHWireableComponent>(uid, comp);
         if (!ent.Comp.Wired)
             return;
 
