@@ -56,6 +56,38 @@ public sealed partial class DHBarbedWireComponent : Component
     public TimeSpan WireTime = TimeSpan.FromSeconds(2);
 }
 
+/// <summary>
+/// Конструкция, на которую можно навесить колючую проволоку (сетка-рабица): перелезть — порезаться,
+/// срезать — кусачками, моток возвращается.
+/// </summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class DHWireableComponent : Component
+{
+    [ViewVariables]
+    public bool Wired;
+
+    /// <summary>Урон тому, кто перелез через конструкцию с колючкой.</summary>
+    [DataField]
+    public DamageSpecifier WireDamage = new() { DamageDict = { ["Slash"] = FixedPoint2.New(15) } };
+
+    /// <summary>Что возвращается, когда колючку срезают.</summary>
+    [DataField]
+    public EntProtoId Wire = "DHBarbedWire";
+}
+
+[Serializable, NetSerializable]
+public enum DHWireVisuals : byte
+{
+    /// <summary>bool: на конструкции колючая проволока.</summary>
+    Wired,
+}
+
+[Serializable, NetSerializable]
+public sealed partial class DHWireOnDoAfterEvent : SimpleDoAfterEvent;
+
+[Serializable, NetSerializable]
+public sealed partial class DHWireOffDoAfterEvent : SimpleDoAfterEvent;
+
 [Serializable, NetSerializable]
 public sealed partial class DHSandbagWireDoAfterEvent : SimpleDoAfterEvent;
 
