@@ -67,8 +67,11 @@ def breech(heavy):
     rect(d, (12, 14, 19, 21), STEEL_D, OUT)
     d.line((13, 17, 18, 17), STEEL_L)
     rect(d, (19, 17, 22, 18), BRASS)
-    # trunnion towards the barrel (north)
-    rect(d, (16 - w + 2, 2, 15 + w - 2, 8), STEEL_D, OUT)
+    # trunnion towards the barrel (north): as wide as the barrel jacket and flush with the tile edge,
+    # so an assembled gun reads as one piece (the jacket overlaps it by a few pixels)
+    jx0, jx1 = (7, 24) if heavy else (9, 22)
+    rect(d, (jx0, 0, jx1, 8), STEEL_D, OUT)
+    d.line((jx0 + 1, 1, jx0 + 1, 7), STEEL)
     if heavy:
         for x in range(8, 24, 3):
             d.point((x, 28), BRASS_D)
@@ -102,9 +105,11 @@ def barrel(length_tiles, width):
     bottom = centre + 16          # back edge of the barrel tile
     top = centre + 16 - (length_tiles + 1) * 32 + 2
     x0, x1 = 16 - width // 2, 15 + width // 2
-    # jacket near the breech
-    rect(d, (x0 - 2, bottom - 30, x1 + 2, bottom - 1), STEEL_D, OUT)
-    d.line((x0 - 1, bottom - 29, x0 - 1, bottom - 2), STEEL)
+    # jacket near the breech: runs to the back edge of the tile and a little into the breech tile,
+    # over the breech trunnion, so there is no gap between barrel and breech
+    rect(d, (x0 - 2, bottom - 30, x1 + 2, bottom + 3), STEEL_D, OUT)
+    d.line((x0 - 1, bottom - 29, x0 - 1, bottom + 2), STEEL)
+    rect(d, (x0 - 3, bottom - 2, x1 + 3, bottom + 3), STEEL_DD, OUT)  # mounting flange
     # tube
     rect(d, (x0, top + 10, x1, bottom - 30), STEEL, OUT)
     d.line((x0 + 1, top + 11, x0 + 1, bottom - 31), STEEL_L)
