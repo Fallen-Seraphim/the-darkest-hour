@@ -899,7 +899,7 @@ Ointment10Lingering: Ointment
 RegenerativeMeshLingering0: null
 Brutepack10Lingering: Brutepack
 MedicatedSutureLingering0: null
-Bloodpack10Lingering: Bloodpack
+Bloodpack10Lingering: DHBloodPackFull
 Gauze10Lingering: Gauze
 BorgVial: ChemistryEmptyVial
 BorgBeaker: Beaker
@@ -1357,3 +1357,7 @@ WeaponXrayCannon: null
 WeaponEnergyTurretAIControlPanel: null
 WeaponEnergyTurretCommandControlPanel: null
 WeaponEnergyTurretSecurityControlPanel: null
+
+# DarkestHour: пакеты крови RMC вместо стопок ванильных (переливание через капельницу или из рук)
+Bloodpack: DHBloodPackFull
+Bloodpack1: DHBloodPackFull

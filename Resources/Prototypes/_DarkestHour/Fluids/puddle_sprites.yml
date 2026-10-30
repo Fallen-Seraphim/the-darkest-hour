@@ -1,0 +1,49 @@
+# Вид луж по объёму (порт из Ephemeral Space / Goob Station): капли → брызги → лужа.
+# Код — SharedPuddleSystem.DH.cs / PuddleSystem.DH.cs, спрайты крови — tgstation (CC-BY-SA-3.0).
+
+- type: dhPuddleSpriteSet
+  id: Blood
+  reagents:
+  - Blood
+  - CopperBlood
+  - InsectBlood
+  - AmmoniaBlood
+  - SulfurBlood
+  - ZombieBlood
+  smallSprites:
+  - sprite: _DarkestHour/Effects/blood_puddle.rsi
+    state: blood-small-1
+  - sprite: _DarkestHour/Effects/blood_puddle.rsi
+    state: blood-small-2
+  - sprite: _DarkestHour/Effects/blood_puddle.rsi
+    state: blood-small-3
+  - sprite: _DarkestHour/Effects/blood_puddle.rsi
+    state: blood-small-4
+  - sprite: _DarkestHour/Effects/blood_puddle.rsi
+    state: blood-small-5
+  mediumSprites:
+  - sprite: _DarkestHour/Effects/blood_puddle.rsi
+    state: blood-medium-1
+  - sprite: _DarkestHour/Effects/blood_puddle.rsi
+    state: blood-medium-2
+  - sprite: _DarkestHour/Effects/blood_puddle.rsi
+    state: blood-medium-3
+  - sprite: _DarkestHour/Effects/blood_puddle.rsi
+    state: blood-medium-4
+  - sprite: _DarkestHour/Effects/blood_puddle.rsi
+    state: blood-medium-5
+  largeSprites:
+  - sprite: _DarkestHour/Effects/blood_puddle.rsi
+    state: blood-large-1
+  - sprite: _DarkestHour/Effects/blood_puddle.rsi
+    state: blood-large-2
+  - sprite: _DarkestHour/Effects/blood_puddle.rsi
+    state: blood-large-3
+  - sprite: _DarkestHour/Effects/blood_puddle.rsi
+    state: blood-large-4
+  - sprite: _DarkestHour/Effects/blood_puddle.rsi
+    state: blood-large-5
+  - sprite: _DarkestHour/Effects/blood_puddle.rsi
+    state: blood-large-6
+  - sprite: _DarkestHour/Effects/blood_puddle.rsi
+    state: blood-large-7

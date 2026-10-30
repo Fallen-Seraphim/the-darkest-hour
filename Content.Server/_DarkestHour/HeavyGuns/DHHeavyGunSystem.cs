@@ -744,6 +744,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         base.Update(frameTime);
 
         var now = _timing.CurTime;
+        UpdateLaserMarks();
 
         for (var i = _strikes.Count - 1; i >= 0; i--)
         {

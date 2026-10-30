@@ -21,6 +21,9 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
         if (!args.TryGetData<float>(PuddleVisuals.CurrentVolume, out var volume))
             volume = 1.0f;
 
+        if (DHUpdatePuddleSprite(uid, component, ref args, volume)) // DarkestHour: капли и лужи крови
+            return;
+
         // Update smoothing and sprite based on volume.
         if (volume < LowThreshold)
         {

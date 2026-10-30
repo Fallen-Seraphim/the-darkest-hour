@@ -751,7 +751,7 @@
     pocket1: Ointment
     pocket2: Brutepack
   inhand:
-  - Bloodpack
+  - DHBloodPackFull
   - Gauze
 
 - type: startingGear
@@ -768,7 +768,7 @@
     pocket1: Ointment
     pocket2: Brutepack
   inhand:
-  - Bloodpack
+  - DHBloodPackFull
   - Gauze
 
 - type: startingGear

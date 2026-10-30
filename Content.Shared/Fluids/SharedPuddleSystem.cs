@@ -245,6 +245,7 @@ public abstract partial class SharedPuddleSystem : EntitySystem
 
         _appearance.SetData(ent, PuddleVisuals.CurrentVolume, volume.Float(), appearance);
         _appearance.SetData(ent, PuddleVisuals.SolutionColor, color, appearance);
+        DHUpdateSpriteSet(uid, puddle.Solution?.Comp.Solution, appearance); // DarkestHour: капли и лужи крови
     }
 
     private void UpdateSlip(Entity<PuddleComponent> entity, Solution solution)
