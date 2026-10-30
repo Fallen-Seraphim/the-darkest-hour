@@ -54,8 +54,9 @@
   - type: Physics
     bodyType: Static
     canCollide: false
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
+  - type: Damageable
     damageModifierSet: Metallic
 
 - type: entity

@@ -30,8 +30,9 @@
   - type: Anchorable
     delay: 10
   - type: Pullable
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: StructuralMetallic
   - type: Destructible
     thresholds:

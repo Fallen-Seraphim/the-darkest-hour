@@ -22,8 +22,9 @@
           True: { state: sensor_ }
           False: { state: sensor_broken }
   - type: InteractionOutline
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
+  - type: Damageable
     damageModifierSet: Metallic
   - type: Repairable
     fuelCost: 15

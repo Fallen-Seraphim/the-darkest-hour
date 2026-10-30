@@ -176,8 +176,9 @@
     sprite: _Mono/Objects/SpaceArtillery/shells.rsi
   - type: Appearance
   - type: SpentAmmoVisuals
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
+  - type: Damageable
     damageModifierSet: Metallic
 
 - type: entity

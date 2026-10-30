@@ -46,8 +46,9 @@
     size: Small
   - type: Sprite
     sprite: _DarkestHour/Objects/Specific/Medical/culture_jar.rsi
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
+  - type: Damageable
   - type: DamageOnHighSpeedImpact
     minimumSpeed: 2
     damage:

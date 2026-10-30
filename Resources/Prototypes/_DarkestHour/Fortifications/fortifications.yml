@@ -134,8 +134,9 @@
         - BulletImpassable
   - type: Climbable
   - type: InteractionOutline
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
+  - type: Damageable
     damageModifierSet: DHSandbag
   - type: Destructible
     thresholds:
@@ -231,8 +232,9 @@
         - MidImpassable
         - LowImpassable
         - Opaque
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
+  - type: Damageable
   - type: Destructible
     thresholds:
     - trigger:
