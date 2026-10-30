@@ -103,7 +103,7 @@
     pointName: dh-control-point-npp
     pointDescription: dh-control-point-npp-desc
     radius: 18
-    owner: Republic
+    holder: Republic
 
 - type: entity
   parent: DHControlPointBase
