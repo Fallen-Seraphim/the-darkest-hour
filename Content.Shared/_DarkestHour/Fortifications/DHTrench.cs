@@ -10,6 +10,13 @@ using Robust.Shared.Serialization;
 namespace Content.Shared._DarkestHour.Fortifications;
 
 /// <summary>
+/// Инструмент, которым копают окопы (лопата, садовая лопатка). Отдельный компонент, потому что на
+/// <c>ShovelComponent</c> + <c>AfterInteractEvent</c> уже подписан ванильный <c>BotanyShovelSystem</c>.
+/// </summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class DHEntrenchingToolComponent : Component;
+
+/// <summary>
 /// Окоп (решение автора 2026-10-30): копается лопатой на грунте, засыпается обратно. Сидящего в окопе пули издалека
 /// задевают только с шансом, взрывы снаружи окопа бьют слабее. Соседние окопы соединяются в траншею.
 /// </summary>
