@@ -184,7 +184,7 @@ story-gen-book-character23 = опоссум
 
 story-gen-book-character24 = ленивец
 
-story-gen-book-character25 = агент Синдиката
+story-gen-book-character25 = агент Империи
 
 story-gen-book-character26 = ревенант
 

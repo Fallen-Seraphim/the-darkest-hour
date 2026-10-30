@@ -84,7 +84,7 @@
 - type: entity
   id: BorgChassisSyndicateAssault
   parent: BaseBorgChassisSyndicate
-  name: syndicate assault cyborg
+  name: imperial assault cyborg
   description: A lean, mean killing machine with access to a variety of deadly modules.
   components:
     - type: Sprite
@@ -116,7 +116,7 @@
 - type: entity
   id: BorgChassisSyndicateMedical
   parent: [BaseBorgChassisSyndicate, ShowMedicalIcons]
-  name: syndicate medical cyborg
+  name: imperial medical cyborg
   description: A combat medical cyborg. Has limited offensive potential, but makes more than up for it with its support capabilities.
   components:
     - type: Sprite
@@ -155,7 +155,7 @@
 - type: entity
   id: BorgChassisSyndicateSaboteur
   parent: BaseBorgChassisSyndicate
-  name: syndicate saboteur cyborg
+  name: imperial saboteur cyborg
   description: A streamlined engineering cyborg, equipped with covert modules. Its chameleon projector lets it disguise itself as a Nanotrasen cyborg.
   components:
     - type: Sprite
@@ -362,7 +362,7 @@
 - type: entity
   parent: BaseBorgChassisSyndicateDerelict
   id: SyndicateAssaultBorgChassisDerelict
-  name: derelict syndicate assault cyborg
+  name: derelict imperial assault cyborg
   description: A lean, mean killing machine with access to a variety of deadly modules. This one is more rust-orange than blood-red.
   components:
   - type: Sprite

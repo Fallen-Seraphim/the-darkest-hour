@@ -29,7 +29,7 @@
 - type: entity
   parent: BaseFlag
   id: SyndieFlag
-  name: syndicate flag
+  name: imperial flag
   description: Smells bloody. Death to NT!
   components:
   - type: Sprite

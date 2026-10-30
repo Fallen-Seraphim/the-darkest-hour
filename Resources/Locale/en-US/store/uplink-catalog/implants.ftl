@@ -16,7 +16,7 @@ uplink-emp-implanter-name = EMP Implanter
 uplink-emp-implanter-desc = Detonates a small EMP pulse on activation that drains nearby electronics of their power, can be used three times before the internal battery runs out. Very short range, use wisely!
 
 uplink-radio-implanter-name = Radio Implanter
-uplink-radio-implanter-desc = Implants a Syndicate radio, allowing covert communication without a headset.
+uplink-radio-implanter-desc = Implants an Imperial radio, allowing covert communication without a headset.
 
 uplink-micro-bomb-implanter-name = Micro Bomb Implanter
 uplink-micro-bomb-implanter-desc = Explode on death or manual activation with this implant. Destroys the body with all equipment.
@@ -31,7 +31,7 @@ uplink-uplink-implanter-name = Uplink Implanter
 uplink-uplink-implanter-desc = Stealthily order equipment without the need for a PDA. Apply telecrystals directly to the forehead to transfer them to your BitCrystal Wallet!
 
 uplink-deathrattle-implant-name = Box Of Deathrattle Implants
-uplink-deathrattle-implant-desc = A box containing enough deathrattle implants for the whole squad. Relays a message containing your position to the syndicate channel when you go into a critical state or die.
+uplink-deathrattle-implant-desc = A box containing enough deathrattle implants for the whole squad. Relays a message containing your position to the imperial channel when you go into a critical state or die.
 
 uplink-fake-mindshield-name = Fake Mindshield
 uplink-fake-mindshield-desc = An implant which can be toggled to trick Heads-up displays into thinking you are mindshielded (Nanotrasen brand implanter not provided.) The cornerstone of a successful Command or Security disguise.

@@ -243,8 +243,8 @@
 - type: entity
   parent: BoxCardboard
   id: BoxSurvivalSyndicate
-  name: syndicate O2 survival box
-  description: A Syndicate-designed survival box containing a syndicate gas mask, an extended-capacity emergency oxygen tank, an emergency medipen, an emergency flare, and a bit of food.
+  name: imperial O2 survival box
+  description: An Imperial-designed survival box containing an imperial gas mask, an extended-capacity emergency oxygen tank, an emergency medipen, an emergency flare, and a bit of food.
   components:
   - type: EntityTableContainerFill
     containers:
@@ -263,8 +263,8 @@
 - type: entity
   parent: BoxSurvivalSyndicate
   id: BoxSurvivalSyndicateNitrogen
-  name: syndicate N2 survival box
-  description: A Syndicate-designed survival box containing a syndicate gas mask, an extended-capacity emergency nitrogen tank, an emergency medipen, an emergency flare, and a bit of food.
+  name: imperial N2 survival box
+  description: An Imperial-designed survival box containing an imperial gas mask, an extended-capacity emergency nitrogen tank, an emergency medipen, an emergency flare, and a bit of food.
   components:
   - type: EntityTableContainerFill
     containers:

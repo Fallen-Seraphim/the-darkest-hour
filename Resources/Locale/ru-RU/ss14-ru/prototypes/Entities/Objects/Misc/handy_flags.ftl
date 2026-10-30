@@ -10,5 +10,5 @@ ent-NTHandyFlag = ручной флажок Nanotrasen
 ent-PirateHandyFlag = пиратский ручной флажок
     .desc = Возьмите его в руки и покажите этим карпам, что вы не шутите.
 
-ent-SyndieHandyFlag = ручной флажок Синдиката
+ent-SyndieHandyFlag = ручной флажок Империи
     .desc = Для настоящих патриотов-бунтарей. Смерть Nanotrasen!

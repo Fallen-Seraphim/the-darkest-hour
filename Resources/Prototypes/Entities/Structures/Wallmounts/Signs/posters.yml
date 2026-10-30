@@ -75,7 +75,7 @@
 - type: entity
   parent: PosterBase
   id: PosterContrabandSyndicateRecruitment
-  name: "Syndicate Recruitment"
+  name: "Imperial Recruitment"
   description: "See the galaxy! Shatter corrupt megacorporations! Join today!"
   components:
   - type: Sprite
@@ -282,8 +282,8 @@
 - type: entity
   parent: PosterBase
   id: PosterContrabandSyndicatePistol
-  name: "Syndicate Pistol"
-  description: "A poster advertising syndicate pistols as being 'classy as fuck'. It's covered in faded gang tags."
+  name: "Imperial Pistol"
+  description: "A poster advertising imperial pistols as being 'classy as fuck'. It's covered in faded gang tags."
   components:
   - type: Sprite
     state: poster28_contraband
@@ -435,7 +435,7 @@
 - type: entity
   parent: PosterBase
   id: PosterContrabandFreeSyndicateEncryptionKey
-  name: "Free Syndicate Encryption Key"
+  name: "Free Imperial Encryption Key"
   description: "A poster about traitors begging for more."
   components:
   - type: Sprite
@@ -518,7 +518,7 @@
   parent: PosterBase
   id: PosterContrabandRevolt
   name: "Revolt"
-  description: "Revolutionist propaganda, manufactured by the Syndicate."
+  description: "Revolutionist propaganda, manufactured by the Empire."
   components:
   - type: Sprite
     state: poster56_contraband
@@ -526,8 +526,8 @@
 - type: entity
   parent: PosterBase
   id: PosterContrabandMoth
-  name: "Syndie Moth - Nuclear Operation"
-  description: "A Syndicate-commissioned poster that uses Syndie Moth™ to tell the viewer to keep the nuclear authentication disk unsecured. \"Peace was never an option!\" No good employee would listen to this nonsense."
+  name: "Imperial Moth - Nuclear Operation"
+  description: "An Imperial-commissioned poster that uses Imperial Moth™ to tell the viewer to keep the nuclear authentication disk unsecured. \"Peace was never an option!\" No good employee would listen to this nonsense."
   components:
     - type: Sprite
       state: poster57_contraband

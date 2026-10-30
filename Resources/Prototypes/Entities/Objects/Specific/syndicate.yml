@@ -51,7 +51,7 @@
 - type: entity
   parent: [BaseItem, StorePresetUplink, BaseSyndicateContraband]
   id: BaseUplinkRadio
-  name: syndicate uplink
+  name: imperial uplink
   description: Suspiciously looking old radio...
   suffix: Empty
   components:

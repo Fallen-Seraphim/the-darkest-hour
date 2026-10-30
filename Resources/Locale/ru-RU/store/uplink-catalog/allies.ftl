@@ -9,15 +9,15 @@ uplink-holopara-kit-name = Набор "Голопаразит"
 
 uplink-mobcat-microbomb-desc = Призывает ручного космо-кота, оснащённого имплантом Микробомба. Взрывается при серьёзном ранении. Может больно кусаться.
 
-uplink-mobcat-microbomb-name = Телепорт СиндиКота
+uplink-mobcat-microbomb-name = Телепорт Имперского кота
 
-uplink-reinforcement-radio-ancestor-desc = Призовите на помощь специально обученного предка по вашему выбору. Комплектуются одной сигаретой Синдиката.
+uplink-reinforcement-radio-ancestor-desc = Призовите на помощь специально обученного предка по вашему выбору. Комплектуются одной сигаретой Империи.
 
 uplink-reinforcement-radio-ancestor-name = Телепорт подкрепления генетическим предком
 
 uplink-reinforcement-radio-cyborg-assault-desc = Машина для убийств с доступом к энергомечу, пулемёту с самовосстанавливающимися боеприпасами, криптографическому секвенсору и пинпоинтеру.
 
-uplink-reinforcement-radio-cyborg-assault-name = Телепорт штурмового киборга Синдиката
+uplink-reinforcement-radio-cyborg-assault-name = Телепорт штурмового киборга Империи
 
 uplink-reinforcement-radio-name = Телепорт подкрепления
 
@@ -27,6 +27,6 @@ uplink-reinforcement-radio-nukeops-name = Телепорт Ядерного оп
 
 uplink-reinforcement-radio-traitor-desc = Телепортирует в качестве подкрепления сомнительного качества агента. Не имеет кнопки отключения, покупайте его только если вы готовы к вечеринке. Вызовите боевого медика, шпиона или вора, чтобы они помогли вам. Удачи.
 
-uplink-syndicate-pai-desc = Вариант пИИ от Синдиката, с доступом к радиоканалу Синдиката. Полезность не гарантируется.
+uplink-syndicate-pai-desc = Вариант пИИ от Империи, с доступом к радиоканалу Империи. Полезность не гарантируется.
 
-uplink-syndicate-pai-name = пИИ Синдиката
+uplink-syndicate-pai-name = пИИ Империи

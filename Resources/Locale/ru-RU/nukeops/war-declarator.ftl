@@ -10,7 +10,7 @@ war-declarator-boost-timer = Оставшееся время: { $time } { $time 
     *[other] минут
 }.
 
-war-declarator-conditions-left-outpost = Шаттл покинул аванпост Синдиката
+war-declarator-conditions-left-outpost = Шаттл покинул аванпост Империи
 
 war-declarator-conditions-ready = Шаттл может покинуть аванпост!
 
@@ -20,7 +20,7 @@ war-declarator-conditions-time-out = Время на объявление вой
 
 war-declarator-conditions-unknown = Неизвестно
 
-war-declarator-default-message = Пограничный отряд Синдиката объявляет о своём намерении уничтожить станцию при помощи ядерного устройства и призывает экипаж предпринять ничтожную попытку остановить их.
+war-declarator-default-message = Пограничный отряд Империи объявляет о своём намерении уничтожить станцию при помощи ядерного устройства и призывает экипаж предпринять ничтожную попытку остановить их.
 
 war-declarator-message-placeholder = Введите текст объявления...
 

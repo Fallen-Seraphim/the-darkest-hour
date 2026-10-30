@@ -116,7 +116,7 @@
 - type: entity
   parent: MobBaseKobold
   id: MobBaseSyndicateKobold
-  suffix: syndicate base
+  suffix: imperial base
   components:
   - type: MobThresholds
     thresholds:
@@ -132,7 +132,7 @@
 - type: entity
   parent: MobBaseSyndicateKobold
   id: MobKoboldSyndicateAgent
-  suffix: syndicate agent
+  suffix: imperial agent
   components: # make the player a traitor once its taken
   - type: AutoTraitor
     profile: TraitorReinforcement

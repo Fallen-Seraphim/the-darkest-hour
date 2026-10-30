@@ -1,4 +1,4 @@
-objective-issuer-syndicate = [color=crimson]Синдикат[/color]
+objective-issuer-syndicate = [color=crimson]Империя[/color]
 
 objective-issuer-unknown = [color=white]Неизвестно[/color]
 
@@ -21,7 +21,7 @@ traitor-not-enough-ready-players = Недостаточно игроков го�
 traitor-role-codewords =
     Кодовые слова следующие: [color = lightgray]
     { $codewords }.[/color]
-    Кодовые слова можно использовать в обычном разговоре, чтобы незаметно идентифицировать себя для других агентов Синдиката.
+    Кодовые слова можно использовать в обычном разговоре, чтобы незаметно идентифицировать себя для других агентов Империи.
     Прислушивайтесь к ним и храните их в тайне.
 
 traitor-role-codewords-short =
@@ -29,7 +29,7 @@ traitor-role-codewords-short =
     { $codewords }.
 
 traitor-role-greeting =
-    Вы — агент организации { $corporation } на задании [color = darkred]Синдиката.[/color].
+    Вы — агент организации { $corporation } на задании [color = darkred]Империи.[/color].
     Ваши цели и кодовые слова перечислены в меню персонажа. Воспользуйтесь своим аплинком, чтобы приобрести всё необходимое для выполнения работы.
     Смерть Nanotrasen!
 

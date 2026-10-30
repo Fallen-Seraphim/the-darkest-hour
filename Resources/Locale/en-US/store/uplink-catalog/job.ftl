@@ -25,14 +25,14 @@ uplink-chimp-upgrade-kit-desc = Insert this chip into a standard C.H.I.M.P. hand
 uplink-proximity-mine-name = Proximity Mine
 uplink-proximity-mine-desc = A throwable mine disguised as a wet floor sign. Detonates on contact with almost anything, safety always off.
 
-uplink-syndicate-sponge-box-name = Syndicate Sponge Box
-uplink-syndicate-sponge-box-desc = A box containing 6 syndicate sponges disguised as monkey cubes, these cubes turn into a variety of angry wildlife after coming into contact with water.
+uplink-syndicate-sponge-box-name = Imperial Sponge Box
+uplink-syndicate-sponge-box-desc = A box containing 6 imperial sponges disguised as monkey cubes, these cubes turn into a variety of angry wildlife after coming into contact with water.
 
 uplink-cane-blade-name = Cane Blade
 uplink-cane-blade-desc = A cane that has a hidden blade that can be unsheathed.
 
 uplink-combat-bakery-name = Combat Bakery Kit
-uplink-combat-bakery-desc = A kit of clandestine baked weapons. Contains a baguette sword, a pair of throwing croissants, and a syndicate microwave board for making more. Once the job is done, eat the evidence.
+uplink-combat-bakery-desc = A kit of clandestine baked weapons. Contains a baguette sword, a pair of throwing croissants, and an imperial microwave board for making more. Once the job is done, eat the evidence.
 
 uplink-acolyte-armor-name = Acolyte Armor
 uplink-acolyte-armor-desc = The must have of any self respecting cult leader. An evil looking piece of armor, made of bones, and surprisingly resistant to damage.

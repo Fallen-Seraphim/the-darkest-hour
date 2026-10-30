@@ -6,8 +6,8 @@ contraband-examinable-verb-text = Легальность
 
 contraband-examine-text-GrandTheft =
     { $type ->
-        *[item] [color={ $color }]Этот предмет является очень ценной целью для агентов Синдиката![/color]
-        [reagent] [color={ $color }]Этот реагент является очень ценной целью для агентов Синдиката![/color]
+        *[item] [color={ $color }]Этот предмет является очень ценной целью для агентов Империи![/color]
+        [reagent] [color={ $color }]Этот реагент является очень ценной целью для агентов Империи![/color]
     }
 
 contraband-examine-text-Highly-Illegal =
@@ -48,8 +48,8 @@ contraband-examine-text-Restricted-department =
 
 contraband-examine-text-Syndicate =
     { $type ->
-        *[item] [color={ $color }]Этот предмет является крайне незаконной контрабандой Синдиката![/color]
-        [reagent] [color={ $color }]Этот реагент является крайне незаконной контрабандой Синдиката![/color]
+        *[item] [color={ $color }]Этот предмет является крайне незаконной контрабандой Империи![/color]
+        [reagent] [color={ $color }]Этот реагент является крайне незаконной контрабандой Империи![/color]
     }
 
 contraband-examine-text-avoid-carrying-around = [color=orange][italic]Вам, вероятно, не стоит носить его с собой без причины.(см. КЗ контрабанды)[/italic][/color]

@@ -347,7 +347,7 @@
         color: "#000000"
 
 - type: entity
-  name: syndicate rubber stamp
+  name: imperial rubber stamp
   parent: [RubberStampBase, BaseSyndicateContraband]
   id: RubberStampSyndicate
   categories: [ DoNotMap ]

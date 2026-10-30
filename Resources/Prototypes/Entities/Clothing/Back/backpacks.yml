@@ -289,7 +289,7 @@
 - type: entity
   parent: [ClothingBackpack, BaseSyndicateContraband]
   id: ClothingBackpackSyndicate
-  name: syndicate backpack
+  name: imperial backpack
   description:
   components:
   - type: Sprite

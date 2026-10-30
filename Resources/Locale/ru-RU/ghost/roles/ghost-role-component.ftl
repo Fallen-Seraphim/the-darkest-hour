@@ -19,7 +19,7 @@ ghost-role-information-Death-Squad-rules = Вы обязаны подчинят�
 
 ghost-role-information-SyndiCat-description = Вы — верный дрессированный питомец ядерных оперативников с микробомбой. Служите своему хозяину до самой смерти!
 
-ghost-role-information-SyndiCat-name = СиндиКот
+ghost-role-information-SyndiCat-name = Имперский кот
 
 ghost-role-information-SyndiCat-rules = Вы [color={ role-type-team-antagonist-color }][bold]{ role-type-team-antagonist-name }[/bold][/color], в команде с агентом, который вас призвал.
 
@@ -112,9 +112,9 @@ ghost-role-information-derelict-mining-cyborg-description = Вы — кибор�
 
 ghost-role-information-derelict-mining-cyborg-name = Брошенный киборг-шахтёр
 
-ghost-role-information-derelict-syndicate-assault-cyborg-description = Вы — раняя модель штурмового киборга Синдиката, которая заблудилась в космосе. После долгих лет воздействия ионных бурь вы оказываетесь рядом с космической станцией.
+ghost-role-information-derelict-syndicate-assault-cyborg-description = Вы — раняя модель штурмового киборга Империи, которая заблудилась в космосе. После долгих лет воздействия ионных бурь вы оказываетесь рядом с космической станцией.
 
-ghost-role-information-derelict-syndicate-assault-cyborg-name = Брошенный штурмовой киборг Синдиката
+ghost-role-information-derelict-syndicate-assault-cyborg-name = Брошенный штурмовой киборг Империи
 
 ghost-role-information-disaster-victim-description = Вы спаслись на спасательной капсуле с другой станции, которую постигла ужасная участь. Возможно, вас найдут и спасут.
 
@@ -405,49 +405,49 @@ ghost-role-information-supplybot-description = Развозите грузы п�
 
 ghost-role-information-supplybot-name = Грузобот
 
-ghost-role-information-syndicate-cyborg-assault-name = Штурмовой киборг Синдиката
+ghost-role-information-syndicate-cyborg-assault-name = Штурмовой киборг Империи
 
-ghost-role-information-syndicate-cyborg-description = Синдикату нужно подкрепление. Вы, холодная кремниевая машина для убийства, поможете им.
+ghost-role-information-syndicate-cyborg-description = Империи нужно подкрепление. Вы, холодная кремниевая машина для убийства, поможете им.
 
-ghost-role-information-syndicate-cyborg-saboteur-name = Саботажный киборг Синдиката
+ghost-role-information-syndicate-cyborg-saboteur-name = Саботажный киборг Империи
 
 ghost-role-information-syndicate-kobold-reinforcement-description = Кому-то нужно подкрепление. Вы, специально обученный кобольд, поможете им.
 
-ghost-role-information-syndicate-kobold-reinforcement-name = Агент Синдиката-кобольд
+ghost-role-information-syndicate-kobold-reinforcement-name = Агент Империи-кобольд
 
 ghost-role-information-syndicate-monkey-reinforcement-description = Кому-то нужно подкрепление. Вы, специально обученная обезьяна, поможете им.
 
-ghost-role-information-syndicate-monkey-reinforcement-name = Агент Синдиката-обезьяна
+ghost-role-information-syndicate-monkey-reinforcement-name = Агент Империи-обезьяна
 
-ghost-role-information-syndicate-reinforcement-description = Кому-то нужно подкрепление. Вы первый, кого Синдикат смог найти и послать на помощь.
+ghost-role-information-syndicate-reinforcement-description = Кому-то нужно подкрепление. Вы первый, кого Империя смогла найти и послать на помощь.
 
 ghost-role-information-syndicate-reinforcement-medic-description = Кому-то нужно подкрепление. Ваша задача — сохранить жизнь вызвавшему вас агенту.
 
-ghost-role-information-syndicate-reinforcement-medic-name = Боевой медик Синдиката
+ghost-role-information-syndicate-reinforcement-medic-name = Боевой медик Империи
 
-ghost-role-information-syndicate-reinforcement-name = Агент Синдиката
+ghost-role-information-syndicate-reinforcement-name = Агент Империи
 
 ghost-role-information-syndicate-reinforcement-rules = Вы [color={ role-type-team-antagonist-color }][bold]{ role-type-team-antagonist-name }[/bold][/color], в команде с агентом, который вас призвал.
 
 ghost-role-information-syndicate-reinforcement-spy-description = Кому-то нужно подкрепление. Ваша специализация — шпионаж, постарайтесь не быть обнаруженными.
 
-ghost-role-information-syndicate-reinforcement-spy-name = Шпион Синдиката
+ghost-role-information-syndicate-reinforcement-spy-name = Шпион Империи
 
 ghost-role-information-syndicate-reinforcement-thief-description = Кому-то нужно подкрепление. Ваша задача — проникнуть и забрать что-то ценное для своего агента.
 
-ghost-role-information-syndicate-reinforcement-thief-name = Вор Синдиката
+ghost-role-information-syndicate-reinforcement-thief-name = Вор Империи
 
-ghost-role-information-syndie-disaster-victim-description = Вы — обычный пассажир со станции Синдиката. К несчастью, спасательная капсула закинула вас во вражеский сектор...
+ghost-role-information-syndie-disaster-victim-description = Вы — обычный пассажир со станции Империи. К несчастью, спасательная капсула закинула вас во вражеский сектор...
 
-ghost-role-information-syndie-disaster-victim-name = Жертва катастрофы из Синдиката
+ghost-role-information-syndie-disaster-victim-name = Жертва катастрофы из Империи
 
-ghost-role-information-syndie-soldier-description = Вы солдат Синдиката
+ghost-role-information-syndie-soldier-description = Вы солдат Империи
 
-ghost-role-information-syndie-soldier-name = Солдат Синдиката
+ghost-role-information-syndie-soldier-name = Солдат Империи
 
-ghost-role-information-syndie-soldier-teamlead-description = Вы — командир огневой группы в оперативном отряде Синдиката.
+ghost-role-information-syndie-soldier-teamlead-description = Вы — командир огневой группы в оперативном отряде Империи.
 
-ghost-role-information-syndie-soldier-teamlead-name = Командир команды Синдиката
+ghost-role-information-syndie-soldier-teamlead-name = Командир команды Империи
 
 ghost-role-information-tomatokiller-description = Этот маленький помидор будет служить ботанику до конца своей жизни... то есть пару минут.
 

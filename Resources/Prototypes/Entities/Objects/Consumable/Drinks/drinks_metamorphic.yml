@@ -1751,7 +1751,7 @@
 - type: entity
   parent: DrinkGlass
   id: DrinkSyndicatebomb
-  suffix: syndicate bomb
+  suffix: imperial bomb
   components:
   - type: Solution
     solution:

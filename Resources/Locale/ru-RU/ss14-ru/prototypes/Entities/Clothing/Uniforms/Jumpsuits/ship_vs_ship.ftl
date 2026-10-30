@@ -1,17 +1,17 @@
-ent-ClothingUniformJumpsuitParamedicSyndie = комбинезон парамедика Синдиката
+ent-ClothingUniformJumpsuitParamedicSyndie = комбинезон парамедика Империи
     .desc = По какой-то причине, надевая его, вы чувствуете, что очень близки к нарушению Женевской конвенции.
 
 ent-ClothingUniformJumpsuitRecruitNT = комбинезон рекрута
     .desc = Классический серый комбинезон с синими элементами. Идеально для достойного помощника.
 
-ent-ClothingUniformJumpsuitRecruitSyndie = комбинезон рекрута Синдиката
+ent-ClothingUniformJumpsuitRecruitSyndie = комбинезон рекрута Империи
     .desc = Подозрительный тёмно-серый комбинезон. Как будто пассажиры не были и без того достаточно подозрительными.
 
 ent-ClothingUniformJumpsuitRepairmanNT = комбинезон ремонтника
     .desc = Комбинезон, напоминающий вам определённую рабочую специальность в гражданском секторе. Надеемся, вам не придётся выполнять ту же работу, что и этим чудакам.
 
-ent-ClothingUniformJumpsuitRepairmanSyndie = комбинезон ремонтника Синдиката
+ent-ClothingUniformJumpsuitRepairmanSyndie = комбинезон ремонтника Империи
     .desc = Функциональный, модный, крутой. Инженеры Nanotrasen мечтают выглядеть так же хорошо, как и вы.
 
-ent-ClothingUniformJumpsuitChiefEngineerSyndie = комбинезон главного техника синдиката
+ent-ClothingUniformJumpsuitChiefEngineerSyndie = комбинезон главного техника Империи
     .desc = Зловещий комбинезон со светоотражающим жилетом и красной нательной рубашкой.

@@ -4,7 +4,7 @@ comms-console-announce-tab-title = Связь
 
 comms-console-announcement-title-centcom = Центральное командование
 
-comms-console-announcement-title-nukie = Ядерные оперативники Синдиката
+comms-console-announcement-title-nukie = Ядерные оперативники Империи
 
 comms-console-announcement-title-station = Компьютер связи
 

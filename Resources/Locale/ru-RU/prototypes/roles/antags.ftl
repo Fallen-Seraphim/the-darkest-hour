@@ -44,13 +44,13 @@ roles-antag-subverted-silicon-name = Взломанный борг
 
 roles-antag-subverted-silicon-objective = Следуйте своим новым законам.
 
-roles-antag-syndicate-agent-name = Агент Синдиката
+roles-antag-syndicate-agent-name = Агент Империи
 
 roles-antag-syndicate-agent-objective = Выполните свои задачи и не попадитесь.
 
-roles-antag-syndicate-agent-sleeper-name = Спящий агент Синдиката
+roles-antag-syndicate-agent-sleeper-name = Спящий агент Империи
 
-roles-antag-syndicate-agent-sleeper-objective = Разновидность агента Синдиката, который может активироваться и начать действие в любой момент смены. Выполните свои задачи, не попавшись.
+roles-antag-syndicate-agent-sleeper-objective = Разновидность агента Империи, который может активироваться и начать действие в любой момент смены. Выполните свои задачи, не попавшись.
 
 roles-antag-thief-name = Вор
 

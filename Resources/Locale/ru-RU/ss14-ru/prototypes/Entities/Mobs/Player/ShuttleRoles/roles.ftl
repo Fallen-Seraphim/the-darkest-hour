@@ -24,13 +24,13 @@ ent-RandomHumanoidPirateScooner = пират член экипажа роль п
     .desc = { "" }
     .suffix = scooner
 
-ent-RandomHumanoidSyndieSoldier = Синдикат солдат роль призрака
+ent-RandomHumanoidSyndieSoldier = Имперский солдат роль призрака
     .desc = { "" }
 
-ent-RandomHumanoidSyndieSoldierTeamLeader = Синдикат руководитель роль призрака
+ent-RandomHumanoidSyndieSoldierTeamLeader = Имперский руководитель роль призрака
     .desc = { "" }
 
-ent-RandomHumanoidSyndieVisitor = Синдикат жертва катастрофы роль призрака
+ent-RandomHumanoidSyndieVisitor = Имперская жертва катастрофы роль призрака
     .desc = { "" }
 
 ent-RandomHumanoidVisitorAtmosTech = посетитель атмосферный техник роль призрака

@@ -19,7 +19,7 @@
 - type: entity
   parent: [ ClothingOuterEVASuitBase, BaseSyndicateContraband ]
   id: ClothingOuterEVASuitSyndicate
-  name: syndicate EVA suit
+  name: imperial EVA suit
   description: "Has a tag on the back that reads: 'Totally not property of an enemy corporation, honest!'"
   components:
   - type: Sprite

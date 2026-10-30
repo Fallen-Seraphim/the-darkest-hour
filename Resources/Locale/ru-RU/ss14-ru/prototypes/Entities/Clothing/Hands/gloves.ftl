@@ -90,7 +90,7 @@ ent-ClothingHandsKnuckleDustersQM = золотые кастеты КМа
 ent-ClothingHandsKnuckleDustersStun = шок-кастеты
     .desc = Пара кастетов в сочетании с технологией шокер-дубинки. С ними бить тайдеров намного легче.
 
-ent-ClothingHandsKnuckleDustersSyndicate = кастеты синдиката
+ent-ClothingHandsKnuckleDustersSyndicate = кастеты Империи
     .desc = Пластитановые кастеты с фирменной кроваво-красной буквой S. Настоящий мужик забьёт ими кого-нибудь до смерти.
 
 ent-ClothingHandsMercGlovesCombat = боевые перчатки наёмника

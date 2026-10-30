@@ -367,7 +367,7 @@
 - type: entity
   parent: [ ClothingHeadHardsuitInsulatedBase, ClothingHeadSuitWithLightBase ]
   id: ClothingHeadHelmetHardsuitSyndieElite
-  name: syndicate elite helmet
+  name: imperial elite helmet
   description: An elite version of the blood-red hardsuit's helmet, with improved radiation resistance and fireproofing. Property of Gorlex Marauders.
   components:
   - type: Sprite
@@ -396,8 +396,8 @@
 - type: entity
   parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
   id: ClothingHeadHelmetHardsuitSyndieCommander
-  name: syndicate commander helmet
-  description: A bulked up version of the blood-red hardsuit's helmet, purpose-built for the commander of a syndicate operative squad. Has significantly improved armor for those deadly front-lines firefights.
+  name: imperial commander helmet
+  description: A bulked up version of the blood-red hardsuit's helmet, purpose-built for the commander of an imperial operative squad. Has significantly improved armor for those deadly front-lines firefights.
   components:
   - type: Sprite
     sprite: Clothing/Head/Hardsuits/syndiecommander.rsi

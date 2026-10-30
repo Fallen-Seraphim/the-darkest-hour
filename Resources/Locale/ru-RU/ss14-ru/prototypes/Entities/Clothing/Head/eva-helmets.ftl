@@ -10,7 +10,7 @@ ent-ClothingHeadHelmetEVA = шлем ВКД
 ent-ClothingHeadHelmetEVALarge = шлем ВКД
     .desc = Старый добрый шлем, предназначенный для внекорабельной деятельности.
 
-ent-ClothingHeadHelmetSyndicate = шлем ВКД синдиката
+ent-ClothingHeadHelmetSyndicate = шлем ВКД Империи
     .desc = Простой, стильный ВКД шлем. Предназначен для максимально скромной космо-крутости.
 
 ent-ClothingHeadHelmetVoidParamed = пустотный шлем парамедика

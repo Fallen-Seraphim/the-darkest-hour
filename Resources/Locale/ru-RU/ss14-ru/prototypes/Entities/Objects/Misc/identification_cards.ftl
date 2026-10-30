@@ -150,23 +150,23 @@ ent-SeniorCourierIDCard = ID-карта ведущего грузчика
 ent-ServiceWorkerIDCard = ID-карта сервисного работника
     .desc = Карта, необходимая для доступа к различным областям станции.
 
-ent-SyndiCommanderIDCard = ID-карта командира Синдиката
+ent-SyndiCommanderIDCard = ID-карта командира Империи
     .desc = Карта, необходимая для доступа к различным областям станции.
 
-ent-SyndiCorpsmanIDCard = ID-карта медика Синдиката
+ent-SyndiCorpsmanIDCard = ID-карта медика Империи
     .desc = Карта, необходимая для доступа к различным областям станции.
 
-ent-SyndiOperativeIDCard = ID-карта оперативника Синдиката
+ent-SyndiOperativeIDCard = ID-карта оперативника Империи
     .desc = Карта, необходимая для доступа к различным областям станции.
 
-ent-SyndicateIDCard = ID-карта Синдиката
+ent-SyndicateIDCard = ID-карта Империи
     .desc = Карта, необходимая для доступа к различным областям станции.
 
-ent-SyndicateIDCardAdaptive = ID-карта Синдиката
+ent-SyndicateIDCardAdaptive = ID-карта Империи
     .desc = Карта, необходимая для доступа к различным областям станции.
     .suffix = Адаптивная
 
-ent-SyndicateIDCardAdaptivePassenger = ID-карта Синдиката
+ent-SyndicateIDCardAdaptivePassenger = ID-карта Империи
     .desc = Карта, необходимая для доступа к различным областям станции.
     .suffix = Адаптивная, Иконка пассажира
 

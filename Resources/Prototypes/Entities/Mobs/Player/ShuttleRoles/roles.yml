@@ -560,7 +560,7 @@
 
 - type: entity
   id: RandomHumanoidSyndieSoldierTeamLeader
-  name: syndicate team leader ghost role
+  name: imperial team leader ghost role
   components:
     - type: Sprite
       sprite: Structures/Decoration/banner.rsi
@@ -570,7 +570,7 @@
 
 - type: entity
   id: RandomHumanoidSyndieSoldier
-  name: syndicate soldier ghost role
+  name: imperial soldier ghost role
   components:
     - type: Sprite
       sprite: Structures/Decoration/banner.rsi
@@ -580,7 +580,7 @@
 
 - type: entity
   id: RandomHumanoidSyndieVisitor
-  name: syndie disaster victim ghost role
+  name: imperial disaster victim ghost role
   components:
     - type: Sprite
       sprite: Structures/Decoration/banner.rsi

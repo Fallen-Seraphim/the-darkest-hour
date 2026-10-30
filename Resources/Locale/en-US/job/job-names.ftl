@@ -65,10 +65,10 @@ job-name-zookeeper = Zookeeper
 
 # antagonist jobs
 job-name-ninja = Ninja
-job-name-syndicate = Syndicate
-job-name-syndicate-commander = Syndicate Commander
-job-name-syndicate-corpsman = Syndicate Corpsman
-job-name-syndicate-operative = Syndicate Operative
+job-name-syndicate = Empire
+job-name-syndicate-commander = Imperial Commander
+job-name-syndicate-corpsman = Imperial Corpsman
+job-name-syndicate-operative = Imperial Operative
 job-name-pirate = Pirate
 job-name-wizard = Wizard
 job-name-zombie = Zombie

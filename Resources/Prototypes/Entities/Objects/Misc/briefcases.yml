@@ -28,7 +28,7 @@
 - type: entity
   parent: BriefcaseBrown
   id: BriefcaseSyndie
-  suffix: Syndicate, Empty
+  suffix: Imperial, Empty
   components:
   - type: Item
     size: Huge

@@ -129,7 +129,7 @@
 - type: entity
   id: BaseImplantOnlyImplanterSyndi
   parent: [BaseImplantOnlyImplanter, BaseSyndicateContraband]
-  name: syndicate implanter
+  name: imperial implanter
   description: A compact disposable syringe exclusively designed for the injection of subdermal implants. Make sure to scrub it with soap to remove residual DNA after use!
   abstract: true
   components:
@@ -215,7 +215,7 @@
 
 - type: entity
   id: RadioImplanter
-  name: syndicate radio implanter
+  name: imperial radio implanter
   parent: BaseImplantOnlyImplanterSyndi
   components:
   - type: Implanter

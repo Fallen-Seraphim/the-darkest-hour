@@ -16,7 +16,7 @@ ent-CratePermaEscapeEVA = стальной ящик
 
 ent-CratePermaEscapeGiftsFromSyndicate = стальной ящик
     .desc = Большой контейнер для предметов.
-    .suffix = Подарки Синдиката
+    .suffix = Подарки Империи
 
 ent-CratePermaEscapeGun = стальной ящик
     .desc = Большой контейнер для предметов.

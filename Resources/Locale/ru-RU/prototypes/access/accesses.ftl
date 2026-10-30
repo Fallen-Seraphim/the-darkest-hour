@@ -76,7 +76,7 @@ id-card-access-level-service = Сервис
 
 id-card-access-level-station-ai = Искусственный Интеллект
 
-id-card-access-level-syndicate-agent = Агент Синдиката
+id-card-access-level-syndicate-agent = Агент Империи
 
 id-card-access-level-theatre = Театр
 

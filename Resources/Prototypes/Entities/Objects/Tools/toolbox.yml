@@ -91,7 +91,7 @@
   name: suspicious toolbox
   parent: [ToolboxBase, BaseSyndicateContraband]
   id: ToolboxSyndicate
-  description: A sinister looking toolbox filled with elite syndicate tools.
+  description: A sinister looking toolbox filled with elite imperial tools.
   components:
   - type: Sprite
     sprite: _DarkestHour/Objects/Tools/Toolboxes/toolbox_syn.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)

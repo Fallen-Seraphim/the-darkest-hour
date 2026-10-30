@@ -15,7 +15,7 @@ ent-ClothingBeltMedicalFilled = пояс медика
     .suffix = Заполненный
 
 ent-ClothingBeltMilitaryWebbingGrenadeFilled = тактический жилет гренадёра
-    .desc = Ременно-плечевая система тактических креплений, которую носят абордажные группы Синдиката.
+    .desc = Ременно-плечевая система тактических креплений, которую носят абордажные группы Империи.
     .suffix = Заполненный
 
 ent-ClothingBeltMilitaryWebbingMedFilled = армейская РПС медика

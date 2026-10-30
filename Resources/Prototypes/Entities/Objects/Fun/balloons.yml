@@ -26,7 +26,7 @@
 - type: entity
   parent: BaseBalloon
   id: BalloonSyn
-  name: syndie balloon
+  name: imperial balloon
   description: Handed out to the bravest souls who survived the "atomic twister" ride at Syndieland.
   components:
   - type: Sprite
@@ -41,7 +41,7 @@
   parent: BaseBalloon
   id: BalloonNT
   name: nanotrasen balloon
-  description: Specially designed to inflict maximum psychological damage to Syndicate operatives.
+  description: Specially designed to inflict maximum psychological damage to Imperial operatives.
   components:
   - type: Sprite
     sprite: Objects/Fun/Balloons/nanotrasen.rsi

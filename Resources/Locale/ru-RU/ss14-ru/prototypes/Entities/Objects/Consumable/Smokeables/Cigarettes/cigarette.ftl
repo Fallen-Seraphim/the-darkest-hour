@@ -99,7 +99,7 @@ ent-CigaretteSpent = сигарета
 
 ent-CigaretteSyndicate = сигарета
     .desc = Скрутка с табаком и никотином.
-    .suffix = Синдикат
+    .suffix = Империя
 
 ent-CigaretteTricordrazine = Лакричный ассорти
     .desc = Скрутка с табаком и никотином, пропитанная какими-то химикатами.

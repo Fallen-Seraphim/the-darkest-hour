@@ -260,7 +260,7 @@
 - type: entity
   parent: MonkeyCube
   id: SyndicateSponge
-  suffix: Syndicate
+  suffix: Imperial
   components:
   - type: Rehydratable
     possibleSpawns:

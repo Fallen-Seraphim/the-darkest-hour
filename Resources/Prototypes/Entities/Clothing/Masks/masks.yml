@@ -45,7 +45,7 @@
 - type: entity
   parent: [ClothingMaskGas, BaseSyndicateContraband]
   id: ClothingMaskGasSyndicate
-  name: syndicate gas mask
+  name: imperial gas mask
   description: A close-fitting tactical mask that can be connected to an air supply.
   components:
   - type: Sprite

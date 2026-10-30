@@ -21,11 +21,11 @@ ent-SlimeCubeWrapped = кубик слайма
 
 ent-SyndicateSpongeBox = коробка кубиков обезьян
     .desc = Кубики обезьян фирмы Drymate®. Просто добавь воды!
-    .suffix = Синдикат
+    .suffix = Империя
 
 ent-SyndicateSpongeWrapped = кубик обезьяны
     .desc = Разверните его, чтобы получить кубик обезьяны.
-    .suffix = Завёрнутый, Синдикат
+    .suffix = Завёрнутый, Империя
 
 ent-VariantCubeBox = коробка ассорти-кубиков
     .desc = Кубики и обезьян, и кобольдов. Просто добавь воды!

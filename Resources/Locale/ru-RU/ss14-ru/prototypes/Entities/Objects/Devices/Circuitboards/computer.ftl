@@ -52,7 +52,7 @@ ent-CommsComputerCircuitboard = компьютер связи (компьюте�
 ent-ComputerIFFCircuitboard = компьютер системы опознавания (компьютерная плата)
     .desc = Позволяет управлять параметрами системы опознавания судна.
 
-ent-ComputerIFFSyndicateCircuitboard = компьютер системы опознавания Синдиката (компьютерная плата)
+ent-ComputerIFFSyndicateCircuitboard = компьютер системы опознавания Империи (компьютерная плата)
     .desc = Позволяет управлять параметрами скрытности и системы опознавания судна.
 
 ent-ComputerMassMediaCircuitboard = компьютер управления новостями (компьютерная плата)
@@ -130,13 +130,13 @@ ent-SurveillanceCameraMonitorCircuitboard = монитор камер наблю
 ent-SurveillanceWirelessCameraMonitorCircuitboard = монитор беспроводных камер наблюдения (компьютерная плата)
     .desc = Компьютерная плата для монитора беспроводных камер наблюдения.
 
-ent-SyndicateCommsComputerCircuitboard = компьютер связи Синдиката (компьютерная плата)
-    .desc = Компьютерная плата для компьютера связи Синдиката.
+ent-SyndicateCommsComputerCircuitboard = компьютер связи Империи (компьютерная плата)
+    .desc = Компьютерная плата для компьютера связи Империи.
 
-ent-SyndicateShuttleConsoleCircuitboard = компьютер управления шаттлом Синдиката (компьютерная плата)
-    .desc = Компьютерная плата для компьютера управления шаттлом Синдиката.
+ent-SyndicateShuttleConsoleCircuitboard = компьютер управления шаттлом Империи (компьютерная плата)
+    .desc = Компьютерная плата для компьютера управления шаттлом Империи.
 
-ent-SyndicateTeleportersControlCircuitboard = компьютер управления телепортами синдиката (компьютерная плата)
+ent-SyndicateTeleportersControlCircuitboard = компьютер управления телепортами Империи (компьютерная плата)
     .desc = Компьютерная плата для компьютера управления телепортами.
 
 ent-TechDiskComputerCircuitboard = терминал технологических дисков (компьютерная плата)

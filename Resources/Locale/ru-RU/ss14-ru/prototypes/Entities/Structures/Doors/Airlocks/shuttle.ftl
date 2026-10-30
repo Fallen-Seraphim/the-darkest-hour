@@ -7,7 +7,7 @@ ent-AirlockShuttleAssembly = каркас стыковочного шлюза
 
 ent-AirlockShuttleSyndicate = стыковочный шлюз
     .desc = Необходим для соединения двух космических кораблей вместе.
-    .suffix = Синдикат
+    .suffix = Империя
 
 ent-AirlockGlassShuttle = стыковочный шлюз
     .desc = Нужен для стыковки двух кораблей.

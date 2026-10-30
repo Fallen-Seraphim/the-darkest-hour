@@ -10,10 +10,10 @@ ent-MobSalvager = утилизатор
 ent-MobSpirate = космопират
     .desc = Яррр!
 
-ent-MobSyndicateFootsoldier = пехотинец Синдиката
+ent-MobSyndicateFootsoldier = пехотинец Империи
     .desc = { "" }
 
-ent-MobSyndicateFootsoldierPilot = пилот шаттла Синдиката
+ent-MobSyndicateFootsoldierPilot = пилот шаттла Империи
     .desc = { "" }
 
 ent-SalvageHumanCorpse = неопознанный труп

@@ -391,7 +391,7 @@
 - type: entity
   parent: BaseFigurine
   id: ToyFigurineNukie
-  name: syndicate operative figure
+  name: imperial operative figure
   description: A figurine depicting someone in a blood-red hardsuit, similar to what someone on a nuclear operative team might wear.
   components:
   - type: Sprite
@@ -402,7 +402,7 @@
 - type: entity
   parent: BaseFigurine
   id: ToyFigurineNukieElite
-  name: elite syndicate operative figure
+  name: elite imperial operative figure
   description: A figurine depicting someone in an elite blood-red hardsuit, similar to what someone on a nuclear operative team might wear.
   components:
   - type: Sprite
@@ -413,7 +413,7 @@
 - type: entity
   parent: BaseFigurine
   id: ToyFigurineNukieCommander
-  name: syndicate operative commander figure
+  name: imperial operative commander figure
   description: A figurine depicting someone in a beefed-up blood-red hardsuit, similar to what the commander of a nuclear operative team might wear.
   components:
   - type: Sprite
@@ -424,8 +424,8 @@
 - type: entity
   parent: BaseFigurine
   id: ToyFigurineFootsoldier
-  name: syndicate footsoldier figure
-  description: A figurine depicting the outfit of a syndicate footsoldier.
+  name: imperial footsoldier figure
+  description: A figurine depicting the outfit of an imperial footsoldier.
   components:
   - type: Sprite
     state: footsoldier

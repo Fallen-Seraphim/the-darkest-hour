@@ -1,4 +1,4 @@
-ent-ClothingOuterEVASuitSyndicate = скафандр ВКД синдиката
+ent-ClothingOuterEVASuitSyndicate = скафандр ВКД Империи
     .desc = На бирке написано 'Совершенно не собственность вражеской корпорации, честно!'.
 
 ent-ClothingOuterHardsuitAncientEVA = пустотный скафандр NTSRA

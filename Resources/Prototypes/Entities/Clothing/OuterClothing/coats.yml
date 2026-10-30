@@ -115,7 +115,7 @@
 - type: entity
   parent: ClothingOuterCoatJensen
   id: ClothingOuterCoatJensenSyndie
-  suffix: Syndie
+  suffix: Imperial
   components:
   - type: EntityTableContainerFill
     containers:
@@ -375,8 +375,8 @@
 - type: entity
   parent: [ClothingOuterStorageBase, BaseSyndicateContraband]
   id: ClothingOuterCoatSyndieCap
-  name: syndicate's coat
-  description: The syndicate's coat is made of durable fabric, with gilded patterns.
+  name: Empire's coat
+  description: The Empire's coat is made of durable fabric, with gilded patterns.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/Coats/syndicate/coatsyndiecap.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)
@@ -386,8 +386,8 @@
 - type: entity
   parent: [BaseSyndicateContraband, ClothingOuterCoatHoSTrench] # BaseSyndicateContraband as first parent so contraband system takes that as priority, yeah I know
   id: ClothingOuterCoatSyndieCapArmored
-  name: syndicate's armored coat
-  description: The syndicate's armored coat is made of durable fabric, with gilded patterns.
+  name: Empire's armored coat
+  description: The Empire's armored coat is made of durable fabric, with gilded patterns.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/Coats/syndicate/coatsyndiecaparmored.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)

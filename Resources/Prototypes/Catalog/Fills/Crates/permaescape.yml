@@ -188,7 +188,7 @@
 - type: entity
   parent: CrateGenericSteel
   id: CratePermaEscapeGiftsFromSyndicate
-  suffix: Syndicate gifts
+  suffix: Imperial gifts
   components:
   - type: EntityTableContainerFill
     containers:

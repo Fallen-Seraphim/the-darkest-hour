@@ -190,11 +190,11 @@ ghost-role-information-cburn-agent-description = A highly trained CentComm agent
 ghost-role-information-centcom-official-name = CentComm Official
 ghost-role-information-centcom-official-description = Perform CentComm related duties such as inspect the station, jotting down performance reviews for heads of staff, and managing the fax machine.
 
-ghost-role-information-nukeop-rules = You are a [color={role-type-team-antagonist-color}][bold]{role-type-team-antagonist-name}[/bold][/color] with all other nuclear operatives. Covert syndicate agents are not guaranteed to help you.
+ghost-role-information-nukeop-rules = You are a [color={role-type-team-antagonist-color}][bold]{role-type-team-antagonist-name}[/bold][/color] with all other nuclear operatives. Covert imperial agents are not guaranteed to help you.
 
 ghost-role-information-loneop-name = Lone Operative
 ghost-role-information-loneop-description = You are a lone nuclear operative. Destroy the station!
-ghost-role-information-loneop-rules = You are a [color={role-type-team-antagonist-color}][bold]{role-type-solo-antagonist-name}[/bold][/color]. Covert syndicate agents are not guaranteed to help you.
+ghost-role-information-loneop-rules = You are a [color={role-type-team-antagonist-color}][bold]{role-type-solo-antagonist-name}[/bold][/color]. Covert imperial agents are not guaranteed to help you.
 
 ghost-role-information-behonker-name = Behonker
 ghost-role-information-behonker-description = You are an antagonist, bring death and honks to those who do not follow the honkmother.
@@ -222,32 +222,32 @@ ghost-role-information-space-ninja-description = Use stealth and deception to sa
 ghost-role-information-paradox-clone-name = Paradox Clone
 ghost-role-information-paradox-clone-description = A freak space-time anomaly has thrown you into another reality! Kill and replace this reality's version of you.
 
-ghost-role-information-syndicate-reinforcement-name = Syndicate Agent
-ghost-role-information-syndicate-reinforcement-description = Someone needs reinforcements. You, the first person the syndicate could find, will help them.
+ghost-role-information-syndicate-reinforcement-name = Imperial Agent
+ghost-role-information-syndicate-reinforcement-description = Someone needs reinforcements. You, the first person the Empire could find, will help them.
 ghost-role-information-syndicate-reinforcement-rules = You are a [color={role-type-team-antagonist-color}][bold]{role-type-team-antagonist-name}[/bold][/color] with the agent who summoned you.
 
-ghost-role-information-syndicate-reinforcement-medic-name = Syndicate Combat Medic
+ghost-role-information-syndicate-reinforcement-medic-name = Imperial Combat Medic
 ghost-role-information-syndicate-reinforcement-medic-description = Someone needs reinforcements. Your task is to keep the agent who called you alive.
 
-ghost-role-information-syndicate-reinforcement-spy-name = Syndicate Spy
+ghost-role-information-syndicate-reinforcement-spy-name = Imperial Spy
 ghost-role-information-syndicate-reinforcement-spy-description = Someone needs reinforcements. Your speciality lies in espionage, do not be discovered.
 
-ghost-role-information-syndicate-reinforcement-thief-name = Syndicate Thief
+ghost-role-information-syndicate-reinforcement-thief-name = Imperial Thief
 ghost-role-information-syndicate-reinforcement-thief-description = Someone needs reinforcements. Your job is to break in and retrieve something valuable for your agent.
 
 ghost-role-information-nukeop-reinforcement-name = Nuclear Operative
 ghost-role-information-nukeop-reinforcement-description = The nuclear operatives need reinforcements. You, a reserve agent, will help them.
 ghost-role-information-nukeop-reinforcement-rules = You are a [color={role-type-team-antagonist-color}][bold]{role-type-team-antagonist-name}[/bold][/color] with the nuclear operatives who summoned you.
 
-ghost-role-information-syndicate-monkey-reinforcement-name = Syndicate Monkey Agent
+ghost-role-information-syndicate-monkey-reinforcement-name = Imperial Monkey Agent
 ghost-role-information-syndicate-monkey-reinforcement-description = Someone needs reinforcements. You, a trained monkey, will help them.
 
-ghost-role-information-syndicate-kobold-reinforcement-name = Syndicate Kobold Agent
+ghost-role-information-syndicate-kobold-reinforcement-name = Imperial Kobold Agent
 ghost-role-information-syndicate-kobold-reinforcement-description = Someone needs reinforcements. You, a trained kobold, will help them.
 
-ghost-role-information-syndicate-cyborg-assault-name = Syndicate Assault Cyborg
-ghost-role-information-syndicate-cyborg-saboteur-name = Syndicate Saboteur Cyborg
-ghost-role-information-syndicate-cyborg-description = The Syndicate needs reinforcements. You, a cold silicon killing machine, will help them.
+ghost-role-information-syndicate-cyborg-assault-name = Imperial Assault Cyborg
+ghost-role-information-syndicate-cyborg-saboteur-name = Imperial Saboteur Cyborg
+ghost-role-information-syndicate-cyborg-description = The Empire needs reinforcements. You, a cold silicon killing machine, will help them.
 
 ghost-role-information-derelict-engineering-cyborg-name = Derelict Engineer Cyborg
 ghost-role-information-derelict-engineering-cyborg-description = You are an engineer cyborg that got lost in space. After years of exposure to ion storms you find yourself near a space station.
@@ -264,8 +264,8 @@ ghost-role-information-derelict-medical-cyborg-description = You are a medical c
 ghost-role-information-derelict-mining-cyborg-name = Derelict Salvage Cyborg
 ghost-role-information-derelict-mining-cyborg-description = You are a salvage cyborg that got lost in space. After years of exposure to ion storms you find yourself near a space station.
 
-ghost-role-information-derelict-syndicate-assault-cyborg-name = Derelict Syndicate Assault Cyborg
-ghost-role-information-derelict-syndicate-assault-cyborg-description = You are an early model syndicate assault cyborg that got lost in space. After years of exposure to ion storms you find yourself near a space station.
+ghost-role-information-derelict-syndicate-assault-cyborg-name = Derelict Imperial Assault Cyborg
+ghost-role-information-derelict-syndicate-assault-cyborg-description = You are an early model imperial assault cyborg that got lost in space. After years of exposure to ion storms you find yourself near a space station.
 
 ghost-role-information-security-name = Security
 ghost-role-information-security-description = You are part of a security task force, but seem to have found yourself in a strange situation...
@@ -310,14 +310,14 @@ ghost-role-information-lost-challenge-cargo-technican-rules = You are not hostil
 ghost-role-information-disaster-victim-name = Disaster Victim
 ghost-role-information-disaster-victim-description = You were rescued in an escape pod from another station that suffered a terrible fate. Perhaps you will be found and rescued.
 
-ghost-role-information-syndie-disaster-victim-name = Syndicate Disaster Victim
-ghost-role-information-syndie-disaster-victim-description = You're a regular passenger from a syndicate station. Unfortunately, an evacuation pod has thrown you into an enemy sector...
+ghost-role-information-syndie-disaster-victim-name = Imperial Disaster Victim
+ghost-role-information-syndie-disaster-victim-description = You're a regular passenger from an imperial station. Unfortunately, an evacuation pod has thrown you into an enemy sector...
 
-ghost-role-information-syndie-soldier-name = Syndicate Soldier
-ghost-role-information-syndie-soldier-description = You are a soldier from the Syndicate.
+ghost-role-information-syndie-soldier-name = Imperial Soldier
+ghost-role-information-syndie-soldier-description = You are a soldier from the Empire.
 
-ghost-role-information-syndie-soldier-teamlead-name = Syndicate Team Leader
-ghost-role-information-syndie-soldier-teamlead-description = You are the fire team leader for a Syndicate operative taskforce.
+ghost-role-information-syndie-soldier-teamlead-name = Imperial Team Leader
+ghost-role-information-syndie-soldier-teamlead-description = You are the fire team leader for an Imperial operative taskforce.
 
 ghost-role-information-blackmarketeer-name = Black Market Trader
 ghost-role-information-blackmarketeer-description = Make trades or take odd jobs to collect the most interesting items by the end of the shift.

@@ -62,8 +62,8 @@
     targetName: nuclear authentication disk
 
 - type: entity
-  name: syndicate pinpointer
-  description: A handheld tracking device produced by the Syndicate for their nuclear operatives. Keep upright to retain accuracy.
+  name: imperial pinpointer
+  description: A handheld tracking device produced by the Empire for their nuclear operatives. Keep upright to retain accuracy.
   id: PinpointerSyndicateNuclear
   parent: [ PinpointerBase, BaseSyndicateContraband ]
   components:

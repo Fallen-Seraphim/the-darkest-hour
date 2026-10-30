@@ -14,9 +14,9 @@ borg-type-salvage = [color= #d6b328]киборга-шахтёра[/color]
 
 borg-type-service = [color= #508242]киборга-официанта[/color]
 
-borg-type-syndicate = [color= #962023]киборга Синдиката[/color]
+borg-type-syndicate = [color= #962023]киборга Империи[/color]
 
-borg-type-syndicate-assault = [color= #680a0d]штурмового киборга Синдиката[/color]
+borg-type-syndicate-assault = [color= #680a0d]штурмового киборга Империи[/color]
 
 xenoborg-type-all = [color= #3d94ff]любого ксеноборга[/color]
 

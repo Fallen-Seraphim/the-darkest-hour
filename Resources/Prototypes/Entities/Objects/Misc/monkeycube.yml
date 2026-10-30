@@ -94,7 +94,7 @@
 - type: entity
   parent: MonkeyCubeBox
   name: monkey cube box
-  suffix: Syndicate
+  suffix: Imperial
   id: SyndicateSpongeBox
   description: Drymate® brand monkey cubes. Just add water!
   components:
@@ -110,7 +110,7 @@
 - type: entity
   parent: MonkeyCubeWrapped
   name: monkey cube
-  suffix: Wrapped, Syndicate
+  suffix: Wrapped, Imperial
   id: SyndicateSpongeWrapped
   components:
   - type: SpawnItemsOnUse

@@ -430,7 +430,7 @@ reagent-name-snow-white = Белый Снег
 
 reagent-name-sui-dream = сон Сью
 
-reagent-name-syndicate-bomb = бомба Синдиката
+reagent-name-syndicate-bomb = бомба Империи
 
 reagent-name-tequila = текила
 

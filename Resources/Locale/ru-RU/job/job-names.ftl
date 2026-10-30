@@ -202,7 +202,7 @@ job-name-station-ai = станционный ИИ
 
 job-name-sus = Sus
 
-job-name-syndicate = синдикат
+job-name-syndicate = Империя
 
 job-name-syndicate-commander = командир оперативников
 

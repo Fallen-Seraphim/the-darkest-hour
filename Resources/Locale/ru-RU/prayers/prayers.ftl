@@ -8,7 +8,7 @@ prayer-chat-notify-monolith = МОНОЛИТ
 
 prayer-chat-notify-pray = МОЛИТВА
 
-prayer-chat-notify-syndicate = СИНДИКАТ
+prayer-chat-notify-syndicate = ИМПЕРИЯ
 
 prayer-popup-notify-centcom-sent = Вы оставили голосовое сообщение Центральному командованию...
 
@@ -24,7 +24,7 @@ prayer-popup-notify-pray-sent = Ваша молитва была направл�
 
 prayer-popup-notify-pray-ui-message = Послание
 
-prayer-popup-notify-syndicate-sent = Вы оставили голосовое сообщение Верховному командованию Синдиката...
+prayer-popup-notify-syndicate-sent = Вы оставили голосовое сообщение Верховному командованию Империи...
 
 prayer-popup-subtle-default = Вы слышите голос в своей голове...
 

@@ -105,7 +105,7 @@
   parent: ClothingHeadHelmetSwat
   id: ClothingHeadHelmetSwatSyndicate
   name: SWAT helmet
-  suffix: Syndicate
+  suffix: Imperial
   description: An extremely robust helmet, commonly used by paramilitary forces. It is adorned in a nefarious red and black stripe pattern.
   components:
   - type: Sprite
@@ -478,8 +478,8 @@
 - type: entity
   parent: [ BaseSyndicateContraband, ClothingHeadHelmetBase ]
   id: ClothingHeadHelmetRaid
-  name: syndicate raid helmet
-  description: An armored helmet for use with the syndicate raid suit. Very stylish.
+  name: imperial raid helmet
+  description: An armored helmet for use with the imperial raid suit. Very stylish.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Head/Helmets/syndie-raid.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)

@@ -2,7 +2,7 @@
   parent: [UnsensoredClothingUniformSkirtBase, BaseSyndicateContraband]
   id: ClothingUniformJumpskirtOperative
   name: operative jumpskirt
-  description: Uniform for elite syndicate operatives performing tactical operations in deep space.
+  description: Uniform for elite imperial operatives performing tactical operations in deep space.
   components:
   - type: Sprite
     sprite: Clothing/Uniforms/Jumpskirts/Special/operative_s.rsi
@@ -29,8 +29,8 @@
 - type: entity
   parent: [ ClothingUniformSkirtBase, BaseSyndicateContraband ]
   id: ClothingUniformJumpskirtSyndieFormalDress
-  name: syndicate formal dress
-  description: "The syndicate's uniform is made in an elegant style, it's even a pity to do dirty tricks in this."
+  name: imperial formal dress
+  description: "The Empire's uniform is made in an elegant style, it's even a pity to do dirty tricks in this."
   components:
   - type: Sprite
     sprite: Clothing/Uniforms/Jumpskirts/Special/syndieformaldress.rsi

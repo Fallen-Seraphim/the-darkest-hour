@@ -12,7 +12,7 @@ ent-UraniumWindoorNukeopLocked = урановое раздвижное окно
 
 ent-UraniumWindoorSyndicateLocked = урановое раздвижное окно
     .desc = Это и окно, и раздвижная дверь. Хм? Ох, и оно зелёное!
-    .suffix = Синдикат, Закрыт, Уран
+    .suffix = Империя, Закрыт, Уран
 
 ent-Windoor = раздвижное окно
     .desc = Это и окно, и раздвижная дверь. Вот это да!
@@ -127,7 +127,7 @@ ent-WindoorServiceLocked = раздвижное окно
 
 ent-WindoorSyndicateLocked = раздвижное окно
     .desc = Это и окно, и раздвижная дверь. Вот это да!
-    .suffix = Синдикат, Закрыт
+    .suffix = Империя, Закрыт
 
 ent-WindoorTheatreLocked = раздвижное окно
     .desc = Это и окно, и раздвижная дверь. Вот это да!

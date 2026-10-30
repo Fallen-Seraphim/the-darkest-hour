@@ -82,7 +82,7 @@
 - type: entity
   parent: SuitStorageBase
   id: SuitStorageEVASyndicate
-  suffix: Syndicate EVA
+  suffix: Imperial EVA
   components:
   - type: EntityTableContainerFill
     containers:
@@ -280,7 +280,7 @@
 - type: entity
   parent: SuitStorageBase
   id: SuitStorageSyndie
-  suffix: Syndicate Hardsuit
+  suffix: Imperial Hardsuit
   components:
   - type: EntityTableContainerFill
     containers:

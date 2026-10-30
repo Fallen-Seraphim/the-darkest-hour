@@ -8,7 +8,7 @@ advertisement-syndiedrobe-12 = Вы можете перевести врагов
 
 advertisement-syndiedrobe-13 = Если ты хочешь жить — одевайся стильно!
 
-advertisement-syndiedrobe-14 = Вставай, Синдикат. Время сжечь станцию до тла.
+advertisement-syndiedrobe-14 = Вставай, Империя. Время сжечь станцию до тла.
 
 advertisement-syndiedrobe-15 = Эй! Подходите разбирайте, самая стильная одежда в галактике!
 
@@ -22,7 +22,7 @@ advertisement-syndiedrobe-19 = Когда-нибудь мечтали стать
 
 advertisement-syndiedrobe-2 = Крышесносные наряды для любого случая!
 
-advertisement-syndiedrobe-20 = Что может быть лучше, чем новые вещи из СиндиШкафа!
+advertisement-syndiedrobe-20 = Что может быть лучше, чем новые вещи из ИмпериШкафа!
 
 advertisement-syndiedrobe-21 = Пугайте всех своим появлением, только в наших вещах!
 
@@ -30,7 +30,7 @@ advertisement-syndiedrobe-22 = Мы не продаём бомбы.
 
 advertisement-syndiedrobe-23 = Мы не несём ответственности в необоснованной агрессии в сторону нашей формы.
 
-advertisement-syndiedrobe-24 = Стиль и элегантность! Практичность и шарм! СиндиШкаф!
+advertisement-syndiedrobe-24 = Стиль и элегантность! Практичность и шарм! ИмпериШкаф!
 
 advertisement-syndiedrobe-25 = Лучшая ткань в андерграунде!
 

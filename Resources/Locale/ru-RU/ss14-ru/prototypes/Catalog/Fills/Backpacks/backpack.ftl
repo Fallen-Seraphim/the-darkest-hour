@@ -1,2 +1,2 @@
-ent-ClothingBackpackSyndicateRaidBundle = набор рейдерского костюма Синдиката
-    .desc = Содержит прочный, рейдерский набор брони Синдиката.
+ent-ClothingBackpackSyndicateRaidBundle = набор рейдерского костюма Империи
+    .desc = Содержит прочный, рейдерский набор брони Империи.

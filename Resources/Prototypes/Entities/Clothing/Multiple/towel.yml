@@ -133,7 +133,7 @@
 
 - type: entity
   id: TowelColorSyndicate
-  name: syndicate towel
+  name: imperial towel
   parent: [ BaseTowel, BaseSyndicateContraband ]
   components:
   - type: Sprite

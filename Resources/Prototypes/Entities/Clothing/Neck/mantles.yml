@@ -46,7 +46,7 @@
   parent: [ClothingNeckBase, BaseCommandContraband]
   id: ClothingNeckMantleHOS
   name: security chief's mantle
-  description: Shootouts with syndicate agents are just another Tuesday for this Security Chief. This mantle is a symbol of commitment to the station.
+  description: Shootouts with imperial agents are just another Tuesday for this Security Chief. This mantle is a symbol of commitment to the station.
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Neck/mantles/hosmantle.rsi # DarkestHour: форма Metallistick (Tools/_DarkestHour/recolor)

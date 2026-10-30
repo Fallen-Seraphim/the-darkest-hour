@@ -943,7 +943,7 @@
 ### Syndicate & Hostiles
 
 - type: entity
-  name: syndicate team leader spawner
+  name: imperial team leader spawner
   id: SyndieSoldierTeamLeaderSpawner
   parent: MarkerBase
   components:
@@ -957,7 +957,7 @@
     - RandomHumanoidSyndieSoldierTeamLeader
 
 - type: entity
-  name: syndicate soldier spawner
+  name: imperial soldier spawner
   id: SyndieSoldierSpawner
   parent: MarkerBase
   components:
@@ -971,7 +971,7 @@
     - RandomHumanoidSyndieSoldier
 
 - type: entity
-  name: syndie disaster victim spawner
+  name: imperial disaster victim spawner
   id: SyndieVisitorSpawner
   parent: MarkerBase
   components:

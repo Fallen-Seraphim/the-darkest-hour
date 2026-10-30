@@ -347,7 +347,7 @@
   parent: AirlockAssembly
   id: AirlockAssemblySyndicate
   categories: [HideSpawnMenu]
-  suffix: Syndicate
+  suffix: Imperial
   components:
   - type: Sprite
     sprite: _DarkestHour/Structures/Doors/Airlocks/Standard/syndicate-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)
@@ -357,7 +357,7 @@
   parent: AirlockAssembly
   id: AirlockAssemblySyndicateGlass
   categories: [HideSpawnMenu]
-  suffix: Syndicate, Glass
+  suffix: Imperial, Glass
   components:
   - type: Sprite
     sprite: _DarkestHour/Structures/Doors/Airlocks/Glass/syndicate-base.rsi # DarkestHour: шлюз в цветах Metallistick (Tools/_DarkestHour/airlocks)

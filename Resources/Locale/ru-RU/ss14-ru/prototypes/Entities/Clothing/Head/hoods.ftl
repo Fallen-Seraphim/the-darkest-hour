@@ -132,7 +132,7 @@ ent-ClothingHeadHatHoodWinterSci = капюшон зимней куртки уч
 ent-ClothingHeadHatHoodWinterSec = капюшон зимней куртки службы безопасности
     .desc = Капюшон, чтобы держать голову в тепле.
 
-ent-ClothingHeadHatHoodWinterSyndie = капюшон зимней куртки Синдиката
+ent-ClothingHeadHatHoodWinterSyndie = капюшон зимней куртки Империи
     .desc = Капюшон, чтобы держать голову в тепле.
 
 ent-ClothingHeadHatHoodWinterWarden = капюшон зимней куртки смотрителя

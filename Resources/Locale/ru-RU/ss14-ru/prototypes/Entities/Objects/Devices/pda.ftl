@@ -165,20 +165,20 @@ ent-SeniorCourierPDA = КПК старшего логиста
 ent-ServiceWorkerPDA = КПК сервисного работника
     .desc = Почему он не серый?
 
-ent-SyndiCommanderPDA = КПК командира Синдиката
+ent-SyndiCommanderPDA = КПК командира Империи
     .desc = Так мы что, какой-то отряд нюкеров?
 
-ent-SyndiCorpsmanPDA = КПК медика Синдиката
+ent-SyndiCorpsmanPDA = КПК медика Империи
     .desc = Командир... Мне надо варить!
 
 ent-SyndiCovertPDA = КПК пассажира
     .desc = Почему он не серый?
     .suffix = Адаптивный
 
-ent-SyndiOperativePDA = КПК оперативника Синдиката
+ent-SyndiOperativePDA = КПК оперативника Империи
     .desc = Смерть НТ!
 
-ent-SyndiPDA = КПК Синдиката
+ent-SyndiPDA = КПК Империи
     .desc = Окей, пора стать продуктивным членом... о, круто, я плохой парень, пора убивать людей!
 
 ent-TechnicalAssistantPDA = КПК ассистента-техника

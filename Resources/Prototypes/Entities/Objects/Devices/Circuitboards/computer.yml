@@ -371,8 +371,8 @@
 - type: entity
   parent: [ BaseComputerCircuitboard, BaseSyndicateContraband ]
   id: SyndicateCommsComputerCircuitboard
-  name: syndicate communications computer board
-  description: A computer printed circuit board for a syndicate communications computer.
+  name: imperial communications computer board
+  description: A computer printed circuit board for an imperial communications computer.
   components:
   - type: Sprite
     state: cpu_syndicate
@@ -465,8 +465,8 @@
 - type: entity
   parent: [ BaseComputerCircuitboard, BaseSyndicateContraband ]
   id: SyndicateShuttleConsoleCircuitboard
-  name: syndicate shuttle computer board
-  description: A computer printed circuit board for a syndicate shuttle computer.
+  name: imperial shuttle computer board
+  description: A computer printed circuit board for an imperial shuttle computer.
   components:
   - type: Sprite
     state: cpu_syndicate
@@ -498,7 +498,7 @@
 - type: entity
   parent: [ BaseComputerCircuitboard, BaseSyndicateContraband ]
   id: ComputerIFFSyndicateCircuitboard
-  name: syndicate IFF computer board
+  name: imperial IFF computer board
   description: Allows you to control the IFF and stealth characteristics of this vessel.
   components:
   - type: Sprite
@@ -577,7 +577,7 @@
 - type: entity
   parent: BaseComputerCircuitboard
   id: SyndicateTeleportersControlCircuitboard
-  name: syndicate teleporters control computer board
+  name: imperial teleporters control computer board
   description: A computer printed circuit board for a teleporter control computer.
   components:
   - type: ComputerBoard

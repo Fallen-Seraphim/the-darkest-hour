@@ -91,8 +91,8 @@
 - type: entity
   id: BannerSyndicate
   parent: BannerBase
-  name: syndicate banner
-  description: A banner from which, according to the syndicate, you should feel hatred for NT.
+  name: imperial banner
+  description: A banner from which, according to the Empire, you should feel hatred for NT.
   components:
   - type: Sprite
     sprite: Structures/Decoration/banner.rsi

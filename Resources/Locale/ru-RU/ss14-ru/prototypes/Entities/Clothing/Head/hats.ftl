@@ -178,8 +178,8 @@ ent-ClothingHeadHatSurgcapGreen = зелёная хирургическая ша
 ent-ClothingHeadHatSurgcapPurple = фиолетовая хирургическая шапочка
     .desc = Фиолетовая шапочка, которую хирурги надевают на операции. Не даёт их волосам щекотать ваши внутренние органы.
 
-ent-ClothingHeadHatSyndie = шапка Синдиката
-    .desc = Сувенирная шапка из Синдиленда, производство которой уже закрыто.
+ent-ClothingHeadHatSyndie = шапка Империи
+    .desc = Сувенирная шапка из Империленда, производство которой уже закрыто.
 
 ent-ClothingHeadHatSyndieMAA = фуражка мастера по оружию
     .desc = Шляпа мастера по оружию, выглядит устрашающе, сомневаюсь, что вам понравится общаться с её обладателем...
@@ -235,13 +235,13 @@ ent-ClothingHeadPaperSackSmile = улыбающаяся шапка из бума
 ent-ClothingHeadPropellerHat = кепка с пропеллером
     .desc = Ты самый лучший мальчик.
 
-ent-ClothingHeadPyjamaSyndicateBlack = синдикатно-чёрная пижамная шапочка
+ent-ClothingHeadPyjamaSyndicateBlack = имперско-чёрная пижамная шапочка
     .desc = Чтобы держать твою предательскую голову в тепле.
 
-ent-ClothingHeadPyjamaSyndicatePink = синдикатно-розовая пижамная шапочка
+ent-ClothingHeadPyjamaSyndicatePink = имперско-розовая пижамная шапочка
     .desc = Чтобы держать твою предательскую голову в тепле.
 
-ent-ClothingHeadPyjamaSyndicateRed = синдикатно-красная пижамная шапочка
+ent-ClothingHeadPyjamaSyndicateRed = имперско-красная пижамная шапочка
     .desc = Чтобы держать твою предательскую голову в тепле.
 
 ent-ClothingHeadRastaHat = шапка-растаманка
