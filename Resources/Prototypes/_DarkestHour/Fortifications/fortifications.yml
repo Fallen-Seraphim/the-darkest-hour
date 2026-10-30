@@ -102,9 +102,6 @@
     sprite: _RMC14/Structures/Walls/Barricades/sandbag_barricade.rsi
     layers:
     - state: sandbag
-    - state: DamageOverlay_0
-      map: [ "damage" ]
-      sprite: _RMC14/Structures/Walls/Barricades/sandbag_cracks.rsi
     - state: sandbag_wire
       map: [ "wire" ]
       visible: false
@@ -116,14 +113,13 @@
         wire:
           True: { visible: true }
           False: { visible: false }
+  # Трещины поверх мешков — оверлеем, как у окон (targetLayers ждёт enum-ключи слоёв, строка не парсится).
   - type: DamageVisuals
     thresholds: [4, 8, 12]
     damageDivisor: 28.125
     trackAllDamage: true
-    overlay: false
-    targetLayers:
-    - "damage"
-    damageGroup: "Brute"
+    damageOverlay:
+      sprite: _RMC14/Structures/Walls/Barricades/sandbag_cracks.rsi
   - type: Fixtures
     fixtures:
       fix1:
