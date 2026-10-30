@@ -12,3 +12,39 @@ ent-DHRiftGeneratorShip = генератор разрыва
 
 ent-DHRiftSupercapacitorShip = суперконденсатор разрыва
     .desc = Тяжёлый накопитель разрыва для крупных военных кораблей. Сжигает много хронита и даёт мощную вспышку, но изнашивается медленно.
+
+ent-DHDogtagsGarrisonCommander = жетоны
+    .desc = Пара штампованных металлических жетонов на цепочке.
+    .suffix = Гарнизон, командир базы
+
+ent-DHDogtagsGarrisonOfficer = жетоны
+    .desc = Пара штампованных металлических жетонов на цепочке.
+    .suffix = Гарнизон, офицер
+
+ent-DHDogtagsGarrisonRifleman = жетоны
+    .desc = Пара штампованных металлических жетонов на цепочке.
+    .suffix = Гарнизон, стрелок
+
+ent-DHDogtagsGarrisonMachinegunner = жетоны
+    .desc = Пара штампованных металлических жетонов на цепочке.
+    .suffix = Гарнизон, пулемётчик
+
+ent-DHDogtagsGarrisonSniper = жетоны
+    .desc = Пара штампованных металлических жетонов на цепочке.
+    .suffix = Гарнизон, снайпер
+
+ent-DHDogtagsGarrisonFlamer = жетоны
+    .desc = Пара штампованных металлических жетонов на цепочке.
+    .suffix = Гарнизон, огнемётчик
+
+ent-DHDogtagsGarrisonAAGunner = жетоны
+    .desc = Пара штампованных металлических жетонов на цепочке.
+    .suffix = Гарнизон, зенитчик
+
+ent-DHDogtagsGarrisonMedic = жетоны
+    .desc = Пара штампованных металлических жетонов на цепочке.
+    .suffix = Гарнизон, медик
+
+ent-DHDogtagsGarrisonSapper = жетоны
+    .desc = Пара штампованных металлических жетонов на цепочке.
+    .suffix = Гарнизон, сапёр

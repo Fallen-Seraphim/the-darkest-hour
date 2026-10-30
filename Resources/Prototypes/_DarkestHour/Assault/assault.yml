@@ -8,6 +8,7 @@
   parent: DHRepublicCommanderGear
   id: DHGarrisonCommanderGear
   equipment:
+    id: DHDogtagsGarrisonCommander
     pocket2: DHWeaponPistolMk58
     ears: DHClothingHeadsetAltRepublicCommand
   storage:
@@ -26,6 +27,7 @@
   parent: DHRepublicCommanderGear
   id: DHGarrisonOfficerGear
   equipment:
+    id: DHDogtagsGarrisonOfficer
     ears: DHClothingHeadsetAltRepublicCommand
   storage:
     back:
@@ -43,7 +45,7 @@
   parent: DHRepublicGearBase
   id: DHGarrisonAAGunnerGear
   equipment:
-    id: DHDogtagsDHRepublicRifleman
+    id: DHDogtagsGarrisonAAGunner
     outerClothing: DHClothingOuterModularRMB1LightAutoMed
     suitstorage: DHWeaponSMGRAPTORM1216
   storage:
@@ -59,6 +61,7 @@
   parent: DHRepublicRiflemanGear
   id: DHGarrisonSapperGear
   equipment:
+    id: DHDogtagsGarrisonSapper
     belt: ClothingBeltUtilityEngineering
   storage:
     back:
@@ -71,6 +74,111 @@
     - DHBarbedWire10
     - DHIFAKFilled
     - DHFieldRadioJammer
+
+# Остальной гарнизон — снаряжение отряда зачистки, но со своими жетонами.
+- type: startingGear
+  parent: DHRepublicRiflemanGear
+  id: DHGarrisonRiflemanGear
+  equipment:
+    id: DHDogtagsGarrisonRifleman
+
+- type: startingGear
+  parent: DHRepublicMachinegunnerGear
+  id: DHGarrisonMachinegunnerGear
+  equipment:
+    id: DHDogtagsGarrisonMachinegunner
+
+- type: startingGear
+  parent: DHRepublicSniperGear
+  id: DHGarrisonSniperGear
+  equipment:
+    id: DHDogtagsGarrisonSniper
+
+- type: startingGear
+  parent: DHRepublicFlamerGear
+  id: DHGarrisonFlamerGear
+  equipment:
+    id: DHDogtagsGarrisonFlamer
+
+- type: startingGear
+  parent: DHRepublicMedicGear
+  id: DHGarrisonMedicGear
+  equipment:
+    id: DHDogtagsGarrisonMedic
+
+# Жетоны гарнизона: должность и доступ гарнизона. Ставить именно их — жетоны отряда зачистки при расширенном
+# доступе (мало игроков) перезаписывали должность «командиром отряда зачистки» и снимали доступ командования.
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsGarrisonCommander
+  suffix: Garrison Commander
+  components:
+  - type: PresetIdCard
+    job: DHGarrisonCommander
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsGarrisonOfficer
+  suffix: Garrison Officer
+  components:
+  - type: PresetIdCard
+    job: DHGarrisonOfficer
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsGarrisonRifleman
+  suffix: Garrison Rifleman
+  components:
+  - type: PresetIdCard
+    job: DHGarrisonRifleman
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsGarrisonMachinegunner
+  suffix: Garrison Machinegunner
+  components:
+  - type: PresetIdCard
+    job: DHGarrisonMachinegunner
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsGarrisonSniper
+  suffix: Garrison Sniper
+  components:
+  - type: PresetIdCard
+    job: DHGarrisonSniper
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsGarrisonFlamer
+  suffix: Garrison Flamer
+  components:
+  - type: PresetIdCard
+    job: DHGarrisonFlamer
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsGarrisonAAGunner
+  suffix: Garrison AAGunner
+  components:
+  - type: PresetIdCard
+    job: DHGarrisonAAGunner
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsGarrisonMedic
+  suffix: Garrison Medic
+  components:
+  - type: PresetIdCard
+    job: DHGarrisonMedic
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsGarrisonSapper
+  suffix: Garrison Sapper
+  components:
+  - type: PresetIdCard
+    job: DHGarrisonSapper
 
 - type: startingGear
   id: DHCarrierCrewGearBase

@@ -1,6 +1,7 @@
 # «Штурм» (базовый режим, решение автора 2026-10-24): должности двух сторон.
 # Гарнизон Республики — станция-база на планете (gameMap DHTerminus), Империя — станция-авианосец (правило DHAssaultRule).
-# Снаряжение — наборы отряда зачистки Республики (Republic/gear.yml) и Имперского Рейда (ImperialRaid/raid.yml).
+# Снаряжение — наборы отряда зачистки Республики (Republic/gear.yml) и Имперского Рейда (ImperialRaid/raid.yml),
+# но жетоны и иконки у гарнизона и десанта свои (Assault/assault.yml, StatusIcon/job.yml).
 
 - type: job
   id: DHGarrisonCommander
@@ -8,7 +9,7 @@
   description: dh-job-garrison-commander-desc
   playTimeTracker: JobDHGarrisonCommander
   startingGear: DHGarrisonCommanderGear
-  icon: JobIconDHRepublicCommander
+  icon: JobIconDHGarrisonCommander
   supervisors: dh-job-garrison-supervisors
   joinNotifyCrew: true
   access:
@@ -32,8 +33,8 @@
   name: dh-job-garrison-rifleman-name
   description: dh-job-garrison-rifleman-desc
   playTimeTracker: JobDHGarrisonRifleman
-  startingGear: DHRepublicRiflemanGear
-  icon: JobIconDHRepublicRifleman
+  startingGear: DHGarrisonRiflemanGear
+  icon: JobIconDHGarrisonRifleman
   supervisors: dh-job-garrison-supervisors
   access:
   - DHRepublic
@@ -43,8 +44,8 @@
   name: dh-job-garrison-machinegunner-name
   description: dh-job-garrison-machinegunner-desc
   playTimeTracker: JobDHGarrisonMachinegunner
-  startingGear: DHRepublicMachinegunnerGear
-  icon: JobIconDHRepublicMachinegunner
+  startingGear: DHGarrisonMachinegunnerGear
+  icon: JobIconDHGarrisonMachinegunner
   supervisors: dh-job-garrison-supervisors
   access:
   - DHRepublic
@@ -54,8 +55,8 @@
   name: dh-job-garrison-sniper-name
   description: dh-job-garrison-sniper-desc
   playTimeTracker: JobDHGarrisonSniper
-  startingGear: DHRepublicSniperGear
-  icon: JobIconDHRepublicSniper
+  startingGear: DHGarrisonSniperGear
+  icon: JobIconDHGarrisonSniper
   supervisors: dh-job-garrison-supervisors
   access:
   - DHRepublic
@@ -65,8 +66,8 @@
   name: dh-job-garrison-flamer-name
   description: dh-job-garrison-flamer-desc
   playTimeTracker: JobDHGarrisonFlamer
-  startingGear: DHRepublicFlamerGear
-  icon: JobIconDHRepublicFlamer
+  startingGear: DHGarrisonFlamerGear
+  icon: JobIconDHGarrisonFlamer
   supervisors: dh-job-garrison-supervisors
   access:
   - DHRepublic
@@ -87,8 +88,8 @@
   name: dh-job-garrison-medic-name
   description: dh-job-garrison-medic-desc
   playTimeTracker: JobDHGarrisonMedic
-  startingGear: DHRepublicMedicGear
-  icon: JobIconDHRepublicMedic
+  startingGear: DHGarrisonMedicGear
+  icon: JobIconDHGarrisonMedic
   supervisors: dh-job-garrison-supervisors
   access:
   - DHRepublic
@@ -167,7 +168,7 @@
   description: dh-job-marine-commander-desc
   playTimeTracker: JobDHMarineCommander
   startingGear: DHImperialCommanderGear
-  icon: JobIconDHImperialCommander
+  icon: JobIconDHMarineCommander
   supervisors: dh-job-empire-supervisors
   joinNotifyCrew: true
   accessGroups:
@@ -182,7 +183,7 @@
   description: dh-job-marine-weapons-specialist-desc
   playTimeTracker: JobDHMarineWeaponsSpecialist
   startingGear: DHImperialWeaponsSpecialistGear
-  icon: JobIconDHImperialWeapons
+  icon: JobIconDHMarineWeapons
   supervisors: dh-job-empire-supervisors
   accessGroups:
   - AllAccess
@@ -196,7 +197,7 @@
   description: dh-job-marine-field-medic-desc
   playTimeTracker: JobDHMarineFieldMedic
   startingGear: DHImperialFieldMedicGear
-  icon: JobIconDHImperialMedic
+  icon: JobIconDHMarineMedic
   supervisors: dh-job-empire-supervisors
   accessGroups:
   - AllAccess
@@ -210,7 +211,7 @@
   description: dh-job-marine-machinegunner-desc
   playTimeTracker: JobDHMarineMachinegunner
   startingGear: DHImperialMachinegunnerGear
-  icon: JobIconDHImperialMachinegunner
+  icon: JobIconDHMarineMachinegunner
   supervisors: dh-job-empire-supervisors
   accessGroups:
   - AllAccess
@@ -224,7 +225,7 @@
   description: dh-job-marine-rifleman-desc
   playTimeTracker: JobDHMarineRifleman
   startingGear: DHImperialRiflemanGear
-  icon: JobIconDHImperialRifleman
+  icon: JobIconDHMarineRifleman
   supervisors: dh-job-empire-supervisors
   accessGroups:
   - AllAccess

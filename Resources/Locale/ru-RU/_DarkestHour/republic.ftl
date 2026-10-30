@@ -3,17 +3,17 @@
 id-card-access-level-dh-republic = Республиканский армейский корпус
 
 dh-job-republic-supervisors = Республиканскому армейскому корпусу
-dh-job-republic-commander-name = командир отряда зачистки Республики
+dh-job-republic-commander-name = Командир отряда зачистки Республики
 dh-job-republic-commander-desc = Ведите отряд зачистки Республики: возьмите станцию под военное положение от имени Объединённой Республики.
-dh-job-republic-sniper-name = снайпер отряда зачистки Республики
+dh-job-republic-sniper-name = Снайпер отряда зачистки Республики
 dh-job-republic-sniper-desc = Прикрывайте отряд издалека с RMAR-AS-M-15-18.
-dh-job-republic-machinegunner-name = пулемётчик отряда зачистки Республики
+dh-job-republic-machinegunner-name = Пулемётчик отряда зачистки Республики
 dh-job-republic-machinegunner-desc = Прижимайте сопротивление огнём RAMG-M-14-1. Тяжёлые пластины, медленный шаг.
-dh-job-republic-rifleman-name = стрелок отряда зачистки Республики
+dh-job-republic-rifleman-name = Стрелок отряда зачистки Республики
 dh-job-republic-rifleman-desc = Костяк отряда зачистки. Выполняйте приказы командира.
-dh-job-republic-medic-name = медик отряда зачистки Республики
+dh-job-republic-medic-name = Медик отряда зачистки Республики
 dh-job-republic-medic-desc = Держите отряд на ногах.
-dh-job-republic-flamer-name = огнемётчик отряда зачистки Республики
+dh-job-republic-flamer-name = Огнемётчик отряда зачистки Республики
 dh-job-republic-flamer-desc = Выжигайте всё, что не хочет выходить. Тяжёлые пластины и стойка запасных топливных баков.
 
 dh-ghost-role-republic-rules = Вы — боец отряда зачистки Республики. На станции военное положение (код угрозы Indomitus): её контракты с Metallistick Group расторгнуты, экипаж обязан вам подчиняться. Выполняйте приказы командира. Задерживайте сопротивляющихся, летальную силу применяйте только против вооружённого сопротивления; не трогайте подчиняющийся экипаж.

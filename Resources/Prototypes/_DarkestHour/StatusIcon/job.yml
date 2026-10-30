@@ -437,3 +437,87 @@
   icon:
     sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
     state: ImperialFaction
+
+# «Штурм»: свои иконки гарнизона и десанта — в подсказке название должности режима, а не отряда зачистки / Рейда.
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHGarrisonCommander
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: RepublicCommander
+  jobName: dh-job-garrison-commander-name
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHGarrisonRifleman
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: RepublicRifleman
+  jobName: dh-job-garrison-rifleman-name
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHGarrisonMachinegunner
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: RepublicMachinegunner
+  jobName: dh-job-garrison-machinegunner-name
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHGarrisonSniper
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: RepublicSniper
+  jobName: dh-job-garrison-sniper-name
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHGarrisonFlamer
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: RepublicFlamer
+  jobName: dh-job-garrison-flamer-name
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHGarrisonMedic
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: RepublicMedic
+  jobName: dh-job-garrison-medic-name
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHMarineCommander
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: ImperialCommander
+  jobName: dh-job-marine-commander-name
+  isCrewJob: false
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHMarineWeapons
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: ImperialWeapons
+  jobName: dh-job-marine-weapons-specialist-name
+  isCrewJob: false
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHMarineMedic
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: ImperialMedic
+  jobName: dh-job-marine-field-medic-name
+  isCrewJob: false
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHMarineMachinegunner
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: ImperialMachinegunner
+  jobName: dh-job-marine-machinegunner-name
+  isCrewJob: false
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHMarineRifleman
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: ImperialRifleman
+  jobName: dh-job-marine-rifleman-name
+  isCrewJob: false

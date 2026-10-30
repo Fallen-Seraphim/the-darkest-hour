@@ -1,13 +1,13 @@
 ## DarkestHour: ОБР Metall Armed
 
 dh-job-metall-armed-supervisors = командованию Metall Armed
-dh-job-metall-armed-commander-name = командир отряда Metall Armed
+dh-job-metall-armed-commander-name = Командир отряда Metall Armed
 dh-job-metall-armed-commander-desc = Ведите отряд быстрого реагирования Metall Armed: наведите порядок и спасите станцию для Metallistick Group.
-dh-job-metall-armed-weapons-name = специалист по вооружению Metall Armed
+dh-job-metall-armed-weapons-name = Специалист по вооружению Metall Armed
 dh-job-metall-armed-weapons-desc = Несите тяжёлое оружие отряда и ломайте всё, что стоит на пути.
-dh-job-metall-armed-medic-name = боевой медик Metall Armed
+dh-job-metall-armed-medic-name = Боевой медик Metall Armed
 dh-job-metall-armed-medic-desc = Сохраняйте жизнь отряду и экипажу. На случай, когда это невозможно, в скафандре спрятан огнемёт.
-dh-job-metall-armed-rifleman-name = стрелок Metall Armed
+dh-job-metall-armed-rifleman-name = Стрелок Metall Armed
 dh-job-metall-armed-rifleman-desc = Костяк отряда быстрого реагирования. Выполняйте приказы командира.
 
 dh-ghost-role-metall-armed-commander-name = Командир Metall Armed
