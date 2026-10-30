@@ -1,3 +1,4 @@
+using Content.Client._DarkestHour.UI;
 using System.Numerics;
 using Content.Shared._DarkestHour.Republic;
 using Robust.Client.UserInterface.Controls;
@@ -38,6 +39,7 @@ public sealed class DHWarheadWindow : DefaultWindow
 
     public DHWarheadWindow()
     {
+        DHFonts.RegisterTerminal(this); // DarkestHour: терминальный шрифт
         Title = Loc.GetString("dh-warhead-ui-title");
         MinSize = new Vector2(320, 430);
 

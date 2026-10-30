@@ -1,3 +1,4 @@
+using Content.Client._DarkestHour.UI;
 using System.Globalization;
 using System.Numerics;
 using Content.Shared._DarkestHour.HeavyGuns;
@@ -27,6 +28,7 @@ public sealed class DHMortarWindow : DefaultWindow
 
     public DHMortarWindow()
     {
+        DHFonts.RegisterTerminal(this); // DarkestHour: терминальный шрифт
         Title = Loc.GetString("dh-mortar-ui-title");
         MinSize = new Vector2(380, 360);
 

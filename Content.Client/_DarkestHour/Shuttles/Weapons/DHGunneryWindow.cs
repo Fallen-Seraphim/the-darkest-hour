@@ -1,3 +1,4 @@
+using Content.Client._DarkestHour.UI;
 using System.Linq;
 using System.Numerics;
 using Content.Client.Shuttles.UI;
@@ -36,6 +37,7 @@ public sealed class DHGunneryWindow : DefaultWindow
 
     public DHGunneryWindow()
     {
+        DHFonts.RegisterTerminal(this); // DarkestHour: терминальный шрифт
         Title = Loc.GetString("dh-gunnery-ui-title");
         MinSize = new Vector2(860, 560);
 

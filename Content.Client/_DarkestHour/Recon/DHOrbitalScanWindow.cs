@@ -1,3 +1,4 @@
+using Content.Client._DarkestHour.UI;
 using System.Globalization;
 using System.Numerics;
 using Content.Shared._DarkestHour.Recon;
@@ -24,6 +25,7 @@ public sealed class DHOrbitalScanWindow : DefaultWindow
 
     public DHOrbitalScanWindow()
     {
+        DHFonts.RegisterTerminal(this); // DarkestHour: терминальный шрифт
         Title = Loc.GetString("dh-scan-ui-title");
         MinSize = new Vector2(380, 340);
 

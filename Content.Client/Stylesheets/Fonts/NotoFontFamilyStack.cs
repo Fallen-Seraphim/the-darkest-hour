@@ -1,3 +1,4 @@
+using Content.Client._DarkestHour.UI;
 using Content.Client.Resources;
 using JetBrains.Annotations;
 using Robust.Client.Graphics;
@@ -65,11 +66,15 @@ public sealed class NotoFontFamilyStack(IResourceCache resCache, string variant 
         var boldOrRegularStr = kind.RegularOr(FontKind.Bold).AsFileName();
 
         var kindStr = kind.AsFileName();
-        var fontList = new List<string>()
+        var fontList = new List<string>();
+        // DarkestHour: основной шрифт интерфейса — IBM Plex Sans; Noto ниже по стеку дорисовывает недостающие символы.
+        if (variant == "")
+            fontList.Add(string.Format(DHFonts.SansFormat, kindStr));
+        fontList.AddRange(new[]
         {
             string.Format(_fontPrimary, kindStr, simpleKindStr, boldOrRegularStr),
             string.Format(_fontSymbols, kindStr, simpleKindStr, boldOrRegularStr),
-        };
+        });
         fontList.AddRange(_extras);
         return fontList.ToArray();
     }

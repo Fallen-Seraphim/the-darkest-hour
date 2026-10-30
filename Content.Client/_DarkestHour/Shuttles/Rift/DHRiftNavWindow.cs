@@ -1,3 +1,4 @@
+using Content.Client._DarkestHour.UI;
 using System.Linq;
 using System.Numerics;
 using Content.Shared._DarkestHour.Shuttles.Rift;
@@ -29,6 +30,7 @@ public sealed partial class DHRiftNavWindow : DefaultWindow
 
     public DHRiftNavWindow()
     {
+        DHFonts.RegisterTerminal(this); // DarkestHour: терминальный шрифт
         IoCManager.InjectDependencies(this);
 
         Title = Loc.GetString("dh-rift-nav-title");

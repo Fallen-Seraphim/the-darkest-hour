@@ -1,3 +1,4 @@
+using Content.Client._DarkestHour.UI;
 using Content.Shared._DarkestHour.Power.Fusion;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
@@ -30,6 +31,7 @@ public sealed class FusionReactorWindow : DefaultWindow
 
     public FusionReactorWindow()
     {
+        DHFonts.RegisterTerminal(this); // DarkestHour: терминальный шрифт
         Title = Loc.GetString("fusion-reactor-ui-title");
         MinSize = new System.Numerics.Vector2(400, 380);
 

@@ -1,3 +1,4 @@
+using Content.Client._DarkestHour.UI;
 using System.Numerics;
 using Content.Shared._DarkestHour.Comms;
 using Robust.Client.UserInterface.Controls;
@@ -23,6 +24,7 @@ public sealed class DHFieldPhoneWindow : DefaultWindow
 
     public DHFieldPhoneWindow()
     {
+        DHFonts.RegisterTerminal(this); // DarkestHour: терминальный шрифт
         Title = Loc.GetString("dh-phone-ui-title");
         MinSize = new Vector2(340, 320);
 

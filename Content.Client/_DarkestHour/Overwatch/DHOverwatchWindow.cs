@@ -1,3 +1,4 @@
+using Content.Client._DarkestHour.UI;
 using System.Numerics;
 using Content.Client.Viewport;
 using Content.Shared._DarkestHour.Assault;
@@ -58,6 +59,7 @@ public sealed class DHOverwatchWindow : DefaultWindow
 
     public DHOverwatchWindow()
     {
+        DHFonts.RegisterTerminal(this); // DarkestHour: терминальный шрифт
         Title = Loc.GetString("dh-overwatch-ui-title");
         MinSize = new Vector2(860, 560);
         SetSize = new Vector2(960, 620);

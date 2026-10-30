@@ -1,3 +1,4 @@
+using Content.Client._DarkestHour.UI;
 using System.Numerics;
 using Content.Shared._DarkestHour.Shuttles.Rift;
 using Robust.Client.UserInterface.Controls;
@@ -29,6 +30,7 @@ public sealed class DHLandingWindow : DefaultWindow
 
     public DHLandingWindow()
     {
+        DHFonts.RegisterTerminal(this); // DarkestHour: терминальный шрифт
         Title = Loc.GetString("dh-landing-title");
         MinSize = new Vector2(640, 500);
 
