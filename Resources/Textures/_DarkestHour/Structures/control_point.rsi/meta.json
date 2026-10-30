@@ -1,0 +1,50 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Procedurally drawn for The Darkest Hour (Tools/_DarkestHour/control_points/build.py)",
+    "size": {
+        "x": 32,
+        "y": 64
+    },
+    "states": [
+        {
+            "name": "base"
+        },
+        {
+            "name": "flag_neutral",
+            "delays": [
+                [
+                    0.4,
+                    0.4,
+                    0.4
+                ]
+            ]
+        },
+        {
+            "name": "flag_republic",
+            "delays": [
+                [
+                    0.4,
+                    0.4,
+                    0.4
+                ]
+            ]
+        },
+        {
+            "name": "flag_empire",
+            "delays": [
+                [
+                    0.4,
+                    0.4,
+                    0.4
+                ]
+            ]
+        },
+        {
+            "name": "screen"
+        },
+        {
+            "name": "icon"
+        }
+    ]
+}
