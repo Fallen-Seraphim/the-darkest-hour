@@ -1,0 +1,24 @@
+- type: entity
+  abstract: true
+  id: RMCPropBase
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Clickable
+
+- type: entity
+  abstract: true
+  id: RMCPropBaseUnbreakable
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Clickable
+
