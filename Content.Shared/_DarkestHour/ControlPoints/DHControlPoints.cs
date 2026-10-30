@@ -27,7 +27,7 @@ public sealed partial class DHControlPointComponent : Component
     public LocId? PointDescription;
 
     [DataField, AutoNetworkedField]
-    public DHAssaultFaction? Owner;
+    public DHAssaultFaction? Holder;
 
     /// <summary>Радиус зоны: противник в нём не даёт захватить; рисуется на тактической карте.</summary>
     [DataField]

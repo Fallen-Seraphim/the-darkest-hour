@@ -11,6 +11,8 @@
   - type: Transform
     anchored: true
   - type: Clickable
+  - type: DHTacticalTerrain # окопы на тактической карте
+    kind: Trench
   - type: Sprite
     sprite: _DarkestHour/Structures/trench.rsi
     drawdepth: FloorObjects
