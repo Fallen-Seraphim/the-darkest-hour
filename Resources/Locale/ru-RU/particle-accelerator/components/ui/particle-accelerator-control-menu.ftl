@@ -12,7 +12,7 @@ particle-accelerator-control-menu-draw-not-available = [font="Monospace"][color=
 
 particle-accelerator-control-menu-draw-value = [font="Monospace"]{ $watts }/{ $lastReceive }[/font]
 
-particle-accelerator-control-menu-flavor-left = Пожалуйста держите клоуна подальше от этой консоли!
+particle-accelerator-control-menu-flavor-left = Пожалуйста держите клоуна подальше от этого компьютера!
 
 particle-accelerator-control-menu-flavor-right = v 1.6
 

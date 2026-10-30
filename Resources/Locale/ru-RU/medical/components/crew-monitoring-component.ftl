@@ -12,4 +12,4 @@ crew-monitoring-ui-no-server-label = Сервер не найден
 
 crew-monitoring-ui-no-station-label = Неизвестная станция
 
-crew-monitoring-ui-title = Консоль мониторинга экипажа
+crew-monitoring-ui-title = Компьютер мониторинга экипажа

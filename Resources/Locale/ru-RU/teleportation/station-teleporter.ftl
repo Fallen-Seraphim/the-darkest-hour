@@ -20,7 +20,7 @@ teleporter-console-user-interface-no-teleporters = Нет телепортов
 
 teleporter-console-user-interface-start-connection = Начать соединение
 
-teleporter-console-user-interface-title = Консоль управления телепортами
+teleporter-console-user-interface-title = Компьютер управления телепортами
 
 teleporter-console-user-interface-unknown-station = Неизвестная станция
 

@@ -22,4 +22,4 @@ dh-celestial-rep27-5d-desc = Ледяной спутник REP-27-5. Вокру�
 
 dh-celestial-label = {$name} · {$distance}
 dh-celestial-label-inside = {$name} · внутри
-dh-celestial-repelled = Корабль выталкивает из {$body}! Опустить корабль можно только через консоль посадки.
+dh-celestial-repelled = Корабль выталкивает из {$body}! Опустить корабль можно только через компьютер посадки.

@@ -48,7 +48,7 @@ analysis-console-info-trigger = [font="Monospace" size=11]Стимуляторы
 
 analysis-console-info-triggered-value = [font="Monospace" size=11][color=gray]{ $triggers }[/color][/font]
 
-analysis-console-menu-title = Аналитическая консоль широкого спектра модель 3
+analysis-console-menu-title = Аналитический компьютер широкого спектра модель 3
 
 analysis-console-no-node = Выберите узел для просмотра
 

@@ -89,7 +89,7 @@
   parent: DHShipGunMagazineBase
   id: DHShipGun20mm
   name: 20mm point-defense autocannon
-  description: A light rapid-fire turret. Shreds small craft and, in point-defense mode, shoots down meteors before they reach the hull. Needs power; controlled from a gunnery console.
+  description: A light rapid-fire turret. Shreds small craft and, in point-defense mode, shoots down meteors before they reach the hull. Needs power; controlled from a gunnery computer.
   components:
   - type: Sprite
     sprite: _Mono/Objects/ShuttleWeapons/L85.rsi
@@ -128,7 +128,7 @@
   parent: DHShipGunMagazineBase
   id: DHShipGun30mm
   name: 30mm autocannon
-  description: A heavy rapid-fire turret with armour-piercing and high-explosive belts. Also works in point-defense mode. Needs power; controlled from a gunnery console.
+  description: A heavy rapid-fire turret with armour-piercing and high-explosive belts. Also works in point-defense mode. Needs power; controlled from a gunnery computer.
   components:
   - type: Sprite
     sprite: _Mono/Objects/ShuttleWeapons/rac-30_draupnir.rsi
@@ -166,7 +166,7 @@
   parent: DHShipGunShellBase
   id: DHShipGun90mm
   name: 90mm naval gun
-  description: A medium single-barrel gun. Shells are loaded by hand, one at a time. Controlled from a gunnery console.
+  description: A medium single-barrel gun. Shells are loaded by hand, one at a time. Controlled from a gunnery computer.
   components:
   - type: Sprite
     sprite: _Mono/Objects/ShuttleWeapons/longbow.rsi
@@ -197,7 +197,7 @@
   parent: DHShipGunShellBase
   id: DHShipGun155mm
   name: 155mm howitzer
-  description: A heavy long-range gun. Slow to reload, devastating on impact. Controlled from a gunnery console.
+  description: A heavy long-range gun. Slow to reload, devastating on impact. Controlled from a gunnery computer.
   components:
   - type: Sprite
     sprite: _Mono/Objects/ShuttleWeapons/hades.rsi
@@ -250,7 +250,7 @@
   parent: DHShipGunShellBase
   id: DHShipGun220mm
   name: 220mm twin cannon
-  description: A main battery with two barrels firing paired salvos at extreme range. Controlled from a gunnery console.
+  description: A main battery with two barrels firing paired salvos at extreme range. Controlled from a gunnery computer.
   components:
   - type: Sprite
     sprite: _Mono/Objects/ShuttleWeapons/cyrexa.rsi
@@ -312,7 +312,7 @@
 - type: entity
   parent: BaseComputer
   id: DHComputerGunnery
-  name: gunnery console
+  name: gunnery computer
   description: Radar fire control for every gun on this hull. Click the radar to fire the selected guns at that point.
   components:
   - type: ComputerVisuals
@@ -339,7 +339,7 @@
 - type: entity
   parent: DHComputerGunnery
   id: DHComputerPointDefense
-  name: station defense console
+  name: station defense computer
   description: Fire control for the station's turrets, with an automatic point-defense mode that shoots down approaching meteors.
   components:
   - type: DHGunneryConsole
@@ -350,8 +350,8 @@
 - type: entity
   parent: BaseComputerCircuitboard
   id: DHGunneryComputerCircuitboard
-  name: gunnery console board
-  description: A computer printed circuit board for a gunnery console.
+  name: gunnery computer board
+  description: A computer printed circuit board for a gunnery computer.
   components:
   - type: Sprite
     state: cpu_security
@@ -361,8 +361,8 @@
 - type: entity
   parent: BaseComputerCircuitboard
   id: DHPointDefenseComputerCircuitboard
-  name: station defense console board
-  description: A computer printed circuit board for a station defense console.
+  name: station defense computer board
+  description: A computer printed circuit board for a station defense computer.
   components:
   - type: Sprite
     state: cpu_security

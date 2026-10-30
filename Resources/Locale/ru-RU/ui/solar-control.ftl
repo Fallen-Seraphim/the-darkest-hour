@@ -12,6 +12,6 @@ solar-control-window-press-enter-to-confirm = Нажмите Enter для под
 
 solar-control-window-sun-angle = Угол солнца:
 
-solar-control-window-title = Консоль управления солнечными панелями
+solar-control-window-title = Компьютер управления солнечными панелями
 
 solar-control-window-watts = Вт

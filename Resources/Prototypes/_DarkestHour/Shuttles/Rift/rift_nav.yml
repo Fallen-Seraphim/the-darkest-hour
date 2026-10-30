@@ -3,7 +3,7 @@
 - type: entity
   parent: BaseComputer
   id: DHComputerRiftNav
-  name: rift navigation console
+  name: rift navigation computer
   description: Charts the star system and plots rift jumps. Jumps to other star systems are only possible from here.
   components:
   - type: ComputerVisuals
@@ -28,8 +28,8 @@
 - type: entity
   parent: BaseComputerCircuitboard
   id: DHRiftNavComputerCircuitboard
-  name: rift navigation console board
-  description: A computer printed circuit board for a rift navigation console.
+  name: rift navigation computer board
+  description: A computer printed circuit board for a rift navigation computer.
   components:
   - type: Sprite
     state: cpu_command

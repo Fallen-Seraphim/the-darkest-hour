@@ -32,7 +32,7 @@ steal-target-groups-captain-id-card = ID-карта капитана
 
 steal-target-groups-captain-sword = сабля капитана
 
-steal-target-groups-cargo-shuttle-console-circuitboard = плата консоли управления грузовым шаттлом
+steal-target-groups-cargo-shuttle-console-circuitboard = плата компьютера управления грузовым шаттлом
 
 steal-target-groups-chem-dispenser = химический раздатчик
 
@@ -104,7 +104,7 @@ steal-target-groups-plant-rd = "комнатное растение научру
 
 steal-target-groups-research-and-development-server-machine-circuitboard = машинная плата сервера РнД
 
-steal-target-groups-salvage-expeditions-computer-circuitboard = плата консоли утилизаторских экспедиций
+steal-target-groups-salvage-expeditions-computer-circuitboard = плата компьютера утилизаторских экспедиций
 
 steal-target-groups-stamps = печати
 

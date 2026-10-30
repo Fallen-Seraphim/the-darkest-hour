@@ -1,10 +1,10 @@
-construction-graph-component-any-computer-circuit-board = любая консольная плата
+construction-graph-component-any-computer-circuit-board = любая компьютерная плата
 
 construction-graph-component-apc-electronics = микросхема ЛКП
 
 construction-graph-component-borg-brain = ММИ или позитронный мозг
 
-construction-graph-component-door-electronics-circuit-board = консольная плата шлюза
+construction-graph-component-door-electronics-circuit-board = компьютерная плата шлюза
 
 construction-graph-component-flash = вспышка
 

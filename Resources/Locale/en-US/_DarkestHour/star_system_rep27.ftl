@@ -22,4 +22,4 @@ dh-celestial-rep27-5d-desc = A frozen moon of REP-27-5. The station orbits it.
 
 dh-celestial-label = {$name} · {$distance}
 dh-celestial-label-inside = {$name} · inside
-dh-celestial-repelled = The ship is being pushed out of {$body}! Only a landing console can bring a ship down.
+dh-celestial-repelled = The ship is being pushed out of {$body}! Only a landing computer can bring a ship down.

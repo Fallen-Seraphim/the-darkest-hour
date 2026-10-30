@@ -7,7 +7,7 @@ dh-ship-gun-caliber-90 = 90mm
 dh-ship-gun-caliber-155 = 155mm
 dh-ship-gun-caliber-220 = 220mm
 
-dh-gunnery-ui-title = Gunnery console
+dh-gunnery-ui-title = Gunnery computer
 dh-gunnery-ui-hint = Tick the guns, then click the radar to fire at that point.
 dh-gunnery-ui-select-all = Select all
 dh-gunnery-ui-select-none = Clear

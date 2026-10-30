@@ -1,4 +1,4 @@
-ent-DHComputerLanding = консоль посадки
+ent-DHComputerLanding = компьютер посадки
     .desc = Прокладывает спуск на поверхность ближайшего мира и подъём обратно на орбиту.
 
 ent-DHGasScoop = газозаборник
@@ -7,5 +7,5 @@ ent-DHGasScoop = газозаборник
 ent-DHGasScoopMachineCircuitboard = плата машины: газозаборник
     .desc = Печатная плата машины: газозаборник.
 
-ent-DHLandingComputerCircuitboard = плата консоли посадки
-    .desc = Печатная плата компьютера: консоль посадки.
+ent-DHLandingComputerCircuitboard = плата компьютера посадки
+    .desc = Печатная плата компьютера: компьютер посадки.

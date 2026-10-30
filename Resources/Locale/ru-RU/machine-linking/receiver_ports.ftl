@@ -1,6 +1,6 @@
 signal-port-description-artifact-analyzer-receiver = Приёмник сигнала анализатора артефактов
 
-signal-port-description-artifact-analyzer-sender = Передатчик сигнала аналитической консоли
+signal-port-description-artifact-analyzer-sender = Передатчик сигнала аналитического компьютера
 
 signal-port-description-autoclose = Переключает, должно ли устройство автоматически закрываться.
 
@@ -38,9 +38,9 @@ signal-port-description-on-receiver = Включает устройство.
 
 signal-port-description-open = Открывает устройство.
 
-signal-port-description-order-receiver = Получает заказ на консоль заказа грузов
+signal-port-description-order-receiver = Получает заказ на компьютер заказа грузов
 
-signal-port-description-order-sender = Отправляет заказ на консоль заказа грузов
+signal-port-description-order-sender = Отправляет заказ на компьютер заказа грузов
 
 signal-port-description-pod-receiver = Приёмник сигнала капсулы клонирования
 
@@ -70,7 +70,7 @@ signal-port-description-trigger-receiver = Запускает определён
 
 signal-port-name-artifact-analyzer-receiver = Платформа
 
-signal-port-name-artifact-analyzer-sender = Консоль
+signal-port-name-artifact-analyzer-sender = Компьютер
 
 signal-port-name-autoclose = Автозакрытие
 

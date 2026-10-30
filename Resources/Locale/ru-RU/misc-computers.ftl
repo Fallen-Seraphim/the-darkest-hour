@@ -1,3 +1,3 @@
-radar-console-window-title = Консоль сканера массы
+radar-console-window-title = Компьютер сканера массы
 
-shuttle-console-window-title = Консоль шаттла
+shuttle-console-window-title = Компьютер шаттла

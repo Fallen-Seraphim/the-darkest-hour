@@ -90,7 +90,7 @@ cargo-console-menu-tab-title-funds = Переводы
 
 cargo-console-menu-tab-title-orders = Заказы
 
-cargo-console-menu-title = Консоль заказа грузов
+cargo-console-menu-title = Компьютер заказа грузов
 
 cargo-console-menu-toggle-account-lock-button = Переключить лимит перевода
 
@@ -144,11 +144,11 @@ cargo-funding-alloc-console-label-save-fail = [bold]Разделение выр�
     *[-1] -
 }{ $val }%)[/color]
 
-cargo-funding-alloc-console-menu-title = Консоль распределения финансов
+cargo-funding-alloc-console-menu-title = Компьютер распределения финансов
 
 cargo-no-shuttle = Грузовой шаттл не найден!
 
-cargo-shuttle-console-menu-title = Консоль вызова грузового шаттла
+cargo-shuttle-console-menu-title = Компьютер вызова грузового шаттла
 
 cargo-shuttle-console-organics = На шаттле обнаружены органические формы жизни
 

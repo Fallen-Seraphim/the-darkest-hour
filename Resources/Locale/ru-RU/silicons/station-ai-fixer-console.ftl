@@ -1,8 +1,8 @@
-station-ai-fixer-console-examination-station-ai-holder-absent = Слот консоли для [color=cyan]контейнера хранения ИИ[/color] пуст.
+station-ai-fixer-console-examination-station-ai-holder-absent = Слот компьютера для [color=cyan]контейнера хранения ИИ[/color] пуст.
 
-station-ai-fixer-console-examination-station-ai-holder-present = В консоль вставлен [color=cyan]{ $holder }[/color].
+station-ai-fixer-console-examination-station-ai-holder-present = В компьютер вставлен [color=cyan]{ $holder }[/color].
 
-station-ai-fixer-console-is-locked = Консоль заблокирована.
+station-ai-fixer-console-is-locked = Компьютер заблокирован.
 
 station-ai-fixer-console-purge-successful = Очистка завершена. ИИ успешно удалён.
 
@@ -10,9 +10,9 @@ station-ai-fixer-console-repair-finished = Ремонт завершён. Поп
 
 station-ai-fixer-console-repair-successful = Ремонт завершён. ИИ успешно перезапущен.
 
-station-ai-fixer-console-station-ai-holder-required = В консоль можно вставить только контейнеры хранения ИИ.
+station-ai-fixer-console-station-ai-holder-required = В компьютер можно вставить только контейнеры хранения ИИ.
 
-station-ai-fixer-console-window = консоль восстановления ИИ
+station-ai-fixer-console-window = компьютер восстановления ИИ
 
 station-ai-fixer-console-window-action-progress-eta = Осталось времени: { $time } { $units }
 
@@ -28,7 +28,7 @@ station-ai-fixer-console-window-controls = Управление
 
 station-ai-fixer-console-window-controls-locked = Управление заблокировано
 
-station-ai-fixer-console-window-flavor-left = Блокируйте консоль, пока не пользуетесь
+station-ai-fixer-console-window-flavor-left = Блокируйте компьютер, пока не пользуетесь
 
 station-ai-fixer-console-window-flavor-right = v4.0.4
 

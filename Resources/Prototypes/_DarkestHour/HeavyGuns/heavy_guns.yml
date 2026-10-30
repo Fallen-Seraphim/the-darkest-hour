@@ -461,7 +461,7 @@
 - type: entity
   parent: BaseComputer
   id: DHComputerNavalArtillery
-  name: naval artillery console
+  name: naval artillery computer
   description: Lays the guns of the ship on coordinates on the surface of the world below. The gunner has to be seated.
   components:
   - type: ComputerVisuals
@@ -490,7 +490,7 @@
 - type: entity
   parent: BaseComputer
   id: DHComputerAntiOrbital
-  name: anti-orbital fire control console
+  name: anti-orbital fire control computer
   description: Lays the anti-orbital guns on ships in orbit above. The gunner has to be seated.
   components:
   - type: ComputerVisuals
@@ -519,8 +519,8 @@
 - type: entity
   parent: BaseComputerCircuitboard
   id: DHNavalArtilleryComputerCircuitboard
-  name: naval artillery console board
-  description: A computer printed circuit board for a naval artillery console.
+  name: naval artillery computer board
+  description: A computer printed circuit board for a naval artillery computer.
   components:
   - type: Sprite
     state: cpu_security
@@ -530,8 +530,8 @@
 - type: entity
   parent: BaseComputerCircuitboard
   id: DHAntiOrbitalComputerCircuitboard
-  name: anti-orbital fire control console board
-  description: A computer printed circuit board for an anti-orbital fire control console.
+  name: anti-orbital fire control computer board
+  description: A computer printed circuit board for an anti-orbital fire control computer.
   components:
   - type: Sprite
     state: cpu_security

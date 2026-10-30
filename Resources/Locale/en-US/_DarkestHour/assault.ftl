@@ -27,7 +27,7 @@ dh-assault-wave-arrived = Reinforcements have arrived: {$count} {$count ->
 
 ## Ход боя
 
-dh-assault-prep-over-empire = The rift generator is ready. Jump into the REP-27 system with the rift navigation console and descend on REP-27-7 with the landing console.
+dh-assault-prep-over-empire = The rift generator is ready. Jump into the REP-27 system with the rift navigation computer and descend on REP-27-7 with the landing computer.
 dh-assault-prep-over-republic = Sensors report a rift signature building up in the neighbouring system. The Imperial carrier may arrive at any moment. All positions, combat readiness!
 dh-assault-carrier-arrived = ALERT! An Imperial landing carrier has entered the REP-27 system. Expect a landing assault on Firebase Terminus. All personnel to combat positions!
 dh-assault-carrier-arrived-empire = The carrier is in the REP-27 system. Descend on REP-27-7 and take the experimental sample.

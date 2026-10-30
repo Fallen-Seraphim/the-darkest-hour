@@ -60,7 +60,7 @@ device-frequency-prototype-name-mothership = Материнский корабл
 
 device-frequency-prototype-name-pdas = КПК
 
-device-frequency-prototype-name-robotics-console = Консоль управления робототехникой
+device-frequency-prototype-name-robotics-console = Компьютер управления робототехникой
 
 device-frequency-prototype-name-shuttle-timer = Таймер эвакуационного шаттла
 

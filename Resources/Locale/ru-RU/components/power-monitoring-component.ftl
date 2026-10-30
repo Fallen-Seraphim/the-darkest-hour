@@ -32,7 +32,7 @@ power-monitoring-window-show-mv-cable = Среднего
 
 power-monitoring-window-station-name = [color=white][font size=14]{ $stationName }[/font][/color]
 
-power-monitoring-window-title = Консоль контроля питания
+power-monitoring-window-title = Компьютер контроля питания
 
 power-monitoring-window-total-battery-usage = Общее использование батареи
 
