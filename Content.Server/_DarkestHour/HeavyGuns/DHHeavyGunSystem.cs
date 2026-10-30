@@ -287,6 +287,13 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             args.PushMarkup(Loc.GetString("dh-interceptor-examine", ("ammo", ent.Comp.Ammo), ("max", ent.Comp.MaxAmmo)));
     }
 
+    /// <summary>ПВО, запитанная от зоны захвата (АЭС), молчит, пока зона не у своей стороны.</summary>
+    private bool Unpowered(EntityUid uid)
+    {
+        return TryComp<Content.Shared._DarkestHour.ControlPoints.DHControlPointPoweredComponent>(uid, out var powered) &&
+               powered.Disabled;
+    }
+
     /// <summary>ПВО, прикрывающие удар: на гриде-цели (корабль) или в радиусе от точки удара (поверхность).</summary>
     /// <summary>ПВО, запитанная от зоны захвата (АЭС), молчит, пока зона не у своей стороны.</summary>
     private bool Unpowered(EntityUid uid)

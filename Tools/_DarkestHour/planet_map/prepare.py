@@ -167,7 +167,7 @@ class MapFile:
                     cur[m.group(1)] = m.group(2)
         if cur:
             cur['end'] = len(L)
-            while cur['end'] > cur['start'] and L[cur['end'] - 1] == '':
+            while cur['end'] > cur['start'] and L[cur['end'] - 1] in ('', '...'):
                 cur['end'] -= 1
         return [e for e in out if e['uid'] != self.root]
 
@@ -231,7 +231,7 @@ class MapFile:
                 break
         if at is None:
             at = len(L)
-            while at > 0 and L[at - 1] == '':
+            while at > 0 and L[at - 1] in ('', '...'):
                 at -= 1
         L[at:at] = [f'- proto: {proto}', '  entities:'] + block
         return uids
