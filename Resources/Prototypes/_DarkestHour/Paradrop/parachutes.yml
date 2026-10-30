@@ -1,0 +1,58 @@
+# Парашюты (решение автора 2026-10-30). Код — Content.*/_DarkestHour/Paradrop, спрайты — cmss13 через RMC-14.
+
+- type: entity
+  parent: BaseItem
+  id: DHParachute
+  name: parachute
+  description: A packed parachute. Keep it on you when jumping from a ship in the atmosphere — without one you hit the ground at full speed. Can also be clipped to heavy cargo before an airdrop.
+  components:
+  - type: DHParachute
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Back/Backpacks/Marines/Parachute/parachute.rsi
+    layers:
+    - state: icon
+      map: [ "packed" ]
+    - sprite: _RMC14/Objects/Clothing/Back/Backpacks/Marines/Parachute/parachute_deployed.rsi
+      state: icon
+      scale: 0.5, 0.5
+      map: [ "used" ]
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHParachuteVisuals.Packed:
+        packed:
+          True: { visible: true }
+          False: { visible: false }
+        used:
+          True: { visible: false }
+          False: { visible: true }
+  - type: Item
+    size: Small
+    sprite: _RMC14/Objects/Clothing/Back/Backpacks/Marines/Parachute/parachute.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Back/Backpacks/Marines/Parachute/parachute.rsi
+    quickEquip: false
+    slots:
+    - back
+  - type: StaticPrice
+    price: 60
+
+- type: entity
+  parent: DHParachute
+  id: DHParachuteUsed
+  suffix: Used
+  components:
+  - type: DHParachute
+    packed: false
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHCrateParachutes
+  name: parachute crate
+  description: Spare packed parachutes for jumpers and for airdropping heavy cargo.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHParachute
+      amount: 12

@@ -53,6 +53,7 @@ public sealed partial class DHFallingComponent : Component
 public sealed partial class DHLandingSystem
 {
     [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private Content.Server._DarkestHour.Paradrop.DHParachuteSystem _parachute = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private SharedCameraRecoilSystem _recoil = default!;
@@ -349,13 +350,20 @@ public sealed partial class DHLandingSystem
 
         if (!HasComp<MobStateComponent>(uid))
         {
-            // Тяжёлый груз с парашютом (пушка, ящик): встаёт как стоял, со звуком посадки.
-            if (HasComp<DHParadroppableComponent>(uid))
+            // Тяжёлый груз (пушка, ящик, поддон с техникой): цел, только если хватает парашютов.
+            if (TryComp<DHParadroppableComponent>(uid, out var cargo))
+            {
                 _audio.PlayPvs(LandSound, uid);
+                _parachute.LandCargo((uid, cargo));
+            }
+
             return;
         }
 
         _audio.PlayPvs(LandSound, uid);
+        if (!_parachute.LandMob(uid))
+            return;
+
         _stun.TryKnockdown(uid, TimeSpan.FromSeconds(1.5), true);
         _popup.PopupEntity(Loc.GetString("dh-paradrop-landed"), uid, uid, PopupType.Medium);
     }

@@ -264,6 +264,7 @@
     id: DHDogtagsImperialRifleman
     belt: ClothingBeltMilitaryWebbing
     pocket1: CombatKnife
+    pocket2: DHParachute
   storage:
     back:
     - DHPainkillerAutoinjector

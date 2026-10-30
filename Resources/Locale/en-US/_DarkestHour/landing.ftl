@@ -36,7 +36,7 @@ dh-landing-transit-climb = Climbing to orbit: {$seconds} s.
 dh-landing-transit-land = Landing: {$seconds} s.
 dh-landing-transit-take-off = Taking off: {$seconds} s.
 
-dh-paradrop-jump = You jump out — the parachute opens!
+dh-paradrop-jump = You jump overboard!
 dh-paradrop-landed = You land under your parachute.
 
 dh-drop-beacon-on = The beacon is on: paratroopers will land next to it.
