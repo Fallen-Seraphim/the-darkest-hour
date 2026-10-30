@@ -14,7 +14,7 @@ public sealed partial class DHCarrierDamageCommand : LocalizedEntityCommands
 
     public override void Execute(IConsoleShell shell, string argStr, string[] args)
     {
-        if (args.Length != 1 || !float.TryParse(args[0], out var amount) || amount <= 0f)
+        if (args.Length != 1 || !float.TryParse(args[0], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var amount) || amount <= 0f)
         {
             shell.WriteError(Loc.GetString("cmd-dhcarrierdamage-help"));
             return;
