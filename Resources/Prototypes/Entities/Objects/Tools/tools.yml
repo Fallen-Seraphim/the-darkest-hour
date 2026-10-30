@@ -498,6 +498,7 @@
   - type: StaticPrice
     price: 25
   - type: Shovel
+  - type: DHEntrenchingTool # DarkestHour: копает окопы
 
 - type: entity
   parent: BaseItem

@@ -41,7 +41,7 @@ public sealed partial class DHTrenchSystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<ShovelComponent, AfterInteractEvent>(OnShovelAfterInteract);
+        SubscribeLocalEvent<DHEntrenchingToolComponent, AfterInteractEvent>(OnShovelAfterInteract);
         SubscribeLocalEvent<ShovelComponent, DHTrenchDigDoAfterEvent>(OnDigDoAfter);
         SubscribeLocalEvent<DHTrenchComponent, InteractUsingEvent>(OnTrenchInteractUsing);
         SubscribeLocalEvent<DHTrenchComponent, DHTrenchFillDoAfterEvent>(OnFillDoAfter);
@@ -50,7 +50,7 @@ public sealed partial class DHTrenchSystem : EntitySystem
 
     #region Копать и засыпать
 
-    private void OnShovelAfterInteract(Entity<ShovelComponent> ent, ref AfterInteractEvent args)
+    private void OnShovelAfterInteract(Entity<DHEntrenchingToolComponent> ent, ref AfterInteractEvent args)
     {
         if (args.Handled || !args.CanReach || args.Target != null)
             return;
