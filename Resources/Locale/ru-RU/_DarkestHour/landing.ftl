@@ -1,6 +1,6 @@
 ## DarkestHour: посадка и газозаборник
 
-dh-landing-title = Консоль посадки
+dh-landing-title = Компьютер посадки
 dh-landing-bodies = Миры в пределах {$range}:
 dh-landing-body-entry = {$name} — {$altitude}
 dh-landing-on-surface = Посадка на {$body}.
@@ -15,12 +15,12 @@ dh-landing-descend = Спуститься в атмосферу
 dh-landing-ascend = Подняться на орбиту
 dh-landing-descending = Спуск в атмосферу {$body}.
 dh-landing-ascending = Подъём на орбиту.
-dh-landing-use-console = Корабль на поверхности или в атмосфере: поднимитесь на орбиту через консоль посадки.
+dh-landing-use-console = Корабль на поверхности или в атмосфере: поднимитесь на орбиту через компьютер посадки.
 
 ## Атмосфера и высадка с парашютом («Штурм»)
 
 dh-landing-atmosphere-map = {$body} — атмосфера
-dh-landing-in-atmosphere = В атмосфере {$body}, около 2 км над поверхностью. Управляйте с консоли шаттла; прыгайте за борт, чтобы высадиться с парашютом.
+dh-landing-in-atmosphere = В атмосфере {$body}, около 2 км над поверхностью. Управляйте с компьютера шаттла; прыгайте за борт, чтобы высадиться с парашютом.
 dh-landing-atmosphere-hint = Корабль висит над поверхностью: то, что внизу, показано на карте. Всякий, кто покинет корабль, прыгает с парашютом.
 dh-landing-ready-hover = Готов сесть или подняться на орбиту.
 dh-landing-ready-take-off = Готов взлететь в атмосферу.

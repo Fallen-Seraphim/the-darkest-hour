@@ -56,7 +56,7 @@ criminal-records-console-wanted = { $name } ({ $job }) теперь находи
 
 criminal-records-console-wanted-reason = Причина розыска
 
-criminal-records-console-window-title = Консоль криминальных записей
+criminal-records-console-window-title = Компьютер криминальных записей
 
 criminal-records-delete-history = Удалить
 

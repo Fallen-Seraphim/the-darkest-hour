@@ -21,7 +21,7 @@
   - type: Construction
     graph: Computer
   - type: Sprite
-    drawdepth: Objects
+    drawdepth: SmallObjects # DarkestHour: настольный — поверх стола
 
 - type: entity
   abstract: true
@@ -78,7 +78,7 @@
     node: monitorBroken
   - type: Sprite
     sprite: _DarkestHour/Structures/Machines/desktop_computers.rsi # DarkestHour: настольный компьютер
-    drawdepth: Objects
+    drawdepth: SmallObjects # DarkestHour: настольный — поверх стола
     state: broken
   - type: Damageable
     damageModifierSet: SteelMod

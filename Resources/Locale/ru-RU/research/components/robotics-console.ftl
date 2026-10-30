@@ -25,4 +25,4 @@ robotics-console-no-cyborgs = Киборги отсутствуют!
 
 robotics-console-select-cyborg = Выберите киборга из списка выше.
 
-robotics-console-window-title = Роботехническая консоль
+robotics-console-window-title = Роботехнический компьютер

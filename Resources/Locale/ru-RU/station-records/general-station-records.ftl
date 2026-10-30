@@ -22,7 +22,7 @@ general-station-record-console-search-records = Поиск
 
 general-station-record-console-select-record-info = Выберите запись слева.
 
-general-station-record-console-window-title = Консоль станционного учёта
+general-station-record-console-window-title = Компьютер станционного учёта
 
 general-station-record-dna-filter = ДНК
 

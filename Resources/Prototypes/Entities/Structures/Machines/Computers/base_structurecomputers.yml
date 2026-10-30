@@ -26,6 +26,7 @@
   - type: ActivatableUIRequiresPower
   - type: Sprite
     sprite: _DarkestHour/Structures/Machines/desktop_computers.rsi # DarkestHour: настольные компьютеры (RMC/CM13)
+    drawdepth: SmallObjects # DarkestHour: настольный компьютер рисуется поверх стола
     layers:
     - map: ["enum.ComputerVisualLayers.Frame"]
     - map: ["enum.ComputerVisualLayers.Keyboard"]

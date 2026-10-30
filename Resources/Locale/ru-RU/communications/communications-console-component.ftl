@@ -6,7 +6,7 @@ comms-console-announcement-title-centcom = Центральное командо
 
 comms-console-announcement-title-nukie = Ядерные оперативники Синдиката
 
-comms-console-announcement-title-station = Консоль связи
+comms-console-announcement-title-station = Компьютер связи
 
 comms-console-announcement-title-station-ai = Станционный ИИ
 
@@ -58,7 +58,7 @@ comms-console-menu-broadcast-button-tooltip = Транслируйте своё 
 
 comms-console-menu-broadcast-placeholder = Транслируемый текст...
 
-comms-console-menu-title = Консоль связи
+comms-console-menu-title = Компьютер связи
 
 comms-console-message-cannot-send = Связь временно отключена
 

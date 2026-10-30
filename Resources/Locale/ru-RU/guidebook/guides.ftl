@@ -14,7 +14,7 @@ guide-entry-airvent = Вентиляция
 
 guide-entry-ame = Двигатель антиматерии (ДАМ)
 
-guide-entry-analysisconsole = Аналитическая консоль
+guide-entry-analysisconsole = Аналитический компьютер
 
 guide-entry-anomalous-research = Исследование аномалий
 
@@ -26,7 +26,7 @@ guide-entry-artifact-reports = Отчёты об артефактах
 
 guide-entry-atmosphereinout = Атмосфера в/из
 
-guide-entry-atmosphericalertscomputer = Консоль атмосферной сигнализации
+guide-entry-atmosphericalertscomputer = Компьютер атмосферной сигнализации
 
 guide-entry-atmosphericnetworkmonitor = Мониторинг атмосферной сети
 

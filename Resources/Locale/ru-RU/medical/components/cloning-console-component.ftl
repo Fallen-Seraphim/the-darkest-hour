@@ -52,4 +52,4 @@ cloning-console-window-scanner-far-label = Генетический сканер
 
 cloning-console-window-scanner-id = ID: [color=white]{ $scannerOccupantName }[/color]
 
-cloning-console-window-title = Консоль клонирования
+cloning-console-window-title = Компьютер клонирования

@@ -24,7 +24,7 @@ bounty-console-manifest-label = Манифест: [color=orange]{ $item }[/color
 
 bounty-console-manifest-reward = Награда: ${ $reward }
 
-bounty-console-menu-title = Консоль запросов
+bounty-console-menu-title = Компьютер запросов
 
 bounty-console-reward-label = Награда: [color=limegreen]${ $reward }[/color]
 

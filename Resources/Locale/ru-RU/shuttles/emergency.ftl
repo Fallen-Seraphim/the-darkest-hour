@@ -30,7 +30,7 @@ emergency-shuttle-console-denied = Доступ запрещён
 
 emergency-shuttle-console-no-early-launches = Досрочный запуск отключён
 
-emergency-shuttle-console-window-title = Консоль эвакуационного шаттла
+emergency-shuttle-console-window-title = Компьютер эвакуационного шаттла
 
 emergency-shuttle-docked = Эвакуационный шаттл пристыковался к станции { $location }, направление: { $direction }. Он улетит через { $time } секунд.{ $extended }
 

@@ -50,7 +50,7 @@ atmos-alerts-window-temperature-label = Температура
 
 atmos-alerts-window-temperature-value = { $valueInC } °C ({ $valueInK } K)
 
-atmos-alerts-window-title = Консоль атмосферной сигнализации
+atmos-alerts-window-title = Компьютер атмосферной сигнализации
 
 atmos-alerts-window-toggle-overlays = Переключение отображения сигнализации
 

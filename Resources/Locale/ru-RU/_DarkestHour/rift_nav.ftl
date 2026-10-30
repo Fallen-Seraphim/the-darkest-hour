@@ -1,4 +1,4 @@
-## DarkestHour: навигационная консоль разрывных прыжков
+## DarkestHour: навигационный компьютер разрывных прыжков
 
 dh-celestial-tau = Тау-7
 dh-celestial-tau-1 = Тау-7 b
@@ -11,7 +11,7 @@ dh-celestial-helios = Гелиос-2
 dh-celestial-helios-1 = Гелиос-2 b
 dh-celestial-helios-2 = Гелиос-2 c
 
-dh-rift-use-nav-console = Прыжки в другую звёздную систему прокладываются на навигационной консоли разрыва.
+dh-rift-use-nav-console = Прыжки в другую звёздную систему прокладываются на навигационном компьютере разрыва.
 
 dh-rift-nav-title = Навигация разрыва
 dh-rift-nav-systems = Звёздные системы
@@ -26,7 +26,7 @@ dh-rift-nav-jump = Прыжок
 dh-rift-nav-jump-rift = Открыть разрыв
 dh-rift-nav-ready = Готов к прыжку.
 dh-rift-nav-ready-rift = Оборудование разрыва готово.
-dh-rift-nav-no-shuttle = Эта консоль не на корабле.
+dh-rift-nav-no-shuttle = Этот компьютер не на корабле.
 dh-rift-nav-no-map = В этой системе разрыв не закрепить.
 dh-rift-nav-exit-body = Точка выхода внутри {$body}.
 dh-rift-nav-exit-radiation = Точка выхода в зоне излучения {$body}.

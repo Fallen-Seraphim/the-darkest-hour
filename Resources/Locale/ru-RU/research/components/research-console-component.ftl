@@ -12,7 +12,7 @@ research-console-menu-server-selection-button = Список серверов
 
 research-console-menu-server-sync-button = Синхронизировать
 
-research-console-menu-title = Консоль R&D
+research-console-menu-title = Компьютер R&D
 
 research-console-no-access-popup = Нет доступа!
 

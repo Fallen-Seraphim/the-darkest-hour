@@ -1,6 +1,6 @@
 ## DarkestHour: посадка и газозаборник
 
-dh-landing-title = Landing console
+dh-landing-title = Landing computer
 dh-landing-bodies = Worlds within {$range}:
 dh-landing-body-entry = {$name} — {$altitude}
 dh-landing-on-surface = Landed on {$body}.
@@ -15,12 +15,12 @@ dh-landing-descend = Descend into the atmosphere
 dh-landing-ascend = Climb to orbit
 dh-landing-descending = Descending into the atmosphere of {$body}.
 dh-landing-ascending = Climbing to orbit.
-dh-landing-use-console = The ship is on the surface or in the atmosphere: climb to orbit with the landing console.
+dh-landing-use-console = The ship is on the surface or in the atmosphere: climb to orbit with the landing computer.
 
 ## Атмосфера и высадка с парашютом («Штурм»)
 
 dh-landing-atmosphere-map = {$body} — atmosphere
-dh-landing-in-atmosphere = In the atmosphere of {$body}, about 2 km above the surface. Fly with the shuttle console; jump out to paradrop below.
+dh-landing-in-atmosphere = In the atmosphere of {$body}, about 2 km above the surface. Fly with the shuttle computer; jump out to paradrop below.
 dh-landing-atmosphere-hint = The ship hovers above the surface: what is below is shown on the map. Anyone who leaves the ship jumps with a parachute.
 dh-landing-ready-hover = Ready to land below or to climb to orbit.
 dh-landing-ready-take-off = Ready to take off into the atmosphere.

@@ -8,4 +8,4 @@ sensor-monitoring-value-display = { $unit ->
     *[Other] { $value }
 }
 
-sensor-monitoring-window-title = Консоль мониторинга датчиков
+sensor-monitoring-window-title = Компьютер мониторинга датчиков

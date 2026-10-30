@@ -65,7 +65,7 @@
 - type: entity
   parent: BaseComputer
   id: ComputerEmergencyShuttle
-  name: emergency shuttle console
+  name: emergency shuttle computer
   description: Handles authorization to early launch the shuttle.
   components:
   - type: AccessReader
@@ -88,7 +88,7 @@
 - type: entity
   parent: BaseComputer
   id: BaseComputerShuttle
-  name: shuttle console
+  name: shuttle computer
   description: Used to pilot a shuttle.
   abstract: true
   components:
@@ -129,7 +129,7 @@
 - type: entity
   parent: BaseComputerShuttle
   id: ComputerShuttle
-  name: shuttle console
+  name: shuttle computer
   description: Used to pilot a shuttle.
   components:
   - type: ComputerVisuals
@@ -140,7 +140,7 @@
 - type: entity
   parent: BaseComputerShuttle
   id: ComputerShuttleSyndie
-  name: syndicate shuttle console
+  name: syndicate shuttle computer
   description: Used to pilot a syndicate shuttle.
   components:
   - type: ComputerVisuals
@@ -161,7 +161,7 @@
 - type: entity
   parent: BaseComputerShuttle
   id: ComputerShuttleCargo
-  name: cargo shuttle console
+  name: cargo shuttle computer
   description: Used to pilot the cargo shuttle.
   components:
   - type: ComputerVisuals
@@ -333,7 +333,7 @@
 - type: entity
   parent: BaseComputerAiAccess
   id: ComputerCrewMonitoring
-  name: crew monitoring console
+  name: crew monitoring computer
   description: Used to monitor active health sensors built into most of the crew's uniforms.
   components:
   - type: ComputerVisuals
@@ -365,7 +365,7 @@
 - type: entity
   parent: BaseComputerAiAccess
   id: ComputerStationTeleportersControl
-  name: station teleporters control console
+  name: station teleporters control computer
   description: Used to monitor station teleport system operations.
   components:
   - type: ComputerVisuals
@@ -432,7 +432,7 @@
 - type: entity
   parent: ComputerStationTeleportersControl
   id: ComputerSyndicateTeleportersControl
-  name: syndicate teleporters control console
+  name: syndicate teleporters control computer
   components:
   - type: ComputerVisuals
     stateScreen: teleporters_syndicate
@@ -491,7 +491,7 @@
 - type: entity
   parent: BaseComputerAiAccess
   id: ComputerAnalysisConsole
-  name: analysis console
+  name: analysis computer
   description: A computer used to interface with the artifact analyzer.
   components:
   - type: ComputerVisuals
@@ -979,7 +979,7 @@
 - type: entity
   parent: BaseComputerAiAccess
   id: ComputerCloningConsole
-  name: cloning console computer
+  name: cloning computer
   description: The centerpiece of the cloning system, medicine's greatest accomplishment. It has lots of ports and wires.
   components:
   - type: CloningConsole
@@ -1018,7 +1018,7 @@
   parent: BaseComputerAiAccess
   id: ComputerSalvageJobBoard
   name: salvage job board
-  description: Console for accessing salvage jobs, if you're tough enough.
+  description: Computer for accessing salvage jobs, if you're tough enough.
   components:
   - type: ComputerVisuals
     stateScreen: salvjob
@@ -1184,7 +1184,7 @@
 - type: entity
   parent: BaseComputerAiAccess
   id: ComputerMassMedia
-  name: news manager console
+  name: news manager computer
   description: Write your message to the world!
   components:
   - type: ComputerVisuals
@@ -1212,7 +1212,7 @@
   parent: BaseComputer
   id: ComputerSensorMonitoring
   name: sensor monitoring computer
-  description: A flexible console for monitoring all kinds of sensors.
+  description: A flexible computer for monitoring all kinds of sensors.
   # Putting this as "DO NOT MAP" until the performance issues are fixed.
   # And it's more fleshed out.
   suffix: TESTING, DO NOT MAP
@@ -1250,7 +1250,7 @@
 - type: entity
   parent: BaseComputerAiAccess
   id: ComputerRoboticsControl
-  name: robotics control console
+  name: robotics control computer
   description: Used to remotely monitor the station's cyborgs.
   components:
   - type: ComputerVisuals
@@ -1289,7 +1289,7 @@
 - type: entity
   parent: BaseComputer
   id: ComputerXenoborgsControl
-  name: xenoborgs control console
+  name: xenoborgs control computer
   description: Used to remotely monitor all xenoborgs.
   components:
   - type: ComputerVisuals
@@ -1324,7 +1324,7 @@
 - type: entity
   id: StationAiUploadComputer
   parent: BaseComputer
-  name: AI upload console
+  name: AI upload computer
   description: Used to update the laws of the station AI.
   components:
   - type: ComputerVisuals
@@ -1365,7 +1365,7 @@
 - type: entity
   id: StationAiFixerComputer
   parent: BaseComputer
-  name: AI restoration console
+  name: AI restoration computer
   description: Used to repair damaged artifical intelligences.
   components:
   - type: ComputerVisuals

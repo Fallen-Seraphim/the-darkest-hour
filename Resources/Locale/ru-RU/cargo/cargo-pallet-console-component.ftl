@@ -1,6 +1,6 @@
 cargo-pallet-appraise-button = Оценить
 
-cargo-pallet-console-menu-title = Консоль продажи товаров
+cargo-pallet-console-menu-title = Компьютер продажи товаров
 
 cargo-pallet-menu-appraisal-label = Оценочная стоимость:{ " " }
 

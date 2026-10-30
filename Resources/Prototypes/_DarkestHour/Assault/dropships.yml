@@ -5,7 +5,7 @@
 - type: entity
   parent: BaseComputer
   id: DHComputerDropship
-  name: dropship flight console
+  name: dropship flight computer
   description: The autopilot of a suborbital dropship. Pick a landing zone or the carrier's hangar, and the ship flies there on its own.
   components:
   - type: ComputerVisuals
