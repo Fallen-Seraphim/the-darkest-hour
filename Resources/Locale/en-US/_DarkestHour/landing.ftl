@@ -29,6 +29,7 @@ dh-landing-land = Land below
 dh-landing-taking-off = Taking off into the atmosphere.
 dh-landing-landing = Landing on {$body}.
 dh-landing-site-blocked = Something is in the way below: move over a clear spot to land.
+dh-landing-site-off-map = There is no charted ground below: this is beyond the edge of the operation area.
 dh-landing-in-transit = The ship is already on its way.
 dh-landing-transit-descent = Entering the atmosphere: {$seconds} s.
 dh-landing-transit-climb = Climbing to orbit: {$seconds} s.

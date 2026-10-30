@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Server._DarkestHour.Assault;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.NodeContainer.EntitySystems;
 using Content.Server.NodeContainer.Nodes;
@@ -45,6 +46,7 @@ public sealed partial class DHLandingSystem : EntitySystem
     [Dependency] private AtmosphereSystem _atmos = default!;
     [Dependency] private BiomeSystem _biome = default!;
     [Dependency] private DHCelestialSystem _celestial = default!;
+    [Dependency] private DHGroundSystem _ground = default!;
     [Dependency] private SharedMapSystem _map = default!;
     [Dependency] private MetaDataSystem _meta = default!;
     [Dependency] private NodeContainerSystem _nodes = default!;
@@ -495,6 +497,13 @@ public sealed partial class DHLandingSystem : EntitySystem
         }
 
         var below = new EntityCoordinates(surfaceMap, ShuttleCenter(shuttle.Value));
+        // Нарисованная вручную поверхность конечна: за её краем садиться некуда.
+        if (!_ground.HasSurfaceAt(surfaceMap, below.Position))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-landing-site-off-map"), ent, PopupType.MediumCaution);
+            return;
+        }
+
         if (!_rift.ExitFree(shuttle.Value, below))
         {
             _popup.PopupEntity(Loc.GetString("dh-landing-site-blocked"), ent, PopupType.MediumCaution);

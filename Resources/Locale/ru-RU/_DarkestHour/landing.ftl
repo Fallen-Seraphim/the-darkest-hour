@@ -29,6 +29,7 @@ dh-landing-land = Сесть
 dh-landing-taking-off = Взлёт в атмосферу.
 dh-landing-landing = Посадка на {$body}.
 dh-landing-site-blocked = Внизу что-то мешает: переместитесь на свободное место, чтобы сесть.
+dh-landing-site-off-map = Внизу нет разведанной местности: это за краем района операции.
 dh-landing-in-transit = Корабль уже в пути.
 dh-landing-transit-descent = Вход в атмосферу: {$seconds} с.
 dh-landing-transit-climb = Подъём на орбиту: {$seconds} с.

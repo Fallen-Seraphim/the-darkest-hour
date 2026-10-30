@@ -10,6 +10,9 @@ using Content.Shared._DarkestHour.Shuttles.Rift;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Gravity;
+using Content.Shared.Light.Components;
+using Content.Shared.Maps;
+using Content.Shared.Parallax.Biomes;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
@@ -52,13 +55,25 @@ public sealed partial class DHPlanetBaseSystem : EntitySystem
 
         var bodyId = ent.Comp.Body;
         var body = system.Bodies.Find(b => b.Id == bodyId);
-        if (body?.Biome == null || !_proto.TryIndex(body.Biome.Value, out var biome))
+        if (body == null)
+        {
+            Log.Error($"{ToPrettyString(ent)}: no body {bodyId} in {system.ID}");
+            return;
+        }
+
+        if (ent.Comp.Mapped)
+        {
+            SetupMappedSurface(ent, map, body);
+        }
+        else if (body.Biome != null && _proto.TryIndex(body.Biome.Value, out var biome))
+        {
+            _biome.EnsurePlanet(map, biome, mapLight: body.SurfaceLight);
+        }
+        else
         {
             Log.Error($"{ToPrettyString(ent)}: body {bodyId} of {system.ID} has no biome");
             return;
         }
-
-        _biome.EnsurePlanet(map, biome, mapLight: body.SurfaceLight);
 
         // Своя атмосфера тела вместо земного воздуха EnsurePlanet.
         if (body.SurfaceGases.Count > 0)
@@ -75,6 +90,7 @@ public sealed partial class DHPlanetBaseSystem : EntitySystem
         _landing.RegisterSurface(system.ID, body.Id, map);
 
         // Готовые зоны посадки челноков: маяки на поверхности, вокруг них биом не ставит камни.
+        // На нарисованной карте маяки стоят на самой карте, а записи здесь (если есть) просто ставят ещё маяки.
         // Сначала грунт (биом ещё не подгружен — без тайла маяк не прикрепится), потом маяк, прикреплённый к грунту
         // планеты: иначе он оказывался не прикреплён и севший сверху челнок уносил его с собой.
         foreach (var (zoneName, position) in ent.Comp.LandingZones)
@@ -88,8 +104,15 @@ public sealed partial class DHPlanetBaseSystem : EntitySystem
         }
 
         // В постройках базы — обычный воздух с самого начала (иначе грид получает пустую атмосферу).
-        FillAir(grid);
+        // Нарисованная поверхность — грид самой карты: весь воздух берётся из атмосферы карты (тысячи тайлов
+        // открытой местности не симулируются).
+        if (grid != map)
+            FillAir(grid);
+
         LoadUnderground(ent, grid, body);
+
+        if (ent.Comp.Mapped)
+            return;
 
         // Под базой биом не спавнит деревья и камни.
         if (TryComp<MapGridComponent>(grid, out var gridComp))
@@ -97,6 +120,35 @@ public sealed partial class DHPlanetBaseSystem : EntitySystem
             var bounds = gridComp.LocalAABB.Translated(_transform.GetWorldPosition(grid)).Enlarged(ent.Comp.ClearMargin);
             _biome.ReserveTiles(map, bounds, new List<(Vector2i Index, Tile Tile)>());
         }
+    }
+
+    /// <summary>
+    /// Нарисованная вручную поверхность: без биома (сохранённый при маппинге — снимается), но с тяжестью, светом,
+    /// сменой дня и ночи и воздухом тела.
+    /// </summary>
+    private void SetupMappedSurface(Entity<DHPlanetBaseComponent> ent, EntityUid map, DHCelestialBody body)
+    {
+        RemComp<BiomeComponent>(map);
+        EnsureComp<MapGridComponent>(map);
+
+        var gravity = EnsureComp<GravityComponent>(map);
+        gravity.Enabled = true;
+        gravity.Inherent = true;
+        Dirty(map, gravity);
+
+        var light = EnsureComp<MapLightComponent>(map);
+        light.AmbientLightColor = body.SurfaceLight;
+        Dirty(map, light);
+
+        EnsureComp<RoofComponent>(map);
+        EnsureComp<LightCycleComponent>(map);
+        EnsureComp<SunShadowComponent>(map);
+        EnsureComp<SunShadowCycleComponent>(map);
+
+        // Воздух тела ставится общим кодом ниже (как и у процедурной планеты).
+        var surface = EnsureComp<DHMappedSurfaceComponent>(map);
+        surface.GroundTile = ent.Comp.GroundTile;
+        surface.GroundTiles = new HashSet<ProtoId<ContentTileDefinition>>(ent.Comp.GroundTiles);
     }
 
     private void FillAir(EntityUid grid)

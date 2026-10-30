@@ -542,7 +542,7 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
             for (var i = 0; i < 12; i++)
             {
                 var offset = i == 0 ? Vector2.Zero : _random.NextAngle().ToVec() * _random.NextFloat(10f, 80f);
-                var coordinates = new EntityCoordinates(below, above + offset);
+                var coordinates = new EntityCoordinates(below, ClampToMappedSurface(below, carrier, above + offset));
                 if (_rift.ExitFree(carrier, coordinates))
                     return coordinates;
             }
@@ -561,13 +561,35 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
             for (var i = 0; i < 12; i++)
             {
                 var offset = _random.NextAngle().ToVec() * _random.NextFloat(90f, 160f);
-                var coordinates = new EntityCoordinates(surface, center + offset);
+                var coordinates = new EntityCoordinates(surface, ClampToMappedSurface(surface, carrier, center + offset));
                 if (_rift.ExitFree(carrier, coordinates))
                     return coordinates;
             }
         }
 
         return null;
+    }
+
+    /// <summary>
+    /// Нарисованная вручную поверхность конечна: за её краем нет грунта. Точку падения прижимаем внутрь карты
+    /// с запасом на размер корабля.
+    /// </summary>
+    private Vector2 ClampToMappedSurface(EntityUid surface, EntityUid ship, Vector2 position)
+    {
+        if (!HasComp<DHMappedSurfaceComponent>(surface) || !TryComp<MapGridComponent>(surface, out var surfaceGrid))
+            return position;
+
+        var margin = 8f;
+        if (TryComp<MapGridComponent>(ship, out var shipGrid))
+            margin += Math.Max(shipGrid.LocalAABB.Width, shipGrid.LocalAABB.Height) / 2f;
+
+        var bounds = surfaceGrid.LocalAABB;
+        if (bounds.Width <= margin * 2f || bounds.Height <= margin * 2f)
+            return bounds.Center;
+
+        return new Vector2(
+            Math.Clamp(position.X, bounds.Left + margin, bounds.Right - margin),
+            Math.Clamp(position.Y, bounds.Bottom + margin, bounds.Top - margin));
     }
 
     /// <summary>Удар о поверхность: взрывы по корпусу, шаттл больше не летает.</summary>
