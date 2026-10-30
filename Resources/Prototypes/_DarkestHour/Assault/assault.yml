@@ -13,6 +13,7 @@
     ears: DHClothingHeadsetAltRepublicCommand
   storage:
     back:
+    - DHPainkillerAutoinjector
     - DHMagazine762x51FMG
     - DHMagazine762x51FMG
     - DHMagazine762x51FMG
@@ -24,17 +25,16 @@
     - DHMotionDetector
 
 - type: startingGear
-  parent: DHRepublicCommanderGear
+  parent: DHRepublicGearBase
   id: DHGarrisonOfficerGear
   equipment:
     id: DHDogtagsGarrisonOfficer
     ears: DHClothingHeadsetAltRepublicCommand
+  inhand:
+  - DHRepublicKitOfficer
   storage:
     back:
-    - DHMagazine762x51FMG
-    - DHMagazine762x51FMG
-    - DHMagazine762x51FMG
-    - DHMagazine762x51EXP
+    - DHPainkillerAutoinjector
     - DHLaserDesignator
     - MedkitCombatFilled
     - DHIFAKFilled
@@ -50,6 +50,7 @@
     suitstorage: DHWeaponSMGRAPTORM1216
   storage:
     back:
+    - DHPainkillerAutoinjector
     - DHMagazine10x24SVP
     - DHMagazine10x24SVP
     - DHMagazine10x24SVP
@@ -65,6 +66,7 @@
     belt: ClothingBeltUtilityEngineering
   storage:
     back:
+    - DHPainkillerAutoinjector
     - DHMagazine556x45FMG
     - DHMagazine556x45FMG
     - DHMagazine556x45FMG
@@ -75,24 +77,31 @@
     - DHIFAKFilled
     - DHFieldRadioJammer
 
-# Остальной гарнизон — снаряжение отряда зачистки, но со своими жетонами.
+# Остальной гарнизон: стрелок, пулемётчик, снайпер и медик выбирают комплект (кейс в руке, как у десанта),
+# огнемётчик — снаряжение отряда зачистки. Жетоны — свои.
 - type: startingGear
-  parent: DHRepublicRiflemanGear
+  parent: DHRepublicGearBase
   id: DHGarrisonRiflemanGear
   equipment:
     id: DHDogtagsGarrisonRifleman
+  inhand:
+  - DHRepublicKitRifleman
 
 - type: startingGear
-  parent: DHRepublicMachinegunnerGear
+  parent: DHRepublicGearBase
   id: DHGarrisonMachinegunnerGear
   equipment:
     id: DHDogtagsGarrisonMachinegunner
+  inhand:
+  - DHRepublicKitMachinegunner
 
 - type: startingGear
-  parent: DHRepublicSniperGear
+  parent: DHRepublicGearBase
   id: DHGarrisonSniperGear
   equipment:
     id: DHDogtagsGarrisonSniper
+  inhand:
+  - DHRepublicKitSniper
 
 - type: startingGear
   parent: DHRepublicFlamerGear
@@ -101,10 +110,283 @@
     id: DHDogtagsGarrisonFlamer
 
 - type: startingGear
-  parent: DHRepublicMedicGear
+  parent: DHRepublicGearBase
   id: DHGarrisonMedicGear
   equipment:
     id: DHDogtagsGarrisonMedic
+    belt: ClothingBeltMilitaryWebbingMedFilled
+  inhand:
+  - DHRepublicKitMedic
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - DHPainBlockerAutoinjector
+    - DHPainBlockerAutoinjector
+    - HandheldHealthAnalyzer
+    - MedkitCombatFilled
+    - Hypospray
+    - Cautery
+    - SawAdvanced
+    - DHIFAKFilled
+    - DHFieldSurgeryKitFilled
+
+# --- Выбор комплекта гарнизона (баланс — по наборам десанта: оружие, патроны, броня РМБ-1, бронеботинки) ---
+
+- type: entity
+  parent: ToolboxThief
+  id: DHRepublicKitRifleman
+  name: Republic rifleman kit selector
+  description: A sealed requisition case of the Republican Army Corps. Open it and choose your loadout; the case turns into the chosen gear.
+  components:
+  - type: Sprite
+    sprite: Objects/Tools/Toolboxes/toolbox_green.rsi
+    state: icon
+  - type: ThiefUndeterminedBackpack
+    maxSelectedSets: 1
+    toolName: dh-republic-kit-window-title
+    toolDesc: dh-republic-kit-window-description
+    possibleSets:
+    - DHRepublicSetRiflemanRifle
+    - DHRepublicSetRiflemanMarksman
+    - DHRepublicSetRiflemanSmg
+
+- type: thiefBackpackSet
+  id: DHRepublicSetRiflemanRifle
+  name: dh-republic-set-rifleman-rifle-name
+  description: dh-republic-set-rifleman-rifle-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/rar_m11_1.rsi
+    state: base
+  content:
+  - DHClothingOuterModularRMB1StandardAutoMed
+  - DHWeaponRifleRARM111
+  - DHMagazine556x45FMG
+  - DHMagazine556x45FMG
+  - DHMagazine556x45FMG
+  - DHMagazine556x45FMG
+  - DHMagazine556x45BB
+  - ExGrenade
+
+- type: thiefBackpackSet
+  id: DHRepublicSetRiflemanMarksman
+  name: dh-republic-set-rifleman-marksman-name
+  description: dh-republic-set-rifleman-marksman-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/rar_m11_2.rsi
+    state: base
+  content:
+  - DHClothingOuterModularRMB1StandardStorage
+  - DHWeaponRifleRARM112
+  - DHMagazine762x51FMG
+  - DHMagazine762x51FMG
+  - DHMagazine762x51FMG
+  - DHMagazine762x51FMG
+
+- type: thiefBackpackSet
+  id: DHRepublicSetRiflemanSmg
+  name: dh-republic-set-rifleman-smg-name
+  description: dh-republic-set-rifleman-smg-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/raptor_m12_16.rsi
+    state: base
+  content:
+  - DHClothingOuterModularRMB1StandardAutoMed
+  - DHWeaponSMGRAPTORM1216
+  - DHMagazine10x24E
+  - DHMagazine10x24E
+  - DHMagazine10x24E
+  - DHMagazine10x24SVP
+  - DHMagazine10x24SVP
+
+- type: entity
+  parent: ToolboxThief
+  id: DHRepublicKitMachinegunner
+  name: Republic machinegunner kit selector
+  description: A sealed requisition case of the Republican Army Corps. Open it and choose your loadout; the case turns into the chosen gear.
+  components:
+  - type: Sprite
+    sprite: Objects/Tools/Toolboxes/toolbox_green.rsi
+    state: icon
+  - type: ThiefUndeterminedBackpack
+    maxSelectedSets: 1
+    toolName: dh-republic-kit-window-title
+    toolDesc: dh-republic-kit-window-description
+    possibleSets:
+    - DHRepublicSetMachinegunnerLight
+    - DHRepublicSetMachinegunnerHeavy
+
+- type: thiefBackpackSet
+  id: DHRepublicSetMachinegunnerLight
+  name: dh-republic-set-machinegunner-light-name
+  description: dh-republic-set-machinegunner-light-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/ramg_m14_1.rsi
+    state: base
+  content:
+  - DHClothingOuterModularRMB1LightAutoMed
+  - DHWeaponLMGRAMGM141
+  - DHMagazineBox556x45FMG
+  - DHMagazineBox556x45FMG
+  - DHMagazineBox556x45FMG
+
+- type: thiefBackpackSet
+  id: DHRepublicSetMachinegunnerHeavy
+  name: dh-republic-set-machinegunner-heavy-name
+  description: dh-republic-set-machinegunner-heavy-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/Emplacements/rspmg_10_54.rsi
+    state: folded
+  content:
+  - DHClothingOuterModularRMB1HeavyAutoMed
+  - DHClothingShoesMagArmoredHeavyRepublic
+  - DHWeaponHMGRSPMG1054
+  - DHMagazineBelt762x51FMG
+  - DHMagazineBelt762x51FMG
+  - DHMagazineBelt762x51FMG
+
+- type: entity
+  parent: ToolboxThief
+  id: DHRepublicKitSniper
+  name: Republic sniper kit selector
+  description: A sealed requisition case of the Republican Army Corps. Open it and choose your loadout; the case turns into the chosen gear.
+  components:
+  - type: Sprite
+    sprite: Objects/Tools/Toolboxes/toolbox_green.rsi
+    state: icon
+  - type: ThiefUndeterminedBackpack
+    maxSelectedSets: 1
+    toolName: dh-republic-kit-window-title
+    toolDesc: dh-republic-kit-window-description
+    possibleSets:
+    - DHRepublicSetSniperAntiMateriel
+    - DHRepublicSetSniperMarksman
+
+- type: thiefBackpackSet
+  id: DHRepublicSetSniperAntiMateriel
+  name: dh-republic-set-sniper-antimateriel-name
+  description: dh-republic-set-sniper-antimateriel-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/rmar_as_m15_18.rsi
+    state: base
+  content:
+  - DHClothingOuterModularRMB1LightAutoMed
+  - DHWeaponSniperRMARASM1518
+  - DHMagazine127x105SVP
+  - DHMagazine127x105SVP
+  - DHMagazine127x105SVP
+  - DHMagazine127x105A
+  - Binoculars
+
+- type: thiefBackpackSet
+  id: DHRepublicSetSniperMarksman
+  name: dh-republic-set-sniper-marksman-name
+  description: dh-republic-set-sniper-marksman-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/rmad_as_m15_17.rsi
+    state: base
+  content:
+  - DHClothingOuterModularRMB1LightAutoMed
+  - DHWeaponRifleRMADASM1517
+  - DHMagazine10x51FMG
+  - DHMagazine10x51FMG
+  - DHMagazine10x51FMG
+  - DHMagazine10x51SVP
+  - DHMagazine10x51SVP
+  - Binoculars
+
+- type: entity
+  parent: ToolboxThief
+  id: DHRepublicKitMedic
+  name: Republic medic kit selector
+  description: A sealed requisition case of the Republican Army Corps. Open it and choose your loadout; the case turns into the chosen gear.
+  components:
+  - type: Sprite
+    sprite: Objects/Tools/Toolboxes/toolbox_green.rsi
+    state: icon
+  - type: ThiefUndeterminedBackpack
+    maxSelectedSets: 1
+    toolName: dh-republic-kit-window-title
+    toolDesc: dh-republic-kit-window-description
+    possibleSets:
+    - DHRepublicSetMedicSmg
+    - DHRepublicSetMedicRifle
+
+- type: thiefBackpackSet
+  id: DHRepublicSetMedicSmg
+  name: dh-republic-set-medic-smg-name
+  description: dh-republic-set-medic-smg-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/raptor_m12_16.rsi
+    state: base
+  content:
+  - DHClothingOuterModularRMB1LightAutoMed
+  - DHWeaponSMGRAPTORM1216
+  - DHMagazine10x24E
+  - DHMagazine10x24E
+  - DHMagazine10x24SVP
+  - DHMagazine10x24SVP
+
+- type: thiefBackpackSet
+  id: DHRepublicSetMedicRifle
+  name: dh-republic-set-medic-rifle-name
+  description: dh-republic-set-medic-rifle-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/rar_m11_1.rsi
+    state: base
+  content:
+  - DHClothingOuterModularRMB1LightAutoMed
+  - DHWeaponRifleRARM111
+  - DHMagazine556x45FMG
+  - DHMagazine556x45FMG
+  - DHMagazine556x45FMG
+  - DHMagazine556x45FMG
+
+- type: entity
+  parent: ToolboxThief
+  id: DHRepublicKitOfficer
+  name: Republic officer kit selector
+  description: A sealed requisition case of the Republican Army Corps. Open it and choose your loadout; the case turns into the chosen gear.
+  components:
+  - type: Sprite
+    sprite: Objects/Tools/Toolboxes/toolbox_green.rsi
+    state: icon
+  - type: ThiefUndeterminedBackpack
+    maxSelectedSets: 1
+    toolName: dh-republic-kit-window-title
+    toolDesc: dh-republic-kit-window-description
+    possibleSets:
+    - DHRepublicSetOfficerRifle
+    - DHRepublicSetOfficerSmg
+
+- type: thiefBackpackSet
+  id: DHRepublicSetOfficerRifle
+  name: dh-republic-set-officer-rifle-name
+  description: dh-republic-set-officer-rifle-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/rar_m11_2.rsi
+    state: base
+  content:
+  - DHClothingOuterModularRMB1Composite
+  - DHWeaponRifleRARM112
+  - DHMagazine762x51FMG
+  - DHMagazine762x51FMG
+  - DHMagazine762x51FMG
+  - DHMagazine762x51EXP
+
+- type: thiefBackpackSet
+  id: DHRepublicSetOfficerSmg
+  name: dh-republic-set-officer-smg-name
+  description: dh-republic-set-officer-smg-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/raptor_m12_16.rsi
+    state: base
+  content:
+  - DHClothingOuterModularRMB1Composite
+  - DHWeaponSMGRAPTORM1216
+  - DHMagazine10x24E
+  - DHMagazine10x24E
+  - DHMagazine10x24SVP
+  - DHMagazine10x24SVP
 
 # Жетоны гарнизона: должность и доступ гарнизона. Ставить именно их — жетоны отряда зачистки при расширенном
 # доступе (мало игроков) перезаписывали должность «командиром отряда зачистки» и снимали доступ командования.
@@ -187,11 +469,12 @@
     back: ClothingBackpackDuffelSyndicate
     ears: ClothingHeadsetAltSyndicate
     gloves: ClothingHandsGlovesCombat
-    shoes: ClothingShoesBootsMagSyndie
+    shoes: DHClothingShoesMagArmoredLightImperial
     id: DHDogtagsImperialRifleman
     pocket1: DHWeaponPistolIMP17
   storage:
     back:
+    - DHPainkillerAutoinjector
     - DHMagazine145x114Std
     - DHMagazine145x114Std
     - DHIFAKFilled
@@ -206,6 +489,7 @@
     outerClothing: DHClothingOuterModularIMB1Composite
   storage:
     back:
+    - DHPainkillerAutoinjector
     - DHMagazine145x114Std
     - DHMagazine145x114Std
     - Binoculars
@@ -223,6 +507,7 @@
   id: DHCarrierArtilleristGear
   storage:
     back:
+    - DHPainkillerAutoinjector
     - DHMagazine145x114Std
     - DHMagazine145x114Std
     - Binoculars
@@ -235,6 +520,7 @@
     belt: ClothingBeltUtilityEngineering
   storage:
     back:
+    - DHPainkillerAutoinjector
     - DHMagazine145x114Std
     - DHMagazine145x114Std
     - DHIFAKFilled

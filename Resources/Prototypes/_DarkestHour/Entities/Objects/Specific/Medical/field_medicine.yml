@@ -99,6 +99,28 @@
       - ReagentId: DHMorphine
         Quantity: 10
 
+# Продвинутый блокатор боли (нейроблокатор): у медиков; в химии — DHNeuroblocker.
+- type: entity
+  parent: ChemicalMedipen
+  id: DHPainBlockerAutoinjector
+  name: pain blocker auto-injector
+  description: A combat-medic auto-injector of neuroblocker. Shuts pain off completely for a short while without slowing you down; do not double the dose.
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Medical/medipen.rsi
+    layers:
+    - state: stimpen
+      map: ["enum.SolutionContainerLayers.Fill"]
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    changeColor: false
+    emptySpriteName: stimpen_empty
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHNeuroblocker
+        Quantity: 10
+
 # Аптечка бойца: у каждого бойца обеих сторон.
 - type: entity
   parent: BaseStorageItem
@@ -115,7 +137,7 @@
   - type: Storage
     maxItemSize: Small
     grid:
-    - 0,0,3,1
+    - 0,0,7,1 # 6 малых (по 2 клетки) + 2 крошечных
   - type: StaticPrice
     price: 80
 
@@ -135,6 +157,7 @@
         - id: DHChestSeal
         - id: DHSplint
         - id: DHPainkillerAutoinjector
+          amount: 2
 
 # Полевой хирургический набор: у медиков обеих сторон.
 - type: entity

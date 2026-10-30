@@ -139,8 +139,15 @@ public sealed partial class DHTraumaSystem : EntitySystem
             return;
 
         var part = GetPart(ent.Comp, category);
+        var maxBefore = MaxOf(ent.Comp, category);
+        var overflow = MathF.Max(0f, part.Brute + brute - maxBefore) - MathF.Max(0f, part.Brute - maxBefore);
         part.Brute += brute;
         part.Burn += burn;
+
+        // Удар по конечности отдаётся в тело (решение автора 2026-10-30): часть урона — в торс и голову, а всё, что
+        // сверх прочности конечности, — почти целиком. Отстрелить руку или ногу без последствий нельзя.
+        if (category != "Torso" && category != "Head")
+            TransferFromLimb(ent, organs, brute, overflow);
 
         var blunt = Get(delta, "Blunt");
         var slash = Get(delta, "Slash");
@@ -191,6 +198,41 @@ public sealed partial class DHTraumaSystem : EntitySystem
         {
             Sever(ent, category, limb);
         }
+    }
+
+    /// <summary>Доля урона конечности, уходящая в тело, и доля урона сверх её прочности.</summary>
+    private const float LimbTransfer = 0.3f;
+    private const float LimbOverflowTransfer = 0.6f;
+
+    /// <summary>
+    /// Перенос урона с конечности на торс (80%) и голову (20%): учёт по частям (общий урон тела уже нанесён) и броски
+    /// травм торса — внутреннее кровотечение и органы.
+    /// </summary>
+    private void TransferFromLimb(Entity<DHTraumaComponent> ent, Dictionary<string, EntityUid> organs, float brute, float overflow)
+    {
+        var amount = (brute - overflow) * LimbTransfer + overflow * LimbOverflowTransfer;
+        if (amount < 1f)
+            return;
+
+        if (organs.ContainsKey("Torso"))
+        {
+            var torsoAmount = amount * 0.8f;
+            var torso = GetPart(ent.Comp, "Torso");
+            torso.Brute += torsoAmount;
+
+            if (torsoAmount >= 8f && _random.Prob(Math.Clamp(torsoAmount * 0.01f, 0f, 0.3f)))
+                torso.InternalBleeding = MathF.Min(2f, torso.InternalBleeding + 0.2f);
+
+            if (torsoAmount >= 10f && DHTraumaConstants.OrgansIn.TryGetValue("Torso", out var inside))
+            {
+                var present = inside.Where(c => organs.ContainsKey(c)).ToList();
+                if (present.Count > 0 && _random.Prob(Math.Clamp(torsoAmount * 0.01f, 0f, 0.3f)))
+                    DamageOrgan(ent, _random.Pick(present), torsoAmount * 0.4f);
+            }
+        }
+
+        if (organs.ContainsKey("Head"))
+            GetPart(ent.Comp, "Head").Brute += amount * 0.2f;
     }
 
     /// <summary>

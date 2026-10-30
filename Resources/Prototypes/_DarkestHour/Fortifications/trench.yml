@@ -1,0 +1,42 @@
+# Окоп (решение автора 2026-10-30): копается лопатой по клетке голой земли (DHTrenchSystem), засыпается лопатой.
+# Соседние окопы соединяются (спрайт — Tools/_DarkestHour/trench/build.py). В окопе медленнее ходить; пули издалека
+# задевают сидящего с шансом 50%, взрыв не в окопе бьёт ×0,35.
+- type: entity
+  id: DHTrench
+  name: trench
+  description: A shallow trench dug into the sand. Hard to hit anyone inside from a distance, and blast fragments mostly fly overhead. Fill it back in with a shovel.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: Sprite
+    sprite: _DarkestHour/Structures/trench.rsi
+    drawdepth: FloorObjects
+  - type: Icon
+    sprite: _DarkestHour/Structures/trench.rsi
+    state: full
+  - type: IconSmooth
+    key: dh_trench
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ dh_trench ]
+      base: trench
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        hard: false
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        layer:
+        - MidImpassable
+  - type: SpeedModifierContacts
+    walkSpeedModifier: 0.75
+    sprintSpeedModifier: 0.75
+  - type: DHTrench
+  - type: PlacementReplacement
+    key: dh_trench

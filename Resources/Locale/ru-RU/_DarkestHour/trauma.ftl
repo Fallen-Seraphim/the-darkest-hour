@@ -84,3 +84,7 @@ dh-tourniquet-desc = наложен жгут ({$minutes} мин)
 dh-tourniquet-desc-necrosis = [color=red]жгут наложен слишком долго ({$minutes} мин), конечность отмирает[/color]
 dh-tourniquet-examine = [color=orange]{CAPITALIZE($target)}: жгут на конечности ({$part}, {$minutes} мин).[/color]
 dh-field-dressing-applied = {CAPITALIZE($user)} накладывает {$item}: {$target}, {$part}.
+reagent-name-dh-tramadex = трамадекс
+reagent-desc-dh-tramadex = Продвинутое обезболивающее: сильнее морфина и не замедляет. Свыше 30 ед. отравляет печень.
+reagent-name-dh-neuroblocker = нейроблокатор
+reagent-desc-dh-neuroblocker = Боевой блокатор боли: полностью отключает боль, раненый остаётся на ногах. Свыше 15 ед. останавливает сердце.

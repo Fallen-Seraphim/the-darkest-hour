@@ -6,7 +6,7 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorDarkGreen
     back: ClothingBackpackMerc
-    shoes: ClothingShoesBootsMagERT
+    shoes: DHClothingShoesMagArmoredLightRepublic
     gloves: ClothingHandsGlovesCombat
     eyes: ClothingEyesHudMedSec
     ears: DHClothingHeadsetAltRepublic
@@ -15,6 +15,7 @@
     pocket2: DoubleEmergencyOxygenTankFilled
   storage:
     back:
+    - DHPainkillerAutoinjector
     - CombatMedipen
     - Handcuffs
     - Handcuffs
@@ -29,6 +30,7 @@
     suitstorage: DHWeaponRifleRARM112
   storage:
     back:
+    - DHPainkillerAutoinjector
     - DHMagazine762x51FMG
     - DHMagazine762x51FMG
     - DHMagazine762x51FMG
@@ -46,6 +48,7 @@
     suitstorage: DHWeaponSniperRMARASM1518
   storage:
     back:
+    - DHPainkillerAutoinjector
     - DHMagazine127x105SVP
     - DHMagazine127x105SVP
     - DHMagazine127x105SVP
@@ -57,11 +60,13 @@
   parent: DHRepublicGearBase
   id: DHRepublicMachinegunnerGear
   equipment:
+    shoes: DHClothingShoesMagArmoredHeavyRepublic
     id: DHDogtagsDHRepublicMachinegunner
     outerClothing: DHClothingOuterModularRMB1HeavyAutoMed
     suitstorage: DHWeaponLMGRAMGM141
   storage:
     back:
+    - DHPainkillerAutoinjector
     - DHMagazineBox556x45FMG
     - DHMagazineBox556x45FMG
     - DHMagazineBox556x45FMG
@@ -76,6 +81,7 @@
     suitstorage: DHWeaponRifleRARM111
   storage:
     back:
+    - DHPainkillerAutoinjector
     - DHMagazine556x45FMG
     - DHMagazine556x45FMG
     - DHMagazine556x45FMG
@@ -94,6 +100,9 @@
     belt: ClothingBeltMilitaryWebbingMedFilled
   storage:
     back:
+    - DHPainkillerAutoinjector
+    - DHPainBlockerAutoinjector
+    - DHPainBlockerAutoinjector
     - DHMagazine10x24SVP
     - DHMagazine10x24SVP
     - DHMagazine10x24SVP
@@ -109,12 +118,14 @@
   parent: DHRepublicGearBase
   id: DHRepublicFlamerGear
   equipment:
+    shoes: DHClothingShoesMagArmoredHeavyRepublic
     id: DHDogtagsDHRepublicFlamer
     outerClothing: DHClothingOuterModularRMB1HeavyTanks
   inhand:
   - DHWeaponFlamerRepublic
   storage:
     back:
+    - DHPainkillerAutoinjector
     - DHFlamerTankNapalm
     - DHFlamerTankNapalm
     - DHFlamerTankNapalm
@@ -137,6 +148,7 @@
     pocket1: DHWarheadPanelKey
   storage:
     back:
+    - DHPainkillerAutoinjector
     - DHWarheadCodePaper
     - CombatKnife
     - DHMagazine762x51FMG

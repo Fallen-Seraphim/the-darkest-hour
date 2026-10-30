@@ -33,6 +33,14 @@ public sealed partial class DHWeaponMountComponent : Component
     [DataField, AutoNetworkedField]
     public bool Deployed;
 
+    /// <summary>Пулемётное гнездо: станок стоит в окопе или на мешках (или стрелок в окопе) — разброс меньше.</summary>
+    [DataField, AutoNetworkedField]
+    public bool Nested;
+
+    /// <summary>Множитель разброса и отдачи в гнезде.</summary>
+    [DataField]
+    public float NestSpreadMultiplier = 0.6f;
+
     [DataField]
     public TimeSpan DeployDelay = TimeSpan.FromSeconds(2);
 

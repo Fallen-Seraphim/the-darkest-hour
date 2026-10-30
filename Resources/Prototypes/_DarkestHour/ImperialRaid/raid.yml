@@ -260,12 +260,13 @@
     eyes: ClothingEyesHudSyndicate
     ears: ClothingHeadsetAltSyndicate
     gloves: ClothingHandsGlovesCombat
-    shoes: ClothingShoesBootsMagSyndie
+    shoes: DHClothingShoesMagArmoredLightImperial
     id: DHDogtagsImperialRifleman
     belt: ClothingBeltMilitaryWebbing
     pocket1: CombatKnife
   storage:
     back:
+    - DHPainkillerAutoinjector
     - PinpointerSyndicateNuclear
     - CombatMedipen
     - DHIFAKFilled
@@ -281,6 +282,7 @@
     suitstorage: DHWeaponPistolIMP17
   storage:
     back:
+    - DHPainkillerAutoinjector
     - DHMagazine145x114Std
     - DHMagazine145x114Std
     - DHMagazine145x114Std
@@ -311,6 +313,9 @@
   - DHImperialKitFieldMedic
   storage:
     back:
+    - DHPainkillerAutoinjector
+    - DHPainBlockerAutoinjector
+    - DHPainBlockerAutoinjector
     - PinpointerSyndicateNuclear
     - SyndiHypo
     - HandheldHealthAnalyzer
@@ -485,6 +490,7 @@
     state: folded
   content:
   - DHClothingOuterModularIMB1HeavyAutoMed
+  - DHClothingShoesMagArmoredHeavyImperial
   - DHWeaponHMGIHMG17
   - DHMagazineBelt145x114Std
   - DHMagazineBelt145x114Std

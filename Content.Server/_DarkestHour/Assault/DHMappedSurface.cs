@@ -32,23 +32,29 @@ public sealed partial class DHGroundSystem : EntitySystem
     [Dependency] private SharedMapSystem _map = default!;
     [Dependency] private ITileDefinitionManager _tileDef = default!;
     [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
 
     /// <summary>Стоит на голой земле планеты, а не на полу постройки или палубе.</summary>
     public bool OnGround(EntityUid uid)
     {
-        var xform = Transform(uid);
-        if (xform.GridUid is not { } grid)
+        return IsGroundAt(Transform(uid).Coordinates);
+    }
+
+    /// <summary>Голая земля планеты в точке: грунт биома или тайл грунта нарисованной поверхности.</summary>
+    public bool IsGroundAt(EntityCoordinates coordinates)
+    {
+        if (_transform.GetGrid(coordinates) is not { } grid || !TryComp<MapGridComponent>(grid, out var gridComp))
+            return false;
+
+        var tile = _map.GetTileRef(grid, gridComp, coordinates);
+        if (tile.Tile.IsEmpty)
             return false;
 
         // Процедурная планета: вся сетка карты — грунт биома.
         if (HasComp<BiomeComponent>(grid))
             return true;
 
-        if (!TryComp<DHMappedSurfaceComponent>(grid, out var surface) || !TryComp<MapGridComponent>(grid, out var gridComp))
-            return false;
-
-        var tile = _map.GetTileRef(grid, gridComp, xform.Coordinates);
-        if (tile.Tile.IsEmpty)
+        if (!TryComp<DHMappedSurfaceComponent>(grid, out var surface))
             return false;
 
         var def = (ContentTileDefinition) _tileDef[tile.Tile.TypeId];

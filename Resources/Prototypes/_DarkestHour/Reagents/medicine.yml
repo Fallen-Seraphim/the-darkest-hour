@@ -212,3 +212,53 @@
         damage:
           types:
             Poison: 1
+
+# Продвинутые блокаторы боли (решение автора 2026-10-30).
+- type: reagent
+  id: DHTramadex
+  name: reagent-name-dh-tramadex
+  group: Medicine
+  desc: reagent-desc-dh-tramadex
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: bitter
+  color: "#c9d8f2"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.25
+      effects:
+      - !type:DHSuppressPain
+        amount: 100
+        duration: 4
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHTramadex
+          min: 30
+        damage:
+          types:
+            Poison: 1.5
+
+- type: reagent
+  id: DHNeuroblocker
+  name: reagent-name-dh-neuroblocker
+  group: Medicine
+  desc: reagent-desc-dh-neuroblocker
+  physicalDesc: reagent-physical-desc-glowing
+  flavor: medicine
+  color: "#7fe0ff"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.4
+      effects:
+      - !type:DHSuppressPain
+        amount: 250
+        duration: 4
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHNeuroblocker
+          min: 15
+        damage:
+          types:
+            Asphyxiation: 3
+            Poison: 1

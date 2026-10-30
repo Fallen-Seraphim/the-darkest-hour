@@ -65,6 +65,7 @@ PRESETS = {
         'Composite': ('Composite', 'Composite', 'Composite', None),
         'CompositeAutoMed': ('Composite', 'Composite', 'Composite', 'DHArmorSpecialAutoMed'),
         'StandardAutoMed': ('Composite', 'Light', 'Light', 'DHArmorSpecialAutoMed'),
+        'StandardStorage': ('Composite', 'Light', 'Light', 'DHArmorSpecialStorage'),
         'LightAutoMed': ('Light', 'Light', 'Light', 'DHArmorSpecialAutoMed'),
         'HeavyAutoMed': ('Heavy', 'Heavy', 'Heavy', 'DHArmorSpecialAutoMed'),
         'HeavyTanks': ('Heavy', 'Heavy', 'Heavy', 'DHArmorSpecialTankStorage'),

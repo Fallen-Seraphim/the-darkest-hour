@@ -84,3 +84,7 @@ dh-tourniquet-desc = tourniquet on ({$minutes} min)
 dh-tourniquet-desc-necrosis = [color=red]tourniquet on too long ({$minutes} min), the limb is dying[/color]
 dh-tourniquet-examine = [color=orange]{CAPITALIZE(SUBJECT($target))} has a tourniquet on the {$part} ({$minutes} min).[/color]
 dh-field-dressing-applied = {CAPITALIZE(THE($user))} applies {THE($item)} to {POSS-ADJ($target)} {$part}.
+reagent-name-dh-tramadex = tramadex
+reagent-desc-dh-tramadex = An advanced painkiller: stronger than morphine and does not slow you down. Above 30u it poisons the liver.
+reagent-name-dh-neuroblocker = neuroblocker
+reagent-desc-dh-neuroblocker = A combat pain blocker: shuts pain off completely, keeping a wounded soldier on their feet. Above 15u it stops the heart.

@@ -41,6 +41,7 @@ public sealed partial class DHModularArmorDamageSystem : EntitySystem
 
     private static readonly HashSet<ProtoId<DamageTypePrototype>> PhysicalTypes = new() { "Blunt", "Slash", "Piercing" };
     private static readonly ProtoId<DamageTypePrototype> BluntType = "Blunt";
+    private static readonly string[] PartArmorSlots = { "head", "shoes" };
 
     /// <summary>Цели, чей урон в этом тике уже посчитан по классам брони (попадание пули).</summary>
     private readonly Dictionary<EntityUid, GameTick> _bulletHandled = new();
@@ -81,9 +82,15 @@ public sealed partial class DHModularArmorDamageSystem : EntitySystem
             }
         }
 
-        if (_inventory.TryGetSlotEntity(target, "head", out var helmet) &&
-            TryComp<DHPartArmorComponent>(helmet, out var partArmor))
+        // Шлем (голова) и бронеботинки (стопы).
+        foreach (var slotId in PartArmorSlots)
         {
+            if (!_inventory.TryGetSlotEntity(target, slotId, out var item) ||
+                !TryComp<DHPartArmorComponent>(item, out var partArmor))
+            {
+                continue;
+            }
+
             any = true;
             if (partArmor.Parts.Contains(part))
                 level = Math.Max(level, partArmor.ArmorClass);
