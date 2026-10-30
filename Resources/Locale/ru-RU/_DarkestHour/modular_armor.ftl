@@ -11,7 +11,8 @@ dh-armor-verb-remove = Снять: { $module }
 dh-armor-examine-module = { CAPITALIZE($module) }: { $percent }%
 dh-armor-examine-special = Особая система: { $module }
 dh-armor-examine-empty = Модулей брони нет.
-dh-armor-module-examine-class = Класс: { $class }.
+dh-armor-module-examine-class = Класс защиты: { $level } ({ $class }).
+dh-armor-part-examine-class = Класс защиты: { $level }.
 dh-armor-module-examine-integrity = Целостность: { $percent }%.
 dh-armor-module-examine-broken = [color=red]Сломан[/color] — заварите, чтобы починить.
 dh-armor-class-light = лёгкий

@@ -20,27 +20,23 @@ FACTIONS = {
                  helmet_desc='The RMB-1 helmet: a khaki combat helmet over a twin-filter gas mask. Seals the suit.'),
 }
 
-# «Штурм» (решение автора 2026-10-24): урон оружия −25%, резисты брони выше — защита модулей и шлема ×1.25
-# (коэффициент урона = 1 − (1 − база) × RESIST_BOOST, не ниже 0.25).
-RESIST_BOOST = 1.25
-
-
-def boost(c):
-    return round(max(0.25, 1 - (1 - c) * RESIST_BOOST), 2)
-
-
-# class: (name, base coefficients — boosted on output, speed per module, integrity, swap note)
+# Классы брони (решение автора 2026-10-30): без брони 0, композитный 1, лёгкий 2, тяжёлый 3. Резистов у модулей нет:
+# пуля с классом бронепробития не ниже класса модуля проходит полностью, иначе — 15% тупым уроном (заброневая травма);
+# холодное оружие и взрывы — ×0,5 физического урона. Логика — DHModularArmorDamageSystem.
+# class: (name, speed per module, integrity)
 CLASSES = {
-    'Light': ('light', dict(Blunt=0.8, Slash=0.8, Piercing=0.8, Heat=0.85), 0.99, 100),
-    'Heavy': ('heavy', dict(Blunt=0.45, Slash=0.45, Piercing=0.45, Heat=0.7, Caustic=0.8), 0.95, 260),
-    'Composite': ('composite', dict(Blunt=0.6, Slash=0.6, Piercing=0.55, Heat=0.55, Caustic=0.7), 0.98, 170),
+    'Light': ('light', 0.99, 100),
+    'Heavy': ('heavy', 0.95, 260),
+    'Composite': ('composite', 0.98, 170),
 }
+HELMET_CLASS = 1
 CLASS_DESC = {
-    'Light': 'A light armour module: thin plates, barely slows you down. Can be swapped in the field.',
-    'Heavy': 'A heavy armour module: thick plates that stop rifle rounds but weigh you down. Can only be fitted or '
-             'removed at an armour maintenance rack.',
-    'Composite': 'A composite armour module: layered plates, good against fire and bullets alike, light enough to '
-                 'swap in the field.',
+    'Light': 'A light armour module, protection class 2: stops ordinary rounds, barely slows you down. Can be swapped '
+             'in the field.',
+    'Heavy': 'A heavy armour module, protection class 3: only the heaviest armour-piercing rounds get through, but it '
+             'weighs you down. Can only be fitted or removed at an armour maintenance rack.',
+    'Composite': 'A composite armour module, protection class 1: layered plates that stop only the weakest rounds, '
+                 'light enough to swap in the field.',
 }
 
 # slot: (enum, part state, item name, torso integrity multiplier)
@@ -105,13 +101,10 @@ def gen(f):
     lowPressureMultiplier: 1000
   - type: ExplosionResistance
     damageCoefficient: 0.8
+  # Физическую защиту дают только модули (классы брони); корпус — от радиации и кислоты.
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.95
-        Slash: 0.95
-        Piercing: 0.95
-        Heat: 0.9
         Radiation: 0.6
         Caustic: 0.6
   - type: ClothingSpeedModifier
@@ -162,18 +155,12 @@ def gen(f):
         Radiation: 1
   - type: DHPartArmor
     parts: [ Head ]
-    modifiers:
-      coefficients:
-        Blunt: %(helmet_kinetic)s
-        Slash: %(helmet_kinetic)s
-        Piercing: %(helmet_kinetic)s
-        Heat: %(helmet_heat)s
-''' % dict(F, f=f, outer=outer, helmet_kinetic=boost(0.6), helmet_heat=boost(0.7)))
+    armorClass: %(helmet_class)s
+''' % dict(F, f=f, outer=outer, helmet_class=HELMET_CLASS))
 
-    for cls, (cname, coef, speed, integrity) in CLASSES.items():
+    for cls, (cname, speed, integrity) in CLASSES.items():
         for slot, (enum, state, iname, mult) in SLOTS.items():
             hp = int(integrity * mult)
-            coefs = '\n'.join('        %s: %s' % (k, boost(v)) for k, v in coef.items())
             out.append('''
 - type: entity
   parent: [ BaseItem, %(contra)s ]
@@ -195,14 +182,11 @@ def gen(f):
     integrity: %(hp)s
     equippedRsi: %(outer)s/%(f)s_%(cname)s.rsi
     equippedState: %(state)s
-    modifiers:
-      coefficients:
-%(coefs)s
   - type: StaticPrice
     price: %(price)s
 ''' % dict(F, mid=module_id(f, cls, slot), cname=cname, iname=iname, desc=CLASS_DESC[cls], outer=outer, f=f,
                 state=state, size='Large' if cls == 'Heavy' else 'Normal', enum=enum, cls=cls, speed=speed, hp=hp,
-                coefs=coefs, price={'Light': 300, 'Composite': 700, 'Heavy': 900}[cls]))
+                price={'Light': 300, 'Composite': 700, 'Heavy': 900}[cls]))
 
     for preset, (torso, arms, legs, special) in PRESETS[f].items():
         lines = [

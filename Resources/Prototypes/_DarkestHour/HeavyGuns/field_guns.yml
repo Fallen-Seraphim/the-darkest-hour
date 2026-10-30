@@ -200,6 +200,8 @@
   id: DHFieldShellFlightHE
   name: HE shell
   components:
+  - type: DHBallistics
+    penetrationClass: 3
   - type: Projectile
     damage:
       types:
@@ -212,6 +214,8 @@
   id: DHFieldShellFlightIncendiary
   name: incendiary shell
   components:
+  - type: DHBallistics
+    penetrationClass: 3
   - type: Projectile
     damage:
       types:
@@ -224,6 +228,8 @@
   id: DHFieldShellFlightAPFSDS
   name: APFSDS dart
   components:
+  - type: DHBallistics
+    penetrationClass: 3
   - type: Projectile
     damage:
       types:

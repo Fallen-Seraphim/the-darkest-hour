@@ -6,6 +6,8 @@
   name: "bullet (5.56x45mm FMG)"
   categories: [ HideSpawnMenu ]
   components:
+  - type: DHBallistics
+    penetrationClass: 1
   - type: Projectile
     damage:
       types:
@@ -21,6 +23,7 @@
       types:
         Piercing: 20.2
   - type: DHBallistics
+    penetrationClass: 2
     armorPenetration: 0.45
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -35,6 +38,7 @@
       types:
         Piercing: 33.8
   - type: DHBallistics
+    penetrationClass: 0
     armorPenetration: 0.0
     unarmoredMultiplier: 1.35
     armoredMultiplier: 0.6
@@ -44,6 +48,8 @@
   name: "bullet (5.56x45mm E+)"
   categories: [ HideSpawnMenu ]
   components:
+  - type: DHBallistics
+    penetrationClass: 1
   - type: Projectile
     damage:
       types:
@@ -60,6 +66,7 @@
         Piercing: 23.6
         Radiation: 3.4
   - type: DHBallistics
+    penetrationClass: 2
     armorPenetration: 0.55
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -74,6 +81,7 @@
       types:
         Piercing: 33.8
   - type: DHBallistics
+    penetrationClass: 0
     armorPenetration: 0.0
     unarmoredMultiplier: 1.35
     armoredMultiplier: 0.6
@@ -88,6 +96,7 @@
       types:
         Piercing: 29.2
   - type: DHBallistics
+    penetrationClass: 1
     armorPenetration: 0.25
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -387,6 +396,8 @@
   name: "bullet (7.62x51mm FMG)"
   categories: [ HideSpawnMenu ]
   components:
+  - type: DHBallistics
+    penetrationClass: 1
   - type: Projectile
     damage:
       types:
@@ -402,6 +413,7 @@
       types:
         Piercing: 33.8
   - type: DHBallistics
+    penetrationClass: 2
     armorPenetration: 0.5
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -416,6 +428,7 @@
       types:
         Piercing: 41.6
   - type: DHBallistics
+    penetrationClass: 0
     armorPenetration: 0.0
     unarmoredMultiplier: 1.35
     armoredMultiplier: 0.6
@@ -431,6 +444,7 @@
         Piercing: 37.1
         Radiation: 4.5
   - type: DHBallistics
+    penetrationClass: 3
     armorPenetration: 0.6
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -445,6 +459,7 @@
       types:
         Piercing: 41.6
   - type: DHBallistics
+    penetrationClass: 0
     armorPenetration: 0.0
     unarmoredMultiplier: 1.35
     armoredMultiplier: 0.6
@@ -459,6 +474,7 @@
       types:
         Piercing: 45
   - type: DHBallistics
+    penetrationClass: 1
     armorPenetration: 0.3
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -723,6 +739,7 @@
       types:
         Piercing: 36
   - type: DHBallistics
+    penetrationClass: 2
     armorPenetration: 0.35
     unarmoredMultiplier: 1.2
     armoredMultiplier: 1.0
@@ -732,6 +749,8 @@
   name: "bullet (9x51mm FMG)"
   categories: [ HideSpawnMenu ]
   components:
+  - type: DHBallistics
+    penetrationClass: 1
   - type: Projectile
     damage:
       types:
@@ -742,6 +761,8 @@
   name: "bullet (9x51mm DZ)"
   categories: [ HideSpawnMenu ]
   components:
+  - type: DHBallistics
+    penetrationClass: 1
   - type: Projectile
     damage:
       types:
@@ -882,6 +903,8 @@
   name: "bullet (7.62x39mm FMG)"
   categories: [ HideSpawnMenu ]
   components:
+  - type: DHBallistics
+    penetrationClass: 1
   - type: Projectile
     damage:
       types:
@@ -897,6 +920,7 @@
       types:
         Piercing: 22.5
   - type: DHBallistics
+    penetrationClass: 2
     armorPenetration: 0.45
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -911,6 +935,7 @@
       types:
         Piercing: 39.4
   - type: DHBallistics
+    penetrationClass: 0
     armorPenetration: 0.0
     unarmoredMultiplier: 1.35
     armoredMultiplier: 0.6
@@ -926,6 +951,7 @@
         Piercing: 25.9
         Radiation: 3.4
   - type: DHBallistics
+    penetrationClass: 2
     armorPenetration: 0.55
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -940,6 +966,7 @@
       types:
         Piercing: 39.4
   - type: DHBallistics
+    penetrationClass: 0
     armorPenetration: 0.0
     unarmoredMultiplier: 1.35
     armoredMultiplier: 0.6
@@ -954,6 +981,7 @@
       types:
         Piercing: 31.5
   - type: DHBallistics
+    penetrationClass: 1
     armorPenetration: 0.25
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -1218,6 +1246,7 @@
       types:
         Piercing: 27
   - type: DHBallistics
+    penetrationClass: 3
     armorPenetration: 0.6
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -1232,6 +1261,7 @@
       types:
         Piercing: 31.5
   - type: DHBallistics
+    penetrationClass: 0
     armorPenetration: 0.0
     unarmoredMultiplier: 1.35
     armoredMultiplier: 0.6
@@ -1344,6 +1374,7 @@
       types:
         Piercing: 42.8
   - type: DHBallistics
+    penetrationClass: 3
     armorPenetration: 0.6
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -1353,6 +1384,8 @@
   name: "bullet (10x51mm FMG)"
   categories: [ HideSpawnMenu ]
   components:
+  - type: DHBallistics
+    penetrationClass: 1
   - type: Projectile
     damage:
       types:
@@ -1459,6 +1492,7 @@
         Piercing: 54
     penetrationThreshold: 67.5
   - type: DHBallistics
+    penetrationClass: 3
     armorPenetration: 0.8
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -1475,6 +1509,7 @@
         Structural: 45
     penetrationThreshold: 123.8
   - type: DHBallistics
+    penetrationClass: 3
     armorPenetration: 1.0
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -1588,6 +1623,7 @@
         Structural: 168.8
     penetrationThreshold: 450
   - type: DHBallistics
+    penetrationClass: 3
     armorPenetration: 0.7
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -1603,6 +1639,7 @@
         Piercing: 106.9
         Structural: 112.5
   - type: DHBallistics
+    penetrationClass: 2
     armorPenetration: 0.4
     unarmoredMultiplier: 1.2
     armoredMultiplier: 1.0
@@ -1612,6 +1649,8 @@
   name: "bullet (12.7x105mm FMG)"
   categories: [ HideSpawnMenu ]
   components:
+  - type: DHBallistics
+    penetrationClass: 2
   - type: Projectile
     damage:
       types:
@@ -1629,6 +1668,7 @@
         Piercing: 84.4
         Structural: 135
   - type: DHBallistics
+    penetrationClass: 3
     armorPenetration: 0.6
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -1645,6 +1685,7 @@
         Radiation: 6.8
         Structural: 135
   - type: DHBallistics
+    penetrationClass: 3
     armorPenetration: 0.7
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -1660,6 +1701,7 @@
         Piercing: 106.9
         Structural: 67.5
   - type: DHBallistics
+    penetrationClass: 0
     armorPenetration: 0.0
     unarmoredMultiplier: 1.35
     armoredMultiplier: 0.6
@@ -1676,6 +1718,7 @@
         Structural: 168.8
     penetrationThreshold: 337.5
   - type: DHBallistics
+    penetrationClass: 2
     armorPenetration: 0.5
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -1974,6 +2017,7 @@
       types:
         Piercing: 50.6
   - type: DHBallistics
+    penetrationClass: 1
     armorPenetration: 0.15
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -1988,6 +2032,7 @@
       types:
         Piercing: 42.8
   - type: DHBallistics
+    penetrationClass: 2
     armorPenetration: 0.55
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -1997,6 +2042,8 @@
   name: "bullet (8.42x54mm Imp ImpZ)"
   categories: [ HideSpawnMenu ]
   components:
+  - type: DHBallistics
+    penetrationClass: 1
   - type: Projectile
     damage:
       types:
@@ -2157,6 +2204,7 @@
       types:
         Piercing: 31.5
   - type: DHBallistics
+    penetrationClass: 1
     armorPenetration: 0.1
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -2229,6 +2277,7 @@
         Piercing: 90
         Structural: 168.8
   - type: DHBallistics
+    penetrationClass: 2
     armorPenetration: 0.5
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -2288,6 +2337,8 @@
   name: "bullet (14 gauge buckshot)"
   categories: [ HideSpawnMenu ]
   components:
+  - type: DHBallistics
+    penetrationClass: 0
   - type: Projectile
     damage:
       types:
@@ -2313,6 +2364,7 @@
         Piercing: 11.2
         Structural: 11.2
   - type: DHBallistics
+    penetrationClass: 2
     armorPenetration: 0.5
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -2336,6 +2388,7 @@
         Piercing: 78.8
         Structural: 225
   - type: DHBallistics
+    penetrationClass: 2
     armorPenetration: 0.4
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
@@ -2491,6 +2544,7 @@
         Structural: 337.5
     penetrationThreshold: 675
   - type: DHBallistics
+    penetrationClass: 3
     armorPenetration: 0.85
     unarmoredMultiplier: 1.0
     armoredMultiplier: 1.0
