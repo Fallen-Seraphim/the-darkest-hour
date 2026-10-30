@@ -287,7 +287,6 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             args.PushMarkup(Loc.GetString("dh-interceptor-examine", ("ammo", ent.Comp.Ammo), ("max", ent.Comp.MaxAmmo)));
     }
 
-    /// <summary>ПВО, прикрывающие удар: на гриде-цели (корабль) или в радиусе от точки удара (поверхность).</summary>
     /// <summary>ПВО, запитанная от зоны захвата (АЭС), молчит, пока зона не у своей стороны.</summary>
     private bool Unpowered(EntityUid uid)
     {
@@ -295,6 +294,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
                powered.Disabled;
     }
 
+    /// <summary>ПВО, прикрывающие удар: на гриде-цели (корабль) или в радиусе от точки удара (поверхность).</summary>
     private List<Entity<DHInterceptorComponent>> Defenders(Strike strike)
     {
         var result = new List<Entity<DHInterceptorComponent>>();

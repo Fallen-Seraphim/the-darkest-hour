@@ -1,4 +1,4 @@
-# Местность нарисованных вручную планет (DHPlanetBase mapped: true).
+# Местность нарисованных вручную планет (DHPlanetBase mapped: true): край карты, вода, ЛЭП и подстанция, фонари от сети АЭС.
 
 # Край района операции: неразрушимый песчаник по границе карты. Ставится и обновляется скриптом
 # Tools/_DarkestHour/planet_map/prepare.py — вручную не расставлять.
@@ -23,3 +23,194 @@
       mask: [ stone, doors ]
       base: stone
       index: 0
+
+# --- Вода ---
+# Своя вода без раствора и регенерации (на карте её тысячи клеток), сглаживается вместе с обычной.
+
+- type: entity
+  abstract: true
+  id: DHWaterBase
+  name: water
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wall
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: Sprite
+    sprite: Tiles/TileEntities/liquid-water.rsi
+    drawdepth: BelowFloor
+  - type: IconSmooth
+    key: water
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ water, walls ]
+      base: water
+  - type: Physics
+    bodyType: Static
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: FootstepWater
+      params:
+        volume: 8
+  - type: PlacementReplacement
+    key: tileOverlay
+
+- type: entity
+  parent: DHWaterBase
+  id: DHWaterShallow
+  name: shallow water
+  description: Knee-deep water. Wading through it is slow.
+  components:
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        layer:
+        - SlipLayer
+        mask:
+        - ItemMask
+        density: 1000
+        hard: false
+  - type: SpeedModifierContacts
+    walkSpeedModifier: 0.5
+    sprintSpeedModifier: 0.5
+  - type: DHTacticalTerrain
+    kind: Water
+
+- type: entity
+  parent: DHWaterBase
+  id: DHWaterDeep
+  name: deep water
+  description: Too deep and cold to cross on foot. Bullets fly over it just fine.
+  components:
+  - type: Sprite
+    color: "#6f8fb4"
+  - type: Fixtures
+    fixtures:
+      # Как стол: люди не проходят, пули и брошенные вещи пролетают.
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        layer:
+        - MidImpassable
+        - LowImpassable
+        density: 1000
+  - type: DHTacticalTerrain
+    kind: DeepWater
+
+# --- ЛЭП и подстанция (декор) ---
+
+- type: entity
+  parent: BaseStructure
+  id: DHPowerPylon
+  name: power line pylon
+  description: A lattice steel pylon carrying high-voltage lines from the power plant.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Power/power_line.rsi
+    state: pylon
+    offset: 0,1
+    drawdepth: LargeObjects
+    noRot: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.35,-0.45,0.35,0.3"
+        density: 500
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+  - type: InteractionOutline
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1500
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          PartRodMetal1:
+            min: 4
+            max: 8
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  id: DHPowerLineWire
+  name: high-voltage line
+  description: Overhead high-voltage wires. Best not to touch.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Power/power_line_wire.rsi
+    state: wire
+    drawdepth: Overdoors
+  - type: Icon
+    sprite: _DarkestHour/Structures/Power/power_line_wire.rsi
+    state: icon
+
+- type: entity
+  parent: BaseStructure
+  id: DHPowerTransformer
+  name: power transformer
+  description: A huge oil-filled step-down transformer. It hums with barely contained power.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Power/transformer.rsi
+    state: transformer
+    drawdepth: LargeObjects
+    noRot: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.45,-1.45,1.45,1.3"
+        density: 2000
+        mask:
+        - MachineMask
+        layer:
+        - WallLayer
+  - type: InteractionOutline
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 3000
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: AmbientSound
+    volume: -6
+    range: 6
+    sound:
+      path: /Audio/Ambience/Objects/emf_buzz.ogg
+
+# --- Фонари от сети АЭС ---
+
+- type: entity
+  parent: LightPostSmall
+  id: DHLightPostGrid
+  name: post light
+  suffix: NPP grid
+  description: A street light fed by the power plant grid. Goes dark when the plant is lost.
+  components:
+  - type: DHControlPointPowered
+    point: npp
