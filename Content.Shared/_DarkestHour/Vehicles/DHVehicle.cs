@@ -63,6 +63,15 @@ public sealed partial class DHVehicleComponent : Component
     [DataField, AutoNetworkedField]
     public int TurretQuarter;
 
+    /// <summary>
+    /// Корпус — статичная дочерняя сущность с хитбоксом машины, о которую упираются люди (см. серверную систему).
+    /// </summary>
+    [DataField]
+    public EntProtoId? Hull;
+
+    [ViewVariables]
+    public EntityUid? HullEntity;
+
     /// <summary>Остов, который остаётся на месте уничтоженной машины.</summary>
     [DataField]
     public EntProtoId? Wreck;
