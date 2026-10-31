@@ -36,7 +36,7 @@ dh-landing-transit-climb = Подъём на орбиту: {$seconds} с.
 dh-landing-transit-land = Посадка: {$seconds} с.
 dh-landing-transit-take-off = Взлёт: {$seconds} с.
 
-dh-paradrop-jump = Вы прыгаете — парашют раскрывается!
+dh-paradrop-jump = Вы прыгаете за борт!
 dh-paradrop-landed = Вы приземляетесь на парашюте.
 
 dh-drop-beacon-on = Маяк включён: парашютисты приземлятся рядом с ним.

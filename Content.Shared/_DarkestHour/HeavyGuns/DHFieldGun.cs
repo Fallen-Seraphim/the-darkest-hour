@@ -128,10 +128,18 @@ public sealed partial class DHTowingComponent : Component
     public float Modifier = 1f;
 }
 
-/// <summary>Падает с парашютом, если оказался за бортом корабля в атмосфере (как бойцы и вещи).</summary>
-[RegisterComponent]
+/// <summary>
+/// Груз, который сбрасывают с корабля в атмосфере: падает, если оказался за бортом. Садится, только если к нему
+/// прицеплено не меньше <see cref="RequiredParachutes"/> парашютов, иначе разбивается.
+/// </summary>
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class DHParadroppableComponent : Component
 {
+    [DataField]
+    public int RequiredParachutes = 1;
+
+    [DataField, AutoNetworkedField]
+    public int Parachutes;
 }
 
 public static class DHFieldGunBallistics

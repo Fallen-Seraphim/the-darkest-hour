@@ -58,6 +58,7 @@
     caliber: 75
     towSpeed: 0.6
   - type: DHParadroppable
+    requiredParachutes: 3
 
 - type: entity
   parent: DHFieldGunBase

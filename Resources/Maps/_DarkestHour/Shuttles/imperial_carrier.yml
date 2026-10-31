@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/22/2026 21:38:24
-  entityCount: 787
+  entityCount: 788
 maps: []
 grids:
 - 1
@@ -4790,6 +4790,13 @@ entities:
     components:
     - type: Transform
       pos: -4.5,-21.5
+      parent: 1
+- proto: DHCrateParachutes
+  entities:
+  - uid: 794
+    components:
+    - type: Transform
+      pos: -0.5,-21.5
       parent: 1
 - proto: DHCrateMortar
   entities:
