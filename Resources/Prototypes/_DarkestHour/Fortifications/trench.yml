@@ -1,6 +1,7 @@
 # Окоп (решение автора 2026-10-30): копается лопатой по клетке голой земли (DHTrenchSystem), засыпается лопатой.
 # Соседние окопы соединяются (спрайт — Tools/_DarkestHour/trench/build.py). В окопе медленнее ходить; пули издалека
-# задевают сидящего с шансом 50%, взрыв не в окопе бьёт ×0,35.
+# задевают сидящего с шансом 50%, взрыв не в окопе бьёт ×0,35. Спуск/подъём через бруствер — 1 с почти на месте.
+# Получив 120 урона (взрывы), окоп осыпается — DHTrenchDamaged; лопатой его расчищают обратно.
 - type: entity
   id: DHTrench
   name: trench
@@ -40,5 +41,53 @@
     walkSpeedModifier: 0.75
     sprintSpeedModifier: 0.75
   - type: DHTrench
+  - type: PlacementReplacement
+    key: dh_trench
+  # Прямые попадания снарядов и взрывы осыпают стенки: окоп становится повреждённым (наполовину засыпанным).
+  - type: Damageable
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 120
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          DHTrenchDamaged:
+            min: 1
+            max: 1
+        offset: 0
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  id: DHTrenchDamaged
+  name: collapsed trench
+  description: A trench half filled in by a nearby blast. No cover in it until someone digs it out again with a shovel.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: Sprite
+    sprite: _DarkestHour/Structures/trench.rsi
+    state: damaged
+    drawdepth: FloorObjects
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        hard: false
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        layer:
+        - MidImpassable
+  - type: SpeedModifierContacts
+    walkSpeedModifier: 0.85
+    sprintSpeedModifier: 0.85
+  - type: DHDamagedTrench
   - type: PlacementReplacement
     key: dh_trench

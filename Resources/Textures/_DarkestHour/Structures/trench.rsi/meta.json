@@ -11,6 +11,9 @@
             "name": "full"
         },
         {
+            "name": "damaged"
+        },
+        {
             "name": "trench0",
             "directions": 4
         },

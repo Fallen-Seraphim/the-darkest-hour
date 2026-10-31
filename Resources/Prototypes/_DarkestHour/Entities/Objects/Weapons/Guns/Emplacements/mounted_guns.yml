@@ -1,5 +1,7 @@
 # DarkestHour: станковые пулемёты (механика — DHWeaponMount по образцу RMC-14 WeaponMount, спрайты свои).
 # Взять сложенный пулемёт в руки → «использовать» в руке: станок ставится на тайл перед вами и вы встаёте за него.
+# Пулемётное гнездо (меньше разброс и отдача) — отдельное действие «Оборудовать гнездо»: мешки с песком перед вами,
+# окоп перед вами или вы сами в окопе.
 # Стрелять в боевом режиме (сектор 120° перед станком; цель сбоку — станок доворачивается). Ленту вставлять
 # прямо в станок. Отойти — действие «Отойти от пулемёта». Сложить — Alt-клик / меню «Сложить пулемёт».
 
@@ -15,6 +17,18 @@
       map: ["enum.ActionVisuals.Icon"]
   - type: InstantAction
     event: !type:DHDismountWeaponActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionNestWeapon
+  name: Set up a gun nest
+  description: Set the gun up on the sandbags in front of you, or in a trench — the gun is steadier there (less spread and recoil).
+  components:
+  - type: Action
+    itemIconStyle: BigItem
+    useDelay: 1
+  - type: InstantAction
+    event: !type:DHNestWeaponActionEvent
 
 # ------------------------------------------------------------------ the gun on the mount (not a hand weapon)
 - type: entity

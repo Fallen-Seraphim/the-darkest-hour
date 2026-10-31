@@ -74,6 +74,9 @@ public sealed partial class DHWeaponMountSystem : EntitySystem
         SubscribeLocalEvent<DHWeaponMountComponent, UnstrappedEvent>(OnUnstrapped);
         SubscribeLocalEvent<DHWeaponMountComponent, DHMountDeployDoAfterEvent>(OnDeployDoAfter);
         SubscribeLocalEvent<DHWeaponMountComponent, DHMountUndeployDoAfterEvent>(OnUndeployDoAfter);
+        SubscribeLocalEvent<DHWeaponMountComponent, GetItemActionsEvent>(OnGetItemActions);
+        SubscribeLocalEvent<DHWeaponMountComponent, DHNestWeaponActionEvent>(OnNestAction);
+        SubscribeLocalEvent<DHWeaponMountComponent, DHMountNestDoAfterEvent>(OnNestDoAfter);
 
         SubscribeLocalEvent<DHMountableWeaponComponent, AttemptShootEvent>(OnWeaponAttemptShoot);
         SubscribeLocalEvent<DHMountableWeaponComponent, DHGunShotOriginEvent>(OnWeaponShotOrigin);
@@ -183,25 +186,79 @@ public sealed partial class DHWeaponMountSystem : EntitySystem
             return;
 
         args.Handled = true;
-        if (!CanDeploy(ent, args.User, out var coords, out var rotation, popup: true))
+        Deploy(ent, args.User, nested: false);
+    }
+
+    #region Гнездо (отдельное действие)
+
+    private void OnGetItemActions(Entity<DHWeaponMountComponent> ent, ref GetItemActionsEvent args)
+    {
+        if (args.InHands && !ent.Comp.Deployed)
+            args.AddAction(ref ent.Comp.NestActionEntity, ent.Comp.NestAction);
+    }
+
+    /// <summary>Поставить пулемёт на мешки с песком или в окоп: перед стрелком мешки/окоп, или стрелок сам в окопе.</summary>
+    private void OnNestAction(Entity<DHWeaponMountComponent> ent, ref DHNestWeaponActionEvent args)
+    {
+        if (args.Handled || ent.Comp.Deployed)
             return;
 
-        _hands.TryDrop(args.User, ent.Owner, checkActionBlocker: false, doDropInteraction: false);
+        var user = args.Performer;
+        if (!_hands.IsHolding(user, ent.Owner))
+            return;
+
+        args.Handled = true;
+        if (!CanDeploy(ent, user, out var coords, out _, popup: true))
+            return;
+
+        if (!IsNest(coords, user))
+        {
+            _popup.PopupClient(Loc.GetString("dh-weapon-mount-no-nest"), user, user);
+            return;
+        }
+
+        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, ent.Comp.NestDeployDelay,
+            new DHMountNestDoAfterEvent(), ent, ent, ent)
+        {
+            NeedHand = true,
+            BreakOnMove = true,
+            BreakOnHandChange = true,
+        });
+    }
+
+    private void OnNestDoAfter(Entity<DHWeaponMountComponent> ent, ref DHMountNestDoAfterEvent args)
+    {
+        if (args.Cancelled || args.Handled || ent.Comp.Deployed)
+            return;
+
+        args.Handled = true;
+        if (CanDeploy(ent, args.User, out var coords, out _, popup: true) && IsNest(coords, args.User))
+            Deploy(ent, args.User, nested: true);
+    }
+
+    #endregion
+
+    private void Deploy(Entity<DHWeaponMountComponent> ent, EntityUid user, bool nested)
+    {
+        if (!CanDeploy(ent, user, out var coords, out var rotation, popup: true))
+            return;
+
+        _hands.TryDrop(user, ent.Owner, checkActionBlocker: false, doDropInteraction: false);
 
         var xform = Transform(ent);
         _transform.SetCoordinates(ent, xform, coords, rotation: rotation);
         _transform.AnchorEntity((ent.Owner, xform));
 
         ent.Comp.Deployed = true;
-        ent.Comp.Nested = IsNest(coords, args.User);
+        ent.Comp.Nested = nested;
         Dirty(ent);
         RefreshWeapon(ent);
         _buckle.StrapSetEnabled(ent, true);
         UpdateAppearance(ent);
-        _audio.PlayPredicted(ent.Comp.DeploySound, ent, args.User);
+        _audio.PlayPredicted(ent.Comp.DeploySound, ent, user);
 
         // Стрелок стоит прямо за развёрнутым станком — сразу ставим его к пулемёту.
-        _buckle.TryBuckle(args.User, args.User, ent, popup: false);
+        _buckle.TryBuckle(user, user, ent, popup: false);
     }
 
     /// <summary>Гнездо: на клетке станка окоп или мешки с песком, или стрелок ставит станок из окопа.</summary>
@@ -604,3 +661,8 @@ public sealed partial class DHMountDeployDoAfterEvent : SimpleDoAfterEvent;
 
 [Serializable, NetSerializable]
 public sealed partial class DHMountUndeployDoAfterEvent : SimpleDoAfterEvent;
+
+[Serializable, NetSerializable]
+public sealed partial class DHMountNestDoAfterEvent : SimpleDoAfterEvent;
+
+public sealed partial class DHNestWeaponActionEvent : InstantActionEvent;
