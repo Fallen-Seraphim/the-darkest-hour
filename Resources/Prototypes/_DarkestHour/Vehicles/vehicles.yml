@@ -40,11 +40,13 @@
     multiplier: 1
     bulletStructuralMultiplier: 0.1
   - type: Appearance
+  # Двигатель: включается, когда за руль садится водитель, на ходу громче (DHVehicleServerSystem.Engine).
   - type: AmbientSound
-    volume: -4
-    range: 8
+    enabled: false
+    volume: -2
+    range: 14
     sound:
-      path: /Audio/Ambience/Objects/engine_hum.ogg
+      path: /Audio/Effects/Vehicle/vehicleengineidle.ogg
   - type: PointLight
     radius: 6
     energy: 1.5
@@ -67,16 +69,17 @@
       fix1:
         shape:
           !type:PhysShapeAabb
-          bounds: "-1,-1.7,1,1.7"
+          bounds: "-1.15,-1.9,1.15,1.95"
         density: 5000
         mask:
-        - MobMask
+        - Impassable
+        - LowImpassable
         layer:
-        - MobLayer
+        - LargeMobLayer
       runover:
         shape:
           !type:PhysShapeAabb
-          bounds: "-1.05,-1.75,1.05,1.75"
+          bounds: "-1.2,-1.95,1.2,2"
         hard: false
         mask:
         - MobLayer
@@ -110,19 +113,24 @@
       map: [ "support" ]
     - state: dualcannon_0
       map: [ "primary" ]
-    - state: wheels_1
+    - state: wheels_0
       map: [ "wheels" ]
+      loop: false
+  # wheels_0 — целые колёса/гусеницы (анимированы), wheels_1 — разбитые. Стоя — один проход анимации и стоп.
   - type: SpriteMovement
     movementLayers:
       wheels:
         state: wheels_0
+        loop: true
     noMovementLayers:
       wheels:
-        state: wheels_1
+        state: wheels_0
+        loop: false
   - type: DHVehicle
     interior: DHInteriorAPC
+    hull: DHVehicleHullRAM45
     turretLayers: [ primary ]
-    exitOffset: 0,2.3
+    exitOffset: 0,2.6
     wreck: DHVehicleWreckRAM45
     weapons:
       primary: DHVehicleGunAutocannon30
@@ -138,6 +146,26 @@
   name: IM-30 armoured personnel carrier
   description: An Imperial APC. A turret with an autocannon and a coaxial heavy machine gun, a relay set for the Imperial channels and seats for a squad in the back.
   components:
+  # Корпус IM-30 крупнее RAM-45 (спрайт 160 px).
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.4,-2.25,1.4,2.3"
+        density: 5000
+        mask:
+        - Impassable
+        - LowImpassable
+        layer:
+        - LargeMobLayer
+      runover:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.45,-2.3,1.45,2.35"
+        hard: false
+        mask:
+        - MobLayer
   - type: Sprite
     sprite: _RMC14/Structures/Vehicles/sppapc.rsi
     drawdepth: Mobs
@@ -150,19 +178,24 @@
       map: [ "turret" ]
     - state: apc_autocannon_0
       map: [ "primary" ]
-    - state: wheels_1
+    - state: wheels_0
       map: [ "wheels" ]
+      loop: false
+  # wheels_0 — целые колёса/гусеницы (анимированы), wheels_1 — разбитые. Стоя — один проход анимации и стоп.
   - type: SpriteMovement
     movementLayers:
       wheels:
         state: wheels_0
+        loop: true
     noMovementLayers:
       wheels:
-        state: wheels_1
+        state: wheels_0
+        loop: false
   - type: DHVehicle
     interior: DHInteriorAPC
+    hull: DHVehicleHullIM30
     turretLayers: [ turret, primary ]
-    exitOffset: 0,2.3
+    exitOffset: 0,2.9
     wreck: DHVehicleWreckIM30
     weapons:
       primary: DHVehicleGunAutocannon30
@@ -191,16 +224,17 @@
       fix1:
         shape:
           !type:PhysShapeAabb
-          bounds: "-1.2,-1.6,1.2,1.6"
+          bounds: "-1.4,-1.85,1.4,1.95"
         density: 8000
         mask:
-        - MobMask
+        - Impassable
+        - LowImpassable
         layer:
-        - MobLayer
+        - LargeMobLayer
       runover:
         shape:
           !type:PhysShapeAabb
-          bounds: "-1.25,-1.65,1.25,1.65"
+          bounds: "-1.45,-1.9,1.45,2"
         hard: false
         mask:
         - MobLayer
@@ -238,19 +272,25 @@
       map: [ "secondary" ]
     - state: slauncher_0
       map: [ "support" ]
-    - state: wheels_1
+    - state: wheels_0
       map: [ "wheels" ]
+      loop: false
+  # wheels_0 — целые колёса/гусеницы (анимированы), wheels_1 — разбитые. Стоя — один проход анимации и стоп.
   - type: SpriteMovement
     movementLayers:
       wheels:
         state: wheels_0
+        loop: true
     noMovementLayers:
       wheels:
-        state: wheels_1
+        state: wheels_0
+        loop: false
   - type: DHVehicle
+    crewZoom: 1.75
     interior: DHInteriorTank
+    hull: DHVehicleHullTank
     turretLayers: [ turret, primary, secondary, support ]
-    exitOffset: 0,2.2
+    exitOffset: 0,2.6
     wreck: DHVehicleWreckTankRepublic
     smoke: true
     weapons:
@@ -279,24 +319,93 @@
       map: [ "secondary" ]
     - state: slauncher_0
       map: [ "support" ]
-    - state: wheels_1
+    - state: wheels_0
       map: [ "wheels" ]
+      loop: false
+  # wheels_0 — целые колёса/гусеницы (анимированы), wheels_1 — разбитые. Стоя — один проход анимации и стоп.
   - type: SpriteMovement
     movementLayers:
       wheels:
         state: wheels_0
+        loop: true
     noMovementLayers:
       wheels:
-        state: wheels_1
+        state: wheels_0
+        loop: false
   - type: DHVehicle
+    crewZoom: 1.75
     interior: DHInteriorTank
+    hull: DHVehicleHullTank
     turretLayers: [ turret, primary, secondary, support ]
-    exitOffset: 0,2.2
+    exitOffset: 0,2.6
     wreck: DHVehicleWreckTankEmpire
     smoke: true
     weapons:
       primary: DHVehicleGunTankCannon
       secondary: DHVehicleGunCoaxMG
+
+# ------------------------------------------------------------------ корпуса (о них упираются люди)
+
+# Люди и машины — тела KinematicController, движок такие между собой не сталкивает. Поэтому у машины есть
+# статичный дочерний «корпус» с её хитбоксом: слой Mid/HighImpassable (их ловит маска людей), но не тот, что
+# в маске самой машины (Impassable, LowImpassable) — со своим корпусом она не сталкивается. Пули его не видят
+# (нет BulletImpassable) и попадают в саму машину.
+
+- type: entity
+  abstract: true
+  id: DHVehicleHullBase
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: false
+  - type: Physics
+    bodyType: Static
+    canCollide: true
+
+- type: entity
+  parent: DHVehicleHullBase
+  id: DHVehicleHullRAM45
+  components:
+  - type: Fixtures
+    fixtures:
+      hull:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.15,-1.9,1.15,1.95"
+        density: 1
+        layer:
+        - MidImpassable
+        - HighImpassable
+
+- type: entity
+  parent: DHVehicleHullBase
+  id: DHVehicleHullIM30
+  components:
+  - type: Fixtures
+    fixtures:
+      hull:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.4,-2.25,1.4,2.3"
+        density: 1
+        layer:
+        - MidImpassable
+        - HighImpassable
+
+- type: entity
+  parent: DHVehicleHullBase
+  id: DHVehicleHullTank
+  components:
+  - type: Fixtures
+    fixtures:
+      hull:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.4,-1.85,1.4,1.95"
+        density: 1
+        layer:
+        - MidImpassable
+        - HighImpassable
 
 # ------------------------------------------------------------------ остовы
 
@@ -319,7 +428,7 @@
       fix1:
         shape:
           !type:PhysShapeAabb
-          bounds: "-1,-1.6,1,1.6"
+          bounds: "-1.15,-1.85,1.15,1.9"
         density: 5000
         mask:
         - MachineMask
@@ -476,7 +585,10 @@
     availableModes:
     - SemiAuto
     soundGunshot:
-      path: /Audio/_Mono/Weapons/Guns/Gunshots/cannon.ogg
+      path: /Audio/_DarkestHour/HeavyGuns/cannon_fire.ogg
+      params:
+        volume: 4
+        maxDistance: 50
   - type: DHVehicleGun
     muzzleOffset: 2.4
   - type: BasicEntityAmmoProvider
@@ -522,6 +634,8 @@
   - type: DHAntiArmor
 
 # ------------------------------------------------------------------ отсек
+# Нос машины — нижний край отсека (юг). Кресла экипажа — бронированные, перед ними смотровые приборы и пульт;
+# десант — на откидных сиденьях вдоль бортов. Спрайты — RMC-14 (cmss13, CC-BY-SA-3.0).
 
 - type: entity
   parent: ChairPilotSeat
@@ -531,6 +645,9 @@
   suffix: Vehicle
   categories: [ HideSpawnMenu ]
   components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/Interiors/general.rsi
+    state: vehicle_seat
   - type: DHVehicleSeat
     role: Passenger
 
@@ -540,11 +657,14 @@
   name: driver's seat
   description: Take the controls and the periscopes — you see what is around the vehicle and drive it.
   components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/Interiors/general.rsi
+    state: armor_chair
   - type: DHVehicleSeat
     role: Driver
 
 - type: entity
-  parent: DHVehicleSeatPassenger
+  parent: DHVehicleSeatDriver
   id: DHVehicleSeatGunner
   name: gunner's seat
   description: The main gun's sight and controls. Switch to combat mode to fire; the turret follows your aim.
@@ -554,7 +674,7 @@
     weapon: primary
 
 - type: entity
-  parent: DHVehicleSeatPassenger
+  parent: DHVehicleSeatDriver
   id: DHVehicleSeatCommander
   name: commander's seat
   description: The commander's cupola with the machine gun and the smoke discharger controls.
@@ -563,6 +683,62 @@
     role: Gunner
     weapon: secondary
     smokeControl: true
+
+- type: entity
+  abstract: true
+  id: DHVehicleInteriorPropBase
+  categories: [ HideSpawnMenu ]
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/Interiors/general.rsi
+    drawdepth: WallMountedItems
+
+- type: entity
+  parent: DHVehicleInteriorPropBase
+  id: DHVehicleViewport
+  name: periscope
+  description: A vision block in the hull. The crew sees the outside through it from their seats.
+  components:
+  - type: Sprite
+    state: viewport
+
+- type: entity
+  parent: DHVehicleInteriorPropBase
+  id: DHVehicleControlPanel
+  name: vehicle control panel
+  description: Sensors, fire control and the drive computer. Sit in a crew seat to use them.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/Interiors/apc.rsi
+    state: sensors_equipment
+
+- type: entity
+  parent: DHVehicleInteriorPropBase
+  id: DHVehicleAmmoRack
+  name: ammunition loader
+  description: Feeds the guns from the ready racks. The guns reload by themselves.
+  components:
+  - type: Sprite
+    state: weapons_loader
+    drawdepth: Objects
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 100
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
 
 - type: entity
   id: DHVehicleHatch
@@ -577,8 +753,8 @@
   - type: Clickable
   - type: InteractionOutline
   - type: Sprite
-    sprite: _RMC14/Structures/Vehicles/Interiors/tank.rsi
-    state: hatch
+    sprite: _RMC14/Structures/Vehicles/Interiors/apc.rsi
+    state: exit_door
     drawdepth: WallTops
   - type: Physics
     bodyType: Static
@@ -600,9 +776,13 @@
   floor: FloorSteelMono
   entry: 3,8
   entities:
+  - { proto: DHVehicleViewport, pos: "2,0", onWall: true }
+  - { proto: DHVehicleControlPanel, pos: "3,0", onWall: true }
+  - { proto: DHVehicleViewport, pos: "4,0", onWall: true }
   - { proto: DHVehicleSeatDriver, pos: "2,1" }
   - { proto: DHVehicleSeatGunner, pos: "4,1" }
   - { proto: DHVehicleSeatCommander, pos: "3,2" }
+  - { proto: DHVehicleAmmoRack, pos: "5,1" }
   - { proto: DHVehicleSeatPassenger, pos: "1,4", rot: 90 }
   - { proto: DHVehicleSeatPassenger, pos: "1,5", rot: 90 }
   - { proto: DHVehicleSeatPassenger, pos: "1,6", rot: 90 }
@@ -619,9 +799,13 @@
   floor: FloorSteelMono
   entry: 2,4
   entities:
+  - { proto: DHVehicleControlPanel, pos: "1,0", onWall: true }
+  - { proto: DHVehicleViewport, pos: "2,0", onWall: true }
+  - { proto: DHVehicleViewport, pos: "3,0", onWall: true }
   - { proto: DHVehicleSeatDriver, pos: "2,1" }
   - { proto: DHVehicleSeatGunner, pos: "1,2" }
   - { proto: DHVehicleSeatCommander, pos: "3,2" }
+  - { proto: DHVehicleAmmoRack, pos: "1,4" }
   - { proto: DHVehicleSeatPassenger, pos: "3,4", rot: -90 }
   - { proto: DHVehicleHatch, pos: "2,5" }
 

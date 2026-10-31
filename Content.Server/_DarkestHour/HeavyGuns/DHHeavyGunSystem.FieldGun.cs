@@ -23,7 +23,7 @@ public sealed partial class DHHeavyGunSystem
     [Dependency] private IPrototypeManager _protoManager = default!;
     [Dependency] private SharedGunSystem _guns = default!;
 
-    private static readonly SoundSpecifier FieldGunFireSound = new SoundPathSpecifier("/Audio/_Mono/Weapons/Guns/Gunshots/cannon.ogg");
+    private static readonly SoundSpecifier FieldGunFireSound = new SoundPathSpecifier("/Audio/_DarkestHour/HeavyGuns/cannon_fire.ogg");
     private static readonly SoundSpecifier FieldGunLoadSound = new SoundPathSpecifier("/Audio/Weapons/Guns/MagIn/batrifle_magin.ogg");
 
     /// <summary>Углы таблицы стрельб в окне наводчика.</summary>

@@ -96,6 +96,11 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
             ent.Comp.WeaponEntities[slot] = weapon;
         }
 
+        // Корпус: неподвижное тело-«щит» поверх машины. Люди и машина — оба KinematicController, а такие тела
+        // движок между собой не сталкивает; о статичный корпус люди упираются.
+        if (ent.Comp.Hull is { } hullProto && _proto.HasIndex(hullProto))
+            ent.Comp.HullEntity = Spawn(hullProto, new EntityCoordinates(ent, Vector2.Zero));
+
         CreateInterior(ent);
     }
 
@@ -140,7 +145,8 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
         var occupied = new HashSet<Vector2i>();
         foreach (var entry in layout.Entities)
         {
-            occupied.Add(entry.Pos);
+            if (!entry.OnWall)
+                occupied.Add(entry.Pos);
         }
 
         for (var x = 0; x < layout.Size.X; x++)
@@ -195,8 +201,12 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
         if (ent.Comp.InteriorMap is { } map && !TerminatingOrDeleted(map))
             QueueDel(map);
 
+        if (ent.Comp.HullEntity is { } hull && !TerminatingOrDeleted(hull))
+            QueueDel(hull);
+
         ent.Comp.InteriorMap = null;
         ent.Comp.InteriorGrid = null;
+        ent.Comp.HullEntity = null;
     }
 
     #endregion

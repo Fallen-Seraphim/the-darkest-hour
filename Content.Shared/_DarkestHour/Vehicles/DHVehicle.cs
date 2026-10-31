@@ -59,9 +59,26 @@ public sealed partial class DHVehicleComponent : Component
     [DataField]
     public List<string> TurretLayers = new() { "turret", "primary" };
 
+    /// <summary>Отдаление камеры у водителя и стрелков (во сколько раз дальше видно).</summary>
+    [DataField]
+    public float CrewZoom = 1.5f;
+
+    /// <summary>Двигатель заведён (за рулём есть водитель; сервер).</summary>
+    [ViewVariables]
+    public bool EngineRunning;
+
     /// <summary>Поворот башни относительно корпуса, четверти оборота (0–3).</summary>
     [DataField, AutoNetworkedField]
     public int TurretQuarter;
+
+    /// <summary>
+    /// Корпус — статичная дочерняя сущность с хитбоксом машины, о которую упираются люди (см. серверную систему).
+    /// </summary>
+    [DataField]
+    public EntProtoId? Hull;
+
+    [ViewVariables]
+    public EntityUid? HullEntity;
 
     /// <summary>Остов, который остаётся на месте уничтоженной машины.</summary>
     [DataField]
@@ -102,6 +119,10 @@ public sealed partial class DHVehicleSeatComponent : Component
 
     [ViewVariables]
     public EntityUid? SmokeActionEntity;
+
+    /// <summary>Предел отдаления камеры сидящего до того, как он сел (вернуть при вставании).</summary>
+    [ViewVariables]
+    public Vector2? PreviousMaxZoom;
 }
 
 /// <summary>Люк изнутри: выход из машины.</summary>
@@ -148,6 +169,20 @@ public enum DHVehicleVisuals : byte
 
 public sealed partial class DHVehicleSmokeActionEvent : InstantActionEvent;
 
+/// <summary>Клиент стрелка: башня должна смотреть в эту четверть (за курсором, без выстрела).</summary>
+[Serializable, NetSerializable]
+public sealed class DHVehicleTurretAimEvent : EntityEventArgs
+{
+    public NetEntity Vehicle;
+    public int Quarter;
+
+    public DHVehicleTurretAimEvent(NetEntity vehicle, int quarter)
+    {
+        Vehicle = vehicle;
+        Quarter = quarter;
+    }
+}
+
 [Serializable, NetSerializable]
 public sealed partial class DHVehicleEnterDoAfterEvent : SimpleDoAfterEvent;
 
@@ -191,4 +226,8 @@ public sealed partial class DHVehicleInteriorEntity
     /// <summary>Поворот в градусах.</summary>
     [DataField]
     public float Rot;
+
+    /// <summary>Висит на стене (смотровой прибор, телефон): стена под ним остаётся.</summary>
+    [DataField]
+    public bool OnWall;
 }
