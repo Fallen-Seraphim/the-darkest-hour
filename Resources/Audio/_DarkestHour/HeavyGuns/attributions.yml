@@ -12,3 +12,8 @@
   license: "CC-BY-SA-3.0"
   copyright: "Taken from cmss13 via RMC-14"
   source: "https://github.com/RMC-14/RMC-14/tree/master/Resources/Audio/_RMC14/Effects"
+
+- files: ["cannon_fire.ogg"]
+  license: "Custom"
+  copyright: "Provided by the project owner (Fallen-Seraphim) for The Darkest Hour; converted to mono ogg. Verify the original source licence before redistribution."
+  source: "https://github.com/Fallen-Seraphim/the-darkest-hour"

@@ -63,6 +63,10 @@ public sealed partial class DHVehicleComponent : Component
     [DataField]
     public float CrewZoom = 1.5f;
 
+    /// <summary>Двигатель заведён (за рулём есть водитель; сервер).</summary>
+    [ViewVariables]
+    public bool EngineRunning;
+
     /// <summary>Поворот башни относительно корпуса, четверти оборота (0–3).</summary>
     [DataField, AutoNetworkedField]
     public int TurretQuarter;

@@ -40,11 +40,13 @@
     multiplier: 1
     bulletStructuralMultiplier: 0.1
   - type: Appearance
+  # Двигатель: включается, когда за руль садится водитель, на ходу громче (DHVehicleServerSystem.Engine).
   - type: AmbientSound
-    volume: -4
-    range: 8
+    enabled: false
+    volume: -2
+    range: 14
     sound:
-      path: /Audio/Ambience/Objects/engine_hum.ogg
+      path: /Audio/Effects/Vehicle/vehicleengineidle.ogg
   - type: PointLight
     radius: 6
     energy: 1.5
@@ -583,7 +585,10 @@
     availableModes:
     - SemiAuto
     soundGunshot:
-      path: /Audio/_Mono/Weapons/Guns/Gunshots/cannon.ogg
+      path: /Audio/_DarkestHour/HeavyGuns/cannon_fire.ogg
+      params:
+        volume: 4
+        maxDistance: 50
   - type: DHVehicleGun
     muzzleOffset: 2.4
   - type: BasicEntityAmmoProvider

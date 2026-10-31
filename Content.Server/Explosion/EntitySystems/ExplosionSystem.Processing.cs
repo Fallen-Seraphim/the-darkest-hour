@@ -532,6 +532,10 @@ public sealed partial class ExplosionSystem
             if (newDef.MapAtmosphere && !canCreateVacuum)
                 break;
 
+            // DarkestHour: на поверхности планеты взрыв не пробивает землю до космоса.
+            if (newDef.ID == ContentTileDefinition.SpaceID && DHIsPlanetSurface(tileRef.GridUid))
+                break;
+
             tileDef = newDef;
 
             if (newDef.Indestructible)
