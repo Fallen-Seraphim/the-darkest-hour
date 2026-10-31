@@ -80,6 +80,12 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
     {
         foreach (var (slot, proto) in ent.Comp.Weapons)
         {
+            if (!_proto.HasIndex(proto))
+            {
+                Log.Error($"Vehicle {ToPrettyString(ent)}: unknown weapon prototype {proto}, skipped");
+                continue;
+            }
+
             var container = _container.EnsureContainer<ContainerSlot>(ent, WeaponContainerPrefix + slot);
             var weapon = Spawn(proto, Transform(ent).Coordinates);
             var gun = EnsureComp<DHVehicleGunComponent>(weapon);
@@ -151,6 +157,13 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
 
         foreach (var entry in layout.Entities)
         {
+            // Битый прототип не должен ронять запуск раунда — пропускаем с ошибкой в логе.
+            if (!_proto.HasIndex(entry.Proto))
+            {
+                Log.Error($"Vehicle interior {layout.ID}: unknown prototype {entry.Proto}, skipped");
+                continue;
+            }
+
             var uid = Spawn(entry.Proto, new EntityCoordinates(grid.Owner, entry.Pos.X + 0.5f, entry.Pos.Y + 0.5f));
             if (entry.Rot != 0f)
                 _transform.SetLocalRotation(uid, Angle.FromDegrees(entry.Rot));
