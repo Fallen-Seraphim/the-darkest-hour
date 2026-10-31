@@ -583,13 +583,28 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
         if (TryComp<MapGridComponent>(ship, out var shipGrid))
             margin += Math.Max(shipGrid.LocalAABB.Width, shipGrid.LocalAABB.Height) / 2f;
 
-        var bounds = surfaceGrid.LocalAABB;
+        // LocalAABB у карты-грида бывает нулевым — рамку считаем по тайлам.
+        var bounds = TileBounds(surface, surfaceGrid);
         if (bounds.Width <= margin * 2f || bounds.Height <= margin * 2f)
             return bounds.Center;
 
         return new Vector2(
             Math.Clamp(position.X, bounds.Left + margin, bounds.Right - margin),
             Math.Clamp(position.Y, bounds.Bottom + margin, bounds.Top - margin));
+    }
+
+    private Box2 TileBounds(EntityUid gridUid, MapGridComponent grid)
+    {
+        var any = false;
+        var box = new Box2();
+        foreach (var tile in _map.GetAllTiles(gridUid, grid))
+        {
+            var tileBox = Box2.FromDimensions(tile.GridIndices.X, tile.GridIndices.Y, 1f, 1f);
+            box = any ? box.Union(tileBox) : tileBox;
+            any = true;
+        }
+
+        return any ? box : grid.LocalAABB;
     }
 
     /// <summary>Удар о поверхность: взрывы по корпусу, шаттл больше не летает.</summary>
