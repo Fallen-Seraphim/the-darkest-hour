@@ -76,7 +76,9 @@ public sealed class DHTacticalMapControl : Control
         EnsureView();
         if (_terrain.Texture is not { } texture || _zoom <= 0f)
         {
-            handle.DrawString(_font, new Vector2(10, 10), Loc.GetString("dh-tacmap-loading"), NeutralColor);
+            // Сервер не нашёл поверхности планеты — ждать нечего; иначе местность ещё идёт с сервера.
+            var status = _state is { TacticalMap: null } ? "dh-tacmap-no-surface" : "dh-tacmap-loading";
+            handle.DrawString(_font, new Vector2(10, 10), Loc.GetString(status), NeutralColor);
             return;
         }
 
