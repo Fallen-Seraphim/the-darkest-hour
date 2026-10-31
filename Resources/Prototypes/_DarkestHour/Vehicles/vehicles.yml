@@ -40,13 +40,7 @@
     multiplier: 1
     bulletStructuralMultiplier: 0.1
   - type: Appearance
-  # Двигатель: включается, когда за руль садится водитель, на ходу громче (DHVehicleServerSystem.Engine).
-  - type: AmbientSound
-    enabled: false
-    volume: -2
-    range: 14
-    sound:
-      path: /Audio/Effects/Vehicle/vehicleengineidle.ogg
+  # Звук двигателя — DHVehicleServerSystem.Engine (как в RMC: запуск и рёв на ходу каждые 2 с).
   - type: PointLight
     radius: 6
     energy: 1.5
@@ -129,7 +123,7 @@
   - type: DHVehicle
     interior: DHInteriorAPC
     hull: DHVehicleHullRAM45
-    turretLayers: [ primary ]
+    turretLayers: [ ]
     exitOffset: 0,2.6
     wreck: DHVehicleWreckRAM45
     weapons:
@@ -195,6 +189,7 @@
     interior: DHInteriorAPC
     hull: DHVehicleHullIM30
     turretLayers: [ turret, primary ]
+    turretPivots: [ "0,0.02", "0,-0.09", "-0.03,-0.08", "0.03,-0.08" ] # юг, север, восток, запад
     exitOffset: 0,2.9
     wreck: DHVehicleWreckIM30
     weapons:
@@ -289,7 +284,8 @@
     crewZoom: 1.75
     interior: DHInteriorTank
     hull: DHVehicleHullTank
-    turretLayers: [ turret, primary, secondary, support ]
+    turretLayers: [ turret, primary, secondary ]
+    turretPivots: [ "0,0.31", "0,-0.09", "-0.09,0.2", "0.09,0.2" ] # юг, север, восток, запад
     exitOffset: 0,2.6
     wreck: DHVehicleWreckTankRepublic
     smoke: true
@@ -336,7 +332,8 @@
     crewZoom: 1.75
     interior: DHInteriorTank
     hull: DHVehicleHullTank
-    turretLayers: [ turret, primary, secondary, support ]
+    turretLayers: [ turret, primary, secondary ]
+    turretPivots: [ "0,0.27", "0,0.28", "0.06,0.23", "-0.06,0.23" ] # юг, север, восток, запад
     exitOffset: 0,2.6
     wreck: DHVehicleWreckTankEmpire
     smoke: true

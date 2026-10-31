@@ -67,9 +67,18 @@ public sealed partial class DHVehicleComponent : Component
     [ViewVariables]
     public bool EngineRunning;
 
-    /// <summary>Поворот башни относительно корпуса, четверти оборота (0–3).</summary>
+    [ViewVariables]
+    public TimeSpan NextEngineSound;
+
+    /// <summary>Поворот башни относительно корпуса (0 — вдоль корпуса, против часовой — положительный).</summary>
     [DataField, AutoNetworkedField]
-    public int TurretQuarter;
+    public Angle TurretAngle;
+
+    /// <summary>
+    /// Ось вращения башни в спрайте, в тайлах от центра, для направлений спрайта корпуса: юг, север, восток, запад.
+    /// </summary>
+    [DataField]
+    public List<Vector2> TurretPivots = new();
 
     /// <summary>
     /// Корпус — статичная дочерняя сущность с хитбоксом машины, о которую упираются люди (см. серверную систему).
@@ -164,22 +173,22 @@ public sealed partial class DHVehicleInteriorComponent : Component
 [Serializable, NetSerializable]
 public enum DHVehicleVisuals : byte
 {
-    TurretQuarter,
+    Unused,
 }
 
 public sealed partial class DHVehicleSmokeActionEvent : InstantActionEvent;
 
-/// <summary>Клиент стрелка: башня должна смотреть в эту четверть (за курсором, без выстрела).</summary>
+/// <summary>Клиент стрелка: башня должна смотреть под этим углом к корпусу (за курсором, без выстрела).</summary>
 [Serializable, NetSerializable]
 public sealed class DHVehicleTurretAimEvent : EntityEventArgs
 {
     public NetEntity Vehicle;
-    public int Quarter;
+    public Angle Angle;
 
-    public DHVehicleTurretAimEvent(NetEntity vehicle, int quarter)
+    public DHVehicleTurretAimEvent(NetEntity vehicle, Angle angle)
     {
         Vehicle = vehicle;
-        Quarter = quarter;
+        Angle = angle;
     }
 }
 

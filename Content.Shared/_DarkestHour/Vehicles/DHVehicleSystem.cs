@@ -20,7 +20,6 @@ namespace Content.Shared._DarkestHour.Vehicles;
 public sealed partial class DHVehicleSystem : EntitySystem
 {
     [Dependency] private SharedActionsSystem _actions = default!;
-    [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private SharedContentEyeSystem _contentEye = default!;
     [Dependency] private SharedEyeSystem _eye = default!;
     [Dependency] private DHWeaponMountSystem _mount = default!;
@@ -157,7 +156,7 @@ public sealed partial class DHVehicleSystem : EntitySystem
         args.Origin = _transform.ToCoordinates(vehicle, new Robust.Shared.Map.MapCoordinates(muzzle, center.MapId));
     }
 
-    /// <summary>Башня доворачивается к прицелу при выстреле (по четвертям оборота — у спрайтов четыре направления).</summary>
+    /// <summary>Башня доворачивается к прицелу при выстреле.</summary>
     private void OnGunAttemptShoot(Entity<DHVehicleGunComponent> ent, ref AttemptShootEvent args)
     {
         if (args.Cancelled || !ent.Comp.Turret || ent.Comp.Vehicle is not { } vehicle ||
@@ -167,14 +166,14 @@ public sealed partial class DHVehicleSystem : EntitySystem
             return;
         }
 
-        if (TryGetTurretQuarter(vehicle, _transform.ToMapCoordinates(aim), out var quarter))
-            SetTurretQuarter((vehicle, vehicleComp), quarter);
+        if (TryGetTurretAngle(vehicle, _transform.ToMapCoordinates(aim), out var angle))
+            SetTurretAngle((vehicle, vehicleComp), angle);
     }
 
-    /// <summary>Четверть оборота башни, при которой она смотрит на <paramref name="target"/>.</summary>
-    public bool TryGetTurretQuarter(EntityUid vehicle, MapCoordinates target, out int quarter)
+    /// <summary>Угол башни к корпусу, при котором она смотрит на <paramref name="target"/>.</summary>
+    public bool TryGetTurretAngle(EntityUid vehicle, MapCoordinates target, out Angle angle)
     {
-        quarter = 0;
+        angle = Angle.Zero;
         var xform = Transform(vehicle);
         if (xform.MapID != target.MapId)
             return false;
@@ -184,21 +183,19 @@ public sealed partial class DHVehicleSystem : EntitySystem
         if (direction.LengthSquared() < 0.01f)
             return false;
 
-        var relative = Angle.FromWorldVec(direction) - rotation;
-        // Угол 0 — «на юг», как и спрайт корпуса; четверть 1 — башня повёрнута на 90° против часовой.
-        quarter = (int) Math.Round(relative.Reduced().Theta / (Math.PI / 2)) & 3;
+        // Угол 0 — «на юг», как и спрайт корпуса.
+        angle = (Angle.FromWorldVec(direction) - rotation).Reduced();
         return true;
     }
 
-    public void SetTurretQuarter(Entity<DHVehicleComponent> vehicle, int quarter)
+    public void SetTurretAngle(Entity<DHVehicleComponent> vehicle, Angle angle)
     {
-        quarter &= 3;
-        if (quarter == vehicle.Comp.TurretQuarter)
+        angle = angle.Reduced();
+        if (Math.Abs((angle - vehicle.Comp.TurretAngle).Reduced().Theta) < 0.02)
             return;
 
-        vehicle.Comp.TurretQuarter = quarter;
+        vehicle.Comp.TurretAngle = angle;
         Dirty(vehicle);
-        _appearance.SetData(vehicle, DHVehicleVisuals.TurretQuarter, quarter);
     }
 
     /// <summary>Стрелок с башенным орудием, на какой машине он сидит.</summary>
@@ -224,7 +221,7 @@ public sealed partial class DHVehicleSystem : EntitySystem
         if (args.SenderSession.AttachedEntity is not { } user || !TryTurretGunner(user, ev, out var vehicle))
             return;
 
-        SetTurretQuarter(vehicle, ev.Quarter);
+        SetTurretAngle(vehicle, ev.Angle);
     }
 
     private bool TryTurretGunner(EntityUid user, DHVehicleTurretAimEvent ev, out Entity<DHVehicleComponent> vehicle)
