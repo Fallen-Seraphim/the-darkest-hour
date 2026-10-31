@@ -45,6 +45,8 @@ public sealed partial class DHTrenchSystem : EntitySystem
         SubscribeLocalEvent<ShovelComponent, DHTrenchDigDoAfterEvent>(OnDigDoAfter);
         SubscribeLocalEvent<DHTrenchComponent, InteractUsingEvent>(OnTrenchInteractUsing);
         SubscribeLocalEvent<DHTrenchComponent, DHTrenchFillDoAfterEvent>(OnFillDoAfter);
+        SubscribeLocalEvent<DHDamagedTrenchComponent, InteractUsingEvent>(OnDamagedInteractUsing);
+        SubscribeLocalEvent<DHDamagedTrenchComponent, DHTrenchRepairDoAfterEvent>(OnRepairDoAfter);
         SubscribeLocalEvent<DHTraumaComponent, GetExplosionResistanceEvent>(OnExplosionResistance);
     }
 
@@ -138,6 +140,39 @@ public sealed partial class DHTrenchSystem : EntitySystem
         args.Handled = true;
         _audio.PlayPvs(DigSound, Transform(ent).Coordinates);
         QueueDel(ent);
+    }
+
+    /// <summary>Повреждённый окоп расчищают лопатой — он снова становится целым окопом.</summary>
+    private void OnDamagedInteractUsing(Entity<DHDamagedTrenchComponent> ent, ref InteractUsingEvent args)
+    {
+        if (args.Handled || !HasComp<ShovelComponent>(args.Used))
+            return;
+
+        args.Handled = true;
+        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.RepairTime,
+            new DHTrenchRepairDoAfterEvent(), ent, ent, args.Used)
+        {
+            BreakOnMove = true,
+            NeedHand = true,
+        });
+        _audio.PlayPvs(DigSound, ent);
+    }
+
+    private void OnRepairDoAfter(Entity<DHDamagedTrenchComponent> ent, ref DHTrenchRepairDoAfterEvent args)
+    {
+        if (args.Cancelled || args.Handled || TerminatingOrDeleted(ent))
+            return;
+
+        args.Handled = true;
+        var coordinates = Transform(ent).Coordinates;
+        QueueDel(ent);
+
+        var trench = Spawn(ent.Comp.Repaired, coordinates);
+        var xform = Transform(trench);
+        if (!xform.Anchored)
+            _transform.AnchorEntity((trench, xform));
+
+        _audio.PlayPvs(DigSound, coordinates);
     }
 
     #endregion

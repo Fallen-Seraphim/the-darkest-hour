@@ -103,6 +103,32 @@ def main():
     full.save(os.path.join(OUT, 'full.png'))
     states.insert(0, {'name': 'full'})
 
+    # Повреждённый окоп: тот же одиночный окоп, наполовину засыпанный — бруствер с одной стороны осыпался внутрь
+    # неровным языком песка, по дну раскиданы комья.
+    damaged = full.copy()
+    damaged_px = damaged.load()
+    rng = random.Random(1337)
+    edge = [rng.uniform(-3, 3) for _ in range(S)]
+    for i in range(1, S):  # сгладить кромку осыпи
+        edge[i] = edge[i - 1] * 0.6 + edge[i] * 0.4
+    for y in range(S):
+        for x in range(S):
+            # Осыпь идёт от северо-западного угла: чем дальше по диагонали, тем тоньше слой.
+            depth = 31 + edge[(x - y) % S] * 5 - (x + y)
+            if depth <= 0:
+                continue
+            if depth < 3 and rng.random() < 0.45:
+                continue
+            base = RIM if depth > 9 else RIM_DARK
+            damaged_px[x, y] = noise(rng, base, 7)
+    for _ in range(10):  # комья на открытой части дна
+        x, y = rng.randrange(18, S - 5), rng.randrange(18, S - 5)
+        if x + y > 40:
+            damaged_px[x, y] = noise(rng, RIM_DARK, 6)
+            damaged_px[x + 1, y] = noise(rng, RIM_DARK, 6)
+    damaged.save(os.path.join(OUT, 'damaged.png'))
+    states.insert(1, {'name': 'damaged'})
+
     meta = {
         'version': 1,
         'license': 'CC-BY-SA-3.0',

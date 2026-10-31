@@ -33,7 +33,7 @@ public sealed partial class DHWeaponMountComponent : Component
     [DataField, AutoNetworkedField]
     public bool Deployed;
 
-    /// <summary>Пулемётное гнездо: станок стоит в окопе или на мешках (или стрелок в окопе) — разброс меньше.</summary>
+    /// <summary>Пулемётное гнездо: поставлен действием на мешки или в окоп — разброс меньше.</summary>
     [DataField, AutoNetworkedField]
     public bool Nested;
 
@@ -60,6 +60,16 @@ public sealed partial class DHWeaponMountComponent : Component
 
     [DataField, AutoNetworkedField]
     public EntityUid? DismountActionEntity;
+
+    /// <summary>Действие «поставить на мешки или в окоп» (пулемётное гнездо), пока пулемёт в руках.</summary>
+    [DataField]
+    public EntProtoId NestAction = "DHActionNestWeapon";
+
+    [DataField, AutoNetworkedField]
+    public EntityUid? NestActionEntity;
+
+    [DataField]
+    public TimeSpan NestDeployDelay = TimeSpan.FromSeconds(3);
 
     [DataField]
     public SoundSpecifier? DeploySound = new SoundPathSpecifier("/Audio/Items/ratchet.ogg");

@@ -12,8 +12,11 @@ dh-weapon-mount-verb-rotate = Turn the mount
 dh-weapon-mount-verb-eject = Take out the belt
 dh-weapon-mount-examine-ammo = Ammunition: [color=yellow]{$count}[/color] / {$capacity}.
 dh-weapon-mount-examine-deployed = It is set up. Stand behind it to fire; [color=cyan]Alt-click[/color] to fold it up.
-dh-weapon-mount-examine-folded = It is folded. [color=cyan]Use it in hand[/color] to set it up in front of you.
+dh-weapon-mount-examine-folded = It is folded. [color=cyan]Use it in hand[/color] to set it up in front of you, or use the "Set up a gun nest" action to put it on sandbags or in a trench.
+dh-weapon-mount-examine-nest = Set up in a [color=green]gun nest[/color]: less spread and recoil.
 
 dh-overheat-locked = The barrel is too hot!
 dh-overheat-examine = Barrel heat: {$percent}%.
 dh-overheat-examine-locked = The barrel is [color=red]overheated[/color] ({$percent}%).
+
+dh-weapon-mount-no-nest = You need sandbags or a trench in front of you — or stand in a trench.
