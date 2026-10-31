@@ -92,7 +92,6 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
         var built = Build(map, grid);
         if (built == null)
         {
-            Log.Warning($"Tactical map: surface {ToPrettyString(map)} has bad bounds {grid.LocalAABB}");
             return null;
         }
 
@@ -104,13 +103,24 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
 
     private DHTacticalMapTerrainEvent? Build(EntityUid map, MapGridComponent grid)
     {
-        var bounds = grid.LocalAABB;
-        var left = (int) MathF.Floor(bounds.Left);
-        var bottom = (int) MathF.Floor(bounds.Bottom);
-        var width = (int) MathF.Ceiling(bounds.Right) - left;
-        var height = (int) MathF.Ceiling(bounds.Top) - bottom;
-        if (width <= 0 || height <= 0 || width > 1024 || height > 1024)
+        // Границы считаем по самим тайлам: у карты-грида LocalAABB может остаться нулевым (не пересчитывается).
+        int left = int.MaxValue, bottom = int.MaxValue, right = int.MinValue, top = int.MinValue;
+        foreach (var tile in _map.GetAllTiles(map, grid))
+        {
+            var pos = tile.GridIndices;
+            left = Math.Min(left, pos.X);
+            bottom = Math.Min(bottom, pos.Y);
+            right = Math.Max(right, pos.X);
+            top = Math.Max(top, pos.Y);
+        }
+
+        var width = right - left + 1;
+        var height = top - bottom + 1;
+        if (left == int.MaxValue || width <= 0 || height <= 0 || width > 1024 || height > 1024)
+        {
+            Log.Warning($"Tactical map: surface {ToPrettyString(map)} has bad tile bounds ({left}, {bottom}) {width}x{height}");
             return null;
+        }
 
         var kinds = new byte[width * height];
         TryComp<DHMappedSurfaceComponent>(map, out var surface);
