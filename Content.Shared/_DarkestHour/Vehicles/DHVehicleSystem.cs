@@ -4,6 +4,7 @@ using Content.Shared.Buckle.Components;
 using Content.Shared.Vehicle.Components;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
+using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Shared.Network;
 
 namespace Content.Shared._DarkestHour.Vehicles;
