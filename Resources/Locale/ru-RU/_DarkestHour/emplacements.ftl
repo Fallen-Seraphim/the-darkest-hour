@@ -13,7 +13,6 @@ dh-weapon-mount-verb-eject = Вынуть ленту
 dh-weapon-mount-examine-ammo = Боезапас: [color=yellow]{$count}[/color] / {$capacity}.
 dh-weapon-mount-examine-deployed = Установлен. Встаньте позади, чтобы стрелять; [color=cyan]Alt-клик[/color] — сложить.
 dh-weapon-mount-examine-folded = Сложен. [color=cyan]Используйте в руке[/color], чтобы установить перед собой, или действием «Оборудовать пулемётное гнездо» — на мешки с песком или в окоп.
-dh-weapon-mount-examine-nest = Стоит в [color=green]пулемётном гнезде[/color]: разброс и отдача меньше.
 
 dh-overheat-locked = Ствол слишком горячий!
 dh-overheat-examine = Нагрев ствола: {$percent}%.
