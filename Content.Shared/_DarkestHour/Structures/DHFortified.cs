@@ -22,7 +22,18 @@ public sealed partial class DHFortifiedComponent : Component
 {
     [DataField]
     public float Multiplier = 5f;
+
+    /// <summary>
+    /// Доля урона по постройкам (<c>Structural</c>) от пуль. Стены — 1, броня техники — малая: её берут только
+    /// бронебойные снаряды (<see cref="DHAntiArmorComponent"/>) и взрывы.
+    /// </summary>
+    [DataField]
+    public float BulletStructuralMultiplier = 1f;
 }
+
+/// <summary>Бронебойный снаряд: по броне техники бьёт полным уроном по постройкам.</summary>
+[RegisterComponent]
+public sealed partial class DHAntiArmorComponent : Component;
 
 public sealed partial class DHFortifiedSystem : EntitySystem
 {
@@ -55,15 +66,16 @@ public sealed partial class DHFortifiedSystem : EntitySystem
         args.Damage = scaled;
     }
 
-    /// <summary>Пули по стенам и скалам: остаётся только урон по постройкам.</summary>
+    /// <summary>Пули по стенам, скалам и броне: остаётся только урон по постройкам (по броне — ослабленный).</summary>
     private void OnBeforeProjectileHit(Entity<ProjectileComponent> ent, ref BeforeProjectileHitEvent args)
     {
-        if (!_fortifiedQuery.HasComp(args.Target))
+        if (!_fortifiedQuery.TryComp(args.Target, out var fortified))
             return;
 
+        var multiplier = HasComp<DHAntiArmorComponent>(ent) ? 1f : fortified.BulletStructuralMultiplier;
         var remaining = new DamageSpecifier();
         if (args.Damage.DamageDict.TryGetValue(Structural, out var structural) && structural > 0)
-            remaining.DamageDict[Structural] = structural;
+            remaining.DamageDict[Structural] = structural * multiplier;
 
         args.Damage = remaining;
     }

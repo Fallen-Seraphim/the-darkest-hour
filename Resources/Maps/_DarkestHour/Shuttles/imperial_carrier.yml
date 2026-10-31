@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/22/2026 21:38:24
-  entityCount: 788
+  entityCount: 790
 maps: []
 grids:
 - 1
@@ -4797,6 +4797,20 @@ entities:
     components:
     - type: Transform
       pos: -0.5,-21.5
+      parent: 1
+- proto: DHVehicleDropPalletIM30
+  entities:
+  - uid: 795
+    components:
+    - type: Transform
+      pos: -0.5,-20.5
+      parent: 1
+- proto: DHVehicleDropPalletTankEmpire
+  entities:
+  - uid: 796
+    components:
+    - type: Transform
+      pos: -5.5,-21.5
       parent: 1
 - proto: DHCrateMortar
   entities:
