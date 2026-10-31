@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Shared._DarkestHour.Assault;
 using Content.Shared.Actions;
 using Content.Shared.DoAfter;
 using Robust.Shared.GameStates;
@@ -59,6 +60,14 @@ public sealed partial class DHVehicleComponent : Component
     [DataField]
     public List<string> TurretLayers = new() { "turret", "primary" };
 
+    /// <summary>Сторона машины: тактическая карта в отсеке показывает её бойцов.</summary>
+    [DataField]
+    public DHAssaultFaction Faction = DHAssaultFaction.Republic;
+
+    /// <summary>Половина размеров корпуса (как у хитбокса): снаряды вылетают за его край, а не внутри него.</summary>
+    [DataField]
+    public Vector2 HullHalfSize = new(1.2f, 1.9f);
+
     /// <summary>Отдаление камеры у водителя и стрелков (во сколько раз дальше видно).</summary>
     [DataField]
     public float CrewZoom = 1.5f;
@@ -108,31 +117,79 @@ public enum DHVehicleSeatRole : byte
     Passenger,
 }
 
-/// <summary>Кресло в отсеке машины.</summary>
+/// <summary>Кресло в отсеке (простое: управление — на пультах).</summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class DHVehicleSeatComponent : Component;
+
+/// <summary>
+/// Пост экипажа в отсеке (пульт механика-водителя, прицел наводчика, пост командира). Управление берут, сев в кресло
+/// рядом с пультом и нажав на него; встал с кресла — управление отпущено.
+/// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class DHVehicleSeatComponent : Component
+public sealed partial class DHVehicleStationComponent : Component
 {
     [DataField]
-    public DHVehicleSeatRole Role = DHVehicleSeatRole.Passenger;
+    public DHVehicleSeatRole Role = DHVehicleSeatRole.Driver;
 
-    /// <summary>Для стрелка — место оружия машины, которым он управляет.</summary>
+    /// <summary>Место оружия машины, которым управляет пост (наводчик, командир).</summary>
     [DataField]
     public string? Weapon;
 
-    /// <summary>Сидящий получает кнопку дымовой завесы (если она есть у машины).</summary>
+    /// <summary>Пост управляет дымовыми гранатомётами (если они есть у машины).</summary>
     [DataField]
     public bool SmokeControl;
 
     [DataField, AutoNetworkedField]
     public EntityUid? Vehicle;
 
+    /// <summary>Кто сейчас за пультом.</summary>
+    [DataField, AutoNetworkedField]
+    public EntityUid? User;
+
+    /// <summary>Как далеко от пульта может стоять кресло того, кто за ним работает.</summary>
+    [DataField]
+    public float Range = 1.6f;
+
     [ViewVariables]
     public EntityUid? SmokeActionEntity;
 
-    /// <summary>Предел отдаления камеры сидящего до того, как он сел (вернуть при вставании).</summary>
+    /// <summary>Предел отдаления камеры работающего до того, как он сел за пульт (вернуть потом).</summary>
     [ViewVariables]
     public Vector2? PreviousMaxZoom;
 }
+
+/// <summary>Член экипажа за пультом.</summary>
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class DHVehicleCrewComponent : Component
+{
+    [DataField, AutoNetworkedField]
+    public EntityUid? Station;
+}
+
+/// <summary>Механизм заряжания в отсеке: в него закладывают боеприпасы для орудий машины.</summary>
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class DHVehicleAmmoRackComponent : Component
+{
+    [DataField, AutoNetworkedField]
+    public EntityUid? Vehicle;
+}
+
+/// <summary>Ящик боеприпасов техники: пополняет орудие, которое стреляет <see cref="Ammo"/>.</summary>
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class DHVehicleAmmoComponent : Component
+{
+    [DataField(required: true)]
+    public EntProtoId Ammo;
+
+    [DataField, AutoNetworkedField]
+    public int Amount = 1;
+
+    [DataField]
+    public TimeSpan LoadTime = TimeSpan.FromSeconds(3);
+}
+
+[Serializable, NetSerializable]
+public sealed partial class DHVehicleAmmoLoadDoAfterEvent : SimpleDoAfterEvent;
 
 /// <summary>Люк изнутри: выход из машины.</summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]

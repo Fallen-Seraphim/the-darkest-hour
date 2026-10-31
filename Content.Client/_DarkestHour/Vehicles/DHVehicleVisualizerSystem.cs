@@ -6,8 +6,10 @@ using Robust.Client.Graphics;
 namespace Content.Client._DarkestHour.Vehicles;
 
 /// <summary>
-/// Башня техники плавно поворачивается за прицелом: слои башни берут то же направление спрайта, что и корпус,
-/// и вращаются на угол башни вокруг её оси (у каждого направления корпуса ось своя — <see cref="DHVehicleComponent.TurretPivots"/>).
+/// Башня техники за прицелом наводчика, как в RMC-14: берётся кадр башни того направления (из четырёх), куда она
+/// смотрит, и доворачивается на остаток угла (не больше 45°) вокруг своей оси. Так спрайт почти не искажается
+/// поворотом. Кадр башни другого направления нарисован для корпуса, смотрящего туда же, поэтому башню ещё сдвигаем
+/// с её места в том кадре (<see cref="DHVehicleComponent.TurretPivots"/>) на место в кадре корпуса.
 /// </summary>
 public sealed partial class DHVehicleVisualizerSystem : EntitySystem
 {
@@ -26,30 +28,59 @@ public sealed partial class DHVehicleVisualizerSystem : EntitySystem
             if (vehicle.TurretLayers.Count == 0)
                 continue;
 
-            // Направление спрайта корпуса — как его выбирает движок (с учётом поворота камеры).
-            var dir = (_transform.GetWorldRotation(uid) + eyeRotation).GetCardinalDir();
-            var pivot = PivotFor(vehicle, dir);
+            // Кадр корпуса — как его выбирает движок (с учётом поворота камеры).
+            var hullDir = (_transform.GetWorldRotation(uid) + eyeRotation).GetCardinalDir();
+            var hullAngle = hullDir.ToAngle();
 
-            var rotation = vehicle.TurretAngle;
-            // Слой вращается вокруг центра спрайта; сдвигаем так, чтобы осью была ось башни.
-            var offset = pivot - rotation.RotateVec(pivot);
+            // Куда смотрит башня на экране, ближайшее из четырёх направлений и остаток.
+            var turretAngle = hullAngle + vehicle.TurretAngle;
+            var turretDir = turretAngle.GetCardinalDir();
+            var residual = (turretAngle - turretDir.ToAngle()).Reduced();
+            if (residual.Theta > Math.PI)
+                residual = new Angle(residual.Theta - 2 * Math.PI);
+
+            var quarters = (Quarter(turretDir) - Quarter(hullDir) + 4) % 4;
+            var dirOffset = quarters switch
+            {
+                1 => SpriteComponent.DirectionOffset.CounterClockwise,
+                2 => SpriteComponent.DirectionOffset.Flip,
+                3 => SpriteComponent.DirectionOffset.Clockwise,
+                _ => SpriteComponent.DirectionOffset.None,
+            };
+
+            var hullPivot = PivotFor(vehicle, hullDir);
+            var turretPivot = PivotFor(vehicle, turretDir);
+            // Поворот слоя идёт вокруг центра спрайта: ось башни из кадра башни уводим на место оси в кадре корпуса.
+            var offset = hullPivot - residual.RotateVec(turretPivot);
 
             foreach (var key in vehicle.TurretLayers)
             {
                 if (!_sprite.LayerMapTryGet((uid, sprite), key, out var index, false))
                     continue;
 
-                _sprite.LayerSetRotation((uid, sprite), index, rotation);
+                _sprite.LayerSetDirOffset((uid, sprite), index, dirOffset);
+                _sprite.LayerSetRotation((uid, sprite), index, residual);
                 _sprite.LayerSetOffset((uid, sprite), index, offset);
             }
         }
+    }
+
+    /// <summary>Четверти оборота против часовой от юга: юг 0, восток 1, север 2, запад 3.</summary>
+    private static int Quarter(Direction dir)
+    {
+        return dir switch
+        {
+            Direction.East => 1,
+            Direction.North => 2,
+            Direction.West => 3,
+            _ => 0,
+        };
     }
 
     private static Vector2 PivotFor(DHVehicleComponent vehicle, Direction dir)
     {
         var index = dir switch
         {
-            Direction.South => 0,
             Direction.North => 1,
             Direction.East => 2,
             Direction.West => 3,
