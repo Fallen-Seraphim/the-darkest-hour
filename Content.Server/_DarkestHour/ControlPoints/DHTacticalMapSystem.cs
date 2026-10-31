@@ -66,8 +66,15 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
 
     public void SendTerrain(EntityUid map, ICommonSession session)
     {
-        if (GetTerrain(map) is { } terrain)
-            RaiseNetworkEvent(terrain.Event, session);
+        if (GetTerrain(map) is not { } terrain)
+        {
+            Log.Warning($"Tactical map: no terrain for {ToPrettyString(map)} (requested by {session})");
+            return;
+        }
+
+        var ev = terrain.Event;
+        Log.Info($"Tactical map: sending {ev.Width}x{ev.Height} terrain v{ev.Version} ({ev.Data.Length} B) to {session}");
+        RaiseNetworkEvent(ev, session);
     }
 
     private Terrain? GetTerrain(EntityUid map)
@@ -77,11 +84,17 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
             return cached;
 
         if (!TryComp<MapGridComponent>(map, out var grid))
+        {
+            Log.Warning($"Tactical map: surface {ToPrettyString(map)} is not a grid");
             return null;
+        }
 
         var built = Build(map, grid);
         if (built == null)
+        {
+            Log.Warning($"Tactical map: surface {ToPrettyString(map)} has bad bounds {grid.LocalAABB}");
             return null;
+        }
 
         var terrain = new Terrain { Version = ++_version, Built = now, Event = built };
         built.Version = terrain.Version;

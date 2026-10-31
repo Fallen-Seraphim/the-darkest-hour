@@ -26,6 +26,7 @@ dh-control-point-dam-desc = The only safe crossing over the river.
 dh-overwatch-ui-tacmap = Tactical map
 dh-tacmap-title = Tactical map
 dh-tacmap-loading = Loading terrain...
+dh-tacmap-no-surface = No planet surface data.
 dh-tacmap-reset = Fit
 dh-tacmap-legend = Wheel — zoom, drag — pan. Squares — capture zones, frames — landing zones, crosses — laser marks.
 dh-tacmap-laser-mark = Mark { $code }

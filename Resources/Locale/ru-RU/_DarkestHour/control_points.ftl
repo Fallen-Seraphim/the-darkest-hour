@@ -26,6 +26,7 @@ dh-control-point-dam-desc = Единственная безопасная пер
 dh-overwatch-ui-tacmap = Тактическая карта
 dh-tacmap-title = Тактическая карта
 dh-tacmap-loading = Загрузка местности...
+dh-tacmap-no-surface = Нет данных о поверхности планеты.
 dh-tacmap-reset = Вся карта
 dh-tacmap-legend = Колесо — масштаб, перетаскивание — сдвиг. Квадраты — зоны захвата, рамки — ЗП, крестики — метки ЛЦУ.
 dh-tacmap-laser-mark = Метка { $code }
