@@ -1,5 +1,6 @@
 using System.Numerics;
 using Content.Server.Atmos.EntitySystems;
+using Content.Shared._DarkestHour.Overwatch;
 using Content.Shared._DarkestHour.Vehicles;
 using Content.Shared.Atmos;
 using Content.Shared.Buckle;
@@ -72,6 +73,7 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
         SubscribeLocalEvent<DHVehicleComponent, StartCollideEvent>(OnStartCollide);
         SubscribeLocalEvent<DHVehicleComponent, DHVehicleSmokeActionEvent>(OnSmoke);
         SubscribeLocalEvent<DHVehicleHatchComponent, InteractHandEvent>(OnHatchInteract);
+        InitializeAmmo();
     }
 
     #region Появление: отсек и орудия
@@ -174,11 +176,21 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
             if (entry.Rot != 0f)
                 _transform.SetLocalRotation(uid, Angle.FromDegrees(entry.Rot));
 
-            if (TryComp<DHVehicleSeatComponent>(uid, out var seat))
+            if (TryComp<DHVehicleStationComponent>(uid, out var station))
             {
-                seat.Vehicle = ent;
-                Dirty(uid, seat);
+                station.Vehicle = ent;
+                Dirty(uid, station);
             }
+
+            if (TryComp<DHVehicleAmmoRackComponent>(uid, out var rack))
+            {
+                rack.Vehicle = ent;
+                Dirty(uid, rack);
+            }
+
+            // Тактическая карта отсека показывает бойцов стороны машины.
+            if (TryComp<DHOverwatchConsoleComponent>(uid, out var overwatch))
+                overwatch.Faction = ent.Comp.Faction;
 
             if (TryComp<DHVehicleHatchComponent>(uid, out var hatch))
             {

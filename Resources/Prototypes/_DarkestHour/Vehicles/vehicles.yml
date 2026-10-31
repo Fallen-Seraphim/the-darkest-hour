@@ -121,6 +121,8 @@
         state: wheels_0
         loop: false
   - type: DHVehicle
+    faction: Republic
+    hullHalfSize: 1.15,1.95
     interior: DHInteriorAPC
     hull: DHVehicleHullRAM45
     turretLayers: [ ]
@@ -186,10 +188,12 @@
         state: wheels_0
         loop: false
   - type: DHVehicle
+    faction: Empire
+    hullHalfSize: 1.4,2.3
     interior: DHInteriorAPC
     hull: DHVehicleHullIM30
     turretLayers: [ turret, primary ]
-    turretPivots: [ "0,0.02", "0,-0.09", "-0.03,-0.08", "0.03,-0.08" ] # юг, север, восток, запад
+    turretPivots: [ "0.02,0.02", "0.02,-0.09", "-0.03,-0.08", "0.06,-0.08" ] # юг, север, восток, запад
     exitOffset: 0,2.9
     wreck: DHVehicleWreckIM30
     weapons:
@@ -281,11 +285,13 @@
         state: wheels_0
         loop: false
   - type: DHVehicle
+    faction: Republic
+    hullHalfSize: 1.4,1.95
     crewZoom: 1.75
     interior: DHInteriorTank
     hull: DHVehicleHullTank
     turretLayers: [ turret, primary, secondary ]
-    turretPivots: [ "0,0.31", "0,-0.09", "-0.09,0.2", "0.09,0.2" ] # юг, север, восток, запад
+    turretPivots: [ "0,0.36", "0,-0.16", "-0.16,0.2", "0.16,0.2" ] # юг, север, восток, запад
     exitOffset: 0,2.6
     wreck: DHVehicleWreckTankRepublic
     smoke: true
@@ -329,11 +335,13 @@
         state: wheels_0
         loop: false
   - type: DHVehicle
+    faction: Empire
+    hullHalfSize: 1.4,1.95
     crewZoom: 1.75
     interior: DHInteriorTank
     hull: DHVehicleHullTank
     turretLayers: [ turret, primary, secondary ]
-    turretPivots: [ "0,0.27", "0,0.28", "0.06,0.23", "-0.06,0.23" ] # юг, север, восток, запад
+    turretPivots: [ "0,0.3", "0,0.25", "-0.03,0.23", "0.03,0.23" ] # юг, север, восток, запад
     exitOffset: 0,2.6
     wreck: DHVehicleWreckTankEmpire
     smoke: true
@@ -549,8 +557,6 @@
     proto: DHVehicleBullet30mmAP
     capacity: 60
     count: 60
-  - type: RechargeBasicEntityAmmo
-    rechargeCooldown: 2
 
 - type: entity
   parent: DHVehicleGunBase
@@ -568,8 +574,6 @@
     proto: DHBullet127x105FMG
     capacity: 200
     count: 200
-  - type: RechargeBasicEntityAmmo
-    rechargeCooldown: 0.4
 
 - type: entity
   parent: DHVehicleGunBase
@@ -592,8 +596,6 @@
     proto: DHVehicleShellTankAP
     capacity: 24
     count: 24
-  - type: RechargeBasicEntityAmmo
-    rechargeCooldown: 15
 
 - type: entity
   parent: DHVehicleGunBase
@@ -606,12 +608,11 @@
       path: /Audio/Weapons/Guns/Gunshots/lmg.ogg
   - type: DHVehicleGun
     muzzleOffset: 2.2
+    turret: false # пулемёт командира башню не поворачивает — её ведёт наводчик
   - type: BasicEntityAmmoProvider
     proto: DHBullet127x105FMG
     capacity: 250
     count: 250
-  - type: RechargeBasicEntityAmmo
-    rechargeCooldown: 0.3
 
 # ------------------------------------------------------------------ боеприпасы техники
 
@@ -631,8 +632,11 @@
   - type: DHAntiArmor
 
 # ------------------------------------------------------------------ отсек
-# Нос машины — нижний край отсека (юг). Кресла экипажа — бронированные, перед ними смотровые приборы и пульт;
-# десант — на откидных сиденьях вдоль бортов. Спрайты — RMC-14 (cmss13, CC-BY-SA-3.0).
+# Нос машины — нижний край отсека (юг). Впереди пульты экипажа, за ними кресла: сядьте в кресло у пульта и нажмите
+# на пульт — получите управление (механик-водитель ведёт машину, наводчик — главное орудие и башню, командир —
+# пулемёт и дымовую завесу); встали с кресла — управление отпущено. Механизм заряжания — боекомплект орудий
+# (в него закладывают ящики боеприпасов), тактическая карта — бойцы своей стороны. Спрайты — RMC-14 (CC-BY-SA-3.0)
+# и настольные компьютеры DH.
 
 - type: entity
   parent: ChairPilotSeat
@@ -646,40 +650,149 @@
     sprite: _RMC14/Structures/Vehicles/Interiors/general.rsi
     state: vehicle_seat
   - type: DHVehicleSeat
-    role: Passenger
 
 - type: entity
   parent: DHVehicleSeatPassenger
-  id: DHVehicleSeatDriver
-  name: driver's seat
-  description: Take the controls and the periscopes — you see what is around the vehicle and drive it.
+  id: DHVehicleSeatCrew
+  name: crew seat
+  description: An armoured crew seat in front of a control station. Sit down and use the station to take over its controls.
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Vehicles/Interiors/general.rsi
     state: armor_chair
-  - type: DHVehicleSeat
+
+- type: entity
+  abstract: true
+  id: DHVehicleConsoleBase
+  categories: [ HideSpawnMenu ]
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Machines/desktop_computers.rsi
+    drawdepth: SmallObjects
+    layers:
+    - state: frame
+    - state: generic_keyboard
+    - state: generic
+      map: [ "screen" ]
+      shader: unshaded
+    - state: generic_keys
+      map: [ "keys" ]
+      shader: unshaded
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#9fd6a0"
+    castShadows: false
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.4"
+        density: 100
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+
+- type: entity
+  parent: DHVehicleConsoleBase
+  id: DHVehicleConsoleDriver
+  name: driver's station
+  description: Levers, pedals and periscopes. Sit in the seat in front of it and use it to drive — you see what is around the vehicle.
+  components:
+  - type: Sprite
+    layers:
+    - state: frame
+    - state: generic_keyboard
+    - state: shuttle
+      shader: unshaded
+    - state: tech_key
+      shader: unshaded
+  - type: DHVehicleStation
     role: Driver
 
 - type: entity
-  parent: DHVehicleSeatDriver
-  id: DHVehicleSeatGunner
-  name: gunner's seat
-  description: The main gun's sight and controls. Switch to combat mode to fire; the turret follows your aim.
+  parent: DHVehicleConsoleBase
+  id: DHVehicleConsoleGunner
+  name: gunner's station
+  description: The main gun's sight and controls. Sit in the seat in front of it and use it; in combat mode you fire the main gun and lay the turret where you aim.
   components:
-  - type: DHVehicleSeat
+  - type: Sprite
+    layers:
+    - state: frame
+    - state: generic_keyboard
+    - state: tank
+      shader: unshaded
+    - state: security_key
+      shader: unshaded
+  - type: PointLight
+    color: "#e0a050"
+  - type: DHVehicleStation
     role: Gunner
     weapon: primary
 
 - type: entity
-  parent: DHVehicleSeatDriver
-  id: DHVehicleSeatCommander
-  name: commander's seat
-  description: The commander's cupola with the machine gun and the smoke discharger controls.
+  parent: DHVehicleConsoleBase
+  id: DHVehicleConsoleCommander
+  name: commander's station
+  description: The commander's periscope with the machine gun and the smoke dischargers. Sit in the seat in front of it and use it; the turret stays with the gunner.
   components:
-  - type: DHVehicleSeat
+  - type: Sprite
+    layers:
+    - state: frame
+    - state: generic_keyboard
+    - state: sensors
+      shader: unshaded
+    - state: syndie_key
+      shader: unshaded
+  - type: PointLight
+    color: "#6fa8e0"
+  - type: DHVehicleStation
     role: Gunner
     weapon: secondary
     smokeControl: true
+
+- type: entity
+  parent: [ DHVehicleConsoleBase, DHOverwatchBase ]
+  id: DHVehicleTacticalMap
+  name: tactical map table
+  description: A map table linked to the side's sensors and helmet cameras. Shows your soldiers, the terrain and the marked enemy.
+  components:
+  - type: Sprite
+    layers:
+    - state: frame
+    - state: generic_keyboard
+    - state: cameras
+      shader: unshaded
+    - state: generic_keys
+      shader: unshaded
+  - type: PointLight
+    color: "#8fd66b"
+  - type: DHOverwatchConsole # сторона — по машине (DHVehicle.faction)
+
+- type: entity
+  id: DHVehicleInteriorLight
+  name: interior light
+  categories: [ HideSpawnMenu ]
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: PointLight
+    radius: 5
+    energy: 1.3
+    softness: 1.5
+    color: "#ffdcae"
 
 - type: entity
   abstract: true
@@ -699,30 +812,22 @@
   parent: DHVehicleInteriorPropBase
   id: DHVehicleViewport
   name: periscope
-  description: A vision block in the hull. The crew sees the outside through it from their seats.
+  description: A vision block in the hull.
   components:
   - type: Sprite
     state: viewport
 
 - type: entity
   parent: DHVehicleInteriorPropBase
-  id: DHVehicleControlPanel
-  name: vehicle control panel
-  description: Sensors, fire control and the drive computer. Sit in a crew seat to use them.
-  components:
-  - type: Sprite
-    sprite: _RMC14/Structures/Vehicles/Interiors/apc.rsi
-    state: sensors_equipment
-
-- type: entity
-  parent: DHVehicleInteriorPropBase
   id: DHVehicleAmmoRack
   name: ammunition loader
-  description: Feeds the guns from the ready racks. The guns reload by themselves.
+  description: Feeds the guns from the ready racks. Load ammunition crates into it; examine it to see what is left.
   components:
   - type: Sprite
     state: weapons_loader
     drawdepth: Objects
+  - type: InteractionOutline
+  - type: DHVehicleAmmoRack
   - type: Physics
     bodyType: Static
   - type: Fixtures
@@ -774,20 +879,28 @@
   entry: 3,8
   entities:
   - { proto: DHVehicleViewport, pos: "2,0", onWall: true }
-  - { proto: DHVehicleControlPanel, pos: "3,0", onWall: true }
   - { proto: DHVehicleViewport, pos: "4,0", onWall: true }
-  - { proto: DHVehicleSeatDriver, pos: "2,1" }
-  - { proto: DHVehicleSeatGunner, pos: "4,1" }
-  - { proto: DHVehicleSeatCommander, pos: "3,2" }
+  - { proto: DHVehicleAmmoRack, pos: "1,1" }
+  - { proto: DHVehicleConsoleDriver, pos: "2,1", rot: 180 }
+  - { proto: DHVehicleConsoleGunner, pos: "3,1", rot: 180 }
+  - { proto: DHVehicleConsoleCommander, pos: "4,1", rot: 180 }
   - { proto: DHVehicleAmmoRack, pos: "5,1" }
+  - { proto: DHVehicleSeatCrew, pos: "2,2" }
+  - { proto: DHVehicleSeatCrew, pos: "3,2" }
+  - { proto: DHVehicleSeatCrew, pos: "4,2" }
+  - { proto: DHVehicleAmmoAutocannon, pos: "1,2" }
+  - { proto: DHVehicleAmmoMG, pos: "5,2" }
+  - { proto: DHVehicleInteriorLight, pos: "3,3" }
   - { proto: DHVehicleSeatPassenger, pos: "1,4", rot: 90 }
   - { proto: DHVehicleSeatPassenger, pos: "1,5", rot: 90 }
   - { proto: DHVehicleSeatPassenger, pos: "1,6", rot: 90 }
   - { proto: DHVehicleSeatPassenger, pos: "1,7", rot: 90 }
+  - { proto: DHVehicleTacticalMap, pos: "3,5" }
   - { proto: DHVehicleSeatPassenger, pos: "5,4", rot: -90 }
   - { proto: DHVehicleSeatPassenger, pos: "5,5", rot: -90 }
   - { proto: DHVehicleSeatPassenger, pos: "5,6", rot: -90 }
   - { proto: DHVehicleSeatPassenger, pos: "5,7", rot: -90 }
+  - { proto: DHVehicleInteriorLight, pos: "3,7" }
   - { proto: DHVehicleHatch, pos: "3,10" }
 
 - type: dhVehicleInterior
@@ -796,15 +909,77 @@
   floor: FloorSteelMono
   entry: 2,4
   entities:
-  - { proto: DHVehicleControlPanel, pos: "1,0", onWall: true }
   - { proto: DHVehicleViewport, pos: "2,0", onWall: true }
-  - { proto: DHVehicleViewport, pos: "3,0", onWall: true }
-  - { proto: DHVehicleSeatDriver, pos: "2,1" }
-  - { proto: DHVehicleSeatGunner, pos: "1,2" }
-  - { proto: DHVehicleSeatCommander, pos: "3,2" }
-  - { proto: DHVehicleAmmoRack, pos: "1,4" }
-  - { proto: DHVehicleSeatPassenger, pos: "3,4", rot: -90 }
+  - { proto: DHVehicleConsoleGunner, pos: "1,1", rot: 180 }
+  - { proto: DHVehicleConsoleDriver, pos: "2,1", rot: 180 }
+  - { proto: DHVehicleConsoleCommander, pos: "3,1", rot: 180 }
+  - { proto: DHVehicleSeatCrew, pos: "1,2" }
+  - { proto: DHVehicleSeatCrew, pos: "2,2" }
+  - { proto: DHVehicleSeatCrew, pos: "3,2" }
+  - { proto: DHVehicleAmmoRack, pos: "1,3" }
+  - { proto: DHVehicleInteriorLight, pos: "2,3" }
+  - { proto: DHVehicleTacticalMap, pos: "3,3" }
+  - { proto: DHVehicleSeatPassenger, pos: "1,4", rot: 90 }
+  - { proto: DHVehicleAmmoTankShell, pos: "3,4" }
+  - { proto: DHVehicleAmmoTankShell, pos: "3,4" }
+  - { proto: DHVehicleAmmoMG, pos: "3,4" }
   - { proto: DHVehicleHatch, pos: "2,5" }
+
+# ------------------------------------------------------------------ ящики боеприпасов техники
+# Орудия сами не перезаряжаются: ящик кладут в механизм заряжания в отсеке (3 с). Запасные ящики лежат в отсеке.
+
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: DHVehicleAmmoBase
+  components:
+  - type: Item
+    size: Huge
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/ammo/vehicles.rsi
+  - type: MultiHandedItem
+  - type: HeldSpeedModifier
+    walkModifier: 0.8
+    sprintModifier: 0.8
+
+- type: entity
+  parent: DHVehicleAmmoBase
+  id: DHVehicleAmmoTankShell
+  name: tank shell crate
+  description: Six armour-piercing high-explosive rounds for the tank's main gun. Load it into the vehicle's ammunition loader.
+  components:
+  - type: Sprite
+    state: ltbcannon_4
+  - type: DHVehicleAmmo
+    ammo: DHVehicleShellTankAP
+    amount: 6
+    loadTime: 4
+
+- type: entity
+  parent: DHVehicleAmmoBase
+  id: DHVehicleAmmoAutocannon
+  name: autocannon ammunition box
+  description: Sixty 30 mm armour-piercing rounds for an APC autocannon. Load it into the vehicle's ammunition loader.
+  components:
+  - type: Sprite
+    state: ace_autocannon
+  - type: DHVehicleAmmo
+    ammo: DHVehicleBullet30mmAP
+    amount: 60
+
+- type: entity
+  parent: DHVehicleAmmoBase
+  id: DHVehicleAmmoMG
+  name: vehicle machine gun belt box
+  description: A 200-round heavy machine gun belt for a vehicle's machine gun. Load it into the vehicle's ammunition loader.
+  components:
+  - type: Item
+    size: Large
+  - type: Sprite
+    state: cupola_1
+  - type: DHVehicleAmmo
+    ammo: DHBullet127x105FMG
+    amount: 200
 
 # ------------------------------------------------------------------ дымовая завеса
 
