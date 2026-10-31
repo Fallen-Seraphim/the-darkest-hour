@@ -531,8 +531,6 @@
   suffix: Vehicle
   categories: [ HideSpawnMenu ]
   components:
-  - type: Anchorable
-    flags: []
   - type: DHVehicleSeat
     role: Passenger
 
