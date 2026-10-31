@@ -200,4 +200,8 @@ public sealed partial class DHVehicleInteriorEntity
     /// <summary>Поворот в градусах.</summary>
     [DataField]
     public float Rot;
+
+    /// <summary>Висит на стене (смотровой прибор, телефон): стена под ним остаётся.</summary>
+    [DataField]
+    public bool OnWall;
 }

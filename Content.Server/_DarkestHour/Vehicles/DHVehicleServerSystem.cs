@@ -145,7 +145,8 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
         var occupied = new HashSet<Vector2i>();
         foreach (var entry in layout.Entities)
         {
-            occupied.Add(entry.Pos);
+            if (!entry.OnWall)
+                occupied.Add(entry.Pos);
         }
 
         for (var x = 0; x < layout.Size.X; x++)
