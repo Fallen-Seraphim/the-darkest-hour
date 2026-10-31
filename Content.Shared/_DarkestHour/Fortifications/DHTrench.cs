@@ -157,7 +157,7 @@ public sealed partial class DHTrenchCoverSystem : EntitySystem
         climber.Comp.ClimbEnd = _timing.CurTime + trench.ClimbTime;
         climber.Comp.SpeedModifier = trench.ClimbSpeedModifier;
         climber.Comp.Climbing = true;
-        _speed.RefreshMovementSpeedModifiers(climber);
+        _speed.RefreshMovementSpeedModifiers(climber.Owner);
     }
 
     private void OnClimberRefreshSpeed(Entity<DHTrenchClimberComponent> ent, ref RefreshMovementSpeedModifiersEvent args)
