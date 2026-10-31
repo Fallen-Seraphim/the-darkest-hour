@@ -1,10 +1,14 @@
 using Content.Shared._DarkestHour.Weapons.Ranged.Emplacements;
 using Content.Shared.Actions;
+using System.Numerics;
 using Content.Shared.Buckle.Components;
+using Content.Shared.Movement.Components;
+using Content.Shared.Movement.Systems;
 using Content.Shared.Vehicle.Components;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Ranged.Systems;
+using Robust.Shared.Map;
 using Robust.Shared.Network;
 
 namespace Content.Shared._DarkestHour.Vehicles;
@@ -17,6 +21,7 @@ public sealed partial class DHVehicleSystem : EntitySystem
 {
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private SharedContentEyeSystem _contentEye = default!;
     [Dependency] private SharedEyeSystem _eye = default!;
     [Dependency] private DHWeaponMountSystem _mount = default!;
     [Dependency] private INetManager _net = default!;
@@ -31,6 +36,7 @@ public sealed partial class DHVehicleSystem : EntitySystem
         SubscribeLocalEvent<DHVehicleSeatComponent, UnstrappedEvent>(OnSeatUnstrapped);
         SubscribeLocalEvent<DHVehicleGunComponent, DHGunShotOriginEvent>(OnGunShotOrigin);
         SubscribeLocalEvent<DHVehicleGunComponent, AttemptShootEvent>(OnGunAttemptShoot);
+        SubscribeNetworkEvent<DHVehicleTurretAimEvent>(OnTurretAim);
     }
 
     #region Кресла
@@ -54,6 +60,16 @@ public sealed partial class DHVehicleSystem : EntitySystem
                 break;
         }
 
+        if (ent.Comp.Role is DHVehicleSeatRole.Driver or DHVehicleSeatRole.Gunner && _net.IsServer &&
+            TryComp<ContentEyeComponent>(user, out var contentEye))
+        {
+            var zoom = new Vector2(vehicleComp.CrewZoom);
+            ent.Comp.PreviousMaxZoom = contentEye.MaxZoom;
+            _contentEye.SetMaxZoom(user, Vector2.Max(contentEye.MaxZoom, zoom), contentEye);
+            _contentEye.SetZoom(user, zoom, eye: contentEye);
+            _eye.SetPvsScale(user, vehicleComp.CrewZoom);
+        }
+
         if (ent.Comp.SmokeControl && vehicleComp.Smoke && _net.IsServer)
             _actions.AddAction(user, ref ent.Comp.SmokeActionEntity, vehicleComp.SmokeAction, vehicle);
     }
@@ -74,6 +90,16 @@ public sealed partial class DHVehicleSystem : EntitySystem
                         _mount.ClearController(user, weapon);
                     _eye.SetTarget(user, null);
                     break;
+            }
+        }
+
+        if (ent.Comp.PreviousMaxZoom is { } previousZoom && _net.IsServer)
+        {
+            ent.Comp.PreviousMaxZoom = null;
+            if (TryComp<ContentEyeComponent>(user, out var contentEye))
+            {
+                _contentEye.SetMaxZoom(user, previousZoom, contentEye);
+                _contentEye.ResetZoom(user, contentEye);
             }
         }
 
@@ -131,7 +157,7 @@ public sealed partial class DHVehicleSystem : EntitySystem
         args.Origin = _transform.ToCoordinates(vehicle, new Robust.Shared.Map.MapCoordinates(muzzle, center.MapId));
     }
 
-    /// <summary>Башня доворачивается к прицелу (по четвертям оборота — у спрайтов четыре направления).</summary>
+    /// <summary>Башня доворачивается к прицелу при выстреле (по четвертям оборота — у спрайтов четыре направления).</summary>
     private void OnGunAttemptShoot(Entity<DHVehicleGunComponent> ent, ref AttemptShootEvent args)
     {
         if (args.Cancelled || !ent.Comp.Turret || ent.Comp.Vehicle is not { } vehicle ||
@@ -141,21 +167,69 @@ public sealed partial class DHVehicleSystem : EntitySystem
             return;
         }
 
+        if (TryGetTurretQuarter(vehicle, _transform.ToMapCoordinates(aim), out var quarter))
+            SetTurretQuarter((vehicle, vehicleComp), quarter);
+    }
+
+    /// <summary>Четверть оборота башни, при которой она смотрит на <paramref name="target"/>.</summary>
+    public bool TryGetTurretQuarter(EntityUid vehicle, MapCoordinates target, out int quarter)
+    {
+        quarter = 0;
         var xform = Transform(vehicle);
-        var center = _transform.GetWorldPosition(xform);
-        var target = _transform.ToMapCoordinates(aim).Position;
-        if ((target - center).LengthSquared() < 0.01f)
-            return;
+        if (xform.MapID != target.MapId)
+            return false;
 
-        var relative = Angle.FromWorldVec(target - center) - _transform.GetWorldRotation(xform);
+        var (center, rotation) = _transform.GetWorldPositionRotation(xform);
+        var direction = target.Position - center;
+        if (direction.LengthSquared() < 0.01f)
+            return false;
+
+        var relative = Angle.FromWorldVec(direction) - rotation;
         // Угол 0 — «на юг», как и спрайт корпуса; четверть 1 — башня повёрнута на 90° против часовой.
-        var quarter = (int) Math.Round(relative.Reduced().Theta / (Math.PI / 2)) & 3;
-        if (quarter == vehicleComp.TurretQuarter)
+        quarter = (int) Math.Round(relative.Reduced().Theta / (Math.PI / 2)) & 3;
+        return true;
+    }
+
+    public void SetTurretQuarter(Entity<DHVehicleComponent> vehicle, int quarter)
+    {
+        quarter &= 3;
+        if (quarter == vehicle.Comp.TurretQuarter)
             return;
 
-        vehicleComp.TurretQuarter = quarter;
-        Dirty(vehicle, vehicleComp);
+        vehicle.Comp.TurretQuarter = quarter;
+        Dirty(vehicle);
         _appearance.SetData(vehicle, DHVehicleVisuals.TurretQuarter, quarter);
+    }
+
+    /// <summary>Стрелок с башенным орудием, на какой машине он сидит.</summary>
+    public bool TryGetTurretGunner(EntityUid user, out Entity<DHVehicleComponent> vehicle)
+    {
+        vehicle = default;
+        if (!TryComp<BuckleComponent>(user, out var buckle) || buckle.BuckledTo is not { } seatUid ||
+            !TryComp<DHVehicleSeatComponent>(seatUid, out var seat) || seat.Role != DHVehicleSeatRole.Gunner ||
+            seat.Weapon is not { } slot || seat.Vehicle is not { } vehicleUid ||
+            !TryComp<DHVehicleComponent>(vehicleUid, out var vehicleComp) ||
+            !TryGetWeapon((vehicleUid, vehicleComp), slot, out var weapon) ||
+            !TryComp<DHVehicleGunComponent>(weapon, out var gun) || !gun.Turret)
+        {
+            return false;
+        }
+
+        vehicle = (vehicleUid, vehicleComp);
+        return true;
+    }
+
+    private void OnTurretAim(DHVehicleTurretAimEvent ev, EntitySessionEventArgs args)
+    {
+        if (args.SenderSession.AttachedEntity is not { } user || !TryTurretGunner(user, ev, out var vehicle))
+            return;
+
+        SetTurretQuarter(vehicle, ev.Quarter);
+    }
+
+    private bool TryTurretGunner(EntityUid user, DHVehicleTurretAimEvent ev, out Entity<DHVehicleComponent> vehicle)
+    {
+        return TryGetTurretGunner(user, out vehicle) && GetNetEntity(vehicle.Owner) == ev.Vehicle;
     }
 
     #endregion

@@ -284,6 +284,7 @@
         state: wheels_0
         loop: false
   - type: DHVehicle
+    crewZoom: 1.75
     interior: DHInteriorTank
     hull: DHVehicleHullTank
     turretLayers: [ turret, primary, secondary, support ]
@@ -330,6 +331,7 @@
         state: wheels_0
         loop: false
   - type: DHVehicle
+    crewZoom: 1.75
     interior: DHInteriorTank
     hull: DHVehicleHullTank
     turretLayers: [ turret, primary, secondary, support ]

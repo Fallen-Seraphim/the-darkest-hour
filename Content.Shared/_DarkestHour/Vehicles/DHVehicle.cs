@@ -59,6 +59,10 @@ public sealed partial class DHVehicleComponent : Component
     [DataField]
     public List<string> TurretLayers = new() { "turret", "primary" };
 
+    /// <summary>Отдаление камеры у водителя и стрелков (во сколько раз дальше видно).</summary>
+    [DataField]
+    public float CrewZoom = 1.5f;
+
     /// <summary>Поворот башни относительно корпуса, четверти оборота (0–3).</summary>
     [DataField, AutoNetworkedField]
     public int TurretQuarter;
@@ -111,6 +115,10 @@ public sealed partial class DHVehicleSeatComponent : Component
 
     [ViewVariables]
     public EntityUid? SmokeActionEntity;
+
+    /// <summary>Предел отдаления камеры сидящего до того, как он сел (вернуть при вставании).</summary>
+    [ViewVariables]
+    public Vector2? PreviousMaxZoom;
 }
 
 /// <summary>Люк изнутри: выход из машины.</summary>
@@ -156,6 +164,20 @@ public enum DHVehicleVisuals : byte
 }
 
 public sealed partial class DHVehicleSmokeActionEvent : InstantActionEvent;
+
+/// <summary>Клиент стрелка: башня должна смотреть в эту четверть (за курсором, без выстрела).</summary>
+[Serializable, NetSerializable]
+public sealed class DHVehicleTurretAimEvent : EntityEventArgs
+{
+    public NetEntity Vehicle;
+    public int Quarter;
+
+    public DHVehicleTurretAimEvent(NetEntity vehicle, int quarter)
+    {
+        Vehicle = vehicle;
+        Quarter = quarter;
+    }
+}
 
 [Serializable, NetSerializable]
 public sealed partial class DHVehicleEnterDoAfterEvent : SimpleDoAfterEvent;
