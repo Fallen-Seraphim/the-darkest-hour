@@ -7,10 +7,12 @@ using Robust.Shared.Prototypes;
 namespace Content.Client._DarkestHour.Explosion;
 
 /// <summary>Ударные волны взрывов (порт RMCExplosionShockWaveOverlay из RMC-14, MIT).</summary>
-public sealed class DHExplosionShockWaveOverlay : Overlay
+public sealed partial class DHExplosionShockWaveOverlay : Overlay
 {
     [Dependency] private IEntityManager _entMan = default!;
     [Dependency] private IPrototypeManager _prototypeManager = default!;
+
+    private static readonly ProtoId<ShaderPrototype> ShockWaveShader = "RMCShockWave";
 
     private SharedTransformSystem? _xformSystem;
 
@@ -31,7 +33,7 @@ public sealed class DHExplosionShockWaveOverlay : Overlay
     public DHExplosionShockWaveOverlay()
     {
         IoCManager.InjectDependencies(this);
-        _shader = _prototypeManager.Index<ShaderPrototype>("RMCShockWave").Instance().Duplicate();
+        _shader = _prototypeManager.Index(ShockWaveShader).Instance().Duplicate();
     }
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
