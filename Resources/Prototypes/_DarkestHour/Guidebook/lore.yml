@@ -5,6 +5,7 @@
   priority: 5
   text: "/ServerInfo/_DarkestHour/Guidebook/Lore/Lore.xml"
   children:
+  - DHLoreQuick
   - DHLorePreCollapse
   - DHLoreCivilWar
   - DHLoreInterwar
@@ -35,3 +36,9 @@
   id: DHLoreInterwar
   name: guide-entry-dh-lore-interwar
   text: "/ServerInfo/_DarkestHour/Guidebook/Lore/LoreInterwar.xml"
+
+- type: guideEntry
+  id: DHLoreQuick
+  name: guide-entry-dh-lore-quick
+  priority: 0
+  text: "/ServerInfo/_DarkestHour/Guidebook/Lore/LoreQuick.xml"
