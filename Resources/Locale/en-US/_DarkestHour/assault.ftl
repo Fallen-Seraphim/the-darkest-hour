@@ -5,7 +5,7 @@ dh-assault-description = An Imperial landing carrier jumps in from a neighbourin
 
 dh-assault-carrier-name = IC-3 Sovereign
 dh-celestial-rep27-7 = REP-27-7
-dh-celestial-rep27-7-desc = A hot desert world of the REP-27 system with thin but breathable air. The Republican Army Corps keeps Firebase Terminus here, its anti-orbital guns dug into a mountain massif.
+dh-celestial-rep27-7-desc = A hot desert world of the REP-27 system with thin but breathable air. The Republican Army Corps keeps Terminus Military Base here, its anti-orbital guns dug into a mountain massif.
 location-dh-experimental-sample = experimental sample
 id-card-access-level-dh-republic-command = Republican Garrison Command
 
@@ -15,8 +15,8 @@ dh-assault-outcome-sender = Battle report
 
 ## Брифинги
 
-dh-assault-briefing-republic = The year is 2318 and the Solar War is raging. You serve in the garrison of Firebase Terminus on REP-27-7, in an uninhabited system where the United Republic keeps an experimental sample that could change the future of energy. Long-range sensors have picked up an Imperial landing carrier in the neighbouring system; it can tear a rift in about {$minutes} min. The nearest squadron with a Republican Army Corps contingent is already on its way and will arrive in about {$relief} min. Hold out until it gets here: dig in, man the anti-air positions and do not give up the sample in the headquarters vault. If the carrier is shot down, the Empire is finished. Glory to the United Republic!
-dh-assault-briefing-empire = The year is 2318. You serve aboard the Imperial landing carrier IC-3 Sovereign. The Imperial Marines are sent deep into Republic space: in the uninhabited REP-27 system, at Firebase Terminus on REP-27-7, the Republic is hiding an experimental sample that could change the future of energy. The rift generator will be ready in about {$minutes} min: jump to REP-27, descend to the planet, storm the base, bring the sample aboard and leave the system. Intelligence says a Republic squadron will arrive in about {$relief} min — you must be gone by then. Guard the carrier: it is your only way home. Glory to the First Empire!
+dh-assault-briefing-republic = The year is 2318 and the Solar War is raging. You serve in the garrison of Terminus Military Base on REP-27-7, in an uninhabited system where the United Republic keeps an experimental sample that could change the future of energy. Long-range sensors have picked up an Imperial landing carrier in the neighbouring system; it can tear a rift in about {$minutes} min. The nearest squadron with a Republican Army Corps contingent is already on its way and will arrive in about {$relief} min. Hold out until it gets here: dig in, man the anti-air positions and do not give up the sample in the headquarters vault. If the carrier is shot down, there is no escaping an Imperial attack. Glory to the United Republic!
+dh-assault-briefing-empire = The year is 2318. You serve aboard the Imperial landing carrier IC-3 Sovereign. The Imperial Marines are sent deep into Republic space: in the uninhabited REP-27 system, at Terminus Military Base on REP-27-7, the Republic is hiding an experimental sample that could change the future of energy. The rift generator will be ready in about {$minutes} min: jump to REP-27, descend to the planet, storm the base, bring the sample aboard and leave the system. Intelligence says a Republic squadron will arrive in about {$relief} min — you must be gone by then. Guard the carrier: it is your only way home. Glory to the First Empire! For the Emperor!
 dh-assault-reinforced = You return to the battle with the next wave of reinforcements. Reinforcements left for your side: {$tickets}.
 dh-assault-next-wave = You have fallen. The next wave of reinforcements arrives in {$minutes} min {$seconds} s ({$tickets} left for your side).
 dh-assault-no-reinforcements = You have fallen. Your side has no more reinforcements.
@@ -29,9 +29,9 @@ dh-assault-wave-arrived = Reinforcements have arrived: {$count} {$count ->
 
 dh-assault-prep-over-empire = The rift generator is ready. Jump into the REP-27 system with the rift navigation computer and descend on REP-27-7 with the landing computer.
 dh-assault-prep-over-republic = Sensors report a rift signature building up in the neighbouring system. The Imperial carrier may arrive at any moment. All positions, combat readiness!
-dh-assault-carrier-arrived = ALERT! An Imperial landing carrier has entered the REP-27 system. Expect a landing assault on Firebase Terminus. All personnel to combat positions!
+dh-assault-carrier-arrived = ALERT! An Imperial landing carrier has entered the REP-27 system. Expect a landing assault on Terminus Military Base. All personnel to combat positions!
 dh-assault-carrier-arrived-empire = The carrier is in the REP-27 system. Descend on REP-27-7 and take the experimental sample.
-dh-assault-garrison-destroyed = The garrison of Firebase Terminus has been wiped out. Secure the experimental sample and bring it aboard, then leave the system.
+dh-assault-garrison-destroyed = The garrison of Terminus Military Base has been wiped out. Secure the experimental sample and bring it aboard, then leave the system.
 dh-assault-carrier-falling = HULL BREACH! The carrier is losing altitude and going down! Brace for impact!
 dh-assault-carrier-hit = The Imperial carrier has been hit and is going down near the base!
 dh-assault-crashed = The carrier has crashed on REP-27-7. Survive and hold out — the Republic will hunt you down.
@@ -39,11 +39,11 @@ dh-assault-search-operation = The Imperial carrier has been shot down! Start a s
 
 ## Итоги
 
-dh-assault-outcome-imperial-major = Major Imperial victory: the experimental sample has been carried off and the garrison of Firebase Terminus is destroyed.
+dh-assault-outcome-imperial-major = Major Imperial victory: the experimental sample has been carried off and the garrison of Terminus Military Base is destroyed.
 dh-assault-outcome-imperial-minor = Minor Imperial victory: the Empire has achieved part of its goals.
 dh-assault-outcome-republic-minor = Minor Republican victory: the landing has been repelled, the Empire has retreated without the sample.
 dh-assault-outcome-republic-major = Major Republican victory: the Imperial carrier has been shot down and has crashed on REP-27-7.
-dh-assault-outcome-none = The battle for Firebase Terminus ended without a result.
+dh-assault-outcome-none = The battle for Terminus Military Base ended without a result.
 dh-assault-end-sample-taken = The experimental sample was carried off by the Empire.
 dh-assault-end-sample-kept = The experimental sample remained on REP-27-7.
 dh-assault-end-tickets = Reinforcements left: Republic {$republic}, Empire {$empire}.
@@ -51,21 +51,21 @@ dh-assault-end-tickets = Reinforcements left: Republic {$republic}, Empire {$emp
 ## Отделы и должности
 
 dh-department-republic-garrison = Republican Garrison
-dh-department-republic-garrison-description = The garrison of Firebase Terminus on REP-27-7: hold the base and the experimental sample, shoot down the Imperial carrier.
+dh-department-republic-garrison-description = The garrison of Terminus Military Base on REP-27-7: hold the base and the experimental sample, shoot down the Imperial carrier.
 dh-department-imperial-carrier = Carrier Crew
 dh-department-imperial-carrier-description = The crew of the Imperial landing carrier IC-3 Sovereign: fly it, support the landing with fire, keep the ship alive.
 dh-department-imperial-marines = Imperial Marines
-dh-department-imperial-marines-description = The landing force of the Imperial Marine Corps: storm Firebase Terminus and carry off the experimental sample.
+dh-department-imperial-marines-description = The landing force of the Imperial Marine Corps: storm Terminus Military Base and carry off the experimental sample.
 
 dh-job-garrison-supervisors = the base commander
 dh-job-empire-supervisors = the carrier captain and the landing commander
 
 dh-job-garrison-commander-name = Base Commander
-dh-job-garrison-commander-desc = Command Firebase Terminus: organise the defence, keep the experimental sample, decide where the anti-air fire goes.
+dh-job-garrison-commander-desc = Command Terminus Military Base: organise the defence, keep the experimental sample, decide where the anti-air fire goes.
 dh-job-garrison-officer-name = Garrison Officer
 dh-job-garrison-officer-desc = Lead a section of the garrison under the base commander. Has access to the sample vault.
 dh-job-garrison-rifleman-name = Garrison Rifleman
-dh-job-garrison-rifleman-desc = The backbone of the defence of Firebase Terminus.
+dh-job-garrison-rifleman-desc = The backbone of the defence of Terminus Military Base.
 dh-job-garrison-machinegunner-name = Garrison Machinegunner
 dh-job-garrison-machinegunner-desc = Hold the approaches to the base with a machine gun.
 dh-job-garrison-sniper-name = Garrison Sniper
@@ -88,7 +88,7 @@ dh-job-carrier-artillerist-desc = Support the landing with the guns of the carri
 dh-job-carrier-technician-name = Carrier Technician
 dh-job-carrier-technician-desc = Keep the carrier flying: repair hull damage, the rift gear and the engines.
 dh-job-marine-commander-name = Landing Commander
-dh-job-marine-commander-desc = Lead the Imperial Marines in the assault on Firebase Terminus.
+dh-job-marine-commander-desc = Lead the Imperial Marines in the assault on Terminus Military Base.
 dh-job-marine-weapons-specialist-name = Marine Weapons Specialist
 dh-job-marine-weapons-specialist-desc = Heavy weapons of the landing force; choose your kit before the jump.
 dh-job-marine-field-medic-name = Marine Field Medic

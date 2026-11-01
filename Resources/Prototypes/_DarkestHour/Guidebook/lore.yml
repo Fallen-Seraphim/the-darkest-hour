@@ -5,6 +5,9 @@
   priority: 5
   text: "/ServerInfo/_DarkestHour/Guidebook/Lore/Lore.xml"
   children:
+  - DHLorePreCollapse
+  - DHLoreCivilWar
+  - DHLoreInterwar
   - DHLore2317
   - DHLore2318
 
@@ -17,3 +20,18 @@
   id: DHLore2318
   name: guide-entry-dh-lore-2318
   text: "/ServerInfo/_DarkestHour/Guidebook/Lore/Lore2318.xml"
+
+- type: guideEntry
+  id: DHLorePreCollapse
+  name: guide-entry-dh-lore-precollapse
+  text: "/ServerInfo/_DarkestHour/Guidebook/Lore/LorePreCollapse.xml"
+
+- type: guideEntry
+  id: DHLoreCivilWar
+  name: guide-entry-dh-lore-civilwar
+  text: "/ServerInfo/_DarkestHour/Guidebook/Lore/LoreCivilWar.xml"
+
+- type: guideEntry
+  id: DHLoreInterwar
+  name: guide-entry-dh-lore-interwar
+  text: "/ServerInfo/_DarkestHour/Guidebook/Lore/LoreInterwar.xml"
