@@ -13,7 +13,6 @@ namespace Content.Server.Explosion.EntitySystems;
 public sealed partial class ExplosionSystem
 {
     [Dependency] private DecalSystem _dhDecals = default!;
-    [Dependency] private IMapManager _dhMapManager = default!;
 
     private static readonly EntProtoId[] DHBlastEffect =
     {
@@ -53,7 +52,7 @@ public sealed partial class ExplosionSystem
         }
 
         // Подпалина на земле.
-        if (_dhMapManager.TryFindGridAt(epicenter, out var gridUid, out _))
+        if (_map.TryFindGridAt(epicenter, out var gridUid, out _))
         {
             var coords = _transformSystem.ToCoordinates(gridUid, epicenter);
             var decal = _robustRandom.Pick(size >= 2 ? DHScorch : DHScorchSmall);
