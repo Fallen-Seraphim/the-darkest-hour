@@ -81,3 +81,34 @@
   - type: ClothingSpeedModifier
     walkModifier: 0.85
     sprintModifier: 0.85
+
+# --- Тяжёлые перчатки (решение автора 2026-11-01) ---
+# Кисти защищают перчатки: боевые и тактические — класс 1, тяжёлые (к тяжёлой броне) — класс 2, но действия с
+# задержкой (перевязка, установка, ремонт и т.п.) в них в 1,5 раза дольше.
+
+- type: entity
+  parent: ClothingHandsGlovesCombat
+  id: DHClothingHandsGlovesHeavyImperial
+  name: heavy armoured gloves
+  description: IMB-1 plated gauntlets. Protection class 2 for the hands, but clumsy — anything that takes time takes half as long again.
+  components:
+  - type: Sprite
+    sprite: Clothing/Hands/Gloves/combat.rsi
+    color: "#d8d8d8"
+  - type: DHPartArmor
+    parts: [ HandLeft, HandRight ]
+    armorClass: 2
+  - type: DHClumsyGloves
+    doAfterMultiplier: 1.5
+
+- type: entity
+  parent: ClothingHandsMercGlovesCombat
+  id: DHClothingHandsGlovesHeavyRepublic
+  name: heavy armoured gloves
+  description: RMB-1 plated gauntlets. Protection class 2 for the hands, but clumsy — anything that takes time takes half as long again.
+  components:
+  - type: DHPartArmor
+    parts: [ HandLeft, HandRight ]
+    armorClass: 2
+  - type: DHClumsyGloves
+    doAfterMultiplier: 1.5

@@ -38,3 +38,31 @@ dh-armor-storage-examine = Вмещает { $count } { $count ->
 }. Открывается действием особой системы.
 dh-armor-weapon-examine-stowed = Встроенное оружие ({ $weapon }): убрано.
 dh-armor-weapon-examine-out = Встроенное оружие ({ $weapon }): [color=yellow]выдвинуто[/color].
+
+## Класс брони / бронепробития (значок при осмотре)
+dh-armor-verb-text = Класс брони
+dh-armor-verb-class = Класс брони: [color=cyan]{ $level }[/color].
+dh-armor-verb-parts = Защищает: { $parts }.
+dh-armor-verb-suit = Модули корпуса:
+dh-armor-verb-module = { $slot }: класс [color=cyan]{ $level }[/color] ({ $class }), целостность { $percent }%.
+dh-armor-verb-module-broken = { $slot }: [color=red]сломан[/color] — не защищает.
+dh-armor-verb-slot-empty = { $slot }: [color=gray]пусто[/color] — не защищено.
+dh-armor-slot-torso = Торс
+dh-armor-slot-armleft = Левая рука
+dh-armor-slot-armright = Правая рука
+dh-armor-slot-legleft = Левая нога
+dh-armor-slot-legright = Правая нога
+dh-armor-slot-special = Спецсистема
+dh-armor-part-head = голова
+dh-armor-part-torso = торс
+dh-armor-part-armleft = левая рука
+dh-armor-part-armright = правая рука
+dh-armor-part-handleft = левая кисть
+dh-armor-part-handright = правая кисть
+dh-armor-part-legleft = левая нога
+dh-armor-part-legright = правая нога
+dh-armor-part-footleft = левая стопа
+dh-armor-part-footright = правая стопа
+dh-penetration-verb-text = Бронепробитие
+dh-penetration-verb-class = Класс бронепробития: [color=orange]{ $level }[/color].
+dh-penetration-verb-hint = Пробивает броню классов 0–{ $level }; более прочная броня держит (заброневой удар).

@@ -41,7 +41,7 @@ public sealed partial class DHModularArmorDamageSystem : EntitySystem
 
     private static readonly HashSet<ProtoId<DamageTypePrototype>> PhysicalTypes = new() { "Blunt", "Slash", "Piercing" };
     private static readonly ProtoId<DamageTypePrototype> BluntType = "Blunt";
-    private static readonly string[] PartArmorSlots = { "head", "shoes" };
+    private static readonly string[] PartArmorSlots = { "head", "shoes", "gloves" };
 
     /// <summary>Цели, чей урон в этом тике уже посчитан по классам брони (попадание пули).</summary>
     private readonly Dictionary<EntityUid, GameTick> _bulletHandled = new();
@@ -82,7 +82,7 @@ public sealed partial class DHModularArmorDamageSystem : EntitySystem
             }
         }
 
-        // Шлем (голова) и бронеботинки (стопы).
+        // Шлем (голова), ботинки (стопы), перчатки (кисти).
         foreach (var slotId in PartArmorSlots)
         {
             if (!_inventory.TryGetSlotEntity(target, slotId, out var item) ||

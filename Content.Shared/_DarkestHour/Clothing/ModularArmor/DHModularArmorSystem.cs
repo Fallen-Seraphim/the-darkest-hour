@@ -60,6 +60,7 @@ public sealed partial class DHModularArmorSystem : EntitySystem
         SubscribeLocalEvent<DHModularArmorComponent, InventoryRelayedEvent<RefreshMovementSpeedModifiersEvent>>(OnRefreshSpeed);
         SubscribeLocalEvent<DHModularArmorComponent, GetItemActionsEvent>(OnGetActions);
         SubscribeLocalEvent<DHModularArmorComponent, DHArmorSpecialActionEvent>(OnSpecialAction);
+        SubscribeLocalEvent<DHModularArmorComponent, ClothingGotEquippedEvent>(OnEquipped);
         SubscribeLocalEvent<DHModularArmorComponent, ClothingGotUnequippedEvent>(OnUnequipped);
         SubscribeLocalEvent<DHModularArmorComponent, ExaminedEvent>(OnExamined);
         SubscribeLocalEvent<DHModularArmorComponent, EntInsertedIntoContainerMessage>(OnContentsChanged);
@@ -308,11 +309,15 @@ public sealed partial class DHModularArmorSystem : EntitySystem
     private void OnContentsChanged(Entity<DHModularArmorComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
         Refresh(ent);
+        if (GetWearer(ent) is { } wearer)
+            RefreshCovers(ent, wearer);
     }
 
     private void OnContentsRemoved(Entity<DHModularArmorComponent> ent, ref EntRemovedFromContainerMessage args)
     {
         Refresh(ent);
+        if (GetWearer(ent) is { } wearer)
+            RefreshCovers(ent, wearer);
     }
 
     /// <summary>Модули поменялись: скорость и внешний вид носителя.</summary>
@@ -585,8 +590,83 @@ public sealed partial class DHModularArmorSystem : EntitySystem
         _container.Insert(weapon, slot, force: true);
     }
 
+    private void OnEquipped(Entity<DHModularArmorComponent> ent, ref ClothingGotEquippedEvent args)
+    {
+        RefreshCovers(ent, args.Wearer);
+    }
+
+    /// <summary>
+    /// Модули рук и ног надетого корпуса занимают слоты правой/левой руки и ноги (по одному модулю на слот); нет
+    /// модуля — слот свободен. Что было в слоте — снимается в руки или под ноги.
+    /// </summary>
+    private void RefreshCovers(Entity<DHModularArmorComponent> ent, EntityUid? wearer)
+    {
+        if (_net.IsClient)
+            return;
+
+        foreach (var slot in DHModularArmor.Slots)
+        {
+            if (DHModularArmor.InventorySlot(slot) is not { } inventorySlot)
+                continue;
+
+            var wanted = wearer != null && GetModule(ent, slot) != null &&
+                         ent.Comp.Covers.TryGetValue(slot, out _);
+            var current = ent.Comp.CoverEntities.TryGetValue(slot, out var cover) && !TerminatingOrDeleted(cover)
+                ? cover
+                : (EntityUid?) null;
+
+            if (!wanted)
+            {
+                if (current is { } stale)
+                    QueueDel(stale);
+                ent.Comp.CoverEntities.Remove(slot);
+                continue;
+            }
+
+            if (current != null)
+                continue;
+
+            if (EquipCover(ent, wearer!.Value, inventorySlot, ent.Comp.Covers[slot], slot) is { } equipped)
+                ent.Comp.CoverEntities[slot] = equipped;
+        }
+    }
+
+    private EntityUid? EquipCover(Entity<DHModularArmorComponent> suit, EntityUid wearer, string inventorySlot,
+        EntProtoId proto, DHArmorSlot slot)
+    {
+        if (!_inventory.HasSlot(wearer, inventorySlot))
+            return null;
+
+        if (_inventory.TryGetSlotEntity(wearer, inventorySlot, out _))
+        {
+            if (!_inventory.TryUnequip(wearer, inventorySlot, out var removed, silent: true, force: true))
+                return null;
+
+            _hands.PickupOrDrop(wearer, removed.Value);
+        }
+
+        var cover = Spawn(proto, Transform(wearer).Coordinates);
+        var coverComp = EnsureComp<DHArmorLimbCoverComponent>(cover);
+        coverComp.Suit = suit;
+        coverComp.Slots = new List<DHArmorSlot> { slot };
+        Dirty(cover, coverComp);
+
+        if (_inventory.TryEquip(wearer, cover, inventorySlot, silent: true, force: true))
+            return cover;
+
+        QueueDel(cover);
+        return null;
+    }
+
+    private void RemoveCovers(Entity<DHModularArmorComponent> ent)
+    {
+        RefreshCovers(ent, null);
+    }
+
     private void OnUnequipped(Entity<DHModularArmorComponent> ent, ref ClothingGotUnequippedEvent args)
     {
+        RemoveCovers(ent);
+
         if (GetModule(ent, DHArmorSlot.Special) is { } module)
             RetractWeapon(module);
 

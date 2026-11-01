@@ -114,8 +114,14 @@ def gen(f):
   - type: HeldSpeedModifier
   - type: ToggleableClothing
     clothingPrototype: DHClothingHeadHelmetModular%(Id)s
+  # Пока корпус надет, модули рук и ног занимают слоты правой/левой руки и ноги (DHArmorLimbCover).
   - type: DHModularArmor
     faction: %(f)s
+    covers:
+      ArmLeft: DHArmorCover%(Id)sArmLeft
+      ArmRight: DHArmorCover%(Id)sArmRight
+      LegLeft: DHArmorCover%(Id)sLegLeft
+      LegRight: DHArmorCover%(Id)sLegRight
   - type: ContainerContainer
     containers:
       toggleable-clothing: !type:ContainerSlot {}
@@ -158,6 +164,34 @@ def gen(f):
     parts: [ Head ]
     armorClass: %(helmet_class)s
 ''' % dict(F, f=f, outer=outer, helmet_class=HELMET_CLASS))
+
+    for part, slot_flag, state, pname in (('ArmLeft', 'ARMS', 'arm_left', 'left arm module'),
+                                          ('ArmRight', 'ARMS', 'arm_right', 'right arm module'),
+                                          ('LegLeft', 'LEGS', 'leg_left', 'left leg module'),
+                                          ('LegRight', 'LEGS', 'leg_right', 'right leg module')):
+        out.append('''
+- type: entity
+  parent: BaseItem
+  id: DHArmorCover%(Id)s%(part)s
+  name: %(name)s %(pname)s
+  description: "A module of the worn %(name)s suit. It comes off together with the suit or when the module is taken out; examine for its protection."
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: %(outer)s/%(f)s_light.rsi
+    state: icon_%(state)s
+  - type: Item
+    size: Normal
+  # Сам модуль рисует корпус; здесь — только место в слоте инвентаря.
+  - type: Clothing
+    slots: [ %(slot_flag)s ]
+    clothingVisuals:
+      %(slot)s: []
+  - type: Unremoveable
+    deleteOnDrop: true
+  - type: DHArmorLimbCover
+''' % dict(F, part=part, pname=pname, outer=outer, f=f, state=state, slot_flag=slot_flag,
+           slot=part[0].lower() + part[1:]))
 
     for cls, (cname, speed, integrity) in CLASSES.items():
         for slot, (enum, state, iname, mult) in SLOTS.items():
@@ -207,6 +241,11 @@ def gen(f):
   components:
   - type: DHModularArmor
     faction: %(f)s
+    covers:
+      ArmLeft: DHArmorCover%(Id)sArmLeft
+      ArmRight: DHArmorCover%(Id)sArmRight
+      LegLeft: DHArmorCover%(Id)sLegLeft
+      LegRight: DHArmorCover%(Id)sLegRight
     startingModules:
 %(lines)s
 ''' % dict(F, f=f, preset=preset, lines='\n'.join(lines)))

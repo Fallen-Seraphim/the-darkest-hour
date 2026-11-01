@@ -60,6 +60,7 @@
   parent: DHRepublicGearBase
   id: DHRepublicMachinegunnerGear
   equipment:
+    gloves: DHClothingHandsGlovesHeavyRepublic
     shoes: DHClothingShoesMagArmoredHeavyRepublic
     id: DHDogtagsDHRepublicMachinegunner
     outerClothing: DHClothingOuterModularRMB1HeavyAutoMed
@@ -119,6 +120,7 @@
   parent: DHRepublicGearBase
   id: DHRepublicFlamerGear
   equipment:
+    gloves: DHClothingHandsGlovesHeavyRepublic
     shoes: DHClothingShoesMagArmoredHeavyRepublic
     id: DHDogtagsDHRepublicFlamer
     outerClothing: DHClothingOuterModularRMB1HeavyTanks

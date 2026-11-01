@@ -70,6 +70,40 @@ public sealed partial class DHModularArmorComponent : Component
     /// <summary>Модули, которые ставятся при создании корпуса (наборы подклассов).</summary>
     [DataField]
     public Dictionary<DHArmorSlot, EntProtoId> StartingModules = new();
+
+    /// <summary>
+    /// Что надевается в слоты правой/левой руки и ноги, пока корпус надет и в нём стоит модуль этой конечности
+    /// (защита считается по самим модулям).
+    /// </summary>
+    [DataField]
+    public Dictionary<DHArmorSlot, EntProtoId> Covers = new();
+
+    /// <summary>Надетые сейчас части (сервер).</summary>
+    [ViewVariables]
+    public Dictionary<DHArmorSlot, EntityUid> CoverEntities = new();
+}
+
+/// <summary>
+/// Модуль руки или ноги модульной брони в слоте инвентаря этой конечности: появляется, когда корпус с модулем надет,
+/// и пропадает, когда корпус сняли или модуль вынули. Снять отдельно нельзя.
+/// </summary>
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class DHArmorLimbCoverComponent : Component
+{
+    [DataField, AutoNetworkedField]
+    public EntityUid? Suit;
+
+    /// <summary>Слоты модулей корпуса, которые показывает эта часть.</summary>
+    [DataField]
+    public List<DHArmorSlot> Slots = new();
+}
+
+/// <summary>Тяжёлые перчатки: действия с задержкой (перевязка, установка, ремонт) идут медленнее.</summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class DHClumsyGlovesComponent : Component
+{
+    [DataField]
+    public float DoAfterMultiplier = 1.5f;
 }
 
 /// <summary>Модуль брони.</summary>
@@ -242,6 +276,19 @@ public static class DHModularArmor
 
     public static string ContainerId(DHArmorSlot slot) => "dh_armor_" + slot.ToString().ToLowerInvariant();
 
+    /// <summary>Слот инвентаря, который занимает модуль конечности (null — торс, спецсистема).</summary>
+    public static string? InventorySlot(DHArmorSlot slot)
+    {
+        return slot switch
+        {
+            DHArmorSlot.ArmLeft => "armLeft",
+            DHArmorSlot.ArmRight => "armRight",
+            DHArmorSlot.LegLeft => "legLeft",
+            DHArmorSlot.LegRight => "legRight",
+            _ => null,
+        };
+    }
+
     public static readonly DHArmorSlot[] Slots =
     {
         DHArmorSlot.Torso, DHArmorSlot.ArmLeft, DHArmorSlot.ArmRight, DHArmorSlot.LegLeft, DHArmorSlot.LegRight,
@@ -254,10 +301,12 @@ public static class DHModularArmor
         return part switch
         {
             "Torso" => DHArmorSlot.Torso,
-            "ArmLeft" or "HandLeft" => DHArmorSlot.ArmLeft,
-            "ArmRight" or "HandRight" => DHArmorSlot.ArmRight,
-            "LegLeft" or "FootLeft" => DHArmorSlot.LegLeft,
-            "LegRight" or "FootRight" => DHArmorSlot.LegRight,
+            // Кисти защищают перчатки (DHPartArmor), не модули рук.
+            "ArmLeft" => DHArmorSlot.ArmLeft,
+            "ArmRight" => DHArmorSlot.ArmRight,
+            // Стопы защищают только ботинки (DHPartArmor), не модули ног.
+            "LegLeft" => DHArmorSlot.LegLeft,
+            "LegRight" => DHArmorSlot.LegRight,
             _ => null,
         };
     }
