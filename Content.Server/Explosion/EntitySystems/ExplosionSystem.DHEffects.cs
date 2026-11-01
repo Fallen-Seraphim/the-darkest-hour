@@ -2,6 +2,7 @@ using Content.Server.Decals;
 using Content.Shared.Explosion;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 
 namespace Content.Server.Explosion.EntitySystems;
 
