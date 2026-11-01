@@ -41,6 +41,12 @@
   - type: DHFortified
     multiplier: 5
     bulletStructuralMultiplier: 0.1
+  # Ремонт сваркой: включённым сварочным аппаратом по машине — каждые 3 с −100 урона (танк с нуля ~1,5 мин,
+  # БТР ~45 с), пока не будет цела или не кончится топливо. Самому себе изнутри не починить — нужен снаружи.
+  - type: Repairable
+    damageValue: -100
+    doAfterDelay: 3
+    fuelCost: 3
   - type: Appearance
   # Звук двигателя — DHVehicleServerSystem.Engine (как в RMC: запуск и рёв на ходу каждые 2 с).
   - type: PointLight
