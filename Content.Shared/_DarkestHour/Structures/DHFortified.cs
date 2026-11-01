@@ -31,20 +31,26 @@ public sealed partial class DHFortifiedComponent : Component
     public float BulletStructuralMultiplier = 1f;
 
     /// <summary>
-    /// Урон от одного попадания противотанкового снаряда (<see cref="DHAntiArmorComponent.AntiTank"/>), 0 — как обычный
-    /// бронебойный. Техника задаёт его так, чтобы её уничтожало заданное число попаданий (танк — 4, БТР — 3).
+    /// Класс бронетехники (<c>Tank</c>, <c>APC</c>) для <see cref="DHAntiArmorComponent.HitsToKill"/>; пусто — не техника.
     /// </summary>
     [DataField]
-    public float AntiTankDamage;
+    public string? VehicleClass;
+
+    /// <summary>Прочность техники (порог уничтожения), из которой считается урон одного противотанкового попадания.</summary>
+    [DataField]
+    public float VehicleIntegrity;
 }
 
 /// <summary>Бронебойный снаряд: по броне техники бьёт полным уроном по постройкам.</summary>
 [RegisterComponent]
 public sealed partial class DHAntiArmorComponent : Component
 {
-    /// <summary>Противотанковый (танковая пушка): по технике — <see cref="DHFortifiedComponent.AntiTankDamage"/>.</summary>
+    /// <summary>
+    /// Противотанковый снаряд: за сколько попаданий он уничтожает технику данного класса
+    /// (<see cref="DHFortifiedComponent.VehicleClass"/>). Урон попадания — прочность / число попаданий.
+    /// </summary>
     [DataField]
-    public bool AntiTank;
+    public Dictionary<string, int> HitsToKill = new();
 }
 
 public sealed partial class DHFortifiedSystem : EntitySystem
@@ -85,9 +91,13 @@ public sealed partial class DHFortifiedSystem : EntitySystem
             return;
 
         var remaining = new DamageSpecifier();
-        if (TryComp<DHAntiArmorComponent>(ent, out var antiArmor) && antiArmor.AntiTank && fortified.AntiTankDamage > 0)
+        if (TryComp<DHAntiArmorComponent>(ent, out var antiArmor) &&
+            fortified.VehicleClass is { } vehicleClass &&
+            fortified.VehicleIntegrity > 0 &&
+            antiArmor.HitsToKill.TryGetValue(vehicleClass, out var hits) && hits > 0)
         {
-            remaining.DamageDict[Structural] = fortified.AntiTankDamage;
+            // С небольшим запасом, чтобы округление не оставило технике лишнее попадание.
+            remaining.DamageDict[Structural] = MathF.Ceiling(fortified.VehicleIntegrity / hits) + 1f;
             args.Damage = remaining;
             return;
         }

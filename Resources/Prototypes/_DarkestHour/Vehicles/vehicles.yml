@@ -37,7 +37,7 @@
   - type: Injurable
     damageContainer: StructuralInorganic
   # Броня: пули почти не берут, обычный урон (осколки, огонь, удары) ÷5, бронебойные и артиллерия — полностью,
-  # противотанковый снаряд — фиксированно (antiTankDamage: танк — 4 попадания, БТР — 3).
+  # противотанковый снаряд — фиксированно (DHAntiArmor.hitsToKill по vehicleClass: танковая пушка — танк за 4, БТР за 3).
   - type: DHFortified
     multiplier: 5
     bulletStructuralMultiplier: 0.1
@@ -88,7 +88,8 @@
   - type: DHFortified
     multiplier: 5
     bulletStructuralMultiplier: 0.1
-    antiTankDamage: 500
+    vehicleClass: APC
+    vehicleIntegrity: 1500
   - type: Destructible
     thresholds:
     - trigger:
@@ -254,7 +255,8 @@
   - type: DHFortified
     multiplier: 5
     bulletStructuralMultiplier: 0.1
-    antiTankDamage: 750
+    vehicleClass: Tank
+    vehicleIntegrity: 3000
   - type: Destructible
     thresholds:
     - trigger:
@@ -650,7 +652,9 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: DHAntiArmor
-    antiTank: true # танк — 4 попадания, БТР — 3 (DHFortified.antiTankDamage)
+    hitsToKill: # танк — 4 попадания, БТР — 3
+      Tank: 4
+      APC: 3
 
 # ------------------------------------------------------------------ отсек
 # Нос машины — нижний край отсека (юг). Впереди пульты экипажа, за ними кресла: сядьте в кресло у пульта и нажмите
