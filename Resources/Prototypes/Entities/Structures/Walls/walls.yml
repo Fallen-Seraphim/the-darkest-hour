@@ -10,6 +10,8 @@
     - Wall
   components:
   - type: DHFortified # DarkestHour: прочность ×5, пули не ломают, артиллерия — да
+  - type: DHBullethole # DarkestHour: следы от пуль (RMC-14)
+  - type: Appearance
   - type: Anchorable
     flags:
     - Anchorable

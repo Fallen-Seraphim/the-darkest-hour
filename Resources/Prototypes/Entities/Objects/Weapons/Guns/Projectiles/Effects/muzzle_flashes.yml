@@ -2,15 +2,22 @@
   id: MuzzleFlashEffect
   categories: [ HideSpawnMenu ]
   components:
+  # DarkestHour: дульная вспышка RMC-14 (VictorJob, CC-BY-SA-4.0) с короткой вспышкой света.
   - type: Sprite
     drawdepth: BelowMobs
+    offset: 0.33, 0
     layers:
     - shader: unshaded
       map: [ "enum.EffectLayers.Unshaded" ]
-      sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
-      state: muzzle_bullet
+      sprite: _RMC14/Objects/Weapons/Guns/Projectiles/projectiles.rsi
+      state: muzzle_bullet_high_RMC
+  - type: PointLight
+    radius: 2.5
+    energy: 2
+    color: "#ffc070"
+    castShadows: false
   - type: TimedDespawn
-    lifetime: 0.4
+    lifetime: 0.3
   - type: Tag
     tags:
     - HideContextMenu

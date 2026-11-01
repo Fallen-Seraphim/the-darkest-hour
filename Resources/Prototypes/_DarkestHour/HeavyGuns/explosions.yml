@@ -4,6 +4,12 @@
 
 - type: explosion
   id: DHArtillery
+  # DarkestHour: эффекты RMC-14 — огненные клетки скрыты (спрайт разрыва — ExplosionSystem.DHEffects), звуки CM-SS13.
+  fireColor: Transparent
+  sound:
+    collection: RMCExplosionBig
+  smallSound:
+    collection: CMExplosion
   damagePerIntensity:
     types:
       Heat: 5
@@ -20,6 +26,12 @@
 
 - type: explosion
   id: DHArtilleryFire
+  # DarkestHour: эффекты RMC-14 — огненные клетки скрыты (спрайт разрыва — ExplosionSystem.DHEffects), звуки CM-SS13.
+  fireColor: Transparent
+  sound:
+    collection: CMExplosion
+  smallSound:
+    collection: CMExplosion
   damagePerIntensity:
     types:
       Heat: 1
