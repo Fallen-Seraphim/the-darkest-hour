@@ -158,6 +158,10 @@ namespace Content.Client.Examine
             // since there's probably one open already if it's coming in from the server.
             var entity = GetEntity(ev.EntityUid);
 
+            // DarkestHour: сервер может прислать осмотр сущности, которой у клиента нет (вне PVS) — не падаем.
+            if (!Exists(entity))
+                return;
+
             OpenTooltip(player.Value, entity, ev.CenterAtCursor, ev.OpenAtOldTooltip, ev.KnowTarget);
             UpdateTooltipInfo(player.Value, entity, ev.Message, ev.Verbs, getVerbs: false);
         }
