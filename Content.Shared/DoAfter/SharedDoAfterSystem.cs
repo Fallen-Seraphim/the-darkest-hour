@@ -259,6 +259,8 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
             return false;
         }
 
+        DHApplyDelayModifiers(args); // DarkestHour: тяжёлые перчатки
+
         // Duplicate blocking & cancellation.
         if (!ProcessDuplicates(args, comp))
         {

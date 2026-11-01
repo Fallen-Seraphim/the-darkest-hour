@@ -28,6 +28,21 @@
       uiWindowPos: 2,1
       strippingWindowPos: 2,2
       displayName: Gloves
+    # DarkestHour: броня рук и ног (не перчатки и не ботинки) — модули модульной брони и отдельные наручи/поножи.
+    - name: arms
+      slotTexture: arms
+      slotFlags: ARMS
+      stripTime: 6
+      uiWindowPos: 2,0
+      strippingWindowPos: 2,1
+      displayName: Arms
+    - name: legs
+      slotTexture: legs
+      slotFlags: LEGS
+      stripTime: 6
+      uiWindowPos: 0,0
+      strippingWindowPos: 0,3
+      displayName: Legs
     - name: neck
       slotTexture: neck
       slotFlags: NECK

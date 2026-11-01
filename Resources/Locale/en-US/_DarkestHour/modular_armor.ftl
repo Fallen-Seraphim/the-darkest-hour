@@ -36,3 +36,31 @@ dh-armor-storage-examine = Holds { $count } { $count ->
 }. Open it with the special system action.
 dh-armor-weapon-examine-stowed = Built-in { $weapon }: stowed.
 dh-armor-weapon-examine-out = Built-in { $weapon }: [color=yellow]extended[/color].
+
+## Armour / penetration class (examine icon)
+dh-armor-verb-text = Armour class
+dh-armor-verb-class = Armour class: [color=cyan]{ $level }[/color].
+dh-armor-verb-parts = Covers: { $parts }.
+dh-armor-verb-suit = Suit modules:
+dh-armor-verb-module = { $slot }: class [color=cyan]{ $level }[/color] ({ $class }), integrity { $percent }%.
+dh-armor-verb-module-broken = { $slot }: [color=red]broken[/color] — no protection.
+dh-armor-verb-slot-empty = { $slot }: [color=gray]empty[/color] — unprotected.
+dh-armor-slot-torso = Torso
+dh-armor-slot-armleft = Left arm
+dh-armor-slot-armright = Right arm
+dh-armor-slot-legleft = Left leg
+dh-armor-slot-legright = Right leg
+dh-armor-slot-special = Special system
+dh-armor-part-head = head
+dh-armor-part-torso = torso
+dh-armor-part-armleft = left arm
+dh-armor-part-armright = right arm
+dh-armor-part-handleft = left hand
+dh-armor-part-handright = right hand
+dh-armor-part-legleft = left leg
+dh-armor-part-legright = right leg
+dh-armor-part-footleft = left foot
+dh-armor-part-footright = right foot
+dh-penetration-verb-text = Armour penetration
+dh-penetration-verb-class = Penetration class: [color=orange]{ $level }[/color].
+dh-penetration-verb-hint = Defeats armour of class 0–{ $level }; tougher armour stops it (blunt trauma only).

@@ -70,6 +70,45 @@ public sealed partial class DHModularArmorComponent : Component
     /// <summary>Модули, которые ставятся при создании корпуса (наборы подклассов).</summary>
     [DataField]
     public Dictionary<DHArmorSlot, EntProtoId> StartingModules = new();
+
+    /// <summary>
+    /// Что надевается в слоты «руки» и «ноги», пока корпус надет: модули рук и ног корпуса занимают эти слоты
+    /// (защита считается по самим модулям).
+    /// </summary>
+    [DataField]
+    public EntProtoId? ArmsCover;
+
+    [DataField]
+    public EntProtoId? LegsCover;
+
+    [DataField, AutoNetworkedField]
+    public EntityUid? ArmsCoverEntity;
+
+    [DataField, AutoNetworkedField]
+    public EntityUid? LegsCoverEntity;
+}
+
+/// <summary>
+/// Модули рук или ног модульной брони в слоте инвентаря «руки»/«ноги»: появляются, когда корпус надевают, и пропадают,
+/// когда снимают. Снять отдельно нельзя.
+/// </summary>
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class DHArmorLimbCoverComponent : Component
+{
+    [DataField, AutoNetworkedField]
+    public EntityUid? Suit;
+
+    /// <summary>Слоты модулей корпуса, которые показывает эта часть.</summary>
+    [DataField]
+    public List<DHArmorSlot> Slots = new();
+}
+
+/// <summary>Тяжёлые перчатки: действия с задержкой (перевязка, установка, ремонт) идут медленнее.</summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class DHClumsyGlovesComponent : Component
+{
+    [DataField]
+    public float DoAfterMultiplier = 1.5f;
 }
 
 /// <summary>Модуль брони.</summary>
@@ -254,8 +293,9 @@ public static class DHModularArmor
         return part switch
         {
             "Torso" => DHArmorSlot.Torso,
-            "ArmLeft" or "HandLeft" => DHArmorSlot.ArmLeft,
-            "ArmRight" or "HandRight" => DHArmorSlot.ArmRight,
+            // Кисти защищают перчатки (DHPartArmor), не модули рук.
+            "ArmLeft" => DHArmorSlot.ArmLeft,
+            "ArmRight" => DHArmorSlot.ArmRight,
             "LegLeft" or "FootLeft" => DHArmorSlot.LegLeft,
             "LegRight" or "FootRight" => DHArmorSlot.LegRight,
             _ => null,

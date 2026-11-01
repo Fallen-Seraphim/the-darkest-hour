@@ -32,8 +32,11 @@
   - type: HeldSpeedModifier
   - type: ToggleableClothing
     clothingPrototype: DHClothingHeadHelmetModularIMB1
+  # Пока корпус надет, модули рук и ног занимают слоты «руки» и «ноги» (DHArmorLimbCover).
   - type: DHModularArmor
     faction: imb1
+    armsCover: DHArmorCoverIMB1Arms
+    legsCover: DHArmorCoverIMB1Legs
   - type: ContainerContainer
     containers:
       toggleable-clothing: !type:ContainerSlot {}
@@ -75,6 +78,48 @@
   - type: DHPartArmor
     parts: [ Head ]
     armorClass: 1
+
+- type: entity
+  parent: BaseItem
+  id: DHArmorCoverIMB1Arms
+  name: IMB-1 arm modules
+  description: "The arm or leg modules of the worn IMB-1 suit. They come off together with the suit; examine for their protection."
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_light.rsi
+    state: icon_arm_left
+  - type: Item
+    size: Normal
+  # Сами модули рисует корпус; здесь — только место в слоте инвентаря.
+  - type: Clothing
+    slots: [ ARMS ]
+    clothingVisuals:
+      arms: []
+  - type: Unremoveable
+    deleteOnDrop: true
+  - type: DHArmorLimbCover
+
+- type: entity
+  parent: BaseItem
+  id: DHArmorCoverIMB1Legs
+  name: IMB-1 leg modules
+  description: "The arm or leg modules of the worn IMB-1 suit. They come off together with the suit; examine for their protection."
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_light.rsi
+    state: icon_leg_left
+  - type: Item
+    size: Normal
+  # Сами модули рисует корпус; здесь — только место в слоте инвентаря.
+  - type: Clothing
+    slots: [ LEGS ]
+    clothingVisuals:
+      legs: []
+  - type: Unremoveable
+    deleteOnDrop: true
+  - type: DHArmorLimbCover
 
 - type: entity
   parent: [ BaseItem, BaseSyndicateContraband ]
@@ -428,6 +473,8 @@
   components:
   - type: DHModularArmor
     faction: imb1
+    armsCover: DHArmorCoverIMB1Arms
+    legsCover: DHArmorCoverIMB1Legs
     startingModules:
       Torso: DHArmorModuleIMB1CompositeTorso
       ArmLeft: DHArmorModuleIMB1CompositeArmLeft
@@ -442,6 +489,8 @@
   components:
   - type: DHModularArmor
     faction: imb1
+    armsCover: DHArmorCoverIMB1Arms
+    legsCover: DHArmorCoverIMB1Legs
     startingModules:
       Torso: DHArmorModuleIMB1CompositeTorso
       ArmLeft: DHArmorModuleIMB1LightArmLeft
@@ -456,6 +505,8 @@
   components:
   - type: DHModularArmor
     faction: imb1
+    armsCover: DHArmorCoverIMB1Arms
+    legsCover: DHArmorCoverIMB1Legs
     startingModules:
       Torso: DHArmorModuleIMB1CompositeTorso
       ArmLeft: DHArmorModuleIMB1LightArmLeft
@@ -471,6 +522,8 @@
   components:
   - type: DHModularArmor
     faction: imb1
+    armsCover: DHArmorCoverIMB1Arms
+    legsCover: DHArmorCoverIMB1Legs
     startingModules:
       Torso: DHArmorModuleIMB1CompositeTorso
       ArmLeft: DHArmorModuleIMB1LightArmLeft
@@ -486,6 +539,8 @@
   components:
   - type: DHModularArmor
     faction: imb1
+    armsCover: DHArmorCoverIMB1Arms
+    legsCover: DHArmorCoverIMB1Legs
     startingModules:
       Torso: DHArmorModuleIMB1CompositeTorso
       ArmLeft: DHArmorModuleIMB1LightArmLeft
@@ -501,6 +556,8 @@
   components:
   - type: DHModularArmor
     faction: imb1
+    armsCover: DHArmorCoverIMB1Arms
+    legsCover: DHArmorCoverIMB1Legs
     startingModules:
       Torso: DHArmorModuleIMB1LightTorso
       ArmLeft: DHArmorModuleIMB1LightArmLeft
@@ -516,6 +573,8 @@
   components:
   - type: DHModularArmor
     faction: imb1
+    armsCover: DHArmorCoverIMB1Arms
+    legsCover: DHArmorCoverIMB1Legs
     startingModules:
       Torso: DHArmorModuleIMB1LightTorso
       ArmLeft: DHArmorModuleIMB1LightArmLeft
@@ -531,6 +590,8 @@
   components:
   - type: DHModularArmor
     faction: imb1
+    armsCover: DHArmorCoverIMB1Arms
+    legsCover: DHArmorCoverIMB1Legs
     startingModules:
       Torso: DHArmorModuleIMB1LightTorso
       ArmLeft: DHArmorModuleIMB1LightArmLeft
@@ -546,6 +607,8 @@
   components:
   - type: DHModularArmor
     faction: imb1
+    armsCover: DHArmorCoverIMB1Arms
+    legsCover: DHArmorCoverIMB1Legs
     startingModules:
       Torso: DHArmorModuleIMB1HeavyTorso
       ArmLeft: DHArmorModuleIMB1HeavyArmLeft
