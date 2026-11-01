@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""DarkestHour: значки слотов инвентаря «руки» (arms) и «ноги» (legs) для всех тем интерфейса.
+"""DarkestHour: значки слотов инвентаря «правая/левая рука» и «правая/левая нога» (под модули верхней брони)
+для всех тем интерфейса. Правая конечность бойца — слева на значке (боец лицом к нам).
 
 Фон ячейки берётся из значка `uniform.png` той же темы (знак «I» стирается: каждый пиксель знака заменяется фоном
 той же строки у края ячейки), значок рисуется цветом знака темы: наручи (руки) и набедренники с наколенниками (ноги).
@@ -121,17 +122,25 @@ def build(theme):
     for x, y in mask:
         bp[x, y] = px[5, y]
 
-    for name, art in (('arms', ARMS), ('legs', LEGS)):
+    # Правая конечность — левая половина рисунка, сдвинутая к центру; левая — правая половина.
+    for name, art, half, shift in (('arm_right', ARMS, 0, 6), ('arm_left', ARMS, 1, -6),
+                                   ('leg_right', LEGS, 0, 3), ('leg_left', LEGS, 1, -3)):
         out = background.copy()
         op = out.load()
         rows = [r for r in art.strip('\n').split('\n')]
         for y, row in enumerate(rows):
             for x, ch in enumerate(row):
+                if (x < 16) != (half == 0):
+                    continue
                 if ch == '#':
-                    op[x, y] = glyph
+                    op[x + shift, y] = glyph
                 elif ch == '+':
-                    op[x, y] = dark
+                    op[x + shift, y] = dark
         out.save(os.path.join(slots, name + '.png'))
+    for old in ('arms', 'legs'):
+        path = os.path.join(slots, old + '.png')
+        if os.path.exists(path):
+            os.remove(path)
     return True
 
 

@@ -28,21 +28,32 @@
       uiWindowPos: 2,1
       strippingWindowPos: 2,2
       displayName: Gloves
-    # DarkestHour: броня рук и ног (не перчатки и не ботинки) — модули модульной брони и отдельные наручи/поножи.
-    - name: arms
-      slotTexture: arms
+    # DarkestHour: правая/левая рука и нога — только под верхнюю броню: их занимают модули надетой модульной брони
+    # (сами по себе предметы сюда не надеваются). Кисти — перчатки, стопы — ботинки.
+    - name: armRight
+      slotTexture: arm_right
       slotFlags: ARMS
-      stripTime: 6
-      uiWindowPos: 2,0
-      strippingWindowPos: 2,1
-      displayName: Arms
-    - name: legs
-      slotTexture: legs
+      uiWindowPos: 3,2
+      strippingWindowPos: 3,1
+      displayName: Right arm
+    - name: armLeft
+      slotTexture: arm_left
+      slotFlags: ARMS
+      uiWindowPos: 3,1
+      strippingWindowPos: 3,2
+      displayName: Left arm
+    - name: legRight
+      slotTexture: leg_right
       slotFlags: LEGS
-      stripTime: 6
       uiWindowPos: 0,0
       strippingWindowPos: 0,3
-      displayName: Legs
+      displayName: Right leg
+    - name: legLeft
+      slotTexture: leg_left
+      slotFlags: LEGS
+      uiWindowPos: 2,0
+      strippingWindowPos: 2,3
+      displayName: Left leg
     - name: neck
       slotTexture: neck
       slotFlags: NECK

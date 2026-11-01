@@ -26,7 +26,7 @@ public enum SlotFlags
     LEGS = 1 << 13,
     FEET = 1 << 14,
     SUITSTORAGE = 1 << 15,
-    ARMS = 1 << 16, // DarkestHour: броня рук (наручи, модули рук модульной брони)
+    ARMS = 1 << 16, // DarkestHour: слоты правой/левой руки — только под модули верхней брони
     All = ~NONE,
 
     WITHOUT_POCKET = All & ~POCKET
