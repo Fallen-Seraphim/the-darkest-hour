@@ -1,0 +1,133 @@
+# DarkestHour (решение автора 2026-11-01): эффекты взрывов из RMC-14 вместо ванильных (огненные клетки скрыты
+# fireColor: Transparent у типов взрывов). Спавнит ExplosionSystem.DHEffects.cs на каждом взрыве: спрайт разрыва
+# (по силе — 4 размера), ударная волна (шейдер RMCShockWave), искры-осколки, подпалина. Спрайты, шейдер и звуки —
+# RMC-14 / CM-SS13 (CC-BY-SA-3.0), код — по образцу SharedRMCExplosionSystem (MIT).
+
+- type: shader
+  id: RMCShockWave
+  kind: source
+  path: "/Textures/_RMC14/Shaders/shock_wave.swsl"
+
+- type: soundCollection
+  id: CMExplosion
+  files:
+  - /Audio/_RMC14/Explosion/explosion1.ogg
+  - /Audio/_RMC14/Explosion/explosion2.ogg
+  - /Audio/_RMC14/Explosion/explosion3.ogg
+  - /Audio/_RMC14/Explosion/explosion4.ogg
+  - /Audio/_RMC14/Explosion/explosion5.ogg
+
+- type: soundCollection
+  id: RMCExplosionBig
+  files:
+  - /Audio/_RMC14/Explosion/bigboom1.ogg
+  - /Audio/_RMC14/Explosion/bigboom2.ogg
+  - /Audio/_RMC14/Explosion/bigboom3.ogg
+  - /Audio/_RMC14/Explosion/bigboom4.ogg
+
+- type: entity
+  id: DHExplosionEffectBlast1
+  name: explosion
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _RMC14/Effects/grenade_explosion.rsi
+    drawdepth: Effects
+    noRot: true
+    layers:
+    - state: grenade
+      shader: unshaded
+  - type: PointLight
+    radius: 4
+    energy: 4
+    color: "#ffb04a"
+    castShadows: false
+  - type: TimedDespawn
+    lifetime: 0.6
+
+- type: entity
+  parent: DHExplosionEffectBlast1
+  id: DHExplosionEffectBlast2
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    scale: 1.6,1.6
+  - type: PointLight
+    radius: 6
+
+- type: entity
+  parent: DHExplosionEffectBlast1
+  id: DHExplosionEffectBlast3
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    scale: 2.4,2.4
+  - type: PointLight
+    radius: 9
+  - type: TimedDespawn
+    lifetime: 0.8
+
+- type: entity
+  parent: DHExplosionEffectBlast1
+  id: DHExplosionEffectBlast4
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    scale: 3.4,3.4
+  - type: PointLight
+    radius: 12
+  - type: TimedDespawn
+    lifetime: 0.8
+
+- type: entity
+  id: DHExplosionEffectShockWave
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: TimedDespawn
+    lifetime: 0.5
+  - type: DHExplosionShockWave
+
+- type: entity
+  parent: DHExplosionEffectShockWave
+  id: DHExplosionEffectShockWaveLarge
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: TimedDespawn
+    lifetime: 0.8
+  - type: DHExplosionShockWave
+    falloffPower: 25
+    width: 1
+
+- type: entity
+  id: DHExplosionEffectShrapnel1
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.1,-0.1,0.1,0.1"
+        density: 20
+        hard: false
+  - type: Sprite
+    sprite: _RMC14/Objects/Weapons/shrapnel.rsi
+    drawdepth: Effects
+    layers:
+    - state: shrapnel_bright1
+      shader: unshaded
+  - type: TimedDespawn
+    lifetime: 0.5
+
+- type: entity
+  parent: DHExplosionEffectShrapnel1
+  id: DHExplosionEffectShrapnel2
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    layers:
+    - state: shrapnel_bright2
+      shader: unshaded

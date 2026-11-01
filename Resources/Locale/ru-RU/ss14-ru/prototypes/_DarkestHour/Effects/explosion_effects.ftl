@@ -1,0 +1,16 @@
+ent-DHExplosionEffectBlast1 = взрыв
+    .desc = { "" }
+ent-DHExplosionEffectBlast2 = взрыв
+    .desc = { "" }
+ent-DHExplosionEffectBlast3 = взрыв
+    .desc = { "" }
+ent-DHExplosionEffectBlast4 = взрыв
+    .desc = { "" }
+ent-DHExplosionEffectShockWave = ударная волна
+    .desc = { "" }
+ent-DHExplosionEffectShockWaveLarge = ударная волна
+    .desc = { "" }
+ent-DHExplosionEffectShrapnel1 = осколок
+    .desc = { "" }
+ent-DHExplosionEffectShrapnel2 = осколок
+    .desc = { "" }
