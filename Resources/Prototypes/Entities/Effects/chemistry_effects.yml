@@ -38,9 +38,11 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: Occluder
+  # DarkestHour: клубы дыма RMC-14 (CM-SS13, CC-BY-SA-3.0) вместо ванильного; цвет реагентов по-прежнему красит дым.
   - type: Sprite
-    sprite: Effects/chemsmoke.rsi
-    state: chemsmoke
+    sprite: _RMC14/Effects/smoke.rsi
+    state: smoke2
+    drawdepth: Effects
   - type: TimedDespawn
     lifetime: 10
   - type: Tag
