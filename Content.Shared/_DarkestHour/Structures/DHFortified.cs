@@ -29,11 +29,23 @@ public sealed partial class DHFortifiedComponent : Component
     /// </summary>
     [DataField]
     public float BulletStructuralMultiplier = 1f;
+
+    /// <summary>
+    /// Урон от одного попадания противотанкового снаряда (<see cref="DHAntiArmorComponent.AntiTank"/>), 0 — как обычный
+    /// бронебойный. Техника задаёт его так, чтобы её уничтожало заданное число попаданий (танк — 4, БТР — 3).
+    /// </summary>
+    [DataField]
+    public float AntiTankDamage;
 }
 
 /// <summary>Бронебойный снаряд: по броне техники бьёт полным уроном по постройкам.</summary>
 [RegisterComponent]
-public sealed partial class DHAntiArmorComponent : Component;
+public sealed partial class DHAntiArmorComponent : Component
+{
+    /// <summary>Противотанковый (танковая пушка): по технике — <see cref="DHFortifiedComponent.AntiTankDamage"/>.</summary>
+    [DataField]
+    public bool AntiTank;
+}
 
 public sealed partial class DHFortifiedSystem : EntitySystem
 {
@@ -72,8 +84,15 @@ public sealed partial class DHFortifiedSystem : EntitySystem
         if (!_fortifiedQuery.TryComp(args.Target, out var fortified))
             return;
 
-        var multiplier = HasComp<DHAntiArmorComponent>(ent) ? 1f : fortified.BulletStructuralMultiplier;
         var remaining = new DamageSpecifier();
+        if (TryComp<DHAntiArmorComponent>(ent, out var antiArmor) && antiArmor.AntiTank && fortified.AntiTankDamage > 0)
+        {
+            remaining.DamageDict[Structural] = fortified.AntiTankDamage;
+            args.Damage = remaining;
+            return;
+        }
+
+        var multiplier = antiArmor != null ? 1f : fortified.BulletStructuralMultiplier;
         if (args.Damage.DamageDict.TryGetValue(Structural, out var structural) && structural > 0)
             remaining.DamageDict[Structural] = structural * multiplier;
 

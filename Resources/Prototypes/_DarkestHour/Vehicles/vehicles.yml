@@ -36,9 +36,17 @@
   - type: Damageable
   - type: Injurable
     damageContainer: StructuralInorganic
+  # Броня: пули почти не берут, обычный урон (осколки, огонь, удары) ÷5, бронебойные и артиллерия — полностью,
+  # противотанковый снаряд — фиксированно (antiTankDamage: танк — 4 попадания, БТР — 3).
   - type: DHFortified
-    multiplier: 1
+    multiplier: 5
     bulletStructuralMultiplier: 0.1
+  # Ремонт сваркой: включённым сварочным аппаратом по машине — каждые 3 с −100 урона (танк с нуля ~1,5 мин,
+  # БТР ~45 с), пока не будет цела или не кончится топливо. Самому себе изнутри не починить — нужен снаружи.
+  - type: Repairable
+    damageValue: -100
+    doAfterDelay: 3
+    fuelCost: 3
   - type: Appearance
   # Звук двигателя — DHVehicleServerSystem.Engine (как в RMC: запуск и рёв на ходу каждые 2 с).
   - type: PointLight
@@ -77,6 +85,10 @@
         hard: false
         mask:
         - MobLayer
+  - type: DHFortified
+    multiplier: 5
+    bulletStructuralMultiplier: 0.1
+    antiTankDamage: 500
   - type: Destructible
     thresholds:
     - trigger:
@@ -121,6 +133,7 @@
         state: wheels_0
         loop: false
   - type: DHVehicle
+    maxIntegrity: 1500
     faction: Republic
     hullHalfSize: 1.15,1.95
     interior: DHInteriorAPC
@@ -188,6 +201,7 @@
         state: wheels_0
         loop: false
   - type: DHVehicle
+    maxIntegrity: 1500
     faction: Empire
     hullHalfSize: 1.4,2.3
     interior: DHInteriorAPC
@@ -237,6 +251,10 @@
         hard: false
         mask:
         - MobLayer
+  - type: DHFortified
+    multiplier: 5
+    bulletStructuralMultiplier: 0.1
+    antiTankDamage: 750
   - type: Destructible
     thresholds:
     - trigger:
@@ -285,6 +303,7 @@
         state: wheels_0
         loop: false
   - type: DHVehicle
+    maxIntegrity: 3000
     faction: Republic
     hullHalfSize: 1.4,1.95
     crewZoom: 1.75
@@ -335,6 +354,7 @@
         state: wheels_0
         loop: false
   - type: DHVehicle
+    maxIntegrity: 3000
     faction: Empire
     hullHalfSize: 1.4,1.95
     crewZoom: 1.75
@@ -630,6 +650,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: DHAntiArmor
+    antiTank: true # танк — 4 попадания, БТР — 3 (DHFortified.antiTankDamage)
 
 # ------------------------------------------------------------------ отсек
 # Нос машины — нижний край отсека (юг). Впереди пульты экипажа, за ними кресла: сядьте в кресло у пульта и нажмите

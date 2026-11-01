@@ -60,6 +60,10 @@ public sealed partial class DHVehicleComponent : Component
     [DataField]
     public List<string> TurretLayers = new() { "turret", "primary" };
 
+    /// <summary>Прочность корпуса (как порог разрушения): от неё считается «целостность» при осмотре.</summary>
+    [DataField]
+    public float MaxIntegrity = 1500f;
+
     /// <summary>Сторона машины: тактическая карта в отсеке показывает её бойцов.</summary>
     [DataField]
     public DHAssaultFaction Faction = DHAssaultFaction.Republic;
