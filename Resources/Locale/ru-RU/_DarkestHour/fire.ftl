@@ -18,3 +18,7 @@ dh-flamer-examine-fuel-type = Горит как [color=orange]{ $name }[/color] 
         [true] , [bold]прожигает конструкции[/bold]
        *[false] {""}
     }.
+
+## Природная вода
+dh-water-source-filled = Вы набираете воды в { $container } ({ $amount } ед.).
+dh-water-source-full = { CAPITALIZE($container) } уже полон.

@@ -21,6 +21,8 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
+using Content.Server._DarkestHour.Fluids;
+
 namespace Content.Server._DarkestHour.Atmos.Fire;
 
 /// <summary>
@@ -42,6 +44,7 @@ public sealed partial class DHFireSystem : EntitySystem
     [Dependency] private SharedSolutionContainerSystem _solution = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private TurfSystem _turf = default!;
+    [Dependency] private DHWaterSourceSystem _water = default!;
 
     public static readonly EntProtoId DefaultFire = "DHTileFire";
     private static readonly ProtoId<DamageTypePrototype> HeatType = "Heat";
@@ -103,7 +106,8 @@ public sealed partial class DHFireSystem : EntitySystem
     {
         if (!TryComp(gridUid, out MapGridComponent? grid) ||
             !_map.TryGetTileRef(gridUid, grid, tile, out var tileRef) ||
-            _turf.IsSpace(tileRef))
+            _turf.IsSpace(tileRef) ||
+            _water.IsWaterTile(gridUid, grid, tile)) // на воде не горит
         {
             return null;
         }

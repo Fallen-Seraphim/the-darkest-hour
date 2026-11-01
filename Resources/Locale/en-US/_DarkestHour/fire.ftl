@@ -18,3 +18,7 @@ dh-flamer-examine-fuel-type = Burns as [color=orange]{ $name }[/color] ({ $perce
         [true] , [bold]burns through structures[/bold]
        *[false] {""}
     }.
+
+## Natural water
+dh-water-source-filled = You fill the { $container } with water ({ $amount }u).
+dh-water-source-full = The { $container } is already full.

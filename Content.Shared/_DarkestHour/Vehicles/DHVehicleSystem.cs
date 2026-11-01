@@ -2,6 +2,8 @@ using Content.Shared._DarkestHour.Weapons.Ranged.Emplacements;
 using Content.Shared.Actions;
 using System.Numerics;
 using Content.Shared.Buckle.Components;
+using Content.Shared.Damage.Components;
+using Content.Shared.Examine;
 using Content.Shared.Interaction;
 using Content.Shared.Mobs;
 using Content.Shared.Popups;
@@ -42,6 +44,7 @@ public sealed partial class DHVehicleSystem : EntitySystem
         SubscribeLocalEvent<DHVehicleCrewComponent, UnbuckledEvent>(OnCrewUnbuckled);
         SubscribeLocalEvent<DHVehicleCrewComponent, MobStateChangedEvent>(OnCrewMobState);
         SubscribeLocalEvent<DHVehicleComponent, PreventCollideEvent>(OnVehiclePreventCollide);
+        SubscribeLocalEvent<DHVehicleComponent, ExaminedEvent>(OnVehicleExamined);
         SubscribeLocalEvent<DHVehicleGunComponent, DHGunShotOriginEvent>(OnGunShotOrigin);
         SubscribeLocalEvent<DHVehicleGunComponent, AttemptShootEvent>(OnGunAttemptShoot);
         SubscribeNetworkEvent<DHVehicleTurretAimEvent>(OnTurretAim);
@@ -199,6 +202,24 @@ public sealed partial class DHVehicleSystem : EntitySystem
     {
         if (_net.IsServer)
             ReleaseStation(ent);
+    }
+
+    /// <summary>Целостность корпуса при осмотре (как в RMC-14) — видно издалека.</summary>
+    private void OnVehicleExamined(Entity<DHVehicleComponent> ent, ref ExaminedEvent args)
+    {
+        if (ent.Comp.MaxIntegrity <= 0 || !TryComp<DamageableComponent>(ent, out var damageable))
+            return;
+
+        var percent = (int) MathF.Round(Math.Clamp(1f - damageable.TotalDamage.Float() / ent.Comp.MaxIntegrity, 0f, 1f) * 100f);
+        var color = percent switch
+        {
+            > 75 => "green",
+            > 50 => "yellow",
+            > 25 => "orange",
+            _ => "red",
+        };
+
+        args.PushMarkup(Loc.GetString("dh-vehicle-examine-integrity", ("percent", percent), ("color", color)), 10);
     }
 
     /// <summary>Снаряды своих орудий не задевают саму машину.</summary>
