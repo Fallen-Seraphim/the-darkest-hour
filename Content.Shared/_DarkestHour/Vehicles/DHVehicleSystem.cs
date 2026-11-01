@@ -28,6 +28,7 @@ public sealed partial class DHVehicleSystem : EntitySystem
 {
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private SharedContentEyeSystem _contentEye = default!;
+    [Dependency] private Content.Shared.Damage.Systems.DamageableSystem _damageable = default!;
     [Dependency] private SharedEyeSystem _eye = default!;
     [Dependency] private DHWeaponMountSystem _mount = default!;
     [Dependency] private INetManager _net = default!;
@@ -210,7 +211,7 @@ public sealed partial class DHVehicleSystem : EntitySystem
         if (ent.Comp.MaxIntegrity <= 0 || !TryComp<DamageableComponent>(ent, out var damageable))
             return;
 
-        var percent = (int) MathF.Round(Math.Clamp(1f - damageable.TotalDamage.Float() / ent.Comp.MaxIntegrity, 0f, 1f) * 100f);
+        var percent = (int) MathF.Round(Math.Clamp(1f - _damageable.GetTotalDamage((ent.Owner, damageable)).Float() / ent.Comp.MaxIntegrity, 0f, 1f) * 100f);
         var color = percent switch
         {
             > 75 => "green",
