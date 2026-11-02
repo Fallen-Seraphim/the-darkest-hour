@@ -12,14 +12,14 @@
       slotTexture: uniform
       slotFlags: INNERCLOTHING
       stripTime: 6
-      uiWindowPos: 0,1
+      uiWindowPos: 1,1
       strippingWindowPos: 0,2
       displayName: Jumpsuit
     - name: outerClothing
       slotTexture: suit
       slotFlags: OUTERCLOTHING
       stripTime: 6
-      uiWindowPos: 1,1
+      uiWindowPos: 1,2
       strippingWindowPos: 1,2
       displayName: Suit
     - name: gloves
@@ -30,54 +30,57 @@
       displayName: Gloves
     # DarkestHour: правая/левая рука и нога — только под верхнюю броню: их занимают модули надетой модульной брони
     # (сами по себе предметы сюда не надеваются). Кисти — перчатки, стопы — ботинки.
+    # Сетка снаряжения (решение автора 2026-11-01, верх — большее Y): по центру сверху вниз маска, голова, торс
+    # (верхняя одежда), комбинезон, обувь; руки — по бокам от торса, ноги — по бокам от обуви (правые — справа);
+    # перчатки — сбоку у правой руки, очки/уши — по бокам от маски, шея — слева от головы.
     - name: armRight
       slotTexture: arm_right
       slotFlags: ARMS
-      uiWindowPos: 3,2
+      uiWindowPos: 2,2
       strippingWindowPos: 3,1
       displayName: Right arm
     - name: armLeft
       slotTexture: arm_left
       slotFlags: ARMS
-      uiWindowPos: 3,1
+      uiWindowPos: 0,2
       strippingWindowPos: 3,2
       displayName: Left arm
     - name: legRight
       slotTexture: leg_right
       slotFlags: LEGS
-      uiWindowPos: 0,0
-      strippingWindowPos: 0,3
+      uiWindowPos: 2,0
+      strippingWindowPos: 2,3
       displayName: Right leg
     - name: legLeft
       slotTexture: leg_left
       slotFlags: LEGS
-      uiWindowPos: 2,0
-      strippingWindowPos: 2,3
+      uiWindowPos: 0,0
+      strippingWindowPos: 0,3
       displayName: Left leg
     - name: neck
       slotTexture: neck
       slotFlags: NECK
-      uiWindowPos: 0,2
+      uiWindowPos: 0,3
       strippingWindowPos: 0,1
       displayName: Neck
     - name: mask
       slotTexture: mask
       slotFlags: MASK
-      uiWindowPos: 1,2
+      uiWindowPos: 1,4
       strippingWindowPos: 1,1
       displayName: Mask
     - name: eyes
       slotTexture: glasses
       slotFlags: EYES
       stripTime: 3
-      uiWindowPos: 0,3
+      uiWindowPos: 0,4
       strippingWindowPos: 0,0
       displayName: Eyes
     - name: ears
       slotTexture: ears
       slotFlags: EARS
       stripTime: 3
-      uiWindowPos: 2,2
+      uiWindowPos: 2,4
       strippingWindowPos: 2,0
       displayName: Ears
     - name: head
