@@ -191,9 +191,11 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
             rule.Comp.Players[ev.Player.UserId] = faction;
 
             var minutes = Math.Max(0, (int) Math.Ceiling((rule.Comp.PrepEnd - Timing.CurTime).TotalMinutes));
+            // Эскадра Республики приходит к концу раунда (лимит времени — малая победа Республики).
+            var relief = Math.Max(0, (int) Math.Ceiling((rule.Comp.RoundLimit - Timing.CurTime).TotalMinutes));
             var briefing = faction == DHAssaultFaction.Republic
-                ? Loc.GetString("dh-assault-briefing-republic", ("minutes", minutes))
-                : Loc.GetString("dh-assault-briefing-empire", ("minutes", minutes));
+                ? Loc.GetString("dh-assault-briefing-republic", ("minutes", minutes), ("relief", relief))
+                : Loc.GetString("dh-assault-briefing-empire", ("minutes", minutes), ("relief", relief));
             _antag.SendBriefing(ev.Player, briefing, FactionColor(faction),
                 rule.Comp.BriefingSound.GetValueOrDefault(faction));
         }

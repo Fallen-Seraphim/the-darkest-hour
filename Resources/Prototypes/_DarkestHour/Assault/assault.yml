@@ -676,7 +676,7 @@
 
 - type: gameMap
   id: DHTerminus
-  mapName: Firebase Terminus
+  mapName: Terminus Military Base
   mapPath: /Maps/_DarkestHour/Assault/terminus.yml
   minPlayers: 0
   stations:
@@ -684,7 +684,7 @@
       stationProto: DHStationRepublicBase
       components:
       - type: StationNameSetup
-        mapNameTemplate: "Firebase Terminus"
+        mapNameTemplate: "Terminus Military Base"
       - type: StationJobs
         availableJobs:
           # Гарнизон Республики (25)

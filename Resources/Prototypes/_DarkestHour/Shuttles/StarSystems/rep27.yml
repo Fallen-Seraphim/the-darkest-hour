@@ -132,7 +132,7 @@
     surfaceTemperature: 150
     surfaceLight: "#9DB4CC"
 
-  # «Штурм»: пустынная планета военной базы Республики (Firebase Terminus). Пригодный для дыхания воздух, жарко.
+  # «Штурм»: пустынная планета военной базы Республики (Terminus Military Base). Пригодный для дыхания воздух, жарко.
   - id: P7
     name: dh-celestial-rep27-7
     description: dh-celestial-rep27-7-desc

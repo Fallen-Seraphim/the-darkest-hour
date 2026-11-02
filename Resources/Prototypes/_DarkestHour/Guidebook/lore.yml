@@ -1,0 +1,44 @@
+# DarkestHour: лор сервера в справочнике (решение автора 2026-11-01). Тексты — Resources/ServerInfo/_DarkestHour/Guidebook/Lore.
+- type: guideEntry
+  id: DHLore
+  name: guide-entry-dh-lore
+  priority: 5
+  text: "/ServerInfo/_DarkestHour/Guidebook/Lore/Lore.xml"
+  children:
+  - DHLoreQuick
+  - DHLorePreCollapse
+  - DHLoreCivilWar
+  - DHLoreInterwar
+  - DHLore2317
+  - DHLore2318
+
+- type: guideEntry
+  id: DHLore2317
+  name: guide-entry-dh-lore-2317
+  text: "/ServerInfo/_DarkestHour/Guidebook/Lore/Lore2317.xml"
+
+- type: guideEntry
+  id: DHLore2318
+  name: guide-entry-dh-lore-2318
+  text: "/ServerInfo/_DarkestHour/Guidebook/Lore/Lore2318.xml"
+
+- type: guideEntry
+  id: DHLorePreCollapse
+  name: guide-entry-dh-lore-precollapse
+  text: "/ServerInfo/_DarkestHour/Guidebook/Lore/LorePreCollapse.xml"
+
+- type: guideEntry
+  id: DHLoreCivilWar
+  name: guide-entry-dh-lore-civilwar
+  text: "/ServerInfo/_DarkestHour/Guidebook/Lore/LoreCivilWar.xml"
+
+- type: guideEntry
+  id: DHLoreInterwar
+  name: guide-entry-dh-lore-interwar
+  text: "/ServerInfo/_DarkestHour/Guidebook/Lore/LoreInterwar.xml"
+
+- type: guideEntry
+  id: DHLoreQuick
+  name: guide-entry-dh-lore-quick
+  priority: 0
+  text: "/ServerInfo/_DarkestHour/Guidebook/Lore/LoreQuick.xml"
