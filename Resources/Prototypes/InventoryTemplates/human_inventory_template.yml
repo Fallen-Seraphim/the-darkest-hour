@@ -5,14 +5,14 @@
       slotTexture: shoes
       slotFlags: FEET
       stripTime: 3
-      uiWindowPos: 1,0
+      uiWindowPos: 1,1
       strippingWindowPos: 1,3
       displayName: Shoes
     - name: jumpsuit
       slotTexture: uniform
       slotFlags: INNERCLOTHING
       stripTime: 6
-      uiWindowPos: 1,1
+      uiWindowPos: 1,0
       strippingWindowPos: 0,2
       displayName: Jumpsuit
     - name: outerClothing
@@ -25,36 +25,36 @@
     - name: gloves
       slotTexture: gloves
       slotFlags: GLOVES
-      uiWindowPos: 2,1
+      uiWindowPos: 2,3
       strippingWindowPos: 2,2
       displayName: Gloves
     # DarkestHour: правая/левая рука и нога — только под верхнюю броню: их занимают модули надетой модульной брони
     # (сами по себе предметы сюда не надеваются). Кисти — перчатки, стопы — ботинки.
-    # Сетка снаряжения (решение автора 2026-11-01, верх — большее Y): по центру сверху вниз маска, голова, торс
-    # (верхняя одежда), комбинезон, обувь; руки — по бокам от торса, ноги — по бокам от обуви (правые — справа);
-    # перчатки — сбоку у правой руки, очки/уши — по бокам от маски, шея — слева от головы.
+    # Сетка снаряжения (решение автора 2026-11-03, верх — большее Y): по центру сверху вниз маска, голова, торс
+    # (верхняя одежда), обувь, комбинезон; руки — по бокам от торса, ноги — по бокам от обуви (правые — слева,
+    # левые — справа, как у стоящего лицом к игроку); очки/уши — по бокам от маски, шея и перчатки — по бокам от головы.
     - name: armRight
       slotTexture: arm_right
       slotFlags: ARMS
-      uiWindowPos: 2,2
+      uiWindowPos: 0,2
       strippingWindowPos: 3,1
       displayName: Right arm
     - name: armLeft
       slotTexture: arm_left
       slotFlags: ARMS
-      uiWindowPos: 0,2
+      uiWindowPos: 2,2
       strippingWindowPos: 3,2
       displayName: Left arm
     - name: legRight
       slotTexture: leg_right
       slotFlags: LEGS
-      uiWindowPos: 2,0
+      uiWindowPos: 0,1
       strippingWindowPos: 2,3
       displayName: Right leg
     - name: legLeft
       slotTexture: leg_left
       slotFlags: LEGS
-      uiWindowPos: 0,0
+      uiWindowPos: 2,1
       strippingWindowPos: 0,3
       displayName: Left leg
     - name: neck
