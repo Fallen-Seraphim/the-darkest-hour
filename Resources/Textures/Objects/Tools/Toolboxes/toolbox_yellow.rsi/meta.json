@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Taken from baystation at commit https://github.com/Baystation12/Baystation12/commit/a929584d9db319eb7484113221be25cfa1d5dc09 , held sprites redone by Alekshhh",
+  "copyright": "Taken from baystation at commit https://github.com/Baystation12/Baystation12/commit/a929584d9db319eb7484113221be25cfa1d5dc09 , held sprites redone by Alekshhh. DarkestHour: RMC-like sprites from RMC-14 (Taken from cmss13 at https://github.com/cmss13-devs/cmss13/blob/master/icons/obj/items/storage.dmi , held sprites redone by Alekshhh, modified by Hyenh)",
   "size": {
     "x": 32,
     "y": 32
@@ -19,7 +19,7 @@
       "name": "icon"
     },
     {
-        "name": "icon-open"
+      "name": "icon-open"
     }
   ]
 }
