@@ -1,6 +1,7 @@
 using System.Numerics;
 using Content.Shared._DarkestHour.Levels;
 using Robust.Client.Graphics;
+using Robust.Shared.Enums;
 using Robust.Shared.Graphics;
 using Robust.Shared.Map;
 using Robust.Shared.Timing;
@@ -103,7 +104,7 @@ public sealed class DHZLevelRenderSystem : EntitySystem
 }
 
 /// <summary>Глаз прохода нижнего уровня: глубина — насколько уровень ниже глаза.</summary>
-public sealed class DHZPassEye : Eye
+public sealed class DHZPassEye : Robust.Shared.Graphics.Eye
 {
     public int Depth;
 }
