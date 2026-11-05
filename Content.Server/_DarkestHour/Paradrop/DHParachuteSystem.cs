@@ -1,3 +1,4 @@
+using Content.Server._DarkestHour.Medical.Trauma;
 using Content.Server.Explosion.EntitySystems;
 using Content.Shared._DarkestHour.HeavyGuns;
 using Content.Shared._DarkestHour.Paradrop;
@@ -30,12 +31,18 @@ public sealed partial class DHParachuteSystem : EntitySystem
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private IPrototypeManager _proto = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private DHTraumaSystem _trauma = default!;
 
     private const string UsedParachute = "DHParachuteUsed";
     private static readonly ProtoId<DamageTypePrototype> Blunt = "Blunt";
 
-    /// <summary>Удар о землю без парашюта.</summary>
-    private const float CrashDamage = 400f;
+    /// <summary>
+    /// Удар о землю без парашюта (решение автора 2026-11-04): 500 урона, приходится в ноги (и через них в тело),
+    /// обе ноги сломаны.
+    /// </summary>
+    private const float CrashDamage = 500f;
+
+    private static readonly string[] CrashParts = { "LegLeft", "LegRight", "FootLeft", "FootRight" };
 
     public override void Initialize()
     {
@@ -238,7 +245,15 @@ public sealed partial class DHParachuteSystem : EntitySystem
             return true;
         }
 
-        _damageable.TryChangeDamage(uid, new DamageSpecifier(_proto.Index(Blunt), CrashDamage), true);
+        var perPart = new DamageSpecifier(_proto.Index(Blunt), CrashDamage / CrashParts.Length);
+        foreach (var part in CrashParts)
+        {
+            _trauma.SetPendingHitPart(uid, part);
+            _damageable.TryChangeDamage(uid, perPart, true);
+        }
+
+        _trauma.BreakBone(uid, "LegLeft");
+        _trauma.BreakBone(uid, "LegRight");
         _popup.PopupEntity(Loc.GetString("dh-parachute-crash-mob"), uid, PopupType.LargeCaution);
         return false;
     }

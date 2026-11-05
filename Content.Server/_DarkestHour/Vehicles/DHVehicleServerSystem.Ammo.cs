@@ -106,8 +106,11 @@ public sealed partial class DHVehicleServerSystem
         Entity<BasicEntityAmmoProviderComponent>? full = null;
         foreach (var weapon in vehicleComp.WeaponEntities.Values)
         {
-            if (!TryComp<BasicEntityAmmoProviderComponent>(weapon, out var provider) || provider.Proto != ammo.Ammo)
+            if (!TryComp<BasicEntityAmmoProviderComponent>(weapon, out var provider) ||
+                provider.Proto != ammo.Ammo && !ammo.AlsoFits.Contains(provider.Proto))
+            {
                 continue;
+            }
 
             if (provider.Count < provider.Capacity)
                 return (weapon, provider);
