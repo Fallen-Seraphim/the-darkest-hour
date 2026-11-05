@@ -1,0 +1,13 @@
+ent-DHEncryptionKeyLAPolice = ключ шифрования Военной Полиции
+    .desc = Ключ шифрования Военной Полиции Республики.
+ent-DHEncryptionKeyLAFront = самодельный ключ шифрования
+    .desc = Спаянный на коленке ключ шифрования на пиратской частоте.
+ent-DHEncryptionKeyLAVanguard = ключ шифрования LA-V
+    .desc = Ключ шифрования корпорации Lost Angels—Vanguard.
+ent-DHClothingHeadsetLAPolice = гарнитура Военной Полиции
+    .desc = Прочная накладная гарнитура Военной Полиции Республики.
+ent-DHClothingHeadsetLAFront = гарнитура
+    .desc = Самая обычная на вид гарнитура.
+    .suffix = ОФСК
+ent-DHClothingHeadsetLAVanguard = гарнитура LA-V
+    .desc = Корпоративная гарнитура Lost Angels—Vanguard.

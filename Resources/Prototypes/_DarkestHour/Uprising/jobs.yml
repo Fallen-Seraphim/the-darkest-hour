@@ -1,0 +1,868 @@
+# Генерируется Tools/_DarkestHour/uprising/gen_jobs.py — правьте таблицу там.
+# «Восстание» (решение автора 2026-11-05): квартал Лост-Энджелса. Мирные жители, LA-V (Lost Angels—Vanguard),
+# Военная Полиция Республики и ОФСК (прячется среди жителей: удостоверение — как у жителя).
+
+- type: accessLevel
+  id: DHLADistrict
+  name: id-card-access-level-dhla-district
+
+- type: accessLevel
+  id: DHLAFactory
+  name: id-card-access-level-dhla-factory
+
+- type: accessLevel
+  id: DHLAUtility
+  name: id-card-access-level-dhla-utility
+
+- type: accessLevel
+  id: DHLAMetro
+  name: id-card-access-level-dhla-metro
+
+- type: accessLevel
+  id: DHLAVanguard
+  name: id-card-access-level-dhla-vanguard
+
+- type: accessLevel
+  id: DHLAVanguardOffice
+  name: id-card-access-level-dhla-vanguard-office
+
+- type: accessLevel
+  id: DHLAPolice
+  name: id-card-access-level-dhla-police
+
+- type: accessLevel
+  id: DHLAPoliceCommand
+  name: id-card-access-level-dhla-police-command
+
+- type: department
+  id: DHLACivilians
+  name: dh-department-dhla-civilians
+  description: dh-department-dhla-civilians-description
+  color: "#8a8a8a"
+  weight: 80
+  roles:
+  - DHLADistrictHead
+  - DHLADistrictStaff
+  - DHLAOfficeWorker
+  - DHLAEntrepreneur
+  - DHLAFactoryWorker
+  - DHLAUtilityWorker
+  - DHLAMetroWorker
+  - DHLAResident
+
+- type: department
+  id: DHLAVanguard
+  name: dh-department-dhla-vanguard
+  description: dh-department-dhla-vanguard-description
+  color: "#7a5cc4"
+  weight: 80
+  roles:
+  - DHLAVRepresentative
+  - DHLAVAssistant
+  - DHLAVSecurity
+  - DHLAVEmployee
+
+- type: department
+  id: DHLAMilitaryPolice
+  name: dh-department-dhla-military-police
+  description: dh-department-dhla-military-police-description
+  color: "#3f5f9e"
+  weight: 80
+  roles:
+  - DHLAMPCommander
+  - DHLAMPSergeant
+  - DHLAMPOfficer
+
+- type: department
+  id: DHLAFront
+  name: dh-department-dhla-front
+  description: dh-department-dhla-front-description
+  color: "#c8322b"
+  weight: 80
+  roles:
+  - DHLAFrontCommissar
+  - DHLAFrontFighter
+
+- type: job
+  id: DHLADistrictHead
+  name: dh-job-la-district-head-name
+  description: dh-job-la-district-head-desc
+  playTimeTracker: JobDHLADistrictHead
+  startingGear: DHLADistrictHeadGear
+  icon: JobIconDHLADistrictHead
+  supervisors: dh-job-la-civilians-supervisors
+  access:
+  - DHLADistrict
+
+- type: playTimeTracker
+  id: JobDHLADistrictHead
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLADistrictHead
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: HeadOfPersonnel
+  jobName: dh-job-la-district-head-name
+
+- type: entity
+  parent: DHLAIDCardBase
+  id: DHLAIDCardDistrictHead
+  suffix: District head
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: HeadOfPersonnel
+  - type: PresetIdCard
+    job: DHLADistrictHead
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLADistrictHead
+  name: district head
+  components:
+  - type: SpawnPoint
+    job_id: DHLADistrictHead
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: HeadOfPersonnel
+
+- type: job
+  id: DHLADistrictStaff
+  name: dh-job-la-district-staff-name
+  description: dh-job-la-district-staff-desc
+  playTimeTracker: JobDHLADistrictStaff
+  startingGear: DHLADistrictStaffGear
+  icon: JobIconDHLADistrictStaff
+  supervisors: dh-job-la-civilians-supervisors
+  access:
+  - DHLADistrict
+
+- type: playTimeTracker
+  id: JobDHLADistrictStaff
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLADistrictStaff
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: Lawyer
+  jobName: dh-job-la-district-staff-name
+
+- type: entity
+  parent: DHLAIDCardBase
+  id: DHLAIDCardDistrictStaff
+  suffix: District official
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Lawyer
+  - type: PresetIdCard
+    job: DHLADistrictStaff
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLADistrictStaff
+  name: district official
+  components:
+  - type: SpawnPoint
+    job_id: DHLADistrictStaff
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: Lawyer
+
+- type: job
+  id: DHLAOfficeWorker
+  name: dh-job-la-office-worker-name
+  description: dh-job-la-office-worker-desc
+  playTimeTracker: JobDHLAOfficeWorker
+  startingGear: DHLAOfficeWorkerGear
+  icon: JobIconDHLAOfficeWorker
+  supervisors: dh-job-la-civilians-supervisors
+
+- type: playTimeTracker
+  id: JobDHLAOfficeWorker
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAOfficeWorker
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: Visitor
+  jobName: dh-job-la-office-worker-name
+
+- type: entity
+  parent: DHLAIDCardBase
+  id: DHLAIDCardOfficeWorker
+  suffix: Office worker
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Visitor
+  - type: PresetIdCard
+    job: DHLAOfficeWorker
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAOfficeWorker
+  name: office worker
+  components:
+  - type: SpawnPoint
+    job_id: DHLAOfficeWorker
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: Visitor
+
+- type: job
+  id: DHLAEntrepreneur
+  name: dh-job-la-entrepreneur-name
+  description: dh-job-la-entrepreneur-desc
+  playTimeTracker: JobDHLAEntrepreneur
+  startingGear: DHLAEntrepreneurGear
+  icon: JobIconDHLAEntrepreneur
+  supervisors: dh-job-la-civilians-supervisors
+
+- type: playTimeTracker
+  id: JobDHLAEntrepreneur
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAEntrepreneur
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: Bartender
+  jobName: dh-job-la-entrepreneur-name
+
+- type: entity
+  parent: DHLAIDCardBase
+  id: DHLAIDCardEntrepreneur
+  suffix: Small business owner
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Bartender
+  - type: PresetIdCard
+    job: DHLAEntrepreneur
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAEntrepreneur
+  name: small business owner
+  components:
+  - type: SpawnPoint
+    job_id: DHLAEntrepreneur
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: Bartender
+
+- type: job
+  id: DHLAFactoryWorker
+  name: dh-job-la-factory-worker-name
+  description: dh-job-la-factory-worker-desc
+  playTimeTracker: JobDHLAFactoryWorker
+  startingGear: DHLAFactoryWorkerGear
+  icon: JobIconDHLAFactoryWorker
+  supervisors: dh-job-la-civilians-supervisors
+  access:
+  - DHLAFactory
+
+- type: playTimeTracker
+  id: JobDHLAFactoryWorker
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAFactoryWorker
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: CargoTechnician
+  jobName: dh-job-la-factory-worker-name
+
+- type: entity
+  parent: DHLAIDCardBase
+  id: DHLAIDCardFactoryWorker
+  suffix: Factory worker
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: CargoTechnician
+  - type: PresetIdCard
+    job: DHLAFactoryWorker
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAFactoryWorker
+  name: factory worker
+  components:
+  - type: SpawnPoint
+    job_id: DHLAFactoryWorker
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: CargoTechnician
+
+- type: job
+  id: DHLAUtilityWorker
+  name: dh-job-la-utility-worker-name
+  description: dh-job-la-utility-worker-desc
+  playTimeTracker: JobDHLAUtilityWorker
+  startingGear: DHLAUtilityWorkerGear
+  icon: JobIconDHLAUtilityWorker
+  supervisors: dh-job-la-civilians-supervisors
+  access:
+  - DHLAUtility
+
+- type: playTimeTracker
+  id: JobDHLAUtilityWorker
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAUtilityWorker
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: StationEngineer
+  jobName: dh-job-la-utility-worker-name
+
+- type: entity
+  parent: DHLAIDCardBase
+  id: DHLAIDCardUtilityWorker
+  suffix: Utility worker
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: StationEngineer
+  - type: PresetIdCard
+    job: DHLAUtilityWorker
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAUtilityWorker
+  name: utility worker
+  components:
+  - type: SpawnPoint
+    job_id: DHLAUtilityWorker
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: StationEngineer
+
+- type: job
+  id: DHLAMetroWorker
+  name: dh-job-la-metro-worker-name
+  description: dh-job-la-metro-worker-desc
+  playTimeTracker: JobDHLAMetroWorker
+  startingGear: DHLAMetroWorkerGear
+  icon: JobIconDHLAMetroWorker
+  supervisors: dh-job-la-civilians-supervisors
+  access:
+  - DHLAMetro
+
+- type: playTimeTracker
+  id: JobDHLAMetroWorker
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAMetroWorker
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: TramDriver
+  jobName: dh-job-la-metro-worker-name
+
+- type: entity
+  parent: DHLAIDCardBase
+  id: DHLAIDCardMetroWorker
+  suffix: Metro worker
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: TramDriver
+  - type: PresetIdCard
+    job: DHLAMetroWorker
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAMetroWorker
+  name: metro worker
+  components:
+  - type: SpawnPoint
+    job_id: DHLAMetroWorker
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: TramDriver
+
+- type: job
+  id: DHLAResident
+  name: dh-job-la-resident-name
+  description: dh-job-la-resident-desc
+  playTimeTracker: JobDHLAResident
+  startingGear: DHLAResidentGear
+  icon: JobIconDHLAResident
+  supervisors: dh-job-la-civilians-supervisors
+
+- type: playTimeTracker
+  id: JobDHLAResident
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAResident
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: Passenger
+  jobName: dh-job-la-resident-name
+
+- type: entity
+  parent: DHLAIDCardBase
+  id: DHLAIDCardResident
+  suffix: Resident
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Passenger
+  - type: PresetIdCard
+    job: DHLAResident
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAResident
+  name: resident
+  components:
+  - type: SpawnPoint
+    job_id: DHLAResident
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: Passenger
+
+- type: job
+  id: DHLAVRepresentative
+  name: dh-job-lav-representative-name
+  description: dh-job-lav-representative-desc
+  playTimeTracker: JobDHLAVRepresentative
+  startingGear: DHLAVRepresentativeGear
+  icon: JobIconDHLAVRepresentative
+  supervisors: dh-job-la-vanguard-supervisors
+  access:
+  - DHLAVanguard
+  - DHLAVanguardOffice
+
+- type: playTimeTracker
+  id: JobDHLAVRepresentative
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAVRepresentative
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: Nanotrasen
+  jobName: dh-job-lav-representative-name
+
+- type: entity
+  parent: DHLAIDCardBase
+  id: DHLAIDCardVRepresentative
+  suffix: Corporate representative
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Nanotrasen
+  - type: PresetIdCard
+    job: DHLAVRepresentative
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAVRepresentative
+  name: corporate representative
+  components:
+  - type: SpawnPoint
+    job_id: DHLAVRepresentative
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: Nanotrasen
+
+- type: job
+  id: DHLAVAssistant
+  name: dh-job-lav-assistant-name
+  description: dh-job-lav-assistant-desc
+  playTimeTracker: JobDHLAVAssistant
+  startingGear: DHLAVAssistantGear
+  icon: JobIconDHLAVAssistant
+  supervisors: dh-job-la-vanguard-supervisors
+  access:
+  - DHLAVanguard
+  - DHLAVanguardOffice
+
+- type: playTimeTracker
+  id: JobDHLAVAssistant
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAVAssistant
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: HeadOfPersonnel
+  jobName: dh-job-lav-assistant-name
+
+- type: entity
+  parent: DHLAIDCardBase
+  id: DHLAIDCardVAssistant
+  suffix: Representative's assistant
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: HeadOfPersonnel
+  - type: PresetIdCard
+    job: DHLAVAssistant
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAVAssistant
+  name: representative's assistant
+  components:
+  - type: SpawnPoint
+    job_id: DHLAVAssistant
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: HeadOfPersonnel
+
+- type: job
+  id: DHLAVSecurity
+  name: dh-job-lav-security-name
+  description: dh-job-lav-security-desc
+  playTimeTracker: JobDHLAVSecurity
+  startingGear: DHLAVSecurityGear
+  icon: JobIconDHLAVSecurity
+  supervisors: dh-job-la-vanguard-supervisors
+  access:
+  - DHLAVanguard
+  - DHLAVanguardOffice
+
+- type: playTimeTracker
+  id: JobDHLAVSecurity
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAVSecurity
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: SeniorOfficer
+  jobName: dh-job-lav-security-name
+
+- type: entity
+  parent: DHLAIDCardBase
+  id: DHLAIDCardVSecurity
+  suffix: LA-V security officer
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: SeniorOfficer
+  - type: PresetIdCard
+    job: DHLAVSecurity
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAVSecurity
+  name: la-v security officer
+  components:
+  - type: SpawnPoint
+    job_id: DHLAVSecurity
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: SeniorOfficer
+
+- type: job
+  id: DHLAVEmployee
+  name: dh-job-lav-employee-name
+  description: dh-job-lav-employee-desc
+  playTimeTracker: JobDHLAVEmployee
+  startingGear: DHLAVEmployeeGear
+  icon: JobIconDHLAVEmployee
+  supervisors: dh-job-la-vanguard-supervisors
+  access:
+  - DHLAVanguard
+
+- type: playTimeTracker
+  id: JobDHLAVEmployee
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAVEmployee
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: Visitor
+  jobName: dh-job-lav-employee-name
+
+- type: entity
+  parent: DHLAIDCardBase
+  id: DHLAIDCardVEmployee
+  suffix: LA-V employee
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Visitor
+  - type: PresetIdCard
+    job: DHLAVEmployee
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAVEmployee
+  name: la-v employee
+  components:
+  - type: SpawnPoint
+    job_id: DHLAVEmployee
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: Visitor
+
+- type: job
+  id: DHLAMPCommander
+  name: dh-job-lamp-commander-name
+  description: dh-job-lamp-commander-desc
+  playTimeTracker: JobDHLAMPCommander
+  startingGear: DHLAMPCommanderGear
+  icon: JobIconDHLAMPCommander
+  supervisors: dh-job-la-military-police-supervisors
+  access:
+  - DHLAPolice
+  - DHLAPoliceCommand
+
+- type: playTimeTracker
+  id: JobDHLAMPCommander
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAMPCommander
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: HeadOfSecurity
+  jobName: dh-job-lamp-commander-name
+
+- type: entity
+  parent: DHLAIDCardBase
+  id: DHLAIDCardMPCommander
+  suffix: Military Police commander
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: HeadOfSecurity
+  - type: PresetIdCard
+    job: DHLAMPCommander
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAMPCommander
+  name: military police commander
+  components:
+  - type: SpawnPoint
+    job_id: DHLAMPCommander
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: HeadOfSecurity
+
+- type: job
+  id: DHLAMPSergeant
+  name: dh-job-lamp-sergeant-name
+  description: dh-job-lamp-sergeant-desc
+  playTimeTracker: JobDHLAMPSergeant
+  startingGear: DHLAMPSergeantGear
+  icon: JobIconDHLAMPSergeant
+  supervisors: dh-job-la-military-police-supervisors
+  access:
+  - DHLAPolice
+  - DHLAPoliceCommand
+
+- type: playTimeTracker
+  id: JobDHLAMPSergeant
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAMPSergeant
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: Warden
+  jobName: dh-job-lamp-sergeant-name
+
+- type: entity
+  parent: DHLAIDCardBase
+  id: DHLAIDCardMPSergeant
+  suffix: Military Police sergeant
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Warden
+  - type: PresetIdCard
+    job: DHLAMPSergeant
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAMPSergeant
+  name: military police sergeant
+  components:
+  - type: SpawnPoint
+    job_id: DHLAMPSergeant
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: Warden
+
+- type: job
+  id: DHLAMPOfficer
+  name: dh-job-lamp-officer-name
+  description: dh-job-lamp-officer-desc
+  playTimeTracker: JobDHLAMPOfficer
+  startingGear: DHLAMPOfficerGear
+  icon: JobIconDHLAMPOfficer
+  supervisors: dh-job-la-military-police-supervisors
+  access:
+  - DHLAPolice
+
+- type: playTimeTracker
+  id: JobDHLAMPOfficer
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAMPOfficer
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: SecurityOfficer
+  jobName: dh-job-lamp-officer-name
+
+- type: entity
+  parent: DHLAIDCardBase
+  id: DHLAIDCardMPOfficer
+  suffix: Military Police officer
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: SecurityOfficer
+  - type: PresetIdCard
+    job: DHLAMPOfficer
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAMPOfficer
+  name: military police officer
+  components:
+  - type: SpawnPoint
+    job_id: DHLAMPOfficer
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: SecurityOfficer
+
+- type: job
+  id: DHLAFrontCommissar
+  name: dh-job-la-front-commissar-name
+  description: dh-job-la-front-commissar-desc
+  playTimeTracker: JobDHLAFrontCommissar
+  startingGear: DHLAFrontCommissarGear
+  icon: JobIconDHLAResident
+  supervisors: dh-job-la-front-supervisors
+
+- type: playTimeTracker
+  id: JobDHLAFrontCommissar
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAFrontCommissar
+  name: lffc commissar
+  components:
+  - type: SpawnPoint
+    job_id: DHLAFrontCommissar
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: HeadRevolutionary
+
+- type: job
+  id: DHLAFrontFighter
+  name: dh-job-la-front-fighter-name
+  description: dh-job-la-front-fighter-desc
+  playTimeTracker: JobDHLAFrontFighter
+  startingGear: DHLAFrontFighterGear
+  icon: JobIconDHLAResident
+  supervisors: dh-job-la-front-supervisors
+
+- type: playTimeTracker
+  id: JobDHLAFrontFighter
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAFrontFighter
+  name: lffc fighter
+  components:
+  - type: SpawnPoint
+    job_id: DHLAFrontFighter
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: Revolutionary

@@ -1126,8 +1126,14 @@
   name: dh-assault-title
   description: dh-assault-description
   showInVote: true
+  supportedMaps: DHAssaultMapPool
   rules:
   - DHAssaultRule
+
+- type: gameMapPool
+  id: DHAssaultMapPool
+  maps:
+  - DHTerminus
 
 - type: gameMap
   id: DHTerminus

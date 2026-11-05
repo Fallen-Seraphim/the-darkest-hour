@@ -132,6 +132,9 @@ public sealed partial class DHRiftNavSystem : EntitySystem
         var systems = new List<DHRiftNavSystemEntry>();
         foreach (var proto in _proto.EnumeratePrototypes<DHStarSystemPrototype>())
         {
+            if (proto.Hidden)
+                continue;
+
             systems.Add(new DHRiftNavSystemEntry(proto.ID, Loc.GetString(proto.Name), proto.ID == current));
         }
 

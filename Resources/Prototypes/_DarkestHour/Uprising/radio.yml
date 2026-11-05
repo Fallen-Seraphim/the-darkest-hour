@@ -1,0 +1,108 @@
+# «Восстание»: каналы сторон — Военная Полиция, ОФСК, LA-V. Ключи и гарнитуры.
+
+- type: radioChannel
+  id: DHLAPolice
+  name: dh-chat-radio-la-police
+  keycode: 'в'
+  frequency: 148.1
+  color: "#5b8ad6"
+  longRange: true
+
+- type: radioChannel
+  id: DHLAFront
+  name: dh-chat-radio-la-front
+  keycode: 'ф'
+  frequency: 148.3
+  color: "#d9473f"
+  longRange: true
+
+- type: radioChannel
+  id: DHLAVanguard
+  name: dh-chat-radio-la-vanguard
+  keycode: 'ж'
+  frequency: 148.5
+  color: "#a68be8"
+  longRange: true
+
+- type: entity
+  parent: EncryptionKey
+  id: DHEncryptionKeyLAPolice
+  name: Military Police encryption key
+  description: An encryption key of the Republican Military Police.
+  components:
+  - type: EncryptionKey
+    channels:
+    - DHLAPolice
+    defaultChannel: DHLAPolice
+  - type: Sprite
+    layers:
+    - state: crypt_blue
+    - state: sec_label
+
+- type: entity
+  parent: EncryptionKey
+  id: DHEncryptionKeyLAFront
+  name: makeshift encryption key
+  description: A soldered-together encryption key on a pirate frequency.
+  components:
+  - type: EncryptionKey
+    channels:
+    - DHLAFront
+    defaultChannel: DHLAFront
+  - type: Sprite
+    layers:
+    - state: crypt_rusted
+    - state: synd_label
+
+- type: entity
+  parent: EncryptionKey
+  id: DHEncryptionKeyLAVanguard
+  name: LA-V encryption key
+  description: An encryption key of the Lost Angels—Vanguard corporation.
+  components:
+  - type: EncryptionKey
+    channels:
+    - DHLAVanguard
+    defaultChannel: DHLAVanguard
+  - type: Sprite
+    layers:
+    - state: crypt_gray
+    - state: nano_label
+
+- type: entity
+  parent: ClothingHeadsetAltCentCom
+  id: DHClothingHeadsetLAPolice
+  name: Military Police over-ear headset
+  description: A rugged over-ear headset of the Republican Military Police.
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - DHEncryptionKeyLAPolice
+
+- type: entity
+  parent: ClothingHeadset
+  id: DHClothingHeadsetLAFront
+  name: headset
+  description: An ordinary-looking headset.
+  suffix: LFFC
+  components:
+  - type: Sprite
+    sprite: Clothing/Ears/Headsets/base.rsi
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - DHEncryptionKeyLAFront
+
+- type: entity
+  parent: ClothingHeadset
+  id: DHClothingHeadsetLAVanguard
+  name: LA-V headset
+  description: A corporate headset of Lost Angels—Vanguard.
+  components:
+  - type: Sprite
+    sprite: Clothing/Ears/Headsets/base.rsi
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - DHEncryptionKeyLAVanguard

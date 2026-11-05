@@ -1,0 +1,300 @@
+# «Восстание»: удостоверения и стартовое снаряжение должностей (Uprising/jobs.yml).
+# Мирные — гражданская одежда без оружия. LA-V — одежда корпорации (Uprising/clothing.yml).
+# Военпол и ОФСК — ВРЕМЕННОЕ снаряжение до решения автора (сказал: «про экипировку позже»).
+
+- type: entity
+  parent: IDCardStandard
+  id: DHLAIDCardBase
+  name: Lost Angels ID card
+  description: A Republican citizen card of Lost Angels.
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/id_cards.rsi
+    state: default
+
+# ---------------------------------------------------------------- мирные
+
+- type: startingGear
+  id: DHLACivilianGearBase
+  equipment:
+    shoes: ClothingShoesColorBlack
+    back: ClothingBackpackSatchel
+    pocket1: SpaceCash100
+
+- type: startingGear
+  parent: DHLACivilianGearBase
+  id: DHLADistrictHeadGear
+  equipment:
+    id: DHLAIDCardDistrictHead
+    jumpsuit: ClothingUniformJumpsuitLawyerBlack
+    outerClothing: ClothingOuterCoatGentle
+    shoes: ClothingShoesLeather
+    ears: ClothingHeadsetGrey
+    pocket2: Pen
+  storage:
+    back:
+    - BoxFolderBlue
+    - SpaceCash500
+
+- type: startingGear
+  parent: DHLACivilianGearBase
+  id: DHLADistrictStaffGear
+  equipment:
+    id: DHLAIDCardDistrictStaff
+    jumpsuit: ClothingUniformJumpsuitLawyerBlue
+    shoes: ClothingShoesLeather
+    ears: ClothingHeadsetGrey
+    pocket2: Pen
+  storage:
+    back:
+    - BoxFolderBlue
+
+- type: startingGear
+  parent: DHLACivilianGearBase
+  id: DHLAOfficeWorkerGear
+  equipment:
+    id: DHLAIDCardOfficeWorker
+    jumpsuit: ClothingUniformJumpsuitColorWhite
+    neck: ClothingNeckTieRed
+    pocket2: Pen
+
+- type: startingGear
+  parent: DHLACivilianGearBase
+  id: DHLAEntrepreneurGear
+  equipment:
+    id: DHLAIDCardEntrepreneur
+    jumpsuit: ClothingUniformJumpsuitBartender
+    outerClothing: ClothingOuterApronBar
+    shoes: ClothingShoesColorBrown
+  storage:
+    back:
+    - SpaceCash500
+
+- type: startingGear
+  parent: DHLACivilianGearBase
+  id: DHLAFactoryWorkerGear
+  equipment:
+    id: DHLAIDCardFactoryWorker
+    jumpsuit: ClothingUniformJumpsuitColorOrange
+    head: ClothingHeadHatHardhatYellow
+    shoes: ClothingShoesBootsWork
+    gloves: ClothingHandsGlovesColorBlack
+    belt: ClothingBeltUtilityFilled
+
+- type: startingGear
+  parent: DHLACivilianGearBase
+  id: DHLAUtilityWorkerGear
+  equipment:
+    id: DHLAIDCardUtilityWorker
+    jumpsuit: ClothingUniformJumpsuitEngineeringHazard
+    outerClothing: ClothingOuterVestHazard
+    shoes: ClothingShoesBootsWork
+    gloves: ClothingHandsGlovesColorBlack
+    belt: ClothingBeltUtilityEngineering
+    ears: ClothingHeadsetGrey
+  storage:
+    back:
+    - FlashlightLantern
+    - Multitool
+
+- type: startingGear
+  parent: DHLACivilianGearBase
+  id: DHLAMetroWorkerGear
+  equipment:
+    id: DHLAIDCardMetroWorker
+    jumpsuit: ClothingUniformJumpsuitColorDarkBlue
+    head: ClothingHeadHatCapcap
+    ears: ClothingHeadsetGrey
+  storage:
+    back:
+    - FlashlightLantern
+
+- type: startingGear
+  parent: DHLACivilianGearBase
+  id: DHLAResidentGear
+  equipment:
+    id: DHLAIDCardResident
+    jumpsuit: ClothingUniformJumpsuitCasualBlue
+    outerClothing: ClothingOuterHoodieGrey
+
+# ---------------------------------------------------------------- LA-V
+
+- type: startingGear
+  id: DHLAVRepresentativeGear
+  equipment:
+    id: DHLAIDCardVRepresentative
+    jumpsuit: DHLAVClothingUniformExecutive
+    outerClothing: DHLAVClothingOuterJacket
+    shoes: ClothingShoesLeather
+    ears: DHClothingHeadsetLAVanguard
+    back: ClothingBackpackSatchelLeather
+    pocket1: SpaceCash1000
+    pocket2: Pen
+  inhand:
+  - BriefcaseBrownFilled
+  storage:
+    back:
+    - DHWeaponPistolMk58
+    - DHMagazine10x24ShortE
+    - BoxFolderBlue
+
+- type: startingGear
+  id: DHLAVAssistantGear
+  equipment:
+    id: DHLAIDCardVAssistant
+    jumpsuit: DHLAVClothingUniformFormal
+    outerClothing: DHLAVClothingOuterJacketManager
+    head: DHLAVClothingHeadCapManager
+    shoes: ClothingShoesLeather
+    ears: DHClothingHeadsetLAVanguard
+    back: ClothingBackpackSatchelLeather
+    pocket1: SpaceCash500
+    pocket2: Pen
+  storage:
+    back:
+    - BoxFolderBlue
+    - Paper
+
+- type: startingGear
+  id: DHLAVSecurityGear
+  equipment:
+    id: DHLAIDCardVSecurity
+    jumpsuit: DHLAVClothingUniformSecurity
+    outerClothing: DHLAVClothingOuterVestSecurity
+    head: DHLAVClothingHeadHelmetSecurity
+    gloves: DHLAVClothingHandsGlovesSecurity
+    shoes: DHLAVClothingShoesJackboots
+    ears: DHClothingHeadsetLAVanguard
+    eyes: ClothingEyesGlassesSecurity
+    back: ClothingBackpackSecurity
+    belt: ClothingBeltSecurityWebbing
+    suitstorage: DHWeaponSMGRAPTORM1216
+    pocket1: DHWeaponPistolMk58
+    pocket2: FlashlightSeclite
+  storage:
+    back:
+    - DHMagazine10x24SVP
+    - DHMagazine10x24SVP
+    - DHMagazine10x24SVP
+    - DHMagazine10x24ShortE
+    - Handcuffs
+    - Handcuffs
+    - DHIFAKFilled
+
+- type: startingGear
+  id: DHLAVEmployeeGear
+  equipment:
+    id: DHLAIDCardVEmployee
+    jumpsuit: DHLAVClothingUniformBlack
+    shoes: ClothingShoesLeather
+    ears: DHClothingHeadsetLAVanguard
+    back: ClothingBackpackSatchelLeather
+    pocket1: SpaceCash100
+    pocket2: Pen
+  storage:
+    back:
+    - Paper
+
+# ---------------------------------------------------------------- Военная Полиция (ВРЕМЕННО)
+
+- type: startingGear
+  id: DHLAMPGearBase
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitSec
+    shoes: ClothingShoesBootsJack
+    gloves: ClothingHandsGlovesColorBlack
+    ears: DHClothingHeadsetLAPolice
+    back: ClothingBackpackSecurity
+    belt: ClothingBeltSecurityWebbing
+    pocket2: FlashlightSeclite
+  storage:
+    back:
+    - Handcuffs
+    - Handcuffs
+    - Handcuffs
+    - DHIFAKFilled
+
+- type: startingGear
+  parent: DHLAMPGearBase
+  id: DHLAMPCommanderGear
+  equipment:
+    id: DHLAIDCardMPCommander
+    jumpsuit: ClothingUniformJumpsuitHoS
+    head: ClothingHeadHatBeretSecurity
+    outerClothing: DHClothingOuterVestRepublicHeavy
+    pocket1: DHWeaponPistolMk58
+  storage:
+    back:
+    - DHMagazine10x24ShortE
+    - DHMagazine10x24ShortE
+    - Handcuffs
+    - DHIFAKFilled
+
+- type: startingGear
+  parent: DHLAMPGearBase
+  id: DHLAMPSergeantGear
+  equipment:
+    id: DHLAIDCardMPSergeant
+    jumpsuit: ClothingUniformJumpsuitWarden
+    head: ClothingHeadHatBeretSecurity
+    outerClothing: DHClothingOuterVestRepublicHeavy
+    suitstorage: DHWeaponSMGRAPTORM1216
+  storage:
+    back:
+    - DHMagazine10x24SVP
+    - DHMagazine10x24SVP
+    - DHMagazine10x24SVP
+    - Handcuffs
+    - DHIFAKFilled
+
+- type: startingGear
+  parent: DHLAMPGearBase
+  id: DHLAMPOfficerGear
+  equipment:
+    id: DHLAIDCardMPOfficer
+    head: ClothingHeadHatBeretSecurity
+    outerClothing: DHClothingOuterVestRepublic
+    suitstorage: DHWeaponSMGRAPTORM1216
+  storage:
+    back:
+    - DHMagazine10x24SVP
+    - DHMagazine10x24SVP
+    - Handcuffs
+    - DHIFAKFilled
+
+# ---------------------------------------------------------------- ОФСК (ВРЕМЕННО): одеты как жители, оружие — в сумке
+
+- type: startingGear
+  parent: DHLACivilianGearBase
+  id: DHLAFrontCommissarGear
+  equipment:
+    id: DHLAIDCardResident
+    jumpsuit: ClothingUniformJumpsuitColorDarkGreen
+    outerClothing: ClothingOuterCoatBomber
+    neck: ClothingNeckScarfStripedRed
+    back: ClothingBackpackDuffel
+  storage:
+    back:
+    - DHClothingHeadsetLAFront
+    - DHWeaponSMGRPRM902
+    - DHMagazine10x24ShortE
+    - DHMagazine10x24ShortE
+    - DHMagazine10x24ShortE
+    - ClothingMaskBandRed
+    - DHIFAKFilled
+
+- type: startingGear
+  parent: DHLACivilianGearBase
+  id: DHLAFrontFighterGear
+  equipment:
+    id: DHLAIDCardResident
+    jumpsuit: ClothingUniformJumpsuitColorLightBrown
+    outerClothing: ClothingOuterHoodieBlack
+  storage:
+    back:
+    - DHClothingHeadsetLAFront
+    - DHWeaponPistolMk58
+    - DHMagazine10x24ShortE
+    - DHMagazine10x24ShortE
+    - ClothingMaskBandRed
