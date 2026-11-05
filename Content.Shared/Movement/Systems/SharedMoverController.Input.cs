@@ -584,18 +584,19 @@ namespace Content.Shared.Movement.Systems
 
         private sealed class WalkInputCmdHandler : InputCmdHandler
         {
-            private SharedMoverController _controller;
-
+            // DarkestHour: ванильный шаг больше не используется (см. ниже), контроллер не нужен.
             public WalkInputCmdHandler(SharedMoverController controller)
             {
-                _controller = controller;
             }
 
             public override bool HandleCmdMessage(IEntityManager entManager, ICommonSession? session, IFullInputCmdMessage message)
             {
                 if (session?.AttachedEntity == null) return false;
 
-                _controller.HandleRunChange(session.AttachedEntity.Value, message.SubTick, message.State == BoundKeyState.Down);
+                // DarkestHour: Shift — не ванильный шаг, а рывок быстрее обычного бега, пока зажат (тратит выносливость;
+                // решение автора 2026-11-05). Обычное движение — ванильный бег.
+                entManager.System<Content.Shared._DarkestHour.Movement.DHSprintExhaustionSystem>()
+                    .SetSprintHeld(session.AttachedEntity.Value, message.State == BoundKeyState.Down);
                 return false;
             }
         }

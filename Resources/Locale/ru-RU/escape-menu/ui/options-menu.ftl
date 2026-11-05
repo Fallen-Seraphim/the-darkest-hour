@@ -496,7 +496,7 @@ ui-options-function-use = Использовать
 
 ui-options-function-use-secondary = Использовать вторично
 
-ui-options-function-walk = Идти
+ui-options-function-walk = Рывок (быстрее бега, тратит выносливость)
 
 ui-options-function-wide-attack = Размашистая атака
 
@@ -562,7 +562,7 @@ ui-options-hold-to-attack-ranged = Удерживать чтобы атаков�
 
 ui-options-hotkey-keymap = Использовать клавиши QWERTY (США)
 
-ui-options-hotkey-toggle-walk = Переключать шаг\бег
+ui-options-hotkey-toggle-walk = Переключать рывок
 
 ui-options-hud-layout = Тип HUD:
 
