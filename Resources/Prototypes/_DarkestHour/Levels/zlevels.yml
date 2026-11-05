@@ -152,3 +152,40 @@
     - state: look_down
   - type: InstantAction
     event: !type:DHLookDownActionEvent
+
+- type: entity
+  id: DHZLevelProbe
+  name: level probe
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Eye
+
+- type: entity
+  parent: BaseAction
+  id: DHActionGhostLevelUp
+  name: Level up
+  description: Move to the same spot one Z-level higher.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+  - type: Sprite
+    sprite: _DarkestHour/Interface/Actions/zlevels.rsi
+    layers:
+    - state: look_up
+  - type: InstantAction
+    event: !type:DHGhostLevelUpActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionGhostLevelDown
+  name: Level down
+  description: Move to the same spot one Z-level lower.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+  - type: Sprite
+    sprite: _DarkestHour/Interface/Actions/zlevels.rsi
+    layers:
+    - state: look_down
+  - type: InstantAction
+    event: !type:DHGhostLevelDownActionEvent

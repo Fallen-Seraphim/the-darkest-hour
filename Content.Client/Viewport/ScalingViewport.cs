@@ -166,7 +166,8 @@ namespace Content.Client.Viewport
 
             DebugTools.AssertNotNull(_viewport);
 
-            _viewport!.Render();
+            // DarkestHour: с этажа сквозь проёмы видны нижние Z-уровни.
+            RenderWithZLevels(_viewport!);
 
             if (_queuedScreenshots.Count != 0)
             {

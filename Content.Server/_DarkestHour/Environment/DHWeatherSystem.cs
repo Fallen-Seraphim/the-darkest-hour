@@ -18,7 +18,8 @@ namespace Content.Server._DarkestHour.Environment;
 /// <summary>
 /// Погода карты планеты: по расписанию (<see cref="DHWeatherScheduleComponent"/>) ставит ванильную погоду на время,
 /// а опасности погоды (<see cref="DHWeatherHazardComponent"/>) раз в секунду действуют на живых под открытым небом:
-/// замедление и урон, нарастающие и спадающие вместе с погодой.
+/// замедление и урон, нарастающие и спадающие вместе с погодой. На этажах (Z-уровни выше земли) — погода земли:
+/// под открытым небом на крыше она тоже бьёт, под потолком верхнего этажа — нет.
 /// </summary>
 public sealed partial class DHWeatherSystem : EntitySystem
 {
@@ -30,6 +31,7 @@ public sealed partial class DHWeatherSystem : EntitySystem
     [Dependency] private DHTimedSlowSystem _slow = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedWeatherSystem _weather = default!;
+    [Dependency] private Content.Shared._DarkestHour.Levels.DHZLevelSystem _zLevels = default!;
 
     private static readonly TimeSpan Interval = TimeSpan.FromSeconds(1);
     private static readonly TimeSpan SlowDuration = TimeSpan.FromSeconds(1.6);
@@ -130,9 +132,10 @@ public sealed partial class DHWeatherSystem : EntitySystem
             if (state.CurrentState == MobState.Dead)
                 continue;
 
+            var weatherMap = WeatherMap(xform.MapUid);
             foreach (var (map, weather, hazard, percent) in _active)
             {
-                if (xform.MapUid != map || !Exposed(mob, xform))
+                if (weatherMap != map || !Exposed(mob, xform))
                     continue;
 
                 if (hazard.Damage is { } damage)
@@ -144,7 +147,19 @@ public sealed partial class DHWeatherSystem : EntitySystem
         }
     }
 
-    /// <summary>Под открытым небом: не в контейнере (машине, шкафу) и на клетке, куда достаёт погода.</summary>
+    /// <summary>Чья погода действует на карте: на этаже — погода земли его стопки.</summary>
+    private EntityUid? WeatherMap(EntityUid? map)
+    {
+        if (!_zLevels.TryGetLevel(map, out var level) || level.Level <= 0)
+            return map;
+
+        return _zLevels.LevelMap(level.Stack, 0) ?? map;
+    }
+
+    /// <summary>
+    /// Под открытым небом: не в контейнере (машине, шкафу), над головой нет этажа и крыши; на земле — клетка, куда
+    /// достаёт погода, на этаже — любой пол (крыша дома).
+    /// </summary>
     private bool Exposed(EntityUid mob, TransformComponent xform)
     {
         if (_container.IsEntityInContainer(mob) || xform.GridUid is not { } grid ||
@@ -152,6 +167,12 @@ public sealed partial class DHWeatherSystem : EntitySystem
         {
             return false;
         }
+
+        if (_zLevels.IsCovered(mob))
+            return false;
+
+        if (_zLevels.TryGetLevel(xform.MapUid, out var level) && level.Level > 0)
+            return true;
 
         var tile = _map.GetTileRef(grid, gridComp, xform.Coordinates);
         return _weather.CanWeatherAffect((grid, gridComp, CompOrNull<RoofComponent>(grid)), tile);
@@ -162,7 +183,7 @@ public sealed partial class DHWeatherSystem : EntitySystem
         var actors = EntityQueryEnumerator<ActorComponent, TransformComponent>();
         while (actors.MoveNext(out var uid, out _, out var xform))
         {
-            if (xform.MapUid == map)
+            if (WeatherMap(xform.MapUid) == map)
                 _popup.PopupEntity(text, uid, uid, PopupType.LargeCaution);
         }
     }

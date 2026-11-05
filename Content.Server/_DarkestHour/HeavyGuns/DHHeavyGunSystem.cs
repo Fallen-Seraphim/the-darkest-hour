@@ -300,10 +300,31 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
                powered.Disabled;
     }
 
+    /// <summary>
+    /// Земля, над которой стоит ПВО: на этаже — уровень 0 его стопки. Под землёй и под крышей ПВО не стреляет — null.
+    /// </summary>
+    private EntityUid? DefenceGround(EntityUid uid, TransformComponent xform)
+    {
+        if (xform.MapUid is not { } map)
+            return null;
+
+        if (!_zLevels.TryGetLevel(map, out var level))
+            return map;
+
+        if (level.Level < 0 || _zLevels.IsCovered(uid))
+            return null;
+
+        return _zLevels.LevelMap(level.Stack, 0) ?? map;
+    }
+
     /// <summary>ПВО, прикрывающие удар: на гриде-цели (корабль) или в радиусе от точки удара (поверхность).</summary>
     private List<Entity<DHInterceptorComponent>> Defenders(Strike strike)
     {
         var result = new List<Entity<DHInterceptorComponent>>();
+        var strikeMap = _map.GetMapOrInvalid(strike.Target.MapId);
+        EntityUid? strikeGround = _zLevels.TryGetLevel(strikeMap, out var strikeLevel)
+            ? _zLevels.LevelMap(strikeLevel.Stack, 0) ?? strikeMap
+            : strikeMap;
         var query = EntityQueryEnumerator<DHInterceptorComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var comp, out var xform))
         {
@@ -318,7 +339,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
                 if (xform.GridUid == grid)
                     result.Add((uid, comp));
             }
-            else if (xform.MapID == strike.Target.MapId &&
+            else if (DefenceGround(uid, xform) is { } ground && ground == strikeGround &&
                      Vector2.Distance(_transform.GetWorldPosition(xform), strike.Target.Position) <= comp.Radius)
             {
                 result.Add((uid, comp));
@@ -825,8 +846,10 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         var interceptors = EntityQueryEnumerator<DHInterceptorComponent, TransformComponent>();
         while (interceptors.MoveNext(out var uid, out var comp, out var xform))
         {
+            // На крыше дома ПВО бьёт как с земли; под крышей и под землёй — нет.
             if (comp.AirRange <= 0f || comp.Ammo <= 0 || now < comp.NextReady || !xform.Anchored || Unpowered(uid) ||
-                !TryComp<DHPlanetSurfaceMapComponent>(xform.MapUid, out var surface) ||
+                DefenceGround(uid, xform) is not { } defenceGround ||
+                !TryComp<DHPlanetSurfaceMapComponent>(defenceGround, out var surface) ||
                 _landing.GetAtmosphere(surface.System, surface.Body) is not { } sky)
             {
                 continue;

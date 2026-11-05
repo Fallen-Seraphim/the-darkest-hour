@@ -48,27 +48,48 @@ public sealed partial class DHOverwatchBoundUserInterface : BoundUserInterface
         }
 
         _tacmap = new DHTacticalMapWindow();
+        _tacmap.OnLevelSelected += _ =>
+        {
+            if (_state != null)
+                UpdateTacticalMap(_state, force: true);
+        };
         _tacmap.OpenCentered();
         if (_state != null)
             UpdateTacticalMap(_state);
     }
 
     /// <summary>Отметки — в окно карты; местность запрашиваем, если её нет или версия устарела.</summary>
-    private void UpdateTacticalMap(DHOverwatchState state)
+    private void UpdateTacticalMap(DHOverwatchState state, bool force = false)
     {
         if (_tacmap is not { IsOpen: true })
             return;
 
         _tacmap.UpdateState(state);
-        if (state.TacticalMap is not { } map || _terrain.Has(map, state.TerrainVersion))
+
+        // Нужны земля (подложка) и выбранный уровень.
+        var wanted = new List<NetEntity>();
+        if (state.TacticalMap is { } ground && !_terrain.Has(ground, state.TerrainVersion))
+            wanted.Add(ground);
+
+        if (_tacmap.SelectedMap is { } selected && selected != state.TacticalMap)
+        {
+            var level = state.Levels.Find(l => l.Map == selected);
+            if (level != null && !_terrain.Has(selected, level.Version))
+                wanted.Add(selected);
+        }
+
+        if (wanted.Count == 0)
             return;
 
         var now = IoCManager.Resolve<IGameTiming>().RealTime;
-        if (now < _nextRequest)
+        if (!force && now < _nextRequest)
             return;
 
         _nextRequest = now + TimeSpan.FromSeconds(3);
-        SendMessage(new DHTacticalMapRequestMessage());
+        foreach (var map in wanted)
+        {
+            SendMessage(new DHTacticalMapRequestMessage { Map = map });
+        }
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)

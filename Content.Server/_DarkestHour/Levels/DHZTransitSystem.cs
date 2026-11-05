@@ -89,6 +89,10 @@ public sealed partial class DHZTransitSystem : EntitySystem
         SubscribeLocalEvent<DHZViewerComponent, DHLookUpActionEvent>(OnLookUp);
         SubscribeLocalEvent<DHZViewerComponent, DHLookDownActionEvent>(OnLookDown);
         SubscribeLocalEvent<DHZCameraComponent, ComponentShutdown>(OnCameraShutdown);
+
+        SubscribeLocalEvent<DHZGhostMoverComponent, MapInitEvent>(OnGhostMapInit);
+        SubscribeLocalEvent<DHZGhostMoverComponent, DHGhostLevelUpActionEvent>(OnGhostUp);
+        SubscribeLocalEvent<DHZGhostMoverComponent, DHGhostLevelDownActionEvent>(OnGhostDown);
     }
 
     public override void Update(float frameTime)
@@ -492,6 +496,107 @@ public sealed partial class DHZTransitSystem : EntitySystem
             > 0 => Loc.GetString("dh-zlevel-name-up", ("level", level)),
             _ => Loc.GetString("dh-zlevel-name-down", ("level", -level)),
         };
+    }
+
+    #endregion
+
+    #region Призраки
+
+    private void OnGhostMapInit(Entity<DHZGhostMoverComponent> ent, ref MapInitEvent args)
+    {
+        _actions.AddAction(ent.Owner, ref ent.Comp.UpActionEntity, ent.Comp.UpAction);
+        _actions.AddAction(ent.Owner, ref ent.Comp.DownActionEntity, ent.Comp.DownAction);
+    }
+
+    private void OnGhostUp(Entity<DHZGhostMoverComponent> ent, ref DHGhostLevelUpActionEvent args)
+    {
+        args.Handled = true;
+        StepLevel(ent, 1);
+    }
+
+    private void OnGhostDown(Entity<DHZGhostMoverComponent> ent, ref DHGhostLevelDownActionEvent args)
+    {
+        args.Handled = true;
+        StepLevel(ent, -1);
+    }
+
+    /// <summary>
+    /// Сразу на ближайший существующий уровень выше/ниже в той же точке (призраки, админы, маппинг).
+    /// </summary>
+    public bool StepLevel(EntityUid uid, int step)
+    {
+        var at = _transform.GetMapCoordinates(uid);
+        if (!_z.TryGetLevel(at.MapId, out var own))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-zlevel-look-nothing"), uid, uid);
+            return false;
+        }
+
+        for (var level = own.Level + step;
+             level >= DHZLevelComponent.MinLevel && level <= DHZLevelComponent.MaxLevel;
+             level += step)
+        {
+            if (_z.LevelMap(own.Stack, level) is not { } map)
+                continue;
+
+            _transform.SetMapCoordinates(uid, new MapCoordinates(at.Position, Transform(map).MapID));
+            _popup.PopupEntity(Loc.GetString("dh-zlevel-moved", ("level", LevelName(level))), uid, uid);
+            return true;
+        }
+
+        _popup.PopupEntity(Loc.GetString(step > 0 ? "dh-zlevel-look-nothing-up" : "dh-zlevel-look-nothing-down"),
+            uid, uid);
+        return false;
+    }
+
+    #endregion
+
+    #region Крыши
+
+    /// <summary>
+    /// Флаги крыши под этажами: каждый тайл пола на уровне выше земли накрывает тайлы всех уровней ниже (до земли),
+    /// там нет солнца и погоды. Ставится при загрузке уровней и командой маппинга.
+    /// </summary>
+    public int SyncRoofs(int stack)
+    {
+        var levels = _z.Levels(stack);
+        var set = 0;
+        foreach (var (upperMap, upperLevel) in levels)
+        {
+            if (upperLevel <= 0)
+                continue;
+
+            var grids = new List<Entity<MapGridComponent>>();
+            var query = EntityQueryEnumerator<MapGridComponent, TransformComponent>();
+            while (query.MoveNext(out var gridUid, out var grid, out var xform))
+            {
+                if (xform.MapUid == upperMap)
+                    grids.Add((gridUid, grid));
+            }
+
+            foreach (var grid in grids)
+            {
+                foreach (var tile in _map.GetAllTiles(grid.Owner, grid.Comp))
+                {
+                    var center = _map.GridTileToWorldPos(grid.Owner, grid.Comp, tile.GridIndices);
+                    foreach (var (lowerMap, lowerLevel) in levels)
+                    {
+                        if (lowerLevel < 0 || lowerLevel >= upperLevel)
+                            continue;
+
+                        var point = new MapCoordinates(center, Transform(lowerMap).MapID);
+                        if (!_map.TryFindGridAt(point, out var lowerGrid, out var lowerComp))
+                            continue;
+
+                        var roof = EnsureComp<RoofComponent>(lowerGrid);
+                        _roof.SetRoof((lowerGrid, lowerComp, roof), _map.TileIndicesFor(lowerGrid, lowerComp, point), true);
+                        set++;
+                    }
+                }
+            }
+        }
+
+        return set;
     }
 
     #endregion

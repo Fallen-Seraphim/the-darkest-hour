@@ -29,6 +29,7 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
     [Dependency] private ITileDefinitionManager _tileDef = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private Content.Shared._DarkestHour.Levels.DHZLevelSystem _zLevels = default!;
 
     /// <summary>Сколько видит своя РЛС по поверхности.</summary>
     public const float RadarRange = 60f;
@@ -58,6 +59,31 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
         return null;
     }
 
+    /// <summary>Уровни тактической карты поверхности: все Z-уровни её стопки, а без стопки — только она.</summary>
+    public List<(EntityUid Map, int Level)> Levels(EntityUid surface)
+    {
+        if (!_zLevels.TryGetLevel(surface, out var level))
+            return new List<(EntityUid, int)> { (surface, 0) };
+
+        return _zLevels.Levels(level.Stack);
+    }
+
+    /// <summary>Карта входит в стопку поверхности: её уровень.</summary>
+    private static bool LevelOf(List<(EntityUid Map, int Level)> levels, EntityUid? map, out int level)
+    {
+        level = 0;
+        foreach (var (levelMap, number) in levels)
+        {
+            if (levelMap != map)
+                continue;
+
+            level = number;
+            return true;
+        }
+
+        return false;
+    }
+
     /// <summary>Версия местности карты (строит при необходимости).</summary>
     public int TerrainVersion(EntityUid map)
     {
@@ -83,13 +109,21 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
         if (_terrain.TryGetValue(map, out var cached) && now - cached.Built < TerrainLifetime)
             return cached;
 
-        if (!TryComp<MapGridComponent>(map, out var grid))
+        // Этаж или подвал — в границах местности земли, чтобы уровни ложились друг на друга.
+        DHTacticalMapTerrainEvent? built;
+        if (_zLevels.TryGetLevel(map, out var zLevel) && zLevel.Level != 0)
         {
-            Log.Warning($"Tactical map: surface {ToPrettyString(map)} is not a grid");
-            return null;
+            if (_zLevels.LevelMap(zLevel.Stack, 0) is not { } ground || GetTerrain(ground) is not { } groundTerrain)
+                return null;
+
+            var g = groundTerrain.Event;
+            built = Build(map, (g.Left, g.Bottom, g.Width, g.Height), zLevel.Level);
+        }
+        else
+        {
+            built = Build(map, null, 0);
         }
 
-        var built = Build(map, grid);
         if (built == null)
         {
             return null;
@@ -101,62 +135,99 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
         return terrain;
     }
 
-    private DHTacticalMapTerrainEvent? Build(EntityUid map, MapGridComponent grid)
+    /// <summary>Гриды карты: сама карта (поверхность-грид) и гриды на ней, со смещением в целых тайлах.</summary>
+    private List<(EntityUid Uid, MapGridComponent Grid, Vector2i Offset)> MapGrids(EntityUid map)
     {
-        // Границы считаем по самим тайлам: у карты-грида LocalAABB может остаться нулевым (не пересчитывается).
-        int left = int.MaxValue, bottom = int.MaxValue, right = int.MinValue, top = int.MinValue;
-        foreach (var tile in _map.GetAllTiles(map, grid))
+        var result = new List<(EntityUid, MapGridComponent, Vector2i)>();
+        if (TryComp<MapGridComponent>(map, out var mapGrid))
+            result.Add((map, mapGrid, Vector2i.Zero));
+
+        var grids = EntityQueryEnumerator<MapGridComponent, TransformComponent>();
+        while (grids.MoveNext(out var uid, out var grid, out var xform))
         {
-            var pos = tile.GridIndices;
-            left = Math.Min(left, pos.X);
-            bottom = Math.Min(bottom, pos.Y);
-            right = Math.Max(right, pos.X);
-            top = Math.Max(top, pos.Y);
+            if (uid == map || xform.MapUid != map)
+                continue;
+
+            var pos = _transform.GetWorldPosition(xform);
+            result.Add((uid, grid, new Vector2i((int) MathF.Round(pos.X), (int) MathF.Round(pos.Y))));
         }
 
-        var width = right - left + 1;
-        var height = top - bottom + 1;
+        return result;
+    }
+
+    private DHTacticalMapTerrainEvent? Build(EntityUid map, (int Left, int Bottom, int Width, int Height)? bounds,
+        int level)
+    {
+        var grids = MapGrids(map);
+        int left, bottom, width, height;
+        if (bounds is { } b)
+        {
+            (left, bottom, width, height) = b;
+        }
+        else
+        {
+            // Границы считаем по самим тайлам: у карты-грида LocalAABB может остаться нулевым (не пересчитывается).
+            int minX = int.MaxValue, minY = int.MaxValue, maxX = int.MinValue, maxY = int.MinValue;
+            foreach (var (uid, grid, offset) in grids)
+            {
+                foreach (var tile in _map.GetAllTiles(uid, grid))
+                {
+                    var pos = tile.GridIndices + offset;
+                    minX = Math.Min(minX, pos.X);
+                    minY = Math.Min(minY, pos.Y);
+                    maxX = Math.Max(maxX, pos.X);
+                    maxY = Math.Max(maxY, pos.Y);
+                }
+            }
+
+            left = minX;
+            bottom = minY;
+            width = maxX - minX + 1;
+            height = maxY - minY + 1;
+        }
+
         if (left == int.MaxValue || width <= 0 || height <= 0 || width > 1024 || height > 1024)
         {
-            Log.Warning($"Tactical map: surface {ToPrettyString(map)} has bad tile bounds ({left}, {bottom}) {width}x{height}");
+            Log.Warning($"Tactical map: {ToPrettyString(map)} has bad tile bounds ({left}, {bottom}) {width}x{height}");
             return null;
         }
 
         var kinds = new byte[width * height];
         TryComp<DHMappedSurfaceComponent>(map, out var surface);
 
-        foreach (var tile in _map.GetAllTiles(map, grid))
+        var gridOffsets = new Dictionary<EntityUid, (MapGridComponent Grid, Vector2i Offset)>();
+        foreach (var (uid, grid, offset) in grids)
         {
-            var x = tile.GridIndices.X - left;
-            var y = tile.GridIndices.Y - bottom;
-            if (x < 0 || y < 0 || x >= width || y >= height)
-                continue;
-
-            var def = (ContentTileDefinition) _tileDef[tile.Tile.TypeId];
-            kinds[y * width + x] = (byte) Classify(def, surface);
+            gridOffsets[uid] = (grid, offset);
+            foreach (var tile in _map.GetAllTiles(uid, grid))
+            {
+                var def = (ContentTileDefinition) _tileDef[tile.Tile.TypeId];
+                Set(kinds, width, height, left, bottom, tile.GridIndices + offset, Classify(def, surface));
+            }
         }
 
         // Стены и скалы — непроницаемые закреплённые сущности; вода и окопы — по метке DHTacticalTerrain.
         var walls = EntityQueryEnumerator<AirtightComponent, TransformComponent, MetaDataComponent>();
         while (walls.MoveNext(out _, out _, out var xform, out var meta))
         {
-            if (xform.GridUid != map || !xform.Anchored)
+            if (xform.GridUid is not { } gridUid || !xform.Anchored || !gridOffsets.TryGetValue(gridUid, out var g))
                 continue;
 
             var kind = meta.EntityPrototype?.ID.Contains("Rock") == true ? DHTacticalTerrain.Rock : DHTacticalTerrain.Wall;
-            Set(kinds, width, height, left, bottom, xform, map, grid, kind);
+            Set(kinds, width, height, left, bottom, _map.TileIndicesFor(gridUid, g.Grid, xform.Coordinates) + g.Offset, kind);
         }
 
         var water = EntityQueryEnumerator<DHTacticalTerrainComponent, TransformComponent>();
         while (water.MoveNext(out _, out var terrain, out var xform))
         {
-            if (xform.GridUid == map)
-                Set(kinds, width, height, left, bottom, xform, map, grid, terrain.Kind);
+            if (xform.GridUid is { } gridUid && gridOffsets.TryGetValue(gridUid, out var g))
+                Set(kinds, width, height, left, bottom, _map.TileIndicesFor(gridUid, g.Grid, xform.Coordinates) + g.Offset, terrain.Kind);
         }
 
         return new DHTacticalMapTerrainEvent
         {
             Map = GetNetEntity(map),
+            Level = level,
             Left = left,
             Bottom = bottom,
             Width = width,
@@ -165,10 +236,9 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
         };
     }
 
-    private void Set(byte[] kinds, int width, int height, int left, int bottom, TransformComponent xform,
-        EntityUid map, MapGridComponent grid, DHTacticalTerrain kind)
+    private static void Set(byte[] kinds, int width, int height, int left, int bottom, Vector2i tile,
+        DHTacticalTerrain kind)
     {
-        var tile = _map.TileIndicesFor(map, grid, xform.Coordinates);
         var x = tile.X - left;
         var y = tile.Y - bottom;
         if (x >= 0 && y >= 0 && x < width && y < height)
@@ -215,37 +285,40 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
         return result.ToArray();
     }
 
-    /// <summary>Отметки стороны на карте поверхности.</summary>
+    /// <summary>Отметки стороны на карте поверхности и её Z-уровнях (у каждой — свой уровень).</summary>
     public List<DHTacticalMarker> Markers(DHAssaultFaction faction, EntityUid map)
     {
         var markers = new List<DHTacticalMarker>();
+        var levels = Levels(map);
 
         var points = EntityQueryEnumerator<DHControlPointComponent, TransformComponent>();
         while (points.MoveNext(out _, out var point, out var xform))
         {
-            if (xform.MapUid != map)
+            if (!LevelOf(levels, xform.MapUid, out var level))
                 continue;
 
             markers.Add(Marker(DHTacticalMarkerKind.ControlPoint, xform, Loc.GetString(point.PointName), point.Holder,
-                point.Radius));
+                point.Radius, level));
         }
 
         var zones = EntityQueryEnumerator<Content.Shared._DarkestHour.Assault.DHLandingZoneComponent, TransformComponent>();
         while (zones.MoveNext(out _, out var zone, out var xform))
         {
-            if (xform.MapUid == map)
-                markers.Add(Marker(DHTacticalMarkerKind.LandingZone, xform, zone.ZoneName, null, 0f));
+            if (LevelOf(levels, xform.MapUid, out var level))
+                markers.Add(Marker(DHTacticalMarkerKind.LandingZone, xform, zone.ZoneName, null, 0f, level));
         }
 
         // Свои глаза: РЛС (радиус RadarRange) и включённые детекторы движения у своих бойцов.
         var eyes = new List<(Vector2 Position, float Range)>();
+        // Глаза видят сквозь уровни (РЛС — всю стопку): по XY.
         var radars = EntityQueryEnumerator<DHRadarComponent, TransformComponent>();
         while (radars.MoveNext(out var uid, out var radar, out var xform))
         {
-            if (xform.MapUid != map || radar.Faction != faction)
+            if (!LevelOf(levels, xform.MapUid, out var level) || radar.Faction != faction)
                 continue;
 
-            markers.Add(Marker(DHTacticalMarkerKind.Radar, xform, Name(uid), faction, radar.Active ? RadarRange : 0f));
+            markers.Add(Marker(DHTacticalMarkerKind.Radar, xform, Name(uid), faction, radar.Active ? RadarRange : 0f,
+                level));
             if (radar.Active)
                 eyes.Add((_transform.GetWorldPosition(xform), RadarRange));
         }
@@ -253,7 +326,7 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
         var detectors = EntityQueryEnumerator<DHMotionDetectorComponent, TransformComponent>();
         while (detectors.MoveNext(out _, out var detector, out var xform))
         {
-            if (!detector.Active || xform.MapUid != map ||
+            if (!detector.Active || !LevelOf(levels, xform.MapUid, out _) ||
                 !TryComp<DHAssaultFighterComponent>(xform.ParentUid, out var holder) || holder.Faction != faction)
             {
                 continue;
@@ -265,7 +338,7 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
         var fighters = EntityQueryEnumerator<DHAssaultFighterComponent, TransformComponent>();
         while (fighters.MoveNext(out var uid, out var fighter, out var xform))
         {
-            if (fighter.Faction == faction || xform.MapUid != map || !_mobState.IsAlive(uid))
+            if (fighter.Faction == faction || !LevelOf(levels, xform.MapUid, out var level) || !_mobState.IsAlive(uid))
                 continue;
 
             var position = _transform.GetWorldPosition(xform);
@@ -280,6 +353,7 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
                     X = position.X,
                     Y = position.Y,
                     Owner = fighter.Faction,
+                    Level = level,
                 });
                 break;
             }
@@ -288,27 +362,27 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
         var marks = EntityQueryEnumerator<DHLaserMarkComponent, TransformComponent>();
         while (marks.MoveNext(out _, out var mark, out var xform))
         {
-            if (xform.MapUid != map || mark.Faction is { } markFaction && markFaction != faction)
+            if (!LevelOf(levels, xform.MapUid, out var level) || mark.Faction is { } markFaction && markFaction != faction)
                 continue;
 
             markers.Add(Marker(DHTacticalMarkerKind.LaserMark, xform,
-                Loc.GetString("dh-tacmap-laser-mark", ("code", mark.Code)), faction, 0f));
+                Loc.GetString("dh-tacmap-laser-mark", ("code", mark.Code)), faction, 0f, level));
         }
 
         var contacts = EntityQueryEnumerator<DHScanContactComponent, TransformComponent>();
         while (contacts.MoveNext(out _, out var contact, out var xform))
         {
-            if (xform.MapUid != map || contact.Faction != faction)
+            if (!LevelOf(levels, xform.MapUid, out var level) || contact.Faction != faction)
                 continue;
 
-            markers.Add(Marker(DHTacticalMarkerKind.ScanContact, xform, contact.Label, null, 0f));
+            markers.Add(Marker(DHTacticalMarkerKind.ScanContact, xform, contact.Label, null, 0f, level));
         }
 
         return markers;
     }
 
     private DHTacticalMarker Marker(DHTacticalMarkerKind kind, TransformComponent xform, string name,
-        DHAssaultFaction? owner, float radius)
+        DHAssaultFaction? owner, float radius, int level)
     {
         var position = _transform.GetWorldPosition(xform);
         return new DHTacticalMarker
@@ -319,6 +393,7 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
             Name = name,
             Owner = owner,
             Radius = radius,
+            Level = level,
         };
     }
 }

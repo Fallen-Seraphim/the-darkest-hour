@@ -35,3 +35,6 @@ cmd-dhcontrolpoint-desc = Задаёт владельца зоны захват�
 cmd-dhcontrolpoint-help = Использование: dhcontrolpoint <village|spaceport|construction|npp|dam> <Republic|Empire|none>
 cmd-dhcontrolpoint-done = Владелец зоны изменён.
 cmd-dhcontrolpoint-not-found = Зоны с таким id нет.
+
+dh-tacmap-level = Уровень:
+dh-tacmap-level-ground = Земля

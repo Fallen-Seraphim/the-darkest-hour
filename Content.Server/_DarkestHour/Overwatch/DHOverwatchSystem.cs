@@ -119,8 +119,21 @@ public sealed partial class DHOverwatchSystem : EntitySystem
 
     private void OnTacticalMapRequest(Entity<DHOverwatchConsoleComponent> ent, ref DHTacticalMapRequestMessage args)
     {
-        if (_tacmap.GetSurfaceMap() is { } map && TryComp<ActorComponent>(args.Actor, out var actor))
-            _tacmap.SendTerrain(map, actor.PlayerSession);
+        if (_tacmap.GetSurfaceMap() is not { } surface || !TryComp<ActorComponent>(args.Actor, out var actor))
+            return;
+
+        // Уровень — только из стопки поверхности.
+        var map = surface;
+        if (args.Map is { } netMap && TryGetEntity(netMap, out var requested))
+        {
+            foreach (var (levelMap, _) in _tacmap.Levels(surface))
+            {
+                if (levelMap == requested)
+                    map = levelMap;
+            }
+        }
+
+        _tacmap.SendTerrain(map, actor.PlayerSession);
     }
 
     private void StopWatching(Entity<DHOverwatchConsoleComponent> ent, EntityUid viewer)
@@ -159,6 +172,7 @@ public sealed partial class DHOverwatchSystem : EntitySystem
     {
         var fighters = new List<DHOverwatchEntry>();
         var surface = _tacmap.GetSurfaceMap();
+        var levels = surface is { } surfaceMap ? _tacmap.Levels(surfaceMap) : new List<(EntityUid Map, int Level)>();
         var query = EntityQueryEnumerator<DHAssaultFighterComponent, MobStateComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var fighter, out var mobState, out var xform))
         {
@@ -166,7 +180,15 @@ public sealed partial class DHOverwatchSystem : EntitySystem
                 continue;
 
             var entry = Entry(uid, mobState, xform);
-            entry.OnSurface = surface != null && xform.MapUid == surface;
+            foreach (var (levelMap, level) in levels)
+            {
+                if (xform.MapUid != levelMap)
+                    continue;
+
+                entry.OnSurface = true;
+                entry.Level = level;
+            }
+
             fighters.Add(entry);
         }
 
@@ -185,8 +207,21 @@ public sealed partial class DHOverwatchSystem : EntitySystem
         var markers = surface is { } map ? _tacmap.Markers(ent.Comp.Faction, map) : new List<DHTacticalMarker>();
         var version = surface is { } terrainMap ? _tacmap.TerrainVersion(terrainMap) : 0;
 
-        _ui.SetUiState(ent.Owner, DHOverwatchUiKey.Key, new DHOverwatchState(ent.Comp.Faction, fighters, watching,
-            GetNetEntity(surface), version, markers));
+        var state = new DHOverwatchState(ent.Comp.Faction, fighters, watching, GetNetEntity(surface), version, markers);
+        if (levels.Count > 1)
+        {
+            foreach (var (levelMap, level) in levels)
+            {
+                state.Levels.Add(new DHTacticalLevel
+                {
+                    Level = level,
+                    Map = GetNetEntity(levelMap),
+                    Version = _tacmap.TerrainVersion(levelMap),
+                });
+            }
+        }
+
+        _ui.SetUiState(ent.Owner, DHOverwatchUiKey.Key, state);
     }
 
     private DHOverwatchEntry Entry(EntityUid uid, MobStateComponent mobState, TransformComponent xform)
