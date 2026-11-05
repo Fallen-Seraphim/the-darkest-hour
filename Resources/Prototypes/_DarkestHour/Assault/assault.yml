@@ -529,6 +529,448 @@
     - DHIFAKFilled
     - DHFieldRadioJammer
 
+# --- Расчёты, экипажи и офицеры поддержки (решение автора 2026-11-05): без модульной брони, бронежилеты 1/2 класса ---
+
+- type: startingGear
+  parent: DHRepublicGearBase
+  id: DHGarrisonArtilleryOfficerGear
+  equipment:
+    id: DHDogtagsGarrisonArtilleryOfficer
+    outerClothing: DHClothingOuterVestRepublicHeavy
+    suitstorage: DHWeaponSMGRAPTORM1216
+    ears: DHClothingHeadsetAltRepublicCommand
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - DHIFAKFilled
+    - DHMagazine10x24E
+    - DHMagazine10x24E
+    - DHMagazine10x24E
+    - DHLaserDesignator
+    - Binoculars
+    - DHOverwatchTabletRepublic
+    - DHSignalFlareKit
+
+- type: startingGear
+  parent: DHRepublicGearBase
+  id: DHGarrisonMortarCommanderGear
+  equipment:
+    id: DHDogtagsGarrisonMortarCommander
+    outerClothing: DHClothingOuterVestRepublicHeavy
+    suitstorage: DHWeaponSMGRAPTORM1216
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - DHIFAKFilled
+    - DHMagazine10x24E
+    - DHMagazine10x24E
+    - DHMagazine10x24E
+    - DHLaserDesignator
+    - Binoculars
+    - DHSignalFlareKit
+
+- type: startingGear
+  parent: DHRepublicGearBase
+  id: DHGarrisonMortarOperatorGear
+  equipment:
+    id: DHDogtagsGarrisonMortarOperator
+    outerClothing: DHClothingOuterVestRepublic
+    suitstorage: DHWeaponSMGRAPTORM1216
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - DHIFAKFilled
+    - DHMagazine10x24E
+    - DHMagazine10x24E
+    - DHMagazine10x24E
+    - Binoculars
+
+- type: startingGear
+  parent: DHRepublicGearBase
+  id: DHGarrisonFieldArtilleristGear
+  equipment:
+    id: DHDogtagsGarrisonFieldArtillerist
+    outerClothing: DHClothingOuterVestRepublic
+    suitstorage: DHWeaponSMGRAPTORM1216
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - DHIFAKFilled
+    - DHMagazine10x24E
+    - DHMagazine10x24E
+    - DHMagazine10x24E
+    - Wrench
+    - Binoculars
+
+- type: startingGear
+  parent: DHRepublicGearBase
+  id: DHGarrisonTankCommanderGear
+  equipment:
+    id: DHDogtagsGarrisonTankCommander
+    outerClothing: DHClothingOuterVestRepublicHeavy
+    suitstorage: DHWeaponSMGRAPTORM1216
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - DHIFAKFilled
+    - DHMagazine10x24E
+    - DHMagazine10x24E
+    - DHMagazine10x24E
+    - Binoculars
+    - DHOverwatchTabletRepublic
+    - Welder
+
+- type: startingGear
+  parent: DHRepublicGearBase
+  id: DHGarrisonTankCrewGear
+  equipment:
+    id: DHDogtagsGarrisonTankCrew
+    outerClothing: DHClothingOuterVestRepublic
+    suitstorage: DHWeaponSMGRAPTORM1216
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - DHIFAKFilled
+    - DHMagazine10x24E
+    - DHMagazine10x24E
+    - DHMagazine10x24E
+    - WelderIndustrial
+
+- type: startingGear
+  parent: DHRepublicGearBase
+  id: DHGarrisonAPCCommanderGear
+  equipment:
+    id: DHDogtagsGarrisonAPCCommander
+    outerClothing: DHClothingOuterVestRepublicHeavy
+    suitstorage: DHWeaponSMGRAPTORM1216
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - DHIFAKFilled
+    - DHMagazine10x24E
+    - DHMagazine10x24E
+    - DHMagazine10x24E
+    - Binoculars
+    - DHOverwatchTabletRepublic
+    - Welder
+
+- type: startingGear
+  parent: DHRepublicGearBase
+  id: DHGarrisonAPCCrewGear
+  equipment:
+    id: DHDogtagsGarrisonAPCCrew
+    outerClothing: DHClothingOuterVestRepublic
+    suitstorage: DHWeaponSMGRAPTORM1216
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - DHIFAKFilled
+    - DHMagazine10x24E
+    - DHMagazine10x24E
+    - DHMagazine10x24E
+    - WelderIndustrial
+
+- type: startingGear
+  parent: DHCarrierCrewGearBase
+  id: DHCarrierOperationCommanderGear
+  equipment:
+    id: DHDogtagsCarrierOperationCommander
+    ears: DHClothingHeadsetAltImperialCommand
+    outerClothing: DHClothingOuterModularIMB1Composite
+    neck: SyndicateWhistle
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - DHIFAKFilled
+    - PinpointerSyndicateNuclear
+    - DHMagazine145x114Std
+    - DHMagazine145x114Std
+    - Binoculars
+    - DHOverwatchTabletEmpire
+
+- type: startingGear
+  parent: DHCarrierCrewGearBase
+  id: DHCarrierSupportOfficerGear
+  equipment:
+    id: DHDogtagsCarrierSupportOfficer
+    ears: DHClothingHeadsetAltImperialCommand
+    outerClothing: DHClothingOuterVestImperialHeavy
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - DHIFAKFilled
+    - PinpointerSyndicateNuclear
+    - DHMagazine145x114Std
+    - DHMagazine145x114Std
+    - Binoculars
+    - DHOverwatchTabletEmpire
+    - DHLaserDesignator
+    - DHSignalFlareKit
+
+- type: startingGear
+  parent: DHImperialGearBase
+  id: DHMarineMortarCommanderGear
+  equipment:
+    id: DHDogtagsMarineMortarCommander
+    outerClothing: DHClothingOuterVestImperialHeavy
+    suitstorage: DHWeaponSMGIMG17L
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - DHIFAKFilled
+    - PinpointerSyndicateNuclear
+    - DHMagazine104x16ImpB
+    - DHMagazine104x16ImpB
+    - DHMagazine104x16ImpB
+    - DHLaserDesignator
+    - Binoculars
+    - DHSignalFlareKit
+
+- type: startingGear
+  parent: DHImperialGearBase
+  id: DHMarineMortarOperatorGear
+  equipment:
+    id: DHDogtagsMarineMortarOperator
+    outerClothing: DHClothingOuterVestImperial
+    suitstorage: DHWeaponSMGIMG17L
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - DHIFAKFilled
+    - PinpointerSyndicateNuclear
+    - DHMagazine104x16ImpB
+    - DHMagazine104x16ImpB
+    - DHMagazine104x16ImpB
+    - Binoculars
+
+- type: startingGear
+  parent: DHImperialGearBase
+  id: DHMarineFieldArtilleristGear
+  equipment:
+    id: DHDogtagsMarineFieldArtillerist
+    outerClothing: DHClothingOuterVestImperial
+    suitstorage: DHWeaponSMGIMG17L
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - DHIFAKFilled
+    - PinpointerSyndicateNuclear
+    - DHMagazine104x16ImpB
+    - DHMagazine104x16ImpB
+    - DHMagazine104x16ImpB
+    - Wrench
+    - Binoculars
+
+- type: startingGear
+  parent: DHImperialGearBase
+  id: DHMarineTankCommanderGear
+  equipment:
+    id: DHDogtagsMarineTankCommander
+    outerClothing: DHClothingOuterVestImperialHeavy
+    suitstorage: DHWeaponSMGIMG17L
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - DHIFAKFilled
+    - PinpointerSyndicateNuclear
+    - DHMagazine104x16ImpB
+    - DHMagazine104x16ImpB
+    - DHMagazine104x16ImpB
+    - Binoculars
+    - DHOverwatchTabletEmpire
+    - Welder
+
+- type: startingGear
+  parent: DHImperialGearBase
+  id: DHMarineTankCrewGear
+  equipment:
+    id: DHDogtagsMarineTankCrew
+    outerClothing: DHClothingOuterVestImperial
+    suitstorage: DHWeaponSMGIMG17L
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - DHIFAKFilled
+    - PinpointerSyndicateNuclear
+    - DHMagazine104x16ImpB
+    - DHMagazine104x16ImpB
+    - DHMagazine104x16ImpB
+    - WelderIndustrial
+
+- type: startingGear
+  parent: DHImperialGearBase
+  id: DHMarineAPCCommanderGear
+  equipment:
+    id: DHDogtagsMarineAPCCommander
+    outerClothing: DHClothingOuterVestImperialHeavy
+    suitstorage: DHWeaponSMGIMG17L
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - DHIFAKFilled
+    - PinpointerSyndicateNuclear
+    - DHMagazine104x16ImpB
+    - DHMagazine104x16ImpB
+    - DHMagazine104x16ImpB
+    - Binoculars
+    - DHOverwatchTabletEmpire
+    - Welder
+
+- type: startingGear
+  parent: DHImperialGearBase
+  id: DHMarineAPCCrewGear
+  equipment:
+    id: DHDogtagsMarineAPCCrew
+    outerClothing: DHClothingOuterVestImperial
+    suitstorage: DHWeaponSMGIMG17L
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - DHIFAKFilled
+    - PinpointerSyndicateNuclear
+    - DHMagazine104x16ImpB
+    - DHMagazine104x16ImpB
+    - DHMagazine104x16ImpB
+    - WelderIndustrial
+
+# --- Жетоны расчётов, экипажей и офицеров поддержки ---
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsGarrisonArtilleryOfficer
+  suffix: Artillery Officer
+  components:
+  - type: PresetIdCard
+    job: DHGarrisonArtilleryOfficer
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsGarrisonMortarCommander
+  suffix: Mortar Section Leader
+  components:
+  - type: PresetIdCard
+    job: DHGarrisonMortarCommander
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsGarrisonMortarOperator
+  suffix: Mortar Operator
+  components:
+  - type: PresetIdCard
+    job: DHGarrisonMortarOperator
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsGarrisonFieldArtillerist
+  suffix: Gun Crewman
+  components:
+  - type: PresetIdCard
+    job: DHGarrisonFieldArtillerist
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsGarrisonTankCommander
+  suffix: Tank Commander
+  components:
+  - type: PresetIdCard
+    job: DHGarrisonTankCommander
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsGarrisonTankCrew
+  suffix: Tank Crewman
+  components:
+  - type: PresetIdCard
+    job: DHGarrisonTankCrew
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsGarrisonAPCCommander
+  suffix: APC Commander
+  components:
+  - type: PresetIdCard
+    job: DHGarrisonAPCCommander
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsGarrisonAPCCrew
+  suffix: APC Crewman
+  components:
+  - type: PresetIdCard
+    job: DHGarrisonAPCCrew
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsCarrierOperationCommander
+  suffix: Operation Commander
+  components:
+  - type: PresetIdCard
+    job: DHCarrierOperationCommander
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsCarrierSupportOfficer
+  suffix: Fire Support Officer
+  components:
+  - type: PresetIdCard
+    job: DHCarrierSupportOfficer
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsMarineMortarCommander
+  suffix: Mortar Section Leader
+  components:
+  - type: PresetIdCard
+    job: DHMarineMortarCommander
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsMarineMortarOperator
+  suffix: Mortar Operator
+  components:
+  - type: PresetIdCard
+    job: DHMarineMortarOperator
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsMarineFieldArtillerist
+  suffix: Gun Crewman
+  components:
+  - type: PresetIdCard
+    job: DHMarineFieldArtillerist
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsMarineTankCommander
+  suffix: Tank Commander
+  components:
+  - type: PresetIdCard
+    job: DHMarineTankCommander
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsMarineTankCrew
+  suffix: Tank Crewman
+  components:
+  - type: PresetIdCard
+    job: DHMarineTankCrew
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsMarineAPCCommander
+  suffix: APC Commander
+  components:
+  - type: PresetIdCard
+    job: DHMarineAPCCommander
+
+- type: entity
+  parent: DHDogtags
+  id: DHDogtagsMarineAPCCrew
+  suffix: APC Crewman
+  components:
+  - type: PresetIdCard
+    job: DHMarineAPCCrew
+
 # --- Доступ к хранилищу образца: командир базы и офицеры ---
 
 - type: accessLevel
@@ -643,17 +1085,28 @@
   - type: Transform
   - type: StationJobs
     availableJobs:
-      # Экипаж авианосца (7)
+      # Всего 50 (решение автора 2026-11-05).
+      # Авианосец (12)
       DHCarrierCaptain: [ 1, 1 ]
-      DHCarrierPilot: [ 2, 2 ]
-      DHCarrierArtillerist: [ 2, 2 ]
-      DHCarrierTechnician: [ 2, 2 ]
-      # Десант (18)
+      DHCarrierOperationCommander: [ 1, 1 ]
+      DHCarrierSupportOfficer: [ 1, 1 ]
+      DHCarrierPilot: [ 3, 3 ]
+      DHCarrierArtillerist: [ 3, 3 ]
+      DHCarrierTechnician: [ 3, 3 ]
+      # Десант (25)
       DHMarineCommander: [ 1, 1 ]
-      DHMarineWeaponsSpecialist: [ 2, 2 ]
-      DHMarineFieldMedic: [ 3, 3 ]
-      DHMarineMachinegunner: [ 2, 2 ]
-      DHMarineRifleman: [ 10, 10 ]
+      DHMarineWeaponsSpecialist: [ 3, 3 ]
+      DHMarineFieldMedic: [ 4, 4 ]
+      DHMarineMachinegunner: [ 3, 3 ]
+      DHMarineRifleman: [ 14, 14 ]
+      # Расчёты и экипажи (13)
+      DHMarineMortarCommander: [ 1, 1 ]
+      DHMarineMortarOperator: [ 4, 4 ]
+      DHMarineFieldArtillerist: [ 2, 2 ]
+      DHMarineTankCommander: [ 1, 1 ]
+      DHMarineTankCrew: [ 2, 2 ]
+      DHMarineAPCCommander: [ 1, 1 ]
+      DHMarineAPCCrew: [ 2, 2 ]
   - type: DHAssaultFactionStation
     faction: Empire
 
@@ -689,13 +1142,22 @@
         mapNameTemplate: "Terminus Military Base"
       - type: StationJobs
         availableJobs:
-          # Гарнизон Республики (25)
+          # Гарнизон Республики (50, решение автора 2026-11-05)
           DHGarrisonCommander: [ 1, 1 ]
-          DHGarrisonOfficer: [ 2, 2 ]
-          DHGarrisonRifleman: [ 10, 10 ]
-          DHGarrisonMachinegunner: [ 2, 2 ]
+          DHGarrisonOfficer: [ 3, 3 ]
+          DHGarrisonArtilleryOfficer: [ 1, 1 ]
+          DHGarrisonRifleman: [ 15, 15 ]
+          DHGarrisonMachinegunner: [ 3, 3 ]
           DHGarrisonSniper: [ 2, 2 ]
-          DHGarrisonFlamer: [ 1, 1 ]
+          DHGarrisonFlamer: [ 2, 2 ]
           DHGarrisonAAGunner: [ 3, 3 ]
-          DHGarrisonMedic: [ 2, 2 ]
-          DHGarrisonSapper: [ 2, 2 ]
+          DHGarrisonMedic: [ 4, 4 ]
+          DHGarrisonSapper: [ 3, 3 ]
+          # Расчёты и экипажи (13)
+          DHGarrisonMortarCommander: [ 1, 1 ]
+          DHGarrisonMortarOperator: [ 4, 4 ]
+          DHGarrisonFieldArtillerist: [ 2, 2 ]
+          DHGarrisonTankCommander: [ 1, 1 ]
+          DHGarrisonTankCrew: [ 2, 2 ]
+          DHGarrisonAPCCommander: [ 1, 1 ]
+          DHGarrisonAPCCrew: [ 2, 2 ]

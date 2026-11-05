@@ -233,6 +233,225 @@
   - NuclearOperative
   - SyndicateAgent
 
+# Расчёты, экипажи техники и офицеры поддержки (решение автора 2026-11-05)
+
+- type: job
+  id: DHGarrisonArtilleryOfficer
+  name: dh-job-garrison-artillery-officer-name
+  description: dh-job-garrison-artillery-officer-desc
+  playTimeTracker: JobDHGarrisonArtilleryOfficer
+  startingGear: DHGarrisonArtilleryOfficerGear
+  icon: JobIconDHGarrisonArtilleryOfficer
+  supervisors: dh-job-garrison-supervisors
+  joinNotifyCrew: true
+  access:
+  - DHRepublic
+  - DHRepublicCommand
+
+- type: job
+  id: DHGarrisonMortarCommander
+  name: dh-job-garrison-mortar-commander-name
+  description: dh-job-garrison-mortar-commander-desc
+  playTimeTracker: JobDHGarrisonMortarCommander
+  startingGear: DHGarrisonMortarCommanderGear
+  icon: JobIconDHGarrisonMortarCommander
+  supervisors: dh-job-garrison-supervisors
+  access:
+  - DHRepublic
+
+- type: job
+  id: DHGarrisonMortarOperator
+  name: dh-job-garrison-mortar-operator-name
+  description: dh-job-garrison-mortar-operator-desc
+  playTimeTracker: JobDHGarrisonMortarOperator
+  startingGear: DHGarrisonMortarOperatorGear
+  icon: JobIconDHGarrisonMortarOperator
+  supervisors: dh-job-garrison-supervisors
+  access:
+  - DHRepublic
+
+- type: job
+  id: DHGarrisonFieldArtillerist
+  name: dh-job-garrison-field-artillerist-name
+  description: dh-job-garrison-field-artillerist-desc
+  playTimeTracker: JobDHGarrisonFieldArtillerist
+  startingGear: DHGarrisonFieldArtilleristGear
+  icon: JobIconDHGarrisonFieldArtillerist
+  supervisors: dh-job-garrison-supervisors
+  access:
+  - DHRepublic
+
+- type: job
+  id: DHGarrisonTankCommander
+  name: dh-job-garrison-tank-commander-name
+  description: dh-job-garrison-tank-commander-desc
+  playTimeTracker: JobDHGarrisonTankCommander
+  startingGear: DHGarrisonTankCommanderGear
+  icon: JobIconDHGarrisonTankCommander
+  supervisors: dh-job-garrison-supervisors
+  access:
+  - DHRepublic
+
+- type: job
+  id: DHGarrisonTankCrew
+  name: dh-job-garrison-tank-crew-name
+  description: dh-job-garrison-tank-crew-desc
+  playTimeTracker: JobDHGarrisonTankCrew
+  startingGear: DHGarrisonTankCrewGear
+  icon: JobIconDHGarrisonTankCrew
+  supervisors: dh-job-garrison-supervisors
+  access:
+  - DHRepublic
+
+- type: job
+  id: DHGarrisonAPCCommander
+  name: dh-job-garrison-apc-commander-name
+  description: dh-job-garrison-apc-commander-desc
+  playTimeTracker: JobDHGarrisonAPCCommander
+  startingGear: DHGarrisonAPCCommanderGear
+  icon: JobIconDHGarrisonAPCCommander
+  supervisors: dh-job-garrison-supervisors
+  access:
+  - DHRepublic
+
+- type: job
+  id: DHGarrisonAPCCrew
+  name: dh-job-garrison-apc-crew-name
+  description: dh-job-garrison-apc-crew-desc
+  playTimeTracker: JobDHGarrisonAPCCrew
+  startingGear: DHGarrisonAPCCrewGear
+  icon: JobIconDHGarrisonAPCCrew
+  supervisors: dh-job-garrison-supervisors
+  access:
+  - DHRepublic
+
+- type: job
+  id: DHCarrierOperationCommander
+  name: dh-job-carrier-operation-commander-name
+  description: dh-job-carrier-operation-commander-desc
+  playTimeTracker: JobDHCarrierOperationCommander
+  startingGear: DHCarrierOperationCommanderGear
+  icon: JobIconDHCarrierOperationCommander
+  supervisors: dh-job-empire-supervisors
+  joinNotifyCrew: true
+  accessGroups:
+  - AllAccess
+  access:
+  - NuclearOperative
+  - SyndicateAgent
+
+- type: job
+  id: DHCarrierSupportOfficer
+  name: dh-job-carrier-support-officer-name
+  description: dh-job-carrier-support-officer-desc
+  playTimeTracker: JobDHCarrierSupportOfficer
+  startingGear: DHCarrierSupportOfficerGear
+  icon: JobIconDHCarrierSupportOfficer
+  supervisors: dh-job-empire-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - NuclearOperative
+  - SyndicateAgent
+
+- type: job
+  id: DHMarineMortarCommander
+  name: dh-job-marine-mortar-commander-name
+  description: dh-job-marine-mortar-commander-desc
+  playTimeTracker: JobDHMarineMortarCommander
+  startingGear: DHMarineMortarCommanderGear
+  icon: JobIconDHMarineMortarCommander
+  supervisors: dh-job-empire-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - NuclearOperative
+  - SyndicateAgent
+
+- type: job
+  id: DHMarineMortarOperator
+  name: dh-job-marine-mortar-operator-name
+  description: dh-job-marine-mortar-operator-desc
+  playTimeTracker: JobDHMarineMortarOperator
+  startingGear: DHMarineMortarOperatorGear
+  icon: JobIconDHMarineMortarOperator
+  supervisors: dh-job-empire-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - NuclearOperative
+  - SyndicateAgent
+
+- type: job
+  id: DHMarineFieldArtillerist
+  name: dh-job-marine-field-artillerist-name
+  description: dh-job-marine-field-artillerist-desc
+  playTimeTracker: JobDHMarineFieldArtillerist
+  startingGear: DHMarineFieldArtilleristGear
+  icon: JobIconDHMarineFieldArtillerist
+  supervisors: dh-job-empire-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - NuclearOperative
+  - SyndicateAgent
+
+- type: job
+  id: DHMarineTankCommander
+  name: dh-job-marine-tank-commander-name
+  description: dh-job-marine-tank-commander-desc
+  playTimeTracker: JobDHMarineTankCommander
+  startingGear: DHMarineTankCommanderGear
+  icon: JobIconDHMarineTankCommander
+  supervisors: dh-job-empire-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - NuclearOperative
+  - SyndicateAgent
+
+- type: job
+  id: DHMarineTankCrew
+  name: dh-job-marine-tank-crew-name
+  description: dh-job-marine-tank-crew-desc
+  playTimeTracker: JobDHMarineTankCrew
+  startingGear: DHMarineTankCrewGear
+  icon: JobIconDHMarineTankCrew
+  supervisors: dh-job-empire-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - NuclearOperative
+  - SyndicateAgent
+
+- type: job
+  id: DHMarineAPCCommander
+  name: dh-job-marine-apc-commander-name
+  description: dh-job-marine-apc-commander-desc
+  playTimeTracker: JobDHMarineAPCCommander
+  startingGear: DHMarineAPCCommanderGear
+  icon: JobIconDHMarineAPCCommander
+  supervisors: dh-job-empire-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - NuclearOperative
+  - SyndicateAgent
+
+- type: job
+  id: DHMarineAPCCrew
+  name: dh-job-marine-apc-crew-name
+  description: dh-job-marine-apc-crew-desc
+  playTimeTracker: JobDHMarineAPCCrew
+  startingGear: DHMarineAPCCrewGear
+  icon: JobIconDHMarineAPCCrew
+  supervisors: dh-job-empire-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - NuclearOperative
+  - SyndicateAgent
+
 # Отделы: в лобби должности сгруппированы по сторонам
 
 - type: department
@@ -244,6 +463,7 @@
   roles:
   - DHGarrisonCommander
   - DHGarrisonOfficer
+  - DHGarrisonArtilleryOfficer
   - DHGarrisonRifleman
   - DHGarrisonMachinegunner
   - DHGarrisonSniper
@@ -251,6 +471,13 @@
   - DHGarrisonAAGunner
   - DHGarrisonMedic
   - DHGarrisonSapper
+  - DHGarrisonMortarCommander
+  - DHGarrisonMortarOperator
+  - DHGarrisonFieldArtillerist
+  - DHGarrisonTankCommander
+  - DHGarrisonTankCrew
+  - DHGarrisonAPCCommander
+  - DHGarrisonAPCCrew
 
 - type: department
   id: DHImperialCarrier
@@ -260,6 +487,8 @@
   weight: 80
   roles:
   - DHCarrierCaptain
+  - DHCarrierOperationCommander
+  - DHCarrierSupportOfficer
   - DHCarrierPilot
   - DHCarrierArtillerist
   - DHCarrierTechnician
@@ -276,6 +505,13 @@
   - DHMarineFieldMedic
   - DHMarineMachinegunner
   - DHMarineRifleman
+  - DHMarineMortarCommander
+  - DHMarineMortarOperator
+  - DHMarineFieldArtillerist
+  - DHMarineTankCommander
+  - DHMarineTankCrew
+  - DHMarineAPCCommander
+  - DHMarineAPCCrew
 
 - type: playTimeTracker
   id: JobDHGarrisonCommander
@@ -330,3 +566,54 @@
 
 - type: playTimeTracker
   id: JobDHMarineRifleman
+
+- type: playTimeTracker
+  id: JobDHGarrisonArtilleryOfficer
+
+- type: playTimeTracker
+  id: JobDHGarrisonMortarCommander
+
+- type: playTimeTracker
+  id: JobDHGarrisonMortarOperator
+
+- type: playTimeTracker
+  id: JobDHGarrisonFieldArtillerist
+
+- type: playTimeTracker
+  id: JobDHGarrisonTankCommander
+
+- type: playTimeTracker
+  id: JobDHGarrisonTankCrew
+
+- type: playTimeTracker
+  id: JobDHGarrisonAPCCommander
+
+- type: playTimeTracker
+  id: JobDHGarrisonAPCCrew
+
+- type: playTimeTracker
+  id: JobDHCarrierOperationCommander
+
+- type: playTimeTracker
+  id: JobDHCarrierSupportOfficer
+
+- type: playTimeTracker
+  id: JobDHMarineMortarCommander
+
+- type: playTimeTracker
+  id: JobDHMarineMortarOperator
+
+- type: playTimeTracker
+  id: JobDHMarineFieldArtillerist
+
+- type: playTimeTracker
+  id: JobDHMarineTankCommander
+
+- type: playTimeTracker
+  id: JobDHMarineTankCrew
+
+- type: playTimeTracker
+  id: JobDHMarineAPCCommander
+
+- type: playTimeTracker
+  id: JobDHMarineAPCCrew

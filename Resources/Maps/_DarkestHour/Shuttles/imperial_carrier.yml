@@ -4972,5 +4972,5 @@ entities:
     components:
     - type: Transform
       parent: 1
-      pos: -1.5,-20.5
+      pos: 3.5,-20.5
 ...
