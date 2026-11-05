@@ -521,3 +521,148 @@
     state: ImperialRifleman
   jobName: dh-job-marine-rifleman-name
   isCrewJob: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHGarrisonArtilleryOfficer
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: RepublicArtilleryOfficer
+  jobName: dh-job-garrison-artillery-officer-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHGarrisonMortarCommander
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: RepublicMortarCommander
+  jobName: dh-job-garrison-mortar-commander-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHGarrisonMortarOperator
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: RepublicMortar
+  jobName: dh-job-garrison-mortar-operator-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHGarrisonFieldArtillerist
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: RepublicFieldArtillerist
+  jobName: dh-job-garrison-field-artillerist-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHGarrisonTankCommander
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: RepublicTankCommander
+  jobName: dh-job-garrison-tank-commander-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHGarrisonTankCrew
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: RepublicTankCrew
+  jobName: dh-job-garrison-tank-crew-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHGarrisonAPCCommander
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: RepublicAPCCommander
+  jobName: dh-job-garrison-apc-commander-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHGarrisonAPCCrew
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: RepublicAPCCrew
+  jobName: dh-job-garrison-apc-crew-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHCarrierOperationCommander
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: ImperialOperationCommander
+  jobName: dh-job-carrier-operation-commander-name
+  isCrewJob: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHCarrierSupportOfficer
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: ImperialSupportOfficer
+  jobName: dh-job-carrier-support-officer-name
+  isCrewJob: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHMarineMortarCommander
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: ImperialMortarCommander
+  jobName: dh-job-marine-mortar-commander-name
+  isCrewJob: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHMarineMortarOperator
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: ImperialMortar
+  jobName: dh-job-marine-mortar-operator-name
+  isCrewJob: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHMarineFieldArtillerist
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: ImperialFieldArtillerist
+  jobName: dh-job-marine-field-artillerist-name
+  isCrewJob: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHMarineTankCommander
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: ImperialTankCommander
+  jobName: dh-job-marine-tank-commander-name
+  isCrewJob: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHMarineTankCrew
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: ImperialTankCrew
+  jobName: dh-job-marine-tank-crew-name
+  isCrewJob: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHMarineAPCCommander
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: ImperialAPCCommander
+  jobName: dh-job-marine-apc-commander-name
+  isCrewJob: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHMarineAPCCrew
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: ImperialAPCCrew
+  jobName: dh-job-marine-apc-crew-name
+  isCrewJob: false

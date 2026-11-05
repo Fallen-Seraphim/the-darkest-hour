@@ -1,0 +1,76 @@
+# Бронежилеты расчётов и экипажей (решение автора 2026-11-05): миномётчики, артиллеристы и экипажи техники — без
+# модульной брони, в бронежилетах 1-го (рядовые) и 2-го (командиры) класса. Защищают только торс (DHPartArmor):
+# пули ниже класса не пробивают, остальное — как у шлема. Общей брони (Armor) нет — её даёт класс по части тела.
+# Спрайты — ванильные (разгрузка наёмника, разгрузка, пуленепробиваемый жилет).
+
+- type: entity
+  abstract: true
+  parent: [ ClothingOuterBaseMedium, AllowSuitStorageClothing ]
+  id: DHClothingOuterVestBase
+  components:
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 1
+        Slash: 1
+        Piercing: 1
+        Heat: 1
+  - type: ExplosionResistance
+    damageCoefficient: 0.9
+
+- type: entity
+  parent: DHClothingOuterVestBase
+  id: DHClothingOuterVestRepublic
+  name: RAC flak vest
+  description: A Republican Army Corps vest with soft armour panels over the chest and back. Class 1 protection for the torso only.
+  components:
+  - type: Sprite
+    sprite: Clothing/OuterClothing/Vests/mercwebvest.rsi
+  - type: Clothing
+    sprite: Clothing/OuterClothing/Vests/mercwebvest.rsi
+  - type: DHPartArmor
+    parts: [ Torso ]
+    armorClass: 1
+
+- type: entity
+  parent: DHClothingOuterVestBase
+  id: DHClothingOuterVestRepublicHeavy
+  name: RAC plated vest
+  description: A Republican Army Corps vest with ceramic plates. Class 2 protection for the torso only.
+  components:
+  - type: Sprite
+    sprite: Clothing/OuterClothing/Armor/bulletproof.rsi
+  - type: Clothing
+    sprite: Clothing/OuterClothing/Armor/bulletproof.rsi
+  - type: DHPartArmor
+    parts: [ Torso ]
+    armorClass: 2
+
+- type: entity
+  parent: DHClothingOuterVestBase
+  id: DHClothingOuterVestImperial
+  name: Imperial flak vest
+  description: An Imperial Marine Corps webbing vest with soft armour panels. Class 1 protection for the torso only.
+  components:
+  - type: Sprite
+    sprite: Clothing/OuterClothing/Vests/webvest.rsi
+  - type: Clothing
+    sprite: Clothing/OuterClothing/Vests/webvest.rsi
+  - type: DHPartArmor
+    parts: [ Torso ]
+    armorClass: 1
+
+- type: entity
+  parent: DHClothingOuterVestBase
+  id: DHClothingOuterVestImperialHeavy
+  name: Imperial plated vest
+  description: An Imperial Marine Corps vest with ceramic plates. Class 2 protection for the torso only.
+  components:
+  - type: Sprite
+    sprite: Clothing/OuterClothing/Armor/bulletproof.rsi
+    color: "#9a9a9a"
+  - type: Clothing
+    sprite: Clothing/OuterClothing/Armor/bulletproof.rsi
+  - type: DHPartArmor
+    parts: [ Torso ]
+    armorClass: 2

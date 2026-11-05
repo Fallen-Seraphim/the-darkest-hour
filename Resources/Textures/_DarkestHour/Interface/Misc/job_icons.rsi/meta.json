@@ -168,6 +168,57 @@
         },
         {
             "name": "ImperialTechnician"
+        },
+        {
+            "name": "RepublicArtilleryOfficer"
+        },
+        {
+            "name": "RepublicMortarCommander"
+        },
+        {
+            "name": "RepublicMortar"
+        },
+        {
+            "name": "RepublicFieldArtillerist"
+        },
+        {
+            "name": "RepublicTankCommander"
+        },
+        {
+            "name": "RepublicTankCrew"
+        },
+        {
+            "name": "RepublicAPCCommander"
+        },
+        {
+            "name": "RepublicAPCCrew"
+        },
+        {
+            "name": "ImperialOperationCommander"
+        },
+        {
+            "name": "ImperialSupportOfficer"
+        },
+        {
+            "name": "ImperialMortarCommander"
+        },
+        {
+            "name": "ImperialMortar"
+        },
+        {
+            "name": "ImperialFieldArtillerist"
+        },
+        {
+            "name": "ImperialTankCommander"
+        },
+        {
+            "name": "ImperialTankCrew"
+        },
+        {
+            "name": "ImperialAPCCommander"
+        },
+        {
+            "name": "ImperialAPCCrew"
         }
     ]
 }

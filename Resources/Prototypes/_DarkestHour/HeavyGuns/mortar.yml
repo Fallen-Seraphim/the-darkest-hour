@@ -212,6 +212,8 @@
   name: mortar crate
   description: An M402 mortar with a laser target designator and a load of 81 mm shells.
   components:
+  - type: DHParadroppable # можно сбросить с корабля в атмосфере на одном парашюте
+    requiredParachutes: 1
   - type: Icon
     sprite: Structures/Storage/Crates/weapon.rsi
   - type: Sprite

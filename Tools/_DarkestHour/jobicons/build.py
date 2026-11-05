@@ -84,6 +84,13 @@ G = {
     'belt': ['#.#.#.', '######', '######', '#.#.#.', '......', '......'],
     'anchor': ['..##..', '.####.', '..##..', '#.##.#', '#.##.#', '.####.'],
     'shell': ['..##..', '.####.', '.####.', '.####.', '.####.', '######'],
+    # расчёты и экипажи (2026-11-05)
+    'mortar': ['.....#', '....#.', '...#..', '..#...', '.#.#..', '######'],
+    'cannon': ['......', '...###', '..##..', '.####.', '#.##.#', '.#..#.'],
+    'armour': ['...###', '..##..', '######', '######', '#.#.#.', '.#.#.#'],
+    'apc': ['......', '.####.', '######', '######', '.#..#.', '......'],
+    'eagle': ['#.##.#', '######', '.####.', '..##..', '.#..#.', '#....#'],
+    'radio': ['#.....', '.#....', '..####', '..#..#', '..#..#', '..####'],
 }
 
 # icon state, department, rank, glyph
@@ -143,6 +150,24 @@ ICONS = [
     ('ImperialPilot', 'imperial', 'staff', 'plane'),
     ('ImperialArtillerist', 'imperial', 'staff', 'shell'),
     ('ImperialTechnician', 'imperial', 'staff', 'wrench'),
+    # расчёты, экипажи и офицеры поддержки (2026-11-05)
+    ('RepublicArtilleryOfficer', 'republic', 'lead', 'cannon'),
+    ('RepublicMortarCommander', 'republic', 'lead', 'mortar'),
+    ('RepublicMortar', 'republic', 'staff', 'mortar'),
+    ('RepublicFieldArtillerist', 'republic', 'staff', 'cannon'),
+    ('RepublicTankCommander', 'republic', 'lead', 'armour'),
+    ('RepublicTankCrew', 'republic', 'staff', 'armour'),
+    ('RepublicAPCCommander', 'republic', 'lead', 'apc'),
+    ('RepublicAPCCrew', 'republic', 'staff', 'apc'),
+    ('ImperialOperationCommander', 'imperial', 'head', 'eagle'),
+    ('ImperialSupportOfficer', 'imperial', 'lead', 'radio'),
+    ('ImperialMortarCommander', 'imperial', 'lead', 'mortar'),
+    ('ImperialMortar', 'imperial', 'staff', 'mortar'),
+    ('ImperialFieldArtillerist', 'imperial', 'staff', 'cannon'),
+    ('ImperialTankCommander', 'imperial', 'lead', 'armour'),
+    ('ImperialTankCrew', 'imperial', 'staff', 'armour'),
+    ('ImperialAPCCommander', 'imperial', 'lead', 'apc'),
+    ('ImperialAPCCrew', 'imperial', 'staff', 'apc'),
 ]
 
 
