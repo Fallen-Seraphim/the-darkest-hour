@@ -168,6 +168,7 @@ def L(z):
 # ------------------------------------------------------------------ общие узлы зданий
 
 STAIR_CELLS = {}
+SHAFT_CELLS = {}   # z -> клетки проёма над маршем: без пола, чтобы сквозь них было видно лестницу внизу
 
 
 def stairwell(levels, sx, sy, w=2, l=3):
@@ -183,6 +184,8 @@ def stairwell(levels, sx, sy, w=2, l=3):
                 top = r == l - 1
                 L(z).put(('DHZStairsTop' if top else 'DHZStairStep') + piece, x0 + k, sy + r, ROT_N)
                 L(up).put('DHZStairwell' if top else 'DHZStairShaft', x0 + k, sy + r, ROT_S)
+                if not top:
+                    SHAFT_CELLS.setdefault(up, set()).add((x0 + k, sy + r))
     for z in levels:
         lv = L(z)
         for x in range(sx, sx + 2 * w):
@@ -978,7 +981,7 @@ def entities(lv):
     """Сущности уровня: стены (на месте окон — окна) + остальное; сущности не на полу отбрасываются."""
     ents = [(p, x, y, None) for (x, y), p in lv.walls.items()]
     ents += lv.ents
-    return [e for e in ents if (e[1], e[2]) in lv.tiles]
+    return [e for e in ents if (e[1], e[2]) in lv.tiles or e[0] == 'DHZStairShaft']
 
 
 GRID_COMPONENTS = """    - type: Broadphase
@@ -1101,6 +1104,14 @@ def main():
     catacombs()
     clean_passages()
     rock_walls()
+
+    # проёмы лестниц: пол убирается (на земле — нет, там под ним грунт планеты)
+    for z, cells in SHAFT_CELLS.items():
+        if z == 0:
+            continue
+        for cell in cells:
+            L(z).tiles.pop(cell, None)
+            L(z).unwall(*cell)
 
     names = {-3: 'm3', -2: 'm2', -1: 'm1'}
     protos, tiles = set(), set()

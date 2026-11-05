@@ -195,6 +195,9 @@ public sealed partial class DHLevelSystem : EntitySystem
     }
 
     /// <summary>Шахта Z-лифта: платформы без ключа в той же точке XY на уровнях той же стопки (с уровнем).</summary>
+    /// <summary>Допуск совпадения платформ шахты по XY, тайлов (уровни грузятся отдельными гридами).</summary>
+    private const float ShaftTolerance = 2f;
+
     private List<(Entity<DHLiftComponent> Lift, int Level)> Shaft(Entity<DHLiftComponent> lift)
     {
         var result = new List<(Entity<DHLiftComponent>, int)>();
@@ -202,22 +205,46 @@ public sealed partial class DHLevelSystem : EntitySystem
         if (!_z.TryGetLevel(xform.MapUid, out var own))
             return result;
 
+        // Ближайшая платформа на каждом уровне стопки.
         var pos = _transform.GetWorldPosition(xform);
+        var best = new Dictionary<int, (Entity<DHLiftComponent> Lift, float Distance)>();
         var query = EntityQueryEnumerator<DHLiftComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var comp, out var otherXform))
         {
             if (!string.IsNullOrEmpty(comp.Link) || !_z.TryGetLevel(otherXform.MapUid, out var level) ||
-                level.Stack != own.Stack || Vector2.Distance(_transform.GetWorldPosition(otherXform), pos) > 0.6f)
+                level.Stack != own.Stack)
             {
                 continue;
             }
 
-            result.Add(((uid, comp), level.Level));
+            var distance = Vector2.Distance(_transform.GetWorldPosition(otherXform), pos);
+            if (distance > ShaftTolerance ||
+                best.TryGetValue(level.Level, out var known) && known.Distance <= distance)
+            {
+                continue;
+            }
+
+            best[level.Level] = ((uid, comp), distance);
+        }
+
+        foreach (var (level, (shaftLift, _)) in best)
+        {
+            result.Add((shaftLift, level));
         }
 
         result.Sort((a, b) => a.Item2.CompareTo(b.Item2));
+
+        // Диагностика: дыра в шахте (между крайними этажами нет платформы) — один раз на платформу.
+        if (result.Count > 1 && result[^1].Item2 - result[0].Item2 + 1 != result.Count && _shaftWarned.Add(lift.Owner))
+        {
+            var levels = string.Join(", ", result.ConvertAll(r => r.Item2));
+            Log.Warning($"Lift shaft of {ToPrettyString(lift)} at {pos} has gaps: levels {levels}");
+        }
+
         return result;
     }
+
+    private readonly HashSet<EntityUid> _shaftWarned = new();
 
     private void OnPanelInteract(Entity<DHLiftPanelComponent> ent, ref InteractHandEvent args)
     {

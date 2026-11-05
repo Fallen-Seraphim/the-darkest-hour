@@ -12,7 +12,7 @@
   - type: IconSmooth
     key: full
     states:
-    - !type:CornerSpriteSmoothing
+    - !type:DHLegacyCornerSpriteSmoothing
       mask: [ full ]
       base: carpet_
   - type: Tag
