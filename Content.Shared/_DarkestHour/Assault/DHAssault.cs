@@ -11,6 +11,9 @@ public enum DHAssaultFaction : byte
 {
     Republic,
     Empire,
+
+    /// <summary>ОФСК — «Восстание» (военпол «Восстания» — <see cref="Republic"/>).</summary>
+    Front,
 }
 
 /// <summary>

@@ -77,7 +77,7 @@ public sealed partial class DHRiftSystem : EntitySystem
         foreach (var system in _proto.EnumeratePrototypes<DHStarSystemPrototype>())
         {
             // DarkestHour: домашняя система привязывается к карте станции (DHCelestialSystem).
-            if (system.Home)
+            if (system.Home || system.Hidden)
                 continue;
 
             var mapUid = _map.CreateMap(out _);

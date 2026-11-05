@@ -1,0 +1,159 @@
+# «Восстание»: одежда и снаряжение LA-V (Lost Angels—Vanguard) — спрайты корпорации и её ЧВК из RMC-14
+# (Ве-Я, CC-BY-SA-3.0, Resources/Textures/_RMC14/Objects/Clothing). Бронежилеты — только 1-го и 2-го класса
+# (решение автора 2026-11-05), как жилеты расчётов (Clothing/vests.yml): защищают торс.
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAVClothingUniformExecutive
+  name: LA-V executive suit
+  description: An expensive tailored suit of a Lost Angels—Vanguard executive.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/expensive_suit.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/expensive_suit.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAVClothingUniformFormal
+  name: LA-V formal suit
+  description: A formal suit with the LA-V pin on the lapel.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/corporate_formal.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/corporate_formal.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAVClothingUniformBlack
+  name: LA-V office suit
+  description: A black office suit of a Lost Angels—Vanguard employee.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/corporate_black.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/corporate_black.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAVClothingUniformBlue
+  name: LA-V office suit
+  description: A blue office suit of a Lost Angels—Vanguard employee.
+  suffix: Blue
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/corporate_blue.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/corporate_blue.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAVClothingUniformSecurity
+  name: LA-V security fatigues
+  description: White-and-grey fatigues of the LA-V corporate security.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/PMC/corporate.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/PMC/corporate.rsi
+
+- type: entity
+  parent: ClothingOuterBase
+  id: DHLAVClothingOuterJacket
+  name: LA-V corporate jacket
+  description: A black corporate jacket with the LA-V logo.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/Corporate/corporate_black_jacket.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/Corporate/corporate_black_jacket.rsi
+
+- type: entity
+  parent: ClothingOuterBase
+  id: DHLAVClothingOuterJacketManager
+  name: LA-V manager jacket
+  description: A corporate jacket of an LA-V manager.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/Corporate/corporate_manager.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/Corporate/corporate_manager.rsi
+
+- type: entity
+  parent: DHClothingOuterVestBase
+  id: DHLAVClothingOuterVestSecurity
+  name: LA-V security plate carrier
+  description: A corporate security plate carrier with ceramic plates. Class 2 protection for the torso only.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/PMC/corporate.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/PMC/corporate.rsi
+  - type: DHPartArmor
+    parts: [ Torso ]
+    armorClass: 2
+
+- type: entity
+  parent: DHClothingOuterVestBase
+  id: DHLAVClothingOuterVestSecurityLight
+  name: LA-V security vest
+  description: A corporate security vest with soft armour panels. Class 1 protection for the torso only.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/PMC/corporate.rsi
+    color: "#d8d8d8"
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/PMC/corporate.rsi
+  - type: DHPartArmor
+    parts: [ Torso ]
+    armorClass: 1
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLAVClothingHeadHelmetSecurity
+  name: LA-V security helmet
+  description: A white corporate security helmet. Class 1 protection for the head.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/PMC/corporate.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/PMC/corporate.rsi
+  - type: DHPartArmor
+    parts: [ Head ]
+    armorClass: 1
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLAVClothingHeadCapManager
+  name: LA-V manager cap
+  description: A corporate cap of an LA-V manager.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/PMC/manager.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/PMC/manager.rsi
+
+- type: entity
+  parent: ClothingHandsBase
+  id: DHLAVClothingHandsGlovesSecurity
+  name: LA-V security gloves
+  description: Tactical gloves of the LA-V corporate security.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Hands/Gloves/pmc.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Hands/Gloves/pmc.rsi
+  - type: Fiber
+    fiberMaterial: fibers-synthetic
+
+- type: entity
+  parent: ClothingShoesBase
+  id: DHLAVClothingShoesJackboots
+  name: LA-V security boots
+  description: Black jackboots of the LA-V corporate security.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Shoes/Boots/jackboots.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Shoes/Boots/jackboots.rsi

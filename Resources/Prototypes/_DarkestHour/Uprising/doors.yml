@@ -1,0 +1,154 @@
+# «Восстание»: двери квартала Лост-Энджелса с доступом (Uprising/jobs.yml).
+
+- type: entity
+  parent: DoorElectronics
+  id: DHLADoorElectronicsPolice
+  suffix: Lost Angels, Military Police
+  components:
+  - type: AccessReader
+    access: [["DHLAPolice"]]
+
+- type: entity
+  parent: AirlockSecurity
+  id: DHLAAirlockPoliceLocked
+  suffix: Lost Angels, Military Police, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DHLADoorElectronicsPolice ]
+
+- type: entity
+  parent: DoorElectronics
+  id: DHLADoorElectronicsPoliceGlass
+  suffix: Lost Angels, Military Police
+  components:
+  - type: AccessReader
+    access: [["DHLAPolice"]]
+
+- type: entity
+  parent: AirlockSecurityGlass
+  id: DHLAAirlockPoliceGlassLocked
+  suffix: Lost Angels, Military Police, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DHLADoorElectronicsPoliceGlass ]
+
+- type: entity
+  parent: DoorElectronics
+  id: DHLADoorElectronicsPoliceCommand
+  suffix: Lost Angels, Military Police command
+  components:
+  - type: AccessReader
+    access: [["DHLAPoliceCommand"]]
+
+- type: entity
+  parent: AirlockCommand
+  id: DHLAAirlockPoliceCommandLocked
+  suffix: Lost Angels, Military Police command, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DHLADoorElectronicsPoliceCommand ]
+
+- type: entity
+  parent: DoorElectronics
+  id: DHLADoorElectronicsVanguard
+  suffix: Lost Angels, LA-V
+  components:
+  - type: AccessReader
+    access: [["DHLAVanguard"]]
+
+- type: entity
+  parent: AirlockCommand
+  id: DHLAAirlockVanguardLocked
+  suffix: Lost Angels, LA-V, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DHLADoorElectronicsVanguard ]
+
+- type: entity
+  parent: DoorElectronics
+  id: DHLADoorElectronicsVanguardOffice
+  suffix: Lost Angels, LA-V office
+  components:
+  - type: AccessReader
+    access: [["DHLAVanguardOffice"]]
+
+- type: entity
+  parent: AirlockCommandGlass
+  id: DHLAAirlockVanguardOfficeLocked
+  suffix: Lost Angels, LA-V office, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DHLADoorElectronicsVanguardOffice ]
+
+- type: entity
+  parent: DoorElectronics
+  id: DHLADoorElectronicsDistrict
+  suffix: Lost Angels, district office
+  components:
+  - type: AccessReader
+    access: [["DHLADistrict"]]
+
+- type: entity
+  parent: AirlockCommand
+  id: DHLAAirlockDistrictLocked
+  suffix: Lost Angels, district office, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DHLADoorElectronicsDistrict ]
+
+- type: entity
+  parent: DoorElectronics
+  id: DHLADoorElectronicsFactory
+  suffix: Lost Angels, factory
+  components:
+  - type: AccessReader
+    access: [["DHLAFactory"]]
+
+- type: entity
+  parent: AirlockEngineering
+  id: DHLAAirlockFactoryLocked
+  suffix: Lost Angels, factory, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DHLADoorElectronicsFactory ]
+
+- type: entity
+  parent: DoorElectronics
+  id: DHLADoorElectronicsUtility
+  suffix: Lost Angels, utilities
+  components:
+  - type: AccessReader
+    access: [["DHLAUtility"]]
+
+- type: entity
+  parent: AirlockMaint
+  id: DHLAAirlockUtilityLocked
+  suffix: Lost Angels, utilities, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DHLADoorElectronicsUtility ]
+
+- type: entity
+  parent: DoorElectronics
+  id: DHLADoorElectronicsMetro
+  suffix: Lost Angels, metro
+  components:
+  - type: AccessReader
+    access: [["DHLAMetro"]]
+
+- type: entity
+  parent: AirlockMaint
+  id: DHLAAirlockMetroLocked
+  suffix: Lost Angels, metro, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DHLADoorElectronicsMetro ]

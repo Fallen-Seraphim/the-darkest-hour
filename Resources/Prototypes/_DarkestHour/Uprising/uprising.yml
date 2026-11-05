@@ -1,0 +1,140 @@
+# Режим «Восстание» (решение автора 2026-11-05): квартал Лост-Энджелса на Энджелс-Просперети — столице Соединённой
+# Республики. Карта — Maps/_DarkestHour/Uprising/lost_angels*.yml (генератор Tools/_DarkestHour/uprising/build_map.py):
+# поверхность — уровень 0, этажи до +8, подземелье до −3 (DHPlanetBase.levels). Правило — DHUprisingRuleSystem.
+
+# Система Энджелс-Просперети — только для карты режима: её нет в навигации разрыва (hidden).
+- type: dhStarSystem
+  id: DHSystemAngelsProsperity
+  name: dh-star-system-angels-prosperity
+  hidden: true
+  bodies:
+  - id: Star
+    name: dh-celestial-angels-prosperity-star
+    kind: Star
+    position: 400000, 0
+    radius: 50000
+    color: "#FFE7B0"
+  - id: AP
+    name: dh-celestial-angels-prosperity
+    description: dh-celestial-angels-prosperity-desc
+    position: 0, 0
+    radius: 6000
+    color: "#6E8FA8"
+    orbitParent: Star
+    landable: true
+    surfaceGases:
+      Oxygen: 21.82
+      Nitrogen: 82.10
+    surfaceTemperature: 291
+    surfaceLight: "#AEB7C4"
+
+# Посадочная площадка ЗП-1 «Аэронавтика»: сюда садится борт эвакуации и подкреплений.
+- type: entity
+  parent: MarkerBase
+  id: DHUprisingFlightPad
+  name: LZ-1 Aeronautics flight pad
+  suffix: Uprising
+  components:
+  - type: DHUprisingFlightPad
+  - type: Sprite
+    sprite: Markers/jobs.rsi
+    layers:
+    - state: green
+
+- type: entity
+  id: DHStationLostAngels
+  parent:
+  - BaseStation
+  - BaseStationJobsSpawning
+  - BaseStationRecords
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+  - type: DHPlanetBase
+    system: DHSystemAngelsProsperity
+    body: AP
+    mapped: true
+    groundTile: RMCFloorAsphalt
+    levels:
+      -3: /Maps/_DarkestHour/Uprising/lost_angels_m3.yml
+      -2: /Maps/_DarkestHour/Uprising/lost_angels_m2.yml
+      -1: /Maps/_DarkestHour/Uprising/lost_angels_m1.yml
+      1: /Maps/_DarkestHour/Uprising/lost_angels_p1.yml
+      2: /Maps/_DarkestHour/Uprising/lost_angels_p2.yml
+      3: /Maps/_DarkestHour/Uprising/lost_angels_p3.yml
+      4: /Maps/_DarkestHour/Uprising/lost_angels_p4.yml
+      5: /Maps/_DarkestHour/Uprising/lost_angels_p5.yml
+      6: /Maps/_DarkestHour/Uprising/lost_angels_p6.yml
+      7: /Maps/_DarkestHour/Uprising/lost_angels_p7.yml
+      8: /Maps/_DarkestHour/Uprising/lost_angels_p8.yml
+    weather:
+    - weather: DHWeatherRain
+      weight: 4
+      minDuration: 600
+      maxDuration: 1200
+    - weather: DHWeatherDownpour
+      weight: 1
+      minDuration: 180
+      maxDuration: 420
+    weatherMinClear: 120
+    weatherMaxClear: 360
+    weatherFirstDelay: 30
+
+- type: entity
+  id: DHUprisingRule
+  parent: BaseGameRule
+  components:
+  - type: DHUprisingRule
+    policeJobs: [ DHLAMPCommander, DHLAMPSergeant, DHLAMPOfficer ]
+    frontJobs: [ DHLAFrontCommissar, DHLAFrontFighter ]
+    vanguardJobs: [ DHLAVRepresentative, DHLAVAssistant, DHLAVSecurity, DHLAVEmployee ]
+    vipJobs: [ DHLAVRepresentative ]
+    leaderJobs: [ DHLAFrontCommissar ]
+
+- type: gamePreset
+  id: DHUprising
+  alias:
+  - uprising
+  - vosstanie
+  name: dh-uprising-title
+  description: dh-uprising-description
+  showInVote: true
+  supportedMaps: DHUprisingMapPool
+  rules:
+  - DHUprisingRule
+
+- type: gameMapPool
+  id: DHUprisingMapPool
+  maps:
+  - DHLostAngels
+
+- type: gameMap
+  id: DHLostAngels
+  mapName: Lost Angels
+  mapPath: /Maps/_DarkestHour/Uprising/lost_angels.yml
+  minPlayers: 0
+  stations:
+    LostAngels:
+      stationProto: DHStationLostAngels
+      components:
+      - type: StationNameSetup
+        mapNameTemplate: "Lost Angels"
+      - type: StationJobs
+        availableJobs:
+          DHLADistrictHead: [ 1, 1 ]
+          DHLADistrictStaff: [ 3, 3 ]
+          DHLAOfficeWorker: [ 6, 6 ]
+          DHLAEntrepreneur: [ 4, 4 ]
+          DHLAFactoryWorker: [ 6, 6 ]
+          DHLAUtilityWorker: [ 4, 4 ]
+          DHLAMetroWorker: [ 2, 2 ]
+          DHLAResident: [ 20, 20 ]
+          DHLAVRepresentative: [ 1, 1 ]
+          DHLAVAssistant: [ 1, 1 ]
+          DHLAVSecurity: [ 2, 2 ]
+          DHLAVEmployee: [ 2, 2 ]
+          DHLAMPCommander: [ 1, 1 ]
+          DHLAMPSergeant: [ 2, 2 ]
+          DHLAMPOfficer: [ 12, 12 ]
+          DHLAFrontCommissar: [ 2, 2 ]
+          DHLAFrontFighter: [ 10, 10 ]

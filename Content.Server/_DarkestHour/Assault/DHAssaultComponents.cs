@@ -267,4 +267,17 @@ public sealed partial class DHPlanetBaseComponent : Component
 
     [ViewVariables]
     public Dictionary<int, EntityUid> LevelGrids = new();
+
+    /// <summary>Своя погода нарисованной поверхности (иначе — по умолчанию DHWeatherSchedule: песчаные бури).</summary>
+    [DataField]
+    public List<Content.Shared._DarkestHour.Environment.DHWeatherOption>? Weather;
+
+    [DataField]
+    public TimeSpan? WeatherMinClear;
+
+    [DataField]
+    public TimeSpan? WeatherMaxClear;
+
+    [DataField]
+    public TimeSpan? WeatherFirstDelay;
 }

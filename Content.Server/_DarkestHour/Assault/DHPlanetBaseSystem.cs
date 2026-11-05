@@ -155,7 +155,15 @@ public sealed partial class DHPlanetBaseSystem : EntitySystem
         var shadows = EnsureComp<SunShadowCycleComponent>(map);
         shadows.Duration = TimeSpan.FromMinutes(45);
         Dirty(map, shadows);
-        EnsureComp<DHWeatherScheduleComponent>(map);
+        var weather = EnsureComp<DHWeatherScheduleComponent>(map);
+        if (ent.Comp.Weather is { Count: > 0 } options)
+            weather.Options = new List<DHWeatherOption>(options);
+        if (ent.Comp.WeatherMinClear is { } minClear)
+            weather.MinClear = minClear;
+        if (ent.Comp.WeatherMaxClear is { } maxClear)
+            weather.MaxClear = maxClear;
+        if (ent.Comp.WeatherFirstDelay is { } firstDelay)
+            weather.FirstDelay = firstDelay;
 
         // Воздух тела ставится общим кодом ниже (как и у процедурной планеты).
         var surface = EnsureComp<DHMappedSurfaceComponent>(map);

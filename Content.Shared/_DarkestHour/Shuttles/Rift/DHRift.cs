@@ -32,6 +32,13 @@ public sealed partial class DHStarSystemPrototype : IPrototype
     [DataField]
     public bool Home;
 
+    /// <summary>
+    /// Система только для карты режима (например, Энджелс-Просперети «Восстания»): у неё нет космической карты и её
+    /// нет в навигации разрыва — туда не прыгнуть.
+    /// </summary>
+    [DataField]
+    public bool Hidden;
+
     /// <summary>Небесные тела системы: видны на сканере масс и навигационных консолях, опасны вблизи.</summary>
     [DataField]
     public List<DHCelestialBody> Bodies = new();
