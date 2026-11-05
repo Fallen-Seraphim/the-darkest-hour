@@ -1,26 +1,3 @@
-- type: job
-  id: SecurityOfficer
-  name: job-name-security
-  description: job-description-security
-  playTimeTracker: JobSecurityOfficer
-  requirements:
-    - !type:DepartmentTimeRequirement
-      department: Security
-      time: 4h
-  startingGear: SecurityOfficerGear
-  icon: "JobIconSecurityOfficer"
-  supervisors: job-supervisors-hos
-  guides: [ Security ] # TODO: should have a more specific guidebook page instead of using the department itself
-  access:
-  - Security
-  - Brig
-  - Maintenance
-  - External
-  - Cryogenics
-  special:
-  - !type:AddImplantSpecial
-    implants: [ MindShieldImplant ]
-
 - type: startingGear
   id: SecurityOfficerGear
   equipment:
@@ -32,7 +9,6 @@
 
 - type: chameleonOutfit
   id: SecurityOfficerChameleonOutfit
-  job: SecurityOfficer
   hasMindShield: true
   equipment:
     head: ClothingHeadHatBeretSecurity

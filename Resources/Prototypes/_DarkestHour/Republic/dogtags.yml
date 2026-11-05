@@ -6,7 +6,6 @@
   suffix: Sweep Team Commander
   components:
   - type: PresetIdCard
-    job: DHRepublicCommander
 
 - type: entity
   parent: DHDogtags
@@ -14,7 +13,6 @@
   suffix: Sweep Team Sniper
   components:
   - type: PresetIdCard
-    job: DHRepublicSniper
 
 - type: entity
   parent: DHDogtags
@@ -22,7 +20,6 @@
   suffix: Sweep Team Machinegunner
   components:
   - type: PresetIdCard
-    job: DHRepublicMachinegunner
 
 - type: entity
   parent: DHDogtags
@@ -30,7 +27,6 @@
   suffix: Sweep Team Rifleman
   components:
   - type: PresetIdCard
-    job: DHRepublicRifleman
 
 - type: entity
   parent: DHDogtags
@@ -38,7 +34,6 @@
   suffix: Sweep Team Medic
   components:
   - type: PresetIdCard
-    job: DHRepublicMedic
 
 - type: entity
   parent: DHDogtags
@@ -46,4 +41,3 @@
   suffix: Sweep Team Flamer
   components:
   - type: PresetIdCard
-    job: DHRepublicFlamer

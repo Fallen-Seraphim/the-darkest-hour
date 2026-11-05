@@ -1,16 +1,7 @@
 - type: antagSpecifier
   abstract: true
   id: BaseAntagSpecifier
-  jobBlacklist:
-  - CentralCommandOfficial
-  - DeathSquad
-  - ERTLeader
-  - ERTChaplain
-  - ERTEngineer
-  - ERTSecurity
-  - ERTMedical
-  - ERTJanitor
-  - CBURN
+  jobBlacklist: []
   blacklist:
     components:
     - AntagImmune
@@ -20,14 +11,7 @@
   abstract: true
   parent: BaseAntagSpecifier
   id: CommandBlacklistedAntag
-  jobBlacklist:
-  - Captain
-  - HeadOfPersonnel
-  - HeadOfSecurity
-  - ChiefMedicalOfficer
-  - ResearchDirector
-  - ChiefEngineer
-  - Quartermaster
+  jobBlacklist: []
 
 # Borgs
 - type: antagSpecifier
@@ -43,24 +27,14 @@
   abstract: true
   parent: BaseAntagSpecifier
   id: InternBlacklistedAntag
-  jobBlacklist:
-  - SecurityCadet
-  - MedicalIntern
-  - ResearchAssistant
-  - TechnicalAssistant
-  - Visitor
+  jobBlacklist: []
 
 # Security
 - type: antagSpecifier
   abstract: true
   parent: BaseAntagSpecifier
   id: SecurityBlacklistedAntag
-  jobBlacklist:
-  - HeadOfSecurity
-  - Warden
-  - Detective
-  - SecurityOfficer
-  - SecurityCadet
+  jobBlacklist: []
 
 - type: antagSpecifier
   abstract: true
@@ -71,5 +45,4 @@
   abstract: true
   parent: [ MindshieldRestrictedAntag, CyborgBlacklistedAntag, InternBlacklistedAntag ]
   id: RestrictedAntag
-  jobBlacklist:
-  - TramDriver
+  jobBlacklist: []

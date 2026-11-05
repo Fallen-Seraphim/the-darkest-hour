@@ -1,24 +1,3 @@
-- type: job
-  id: Chef
-  name: job-name-chef
-  description: job-description-chef
-  playTimeTracker: JobChef
-  requirements:
-    - !type:DepartmentTimeRequirement
-      department: Service
-      time: 0.5h
-  startingGear: ChefGear
-  icon: "JobIconChef"
-  supervisors: job-supervisors-hop
-  guides: [ Chef ]
-  access:
-  - Service
-  - Maintenance
-  - Kitchen
-  extendedAccess:
-  - Hydroponics
-  - Bar
-
 - type: startingGear
   id: ChefGear
   equipment:
@@ -32,7 +11,6 @@
 
 - type: chameleonOutfit
   id: ChefChameleonOutfit
-  job: Chef
   equipment:
     head: ClothingHeadHatChef
     eyes: ClothingEyesGlassesCheapSunglasses

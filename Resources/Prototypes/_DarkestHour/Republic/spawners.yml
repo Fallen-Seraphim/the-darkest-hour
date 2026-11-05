@@ -25,7 +25,6 @@
     rules: dh-ghost-role-republic-rules
     raffle:
       settings: short
-    job: DHRepublicCommander
   - type: Loadout
     prototypes: [ DHRepublicCommanderGear ]
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
@@ -59,7 +58,6 @@
     rules: dh-ghost-role-republic-rules
     raffle:
       settings: short
-    job: DHRepublicSniper
   - type: Loadout
     prototypes: [ DHRepublicSniperGear ]
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
@@ -93,7 +91,6 @@
     rules: dh-ghost-role-republic-rules
     raffle:
       settings: short
-    job: DHRepublicMachinegunner
   - type: Loadout
     prototypes: [ DHRepublicMachinegunnerGear ]
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
@@ -127,7 +124,6 @@
     rules: dh-ghost-role-republic-rules
     raffle:
       settings: short
-    job: DHRepublicRifleman
   - type: Loadout
     prototypes: [ DHRepublicRiflemanGear ]
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
@@ -161,7 +157,6 @@
     rules: dh-ghost-role-republic-rules
     raffle:
       settings: short
-    job: DHRepublicMedic
   - type: Loadout
     prototypes: [ DHRepublicMedicGear ]
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
@@ -195,7 +190,6 @@
     rules: dh-ghost-role-republic-rules
     raffle:
       settings: short
-    job: DHRepublicFlamer
   - type: Loadout
     prototypes: [ DHRepublicFlamerGear ]
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
@@ -232,7 +226,6 @@
     rules: dh-ghost-role-republic-deadend-rules
     raffle:
       settings: short
-    job: DHRepublicCommander
   - type: Loadout
     prototypes: [ DHRepublicDeadendCommanderGear ]
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
@@ -267,7 +260,6 @@
     rules: dh-ghost-role-republic-deadend-rules
     raffle:
       settings: short
-    job: DHRepublicSniper
   - type: Loadout
     prototypes: [ DHRepublicSniperGear ]
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
@@ -302,7 +294,6 @@
     rules: dh-ghost-role-republic-deadend-rules
     raffle:
       settings: short
-    job: DHRepublicMachinegunner
   - type: Loadout
     prototypes: [ DHRepublicMachinegunnerGear ]
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
@@ -337,7 +328,6 @@
     rules: dh-ghost-role-republic-deadend-rules
     raffle:
       settings: short
-    job: DHRepublicRifleman
   - type: Loadout
     prototypes: [ DHRepublicDeadendRiflemanGear ]
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
@@ -372,7 +362,6 @@
     rules: dh-ghost-role-republic-deadend-rules
     raffle:
       settings: short
-    job: DHRepublicMedic
   - type: Loadout
     prototypes: [ DHRepublicMedicGear ]
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
@@ -407,7 +396,6 @@
     rules: dh-ghost-role-republic-deadend-rules
     raffle:
       settings: short
-    job: DHRepublicFlamer
   - type: Loadout
     prototypes: [ DHRepublicFlamerGear ]
     roleLoadout: [ RoleSurvivalMilitaryDouble ]

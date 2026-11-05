@@ -291,8 +291,7 @@
   physicalDesc: reagent-physical-desc-gaseous
   allowedDepartments:
   - Engineering
-  allowedJobs:
-  - Chemist
+  allowedJobs: []
   flavor: bitter
   color: "#3a758c"
   boilingPoint: -195.8
