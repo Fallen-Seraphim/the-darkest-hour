@@ -142,14 +142,9 @@
   parent: BaseMobIrradiated
   id: BaseMobDestructible
   components:
+  # DarkestHour: тела не разрываются (решение автора 2026-11-04) — порог гиба от тупого урона (400) убран.
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTypeTrigger
-        damageType: Blunt
-        damage: 400
-      behaviors:
-      - !type:GibBehavior { }
     - trigger:
         !type:DamageTypeTrigger
         damageType: Heat

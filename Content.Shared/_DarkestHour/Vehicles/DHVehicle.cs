@@ -185,6 +185,10 @@ public sealed partial class DHVehicleAmmoComponent : Component
     [DataField(required: true)]
     public EntProtoId Ammo;
 
+    /// <summary>Другие патроны орудий, в которые подходит этот ящик (например, ослабленный пулемёт танка).</summary>
+    [DataField]
+    public List<EntProtoId> AlsoFits = new();
+
     [DataField, AutoNetworkedField]
     public int Amount = 1;
 
