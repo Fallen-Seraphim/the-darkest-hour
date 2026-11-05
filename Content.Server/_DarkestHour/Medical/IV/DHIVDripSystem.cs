@@ -53,10 +53,19 @@ public sealed partial class DHIVDripSystem : SharedDHIVDripSystem
             if (streamSol.Volume >= streamSol.MaxVolume)
                 return;
 
-            // Не кровь (лекарства и т. п.) не переливается — остаётся в пакете.
-            var excluded = packSol.SplitSolutionWithout(packSol.MaxVolume, packComp.TransferableReagents);
-            _solutionContainer.TryTransferSolution(streamSolEnt.Value, packSol, amount);
-            _solutionContainer.TryAddSolution(packSolEnt.Value, excluded);
+            // Переливается всё содержимое (кровь, физраствор, лекарства — в кровоток), если у пакета не задан
+            // список переливаемого; иначе прочее остаётся в пакете.
+            if (packComp.TransferableReagents.Length == 0)
+            {
+                _solutionContainer.TryTransferSolution(streamSolEnt.Value, packSol, amount);
+            }
+            else
+            {
+                var excluded = packSol.SplitSolutionWithout(packSol.MaxVolume, packComp.TransferableReagents);
+                _solutionContainer.TryTransferSolution(streamSolEnt.Value, packSol, amount);
+                _solutionContainer.TryAddSolution(packSolEnt.Value, excluded);
+            }
+
             Dirty(packSolEnt.Value);
         }
         else if (packSol.Volume < packSol.MaxVolume)
