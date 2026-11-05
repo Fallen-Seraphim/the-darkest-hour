@@ -121,7 +121,7 @@ public sealed partial class DHBloodPackComponent : Component
     public ProtoId<EmotePrototype> RipEmote = "Scream";
 
     [DataField, AutoNetworkedField]
-    public string[] TransferableReagents = ["Blood"];
+    public string[] TransferableReagents = [];
 }
 
 [Serializable, NetSerializable]

@@ -90,20 +90,22 @@
   parent: BaseItem
   id: DHBloodPack
   name: blood pack
-  description: A sealed bag for transfusions. Poke a patient with it while holding it, or hang it on an IV drip.
+  description: A bag for transfusions and infusions — blood, saline or any other solution. Poke a patient with it while holding it, or hang it on an IV drip. Pour solutions in from a beaker; examine it to see what is inside.
   suffix: Empty
   components:
   - type: DHBloodPack
     ripDamage:
       types:
         Piercing: 2
+  # Пакет, поверх — заливка цветом раствора (белая маска, красится под содержимое), сверху — бирка. Раньше заливка
+  # лежала под непрозрачным пакетом, и полный пакет выглядел пустым.
   - type: Sprite
     sprite: _RMC14/Objects/Medical/blood_pack.rsi
     layers:
+    - state: bloodpack
     - state: bloodpack1
       map: [ "enum.DHBloodPackVisuals.Fill" ]
       visible: false
-    - state: bloodpack
     - state: blank
       map: [ "enum.DHBloodPackVisuals.Label" ]
   - type: Item
@@ -119,6 +121,10 @@
   - type: DrawableSolution
     solution: pack
   - type: InjectableSolution
+    solution: pack
+  - type: RefillableSolution
+    solution: pack
+  - type: DrainableSolution
     solution: pack
   - type: ExaminableSolution
     solution: pack
@@ -139,4 +145,18 @@
         maxVol: 300
         reagents:
         - ReagentId: Blood
+          Quantity: 300
+
+- type: entity
+  parent: DHBloodPack
+  id: DHSalinePackFull
+  name: saline pack
+  suffix: Saline, 300
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      pack:
+        maxVol: 300
+        reagents:
+        - ReagentId: Saline
           Quantity: 300

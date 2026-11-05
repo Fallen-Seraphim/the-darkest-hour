@@ -2,6 +2,7 @@ using System.Linq;
 using Content.Shared.Body.Components;
 using Content.Shared.Chat.Prototypes;
 using Content.Shared.Chemistry.EntitySystems;
+using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
 using Content.Shared.DoAfter;
@@ -309,7 +310,17 @@ public abstract partial class SharedDHIVDripSystem : EntitySystem
                 : Loc.GetString("dh-iv-examine-attached-none"));
 
             if (_solutionContainer.TryGetSolution(pack.Owner, pack.Comp.Solution, out _, out var solution))
+            {
                 args.PushMarkup(Loc.GetString("dh-blood-pack-contains", ("units", solution.Volume.Int())));
+                foreach (var reagent in solution.Contents)
+                {
+                    if (!_prototype.TryIndex<ReagentPrototype>(reagent.Reagent.Prototype, out var proto))
+                        continue;
+
+                    args.PushMarkup(Loc.GetString("dh-blood-pack-reagent", ("reagent", proto.LocalizedName),
+                        ("units", reagent.Quantity.Int()), ("color", proto.SubstanceColor.ToHex())));
+                }
+            }
         }
     }
 

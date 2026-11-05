@@ -24,3 +24,4 @@ dh-blood-pack-cannot-self = You cannot connect this to yourself.
 dh-blood-pack-poke-self = You poke {$target} with {$pack}.
 dh-blood-pack-poke-others = {$user} pokes {$target} with {$pack}.
 dh-blood-pack-contains = It contains: [color=#BB0000FF]{$units} units[/color] of liquid.
+dh-blood-pack-reagent = — [color={$color}]{$reagent}[/color]: {$units} u.

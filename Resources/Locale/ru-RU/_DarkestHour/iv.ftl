@@ -24,3 +24,4 @@ dh-blood-pack-cannot-self = К себе подключить нельзя.
 dh-blood-pack-poke-self = Вы вводите иглу { $pack } в руку { $target }.
 dh-blood-pack-poke-others = { $user } вводит иглу { $pack } в руку { $target }.
 dh-blood-pack-contains = Внутри: [color=#BB0000FF]{ $units } ед.[/color] жидкости.
+dh-blood-pack-reagent = — [color={$color}]{$reagent}[/color]: {$units} ед.

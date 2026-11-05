@@ -6,6 +6,7 @@
     Brutepack: 3
     Ointment: 3
     DHBloodPackFull: 3
+    DHSalinePackFull: 3 # DarkestHour: физраствор
     ChemistryBottleEpinephrine: 3
     Syringe: 3
     PillCanisterTricordrazine: 2
@@ -21,6 +22,7 @@
     Brutepack: 3
     AloeCream: 3 # Currently just a reskin of Ointment but it's something
     DHBloodPackFull: 3
+    DHSalinePackFull: 3 # DarkestHour: физраствор
     ChemistryBottleInaprovaline: 3
     Syringe: 3
     PillTricordrazine: 10
@@ -45,6 +47,7 @@
     Brutepack: 4
     Ointment: 4
     DHBloodPackFull: 4
+    DHSalinePackFull: 4 # DarkestHour: физраствор
     # Optional / Situational Gear
     BoxBottle: 3
     Defibrillator: 2 # Easily shared between several people
@@ -65,6 +68,7 @@
     Brutepack: 5
     AloeCream: 5
     DHBloodPackFull: 5
+    DHSalinePackFull: 5 # DarkestHour: физраствор
     ChemistryBottleInaprovaline: 5
     Syringe: 5
     PillTricordrazine: 10
