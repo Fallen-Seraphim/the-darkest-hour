@@ -84,6 +84,8 @@
   name: M402 mortar
   description: An 81 mm infantry mortar. Open it to lay it on coordinates or a laser mark, then drop a shell down the tube. Fold it up with an alternative action.
   components:
+  - type: DHScanTarget # глобальный скан; сторона — того, кто развернул
+    kind: Mortar
   - type: Sprite
     sprite: _RMC14/Objects/Weapons/mortar.rsi
     state: mortar_m402

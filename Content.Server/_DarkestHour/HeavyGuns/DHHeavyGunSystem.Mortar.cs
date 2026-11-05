@@ -279,6 +279,7 @@ public sealed partial class DHHeavyGunSystem
         var tile = _map.TileIndicesFor(grid, gridComp, userXform.Coordinates);
         var mortar = Spawn(ent.Comp.Mortar, _map.GridTileToLocal(grid, gridComp, tile));
         _transform.AnchorEntity(mortar, Transform(mortar));
+        SetScanFactionFromUser(mortar, args.User);
         _popup.PopupEntity(Loc.GetString("dh-mortar-deployed", ("user", args.User)), mortar, PopupType.Small);
         QueueDel(ent);
     }

@@ -52,6 +52,9 @@
   name: 75 mm infantry gun
   description: "A light Imperial infantry gun on a wheeled carriage. Wrench it down to fire; the gunner sets the traverse and elevation, a second crewman loads faster. Up to 10° it fires point-blank, higher — over obstacles. Can be dropped by parachute from a ship hovering in the atmosphere."
   components:
+  - type: DHScanTarget # глобальный скан
+    kind: FieldGun
+    faction: Empire
   - type: Sprite
     sprite: _DarkestHour/Objects/Weapons/FieldGuns/field_gun_75.rsi
   - type: DHFieldGun
@@ -66,6 +69,9 @@
   name: 90 mm infantry gun
   description: "A heavy Republican infantry gun on a wheeled carriage. Wrench it down to fire; the gunner sets the traverse and elevation, a second crewman loads faster. Up to 10° it fires point-blank, higher — over obstacles. It can be rolled, slowly."
   components:
+  - type: DHScanTarget # глобальный скан
+    kind: FieldGun
+    faction: Republic
   - type: Sprite
     sprite: _DarkestHour/Objects/Weapons/FieldGuns/field_gun_90.rsi
   - type: DHFieldGun
