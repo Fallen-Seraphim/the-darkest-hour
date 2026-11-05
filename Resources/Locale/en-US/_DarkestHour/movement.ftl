@@ -1,1 +1,9 @@
 dh-sprint-exhausted = You are out of breath — no sprinting until you catch it.
+dh-crawl-started = Gathering the last of your strength, you can crawl.
+dh-crawl-stopped-hit = Another wound — you have no strength left to crawl.
+dh-crawl-too-hurt = Your wounds are too severe to move.
+dh-wall-lean-grabbing = Let go of what you are pulling first.
+dh-wall-lean-incapacitated = You can't lean on a wall in this state.
+dh-wall-lean-resting = Get up first.
+dh-wall-lean-buckled = Unbuckle first.
+dh-wall-lean-too-far = Step right up to the wall.

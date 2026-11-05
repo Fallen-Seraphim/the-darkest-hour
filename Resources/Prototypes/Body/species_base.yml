@@ -3,6 +3,7 @@
   parent: BaseSpeciesMobNoCrawl
   id: BaseSpeciesMob
   components:
+  - type: DHCrawlWhileCrit # DarkestHour: ползти в крите
   - type: Crawler
 
 - type: entity
@@ -264,4 +265,5 @@
   id: BaseSpeciesMobOrganic
   save: false
   components:
+  - type: DHCrawlWhileCrit # DarkestHour: ползти в крите
   - type: Crawler

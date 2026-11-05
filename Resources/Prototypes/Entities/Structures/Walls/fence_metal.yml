@@ -5,6 +5,7 @@
   description: A metal piece of fencing cordoning off something likely very important.
   abstract: true
   components:
+  - type: DHVaultOnBump # DarkestHour: перелезание с разбега
   - type: MeleeSound
     soundGroups:
       Brute:

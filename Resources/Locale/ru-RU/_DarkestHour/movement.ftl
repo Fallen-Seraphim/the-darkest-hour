@@ -1,1 +1,9 @@
 dh-sprint-exhausted = Вы выдохлись — рывок не получится, пока не отдышитесь.
+dh-crawl-started = Собрав последние силы, вы можете ползти.
+dh-crawl-stopped-hit = Новое ранение — сил ползти больше нет.
+dh-crawl-too-hurt = Раны слишком тяжелы — не сдвинуться с места.
+dh-wall-lean-grabbing = Сначала отпустите то, что тащите.
+dh-wall-lean-incapacitated = В таком состоянии не прижаться к стене.
+dh-wall-lean-resting = Сначала встаньте.
+dh-wall-lean-buckled = Сначала отстегнитесь.
+dh-wall-lean-too-far = Подойдите к стене вплотную.

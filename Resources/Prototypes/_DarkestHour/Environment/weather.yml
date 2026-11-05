@@ -1,0 +1,22 @@
+# Погода планеты (решение автора 2026-11-01): песчаные бури REP-27-7. Расписание — DHWeatherSchedule на карте
+# поверхности (DHPlanetBaseSystem), опасности — DHWeatherSystem: под открытым небом буря замедляет, сильная ещё и
+# сечёт песком. Под крышей и в машинах — безопасно. Вид и звук — ванильные.
+
+- type: entity
+  parent: WeatherSandstorm
+  id: DHWeatherSandstorm
+  components:
+  - type: DHWeatherHazard
+    speedMultiplier: 0.88
+    startMessage: dh-weather-sandstorm-start
+
+- type: entity
+  parent: WeatherSandstormHeavy
+  id: DHWeatherSandstormHeavy
+  components:
+  - type: DHWeatherHazard
+    speedMultiplier: 0.72
+    damage:
+      types:
+        Slash: 0.25
+    startMessage: dh-weather-sandstorm-heavy-start

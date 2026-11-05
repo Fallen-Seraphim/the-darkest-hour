@@ -60,6 +60,7 @@
   parent: BaseStructureWall
   id: BaseWall
   components:
+  - type: DHWallLeanable # DarkestHour: прижаться к стене (перетащить себя на стену)
   - type: Occluder # Breaks on diagonal walls
   - type: PlacementReplacement
     key: walls
