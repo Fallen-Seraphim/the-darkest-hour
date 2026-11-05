@@ -1,0 +1,25 @@
+dh-chat-radio-squad-alpha = Отряд «Альфа»
+dh-squad-name-alpha = Альфа
+dh-chat-radio-squad-bravo = Отряд «Браво»
+dh-squad-name-bravo = Браво
+dh-chat-radio-squad-charlie = Отряд «Чарли»
+dh-squad-name-charlie = Чарли
+dh-chat-radio-squad-delta = Отряд «Дельта»
+dh-squad-name-delta = Дельта
+dh-chat-radio-squad-tau = Отряд «Тау»
+dh-squad-name-tau = Тау
+dh-chat-radio-squad-epsilon = Отряд «Эпсилон»
+dh-squad-name-epsilon = Эпсилон
+dh-chat-radio-squad-omega = Отряд «Омега»
+dh-squad-name-omega = Омега
+dh-squad-console-title = Отряды
+dh-squad-console-squad = Отряд «{$squad}» — {$count} чел.
+dh-squad-console-unassigned = Без отряда — {$count} чел.
+dh-squad-console-empty = Бойцов стороны нет.
+dh-squad-console-remove = ✕
+dh-squad-console-assigned = {CAPITALIZE($fighter)} — в отряд «{$squad}».
+dh-squad-console-removed = {CAPITALIZE($fighter)} выведен из отряда.
+dh-squad-joined = Вы назначены в отряд «{$squad}»: в гарнитуре отрядный ключ.
+dh-squad-left = Вы выведены из отряда.
+dh-squad-no-headset = Вас назначили в отряд, но на вас нет гарнитуры — отрядный ключ некуда поставить.
+dh-squad-examine = Отряд: [color={$color}]{$squad}[/color].

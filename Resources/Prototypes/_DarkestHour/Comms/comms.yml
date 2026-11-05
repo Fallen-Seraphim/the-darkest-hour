@@ -118,6 +118,10 @@
     channels:
     - DHRepublic
     - DHRepublicCommand
+    - DHSquadAlpha
+    - DHSquadBravo
+    - DHSquadCharlie
+    - DHSquadDelta
 
 - type: entity
   parent: DHCommsRelayBase
@@ -142,6 +146,9 @@
     channels:
     - Syndicate
     - DHImperialCommand
+    - DHSquadTau
+    - DHSquadEpsilon
+    - DHSquadOmega
 
 # Переносной ретранслятор Империи (решение автора 2026-11-05): без него у десанта на планете нет радиосвязи (ни между
 # собой, ни с авианосцем). Несут в руках (тяжёлый), разворачивают на месте (6 с), сворачивают альт-действием.
@@ -193,6 +200,9 @@
     channels:
     - Syndicate
     - DHImperialCommand
+    - DHSquadTau
+    - DHSquadEpsilon
+    - DHSquadOmega
   - type: DHPortableRelay
     folded: DHCommsRelayPortableEmpireFolded
 

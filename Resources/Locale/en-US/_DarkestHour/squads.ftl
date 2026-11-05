@@ -1,0 +1,25 @@
+dh-chat-radio-squad-alpha = Alpha Squad
+dh-squad-name-alpha = Alpha
+dh-chat-radio-squad-bravo = Bravo Squad
+dh-squad-name-bravo = Bravo
+dh-chat-radio-squad-charlie = Charlie Squad
+dh-squad-name-charlie = Charlie
+dh-chat-radio-squad-delta = Delta Squad
+dh-squad-name-delta = Delta
+dh-chat-radio-squad-tau = Tau Squad
+dh-squad-name-tau = Tau
+dh-chat-radio-squad-epsilon = Epsilon Squad
+dh-squad-name-epsilon = Epsilon
+dh-chat-radio-squad-omega = Omega Squad
+dh-squad-name-omega = Omega
+dh-squad-console-title = Squads
+dh-squad-console-squad = {$squad} squad — {$count}
+dh-squad-console-unassigned = No squad — {$count}
+dh-squad-console-empty = No soldiers on this side.
+dh-squad-console-remove = ✕
+dh-squad-console-assigned = {CAPITALIZE($fighter)} assigned to {$squad} squad.
+dh-squad-console-removed = {CAPITALIZE($fighter)} removed from the squad.
+dh-squad-joined = You are assigned to {$squad} squad: the squad key is in your headset.
+dh-squad-left = You have been removed from your squad.
+dh-squad-no-headset = You were assigned to a squad, but you wear no headset to put the squad key in.
+dh-squad-examine = Squad: [color={$color}]{$squad}[/color].

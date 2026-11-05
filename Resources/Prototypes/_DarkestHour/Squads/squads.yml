@@ -1,0 +1,284 @@
+# Отряды «Штурма» (решение автора 2026-11-05). Механика — DHSquadSystem: консоль отрядов (командование стороны)
+# назначает бойца в отряд, в его гарнитуре отрядный ключ меняется на ключ нового отряда (нет — добавляется).
+# Рации отрядов: Республика — :1 Альфа, :2 Браво, :3 Чарли, :4 Дельта; Империя — :5 Тау, :6 Эпсилон, :7 Омега.
+# Каналы отрядов, как и основные, работают только в зоне живого ретранслятора стороны (DHCommsSystem).
+
+- type: radioChannel
+  id: DHSquadAlpha
+  name: dh-chat-radio-squad-alpha
+  keycode: '1'
+  frequency: 148.1
+  color: "#5fb0ff"
+  longRange: true
+
+- type: entity
+  parent: [ EncryptionKey, BaseCentcommContraband ]
+  id: DHEncryptionKeySquadAlpha
+  name: Alpha squad encryption key
+  description: An encryption key for the Alpha squad net. Squad keys are swapped by the squad console.
+  components:
+  - type: EncryptionKey
+    channels:
+    - DHSquadAlpha
+    defaultChannel: DHSquadAlpha
+  - type: Sprite
+    layers:
+    - state: crypt_rusted
+    - state: nano_label
+
+- type: dhSquad
+  id: Alpha
+  name: dh-squad-name-alpha
+  faction: Republic
+  channel: DHSquadAlpha
+  key: DHEncryptionKeySquadAlpha
+  color: "#5fb0ff"
+  order: 0
+
+- type: radioChannel
+  id: DHSquadBravo
+  name: dh-chat-radio-squad-bravo
+  keycode: '2'
+  frequency: 148.3
+  color: "#ffb347"
+  longRange: true
+
+- type: entity
+  parent: [ EncryptionKey, BaseCentcommContraband ]
+  id: DHEncryptionKeySquadBravo
+  name: Bravo squad encryption key
+  description: An encryption key for the Bravo squad net. Squad keys are swapped by the squad console.
+  components:
+  - type: EncryptionKey
+    channels:
+    - DHSquadBravo
+    defaultChannel: DHSquadBravo
+  - type: Sprite
+    layers:
+    - state: crypt_rusted
+    - state: nano_label
+
+- type: dhSquad
+  id: Bravo
+  name: dh-squad-name-bravo
+  faction: Republic
+  channel: DHSquadBravo
+  key: DHEncryptionKeySquadBravo
+  color: "#ffb347"
+  order: 1
+
+- type: radioChannel
+  id: DHSquadCharlie
+  name: dh-chat-radio-squad-charlie
+  keycode: '3'
+  frequency: 148.5
+  color: "#c77dff"
+  longRange: true
+
+- type: entity
+  parent: [ EncryptionKey, BaseCentcommContraband ]
+  id: DHEncryptionKeySquadCharlie
+  name: Charlie squad encryption key
+  description: An encryption key for the Charlie squad net. Squad keys are swapped by the squad console.
+  components:
+  - type: EncryptionKey
+    channels:
+    - DHSquadCharlie
+    defaultChannel: DHSquadCharlie
+  - type: Sprite
+    layers:
+    - state: crypt_rusted
+    - state: nano_label
+
+- type: dhSquad
+  id: Charlie
+  name: dh-squad-name-charlie
+  faction: Republic
+  channel: DHSquadCharlie
+  key: DHEncryptionKeySquadCharlie
+  color: "#c77dff"
+  order: 2
+
+- type: radioChannel
+  id: DHSquadDelta
+  name: dh-chat-radio-squad-delta
+  keycode: '4'
+  frequency: 148.7
+  color: "#5fe07a"
+  longRange: true
+
+- type: entity
+  parent: [ EncryptionKey, BaseCentcommContraband ]
+  id: DHEncryptionKeySquadDelta
+  name: Delta squad encryption key
+  description: An encryption key for the Delta squad net. Squad keys are swapped by the squad console.
+  components:
+  - type: EncryptionKey
+    channels:
+    - DHSquadDelta
+    defaultChannel: DHSquadDelta
+  - type: Sprite
+    layers:
+    - state: crypt_rusted
+    - state: nano_label
+
+- type: dhSquad
+  id: Delta
+  name: dh-squad-name-delta
+  faction: Republic
+  channel: DHSquadDelta
+  key: DHEncryptionKeySquadDelta
+  color: "#5fe07a"
+  order: 3
+
+- type: radioChannel
+  id: DHSquadTau
+  name: dh-chat-radio-squad-tau
+  keycode: '5'
+  frequency: 122.1
+  color: "#e8604a"
+  longRange: true
+
+- type: entity
+  parent: [ EncryptionKey, BaseCentcommContraband ]
+  id: DHEncryptionKeySquadTau
+  name: Tau squad encryption key
+  description: An encryption key for the Tau squad net. Squad keys are swapped by the squad console.
+  components:
+  - type: EncryptionKey
+    channels:
+    - DHSquadTau
+    defaultChannel: DHSquadTau
+  - type: Sprite
+    layers:
+    - state: crypt_red
+    - state: nano_label
+
+- type: dhSquad
+  id: Tau
+  name: dh-squad-name-tau
+  faction: Empire
+  channel: DHSquadTau
+  key: DHEncryptionKeySquadTau
+  color: "#e8604a"
+  order: 0
+
+- type: radioChannel
+  id: DHSquadEpsilon
+  name: dh-chat-radio-squad-epsilon
+  keycode: '6'
+  frequency: 122.3
+  color: "#4ad0e8"
+  longRange: true
+
+- type: entity
+  parent: [ EncryptionKey, BaseCentcommContraband ]
+  id: DHEncryptionKeySquadEpsilon
+  name: Epsilon squad encryption key
+  description: An encryption key for the Epsilon squad net. Squad keys are swapped by the squad console.
+  components:
+  - type: EncryptionKey
+    channels:
+    - DHSquadEpsilon
+    defaultChannel: DHSquadEpsilon
+  - type: Sprite
+    layers:
+    - state: crypt_red
+    - state: nano_label
+
+- type: dhSquad
+  id: Epsilon
+  name: dh-squad-name-epsilon
+  faction: Empire
+  channel: DHSquadEpsilon
+  key: DHEncryptionKeySquadEpsilon
+  color: "#4ad0e8"
+  order: 1
+
+- type: radioChannel
+  id: DHSquadOmega
+  name: dh-chat-radio-squad-omega
+  keycode: '7'
+  frequency: 122.5
+  color: "#e8c84a"
+  longRange: true
+
+- type: entity
+  parent: [ EncryptionKey, BaseCentcommContraband ]
+  id: DHEncryptionKeySquadOmega
+  name: Omega squad encryption key
+  description: An encryption key for the Omega squad net. Squad keys are swapped by the squad console.
+  components:
+  - type: EncryptionKey
+    channels:
+    - DHSquadOmega
+    defaultChannel: DHSquadOmega
+  - type: Sprite
+    layers:
+    - state: crypt_red
+    - state: nano_label
+
+- type: dhSquad
+  id: Omega
+  name: dh-squad-name-omega
+  faction: Empire
+  channel: DHSquadOmega
+  key: DHEncryptionKeySquadOmega
+  color: "#e8c84a"
+  order: 2
+
+# --- Консоли отрядов ---
+
+- type: entity
+  abstract: true
+  parent: BaseComputer
+  id: DHComputerSquadsBase
+  components:
+  - type: ComputerVisuals
+    stateScreen: id
+    stateKeys: tech_key
+  - type: ActivatableUI
+    key: enum.DHSquadConsoleUiKey.Key
+  - type: ActivatableUIRequiresVision
+  - type: UserInterface
+    interfaces:
+      enum.DHSquadConsoleUiKey.Key:
+        type: DHSquadConsoleBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: ApcPowerReceiver
+    needsPower: false
+    powerLoad: 0
+
+- type: entity
+  parent: DHComputerSquadsBase
+  id: DHComputerSquadsRepublic
+  name: garrison squad console
+  description: The garrison command's squad roster. Assign soldiers to the Alpha, Bravo, Charlie and Delta squads; their headsets get the squad key at once.
+  components:
+  - type: DHSquadConsole
+    faction: Republic
+  # Только командование гарнизона (командир, офицеры, арт. офицер).
+  - type: ActivatableUIRequiresAccess
+  - type: AccessReader
+    access: [ [ "DHRepublicCommand" ] ]
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#8fd66b"
+
+- type: entity
+  parent: DHComputerSquadsBase
+  id: DHComputerSquadsEmpire
+  name: landing force squad console
+  description: The landing force command's squad roster. Assign marines to the Tau, Epsilon and Omega squads; their headsets get the squad key at once.
+  components:
+  - type: DHSquadConsole
+    faction: Empire
+  - type: ComputerVisuals
+    stateScreen: id
+    stateKeys: syndie_key
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#e8604a"
