@@ -171,6 +171,16 @@ SKINS = {
     V + 'Misc/handcuffs.rsi': {
         s: (R + 'Misc/handcuffs.rsi', s) for s in ('handcuff', 'inhand-left', 'inhand-right', 'equipped-BELT')
     },
+    # каски: свет — только PointLight, светящийся слой убран (у RMC каска с фонарём нарисована целиком)
+    **{
+        'Clothing/Head/Hardhats/%s.rsi' % color: {
+            'icon': (R + 'Clothing/Head/Helmets/Hardhats/%s.rsi' % color, 'icon'),
+            'equipped-helmet': (R + 'Clothing/Head/Helmets/Hardhats/%s.rsi' % color, 'off-equipped-HELMET'),
+            'light-icon': None, 'equipped-helmet-light': None,
+            'inhand-left-light': None, 'inhand-right-light': None,
+        }
+        for color in ('yellow', 'orange', 'red', 'white', 'blue')
+    },
 }
 
 
@@ -193,6 +203,16 @@ COPY = [
     C + 'Hands/Gloves/royal_marine.rsi',
     C + 'Back/Backpacks/RCM/medium.rsi', C + 'Back/Backpacks/RCM/medic.rsi',
     C + 'Belt/rcm_general.rsi', C + 'Belt/rcm_medical.rsi',
+    # Лост-Энджелс: жители и военная полиция
+    C + 'Uniforms/MP/standard.rsi', C + 'Head/Helmets/m10/mp.rsi', C + 'OuterClothing/Armor/m2/mp.rsi',
+    C + 'Head/Hats/mp_cap.rsi',
+    C + 'Uniforms/Liaison/charcoal_tailored.rsi', C + 'Uniforms/Liaison/bluegrey_admin.rsi',
+    C + 'Uniforms/Liaison/blue_pants_uniform.rsi', C + 'Uniforms/Liaison/liaison_suspenders.rsi',
+    C + 'Uniforms/Survivor/laborers_overalls.rsi', C + 'Uniforms/Survivor/engineer_worker.rsi',
+    C + 'Uniforms/Survivor/colonist.rsi', C + 'Uniforms/Civilian/blue_workwear.rsi',
+    C + 'Head/Hats/cargo_cap.rsi',
+    C + 'Shoes/Sneakers/black.rsi', C + 'Shoes/leather.rsi', C + 'Shoes/laceup.rsi', C + 'Shoes/Boots/brown.rsi',
+    C + 'Back/Satchels/Civilians/norm.rsi',
 ]
 
 # new RSIs assembled from RMC states: path -> {state: (rmc rsi, rmc state)}

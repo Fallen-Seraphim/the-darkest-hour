@@ -42,8 +42,8 @@
 - type: startingGear
   id: DHLACivilianGearBase
   equipment:
-    shoes: ClothingShoesColorBlack
-    back: ClothingBackpackSatchel
+    shoes: DHLAClothingShoesSneakers
+    back: DHLAClothingBackpackSatchel
     pocket1: DHWalletFilled
     pocket2: DHApartmentKey
 
@@ -52,9 +52,9 @@
   id: DHLADistrictHeadGear
   equipment:
     id: DHLAIDCardDistrictHead
-    jumpsuit: ClothingUniformJumpsuitLawyerBlack
+    jumpsuit: DHLAClothingUniformSuitCharcoal
     outerClothing: ClothingOuterCoatGentle
-    shoes: ClothingShoesLeather
+    shoes: DHLAClothingShoesLeather
     ears: ClothingHeadsetGrey
   storage:
     back:
@@ -67,8 +67,8 @@
   id: DHLADistrictStaffGear
   equipment:
     id: DHLAIDCardDistrictStaff
-    jumpsuit: ClothingUniformJumpsuitLawyerBlue
-    shoes: ClothingShoesLeather
+    jumpsuit: DHLAClothingUniformAdmin
+    shoes: DHLAClothingShoesLeather
     ears: ClothingHeadsetGrey
   storage:
     back:
@@ -79,8 +79,9 @@
   parent: DHLACivilianGearBase
   id: DHLAOfficeWorkerGear
   equipment:
+    shoes: DHLAClothingShoesLaceup
     id: DHLAIDCardOfficeWorker
-    jumpsuit: ClothingUniformJumpsuitColorWhite
+    jumpsuit: DHLAClothingUniformOffice
     neck: ClothingNeckTieRed
   storage:
     back:
@@ -91,9 +92,9 @@
   id: DHLAEntrepreneurGear
   equipment:
     id: DHLAIDCardEntrepreneur
-    jumpsuit: ClothingUniformJumpsuitBartender
+    jumpsuit: DHLAClothingUniformSuspenders
     outerClothing: ClothingOuterApronBar
-    shoes: ClothingShoesColorBrown
+    shoes: DHLAClothingShoesLaceup
   storage:
     back:
     - DHRepublicCredit500
@@ -103,9 +104,9 @@
   id: DHLAFactoryWorkerGear
   equipment:
     id: DHLAIDCardFactoryWorker
-    jumpsuit: ClothingUniformJumpsuitColorOrange
+    jumpsuit: DHLAClothingUniformOveralls
     head: ClothingHeadHatHardhatYellow
-    shoes: ClothingShoesBootsWork
+    shoes: DHLAClothingShoesWorkBoots
     gloves: ClothingHandsGlovesColorBlack
     belt: ClothingBeltUtilityFilled
 
@@ -113,10 +114,11 @@
   parent: DHLACivilianGearBase
   id: DHLAUtilityWorkerGear
   equipment:
+    head: ClothingHeadHatHardhatOrange
     id: DHLAIDCardUtilityWorker
-    jumpsuit: ClothingUniformJumpsuitEngineeringHazard
+    jumpsuit: DHLAClothingUniformUtility
     outerClothing: ClothingOuterVestHazard
-    shoes: ClothingShoesBootsWork
+    shoes: DHLAClothingShoesWorkBoots
     gloves: ClothingHandsGlovesColorBlack
     belt: ClothingBeltUtilityEngineering
     ears: ClothingHeadsetGrey
@@ -129,9 +131,10 @@
   parent: DHLACivilianGearBase
   id: DHLAMetroWorkerGear
   equipment:
+    shoes: DHLAClothingShoesWorkBoots
     id: DHLAIDCardMetroWorker
-    jumpsuit: ClothingUniformJumpsuitColorDarkBlue
-    head: ClothingHeadHatCapcap
+    jumpsuit: DHLAClothingUniformMetro
+    head: DHLAClothingHeadCargoCap
     ears: ClothingHeadsetGrey
   storage:
     back:
@@ -142,7 +145,7 @@
   id: DHLAResidentGear
   equipment:
     id: DHLAIDCardResident
-    jumpsuit: ClothingUniformJumpsuitCasualBlue
+    jumpsuit: DHLAClothingUniformColonist
     outerClothing: ClothingOuterHoodieGrey
 
 # ---------------------------------------------------------------- LA-V
@@ -231,7 +234,7 @@
   id: DHLAMPGearBase
   equipment:
     jumpsuit: DHLAMPClothingUniform
-    shoes: ClothingShoesBootsJack
+    shoes: DHLAVClothingShoesJackboots
     gloves: ClothingHandsGlovesColorBlack
     ears: DHClothingHeadsetLAPolice
     back: ClothingBackpackSecurity
@@ -321,9 +324,10 @@
   parent: DHLAMPGearBase
   id: DHLAMPOfficerGear
   equipment:
+    jumpsuit: DHLAMPClothingUniformPatrol
     id: DHLAIDCardMPOfficer
-    head: DHLAMPClothingHeadHelmet
-    outerClothing: DHLAMPClothingOuterVest
+    head: DHLAMPClothingHeadHelmetPatrol
+    outerClothing: DHLAMPClothingOuterVestPatrol
     suitstorage: DHWeaponRifleRMPR6239
   storage:
     back:
@@ -337,6 +341,7 @@
   parent: DHLAMPGearBase
   id: DHLAMPCadetGear
   equipment:
+    jumpsuit: DHLAMPClothingUniformPatrol
     id: DHLAIDCardMPCadet
     head: DHLAMPClothingHeadHelmetLight
     outerClothing: DHLAMPClothingOuterVestLight

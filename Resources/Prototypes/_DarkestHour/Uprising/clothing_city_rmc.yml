@@ -1,0 +1,212 @@
+# DarkestHour: RMC-образная одежда Лост-Энджелса (решение автора 2026-11-05) — гражданские колонисты RMC-14 и
+# патрульная форма Военной Полиции в духе военной полиции USCM. Спрайты — RMC-14 (CC-BY-SA-3.0), копируются
+# Tools/_DarkestHour/rmc_skins.py.
+
+# --- Военная Полиция: патруль ---
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAMPClothingUniformPatrol
+  name: Military Police patrol fatigues
+  description: "Field fatigues with the red armband of the Republic Military Police."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/MP/standard.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/MP/standard.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLAMPClothingHeadHelmetPatrol
+  name: Military Police patrol helmet
+  description: "A combat helmet with the Military Police markings. Class 2 protection for the head."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Helmets/m10/mp.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Helmets/m10/mp.rsi
+  - type: DHPartArmor
+    parts: [ Head ]
+    armorClass: 2
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLAMPClothingHeadCapPatrol
+  name: Military Police cap
+  description: "A peaked cap of the Military Police. No protection."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/mp_cap.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/mp_cap.rsi
+
+- type: entity
+  parent: DHClothingOuterVestBase
+  id: DHLAMPClothingOuterVestPatrol
+  name: Military Police patrol armour
+  description: "Light body armour of the Military Police patrols. Class 2 protection for the torso only."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Armor/m2/mp.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Armor/m2/mp.rsi
+  - type: DHPartArmor
+    parts: [ Torso ]
+    armorClass: 2
+
+# --- Жители ---
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAClothingUniformSuitCharcoal
+  name: charcoal suit
+  description: "A tailored charcoal suit."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/charcoal_tailored.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/charcoal_tailored.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAClothingUniformAdmin
+  name: district administration uniform
+  description: "A blue-grey uniform of the district administration."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/bluegrey_admin.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/bluegrey_admin.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAClothingUniformOffice
+  name: office shirt and trousers
+  description: "A white shirt with a tie and blue trousers."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/blue_pants_uniform.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/blue_pants_uniform.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAClothingUniformSuspenders
+  name: shirt with suspenders
+  description: "A shirt, waistcoat and suspenders of a small business owner."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/liaison_suspenders.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/liaison_suspenders.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAClothingUniformOveralls
+  name: labourer's overalls
+  description: "Yellow work overalls over a blue shirt."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Survivor/laborers_overalls.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Survivor/laborers_overalls.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAClothingUniformUtility
+  name: utility worker's uniform
+  description: "A work uniform of the city utilities."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Survivor/engineer_worker.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Survivor/engineer_worker.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAClothingUniformMetro
+  name: metro worker's workwear
+  description: "Blue workwear of the metro staff."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/blue_workwear.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/blue_workwear.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAClothingUniformColonist
+  name: colonist's clothes
+  description: "Hard-wearing everyday clothes of a colony resident."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Survivor/colonist.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Survivor/colonist.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLAClothingHeadCargoCap
+  name: work cap
+  description: "A worn work cap."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/cargo_cap.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/cargo_cap.rsi
+
+- type: entity
+  parent: ClothingShoesBase
+  id: DHLAClothingShoesSneakers
+  name: black sneakers
+  description: "Plain black sneakers."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Shoes/Sneakers/black.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Shoes/Sneakers/black.rsi
+
+- type: entity
+  parent: ClothingShoesBase
+  id: DHLAClothingShoesLeather
+  name: leather shoes
+  description: "Polished leather shoes."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Shoes/leather.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Shoes/leather.rsi
+
+- type: entity
+  parent: ClothingShoesBase
+  id: DHLAClothingShoesLaceup
+  name: lace-up shoes
+  description: "Brown lace-up shoes."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Shoes/laceup.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Shoes/laceup.rsi
+
+- type: entity
+  parent: ClothingShoesBootsWork
+  id: DHLAClothingShoesWorkBoots
+  name: work boots
+  description: "Sturdy brown work boots."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Shoes/Boots/brown.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Shoes/Boots/brown.rsi
+
+- type: entity
+  parent: ClothingBackpackSatchel
+  id: DHLAClothingBackpackSatchel
+  name: satchel
+  description: "An everyday shoulder satchel."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Back/Satchels/Civilians/norm.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Back/Satchels/Civilians/norm.rsi
