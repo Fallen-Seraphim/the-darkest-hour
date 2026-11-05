@@ -120,6 +120,14 @@ public sealed partial class DHFieldShellProjectileComponent : Component
     public bool Done;
 }
 
+/// <summary>Тяжёлое орудие на колёсах (не пехотная пушка — например, зенитка): кто его тянет, идёт медленнее.</summary>
+[RegisterComponent]
+public sealed partial class DHTowableComponent : Component
+{
+    [DataField]
+    public float TowSpeed = 0.6f;
+}
+
 /// <summary>Тот, кто катит тяжёлую пушку: идёт медленнее.</summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class DHTowingComponent : Component
@@ -267,27 +275,47 @@ public sealed partial class DHFieldGunTowSystem : EntitySystem
 
         SubscribeLocalEvent<DHFieldGunComponent, PullStartedMessage>(OnPullStarted);
         SubscribeLocalEvent<DHFieldGunComponent, PullStoppedMessage>(OnPullStopped);
+        SubscribeLocalEvent<DHTowableComponent, PullStartedMessage>(OnTowablePullStarted);
+        SubscribeLocalEvent<DHTowableComponent, PullStoppedMessage>(OnTowablePullStopped);
         SubscribeLocalEvent<DHTowingComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshSpeed);
     }
 
     private void OnPullStarted(Entity<DHFieldGunComponent> ent, ref PullStartedMessage args)
     {
-        if (args.PulledUid != ent.Owner)
-            return;
-
-        var towing = EnsureComp<DHTowingComponent>(args.PullerUid);
-        towing.Modifier = ent.Comp.TowSpeed;
-        Dirty(args.PullerUid, towing);
-        _movement.RefreshMovementSpeedModifiers(args.PullerUid);
+        if (args.PulledUid == ent.Owner)
+            StartTowing(args.PullerUid, ent.Comp.TowSpeed);
     }
 
     private void OnPullStopped(Entity<DHFieldGunComponent> ent, ref PullStoppedMessage args)
     {
-        if (args.PulledUid != ent.Owner)
-            return;
+        if (args.PulledUid == ent.Owner)
+            StopTowing(args.PullerUid);
+    }
 
-        RemComp<DHTowingComponent>(args.PullerUid);
-        _movement.RefreshMovementSpeedModifiers(args.PullerUid);
+    private void OnTowablePullStarted(Entity<DHTowableComponent> ent, ref PullStartedMessage args)
+    {
+        if (args.PulledUid == ent.Owner)
+            StartTowing(args.PullerUid, ent.Comp.TowSpeed);
+    }
+
+    private void OnTowablePullStopped(Entity<DHTowableComponent> ent, ref PullStoppedMessage args)
+    {
+        if (args.PulledUid == ent.Owner)
+            StopTowing(args.PullerUid);
+    }
+
+    private void StartTowing(EntityUid puller, float speed)
+    {
+        var towing = EnsureComp<DHTowingComponent>(puller);
+        towing.Modifier = speed;
+        Dirty(puller, towing);
+        _movement.RefreshMovementSpeedModifiers(puller);
+    }
+
+    private void StopTowing(EntityUid puller)
+    {
+        RemComp<DHTowingComponent>(puller);
+        _movement.RefreshMovementSpeedModifiers(puller);
     }
 
     private void OnRefreshSpeed(Entity<DHTowingComponent> ent, ref RefreshMovementSpeedModifiersEvent args)
