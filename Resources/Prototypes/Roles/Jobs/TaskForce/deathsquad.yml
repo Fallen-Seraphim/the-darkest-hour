@@ -1,20 +1,3 @@
-- type: job
-  id: DeathSquad
-  name: job-name-deathsquad
-  description: job-description-deathsquad
-  playTimeTracker: JobDeathSquad
-  setPreference: false
-  startingGear: DeathSquadGear
-  icon: "JobIconDeathSquad"
-  supervisors: job-supervisors-centcom
-  accessGroups:
-  - AllAccess
-  access:
-  - CentralCommand
-  special:
-  - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
-
 - type: startingGear
   id: DeathSquadGear
   equipment:
@@ -41,7 +24,6 @@
 
 - type: chameleonOutfit
   id: DeathSquadChameleonOutfit
-  job: DeathSquad
   hasMindShield: true
   equipment:
     head: ClothingHeadHelmetHardsuitDeathsquad

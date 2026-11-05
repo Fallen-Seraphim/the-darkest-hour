@@ -32,36 +32,9 @@
           availableJobs:
             # DarkestHour: свои должности, всего 50 слотов
             # Command (7)
-            DHCaptain: [ 1, 1 ]
-            DHAdjutant: [ 1, 1 ]
-            DHMetallArmedSpecialist: [ 1, 1 ]
-            DHSecurityChief: [ 1, 1 ]
-            DHChiefPhysician: [ 1, 1 ]
-            DHResearchDirector: [ 1, 1 ]
-            DHChiefTechnician: [ 1, 1 ]
             # Corporate Security (12)
-            DHWarden: [ 1, 1 ]
-            DHDetective: [ 1, 1 ]
-            DHInvestigator: [ 2, 2 ]
-            DHSecurityOfficer: [ 3, 3 ]
-            DHSecurityPilot: [ 1, 1 ]
-            DHSecurityInstructor: [ 1, 1 ]
-            DHSecurityCadet: [ 3, 3 ]
             # Medical (10)
-            DHLeadPhysician: [ 1, 1 ]
-            DHChemist: [ 2, 2 ]
-            DHPhysician: [ 3, 3 ]
-            DHParamedic: [ 1, 1 ]
-            DHMedicalIntern: [ 3, 3 ]
             # Science (9)
-            DHLeadScientist: [ 1, 1 ]
-            DHMaterialsScientist: [ 2, 2 ]
-            DHVirologist: [ 2, 2 ]
-            DHLabAssistant: [ 4, 4 ]
             # Engineering (11)
-            DHLeadTechnician: [ 1, 1 ]
-            DHAtmosTechnician: [ 2, 2 ]
-            DHTechnician: [ 4, 4 ]
-            DHJuniorTechnician: [ 4, 4 ]
             # Station AI (1)
             StationAi: [ 1, 1 ]

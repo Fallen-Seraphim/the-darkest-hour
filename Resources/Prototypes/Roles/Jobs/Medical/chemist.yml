@@ -1,21 +1,3 @@
-- type: job
-  id: Chemist
-  name: job-name-chemist
-  description: job-description-chemist
-  playTimeTracker: JobChemist
-  requirements:
-    - !type:DepartmentTimeRequirement
-      department: Medical
-      time: 5h
-  startingGear: ChemistGear
-  icon: "JobIconChemist"
-  supervisors: job-supervisors-cmo
-  guides: [ Chemist ]
-  access:
-  - Medical
-  - Chemistry
-  - Maintenance
-
 - type: startingGear
   id: ChemistGear
   equipment:
@@ -24,7 +6,6 @@
 
 - type: chameleonOutfit
   id: ChemistChameleonOutfit
-  job: Chemist
   equipment:
     head: ClothingHeadHatBeretMedic
     eyes: ClothingEyesGlassesChemical

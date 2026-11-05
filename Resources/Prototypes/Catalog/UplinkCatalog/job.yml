@@ -14,8 +14,7 @@
   - UplinkJob
   conditions:
   - !type:BuyerJobCondition
-    whitelist:
-    - Botanist
+    whitelist: []
 
 - type: listing
   id: UplinkHolyHandGrenade
@@ -31,8 +30,7 @@
   - UplinkJob
   conditions:
   - !type:BuyerJobCondition
-    whitelist:
-    - Chaplain
+    whitelist: []
 
 - type: listing
   id: UplinkClusterBananaPeel
@@ -48,8 +46,7 @@
   - UplinkJob
   conditions:
   - !type:BuyerJobCondition
-    whitelist:
-    - Clown
+    whitelist: []
 
 - type: listing
   id: UplinkHoloclownKit
@@ -66,8 +63,7 @@
   - UplinkJob
   conditions:
   - !type:BuyerJobCondition
-    whitelist:
-    - Clown
+    whitelist: []
 
 - type: listing
   id: UplinkHotPotato
@@ -83,11 +79,7 @@
   - UplinkJob
   conditions:
   - !type:BuyerJobCondition
-    whitelist:
-    - Chef
-    - Botanist
-    - Clown
-    - Mime
+    whitelist: []
 
 - type: listing
   id: UplinkChimpUpgradeKit
@@ -120,8 +112,7 @@
   - UplinkJob
   conditions:
   - !type:BuyerJobCondition
-    whitelist:
-    - Janitor
+    whitelist: []
   - !type:BuyerWhitelistCondition
     blacklist:
       components:
@@ -142,10 +133,7 @@
   - UplinkJob
   conditions:
   - !type:BuyerJobCondition # We can't use BuyerDepartmentCondition here since Chef can also get this
-    whitelist:
-    - Scientist
-    - ResearchDirector
-    - Chef
+    whitelist: []
 
 - type: listing
   id: UplinkCaneBlade
@@ -162,8 +150,7 @@
   - UplinkJob
   conditions:
   - !type:BuyerJobCondition
-    whitelist:
-    - Librarian
+    whitelist: []
 
 - type: listing
   id: UplinkCombatBakery
@@ -180,9 +167,7 @@
   - UplinkJob
   conditions:
   - !type:BuyerJobCondition
-    whitelist:
-    - Chef
-    - Mime
+    whitelist: []
 
 - type: listing
   id: UplinkAcolyteArmor
@@ -199,8 +184,7 @@
   - UplinkJob
   conditions:
   - !type:BuyerJobCondition
-    whitelist:
-    - Chaplain
+    whitelist: []
 
 - type: listing
   id: UplinkSawAdvanced
@@ -217,6 +201,5 @@
   - UplinkJob
   conditions:
   - !type:BuyerJobCondition
-    whitelist:
-    - MedicalDoctor
+    whitelist: []
 
