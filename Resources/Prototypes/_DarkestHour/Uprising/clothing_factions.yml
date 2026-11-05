@@ -1,0 +1,302 @@
+# «Восстание»: снаряжение ОФСК и Военной Полиции (решение автора 2026-11-05). Шлемы и бронежилеты — не выше
+# 2-го класса; один предмет 3-го класса — у пулемётчика ОФСК. Спрайты: КОФ-коммандос и ИТМ — CMU (Resources/Textures/_CMU14),
+# маршалы КМБ — RMC-14; всё CC-BY-SA-3.0.
+
+# ---------------------------------------------------------------- ОФСК: снаряжение КОФ-коммандос (CMU, CC-BY-SA-3.0)
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLFClothingUniformFighter
+  name: LFFC fatigues
+  description: "Patched work fatigues of a Liberation Front fighter."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Survivor/clf.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Survivor/clf.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLFClothingUniformCommando
+  name: LFFC combat uniform
+  description: "A combat uniform issued to the Front by the Independent Colonies."
+  components:
+  - type: Sprite
+    sprite: _CMU14/Clothing/CLF_Commandos/clfspec.rsi
+  - type: Clothing
+    sprite: _CMU14/Clothing/CLF_Commandos/clfspec.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLFClothingUniformLeader
+  name: LFFC squad leader uniform
+  description: "A combat uniform of a Front squad leader."
+  components:
+  - type: Sprite
+    sprite: _CMU14/Clothing/CLF_Commandos/clfspeclead.rsi
+  - type: Clothing
+    sprite: _CMU14/Clothing/CLF_Commandos/clfspeclead.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLFClothingUniformSpecialist
+  name: LFFC specialist uniform
+  description: "A combat uniform of a Front specialist."
+  components:
+  - type: Sprite
+    sprite: _CMU14/Clothing/CLF_Commandos/clfspecmed.rsi
+  - type: Clothing
+    sprite: _CMU14/Clothing/CLF_Commandos/clfspecmed.rsi
+
+- type: entity
+  parent: DHClothingOuterVestBase
+  id: DHLFClothingOuterVestLight
+  name: LFFC soft vest
+  description: "A colonial vest with soft armour panels. Class 1 protection for the torso only."
+  components:
+  - type: Sprite
+    sprite: _CMU14/Clothing/CLF_Commandos/clfspecarmor.rsi
+    color: "#b8b8a0"
+  - type: Clothing
+    sprite: _CMU14/Clothing/CLF_Commandos/clfspecarmor.rsi
+  - type: DHPartArmor
+    parts: [ Torso ]
+    armorClass: 1
+
+- type: entity
+  parent: DHClothingOuterVestBase
+  id: DHLFClothingOuterVest
+  name: LFFC plate carrier
+  description: "A colonial plate carrier with steel plates. Class 2 protection for the torso only."
+  components:
+  - type: Sprite
+    sprite: _CMU14/Clothing/CLF_Commandos/clfspecarmor.rsi
+  - type: Clothing
+    sprite: _CMU14/Clothing/CLF_Commandos/clfspecarmor.rsi
+  - type: DHPartArmor
+    parts: [ Torso ]
+    armorClass: 2
+
+- type: entity
+  parent: DHClothingOuterVestBase
+  id: DHLFClothingOuterVestHeavy
+  name: LFFC heavy plate carrier
+  description: "A machine gunner's colonial carrier with thick ceramic plates. Class 3 protection for the torso only."
+  components:
+  - type: Sprite
+    sprite: _CMU14/Clothing/CLF_Commandos/clfspecarmor.rsi
+    color: "#9a8a78"
+  - type: Clothing
+    sprite: _CMU14/Clothing/CLF_Commandos/clfspecarmor.rsi
+  - type: DHPartArmor
+    parts: [ Torso ]
+    armorClass: 3
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLFClothingHeadHelmetLight
+  name: LFFC light helmet
+  description: "A light colonial helmet. Class 1 protection for the head."
+  components:
+  - type: Sprite
+    sprite: _CMU14/Clothing/CLF_Commandos/clfspechelmet.rsi
+    color: "#b8b8a0"
+  - type: Clothing
+    sprite: _CMU14/Clothing/CLF_Commandos/clfspechelmet.rsi
+  - type: DHPartArmor
+    parts: [ Head ]
+    armorClass: 1
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLFClothingHeadHelmet
+  name: LFFC helmet
+  description: "A colonial combat helmet. Class 2 protection for the head."
+  components:
+  - type: Sprite
+    sprite: _CMU14/Clothing/CLF_Commandos/clfspechelmet.rsi
+  - type: Clothing
+    sprite: _CMU14/Clothing/CLF_Commandos/clfspechelmet.rsi
+  - type: DHPartArmor
+    parts: [ Head ]
+    armorClass: 2
+
+# ---------------------------------------------------------------- Военная Полиция: снаряжение маршалов КМБ (RMC-14) и ИТМ (CMU), CC-BY-SA-3.0
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAMPClothingUniform
+  name: Military Police uniform
+  description: "A navy service uniform of the Republic Military Police."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/CMB/cmb_marshal_uniform.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/CMB/cmb_marshal_uniform.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAMPClothingUniformGuard
+  name: Military Police guard fatigues
+  description: "Black fatigues of a Military Police prison guard."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/CMB/cmb_swat_uniform.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/CMB/cmb_swat_uniform.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAMPClothingUniformInvestigator
+  name: Military Police investigator uniform
+  description: "Plain-cut fatigues of a Military Police investigator."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/CMB/cmb_swatleader_uniform.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/CMB/cmb_swatleader_uniform.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAMPClothingUniformCommand
+  name: Military Police command uniform
+  description: "A black command uniform of the Military Police leadership."
+  components:
+  - type: Sprite
+    sprite: _CMU14/Clothing/TWE/blackjumpsuit.rsi
+  - type: Clothing
+    sprite: _CMU14/Clothing/TWE/blackjumpsuit.rsi
+
+- type: entity
+  parent: DHClothingOuterVestBase
+  id: DHLAMPClothingOuterVestLight
+  name: Military Police patrol vest
+  description: "A light patrol vest. Class 1 protection for the torso only."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/CMB/cmb_light_armor.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/CMB/cmb_light_armor.rsi
+  - type: DHPartArmor
+    parts: [ Torso ]
+    armorClass: 1
+
+- type: entity
+  parent: DHClothingOuterVestBase
+  id: DHLAMPClothingOuterVest
+  name: Military Police plate carrier
+  description: "A plate carrier of the Military Police. Class 2 protection for the torso only."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/CMB/cmb_mobility_armor.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/CMB/cmb_mobility_armor.rsi
+  - type: DHPartArmor
+    parts: [ Torso ]
+    armorClass: 2
+
+- type: entity
+  parent: DHClothingOuterVestBase
+  id: DHLAMPClothingOuterVestGuard
+  name: Military Police riot armour
+  description: "Riot armour of the prison guard. Class 2 protection for the torso only."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/CMB/cmb_heavy_armor.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/CMB/cmb_heavy_armor.rsi
+  - type: DHPartArmor
+    parts: [ Torso ]
+    armorClass: 2
+
+- type: entity
+  parent: DHClothingOuterVestBase
+  id: DHLAMPClothingOuterVestCommand
+  name: Military Police command armour
+  description: "Armour of the deputy chief. Class 2 protection for the torso only."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/CMB/cmb_sheriff_armor.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/CMB/cmb_sheriff_armor.rsi
+  - type: DHPartArmor
+    parts: [ Torso ]
+    armorClass: 2
+
+- type: entity
+  parent: DHClothingOuterVestBase
+  id: DHLAMPClothingOuterCoatInvestigator
+  name: Military Police investigator coat
+  description: "A grey trench coat with soft armour panels sewn in. Class 1 protection for the torso only."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/Bureau/trench_grey.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/Bureau/trench_grey.rsi
+  - type: DHPartArmor
+    parts: [ Torso ]
+    armorClass: 1
+
+- type: entity
+  parent: DHClothingOuterVestBase
+  id: DHLAMPClothingOuterCoatChief
+  name: Military Police chief coat
+  description: "The long coat of the Military Police chief, with plates under the lining. Class 2 protection for the torso only."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/Provost/provost_coat_marshal.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/Provost/provost_coat_marshal.rsi
+  - type: DHPartArmor
+    parts: [ Torso ]
+    armorClass: 2
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLAMPClothingHeadBeret
+  name: Military Police beret
+  description: "A navy beret of the Republic Military Police."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/beret_cmb.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/beret_cmb.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLAMPClothingHeadCap
+  name: Military Police chief cap
+  description: "A peaked cap of the Military Police chief."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Royal/peaked.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Royal/peaked.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLAMPClothingHeadHelmetLight
+  name: Military Police cadet helmet
+  description: "A black ballistic helmet. Class 1 protection for the head."
+  components:
+  - type: Sprite
+    sprite: _CMU14/Clothing/TWE/l1ballistic_black.rsi
+  - type: Clothing
+    sprite: _CMU14/Clothing/TWE/l1ballistic_black.rsi
+  - type: DHPartArmor
+    parts: [ Head ]
+    armorClass: 1
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLAMPClothingHeadHelmet
+  name: Military Police helmet
+  description: "A Military Police combat helmet. Class 2 protection for the head."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Helmets/CMB/cmb_helmet.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Helmets/CMB/cmb_helmet.rsi
+  - type: DHPartArmor
+    parts: [ Head ]
+    armorClass: 2

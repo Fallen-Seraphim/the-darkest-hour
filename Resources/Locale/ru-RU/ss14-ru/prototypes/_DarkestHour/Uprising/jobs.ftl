@@ -82,29 +82,59 @@ ent-DHLAIDCardVEmployee = { ent-DHLAIDCardBase }
     .desc = { ent-DHLAIDCardBase.desc }
     .suffix = сотрудник LA-V
 
-ent-SpawnPointDHLAMPCommander = начальник отделения Военной Полиции
+ent-SpawnPointDHLAMPChief = начальник Военной Полиции
     .suffix = точка появления
 
-ent-DHLAIDCardMPCommander = { ent-DHLAIDCardBase }
+ent-DHLAIDCardMPChief = { ent-DHLAIDCardBase }
     .desc = { ent-DHLAIDCardBase.desc }
-    .suffix = начальник отделения Военной Полиции
+    .suffix = начальник Военной Полиции
 
-ent-SpawnPointDHLAMPSergeant = сержант Военной Полиции
+ent-SpawnPointDHLAMPDeputyChief = заместитель начальника Военной Полиции
     .suffix = точка появления
 
-ent-DHLAIDCardMPSergeant = { ent-DHLAIDCardBase }
+ent-DHLAIDCardMPDeputyChief = { ent-DHLAIDCardBase }
     .desc = { ent-DHLAIDCardBase.desc }
-    .suffix = сержант Военной Полиции
+    .suffix = заместитель начальника Военной Полиции
 
-ent-SpawnPointDHLAMPOfficer = военный полицейский
+ent-SpawnPointDHLAMPInvestigator = следователь Военной Полиции
+    .suffix = точка появления
+
+ent-DHLAIDCardMPInvestigator = { ent-DHLAIDCardBase }
+    .desc = { ent-DHLAIDCardBase.desc }
+    .suffix = следователь Военной Полиции
+
+ent-SpawnPointDHLAMPWarden = тюремный надзиратель Военной Полиции
+    .suffix = точка появления
+
+ent-DHLAIDCardMPWarden = { ent-DHLAIDCardBase }
+    .desc = { ent-DHLAIDCardBase.desc }
+    .suffix = тюремный надзиратель Военной Полиции
+
+ent-SpawnPointDHLAMPOfficer = офицер Военной Полиции
     .suffix = точка появления
 
 ent-DHLAIDCardMPOfficer = { ent-DHLAIDCardBase }
     .desc = { ent-DHLAIDCardBase.desc }
-    .suffix = военный полицейский
+    .suffix = офицер Военной Полиции
 
-ent-SpawnPointDHLAFrontCommissar = комиссар ОФСК
+ent-SpawnPointDHLAMPCadet = кадет Военной Полиции
     .suffix = точка появления
 
-ent-SpawnPointDHLAFrontFighter = боец ОФСК
+ent-DHLAIDCardMPCadet = { ent-DHLAIDCardBase }
+    .desc = { ent-DHLAIDCardBase.desc }
+    .suffix = кадет Военной Полиции
+
+ent-SpawnPointDHLAFrontLeader = глава отряда ОФСК
+    .suffix = точка появления
+
+ent-SpawnPointDHLAFrontSaboteur = диверсант ОФСК
+    .suffix = точка появления
+
+ent-SpawnPointDHLAFrontSpecialist = специалист ОФСК
+    .suffix = точка появления
+
+ent-SpawnPointDHLAFrontMachinegunner = пулемётчик ОФСК
+    .suffix = точка появления
+
+ent-SpawnPointDHLAFrontRebel = повстанец ОФСК
     .suffix = точка появления

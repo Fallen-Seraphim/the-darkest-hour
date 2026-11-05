@@ -196,12 +196,13 @@
     back:
     - Paper
 
-# ---------------------------------------------------------------- Военная Полиция (ВРЕМЕННО)
+# ---------------------------------------------------------------- Военная Полиция (решение автора 2026-11-05)
+# Снаряжение маршалов КМБ; оружие — RMPR-09-19 (в т. ч. резина), RMPR-62-39 и частично слабое оружие Республики.
 
 - type: startingGear
   id: DHLAMPGearBase
   equipment:
-    jumpsuit: ClothingUniformJumpsuitSec
+    jumpsuit: DHLAMPClothingUniform
     shoes: ClothingShoesBootsJack
     gloves: ClothingHandsGlovesColorBlack
     ears: DHClothingHeadsetLAPolice
@@ -212,39 +213,76 @@
     back:
     - Handcuffs
     - Handcuffs
+    - DHIFAKFilled
+
+- type: startingGear
+  parent: DHLAMPGearBase
+  id: DHLAMPChiefGear
+  equipment:
+    id: DHLAIDCardMPChief
+    jumpsuit: DHLAMPClothingUniformCommand
+    head: DHLAMPClothingHeadCap
+    outerClothing: DHLAMPClothingOuterCoatChief
+    suitstorage: DHWeaponSMGRPRM902
+  storage:
+    back:
+    - DHMagazine10x24ShortE
+    - DHMagazine10x24ShortE
+    - DHMagazine10x24ShortE
     - Handcuffs
     - DHIFAKFilled
 
 - type: startingGear
   parent: DHLAMPGearBase
-  id: DHLAMPCommanderGear
+  id: DHLAMPDeputyChiefGear
   equipment:
-    id: DHLAIDCardMPCommander
-    jumpsuit: ClothingUniformJumpsuitHoS
-    head: ClothingHeadHatBeretSecurity
-    outerClothing: DHClothingOuterVestRepublicHeavy
-    pocket1: DHWeaponPistolMk58
+    id: DHLAIDCardMPDeputyChief
+    jumpsuit: DHLAMPClothingUniformCommand
+    head: DHLAMPClothingHeadBeret
+    outerClothing: DHLAMPClothingOuterVestCommand
+    suitstorage: DHWeaponRifleRMPR6239
   storage:
     back:
-    - DHMagazine10x24ShortE
-    - DHMagazine10x24ShortE
+    - DHMagazine762x39FMG
+    - DHMagazine762x39FMG
+    - DHMagazine762x39FMG
     - Handcuffs
     - DHIFAKFilled
 
 - type: startingGear
   parent: DHLAMPGearBase
-  id: DHLAMPSergeantGear
+  id: DHLAMPInvestigatorGear
   equipment:
-    id: DHLAIDCardMPSergeant
-    jumpsuit: ClothingUniformJumpsuitWarden
-    head: ClothingHeadHatBeretSecurity
-    outerClothing: DHClothingOuterVestRepublicHeavy
-    suitstorage: DHWeaponSMGRAPTORM1216
+    id: DHLAIDCardMPInvestigator
+    jumpsuit: DHLAMPClothingUniformInvestigator
+    head: DHLAMPClothingHeadBeret
+    outerClothing: DHLAMPClothingOuterCoatInvestigator
+    suitstorage: DHWeaponSMGRPRM902
   storage:
     back:
-    - DHMagazine10x24SVP
-    - DHMagazine10x24SVP
-    - DHMagazine10x24SVP
+    - DHMagazine10x24ShortE
+    - DHMagazine10x24ShortE
+    - ForensicScanner
+    - Handcuffs
+    - DHIFAKFilled
+
+- type: startingGear
+  parent: DHLAMPGearBase
+  id: DHLAMPWardenGear
+  equipment:
+    id: DHLAIDCardMPWarden
+    jumpsuit: DHLAMPClothingUniformGuard
+    head: DHLAMPClothingHeadHelmet
+    outerClothing: DHLAMPClothingOuterVestGuard
+    suitstorage: DHWeaponSMGRMPR0919
+  storage:
+    back:
+    - DHMagazine9x19RUB
+    - DHMagazine9x19RUB
+    - DHMagazine9x19FMG
+    - Stunbaton
+    - Handcuffs
+    - Handcuffs
     - Handcuffs
     - DHIFAKFilled
 
@@ -253,48 +291,140 @@
   id: DHLAMPOfficerGear
   equipment:
     id: DHLAIDCardMPOfficer
-    head: ClothingHeadHatBeretSecurity
-    outerClothing: DHClothingOuterVestRepublic
-    suitstorage: DHWeaponSMGRAPTORM1216
+    head: DHLAMPClothingHeadHelmet
+    outerClothing: DHLAMPClothingOuterVest
+    suitstorage: DHWeaponRifleRMPR6239
   storage:
     back:
-    - DHMagazine10x24SVP
-    - DHMagazine10x24SVP
+    - DHMagazine762x39FMG
+    - DHMagazine762x39FMG
+    - DHMagazine762x39FMG
     - Handcuffs
     - DHIFAKFilled
 
-# ---------------------------------------------------------------- ОФСК (ВРЕМЕННО): одеты как жители, оружие — в сумке
-
 - type: startingGear
-  parent: DHLACivilianGearBase
-  id: DHLAFrontCommissarGear
+  parent: DHLAMPGearBase
+  id: DHLAMPCadetGear
   equipment:
-    id: DHLAIDCardResident
-    jumpsuit: ClothingUniformJumpsuitColorDarkGreen
-    outerClothing: ClothingOuterCoatBomber
-    neck: ClothingNeckScarfStripedRed
-    back: ClothingBackpackDuffel
+    id: DHLAIDCardMPCadet
+    head: DHLAMPClothingHeadHelmetLight
+    outerClothing: DHLAMPClothingOuterVestLight
+    suitstorage: DHWeaponSMGRMPR0919
   storage:
     back:
-    - DHClothingHeadsetLAFront
-    - DHWeaponSMGRPRM902
-    - DHMagazine10x24ShortE
-    - DHMagazine10x24ShortE
-    - DHMagazine10x24ShortE
+    - DHMagazine9x19RUB
+    - DHMagazine9x19RUB
+    - DHMagazine9x19FMG
+    - Stunbaton
+    - Handcuffs
+    - DHIFAKFilled
+
+# ---------------------------------------------------------------- ОФСК (решение автора 2026-11-05)
+# Снаряжение КОФ-коммандос, выданное Объединёнными Независимыми Колониями; оружие — ОНК. Удостоверение — жителя.
+# Шлем и бронежилет — не выше 2-го класса; один предмет 3-го класса — бронежилет пулемётчика.
+
+- type: startingGear
+  id: DHLAFrontGearBase
+  equipment:
+    id: DHLAIDCardResident
+    shoes: ClothingShoesBootsJack
+    gloves: ClothingHandsGlovesFingerless
+    ears: DHClothingHeadsetLAFront
+    back: ClothingBackpackDuffel
+    pocket1: SpaceCash100
+  storage:
+    back:
     - ClothingMaskBandRed
     - DHIFAKFilled
 
 - type: startingGear
-  parent: DHLACivilianGearBase
-  id: DHLAFrontFighterGear
+  parent: DHLAFrontGearBase
+  id: DHLAFrontLeaderGear
   equipment:
-    id: DHLAIDCardResident
-    jumpsuit: ClothingUniformJumpsuitColorLightBrown
-    outerClothing: ClothingOuterHoodieBlack
+    jumpsuit: DHLFClothingUniformLeader
+    head: DHLFClothingHeadHelmet
+    outerClothing: DHLFClothingOuterVest
+    suitstorage: DHWeaponRifleFS2A
+    pocket2: DHWeaponPistolABZ9
   storage:
     back:
-    - DHClothingHeadsetLAFront
-    - DHWeaponPistolMk58
-    - DHMagazine10x24ShortE
-    - DHMagazine10x24ShortE
+    - DHMagazineFS2CLN
+    - DHMagazineFS2CLN
+    - DHMagazineFS2CLB
+    - DHMagazineFS2RAS
+    - DHMagazineABZ9CLN
+    - DHAttachmentOptic2x
     - ClothingMaskBandRed
+    - DHIFAKFilled
+
+- type: startingGear
+  parent: DHLAFrontGearBase
+  id: DHLAFrontSaboteurGear
+  equipment:
+    jumpsuit: DHLFClothingUniformFighter
+    outerClothing: DHLFClothingOuterVestLight
+    suitstorage: DHWeaponRifleFS2S
+    pocket2: DHWeaponPistolABZ9
+  storage:
+    back:
+    - DHMagazineFS2MediumCLN
+    - DHMagazineFS2MediumCLN
+    - DHMagazineABZ9CLN
+    - C4
+    - C4
+    - C4
+    - Wirecutter
+    - ClothingMaskBandRed
+    - DHIFAKFilled
+
+- type: startingGear
+  parent: DHLAFrontGearBase
+  id: DHLAFrontSpecialistGear
+  equipment:
+    jumpsuit: DHLFClothingUniformSpecialist
+    head: DHLFClothingHeadHelmet
+    outerClothing: DHLFClothingOuterVest
+    suitstorage: DHWeaponRifleDS3A
+    pocket2: DHWeaponPistolABZ9
+  storage:
+    back:
+    - DHMagazineDS3CLN
+    - DHMagazineDS3CLN
+    - DHMagazineDS3CLN
+    - DHMagazineABZ9CLN
+    - DHAttachmentOptic4x
+    - ClothingMaskBandRed
+    - DHIFAKFilled
+
+- type: startingGear
+  parent: DHLAFrontGearBase
+  id: DHLAFrontMachinegunnerGear
+  equipment:
+    jumpsuit: DHLFClothingUniformCommando
+    head: DHLFClothingHeadHelmet
+    outerClothing: DHLFClothingOuterVestHeavy
+    suitstorage: DHWeaponLMGFS2T
+    pocket2: DHWeaponPistolABZ9
+  storage:
+    back:
+    - DHMagazineFS2TCLN
+    - DHMagazineFS2TCLN
+    - DHMagazineABZ9CLN
+    - ClothingMaskBandRed
+    - DHIFAKFilled
+
+- type: startingGear
+  parent: DHLAFrontGearBase
+  id: DHLAFrontRebelGear
+  equipment:
+    jumpsuit: DHLFClothingUniformFighter
+    head: DHLFClothingHeadHelmetLight
+    outerClothing: DHLFClothingOuterVestLight
+    suitstorage: DHWeaponRifleFS2E
+  storage:
+    back:
+    - DHMagazineFS2ECLN
+    - DHMagazineFS2ECLN
+    - DHMagazineFS2ERAS
+    - ClothingMaskBandRed
+    - DHIFAKFilled

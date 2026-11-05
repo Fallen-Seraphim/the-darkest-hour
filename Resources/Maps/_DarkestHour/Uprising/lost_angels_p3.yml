@@ -3832,7 +3832,7 @@ entities:
     - type: Transform
       pos: 60.5,69.5
       parent: 1
-- proto: SpawnPointDHLAFrontFighter
+- proto: SpawnPointDHLAFrontMachinegunner
   entities:
   - uid: 683
     components:
@@ -3842,42 +3842,44 @@ entities:
   - uid: 684
     components:
     - type: Transform
-      pos: -79.5,7.5
+      pos: -55.5,-2.5
       parent: 1
   - uid: 685
     components:
     - type: Transform
-      pos: -79.5,13.5
+      pos: -80.5,-30.5
       parent: 1
   - uid: 686
     components:
     - type: Transform
-      pos: -79.5,19.5
+      pos: -44.5,-30.5
       parent: 1
   - uid: 687
     components:
     - type: Transform
-      pos: -79.5,25.5
+      pos: -56.5,-61.5
       parent: 1
+- proto: SpawnPointDHLAFrontRebel
+  entities:
   - uid: 688
     components:
     - type: Transform
-      pos: -55.5,-8.5
+      pos: -79.5,7.5
       parent: 1
   - uid: 689
     components:
     - type: Transform
-      pos: -55.5,-2.5
+      pos: -79.5,19.5
       parent: 1
   - uid: 690
     components:
     - type: Transform
-      pos: -55.5,3.5
+      pos: -55.5,-8.5
       parent: 1
   - uid: 691
     components:
     - type: Transform
-      pos: -55.5,9.5
+      pos: -55.5,3.5
       parent: 1
   - uid: 692
     components:
@@ -3887,77 +3889,81 @@ entities:
   - uid: 693
     components:
     - type: Transform
-      pos: -55.5,21.5
+      pos: -74.5,-30.5
       parent: 1
   - uid: 694
     components:
     - type: Transform
-      pos: -80.5,-30.5
+      pos: -62.5,-30.5
       parent: 1
   - uid: 695
     components:
     - type: Transform
-      pos: -74.5,-30.5
+      pos: -50.5,-30.5
       parent: 1
   - uid: 696
     components:
     - type: Transform
-      pos: -68.5,-30.5
+      pos: -74.5,-61.5
       parent: 1
   - uid: 697
     components:
     - type: Transform
-      pos: -62.5,-30.5
+      pos: -62.5,-61.5
       parent: 1
   - uid: 698
     components:
     - type: Transform
-      pos: -56.5,-30.5
+      pos: -50.5,-61.5
       parent: 1
+- proto: SpawnPointDHLAFrontSaboteur
+  entities:
   - uid: 699
     components:
     - type: Transform
-      pos: -50.5,-30.5
+      pos: -79.5,13.5
       parent: 1
   - uid: 700
     components:
     - type: Transform
-      pos: -44.5,-30.5
+      pos: -55.5,9.5
       parent: 1
   - uid: 701
     components:
     - type: Transform
-      pos: -80.5,-61.5
+      pos: -68.5,-30.5
       parent: 1
   - uid: 702
     components:
     - type: Transform
-      pos: -74.5,-61.5
+      pos: -80.5,-61.5
       parent: 1
   - uid: 703
     components:
     - type: Transform
-      pos: -68.5,-61.5
+      pos: -44.5,-61.5
       parent: 1
+- proto: SpawnPointDHLAFrontSpecialist
+  entities:
   - uid: 704
     components:
     - type: Transform
-      pos: -62.5,-61.5
+      pos: -79.5,25.5
       parent: 1
   - uid: 705
     components:
     - type: Transform
-      pos: -56.5,-61.5
+      pos: -55.5,21.5
       parent: 1
   - uid: 706
     components:
     - type: Transform
-      pos: -50.5,-61.5
+      pos: -56.5,-30.5
       parent: 1
   - uid: 707
     components:
     - type: Transform
-      pos: -44.5,-61.5
+      pos: -68.5,-61.5
       parent: 1
 - proto: SpawnPointDHLAOfficeWorker
   entities:

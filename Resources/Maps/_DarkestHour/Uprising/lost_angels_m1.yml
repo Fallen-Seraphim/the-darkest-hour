@@ -18638,7 +18638,7 @@ entities:
     - type: Transform
       pos: -43.5,45.5
       parent: 1
-- proto: SpawnPointDHLAFrontCommissar
+- proto: SpawnPointDHLAFrontLeader
   entities:
   - uid: 3619
     components:

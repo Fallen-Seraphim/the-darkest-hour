@@ -85,11 +85,11 @@
   parent: BaseGameRule
   components:
   - type: DHUprisingRule
-    policeJobs: [ DHLAMPCommander, DHLAMPSergeant, DHLAMPOfficer ]
-    frontJobs: [ DHLAFrontCommissar, DHLAFrontFighter ]
+    policeJobs: [ DHLAMPChief, DHLAMPDeputyChief, DHLAMPInvestigator, DHLAMPWarden, DHLAMPOfficer, DHLAMPCadet ]
+    frontJobs: [ DHLAFrontLeader, DHLAFrontSaboteur, DHLAFrontSpecialist, DHLAFrontMachinegunner, DHLAFrontRebel ]
     vanguardJobs: [ DHLAVRepresentative, DHLAVAssistant, DHLAVSecurity, DHLAVEmployee ]
     vipJobs: [ DHLAVRepresentative ]
-    leaderJobs: [ DHLAFrontCommissar ]
+    leaderJobs: [ DHLAFrontLeader ]
 
 - type: gamePreset
   id: DHUprising
@@ -133,8 +133,14 @@
           DHLAVAssistant: [ 1, 1 ]
           DHLAVSecurity: [ 2, 2 ]
           DHLAVEmployee: [ 2, 2 ]
-          DHLAMPCommander: [ 1, 1 ]
-          DHLAMPSergeant: [ 2, 2 ]
-          DHLAMPOfficer: [ 12, 12 ]
-          DHLAFrontCommissar: [ 2, 2 ]
-          DHLAFrontFighter: [ 10, 10 ]
+          DHLAMPChief: [ 1, 1 ]
+          DHLAMPDeputyChief: [ 1, 1 ]
+          DHLAMPInvestigator: [ 2, 2 ]
+          DHLAMPWarden: [ 2, 2 ]
+          DHLAMPOfficer: [ 8, 8 ]
+          DHLAMPCadet: [ 3, 3 ]
+          DHLAFrontLeader: [ 2, 2 ]
+          DHLAFrontSaboteur: [ 2, 2 ]
+          DHLAFrontSpecialist: [ 2, 2 ]
+          DHLAFrontMachinegunner: [ 2, 2 ]
+          DHLAFrontRebel: [ 10, 10 ]

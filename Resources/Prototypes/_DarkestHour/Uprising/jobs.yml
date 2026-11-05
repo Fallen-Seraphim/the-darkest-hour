@@ -69,9 +69,12 @@
   color: "#3f5f9e"
   weight: 80
   roles:
-  - DHLAMPCommander
-  - DHLAMPSergeant
+  - DHLAMPChief
+  - DHLAMPDeputyChief
+  - DHLAMPInvestigator
+  - DHLAMPWarden
   - DHLAMPOfficer
+  - DHLAMPCadet
 
 - type: department
   id: DHLAFront
@@ -80,8 +83,11 @@
   color: "#c8322b"
   weight: 80
   roles:
-  - DHLAFrontCommissar
-  - DHLAFrontFighter
+  - DHLAFrontLeader
+  - DHLAFrontSaboteur
+  - DHLAFrontSpecialist
+  - DHLAFrontMachinegunner
+  - DHLAFrontRebel
 
 - type: job
   id: DHLADistrictHead
@@ -669,32 +675,32 @@
       state: Visitor
 
 - type: job
-  id: DHLAMPCommander
-  name: dh-job-lamp-commander-name
-  description: dh-job-lamp-commander-desc
-  playTimeTracker: JobDHLAMPCommander
-  startingGear: DHLAMPCommanderGear
-  icon: JobIconDHLAMPCommander
+  id: DHLAMPChief
+  name: dh-job-lamp-chief-name
+  description: dh-job-lamp-chief-desc
+  playTimeTracker: JobDHLAMPChief
+  startingGear: DHLAMPChiefGear
+  icon: JobIconDHLAMPChief
   supervisors: dh-job-la-military-police-supervisors
   access:
   - DHLAPolice
   - DHLAPoliceCommand
 
 - type: playTimeTracker
-  id: JobDHLAMPCommander
+  id: JobDHLAMPChief
 
 - type: jobIcon
   parent: JobIcon
-  id: JobIconDHLAMPCommander
+  id: JobIconDHLAMPChief
   icon:
     sprite: /Textures/Interface/Misc/job_icons.rsi
     state: HeadOfSecurity
-  jobName: dh-job-lamp-commander-name
+  jobName: dh-job-lamp-chief-name
 
 - type: entity
   parent: DHLAIDCardBase
-  id: DHLAIDCardMPCommander
-  suffix: Military Police commander
+  id: DHLAIDCardMPChief
+  suffix: Military Police chief
   components:
   - type: Sprite
     layers:
@@ -703,15 +709,15 @@
       offset: -0.09375, 0.0625
       state: HeadOfSecurity
   - type: PresetIdCard
-    job: DHLAMPCommander
+    job: DHLAMPChief
 
 - type: entity
   parent: SpawnPointJobBase
-  id: SpawnPointDHLAMPCommander
-  name: military police commander
+  id: SpawnPointDHLAMPChief
+  name: military police chief
   components:
   - type: SpawnPoint
-    job_id: DHLAMPCommander
+    job_id: DHLAMPChief
   - type: Sprite
     layers:
     - state: green
@@ -719,32 +725,131 @@
       state: HeadOfSecurity
 
 - type: job
-  id: DHLAMPSergeant
-  name: dh-job-lamp-sergeant-name
-  description: dh-job-lamp-sergeant-desc
-  playTimeTracker: JobDHLAMPSergeant
-  startingGear: DHLAMPSergeantGear
-  icon: JobIconDHLAMPSergeant
+  id: DHLAMPDeputyChief
+  name: dh-job-lamp-deputy-chief-name
+  description: dh-job-lamp-deputy-chief-desc
+  playTimeTracker: JobDHLAMPDeputyChief
+  startingGear: DHLAMPDeputyChiefGear
+  icon: JobIconDHLAMPDeputyChief
   supervisors: dh-job-la-military-police-supervisors
   access:
   - DHLAPolice
   - DHLAPoliceCommand
 
 - type: playTimeTracker
-  id: JobDHLAMPSergeant
+  id: JobDHLAMPDeputyChief
 
 - type: jobIcon
   parent: JobIcon
-  id: JobIconDHLAMPSergeant
+  id: JobIconDHLAMPDeputyChief
   icon:
     sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: Warden
-  jobName: dh-job-lamp-sergeant-name
+    state: SeniorOfficer
+  jobName: dh-job-lamp-deputy-chief-name
 
 - type: entity
   parent: DHLAIDCardBase
-  id: DHLAIDCardMPSergeant
-  suffix: Military Police sergeant
+  id: DHLAIDCardMPDeputyChief
+  suffix: Deputy chief of the Military Police
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: SeniorOfficer
+  - type: PresetIdCard
+    job: DHLAMPDeputyChief
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAMPDeputyChief
+  name: deputy chief of the military police
+  components:
+  - type: SpawnPoint
+    job_id: DHLAMPDeputyChief
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: SeniorOfficer
+
+- type: job
+  id: DHLAMPInvestigator
+  name: dh-job-lamp-investigator-name
+  description: dh-job-lamp-investigator-desc
+  playTimeTracker: JobDHLAMPInvestigator
+  startingGear: DHLAMPInvestigatorGear
+  icon: JobIconDHLAMPInvestigator
+  supervisors: dh-job-la-military-police-supervisors
+  access:
+  - DHLAPolice
+
+- type: playTimeTracker
+  id: JobDHLAMPInvestigator
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAMPInvestigator
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: Detective
+  jobName: dh-job-lamp-investigator-name
+
+- type: entity
+  parent: DHLAIDCardBase
+  id: DHLAIDCardMPInvestigator
+  suffix: Military Police investigator
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Detective
+  - type: PresetIdCard
+    job: DHLAMPInvestigator
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAMPInvestigator
+  name: military police investigator
+  components:
+  - type: SpawnPoint
+    job_id: DHLAMPInvestigator
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: Detective
+
+- type: job
+  id: DHLAMPWarden
+  name: dh-job-lamp-warden-name
+  description: dh-job-lamp-warden-desc
+  playTimeTracker: JobDHLAMPWarden
+  startingGear: DHLAMPWardenGear
+  icon: JobIconDHLAMPWarden
+  supervisors: dh-job-la-military-police-supervisors
+  access:
+  - DHLAPolice
+  - DHLAPoliceCommand
+
+- type: playTimeTracker
+  id: JobDHLAMPWarden
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAMPWarden
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: Warden
+  jobName: dh-job-lamp-warden-name
+
+- type: entity
+  parent: DHLAIDCardBase
+  id: DHLAIDCardMPWarden
+  suffix: Military Police prison warden
   components:
   - type: Sprite
     layers:
@@ -753,15 +858,15 @@
       offset: -0.09375, 0.0625
       state: Warden
   - type: PresetIdCard
-    job: DHLAMPSergeant
+    job: DHLAMPWarden
 
 - type: entity
   parent: SpawnPointJobBase
-  id: SpawnPointDHLAMPSergeant
-  name: military police sergeant
+  id: SpawnPointDHLAMPWarden
+  name: military police prison warden
   components:
   - type: SpawnPoint
-    job_id: DHLAMPSergeant
+    job_id: DHLAMPWarden
   - type: Sprite
     layers:
     - state: green
@@ -818,24 +923,73 @@
       state: SecurityOfficer
 
 - type: job
-  id: DHLAFrontCommissar
-  name: dh-job-la-front-commissar-name
-  description: dh-job-la-front-commissar-desc
-  playTimeTracker: JobDHLAFrontCommissar
-  startingGear: DHLAFrontCommissarGear
+  id: DHLAMPCadet
+  name: dh-job-lamp-cadet-name
+  description: dh-job-lamp-cadet-desc
+  playTimeTracker: JobDHLAMPCadet
+  startingGear: DHLAMPCadetGear
+  icon: JobIconDHLAMPCadet
+  supervisors: dh-job-la-military-police-supervisors
+  access:
+  - DHLAPolice
+
+- type: playTimeTracker
+  id: JobDHLAMPCadet
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAMPCadet
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: SecurityCadet
+  jobName: dh-job-lamp-cadet-name
+
+- type: entity
+  parent: DHLAIDCardBase
+  id: DHLAIDCardMPCadet
+  suffix: Military Police cadet
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: SecurityCadet
+  - type: PresetIdCard
+    job: DHLAMPCadet
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAMPCadet
+  name: military police cadet
+  components:
+  - type: SpawnPoint
+    job_id: DHLAMPCadet
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: SecurityCadet
+
+- type: job
+  id: DHLAFrontLeader
+  name: dh-job-la-front-leader-name
+  description: dh-job-la-front-leader-desc
+  playTimeTracker: JobDHLAFrontLeader
+  startingGear: DHLAFrontLeaderGear
   icon: JobIconDHLAResident
   supervisors: dh-job-la-front-supervisors
 
 - type: playTimeTracker
-  id: JobDHLAFrontCommissar
+  id: JobDHLAFrontLeader
 
 - type: entity
   parent: SpawnPointJobBase
-  id: SpawnPointDHLAFrontCommissar
-  name: lffc commissar
+  id: SpawnPointDHLAFrontLeader
+  name: lffc squad leader
   components:
   - type: SpawnPoint
-    job_id: DHLAFrontCommissar
+    job_id: DHLAFrontLeader
   - type: Sprite
     layers:
     - state: green
@@ -843,24 +997,99 @@
       state: HeadRevolutionary
 
 - type: job
-  id: DHLAFrontFighter
-  name: dh-job-la-front-fighter-name
-  description: dh-job-la-front-fighter-desc
-  playTimeTracker: JobDHLAFrontFighter
-  startingGear: DHLAFrontFighterGear
+  id: DHLAFrontSaboteur
+  name: dh-job-la-front-saboteur-name
+  description: dh-job-la-front-saboteur-desc
+  playTimeTracker: JobDHLAFrontSaboteur
+  startingGear: DHLAFrontSaboteurGear
   icon: JobIconDHLAResident
   supervisors: dh-job-la-front-supervisors
 
 - type: playTimeTracker
-  id: JobDHLAFrontFighter
+  id: JobDHLAFrontSaboteur
 
 - type: entity
   parent: SpawnPointJobBase
-  id: SpawnPointDHLAFrontFighter
-  name: lffc fighter
+  id: SpawnPointDHLAFrontSaboteur
+  name: lffc saboteur
   components:
   - type: SpawnPoint
-    job_id: DHLAFrontFighter
+    job_id: DHLAFrontSaboteur
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: Revolutionary
+
+- type: job
+  id: DHLAFrontSpecialist
+  name: dh-job-la-front-specialist-name
+  description: dh-job-la-front-specialist-desc
+  playTimeTracker: JobDHLAFrontSpecialist
+  startingGear: DHLAFrontSpecialistGear
+  icon: JobIconDHLAResident
+  supervisors: dh-job-la-front-supervisors
+
+- type: playTimeTracker
+  id: JobDHLAFrontSpecialist
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAFrontSpecialist
+  name: lffc specialist
+  components:
+  - type: SpawnPoint
+    job_id: DHLAFrontSpecialist
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: Revolutionary
+
+- type: job
+  id: DHLAFrontMachinegunner
+  name: dh-job-la-front-machinegunner-name
+  description: dh-job-la-front-machinegunner-desc
+  playTimeTracker: JobDHLAFrontMachinegunner
+  startingGear: DHLAFrontMachinegunnerGear
+  icon: JobIconDHLAResident
+  supervisors: dh-job-la-front-supervisors
+
+- type: playTimeTracker
+  id: JobDHLAFrontMachinegunner
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAFrontMachinegunner
+  name: lffc machine gunner
+  components:
+  - type: SpawnPoint
+    job_id: DHLAFrontMachinegunner
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: Revolutionary
+
+- type: job
+  id: DHLAFrontRebel
+  name: dh-job-la-front-rebel-name
+  description: dh-job-la-front-rebel-desc
+  playTimeTracker: JobDHLAFrontRebel
+  startingGear: DHLAFrontRebelGear
+  icon: JobIconDHLAResident
+  supervisors: dh-job-la-front-supervisors
+
+- type: playTimeTracker
+  id: JobDHLAFrontRebel
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAFrontRebel
+  name: lffc rebel
+  components:
+  - type: SpawnPoint
+    job_id: DHLAFrontRebel
   - type: Sprite
     layers:
     - state: green
