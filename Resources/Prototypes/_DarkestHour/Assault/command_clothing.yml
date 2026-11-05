@@ -1,0 +1,102 @@
+# Форма командования «Штурма» (решение автора 2026-11-05): кители, служебная и штабная форма. Без брони.
+# Спрайты — RMC-14 (CC-BY-SA-3.0): командир, штаб, офицер вспомогательной поддержки (ASO). Имперские командир
+# авианосца и командующий операцией — в ванильной парадной форме и шинели Синдиката (имперский офицерский стиль).
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHRepublicClothingUniformService
+  name: "Republican officer service uniform"
+  description: "A pressed service uniform of a Republican Army commanding officer."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Command/CO/service.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Command/CO/service.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHRepublicClothingUniformStaff
+  name: "Republican staff uniform"
+  description: "A staff uniform of the Republican Army headquarters."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Command/operations.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Command/operations.rsi
+
+- type: entity
+  parent: ClothingOuterBase
+  id: DHRepublicClothingOuterTunicCommander
+  name: "Republican commander's tunic"
+  description: "A commanding officer's tunic with the Republican insignia. No armour."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/CO/jacket.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/CO/jacket.rsi
+
+- type: entity
+  parent: ClothingOuterBase
+  id: DHRepublicClothingOuterTunic
+  name: "Republican officer tunic"
+  description: "A service tunic of a Republican officer. No armour."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/service/classic.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/service/classic.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHRepublicClothingHeadCapFormal
+  name: "Republican peaked cap"
+  description: "A formal peaked cap of a Republican commanding officer."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/cap_peaked_formal.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/cap_peaked_formal.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHRepublicClothingHeadCapOfficer
+  name: "Republican officer cap"
+  description: "A field cap of a Republican officer."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/cap_officer/classic.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/cap_officer/classic.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHImperialClothingUniformSupportOfficer
+  name: "Imperial support officer uniform"
+  description: "A black staff uniform of an Imperial auxiliary support officer."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Command/ASO/aso_formal.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Command/ASO/aso_formal.rsi
+
+- type: entity
+  parent: ClothingOuterBase
+  id: DHImperialClothingOuterTunicSupportOfficer
+  name: "Imperial support officer tunic"
+  description: "A black tunic of an Imperial auxiliary support officer. No armour."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/aso/black.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/aso/black.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHImperialClothingHeadCapSupportOfficer
+  name: "Imperial support officer cap"
+  description: "A peaked cap of an Imperial auxiliary support officer."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/ASO/cap_peaked_aso.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/ASO/cap_peaked_aso.rsi
