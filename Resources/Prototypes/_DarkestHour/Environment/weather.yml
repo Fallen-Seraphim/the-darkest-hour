@@ -23,10 +23,15 @@
 
 # Дождь Лост-Энджелса (решение автора 2026-11-05): почти всё время идёт дождь, иногда ливень с грозой.
 # Дождь не мешает, ливень немного замедляет под открытым небом.
+# Спрайты — косой мелкий дождь Гибриссы из RMC-14 (CC-BY-SA-3.0, из CM-SS13).
 - type: entity
   parent: WeatherRain
   id: DHWeatherRain
   components:
+  - type: WeatherStatusEffect
+    sprite:
+      sprite: /Textures/_RMC14/Effects/weather.rsi
+      state: hybrisa_rain_light
   - type: DHWeatherHazard
     startMessage: dh-weather-rain-start
 
@@ -34,6 +39,10 @@
   parent: WeatherStorm
   id: DHWeatherDownpour
   components:
+  - type: WeatherStatusEffect
+    sprite:
+      sprite: /Textures/_RMC14/Effects/weather.rsi
+      state: hybrisa_rain
   - type: DHWeatherHazard
     speedMultiplier: 0.92
     startMessage: dh-weather-downpour-start
