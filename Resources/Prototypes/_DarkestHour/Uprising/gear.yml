@@ -20,7 +20,7 @@
   equipment:
     shoes: ClothingShoesColorBlack
     back: ClothingBackpackSatchel
-    pocket1: DHRepublicCredit100
+    pocket1: DHWalletFilled
     pocket2: DHApartmentKey
 
 - type: startingGear
@@ -138,6 +138,7 @@
   - BriefcaseBrownFilled
   storage:
     back:
+    - DHBankCardVanguard
     - DHWeaponPistolMk58
     - DHMagazine10x24ShortE
     - BoxFolderBlue
@@ -229,6 +230,7 @@
     suitstorage: DHWeaponSMGRPRM902
   storage:
     back:
+    - DHBankCardPolice
     - DHMagazine10x24ShortE
     - DHMagazine10x24ShortE
     - DHMagazine10x24ShortE

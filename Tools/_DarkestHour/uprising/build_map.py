@@ -310,6 +310,8 @@ def streets():
     # уличные автоматы (только республиканские кредиты)
     for i, x in enumerate(range(-27, X1 - 6, 22)):
         g.put(VENDORS[i % len(VENDORS)], x, 36)
+    for x in (28, 72):
+        g.put('DHCityAtm', x, 36)
 
 
 def square():
@@ -325,6 +327,7 @@ def square():
         g.put('RMCBenchRight', x + 1, 33)
     for i, x in enumerate((-91, -79, -63, -51)):
         g.put(VENDORS[i % len(VENDORS)], x, 31)
+    g.put('DHCityAtm', -71, 31)
     g.put('SpawnPointLatejoin', -70, 40)
     for dx in (-3, 0, 3):
         g.put('SpawnPointLatejoin', -70 + dx, 44)
@@ -465,6 +468,7 @@ def gates():
     for x in range(bx0 + 2, bx1 - 1, 4):
         lv.put('RMCCouchMidBlack', x, by0 + 2)
     lv.put('LockerSecurityFilled', bx1 - 2, by0 + 2)
+    lv.put('DHCityTerminal', bx1 - 2, by0 + 4)
     pent = L(8)
     px0, py0, px1, py1 = bx0 + 4, by0 + 6, bx1 - 1, by1 - 1
     exterior(pent, px0, py0, px1, py1, W_OFFICE, T_LAV_CARPET, every=2)
@@ -473,6 +477,7 @@ def gates():
     pent.put('CMChairComfyBlack', (px0 + px1) // 2, py1 - 2, ROT_S)
     pent.put('RMCBookcase', px0 + 1, py1 - 1)
     pent.put('DHLAVSafe', px0 + 2, py1 - 1)
+    pent.put('DHBudgetComputerVanguard', px1 - 2, py1 - 1)
     pent.put('CMPottedPlant7', px1 - 1, py1 - 1)
     pent.put('CMPottedPlant8', px1 - 1, py0 + 1)
     pent.put('SpawnPointDHLAVRepresentative', (px0 + px1) // 2, py1 - 4)
@@ -520,6 +525,8 @@ def police():
     lv = L(1)
     furnish_office(lv, x0, y0, x1, y1)
     lv.put('SpawnPointDHLAMPChief', mid, y1 - 3)
+    lv.put('DHBudgetComputerPolice', x1 - 1, y0 + 1)
+    lv.put('DHCityTerminal', x1 - 1, y0 + 4)
     lv.put('SpawnPointDHLAMPDeputyChief', mid - 2, y1 - 3)
     lv.put('SpawnPointDHLAMPInvestigator', mid + 2, y1 - 3)
     lv.put('SpawnPointDHLAMPInvestigator', mid + 4, y1 - 3)
