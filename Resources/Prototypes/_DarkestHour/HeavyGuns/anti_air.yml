@@ -9,6 +9,7 @@
   name: towed anti-aircraft gun
   description: A Republican twin 30 mm anti-aircraft gun on a wheeled carriage. Wrench it down to fire — it puts up flak against shells falling within 50 m and fires at ships and aircraft in the sky within 50 m. Unwrench it to roll it to a new position or hitch it to a truck. Takes 30 mm autocannon ammunition boxes.
   components:
+  - type: DHHitchable # буксировка грузовиком
   - type: Transform
     anchored: true
   - type: Sprite
