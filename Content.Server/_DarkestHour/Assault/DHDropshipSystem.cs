@@ -19,6 +19,7 @@ using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Player;
+using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
@@ -64,6 +65,31 @@ public sealed partial class DHDropshipComponent : Component
     /// <summary>Перелёт, когда авианосец висит в атмосфере.</summary>
     [DataField]
     public TimeSpan AtmosphereFlightTime = TimeSpan.FromSeconds(20);
+
+    /// <summary>
+    /// ЛТЦ (ложные тепловые цели, решение автора 2026-10-30): залп в полёте сбивает наведение ПВО (шахты, автопушки,
+    /// зенитки) до конца захода. Запас — <see cref="MaxFlares"/>, пополняется пристыкованным к авианосцу.
+    /// </summary>
+    [DataField]
+    public int MaxFlares = 2;
+
+    [DataField]
+    public int Flares = 2;
+
+    /// <summary>Пристыкованный челнок получает один залп ЛТЦ за это время.</summary>
+    [DataField]
+    public TimeSpan FlareRefill = TimeSpan.FromMinutes(4);
+
+    /// <summary>Сколько ЛТЦ прикрывают, если челнок просто висит в воздухе (без курса).</summary>
+    [DataField]
+    public TimeSpan FlareHover = TimeSpan.FromSeconds(20);
+
+    /// <summary>ПВО не наводится на челнок до этого времени.</summary>
+    [ViewVariables]
+    public TimeSpan FlaresUntil;
+
+    [ViewVariables]
+    public TimeSpan NextFlareRefill;
 }
 
 /// <summary>
@@ -83,6 +109,7 @@ public sealed partial class DHDropshipSystem : EntitySystem
     [Dependency] private MapLoaderSystem _loader = default!;
     [Dependency] private MetaDataSystem _meta = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private IRobustRandom _random = default!;
     [Dependency] private DHRiftSystem _rift = default!;
     [Dependency] private ShuttleSystem _shuttle = default!;
     [Dependency] private ServerStationSystem _station = default!;
@@ -94,6 +121,10 @@ public sealed partial class DHDropshipSystem : EntitySystem
     private static readonly SoundSpecifier LandSound = new SoundPathSpecifier("/Audio/Effects/Shuttle/hyperspace_end.ogg");
     private static readonly SoundSpecifier AlarmSound = new SoundPathSpecifier("/Audio/Machines/alarm.ogg",
         AudioParams.Default.WithVolume(-6f));
+
+    private static readonly SoundSpecifier FlareSound = new SoundPathSpecifier("/Audio/Weapons/Guns/Gunshots/flaregun.ogg");
+
+    private const string DecoyProto = "DHDecoyFlareBurst";
 
     private static readonly TimeSpan UpdateInterval = TimeSpan.FromSeconds(1);
 
@@ -114,6 +145,7 @@ public sealed partial class DHDropshipSystem : EntitySystem
             subs.Event<BoundUIOpenedEvent>(OnConsoleOpened);
             subs.Event<DHDropshipFlyMessage>(OnFly);
             subs.Event<DHDropshipAbortMessage>(OnAbort);
+            subs.Event<DHDropshipFlaresMessage>(OnFlares);
         });
     }
 
@@ -312,6 +344,50 @@ public sealed partial class DHDropshipSystem : EntitySystem
         UpdateUi(ent, ship);
     }
 
+    private void OnFlares(Entity<DHDropshipConsoleComponent> ent, ref DHDropshipFlaresMessage args)
+    {
+        if (ShipOf(ent) is not { } ship)
+            return;
+
+        var comp = ship.Comp;
+        var now = _timing.CurTime;
+        if (comp.State != DHDropshipState.InFlight || comp.Flares <= 0 || now < comp.FlaresUntil)
+        {
+            UpdateUi(ent, ship);
+            return;
+        }
+
+        comp.Flares--;
+
+        // До посадки (или, если висим без курса, на время), с небольшим запасом.
+        var until = comp.Destination != null || comp.ToHangar ? comp.ArriveAt : now + comp.FlareHover;
+        comp.FlaresUntil = (until > now + comp.FlareHover ? until : now + comp.FlareHover) + TimeSpan.FromSeconds(3);
+
+        _audio.PlayGlobal(FlareSound, Filter.Empty().AddInGrid(ship), true);
+        Announce(ship, Loc.GetString("dh-dropship-flares-fired", ("left", comp.Flares)));
+        SpawnDecoysBelow(ship);
+        UpdateUi(ent, ship);
+    }
+
+    /// <summary>С земли видно вспышки ЛТЦ в небе над челноком.</summary>
+    private void SpawnDecoysBelow(EntityUid ship)
+    {
+        var xform = Transform(ship);
+        if (!TryComp<DHPlanetAtmosphereMapComponent>(xform.MapUid, out var atmosphere) ||
+            _landing.GetSurface(atmosphere.System, atmosphere.Body) is not { } surface)
+        {
+            return;
+        }
+
+        var center = _transform.GetWorldPosition(xform);
+        var mapId = Transform(surface).MapID;
+        for (var i = 0; i < 6; i++)
+        {
+            var offset = new Vector2(_random.NextFloat(-7f, 7f), _random.NextFloat(-7f, 7f));
+            Spawn(DecoyProto, new MapCoordinates(center + offset, mapId));
+        }
+    }
+
     private string DestinationName(DHDropshipComponent comp)
     {
         if (comp.ToHangar)
@@ -401,6 +477,7 @@ public sealed partial class DHDropshipSystem : EntitySystem
 
         _nextUpdate = now + UpdateInterval;
         FollowCarriers();
+        RefillFlares(now);
 
         var consoles = EntityQueryEnumerator<DHDropshipConsoleComponent>();
         while (consoles.MoveNext(out var uid, out var console))
@@ -492,6 +569,26 @@ public sealed partial class DHDropshipSystem : EntitySystem
         Announce(ship, Loc.GetString("dh-dropship-landed", ("zone", Name(zone))));
     }
 
+    /// <summary>Пристыкованный к авианосцу челнок понемногу пополняет ЛТЦ.</summary>
+    private void RefillFlares(TimeSpan now)
+    {
+        var ships = EntityQueryEnumerator<DHDropshipComponent>();
+        while (ships.MoveNext(out _, out var comp))
+        {
+            if (comp.Flares >= comp.MaxFlares || comp.State != DHDropshipState.Docked)
+                continue;
+
+            if (comp.NextFlareRefill <= TimeSpan.Zero)
+                comp.NextFlareRefill = now + comp.FlareRefill;
+
+            if (now < comp.NextFlareRefill)
+                continue;
+
+            comp.Flares++;
+            comp.NextFlareRefill = comp.Flares < comp.MaxFlares ? now + comp.FlareRefill : TimeSpan.Zero;
+        }
+    }
+
     /// <summary>
     /// Пристыкованные челноки следуют за авианосцем: прыжок и спуск в атмосферу переносят только сам авианосец
     /// (стыковка рвётся) — челноки стыкуются заново, как только он на месте.
@@ -574,7 +671,7 @@ public sealed partial class DHDropshipSystem : EntitySystem
             : null;
 
         _ui.SetUiState(console.Owner, DHDropshipUiKey.Key, new DHDropshipConsoleState(Name(ship), comp.State, location,
-            destination, Math.Max(0, seconds), destinations));
+            destination, Math.Max(0, seconds), destinations, comp.Flares, comp.MaxFlares, now < comp.FlaresUntil));
     }
 
     #endregion

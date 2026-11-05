@@ -265,3 +265,6 @@ dh-republic-set-officer-smg-name = ПП: RAP-TOR-M-12-16
 dh-republic-set-officer-smg-description = Пистолет-пулемёт RAP-TOR-M-12-16: два магазина экспансивных и два SVP. Композитные пластины РМБ-1.
 dh-sandbag-intact = Мешки целы — досыпать нечего.
 dh-sandbag-repaired = Вы досыпаете мешки в баррикаду.
+dh-dropship-ui-flares = ОТСТРЕЛИТЬ ЛТЦ ({$count}/{$max})
+dh-dropship-ui-flares-active = ЛТЦ прикрывают челнок ({$count}/{$max})
+dh-dropship-flares-fired = Отстрел ЛТЦ! ПВО противника потеряет челнок до конца захода. Осталось залпов: {$left}.

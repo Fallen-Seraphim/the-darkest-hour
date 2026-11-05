@@ -263,3 +263,6 @@ dh-republic-set-officer-smg-name = SMG: RAP-TOR-M-12-16
 dh-republic-set-officer-smg-description = The RAP-TOR-M-12-16 SMG with two expanding and two SVP magazines. Composite RMB-1 plates.
 dh-sandbag-intact = The sandbags are intact — nothing to patch.
 dh-sandbag-repaired = You patch the barricade with fresh sandbags.
+dh-dropship-ui-flares = FIRE DECOY FLARES ({$count}/{$max})
+dh-dropship-ui-flares-active = Decoy flares are covering the craft ({$count}/{$max})
+dh-dropship-flares-fired = Decoy flares away! Enemy air defence will lose the craft for the rest of this run. Salvos left: {$left}.
