@@ -4,25 +4,41 @@
 
 # --- Снаряжение новых должностей (остальные берут наборы отряда зачистки и Рейда) ---
 
+# Командование (решение автора 2026-11-05): кители и штабная форма, без модульной брони и боевого снаряжения;
+# личное оружие — пистолет.
+
 - type: startingGear
-  parent: DHRepublicCommanderGear
-  id: DHGarrisonCommanderGear
+  id: DHRepublicCommandGearBase
   equipment:
-    id: DHDogtagsGarrisonCommander
-    pocket2: DHWeaponPistolMk58
-    ears: DHClothingHeadsetAltRepublicCommand
+    back: ClothingBackpackSatchelLeather
+    shoes: ClothingShoesBootsLaceup
+    gloves: ClothingHandsGlovesColorBlack
+    eyes: ClothingEyesHudMedSec
+    pocket2: DoubleEmergencyOxygenTankFilled
   storage:
     back:
     - DHPainkillerAutoinjector
-    - DHMagazine762x51FMG
-    - DHMagazine762x51FMG
-    - DHMagazine762x51FMG
-    - DHMagazine762x51EXP
-    - DHLaserDesignator
-    - MedkitCombatFilled
     - DHIFAKFilled
+
+- type: startingGear
+  parent: DHRepublicCommandGearBase
+  id: DHGarrisonCommanderGear
+  equipment:
+    id: DHDogtagsGarrisonCommander
+    jumpsuit: DHRepublicClothingUniformService
+    outerClothing: DHRepublicClothingOuterTunicCommander
+    head: DHRepublicClothingHeadCapFormal
+    ears: DHClothingHeadsetAltRepublicCommand
+    pocket1: DHWeaponPistolMk58
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - DHIFAKFilled
+    - DHMagazine10x24ShortE
+    - DHMagazine10x24ShortE
+    - Binoculars
+    - DHLaserDesignator
     - DHOverwatchTabletRepublic
-    - DHMotionDetector
     - DHSignalFlareKit
 
 - type: startingGear
@@ -482,14 +498,32 @@
     - DHMagazine145x114Std
     - DHIFAKFilled
 
+# Командование авианосца (решение автора 2026-11-05): парадная форма и кители, без модульной брони и боевого
+# снаряжения; личное оружие — IMP-17; магнитные ботинки остаются (корабль).
 - type: startingGear
-  parent: DHCarrierCrewGearBase
+  id: DHCarrierCommandGearBase
+  equipment:
+    back: ClothingBackpackSatchelLeather
+    gloves: ClothingHandsGlovesColorBlack
+    shoes: DHClothingShoesMagArmoredLightImperial
+    pocket1: DHWeaponPistolIMP17
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - DHMagazine145x114Std
+    - DHMagazine145x114Std
+    - DHIFAKFilled
+
+- type: startingGear
+  parent: DHCarrierCommandGearBase
   id: DHCarrierCaptainGear
   equipment:
     ears: DHClothingHeadsetAltImperialCommand
     id: DHDogtagsImperialCommander
     neck: SyndicateWhistle
-    outerClothing: DHClothingOuterModularIMB1Composite
+    jumpsuit: ClothingUniformJumpsuitSyndieFormal
+    outerClothing: ClothingOuterCoatSyndieCap
+    head: ClothingHeadHatSyndieMAA
   storage:
     back:
     - DHPainkillerAutoinjector
@@ -532,20 +566,21 @@
 # --- Расчёты, экипажи и офицеры поддержки (решение автора 2026-11-05): без модульной брони, бронежилеты 1/2 класса ---
 
 - type: startingGear
-  parent: DHRepublicGearBase
+  parent: DHRepublicCommandGearBase
   id: DHGarrisonArtilleryOfficerGear
   equipment:
     id: DHDogtagsGarrisonArtilleryOfficer
-    outerClothing: DHClothingOuterVestRepublicHeavy
-    suitstorage: DHWeaponSMGRAPTORM1216
+    jumpsuit: DHRepublicClothingUniformStaff
+    outerClothing: DHRepublicClothingOuterTunic
+    head: DHRepublicClothingHeadCapOfficer
     ears: DHClothingHeadsetAltRepublicCommand
+    pocket1: DHWeaponPistolMk58
   storage:
     back:
     - DHPainkillerAutoinjector
     - DHIFAKFilled
-    - DHMagazine10x24E
-    - DHMagazine10x24E
-    - DHMagazine10x24E
+    - DHMagazine10x24ShortE
+    - DHMagazine10x24ShortE
     - DHLaserDesignator
     - Binoculars
     - DHOverwatchTabletRepublic
@@ -671,12 +706,14 @@
     - WelderIndustrial
 
 - type: startingGear
-  parent: DHCarrierCrewGearBase
+  parent: DHCarrierCommandGearBase
   id: DHCarrierOperationCommanderGear
   equipment:
     id: DHDogtagsCarrierOperationCommander
     ears: DHClothingHeadsetAltImperialCommand
-    outerClothing: DHClothingOuterModularIMB1Composite
+    jumpsuit: ClothingUniformJumpsuitSyndieFormal
+    outerClothing: ClothingOuterCoatSyndieCap
+    head: ClothingHeadHatSyndie
     neck: SyndicateWhistle
   storage:
     back:
@@ -689,12 +726,14 @@
     - DHOverwatchTabletEmpire
 
 - type: startingGear
-  parent: DHCarrierCrewGearBase
+  parent: DHCarrierCommandGearBase
   id: DHCarrierSupportOfficerGear
   equipment:
     id: DHDogtagsCarrierSupportOfficer
     ears: DHClothingHeadsetAltImperialCommand
-    outerClothing: DHClothingOuterVestImperialHeavy
+    jumpsuit: DHImperialClothingUniformSupportOfficer
+    outerClothing: DHImperialClothingOuterTunicSupportOfficer
+    head: DHImperialClothingHeadCapSupportOfficer
   storage:
     back:
     - DHPainkillerAutoinjector
