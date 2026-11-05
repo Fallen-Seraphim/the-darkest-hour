@@ -257,3 +257,5 @@ dh-republic-set-officer-rifle-name = Rifle: RAR-M-11-2
 dh-republic-set-officer-rifle-description = The RAR-M-11-2 rifle with three FMG and one expanding magazine. Composite RMB-1 plates.
 dh-republic-set-officer-smg-name = SMG: RAP-TOR-M-12-16
 dh-republic-set-officer-smg-description = The RAP-TOR-M-12-16 SMG with two expanding and two SVP magazines. Composite RMB-1 plates.
+dh-sandbag-intact = The sandbags are intact — nothing to patch.
+dh-sandbag-repaired = You patch the barricade with fresh sandbags.

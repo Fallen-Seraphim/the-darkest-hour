@@ -39,6 +39,13 @@ public sealed partial class DHSandbagBarricadeComponent : Component
     /// <summary>Что возвращается, когда колючку срезают.</summary>
     [DataField]
     public EntProtoId Wire = "DHBarbedWire";
+
+    /// <summary>Ремонт: один наполненный мешок снимает столько урона (решение автора 2026-10-29 — «досыпать мешки»).</summary>
+    [DataField]
+    public float RepairPerSandbag = 112.5f;
+
+    [DataField]
+    public TimeSpan RepairTime = TimeSpan.FromSeconds(3);
 }
 
 [Serializable, NetSerializable]
@@ -93,6 +100,9 @@ public sealed partial class DHSandbagWireDoAfterEvent : SimpleDoAfterEvent;
 
 [Serializable, NetSerializable]
 public sealed partial class DHSandbagUnwireDoAfterEvent : SimpleDoAfterEvent;
+
+[Serializable, NetSerializable]
+public sealed partial class DHSandbagRepairDoAfterEvent : SimpleDoAfterEvent;
 
 /// <summary>Наполненные мешки: из них строят баррикаду (в руке — использовать).</summary>
 [RegisterComponent, NetworkedComponent]

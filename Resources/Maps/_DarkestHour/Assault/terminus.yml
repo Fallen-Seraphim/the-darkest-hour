@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 10/30/2026 11:55:31
-  entityCount: 34155
+  entityCount: 34160
 maps:
 - 1
 grids:
@@ -174728,4 +174728,33 @@ entities:
     - type: Transform
       parent: 1
       pos: -144.5,89.5
+- proto: DHFieldLathe
+  entities:
+  - uid: 34898
+    components:
+    - type: Transform
+      parent: 1
+      pos: -51.5,-16.5
+- proto: DHIVDripFilled
+  entities:
+  - uid: 34899
+    components:
+    - type: Transform
+      parent: 1
+      pos: -168.5,60.5
+  - uid: 34900
+    components:
+    - type: Transform
+      parent: 1
+      pos: -168.5,62.5
+  - uid: 34901
+    components:
+    - type: Transform
+      parent: 1
+      pos: -168.5,66.5
+  - uid: 34902
+    components:
+    - type: Transform
+      parent: 1
+      pos: 4.5,-3.5
 ...

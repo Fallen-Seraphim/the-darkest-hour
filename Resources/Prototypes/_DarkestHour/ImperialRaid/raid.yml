@@ -295,6 +295,7 @@
     - DHDropBeacon
     - DHIFAKFilled
     - DHOverwatchTabletEmpire
+    - DHSignalFlareKit
 
 - type: startingGear
   parent: DHImperialGearBase
