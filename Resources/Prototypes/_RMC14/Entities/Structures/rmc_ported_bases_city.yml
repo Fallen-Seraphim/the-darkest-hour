@@ -1,0 +1,343 @@
+# Базовые прототипы RMC-14, от которых наследуется портированный декор.
+
+- type: entity
+  parent: CMBaseWall
+  id: CMWallMetal
+  name: wall
+  description: A huge chunk of metal used to separate rooms.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Walls/metal.rsi
+  - type: Icon
+    sprite: _RMC14/Structures/Walls/metal.rsi
+  - type: Tag
+    tags:
+    - Wall
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 3125
+      behaviors:
+        - !type:DoActsBehavior
+          acts: [ "Destruction" ]
+    - trigger:
+        !type:DamageTrigger
+        damage: 3000
+      behaviors:
+        - !type:ChangeConstructionNodeBehavior
+          node: girder
+        - !type:DoActsBehavior
+          acts: ["Breakage"]
+  - type: IconSmooth
+    key: walls
+    base: metal
+  - type: Construction
+    graph: Girder
+    node: wall
+
+- type: entity
+  abstract: true
+  parent: CMBaseWallInvincible
+  id: CMBaseWall
+  description: A huge chunk of metal used to separate rooms.
+  components:
+  - type: DHFortified # DarkestHour: как у наших стен — пули не ломают, артиллерия ломает
+  - type: Damageable
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Clickable
+  - type: Appearance
+
+- type: entity
+  parent: CMBaseWall
+  id: RMCBaseWallReinforced
+  name: reinforced wall
+  description: A huge chunk of reinforced metal used to separate rooms.
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Walls/rwall.rsi
+  - type: Icon
+    sprite: _RMC14/Structures/Walls/rwall.rsi
+  - type: Tag
+    tags:
+    - Wall
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 9500
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+    - trigger:
+        !type:DamageTrigger
+        damage: 9000
+      behaviors:
+      - !type:ChangeConstructionNodeBehavior
+        node: girder
+      - !type:DoActsBehavior
+        acts: [ "Breakage" ]
+  - type: IconSmooth
+    key: walls
+    base: rwall
+  - type: Construction
+    graph: Girder
+    node: reinforcedWall
+  - type: StaticPrice
+    price: 150
+
+- type: entity
+  abstract: true
+  id: RMCBaseWallInvincibleNoIcon
+  description: A huge chunk of metal used to separate rooms.
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wall
+  components:
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Sprite
+    drawdepth: Walls
+  - type: PlacementReplacement
+    key: walls
+  - type: Occluder
+  - type: Airtight
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+        density: 1000
+  - type: IsRoof
+  - type: SunShadowCast
+  - type: Tag
+    tags:
+    - Wall
+  - type: Clickable
+
+- type: entity
+  abstract: true
+  parent: RMCBaseWallInvincibleNoIcon
+  id: CMBaseWallInvincible
+  description: A huge chunk of metal used to separate rooms.
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wall
+  components:
+  - type: Icon
+    state: full
+
+- type: entity
+  abstract: true
+  parent: BaseStructure
+  id: RMCBaseWindowFrame
+  name: window frame
+  description: A big hole in the wall that used to sport a large window. Can be vaulted through.
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wall
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    drawdepth: Walls
+  - type: PlacementReplacement
+    key: walls
+  - type: Damageable
+    damageModifierSet: StructuralMetallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: StaticPrice
+    price: 75
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.49,-0.49,0.49,0.49"
+        density: 1000
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+  - type: Destructible
+    thresholds:
+      - trigger:
+          !type:DamageTrigger
+          damage: 600
+        behaviors:
+          - !type:DoActsBehavior
+            acts: ["Destruction"]
+          - !type:SpawnEntitiesBehavior
+            spawn:
+              SheetSteel1:
+                min: 2
+                max: 2
+  - type: InteractionOutline
+  - type: Clickable
+  - type: Climbable
+  - type: RequireProjectileTarget
+  - type: Tag
+    tags:
+    - Structure
+    - WindowFrame
+
+- type: entity
+  parent: RMCBaseWindowFrame
+  id: RMCWindowFrameColonyReinforced
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Windows/Frames/colony_rframe.rsi
+    state: col_rframe0
+  - type: Icon
+    sprite: _RMC14/Structures/Windows/Frames/colony_rframe.rsi
+    state: col_rframe0
+  - type: IconSmooth
+    key: windows
+    base: col_rframe
+    mode: CardinalFlags
+
+- type: entity
+  abstract: true
+  parent: CMBaseWindowIndestructible
+  id: CMBaseWindow # TODO RMC14 this needs to be 2 separate entities eventually
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wall
+  components:
+  - type: MeleeSound
+    soundGroups:
+      Brute:
+        collection: GlassSmack
+  - type: Damageable
+  - type: Injurable
+    damageContainer: StructuralInorganic
+
+- type: entity
+  abstract: true
+  parent: BaseStructure
+  id: CMBaseWindowIndestructible
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wall
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    drawdepth: Walls
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: RadiationBlocker
+    resistance: 2
+  - type: StaticPrice
+    price: 75
+  - type: Physics
+    bodyType: Static
+  - type: InteractionPopup
+    interactDelay: 10
+    interactSuccessString: comp-window-knock
+    messagePerceivedByOthers: rmc-window-knock-others
+    interactSuccessSound:
+      path: /Audio/Effects/glass_knock.ogg
+      params:
+        variation: 0.125
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+        density: 1000
+
+- type: entity
+  parent: BaseStructure
+  id: CMBaseStructure
+  abstract: true
+  placement:
+    mode: SnapgridCenter
+
+- type: entity
+  parent: ClosetBase
+  id: CMClosetBaseUnanchored
+  name: closet
+  description: It's a basic storage unit.
+  suffix: Unanchored
+  components:
+  - type: Physics
+    bodyType: Static
+  - type: Sprite
+    sprite: _RMC14/Structures/Storage/Closets/standard.rsi
+    layers:
+    - state: base
+      map: ["enum.StorageVisualLayers.Base"]
+    - state: closed
+      map: ["enum.StorageVisualLayers.Door"]
+    - state: welded
+      visible: false
+      map: ["enum.WeldableLayers.BaseWelded"]
+    - state: paper
+      visible: false
+      sprite: Structures/Storage/closet_labels.rsi
+      map: [ "enum.PaperLabelVisuals.Layer" ]
+  - type: Appearance
+  - type: EntityStorageVisuals
+    stateBaseClosed: base
+    stateDoorOpen: open
+    stateDoorClosed: closed
+  - type: Anchorable
+    flags:
+    - None
+  - type: Damageable
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+          params:
+            volume: -6
+
+- type: entity
+  parent: CMClosetBaseUnanchored
+  id: CMClosetBase
+  suffix: Anchored
+  components:
+  - type: Transform
+    anchored: true
+
+- type: entity
+  parent: BaseFlag
+  id: RMCBannerBase
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Wallmounts/banners.rsi
+

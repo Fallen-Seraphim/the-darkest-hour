@@ -4,9 +4,9 @@ import os, re, sys, json, shutil, glob, yaml
 RMC = '/home/claude/rmc/Resources'
 DH = '/home/claude/the-darkest-hour/Resources'
 SP = os.path.dirname(os.path.abspath(__file__))
-COMPS = set(open(os.path.join(SP, '..', 'dhcomps.txt')).read().split())
+COMPS = set(open(os.environ['DHCOMPS']).read().split())
 
-FILES = open(os.path.join(SP, '..', 'rmcfiles.txt')).read().split()
+FILES = open(os.environ['RMCFILES']).read().split()
 PROTO = 'Prototypes/_RMC14/'
 
 
@@ -136,7 +136,7 @@ def fix_block(lines):
 def entity_block(pid):
     text = open(RMC + '/' + PROTO + rmc_file[pid], encoding='utf-8-sig').read().replace('\r\n', '\n')
     for b in re.split(r'(?m)^(?=- )', text):
-        if re.search(r'(?m)^  id: ' + re.escape(pid) + r'\s*$', b):
+        if re.search(r'(?m)^  id: ' + re.escape(pid) + r'\s*(#.*)?$', b):
             return b.rstrip('\n') + '\n\n'
     raise KeyError(pid)
 
@@ -173,7 +173,7 @@ def port(rel, text=None):
 for f in files:
     port(f)
 if extra:
-    port('Entities/Structures/rmc_ported_bases.yml',
+    port(os.environ.get('RMCBASES', 'Entities/Structures/rmc_ported_bases.yml'),
          '# Базовые прототипы RMC-14, от которых наследуется портированный декор.\n\n' + ''.join(entity_block(p) for p in reversed(extra)))
 
 missing_tex = []
@@ -187,4 +187,4 @@ for s in sorted(sprites):
 print('files', len(files))
 print('removed comps', removed)
 print('sprites', len(sprites), 'missing in rmc clone', missing_tex)
-json.dump(files, open(os.path.join(SP, 'files.json'), 'w'))
+json.dump(files, open(os.environ.get('RMCOUT', os.path.join(SP, 'files.json')), 'w'))

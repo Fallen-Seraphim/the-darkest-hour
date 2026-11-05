@@ -20,3 +20,20 @@
       types:
         Slash: 0.25
     startMessage: dh-weather-sandstorm-heavy-start
+
+# Дождь Лост-Энджелса (решение автора 2026-11-05): почти всё время идёт дождь, иногда ливень с грозой.
+# Дождь не мешает, ливень немного замедляет под открытым небом.
+- type: entity
+  parent: WeatherRain
+  id: DHWeatherRain
+  components:
+  - type: DHWeatherHazard
+    startMessage: dh-weather-rain-start
+
+- type: entity
+  parent: WeatherStorm
+  id: DHWeatherDownpour
+  components:
+  - type: DHWeatherHazard
+    speedMultiplier: 0.92
+    startMessage: dh-weather-downpour-start

@@ -1,0 +1,53 @@
+- type: entity
+  parent: BaseStructureDynamic
+  id: RMCCoffeeMachine
+  name: coffee machine
+  description: A coffee machine
+  components:
+  - type: ItemSlots
+    slots:
+      coffee_machine_slot:
+        name: Coffee Machine
+        whitelist:
+          tags:
+          - DrinkGlass
+  - type: ContainerContainer
+    containers:
+      coffee_machine_slot: !type:ContainerSlot {}
+  - type: Transform
+    noRot: true
+  - type: Physics
+    bodyType: Static
+  - type: Sprite
+    sprite: _RMC14/Structures/Furniture/coffee_machine.rsi
+    drawdepth: SmallObjects
+    noRot: true
+    layers:
+    - state: coffee_empty_on
+    - state: coffee_cup_generic
+      map: ["enum.CoffeeMachineLayers.Cup"]
+      visible: false
+  - type: InteractionOutline
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.03
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - MobMask
+  - type: Damageable
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  - type: Appearance
