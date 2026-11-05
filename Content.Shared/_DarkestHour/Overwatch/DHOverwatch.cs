@@ -1,5 +1,6 @@
 using Content.Shared._DarkestHour.Assault;
 using Robust.Shared.Serialization;
+using Robust.Shared.Localization;
 
 namespace Content.Shared._DarkestHour.Overwatch;
 
@@ -19,6 +20,14 @@ public sealed partial class DHOverwatchConsoleComponent : Component
 
     [DataField]
     public int MaxOrderLength = 200;
+
+    /// <summary>Цвет приказов вместо цвета стороны (военпол «Восстания» — синий при стороне Республики).</summary>
+    [DataField]
+    public Color? OrderColor;
+
+    /// <summary>Подпись отправителя ({ $name } — кто за консолью) вместо стандартной.</summary>
+    [DataField]
+    public LocId? OrderSender;
 
     /// <summary>Кто за консолью → за кем следит (только на сервере).</summary>
     [ViewVariables]
@@ -185,4 +194,16 @@ public sealed class DHOverwatchOrderMessage : BoundUserInterfaceMessage
     {
         Text = text;
     }
+}
+
+/// <summary>
+/// Приказ с консоли наблюдения на экран бойцов стороны (решение автора 2026-11-05): наверху по центру, шрифтом
+/// объявлений, цветом стороны (Империя — жёлтый, Республика — зелёный, Военная Полиция — синий), с отправителем.
+/// </summary>
+[Serializable, NetSerializable]
+public sealed class DHScreenAnnouncementEvent(string sender, string text, Color color) : EntityEventArgs
+{
+    public readonly string Sender = sender;
+    public readonly string Text = text;
+    public readonly Color Color = color;
 }

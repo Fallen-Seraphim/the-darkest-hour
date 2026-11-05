@@ -113,8 +113,9 @@ public sealed partial class DHOverwatchSystem : EntitySystem
         }
 
         ent.Comp.NextOrder = now + ent.Comp.OrderCooldown;
-        var sender = Loc.GetString("dh-overwatch-order-sender", ("name", Name(args.Actor)));
-        _assault.AnnounceToFaction(ent.Comp.Faction, sender, text, OrderSound);
+        var senderKey = ent.Comp.OrderSender is { } key ? key.Id : "dh-overwatch-order-sender";
+        var sender = Loc.GetString(senderKey, ("name", Name(args.Actor)));
+        _assault.AnnounceToFaction(ent.Comp.Faction, sender, text, OrderSound, ent.Comp.OrderColor, onScreen: true);
     }
 
     private void OnTacticalMapRequest(Entity<DHOverwatchConsoleComponent> ent, ref DHTacticalMapRequestMessage args)

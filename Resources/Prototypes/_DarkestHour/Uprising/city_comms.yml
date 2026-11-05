@@ -1,0 +1,52 @@
+# «Восстание», связь (решение автора 2026-11-05): у ОФСК свой канал, но он молчит, пока не взломана нейтральная
+# антенна у ЗП-1 (взломщик — у главы отряда; военпол восстанавливает её мультитулом). Механика — DHRelayHackSystem.
+# Овервотч военпола — планшет начальника и зама, приказы синим.
+
+- type: entity
+  parent: DHCommsRelayBase
+  id: DHLANeutralAntenna
+  name: neutral relay antenna
+  description: The civil relay mast of LZ-1 Aeronautics. Its spare band is sealed — but a skilled hand could open it to a pirate frequency.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/communications_tower.rsi
+    offset: 0,1.5
+    drawdepth: Overdoors
+    layers:
+    - state: static1
+      map: [ "tower" ]
+  - type: GenericVisualizer
+    visuals:
+      enum.DHCommsRelayVisuals.Active:
+        tower:
+          True: { state: static1 }
+          False: { state: static1_broken }
+  - type: DHCommsRelay
+    channels:
+    - DHLAFront
+  - type: DHHackableRelay
+
+- type: entity
+  parent: BaseItem
+  id: DHAntennaHacker
+  name: antenna hacker
+  description: A soldered-together box of tricks. Plug it into a relay antenna to open its sealed band to the Front's frequency.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/City/antenna_hacker.rsi
+    state: icon
+  - type: Item
+    size: Small
+    sprite: _DarkestHour/Objects/City/antenna_hacker.rsi
+  - type: DHRelayHacker
+
+- type: entity
+  parent: DHOverwatchTabletBase
+  id: DHOverwatchTabletPolice
+  name: Military Police command tablet
+  description: A tablet linked to the body cameras of the Military Police. Orders typed here appear before the eyes of every officer.
+  components:
+  - type: DHOverwatchConsole
+    faction: Republic
+    orderColor: "#5B8AD6"
+    orderSender: dh-overwatch-order-sender-police

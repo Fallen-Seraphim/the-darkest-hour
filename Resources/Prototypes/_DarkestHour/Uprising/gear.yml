@@ -230,6 +230,7 @@
     suitstorage: DHWeaponSMGRPRM902
   storage:
     back:
+    - DHOverwatchTabletPolice
     - DHBankCardPolice
     - DHMagazine10x24ShortE
     - DHMagazine10x24ShortE
@@ -248,6 +249,7 @@
     suitstorage: DHWeaponRifleRMPR6239
   storage:
     back:
+    - DHOverwatchTabletPolice
     - DHMagazine762x39FMG
     - DHMagazine762x39FMG
     - DHMagazine762x39FMG
@@ -355,6 +357,7 @@
     pocket2: DHWeaponPistolABZ9
   storage:
     back:
+    - DHAntennaHacker
     - DHMagazineFS2CLN
     - DHMagazineFS2CLN
     - DHMagazineFS2CLB

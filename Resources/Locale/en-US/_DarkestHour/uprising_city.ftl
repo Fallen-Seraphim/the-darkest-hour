@@ -97,3 +97,13 @@ dh-city-briefing-header = — Phone and bank —
 dh-city-briefing-phone = Phone number: {$number}
 dh-city-briefing-account = Bank account: {$number} (opened with {$balance} cr.)
 dh-city-briefing-login = Bank login: {$login}, password: {$password}
+
+## антенна и овервотч
+dh-relay-hack-start = You plug the hacker into the antenna...
+dh-relay-hack-already = The antenna's band is already open.
+dh-relay-hacked = The antenna crackles: a pirate band is on the air.
+dh-relay-restore-start = You start resealing the antenna's band...
+dh-relay-restored = The antenna's band is sealed again.
+dh-relay-examine-hacked = Its spare band is [color=red]hacked open[/color].
+dh-relay-examine-sealed = Its spare band is sealed.
+dh-overwatch-order-sender-police = Military Police ({$name})

@@ -753,6 +753,8 @@ def landing_zone():
         g.put(POST, x, y1 + 1)
     cx, cy = (x0 + x1) // 2, (y0 + y1) // 2
     g.put('DHUprisingFlightPad', cx, cy)
+    # нейтральная антенна: канал ОФСК заработает, когда её взломают
+    g.put('DHLANeutralAntenna', x0 - 3, y1 - 4)
     # будка «Аэронавтики»
     exterior(g, x1 + 1, y1 - 8, x1 + 3, y1 - 2, W_METRO, T_METRO, WINDOW_PLAIN)
     g.door(x1 + 1, y1 - 5, 'Airlock')

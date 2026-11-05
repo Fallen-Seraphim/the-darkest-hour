@@ -685,7 +685,8 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
     }
 
     /// <summary>Сообщение только бойцам стороны (по радио, без утечки соседям): текст уже готовый, не ключ локали.</summary>
-    public void AnnounceToFaction(DHAssaultFaction faction, string sender, string text, SoundSpecifier? sound = null)
+    public void AnnounceToFaction(DHAssaultFaction faction, string sender, string text, SoundSpecifier? sound = null,
+        Color? color = null, bool onScreen = false)
     {
         var sessions = new HashSet<ICommonSession>();
         var fighters = EntityQueryEnumerator<DHAssaultFighterComponent, ActorComponent>();
@@ -710,9 +711,14 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
         var filter = Filter.Empty().AddPlayers(sessions);
         var wrapped = Loc.GetString("chat-manager-sender-announcement-wrap-message",
             ("sender", FormattedMessage.EscapeText(sender)), ("message", FormattedMessage.EscapeText(text)));
+        var announceColor = color ?? FactionColor(faction);
         _chatManager.ChatMessageToManyFiltered(filter, ChatChannel.Radio, text, wrapped, EntityUid.Invalid, false, true,
-            FactionColor(faction));
+            announceColor);
         _audio.PlayGlobal(sound ?? AnnounceSound, filter, true, AudioParams.Default.WithVolume(-2f));
+
+        // Приказы с консоли наблюдения — ещё и крупно наверху экрана (решение автора 2026-11-05).
+        if (onScreen)
+            RaiseNetworkEvent(new Content.Shared._DarkestHour.Overwatch.DHScreenAnnouncementEvent(sender, text, announceColor), filter);
     }
 
     private static string SenderOf(DHAssaultFaction faction)
