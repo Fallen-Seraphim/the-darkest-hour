@@ -259,3 +259,5 @@ dh-republic-set-officer-rifle-name = Винтовка: RAR-M-11-2
 dh-republic-set-officer-rifle-description = Винтовка RAR-M-11-2: три магазина FMG и один экспансивный. Композитные пластины РМБ-1.
 dh-republic-set-officer-smg-name = ПП: RAP-TOR-M-12-16
 dh-republic-set-officer-smg-description = Пистолет-пулемёт RAP-TOR-M-12-16: два магазина экспансивных и два SVP. Композитные пластины РМБ-1.
+dh-sandbag-intact = Мешки целы — досыпать нечего.
+dh-sandbag-repaired = Вы досыпаете мешки в баррикаду.

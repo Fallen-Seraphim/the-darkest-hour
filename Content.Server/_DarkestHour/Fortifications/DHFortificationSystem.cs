@@ -76,6 +76,7 @@ public sealed partial class DHFortificationSystem : EntitySystem
         SubscribeLocalEvent<DHSandbagBarricadeComponent, DHSandbagDismantleDoAfterEvent>(OnBarricadeDismantled);
         SubscribeLocalEvent<DHSandbagBarricadeComponent, DHSandbagWireDoAfterEvent>(OnBarricadeWired);
         SubscribeLocalEvent<DHSandbagBarricadeComponent, DHSandbagUnwireDoAfterEvent>(OnBarricadeUnwired);
+        SubscribeLocalEvent<DHSandbagBarricadeComponent, DHSandbagRepairDoAfterEvent>(OnBarricadeRepaired);
         SubscribeLocalEvent<DHSandbagBarricadeComponent, ClimbedOnEvent>(OnBarricadeClimbed);
 
         SubscribeLocalEvent<DHFoldedTentComponent, UseInHandEvent>(OnFoldedTentUse);
@@ -233,6 +234,26 @@ public sealed partial class DHFortificationSystem : EntitySystem
             return;
         }
 
+        // Досыпать: наполненный мешок чинит побитую баррикаду.
+        if (HasComp<DHSandbagsFullComponent>(args.Used))
+        {
+            args.Handled = true;
+            if (!TryComp<DamageableComponent>(ent, out var damageable) ||
+                _damageable.GetTotalDamage((ent.Owner, damageable)) <= 0)
+            {
+                _popup.PopupEntity(Loc.GetString("dh-sandbag-intact"), ent, args.User);
+                return;
+            }
+
+            _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.RepairTime,
+                new DHSandbagRepairDoAfterEvent(), ent, ent, args.Used)
+            {
+                BreakOnMove = true,
+                NeedHand = true,
+            });
+            return;
+        }
+
         // Срезать колючку кусачками.
         if (ent.Comp.Wired && _tool.HasQuality(args.Used, CuttingQuality.Id))
         {
@@ -289,6 +310,24 @@ public sealed partial class DHFortificationSystem : EntitySystem
         args.Handled = true;
         SetWired(ent, false);
         _hands.PickupOrDrop(args.User, Spawn(ent.Comp.Wire, Transform(ent).Coordinates));
+    }
+
+    private void OnBarricadeRepaired(Entity<DHSandbagBarricadeComponent> ent, ref DHSandbagRepairDoAfterEvent args)
+    {
+        if (args.Cancelled || args.Handled || args.Used is not { } sandbags ||
+            !TryComp<DamageableComponent>(ent, out var damageable) ||
+            _damageable.GetTotalDamage((ent.Owner, damageable)) <= 0 ||
+            !_stack.TryUse(sandbags, 1))
+        {
+            return;
+        }
+
+        args.Handled = true;
+        _damageable.HealEvenly((ent.Owner, damageable), -ent.Comp.RepairPerSandbag, origin: args.User);
+        _popup.PopupEntity(Loc.GetString("dh-sandbag-repaired"), ent, args.User);
+
+        // Ещё побита и мешки остались — продолжаем досыпать.
+        args.Repeat = _damageable.GetTotalDamage((ent.Owner, damageable)) > 0 && !TerminatingOrDeleted(sandbags);
     }
 
     private void SetWired(Entity<DHSandbagBarricadeComponent> ent, bool wired)

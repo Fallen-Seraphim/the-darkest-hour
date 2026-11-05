@@ -1,0 +1,270 @@
+# Сигнальные ракеты (решение автора 2026-10-29): ракетница и патроны — белый (осветительный), зелёный, красный.
+# Ракета летит над головами (бьётся только о стены), вспыхивает над точкой прицела (до 30 м) и горит.
+# Значение цветов — договорённость сторон (по умолчанию: зелёный — «вперёд/свои», красный — «враг/огонь сюда»).
+# Спрайты — ванильные сигнальная пушка, патрон и фальшфейер (перекрашены цветом слоя).
+
+- type: Tag
+  id: DHSignalCartridge
+
+- type: entity
+  parent: WeaponFlareGun
+  id: DHSignalPistol
+  name: signal pistol
+  description: A single-shot flare pistol for signal cartridges. The flare flies over people's heads and bursts above the point you aim at, up to thirty metres away.
+  components:
+  - type: DHSignalPistol
+  - type: ItemSlots
+    slots:
+      gun_chamber:
+        name: Chamber
+        startingItem: DHSignalCartridgeWhite
+        priority: 1
+        whitelist:
+          tags:
+          - DHSignalCartridge
+
+# --- Патроны ---
+
+- type: entity
+  abstract: true
+  parent: BaseShellShotgun
+  id: DHSignalCartridgeBase
+  components:
+  - type: Tag
+    tags:
+    - DHSignalCartridge
+  - type: Sprite
+    layers:
+    - state: flare
+      map: [ "enum.AmmoVisualLayers.Base" ]
+  - type: SpentAmmoVisuals
+    state: "flare"
+
+- type: entity
+  parent: DHSignalCartridgeBase
+  id: DHSignalCartridgeWhite
+  name: signal cartridge (white)
+  description: An illumination flare. Lights up a wide area for a minute.
+  components:
+  - type: Sprite
+    color: "#f4f1e8"
+  - type: CartridgeAmmo
+    proto: DHSignalFlareWhite
+
+- type: entity
+  parent: DHSignalCartridgeBase
+  id: DHSignalCartridgeGreen
+  name: signal cartridge (green)
+  description: A green signal flare.
+  components:
+  - type: Sprite
+    color: "#5ee35e"
+  - type: CartridgeAmmo
+    proto: DHSignalFlareGreen
+
+- type: entity
+  parent: DHSignalCartridgeBase
+  id: DHSignalCartridgeRed
+  name: signal cartridge (red)
+  description: A red signal flare.
+  components:
+  - type: Sprite
+    color: "#ff4a3d"
+  - type: CartridgeAmmo
+    proto: DHSignalFlareRed
+
+# --- Ракета в полёте ---
+
+- type: entity
+  abstract: true
+  parent: BaseBullet
+  id: DHSignalFlareBase
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: buckshot-flare
+      shader: unshaded
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.1,0.1,0.1"
+        hard: false
+        mask:
+        - Impassable
+  - type: Projectile
+    damage:
+      types:
+        Heat: 1
+  - type: TimedDespawn
+    lifetime: 5
+
+- type: entity
+  parent: DHSignalFlareBase
+  id: DHSignalFlareWhite
+  components:
+  - type: PointLight
+    color: "#fff3d6"
+    radius: 3
+    energy: 2
+  - type: DHSignalFlare
+    burst: DHSignalFlareBurstWhite
+    colorName: dh-signal-flare-white
+
+- type: entity
+  parent: DHSignalFlareBase
+  id: DHSignalFlareGreen
+  components:
+  - type: Sprite
+    color: "#5ee35e"
+  - type: PointLight
+    color: "#5ee35e"
+    radius: 3
+    energy: 2
+  - type: DHSignalFlare
+    burst: DHSignalFlareBurstGreen
+    colorName: dh-signal-flare-green
+
+- type: entity
+  parent: DHSignalFlareBase
+  id: DHSignalFlareRed
+  components:
+  - type: Sprite
+    color: "#ff4a3d"
+  - type: PointLight
+    color: "#ff4a3d"
+    radius: 3
+    energy: 2
+  - type: DHSignalFlare
+    burst: DHSignalFlareBurstRed
+    colorName: dh-signal-flare-red
+
+# --- Горящая ракета над точкой ---
+
+- type: entity
+  abstract: true
+  id: DHSignalFlareBurstBase
+  name: signal flare
+  description: A flare burning high above the ground.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: Objects/Misc/flare.rsi
+    drawdepth: Overdoors
+    layers:
+    - state: flare_burn
+      shader: unshaded
+  - type: AmbientSound
+    enabled: true
+    volume: -4
+    range: 7
+    sound:
+      path: /Audio/Items/Flare/flare_burn.ogg
+      params:
+        loop: true
+
+- type: entity
+  parent: DHSignalFlareBurstBase
+  id: DHSignalFlareBurstWhite
+  components:
+  - type: PointLight
+    radius: 12
+    energy: 3
+    color: "#fff3d6"
+    castShadows: true
+  - type: TimedDespawn
+    lifetime: 60
+
+- type: entity
+  parent: DHSignalFlareBurstBase
+  id: DHSignalFlareBurstGreen
+  components:
+  - type: Sprite
+    color: "#5ee35e"
+  - type: PointLight
+    radius: 7
+    energy: 6
+    color: "#5ee35e"
+  - type: TimedDespawn
+    lifetime: 30
+
+- type: entity
+  parent: DHSignalFlareBurstBase
+  id: DHSignalFlareBurstRed
+  components:
+  - type: Sprite
+    color: "#ff4a3d"
+  - type: PointLight
+    radius: 7
+    energy: 6
+    color: "#ff4a3d"
+  - type: TimedDespawn
+    lifetime: 30
+
+# --- Набор ракетницы (командирам и офицерам) ---
+
+- type: entity
+  parent: BoxCardboard
+  id: DHSignalFlareKit
+  name: signal flare kit
+  description: A signal pistol with white, green and red cartridges.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHSignalPistol
+    - id: DHSignalCartridgeWhite
+      amount: 3
+    - id: DHSignalCartridgeGreen
+      amount: 3
+    - id: DHSignalCartridgeRed
+      amount: 3
+
+# --- Протолат (полевой станок) ---
+
+- type: latheRecipe
+  id: DHSignalPistol
+  result: DHSignalPistol
+  categories:
+  - Weapons
+  completetime: 4
+  materials:
+    Steel: 300
+
+- type: latheRecipe
+  id: DHSignalCartridgeWhite
+  result: DHSignalCartridgeWhite
+  categories:
+  - Weapons
+  completetime: 1
+  materials:
+    Steel: 50
+
+- type: latheRecipe
+  id: DHSignalCartridgeGreen
+  result: DHSignalCartridgeGreen
+  categories:
+  - Weapons
+  completetime: 1
+  materials:
+    Steel: 50
+
+- type: latheRecipe
+  id: DHSignalCartridgeRed
+  result: DHSignalCartridgeRed
+  categories:
+  - Weapons
+  completetime: 1
+  materials:
+    Steel: 50
+
+- type: latheRecipePack
+  id: DHSignalFlaresStatic
+  recipes:
+  - DHSignalPistol
+  - DHSignalCartridgeWhite
+  - DHSignalCartridgeGreen
+  - DHSignalCartridgeRed

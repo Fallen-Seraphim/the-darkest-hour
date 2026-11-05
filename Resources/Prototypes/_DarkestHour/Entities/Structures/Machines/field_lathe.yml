@@ -1,0 +1,23 @@
+# Полевой протолат «Штурма» (решение автора 2026-10-29): на базе Республики и на авианосце. Работает без проводки
+# (на картах её нет) и сразу заправлен сталью и тканью. Печатает без исследований: колючую проволоку, пустые мешки
+# для песка, ракетницу и сигнальные патроны. Материалы докладываются листами, как в обычный протолат.
+
+- type: entity
+  parent: Protolathe
+  id: DHFieldLathe
+  name: field protolathe
+  description: A rugged protolathe for front-line workshops. Runs off its own generator and comes stocked with steel and cloth. Prints barbed wire, empty sandbags, signal pistols and signal cartridges.
+  components:
+  - type: ApcPowerReceiver
+    needsPower: false
+  - type: Lathe
+    idleState: icon
+    runningState: building
+    staticPacks:
+    - DHFortificationsStatic
+    - DHSignalFlaresStatic
+    dynamicPacks: []
+  - type: MaterialStorage
+    storage:
+      Steel: 5000
+      Cloth: 3000

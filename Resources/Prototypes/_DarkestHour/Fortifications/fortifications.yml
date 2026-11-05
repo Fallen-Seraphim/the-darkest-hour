@@ -92,7 +92,7 @@
   parent: BaseStructure
   id: DHSandbagBarricade
   name: sandbag barricade
-  description: A low wall of sandbags. Stops most bullets coming from the front; you can shoot over it from behind and climb across. Barbed wire can be strung on top of it (whoever climbs over gets cut). Dig it up with a shovel; cut the wire with wirecutters.
+  description: A low wall of sandbags. Stops most bullets coming from the front; you can shoot over it from behind and climb across. Barbed wire can be strung on top of it (whoever climbs over gets cut). Patch it with filled sandbags, dig it up with a shovel, cut the wire with wirecutters.
   placement:
     mode: SnapgridCenter
   components:

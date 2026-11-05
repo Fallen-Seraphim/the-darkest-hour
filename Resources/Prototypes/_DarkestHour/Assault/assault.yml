@@ -23,6 +23,7 @@
     - DHIFAKFilled
     - DHOverwatchTabletRepublic
     - DHMotionDetector
+    - DHSignalFlareKit
 
 - type: startingGear
   parent: DHRepublicGearBase
@@ -40,6 +41,7 @@
     - DHIFAKFilled
     - DHOverwatchTabletRepublic
     - DHMotionDetector
+    - DHSignalFlareKit
 
 - type: startingGear
   parent: DHRepublicGearBase

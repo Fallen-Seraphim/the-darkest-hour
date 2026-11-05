@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 10/24/2026 12:00:00
-  entityCount: 266
+  entityCount: 268
 maps: []
 grids:
 - 1
@@ -1466,4 +1466,16 @@ entities:
     - type: Transform
       pos: 0.5,22.5
       parent: 1
+- proto: DHIVDripFilled
+  entities:
+  - uid: 267
+    components:
+    - type: Transform
+      parent: 1
+      pos: -13.5,1.5
+  - uid: 268
+    components:
+    - type: Transform
+      parent: 1
+      pos: -11.5,1.5
 ...
