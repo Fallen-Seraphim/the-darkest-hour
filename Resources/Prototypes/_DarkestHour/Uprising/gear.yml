@@ -20,7 +20,8 @@
   equipment:
     shoes: ClothingShoesColorBlack
     back: ClothingBackpackSatchel
-    pocket1: SpaceCash100
+    pocket1: DHRepublicCredit100
+    pocket2: DHApartmentKey
 
 - type: startingGear
   parent: DHLACivilianGearBase
@@ -31,11 +32,11 @@
     outerClothing: ClothingOuterCoatGentle
     shoes: ClothingShoesLeather
     ears: ClothingHeadsetGrey
-    pocket2: Pen
   storage:
     back:
+    - Pen
     - BoxFolderBlue
-    - SpaceCash500
+    - DHRepublicCredit500
 
 - type: startingGear
   parent: DHLACivilianGearBase
@@ -45,9 +46,9 @@
     jumpsuit: ClothingUniformJumpsuitLawyerBlue
     shoes: ClothingShoesLeather
     ears: ClothingHeadsetGrey
-    pocket2: Pen
   storage:
     back:
+    - Pen
     - BoxFolderBlue
 
 - type: startingGear
@@ -57,7 +58,9 @@
     id: DHLAIDCardOfficeWorker
     jumpsuit: ClothingUniformJumpsuitColorWhite
     neck: ClothingNeckTieRed
-    pocket2: Pen
+  storage:
+    back:
+    - Pen
 
 - type: startingGear
   parent: DHLACivilianGearBase
@@ -69,7 +72,7 @@
     shoes: ClothingShoesColorBrown
   storage:
     back:
-    - SpaceCash500
+    - DHRepublicCredit500
 
 - type: startingGear
   parent: DHLACivilianGearBase
@@ -129,7 +132,7 @@
     shoes: ClothingShoesLeather
     ears: DHClothingHeadsetLAVanguard
     back: ClothingBackpackSatchelLeather
-    pocket1: SpaceCash1000
+    pocket1: DHRepublicCredit1000
     pocket2: Pen
   inhand:
   - BriefcaseBrownFilled
@@ -149,7 +152,7 @@
     shoes: ClothingShoesLeather
     ears: DHClothingHeadsetLAVanguard
     back: ClothingBackpackSatchelLeather
-    pocket1: SpaceCash500
+    pocket1: DHRepublicCredit500
     pocket2: Pen
   storage:
     back:
@@ -190,7 +193,7 @@
     shoes: ClothingShoesLeather
     ears: DHClothingHeadsetLAVanguard
     back: ClothingBackpackSatchelLeather
-    pocket1: SpaceCash100
+    pocket1: DHRepublicCredit100
     pocket2: Pen
   storage:
     back:
@@ -331,7 +334,9 @@
     gloves: ClothingHandsGlovesFingerless
     ears: DHClothingHeadsetLAFront
     back: ClothingBackpackDuffel
-    pocket1: SpaceCash100
+    pocket1: DHRepublicCredit100
+  inhand:
+  - DHLAFrontSuitcase
   storage:
     back:
     - ClothingMaskBandRed

@@ -85,7 +85,8 @@ GIRDER = 'Girder'
 
 LIGHT = 'AlwaysPoweredLightLED'
 LIGHT_DIM = 'AlwaysPoweredLightSodium'
-# точки появления ОФСК (кроме глав отрядов) — по кругу: повстанцы чаще, остальные роли по одной
+# точки появления ОФСК (кроме глав отрядов) — по кругу: повстанцы чаще, остальные роли по одной.
+# ОФСК появляется только на −3, в катакомбах (решение автора 2026-11-05).
 _FRONT = ['Rebel', 'Saboteur', 'Rebel', 'Specialist', 'Rebel', 'Machinegunner']
 _front_i = [0]
 
@@ -96,6 +97,7 @@ def front_spawn():
     return 'SpawnPointDHLAFront' + job
 
 
+VENDORS = ['DHCityVendorSnacks', 'DHCityVendorDrinks', 'DHCityVendorCoffee', 'DHCityVendorCigarettes']
 POST = 'RMCStreetlight'           # уличные фонари RMC (колонии)
 TRAFFIC = 'RMCTrafficLight'
 
@@ -305,6 +307,9 @@ def streets():
     for x in range(-35, X1 - 4, 11):
         g.put(RND.choice(['RMCPropFireHydrantRed', 'RMCTrashBinGreen', 'RMCPlanter', 'RMCBenchLeft']), x, 47)
         g.put(RND.choice(['RMCTrashBinBlue', 'RMCPlanter', 'RMCPropFireHydrantGrey']), x + 5, 36)
+    # уличные автоматы (только республиканские кредиты)
+    for i, x in enumerate(range(-27, X1 - 6, 22)):
+        g.put(VENDORS[i % len(VENDORS)], x, 36)
 
 
 def square():
@@ -318,6 +323,8 @@ def square():
     for x in range(-94, -44, 10):
         g.put('RMCBenchLeft', x, 33)
         g.put('RMCBenchRight', x + 1, 33)
+    for i, x in enumerate((-91, -79, -63, -51)):
+        g.put(VENDORS[i % len(VENDORS)], x, 31)
     g.put('SpawnPointLatejoin', -70, 40)
     for dx in (-3, 0, 3):
         g.put('SpawnPointLatejoin', -70 + dx, 44)
@@ -465,6 +472,7 @@ def gates():
     pent.put('CMTableWoodenFancy', (px0 + px1) // 2, py1 - 3)
     pent.put('CMChairComfyBlack', (px0 + px1) // 2, py1 - 2, ROT_S)
     pent.put('RMCBookcase', px0 + 1, py1 - 1)
+    pent.put('DHLAVSafe', px0 + 2, py1 - 1)
     pent.put('CMPottedPlant7', px1 - 1, py1 - 1)
     pent.put('CMPottedPlant8', px1 - 1, py0 + 1)
     pent.put('SpawnPointDHLAVRepresentative', (px0 + px1) // 2, py1 - 4)
@@ -563,7 +571,6 @@ def panels():
                     furnish_apartment(lv, cx + 3, ry + 1, x1 - 1, ry + 5)
                     if z in (1, 3):
                         lv.put('SpawnPointDHLAResident', x0 + 3, ry + 3)
-                        lv.put(front_spawn(), x1 - 3, ry + 3)
                 lights_in(lv, cx - 1, y0, cx + 2, y1, step=8)
             L(0).door(cx, y0, 'AirlockGlass')
             L(0).door(cx + 1, y0, 'AirlockGlass')
@@ -583,7 +590,6 @@ def panels():
                     furnish_apartment(lv, rx + 1, cy + 3, rx + 5, y1 - 1)
                     if z in (1, 3):
                         lv.put('SpawnPointDHLAResident', rx + 3, y0 + 2)
-                        lv.put(front_spawn(), rx + 3, y1 - 2)
                 for x in range(x0 + 8, x1 - 2, 8):
                     lv.put(LIGHT_DIM, x, cy + 1, ROT_N)
             L(0).door(x0, cy, 'AirlockGlass')
@@ -596,9 +602,6 @@ def panels():
         hx, hy = PANEL_HATCHES[idx]
         b.put('DHZHatchDown', hx, hy)
         L(-2).put('DHZLadderUp', hx, hy)
-    # главы отрядов ОФСК — в подвалах панелек
-    L(-1).put('SpawnPointDHLAFrontLeader', -85, -35)
-    L(-1).put('SpawnPointDHLAFrontLeader', -60, -66)
     # дворы между панельками
     L(0).floor(-76, -27, -67, 26, T_DIRT)
     L(0).floor(-52, -27, -41, 26, T_DIRT)
@@ -716,7 +719,6 @@ def towers():
                 lv.door(cx + 2, mid_y, 'WoodDoor')
                 if z in (1, 2):
                     L(z).put('SpawnPointDHLAResident', x0 + 3, y0 + 3)
-                    L(z).put(front_spawn(), x1 - 3, y1 - 3)
         stairwell(list(range(-1, top + (2 if finished else 1))), x0 + 2, (y0 + y1) // 2 - 3)
         for z in range(-1, top + 1):
             for x in range(x0 + 1, x0 + 5):
@@ -880,9 +882,17 @@ def catacombs():
     corridors = [(-29, -60, -27, -2), (-27, -2, 41, 0), (39, -40, 41, -2), (-1, -2, 1, 0), (-27, -60, -24, -58)]
     for x0, y0, x1, y1 in corridors:
         lv.floor(x0, y0, x1, y1, T_DIRT)
-    for cx, cy in [(-40, -1), (20, -10), (60, -25)]:
+    for i, (cx, cy) in enumerate([(-40, -1), (20, -10), (60, -25)]):
         lv.floor(cx - 5, cy - 4, cx + 5, cy + 4, T_DIRT)
         lv.put(LIGHT_DIM, cx, cy + 3, ROT_N)
+        # логово ОФСК: глава отряда и бойцы
+        if i < 2:
+            lv.put('SpawnPointDHLAFrontLeader', cx, cy + 1)
+        for dx in (-3, 0, 3):
+            for dy in (-2, -1):
+                lv.put(front_spawn(), cx + dx, cy + dy)
+        lv.put('CrateGenericSteel', cx - 4, cy + 3)
+        lv.put('RMCBedBunkBlue', cx + 4, cy + 3)
     lv.floor(41, -26, 55, -24, T_DIRT)
     lv.floor(-34, -1, -27, 0, T_DIRT)
     lv.floor(15, -6, 16, -1, T_DIRT)
