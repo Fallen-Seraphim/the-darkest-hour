@@ -151,8 +151,7 @@ public sealed partial class DHPhoneSystem : EntitySystem
 
     private string Clock()
     {
-        var time = _ticker.RoundDuration();
-        return $"{(int) time.TotalHours:D2}:{time.Minutes:D2}";
+        return DHCityClock.TimeText(_ticker.RoundDuration());
     }
 
     #endregion

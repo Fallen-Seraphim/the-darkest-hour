@@ -125,3 +125,71 @@ save('phone', [('icon', phone(), 1), ('off', phone(False), 1),
 save('antenna_hacker', [('icon', hacker(), 1), ('inhand-left', inhand((58, 62, 52, 255)), 4),
                         ('inhand-right', inhand((58, 62, 52, 255)), 4)])
 print('ok')
+
+
+# ------------------------------------------------------------------ иконки должностей (8×8) и паспорт
+
+def icons():
+    """LA-V — фиолетовые с монограммой «V» (по мотивам иконок Ве-Я в RMC), ОФСК — тёмно-красные со звездой."""
+    d = 'Resources/Textures/_DarkestHour/Interface/uprising_job_icons.rsi'
+    os.makedirs(d, exist_ok=True)
+    meta = {'version': 1, 'license': 'CC-BY-SA-3.0', 'copyright': COPY, 'size': {'x': 8, 'y': 8}, 'states': []}
+    black = (16, 14, 18, 255)
+
+    def base(fill, rim):
+        im = Image.new('RGBA', (8, 8), (0, 0, 0, 0))
+        dr = ImageDraw.Draw(im)
+        dr.rectangle([0, 0, 7, 7], fill=black)
+        dr.rectangle([1, 1, 6, 6], fill=fill)
+        dr.line([1, 1, 6, 1], fill=rim)
+        return im, dr
+
+    lav = (104, 72, 176, 255)
+    for name, rim in (('lav_representative', (236, 200, 96, 255)), ('lav_assistant', (200, 200, 220, 255)),
+                      ('lav_security', (214, 74, 58, 255)), ('lav_employee', (150, 130, 210, 255))):
+        im, dr = base(lav, rim)
+        white = (240, 240, 250, 255)
+        for x, y in ((2, 2), (2, 3), (3, 4), (3, 5), (4, 5), (4, 4), (5, 3), (5, 2)):
+            dr.point((x, y), fill=white)
+        if name == 'lav_representative':
+            dr.rectangle([0, 0, 7, 7], outline=rim)
+        im.save(os.path.join(d, name + '.png'))
+        meta['states'].append({'name': name})
+
+    red = (140, 20, 20, 255)
+    star = (236, 196, 60, 255)
+    marks = {'front_leader': (236, 196, 60, 255), 'front_saboteur': (240, 120, 40, 255),
+             'front_specialist': (120, 200, 120, 255), 'front_machinegunner': (200, 200, 200, 255),
+             'front_rebel': None}
+    for name, mark in marks.items():
+        im, dr = base(red, (190, 50, 40, 255))
+        for x, y in ((3, 2), (4, 2), (2, 3), (3, 3), (4, 3), (5, 3), (3, 4), (4, 4), (2, 5), (5, 5)):
+            dr.point((x, y), fill=star)
+        if mark:
+            dr.line([1, 6, 6, 6], fill=mark)
+        im.save(os.path.join(d, name + '.png'))
+        meta['states'].append({'name': name})
+    json.dump(meta, open(os.path.join(d, 'meta.json'), 'w'), indent=2)
+
+
+def passport():
+    im = canvas()
+    d = ImageDraw.Draw(im)
+    d.rounded_rectangle([9, 6, 23, 25], radius=1, fill=(36, 74, 52, 255))
+    d.rectangle([9, 6, 10, 25], fill=(24, 52, 36, 255))
+    d.ellipse([13, 10, 19, 16], outline=(214, 186, 96, 255))
+    d.point([16, 13], fill=(214, 186, 96, 255))
+    d.line([13, 19, 19, 19], fill=(214, 186, 96, 255))
+    d.line([14, 21, 18, 21], fill=(214, 186, 96, 255))
+    return outline(im)
+
+
+def blank():
+    return [canvas() for _ in range(4)]
+
+
+icons()
+save('passport', [('passport', passport(), 1), ('equipped-IDCARD', blank(), 4),
+                  ('default-inhand-left', inhand((36, 74, 52, 255)), 4),
+                  ('default-inhand-right', inhand((36, 74, 52, 255)), 4)])
+print('icons ok')

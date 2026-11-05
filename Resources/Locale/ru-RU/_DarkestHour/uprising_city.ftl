@@ -107,3 +107,20 @@ dh-relay-restored = Диапазон антенны снова запечата�
 dh-relay-examine-hacked = Её запасной диапазон [color=red]взломан[/color].
 dh-relay-examine-sealed = Её запасной диапазон запечатан.
 dh-overwatch-order-sender-police = Военная Полиция ({$name})
+
+## паспорт
+dh-passport-blank = Паспорт не заполнен.
+dh-passport-examine = Паспорт [bold]{$number}[/bold]
+    Владелец: {$holder}
+    Родился: {$birth}, {$place}
+    Пол: {$sex}. Раса: {$species}
+    Выдан: {$issued}, ЗАГС Лост-Энджелса
+dh-passport-sex-male = мужской
+dh-passport-sex-female = женский
+dh-passport-sex-unknown = не указан
+dh-passport-species-unknown = не указана
+dh-passport-place-lost-angels = Лост-Энджелс
+dh-passport-place-new-tallinn = Нью-Таллин
+dh-passport-place-prosperity = Проспер
+dh-passport-place-titan = Титан
+dh-passport-place-earth = Земля

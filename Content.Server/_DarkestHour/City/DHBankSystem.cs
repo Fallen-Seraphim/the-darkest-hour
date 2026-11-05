@@ -211,8 +211,7 @@ public sealed partial class DHBankSystem : EntitySystem
 
     private void AddLog(DHBankAccount account, string text)
     {
-        var time = _ticker.RoundDuration();
-        account.Log.Add($"[{(int) time.TotalHours:D2}:{time.Minutes:D2}] {text}");
+        account.Log.Add($"[{DHCityClock.DateTimeText(_ticker.RoundDuration())}] {text}");
         if (account.Log.Count > MaxLog)
             account.Log.RemoveAt(0);
     }

@@ -3,12 +3,16 @@ using Content.Shared._DarkestHour.City;
 using Content.Shared.GameTicking;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Hands.EntitySystems;
+using Content.Shared.Humanoid;
+using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Inventory;
 using Content.Shared.Mind;
 using Content.Shared.Roles;
 using Content.Shared.Roles.Components;
 using Content.Shared.Storage.EntitySystems;
 using Robust.Shared.Containers;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 
 namespace Content.Server._DarkestHour.City;
 
@@ -32,6 +36,8 @@ public sealed partial class DHCitySystem : EntitySystem
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private SharedMindSystem _mind = default!;
     [Dependency] private DHPhoneSystem _phones = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IRobustRandom _random = default!;
     [Dependency] private SharedStorageSystem _storage = default!;
 
     private const string PhoneProto = "DHPhone";
@@ -79,6 +85,8 @@ public sealed partial class DHCitySystem : EntitySystem
             number = phoneComp.Number;
         }
 
+        FillPassport(mob, name);
+
         AddBriefing(mob, new List<string>
         {
             Loc.GetString("dh-city-briefing-header"),
@@ -86,6 +94,49 @@ public sealed partial class DHCitySystem : EntitySystem
             Loc.GetString("dh-city-briefing-account", ("number", account.Number), ("balance", account.Balance)),
             Loc.GetString("dh-city-briefing-login", ("login", account.Login), ("password", account.Password)),
         });
+    }
+
+    private static readonly string[] BirthPlaces =
+    [
+        "dh-passport-place-lost-angels", "dh-passport-place-lost-angels", "dh-passport-place-new-tallinn",
+        "dh-passport-place-prosperity", "dh-passport-place-titan", "dh-passport-place-earth",
+    ];
+
+    /// <summary>Паспорт в слоте документа: номер, дата рождения (2318 − возраст), место, пол, раса.</summary>
+    private void FillPassport(EntityUid mob, string name)
+    {
+        if (!_inventory.TryGetSlotEntity(mob, "id", out var id) || !TryComp<DHPassportComponent>(id, out var passport))
+            return;
+
+        var age = 30;
+        var sex = Loc.GetString("dh-passport-sex-unknown");
+        var species = Loc.GetString("dh-passport-species-unknown");
+        if (TryComp<HumanoidProfileComponent>(mob, out var profile))
+        {
+            age = profile.Age;
+            sex = Loc.GetString(profile.Sex switch
+            {
+                Sex.Male => "dh-passport-sex-male",
+                Sex.Female => "dh-passport-sex-female",
+                _ => "dh-passport-sex-unknown",
+            });
+            if (_proto.TryIndex<SpeciesPrototype>(profile.Species, out var speciesProto))
+                species = Loc.GetString(speciesProto.Name);
+        }
+
+        var birth = new DateTime(DHCityClock.Year - age, 1, 1).AddDays(_random.Next(0, 365));
+        if (birth > DHCityClock.Start.AddYears(-age))
+            birth = birth.AddYears(-1);
+
+        passport.Number = $"LA {_random.Next(10, 100)} {_random.Next(100000, 1000000)}";
+        passport.Holder = name;
+        passport.BirthDate = birth.ToString("dd.MM.yyyy");
+        passport.BirthPlace = Loc.GetString(_random.Pick(BirthPlaces));
+        passport.Sex = sex;
+        passport.Species = species;
+        passport.Issued = new DateTime(DHCityClock.Year - _random.Next(1, 10), _random.Next(1, 13), _random.Next(1, 29))
+            .ToString("dd.MM.yyyy");
+        Dirty(id.Value, passport);
     }
 
     private static int StartBalance(string? job)

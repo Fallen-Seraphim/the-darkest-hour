@@ -10,7 +10,8 @@ namespace Content.Shared._DarkestHour.City;
 public static class DHCityCurrency
 {
     public const string Stack = "DHRepublicCredit";
-    public const string Cash = "DHRepublicCredit";
+    /// <summary>Сущность купюр (EntProtoId — чтобы не путать перегрузки StackSystem со стеком).</summary>
+    public static readonly EntProtoId Cash = "DHRepublicCredit";
 }
 
 [DataDefinition]

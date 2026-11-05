@@ -4,14 +4,15 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Windows/Frames/hybrisa_frame.rsi
-    state: strata_frame0
   - type: Icon
     sprite: _RMC14/Structures/Windows/Frames/hybrisa_frame.rsi
     state: strata_frame0
   - type: IconSmooth
     key: windows
-    base: strata_frame
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ windows, walls ]
+      base: strata_frame
 
 - type: entity
   parent: RMCWindowFrameColonyReinforced
@@ -19,14 +20,15 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Windows/Frames/hybrisa_frame.rsi
-    state: strata_frame0
   - type: Icon
     sprite: _RMC14/Structures/Windows/Frames/hybrisa_frame.rsi
     state: strata_frame0
   - type: IconSmooth
     key: windows
-    base: strata_frame
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ windows, walls ]
+      base: strata_frame
 
 - type: entity
   parent: CMBaseWindow
@@ -36,14 +38,15 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Windows/hybrisa_window.rsi
-    state: strata_window0
   - type: Icon
     sprite: _RMC14/Structures/Windows/hybrisa_window.rsi
     state: strata_window0
   - type: IconSmooth
     key: windows
-    base: strata_window
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ windows, walls ]
+      base: strata_window
   - type: Repairable
   - type: Destructible
     thresholds:
@@ -79,14 +82,15 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Windows/hybrisa_window.rsi
-    state: strata_window0
   - type: Icon
     sprite: _RMC14/Structures/Windows/hybrisa_window.rsi
     state: strata_window0
   - type: IconSmooth
     key: windows
-    base: strata_window
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ windows, walls ]
+      base: strata_window
   - type: Repairable
   - type: Destructible
     thresholds:
@@ -125,14 +129,15 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Windows/hybrisa_window.rsi
-    state: strata_window0
   - type: Icon
     sprite: _RMC14/Structures/Windows/hybrisa_window.rsi
     state: strata_window0
   - type: IconSmooth
     key: windows
-    base: strata_window
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ windows, walls ]
+      base: strata_window
 
 # Medical
 
@@ -143,14 +148,15 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Windows/Frames/hybrisa_frame_medical.rsi
-    state: strata_frame0
   - type: Icon
     sprite: _RMC14/Structures/Windows/Frames/hybrisa_frame_medical.rsi
     state: strata_frame0
   - type: IconSmooth
     key: windows
-    base: strata_frame
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ windows, walls ]
+      base: strata_frame
 
 - type: entity
   parent: RMCWindowHybrisaReinforced
@@ -159,14 +165,15 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Windows/hybrisa_window_medical.rsi
-    state: strata_window0
   - type: Icon
     sprite: _RMC14/Structures/Windows/hybrisa_window_medical.rsi
     state: strata_window0
   - type: IconSmooth
     key: windows
-    base: strata_window
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ windows, walls ]
+      base: strata_window
   - type: Destructible
     thresholds:
       - trigger:
@@ -205,14 +212,15 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Windows/Frames/hybrisa_frame_engineering.rsi
-    state: strata_frame0
   - type: Icon
     sprite: _RMC14/Structures/Windows/Frames/hybrisa_frame_engineering.rsi
     state: strata_frame0
   - type: IconSmooth
     key: windows
-    base: strata_frame
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ windows, walls ]
+      base: strata_frame
 
 - type: entity
   parent: RMCWindowHybrisaReinforced
@@ -221,14 +229,15 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Windows/hybrisa_window_engineering.rsi
-    state: strata_window0
   - type: Icon
     sprite: _RMC14/Structures/Windows/hybrisa_window_engineering.rsi
     state: strata_window0
   - type: IconSmooth
     key: windows
-    base: strata_window
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ windows, walls ]
+      base: strata_window
   - type: Destructible
     thresholds:
       - trigger:
@@ -267,14 +276,15 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Windows/Frames/hybrisa_frame_office.rsi
-    state: strata_frame0
   - type: Icon
     sprite: _RMC14/Structures/Windows/Frames/hybrisa_frame_office.rsi
     state: strata_frame0
   - type: IconSmooth
     key: windows
-    base: strata_frame
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ windows, walls ]
+      base: strata_frame
 
 - type: entity
   parent: RMCWindowHybrisaReinforced
@@ -283,14 +293,15 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Windows/hybrisa_window_office.rsi
-    state: strata_window0
   - type: Icon
     sprite: _RMC14/Structures/Windows/hybrisa_window_office.rsi
     state: strata_window0
   - type: IconSmooth
     key: windows
-    base: strata_window
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ windows, walls ]
+      base: strata_window
   - type: Destructible
     thresholds:
       - trigger:
@@ -329,14 +340,15 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Windows/Frames/hybrisa_spaceport_frame.rsi
-    state: prison_frame0
   - type: Icon
     sprite: _RMC14/Structures/Windows/Frames/hybrisa_spaceport_frame.rsi
     state: prison_frame0
   - type: IconSmooth
     key: windows
-    base: prison_frame
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ windows, walls ]
+      base: prison_frame
 
 - type: entity
   parent: RMCWindowHybrisa
@@ -345,14 +357,15 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Windows/spaceport_window.rsi
-    state: prison_window0
   - type: Icon
     sprite: _RMC14/Structures/Windows/spaceport_window.rsi
     state: prison_window0
   - type: IconSmooth
     key: windows
-    base: prison_window
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ windows, walls ]
+      base: prison_window
   - type: Destructible
     thresholds:
       - trigger:
@@ -389,14 +402,15 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Windows/Frames/hybrisa_spaceport_frame.rsi
-    state: prison_frame0
   - type: Icon
     sprite: _RMC14/Structures/Windows/Frames/hybrisa_spaceport_frame.rsi
     state: prison_frame0
   - type: IconSmooth
     key: windows
-    base: prison_frame
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ windows, walls ]
+      base: prison_frame
 
 - type: entity
   parent: RMCWindowHybrisaReinforced
@@ -405,14 +419,15 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Windows/rspaceport_window.rsi
-    state: prison_window0
   - type: Icon
     sprite: _RMC14/Structures/Windows/rspaceport_window.rsi
     state: prison_window0
   - type: IconSmooth
     key: windows
-    base: prison_window
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ windows, walls ]
+      base: prison_window
   - type: Destructible
     thresholds:
       - trigger:
@@ -449,14 +464,15 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Windows/Frames/hybrisa_spaceport_frame.rsi
-    state: prison_frame0
   - type: Icon
     sprite: _RMC14/Structures/Windows/Frames/hybrisa_spaceport_frame.rsi
     state: prison_frame0
   - type: IconSmooth
     key: windows
-    base: prison_frame
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ windows, walls ]
+      base: prison_frame
 
 - type: entity
   parent: RMCWindowHybrisaReinforced
@@ -465,14 +481,15 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Windows/spaceport_cellwindow.rsi
-    state: prison_window0
   - type: Icon
     sprite: _RMC14/Structures/Windows/spaceport_cellwindow.rsi
     state: prison_window0
   - type: IconSmooth
     key: windows
-    base: prison_window
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ windows, walls ]
+      base: prison_window
   - type: Destructible
     thresholds:
       - trigger:
@@ -511,14 +528,15 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Windows/Frames/hybrisa_frame_research.rsi
-    state: strata_frame0
   - type: Icon
     sprite: _RMC14/Structures/Windows/Frames/hybrisa_frame_research.rsi
     state: strata_frame0
   - type: IconSmooth
     key: windows
-    base: strata_frame
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ windows, walls ]
+      base: strata_frame
 
 - type: entity
   parent: RMCWindowHybrisaReinforced
@@ -527,14 +545,15 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Windows/hybrisa_window_research.rsi
-    state: strata_window0
   - type: Icon
     sprite: _RMC14/Structures/Windows/hybrisa_window_research.rsi
     state: strata_window0
   - type: IconSmooth
     key: windows
-    base: strata_window
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ windows, walls ]
+      base: strata_window
   - type: Destructible
     thresholds:
       - trigger:

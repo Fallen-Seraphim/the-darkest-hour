@@ -107,3 +107,20 @@ dh-relay-restored = The antenna's band is sealed again.
 dh-relay-examine-hacked = Its spare band is [color=red]hacked open[/color].
 dh-relay-examine-sealed = Its spare band is sealed.
 dh-overwatch-order-sender-police = Military Police ({$name})
+
+## паспорт
+dh-passport-blank = The passport has not been filled in.
+dh-passport-examine = Passport [bold]{$number}[/bold]
+    Holder: {$holder}
+    Born: {$birth}, {$place}
+    Sex: {$sex}. Species: {$species}
+    Issued: {$issued}, Lost Angels registry office
+dh-passport-sex-male = male
+dh-passport-sex-female = female
+dh-passport-sex-unknown = not stated
+dh-passport-species-unknown = not stated
+dh-passport-place-lost-angels = Lost Angels
+dh-passport-place-new-tallinn = New Tallinn
+dh-passport-place-prosperity = Prosperity
+dh-passport-place-titan = Titan
+dh-passport-place-earth = Earth

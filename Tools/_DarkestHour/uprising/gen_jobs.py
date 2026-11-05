@@ -61,19 +61,19 @@ JOBS = [
      'Live through another day in the district.',
      'Переживите ещё один день в квартале.', None),
     # LA-V
-    ('DHLAVRepresentative', 'DHLAVanguard', 'Nanotrasen', 1, ['DHLAVanguard', 'DHLAVanguardOffice'],
+    ('DHLAVRepresentative', 'DHLAVanguard', 'dh:lav_representative', 1, ['DHLAVanguard', 'DHLAVanguardOffice'],
      'Corporate representative', 'представитель корпорации',
      'Represent LA-V in the district. Do business with whoever pays, and leave alive through LZ-1 Aeronautics.',
      'Представляйте LA-V в районе. Ведите дела с тем, кто платит, и улетите живым через ЗП-1 «Аэронавтика».', None),
-    ('DHLAVAssistant', 'DHLAVanguard', 'HeadOfPersonnel', 1, ['DHLAVanguard', 'DHLAVanguardOffice'],
+    ('DHLAVAssistant', 'DHLAVanguard', 'dh:lav_assistant', 1, ['DHLAVanguard', 'DHLAVanguardOffice'],
      "Representative's assistant", 'помощник представителя',
      'Assist the corporate representative and run the office.',
      'Помогайте представителю корпорации и ведите дела офиса.', None),
-    ('DHLAVSecurity', 'DHLAVanguard', 'SeniorOfficer', 2, ['DHLAVanguard', 'DHLAVanguardOffice'],
+    ('DHLAVSecurity', 'DHLAVanguard', 'dh:lav_security', 2, ['DHLAVanguard', 'DHLAVanguardOffice'],
      'LA-V security officer', 'офицер СБ LA-V',
      'Guard the representative and the LA-V office.',
      'Охраняйте представителя и офис LA-V.', None),
-    ('DHLAVEmployee', 'DHLAVanguard', 'Visitor', 2, ['DHLAVanguard'],
+    ('DHLAVEmployee', 'DHLAVanguard', 'dh:lav_employee', 2, ['DHLAVanguard'],
      'LA-V employee', 'сотрудник LA-V',
      'Work in the LA-V office.',
      'Работайте в офисе LA-V.', None),
@@ -104,28 +104,34 @@ JOBS = [
      'Учитесь у офицеров. Сначала — резиновые пули.', None),
     # ОФСК — удостоверения как у жителей (решение автора 2026-11-05): глава отряда, диверсант, специалист,
     # пулемётчик, повстанец; оружие — ОНК
-    ('DHLAFrontLeader', 'DHLAFront', 'HeadRevolutionary', 2, [],
+    ('DHLAFrontLeader', 'DHLAFront', 'dh:front_leader', 2, [],
      'LFFC squad leader', 'глава отряда ОФСК',
      'Lead the cell: hold the district, blow up the factory or broadcast the manifesto. Hide among the residents.',
      'Ведите ячейку: удержите квартал, взорвите завод или выйдите в эфир с манифестом. Прячьтесь среди жителей.',
      'DHLAResident'),
-    ('DHLAFrontSaboteur', 'DHLAFront', 'Revolutionary', 2, [],
+    ('DHLAFrontSaboteur', 'DHLAFront', 'dh:front_saboteur', 2, [],
      'LFFC saboteur', 'диверсант ОФСК',
      'Blow up what the squad leader points at. Hide among the residents.',
      'Взрывайте то, на что укажет глава отряда. Прячьтесь среди жителей.', 'DHLAResident'),
-    ('DHLAFrontSpecialist', 'DHLAFront', 'Revolutionary', 2, [],
+    ('DHLAFrontSpecialist', 'DHLAFront', 'dh:front_specialist', 2, [],
      'LFFC specialist', 'специалист ОФСК',
      'A marksman of the Front: hit officers and gunners from afar. Hide among the residents.',
      'Стрелок Фронта: поражайте офицеров и пулемётчиков издалека. Прячьтесь среди жителей.', 'DHLAResident'),
-    ('DHLAFrontMachinegunner', 'DHLAFront', 'Revolutionary', 2, [],
+    ('DHLAFrontMachinegunner', 'DHLAFront', 'dh:front_machinegunner', 2, [],
      'LFFC machine gunner', 'пулемётчик ОФСК',
      'Hold the street with the Firestarter-2T. Hide among the residents.',
      'Держите улицу из Firestarter-2T. Прячьтесь среди жителей.', 'DHLAResident'),
-    ('DHLAFrontRebel', 'DHLAFront', 'Revolutionary', 10, [],
+    ('DHLAFrontRebel', 'DHLAFront', 'dh:front_rebel', 10, [],
      'LFFC rebel', 'повстанец ОФСК',
      'Fight for the Front and follow your squad leader. Hide among the residents.',
      'Сражайтесь за Фронт и слушайтесь главу отряда. Прячьтесь среди жителей.', 'DHLAResident'),
 ]
+
+DH_ICONS = '/Textures/_DarkestHour/Interface/uprising_job_icons.rsi'
+CARD_BASE = {'DHLACivilians': 'DHLAPassportBase', 'DHLAVanguard': 'DHLAVIDCardBase',
+             'DHLAMilitaryPolice': 'DHDogtags', 'DHLAFront': 'DHLAPassportBase'}
+LAV_CARD = {'DHLAVRepresentative': 'corporate_liaison', 'DHLAVAssistant': 'corporate_liaison',
+            'DHLAVSecurity': 'pmc', 'DHLAVEmployee': 'silver'}
 
 ACCESS = [
     ('DHLADistrict', 'District office', 'управа'),
@@ -182,7 +188,7 @@ for jid, dept, icon, slots, access, nen, nru, den, dru, card_as in JOBS:
     w('  description: %s-desc' % k)
     w('  playTimeTracker: Job%s' % jid)
     w('  startingGear: %sGear' % jid)
-    w('  icon: JobIcon%s' % (card_as or jid))
+    w('  icon: JobIcon%s' % jid)
     w('  supervisors: dh-job-%s-supervisors' % kebab(dept[2:]))
     if access:
         w('  access:')
@@ -192,26 +198,28 @@ for jid, dept, icon, slots, access, nen, nru, den, dru, card_as in JOBS:
     w('- type: playTimeTracker')
     w('  id: Job%s' % jid)
     w('')
+    # Иконка должности — своя у всех (ОФСК и LA-V — свои рисованные, решение автора 2026-11-05).
+    sprite_path, state = (DH_ICONS, icon[3:]) if icon.startswith('dh:') else ('/Textures/Interface/Misc/job_icons.rsi', icon)
+    w('- type: jobIcon')
+    w('  parent: JobIcon')
+    w('  id: JobIcon%s' % jid)
+    w('  icon:')
+    w('    sprite: %s' % sprite_path)
+    w('    state: %s' % state)
+    w('  jobName: %s-name' % k)
+    w('')
+    # Документ: мирным — паспорт, LA-V — корпоративная карта, военполу — жетоны; ОФСК — паспорт жителя.
     if card_as is None:
-        w('- type: jobIcon')
-        w('  parent: JobIcon')
-        w('  id: JobIcon%s' % jid)
-        w('  icon:')
-        w('    sprite: /Textures/Interface/Misc/job_icons.rsi')
-        w('    state: %s' % icon)
-        w('  jobName: %s-name' % k)
-        w('')
         w('- type: entity')
-        w('  parent: DHLAIDCardBase')
+        w('  parent: %s' % CARD_BASE[dept])
         w('  id: DHLAIDCard%s' % jid[4:])
         w('  suffix: %s' % nen)
         w('  components:')
-        w('  - type: Sprite')
-        w('    layers:')
-        w('    - state: default')
-        w('    - sprite: Interface/Misc/job_icons.rsi')
-        w('      offset: -0.09375, 0.0625')
-        w('      state: %s' % icon)
+        if dept == 'DHLAVanguard':
+            card_state = LAV_CARD.get(jid, 'silver')
+            w('  - type: Sprite')
+            w('    layers:')
+            w('    - state: %s' % card_state)
         w('  - type: PresetIdCard')
         w('    job: %s' % jid)
         w('')
@@ -225,8 +233,8 @@ for jid, dept, icon, slots, access, nen, nru, den, dru, card_as in JOBS:
     w('  - type: Sprite')
     w('    layers:')
     w('    - state: green')
-    w('    - sprite: Interface/Misc/job_icons.rsi')
-    w('      state: %s' % icon)
+    w('    - sprite: %s' % sprite_path.replace('/Textures/', ''))
+    w('      state: %s' % state)
     w('')
     en += ['%s-name = %s' % (k, nen), '%s-desc = %s' % (k, den)]
     ru += ['%s-name = %s' % (k, nru), '%s-desc = %s' % (k, dru)]
@@ -250,7 +258,8 @@ lines = []
 for jid, dept, icon, slots, access, nen, nru, den, dru, card_as in JOBS:
     lines.append('ent-SpawnPoint%s = %s\n    .suffix = точка появления' % (jid, nru))
     if card_as is None:
-        lines.append('ent-DHLAIDCard%s = { ent-DHLAIDCardBase }\n    .desc = { ent-DHLAIDCardBase.desc }\n    .suffix = %s' % (jid[4:], nru))
+        base = CARD_BASE[dept]
+        lines.append('ent-DHLAIDCard%s = { ent-%s }\n    .desc = { ent-%s.desc }\n    .suffix = %s' % (jid[4:], base, base, nru))
 open(rp, 'w', encoding='utf-8').write('\n\n'.join(lines) + '\n')
 
 # слоты станции — для uprising.yml

@@ -1,6 +1,7 @@
 using System.Numerics;
 using Content.Client._DarkestHour.UI;
 using Content.Client.CartridgeLoader;
+using Content.Client.GameTicking;
 using Content.Shared._DarkestHour.City;
 using Content.Shared.CartridgeLoader;
 using JetBrains.Annotations;
@@ -25,6 +26,8 @@ public sealed class DHPhoneBoundUserInterface : CartridgeLoaderBoundUserInterfac
         base.Open();
 
         _window = this.CreateWindow<DHPhoneWindow>();
+        var ticker = EntMan.System<ClientGameTicker>();
+        _window.Clock = () => DHCityClock.DateTimeText(ticker.RoundDuration());
         _window.OnProgram += uid => ActivateCartridge(uid);
         _window.OnHome += DeactivateActiveCartridge;
         UpdateHeader();
@@ -70,6 +73,10 @@ public sealed class DHPhoneWindow : DefaultWindow
 
     private static readonly Color Accent = Color.FromHex("#6FC2E8");
 
+    /// <summary>Дата и время Лост-Энджелса (5 апреля 2318).</summary>
+    public Func<string>? Clock;
+
+    private readonly Label _clock = new() { FontColorOverride = Color.Gray, HorizontalAlignment = HAlignment.Center };
     private readonly Label _owner = new() { FontColorOverride = Accent };
     private readonly Label _number = new() { FontColorOverride = Color.Gray };
     private readonly Label _programTitle = new() { FontColorOverride = Accent, HorizontalExpand = true };
@@ -107,6 +114,7 @@ public sealed class DHPhoneWindow : DefaultWindow
             Margin = new Thickness(8),
         };
 
+        root.AddChild(_clock);
         var header = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 8 };
         _owner.HorizontalExpand = true;
         header.AddChild(_owner);
@@ -122,6 +130,13 @@ public sealed class DHPhoneWindow : DefaultWindow
         root.AddChild(_homeView);
         root.AddChild(_programView);
         Contents.AddChild(root);
+    }
+
+    protected override void FrameUpdate(Robust.Shared.Timing.FrameEventArgs args)
+    {
+        base.FrameUpdate(args);
+        if (Clock?.Invoke() is { } now && _clock.Text != now)
+            _clock.Text = now;
     }
 
     public void SetHeader(string owner, string number)
