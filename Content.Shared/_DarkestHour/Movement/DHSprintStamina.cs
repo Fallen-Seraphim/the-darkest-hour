@@ -1,13 +1,24 @@
-using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Systems;
 using Robust.Shared.GameStates;
 
 namespace Content.Shared._DarkestHour.Movement;
 
-// Спринт на Shift (решение автора 2026-11-05): по умолчанию шаг, бег — пока зажат Shift, и он тратит выносливость.
-// Выдохся — бежать не может (скорость бега = скорость шага), пока не отдышится.
+// Рывок на Shift (решение автора 2026-11-05): обычное движение — ванильный бег; пока зажат Shift — рывок быстрее
+// бега, и он тратит выносливость. Выдохся — рывка нет (обычный бег), пока не отдышится.
 
-/// <summary>Бегущий выдохся: бег не быстрее шага.</summary>
+/// <summary>Зажат ли Shift (рывок). Ставится вводом, предсказывается клиентом.</summary>
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class DHSprintComponent : Component
+{
+    [DataField, AutoNetworkedField]
+    public bool Held;
+
+    /// <summary>Во сколько раз рывок быстрее обычного бега.</summary>
+    [DataField, AutoNetworkedField]
+    public float Multiplier = 1.4f;
+}
+
+/// <summary>Выдохся: рывка нет.</summary>
 [RegisterComponent, NetworkedComponent]
 public sealed partial class DHSprintExhaustedComponent : Component;
 
@@ -19,29 +30,50 @@ public sealed partial class DHSprintExhaustionSystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<DHSprintExhaustedComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshSpeed);
-        SubscribeLocalEvent<DHSprintExhaustedComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<DHSprintExhaustedComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<DHSprintComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshSpeed);
+        SubscribeLocalEvent<DHSprintExhaustedComponent, ComponentStartup>(OnExhaustedStartup);
+        SubscribeLocalEvent<DHSprintExhaustedComponent, ComponentShutdown>(OnExhaustedShutdown);
     }
 
-    private void OnStartup(Entity<DHSprintExhaustedComponent> ent, ref ComponentStartup args)
+    /// <summary>Shift зажат/отпущен.</summary>
+    public void SetSprintHeld(EntityUid uid, bool held)
+    {
+        if (!held && !HasComp<DHSprintComponent>(uid))
+            return;
+
+        var sprint = EnsureComp<DHSprintComponent>(uid);
+        if (sprint.Held == held)
+            return;
+
+        sprint.Held = held;
+        Dirty(uid, sprint);
+        _movement.RefreshMovementSpeedModifiers(uid);
+    }
+
+    public bool IsSprinting(EntityUid uid)
+    {
+        return TryComp<DHSprintComponent>(uid, out var sprint) && sprint.Held && !HasComp<DHSprintExhaustedComponent>(uid);
+    }
+
+    private void OnExhaustedStartup(Entity<DHSprintExhaustedComponent> ent, ref ComponentStartup args)
     {
         _movement.RefreshMovementSpeedModifiers(ent.Owner);
     }
 
-    private void OnShutdown(Entity<DHSprintExhaustedComponent> ent, ref ComponentShutdown args)
+    private void OnExhaustedShutdown(Entity<DHSprintExhaustedComponent> ent, ref ComponentShutdown args)
     {
         _movement.RefreshMovementSpeedModifiers(ent.Owner);
     }
 
-    private void OnRefreshSpeed(Entity<DHSprintExhaustedComponent> ent, ref RefreshMovementSpeedModifiersEvent args)
+    private void OnRefreshSpeed(Entity<DHSprintComponent> ent, ref RefreshMovementSpeedModifiersEvent args)
     {
-        if (ent.Comp.LifeStage > ComponentLifeStage.Running ||
-            !TryComp<MovementSpeedModifierComponent>(ent, out var speed) || speed.BaseSprintSpeed <= 0f)
+        if (!ent.Comp.Held || TryComp<DHSprintExhaustedComponent>(ent, out var exhausted) &&
+            exhausted.LifeStage <= ComponentLifeStage.Running)
         {
             return;
         }
 
-        args.ModifySpeed(1f, MathF.Min(1f, speed.BaseWalkSpeed / speed.BaseSprintSpeed));
+        // Рывок ускоряет обычное движение (ванильный бег); шаг здесь не используется.
+        args.ModifySpeed(1f, ent.Comp.Multiplier);
     }
 }
