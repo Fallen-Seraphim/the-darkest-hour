@@ -237,8 +237,7 @@
   group: Toxins
   desc: reagent-desc-sulfuric-acid
   physicalDesc: reagent-physical-desc-oily
-  allowedJobs:
-  - Chemist
+  allowedJobs: []
   flavor: acid
   color: "#BF8C00"
   recognizable: true
@@ -286,9 +285,7 @@
   group: Toxins
   desc: reagent-desc-unstable-mutagen
   physicalDesc: reagent-physical-desc-glowing
-  allowedJobs:
-  - Chemist
-  - Botanist
+  allowedJobs: []
   flavor: bitter
   color: "#00ff5f"
   boilingPoint: 340282300 # Ethidium bromide, which doesn't boil.

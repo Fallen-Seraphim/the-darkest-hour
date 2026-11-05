@@ -204,7 +204,7 @@
   id: BaseCMOStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ ChiefMedicalOfficer, DHChiefPhysician ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
   - type: StealCondition
     owner: job-name-cmo
 
@@ -230,7 +230,7 @@
   id: BaseRDStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ ResearchDirector, DHResearchDirector ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
   - type: StealCondition
     owner: job-name-rd
 
@@ -260,7 +260,7 @@
   id: MagbootsStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ ChiefEngineer, DHChiefTechnician ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: ClothingShoesBootsMagAdv
     owner: job-name-ce
@@ -272,7 +272,7 @@
   id: ClipboardStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Quartermaster, DHQuartermaster ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: BoxFolderQmClipboard
     owner: job-name-qm
@@ -282,7 +282,7 @@
   id: KnuckleDustersStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Quartermaster, DHQuartermaster ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: ClothingHandsKnuckleDustersQM
     owner: job-name-qm
@@ -294,7 +294,7 @@
   id: CorgiMeatStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ HeadOfPersonnel, DHAdjutant ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
   - type: ObjectiveLimit
     limit: 3 # ian only has 2 slices, 3 obj for drama
   - type: StealCondition
@@ -312,7 +312,7 @@
     # sorry ce but your jordans are not as high security as the caps gear
     difficulty: 3.5
   - type: NotJobRequirement
-    jobs: [ Captain, DHCaptain ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
 
 - type: entity
   parent: BaseCaptainObjective

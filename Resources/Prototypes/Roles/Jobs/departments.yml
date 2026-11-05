@@ -4,10 +4,7 @@
   description: dh-department-supply-description # DarkestHour
   color: "#B08452" # DarkestHour
   editorHidden: true # DarkestHour: «Штурм» — станционных отделов нет
-  roles: # DarkestHour: свои должности
-  - DHQuartermaster
-  - DHExpeditor
-  - DHLoader
+  roles: [] # DarkestHour: свои должности
 
 - type: department
   id: CentralCommand
@@ -16,8 +13,7 @@
   color: "#0c344d"
   weight: 120 # Highest weight of all NT departments; Central Command's authority is absolute
   editorHidden: true
-  roles:
-  - CentralCommandOfficial
+  roles: []
 
 - type: department
   id: Civilian
@@ -29,7 +25,6 @@
   editorHidden: true # DarkestHour: отдела нет на станции
   roles:
   - Passenger
-  - Visitor
 
 - type: department
   id: Command
@@ -39,15 +34,7 @@
   weight: 100 # Highest weight of all "regular" crew departments
   primary: false
   editorHidden: true # DarkestHour: «Штурм» — станционных отделов нет
-  roles: # DarkestHour: свои должности
-  - DHCaptain
-  - DHAdjutant
-  - DHMetallArmedSpecialist
-  - DHSecurityChief
-  - DHChiefPhysician
-  - DHQuartermaster
-  - DHResearchDirector
-  - DHChiefTechnician
+  roles: [] # DarkestHour: свои должности
 
 - type: department
   id: Engineering
@@ -55,12 +42,7 @@
   description: dh-department-engineering-description # DarkestHour
   color: "#D4893A" # DarkestHour
   editorHidden: true # DarkestHour: «Штурм» — станционных отделов нет
-  roles: # DarkestHour: свои должности
-  - DHChiefTechnician
-  - DHLeadTechnician
-  - DHAtmosTechnician
-  - DHTechnician
-  - DHJuniorTechnician
+  roles: [] # DarkestHour: свои должности
 
 - type: department
   id: Medical
@@ -68,13 +50,7 @@
   description: dh-department-medical-description # DarkestHour
   color: "#5FA8C8" # DarkestHour
   editorHidden: true # DarkestHour: «Штурм» — станционных отделов нет
-  roles: # DarkestHour: свои должности
-  - DHChiefPhysician
-  - DHLeadPhysician
-  - DHPhysician
-  - DHChemist
-  - DHParamedic
-  - DHMedicalIntern
+  roles: [] # DarkestHour: свои должности
 
 - type: department
   id: Science
@@ -82,12 +58,7 @@
   description: dh-department-science-description # DarkestHour
   color: "#A982C4" # DarkestHour
   editorHidden: true # DarkestHour: «Штурм» — станционных отделов нет
-  roles: # DarkestHour: свои должности
-  - DHResearchDirector
-  - DHLeadScientist
-  - DHMaterialsScientist
-  - DHVirologist
-  - DHLabAssistant
+  roles: [] # DarkestHour: свои должности
 
 - type: department
   id: Security
@@ -96,15 +67,7 @@
   color: "#B5A877" # DarkestHour
   weight: 20 # Raised priority compared to most other crew departments
   editorHidden: true # DarkestHour: «Штурм» — станционных отделов нет
-  roles: # DarkestHour: свои должности
-  - DHSecurityChief
-  - DHWarden
-  - DHDetective
-  - DHInvestigator
-  - DHSecurityInstructor
-  - DHSecurityPilot
-  - DHSecurityOfficer
-  - DHSecurityCadet
+  roles: [] # DarkestHour: свои должности
 
 - type: department
   id: Service
@@ -112,21 +75,7 @@
   description: department-Service-description
   color: "#9FED58"
   editorHidden: true # DarkestHour: отдела нет на станции
-  roles:
-  - Bartender
-  - Botanist
-  - Chaplain
-  - Chef
-  - Clown
-  - HeadOfPersonnel
-  - Janitor
-  - Lawyer
-  - Librarian
-  - Mime
-  - Musician
-  - Reporter
-  - ServiceWorker
-  - TramDriver
+  roles: []
 
 - type: department
   id: Silicon
@@ -146,14 +95,6 @@
   weight: 110 # Higher weight than Command, but below Central Command
   editorHidden: true
   roles:
-  - CBURN
-  - ERTLeader
-  - ERTChaplain
-  - ERTJanitor
-  - ERTMedical
-  - ERTSecurity
-  - ERTEngineer
-  - DeathSquad
   # DarkestHour: ОБР Metall Armed
   - DHMetallArmedCommander
   - DHMetallArmedWeapons
@@ -168,8 +109,5 @@
   weight: -100 # Displays after all other departments, since that makes them obviously distinct in the lobby's jobs list
   ignoreForDepartmentFallback: true
   editorHidden: true # DarkestHour: отдела нет на станции
-  roles:
-  - Reporter
-  - Psychologist
-  - TramDriver
+  roles: []
   primary: false

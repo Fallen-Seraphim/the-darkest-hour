@@ -1,26 +1,3 @@
-- type: job
-  id: AtmosphericTechnician
-  name: job-name-atmostech
-  description: job-description-atmostech
-  playTimeTracker: JobAtmosphericTechnician
-  requirements:
-  - !type:DepartmentTimeRequirement
-    department: Engineering
-    time: 2.5h
-  startingGear: AtmosphericTechnicianGear
-  icon: "JobIconAtmosphericTechnician"
-  supervisors: job-supervisors-ce
-  guides: [ Atmospherics ]
-  access:
-  - Maintenance
-  - Engineering
-  - External
-  - Atmospherics
-  special:
-  - !type:GiveItemOnHolidaySpecial
-    holiday: FirefighterDay
-    prototype: FireAxe
-
 - type: startingGear
   id: AtmosphericTechnicianGear
   equipment:
@@ -34,7 +11,6 @@
 
 - type: chameleonOutfit
   id: AtmosphericTechnicianChameleonOutfit
-  job: AtmosphericTechnician
   equipment:
     head: ClothingHeadHelmetAtmosFire
     mask: ClothingMaskGasAtmos
