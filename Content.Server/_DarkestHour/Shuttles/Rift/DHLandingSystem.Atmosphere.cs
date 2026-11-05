@@ -321,7 +321,10 @@ public sealed partial class DHLandingSystem
         }
     }
 
-    /// <summary>Приземление: у ближайшего включённого маяка высадки в пределах его досягаемости или под собой.</summary>
+    /// <summary>
+    /// Приземление: у ближайшего включённого маяка высадки в пределах его досягаемости или под собой; за краем района
+    /// операции — у ближайшей границы (<see cref="KeepInsideMappedSurface"/>).
+    /// </summary>
     private void Land(EntityUid uid, EntityUid surface, Vector2 above)
     {
         var target = above + _random.NextAngle().ToVec() * _random.NextFloat(0f, 6f);
@@ -341,6 +344,9 @@ public sealed partial class DHLandingSystem
             best = distance;
             target = position + _random.NextAngle().ToVec() * _random.NextFloat(1f, 3f);
         }
+
+        // За краем нарисованной карты грунта нет — к ближайшей границе района, в случайную точку вдоль неё.
+        target = KeepInsideMappedSurface(surface, target);
 
         _transform.SetCoordinates(uid, new EntityCoordinates(surface, target));
         _transform.AttachToGridOrMap(uid);
