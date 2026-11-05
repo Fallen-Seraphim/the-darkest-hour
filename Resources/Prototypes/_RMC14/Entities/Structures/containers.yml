@@ -27,7 +27,7 @@
     boundingBox: "-0.5,-0.5,0.5,1.5"
   - type: Damageable
   - type: Injurable
-    damageContainer: StructuralMarine
+    damageContainer: StructuralInorganic
   - type: Destructible
     thresholds:
     - trigger:

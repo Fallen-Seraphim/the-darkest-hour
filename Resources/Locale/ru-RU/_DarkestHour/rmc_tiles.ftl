@@ -1,0 +1,12 @@
+tiles-cm-default-basic = плиточный пол
+tiles-cm-default-beige = бежевый плиточный пол
+tiles-cm-default-black = чёрный плиточный пол
+tiles-cm-default-blue = синий плиточный пол
+tiles-cm-default-brown = коричневый плиточный пол
+tiles-cm-default-green = зелёный плиточный пол
+tiles-cm-default-red = красный плиточный пол
+tiles-cm-default-white = белый плиточный пол
+tiles-cm-default-yellow = жёлтый плиточный пол
+tiles-cm-wood = деревянный пол
+tiles-rmc-asphalt = асфальт
+tiles-rmc-cement = бетон

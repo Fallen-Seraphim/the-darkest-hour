@@ -1,0 +1,7 @@
+# Метки для портированных стен и рам RMC-14.
+
+- type: Tag
+  id: Wall
+
+- type: Tag
+  id: WindowFrame

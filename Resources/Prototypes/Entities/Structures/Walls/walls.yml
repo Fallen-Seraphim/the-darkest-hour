@@ -1106,6 +1106,8 @@
   id: WallConcrete
   name: concrete wall
   components:
+  - type: DHFortified # DarkestHour: бетон панельных домов — втрое прочнее обычной стены (×15)
+    multiplier: 15
   - type: Sprite
     sprite: Structures/Walls/concrete.rsi
   - type: Icon
