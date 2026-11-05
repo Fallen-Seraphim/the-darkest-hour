@@ -97,3 +97,13 @@ dh-city-briefing-header = — Телефон и банк —
 dh-city-briefing-phone = Номер телефона: {$number}
 dh-city-briefing-account = Банковский счёт: {$number} (открыт с {$balance} кр.)
 dh-city-briefing-login = Логин банка: {$login}, пароль: {$password}
+
+## антенна и овервотч
+dh-relay-hack-start = Вы подключаете взломщик к антенне...
+dh-relay-hack-already = Диапазон антенны уже открыт.
+dh-relay-hacked = Антенна потрескивает: в эфире пиратская частота.
+dh-relay-restore-start = Вы начинаете запечатывать диапазон антенны...
+dh-relay-restored = Диапазон антенны снова запечатан.
+dh-relay-examine-hacked = Её запасной диапазон [color=red]взломан[/color].
+dh-relay-examine-sealed = Её запасной диапазон запечатан.
+dh-overwatch-order-sender-police = Военная Полиция ({$name})

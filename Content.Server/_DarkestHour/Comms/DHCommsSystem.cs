@@ -107,6 +107,10 @@ public sealed partial class DHCommsSystem : EntitySystem
     /// <summary>Переносной ретранслятор работает, только развёрнутый и закреплённый.</summary>
     private bool RelayWorking(EntityUid relay)
     {
+        // Взламываемая антенна («Восстание») работает только взломанной.
+        if (TryComp<DHHackableRelayComponent>(relay, out var hackable) && !hackable.Hacked)
+            return false;
+
         return !HasComp<DHPortableRelayComponent>(relay) || Transform(relay).Anchored;
     }
 

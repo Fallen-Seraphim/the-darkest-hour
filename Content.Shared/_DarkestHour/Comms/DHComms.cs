@@ -125,3 +125,30 @@ public sealed class DHFieldPhoneAnswerMessage : BoundUserInterfaceMessage;
 
 [Serializable, NetSerializable]
 public sealed class DHFieldPhoneHangUpMessage : BoundUserInterfaceMessage;
+
+/// <summary>
+/// Взламываемый ретранслятор (нейтральная антенна ЗП-1 «Восстания», решение автора 2026-11-05): пока не взломан,
+/// его каналы молчат. Взлом — взломщиком антенн (он у главы отряда ОФСК), восстановление — мультитулом.
+/// </summary>
+[RegisterComponent]
+public sealed partial class DHHackableRelayComponent : Component
+{
+    [DataField]
+    public bool Hacked;
+
+    [DataField]
+    public TimeSpan HackTime = TimeSpan.FromSeconds(20);
+
+    [DataField]
+    public TimeSpan RestoreTime = TimeSpan.FromSeconds(12);
+}
+
+/// <summary>Взломщик антенн.</summary>
+[RegisterComponent]
+public sealed partial class DHRelayHackerComponent : Component;
+
+[Serializable, NetSerializable]
+public sealed partial class DHRelayHackDoAfterEvent : Content.Shared.DoAfter.SimpleDoAfterEvent;
+
+[Serializable, NetSerializable]
+public sealed partial class DHRelayRestoreDoAfterEvent : Content.Shared.DoAfter.SimpleDoAfterEvent;
