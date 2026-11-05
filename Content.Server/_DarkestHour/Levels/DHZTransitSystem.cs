@@ -492,9 +492,9 @@ public sealed partial class DHZTransitSystem : EntitySystem
     {
         return level switch
         {
-            0 => Loc.GetString("dh-zlevel-name-ground"),
-            > 0 => Loc.GetString("dh-zlevel-name-up", ("level", level)),
-            _ => Loc.GetString("dh-zlevel-name-down", ("level", -level)),
+            0 => Robust.Shared.Localization.Loc.GetString("dh-zlevel-name-ground"),
+            > 0 => Robust.Shared.Localization.Loc.GetString("dh-zlevel-name-up", ("level", level)),
+            _ => Robust.Shared.Localization.Loc.GetString("dh-zlevel-name-down", ("level", -level)),
         };
     }
 
@@ -647,7 +647,7 @@ public sealed partial class DHZTransitSystem : EntitySystem
         Dirty(map, gravity);
 
         if (TryComp<Content.Shared.Atmos.Components.MapAtmosphereComponent>(ground, out var air))
-            _atmos.SetMapAtmosphere(map, air.Space, air.Mixture.Clone());
+            _atmos.SetMapAtmosphere(map, air.Space, new Content.Shared.Atmos.GasMixture(air.Mixture));
 
         var light = EnsureComp<MapLightComponent>(map);
         light.AmbientLightColor = level < 0

@@ -4,6 +4,7 @@ using Robust.Client.Graphics;
 using Robust.Shared.Enums;
 using Robust.Shared.Graphics;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 using Robust.Shared.Timing;
 
 namespace Content.Client._DarkestHour.Levels;
@@ -14,7 +15,7 @@ namespace Content.Client._DarkestHour.Levels;
 /// Каждый уровень вниз немного затемнён (<see cref="DHZDepthShadeOverlay"/>). Сущности нижних уровней приходят
 /// с сервера через «зонды» видимости (DHZRenderSystem на сервере).
 /// </summary>
-public sealed class DHZLevelRenderSystem : EntitySystem
+public sealed partial class DHZLevelRenderSystem : EntitySystem
 {
     [Dependency] private IOverlayManager _overlays = default!;
     [Dependency] private IGameTiming _timing = default!;
