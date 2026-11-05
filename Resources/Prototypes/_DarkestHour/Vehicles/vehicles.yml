@@ -616,25 +616,27 @@
         maxDistance: 50
   - type: DHVehicleGun
     muzzleOffset: 2.4
+  # В казённике (механизме заряжания) — 3 снаряда (решение автора 2026-11-04); остальные — ящиками в отсеке.
   - type: BasicEntityAmmoProvider
     proto: DHVehicleShellTankAP
-    capacity: 24
-    count: 24
+    capacity: 3
+    count: 3
 
 - type: entity
   parent: DHVehicleGunBase
   id: DHVehicleGunCoaxMG
   name: coaxial machine gun
   components:
+  # Нерф (решение автора 2026-11-04): урон вдвое ниже (свой патрон), темп 8 → 5.
   - type: Gun
-    fireRate: 8
+    fireRate: 5
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/lmg.ogg
   - type: DHVehicleGun
     muzzleOffset: 2.2
     turret: false # пулемёт командира башню не поворачивает — её ведёт наводчик
   - type: BasicEntityAmmoProvider
-    proto: DHBullet127x105FMG
+    proto: DHVehicleBulletTankMG
     capacity: 250
     count: 250
 
@@ -646,6 +648,17 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: DHAntiArmor
+
+- type: entity
+  parent: DHBullet127x105FMG
+  id: DHVehicleBulletTankMG
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 45
+        Structural: 56.25
 
 - type: entity
   parent: DHShipBullet90mmHE
@@ -1006,6 +1019,8 @@
     state: cupola_1
   - type: DHVehicleAmmo
     ammo: DHBullet127x105FMG
+    alsoFits:
+    - DHVehicleBulletTankMG # спаренный пулемёт танка
     amount: 200
 
 # ------------------------------------------------------------------ дымовая завеса

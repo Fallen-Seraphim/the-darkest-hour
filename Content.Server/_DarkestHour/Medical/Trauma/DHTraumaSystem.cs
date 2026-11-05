@@ -622,6 +622,30 @@ public sealed partial class DHTraumaSystem : EntitySystem
         return inside.Any(o => comp.Organs.TryGetValue(o, out var d) && d > 0f);
     }
 
+    /// <summary>
+    /// Следующий урон в этот же тик придётся в указанную часть тела (падение, удар о землю и т.п.).
+    /// </summary>
+    public void SetPendingHitPart(EntityUid uid, string category)
+    {
+        if (!TryComp<DHTraumaComponent>(uid, out var comp))
+            return;
+
+        comp.PendingHitPart = category;
+        comp.PendingHitTick = _timing.CurTick;
+    }
+
+    /// <summary>Перелом части тела без броска шанса (приземление без парашюта).</summary>
+    public void BreakBone(EntityUid uid, string category)
+    {
+        if (!TryComp<DHTraumaComponent>(uid, out var comp))
+            return;
+
+        var part = GetPart(comp, category);
+        part.Fracture = true;
+        part.Splinted = false;
+        Sync((uid, comp));
+    }
+
     public void FixFracture(EntityUid uid, string category)
     {
         if (TryComp<DHTraumaComponent>(uid, out var comp) && comp.Parts.TryGetValue(category, out var p))
