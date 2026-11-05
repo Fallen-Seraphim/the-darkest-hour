@@ -84,23 +84,75 @@ public sealed partial class DHCamoNetDeployDoAfterEvent : SimpleDoAfterEvent;
 [Serializable, NetSerializable]
 public sealed partial class DHCamoNetFoldDoAfterEvent : SimpleDoAfterEvent;
 
-/// <summary>Консоль орбитального скана авианосца.</summary>
+/// <summary>
+/// Консоль орбитального скана авианосца. Глобальный скан (решение автора 2026-11-04): вся поверхность тела под
+/// авианосцем, отчёт — координаты бункера ПКО и базы, а если не под маскировочной сетью — миномёты, пушки, техника и
+/// зенитки; пехота — только крупные скопления. Координаты — с небольшим разбросом; по отчёту — метки на тактической
+/// карте стороны (до следующего скана).
+/// </summary>
 [RegisterComponent]
 public sealed partial class DHOrbitalScanConsoleComponent : Component
 {
-    /// <summary>Радиус скана на поверхности, м.</summary>
     [DataField]
-    public float Radius = 14f;
+    public TimeSpan Cooldown = TimeSpan.FromMinutes(7.5);
 
+    /// <summary>Разброс координат в отчёте, м (в каждую сторону).</summary>
     [DataField]
-    public TimeSpan Cooldown = TimeSpan.FromMinutes(3);
+    public float Spread = 3f;
 
-    /// <summary>Сколько держатся отметки скана на поверхности.</summary>
+    /// <summary>Скопление пехоты: столько бойцов противника…</summary>
     [DataField]
-    public TimeSpan BlipLifetime = TimeSpan.FromSeconds(20);
+    public int ClusterSize = 15;
+
+    /// <summary>…в круге такого радиуса, м.</summary>
+    [DataField]
+    public float ClusterRadius = 10f;
 
     [ViewVariables]
     public TimeSpan NextScan;
+
+    /// <summary>Текст последнего отчёта (показывается на консоли).</summary>
+    [ViewVariables]
+    public string LastReport = string.Empty;
+}
+
+/// <summary>Что видит глобальный скан.</summary>
+[Serializable, NetSerializable]
+public enum DHScanTargetKind : byte
+{
+    AntiOrbital,
+    Base,
+    Mortar,
+    FieldGun,
+    Vehicle,
+    AntiAir,
+}
+
+/// <summary>Объект, который попадает в отчёт глобального скана.</summary>
+[RegisterComponent]
+public sealed partial class DHScanTargetComponent : Component
+{
+    [DataField(required: true)]
+    public DHScanTargetKind Kind;
+
+    /// <summary>Чей объект. Не задан — берётся сторона техники (DHVehicle) или того, кто развернул (миномёт).</summary>
+    [DataField]
+    public Content.Shared._DarkestHour.Assault.DHAssaultFaction? Faction;
+
+    /// <summary>Виден всегда, даже под маскировочной сетью (база, бункер ПКО).</summary>
+    [DataField]
+    public bool AlwaysVisible;
+}
+
+/// <summary>Отметка глобального скана на тактической карте стороны, которая сканировала.</summary>
+[RegisterComponent]
+public sealed partial class DHScanContactComponent : Component
+{
+    [ViewVariables]
+    public Content.Shared._DarkestHour.Assault.DHAssaultFaction? Faction;
+
+    [ViewVariables]
+    public string Label = string.Empty;
 }
 
 [Serializable, NetSerializable]
@@ -110,28 +162,19 @@ public enum DHOrbitalScanUiKey : byte
 }
 
 [Serializable, NetSerializable]
-public sealed class DHOrbitalScanMarkEntry(int code, Vector2 position)
-{
-    public readonly int Code = code;
-    public readonly Vector2 Position = position;
-}
-
-[Serializable, NetSerializable]
-public sealed class DHOrbitalScanState(string surface, bool ready, int cooldown, float radius, string status,
-    List<DHOrbitalScanMarkEntry> marks) : BoundUserInterfaceState
+public sealed class DHOrbitalScanState(string surface, bool ready, int cooldown, string status, string report)
+    : BoundUserInterfaceState
 {
     /// <summary>Поверхность, которую видно с текущего места авианосца; пусто — нечего сканировать.</summary>
     public readonly string Surface = surface;
 
     public readonly bool Ready = ready;
     public readonly int Cooldown = cooldown;
-    public readonly float Radius = radius;
     public readonly string Status = status;
-    public readonly List<DHOrbitalScanMarkEntry> Marks = marks;
+
+    /// <summary>Последний отчёт.</summary>
+    public readonly string Report = report;
 }
 
 [Serializable, NetSerializable]
-public sealed class DHOrbitalScanMessage(Vector2 position) : BoundUserInterfaceMessage
-{
-    public readonly Vector2 Position = position;
-}
+public sealed class DHOrbitalScanMessage : BoundUserInterfaceMessage;

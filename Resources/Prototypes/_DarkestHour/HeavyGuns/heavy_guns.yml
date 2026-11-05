@@ -176,6 +176,10 @@
   name: RAO-400 anti-orbital gun breech
   description: A 400 mm Republican anti-orbital gun. Fires up at ships in orbit; the shell has to climb against gravity, hence the calibre. The breech holds one shell; the barrel goes on the tile in front of it.
   components:
+  - type: DHScanTarget # глобальный скан: бункер ПКО (виден всегда)
+    kind: AntiOrbital
+    faction: Republic
+    alwaysVisible: true
   - type: Sprite
     layers:
     - state: medium
@@ -215,6 +219,10 @@
   name: RAO-700 heavy anti-orbital gun breech
   description: The 700 mm heavy anti-orbital gun of the Republican Army Corps. Fires up at ships in orbit. The breech holds one shell; the barrel goes on the tile in front of it.
   components:
+  - type: DHScanTarget # глобальный скан: бункер ПКО (виден всегда)
+    kind: AntiOrbital
+    faction: Republic
+    alwaysVisible: true
   - type: Sprite
     layers:
     - state: heavy
@@ -571,6 +579,9 @@
   name: interceptor missile silo
   description: A Republican silo of interceptor missiles. Shoots down artillery shells falling within 150 m and fires at a carrier hovering in the atmosphere within 1.5 km; each shot costs a missile.
   components:
+  - type: DHScanTarget # глобальный скан: зенитка (не видна под маскировочной сетью)
+    kind: AntiAir
+    faction: Republic
   - type: Sprite
     state: silo
   - type: DHInterceptor
@@ -590,6 +601,9 @@
   name: twin 30 mm autocannon
   description: A Republican twin 30 mm air-defence autocannon. Puts up flak against artillery shells falling within 100 m and fires at a carrier hovering in the atmosphere within 700 m; each burst costs one charge, a box holds four.
   components:
+  - type: DHScanTarget # глобальный скан: зенитка (не видна под маскировочной сетью)
+    kind: AntiAir
+    faction: Republic
   - type: Sprite
     state: autocannon
   - type: DHInterceptor

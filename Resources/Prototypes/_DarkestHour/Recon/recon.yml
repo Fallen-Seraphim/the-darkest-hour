@@ -112,7 +112,7 @@
   parent: BaseComputer
   id: DHComputerOrbitalScan
   name: orbital scan computer
-  description: Sweeps a circle of the surface below with the carrier's sensors and reports the enemies found over the landing force net. Long recharge. Misses those under camouflage nets and motionless ghillie wearers.
+  description: Sweeps the whole surface below with the carrier's sensors. The report gives the coordinates of the enemy anti-orbital bunker and base, and of mortars, guns, vehicles and anti-aircraft guns not hidden under camouflage nets; infantry shows up only in large concentrations. Positions go to the tactical map. Recharges for 7.5 minutes.
   components:
   - type: ComputerVisuals
     stateScreen: sensors
@@ -131,25 +131,11 @@
     powerLoad: 0
 
 - type: entity
-  id: DHOrbitalScanBlip
+  id: DHScanContact
   name: scan contact
-  description: A contact marked by an orbital scan.
+  description: A position from the last global scan, shown on the tactical map.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
     anchored: false
-  - type: Sprite
-    sprite: _RMC14/Objects/Devices/binoculars.rsi
-    state: las_r
-    drawdepth: Effects
-    shader: unshaded
-  - type: PointLight
-    radius: 1
-    energy: 1
-    color: "#ff3030"
-    castShadows: false
-  - type: TimedDespawn
-    lifetime: 20
-  - type: Tag
-    tags:
-    - HideContextMenu
+  - type: DHScanContact

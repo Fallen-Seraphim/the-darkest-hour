@@ -16,6 +16,8 @@
   placement:
     mode: AlignTileAny
   components:
+  - type: DHScanTarget # глобальный скан; сторона — DHVehicle.faction
+    kind: Vehicle
   - type: Transform
     anchored: false
   - type: Clickable

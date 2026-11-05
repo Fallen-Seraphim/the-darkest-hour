@@ -21,6 +21,10 @@
   name: garrison overwatch computer
   description: Shows every soldier of the garrison, their condition and position, and the view from their helmet cameras. Orders typed here reach the whole garrison.
   components:
+  - type: DHScanTarget # глобальный скан: база Республики (КП; виден всегда, в бункере — не на поверхности)
+    kind: Base
+    faction: Republic
+    alwaysVisible: true
   - type: ComputerVisuals
     stateScreen: cameras
     stateKeys: tech_key

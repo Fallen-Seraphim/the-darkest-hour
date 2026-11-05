@@ -103,6 +103,9 @@ public enum DHTacticalMarkerKind : byte
     Enemy,
     LaserMark,
     Radar,
+
+    /// <summary>Отметка глобального скана (до следующего скана).</summary>
+    ScanContact,
 }
 
 [Serializable, NetSerializable]
