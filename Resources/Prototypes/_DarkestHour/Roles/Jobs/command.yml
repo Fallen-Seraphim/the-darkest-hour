@@ -1,24 +1,5 @@
 # DarkestHour: свои должности. Снаряжение и лоадауты пока взяты у ванильных аналогов, форма — ванильная.
 
-- type: job
-  id: DHCaptain
-  name: dh-job-captain-name
-  description: dh-job-captain-description
-  playTimeTracker: JobDHCaptain
-  startingGear: DHCaptainGear
-  icon: JobIconDHCaptain
-  supervisors: dh-job-supervisors-metallistick
-  joinNotifyCrew: true
-  guides: [ Command ]
-  accessGroups:
-  - AllAccess
-  special:
-  - !type:AddImplantSpecial
-    implants: [ MindShieldImplant ]
-  - !type:AddComponentSpecial
-    components:
-    - type: CommandStaff
-
 - type: startingGear
   id: DHCaptainGear
   equipment:
@@ -33,47 +14,12 @@
 
 - type: chameleonOutfit
   id: DHCaptainChameleonOutfit
-  job: DHCaptain
   hasMindShield: true
   equipment:
     head: ClothingHeadHatCapcap
     eyes: ClothingEyesGlassesCommand
     mask: ClothingMaskGasCaptain
     neck: ClothingNeckCloakCap
-
-- type: job
-  id: DHAdjutant
-  name: dh-job-adjutant-name
-  description: dh-job-adjutant-description
-  playTimeTracker: JobDHAdjutant
-  startingGear: DHAdjutantGear
-  icon: JobIconDHAdjutant
-  supervisors: dh-job-supervisors-captain
-  guides: [ Command ]
-  access:
-  - Command
-  - HeadOfPersonnel
-  - Maintenance
-  - External
-  - Cryogenics
-  - Chemistry
-  - Engineering
-  - Research
-  - Detective
-  - Salvage
-  - Security
-  - Brig
-  - Cargo
-  - Atmospherics
-  - Medical
-  - GenpopEnter
-  - GenpopLeave
-  special:
-  - !type:AddImplantSpecial
-    implants: [ MindShieldImplant ]
-  - !type:AddComponentSpecial
-    components:
-    - type: CommandStaff
 
 - type: startingGear
   id: DHAdjutantGear
@@ -90,7 +36,6 @@
 
 - type: chameleonOutfit
   id: DHAdjutantChameleonOutfit
-  job: DHAdjutant
   hasMindShield: true
   equipment:
     head: ClothingHeadHatHopcap
@@ -98,26 +43,6 @@
     mask: ClothingMaskNeckGaiterRed
     neck: ClothingNeckCloakHop
     outerClothing: ClothingOuterWinterHoP
-
-- type: job
-  id: DHMetallArmedSpecialist
-  name: dh-job-metall-armed-specialist-name
-  description: dh-job-metall-armed-specialist-description
-  playTimeTracker: JobDHMetallArmedSpecialist
-  startingGear: DHMetallArmedSpecialistGear
-  icon: JobIconDHMetallArmedSpecialist
-  supervisors: dh-job-supervisors-metall-armed
-  guides: [ Security ]
-  access:
-  - Security
-  - Brig
-  - Maintenance
-  - External
-  - Cryogenics
-  - Command
-  special:
-  - !type:AddImplantSpecial
-    implants: [ MindShieldImplant ]
 
 - type: startingGear
   id: DHMetallArmedSpecialistGear
@@ -133,7 +58,6 @@
 
 - type: chameleonOutfit
   id: DHMetallArmedSpecialistChameleonOutfit
-  job: DHMetallArmedSpecialist
   hasMindShield: true
   equipment:
     head: ClothingHeadHatBeretSecurity

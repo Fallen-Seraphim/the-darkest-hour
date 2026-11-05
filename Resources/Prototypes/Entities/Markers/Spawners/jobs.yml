@@ -55,8 +55,6 @@
   name: quartermaster
   components:
   - type: SpawnPoint
-    job_id: Quartermaster
-    jobs: [ DHQuartermaster ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -69,8 +67,6 @@
   name: cargotechnician
   components:
   - type: SpawnPoint
-    job_id: CargoTechnician
-    jobs: [ DHLoader ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -82,8 +78,6 @@
   name: salvagespecialist
   components:
   - type: SpawnPoint
-    job_id: SalvageSpecialist
-    jobs: [ DHExpeditor ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -109,8 +103,6 @@
   name: technical assistant
   components:
   - type: SpawnPoint
-    job_id: TechnicalAssistant
-    jobs: [ DHJuniorTechnician ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -122,8 +114,6 @@
   name: medical intern
   components:
   - type: SpawnPoint
-    job_id: MedicalIntern
-    jobs: [ DHMedicalIntern ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -135,8 +125,6 @@
   name: security cadet
   components:
   - type: SpawnPoint
-    job_id: SecurityCadet
-    jobs: [ DHSecurityCadet ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -148,8 +136,6 @@
   name: research assistant
   components:
   - type: SpawnPoint
-    job_id: ResearchAssistant
-    jobs: [ DHLabAssistant ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -161,7 +147,6 @@
   name: service worker
   components:
   - type: SpawnPoint
-    job_id: ServiceWorker
   - type: Sprite
     layers:
       - state: green
@@ -173,7 +158,6 @@
   name: bartender
   components:
   - type: SpawnPoint
-    job_id: Bartender
   - type: Sprite
     layers:
       - state: green
@@ -185,7 +169,6 @@
   name: chef
   components:
   - type: SpawnPoint
-    job_id: Chef
   - type: Sprite
     layers:
       - state: green
@@ -197,7 +180,6 @@
   name: botanist
   components:
   - type: SpawnPoint
-    job_id: Botanist
   - type: Sprite
     layers:
       - state: green
@@ -209,7 +191,6 @@
   name: clown
   components:
   - type: SpawnPoint
-    job_id: Clown
   - type: Sprite
     layers:
       - state: green
@@ -221,7 +202,6 @@
   name: mime
   components:
   - type: SpawnPoint
-    job_id: Mime
   - type: Sprite
     layers:
       - state: green
@@ -233,7 +213,6 @@
   name: chaplain
   components:
   - type: SpawnPoint
-    job_id: Chaplain
   - type: Sprite
     layers:
       - state: green
@@ -245,7 +224,6 @@
   name: librarian
   components:
   - type: SpawnPoint
-    job_id: Librarian
   - type: Sprite
     layers:
       - state: green
@@ -257,7 +235,6 @@
   name: lawyer
   components:
   - type: SpawnPoint
-    job_id: Lawyer
   - type: Sprite
     layers:
       - state: green
@@ -269,7 +246,6 @@
   name: janitor
   components:
   - type: SpawnPoint
-    job_id: Janitor
   - type: Sprite
     layers:
       - state: green
@@ -281,7 +257,6 @@
   name: musician
   components:
   - type: SpawnPoint
-    job_id: Musician
   - type: Sprite
     layers:
       - state: green
@@ -310,8 +285,6 @@
   name: captain
   components:
   - type: SpawnPoint
-    job_id: Captain
-    jobs: [ DHCaptain ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -323,8 +296,6 @@
   name: headofpersonnel
   components:
   - type: SpawnPoint
-    job_id: HeadOfPersonnel
-    jobs: [ DHAdjutant ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -338,8 +309,6 @@
   name: chiefengineer
   components:
   - type: SpawnPoint
-    job_id: ChiefEngineer
-    jobs: [ DHChiefTechnician ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -351,8 +320,6 @@
   name: stationengineer
   components:
   - type: SpawnPoint
-    job_id: StationEngineer
-    jobs: [ DHTechnician, DHLeadTechnician ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -364,8 +331,6 @@
   name: atmospherics
   components:
   - type: SpawnPoint
-    job_id: AtmosphericTechnician
-    jobs: [ DHAtmosTechnician ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -379,8 +344,6 @@
   name: chiefmedicalofficer
   components:
   - type: SpawnPoint
-    job_id: ChiefMedicalOfficer
-    jobs: [ DHChiefPhysician ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -392,8 +355,6 @@
   name: medicaldoctor
   components:
   - type: SpawnPoint
-    job_id: MedicalDoctor
-    jobs: [ DHPhysician, DHLeadPhysician ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -405,8 +366,6 @@
   name: paramedic
   components:
   - type: SpawnPoint
-    job_id: Paramedic
-    jobs: [ DHParamedic ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -418,8 +377,6 @@
   name: chemist
   components:
   - type: SpawnPoint
-    job_id: Chemist
-    jobs: [ DHChemist ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -433,8 +390,6 @@
   name: researchdirector
   components:
   - type: SpawnPoint
-    job_id: ResearchDirector
-    jobs: [ DHResearchDirector ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -446,8 +401,6 @@
   name: scientist
   components:
   - type: SpawnPoint
-    job_id: Scientist
-    jobs: [ DHLeadScientist, DHMaterialsScientist, DHVirologist ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -461,8 +414,6 @@
   name: headofsecurity
   components:
   - type: SpawnPoint
-    job_id: HeadOfSecurity
-    jobs: [ DHSecurityChief ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -474,8 +425,6 @@
   name: warden
   components:
   - type: SpawnPoint
-    job_id: Warden
-    jobs: [ DHWarden ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -487,8 +436,6 @@
   name: securityofficer
   components:
   - type: SpawnPoint
-    job_id: SecurityOfficer
-    jobs: [ DHSecurityOfficer, DHSecurityPilot, DHSecurityInstructor, DHMetallArmedSpecialist ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -500,8 +447,6 @@
   name: detective
   components:
   - type: SpawnPoint
-    job_id: Detective
-    jobs: [ DHDetective, DHInvestigator ] # DarkestHour: свои должности на ванильных точках
   - type: Sprite
     layers:
       - state: green
@@ -525,7 +470,6 @@
   name: ERTleader
   components:
   - type: SpawnPoint
-    job_id: ERTLeader
   - type: Sprite
     layers:
       - state: green
@@ -537,7 +481,6 @@
   name: ERTchaplain
   components:
   - type: SpawnPoint
-    job_id: ERTChaplain
   - type: Sprite
     layers:
       - state: green
@@ -549,7 +492,6 @@
   name: ERTengineer
   components:
   - type: SpawnPoint
-    job_id: ERTEngineer
   - type: Sprite
     layers:
       - state: green
@@ -561,7 +503,6 @@
   name: ERTmedical
   components:
   - type: SpawnPoint
-    job_id: ERTMedical
   - type: Sprite
     layers:
       - state: green
@@ -573,7 +514,6 @@
   name: ERTsecurity
   components:
   - type: SpawnPoint
-    job_id: ERTSecurity
   - type: Sprite
     layers:
       - state: green
@@ -585,7 +525,6 @@
   name: ERTjanitor
   components:
   - type: SpawnPoint
-    job_id: ERTJanitor
   - type: Sprite
     layers:
       - state: green
@@ -599,7 +538,6 @@
   name: reporter
   components:
   - type: SpawnPoint
-    job_id: Reporter
   - type: Sprite
     layers:
       - state: green
@@ -611,7 +549,6 @@
   name: psychologist
   components:
   - type: SpawnPoint
-    job_id: Psychologist
   - type: Sprite
     layers:
       - state: green
@@ -623,7 +560,6 @@
   name: tramdriver
   components:
   - type: SpawnPoint
-    job_id: TramDriver
   - type: Sprite
     layers:
       - state: green

@@ -112,7 +112,7 @@
   id: TechnologyDiskStealCollectionObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Scientist ]
+    jobs: []
   - type: StealCondition
     stealGroup: TechnologyDisk
     minCollectionSize: 5
@@ -126,7 +126,7 @@
   id: MailStealCollectionObjective
   components:
   - type: NotJobRequirement
-    jobs: [ CargoTechnician, SalvageSpecialist ]
+    jobs: []
   - type: StealCondition
     stealGroup: Mail
     minCollectionSize: 4
@@ -140,7 +140,7 @@
   id: IDCardsStealCollectionObjective
   components:
   - type: NotJobRequirement #Here cause you can buy a personnel crate from cargo which is 8 ID cards. Meaning the ID you start with is number nine and you only need to steal one.
-    jobs: [ CargoTechnician, SalvageSpecialist ]
+    jobs: []
   - type: StealCondition
     stealGroup: IDCard
     minCollectionSize: 5
@@ -154,7 +154,7 @@
   id: OfficerHandgunsStealCollectionObjective
   components:
   - type: NotJobRequirement
-    jobs: [ SecurityOfficer, HeadOfSecurity, Detective, Warden, DHSecurityOfficer, DHSecurityPilot, DHSecurityInstructor, DHSecurityCadet, DHSecurityChief, DHDetective, DHInvestigator, DHWarden ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: OfficerHandgun
     minCollectionSize: 2
@@ -182,7 +182,7 @@
   id: ForensicScannerStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Detective, DHDetective, DHInvestigator ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: ForensicScanner
   - type: Objective
@@ -193,7 +193,7 @@
   id: FlippoEngravedLighterStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Detective, DHDetective, DHInvestigator ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: FlippoEngravedLighter
   - type: Objective
@@ -222,7 +222,7 @@
   id: ClothingOuterHardsuitVoidParamedStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ MedicalDoctor, Paramedic, Chemist, Psychologist ]
+    jobs: []
   - type: StealCondition
     stealGroup: ClothingOuterHardsuitVoidParamed
   - type: Objective
@@ -233,7 +233,7 @@
   id: MedicalTechFabCircuitboardStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ MedicalDoctor, Paramedic, Chemist, Psychologist ]
+    jobs: []
   - type: StealCondition
     stealGroup: MedicalTechFabCircuitboard
   - type: Objective
@@ -244,7 +244,7 @@
   id: ClothingHeadsetAltMedicalStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ ChiefMedicalOfficer, DHChiefPhysician ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: ClothingHeadsetAltMedical
   - type: Objective
@@ -255,7 +255,7 @@
   id: FireAxeStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ AtmosphericTechnician ]
+    jobs: []
   - type: StealCondition
     stealGroup: FireAxe
   - type: Objective
@@ -266,7 +266,7 @@
   id: AmePartFlatpackStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ StationEngineer, AtmosphericTechnician ]
+    jobs: []
   - type: StealCondition
     stealGroup: AmePartFlatpack
   - type: Objective
@@ -288,7 +288,7 @@
   id: ExpeditionsCircuitboardStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ SalvageSpecialist ]
+    jobs: []
   - type: StealCondition
     stealGroup: SalvageExpeditionsComputerCircuitboard
   - type: Objective
@@ -299,7 +299,7 @@
   id: CargoShuttleCircuitboardStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ CargoTechnician, SalvageSpecialist ]
+    jobs: []
   - type: StealCondition
     stealGroup: CargoShuttleConsoleCircuitboard
   - type: Objective
@@ -310,7 +310,7 @@
   id: BibleStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Chaplain ]
+    jobs: []
   - type: StealCondition
     stealGroup: Bible
   - type: Objective
@@ -321,7 +321,7 @@
   id: ClothingNeckGoldmedalStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ HeadOfPersonnel, DHAdjutant ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: ClothingNeckGoldmedal
   - type: Objective
@@ -332,7 +332,7 @@
   id: ClothingNeckClownmedalStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Captain, DHCaptain ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: ClothingNeckClownmedal
   - type: Objective
@@ -343,7 +343,7 @@
   id: CaptainSwordStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Captain, DHCaptain ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: CaptainSword
   - type: Objective
@@ -356,7 +356,7 @@
   id: NuclearBombStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Captain, DHCaptain ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: NuclearBomb
   - type: Objective
@@ -367,7 +367,7 @@
   id: FaxMachineCaptainStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Captain, DHCaptain ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: FaxMachineCaptain
   - type: Objective
@@ -378,7 +378,7 @@
   id: ChemDispenserStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Chemist, Scientist ]
+    jobs: []
   - type: StealCondition
     stealGroup: ChemDispenser
   - type: Objective
@@ -389,7 +389,7 @@
   id: XenoArtifactStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Scientist ]
+    jobs: []
   - type: StealCondition
     stealGroup: XenoArtifact
   - type: Objective
@@ -400,7 +400,7 @@
   id: FreezerHeaterStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ AtmosphericTechnician, MedicalDoctor, Chemist, Paramedic, Psychologist, Scientist, Chef ]
+    jobs: []
   - type: StealCondition
     stealGroup: FreezerHeater
   - type: Objective
@@ -411,7 +411,7 @@
   id: TegStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ AtmosphericTechnician, StationEngineer ]
+    jobs: []
   - type: StealCondition
     stealGroup: Teg
   - type: Objective
@@ -422,7 +422,7 @@
   id: BoozeDispenserStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Bartender, ServiceWorker ]
+    jobs: []
   - type: StealCondition
     stealGroup: BoozeDispenser
   - type: Objective
@@ -433,7 +433,7 @@
   id: AltarNanotrasenStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Chaplain ]
+    jobs: []
   - type: StealCondition
     stealGroup: AltarNanotrasen
   - type: Objective
@@ -444,7 +444,7 @@
   id: PlantRDStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Scientist ]
+    jobs: []
   - type: StealCondition
     stealGroup: PlantRD
   - type: Objective
@@ -455,7 +455,7 @@
   id: ToiletGoldenStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Captain, DHCaptain ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: ToiletGoldenDirtyWater
   - type: Objective
@@ -468,7 +468,7 @@
   id: IanStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ HeadOfPersonnel, DHAdjutant ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: AnimalIan
   - type: Objective
@@ -488,7 +488,7 @@
   id: McGriffStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Detective, DHDetective, DHInvestigator ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: AnimalMcGriff
   - type: Objective
@@ -499,7 +499,7 @@
   id: WalterStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Chemist ]
+    jobs: []
   - type: StealCondition
     stealGroup: AnimalWalter
   - type: Objective
@@ -519,7 +519,7 @@
   id: RenaultStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ Captain, DHCaptain ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: AnimalRenault
   - type: Objective
@@ -530,7 +530,7 @@
   id: ShivaStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ SecurityOfficer, DHSecurityOfficer, DHSecurityPilot, DHSecurityInstructor, DHSecurityCadet ] # DarkestHour: свои должности
+    jobs: [] # DarkestHour: свои должности
   - type: StealCondition
     stealGroup: AnimalShiva
   - type: Objective
@@ -541,7 +541,7 @@
   id: TropicoStealObjective
   components:
   - type: NotJobRequirement
-    jobs: [ AtmosphericTechnician ]
+    jobs: []
   - type: StealCondition
     stealGroup: AnimalTropico
   - type: Objective

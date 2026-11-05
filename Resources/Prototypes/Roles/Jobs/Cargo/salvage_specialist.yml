@@ -1,22 +1,3 @@
-- type: job
-  id: SalvageSpecialist
-  name: job-name-salvagespec
-  description: job-description-salvagespec
-  playTimeTracker: JobSalvageSpecialist
-  requirements:
-    - !type:DepartmentTimeRequirement
-      department: Cargo
-      time: 2.5h
-  icon: "JobIconShaftMiner"
-  startingGear: SalvageSpecialistGear
-  supervisors: job-supervisors-qm
-  guides: [ Salvage ]
-  access:
-  - Cargo
-  - Salvage
-  - Maintenance
-  - External
-
 - type: startingGear
   id: SalvageSpecialistGear
   equipment:
@@ -29,7 +10,6 @@
 
 - type: chameleonOutfit
   id: SalvageSpecialistChameleonOutfit
-  job: SalvageSpecialist
   equipment:
     head: ClothingHeadHatCargosoft
     eyes: ClothingEyesGlassesCheapSunglasses

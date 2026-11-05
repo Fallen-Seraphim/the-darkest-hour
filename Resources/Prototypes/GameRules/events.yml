@@ -189,10 +189,6 @@
   - type: BureaucraticErrorRule
     ignoredJobs:
     - StationAi
-    - ResearchAssistant
-    - MedicalIntern
-    - SecurityCadet
-    - TechnicalAssistant
   - type: DynamicRuleCost
     cost: 10
 

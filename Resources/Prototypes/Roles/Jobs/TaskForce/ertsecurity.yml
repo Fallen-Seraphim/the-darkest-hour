@@ -1,20 +1,3 @@
-- type: job
-  id: ERTSecurity
-  name: job-name-ertsecurity
-  description: job-description-ertsecurity
-  playTimeTracker: JobERTSecurity
-  setPreference: false
-  startingGear: ERTSecurityGearEVA
-  icon: "JobIconERTSecurity"
-  supervisors: job-supervisors-centcom
-  accessGroups:
-  - AllAccess
-  access:
-  - CentralCommand
-  special:
-  - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
-
 - type: startingGear
   parent: ERTSecurityGearEVA
   id: ERTSecurityGear
@@ -129,7 +112,6 @@
 
 - type: chameleonOutfit
   id: ERTSecurityChameleonOutfit
-  job: ERTSecurity
   hasMindShield: true
   equipment:
     head: ClothingHeadHelmetHardsuitERTSecurity

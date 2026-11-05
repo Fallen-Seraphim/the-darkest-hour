@@ -25,8 +25,7 @@
         - type: StationNameSetup
           mapNameTemplate: "Dev"
         - type: StationJobs
-          availableJobs:
-            DHCaptain: [ -1, -1 ] # DarkestHour: свой капитан
+          availableJobs: {}
 
 - type: gameMap
   id: TestTeg
@@ -40,5 +39,4 @@
         - type: StationNameSetup
           mapNameTemplate: "TEG"
         - type: StationJobs
-          availableJobs:
-            ChiefEngineer: [ -1, -1 ]
+          availableJobs: {}
