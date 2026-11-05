@@ -257,4 +257,14 @@ public sealed partial class DHPlanetBaseComponent : Component
 
     [ViewVariables]
     public EntityUid? UndergroundGrid;
+
+    /// <summary>
+    /// Z-уровни над и под базой: номер уровня (−3..−1, +1..+8) → грид, который грузится на свою карту с тем же
+    /// смещением. Уровень −1 из <see cref="Underground"/>, если его нет здесь. Поверхность — уровень 0.
+    /// </summary>
+    [DataField]
+    public Dictionary<int, ResPath> Levels = new();
+
+    [ViewVariables]
+    public Dictionary<int, EntityUid> LevelGrids = new();
 }

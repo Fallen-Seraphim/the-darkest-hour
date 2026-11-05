@@ -361,6 +361,11 @@ public abstract partial class SharedGunSystem : EntitySystem
         RaiseLocalEvent(gun, ref originEv);
         fromCoordinates = originEv.Origin;
 
+        // DarkestHour: стрелок смотрит на другой Z-уровень (с крыши вниз, из проёма вверх) — пуля вылетает там.
+        var levelEv = new Content.Shared._DarkestHour.Levels.DHCrossLevelShotEvent(fromCoordinates, toCoordinates.Value);
+        RaiseLocalEvent(user, ref levelEv);
+        fromCoordinates = levelEv.Origin;
+
         // Remove ammo
         var ev = new TakeAmmoEvent(shots, [], fromCoordinates, user);
 

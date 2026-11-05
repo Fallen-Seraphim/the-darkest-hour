@@ -135,7 +135,7 @@
   parent: BaseItem
   id: DHAttachmentOptic4x
   name: "4x optic"
-  description: "A 4x sight. Look further while aiming with both hands."
+  description: "A 4x sight. Look further while aiming with both hands; from an edge you can look 2 levels down."
   components:
   - type: Sprite
     sprite: _DarkestHour/Objects/Weapons/Guns/Attachments/attachments.rsi
@@ -151,13 +151,15 @@
     component:
     - type: CursorOffsetRequiresWield
     - type: EyeCursorOffset
-      maxOffset: 3
-      pvsIncrease: 0.3
+      maxOffset: 4
+      pvsIncrease: 0.5
+    - type: DHZSight
+      depth: 2
 - type: entity
   parent: BaseItem
   id: DHAttachmentOptic8x
   name: "8x optic"
-  description: "A 8x sight. Look further while aiming with both hands."
+  description: "An 8x sight. Look much further while aiming with both hands; from an edge you can look 3 levels down."
   components:
   - type: Sprite
     sprite: _DarkestHour/Objects/Weapons/Guns/Attachments/attachments.rsi
@@ -173,8 +175,34 @@
     component:
     - type: CursorOffsetRequiresWield
     - type: EyeCursorOffset
-      maxOffset: 5
-      pvsIncrease: 0.3
+      maxOffset: 6.5
+      pvsIncrease: 0.9
+    - type: DHZSight
+      depth: 3
+- type: entity
+  parent: BaseItem
+  id: DHAttachmentOptic16x
+  name: "16x optic"
+  description: "A 16x sniper sight. See very far while aiming with both hands; from a rooftop edge you can look all the way down."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Guns/Attachments/attachments.rsi
+    state: optic16x
+  - type: Item
+    size: Small
+  - type: ESGunAttachment
+  - type: Tag
+    tags:
+    - DHAttachmentOptic
+    - DHAttachmentOptic16x
+  - type: ESGunComponentAttachment
+    component:
+    - type: CursorOffsetRequiresWield
+    - type: EyeCursorOffset
+      maxOffset: 9
+      pvsIncrease: 1.4
+    - type: DHZSight
+      depth: 8
 - type: entity
   parent: BaseItem
   id: DHAttachmentIMPBarrel

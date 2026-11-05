@@ -26,6 +26,8 @@ public sealed partial class DHLevelSystem : EntitySystem
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private DHZLevelSystem _z = default!;
+    [Dependency] private DHZTransitSystem _zTransit = default!;
 
     private static readonly SoundSpecifier ClimbSound = new SoundCollectionSpecifier("FootstepCatwalk");
     private static readonly SoundSpecifier LiftAlarm = new SoundPathSpecifier("/Audio/Machines/alarm.ogg",
@@ -48,6 +50,9 @@ public sealed partial class DHLevelSystem : EntitySystem
 
     private EntityUid? OtherLadder(Entity<DHLadderComponent> ent)
     {
+        if (string.IsNullOrEmpty(ent.Comp.Link))
+            return null;
+
         var query = EntityQueryEnumerator<DHLadderComponent>();
         while (query.MoveNext(out var uid, out var ladder))
         {
@@ -58,13 +63,30 @@ public sealed partial class DHLevelSystem : EntitySystem
         return null;
     }
 
+    /// <summary>Куда ведёт лестница: к паре по ключу или (без ключа) на соседний Z-уровень в той же точке.</summary>
+    private MapCoordinates? LadderDestination(Entity<DHLadderComponent> ent)
+    {
+        if (!string.IsNullOrEmpty(ent.Comp.Link))
+            return OtherLadder(ent) is { } other ? _transform.GetMapCoordinates(other) : null;
+
+        var here = _transform.GetMapCoordinates(ent);
+        if (!_z.TryGetLevel(here.MapId, out var level) ||
+            _z.OnLevel(here, level.Level + (ent.Comp.Down ? -1 : 1)) is not { } destination ||
+            !_zTransit.CanStand(destination))
+        {
+            return null;
+        }
+
+        return destination;
+    }
+
     private void OnLadderInteract(Entity<DHLadderComponent> ent, ref InteractHandEvent args)
     {
         if (args.Handled)
             return;
 
         args.Handled = true;
-        if (OtherLadder(ent) == null)
+        if (LadderDestination(ent) == null)
         {
             _popup.PopupEntity(Loc.GetString("dh-ladder-blocked"), ent, args.User);
             return;
@@ -84,32 +106,34 @@ public sealed partial class DHLevelSystem : EntitySystem
 
     private void OnLadderDoAfter(Entity<DHLadderComponent> ent, ref DHLadderDoAfterEvent args)
     {
-        if (args.Cancelled || args.Handled || OtherLadder(ent) is not { } other)
+        if (args.Cancelled || args.Handled || LadderDestination(ent) is not { } destination)
             return;
 
         args.Handled = true;
         var user = args.User;
-        var destination = Transform(other).Coordinates;
 
         // Раненого, которого тащишь, берёшь с собой.
-        EntityUid? pulled = TryComp<PullerComponent>(user, out var puller) ? puller.Pulling : null;
-
         _audio.PlayPvs(ClimbSound, ent);
-        _transform.SetCoordinates(user, destination);
-        if (pulled != null && Exists(pulled))
-            _transform.SetCoordinates(pulled.Value, destination);
+        _zTransit.MoveTo(user, destination);
 
-        _audio.PlayPvs(ClimbSound, other);
+        _audio.PlayPvs(ClimbSound, user);
         _popup.PopupEntity(Loc.GetString(ent.Comp.Down ? "dh-ladder-arrived-down" : "dh-ladder-arrived-up",
-            ("user", user)), other, PopupType.Small);
+            ("user", user)), user, PopupType.Small);
     }
 
     private void OnLadderExamined(Entity<DHLadderComponent> ent, ref ExaminedEvent args)
     {
-        if (!args.IsInDetailsRange || OtherLadder(ent) is not { } other)
+        if (!args.IsInDetailsRange || LadderDestination(ent) is not { } destination)
             return;
 
-        var where = Transform(other).GridUid is { } grid ? Name(grid) : Loc.GetString("dh-ladder-somewhere");
+        string where;
+        if (_z.TryGetLevel(destination.MapId, out var level) && string.IsNullOrEmpty(ent.Comp.Link))
+            where = DHZTransitSystem.LevelName(level.Level);
+        else if (OtherLadder(ent) is { } other && Transform(other).GridUid is { } grid)
+            where = Name(grid);
+        else
+            where = Loc.GetString("dh-ladder-somewhere");
+
         args.PushMarkup(Loc.GetString(ent.Comp.Down ? "dh-ladder-examine-down" : "dh-ladder-examine-up",
             ("where", FormattedMessage.EscapeText(where))));
     }
@@ -118,12 +142,15 @@ public sealed partial class DHLevelSystem : EntitySystem
 
     #region Лифт
 
+    /// <summary>Ближе этого платформа к пульту — его платформа.</summary>
+    private const float PanelReach = 6f;
+
     private Entity<DHLiftComponent>? LiftNear(EntityUid panel, string link)
     {
         var map = Transform(panel).MapID;
         var pos = _transform.GetWorldPosition(panel);
         Entity<DHLiftComponent>? best = null;
-        var bestDistance = float.MaxValue;
+        var bestDistance = string.IsNullOrEmpty(link) ? PanelReach : float.MaxValue;
 
         var query = EntityQueryEnumerator<DHLiftComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var lift, out var xform))
@@ -144,6 +171,9 @@ public sealed partial class DHLevelSystem : EntitySystem
 
     private Entity<DHLiftComponent>? OtherLift(Entity<DHLiftComponent> lift)
     {
+        if (string.IsNullOrEmpty(lift.Comp.Link))
+            return null;
+
         var query = EntityQueryEnumerator<DHLiftComponent>();
         while (query.MoveNext(out var uid, out var comp))
         {
@@ -154,12 +184,43 @@ public sealed partial class DHLevelSystem : EntitySystem
         return null;
     }
 
+    /// <summary>Шахта Z-лифта: платформы без ключа в той же точке XY на уровнях той же стопки (с уровнем).</summary>
+    private List<(Entity<DHLiftComponent> Lift, int Level)> Shaft(Entity<DHLiftComponent> lift)
+    {
+        var result = new List<(Entity<DHLiftComponent>, int)>();
+        var xform = Transform(lift);
+        if (!_z.TryGetLevel(xform.MapUid, out var own))
+            return result;
+
+        var pos = _transform.GetWorldPosition(xform);
+        var query = EntityQueryEnumerator<DHLiftComponent, TransformComponent>();
+        while (query.MoveNext(out var uid, out var comp, out var otherXform))
+        {
+            if (!string.IsNullOrEmpty(comp.Link) || !_z.TryGetLevel(otherXform.MapUid, out var level) ||
+                level.Stack != own.Stack || Vector2.Distance(_transform.GetWorldPosition(otherXform), pos) > 0.6f)
+            {
+                continue;
+            }
+
+            result.Add(((uid, comp), level.Level));
+        }
+
+        result.Sort((a, b) => a.Item2.CompareTo(b.Item2));
+        return result;
+    }
+
     private void OnPanelInteract(Entity<DHLiftPanelComponent> ent, ref InteractHandEvent args)
     {
         if (args.Handled)
             return;
 
         args.Handled = true;
+        if (string.IsNullOrEmpty(ent.Comp.Link))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-lift-choose-floor"), ent, args.User);
+            return;
+        }
+
         StartLift(ent, args.User, send: true);
     }
 
@@ -169,11 +230,71 @@ public sealed partial class DHLevelSystem : EntitySystem
             return;
 
         var user = args.User;
-        args.Verbs.Add(new AlternativeVerb
+        if (!string.IsNullOrEmpty(ent.Comp.Link))
         {
-            Text = Loc.GetString("dh-lift-verb-call"),
-            Act = () => StartLift(ent, user, send: false),
-        });
+            args.Verbs.Add(new AlternativeVerb
+            {
+                Text = Loc.GetString("dh-lift-verb-call"),
+                Act = () => StartLift(ent, user, send: false),
+            });
+            return;
+        }
+
+        // Z-лифт: отправить груз на любой этаж шахты или вызвать платформу с него.
+        if (LiftNear(ent, string.Empty) is not { } here)
+            return;
+
+        var priority = 0;
+        foreach (var (lift, level) in Shaft(here))
+        {
+            if (lift.Owner == here.Owner)
+                continue;
+
+            var name = DHZTransitSystem.LevelName(level);
+            var target = lift;
+            args.Verbs.Add(new AlternativeVerb
+            {
+                Text = Loc.GetString("dh-lift-verb-send-to", ("level", name)),
+                Priority = priority--,
+                Act = () => StartZLift(ent, user, here, target),
+            });
+            args.Verbs.Add(new AlternativeVerb
+            {
+                Text = Loc.GetString("dh-lift-verb-call-from", ("level", name)),
+                Priority = priority--,
+                Act = () => StartZLift(ent, user, target, here),
+            });
+        }
+    }
+
+    /// <summary>Рейс Z-лифта: груз с платформы <paramref name="from"/> на платформу <paramref name="to"/>.</summary>
+    private void StartZLift(Entity<DHLiftPanelComponent> panel, EntityUid user, Entity<DHLiftComponent> from,
+        Entity<DHLiftComponent> to)
+    {
+        var shaft = Shaft(from);
+        var now = _timing.CurTime;
+        foreach (var (lift, _) in shaft)
+        {
+            if (lift.Comp.DepartAt != null || now < lift.Comp.NextUse)
+            {
+                _popup.PopupEntity(Loc.GetString("dh-lift-busy"), panel, user);
+                return;
+            }
+        }
+
+        var fromLevel = shaft.Find(l => l.Lift.Owner == from.Owner).Level;
+        var toLevel = shaft.Find(l => l.Lift.Owner == to.Owner).Level;
+        var travel = from.Comp.TravelTime + TimeSpan.FromSeconds(2 * Math.Max(0, Math.Abs(toLevel - fromLevel) - 1));
+
+        from.Comp.DepartAt = now + travel;
+        from.Comp.Destination = to;
+
+        foreach (var end in new[] { from.Owner, to.Owner })
+        {
+            _audio.PlayPvs(LiftAlarm, end);
+            _popup.PopupEntity(Loc.GetString(end == from.Owner ? "dh-lift-departing" : "dh-lift-arriving",
+                ("seconds", (int) travel.TotalSeconds)), end, PopupType.MediumCaution);
+        }
     }
 
     /// <summary>send — увезти груз с платформы у пульта; иначе — привезти с другого уровня.</summary>
@@ -221,11 +342,18 @@ public sealed partial class DHLevelSystem : EntitySystem
         {
             lift.Comp.DepartAt = null;
             lift.Comp.NextUse = now + lift.Comp.Cooldown;
-            if (OtherLift(lift) is not { } target)
+            var destination = lift.Comp.Destination;
+            lift.Comp.Destination = null;
+
+            Entity<DHLiftComponent>? target = OtherLift(lift);
+            if (destination is { } dest && TryComp<DHLiftComponent>(dest, out var destComp))
+                target = new Entity<DHLiftComponent>(dest, destComp);
+
+            if (target == null)
                 continue;
 
-            target.Comp.NextUse = lift.Comp.NextUse;
-            Carry(lift, target);
+            target.Value.Comp.NextUse = lift.Comp.NextUse;
+            Carry(lift, target.Value);
         }
     }
 

@@ -94,6 +94,8 @@
     - id: DHAttachmentOptic2x
       amount: 2
     - id: DHAttachmentOptic4x
+    - id: DHAttachmentOptic8x
+    - id: DHAttachmentOptic16x
 
 - type: entity
   id: DHCrateSecurityRSPMG
