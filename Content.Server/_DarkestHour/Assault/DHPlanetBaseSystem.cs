@@ -18,6 +18,8 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 
+using Content.Shared._DarkestHour.Environment;
+
 namespace Content.Server._DarkestHour.Assault;
 
 /// <summary>
@@ -27,6 +29,7 @@ namespace Content.Server._DarkestHour.Assault;
 public sealed partial class DHPlanetBaseSystem : EntitySystem
 {
     [Dependency] private AtmosphereSystem _atmos = default!;
+    [Dependency] private Content.Server._DarkestHour.Environment.DHDayNightSystem _dayNight = default!;
     [Dependency] private BiomeSystem _biome = default!;
     [Dependency] private DHLandingSystem _landing = default!;
     [Dependency] private MapLoaderSystem _loader = default!;
@@ -141,9 +144,15 @@ public sealed partial class DHPlanetBaseSystem : EntitySystem
         Dirty(map, light);
 
         EnsureComp<RoofComponent>(map);
-        EnsureComp<LightCycleComponent>(map);
+        // Смена дня и ночи — своя (DHDayNightCycle, сутки 45 мин, начинаем с утра), вместо ванильного LightCycle;
+        // тени от солнца ходят по тем же суткам. Погода — DHWeatherSchedule (песчаные бури).
+        RemComp<LightCycleComponent>(map);
+        _dayNight.Enable(map, body.SurfaceLight);
         EnsureComp<SunShadowComponent>(map);
-        EnsureComp<SunShadowCycleComponent>(map);
+        var shadows = EnsureComp<SunShadowCycleComponent>(map);
+        shadows.Duration = TimeSpan.FromMinutes(45);
+        Dirty(map, shadows);
+        EnsureComp<DHWeatherScheduleComponent>(map);
 
         // Воздух тела ставится общим кодом ниже (как и у процедурной планеты).
         var surface = EnsureComp<DHMappedSurfaceComponent>(map);
