@@ -1,0 +1,339 @@
+# «Восстание», деньги и связь (решение автора 2026-11-05): банковские карты, кошельки, банкоматы, компьютеры бюджета,
+# телефоны и стационарные терминалы с приложениями. Механика — DHBankSystem, DHBankDevicesSystem, DHPhoneSystem,
+# DHCitySystem (выдача при появлении). Кошелёк и банкомат — спрайты Frontier (Monolith).
+
+- type: Tag
+  id: DHPhoneCartridge
+
+# ---------------------------------------------------------------- карты и кошелёк
+
+- type: entity
+  parent: BaseItem
+  id: DHBankCard
+  name: bank card
+  description: A personal card of the Bank of Lost Angels. Insert it into an ATM and enter the password.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/City/bank_card.rsi
+    state: icon
+  - type: Item
+    size: Tiny
+    sprite: _DarkestHour/Objects/City/bank_card.rsi
+  - type: DHBankCard
+
+- type: entity
+  parent: DHBankCard
+  id: DHBankCardVanguard
+  name: LA-V corporate card
+  description: The corporate card of the Lost Angels—Vanguard district office. Draws on the company account.
+  components:
+  - type: Sprite
+    state: corporate
+  - type: DHBankCard
+    org: Vanguard
+
+- type: entity
+  parent: DHBankCard
+  id: DHBankCardPolice
+  name: Military Police service card
+  description: The service card of the Military Police district station. Draws on the station budget.
+  components:
+  - type: Sprite
+    state: police
+  - type: DHBankCard
+    org: Police
+
+- type: entity
+  parent: BaseStorageItem
+  id: DHWallet
+  name: wallet
+  description: A worn leather wallet for a bank card and banknotes.
+  components:
+  - type: Sprite
+    sprite: _NF/Clothing/Wallet/leather.rsi
+    state: closed
+  - type: Item
+    size: Small
+    sprite: _NF/Clothing/Wallet/leather.rsi
+  - type: Storage
+    maxItemSize: Small
+    grid:
+    - 0,0,3,1
+    whitelist:
+      components:
+      - Cash
+      - DHBankCard
+      - Paper
+
+- type: entity
+  parent: DHWallet
+  id: DHWalletFilled
+  suffix: Filled
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHBankCard
+    - id: DHRepublicCredit100
+
+# ---------------------------------------------------------------- приложения
+
+- type: entity
+  parent: BasePDACartridge
+  id: DHMessengerCartridge
+  name: messages app
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    state: cart-y
+  - type: UIFragment
+    ui: !type:DHMessengerUi
+  - type: Cartridge
+    programName: dh-phone-program-messages
+  - type: DHMessengerCartridge
+
+- type: entity
+  parent: BasePDACartridge
+  id: DHBankAppCartridge
+  name: LA-V bank app
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    state: cart-log
+  - type: UIFragment
+    ui: !type:DHBankAppUi
+  - type: Cartridge
+    programName: dh-phone-program-bank
+  - type: DHBankAppCartridge
+
+- type: entity
+  parent: BasePDACartridge
+  id: DHCallCartridge
+  name: phone app
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    state: cart-nav
+  - type: UIFragment
+    ui: !type:DHCallUi
+  - type: Cartridge
+    programName: dh-phone-program-calls
+  - type: DHCallCartridge
+
+# ---------------------------------------------------------------- телефон
+
+- type: entity
+  parent: BaseItem
+  id: DHPhone
+  name: portable terminal
+  description: A pocket terminal — in other words, a phone. Calls, messages, notes and the LA-V bank app.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/City/phone.rsi
+    state: icon
+  - type: Item
+    size: Small
+    sprite: _DarkestHour/Objects/City/phone.rsi
+  - type: Appearance
+  - type: DHPhone
+  - type: Speech
+    speechBubbleOffset: 0.3
+  - type: Telephone
+    ringTone: /Audio/Machines/double_ring.ogg
+    listeningRange: 2
+    speakerVolume: Whisper
+    transmissionRange: Unlimited
+    compatibleRanges:
+    - Unlimited
+  - type: ItemSlots
+  - type: ContainerContainer
+    containers:
+      Cartridge-Slot: !type:ContainerSlot {}
+      preinstalled-program-container: !type:Container
+      removable-program-container: !type:Container
+  - type: CartridgeLoader
+    uiKey: enum.DHPhoneUiKey.Key
+    notificationsEnabled: false
+    cartridgeSlot:
+      name: device-pda-slot-component-slot-name-cartridge
+      whitelist:
+        tags:
+        - DHPhoneCartridge
+  - type: EntityTableContainerFill
+    containers:
+      preinstalled-program-container: !type:AllSelector
+        children:
+        - id: DHCallCartridge
+        - id: DHMessengerCartridge
+        - id: NotekeeperCartridge
+        - id: DHBankAppCartridge
+  - type: ActivatableUI
+    key: enum.DHPhoneUiKey.Key
+    singleUser: true
+  - type: UserInterface
+    interfaces:
+      enum.DHPhoneUiKey.Key:
+        type: DHPhoneBoundUserInterface
+
+# ---------------------------------------------------------------- стационарные: терминал, бюджет, банкомат
+
+- type: entity
+  abstract: true
+  parent: BaseStructure
+  id: DHCityComputerBase
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/computers.rsi
+    layers:
+    - state: computer
+    - state: generic_keyboard
+    - state: generic
+      shader: unshaded
+  - type: InteractionOutline
+  - type: Rotatable
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#6fc2e8"
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  parent: DHCityComputerBase
+  id: DHCityTerminal
+  name: terminal
+  description: A desk terminal. Messages, notes and the LA-V bank app — everything a phone has, except calls.
+  components:
+  - type: Appearance
+  - type: DHPhone
+    stationary: true
+  - type: ItemSlots
+  - type: ContainerContainer
+    containers:
+      Cartridge-Slot: !type:ContainerSlot {}
+      preinstalled-program-container: !type:Container
+      removable-program-container: !type:Container
+  - type: CartridgeLoader
+    uiKey: enum.DHPhoneUiKey.Key
+    notificationsEnabled: false
+    cartridgeSlot:
+      name: device-pda-slot-component-slot-name-cartridge
+      whitelist:
+        tags:
+        - DHPhoneCartridge
+  - type: EntityTableContainerFill
+    containers:
+      preinstalled-program-container: !type:AllSelector
+        children:
+        - id: DHMessengerCartridge
+        - id: NotekeeperCartridge
+        - id: DHBankAppCartridge
+  - type: ActivatableUI
+    key: enum.DHPhoneUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHPhoneUiKey.Key:
+        type: DHPhoneBoundUserInterface
+
+- type: entity
+  parent: DHCityComputerBase
+  id: DHBudgetComputerVanguard
+  name: LA-V budget computer
+  description: The budget of the Lost Angels—Vanguard district office. Transfers, cash, and — at 40,000 credits — a corporate evacuation flight.
+  components:
+  - type: Sprite
+    layers:
+    - state: computer
+    - state: id_key
+    - state: supply
+      shader: unshaded
+  - type: PointLight
+    color: "#a68be8"
+  - type: DHBudgetComputer
+    org: Vanguard
+  - type: AccessReader
+    access: [["DHLAVanguardOffice"]]
+  - type: ActivatableUIRequiresAccess
+  - type: ActivatableUI
+    key: enum.DHBudgetUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHBudgetUiKey.Key:
+        type: DHBudgetBoundUserInterface
+
+- type: entity
+  parent: DHBudgetComputerVanguard
+  id: DHBudgetComputerPolice
+  name: Military Police budget computer
+  description: The budget of the Military Police district station. Transfers and cash.
+  components:
+  - type: Sprite
+    layers:
+    - state: computer
+    - state: security_key
+    - state: security
+      shader: unshaded
+  - type: PointLight
+    color: "#5b8ad6"
+  - type: DHBudgetComputer
+    org: Police
+  - type: AccessReader
+    access: [["DHLAPoliceCommand"]]
+
+- type: entity
+  parent: BaseStructure
+  id: DHCityAtm
+  name: ATM
+  description: A Bank of Lost Angels ATM. Insert your card and enter the password to withdraw cash; tap banknotes on it to deposit them.
+  components:
+  - type: Sprite
+    sprite: _NF/Structures/Machines/atm/atm.rsi
+    layers:
+    - state: icon
+    - state: unshaded
+      shader: unshaded
+  - type: InteractionOutline
+  - type: PointLight
+    radius: 1.5
+    energy: 1.4
+    color: "#7fd0a0"
+  - type: DHAtm
+  - type: ItemSlots
+    slots:
+      dh-atm-card:
+        name: dh-atm-slot-card
+        insertSound: /Audio/Machines/id_insert.ogg
+        ejectSound: /Audio/Machines/id_swipe.ogg
+        whitelist:
+          components:
+          - DHBankCard
+  - type: ContainerContainer
+    containers:
+      dh-atm-card: !type:ContainerSlot {}
+  - type: ActivatableUI
+    key: enum.DHAtmUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHAtmUiKey.Key:
+        type: DHAtmBoundUserInterface
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
