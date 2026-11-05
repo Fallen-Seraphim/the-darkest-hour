@@ -184,6 +184,60 @@ public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRule
             Arrive(rule);
     }
 
+    /// <summary>
+    /// Корпоративный борт LA-V (решение автора 2026-11-05): вызывается с компьютера бюджета LA-V за счёт компании и
+    /// садится на ЗП-1 через <see cref="DHUprisingRuleComponent.FlightWarning"/>.
+    /// </summary>
+    public bool CanCallCorporateFlight(out string reason)
+    {
+        reason = string.Empty;
+        var query = QueryActiveRules();
+        while (query.MoveNext(out _, out var rule, out _, out _))
+        {
+            if (rule.Ended)
+                continue;
+
+            if (rule.Flight != null)
+            {
+                reason = Loc.GetString("dh-uprising-evac-on-pad");
+                return false;
+            }
+
+            var at = Timing.CurTime + rule.FlightWarning - rule.Start;
+            if (rule.NextFlight < rule.Flights.Count && rule.Flights[rule.NextFlight] <= at)
+            {
+                reason = Loc.GetString("dh-uprising-evac-soon");
+                return false;
+            }
+
+            return true;
+        }
+
+        reason = Loc.GetString("dh-uprising-evac-no-mode");
+        return false;
+    }
+
+    public bool TryCallCorporateFlight(out string reason)
+    {
+        if (!CanCallCorporateFlight(out reason))
+            return false;
+
+        var query = QueryActiveRules();
+        while (query.MoveNext(out _, out var rule, out _, out _))
+        {
+            if (rule.Ended)
+                continue;
+
+            rule.Flights.Insert(rule.NextFlight, Timing.CurTime + rule.FlightWarning - rule.Start);
+            rule.FlightWarned = false;
+            _chat.DispatchGlobalAnnouncement(Loc.GetString("dh-uprising-evac-called"),
+                Loc.GetString("dh-uprising-sender-aeronautics"), true, FlightSound, VanguardPurple);
+            return true;
+        }
+
+        return false;
+    }
+
     private void Arrive(DHUprisingRuleComponent rule)
     {
         rule.NextFlight++;
