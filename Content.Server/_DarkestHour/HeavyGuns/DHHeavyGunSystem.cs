@@ -950,26 +950,26 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         if (strike.Role == DHGunRole.Artillery)
         {
             // Сверху бьёт в самый верхний пол в точке: крыша дома, иначе земля.
-            var target = _zLevels.ImpactPoint(strike.Target, out var level);
+            var impact = _zLevels.ImpactPoint(strike.Target, out var level);
             if (strike.Mortar)
             {
-                Detonate(strike.Warhead, strike.Caliber, target, 1f, false);
+                Detonate(strike.Warhead, strike.Caliber, impact, 1f, false);
             }
             else if (level > 0)
             {
                 // Удар с орбиты сначала ломает крышу: рвётся на ней и проламывает её.
-                Detonate(strike.Warhead, strike.Caliber, target, 1f, false);
-                _zTransit.BreakRoof(target, RoofBreakRadius);
+                Detonate(strike.Warhead, strike.Caliber, impact, 1f, false);
+                _zTransit.BreakRoof(impact, RoofBreakRadius);
             }
-            else if (_zLevels.HasRoofFlag(target))
+            else if (_zLevels.HasRoofFlag(impact))
             {
                 // Одноэтажная крыша: её сносит, внутрь доходит малая часть удара.
-                _zTransit.ClearRoofFlags(target, RoofBreakRadius);
-                Detonate(strike.Warhead, strike.Caliber, target, RoofAbsorbScale, false);
+                _zTransit.ClearRoofFlags(impact, RoofBreakRadius);
+                Detonate(strike.Warhead, strike.Caliber, impact, RoofAbsorbScale, false);
             }
             else
             {
-                Detonate(strike.Warhead, strike.Caliber, target, 1f, false);
+                Detonate(strike.Warhead, strike.Caliber, impact, 1f, false);
             }
 
             Report(strike, "dh-heavy-gun-report-impact");
