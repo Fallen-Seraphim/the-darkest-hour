@@ -105,3 +105,26 @@
     size: Normal
     sprite: _DarkestHour/Objects/Weapons/HeavyGuns/drop_beacon.rsi
   - type: DHLandingZoneBeacon
+
+# ЛТЦ челнока (решение автора 2026-10-30): вспышки в небе над челноком, видные с земли. Механика — DHDropshipSystem.
+- type: entity
+  id: DHDecoyFlareBurst
+  name: decoy flare
+  description: A burning decoy flare drifting down from the sky.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: false
+  - type: Sprite
+    sprite: Objects/Misc/flare.rsi
+    drawdepth: Overdoors
+    color: "#ffb347"
+    layers:
+    - state: flare_burn
+      shader: unshaded
+  - type: PointLight
+    radius: 5
+    energy: 4
+    color: "#ffb347"
+  - type: TimedDespawn
+    lifetime: 10

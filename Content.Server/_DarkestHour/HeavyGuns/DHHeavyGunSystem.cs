@@ -847,7 +847,9 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
                 var dropships = EntityQueryEnumerator<DHDropshipComponent, TransformComponent>();
                 while (dropships.MoveNext(out var ship, out var shipComp, out var shipXform))
                 {
-                    if (shipComp.State != DHDropshipState.InFlight || shipXform.MapUid != sky ||
+                    // ЛТЦ сбивают наведение на этот заход.
+                    if (shipComp.State != DHDropshipState.InFlight || now < shipComp.FlaresUntil ||
+                        shipXform.MapUid != sky ||
                         Vector2.Distance(_transform.GetWorldPosition(shipXform), position) > comp.AirRange)
                     {
                         continue;

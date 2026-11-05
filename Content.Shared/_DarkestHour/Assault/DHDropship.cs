@@ -76,8 +76,16 @@ public sealed class DHDropshipConsoleState(
     string location,
     string? destination,
     int secondsLeft,
-    List<DHDropshipDestination> destinations) : BoundUserInterfaceState
+    List<DHDropshipDestination> destinations,
+    int flares = 0,
+    int maxFlares = 0,
+    bool flaresActive = false) : BoundUserInterfaceState
 {
+    /// <summary>ЛТЦ: осталось залпов, всего, сейчас прикрывают челнок.</summary>
+    public readonly int Flares = flares;
+    public readonly int MaxFlares = maxFlares;
+    public readonly bool FlaresActive = flaresActive;
+
     public readonly string ShipName = shipName;
     public readonly DHDropshipState State = state;
     public readonly string Location = location;
@@ -92,6 +100,10 @@ public sealed class DHDropshipFlyMessage(NetEntity? zone) : BoundUserInterfaceMe
 {
     public readonly NetEntity? Zone = zone;
 }
+
+/// <summary>Отстрелить ЛТЦ (в полёте): ПВО не наводится на челнок до конца захода.</summary>
+[Serializable, NetSerializable]
+public sealed class DHDropshipFlaresMessage : BoundUserInterfaceMessage;
 
 /// <summary>Отменить взлёт, пока идёт отсчёт.</summary>
 [Serializable, NetSerializable]

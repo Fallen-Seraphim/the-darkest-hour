@@ -11,6 +11,7 @@ public sealed class DHDropshipWindow : DefaultWindow
 {
     public event Action<NetEntity?>? OnFly;
     public event Action? OnAbort;
+    public event Action? OnFlares;
 
     private static readonly Color Ok = Color.FromHex("#8FD66B");
     private static readonly Color Warn = Color.FromHex("#E8B04A");
@@ -20,6 +21,7 @@ public sealed class DHDropshipWindow : DefaultWindow
     private readonly Label _location = new();
     private readonly Label _flight = new();
     private readonly Button _abort = new();
+    private readonly Button _flares = new();
     private readonly BoxContainer _destinations = new()
     {
         Orientation = BoxContainer.LayoutOrientation.Vertical,
@@ -45,6 +47,8 @@ public sealed class DHDropshipWindow : DefaultWindow
         _abort.Text = Loc.GetString("dh-dropship-ui-abort");
         _abort.OnPressed += _ => OnAbort?.Invoke();
         root.AddChild(_abort);
+        _flares.OnPressed += _ => OnFlares?.Invoke();
+        root.AddChild(_flares);
 
         root.AddChild(new Label { Text = Loc.GetString("dh-dropship-ui-destinations"), FontColorOverride = Warn });
         root.AddChild(_destinations);
@@ -71,6 +75,13 @@ public sealed class DHDropshipWindow : DefaultWindow
             ? string.Empty
             : Loc.GetString("dh-dropship-ui-flight", ("destination", state.Destination), ("seconds", state.SecondsLeft));
         _abort.Visible = state.State == DHDropshipState.Departing;
+
+        // ЛТЦ: в полёте — залп; иначе только запас.
+        _flares.Visible = state.MaxFlares > 0;
+        _flares.Text = state.FlaresActive
+            ? Loc.GetString("dh-dropship-ui-flares-active", ("count", state.Flares), ("max", state.MaxFlares))
+            : Loc.GetString("dh-dropship-ui-flares", ("count", state.Flares), ("max", state.MaxFlares));
+        _flares.Disabled = state.State != DHDropshipState.InFlight || state.Flares <= 0 || state.FlaresActive;
 
         var busy = state.State == DHDropshipState.Departing ||
                    state.State == DHDropshipState.InFlight && state.Destination != null;
