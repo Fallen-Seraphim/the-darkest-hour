@@ -216,6 +216,9 @@ dh-relay-broken = Ретранслятор умолкает!
 dh-relay-repaired = Ретранслятор снова гудит.
 dh-relay-examine-active = Он [color=green]ретранслирует[/color] радиосети.
 dh-relay-examine-broken = Он [color=red]молчит[/color]: заварите его, чтобы вернуть в строй.
+dh-relay-portable-deployed = {CAPITALIZE($user)} разворачивает переносной ретранслятор.
+dh-relay-portable-fold-verb = Свернуть ретранслятор
+dh-relay-portable-no-ground = Здесь не на чем поставить ретранслятор.
 dh-phone-busy-self = Линия уже занята.
 dh-phone-busy = {$phone}: занято.
 dh-phone-ui-title = Полевой телефон

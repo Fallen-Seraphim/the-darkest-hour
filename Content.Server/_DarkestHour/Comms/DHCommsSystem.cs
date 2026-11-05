@@ -1,4 +1,14 @@
+using Content.Server._DarkestHour.Assault;
+using Content.Server._DarkestHour.Shuttles.Rift;
 using Content.Server.Telephone;
+using Content.Shared._DarkestHour.HeavyGuns;
+using Content.Shared._DarkestHour.Shuttles.Rift;
+using Content.Shared._DarkestHour.Vehicles;
+using Content.Shared.DoAfter;
+using Content.Shared.Hands.EntitySystems;
+using Content.Shared.Interaction.Events;
+using Content.Shared.Verbs;
+using Robust.Shared.Map.Components;
 using Content.Shared._DarkestHour.Comms;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Examine;
@@ -18,10 +28,17 @@ public sealed partial class DHCommsSystem : EntitySystem
 {
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private DamageableSystem _damageable = default!;
+    [Dependency] private SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private SharedHandsSystem _hands = default!;
+    [Dependency] private DHLandingSystem _landing = default!;
+    [Dependency] private SharedMapSystem _map = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private TelephoneSystem _telephone = default!;
     [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private UserInterfaceSystem _ui = default!;
+
+    private readonly HashSet<EntityUid> _covered = new();
 
     /// <summary>Урон, после которого ретранслятор замолкает (сваркой чинится обратно).</summary>
     private const float RelayBreakDamage = 150f;
@@ -37,6 +54,10 @@ public sealed partial class DHCommsSystem : EntitySystem
         SubscribeLocalEvent<DHCommsRelayComponent, MapInitEvent>(OnRelayMapInit);
         SubscribeLocalEvent<DHCommsRelayComponent, DamageChangedEvent>(OnRelayDamaged);
         SubscribeLocalEvent<DHCommsRelayComponent, ExaminedEvent>(OnRelayExamined);
+        SubscribeLocalEvent<DHPortableRelayFoldedComponent, UseInHandEvent>(OnPortableUse);
+        SubscribeLocalEvent<DHPortableRelayFoldedComponent, DHPortableRelayDeployDoAfterEvent>(OnPortableDeployed);
+        SubscribeLocalEvent<DHPortableRelayComponent, GetVerbsEvent<AlternativeVerb>>(OnPortableVerbs);
+        SubscribeLocalEvent<DHPortableRelayComponent, DHPortableRelayFoldDoAfterEvent>(OnPortableFolded);
 
         Subs.BuiEvents<DHFieldPhoneComponent>(DHFieldPhoneUiKey.Key, subs =>
         {
@@ -54,28 +75,142 @@ public sealed partial class DHCommsSystem : EntitySystem
         if (args.Cancelled)
             return;
 
-        var source = Transform(args.RadioSource).MapID;
-        var receiver = Transform(args.RadioReceiver).MapID;
-        if (source == receiver)
-            return;
-
-        // Канал под ретранслятором (хоть один его знает) идёт между картами только при живом ретрансляторе.
+        // Канал под ретранслятором (хоть один ретранслятор его знает) работает только в зонах живых ретрансляторов:
+        // и отправитель, и получатель должны быть в покрытой зоне.
         var governed = false;
+        _covered.Clear();
         var relays = EntityQueryEnumerator<DHCommsRelayComponent>();
-        while (relays.MoveNext(out _, out var relay))
+        while (relays.MoveNext(out var relayUid, out var relay))
         {
             if (!relay.Channels.Contains(args.Channel.ID))
                 continue;
 
-            if (relay.Active)
-                return;
-
             governed = true;
+            if (relay.Active && RelayWorking(relayUid) && Zone(relayUid) is { } zone)
+                _covered.Add(zone);
         }
 
-        if (governed)
+        if (!governed)
+            return;
+
+        if (Zone(args.RadioSource) is not { } source || !_covered.Contains(source) ||
+            Zone(args.RadioReceiver) is not { } receiver || !_covered.Contains(receiver))
+        {
             args.Cancelled = true;
+        }
     }
+
+    /// <summary>Переносной ретранслятор работает, только развёрнутый и закреплённый.</summary>
+    private bool RelayWorking(EntityUid relay)
+    {
+        return !HasComp<DHPortableRelayComponent>(relay) || Transform(relay).Anchored;
+    }
+
+    /// <summary>
+    /// Зона связи: карта; отсек машины — там, где машина; бункер и небо планеты — её поверхность.
+    /// </summary>
+    private EntityUid? Zone(EntityUid uid)
+    {
+        var xform = Transform(uid);
+        for (var i = 0; i < 3; i++)
+        {
+            if (xform.GridUid is not { } grid || !TryComp<DHVehicleInteriorComponent>(grid, out var interior) ||
+                !Exists(interior.Vehicle))
+            {
+                break;
+            }
+
+            xform = Transform(interior.Vehicle);
+        }
+
+        if (xform.MapUid is not { } map)
+            return null;
+
+        if (TryComp<DHPlanetAtmosphereMapComponent>(map, out var atmosphere))
+            return _landing.GetSurface(atmosphere.System, atmosphere.Body) ?? map;
+
+        if (HasComp<DHUndergroundMapComponent>(map))
+        {
+            var bases = EntityQueryEnumerator<DHPlanetBaseComponent>();
+            while (bases.MoveNext(out var planetBase))
+            {
+                if (planetBase.UndergroundGrid is { } underground && Transform(underground).MapUid == map &&
+                    _landing.GetSurface(planetBase.System, planetBase.Body) is { } surface)
+                {
+                    return surface;
+                }
+            }
+        }
+
+        return map;
+    }
+
+    #region Переносной ретранслятор
+
+    private void OnPortableUse(Entity<DHPortableRelayFoldedComponent> ent, ref UseInHandEvent args)
+    {
+        if (args.Handled)
+            return;
+
+        args.Handled = true;
+        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.DeployTime,
+            new DHPortableRelayDeployDoAfterEvent(), ent, used: ent)
+        {
+            BreakOnMove = true,
+            NeedHand = true,
+        });
+    }
+
+    private void OnPortableDeployed(Entity<DHPortableRelayFoldedComponent> ent, ref DHPortableRelayDeployDoAfterEvent args)
+    {
+        if (args.Cancelled || args.Handled)
+            return;
+
+        var userXform = Transform(args.User);
+        if (userXform.GridUid is not { } grid || !TryComp<MapGridComponent>(grid, out var gridComp))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-relay-portable-no-ground"), args.User, args.User);
+            return;
+        }
+
+        args.Handled = true;
+        var coordinates = _map.GridTileToLocal(grid, gridComp, _map.TileIndicesFor(grid, gridComp, userXform.Coordinates));
+        var relay = Spawn(ent.Comp.Deployed, coordinates);
+        _transform.AnchorEntity(relay, Transform(relay));
+        _popup.PopupEntity(Loc.GetString("dh-relay-portable-deployed", ("user", args.User)), relay, PopupType.Medium);
+        QueueDel(ent);
+    }
+
+    private void OnPortableVerbs(Entity<DHPortableRelayComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+    {
+        if (!args.CanAccess || !args.CanInteract || args.Hands == null)
+            return;
+
+        var user = args.User;
+        args.Verbs.Add(new AlternativeVerb
+        {
+            Text = Loc.GetString("dh-relay-portable-fold-verb"),
+            Act = () => _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, ent.Comp.FoldTime,
+                new DHPortableRelayFoldDoAfterEvent(), ent, target: ent)
+            {
+                BreakOnMove = true,
+                NeedHand = true,
+            }),
+        });
+    }
+
+    private void OnPortableFolded(Entity<DHPortableRelayComponent> ent, ref DHPortableRelayFoldDoAfterEvent args)
+    {
+        if (args.Cancelled || args.Handled)
+            return;
+
+        args.Handled = true;
+        var folded = Spawn(ent.Comp.Folded, _transform.GetMapCoordinates(ent));
+        _hands.PickupOrDrop(args.User, folded);
+        QueueDel(ent);
+    }
+
+    #endregion
 
     private void OnRelayMapInit(Entity<DHCommsRelayComponent> ent, ref MapInitEvent args)
     {

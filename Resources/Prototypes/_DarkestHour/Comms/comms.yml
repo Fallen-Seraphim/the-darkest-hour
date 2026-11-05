@@ -99,7 +99,7 @@
   parent: DHCommsRelayBase
   id: DHCommsRelayRepublic
   name: garrison comms tower
-  description: Relays the garrison's radio nets between the surface, the bunker and the sky. If it falls silent, the bunker and the base hear each other only by field telephone. Can be welded back into working order.
+  description: Carries the garrison's radio nets over the base, the bunker and the sky above. If it falls silent, the garrison radio goes dead (the command APC can still relay) — only field telephones remain. Can be welded back into working order.
   components:
   - type: Sprite
     sprite: _RMC14/Structures/communications_tower.rsi
@@ -123,7 +123,7 @@
   parent: DHCommsRelayBase
   id: DHCommsRelayEmpire
   name: carrier comms antenna
-  description: Relays the landing force's radio nets between the carrier in orbit and the troops below. If it falls silent, the carrier loses touch with the ground. Can be welded back into working order.
+  description: Carries the Imperial radio nets aboard the carrier. If it falls silent, the carrier's radio goes dead. The troops below need a portable relay set up on the ground. Can be welded back into working order.
   components:
   - type: Sprite
     sprite: _RMC14/Structures/communications_tower_dish.rsi
@@ -142,6 +142,59 @@
     channels:
     - Syndicate
     - DHImperialCommand
+
+# Переносной ретранслятор Империи (решение автора 2026-11-05): без него у десанта на планете нет радиосвязи (ни между
+# собой, ни с авианосцем). Несут в руках (тяжёлый), разворачивают на месте (6 с), сворачивают альт-действием.
+- type: entity
+  parent: BaseItem
+  id: DHCommsRelayPortableEmpireFolded
+  name: portable comms relay (packed)
+  description: A packed Imperial field relay. Use it in hand to set it up where you stand — the landing force radio works only where a relay stands. Heavy; carry it with both hands.
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/communication.rsi
+    state: old-radio-nukeop
+  - type: Item
+    size: Huge
+    sprite: Objects/Devices/communication.rsi
+    heldPrefix: old-radio
+  - type: MultiHandedItem
+  - type: HeldSpeedModifier
+    walkModifier: 0.85
+    sprintModifier: 0.85
+  - type: DHPortableRelayFolded
+    deployed: DHCommsRelayPortableEmpire
+  - type: DHParadroppable
+    requiredParachutes: 1
+
+- type: entity
+  parent: DHCommsRelayBase
+  id: DHCommsRelayPortableEmpire
+  name: portable comms relay
+  description: An Imperial field relay with a folding mast. While it stands, the landing force radio works here and links up with the carrier. Fold it with the alternative action. Can be welded back into working order.
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _RMC14/Structures/communications_tower_dish.rsi
+    offset: 0,1
+    drawdepth: Overdoors
+    color: "#c8c4bc"
+    layers:
+    - state: comm_tower
+      map: [ "tower" ]
+  - type: GenericVisualizer
+    visuals:
+      enum.DHCommsRelayVisuals.Active:
+        tower:
+          True: { state: comm_tower }
+          False: { state: comm_tower_broken }
+  - type: DHCommsRelay
+    channels:
+    - Syndicate
+    - DHImperialCommand
+  - type: DHPortableRelay
+    folded: DHCommsRelayPortableEmpireFolded
 
 # --- Полевые телефоны ---
 
