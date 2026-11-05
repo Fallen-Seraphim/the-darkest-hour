@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 10/30/2026 11:55:31
-  entityCount: 34160
+  entityCount: 34164
 maps:
 - 1
 grids:
@@ -174757,4 +174757,28 @@ entities:
     - type: Transform
       parent: 1
       pos: 4.5,-3.5
+- proto: DHAntiAirGun
+  entities:
+  - uid: 34903
+    components:
+    - type: Transform
+      parent: 1
+      pos: -12.5,-23.5
+  - uid: 34904
+    components:
+    - type: Transform
+      parent: 1
+      pos: 12.5,4.5
+- proto: DHAutocannonAmmoBox30
+  entities:
+  - uid: 34905
+    components:
+    - type: Transform
+      parent: 1
+      pos: -11.5,-23.5
+  - uid: 34906
+    components:
+    - type: Transform
+      parent: 1
+      pos: 13.5,4.5
 ...
