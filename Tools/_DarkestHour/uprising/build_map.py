@@ -85,6 +85,17 @@ GIRDER = 'Girder'
 
 LIGHT = 'AlwaysPoweredLightLED'
 LIGHT_DIM = 'AlwaysPoweredLightSodium'
+# точки появления ОФСК (кроме глав отрядов) — по кругу: повстанцы чаще, остальные роли по одной
+_FRONT = ['Rebel', 'Saboteur', 'Rebel', 'Specialist', 'Rebel', 'Machinegunner']
+_front_i = [0]
+
+
+def front_spawn():
+    job = _FRONT[_front_i[0] % len(_FRONT)]
+    _front_i[0] += 1
+    return 'SpawnPointDHLAFront' + job
+
+
 POST = 'RMCStreetlight'           # уличные фонари RMC (колонии)
 TRAFFIC = 'RMCTrafficLight'
 
@@ -500,9 +511,10 @@ def police():
     # 1-й уровень — кабинеты и командир, 2–3 — казарма
     lv = L(1)
     furnish_office(lv, x0, y0, x1, y1)
-    lv.put('SpawnPointDHLAMPCommander', mid, y1 - 3)
-    lv.put('SpawnPointDHLAMPSergeant', mid - 2, y1 - 3)
-    lv.put('SpawnPointDHLAMPSergeant', mid + 2, y1 - 3)
+    lv.put('SpawnPointDHLAMPChief', mid, y1 - 3)
+    lv.put('SpawnPointDHLAMPDeputyChief', mid - 2, y1 - 3)
+    lv.put('SpawnPointDHLAMPInvestigator', mid + 2, y1 - 3)
+    lv.put('SpawnPointDHLAMPInvestigator', mid + 4, y1 - 3)
     for z in (2, 3):
         lv = L(z)
         for x in range(x0 + 6, x1 - 2, 3):
@@ -510,7 +522,8 @@ def police():
             lv.put('CMWardrobeBlue', x, y0 + 2)
         if z == 2:
             for i in range(12):
-                lv.put('SpawnPointDHLAMPOfficer', x0 + 6 + (i % 6) * 3, y1 - 4 - (i // 6) * 2)
+                job = 'SpawnPointDHLAMPOfficer' if i < 8 else 'SpawnPointDHLAMPCadet'
+                lv.put(job, x0 + 6 + (i % 6) * 3, y1 - 4 - (i // 6) * 2)
     # подземные: архив (−1), тир и склад (−2), изолятор (−3)
     for x in range(x0 + 6, x1 - 2, 4):
         L(-1).put('CMFilingCabinetTall', x, y1 - 2)
@@ -518,6 +531,9 @@ def police():
         L(-2).put('CrateGenericSteel', x, y0 + 2)
         L(-3).box(x, y1 - 5, x + 3, y1 - 1, W_POLICE)
         L(-3).door(x + 1, y1 - 5, 'DHLAAirlockPoliceLocked')
+    # тюремные надзиратели — у изолятора
+    L(-3).put('SpawnPointDHLAMPWarden', x0 + 4, y1 - 7)
+    L(-3).put('SpawnPointDHLAMPWarden', x0 + 6, y1 - 7)
 
 
 # ------------------------------------------------------------------ панельки
@@ -547,7 +563,7 @@ def panels():
                     furnish_apartment(lv, cx + 3, ry + 1, x1 - 1, ry + 5)
                     if z in (1, 3):
                         lv.put('SpawnPointDHLAResident', x0 + 3, ry + 3)
-                        lv.put('SpawnPointDHLAFrontFighter', x1 - 3, ry + 3)
+                        lv.put(front_spawn(), x1 - 3, ry + 3)
                 lights_in(lv, cx - 1, y0, cx + 2, y1, step=8)
             L(0).door(cx, y0, 'AirlockGlass')
             L(0).door(cx + 1, y0, 'AirlockGlass')
@@ -567,7 +583,7 @@ def panels():
                     furnish_apartment(lv, rx + 1, cy + 3, rx + 5, y1 - 1)
                     if z in (1, 3):
                         lv.put('SpawnPointDHLAResident', rx + 3, y0 + 2)
-                        lv.put('SpawnPointDHLAFrontFighter', rx + 3, y1 - 2)
+                        lv.put(front_spawn(), rx + 3, y1 - 2)
                 for x in range(x0 + 8, x1 - 2, 8):
                     lv.put(LIGHT_DIM, x, cy + 1, ROT_N)
             L(0).door(x0, cy, 'AirlockGlass')
@@ -580,9 +596,9 @@ def panels():
         hx, hy = PANEL_HATCHES[idx]
         b.put('DHZHatchDown', hx, hy)
         L(-2).put('DHZLadderUp', hx, hy)
-    # комиссары ОФСК — в подвалах панелек
-    L(-1).put('SpawnPointDHLAFrontCommissar', -85, -35)
-    L(-1).put('SpawnPointDHLAFrontCommissar', -60, -66)
+    # главы отрядов ОФСК — в подвалах панелек
+    L(-1).put('SpawnPointDHLAFrontLeader', -85, -35)
+    L(-1).put('SpawnPointDHLAFrontLeader', -60, -66)
     # дворы между панельками
     L(0).floor(-76, -27, -67, 26, T_DIRT)
     L(0).floor(-52, -27, -41, 26, T_DIRT)
@@ -700,7 +716,7 @@ def towers():
                 lv.door(cx + 2, mid_y, 'WoodDoor')
                 if z in (1, 2):
                     L(z).put('SpawnPointDHLAResident', x0 + 3, y0 + 3)
-                    L(z).put('SpawnPointDHLAFrontFighter', x1 - 3, y1 - 3)
+                    L(z).put(front_spawn(), x1 - 3, y1 - 3)
         stairwell(list(range(-1, top + (2 if finished else 1))), x0 + 2, (y0 + y1) // 2 - 3)
         for z in range(-1, top + 1):
             for x in range(x0 + 1, x0 + 5):
