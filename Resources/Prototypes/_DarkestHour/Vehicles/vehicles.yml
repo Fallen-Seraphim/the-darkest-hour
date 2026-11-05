@@ -151,6 +151,10 @@
     channels:
     - DHRepublic
     - DHRepublicCommand
+    - DHSquadAlpha
+    - DHSquadBravo
+    - DHSquadCharlie
+    - DHSquadDelta
 
 - type: entity
   parent: DHVehicleAPCBase
@@ -220,6 +224,9 @@
     channels:
     - Syndicate
     - DHImperialCommand
+    - DHSquadTau
+    - DHSquadEpsilon
+    - DHSquadOmega
 
 # ------------------------------------------------------------------ танки
 

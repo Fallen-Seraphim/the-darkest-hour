@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/22/2026 21:38:24
-  entityCount: 791
+  entityCount: 792
 maps: []
 grids:
 - 1
@@ -4973,4 +4973,11 @@ entities:
     - type: Transform
       parent: 1
       pos: 3.5,-20.5
+- proto: DHComputerSquadsEmpire
+  entities:
+  - uid: 798
+    components:
+    - type: Transform
+      parent: 1
+      pos: 3.5,-3.5
 ...
