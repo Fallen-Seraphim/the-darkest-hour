@@ -4,9 +4,10 @@ using Robust.Shared.Serialization;
 
 namespace Content.Shared._DarkestHour.Comms;
 
-// Связь «Штурма» (решение автора 2026-10-25): каналы сторон и командные; между картами (орбита — атмосфера —
-// поверхность — бункер) каналы стороны проходят только через её ретранслятор (антенна авианосца, узел связи базы) —
-// взорвал антенну, и связь с орбитой пропала. Глушилки — ванильные. Полевые телефоны — проводная связь между
+// Связь «Штурма» (решение автора 2026-10-25, переделано 2026-11-05): каналы сторон и командные работают только там,
+// где стоит живой ретранслятор стороны. Зона ретранслятора — его карта; поверхность планеты вместе с бункером и небом
+// над ней — одна зона, отсек машины — зона, где стоит машина. Сообщение доходит, если зона отправителя и зона
+// получателя обе покрыты. Разрушил вышку — связь пропала; Империя приносит на планету переносной ретранслятор. Глушилки — ванильные. Полевые телефоны — проводная связь между
 // точками своей сети, работает и при глушении.
 
 /// <summary>
@@ -22,6 +23,34 @@ public sealed partial class DHCommsRelayComponent : Component
     [DataField]
     public bool Active = true;
 }
+
+/// <summary>Переносной ретранслятор в сложенном виде: развернуть в руке — встанет на месте.</summary>
+[RegisterComponent]
+public sealed partial class DHPortableRelayFoldedComponent : Component
+{
+    [DataField(required: true)]
+    public EntProtoId Deployed;
+
+    [DataField]
+    public TimeSpan DeployTime = TimeSpan.FromSeconds(6);
+}
+
+/// <summary>Развёрнутый переносной ретранслятор: сворачивается альтернативным действием.</summary>
+[RegisterComponent]
+public sealed partial class DHPortableRelayComponent : Component
+{
+    [DataField(required: true)]
+    public EntProtoId Folded;
+
+    [DataField]
+    public TimeSpan FoldTime = TimeSpan.FromSeconds(6);
+}
+
+[Serializable, NetSerializable]
+public sealed partial class DHPortableRelayDeployDoAfterEvent : Content.Shared.DoAfter.SimpleDoAfterEvent;
+
+[Serializable, NetSerializable]
+public sealed partial class DHPortableRelayFoldDoAfterEvent : Content.Shared.DoAfter.SimpleDoAfterEvent;
 
 [Serializable, NetSerializable]
 public enum DHCommsRelayVisuals : byte

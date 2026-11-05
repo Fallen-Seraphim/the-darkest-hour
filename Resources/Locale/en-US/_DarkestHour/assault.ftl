@@ -214,6 +214,9 @@ dh-relay-broken = The relay falls silent!
 dh-relay-repaired = The relay hums back to life.
 dh-relay-examine-active = It is [color=green]relaying[/color] the radio nets.
 dh-relay-examine-broken = It is [color=red]silent[/color]: weld it back into working order.
+dh-relay-portable-deployed = {CAPITALIZE($user)} sets up the portable relay.
+dh-relay-portable-fold-verb = Fold the relay
+dh-relay-portable-no-ground = There is nothing to set the relay on here.
 dh-phone-busy-self = The line is already in use.
 dh-phone-busy = {$phone} is busy.
 dh-phone-ui-title = Field telephone

@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 10/24/2026 12:00:00
-  entityCount: 55
+  entityCount: 56
 maps: []
 grids:
 - 1
@@ -359,4 +359,11 @@ entities:
     - type: Transform
       parent: 1
       pos: 4.0,4.5
+- proto: DHCommsRelayPortableEmpireFolded
+  entities:
+  - uid: 56
+    components:
+    - type: Transform
+      parent: 1
+      pos: 2.5,7.5
 ...
