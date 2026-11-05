@@ -347,6 +347,9 @@ namespace Content.Shared.Movement.Systems
 
             entity.Comp.RelativeEntity = xform.GridUid ?? xform.MapUid;
             entity.Comp.TargetRelativeRotation = Angle.Zero;
+
+            // DarkestHour: по умолчанию шаг; бег — пока зажат Shift.
+            entity.Comp.HeldMoveButtons |= MoveButtons.Walk;
         }
 
         private void HandleRunChange(EntityUid uid, ushort subTick, bool walking)
@@ -595,7 +598,8 @@ namespace Content.Shared.Movement.Systems
             {
                 if (session?.AttachedEntity == null) return false;
 
-                _controller.HandleRunChange(session.AttachedEntity.Value, message.SubTick, message.State == BoundKeyState.Down);
+                // DarkestHour: по умолчанию шаг, бег — пока зажат Shift (решение автора 2026-11-05; бег тратит выносливость).
+                _controller.HandleRunChange(session.AttachedEntity.Value, message.SubTick, message.State != BoundKeyState.Down);
                 return false;
             }
         }

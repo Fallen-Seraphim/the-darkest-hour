@@ -496,7 +496,7 @@ ui-options-function-use = Использовать
 
 ui-options-function-use-secondary = Использовать вторично
 
-ui-options-function-walk = Идти
+ui-options-function-walk = Бежать (тратит выносливость)
 
 ui-options-function-wide-attack = Размашистая атака
 
