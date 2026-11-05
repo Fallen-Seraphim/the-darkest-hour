@@ -55,6 +55,100 @@
   - type: DHZStairs
     up: false
 
+# --- Лестницы из RMC-14 (решение автора 2026-11-05): марш шириной 2–3 и длиной 2–3 тайла. Ступени — только
+# картинка; последняя ступень марша (DHZStairsTop*) поднимает на этаж выше. Наверху над маршем — проём: глухие
+# тайлы шахты (DHZStairShaft) и спуск (DHZStairwell) над последней ступенью.
+
+- type: entity
+  abstract: true
+  id: DHZStairStepBase
+  name: stairs
+  description: A flight of stairs. Walk up to the top step to reach the floor above.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _RMC14/Structures/stairs.rsi
+    state: p_stair_full
+    drawdepth: FloorTiles
+  - type: Clickable
+  - type: Tag
+    tags:
+    - Structure
+
+- type: entity
+  parent: DHZStairStepBase
+  id: DHZStairStep
+
+- type: entity
+  parent: DHZStairStepBase
+  id: DHZStairStepLeft
+  suffix: left
+  components:
+  - type: Sprite
+    state: p_stair_left_cap
+
+- type: entity
+  parent: DHZStairStepBase
+  id: DHZStairStepRight
+  suffix: right
+  components:
+  - type: Sprite
+    state: p_stair_right_cap
+
+- type: entity
+  parent: DHZStairStep
+  id: DHZStairsTop
+  suffix: top
+  components:
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+    canCollide: false
+  - type: DHZStairs
+    up: true
+
+- type: entity
+  parent: DHZStairsTop
+  id: DHZStairsTopLeft
+  suffix: top, left
+  components:
+  - type: Sprite
+    state: p_stair_left_cap
+
+- type: entity
+  parent: DHZStairsTop
+  id: DHZStairsTopRight
+  suffix: top, right
+  components:
+  - type: Sprite
+    state: p_stair_right_cap
+
+- type: entity
+  parent: BaseStructure
+  id: DHZStairShaft
+  name: stairwell
+  description: The open shaft of a flight of stairs. Mind the drop.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Levels/levels.rsi
+    state: stairwell
+    drawdepth: FloorTiles
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 100
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+
 - type: entity
   parent: DHLadderUpBase
   id: DHZLadderUp
@@ -107,9 +201,15 @@
   parent: DHLiftPanelBase
   id: DHZLiftPanel
   name: lift panel
-  description: "Choose a level in the alternative actions: send what's on the platform there, or call the platform from there."
+  description: Opens the floor panel of the shaft. Send what's on the platform to any floor, or call the cargo from there.
   components:
   - type: DHLiftPanel
+  - type: ActivatableUI
+    key: enum.DHLiftPanelUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHLiftPanelUiKey.Key:
+        type: DHLiftPanelBoundUserInterface
 
 # --- Взгляд на соседние уровни ---
 

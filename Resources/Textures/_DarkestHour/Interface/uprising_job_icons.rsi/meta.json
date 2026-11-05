@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Drawn by Claude (Anthropic) for The Darkest Hour",
+  "size": {
+    "x": 8,
+    "y": 8
+  },
+  "states": [
+    {
+      "name": "lav_representative"
+    },
+    {
+      "name": "lav_assistant"
+    },
+    {
+      "name": "lav_security"
+    },
+    {
+      "name": "lav_employee"
+    },
+    {
+      "name": "front_leader"
+    },
+    {
+      "name": "front_saboteur"
+    },
+    {
+      "name": "front_specialist"
+    },
+    {
+      "name": "front_machinegunner"
+    },
+    {
+      "name": "front_rebel"
+    }
+  ]
+}

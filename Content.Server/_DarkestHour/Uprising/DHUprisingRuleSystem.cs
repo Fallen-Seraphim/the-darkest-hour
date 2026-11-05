@@ -34,6 +34,9 @@ public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRule
 
     /// <summary>Звук вступления ОФСК — ванильной революции.</summary>
     private static readonly SoundPathSpecifier FrontSound = new("/Audio/Ambience/Antag/headrev_start.ogg");
+
+    /// <summary>Вступление военпола — основной звук Республики (как у гарнизона «Штурма»).</summary>
+    private static readonly SoundPathSpecifier PoliceSound = new("/Audio/_DarkestHour/Antag/republic_anthem.ogg");
     public static readonly Color VanguardPurple = Color.FromHex("#A68BE8");
     public static readonly Color CivilianGrey = Color.FromHex("#C8C8C8");
 
@@ -99,7 +102,12 @@ public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRule
 
             var flight = NextFlightIn(rule);
             _antag.SendBriefing(ev.Mob, Loc.GetString(key, ("minutes", flight)), color,
-                side == DHUprisingSide.Front ? FrontSound : null);
+                side switch
+                {
+                    DHUprisingSide.Front => FrontSound,
+                    DHUprisingSide.Police => PoliceSound,
+                    _ => null,
+                });
             break;
         }
     }

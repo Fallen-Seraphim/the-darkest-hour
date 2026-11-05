@@ -2,16 +2,40 @@
 # Мирные — гражданская одежда без оружия. LA-V — одежда корпорации (Uprising/clothing.yml).
 # Военпол и ОФСК — ВРЕМЕННОЕ снаряжение до решения автора (сказал: «про экипировку позже»).
 
+# Документы (решение автора 2026-11-05): мирным и ОФСК — паспорт гражданина Республики (дата рождения, пол и прочее
+# заполняются при появлении — DHPassportComponent), LA-V — корпоративная карта (спрайты Ве-Я из RMC-14), военполу —
+# жетоны (DHDogtags).
+
 - type: entity
   parent: IDCardStandard
-  id: DHLAIDCardBase
-  name: Lost Angels ID card
-  description: A Republican citizen card of Lost Angels.
+  id: DHLAPassportBase
+  name: Republican passport
+  description: The internal passport of a citizen of the United Republic, registered in Lost Angels.
   abstract: true
   components:
   - type: Sprite
-    sprite: Objects/Misc/id_cards.rsi
-    state: default
+    sprite: _DarkestHour/Objects/City/passport.rsi
+    state: passport
+  - type: Clothing
+    sprite: _DarkestHour/Objects/City/passport.rsi
+  - type: Item
+    sprite: _DarkestHour/Objects/City/passport.rsi
+  - type: DHPassport
+
+- type: entity
+  parent: IDCardStandard
+  id: DHLAVIDCardBase
+  name: LA-V corporate ID card
+  description: A corporate identification card of Lost Angels—Vanguard.
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/CMIDs/silver_id.rsi
+    state: silver
+  - type: Clothing
+    sprite: _RMC14/Objects/CMIDs/silver_id.rsi
+  - type: Item
+    sprite: _RMC14/Objects/CMIDs/silver_id.rsi
 
 # ---------------------------------------------------------------- мирные
 

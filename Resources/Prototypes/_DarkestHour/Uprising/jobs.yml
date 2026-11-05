@@ -112,16 +112,10 @@
   jobName: dh-job-la-district-head-name
 
 - type: entity
-  parent: DHLAIDCardBase
+  parent: DHLAPassportBase
   id: DHLAIDCardDistrictHead
   suffix: District head
   components:
-  - type: Sprite
-    layers:
-    - state: default
-    - sprite: Interface/Misc/job_icons.rsi
-      offset: -0.09375, 0.0625
-      state: HeadOfPersonnel
   - type: PresetIdCard
     job: DHLADistrictHead
 
@@ -161,16 +155,10 @@
   jobName: dh-job-la-district-staff-name
 
 - type: entity
-  parent: DHLAIDCardBase
+  parent: DHLAPassportBase
   id: DHLAIDCardDistrictStaff
   suffix: District official
   components:
-  - type: Sprite
-    layers:
-    - state: default
-    - sprite: Interface/Misc/job_icons.rsi
-      offset: -0.09375, 0.0625
-      state: Lawyer
   - type: PresetIdCard
     job: DHLADistrictStaff
 
@@ -208,16 +196,10 @@
   jobName: dh-job-la-office-worker-name
 
 - type: entity
-  parent: DHLAIDCardBase
+  parent: DHLAPassportBase
   id: DHLAIDCardOfficeWorker
   suffix: Office worker
   components:
-  - type: Sprite
-    layers:
-    - state: default
-    - sprite: Interface/Misc/job_icons.rsi
-      offset: -0.09375, 0.0625
-      state: Visitor
   - type: PresetIdCard
     job: DHLAOfficeWorker
 
@@ -255,16 +237,10 @@
   jobName: dh-job-la-entrepreneur-name
 
 - type: entity
-  parent: DHLAIDCardBase
+  parent: DHLAPassportBase
   id: DHLAIDCardEntrepreneur
   suffix: Small business owner
   components:
-  - type: Sprite
-    layers:
-    - state: default
-    - sprite: Interface/Misc/job_icons.rsi
-      offset: -0.09375, 0.0625
-      state: Bartender
   - type: PresetIdCard
     job: DHLAEntrepreneur
 
@@ -304,16 +280,10 @@
   jobName: dh-job-la-factory-worker-name
 
 - type: entity
-  parent: DHLAIDCardBase
+  parent: DHLAPassportBase
   id: DHLAIDCardFactoryWorker
   suffix: Factory worker
   components:
-  - type: Sprite
-    layers:
-    - state: default
-    - sprite: Interface/Misc/job_icons.rsi
-      offset: -0.09375, 0.0625
-      state: CargoTechnician
   - type: PresetIdCard
     job: DHLAFactoryWorker
 
@@ -353,16 +323,10 @@
   jobName: dh-job-la-utility-worker-name
 
 - type: entity
-  parent: DHLAIDCardBase
+  parent: DHLAPassportBase
   id: DHLAIDCardUtilityWorker
   suffix: Utility worker
   components:
-  - type: Sprite
-    layers:
-    - state: default
-    - sprite: Interface/Misc/job_icons.rsi
-      offset: -0.09375, 0.0625
-      state: StationEngineer
   - type: PresetIdCard
     job: DHLAUtilityWorker
 
@@ -402,16 +366,10 @@
   jobName: dh-job-la-metro-worker-name
 
 - type: entity
-  parent: DHLAIDCardBase
+  parent: DHLAPassportBase
   id: DHLAIDCardMetroWorker
   suffix: Metro worker
   components:
-  - type: Sprite
-    layers:
-    - state: default
-    - sprite: Interface/Misc/job_icons.rsi
-      offset: -0.09375, 0.0625
-      state: TramDriver
   - type: PresetIdCard
     job: DHLAMetroWorker
 
@@ -449,16 +407,10 @@
   jobName: dh-job-la-resident-name
 
 - type: entity
-  parent: DHLAIDCardBase
+  parent: DHLAPassportBase
   id: DHLAIDCardResident
   suffix: Resident
   components:
-  - type: Sprite
-    layers:
-    - state: default
-    - sprite: Interface/Misc/job_icons.rsi
-      offset: -0.09375, 0.0625
-      state: Passenger
   - type: PresetIdCard
     job: DHLAResident
 
@@ -494,21 +446,18 @@
   parent: JobIcon
   id: JobIconDHLAVRepresentative
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: Nanotrasen
+    sprite: /Textures/_DarkestHour/Interface/uprising_job_icons.rsi
+    state: lav_representative
   jobName: dh-job-lav-representative-name
 
 - type: entity
-  parent: DHLAIDCardBase
+  parent: DHLAVIDCardBase
   id: DHLAIDCardVRepresentative
   suffix: Corporate representative
   components:
   - type: Sprite
     layers:
-    - state: default
-    - sprite: Interface/Misc/job_icons.rsi
-      offset: -0.09375, 0.0625
-      state: Nanotrasen
+    - state: corporate_liaison
   - type: PresetIdCard
     job: DHLAVRepresentative
 
@@ -522,8 +471,8 @@
   - type: Sprite
     layers:
     - state: green
-    - sprite: Interface/Misc/job_icons.rsi
-      state: Nanotrasen
+    - sprite: _DarkestHour/Interface/uprising_job_icons.rsi
+      state: lav_representative
 
 - type: job
   id: DHLAVAssistant
@@ -544,21 +493,18 @@
   parent: JobIcon
   id: JobIconDHLAVAssistant
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: HeadOfPersonnel
+    sprite: /Textures/_DarkestHour/Interface/uprising_job_icons.rsi
+    state: lav_assistant
   jobName: dh-job-lav-assistant-name
 
 - type: entity
-  parent: DHLAIDCardBase
+  parent: DHLAVIDCardBase
   id: DHLAIDCardVAssistant
   suffix: Representative's assistant
   components:
   - type: Sprite
     layers:
-    - state: default
-    - sprite: Interface/Misc/job_icons.rsi
-      offset: -0.09375, 0.0625
-      state: HeadOfPersonnel
+    - state: corporate_liaison
   - type: PresetIdCard
     job: DHLAVAssistant
 
@@ -572,8 +518,8 @@
   - type: Sprite
     layers:
     - state: green
-    - sprite: Interface/Misc/job_icons.rsi
-      state: HeadOfPersonnel
+    - sprite: _DarkestHour/Interface/uprising_job_icons.rsi
+      state: lav_assistant
 
 - type: job
   id: DHLAVSecurity
@@ -594,21 +540,18 @@
   parent: JobIcon
   id: JobIconDHLAVSecurity
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: SeniorOfficer
+    sprite: /Textures/_DarkestHour/Interface/uprising_job_icons.rsi
+    state: lav_security
   jobName: dh-job-lav-security-name
 
 - type: entity
-  parent: DHLAIDCardBase
+  parent: DHLAVIDCardBase
   id: DHLAIDCardVSecurity
   suffix: LA-V security officer
   components:
   - type: Sprite
     layers:
-    - state: default
-    - sprite: Interface/Misc/job_icons.rsi
-      offset: -0.09375, 0.0625
-      state: SeniorOfficer
+    - state: pmc
   - type: PresetIdCard
     job: DHLAVSecurity
 
@@ -622,8 +565,8 @@
   - type: Sprite
     layers:
     - state: green
-    - sprite: Interface/Misc/job_icons.rsi
-      state: SeniorOfficer
+    - sprite: _DarkestHour/Interface/uprising_job_icons.rsi
+      state: lav_security
 
 - type: job
   id: DHLAVEmployee
@@ -643,21 +586,18 @@
   parent: JobIcon
   id: JobIconDHLAVEmployee
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: Visitor
+    sprite: /Textures/_DarkestHour/Interface/uprising_job_icons.rsi
+    state: lav_employee
   jobName: dh-job-lav-employee-name
 
 - type: entity
-  parent: DHLAIDCardBase
+  parent: DHLAVIDCardBase
   id: DHLAIDCardVEmployee
   suffix: LA-V employee
   components:
   - type: Sprite
     layers:
-    - state: default
-    - sprite: Interface/Misc/job_icons.rsi
-      offset: -0.09375, 0.0625
-      state: Visitor
+    - state: silver
   - type: PresetIdCard
     job: DHLAVEmployee
 
@@ -671,8 +611,8 @@
   - type: Sprite
     layers:
     - state: green
-    - sprite: Interface/Misc/job_icons.rsi
-      state: Visitor
+    - sprite: _DarkestHour/Interface/uprising_job_icons.rsi
+      state: lav_employee
 
 - type: job
   id: DHLAMPChief
@@ -698,16 +638,10 @@
   jobName: dh-job-lamp-chief-name
 
 - type: entity
-  parent: DHLAIDCardBase
+  parent: DHDogtags
   id: DHLAIDCardMPChief
   suffix: Military Police chief
   components:
-  - type: Sprite
-    layers:
-    - state: default
-    - sprite: Interface/Misc/job_icons.rsi
-      offset: -0.09375, 0.0625
-      state: HeadOfSecurity
   - type: PresetIdCard
     job: DHLAMPChief
 
@@ -748,16 +682,10 @@
   jobName: dh-job-lamp-deputy-chief-name
 
 - type: entity
-  parent: DHLAIDCardBase
+  parent: DHDogtags
   id: DHLAIDCardMPDeputyChief
   suffix: Deputy chief of the Military Police
   components:
-  - type: Sprite
-    layers:
-    - state: default
-    - sprite: Interface/Misc/job_icons.rsi
-      offset: -0.09375, 0.0625
-      state: SeniorOfficer
   - type: PresetIdCard
     job: DHLAMPDeputyChief
 
@@ -797,16 +725,10 @@
   jobName: dh-job-lamp-investigator-name
 
 - type: entity
-  parent: DHLAIDCardBase
+  parent: DHDogtags
   id: DHLAIDCardMPInvestigator
   suffix: Military Police investigator
   components:
-  - type: Sprite
-    layers:
-    - state: default
-    - sprite: Interface/Misc/job_icons.rsi
-      offset: -0.09375, 0.0625
-      state: Detective
   - type: PresetIdCard
     job: DHLAMPInvestigator
 
@@ -847,16 +769,10 @@
   jobName: dh-job-lamp-warden-name
 
 - type: entity
-  parent: DHLAIDCardBase
+  parent: DHDogtags
   id: DHLAIDCardMPWarden
   suffix: Military Police prison warden
   components:
-  - type: Sprite
-    layers:
-    - state: default
-    - sprite: Interface/Misc/job_icons.rsi
-      offset: -0.09375, 0.0625
-      state: Warden
   - type: PresetIdCard
     job: DHLAMPWarden
 
@@ -896,16 +812,10 @@
   jobName: dh-job-lamp-officer-name
 
 - type: entity
-  parent: DHLAIDCardBase
+  parent: DHDogtags
   id: DHLAIDCardMPOfficer
   suffix: Military Police officer
   components:
-  - type: Sprite
-    layers:
-    - state: default
-    - sprite: Interface/Misc/job_icons.rsi
-      offset: -0.09375, 0.0625
-      state: SecurityOfficer
   - type: PresetIdCard
     job: DHLAMPOfficer
 
@@ -945,16 +855,10 @@
   jobName: dh-job-lamp-cadet-name
 
 - type: entity
-  parent: DHLAIDCardBase
+  parent: DHDogtags
   id: DHLAIDCardMPCadet
   suffix: Military Police cadet
   components:
-  - type: Sprite
-    layers:
-    - state: default
-    - sprite: Interface/Misc/job_icons.rsi
-      offset: -0.09375, 0.0625
-      state: SecurityCadet
   - type: PresetIdCard
     job: DHLAMPCadet
 
@@ -977,11 +881,19 @@
   description: dh-job-la-front-leader-desc
   playTimeTracker: JobDHLAFrontLeader
   startingGear: DHLAFrontLeaderGear
-  icon: JobIconDHLAResident
+  icon: JobIconDHLAFrontLeader
   supervisors: dh-job-la-front-supervisors
 
 - type: playTimeTracker
   id: JobDHLAFrontLeader
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAFrontLeader
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/uprising_job_icons.rsi
+    state: front_leader
+  jobName: dh-job-la-front-leader-name
 
 - type: entity
   parent: SpawnPointJobBase
@@ -993,8 +905,8 @@
   - type: Sprite
     layers:
     - state: green
-    - sprite: Interface/Misc/job_icons.rsi
-      state: HeadRevolutionary
+    - sprite: _DarkestHour/Interface/uprising_job_icons.rsi
+      state: front_leader
 
 - type: job
   id: DHLAFrontSaboteur
@@ -1002,11 +914,19 @@
   description: dh-job-la-front-saboteur-desc
   playTimeTracker: JobDHLAFrontSaboteur
   startingGear: DHLAFrontSaboteurGear
-  icon: JobIconDHLAResident
+  icon: JobIconDHLAFrontSaboteur
   supervisors: dh-job-la-front-supervisors
 
 - type: playTimeTracker
   id: JobDHLAFrontSaboteur
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAFrontSaboteur
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/uprising_job_icons.rsi
+    state: front_saboteur
+  jobName: dh-job-la-front-saboteur-name
 
 - type: entity
   parent: SpawnPointJobBase
@@ -1018,8 +938,8 @@
   - type: Sprite
     layers:
     - state: green
-    - sprite: Interface/Misc/job_icons.rsi
-      state: Revolutionary
+    - sprite: _DarkestHour/Interface/uprising_job_icons.rsi
+      state: front_saboteur
 
 - type: job
   id: DHLAFrontSpecialist
@@ -1027,11 +947,19 @@
   description: dh-job-la-front-specialist-desc
   playTimeTracker: JobDHLAFrontSpecialist
   startingGear: DHLAFrontSpecialistGear
-  icon: JobIconDHLAResident
+  icon: JobIconDHLAFrontSpecialist
   supervisors: dh-job-la-front-supervisors
 
 - type: playTimeTracker
   id: JobDHLAFrontSpecialist
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAFrontSpecialist
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/uprising_job_icons.rsi
+    state: front_specialist
+  jobName: dh-job-la-front-specialist-name
 
 - type: entity
   parent: SpawnPointJobBase
@@ -1043,8 +971,8 @@
   - type: Sprite
     layers:
     - state: green
-    - sprite: Interface/Misc/job_icons.rsi
-      state: Revolutionary
+    - sprite: _DarkestHour/Interface/uprising_job_icons.rsi
+      state: front_specialist
 
 - type: job
   id: DHLAFrontMachinegunner
@@ -1052,11 +980,19 @@
   description: dh-job-la-front-machinegunner-desc
   playTimeTracker: JobDHLAFrontMachinegunner
   startingGear: DHLAFrontMachinegunnerGear
-  icon: JobIconDHLAResident
+  icon: JobIconDHLAFrontMachinegunner
   supervisors: dh-job-la-front-supervisors
 
 - type: playTimeTracker
   id: JobDHLAFrontMachinegunner
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAFrontMachinegunner
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/uprising_job_icons.rsi
+    state: front_machinegunner
+  jobName: dh-job-la-front-machinegunner-name
 
 - type: entity
   parent: SpawnPointJobBase
@@ -1068,8 +1004,8 @@
   - type: Sprite
     layers:
     - state: green
-    - sprite: Interface/Misc/job_icons.rsi
-      state: Revolutionary
+    - sprite: _DarkestHour/Interface/uprising_job_icons.rsi
+      state: front_machinegunner
 
 - type: job
   id: DHLAFrontRebel
@@ -1077,11 +1013,19 @@
   description: dh-job-la-front-rebel-desc
   playTimeTracker: JobDHLAFrontRebel
   startingGear: DHLAFrontRebelGear
-  icon: JobIconDHLAResident
+  icon: JobIconDHLAFrontRebel
   supervisors: dh-job-la-front-supervisors
 
 - type: playTimeTracker
   id: JobDHLAFrontRebel
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAFrontRebel
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/uprising_job_icons.rsi
+    state: front_rebel
+  jobName: dh-job-la-front-rebel-name
 
 - type: entity
   parent: SpawnPointJobBase
@@ -1093,5 +1037,5 @@
   - type: Sprite
     layers:
     - state: green
-    - sprite: Interface/Misc/job_icons.rsi
-      state: Revolutionary
+    - sprite: _DarkestHour/Interface/uprising_job_icons.rsi
+      state: front_rebel

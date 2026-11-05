@@ -6,6 +6,7 @@ using Content.Shared.Interaction;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Popups;
 using Content.Shared.Verbs;
+using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map;
@@ -26,12 +27,15 @@ public sealed partial class DHLevelSystem : EntitySystem
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private UserInterfaceSystem _ui = default!;
     [Dependency] private DHZLevelSystem _z = default!;
     [Dependency] private DHZTransitSystem _zTransit = default!;
 
     private static readonly SoundSpecifier ClimbSound = new SoundCollectionSpecifier("FootstepCatwalk");
     private static readonly SoundSpecifier LiftAlarm = new SoundPathSpecifier("/Audio/Machines/alarm.ogg",
         AudioParams.Default.WithVolume(-6f));
+    private TimeSpan _nextPanelRefresh;
+
     private static readonly SoundSpecifier LiftMove = new SoundPathSpecifier("/Audio/Machines/airlock_creaking.ogg");
 
     public override void Initialize()
@@ -44,6 +48,12 @@ public sealed partial class DHLevelSystem : EntitySystem
 
         SubscribeLocalEvent<DHLiftPanelComponent, InteractHandEvent>(OnPanelInteract);
         SubscribeLocalEvent<DHLiftPanelComponent, GetVerbsEvent<AlternativeVerb>>(OnPanelVerbs);
+        Subs.BuiEvents<DHLiftPanelComponent>(DHLiftPanelUiKey.Key, subs =>
+        {
+            subs.Event<BoundUIOpenedEvent>(OnPanelOpened);
+            subs.Event<DHLiftSendMessage>(OnPanelSend);
+            subs.Event<DHLiftCallMessage>(OnPanelCall);
+        });
     }
 
     #region Лестницы
@@ -214,13 +224,11 @@ public sealed partial class DHLevelSystem : EntitySystem
         if (args.Handled)
             return;
 
-        args.Handled = true;
+        // Z-лифт: окно с этажами откроется по активации (ActivatableUI).
         if (string.IsNullOrEmpty(ent.Comp.Link))
-        {
-            _popup.PopupEntity(Loc.GetString("dh-lift-choose-floor"), ent, args.User);
             return;
-        }
 
+        args.Handled = true;
         StartLift(ent, args.User, send: true);
     }
 
@@ -237,34 +245,55 @@ public sealed partial class DHLevelSystem : EntitySystem
                 Text = Loc.GetString("dh-lift-verb-call"),
                 Act = () => StartLift(ent, user, send: false),
             });
-            return;
         }
+    }
 
-        // Z-лифт: отправить груз на любой этаж шахты или вызвать платформу с него.
-        if (LiftNear(ent, string.Empty) is not { } here)
-            return;
+    private void OnPanelOpened(Entity<DHLiftPanelComponent> ent, ref BoundUIOpenedEvent args)
+    {
+        UpdatePanelUi(ent);
+    }
 
-        var priority = 0;
-        foreach (var (lift, level) in Shaft(here))
+    private void OnPanelSend(Entity<DHLiftPanelComponent> ent, ref DHLiftSendMessage args)
+    {
+        if (LiftNear(ent, string.Empty) is not { } here || !TryGetEntity(args.To, out var to) ||
+            !TryComp<DHLiftComponent>(to, out var toLift))
         {
-            if (lift.Owner == here.Owner)
-                continue;
-
-            var name = DHZTransitSystem.LevelName(level);
-            var target = lift;
-            args.Verbs.Add(new AlternativeVerb
-            {
-                Text = Loc.GetString("dh-lift-verb-send-to", ("level", name)),
-                Priority = priority--,
-                Act = () => StartZLift(ent, user, here, target),
-            });
-            args.Verbs.Add(new AlternativeVerb
-            {
-                Text = Loc.GetString("dh-lift-verb-call-from", ("level", name)),
-                Priority = priority--,
-                Act = () => StartZLift(ent, user, target, here),
-            });
+            return;
         }
+
+        StartZLift(ent, args.Actor, here, (to.Value, toLift));
+        UpdatePanelUi(ent);
+    }
+
+    private void OnPanelCall(Entity<DHLiftPanelComponent> ent, ref DHLiftCallMessage args)
+    {
+        if (LiftNear(ent, string.Empty) is not { } here || !TryGetEntity(args.From, out var from) ||
+            !TryComp<DHLiftComponent>(from, out var fromLift))
+        {
+            return;
+        }
+
+        StartZLift(ent, args.Actor, (from.Value, fromLift), here);
+        UpdatePanelUi(ent);
+    }
+
+    private void UpdatePanelUi(Entity<DHLiftPanelComponent> ent)
+    {
+        var floors = new List<DHLiftFloor>();
+        var busy = false;
+        if (LiftNear(ent, string.Empty) is { } here)
+        {
+            var now = _timing.CurTime;
+            foreach (var (lift, level) in Shaft(here))
+            {
+                busy |= lift.Comp.DepartAt != null || now < lift.Comp.NextUse;
+                floors.Add(new DHLiftFloor(level, DHZTransitSystem.LevelName(level), GetNetEntity(lift),
+                    lift.Owner == here.Owner, false));
+            }
+        }
+
+        floors.Reverse(); // сверху вниз, как кнопки в лифте
+        _ui.SetUiState(ent.Owner, DHLiftPanelUiKey.Key, new DHLiftPanelState(floors, busy));
     }
 
     /// <summary>Рейс Z-лифта: груз с платформы <paramref name="from"/> на платформу <paramref name="to"/>.</summary>
@@ -330,6 +359,19 @@ public sealed partial class DHLevelSystem : EntitySystem
         base.Update(frameTime);
 
         var now = _timing.CurTime;
+
+        // Открытые пульты Z-лифтов — раз в секунду (занят / свободен).
+        if (now >= _nextPanelRefresh)
+        {
+            _nextPanelRefresh = now + TimeSpan.FromSeconds(1);
+            var panels = EntityQueryEnumerator<DHLiftPanelComponent>();
+            while (panels.MoveNext(out var panelUid, out var panel))
+            {
+                if (string.IsNullOrEmpty(panel.Link) && _ui.IsUiOpen(panelUid, DHLiftPanelUiKey.Key))
+                    UpdatePanelUi((panelUid, panel));
+            }
+        }
+
         var query = EntityQueryEnumerator<DHLiftComponent>();
         var due = new List<Entity<DHLiftComponent>>();
         while (query.MoveNext(out var uid, out var lift))

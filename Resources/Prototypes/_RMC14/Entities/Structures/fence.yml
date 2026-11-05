@@ -9,13 +9,14 @@
     anchored: true
   - type: Sprite
     sprite: _RMC14/Structures/fences.rsi
-    state: fence0
   - type: InteractionOutline
   - type: Clickable
   - type: IconSmooth
     key: fences
-    base: fence
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ fences ]
+      base: fence
   - type: Damageable
   - type: Injurable
     damageContainer: StructuralInorganic
@@ -49,15 +50,16 @@
     anchored: true
   - type: Sprite
     sprite: _RMC14/Structures/fences.rsi
-    state: brokenfence0
   - type: Clickable
   - type: InteractionOutline
   - type: PlacementReplacement
     key: walls
   - type: IconSmooth
     key: fences
-    base: brokenfence
-    mode: CardinalFlags
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ fences ]
+      base: brokenfence
   - type: Physics
     canCollide: false
   - type: Damageable
@@ -80,7 +82,6 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/hybrisa_fences.rsi
-    state: fence0
 
 - type: entity
   parent: RMCFenceBroken
@@ -88,7 +89,6 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/hybrisa_fences.rsi
-    state: brokenfence0
 
 - type: entity
   parent: CMFence
@@ -97,7 +97,6 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/hybrisa_fences_electric.rsi
-    state: fence0
 
 - type: entity
   parent: RMCFenceBroken
@@ -106,7 +105,6 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/hybrisa_fences_electric.rsi
-    state: brokenfence0
 
 - type: entity
   parent: CMFence
@@ -116,7 +114,6 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/fences_overgrown.rsi
-    state: fence0
 
 - type: entity
   parent: RMCFenceBroken
@@ -126,7 +123,6 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/fences_overgrown.rsi
-    state: brokenfence0
 
 - type: entity
   parent: CMFence
@@ -135,7 +131,6 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/fences_spp.rsi
-    state: fence0
 
 - type: entity
   parent: RMCFenceBroken
@@ -144,4 +139,3 @@
   components:
   - type: Sprite
     sprite: _RMC14/Structures/fences_spp.rsi
-    state: brokenfence0

@@ -170,17 +170,23 @@ def L(z):
 STAIR_CELLS = {}
 
 
-def stairwell(levels, sx, sy):
-    """Лестничный пролёт 2×3 (sx..sx+1, sy−1..sy+1) через уровни levels (по возрастанию): с уровня z — ступени
-    вверх в столбце sx+(z%2) (смотрят на север), на уровне z+1 в том же тайле — проём вниз (смотрит на юг)."""
+def stairwell(levels, sx, sy, w=2, l=3):
+    """Лестница (ступени RMC-14): два марша шириной w и длиной l рядом — sx..sx+2w−1, ступени sy..sy+l−1, площадки
+    sy−1 и sy+l. С уровня z марш вверх в своей половине (по чётности z, смотрит на север), последняя ступень поднимает
+    на z+1; там над маршем — шахта и спуск над последней ступенью (смотрит на юг)."""
     for i, z in enumerate(levels[:-1]):
-        col = sx + (z % 2)
-        L(z).put('DHZStairs', col, sy, ROT_N)
-        L(levels[i + 1]).put('DHZStairwell', col, sy, ROT_S)
+        x0 = sx + (z % 2) * w
+        up = levels[i + 1]
+        for k in range(w):
+            piece = 'Left' if k == 0 else 'Right' if k == w - 1 else ''
+            for r in range(l):
+                top = r == l - 1
+                L(z).put(('DHZStairsTop' if top else 'DHZStairStep') + piece, x0 + k, sy + r, ROT_N)
+                L(up).put('DHZStairwell' if top else 'DHZStairShaft', x0 + k, sy + r, ROT_S)
     for z in levels:
         lv = L(z)
-        for x in (sx, sx + 1):
-            for y in (sy - 1, sy, sy + 1):
+        for x in range(sx, sx + 2 * w):
+            for y in range(sy - 1, sy + l + 1):
                 lv.unwall(x, y)
                 STAIR_CELLS.setdefault(z, set()).add((x, y))
 
@@ -379,7 +385,7 @@ def gates():
         for x in range(ax0 + 4, bx1 - 3, 8):
             lv.put(LIGHT_DIM, x, ay1 - 1, ROT_N)
     # въезд на парковку с площади (лестница на −1) и съезд −1 → −2
-    stairwell([-2, -1, 0], -66, 53)
+    stairwell([-2, -1, 0], -66, 53, w=3, l=2)
     L(0).floor(-67, 51, -64, 54, T_CONCRETE)
 
     # башни: уровни 0..7, крыша +8
@@ -389,7 +395,7 @@ def gates():
             exterior(lv, x0, y0, x1, y1, W_OFFICE, T_LOBBY if z == 0 else T_OFFICE)
         # лестница и лифт у западной/восточной стены, с −2 до крыши
         sx = x0 + 2
-        stairwell(list(range(-2, 9)), sx, y0 + 4)
+        stairwell(list(range(-2, 9)), sx, y0 + 4, w=3)
         lift(list(range(-2, 8)), x1 - 3, y0 + 4, panel_dx=-2)
         roof(L(8), x0, y0, x1, y1)
 
@@ -499,7 +505,7 @@ def police():
         lv = L(z)
         exterior(lv, x0, y0, x1, y1, W_POLICE, T_POLICE if z >= 0 else T_DARK, WINDOW if z >= 0 else None)
         lights_in(lv, x0, y0, x1, y1)
-    stairwell(list(range(-3, 5)), x0 + 2, y0 + 4)
+    stairwell(list(range(-3, 5)), x0 + 2, y0 + 4, w=3)
     lift(list(range(-3, 4)), x1 - 3, y0 + 4, panel_dx=-2)
     roof(L(4), x0, y0, x1, y1)
 
@@ -564,7 +570,7 @@ def panels():
         roof(L(5), x0, y0, x1, y1)
         if ori == 'v':
             cx = (x0 + x1) // 2
-            stairwell(list(range(-1, 6)), cx, y0 + 3)
+            stairwell(list(range(-1, 6)), x0 + 2, y0 + 2)
             for z in range(0, 5):
                 lv = L(z)
                 lv.vline(cx - 1, y0 + 6, y1 - 1, W_CONCRETE)
@@ -583,7 +589,7 @@ def panels():
             L(0).door(cx + 1, y0, 'AirlockGlass')
         else:
             cy = (y0 + y1) // 2
-            stairwell(list(range(-1, 6)), x0 + 3, cy)
+            stairwell(list(range(-1, 6)), x0 + 1, cy + 3, l=2)
             for z in range(0, 5):
                 lv = L(z)
                 lv.hline(x0 + 6, x1 - 1, cy - 1, W_CONCRETE)
@@ -644,8 +650,8 @@ def factory():
     roof(L(2), -25, 12, 2, 25, rails=False)
     roof(L(2), -12, -25, -4, 12, rails=False)
     roof(L(2), -15, -38, 0, -25, rails=False)
-    stairwell([-1, 0, 1, 2], -23, 16)
-    stairwell([-1, 0, 1, 2], -13, -34)
+    stairwell([-1, 0, 1, 2], -23, 16, w=3, l=2)
+    stairwell([-1, 0, 1, 2], -13, -34, w=3, l=2)
     g = L(0)
     g.door(2, 18, 'DHLAAirlockFactoryLocked')
     g.door(2, 19, 'DHLAAirlockFactoryLocked')
@@ -673,7 +679,7 @@ def warehouse():
         exterior(lv, x0, y0, x1, y1, W_STORE, T_CONCRETE if z >= 0 else T_TECH, WINDOW_PLAIN if z >= 0 else None, every=6)
         lights_in(lv, x0, y0, x1, y1, step=8)
     roof(L(2), x0, y0, x1, y1)
-    stairwell([-1, 0, 1, 2], x0 + 2, y0 + 4)
+    stairwell([-1, 0, 1, 2], x0 + 2, y0 + 4, l=2)
     lift([-1, 0, 1], x1 - 4, y0 + 5, panel_dx=-2)
     g = L(0)
     g.door(x0, 4, 'DHLAAirlockFactoryLocked')
@@ -782,7 +788,7 @@ def metro():
     g.door(x1, 38, 'AirlockGlass')
     g.put(LIGHT, (x0 + x1) // 2, y1 - 1, ROT_N)
     roof(L(1), x0, y0, x1, y1, rails=False)
-    stairwell([-2, -1, 0], x0 + 3, 37)
+    stairwell([-2, -1, 0], x0 + 3, 37, w=3, l=2)
     # станция −1: зал и платформа с путями
     mx0, my0, mx1, my1 = METRO
     st = L(-1)
@@ -916,7 +922,8 @@ def catacombs():
     L(-2).put('DHZHatchDown', -72, 34)
 
 
-KEEP = {'DHZStairs', 'DHZStairwell', 'DHZLiftPlatform', 'DHZLiftPanel'}
+KEEP = {'DHZStairs', 'DHZStairwell', 'DHZStairShaft', 'DHZStairStep', 'DHZStairStepLeft', 'DHZStairStepRight',
+        'DHZStairsTop', 'DHZStairsTopLeft', 'DHZStairsTopRight', 'DHZLiftPlatform', 'DHZLiftPanel'}
 
 
 def clean_passages():

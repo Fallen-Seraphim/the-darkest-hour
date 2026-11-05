@@ -165,7 +165,7 @@ public sealed partial class DHZTransitSystem : EntitySystem
 
                 // По ступеням идут вдоль пролёта; поперёк — просто стоишь на площадке.
                 if (!TryComp<PhysicsComponent>(mob, out var physics) ||
-                    Vector2.Dot(physics.LinearVelocity, facing) < 0.5f ||
+                    Vector2.Dot(physics.LinearVelocity, facing) < 0.2f ||
                     _mobState.IsIncapacitated(mob))
                 {
                     continue;

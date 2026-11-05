@@ -67,3 +67,46 @@ public sealed partial class DHLiftPanelComponent : Component
 
 [Serializable, NetSerializable]
 public sealed partial class DHLadderDoAfterEvent : SimpleDoAfterEvent;
+
+// --- Пульт Z-лифта (решение автора 2026-11-05): окно со всеми этажами шахты вместо меню действий ---
+
+[Serializable, NetSerializable]
+public enum DHLiftPanelUiKey : byte
+{
+    Key,
+}
+
+[Serializable, NetSerializable]
+public sealed class DHLiftFloor(int level, string name, NetEntity lift, bool here, bool platformHere)
+{
+    public readonly int Level = level;
+    public readonly string Name = name;
+    public readonly NetEntity Lift = lift;
+
+    /// <summary>Этаж пульта.</summary>
+    public readonly bool Here = here;
+
+    /// <summary>Платформа сейчас стоит на этом этаже (в шахте одна «живая» платформа — та, к которой вызывали).</summary>
+    public readonly bool PlatformHere = platformHere;
+}
+
+[Serializable, NetSerializable]
+public sealed class DHLiftPanelState(List<DHLiftFloor> floors, bool busy) : BoundUserInterfaceState
+{
+    public readonly List<DHLiftFloor> Floors = floors;
+    public readonly bool Busy = busy;
+}
+
+/// <summary>Отправить груз с платформы этого этажа на выбранный.</summary>
+[Serializable, NetSerializable]
+public sealed class DHLiftSendMessage(NetEntity to) : BoundUserInterfaceMessage
+{
+    public readonly NetEntity To = to;
+}
+
+/// <summary>Вызвать груз с выбранного этажа на этаж пульта.</summary>
+[Serializable, NetSerializable]
+public sealed class DHLiftCallMessage(NetEntity from) : BoundUserInterfaceMessage
+{
+    public readonly NetEntity From = from;
+}
