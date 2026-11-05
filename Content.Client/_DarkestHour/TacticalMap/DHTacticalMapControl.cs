@@ -20,6 +20,7 @@ public sealed class DHTacticalMapControl : Control
     private static readonly Color NeutralColor = Color.FromHex("#d0d0d0");
     private static readonly Color ZoneColor = Color.FromHex("#f2d14a");
     private static readonly Color MarkColor = Color.FromHex("#ff9a2e");
+    private static readonly Color ScanColor = Color.FromHex("#ff5fd2");
     private static readonly Color RadarColor = Color.FromHex("#6fc3ff");
 
     private readonly DHTacticalMapSystem _terrain;
@@ -126,6 +127,14 @@ public sealed class DHTacticalMapControl : Control
                 case DHTacticalMarkerKind.Enemy:
                     handle.DrawCircle(p, 4f, FactionColor(marker.Owner));
                     handle.DrawCircle(p, 4f, Color.Black, false);
+                    break;
+                case DHTacticalMarkerKind.ScanContact:
+                    // Ромб: отметка глобального скана.
+                    handle.DrawLine(p + new Vector2(0, -6), p + new Vector2(6, 0), ScanColor);
+                    handle.DrawLine(p + new Vector2(6, 0), p + new Vector2(0, 6), ScanColor);
+                    handle.DrawLine(p + new Vector2(0, 6), p + new Vector2(-6, 0), ScanColor);
+                    handle.DrawLine(p + new Vector2(-6, 0), p + new Vector2(0, -6), ScanColor);
+                    handle.DrawString(_font, p + new Vector2(8, -6), marker.Name, ScanColor);
                     break;
             }
         }

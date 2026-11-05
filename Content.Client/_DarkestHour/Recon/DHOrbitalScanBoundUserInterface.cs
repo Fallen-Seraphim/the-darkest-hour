@@ -18,7 +18,7 @@ public sealed class DHOrbitalScanBoundUserInterface : BoundUserInterface
         base.Open();
 
         _window = this.CreateWindow<DHOrbitalScanWindow>();
-        _window.OnScan += position => SendMessage(new DHOrbitalScanMessage(position));
+        _window.OnScan += () => SendMessage(new DHOrbitalScanMessage());
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)

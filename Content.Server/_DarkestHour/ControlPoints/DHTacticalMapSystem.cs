@@ -295,6 +295,15 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
                 Loc.GetString("dh-tacmap-laser-mark", ("code", mark.Code)), faction, 0f));
         }
 
+        var contacts = EntityQueryEnumerator<DHScanContactComponent, TransformComponent>();
+        while (contacts.MoveNext(out _, out var contact, out var xform))
+        {
+            if (xform.MapUid != map || contact.Faction != faction)
+                continue;
+
+            markers.Add(Marker(DHTacticalMarkerKind.ScanContact, xform, contact.Label, null, 0f));
+        }
+
         return markers;
     }
 
