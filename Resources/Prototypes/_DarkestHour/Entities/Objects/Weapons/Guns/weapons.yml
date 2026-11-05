@@ -912,6 +912,7 @@
           tags:
           - DHAttachmentOptic4x
           - DHAttachmentOptic8x
+          - DHAttachmentOptic16x
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -930,6 +931,7 @@
         tags:
         - DHAttachmentOptic4x
         - DHAttachmentOptic8x
+        - DHAttachmentOptic16x
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -951,6 +953,11 @@
         whitelist:
           tags:
           - DHAttachmentOptic8x
+      - containerId: attachment_optic
+        state: optic8x
+        whitelist:
+          tags:
+          - DHAttachmentOptic16x
   - type: GunRequiresWield
   - type: CursorOffsetRequiresWield
   - type: EyeCursorOffset
@@ -3128,6 +3135,7 @@
           tags:
           - DHAttachmentOptic4x
           - DHAttachmentOptic8x
+          - DHAttachmentOptic16x
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -3146,6 +3154,7 @@
         tags:
         - DHAttachmentOptic4x
         - DHAttachmentOptic8x
+        - DHAttachmentOptic16x
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -3167,6 +3176,11 @@
         whitelist:
           tags:
           - DHAttachmentOptic8x
+      - containerId: attachment_optic
+        state: optic8x
+        whitelist:
+          tags:
+          - DHAttachmentOptic16x
   - type: GunRequiresWield
   - type: CursorOffsetRequiresWield
   - type: EyeCursorOffset
@@ -3248,6 +3262,7 @@
           tags:
           - DHAttachmentOptic4x
           - DHAttachmentOptic8x
+          - DHAttachmentOptic16x
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -3267,6 +3282,7 @@
         tags:
         - DHAttachmentOptic4x
         - DHAttachmentOptic8x
+        - DHAttachmentOptic16x
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -3288,6 +3304,11 @@
         whitelist:
           tags:
           - DHAttachmentOptic8x
+      - containerId: attachment_optic
+        state: optic8x
+        whitelist:
+          tags:
+          - DHAttachmentOptic16x
   - type: PowerCellSlot
     cellSlotId: cell_slot
   - type: DHGunChargePerShot

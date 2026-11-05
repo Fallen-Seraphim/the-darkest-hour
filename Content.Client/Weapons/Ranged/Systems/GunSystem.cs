@@ -214,6 +214,14 @@ public sealed partial class GunSystem : SharedGunSystem
         var anchor = Transform(entity).MapID == mousePos.MapId ? entity : gun.Owner;
         var coordinates = TransformSystem.ToCoordinates(anchor, mousePos);
 
+        // DarkestHour: стрелок смотрит на другой Z-уровень — цель на той карте, а не на своей.
+        if (Transform(anchor).MapID != mousePos.MapId &&
+            _maps.GetMapOrInvalid(mousePos.MapId) is var levelMap && levelMap.IsValid() &&
+            HasComp<Content.Shared._DarkestHour.Levels.DHZLevelComponent>(levelMap))
+        {
+            coordinates = new EntityCoordinates(levelMap, mousePos.Position);
+        }
+
         Log.Debug($"Sending shoot request tick {Timing.CurTick} / {Timing.CurTime}");
 
 

@@ -153,6 +153,8 @@ public sealed partial class DHHeavyGunSystem
             status = Loc.GetString("dh-field-gun-status-not-deployed");
         else if (HasComp<DHUndergroundMapComponent>(xform.MapUid))
             status = Loc.GetString("dh-field-gun-status-underground");
+        else if (ent.Comp.Elevation > ent.Comp.DirectFireMaxElevation && _zLevels.IsCovered(ent.Owner))
+            status = Loc.GetString("dh-field-gun-status-covered");
         else if (LoadedShellComp(ent.Comp) is not { } shell)
             status = Loc.GetString("dh-field-gun-status-empty");
         else if (ent.Comp.Elevation > shell.MaxElevation)

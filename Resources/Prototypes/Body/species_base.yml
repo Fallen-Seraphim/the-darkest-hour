@@ -4,6 +4,7 @@
   id: BaseSpeciesMob
   components:
   - type: DHCrawlWhileCrit # DarkestHour: ползти в крите
+  - type: DHZViewer # DarkestHour: посмотреть вверх/вниз (Z-уровни)
   - type: Crawler
 
 - type: entity
@@ -266,4 +267,5 @@
   save: false
   components:
   - type: DHCrawlWhileCrit # DarkestHour: ползти в крите
+  - type: DHZViewer # DarkestHour: посмотреть вверх/вниз (Z-уровни)
   - type: Crawler

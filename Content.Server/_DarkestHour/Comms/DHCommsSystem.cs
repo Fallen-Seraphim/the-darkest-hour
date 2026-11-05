@@ -37,6 +37,10 @@ public sealed partial class DHCommsSystem : EntitySystem
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private UserInterfaceSystem _ui = default!;
+    [Dependency] private Content.Shared._DarkestHour.Levels.DHZLevelSystem _zLevels = default!;
+
+    /// <summary>Глубже этого уровня связь с поверхностью не проходит: нужен свой ретранслятор на том уровне.</summary>
+    private const int DeepestLinkedLevel = -1;
 
     private readonly HashSet<EntityUid> _covered = new();
 
@@ -107,7 +111,8 @@ public sealed partial class DHCommsSystem : EntitySystem
     }
 
     /// <summary>
-    /// Зона связи: карта; отсек машины — там, где машина; бункер и небо планеты — её поверхность.
+    /// Зона связи: карта; отсек машины — там, где машина; бункер, этажи и небо планеты — её поверхность; уровни
+    /// −2 и −3 под землёй — своя зона.
     /// </summary>
     private EntityUid? Zone(EntityUid uid)
     {
@@ -128,6 +133,15 @@ public sealed partial class DHCommsSystem : EntitySystem
 
         if (TryComp<DHPlanetAtmosphereMapComponent>(map, out var atmosphere))
             return _landing.GetSurface(atmosphere.System, atmosphere.Body) ?? map;
+
+        // Z-уровни: этажи и первый подземный — зона земли; глубже под землёй своя зона (нужен свой ретранслятор).
+        if (_zLevels.TryGetLevel(map, out var level))
+        {
+            if (level.Level < DeepestLinkedLevel)
+                return map;
+
+            return _zLevels.LevelMap(level.Stack, 0) ?? map;
+        }
 
         if (HasComp<DHUndergroundMapComponent>(map))
         {

@@ -36,6 +36,9 @@
   id: DHAttachmentOptic8x
 
 - type: Tag
+  id: DHAttachmentOptic16x
+
+- type: Tag
   id: DHAttachmentSuppressor
 
 - type: Tag

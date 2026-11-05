@@ -38,6 +38,7 @@ public sealed partial class DHPlanetBaseSystem : EntitySystem
     [Dependency] private IPrototypeManager _proto = default!;
     [Dependency] private ServerStationSystem _station = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private Content.Shared._DarkestHour.Levels.DHZLevelSystem _zLevels = default!;
 
     public override void Initialize()
     {
@@ -113,6 +114,7 @@ public sealed partial class DHPlanetBaseSystem : EntitySystem
             FillAir(grid);
 
         LoadUnderground(ent, grid, body);
+        LoadLevels(ent, map, grid, body);
 
         if (ent.Comp.Mapped)
             return;
@@ -168,6 +170,92 @@ public sealed partial class DHPlanetBaseSystem : EntitySystem
         var atmos = EnsureComp<GridAtmosphereComponent>(grid);
         EnsureComp<GasTileOverlayComponent>(grid);
         _atmos.RebuildGridAtmosphere((grid, atmos, gridComp));
+    }
+
+    /// <summary>
+    /// Z-уровни базы: поверхность — уровень 0 новой стопки, бункер — −1, остальные уровни из <c>Levels</c> — свои
+    /// карты с тем же смещением (этажи — с воздухом, светом и сменой суток поверхности; подземные — тёмные).
+    /// </summary>
+    private void LoadLevels(Entity<DHPlanetBaseComponent> ent, EntityUid surfaceMap, EntityUid surfaceGrid,
+        DHCelestialBody body)
+    {
+        if (ent.Comp.Levels.Count == 0 && ent.Comp.UndergroundGrid == null)
+            return;
+
+        var stack = _zLevels.NewStack();
+        SetLevel(surfaceMap, stack, 0);
+        if (ent.Comp.UndergroundGrid is { } bunker && Transform(bunker).MapUid is { } bunkerMap)
+            SetLevel(bunkerMap, stack, -1);
+
+        foreach (var (level, path) in ent.Comp.Levels)
+        {
+            if (level == 0 || level < Content.Shared._DarkestHour.Levels.DHZLevelComponent.MinLevel ||
+                level > Content.Shared._DarkestHour.Levels.DHZLevelComponent.MaxLevel ||
+                level == -1 && ent.Comp.UndergroundGrid != null)
+            {
+                Log.Error($"{ToPrettyString(ent)}: bad or duplicate Z-level {level}");
+                continue;
+            }
+
+            var name = level > 0
+                ? Loc.GetString("dh-zlevel-map-up", ("level", level))
+                : Loc.GetString("dh-zlevel-map-down", ("level", -level));
+            if (CreateLevelMap(ent, surfaceGrid, body, path, name, level < 0, out var map, out var grid))
+            {
+                SetLevel(map, stack, level);
+                ent.Comp.LevelGrids[level] = grid;
+            }
+        }
+    }
+
+    private void SetLevel(EntityUid map, int stack, int level)
+    {
+        var comp = EnsureComp<Content.Shared._DarkestHour.Levels.DHZLevelComponent>(map);
+        comp.Stack = stack;
+        comp.Level = level;
+        Dirty(map, comp);
+    }
+
+    /// <summary>Карта уровня: тяжесть и воздух тела; под землёй темно, наверху — свет и сутки поверхности.</summary>
+    private bool CreateLevelMap(Entity<DHPlanetBaseComponent> ent, EntityUid surfaceGrid, DHCelestialBody body,
+        ResPath path, string name, bool underground, out EntityUid mapUid, out EntityUid gridUid)
+    {
+        gridUid = default;
+        mapUid = _map.CreateMap(out var mapId);
+        _meta.SetEntityName(mapUid, name);
+        if (underground)
+            EnsureComp<DHUndergroundMapComponent>(mapUid);
+
+        var gravity = EnsureComp<GravityComponent>(mapUid);
+        gravity.Enabled = true;
+        gravity.Inherent = true;
+        Dirty(mapUid, gravity);
+
+        var moles = new float[Atmospherics.AdjustedNumberOfGases];
+        foreach (var (gas, amount) in body.SurfaceGases)
+        {
+            moles[(int) gas] = amount;
+        }
+
+        _atmos.SetMapAtmosphere(mapUid, body.SurfaceGases.Count == 0, new GasMixture(moles, body.SurfaceTemperature));
+
+        var light = EnsureComp<MapLightComponent>(mapUid);
+        light.AmbientLightColor = underground ? ent.Comp.UndergroundLight : body.SurfaceLight;
+        Dirty(mapUid, light);
+        if (!underground)
+            _dayNight.Enable(mapUid, body.SurfaceLight);
+
+        if (!_loader.TryLoadGrid(mapId, path, out var grid, offset: _transform.GetWorldPosition(surfaceGrid)))
+        {
+            Log.Error($"{ToPrettyString(ent)}: failed to load Z-level {path}");
+            return false;
+        }
+
+        gridUid = grid.Value;
+        _meta.SetEntityName(grid.Value, name);
+        _station.AddGridToStation(ent.Owner, grid.Value);
+        FillAir(grid.Value);
+        return true;
     }
 
     /// <summary>

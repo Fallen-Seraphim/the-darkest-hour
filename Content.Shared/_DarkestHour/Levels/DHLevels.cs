@@ -3,14 +3,18 @@ using Robust.Shared.Serialization;
 
 namespace Content.Shared._DarkestHour.Levels;
 
-// Уровни по образцу RMC-14 (у SS14 нет Z-уровней): подземелье — отдельная карта под поверхностью, переходы —
-// лестницы/люки и грузовой лифт, связанные общим ключом Link.
+// Уровни по образцу RMC-14 (у SS14 нет Z-уровней): подземелье и этажи — отдельные карты, переходы —
+// лестницы/люки и лифты. С ключом Link — ведут к паре с тем же ключом (старый бункер); без ключа — в ту же точку
+// XY на соседнем Z-уровне (DHZLevelComponent).
 
-/// <summary>Лестница или люк: подняться/спуститься к лестнице с тем же <see cref="Link"/> на другом уровне.</summary>
+/// <summary>
+/// Лестница или люк: подняться/спуститься к лестнице с тем же <see cref="Link"/> на другом уровне, а без ключа —
+/// на уровень выше/ниже в той же точке.
+/// </summary>
 [RegisterComponent]
 public sealed partial class DHLadderComponent : Component
 {
-    [DataField(required: true)]
+    [DataField]
     public string Link = string.Empty;
 
     [DataField]
@@ -21,11 +25,14 @@ public sealed partial class DHLadderComponent : Component
     public bool Down;
 }
 
-/// <summary>Платформа грузового лифта: всё незакреплённое на ней (люди, ящики) переезжает на платформу-пару.</summary>
+/// <summary>
+/// Платформа лифта: всё незакреплённое на ней (люди, ящики) переезжает на платформу-пару (по ключу Link), а без
+/// ключа — на платформу выбранного этажа в той же шахте (платформы в той же точке XY на других уровнях).
+/// </summary>
 [RegisterComponent]
 public sealed partial class DHLiftComponent : Component
 {
-    [DataField(required: true)]
+    [DataField]
     public string Link = string.Empty;
 
     /// <summary>Половина стороны платформы, м (3x3 тайла — 1.45).</summary>
@@ -44,13 +51,17 @@ public sealed partial class DHLiftComponent : Component
 
     [ViewVariables]
     public TimeSpan NextUse;
+
+    /// <summary>Куда едет назначенный рейс (только сервер).</summary>
+    [ViewVariables]
+    public EntityUid? Destination;
 }
 
-/// <summary>Пульт лифта: отправить груз со своей платформы или вызвать с другого уровня.</summary>
+/// <summary>Пульт лифта: отправить груз со своей платформы или вызвать с другого уровня (этажи — в меню действий).</summary>
 [RegisterComponent]
 public sealed partial class DHLiftPanelComponent : Component
 {
-    [DataField(required: true)]
+    [DataField]
     public string Link = string.Empty;
 }
 

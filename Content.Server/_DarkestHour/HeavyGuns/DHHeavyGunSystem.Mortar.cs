@@ -357,6 +357,8 @@ public sealed partial class DHHeavyGunSystem
         string status;
         if (MortarUnderground(ent))
             status = Loc.GetString("dh-mortar-underground");
+        else if (_zLevels.IsCovered(ent.Owner))
+            status = Loc.GetString("dh-mortar-covered");
         else if (ent.Comp.Target == null)
             status = Loc.GetString("dh-mortar-status-not-aimed");
         else if (_timing.CurTime < ent.Comp.NextShot)
@@ -390,6 +392,8 @@ public sealed partial class DHHeavyGunSystem
         string? problem = null;
         if (MortarUnderground(ent))
             problem = "dh-mortar-underground";
+        else if (_zLevels.IsCovered(ent.Owner))
+            problem = "dh-mortar-covered";
         else if (ent.Comp.Target == null)
             problem = "dh-mortar-status-not-aimed";
         else if (_timing.CurTime < ent.Comp.NextShot)

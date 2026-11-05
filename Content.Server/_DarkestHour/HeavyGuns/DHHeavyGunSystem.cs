@@ -62,6 +62,12 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private UserInterfaceSystem _ui = default!;
+    [Dependency] private Content.Shared._DarkestHour.Levels.DHZLevelSystem _zLevels = default!;
+    [Dependency] private Content.Server._DarkestHour.Levels.DHZTransitSystem _zTransit = default!;
+
+    /// <summary>Удар с орбиты по крыше: радиус пролома и доля силы, что проходит под одноэтажную крышу.</summary>
+    private const float RoofBreakRadius = 2.5f;
+    private const float RoofAbsorbScale = 0.35f;
 
     private static readonly SoundSpecifier FireSound = new SoundPathSpecifier("/Audio/_Mono/Weapons/Guns/Gunshots/cannon.ogg");
     private static readonly SoundSpecifier IncomingSound = new SoundPathSpecifier("/Audio/_DarkestHour/HeavyGuns/gun_orbital_travel.ogg");
@@ -920,7 +926,29 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     {
         if (strike.Role == DHGunRole.Artillery)
         {
-            Detonate(strike.Warhead, strike.Caliber, strike.Target, 1f, false);
+            // Сверху бьёт в самый верхний пол в точке: крыша дома, иначе земля.
+            var target = _zLevels.ImpactPoint(strike.Target, out var level);
+            if (strike.Mortar)
+            {
+                Detonate(strike.Warhead, strike.Caliber, target, 1f, false);
+            }
+            else if (level > 0)
+            {
+                // Удар с орбиты сначала ломает крышу: рвётся на ней и проламывает её.
+                Detonate(strike.Warhead, strike.Caliber, target, 1f, false);
+                _zTransit.BreakRoof(target, RoofBreakRadius);
+            }
+            else if (_zLevels.HasRoofFlag(target))
+            {
+                // Одноэтажная крыша: её сносит, внутрь доходит малая часть удара.
+                _zTransit.ClearRoofFlags(target, RoofBreakRadius);
+                Detonate(strike.Warhead, strike.Caliber, target, RoofAbsorbScale, false);
+            }
+            else
+            {
+                Detonate(strike.Warhead, strike.Caliber, target, 1f, false);
+            }
+
             Report(strike, "dh-heavy-gun-report-impact");
             return;
         }

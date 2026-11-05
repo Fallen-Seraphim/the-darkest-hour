@@ -1,0 +1,154 @@
+# Z-уровни: переходы без ключа — ведут в ту же точку XY на соседнем уровне стопки (DHZLevelComponent на карте).
+# Лестничный пролёт ставится внизу (смотрит вверх по лестнице), проём — на том же тайле этажом выше (смотрит вниз).
+# Механика — DHZTransitSystem (пролёты, падение, взгляд) и DHLevelSystem (лестницы, люки, лифты).
+
+- type: entity
+  parent: BaseStructure
+  id: DHZStairs
+  name: stairs
+  description: A flight of stairs going up. Walk up the steps to reach the floor above.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: Structures/stairs.rsi
+    state: stairs_steel
+    drawdepth: FloorObjects
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+    canCollide: false
+  - type: DHZStairs
+    up: true
+  - type: Tag
+    tags:
+    - Structure
+
+- type: entity
+  parent: DHZStairs
+  id: DHZStairsDark
+  suffix: dark
+  components:
+  - type: Sprite
+    state: stairs_dark
+
+- type: entity
+  parent: DHZStairs
+  id: DHZStairsWood
+  suffix: wood
+  components:
+  - type: Sprite
+    state: stairs_wood
+
+- type: entity
+  parent: DHZStairs
+  id: DHZStairwell
+  name: stairwell
+  description: The top of a flight of stairs. Walk down the steps to reach the floor below.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Levels/levels.rsi
+    state: stairwell
+  - type: DHZStairs
+    up: false
+
+- type: entity
+  parent: DHLadderUpBase
+  id: DHZLadderUp
+  name: ladder
+  description: A steel ladder leading up to the level above. Use it to climb up.
+  components:
+  - type: DHLadder
+
+- type: entity
+  parent: DHHatchBase
+  id: DHZHatchDown
+  name: floor hatch
+  description: A hatch with a ladder going down to the level below. Use it to climb down.
+  components:
+  - type: DHLadder
+    down: true
+
+- type: entity
+  parent: DHHatchBase
+  id: DHZManhole
+  name: manhole
+  description: A heavy cast-iron cover over a shaft into the sewers. Use it to climb down.
+  components:
+  - type: Sprite
+    state: manhole
+  - type: DHLadder
+    down: true
+    delay: 3
+
+- type: entity
+  parent: DHHatchBase
+  id: DHZRoofHatch
+  name: roof hatch
+  description: A hatch in the roof with a ladder going down into the building. Use it to climb down.
+  components:
+  - type: Sprite
+    state: roof_hatch
+  - type: DHLadder
+    down: true
+
+- type: entity
+  parent: DHLiftPlatformBase
+  id: DHZLiftPlatform
+  name: lift platform
+  description: A lift platform. Platforms in the same spot on other levels make up one shaft; whatever stands on it rides along.
+  components:
+  - type: DHLift
+
+- type: entity
+  parent: DHLiftPanelBase
+  id: DHZLiftPanel
+  name: lift panel
+  description: "Choose a level in the alternative actions: send what's on the platform there, or call the platform from there."
+  components:
+  - type: DHLiftPanel
+
+# --- Взгляд на соседние уровни ---
+
+- type: entity
+  id: DHZLevelCamera
+  name: level view
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Eye
+  - type: DHZCamera
+
+- type: entity
+  parent: BaseAction
+  id: DHActionLookUp
+  name: Look up
+  description: Look at the level above — through stairs, a ladder, a lift shaft, or straight up when nothing covers you. Press again to look higher with a wielded x8/x16 scope.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 0.5
+  - type: Sprite
+    sprite: _DarkestHour/Interface/Actions/zlevels.rsi
+    layers:
+    - state: look_up
+  - type: InstantAction
+    event: !type:DHLookUpActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionLookDown
+  name: Look down
+  description: Look at the level below — through stairs, a hatch, a manhole, a lift shaft or over an edge. Press again to look lower with a wielded x8 (3 levels) or x16 (all) scope.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 0.5
+  - type: Sprite
+    sprite: _DarkestHour/Interface/Actions/zlevels.rsi
+    layers:
+    - state: look_down
+  - type: InstantAction
+    event: !type:DHLookDownActionEvent
