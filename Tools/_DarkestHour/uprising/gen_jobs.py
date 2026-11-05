@@ -132,8 +132,8 @@ ACCESS = [
     ('DHLAFactory', 'Factory and warehouse', 'завод и склад'),
     ('DHLAUtility', 'Utilities', 'коммунальные службы'),
     ('DHLAMetro', 'Metro', 'метро'),
-    ('DHLAVanguard', 'LA-V', 'LA-V'),
-    ('DHLAVanguardOffice', 'LA-V office', 'офис LA-V'),
+    ('DHLAVanguard', 'LA-V basic', 'LA-V базовый'),
+    ('DHLAVanguardOffice', 'LA-V command', 'LA-V командный'),
     ('DHLAPolice', 'Military Police', 'Военная Полиция'),
     ('DHLAPoliceCommand', 'Military Police command', 'командование Военной Полиции'),
 ]

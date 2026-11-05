@@ -1,0 +1,253 @@
+# «Восстание», город (решение автора 2026-11-05): республиканский кредит вместо кредитов, уличные автоматы (только
+# республиканские кредиты наличными), ключи от квартир, чемодан ОФСК, сейф LA-V. Механика — DHCityVendorSystem,
+# DHDoorKeySystem.
+
+# ---------------------------------------------------------------- республиканский кредит
+
+- type: stack
+  id: DHRepublicCredit
+  name: stack-dh-republic-credit
+  icon: { sprite: /Textures/Objects/Economy/cash.rsi, state: cash }
+  spawn: DHRepublicCredit
+
+- type: entity
+  parent: SpaceCash
+  id: DHRepublicCredit
+  name: republican credits
+  description: Banknotes of the United Republic. The only currency the vending machines of Lost Angels accept.
+  components:
+  - type: Stack
+    stackType: DHRepublicCredit
+  - type: Sprite
+    color: "#b4e2b0"
+
+- type: entity
+  parent: DHRepublicCredit
+  id: DHRepublicCredit10
+  suffix: 10
+  components:
+  - type: Stack
+    count: 10
+
+- type: entity
+  parent: DHRepublicCredit
+  id: DHRepublicCredit50
+  suffix: 50
+  components:
+  - type: Stack
+    count: 50
+
+- type: entity
+  parent: DHRepublicCredit
+  id: DHRepublicCredit100
+  suffix: 100
+  components:
+  - type: Stack
+    count: 100
+
+- type: entity
+  parent: DHRepublicCredit
+  id: DHRepublicCredit500
+  suffix: 500
+  components:
+  - type: Stack
+    count: 500
+
+- type: entity
+  parent: DHRepublicCredit
+  id: DHRepublicCredit1000
+  suffix: 1000
+  components:
+  - type: Stack
+    count: 1000
+
+- type: entity
+  parent: DHRepublicCredit
+  id: DHRepublicCredit5000
+  suffix: 5000
+  components:
+  - type: Stack
+    count: 5000
+
+# ---------------------------------------------------------------- уличные автоматы
+
+- type: entity
+  abstract: true
+  parent: BaseStructure
+  id: DHCityVendorBase
+  description: A street vending machine. Takes republican credits only — feed it banknotes, pick a product, take your change.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/VendingMachines/snack.rsi
+    layers:
+    - state: "off"
+    - state: normal-unshaded
+      shader: unshaded
+  - type: InteractionOutline
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#c7a634"
+  - type: ActivatableUI
+    key: enum.DHCityVendorUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHCityVendorUiKey.Key:
+        type: DHCityVendorBoundUserInterface
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  parent: DHCityVendorBase
+  id: DHCityVendorSnacks
+  name: snack machine
+  components:
+  - type: DHCityVendor
+    items:
+    - id: FoodSnackChips
+      price: 15
+    - id: FoodSnackChocolate
+      price: 15
+    - id: FoodSnackRaisins
+      price: 10
+    - id: FoodSnackPopcorn
+      price: 15
+    - id: FoodSnackBoritos
+      price: 20
+    - id: FoodSnackSemki
+      price: 10
+    - id: FoodSnackPistachios
+      price: 20
+
+- type: entity
+  parent: DHCityVendorBase
+  id: DHCityVendorDrinks
+  name: soda machine
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/VendingMachines/cola.rsi
+    layers:
+    - state: "off"
+    - state: normal-unshaded
+      shader: unshaded
+  - type: PointLight
+    color: "#d84a3c"
+  - type: DHCityVendor
+    items:
+    - id: DrinkWaterBottleFull
+      price: 10
+    - id: DrinkColaCan
+      price: 15
+    - id: DrinkLemonLimeCan
+      price: 15
+    - id: DrinkGrapeCan
+      price: 15
+    - id: DrinkSpaceMountainWindCan
+      price: 15
+    - id: DrinkEnergyDrinkCan
+      price: 25
+
+- type: entity
+  parent: DHCityVendorBase
+  id: DHCityVendorCigarettes
+  name: cigarette machine
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/VendingMachines/cigs.rsi
+    layers:
+    - state: "off"
+    - state: normal-unshaded
+      shader: unshaded
+  - type: PointLight
+    color: "#5aa0d8"
+  - type: DHCityVendor
+    items:
+    - id: CigPackGreen
+      price: 30
+    - id: CigPackRed
+      price: 30
+    - id: CigPackBlack
+      price: 40
+    - id: Lighter
+      price: 10
+
+- type: entity
+  parent: DHCityVendorBase
+  id: DHCityVendorCoffee
+  name: coffee machine
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/VendingMachines/coffee.rsi
+    layers:
+    - state: "off"
+    - state: normal-unshaded
+      shader: unshaded
+  - type: PointLight
+    color: "#c88a4a"
+  - type: DHCityVendor
+    items:
+    - id: DrinkHotCoffee
+      price: 20
+    - id: FoodDonutPlain
+      price: 15
+    - id: FoodBreadBun
+      price: 10
+
+# ---------------------------------------------------------------- ключ от квартиры
+
+- type: entity
+  parent: BaseItem
+  id: DHApartmentKey
+  name: apartment key
+  description: The key to your flat. Tap it on your front door to lock or unlock it; from then on it fits that door and no other.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/City/apartment_key.rsi
+    state: icon
+  - type: Item
+    size: Tiny
+    sprite: _DarkestHour/Objects/City/apartment_key.rsi
+  - type: DHDoorKey
+
+# ---------------------------------------------------------------- чемодан ОФСК
+
+- type: entity
+  parent: BriefcaseBrown
+  id: DHLAFrontSuitcase
+  name: battered suitcase
+  description: A shabby suitcase with a change of civilian clothes and a wad of republican credits — enough to blend into the crowd.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHRepublicCredit500
+    - id: ClothingUniformJumpsuitColorGrey
+    - id: ClothingShoesColorBrown
+    - id: ClothingOuterCoatBomber
+    - id: ClothingHeadHatBeret
+
+# ---------------------------------------------------------------- сейф LA-V
+
+- type: entity
+  parent: GunSafe
+  id: DHLAVSafe
+  name: LA-V safe
+  description: The corporate safe of the Lost Angels—Vanguard district office. Opens with LA-V command access.
+  components:
+  - type: AccessReader
+    access: [["DHLAVanguardOffice"]]
+  - type: StorageFill
+    contents:
+    - id: DHRepublicCredit5000
+      amount: 2
+    - id: DHRepublicCredit1000
+      amount: 5
