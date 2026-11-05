@@ -45,6 +45,7 @@
   parent: DHRepublicGearBase
   id: DHGarrisonOfficerGear
   equipment:
+    head: DHRepublicClothingHeadPatrolCap
     id: DHDogtagsGarrisonOfficer
     ears: DHClothingHeadsetAltRepublicCommand
   inhand:
@@ -80,6 +81,7 @@
   parent: DHRepublicRiflemanGear
   id: DHGarrisonSapperGear
   equipment:
+    jumpsuit: DHRepublicClothingUniformEngineer
     id: DHDogtagsGarrisonSapper
     belt: ClothingBeltUtilityEngineering
   storage:
@@ -131,8 +133,10 @@
   parent: DHRepublicGearBase
   id: DHGarrisonMedicGear
   equipment:
+    back: DHRepublicClothingBackpackMedic
+    jumpsuit: DHRepublicClothingUniformMedic
     id: DHDogtagsGarrisonMedic
-    belt: ClothingBeltMilitaryWebbingMedFilled
+    belt: DHRepublicClothingBeltMedicFilled
   inhand:
   - DHRepublicKitMedic
   storage:
@@ -484,10 +488,10 @@
 - type: startingGear
   id: DHCarrierCrewGearBase
   equipment:
-    jumpsuit: ClothingUniformJumpsuitOperative
-    back: ClothingBackpackDuffelSyndicate
+    jumpsuit: DHImperialClothingUniformFatigues
+    back: DHImperialClothingBackpack
     ears: ClothingHeadsetAltSyndicate
-    gloves: ClothingHandsGlovesCombat
+    gloves: DHImperialClothingHandsGlovesCombat
     shoes: DHClothingShoesMagArmoredLightImperial
     id: DHDogtagsImperialRifleman
     pocket1: DHWeaponPistolIMP17
@@ -590,6 +594,7 @@
   parent: DHRepublicGearBase
   id: DHGarrisonMortarCommanderGear
   equipment:
+    head: DHRepublicClothingHeadPatrolCap
     id: DHDogtagsGarrisonMortarCommander
     outerClothing: DHClothingOuterVestRepublicHeavy
     suitstorage: DHWeaponSMGRAPTORM1216
@@ -608,6 +613,7 @@
   parent: DHRepublicGearBase
   id: DHGarrisonMortarOperatorGear
   equipment:
+    head: DHRepublicClothingHeadPatrolCap
     id: DHDogtagsGarrisonMortarOperator
     outerClothing: DHClothingOuterVestRepublic
     suitstorage: DHWeaponSMGRAPTORM1216
@@ -624,6 +630,7 @@
   parent: DHRepublicGearBase
   id: DHGarrisonFieldArtilleristGear
   equipment:
+    head: DHRepublicClothingHeadPatrolCap
     id: DHDogtagsGarrisonFieldArtillerist
     outerClothing: DHClothingOuterVestRepublic
     suitstorage: DHWeaponSMGRAPTORM1216
@@ -641,6 +648,8 @@
   parent: DHRepublicGearBase
   id: DHGarrisonTankCommanderGear
   equipment:
+    head: DHRepublicClothingHeadPatrolCap
+    jumpsuit: DHRepublicClothingUniformTanker
     id: DHDogtagsGarrisonTankCommander
     outerClothing: DHClothingOuterVestRepublicHeavy
     suitstorage: DHWeaponSMGRAPTORM1216
@@ -659,6 +668,8 @@
   parent: DHRepublicGearBase
   id: DHGarrisonTankCrewGear
   equipment:
+    head: DHRepublicClothingHeadPatrolCap
+    jumpsuit: DHRepublicClothingUniformTanker
     id: DHDogtagsGarrisonTankCrew
     outerClothing: DHClothingOuterVestRepublic
     suitstorage: DHWeaponSMGRAPTORM1216
@@ -675,6 +686,8 @@
   parent: DHRepublicGearBase
   id: DHGarrisonAPCCommanderGear
   equipment:
+    head: DHRepublicClothingHeadPatrolCap
+    jumpsuit: DHRepublicClothingUniformTanker
     id: DHDogtagsGarrisonAPCCommander
     outerClothing: DHClothingOuterVestRepublicHeavy
     suitstorage: DHWeaponSMGRAPTORM1216
@@ -693,6 +706,8 @@
   parent: DHRepublicGearBase
   id: DHGarrisonAPCCrewGear
   equipment:
+    head: DHRepublicClothingHeadPatrolCap
+    jumpsuit: DHRepublicClothingUniformTanker
     id: DHDogtagsGarrisonAPCCrew
     outerClothing: DHClothingOuterVestRepublic
     suitstorage: DHWeaponSMGRAPTORM1216
@@ -750,6 +765,7 @@
   parent: DHImperialGearBase
   id: DHMarineMortarCommanderGear
   equipment:
+    head: DHImperialClothingHeadCap
     id: DHDogtagsMarineMortarCommander
     outerClothing: DHClothingOuterVestImperialHeavy
     suitstorage: DHWeaponSMGIMG17L
@@ -769,6 +785,7 @@
   parent: DHImperialGearBase
   id: DHMarineMortarOperatorGear
   equipment:
+    head: DHImperialClothingHeadCap
     id: DHDogtagsMarineMortarOperator
     outerClothing: DHClothingOuterVestImperial
     suitstorage: DHWeaponSMGIMG17L
@@ -786,6 +803,7 @@
   parent: DHImperialGearBase
   id: DHMarineFieldArtilleristGear
   equipment:
+    head: DHImperialClothingHeadCap
     id: DHDogtagsMarineFieldArtillerist
     outerClothing: DHClothingOuterVestImperial
     suitstorage: DHWeaponSMGIMG17L
@@ -804,6 +822,7 @@
   parent: DHImperialGearBase
   id: DHMarineTankCommanderGear
   equipment:
+    head: DHImperialClothingHeadBeret
     id: DHDogtagsMarineTankCommander
     outerClothing: DHClothingOuterVestImperialHeavy
     suitstorage: DHWeaponSMGIMG17L
@@ -823,6 +842,7 @@
   parent: DHImperialGearBase
   id: DHMarineTankCrewGear
   equipment:
+    head: DHImperialClothingHeadCap
     id: DHDogtagsMarineTankCrew
     outerClothing: DHClothingOuterVestImperial
     suitstorage: DHWeaponSMGIMG17L
@@ -840,6 +860,7 @@
   parent: DHImperialGearBase
   id: DHMarineAPCCommanderGear
   equipment:
+    head: DHImperialClothingHeadBeret
     id: DHDogtagsMarineAPCCommander
     outerClothing: DHClothingOuterVestImperialHeavy
     suitstorage: DHWeaponSMGIMG17L
@@ -859,6 +880,7 @@
   parent: DHImperialGearBase
   id: DHMarineAPCCrewGear
   equipment:
+    head: DHImperialClothingHeadCap
     id: DHDogtagsMarineAPCCrew
     outerClothing: DHClothingOuterVestImperial
     suitstorage: DHWeaponSMGIMG17L

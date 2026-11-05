@@ -42,6 +42,10 @@
   name: light armoured magboots
   description: RMB-1 magnetic boots with plated toecaps. Protection class 2 for the feet. Can hold 0.75 L of gas for the thrusters.
   components:
+  - type: Sprite # DarkestHour: RMC-вид (2026-11-05), Tools/_DarkestHour/rmc_skins.py
+    sprite: _DarkestHour/Clothing/RMC/magboots_republic.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Clothing/RMC/magboots_republic.rsi
   - type: DHPartArmor
     parts: [ FootLeft, FootRight ]
     armorClass: 2
@@ -52,6 +56,10 @@
   name: heavy armoured magboots
   description: RMB-1 heavy plated magnetic boots. Protection class 3 for the feet; slower than the light pair.
   components:
+  - type: Sprite # DarkestHour: RMC-вид (2026-11-05), Tools/_DarkestHour/rmc_skins.py
+    sprite: _DarkestHour/Clothing/RMC/magboots_republic.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Clothing/RMC/magboots_republic.rsi
   - type: DHPartArmor
     parts: [ FootLeft, FootRight ]
     armorClass: 3
@@ -65,6 +73,10 @@
   name: light armoured magboots
   description: IMB-1 magnetic boots with plated toecaps. Protection class 2 for the feet. Can hold 0.75 L of gas for the thrusters.
   components:
+  - type: Sprite # DarkestHour: RMC-вид (2026-11-05), Tools/_DarkestHour/rmc_skins.py
+    sprite: _DarkestHour/Clothing/RMC/magboots_imperial.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Clothing/RMC/magboots_imperial.rsi
   - type: DHPartArmor
     parts: [ FootLeft, FootRight ]
     armorClass: 2
@@ -75,6 +87,10 @@
   name: heavy armoured magboots
   description: IMB-1 heavy plated magnetic boots. Protection class 3 for the feet; slower than the light pair.
   components:
+  - type: Sprite # DarkestHour: RMC-вид (2026-11-05), Tools/_DarkestHour/rmc_skins.py
+    sprite: _DarkestHour/Clothing/RMC/magboots_imperial.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Clothing/RMC/magboots_imperial.rsi
   - type: DHPartArmor
     parts: [ FootLeft, FootRight ]
     armorClass: 3

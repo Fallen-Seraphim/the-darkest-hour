@@ -174,6 +174,75 @@ SKINS = {
 }
 
 
+# RMC RSIs used as they are by the DarkestHour faction clothing (copied to the same path under _RMC14)
+C = R + 'Clothing/'
+COPY = [
+    # Republic (USCM)
+    C + 'Uniforms/Marine/standard/jungle.rsi', C + 'Uniforms/Marine/medic/jungle.rsi',
+    C + 'Uniforms/Marine/engineer/jungle.rsi', C + 'Uniforms/Marine/tanker/jungle.rsi',
+    C + 'Head/Hats/cap/jungle.rsi',
+    C + 'OuterClothing/Armor/m3/light/padded/jungle.rsi', C + 'OuterClothing/Armor/m3/standard/padded/jungle.rsi',
+    C + 'Hands/Gloves/brown.rsi',
+    C + 'Back/Backpacks/Marines/standard/jungle-desert-classic.rsi',
+    C + 'Back/Backpacks/Marines/medic/jungle-desert-classic.rsi',
+    C + 'Belt/marine/jungle-classic.rsi', C + 'Belt/medicbag/jungle-classic.rsi',
+    # Empire (TWE Royal Marines)
+    C + 'Uniforms/TSE/RCM/standard.rsi', C + 'Uniforms/TSE/RCM/team_lead.rsi',
+    C + 'Head/Royal/cap.rsi', C + 'Head/Royal/beret.rsi',
+    C + 'OuterClothing/Royal/light.rsi', C + 'OuterClothing/Royal/padded.rsi',
+    C + 'Hands/Gloves/royal_marine.rsi',
+    C + 'Back/Backpacks/RCM/medium.rsi', C + 'Back/Backpacks/RCM/medic.rsi',
+    C + 'Belt/rcm_general.rsi', C + 'Belt/rcm_medical.rsi',
+]
+
+# new RSIs assembled from RMC states: path -> {state: (rmc rsi, rmc state)}
+D = '_DarkestHour/Clothing/RMC/'
+
+
+def magboots(boots):
+    return {
+        'icon': (boots, 'icon'), 'icon-on': (boots, 'icon'),
+        'equipped-FEET': (boots, 'equipped-FEET'), 'on-equipped-FEET': (boots, 'equipped-FEET'),
+        'equipped-FEET-vox': (boots, 'equipped-FEET'), 'on-equipped-FEET-vox': (boots, 'equipped-FEET'),
+    }
+
+
+COMPOSITES = {
+    D + 'magboots_republic.rsi': magboots(C + 'Shoes/Boots/jungle.rsi'),
+    D + 'magboots_imperial.rsi': magboots(C + 'Shoes/Boots/black.rsi'),
+}
+
+
+def copy_rsis(rmc_tex):
+    for rsi in COPY:
+        dst = os.path.join(TEX, rsi)
+        if os.path.isdir(dst):
+            shutil.rmtree(dst)
+        shutil.copytree(os.path.join(rmc_tex, rsi), dst)
+
+
+def build_composites(rmc_tex):
+    for target, mapping in COMPOSITES.items():
+        tpath = os.path.join(TEX, target)
+        os.makedirs(tpath, exist_ok=True)
+        states = []
+        sources = set()
+        for state, (rsi, rstate) in mapping.items():
+            rpath = os.path.join(rmc_tex, rsi)
+            rmeta = load_meta(rpath)
+            entry = dict(next(s for s in rmeta['states'] if s['name'] == rstate))
+            entry['name'] = state
+            states.append(entry)
+            shutil.copyfile(os.path.join(rpath, rstate + '.png'), os.path.join(tpath, state + '.png'))
+            sources.add(rmeta.get('copyright', rsi))
+        meta = {'version': 1, 'license': 'CC-BY-SA-3.0',
+                'copyright': '; '.join(sorted(sources)) + ' | Assembled for The Darkest Hour (Tools/_DarkestHour/rmc_skins.py)',
+                'size': {'x': 32, 'y': 32}, 'states': states}
+        with open(os.path.join(tpath, 'meta.json'), 'w', encoding='utf-8') as f:
+            json.dump(meta, f, ensure_ascii=False, indent=2)
+            f.write('\n')
+
+
 def load_meta(path):
     with open(os.path.join(path, 'meta.json'), encoding='utf-8-sig') as f:
         return json.load(f)
@@ -234,6 +303,8 @@ def main(rmc):
             f.write('\n')
 
     print('states replaced:', done)
+    copy_rsis(rmc_tex)
+    build_composites(rmc_tex)
 
 
 if __name__ == '__main__':
