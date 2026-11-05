@@ -7,18 +7,27 @@ using Color = Robust.Shared.Maths.Color;
 
 namespace Content.Client._DarkestHour.TacticalMap;
 
-/// <summary>Местность тактической карты: принимает её с сервера, собирает текстуру и держит по версии.</summary>
+/// <summary>Слой местности: один Z-уровень.</summary>
+public sealed class DHTacticalLayer
+{
+    public int Version;
+    public int Level;
+    public Texture Texture = default!;
+    public int Left;
+    public int Bottom;
+    public int Width;
+    public int Height;
+}
+
+/// <summary>
+/// Местность тактической карты: принимает её с сервера, собирает текстуры и держит по карте и версии (у каждого
+/// Z-уровня — своя; на этажах пустота прозрачна).
+/// </summary>
 public sealed class DHTacticalMapSystem : EntitySystem
 {
     public event Action? TerrainUpdated;
 
-    public NetEntity? Map { get; private set; }
-    public int Version { get; private set; }
-    public Texture? Texture { get; private set; }
-    public int Left { get; private set; }
-    public int Bottom { get; private set; }
-    public int Width { get; private set; }
-    public int Height { get; private set; }
+    private readonly Dictionary<NetEntity, DHTacticalLayer> _layers = new();
 
     public static readonly Color[] Palette =
     {
@@ -42,7 +51,12 @@ public sealed class DHTacticalMapSystem : EntitySystem
 
     public bool Has(NetEntity map, int version)
     {
-        return Texture != null && Map == map && Version == version;
+        return _layers.TryGetValue(map, out var layer) && layer.Version == version;
+    }
+
+    public DHTacticalLayer? Get(NetEntity? map)
+    {
+        return map is { } key && _layers.TryGetValue(key, out var layer) ? layer : null;
     }
 
     private void OnTerrain(DHTacticalMapTerrainEvent ev)
@@ -57,6 +71,8 @@ public sealed class DHTacticalMapSystem : EntitySystem
             var run = ev.Data[i];
             var kind = ev.Data[i + 1];
             var color = kind < Palette.Length ? Palette[kind] : Palette[0];
+            if (kind == 0 && ev.Level != 0)
+                color = Color.Transparent;
             var pixel = new Rgba32(color.RByte, color.GByte, color.BByte, color.AByte);
             for (var k = 0; k < run && index < ev.Width * ev.Height; k++, index++)
             {
@@ -67,13 +83,16 @@ public sealed class DHTacticalMapSystem : EntitySystem
             }
         }
 
-        Texture = Robust.Client.Graphics.Texture.LoadFromImage(image, "dh-tactical-map");
-        Map = ev.Map;
-        Version = ev.Version;
-        Left = ev.Left;
-        Bottom = ev.Bottom;
-        Width = ev.Width;
-        Height = ev.Height;
+        _layers[ev.Map] = new DHTacticalLayer
+        {
+            Texture = Robust.Client.Graphics.Texture.LoadFromImage(image, "dh-tactical-map"),
+            Version = ev.Version,
+            Level = ev.Level,
+            Left = ev.Left,
+            Bottom = ev.Bottom,
+            Width = ev.Width,
+            Height = ev.Height,
+        };
         TerrainUpdated?.Invoke();
     }
 }

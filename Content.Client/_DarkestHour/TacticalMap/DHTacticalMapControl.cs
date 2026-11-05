@@ -27,6 +27,10 @@ public sealed class DHTacticalMapControl : Control
     private readonly Font _font;
 
     private DHOverwatchState? _state;
+
+    /// <summary>Какой Z-уровень показан (0 — земля).</summary>
+    public int SelectedLevel;
+
     private float _zoom = -1f;
     private Vector2 _center;
     private bool _dragging;
@@ -54,13 +58,35 @@ public sealed class DHTacticalMapControl : Control
         };
     }
 
-    private void EnsureView()
+    /// <summary>Карта показанного уровня.</summary>
+    public NetEntity? SelectedMap()
     {
-        if (_zoom > 0f || _terrain.Texture == null || PixelSize.X <= 0)
+        if (_state == null)
+            return null;
+
+        foreach (var level in _state.Levels)
+        {
+            if (level.Level == SelectedLevel)
+                return level.Map;
+        }
+
+        return _state.TacticalMap;
+    }
+
+    private void EnsureView(DHTacticalLayer ground)
+    {
+        if (_zoom > 0f || PixelSize.X <= 0)
             return;
 
-        _zoom = MathF.Min(PixelSize.X / (float) _terrain.Width, PixelSize.Y / (float) _terrain.Height);
-        _center = new Vector2(_terrain.Left + _terrain.Width / 2f, _terrain.Bottom + _terrain.Height / 2f);
+        _zoom = MathF.Min(PixelSize.X / (float) ground.Width, PixelSize.Y / (float) ground.Height);
+        _center = new Vector2(ground.Left + ground.Width / 2f, ground.Bottom + ground.Height / 2f);
+    }
+
+    private void DrawLayer(DrawingHandleScreen handle, DHTacticalLayer layer, Color modulate)
+    {
+        var topLeft = ToPixel(new Vector2(layer.Left, layer.Bottom + layer.Height));
+        var size = new Vector2(layer.Width, layer.Height) * _zoom;
+        handle.DrawTextureRect(layer.Texture, new UIBox2(topLeft, topLeft + size), modulate);
     }
 
     private Vector2 ToPixel(Vector2 world)
@@ -74,8 +100,11 @@ public sealed class DHTacticalMapControl : Control
         base.Draw(handle);
         handle.DrawRect(PixelSizeBox, Color.FromHex("#0b0d0f"));
 
-        EnsureView();
-        if (_terrain.Texture is not { } texture || _zoom <= 0f)
+        var ground = _terrain.Get(_state?.TacticalMap);
+        if (ground != null)
+            EnsureView(ground);
+
+        if (ground == null || _zoom <= 0f)
         {
             // Сервер не нашёл поверхности планеты — ждать нечего; иначе местность ещё идёт с сервера.
             var status = _state is { TacticalMap: null } ? "dh-tacmap-no-surface" : "dh-tacmap-loading";
@@ -83,16 +112,27 @@ public sealed class DHTacticalMapControl : Control
             return;
         }
 
-        var topLeft = ToPixel(new Vector2(_terrain.Left, _terrain.Bottom + _terrain.Height));
-        var size = new Vector2(_terrain.Width, _terrain.Height) * _zoom;
-        handle.DrawTextureRect(texture, new UIBox2(topLeft, topLeft + size));
+        // Земля — всегда подложкой (на других уровнях притушена), выбранный уровень — поверх.
+        if (SelectedLevel == 0)
+        {
+            DrawLayer(handle, ground, Color.White);
+        }
+        else
+        {
+            DrawLayer(handle, ground, Color.White.WithAlpha(0.3f));
+            if (_terrain.Get(SelectedMap()) is { } layer)
+                DrawLayer(handle, layer, Color.White);
+        }
 
         if (_state == null)
             return;
 
-        // Зоны и РЛС — под отметками.
+        // Зоны и РЛС — под отметками. Зоны захвата и ЗП видны на всех уровнях, остальное — на своём.
         foreach (var marker in _state.Markers)
         {
+            if (marker.Level != SelectedLevel && marker.Kind != DHTacticalMarkerKind.ControlPoint)
+                continue;
+
             var p = ToPixel(new Vector2(marker.X, marker.Y));
             switch (marker.Kind)
             {
@@ -112,6 +152,9 @@ public sealed class DHTacticalMapControl : Control
 
         foreach (var marker in _state.Markers)
         {
+            if (marker.Level != SelectedLevel && marker.Kind != DHTacticalMarkerKind.LandingZone)
+                continue;
+
             var p = ToPixel(new Vector2(marker.X, marker.Y));
             switch (marker.Kind)
             {
@@ -153,6 +196,14 @@ public sealed class DHTacticalMapControl : Control
                 DHOverwatchStatus.Critical => ZoneColor,
                 _ => Color.Gray,
             };
+
+            // Свои на других уровнях — полым кружком.
+            if (fighter.Level != SelectedLevel)
+            {
+                handle.DrawCircle(p, 3f, color.WithAlpha(0.6f), false);
+                continue;
+            }
+
             handle.DrawCircle(p, 3.5f, color);
             if (_zoom >= 3f)
                 handle.DrawString(_font, p + new Vector2(6, -6), fighter.Name, color);

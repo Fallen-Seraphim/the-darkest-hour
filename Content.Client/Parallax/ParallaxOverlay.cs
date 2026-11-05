@@ -37,6 +37,13 @@ public sealed partial class ParallaxOverlay : Overlay
         if (args.MapId == MapId.Nullspace || _entManager.HasComponent<BiomeComponent>(_mapSystem.GetMapOrInvalid(args.MapId)))
             return false;
 
+        // DarkestHour: этажи и подземные Z-уровни — без космоса: сквозь пустоту видны нижние уровни.
+        if (_entManager.TryGetComponent<Content.Shared._DarkestHour.Levels.DHZLevelComponent>(
+                _mapSystem.GetMapOrInvalid(args.MapId), out var zLevel) && zLevel.Level != 0)
+        {
+            return false;
+        }
+
         return true;
     }
 

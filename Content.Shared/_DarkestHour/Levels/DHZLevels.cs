@@ -88,6 +88,27 @@ public sealed partial class DHZCameraComponent : Component
     public EntityUid Viewer;
 }
 
+/// <summary>Призрак (и админ-призрак): кнопки «на уровень выше/ниже» — сразу в ту же точку на другом Z-уровне.</summary>
+[RegisterComponent]
+public sealed partial class DHZGhostMoverComponent : Component
+{
+    [DataField]
+    public EntProtoId UpAction = "DHActionGhostLevelUp";
+
+    [DataField]
+    public EntProtoId DownAction = "DHActionGhostLevelDown";
+
+    [DataField]
+    public EntityUid? UpActionEntity;
+
+    [DataField]
+    public EntityUid? DownActionEntity;
+}
+
+public sealed partial class DHGhostLevelUpActionEvent : InstantActionEvent;
+
+public sealed partial class DHGhostLevelDownActionEvent : InstantActionEvent;
+
 public sealed partial class DHLookUpActionEvent : InstantActionEvent;
 
 public sealed partial class DHLookDownActionEvent : InstantActionEvent;

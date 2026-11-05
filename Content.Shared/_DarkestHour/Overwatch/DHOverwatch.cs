@@ -63,6 +63,18 @@ public sealed class DHOverwatchEntry
 
     /// <summary>Боец на поверхности планеты (рисуется на тактической карте).</summary>
     public bool OnSurface;
+
+    /// <summary>Z-уровень бойца (0 — земля).</summary>
+    public int Level;
+}
+
+/// <summary>Уровень тактической карты: карта уровня и версия её местности.</summary>
+[Serializable, NetSerializable]
+public sealed class DHTacticalLevel
+{
+    public int Level;
+    public NetEntity Map;
+    public int Version;
 }
 
 [Serializable, NetSerializable]
@@ -78,6 +90,9 @@ public sealed class DHOverwatchState : BoundUserInterfaceState
     public NetEntity? TacticalMap;
     public int TerrainVersion;
     public List<DHTacticalMarker> Markers;
+
+    /// <summary>Z-уровни карты (по возрастанию; один — уровней нет).</summary>
+    public List<DHTacticalLevel> Levels = new();
 
     public DHOverwatchState(DHAssaultFaction faction, List<DHOverwatchEntry> fighters,
         Dictionary<NetEntity, NetEntity> watching, NetEntity? tacticalMap, int terrainVersion,
@@ -117,11 +132,17 @@ public sealed class DHTacticalMarker
     public string Name = string.Empty;
     public DHAssaultFaction? Owner;
     public float Radius;
+
+    /// <summary>Z-уровень отметки (0 — земля).</summary>
+    public int Level;
 }
 
-/// <summary>Запрос местности тактической карты (клиент кэширует её по версии).</summary>
+/// <summary>Запрос местности тактической карты (клиент кэширует её по версии). Map — уровень, null — земля.</summary>
 [Serializable, NetSerializable]
-public sealed class DHTacticalMapRequestMessage : BoundUserInterfaceMessage;
+public sealed class DHTacticalMapRequestMessage : BoundUserInterfaceMessage
+{
+    public NetEntity? Map;
+}
 
 /// <summary>
 /// Местность тактической карты: по тайлу — <see cref="Content.Shared._DarkestHour.ControlPoints.DHTacticalTerrain"/>,
@@ -132,6 +153,9 @@ public sealed class DHTacticalMapTerrainEvent : EntityEventArgs
 {
     public NetEntity Map;
     public int Version;
+
+    /// <summary>Z-уровень: на этажах пустота прозрачна (видна земля).</summary>
+    public int Level;
     public int Left;
     public int Bottom;
     public int Width;

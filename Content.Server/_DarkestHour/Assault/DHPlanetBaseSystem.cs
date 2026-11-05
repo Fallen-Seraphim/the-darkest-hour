@@ -39,6 +39,7 @@ public sealed partial class DHPlanetBaseSystem : EntitySystem
     [Dependency] private ServerStationSystem _station = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private Content.Shared._DarkestHour.Levels.DHZLevelSystem _zLevels = default!;
+    [Dependency] private Content.Server._DarkestHour.Levels.DHZTransitSystem _zTransit = default!;
 
     public override void Initialize()
     {
@@ -206,6 +207,9 @@ public sealed partial class DHPlanetBaseSystem : EntitySystem
                 ent.Comp.LevelGrids[level] = grid;
             }
         }
+
+        // Под этажами — крыша: там нет солнца и погоды.
+        _zTransit.SyncRoofs(stack);
     }
 
     private void SetLevel(EntityUid map, int stack, int level)

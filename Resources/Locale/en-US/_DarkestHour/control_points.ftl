@@ -35,3 +35,6 @@ cmd-dhcontrolpoint-desc = Sets the owner of a capture zone.
 cmd-dhcontrolpoint-help = Usage: dhcontrolpoint <village|spaceport|construction|npp|dam> <Republic|Empire|none>
 cmd-dhcontrolpoint-done = Zone owner changed.
 cmd-dhcontrolpoint-not-found = No capture zone with that id.
+
+dh-tacmap-level = Level:
+dh-tacmap-level-ground = Ground
