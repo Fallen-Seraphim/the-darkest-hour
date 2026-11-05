@@ -430,7 +430,6 @@
 - type: entity
   parent: RMCTrafficLightBase
   id: RMCTrafficLight
-  components:
 
 - type: entity
   parent: RMCStreetlightBroken
