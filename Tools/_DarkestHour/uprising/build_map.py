@@ -656,7 +656,7 @@ def police():
         g.put(item, ax0 + 9, ay - 2)
     for i in range(2):
         g.put('CMRack', ax0 + i, ay - 4)
-        for item in ['DHLAMPShoulderPads', 'DHLAMPKneePads'] * 3:
+        for item in ['DHLAMPShoulderPads', 'DHLAMPKneePads'] * 6:   # по одному на руку/ногу: 6 комплектов
             g.put(item, ax0 + i, ay - 4)
     g.put(LIGHT, x1 - 6, y1 - 2, ROT_N)
     for x in range(x0 + 4, x1 - 4, 4):

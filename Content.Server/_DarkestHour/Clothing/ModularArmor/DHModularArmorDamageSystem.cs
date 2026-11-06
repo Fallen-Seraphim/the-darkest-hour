@@ -41,8 +41,9 @@ public sealed partial class DHModularArmorDamageSystem : EntitySystem
 
     private static readonly HashSet<ProtoId<DamageTypePrototype>> PhysicalTypes = new() { "Blunt", "Slash", "Piercing" };
     private static readonly ProtoId<DamageTypePrototype> BluntType = "Blunt";
-    // outerClothing — бронежилет; jumpsuit — форма с пристёгнутыми наплечниками/наколенниками (DHLimbPads)
-    private static readonly string[] PartArmorSlots = { "head", "shoes", "gloves", "outerClothing", "jumpsuit" };
+    // outerClothing — бронежилет; armLeft/armRight/legLeft/legRight — наплечники и наколенники (DHLimbPads)
+    private static readonly string[] PartArmorSlots =
+        { "head", "shoes", "gloves", "outerClothing", "armLeft", "armRight", "legLeft", "legRight" };
 
     /// <summary>Цели, чей урон в этом тике уже посчитан по классам брони (попадание пули).</summary>
     private readonly Dictionary<EntityUid, GameTick> _bulletHandled = new();

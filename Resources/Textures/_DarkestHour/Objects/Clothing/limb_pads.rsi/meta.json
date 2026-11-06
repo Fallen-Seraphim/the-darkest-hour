@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Drawn for The Darkest Hour (Tools/_DarkestHour/uprising/pads_sprites.py)",
+  "copyright": "Drawn for The Darkest Hour by Tools/_DarkestHour/uprising/pads_sprites.py; worn sprites follow the shape of the space-station-14 human body parts (CC-BY-SA-3.0)",
   "size": {
     "x": 32,
     "y": 32
@@ -14,10 +14,42 @@
       "name": "shoulder_mp"
     },
     {
+      "name": "shoulder_mp-left",
+      "directions": 4
+    },
+    {
+      "name": "knee_mp-left",
+      "directions": 4
+    },
+    {
+      "name": "shoulder_mp-right",
+      "directions": 4
+    },
+    {
+      "name": "knee_mp-right",
+      "directions": 4
+    },
+    {
       "name": "knee_front"
     },
     {
       "name": "shoulder_front"
+    },
+    {
+      "name": "shoulder_front-left",
+      "directions": 4
+    },
+    {
+      "name": "knee_front-left",
+      "directions": 4
+    },
+    {
+      "name": "shoulder_front-right",
+      "directions": 4
+    },
+    {
+      "name": "knee_front-right",
+      "directions": 4
     }
   ]
 }

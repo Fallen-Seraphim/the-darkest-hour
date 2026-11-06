@@ -219,6 +219,10 @@
 - type: startingGear
   id: DHLAMPGearBase
   equipment:
+    legRight: DHLAMPKneePads
+    legLeft: DHLAMPKneePads
+    armRight: DHLAMPShoulderPads
+    armLeft: DHLAMPShoulderPads
     jumpsuit: DHLAMPClothingUniform
     shoes: DHLAVClothingShoesJackboots
     gloves: ClothingHandsGlovesColorBlack
@@ -228,8 +232,6 @@
     pocket2: FlashlightSeclite
   storage:
     back:
-    - DHLAMPShoulderPads
-    - DHLAMPKneePads
     - Handcuffs
     - Handcuffs
     - DHIFAKFilled
@@ -245,8 +247,6 @@
     suitstorage: DHWeaponSMGRPRM902
   storage:
     back:
-    - DHLAMPShoulderPads
-    - DHLAMPKneePads
     - DHOverwatchTabletPolice
     - DHBankCardPolice
     - DHMagazine10x24ShortE
@@ -266,8 +266,6 @@
     suitstorage: DHWeaponRifleRMPR6239
   storage:
     back:
-    - DHLAMPShoulderPads
-    - DHLAMPKneePads
     - DHOverwatchTabletPolice
     - DHMagazine762x39FMG
     - DHMagazine762x39FMG
@@ -286,8 +284,6 @@
     suitstorage: DHWeaponSMGRPRM902
   storage:
     back:
-    - DHLAMPShoulderPads
-    - DHLAMPKneePads
     - DHMagazine10x24ShortE
     - DHMagazine10x24ShortE
     - ForensicScanner
@@ -305,8 +301,6 @@
     suitstorage: DHWeaponSMGRMPR0919
   storage:
     back:
-    - DHLAMPShoulderPads
-    - DHLAMPKneePads
     - DHMagazine9x19RUB
     - DHMagazine9x19RUB
     - DHMagazine9x19FMG
@@ -327,8 +321,6 @@
     suitstorage: DHWeaponRifleRMPR6239
   storage:
     back:
-    - DHLAMPShoulderPads
-    - DHLAMPKneePads
     - DHMagazine762x39FMG
     - DHMagazine762x39FMG
     - DHMagazine762x39FMG
@@ -346,8 +338,6 @@
     suitstorage: DHWeaponSMGRMPR0919
   storage:
     back:
-    - DHLAMPShoulderPads
-    - DHLAMPKneePads
     - DHMagazine9x19RUB
     - DHMagazine9x19RUB
     - DHMagazine9x19FMG
@@ -362,6 +352,10 @@
 - type: startingGear
   id: DHLAFrontGearBase
   equipment:
+    legRight: DHLAFrontKneePads
+    legLeft: DHLAFrontKneePads
+    armRight: DHLAFrontShoulderPads
+    armLeft: DHLAFrontShoulderPads
     id: DHLAIDCardResident
     shoes: ClothingShoesBootsJack
     gloves: ClothingHandsGlovesFingerless
@@ -372,8 +366,6 @@
   - DHLAFrontSuitcase
   storage:
     back:
-    - DHLAFrontShoulderPads
-    - DHLAFrontKneePads
     - ClothingMaskBandRed
     - DHIFAKFilled
 
@@ -388,8 +380,6 @@
     pocket2: DHWeaponPistolABZ9
   storage:
     back:
-    - DHLAFrontShoulderPads
-    - DHLAFrontKneePads
     - DHAntennaHacker
     - DHMagazineFS2CLN
     - DHMagazineFS2CLN
@@ -410,8 +400,6 @@
     pocket2: DHWeaponPistolABZ9
   storage:
     back:
-    - DHLAFrontShoulderPads
-    - DHLAFrontKneePads
     - DHMagazineFS2MediumCLN
     - DHMagazineFS2MediumCLN
     - DHMagazineABZ9CLN
@@ -433,8 +421,6 @@
     pocket2: DHWeaponPistolABZ9
   storage:
     back:
-    - DHLAFrontShoulderPads
-    - DHLAFrontKneePads
     - DHMagazineDS3CLN
     - DHMagazineDS3CLN
     - DHMagazineDS3CLN
@@ -454,8 +440,6 @@
     pocket2: DHWeaponPistolABZ9
   storage:
     back:
-    - DHLAFrontShoulderPads
-    - DHLAFrontKneePads
     - DHMagazineFS2TCLN
     - DHMagazineFS2TCLN
     - DHMagazineABZ9CLN
@@ -472,8 +456,6 @@
     suitstorage: DHWeaponRifleFS2E
   storage:
     back:
-    - DHLAFrontShoulderPads
-    - DHLAFrontKneePads
     - DHMagazineFS2ECLN
     - DHMagazineFS2ECLN
     - DHMagazineFS2ERAS
