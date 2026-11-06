@@ -194,10 +194,18 @@ public sealed partial class DHLevelSystem : EntitySystem
         return null;
     }
 
-    /// <summary>Шахта Z-лифта: платформы без ключа в той же точке XY на уровнях той же стопки (с уровнем).</summary>
-    /// <summary>Допуск совпадения платформ шахты по XY, тайлов (уровни грузятся отдельными гридами).</summary>
+    /// <summary>Допуск совпадения платформ шахты по XY, тайлов.</summary>
     private const float ShaftTolerance = 2f;
 
+    /// <summary>Точка платформы для сборки шахты: на гриде — локальная (общая для файлов уровней), иначе мировая.</summary>
+    private Vector2 ShaftPosition(TransformComponent xform)
+    {
+        return xform.GridUid is { } grid && xform.ParentUid == grid
+            ? xform.LocalPosition
+            : _transform.GetWorldPosition(xform);
+    }
+
+    /// <summary>Шахта Z-лифта: платформы без ключа в той же точке XY на уровнях той же стопки (с уровнем).</summary>
     private List<(Entity<DHLiftComponent> Lift, int Level)> Shaft(Entity<DHLiftComponent> lift)
     {
         var result = new List<(Entity<DHLiftComponent>, int)>();
@@ -205,9 +213,11 @@ public sealed partial class DHLevelSystem : EntitySystem
         if (!_z.TryGetLevel(xform.MapUid, out var own))
             return result;
 
-        // Ближайшая платформа на каждом уровне стопки.
-        var pos = _transform.GetWorldPosition(xform);
+        // Ближайшая платформа на каждом уровне стопки. Сравниваем координаты на гриде: уровни грузятся из файлов с
+        // общей системой координат, а мировое положение гридов уровней может разойтись.
+        var pos = ShaftPosition(xform);
         var best = new Dictionary<int, (Entity<DHLiftComponent> Lift, float Distance)>();
+        var nearest = new Dictionary<int, float>();
         var query = EntityQueryEnumerator<DHLiftComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var comp, out var otherXform))
         {
@@ -217,7 +227,10 @@ public sealed partial class DHLevelSystem : EntitySystem
                 continue;
             }
 
-            var distance = Vector2.Distance(_transform.GetWorldPosition(otherXform), pos);
+            var distance = Vector2.Distance(ShaftPosition(otherXform), pos);
+            if (!nearest.TryGetValue(level.Level, out var near) || distance < near)
+                nearest[level.Level] = distance;
+
             if (distance > ShaftTolerance ||
                 best.TryGetValue(level.Level, out var known) && known.Distance <= distance)
             {
@@ -238,7 +251,16 @@ public sealed partial class DHLevelSystem : EntitySystem
         if (result.Count > 1 && result[^1].Item2 - result[0].Item2 + 1 != result.Count && _shaftWarned.Add(lift.Owner))
         {
             var levels = string.Join(", ", result.ConvertAll(r => r.Item2));
-            Log.Warning($"Lift shaft of {ToPrettyString(lift)} at {pos} has gaps: levels {levels}");
+            var missing = new List<string>();
+            for (var level = result[0].Item2; level <= result[^1].Item2; level++)
+            {
+                if (best.ContainsKey(level))
+                    continue;
+
+                missing.Add(nearest.TryGetValue(level, out var near) ? $"{level} (nearest {near:0.0})" : $"{level} (none)");
+            }
+
+            Log.Warning($"Lift shaft of {ToPrettyString(lift)} at {pos} has gaps: levels {levels}; missing {string.Join(", ", missing)}");
         }
 
         return result;
