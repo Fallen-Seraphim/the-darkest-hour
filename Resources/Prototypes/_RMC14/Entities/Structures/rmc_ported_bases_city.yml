@@ -32,7 +32,7 @@
   - type: IconSmooth
     key: walls
     states:
-    - !type:CornerSpriteSmoothing
+    - !type:DHLegacyCornerSpriteSmoothing
       mask: [ walls, windows, grilles, marble, doors ]
       base: metal
   - type: Construction
@@ -85,7 +85,7 @@
   - type: IconSmooth
     key: walls
     states:
-    - !type:CornerSpriteSmoothing
+    - !type:DHLegacyCornerSpriteSmoothing
       mask: [ walls, windows, grilles, marble, doors ]
       base: rwall
   - type: Construction

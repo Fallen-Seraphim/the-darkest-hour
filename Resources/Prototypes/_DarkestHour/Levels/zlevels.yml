@@ -132,10 +132,15 @@
   name: stairwell
   description: The open shaft of a flight of stairs. Mind the drop.
   components:
+  # Сам проём не рисуется: пола под ним нет, сквозь него видно марш этажом ниже (DHZLevelRenderSystem).
+  # Без пола закрепить нельзя — стоит незакреплённым статичным телом.
+  - type: Transform
+    anchored: false
   - type: Sprite
     sprite: _DarkestHour/Structures/Levels/levels.rsi
     state: stairwell
     drawdepth: FloorTiles
+    visible: false
   - type: Fixtures
     fixtures:
       fix1:
