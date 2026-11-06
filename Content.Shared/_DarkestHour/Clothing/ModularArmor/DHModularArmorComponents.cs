@@ -180,8 +180,8 @@ public sealed partial class DHArmorSpecialComponent : Component
 }
 
 /// <summary>
-/// Отдельная броня по частям тела вне модулей (шлем — голова). Состояние сетевое: наплечники и наколенники
-/// добавляют классы на форму во время игры (<see cref="DHLimbPadsComponent"/>).
+/// Отдельная броня по частям тела вне модулей (шлем — голова). Состояние сетевое: у наплечника и наколенника часть
+/// тела выставляется по слоту при надевании (<see cref="DHLimbPadsComponent"/>).
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class DHPartArmorComponent : Component
