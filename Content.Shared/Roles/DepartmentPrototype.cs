@@ -42,6 +42,23 @@ public sealed partial class DepartmentPrototype : IPrototype
     [DataField]
     public int Weight { get; private set; }
 
+    // DarkestHour: вкладки режимов в окне персонажа (по образцу RuCM/CMU) — режим и сторона внутри режима.
+    /// <summary>Вкладка режима в списке должностей (например «Штурм»); null — «Прочее».</summary>
+    [DataField("dhMode")]
+    public LocId? DHMode;
+
+    /// <summary>Порядок вкладок режимов, меньше — левее.</summary>
+    [DataField("dhModeOrder")]
+    public int DHModeOrder;
+
+    /// <summary>Вкладка стороны внутри режима (например «Республика»); null — название отдела.</summary>
+    [DataField("dhSide")]
+    public LocId? DHSide;
+
+    /// <summary>Порядок вкладок сторон, меньше — левее.</summary>
+    [DataField("dhSideOrder")]
+    public int DHSideOrder;
+
     // See https://github.com/space-wizards/space-station-14/issues/45214
     // 
     /// <summary>

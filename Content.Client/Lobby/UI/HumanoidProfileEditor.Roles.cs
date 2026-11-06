@@ -28,6 +28,66 @@ public sealed partial class HumanoidProfileEditor
 
     private readonly Dictionary<string, BoxContainer> _jobCategories;
 
+    // DarkestHour: вкладки режимов («Штурм», «Восстание») и сторон внутри них, как в RuCM/CMU.
+    private TabContainer? _dhModeTabs;
+    private readonly Dictionary<string, (TabContainer Tabs, Dictionary<string, BoxContainer> Sides)> _dhModes = new();
+    private readonly Dictionary<string, int> _dhSelectedSide = new();
+    private int _dhSelectedMode;
+
+    private const string DHOtherMode = "dh-jobs-mode-other";
+
+    /// <summary>Список отделов вкладки стороны (вкладки создаются по мере надобности).</summary>
+    private BoxContainer DHSideList(DepartmentPrototype department)
+    {
+        var modeKey = department.DHMode?.Id ?? DHOtherMode;
+        if (!_dhModes.TryGetValue(modeKey, out var mode))
+        {
+            var tabs = new TabContainer { VerticalExpand = true, HorizontalExpand = true };
+            _dhModeTabs!.AddChild(tabs);
+            _dhModeTabs.SetTabTitle(_dhModeTabs.ChildCount - 1, Loc.GetString(modeKey));
+            mode = (tabs, new Dictionary<string, BoxContainer>());
+            _dhModes[modeKey] = mode;
+        }
+
+        var sideKey = department.DHSide?.Id ?? department.Name.Id;
+        if (!mode.Sides.TryGetValue(sideKey, out var list))
+        {
+            list = new BoxContainer { Orientation = LayoutOrientation.Vertical, HorizontalExpand = true };
+            var scroll = new ScrollContainer { VerticalExpand = true, HScrollEnabled = false };
+            scroll.AddChild(list);
+            mode.Tabs.AddChild(scroll);
+            mode.Tabs.SetTabTitle(mode.Tabs.ChildCount - 1, Loc.GetString(sideKey));
+            mode.Sides[sideKey] = list;
+        }
+
+        return list;
+    }
+
+    private void DHRememberJobTabs()
+    {
+        if (_dhModeTabs == null)
+            return;
+
+        _dhSelectedMode = _dhModeTabs.CurrentTab;
+        foreach (var (key, mode) in _dhModes)
+        {
+            _dhSelectedSide[key] = mode.Tabs.CurrentTab;
+        }
+    }
+
+    private void DHRestoreJobTabs()
+    {
+        if (_dhModeTabs == null || _dhModeTabs.ChildCount == 0)
+            return;
+
+        _dhModeTabs.CurrentTab = Math.Clamp(_dhSelectedMode, 0, _dhModeTabs.ChildCount - 1);
+        foreach (var (key, mode) in _dhModes)
+        {
+            if (_dhSelectedSide.TryGetValue(key, out var side) && mode.Tabs.ChildCount > 0)
+                mode.Tabs.CurrentTab = Math.Clamp(side, 0, mode.Tabs.ChildCount - 1);
+        }
+    }
+
     /// <summary>
     /// Updates selected job priorities to the profile's.
     /// </summary>
@@ -112,10 +172,13 @@ public sealed partial class HumanoidProfileEditor
     /// </summary>
     public void RefreshJobs()
     {
+        DHRememberJobTabs();
         JobList.RemoveAllChildren();
         _jobCategories.Clear();
         _jobPriorities.Clear();
-        var firstCategory = true;
+        _dhModes.Clear();
+        _dhModeTabs = new TabContainer { VerticalExpand = true, HorizontalExpand = true };
+        JobList.AddChild(_dhModeTabs);
 
         // Get all displayed departments
         var departments = new List<DepartmentPrototype>();
@@ -127,7 +190,20 @@ public sealed partial class HumanoidProfileEditor
             departments.Add(department);
         }
 
-        departments.Sort(DepartmentUIComparer.Instance);
+        // DarkestHour: сначала по режиму и стороне (порядок вкладок), внутри — как обычно.
+        departments.Sort((a, b) =>
+        {
+            var mode = (a.DHMode == null).CompareTo(b.DHMode == null);
+            if (mode != 0)
+                return mode;
+
+            mode = a.DHModeOrder.CompareTo(b.DHModeOrder);
+            if (mode != 0)
+                return mode;
+
+            var side = a.DHSideOrder.CompareTo(b.DHSideOrder);
+            return side != 0 ? side : DepartmentUIComparer.Instance.Compare(a, b);
+        });
 
         var items = new[]
         {
@@ -143,6 +219,8 @@ public sealed partial class HumanoidProfileEditor
 
             if (!_jobCategories.TryGetValue(department.ID, out var category))
             {
+                var sideList = DHSideList(department);
+                var firstCategory = sideList.ChildCount == 0;
                 category = new BoxContainer
                 {
                     Orientation = LayoutOrientation.Vertical,
@@ -151,11 +229,7 @@ public sealed partial class HumanoidProfileEditor
                         ("departmentName", departmentName))
                 };
 
-                if (firstCategory)
-                {
-                    firstCategory = false;
-                }
-                else
+                if (!firstCategory)
                 {
                     category.AddChild(new Control
                     {
@@ -178,7 +252,7 @@ public sealed partial class HumanoidProfileEditor
                 });
 
                 _jobCategories[department.ID] = category;
-                JobList.AddChild(category);
+                sideList.AddChild(category);
             }
 
             var jobs = department.Roles.Select(jobId => _prototypeManager.Index(jobId))
@@ -292,6 +366,7 @@ public sealed partial class HumanoidProfileEditor
             }
         }
 
+        DHRestoreJobTabs();
         UpdateJobPriorities();
     }
 

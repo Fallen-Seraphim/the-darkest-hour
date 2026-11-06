@@ -1,0 +1,9 @@
+dh-jobs-mode-assault = Assault
+dh-jobs-mode-uprising = Uprising
+dh-jobs-mode-other = Other
+dh-jobs-side-republic = Republic
+dh-jobs-side-empire = Empire
+dh-jobs-side-military-police = Military Police
+dh-jobs-side-civilians = Civilians
+dh-jobs-side-corporates = Corporates
+dh-jobs-side-rebels = Rebels
