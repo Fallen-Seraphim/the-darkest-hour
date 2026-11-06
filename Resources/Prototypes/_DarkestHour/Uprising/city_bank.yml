@@ -181,13 +181,13 @@
   parent: BaseStructure
   id: DHCityComputerBase
   components:
+  # Настольный компьютер на столе (решение автора 2026-11-06), спрайты RMC-14 — _DarkestHour/Structures/Machines/desktop.rsi.
   - type: Sprite
-    sprite: Structures/Machines/computers.rsi
+    sprite: _DarkestHour/Structures/Machines/desktop.rsi
     layers:
-    - state: computer
-    - state: generic_keyboard
-    - state: generic
-      shader: unshaded
+    - sprite: Structures/Furniture/Tables/wood.rsi
+      state: full
+    - state: retro
   - type: InteractionOutline
   - type: Rotatable
   - type: PointLight
@@ -252,10 +252,9 @@
   components:
   - type: Sprite
     layers:
-    - state: computer
-    - state: id_key
-    - state: supply
-      shader: unshaded
+    - sprite: Structures/Furniture/Tables/wood.rsi
+      state: full
+    - state: retro2
   - type: PointLight
     color: "#a68be8"
   - type: DHBudgetComputer
@@ -278,10 +277,9 @@
   components:
   - type: Sprite
     layers:
-    - state: computer
-    - state: security_key
-    - state: security
-      shader: unshaded
+    - sprite: Structures/Furniture/Tables/generic.rsi
+      state: full
+    - state: security_det
   - type: PointLight
     color: "#5b8ad6"
   - type: DHBudgetComputer
