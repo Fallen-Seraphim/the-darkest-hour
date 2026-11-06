@@ -460,6 +460,10 @@
   description: dh-department-republic-garrison-description
   color: "#4E6B2E"
   weight: 90
+  dhMode: dh-jobs-mode-assault
+  dhModeOrder: 1
+  dhSide: dh-jobs-side-republic
+  dhSideOrder: 1
   roles:
   - DHGarrisonCommander
   - DHGarrisonOfficer
@@ -485,6 +489,10 @@
   description: dh-department-imperial-carrier-description
   color: "#D8D4CC"
   weight: 80
+  dhMode: dh-jobs-mode-assault
+  dhModeOrder: 1
+  dhSide: dh-jobs-side-empire
+  dhSideOrder: 2
   roles:
   - DHCarrierCaptain
   - DHCarrierOperationCommander
@@ -499,6 +507,10 @@
   description: dh-department-imperial-marines-description
   color: "#F2C230"
   weight: 70
+  dhMode: dh-jobs-mode-assault
+  dhModeOrder: 1
+  dhSide: dh-jobs-side-empire
+  dhSideOrder: 2
   roles:
   - DHMarineCommander
   - DHMarineWeaponsSpecialist

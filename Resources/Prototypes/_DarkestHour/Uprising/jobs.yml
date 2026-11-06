@@ -40,6 +40,10 @@
   description: dh-department-dhla-civilians-description
   color: "#8a8a8a"
   weight: 80
+  dhMode: dh-jobs-mode-uprising
+  dhModeOrder: 2
+  dhSide: dh-jobs-side-civilians
+  dhSideOrder: 2
   roles:
   - DHLADistrictHead
   - DHLADistrictStaff
@@ -56,6 +60,10 @@
   description: dh-department-dhla-vanguard-description
   color: "#7a5cc4"
   weight: 80
+  dhMode: dh-jobs-mode-uprising
+  dhModeOrder: 2
+  dhSide: dh-jobs-side-corporates
+  dhSideOrder: 3
   roles:
   - DHLAVRepresentative
   - DHLAVAssistant
@@ -68,6 +76,10 @@
   description: dh-department-dhla-military-police-description
   color: "#3f5f9e"
   weight: 80
+  dhMode: dh-jobs-mode-uprising
+  dhModeOrder: 2
+  dhSide: dh-jobs-side-military-police
+  dhSideOrder: 1
   roles:
   - DHLAMPChief
   - DHLAMPDeputyChief
@@ -82,6 +94,10 @@
   description: dh-department-dhla-front-description
   color: "#c8322b"
   weight: 80
+  dhMode: dh-jobs-mode-uprising
+  dhModeOrder: 2
+  dhSide: dh-jobs-side-rebels
+  dhSideOrder: 4
   roles:
   - DHLAFrontLeader
   - DHLAFrontSaboteur

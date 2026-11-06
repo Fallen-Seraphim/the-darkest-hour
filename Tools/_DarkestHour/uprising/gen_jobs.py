@@ -164,6 +164,10 @@ for aid, aen, aru in ACCESS:
     en.append('%s = %s' % (key, aen))
     ru.append('%s = %s' % (key, aru))
 
+# вкладки окна персонажа: режим «Восстание», стороны (решение автора 2026-11-06)
+SIDES = {'DHLAMilitaryPolice': ('dh-jobs-side-military-police', 1), 'DHLACivilians': ('dh-jobs-side-civilians', 2),
+         'DHLAVanguard': ('dh-jobs-side-corporates', 3), 'DHLAFront': ('dh-jobs-side-rebels', 4)}
+
 for dept, (color, den, dru, dden, ddru) in DEPTS.items():
     key = 'dh-department-' + kebab(dept)
     w('- type: department')
@@ -172,6 +176,10 @@ for dept, (color, den, dru, dden, ddru) in DEPTS.items():
     w('  description: %s-description' % key)
     w('  color: "%s"' % color)
     w('  weight: 80')
+    w('  dhMode: dh-jobs-mode-uprising')
+    w('  dhModeOrder: 2')
+    w('  dhSide: %s' % SIDES[dept][0])
+    w('  dhSideOrder: %d' % SIDES[dept][1])
     w('  roles:')
     for j in JOBS:
         if j[1] == dept:

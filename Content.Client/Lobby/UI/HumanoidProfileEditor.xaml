@@ -130,9 +130,8 @@
                 <BoxContainer Orientation="Vertical">
                     <!-- Jobs -->
                     <OptionButton Name="PreferenceUnavailableButton" />
-                    <ScrollContainer VerticalExpand="True">
-                        <BoxContainer Name="JobList" Orientation="Vertical" />
-                    </ScrollContainer>
+                    <!-- DarkestHour: вкладки режимов и сторон строятся в RefreshJobs -->
+                    <BoxContainer Name="JobList" Orientation="Vertical" VerticalExpand="True" />
                 </BoxContainer>
                 <BoxContainer Orientation="Vertical" Margin="10">
                     <!-- Antags -->
