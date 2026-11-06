@@ -23,6 +23,7 @@ public sealed partial class DHZLevelRenderSystem : EntitySystem
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private DHZLevelSystem _z = default!;
     [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private SharedMapSystem _map = default!;
 
     /// <summary>Радиус поиска проёмов вокруг глаза, тайлов.</summary>
     private const int OpeningRadius = 14;
@@ -37,6 +38,13 @@ public sealed partial class DHZLevelRenderSystem : EntitySystem
     private TimeSpan _cachedAt;
     private readonly List<(EntityUid Map, int Level)> _visible = new();
     private readonly List<(MapId Map, int Depth)> _cached = new();
+    private bool _cachedFog;
+
+    /// <summary>Глубже трёх уровней вниз не видно (решение автора 2026-11-06).</summary>
+    private const int MaxRenderDepth = 3;
+
+    /// <summary>Серое туманное небо Лост-Энджелса — то, что видно вниз глубже трёх уровней.</summary>
+    private static readonly Color FogColor = Color.FromHex("#8C939C");
 
     public override void Initialize()
     {
@@ -52,12 +60,15 @@ public sealed partial class DHZLevelRenderSystem : EntitySystem
 
     /// <summary>
     /// Какие уровни рисовать под глазом (от самого нижнего): только те, что реально видны сквозь проёмы вокруг
-    /// (<see cref="DHZLevelSystem.VisibleLowerLevels"/>), не больше настройки <c>dh.zlevels_render_depth</c>.
-    /// Пусто — рисовать как обычно. Пересчёт — не чаще раза в 0,25 с и при сдвиге глаза больше чем на 2 тайла.
+    /// (<see cref="DHZLevelSystem.VisibleLowerLevels"/>), не глубже трёх уровней (решение автора 2026-11-06; меньше —
+    /// настройкой <c>dh.zlevels_render_depth</c>). Что глубже, закрашивается <paramref name="clear"/>: над землёй —
+    /// серая дымка неба Лост-Энджелса (в тон свету карты), под землёй — темнота.
+    /// false — проёмов нет, рисовать как обычно. Пересчёт — не чаще раза в 0,25 с и при сдвиге глаза больше 2 тайлов.
     /// </summary>
-    public bool TryGetLowerPasses(IEye eye, List<(MapId Map, int Depth)> passes)
+    public bool TryGetLowerPasses(IEye eye, List<(MapId Map, int Depth)> passes, out Color clear)
     {
         passes.Clear();
+        clear = Color.Black;
         var at = eye.Position;
         if (at.MapId == MapId.Nullspace || !_z.TryGetLevel(at.MapId, out var own) || own.Level == 0)
             return false;
@@ -70,7 +81,8 @@ public sealed partial class DHZLevelRenderSystem : EntitySystem
             _cachedMap = at.MapId;
             _cachedTile = tile;
             _cachedAt = now;
-            _z.VisibleLowerLevels(at, OpeningRadius, OpeningStep, _cfg.GetCVar(DHCVars.ZLevelsRenderDepth), _visible);
+            var depth = Math.Clamp(_cfg.GetCVar(DHCVars.ZLevelsRenderDepth), 0, MaxRenderDepth);
+            _cachedFog = _z.VisibleLowerLevels(at, OpeningRadius, OpeningStep, depth, _visible);
 
             _cached.Clear();
             foreach (var (map, level) in _visible)
@@ -81,7 +93,19 @@ public sealed partial class DHZLevelRenderSystem : EntitySystem
         }
 
         passes.AddRange(_cached);
-        return passes.Count > 0;
+        if (passes.Count == 0 && !_cachedFog)
+            return false;
+
+        if (own.Level > 0)
+        {
+            // Дымка — в тон свету карты: днём серая, в сумерках темнеет, ночью почти чёрная.
+            var light = TryComp<MapLightComponent>(_map.GetMapOrInvalid(at.MapId), out var mapLight)
+                ? mapLight.AmbientLightColor
+                : Color.White;
+            clear = new Color(FogColor.R * light.R, FogColor.G * light.G, FogColor.B * light.B, 1f);
+        }
+
+        return true;
     }
 }
 

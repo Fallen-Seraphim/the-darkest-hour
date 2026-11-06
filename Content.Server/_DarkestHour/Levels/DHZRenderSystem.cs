@@ -37,7 +37,7 @@ public sealed partial class DHZRenderSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        Subs.CVar(_cfg, DHCVars.ZLevelsProbeDepth, value => _probeDepth = value, true);
+        Subs.CVar(_cfg, DHCVars.ZLevelsProbeDepth, value => _probeDepth = Math.Clamp(value, 0, 3), true);
     }
 
     public override void Update(float frameTime)

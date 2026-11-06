@@ -6,7 +6,7 @@ namespace Content.Shared._DarkestHour.CCVar;
 public sealed class DHCVars
 {
     /// <summary>
-    /// Сколько нижних Z-уровней клиент рисует сквозь проёмы (0 — не рисовать, только свой уровень). Для слабых ПК.
+    /// Сколько нижних Z-уровней клиент рисует сквозь проёмы (не больше 3; 0 — не рисовать, глубже — дымка). Для слабых ПК.
     /// </summary>
     public static readonly CVarDef<int> ZLevelsRenderDepth =
         CVarDef.Create("dh.zlevels_render_depth", 3, CVar.CLIENTONLY | CVar.ARCHIVE);

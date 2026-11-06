@@ -96,18 +96,22 @@ public sealed partial class DHZLevelSystem : EntitySystem
     }
 
     /// <summary>
-    /// Какие нижние уровни на самом деле видны вокруг точки (оптимизация, решение автора 2026-11-06): берутся клетки
+    /// Какие нижние уровни на самом деле видны вокруг точки (оптимизация, решения автора 2026-11-06): берутся клетки
     /// без пола на своём уровне в радиусе <paramref name="radius"/> (через <paramref name="step"/>), и уровни вниз
-    /// перебираются, пока сквозь них ещё есть дыры. Берутся только уровни, у которых под дырами есть пол (то, что
-    /// реально видно); клетка, накрытая полом, дальше вниз не смотрит. Не больше <paramref name="maxDepth"/> уровней. Результат — по возрастанию
-    /// (первым самый нижний); пусто — проёмов нет.
+    /// перебираются не глубже <paramref name="maxDepth"/> уровней от своего. Берутся только уровни, у которых под
+    /// дырами есть пол (то, что реально видно); клетка, накрытая полом, дальше вниз не смотрит. Результат — по
+    /// возрастанию (первым самый нижний).
     /// </summary>
-    public void VisibleLowerLevels(MapCoordinates at, int radius, int step, int maxDepth,
+    /// <returns>
+    /// Остались дыры, под которыми в пределах глубины пола нет (вниз дальше трёх этажей, край крыши) — там клиент
+    /// рисует дымку неба вместо уровней ниже.
+    /// </returns>
+    public bool VisibleLowerLevels(MapCoordinates at, int radius, int step, int maxDepth,
         List<(EntityUid Map, int Level)> result)
     {
         result.Clear();
-        if (maxDepth <= 0 || !TryGetLevel(at.MapId, out var own) || own.Level == 0)
-            return;
+        if (!TryGetLevel(at.MapId, out var own) || own.Level == 0)
+            return false;
 
         var holes = new List<Vector2>();
         var center = new Vector2(MathF.Floor(at.Position.X) + 0.5f, MathF.Floor(at.Position.Y) + 0.5f);
@@ -122,14 +126,17 @@ public sealed partial class DHZLevelSystem : EntitySystem
         }
 
         if (holes.Count == 0)
-            return;
+            return false;
 
         var levels = Levels(own.Stack);
-        for (var i = levels.Count - 1; i >= 0 && holes.Count > 0 && result.Count < maxDepth; i--)
+        for (var i = levels.Count - 1; i >= 0 && holes.Count > 0; i--)
         {
             var (map, level) = levels[i];
             if (level >= own.Level || own.Level > 0 && level < 0)
                 continue;
+
+            if (own.Level - level > maxDepth)
+                break;
 
             // Уровень виден, только если под какой-то дырой у него есть пол; пустой (воздух у края башни) — пропуск.
             var mapId = Transform(map).MapID;
@@ -138,6 +145,7 @@ public sealed partial class DHZLevelSystem : EntitySystem
         }
 
         result.Reverse();
+        return holes.Count > 0;
     }
 
     #endregion
