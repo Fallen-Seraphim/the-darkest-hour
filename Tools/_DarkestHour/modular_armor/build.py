@@ -257,7 +257,7 @@ def largest_piece(frame):
     return out
 
 
-def icon_from(layer, prefer_side=False, front_only=False, main_piece=False):
+def icon_from(layer, prefer_side=False, front_only=False, main_piece=False, only=None):
     """
     Иконка предмета: кусок с того направления, где он виден крупнее (рука спереди — узкая полоска, сбоку — вся),
     обрезанный по содержимому и увеличенный под холст 32x32 (до 26 px по большей стороне, целым коэффициентом),
@@ -266,6 +266,8 @@ def icon_from(layer, prefer_side=False, front_only=False, main_piece=False):
     frames = [layer.crop((x, y, x + 32, y + 32)) for (x, y) in ((0, 0), (32, 0), (0, 32), (32, 32))]
     if front_only:
         frames = frames[:1]
+    if only is not None:
+        frames = [frames[only]]
     if main_piece:
         frames = [largest_piece(f) for f in frames]
     best, best_area = None, -1
@@ -338,12 +340,9 @@ def build_helmet(faction, rmc_tex=None):
     eq.alpha_composite(helm_eq)
     eq = eq.crop((0, 0, 64, 64))
 
-    mask_ic = paint(Image.open(os.path.join(mask_rsi, 'icon.png')), 'mask').crop((0, 0, 32, 32))
-    helm_ic = (Image.open(os.path.join(helm_rsi, 'icon.png')).convert('RGBA') if rmc_tex
-               else paint(Image.open(os.path.join(helm_rsi, 'icon.png')), 'helmet')).crop((0, 0, 32, 32))
-    icon = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
-    icon.alpha_composite(mask_ic, (0, 3))
-    icon.alpha_composite(helm_ic, (0, -2))
+    # Иконка — шлем с противогазом таким, как он выглядит на голове, в профиль (видны и каска, и фильтр
+    # противогаза; решение автора 2026-11-06). Раньше иконки шлема и противогаза накладывались — выходило пятно.
+    icon = icon_from(eq, only=2)
     empty4 = Image.new('RGBA', (64, 64), (0, 0, 0, 0))
     empty1 = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
     return {
