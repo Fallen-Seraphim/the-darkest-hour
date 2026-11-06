@@ -200,6 +200,14 @@
   name: LA-V PMC armoured gloves
   description: Black combat gloves with armoured knuckles and backs. Class 1 protection for the hands.
   components:
+  - type: Item
+    inhandVisuals: # у RMC-перчаток нет спрайтов в руках — берём ванильные боевые
+      left:
+      - state: inhand-left
+        sprite: Clothing/Hands/Gloves/combat.rsi
+      right:
+      - state: inhand-right
+        sprite: Clothing/Hands/Gloves/combat.rsi
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Hands/Gloves/pmc.rsi
   - type: Clothing
