@@ -4,13 +4,13 @@
 - type: startingGear
   id: DHRepublicGearBase
   equipment:
-    jumpsuit: ClothingUniformJumpsuitColorDarkGreen
-    back: ClothingBackpackMerc
+    jumpsuit: DHRepublicClothingUniformFatigues
+    back: DHRepublicClothingBackpack
     shoes: DHClothingShoesMagArmoredLightRepublic
-    gloves: ClothingHandsGlovesCombat
+    gloves: DHRepublicClothingHandsGlovesCombat
     eyes: ClothingEyesHudMedSec
     ears: DHClothingHeadsetAltRepublic
-    belt: ClothingBeltMilitaryWebbing
+    belt: DHRepublicClothingBeltWebbing
     pocket1: CombatKnife
     pocket2: DoubleEmergencyOxygenTankFilled
   storage:
@@ -95,10 +95,12 @@
   parent: DHRepublicGearBase
   id: DHRepublicMedicGear
   equipment:
+    back: DHRepublicClothingBackpackMedic
+    jumpsuit: DHRepublicClothingUniformMedic
     id: DHDogtagsDHRepublicMedic
     outerClothing: DHClothingOuterModularRMB1LightAutoMed
     suitstorage: DHWeaponSMGRAPTORM1216
-    belt: ClothingBeltMilitaryWebbingMedFilled
+    belt: DHRepublicClothingBeltMedicFilled
   storage:
     back:
     - DHPainkillerAutoinjector

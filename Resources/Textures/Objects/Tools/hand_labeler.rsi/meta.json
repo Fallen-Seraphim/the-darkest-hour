@@ -1,22 +1,22 @@
 {
-    "version": 1,
-    "license": "CC-BY-SA-3.0",
-    "copyright": "Taken from https://github.com/tgstation/tgstation at commit 44636483b7b2868b3e42c92205539f11f6d7968f. Inhand sprites by TiniestShark (github).",
-    "size": {
-        "x": 32,
-        "y": 32
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from https://github.com/tgstation/tgstation at commit 44636483b7b2868b3e42c92205539f11f6d7968f. Inhand sprites by TiniestShark (github).. DarkestHour: RMC-like sprites from RMC-14 (Taken from CM-SS13 at commit https://github.com/cmss13-devs/cmss13/commit/9ab207cd7ffba86a0411d7058645fb8f2a7895f3)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "inhand-left",
+      "directions": 4
     },
-    "states": [
-        {
-            "name": "inhand-left",
-            "directions": 4
-        },
-        {
-            "name": "inhand-right",
-            "directions": 4
-        },
-        {
-            "name": "hand_labeler"
-        }
-    ]
+    {
+      "name": "inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "hand_labeler"
+    }
+  ]
 }

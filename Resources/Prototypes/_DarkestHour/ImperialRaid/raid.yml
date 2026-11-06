@@ -255,14 +255,14 @@
 - type: startingGear
   id: DHImperialGearBase
   equipment:
-    jumpsuit: ClothingUniformJumpsuitOperative
-    back: ClothingBackpackDuffelSyndicate
+    jumpsuit: DHImperialClothingUniformFatigues
+    back: DHImperialClothingBackpack
     eyes: ClothingEyesHudSyndicate
     ears: ClothingHeadsetAltSyndicate
-    gloves: ClothingHandsGlovesCombat
+    gloves: DHImperialClothingHandsGlovesCombat
     shoes: DHClothingShoesMagArmoredLightImperial
     id: DHDogtagsImperialRifleman
-    belt: ClothingBeltMilitaryWebbing
+    belt: DHImperialClothingBeltWebbing
     pocket1: CombatKnife
     pocket2: DHParachute
   storage:
@@ -276,6 +276,7 @@
   parent: DHImperialGearBase
   id: DHImperialCommanderGear
   equipment:
+    jumpsuit: DHImperialClothingUniformLead
     ears: DHClothingHeadsetAltImperialCommand
     id: DHDogtagsImperialCommander
     neck: SyndicateWhistle
@@ -309,8 +310,9 @@
   parent: DHImperialGearBase
   id: DHImperialFieldMedicGear
   equipment:
+    back: DHImperialClothingBackpackMedic
     id: DHDogtagsImperialFieldMedic
-    belt: ClothingBeltMilitaryWebbingMedFilled
+    belt: DHImperialClothingBeltMedicFilled
   inhand:
   - DHImperialKitFieldMedic
   storage:

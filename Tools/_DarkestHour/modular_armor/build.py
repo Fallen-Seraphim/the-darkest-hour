@@ -9,8 +9,15 @@ takes its shape from its own source suit and is recoloured into the faction pale
   composite  - Monolith TSFMC combat (CC0), with a faction accent (IMB-1 imperial yellow, RMB-1 republic green)
   helmet     - vanilla merc helmet over the explorer gas mask (CC-BY-SA)
 
-Run from the repository root with the path to a Monolith checkout:
-    python3 Tools/_DarkestHour/modular_armor/build.py /path/to/monolith
+RMC look (author's decision 2026-11-05): with an RMC-14 checkout the body suit is the faction's RMC fatigues
+(RMB-1 - USCM jungle fatigues, IMB-1 - TWE Royal Marines uniform), the torso and arm modules are cut from RMC armour
+without recolouring (RMB-1 - M3 light / M3 padded / B12, IMB-1 - Royal Marines light / padded / Kestrel heavy) and
+the helmet is the RMC helmet over the faction gas mask. RMC armour does not cover the legs, so the leg modules stay
+cut from the Monolith suits, recoloured into an RMC-like palette; what the RMC armour has below the belt goes to
+the torso module.
+
+Run from the repository root with the path to a Monolith checkout (and an RMC-14 checkout for the RMC look):
+    python3 Tools/_DarkestHour/modular_armor/build.py /path/to/monolith [/path/to/RMC-14]
 Writes Resources/Textures/_DarkestHour/Clothing/OuterClothing/ModularArmor/*.rsi and
 Resources/Textures/_DarkestHour/Clothing/Head/ModularArmor/*.rsi; preview.png next to this script is not committed."""
 import colorsys
@@ -41,6 +48,15 @@ FACTIONS = {
         'name': 'IMB-1',
         'body': ramp('08080a', '111114', '1a1b1f', '25272c', '33363c', '45484f'),
         'module': ramp('4a4741', '6f6b64', '938f88', 'b7b3ab', 'd8d4cc', 'f3f1ea'),
+        # RMC look: legs in the dark Royal Marines armour colours
+        'rmc_module': ramp('0b0c10', '15171d', '20232b', '2d3039', '3d414c', '545966'),
+        'rmc_body': '_RMC14/Objects/Clothing/Uniforms/TSE/RCM/standard.rsi',
+        'rmc_helmet': '_RMC14/Objects/Clothing/Head/Royal/helmet.rsi',
+        'rmc_classes': {
+            'light': '_RMC14/Objects/Clothing/OuterClothing/Royal/light.rsi',
+            'composite': '_RMC14/Objects/Clothing/OuterClothing/Royal/padded.rsi',
+            'heavy': '_RMC14/Objects/Clothing/OuterClothing/PVE/Royal/kestrelheavy.rsi',
+        },
         'accent': ramp('4d3a08', '7a5c10', 'a57e1a', 'cfa22c', 'ecc548', 'f8e27c'),
         'helmet': ramp('4a4741', '77736c', 'a3a098', 'c7c3bb', 'e4e1da', 'f6f4ee'),
         'mask': ramp('09090b', '141417', '202226', '2e3136', '41454c', '5a5f68'),
@@ -50,6 +66,15 @@ FACTIONS = {
         'name': 'RMB-1',
         'body': ramp('0c140b', '142113', '1d2e1b', '283d24', '35502f', '46643d'),
         'module': ramp('2e2c1f', '4f4a33', '746c4a', '978e66', 'b9ae86', 'ddd2b2'),
+        # RMC look: legs in the olive drab of the M3 armour
+        'rmc_module': ramp('1b1d12', '2a2d1c', '3b3f27', '4e5333', '646a42', '7e8556'),
+        'rmc_body': '_RMC14/Objects/Clothing/Uniforms/Marine/standard/jungle.rsi',
+        'rmc_helmet': '_RMC14/Objects/Clothing/Head/Helmets/m10/standard/jungle.rsi',
+        'rmc_classes': {
+            'light': '_RMC14/Objects/Clothing/OuterClothing/Armor/m3/light/padded/jungle.rsi',
+            'composite': '_RMC14/Objects/Clothing/OuterClothing/Armor/m3/standard/padded/jungle.rsi',
+            'heavy': '_RMC14/Objects/Clothing/OuterClothing/Armor/m3/b12/jungle.rsi',
+        },
         'accent': ramp('1c2b0c', '2f4714', '43641d', '5e8c2a', '7fae46', 'a9cf72'),
         'helmet': ramp('2e2c1f', '524c35', '7a714e', '9f966f', 'c1b78f', 'e0d7b6'),
         'mask': ramp('101a10', '1a2a19', '273b24', '354d30', '46623f', '5a7a51'),
@@ -184,15 +209,18 @@ def recolor_image(im, fn):
     return im
 
 
-def cut_modules(src, masks, faction, keep_accent):
-    """part -> 64x64 four-direction image of that part of the source suit, recoloured."""
+def cut_modules(src, masks, faction, keep_accent, recolor=True, module_key='module'):
+    """part -> 64x64 four-direction image of that part of the source suit, recoloured (unless recolor=False)."""
     im = Image.open(src).convert('RGBA')
+    palette = dict(faction)
+    palette['module'] = faction[module_key]
     lo, hi = lum_range(im.crop((0, 0, 64, 64)))
     fr = frames(im)
     layers = {p: [Image.new('RGBA', (32, 32), (0, 0, 0, 0)) for _ in range(DIRS)] for p in PARTS}
     for d, f in enumerate(fr):
         owner = assign(f, d, masks)
-        rc = recolor_image(f.copy(), lambda c: recolor_px(c, faction, faction['accent'], keep_accent, lo, hi))
+        rc = recolor_image(f.copy(), lambda c: recolor_px(c, palette, faction['accent'], keep_accent, lo, hi)) \
+            if recolor else f.copy()
         src_px = rc.load()
         for (x, y), part in owner.items():
             far_behind = FAR.get(d, {}).get(part)
@@ -235,7 +263,7 @@ def write_rsi(path, states, copyright_, license_='CC-BY-SA-3.0'):
         f.write('\n')
 
 
-def build_helmet(faction):
+def build_helmet(faction, rmc_tex=None):
     helm_rsi = os.path.join(TEX, 'Clothing/Head/Helmets/merc_helmet.rsi')
     mask_rsi = os.path.join(TEX, 'Clothing/Mask/gasexplorer.rsi')
 
@@ -252,13 +280,17 @@ def build_helmet(faction):
 
     mask_eq = paint(Image.open(os.path.join(mask_rsi, 'equipped-MASK.png')), 'mask')
     helm_eq = paint(Image.open(os.path.join(helm_rsi, 'equipped-HELMET.png')), 'helmet')
+    if rmc_tex:
+        helm_rsi = os.path.join(rmc_tex, faction['rmc_helmet'])
+        helm_eq = Image.open(os.path.join(helm_rsi, 'equipped-HELMET.png')).convert('RGBA')
     eq = Image.new('RGBA', helm_eq.size, (0, 0, 0, 0))
     eq.alpha_composite(mask_eq.crop((0, 0) + helm_eq.size))
     eq.alpha_composite(helm_eq)
     eq = eq.crop((0, 0, 64, 64))
 
     mask_ic = paint(Image.open(os.path.join(mask_rsi, 'icon.png')), 'mask').crop((0, 0, 32, 32))
-    helm_ic = paint(Image.open(os.path.join(helm_rsi, 'icon.png')), 'helmet').crop((0, 0, 32, 32))
+    helm_ic = (Image.open(os.path.join(helm_rsi, 'icon.png')).convert('RGBA') if rmc_tex
+               else paint(Image.open(os.path.join(helm_rsi, 'icon.png')), 'helmet')).crop((0, 0, 32, 32))
     icon = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
     icon.alpha_composite(mask_ic, (0, 3))
     icon.alpha_composite(helm_ic, (0, -2))
@@ -272,41 +304,72 @@ def build_helmet(faction):
     }
 
 
-def main(mono):
+def rmc_frames(path, state):
+    return Image.open(os.path.join(path, state + '.png')).convert('RGBA').crop((0, 0, 64, 64))
+
+
+def rmc_copyright(path):
+    with open(os.path.join(path, 'meta.json'), encoding='utf-8-sig') as f:
+        return json.load(f).get('copyright', 'RMC-14')
+
+
+def main(mono, rmc=None):
     mono_tex = os.path.join(mono, 'Resources/Textures')
+    rmc_tex = os.path.join(rmc, 'Resources/Textures') if rmc else None
     masks = load_masks()
     preview = []
     for fid, faction in FACTIONS.items():
         # body suit
-        body = Image.open(os.path.join(mono_tex, BODY_SOURCE, 'equipped-OUTERCLOTHING.png')).convert('RGBA').crop((0, 0, 64, 64))
-        body = recolor_image(body, lambda c: from_ramp(faction['body'], lum(c) / 0.55))
-        body_icon = recolor_image(Image.open(os.path.join(mono_tex, BODY_SOURCE, 'icon.png')).convert('RGBA').crop((0, 0, 32, 32)),
-                                  lambda c: from_ramp(faction['body'], lum(c) / 0.55))
+        if rmc_tex:
+            body_rsi = os.path.join(rmc_tex, faction['rmc_body'])
+            body = rmc_frames(body_rsi, 'equipped-INNERCLOTHING')
+            body_icon = Image.open(os.path.join(body_rsi, 'icon.png')).convert('RGBA').crop((0, 0, 32, 32))
+            body_copy = rmc_copyright(body_rsi) + ' | Used as the modular armour body suit for The Darkest Hour ' \
+                '(Tools/_DarkestHour/modular_armor)'
+        else:
+            body = Image.open(os.path.join(mono_tex, BODY_SOURCE, 'equipped-OUTERCLOTHING.png')).convert('RGBA').crop((0, 0, 64, 64))
+            body = recolor_image(body, lambda c: from_ramp(faction['body'], lum(c) / 0.55))
+            body_icon = recolor_image(Image.open(os.path.join(mono_tex, BODY_SOURCE, 'icon.png')).convert('RGBA').crop((0, 0, 32, 32)),
+                                      lambda c: from_ramp(faction['body'], lum(c) / 0.55))
+            body_copy = 'Body suit cut from Monolith TSFMC experimental hardsuit (CC0, original work by TJohnson), ' \
+                'recoloured for The Darkest Hour (Tools/_DarkestHour/modular_armor)'
         write_rsi(os.path.join(OUT_OUTER, fid + '_body.rsi'),
-                  {'icon': (body_icon, 1), 'equipped-OUTERCLOTHING': (body, 4)},
-                  'Body suit cut from Monolith TSFMC experimental hardsuit (CC0, original work by TJohnson), recoloured '
-                  'for The Darkest Hour (Tools/_DarkestHour/modular_armor)')
-        composite_preview = body.copy()
+                  {'icon': (body_icon, 1), 'equipped-OUTERCLOTHING': (body, 4)}, body_copy)
         for cls, (src, keep_accent) in CLASSES.items():
-            layers = cut_modules(os.path.join(mono_tex, src, 'equipped-OUTERCLOTHING.png'), masks, faction, keep_accent)
+            with open(os.path.join(mono_tex, src, 'meta.json'), encoding='utf-8-sig') as f:
+                src_meta = json.load(f)
+            copyright_ = src_meta.get('copyright', '')
+            if rmc_tex:
+                legs = cut_modules(os.path.join(mono_tex, src, 'equipped-OUTERCLOTHING.png'), masks, faction, False,
+                                   module_key='rmc_module')
+                rmc_src = os.path.join(rmc_tex, faction['rmc_classes'][cls])
+                layers = cut_modules(os.path.join(rmc_src, 'equipped-OUTERCLOTHING.png'), masks, faction, False,
+                                     recolor=False)
+                # RMC armour stops at the belt: what it has below goes to the torso, the legs come from Monolith
+                for part in ('leg_left', 'leg_right'):
+                    layers['torso'].alpha_composite(layers[part])
+                    layers[part] = legs[part]
+                copyright_ = 'Torso and arms: ' + rmc_copyright(rmc_src) + '; legs: ' + copyright_
+            else:
+                layers = cut_modules(os.path.join(mono_tex, src, 'equipped-OUTERCLOTHING.png'), masks, faction, keep_accent)
             states = {}
             for part, img in layers.items():
                 states[part] = (img, 4)
                 states['icon_' + part] = (icon_from(img), 1)
-            with open(os.path.join(mono_tex, src, 'meta.json'), encoding='utf-8-sig') as f:
-                src_meta = json.load(f)
             write_rsi(os.path.join(OUT_OUTER, '%s_%s.rsi' % (fid, cls)), states,
-                      (src_meta.get('copyright', '') + ' | Cut into armour modules by body part and recoloured for '
-                       'The Darkest Hour (Tools/_DarkestHour/modular_armor)').strip(' |'),
-                      src_meta.get('license', 'CC-BY-SA-3.0'))
+                      (copyright_ + ' | Cut into armour modules by body part' + ('' if rmc_tex else ' and recoloured') +
+                       ' for The Darkest Hour (Tools/_DarkestHour/modular_armor)').strip(' |'),
+                      'CC-BY-SA-3.0' if rmc_tex else src_meta.get('license', 'CC-BY-SA-3.0'))
             full = body.copy()
             for part in PARTS:
                 full.alpha_composite(layers[part])
             preview.append(('%s %s' % (faction['name'], cls), full))
-        helmet = build_helmet(faction)
+        helmet = build_helmet(faction, rmc_tex)
         write_rsi(os.path.join(OUT_HEAD, fid + '_helmet.rsi'), helmet,
-                  'Merc helmet and explorer gas mask from space-station-14 (CC-BY-SA-3.0), combined and recoloured for '
-                  'The Darkest Hour (Tools/_DarkestHour/modular_armor)')
+                  (rmc_copyright(os.path.join(rmc_tex, faction['rmc_helmet'])) + ' | Explorer gas mask from '
+                   'space-station-14 (CC-BY-SA-3.0)' if rmc_tex else
+                   'Merc helmet and explorer gas mask from space-station-14 (CC-BY-SA-3.0)') +
+                  ', combined and recoloured for The Darkest Hour (Tools/_DarkestHour/modular_armor)')
         with_helmet = []
         for name, img in preview[-3:]:
             h = img.copy()
@@ -324,4 +387,4 @@ def main(mono):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    main(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else None)
