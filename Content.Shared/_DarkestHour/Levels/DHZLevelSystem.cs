@@ -95,6 +95,59 @@ public sealed partial class DHZLevelSystem : EntitySystem
         return new MapCoordinates(coords.Position, Transform(map).MapID);
     }
 
+    /// <summary>
+    /// Какие нижние уровни на самом деле видны вокруг точки (оптимизация, решения автора 2026-11-06): берутся клетки
+    /// без пола на своём уровне в радиусе <paramref name="radius"/> (через <paramref name="step"/>), и уровни вниз
+    /// перебираются не глубже <paramref name="maxDepth"/> уровней от своего. Берутся только уровни, у которых под
+    /// дырами есть пол (то, что реально видно); клетка, накрытая полом, дальше вниз не смотрит. Результат — по
+    /// возрастанию (первым самый нижний).
+    /// </summary>
+    /// <returns>
+    /// Остались дыры, под которыми в пределах глубины пола нет (вниз дальше трёх этажей, край крыши) — там клиент
+    /// рисует дымку неба вместо уровней ниже.
+    /// </returns>
+    public bool VisibleLowerLevels(MapCoordinates at, int radius, int step, int maxDepth,
+        List<(EntityUid Map, int Level)> result)
+    {
+        result.Clear();
+        if (!TryGetLevel(at.MapId, out var own) || own.Level == 0)
+            return false;
+
+        var holes = new List<Vector2>();
+        var center = new Vector2(MathF.Floor(at.Position.X) + 0.5f, MathF.Floor(at.Position.Y) + 0.5f);
+        for (var x = -radius; x <= radius; x += step)
+        {
+            for (var y = -radius; y <= radius; y += step)
+            {
+                var point = center + new Vector2(x, y);
+                if (!HasFloor(new MapCoordinates(point, at.MapId)))
+                    holes.Add(point);
+            }
+        }
+
+        if (holes.Count == 0)
+            return false;
+
+        var levels = Levels(own.Stack);
+        for (var i = levels.Count - 1; i >= 0 && holes.Count > 0; i--)
+        {
+            var (map, level) = levels[i];
+            if (level >= own.Level || own.Level > 0 && level < 0)
+                continue;
+
+            if (own.Level - level > maxDepth)
+                break;
+
+            // Уровень виден, только если под какой-то дырой у него есть пол; пустой (воздух у края башни) — пропуск.
+            var mapId = Transform(map).MapID;
+            if (holes.RemoveAll(point => HasFloor(new MapCoordinates(point, mapId))) > 0)
+                result.Add((map, level));
+        }
+
+        result.Reverse();
+        return holes.Count > 0;
+    }
+
     #endregion
 
     #region Пол и крыша

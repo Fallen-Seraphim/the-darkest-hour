@@ -74,6 +74,9 @@ public sealed partial class DHZTransitSystem : EntitySystem
     private static readonly TimeSpan ViewInterval = TimeSpan.FromSeconds(0.25);
     private static readonly TimeSpan StairsCooldown = TimeSpan.FromSeconds(0.7);
 
+    /// <summary>Как близко центр идущего к центру пролёта (0,45 от края его тела, как было).</summary>
+    private const float StairsReach = 0.8f;
+
     private TimeSpan _nextStairs;
     private TimeSpan _nextFall;
     private TimeSpan _nextView;
@@ -141,38 +144,55 @@ public sealed partial class DHZTransitSystem : EntitySystem
 
     #region Лестничные пролёты
 
+    /// <summary>
+    /// Лестницы: перебираются не все пролёты (на карте их сотни), а живые на Z-уровнях, которые идут, — и пролёт
+    /// под каждым ищется рядом с ним (оптимизация, решение автора 2026-11-06).
+    /// </summary>
     private void UpdateStairs(TimeSpan now)
     {
-        var query = EntityQueryEnumerator<DHZStairsComponent, TransformComponent>();
         var moves = new List<(EntityUid Uid, MapCoordinates To, EntityUid Stairs)>();
-        while (query.MoveNext(out var stairsUid, out var stairs, out var xform))
+        var query = EntityQueryEnumerator<MobStateComponent, PhysicsComponent, TransformComponent>();
+        while (query.MoveNext(out var mob, out var mobState, out var physics, out var mobXform))
         {
-            if (!_z.TryGetLevel(xform.MapUid, out var level))
+            // Дёшево отсеять: стоит на месте, не на Z-уровне, без сознания, недавно шагнул.
+            if (physics.LinearVelocity.LengthSquared() < 0.04f || !_z.TryGetLevel(mobXform.MapUid, out var level) ||
+                _mobState.IsIncapacitated(mob, mobState) ||
+                _stairsCooldown.TryGetValue(mob, out var until) && now < until)
+            {
+                continue;
+            }
+
+            var mobCoords = _transform.GetMapCoordinates(mobXform);
+            Entity<DHZStairsComponent>? best = null;
+            var bestDistance = float.MaxValue;
+            foreach (var stairs in _lookup.GetEntitiesInRange<DHZStairsComponent>(mobCoords, StairsReach,
+                         LookupFlags.Static | LookupFlags.Sundries | LookupFlags.Approximate))
+            {
+                var distance = Vector2.Distance(_transform.GetWorldPosition(stairs), mobCoords.Position);
+                if (distance < bestDistance)
+                {
+                    best = stairs;
+                    bestDistance = distance;
+                }
+            }
+
+            if (best is not { } found)
                 continue;
 
-            var targetLevel = level.Level + (stairs.Up ? 1 : -1);
+            var xform = Transform(found);
+            var facing = _transform.GetWorldRotation(xform).ToWorldVec();
+
+            // По ступеням идут вдоль пролёта; поперёк — просто стоишь на площадке.
+            if (Vector2.Dot(physics.LinearVelocity, facing) < 0.2f)
+                continue;
+
+            var targetLevel = level.Level + (found.Comp.Up ? 1 : -1);
             if (_z.LevelMap(level.Stack, targetLevel) is not { } targetMap)
                 continue;
 
-            var position = _transform.GetWorldPosition(xform);
-            var facing = _transform.GetWorldRotation(xform).ToWorldVec();
-            var destination = new MapCoordinates(position + facing * stairs.Exit, Transform(targetMap).MapID);
-
-            foreach (var mob in _lookup.GetEntitiesInRange<MobStateComponent>(_transform.GetMapCoordinates(xform), 0.45f))
-            {
-                if (_stairsCooldown.TryGetValue(mob, out var until) && now < until)
-                    continue;
-
-                // По ступеням идут вдоль пролёта; поперёк — просто стоишь на площадке.
-                if (!TryComp<PhysicsComponent>(mob, out var physics) ||
-                    Vector2.Dot(physics.LinearVelocity, facing) < 0.2f ||
-                    _mobState.IsIncapacitated(mob))
-                {
-                    continue;
-                }
-
-                moves.Add((mob.Owner, destination, stairsUid));
-            }
+            var destination = new MapCoordinates(_transform.GetWorldPosition(xform) + facing * found.Comp.Exit,
+                Transform(targetMap).MapID);
+            moves.Add((mob, destination, found.Owner));
         }
 
         foreach (var (uid, to, stairs) in moves)

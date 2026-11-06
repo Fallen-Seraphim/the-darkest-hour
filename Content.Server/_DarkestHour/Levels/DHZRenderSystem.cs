@@ -1,5 +1,7 @@
 using System.Numerics;
+using Content.Shared._DarkestHour.CCVar;
 using Content.Shared._DarkestHour.Levels;
+using Robust.Shared.Configuration;
 using Robust.Server.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
@@ -13,6 +15,7 @@ namespace Content.Server._DarkestHour.Levels;
 /// </summary>
 public sealed partial class DHZRenderSystem : EntitySystem
 {
+    [Dependency] private IConfigurationManager _cfg = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private ViewSubscriberSystem _view = default!;
@@ -20,14 +23,22 @@ public sealed partial class DHZRenderSystem : EntitySystem
 
     private const string ProbeProto = "DHZLevelProbe";
 
-    /// <summary>Радиус поиска проёмов вокруг игрока и шаг выборки, тайлов.</summary>
-    private const int OpeningRadius = 12;
+    /// <summary>Радиус поиска проёмов вокруг игрока и шаг выборки, тайлов (радиус — не меньше, чем у клиента).</summary>
+    private const int OpeningRadius = 14;
     private const int OpeningStep = 2;
 
     private static readonly TimeSpan Interval = TimeSpan.FromSeconds(0.5);
     private TimeSpan _next;
 
     private readonly Dictionary<EntityUid, (ICommonSession Session, Dictionary<int, EntityUid> Probes)> _viewers = new();
+    private readonly List<(EntityUid Map, int Level)> _visible = new();
+    private int _probeDepth;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        Subs.CVar(_cfg, DHCVars.ZLevelsProbeDepth, value => _probeDepth = Math.Clamp(value, 0, 3), true);
+    }
 
     public override void Update(float frameTime)
     {
@@ -62,33 +73,19 @@ public sealed partial class DHZRenderSystem : EntitySystem
         }
     }
 
+    /// <summary>
+    /// Уровни, на которых нужен зонд: только реально видимые сквозь проёмы вокруг (как у клиента), не больше
+    /// <c>dh.zlevels_probe_depth</c>. Раньше зонд ставился на каждый уровень ниже — с крыши 8-этажки это 8 полных
+    /// областей видимости на игрока.
+    /// </summary>
     private void Wanted(MapCoordinates at, List<(int Level, MapId Map)> wanted)
     {
         wanted.Clear();
-        if (!_z.TryGetLevel(at.MapId, out var own) || own.Level == 0 || !HasOpening(at))
-            return;
-
-        foreach (var (map, level) in _z.Levels(own.Stack))
+        _z.VisibleLowerLevels(at, OpeningRadius, OpeningStep, _probeDepth, _visible);
+        foreach (var (map, level) in _visible)
         {
-            if (level >= own.Level || own.Level > 0 && level < 0)
-                continue;
-
             wanted.Add((level, Transform(map).MapID));
         }
-    }
-
-    private bool HasOpening(MapCoordinates at)
-    {
-        for (var x = -OpeningRadius; x <= OpeningRadius; x += OpeningStep)
-        {
-            for (var y = -OpeningRadius; y <= OpeningRadius; y += OpeningStep)
-            {
-                if (!_z.HasFloor(new MapCoordinates(at.Position + new Vector2(x, y), at.MapId)))
-                    return true;
-            }
-        }
-
-        return false;
     }
 
     private void Sync(EntityUid viewer, ICommonSession session, Vector2 position,

@@ -52,7 +52,7 @@ public sealed partial class ScalingViewport
     {
         if (_eye is not { } eye ||
             !_entityManager.EntitySysManager.TryGetEntitySystem<DHZLevelRenderSystem>(out var zRender) ||
-            !zRender.TryGetLowerPasses(eye, _dhZPasses))
+            !zRender.TryGetLowerPasses(eye, _dhZPasses, out var clear))
         {
             viewport.Render();
             return;
@@ -75,15 +75,16 @@ public sealed partial class ScalingViewport
                 _dhZPassEye.Depth = depth;
 
                 viewport.Eye = _dhZPassEye;
-                viewport.ClearColor = first ? Color.Black : null;
+                viewport.ClearColor = first ? clear : null;
                 viewport.Render();
                 first = false;
             }
 
-            // Свой уровень — поверх, без очистки: в проёмах остаётся то, что нарисовано снизу.
+            // Свой уровень — поверх, без очистки: в проёмах остаётся то, что нарисовано снизу (или дымка, если
+            // видимых уровней ниже нет — тогда очистка цветом дымки).
             DHRestoreOverlays();
             viewport.Eye = originalEye;
-            viewport.ClearColor = null;
+            viewport.ClearColor = first ? clear : null;
             viewport.Render();
         }
         finally
