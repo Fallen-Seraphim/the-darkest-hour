@@ -59,20 +59,63 @@ public sealed partial class DHWeatherSystem : EntitySystem
         var query = EntityQueryEnumerator<DHWeatherScheduleComponent, MapComponent>();
         while (query.MoveNext(out var map, out var schedule, out _))
         {
-            if (schedule.NextChange == TimeSpan.Zero)
+            Extend(schedule, now);
+
+            // прошедшее — из плана (текущий отрезок остаётся первым)
+            while (schedule.Plan.Count > 1 && schedule.Plan[0].End <= now)
             {
-                schedule.NextChange = now + schedule.FirstDelay;
-                continue;
+                schedule.Plan.RemoveAt(0);
             }
 
-            if (now < schedule.NextChange || schedule.Options.Count == 0)
-                continue;
+            var current = schedule.Plan[0];
+            if (current.Weather is { } weather && !current.Applied && current.Start <= now)
+            {
+                current.Applied = true;
+                _weather.TryAddWeather(map, weather, out _, current.End - now);
+            }
 
-            var option = Pick(schedule.Options);
-            var duration = Between(option.MinDuration, option.MaxDuration);
-            _weather.TryAddWeather(map, option.Weather, out _, duration);
-            schedule.NextChange = now + duration + Between(schedule.MinClear, schedule.MaxClear);
+            schedule.NextChange = current.End;
         }
+    }
+
+    /// <summary>Достраивает план: ясно — непогода — ясно… на горизонт вперёд.</summary>
+    private void Extend(DHWeatherScheduleComponent schedule, TimeSpan now)
+    {
+        if (schedule.Plan.Count == 0)
+            schedule.Plan.Add(new DHWeatherPeriod { Start = now, End = now + schedule.FirstDelay });
+
+        while (schedule.Plan[^1].End < now + schedule.Horizon && schedule.Options.Count > 0)
+        {
+            var last = schedule.Plan[^1];
+            if (last.Weather == null)
+            {
+                var option = Pick(schedule.Options);
+                schedule.Plan.Add(new DHWeatherPeriod
+                {
+                    Start = last.End,
+                    End = last.End + Between(option.MinDuration, option.MaxDuration),
+                    Weather = option.Weather,
+                });
+            }
+            else
+            {
+                schedule.Plan.Add(new DHWeatherPeriod
+                {
+                    Start = last.End,
+                    End = last.End + Between(schedule.MinClear, schedule.MaxClear),
+                });
+            }
+        }
+    }
+
+    /// <summary>Расписание погоды для места: у этажа — расписание земли его стопки.</summary>
+    public Entity<DHWeatherScheduleComponent>? ScheduleFor(EntityUid? map)
+    {
+        if (WeatherMap(map) is not { } weatherMap || !TryComp<DHWeatherScheduleComponent>(weatherMap, out var schedule))
+            return null;
+
+        Extend(schedule, _timing.CurTime);
+        return (weatherMap, schedule);
     }
 
     private DHWeatherOption Pick(List<DHWeatherOption> options)
@@ -148,7 +191,7 @@ public sealed partial class DHWeatherSystem : EntitySystem
     }
 
     /// <summary>Чья погода действует на карте: на этаже — погода земли его стопки.</summary>
-    private EntityUid? WeatherMap(EntityUid? map)
+    public EntityUid? WeatherMap(EntityUid? map)
     {
         if (!_zLevels.TryGetLevel(map, out var level) || level.Level <= 0)
             return map;

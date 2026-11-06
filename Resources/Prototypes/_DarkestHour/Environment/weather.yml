@@ -9,6 +9,7 @@
   - type: DHWeatherHazard
     speedMultiplier: 0.88
     startMessage: dh-weather-sandstorm-start
+    forecast: dh-weather-forecast-sandstorm
 
 - type: entity
   parent: WeatherSandstormHeavy
@@ -20,6 +21,7 @@
       types:
         Slash: 0.25
     startMessage: dh-weather-sandstorm-heavy-start
+    forecast: dh-weather-forecast-sandstorm-heavy
 
 # Дождь Лост-Энджелса (решение автора 2026-11-05): почти всё время идёт дождь, иногда ливень с грозой.
 # Дождь не мешает, ливень немного замедляет под открытым небом.
@@ -34,6 +36,8 @@
       state: hybrisa_rain_light
   - type: DHWeatherHazard
     startMessage: dh-weather-rain-start
+    forecast: dh-weather-forecast-rain
+    temperatureShift: 2
 
 - type: entity
   parent: WeatherStorm
@@ -46,3 +50,5 @@
   - type: DHWeatherHazard
     speedMultiplier: 0.92
     startMessage: dh-weather-downpour-start
+    forecast: dh-weather-forecast-downpour
+    temperatureShift: 4

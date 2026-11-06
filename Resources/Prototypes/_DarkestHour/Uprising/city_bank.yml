@@ -107,6 +107,20 @@
 
 - type: entity
   parent: BasePDACartridge
+  id: DHWeatherAppCartridge
+  name: weather app
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    state: cart-y
+  - type: UIFragment
+    ui: !type:DHWeatherAppUi
+  - type: Cartridge
+    programName: dh-phone-program-weather
+  - type: DHWeatherAppCartridge
+
+- type: entity
+  parent: BasePDACartridge
   id: DHCallCartridge
   name: phone app
   categories: [ HideSpawnMenu ]
@@ -166,6 +180,7 @@
         - id: DHMessengerCartridge
         - id: NotekeeperCartridge
         - id: DHBankAppCartridge
+        - id: DHWeatherAppCartridge
   - type: ActivatableUI
     key: enum.DHPhoneUiKey.Key
     singleUser: true
@@ -237,6 +252,7 @@
         - id: DHMessengerCartridge
         - id: NotekeeperCartridge
         - id: DHBankAppCartridge
+        - id: DHWeatherAppCartridge
   - type: ActivatableUI
     key: enum.DHPhoneUiKey.Key
   - type: UserInterface
