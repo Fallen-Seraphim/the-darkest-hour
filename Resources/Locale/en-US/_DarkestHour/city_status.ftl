@@ -1,0 +1,14 @@
+dh-city-status-normal = Normal situation
+dh-city-status-curfew = Curfew
+dh-city-status-emergency = Emergency
+dh-city-status-announce-normal = The normal situation has been restored in the city. The curfew and the state of emergency are lifted.
+dh-city-status-announce-curfew = A curfew is now in force in the city. Residents are to stay at home or at their workplaces and keep off the streets. Violators will be detained by the Military Police.
+dh-city-status-announce-emergency = A state of emergency has been declared in the city. Residents are to take shelter indoors and follow the orders of the Military Police. The Military Police are authorised to use their weapons.
+dh-city-comms-sender-district = District Office
+dh-city-comms-sender-police = Lost Angels Military Police
+dh-city-comms-cooldown = The next announcement will be available a bit later.
+dh-city-comms-ui-sender = Signed: { $sender }
+dh-city-comms-ui-status = Situation:
+dh-city-comms-ui-announce = Announcement to the whole city:
+dh-city-comms-ui-send = Announce
+dh-city-comms-ui-wait = Next announcement in { $seconds } s

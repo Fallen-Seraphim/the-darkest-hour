@@ -27,7 +27,9 @@ public sealed class DHPhoneBoundUserInterface : CartridgeLoaderBoundUserInterfac
 
         _window = this.CreateWindow<DHPhoneWindow>();
         var ticker = EntMan.System<ClientGameTicker>();
+        var status = EntMan.System<DHCityStatusClientSystem>();
         _window.Clock = () => DHCityClock.DateTimeText(ticker.RoundDuration());
+        _window.Status = () => status.Status;
         _window.OnProgram += uid => ActivateCartridge(uid);
         _window.OnHome += DeactivateActiveCartridge;
         UpdateHeader();
@@ -76,7 +78,12 @@ public sealed class DHPhoneWindow : DefaultWindow
     /// <summary>Дата и время Лост-Энджелса (5 апреля 2318).</summary>
     public Func<string>? Clock;
 
-    private readonly Label _clock = new() { FontColorOverride = Color.Gray, HorizontalAlignment = HAlignment.Center };
+    /// <summary>Обстановка в городе — рядом со временем.</summary>
+    public Func<DHCityStatus>? Status;
+
+    private readonly Label _clock = new() { FontColorOverride = Color.Gray };
+    private readonly Label _status = new();
+    private DHCityStatus? _shownStatus;
     private readonly Label _owner = new() { FontColorOverride = Accent };
     private readonly Label _number = new() { FontColorOverride = Color.Gray };
     private readonly Label _programTitle = new() { FontColorOverride = Accent, HorizontalExpand = true };
@@ -114,7 +121,15 @@ public sealed class DHPhoneWindow : DefaultWindow
             Margin = new Thickness(8),
         };
 
-        root.AddChild(_clock);
+        var clockRow = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Horizontal,
+            HorizontalAlignment = HAlignment.Center,
+            SeparationOverride = 8,
+        };
+        clockRow.AddChild(_clock);
+        clockRow.AddChild(_status);
+        root.AddChild(clockRow);
         var header = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 8 };
         _owner.HorizontalExpand = true;
         header.AddChild(_owner);
@@ -137,6 +152,13 @@ public sealed class DHPhoneWindow : DefaultWindow
         base.FrameUpdate(args);
         if (Clock?.Invoke() is { } now && _clock.Text != now)
             _clock.Text = now;
+
+        if (Status?.Invoke() is { } status && status != _shownStatus)
+        {
+            _shownStatus = status;
+            _status.Text = Loc.GetString(DHCityStatuses.Name(status));
+            _status.FontColorOverride = DHCityStatuses.TextColor(status);
+        }
     }
 
     public void SetHeader(string owner, string number)

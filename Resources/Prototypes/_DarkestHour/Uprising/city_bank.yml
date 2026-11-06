@@ -181,6 +181,7 @@
         - id: NotekeeperCartridge
         - id: DHBankAppCartridge
         - id: DHWeatherAppCartridge
+        - id: NewsReaderCartridge
   - type: ActivatableUI
     key: enum.DHPhoneUiKey.Key
     singleUser: true
@@ -253,6 +254,7 @@
         - id: NotekeeperCartridge
         - id: DHBankAppCartridge
         - id: DHWeatherAppCartridge
+        - id: NewsReaderCartridge
   - type: ActivatableUI
     key: enum.DHPhoneUiKey.Key
   - type: UserInterface
@@ -299,6 +301,71 @@
   - type: AccessReader
     access: [["DHLAPoliceCommand"]]
 
+
+# ---------------------------------------------------------------- связь района и ВП, новости (решение автора 2026-11-06)
+
+- type: entity
+  parent: DHCityComputerBase
+  id: DHCityCommsDistrict
+  name: district communications computer
+  description: The district office's link to every screen and speaker in the district. Announcements to the whole city.
+  components:
+  - type: Sprite
+    layers:
+    - state: terminal1
+  - type: PointLight
+    color: "#8fd66b"
+  - type: DHCityComms
+    sender: dh-city-comms-sender-district
+    color: "#c8c8c8"
+  - type: AccessReader
+    access: [["DHLADistrict"]]
+  - type: ActivatableUIRequiresAccess
+  - type: ActivatableUI
+    key: enum.DHCityCommsUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHCityCommsUiKey.Key:
+        type: DHCityCommsBoundUserInterface
+
+- type: entity
+  parent: DHCityCommsDistrict
+  id: DHCityCommsPolice
+  name: Military Police communications computer
+  description: Announcements to the whole city and the city's situation code - normal, curfew or emergency.
+  components:
+  - type: Sprite
+    layers:
+    - state: security_det
+  - type: PointLight
+    color: "#5b8ad6"
+  - type: DHCityComms
+    sender: dh-city-comms-sender-police
+    color: "#5b8ad6"
+    canSetStatus: true
+  - type: AccessReader
+    access: [["DHLAPoliceCommand"]]
+
+- type: entity
+  parent: DHCityComputerBase
+  id: DHCityNewsComputer
+  name: news computer
+  description: The district's newsroom. Anything published here reaches every phone and terminal in Lost Angels.
+  components:
+  - type: Sprite
+    layers:
+    - state: retro2
+  - type: PointLight
+    color: "#e8b04a"
+  - type: NewsWriter
+  - type: AccessReader
+    access: [["DHLADistrict"]]
+  - type: ActivatableUI
+    key: enum.NewsWriterUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.NewsWriterUiKey.Key:
+        type: NewsWriterBoundUserInterface
 - type: entity
   parent: BaseStructure
   id: DHCityAtm

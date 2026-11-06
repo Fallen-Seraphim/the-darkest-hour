@@ -1,0 +1,14 @@
+dh-city-status-normal = Обычная ситуация
+dh-city-status-curfew = Комендантский час
+dh-city-status-emergency = ЧС
+dh-city-status-announce-normal = В городе восстановлена обычная ситуация. Комендантский час и режим ЧС отменены.
+dh-city-status-announce-curfew = В городе введён комендантский час. Жителям оставаться дома или на рабочих местах, на улицах не появляться. Нарушители будут задержаны Военной Полицией.
+dh-city-status-announce-emergency = В городе объявлен режим чрезвычайной ситуации. Жителям укрыться в помещениях и выполнять требования Военной Полиции. Военная Полиция имеет право применять оружие.
+dh-city-comms-sender-district = Управа района
+dh-city-comms-sender-police = Военная Полиция Лост-Энджелса
+dh-city-comms-cooldown = Следующее объявление — чуть позже.
+dh-city-comms-ui-sender = Подпись: { $sender }
+dh-city-comms-ui-status = Обстановка:
+dh-city-comms-ui-announce = Объявление на весь город:
+dh-city-comms-ui-send = Объявить
+dh-city-comms-ui-wait = Следующее объявление через { $seconds } с
