@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Taken from tgstation at commit https://github.com/tgstation/tgstation/commit/bfc9c6ba8126ee8c41564d68c4bfb9ce37faa8f8, inhands by TiniestShark (Github)",
+  "copyright": "Taken from tgstation at commit https://github.com/tgstation/tgstation/commit/bfc9c6ba8126ee8c41564d68c4bfb9ce37faa8f8, inhands by TiniestShark (Github). DarkestHour: RMC-like sprites from RMC-14 (Made by SharkSnake98 on GitHub)",
   "size": {
     "x": 32,
     "y": 32
@@ -11,22 +11,66 @@
       "name": "geiger_base"
     },
     {
-      "name": "geiger_on_idle"
+      "name": "geiger_on_idle",
+      "delays": [
+        [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      ]
     },
     {
-      "name": "geiger_on_low"
+      "name": "geiger_on_low",
+      "delays": [
+        [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      ]
     },
     {
-      "name": "geiger_on_med"
+      "name": "geiger_on_med",
+      "delays": [
+        [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      ]
     },
     {
-      "name": "geiger_on_high"
+      "name": "geiger_on_high",
+      "delays": [
+        [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      ]
     },
     {
       "name": "geiger_on_ext",
       "delays": [
         [
-          0.2,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
           0.1
         ]
       ]

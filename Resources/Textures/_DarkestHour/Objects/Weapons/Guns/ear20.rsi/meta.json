@@ -15,6 +15,21 @@
     },
     {
       "name": "bolt-open"
+    },
+    {
+      "name": "vgrip"
+    },
+    {
+      "name": "agrip"
+    },
+    {
+      "name": "handstop"
+    },
+    {
+      "name": "laser"
+    },
+    {
+      "name": "light"
     }
   ]
 }

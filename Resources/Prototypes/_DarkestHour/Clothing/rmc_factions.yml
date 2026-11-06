@@ -1,0 +1,220 @@
+# DarkestHour: RMC-образная форма фракций (решение автора 2026-11-05). Республика — в духе USCM (камуфляж «джунгли»),
+# Империя — в духе Королевской морской пехоты TWE. Спрайты — RMC-14 (CC-BY-SA-3.0), копируются
+# Tools/_DarkestHour/rmc_skins.py. Защита и вместимость — как у ванильных родителей, меняется только вид.
+
+# --- Республика ---
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHRepublicClothingUniformFatigues
+  name: "Republican fatigues"
+  description: "Jungle-pattern combat fatigues of the Republican Army Corps."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Marine/standard/jungle.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Marine/standard/jungle.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHRepublicClothingUniformMedic
+  name: "Republican corpsman fatigues"
+  description: "Jungle-pattern fatigues with the corpsman's armband."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Marine/medic/jungle.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Marine/medic/jungle.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHRepublicClothingUniformEngineer
+  name: "Republican sapper fatigues"
+  description: "Jungle-pattern fatigues of the Republican combat engineers."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Marine/engineer/jungle.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Marine/engineer/jungle.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHRepublicClothingUniformTanker
+  name: "Republican crewman coveralls"
+  description: "Coveralls of the Republican armoured vehicle crews."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Marine/tanker/jungle.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Marine/tanker/jungle.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHRepublicClothingHeadPatrolCap
+  name: "Republican patrol cap"
+  description: "A jungle-pattern field cap. No protection."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/cap/jungle.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/cap/jungle.rsi
+
+- type: entity
+  parent: ClothingHandsGlovesCombat
+  id: DHRepublicClothingHandsGlovesCombat
+  name: "Republican combat gloves"
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Hands/Gloves/brown.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Hands/Gloves/brown.rsi
+
+- type: entity
+  parent: ClothingBackpackMerc
+  id: DHRepublicClothingBackpack
+  name: "Republican field pack"
+  description: "A standard-issue rucksack of the Republican Army Corps."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Back/Backpacks/Marines/standard/jungle-desert-classic.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Back/Backpacks/Marines/standard/jungle-desert-classic.rsi
+
+- type: entity
+  parent: ClothingBackpackMerc
+  id: DHRepublicClothingBackpackMedic
+  name: "Republican corpsman pack"
+  description: "A field pack marked with the medical cross."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Back/Backpacks/Marines/medic/jungle-desert-classic.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Back/Backpacks/Marines/medic/jungle-desert-classic.rsi
+
+- type: entity
+  parent: ClothingBeltMilitaryWebbing
+  id: DHRepublicClothingBeltWebbing
+  name: "Republican load-bearing belt"
+  description: "Webbing with ammunition pouches of the Republican Army Corps."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Belt/marine/jungle-classic.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Belt/marine/jungle-classic.rsi
+
+- type: entity
+  parent: ClothingBeltMilitaryWebbingMedFilled
+  id: DHRepublicClothingBeltMedicFilled
+  name: "Republican medical belt"
+  description: "A corpsman's belt with medical pouches."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Belt/medicbag/jungle-classic.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Belt/medicbag/jungle-classic.rsi
+
+# --- Империя ---
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHImperialClothingUniformFatigues
+  name: "Imperial marine fatigues"
+  description: "Combat fatigues of the Imperial Marines."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/TSE/RCM/standard.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/TSE/RCM/standard.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHImperialClothingUniformLead
+  name: "Imperial marine team lead fatigues"
+  description: "Fatigues of an Imperial Marines team leader."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/TSE/RCM/team_lead.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/TSE/RCM/team_lead.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHImperialClothingHeadCap
+  name: "Imperial field cap"
+  description: "A field cap of the Imperial Marines. No protection."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Royal/cap.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Royal/cap.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHImperialClothingHeadBeret
+  name: "Imperial marine beret"
+  description: "The beret of the Imperial Marines. No protection."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Royal/beret.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Royal/beret.rsi
+
+- type: entity
+  parent: ClothingHandsGlovesCombat
+  id: DHImperialClothingHandsGlovesCombat
+  name: "Imperial combat gloves"
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Hands/Gloves/royal_marine.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Hands/Gloves/royal_marine.rsi
+
+- type: entity
+  parent: ClothingBackpackDuffelSyndicate
+  id: DHImperialClothingBackpack
+  name: "Imperial field pack"
+  description: "A field pack of the Imperial Marines."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Back/Backpacks/RCM/medium.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Back/Backpacks/RCM/medium.rsi
+
+- type: entity
+  parent: ClothingBackpackDuffelSyndicate
+  id: DHImperialClothingBackpackMedic
+  name: "Imperial medic pack"
+  description: "A field pack of the Imperial Marines medics."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Back/Backpacks/RCM/medic.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Back/Backpacks/RCM/medic.rsi
+
+- type: entity
+  parent: ClothingBeltMilitaryWebbing
+  id: DHImperialClothingBeltWebbing
+  name: "Imperial load-bearing belt"
+  description: "Webbing of the Imperial Marines."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Belt/rcm_general.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Belt/rcm_general.rsi
+
+- type: entity
+  parent: ClothingBeltMilitaryWebbingMedFilled
+  id: DHImperialClothingBeltMedicFilled
+  name: "Imperial medical belt"
+  description: "A medic's belt of the Imperial Marines."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Belt/rcm_medical.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Belt/rcm_medical.rsi

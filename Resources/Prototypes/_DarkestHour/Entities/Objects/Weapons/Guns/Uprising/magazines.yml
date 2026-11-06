@@ -601,3 +601,251 @@
   components:
   - type: BallisticAmmoProvider
     proto: DHCartridge9x19RUB
+- type: entity
+  abstract: true
+  parent: [ BaseItem, BaseSecurityContraband ]
+  id: DHMagazineLAVR55Base
+  name: "LAVR-55 magazine (7.55x49mm)"
+  components:
+  - type: Tag
+    tags:
+    - DHMagazineLAVR55
+  - type: Item
+    size: Small
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - DHCartridge755x49
+    capacity: 30
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/5.56x45mm/5.56x45mm_mag.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: false
+  - type: Appearance
+- type: entity
+  parent: DHMagazineLAVR55Base
+  id: DHMagazineLAVR55Empty
+  suffix: Empty
+  description: "30-round magazine."
+  components:
+  - type: BallisticAmmoProvider
+    proto: null
+- type: entity
+  parent: DHMagazineLAVR55Base
+  id: DHMagazineLAVR55LS
+  name: "LAVR-55 magazine (7.55x49mm LS)"
+  description: "30-round magazine. LA-V standard: a bonded polymer-jacketed bullet."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge755x49LS
+- type: entity
+  parent: DHMagazineLAVR55Base
+  id: DHMagazineLAVR55LAP
+  name: "LAVR-55 magazine (7.55x49mm LAP)"
+  description: "30-round magazine. LA-V armour-piercing: a tungsten core against armour and cover."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge755x49LAP
+- type: entity
+  parent: DHMagazineLAVR55Base
+  id: DHMagazineLAVR55LHP
+  name: "LAVR-55 magazine (7.55x49mm LHP)"
+  description: "30-round magazine. LA-V hollow point: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge755x49LHP
+- type: entity
+  abstract: true
+  parent: [ BaseItem, BaseSecurityContraband ]
+  id: DHMagazineLAVR61Base
+  name: "LAVR-61 magazine (7.55x61mm)"
+  components:
+  - type: Tag
+    tags:
+    - DHMagazineLAVR61
+  - type: Item
+    size: Small
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - DHCartridge755x61
+    capacity: 20
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/7.62x51mm/7.62x51mm_mag.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: false
+  - type: Appearance
+- type: entity
+  parent: DHMagazineLAVR61Base
+  id: DHMagazineLAVR61Empty
+  suffix: Empty
+  description: "20-round magazine."
+  components:
+  - type: BallisticAmmoProvider
+    proto: null
+- type: entity
+  parent: DHMagazineLAVR61Base
+  id: DHMagazineLAVR61LS
+  name: "LAVR-61 magazine (7.55x61mm LS)"
+  description: "20-round magazine. LA-V standard: a bonded polymer-jacketed bullet."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge755x61LS
+- type: entity
+  parent: DHMagazineLAVR61Base
+  id: DHMagazineLAVR61LAP
+  name: "LAVR-61 magazine (7.55x61mm LAP)"
+  description: "20-round magazine. LA-V armour-piercing: a tungsten core against armour and cover."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge755x61LAP
+- type: entity
+  parent: DHMagazineLAVR61Base
+  id: DHMagazineLAVR61LHP
+  name: "LAVR-61 magazine (7.55x61mm LHP)"
+  description: "20-round magazine. LA-V hollow point: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge755x61LHP
+- type: entity
+  abstract: true
+  parent: [ BaseItem, BaseSecurityContraband ]
+  id: DHMagazineLAVSMG23Base
+  name: "LAVSMG-23 magazine (7.55x23mm)"
+  components:
+  - type: Tag
+    tags:
+    - DHMagazineLAVSMG23
+  - type: Item
+    size: Small
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - DHCartridge755x23
+    capacity: 30
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/45_ACP/45_ACP_smg_mag.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Appearance
+- type: entity
+  parent: DHMagazineLAVSMG23Base
+  id: DHMagazineLAVSMG23Empty
+  suffix: Empty
+  description: "30-round magazine."
+  components:
+  - type: BallisticAmmoProvider
+    proto: null
+- type: entity
+  parent: DHMagazineLAVSMG23Base
+  id: DHMagazineLAVSMG23LS
+  name: "LAVSMG-23 magazine (7.55x23mm LS)"
+  description: "30-round magazine. LA-V standard: a bonded polymer-jacketed bullet."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge755x23LS
+- type: entity
+  parent: DHMagazineLAVSMG23Base
+  id: DHMagazineLAVSMG23LAP
+  name: "LAVSMG-23 magazine (7.55x23mm LAP)"
+  description: "30-round magazine. LA-V armour-piercing: a tungsten core against armour and cover."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge755x23LAP
+- type: entity
+  parent: DHMagazineLAVSMG23Base
+  id: DHMagazineLAVSMG23LHP
+  name: "LAVSMG-23 magazine (7.55x23mm LHP)"
+  description: "30-round magazine. LA-V hollow point: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge755x23LHP
+- type: entity
+  abstract: true
+  parent: [ BaseItem, BaseSecurityContraband ]
+  id: DHMagazineLAVR90Base
+  name: "LAVR-90 magazine (7.62x90mm)"
+  components:
+  - type: Tag
+    tags:
+    - DHMagazineLAVR90
+  - type: Item
+    size: Small
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - DHCartridge762x90
+    capacity: 10
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/7.62x51mm/7.62x51mm_cap_mag.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: false
+  - type: Appearance
+- type: entity
+  parent: DHMagazineLAVR90Base
+  id: DHMagazineLAVR90Empty
+  suffix: Empty
+  description: "10-round magazine."
+  components:
+  - type: BallisticAmmoProvider
+    proto: null
+- type: entity
+  parent: DHMagazineLAVR90Base
+  id: DHMagazineLAVR90LM
+  name: "LAVR-90 magazine (7.62x90mm LM)"
+  description: "10-round magazine. LA-V match: a precision-loaded long-range bullet."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x90LM
+- type: entity
+  parent: DHMagazineLAVR90Base
+  id: DHMagazineLAVR90LAP
+  name: "LAVR-90 magazine (7.62x90mm LAP)"
+  description: "10-round magazine. LA-V armour-piercing: a tungsten core against armour and cover."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge762x90LAP

@@ -1,0 +1,3135 @@
+# DarkestHour: сгенерировано Tools/_DarkestHour/uprising/gen_civ_clothing.py — правьте генератор.
+# Гражданская одежда Лост-Энджелса (RMC-14, CC-BY-SA-3.0), случайные заготовки и лоадауты мирных должностей.
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformBlueJumpsuit
+  name: blue jumpsuit
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/blue_jumpsuit.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/blue_jumpsuit.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformBrownJumpsuit
+  name: brown jumpsuit
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/brown_jumpsuit.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/brown_jumpsuit.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformGreyJumpsuit
+  name: grey jumpsuit
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/grey_jumpsuit.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/grey_jumpsuit.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformLightBrownJumpsuit
+  name: light brown jumpsuit
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/lightbrown_jumpsuit.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/lightbrown_jumpsuit.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformYellowJumpsuit
+  name: yellow jumpsuit
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/yellow_jumpsuit.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/yellow_jumpsuit.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformWhiteJumpsuit
+  name: white jumpsuit
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/white_jumpsuit_alt.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/white_jumpsuit_alt.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformCheckered
+  name: checkered shirt and jeans
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/checkered.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/checkered.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformDailyGrind
+  name: everyday clothes
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/daily_grind.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/daily_grind.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformBlueUtility
+  name: blue utility clothes
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/blue_utility.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/blue_utility.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformBrownUtility
+  name: brown utility clothes
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/brown_utility.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/brown_utility.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformGrayUtility
+  name: grey utility clothes
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/gray_utility.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/gray_utility.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformGreenUtility
+  name: green utility clothes
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/green_utility.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/green_utility.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformRedUtility
+  name: red utility clothes
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/red_utility.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/red_utility.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformYellowUtility
+  name: yellow utility clothes
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/yellow_utility.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/yellow_utility.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformKhakiWorkwear
+  name: khaki workwear
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/khaki_workwear.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/khaki_workwear.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformFrontier
+  name: frontier clothes
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Survivor/frontier.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Survivor/frontier.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformJumper
+  name: work jumper
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Survivor/kutjevo_jumper.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Survivor/kutjevo_jumper.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformShorts
+  name: shirt and shorts
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Survivor/varadero_shorts.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Survivor/varadero_shorts.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformBlueShirtTanPants
+  name: blue shirt and tan trousers
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Freelancer/blueshirt_tanpants.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Freelancer/blueshirt_tanpants.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformOliveShirtBlackPants
+  name: olive shirt and black trousers
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Freelancer/oliveshirt_blackpants.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Freelancer/oliveshirt_blackpants.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformWhiteShirtGreenPants
+  name: white shirt and green trousers
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Freelancer/whiteshirt_greenpants.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Freelancer/whiteshirt_greenpants.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformTShirtGray
+  name: grey t-shirt and jeans
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/T-shirt/gray.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/T-shirt/gray.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformTShirtRed
+  name: red t-shirt and jeans
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/T-shirt/red.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/T-shirt/red.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformTShirtWhite
+  name: white t-shirt and jeans
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/T-shirt/white.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/T-shirt/white.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformCargoShorts
+  name: cargo shorts
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/cargo_shorts.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/cargo_shorts.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformOuting
+  name: casual shirt
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/liaison_outing.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/liaison_outing.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformOutingRed
+  name: red casual shirt
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/liaison_outing_red.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/liaison_outing_red.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformGreenWorkwear
+  name: green workwear
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/green_workwear.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/green_workwear.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformGreyWorkwear
+  name: grey workwear
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/grey_workwear.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/grey_workwear.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformPinkWorkwear
+  name: pink workwear
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/pink_workwear.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/pink_workwear.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformStowaway
+  name: worn-out clothes
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/stowaway.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/stowaway.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformBlackPants
+  name: shirt and black trousers
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/black_pants_uniform.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/black_pants_uniform.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformBlackSuit
+  name: black suit
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/black_tailored.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/black_tailored.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformBurgundySuit
+  name: burgundy suit
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/burgundy_tailored.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/burgundy_tailored.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformCheckeredSuit
+  name: checkered suit
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/checkered_tailored.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/checkered_tailored.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformNavySuit
+  name: navy suit
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/navy_tailored.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/navy_tailored.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformColonyAdmin
+  name: administrator's uniform
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/colony_admin.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/colony_admin.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformBlueBlazer
+  name: blue blazer
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/liaison_blue_blazer.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/liaison_blue_blazer.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformRegular
+  name: shirt and tie
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/liaison_regular.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/liaison_regular.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformFormal
+  name: formal suit
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/liaison_formal.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/liaison_formal.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformManager
+  name: manager's uniform
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/managers_uniform.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/managers_uniform.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformLegal
+  name: lawyer's suit
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/legal_uniform.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/legal_uniform.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformDetectiveBrown
+  name: brown slacks and waistcoat
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/detective_brown.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/detective_brown.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformDetectiveGrey
+  name: grey slacks and waistcoat
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/detective_grey.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/detective_grey.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformSkirt
+  name: blouse and skirt
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/liaison_skirt.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/liaison_skirt.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformExpensiveSuit
+  name: expensive suit
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/expensive_suit.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/expensive_suit.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformEngineerWorkerAlt
+  name: technician's uniform
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Survivor/engineer_worker_alt.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Survivor/engineer_worker_alt.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformSanitation
+  name: sanitation coveralls
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/sanitation.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/sanitation.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivUniformMining
+  name: miner's coveralls
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/tartarus_mining.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/tartarus_mining.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivOuterBomberBlack
+  name: black bomber jacket
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/bomber_black.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/bomber_black.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivOuterBomberGrey
+  name: grey bomber jacket
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/bomber_grey.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/bomber_grey.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivOuterBomberKhaki
+  name: khaki bomber jacket
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/bomber_khaki.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/bomber_khaki.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivOuterBomberRed
+  name: red bomber jacket
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/bomber_red.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/bomber_red.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivOuterBrownVest
+  name: brown vest
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/brown_vest.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/brown_vest.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivOuterGreyVest
+  name: grey vest
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/grey_vest.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/grey_vest.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivOuterTanVest
+  name: tan vest
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/tan_vest.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/tan_vest.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivOuterCoatBlue
+  name: blue coat
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/hobocoat_blue.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/hobocoat_blue.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivOuterCoatBrown
+  name: brown coat
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/hobocoat_brown.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/hobocoat_brown.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivOuterCoatDarkBlue
+  name: dark blue coat
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/hobocoat_dark_blue.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/hobocoat_dark_blue.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivOuterCoatGreen
+  name: green coat
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/hobocoat_green.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/hobocoat_green.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivOuterCoatRed
+  name: red coat
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/hobocoat_red.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/hobocoat_red.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivOuterLongCoat
+  name: long coat
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/long_coat.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/long_coat.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivOuterFormalCoat
+  name: formal coat
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/coat_formal.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/coat_formal.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivOuterWaistcoat
+  name: waistcoat
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/waistcoat.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/waistcoat.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivOuterTrenchCoat
+  name: trench coat
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/d_coat.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/d_coat.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivOuterWindbreaker
+  name: windbreaker
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/Windbreakers/windbreaker.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/Windbreakers/windbreaker.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivOuterWindbreakerBrown
+  name: brown windbreaker
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/Windbreakers/windbreaker_brown.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/Windbreakers/windbreaker_brown.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivOuterWindbreakerGrey
+  name: grey windbreaker
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/Windbreakers/windbreaker_grey.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/Windbreakers/windbreaker_grey.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivOuterWindbreakerExpedition
+  name: expedition windbreaker
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/Windbreakers/windbreaker_expedition.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/Windbreakers/windbreaker_expedition.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivHeadTruckerBlue
+  name: blue trucker cap
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/blue_trucker_cap.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/blue_trucker_cap.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivHeadTruckerRed
+  name: red trucker cap
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/red_trucker_cap.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/red_trucker_cap.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivHeadBucket
+  name: bucket hat
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/bucket.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/bucket.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivHeadCapOld
+  name: old cap
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/cargo_cap_old.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/cargo_cap_old.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivHeadFlapcap
+  name: flap cap
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/flapcap/classic.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/flapcap/classic.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivHeadSoftcapBlue
+  name: blue baseball cap
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/softcap/blue_cap.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/softcap/blue_cap.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivHeadSoftcapYellow
+  name: yellow baseball cap
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/softcap/yellow_cap.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/softcap/yellow_cap.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivHeadUshanka
+  name: ushanka
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/ushanka.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/ushanka.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivHeadDurag
+  name: durag
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/durag.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/durag.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivHeadDuragBlack
+  name: black durag
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/durag_black.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/durag_black.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivHeadFedoraBrown
+  name: brown fedora
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/Fedora/brown.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/Fedora/brown.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivHeadFedoraGrey
+  name: grey fedora
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/Fedora/grey.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/Fedora/grey.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivHeadFedoraTan
+  name: tan fedora
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/Fedora/tan.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/Fedora/tan.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivHeadBeanie
+  name: beanie
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Beanies/beanie.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Beanies/beanie.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivHeadBeanieGray
+  name: grey beanie
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Beanies/gray.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Beanies/gray.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivHeadBeanieGreen
+  name: green beanie
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Beanies/green.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Beanies/green.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivHeadBeanieTan
+  name: tan beanie
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Beanies/tan.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Beanies/tan.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivHeadBoonieFisher
+  name: fisherman's hat
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/boonie_fisher.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/boonie_fisher.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivHeadCowboyDark
+  name: dark cowboy hat
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/cowboy/dark_cowboy.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/cowboy/dark_cowboy.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivHeadCowboyLight
+  name: light cowboy hat
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/cowboy/light_cowboy.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/cowboy/light_cowboy.rsi
+
+- type: entity
+  parent: ClothingShoesBase
+  id: DHLACivShoesSneakersBlue
+  name: blue sneakers
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Shoes/Sneakers/blue.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Shoes/Sneakers/blue.rsi
+
+- type: entity
+  parent: ClothingShoesBase
+  id: DHLACivShoesSneakersBrown
+  name: brown sneakers
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Shoes/Sneakers/brown.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Shoes/Sneakers/brown.rsi
+
+- type: entity
+  parent: ClothingShoesBase
+  id: DHLACivShoesSneakersGreen
+  name: green sneakers
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Shoes/Sneakers/green.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Shoes/Sneakers/green.rsi
+
+- type: entity
+  parent: ClothingShoesBase
+  id: DHLACivShoesSneakersRed
+  name: red sneakers
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Shoes/Sneakers/red.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Shoes/Sneakers/red.rsi
+
+- type: entity
+  parent: ClothingShoesBase
+  id: DHLACivShoesSneakersWhite
+  name: white sneakers
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Shoes/Sneakers/white.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Shoes/Sneakers/white.rsi
+
+- type: entity
+  parent: ClothingShoesBase
+  id: DHLACivShoesSneakersYellow
+  name: yellow sneakers
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Shoes/Sneakers/yellow.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Shoes/Sneakers/yellow.rsi
+
+- type: entity
+  parent: ClothingShoesBase
+  id: DHLACivShoesLaceupBrown
+  name: brown oxfords
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Shoes/laceup_brown.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Shoes/laceup_brown.rsi
+
+- type: entity
+  parent: ClothingShoesBase
+  id: DHLACivShoesFancyLeather
+  name: fancy leather shoes
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Shoes/fancy_leather.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Shoes/fancy_leather.rsi
+
+- type: entity
+  parent: ClothingShoesBase
+  id: DHLACivShoesBootsGrey
+  name: grey boots
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Shoes/Boots/grey.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Shoes/Boots/grey.rsi
+
+- type: entity
+  parent: ClothingShoesBase
+  id: DHLACivShoesBootsBlack
+  name: black boots
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Shoes/Boots/black.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Shoes/Boots/black.rsi
+
+- type: entity
+  parent: ClothingBackpackSatchel
+  id: DHLACivBackSatchelBlack
+  name: black satchel
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Back/Satchels/Civilians/black.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Back/Satchels/Civilians/black.rsi
+
+- type: entity
+  parent: ClothingBackpackSatchel
+  id: DHLACivBackSatchelBlue
+  name: blue satchel
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Back/Satchels/Civilians/blue.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Back/Satchels/Civilians/blue.rsi
+
+- type: entity
+  parent: ClothingBackpackSatchel
+  id: DHLACivBackSatchelClassic
+  name: leather satchel
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Back/Satchels/Civilians/classic.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Back/Satchels/Civilians/classic.rsi
+
+- type: entity
+  parent: ClothingBackpackSatchel
+  id: DHLACivBackBackpack
+  name: backpack
+  description: "Everyday clothing of Lost Angels."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Back/Backpacks/Civilians/standard.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Back/Backpacks/Civilians/standard.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivRandomUniformCasual
+  name: random casual clothes
+  description: "Turns into a random piece of clothing when you arrive in the city."
+  suffix: random
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/blue_jumpsuit.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/blue_jumpsuit.rsi
+  - type: DHRandomOutfit
+    choices:
+    - DHLACivUniformBlueJumpsuit
+    - DHLACivUniformBrownJumpsuit
+    - DHLACivUniformGreyJumpsuit
+    - DHLACivUniformLightBrownJumpsuit
+    - DHLACivUniformYellowJumpsuit
+    - DHLACivUniformWhiteJumpsuit
+    - DHLACivUniformCheckered
+    - DHLACivUniformDailyGrind
+    - DHLACivUniformBlueUtility
+    - DHLACivUniformBrownUtility
+    - DHLACivUniformGrayUtility
+    - DHLACivUniformGreenUtility
+    - DHLACivUniformRedUtility
+    - DHLACivUniformYellowUtility
+    - DHLACivUniformKhakiWorkwear
+    - DHLACivUniformFrontier
+    - DHLACivUniformJumper
+    - DHLACivUniformShorts
+    - DHLACivUniformBlueShirtTanPants
+    - DHLACivUniformOliveShirtBlackPants
+    - DHLACivUniformWhiteShirtGreenPants
+    - DHLACivUniformTShirtGray
+    - DHLACivUniformTShirtRed
+    - DHLACivUniformTShirtWhite
+    - DHLACivUniformCargoShorts
+    - DHLACivUniformOuting
+    - DHLACivUniformOutingRed
+    - DHLACivUniformGreenWorkwear
+    - DHLACivUniformGreyWorkwear
+    - DHLACivUniformPinkWorkwear
+    - DHLACivUniformStowaway
+    - DHLACivUniformDetectiveBrown
+    - DHLACivUniformDetectiveGrey
+    - DHLAClothingUniformColonist
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivRandomUniformFormal
+  name: random business clothes
+  description: "Turns into a random piece of clothing when you arrive in the city."
+  suffix: random
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/liaison_outing.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Liaison/liaison_outing.rsi
+  - type: DHRandomOutfit
+    choices:
+    - DHLACivUniformOuting
+    - DHLACivUniformOutingRed
+    - DHLACivUniformBlackPants
+    - DHLACivUniformBlackSuit
+    - DHLACivUniformBurgundySuit
+    - DHLACivUniformCheckeredSuit
+    - DHLACivUniformNavySuit
+    - DHLACivUniformColonyAdmin
+    - DHLACivUniformBlueBlazer
+    - DHLACivUniformRegular
+    - DHLACivUniformFormal
+    - DHLACivUniformManager
+    - DHLACivUniformLegal
+    - DHLACivUniformDetectiveBrown
+    - DHLACivUniformDetectiveGrey
+    - DHLACivUniformSkirt
+    - DHLACivUniformExpensiveSuit
+    - DHLAClothingUniformSuitCharcoal
+    - DHLAClothingUniformAdmin
+    - DHLAClothingUniformOffice
+    - DHLAClothingUniformSuspenders
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLACivRandomUniformWork
+  name: random work clothes
+  description: "Turns into a random piece of clothing when you arrive in the city."
+  suffix: random
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/blue_utility.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/Civilian/blue_utility.rsi
+  - type: DHRandomOutfit
+    choices:
+    - DHLACivUniformBlueUtility
+    - DHLACivUniformBrownUtility
+    - DHLACivUniformGrayUtility
+    - DHLACivUniformGreenUtility
+    - DHLACivUniformRedUtility
+    - DHLACivUniformYellowUtility
+    - DHLACivUniformKhakiWorkwear
+    - DHLACivUniformJumper
+    - DHLACivUniformGreenWorkwear
+    - DHLACivUniformGreyWorkwear
+    - DHLACivUniformEngineerWorkerAlt
+    - DHLACivUniformSanitation
+    - DHLACivUniformMining
+    - DHLAClothingUniformOveralls
+    - DHLAClothingUniformUtility
+    - DHLAClothingUniformMetro
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivRandomOuterCasual
+  name: random jacket (or none)
+  description: "Turns into a random piece of clothing when you arrive in the city."
+  suffix: random
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/bomber_black.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/bomber_black.rsi
+  - type: DHRandomOutfit
+    emptyChance: 0.45
+    choices:
+    - DHLACivOuterBomberBlack
+    - DHLACivOuterBomberGrey
+    - DHLACivOuterBomberKhaki
+    - DHLACivOuterBomberRed
+    - DHLACivOuterBrownVest
+    - DHLACivOuterGreyVest
+    - DHLACivOuterTanVest
+    - DHLACivOuterCoatBlue
+    - DHLACivOuterCoatBrown
+    - DHLACivOuterCoatDarkBlue
+    - DHLACivOuterCoatGreen
+    - DHLACivOuterCoatRed
+    - DHLACivOuterLongCoat
+    - DHLACivOuterTrenchCoat
+    - DHLACivOuterWindbreaker
+    - DHLACivOuterWindbreakerBrown
+    - DHLACivOuterWindbreakerGrey
+    - DHLACivOuterWindbreakerExpedition
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: DHLACivRandomOuterFormal
+  name: random coat (or none)
+  description: "Turns into a random piece of clothing when you arrive in the city."
+  suffix: random
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/long_coat.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/long_coat.rsi
+  - type: DHRandomOutfit
+    emptyChance: 0.5
+    choices:
+    - DHLACivOuterLongCoat
+    - DHLACivOuterFormalCoat
+    - DHLACivOuterWaistcoat
+    - DHLACivOuterTrenchCoat
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHLACivRandomHeadCasual
+  name: random hat (or none)
+  description: "Turns into a random piece of clothing when you arrive in the city."
+  suffix: random
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/blue_trucker_cap.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/blue_trucker_cap.rsi
+  - type: DHRandomOutfit
+    emptyChance: 0.55
+    choices:
+    - DHLACivHeadTruckerBlue
+    - DHLACivHeadTruckerRed
+    - DHLACivHeadBucket
+    - DHLACivHeadCapOld
+    - DHLACivHeadFlapcap
+    - DHLACivHeadSoftcapBlue
+    - DHLACivHeadSoftcapYellow
+    - DHLACivHeadUshanka
+    - DHLACivHeadDurag
+    - DHLACivHeadDuragBlack
+    - DHLACivHeadFedoraBrown
+    - DHLACivHeadFedoraGrey
+    - DHLACivHeadFedoraTan
+    - DHLACivHeadBeanie
+    - DHLACivHeadBeanieGray
+    - DHLACivHeadBeanieGreen
+    - DHLACivHeadBeanieTan
+    - DHLACivHeadBoonieFisher
+    - DHLACivHeadCowboyDark
+    - DHLACivHeadCowboyLight
+
+- type: entity
+  parent: ClothingShoesBase
+  id: DHLACivRandomShoesCasual
+  name: random shoes
+  description: "Turns into a random piece of clothing when you arrive in the city."
+  suffix: random
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Shoes/Sneakers/blue.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Shoes/Sneakers/blue.rsi
+  - type: DHRandomOutfit
+    choices:
+    - DHLACivShoesSneakersBlue
+    - DHLACivShoesSneakersBrown
+    - DHLACivShoesSneakersGreen
+    - DHLACivShoesSneakersRed
+    - DHLACivShoesSneakersWhite
+    - DHLACivShoesSneakersYellow
+    - DHLACivShoesBootsGrey
+    - DHLACivShoesBootsBlack
+    - DHLAClothingShoesSneakers
+
+- type: entity
+  parent: ClothingShoesBase
+  id: DHLACivRandomShoesFormal
+  name: random formal shoes
+  description: "Turns into a random piece of clothing when you arrive in the city."
+  suffix: random
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Shoes/laceup_brown.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Shoes/laceup_brown.rsi
+  - type: DHRandomOutfit
+    choices:
+    - DHLACivShoesLaceupBrown
+    - DHLACivShoesFancyLeather
+    - DHLAClothingShoesLeather
+    - DHLAClothingShoesLaceup
+
+- type: entity
+  parent: ClothingBackpackSatchel
+  id: DHLACivRandomBackCasual
+  name: random bag
+  description: "Turns into a random piece of clothing when you arrive in the city."
+  suffix: random
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Back/Satchels/Civilians/black.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Back/Satchels/Civilians/black.rsi
+  - type: DHRandomOutfit
+    choices:
+    - DHLACivBackSatchelBlack
+    - DHLACivBackSatchelBlue
+    - DHLACivBackSatchelClassic
+    - DHLACivBackBackpack
+    - DHLAClothingBackpackSatchel
+
+- type: loadout
+  id: DHLALoadoutClothingHeadHatHardhatOrange
+  equipment:
+    head: ClothingHeadHatHardhatOrange
+
+- type: loadout
+  id: DHLALoadoutClothingHeadHatHardhatYellow
+  equipment:
+    head: ClothingHeadHatHardhatYellow
+
+- type: loadout
+  id: DHLALoadoutClothingOuterApronBar
+  equipment:
+    outerClothing: ClothingOuterApronBar
+
+- type: loadout
+  id: DHLALoadoutClothingOuterCoatGentle
+  equipment:
+    outerClothing: ClothingOuterCoatGentle
+
+- type: loadout
+  id: DHLALoadoutClothingOuterVestHazard
+  equipment:
+    outerClothing: ClothingOuterVestHazard
+
+- type: loadout
+  id: DHLALoadoutCivBackBackpack
+  equipment:
+    back: DHLACivBackBackpack
+
+- type: loadout
+  id: DHLALoadoutCivBackSatchelBlack
+  equipment:
+    back: DHLACivBackSatchelBlack
+
+- type: loadout
+  id: DHLALoadoutCivBackSatchelBlue
+  equipment:
+    back: DHLACivBackSatchelBlue
+
+- type: loadout
+  id: DHLALoadoutCivBackSatchelClassic
+  equipment:
+    back: DHLACivBackSatchelClassic
+
+- type: loadout
+  id: DHLALoadoutCivHeadBeanie
+  equipment:
+    head: DHLACivHeadBeanie
+
+- type: loadout
+  id: DHLALoadoutCivHeadBeanieGray
+  equipment:
+    head: DHLACivHeadBeanieGray
+
+- type: loadout
+  id: DHLALoadoutCivHeadBeanieGreen
+  equipment:
+    head: DHLACivHeadBeanieGreen
+
+- type: loadout
+  id: DHLALoadoutCivHeadBeanieTan
+  equipment:
+    head: DHLACivHeadBeanieTan
+
+- type: loadout
+  id: DHLALoadoutCivHeadBoonieFisher
+  equipment:
+    head: DHLACivHeadBoonieFisher
+
+- type: loadout
+  id: DHLALoadoutCivHeadBucket
+  equipment:
+    head: DHLACivHeadBucket
+
+- type: loadout
+  id: DHLALoadoutCivHeadCapOld
+  equipment:
+    head: DHLACivHeadCapOld
+
+- type: loadout
+  id: DHLALoadoutCivHeadCowboyDark
+  equipment:
+    head: DHLACivHeadCowboyDark
+
+- type: loadout
+  id: DHLALoadoutCivHeadCowboyLight
+  equipment:
+    head: DHLACivHeadCowboyLight
+
+- type: loadout
+  id: DHLALoadoutCivHeadDurag
+  equipment:
+    head: DHLACivHeadDurag
+
+- type: loadout
+  id: DHLALoadoutCivHeadDuragBlack
+  equipment:
+    head: DHLACivHeadDuragBlack
+
+- type: loadout
+  id: DHLALoadoutCivHeadFedoraBrown
+  equipment:
+    head: DHLACivHeadFedoraBrown
+
+- type: loadout
+  id: DHLALoadoutCivHeadFedoraGrey
+  equipment:
+    head: DHLACivHeadFedoraGrey
+
+- type: loadout
+  id: DHLALoadoutCivHeadFedoraTan
+  equipment:
+    head: DHLACivHeadFedoraTan
+
+- type: loadout
+  id: DHLALoadoutCivHeadFlapcap
+  equipment:
+    head: DHLACivHeadFlapcap
+
+- type: loadout
+  id: DHLALoadoutCivHeadSoftcapBlue
+  equipment:
+    head: DHLACivHeadSoftcapBlue
+
+- type: loadout
+  id: DHLALoadoutCivHeadSoftcapYellow
+  equipment:
+    head: DHLACivHeadSoftcapYellow
+
+- type: loadout
+  id: DHLALoadoutCivHeadTruckerBlue
+  equipment:
+    head: DHLACivHeadTruckerBlue
+
+- type: loadout
+  id: DHLALoadoutCivHeadTruckerRed
+  equipment:
+    head: DHLACivHeadTruckerRed
+
+- type: loadout
+  id: DHLALoadoutCivHeadUshanka
+  equipment:
+    head: DHLACivHeadUshanka
+
+- type: loadout
+  id: DHLALoadoutCivOuterBomberBlack
+  equipment:
+    outerClothing: DHLACivOuterBomberBlack
+
+- type: loadout
+  id: DHLALoadoutCivOuterBomberGrey
+  equipment:
+    outerClothing: DHLACivOuterBomberGrey
+
+- type: loadout
+  id: DHLALoadoutCivOuterBomberKhaki
+  equipment:
+    outerClothing: DHLACivOuterBomberKhaki
+
+- type: loadout
+  id: DHLALoadoutCivOuterBomberRed
+  equipment:
+    outerClothing: DHLACivOuterBomberRed
+
+- type: loadout
+  id: DHLALoadoutCivOuterBrownVest
+  equipment:
+    outerClothing: DHLACivOuterBrownVest
+
+- type: loadout
+  id: DHLALoadoutCivOuterCoatBlue
+  equipment:
+    outerClothing: DHLACivOuterCoatBlue
+
+- type: loadout
+  id: DHLALoadoutCivOuterCoatBrown
+  equipment:
+    outerClothing: DHLACivOuterCoatBrown
+
+- type: loadout
+  id: DHLALoadoutCivOuterCoatDarkBlue
+  equipment:
+    outerClothing: DHLACivOuterCoatDarkBlue
+
+- type: loadout
+  id: DHLALoadoutCivOuterCoatGreen
+  equipment:
+    outerClothing: DHLACivOuterCoatGreen
+
+- type: loadout
+  id: DHLALoadoutCivOuterCoatRed
+  equipment:
+    outerClothing: DHLACivOuterCoatRed
+
+- type: loadout
+  id: DHLALoadoutCivOuterFormalCoat
+  equipment:
+    outerClothing: DHLACivOuterFormalCoat
+
+- type: loadout
+  id: DHLALoadoutCivOuterGreyVest
+  equipment:
+    outerClothing: DHLACivOuterGreyVest
+
+- type: loadout
+  id: DHLALoadoutCivOuterLongCoat
+  equipment:
+    outerClothing: DHLACivOuterLongCoat
+
+- type: loadout
+  id: DHLALoadoutCivOuterTanVest
+  equipment:
+    outerClothing: DHLACivOuterTanVest
+
+- type: loadout
+  id: DHLALoadoutCivOuterTrenchCoat
+  equipment:
+    outerClothing: DHLACivOuterTrenchCoat
+
+- type: loadout
+  id: DHLALoadoutCivOuterWaistcoat
+  equipment:
+    outerClothing: DHLACivOuterWaistcoat
+
+- type: loadout
+  id: DHLALoadoutCivOuterWindbreaker
+  equipment:
+    outerClothing: DHLACivOuterWindbreaker
+
+- type: loadout
+  id: DHLALoadoutCivOuterWindbreakerBrown
+  equipment:
+    outerClothing: DHLACivOuterWindbreakerBrown
+
+- type: loadout
+  id: DHLALoadoutCivOuterWindbreakerExpedition
+  equipment:
+    outerClothing: DHLACivOuterWindbreakerExpedition
+
+- type: loadout
+  id: DHLALoadoutCivOuterWindbreakerGrey
+  equipment:
+    outerClothing: DHLACivOuterWindbreakerGrey
+
+- type: loadout
+  id: DHLALoadoutCivRandomBackCasual
+  equipment:
+    back: DHLACivRandomBackCasual
+
+- type: loadout
+  id: DHLALoadoutCivRandomHeadCasual
+  equipment:
+    head: DHLACivRandomHeadCasual
+
+- type: loadout
+  id: DHLALoadoutCivRandomOuterCasual
+  equipment:
+    outerClothing: DHLACivRandomOuterCasual
+
+- type: loadout
+  id: DHLALoadoutCivRandomOuterFormal
+  equipment:
+    outerClothing: DHLACivRandomOuterFormal
+
+- type: loadout
+  id: DHLALoadoutCivRandomShoesCasual
+  equipment:
+    shoes: DHLACivRandomShoesCasual
+
+- type: loadout
+  id: DHLALoadoutCivRandomShoesFormal
+  equipment:
+    shoes: DHLACivRandomShoesFormal
+
+- type: loadout
+  id: DHLALoadoutCivRandomUniformCasual
+  equipment:
+    jumpsuit: DHLACivRandomUniformCasual
+
+- type: loadout
+  id: DHLALoadoutCivRandomUniformFormal
+  equipment:
+    jumpsuit: DHLACivRandomUniformFormal
+
+- type: loadout
+  id: DHLALoadoutCivRandomUniformWork
+  equipment:
+    jumpsuit: DHLACivRandomUniformWork
+
+- type: loadout
+  id: DHLALoadoutCivShoesBootsBlack
+  equipment:
+    shoes: DHLACivShoesBootsBlack
+
+- type: loadout
+  id: DHLALoadoutCivShoesBootsGrey
+  equipment:
+    shoes: DHLACivShoesBootsGrey
+
+- type: loadout
+  id: DHLALoadoutCivShoesFancyLeather
+  equipment:
+    shoes: DHLACivShoesFancyLeather
+
+- type: loadout
+  id: DHLALoadoutCivShoesLaceupBrown
+  equipment:
+    shoes: DHLACivShoesLaceupBrown
+
+- type: loadout
+  id: DHLALoadoutCivShoesSneakersBlue
+  equipment:
+    shoes: DHLACivShoesSneakersBlue
+
+- type: loadout
+  id: DHLALoadoutCivShoesSneakersBrown
+  equipment:
+    shoes: DHLACivShoesSneakersBrown
+
+- type: loadout
+  id: DHLALoadoutCivShoesSneakersGreen
+  equipment:
+    shoes: DHLACivShoesSneakersGreen
+
+- type: loadout
+  id: DHLALoadoutCivShoesSneakersRed
+  equipment:
+    shoes: DHLACivShoesSneakersRed
+
+- type: loadout
+  id: DHLALoadoutCivShoesSneakersWhite
+  equipment:
+    shoes: DHLACivShoesSneakersWhite
+
+- type: loadout
+  id: DHLALoadoutCivShoesSneakersYellow
+  equipment:
+    shoes: DHLACivShoesSneakersYellow
+
+- type: loadout
+  id: DHLALoadoutCivUniformBlackPants
+  equipment:
+    jumpsuit: DHLACivUniformBlackPants
+
+- type: loadout
+  id: DHLALoadoutCivUniformBlackSuit
+  equipment:
+    jumpsuit: DHLACivUniformBlackSuit
+
+- type: loadout
+  id: DHLALoadoutCivUniformBlueBlazer
+  equipment:
+    jumpsuit: DHLACivUniformBlueBlazer
+
+- type: loadout
+  id: DHLALoadoutCivUniformBlueJumpsuit
+  equipment:
+    jumpsuit: DHLACivUniformBlueJumpsuit
+
+- type: loadout
+  id: DHLALoadoutCivUniformBlueShirtTanPants
+  equipment:
+    jumpsuit: DHLACivUniformBlueShirtTanPants
+
+- type: loadout
+  id: DHLALoadoutCivUniformBlueUtility
+  equipment:
+    jumpsuit: DHLACivUniformBlueUtility
+
+- type: loadout
+  id: DHLALoadoutCivUniformBrownJumpsuit
+  equipment:
+    jumpsuit: DHLACivUniformBrownJumpsuit
+
+- type: loadout
+  id: DHLALoadoutCivUniformBrownUtility
+  equipment:
+    jumpsuit: DHLACivUniformBrownUtility
+
+- type: loadout
+  id: DHLALoadoutCivUniformBurgundySuit
+  equipment:
+    jumpsuit: DHLACivUniformBurgundySuit
+
+- type: loadout
+  id: DHLALoadoutCivUniformCargoShorts
+  equipment:
+    jumpsuit: DHLACivUniformCargoShorts
+
+- type: loadout
+  id: DHLALoadoutCivUniformCheckered
+  equipment:
+    jumpsuit: DHLACivUniformCheckered
+
+- type: loadout
+  id: DHLALoadoutCivUniformCheckeredSuit
+  equipment:
+    jumpsuit: DHLACivUniformCheckeredSuit
+
+- type: loadout
+  id: DHLALoadoutCivUniformColonyAdmin
+  equipment:
+    jumpsuit: DHLACivUniformColonyAdmin
+
+- type: loadout
+  id: DHLALoadoutCivUniformDailyGrind
+  equipment:
+    jumpsuit: DHLACivUniformDailyGrind
+
+- type: loadout
+  id: DHLALoadoutCivUniformDetectiveBrown
+  equipment:
+    jumpsuit: DHLACivUniformDetectiveBrown
+
+- type: loadout
+  id: DHLALoadoutCivUniformDetectiveGrey
+  equipment:
+    jumpsuit: DHLACivUniformDetectiveGrey
+
+- type: loadout
+  id: DHLALoadoutCivUniformEngineerWorkerAlt
+  equipment:
+    jumpsuit: DHLACivUniformEngineerWorkerAlt
+
+- type: loadout
+  id: DHLALoadoutCivUniformExpensiveSuit
+  equipment:
+    jumpsuit: DHLACivUniformExpensiveSuit
+
+- type: loadout
+  id: DHLALoadoutCivUniformFormal
+  equipment:
+    jumpsuit: DHLACivUniformFormal
+
+- type: loadout
+  id: DHLALoadoutCivUniformFrontier
+  equipment:
+    jumpsuit: DHLACivUniformFrontier
+
+- type: loadout
+  id: DHLALoadoutCivUniformGrayUtility
+  equipment:
+    jumpsuit: DHLACivUniformGrayUtility
+
+- type: loadout
+  id: DHLALoadoutCivUniformGreenUtility
+  equipment:
+    jumpsuit: DHLACivUniformGreenUtility
+
+- type: loadout
+  id: DHLALoadoutCivUniformGreenWorkwear
+  equipment:
+    jumpsuit: DHLACivUniformGreenWorkwear
+
+- type: loadout
+  id: DHLALoadoutCivUniformGreyJumpsuit
+  equipment:
+    jumpsuit: DHLACivUniformGreyJumpsuit
+
+- type: loadout
+  id: DHLALoadoutCivUniformGreyWorkwear
+  equipment:
+    jumpsuit: DHLACivUniformGreyWorkwear
+
+- type: loadout
+  id: DHLALoadoutCivUniformJumper
+  equipment:
+    jumpsuit: DHLACivUniformJumper
+
+- type: loadout
+  id: DHLALoadoutCivUniformKhakiWorkwear
+  equipment:
+    jumpsuit: DHLACivUniformKhakiWorkwear
+
+- type: loadout
+  id: DHLALoadoutCivUniformLegal
+  equipment:
+    jumpsuit: DHLACivUniformLegal
+
+- type: loadout
+  id: DHLALoadoutCivUniformLightBrownJumpsuit
+  equipment:
+    jumpsuit: DHLACivUniformLightBrownJumpsuit
+
+- type: loadout
+  id: DHLALoadoutCivUniformManager
+  equipment:
+    jumpsuit: DHLACivUniformManager
+
+- type: loadout
+  id: DHLALoadoutCivUniformMining
+  equipment:
+    jumpsuit: DHLACivUniformMining
+
+- type: loadout
+  id: DHLALoadoutCivUniformNavySuit
+  equipment:
+    jumpsuit: DHLACivUniformNavySuit
+
+- type: loadout
+  id: DHLALoadoutCivUniformOliveShirtBlackPants
+  equipment:
+    jumpsuit: DHLACivUniformOliveShirtBlackPants
+
+- type: loadout
+  id: DHLALoadoutCivUniformOuting
+  equipment:
+    jumpsuit: DHLACivUniformOuting
+
+- type: loadout
+  id: DHLALoadoutCivUniformOutingRed
+  equipment:
+    jumpsuit: DHLACivUniformOutingRed
+
+- type: loadout
+  id: DHLALoadoutCivUniformPinkWorkwear
+  equipment:
+    jumpsuit: DHLACivUniformPinkWorkwear
+
+- type: loadout
+  id: DHLALoadoutCivUniformRedUtility
+  equipment:
+    jumpsuit: DHLACivUniformRedUtility
+
+- type: loadout
+  id: DHLALoadoutCivUniformRegular
+  equipment:
+    jumpsuit: DHLACivUniformRegular
+
+- type: loadout
+  id: DHLALoadoutCivUniformSanitation
+  equipment:
+    jumpsuit: DHLACivUniformSanitation
+
+- type: loadout
+  id: DHLALoadoutCivUniformShorts
+  equipment:
+    jumpsuit: DHLACivUniformShorts
+
+- type: loadout
+  id: DHLALoadoutCivUniformSkirt
+  equipment:
+    jumpsuit: DHLACivUniformSkirt
+
+- type: loadout
+  id: DHLALoadoutCivUniformStowaway
+  equipment:
+    jumpsuit: DHLACivUniformStowaway
+
+- type: loadout
+  id: DHLALoadoutCivUniformTShirtGray
+  equipment:
+    jumpsuit: DHLACivUniformTShirtGray
+
+- type: loadout
+  id: DHLALoadoutCivUniformTShirtRed
+  equipment:
+    jumpsuit: DHLACivUniformTShirtRed
+
+- type: loadout
+  id: DHLALoadoutCivUniformTShirtWhite
+  equipment:
+    jumpsuit: DHLACivUniformTShirtWhite
+
+- type: loadout
+  id: DHLALoadoutCivUniformWhiteJumpsuit
+  equipment:
+    jumpsuit: DHLACivUniformWhiteJumpsuit
+
+- type: loadout
+  id: DHLALoadoutCivUniformWhiteShirtGreenPants
+  equipment:
+    jumpsuit: DHLACivUniformWhiteShirtGreenPants
+
+- type: loadout
+  id: DHLALoadoutCivUniformYellowJumpsuit
+  equipment:
+    jumpsuit: DHLACivUniformYellowJumpsuit
+
+- type: loadout
+  id: DHLALoadoutCivUniformYellowUtility
+  equipment:
+    jumpsuit: DHLACivUniformYellowUtility
+
+- type: loadout
+  id: DHLALoadoutClothingBackpackSatchel
+  equipment:
+    back: DHLAClothingBackpackSatchel
+
+- type: loadout
+  id: DHLALoadoutClothingHeadCargoCap
+  equipment:
+    head: DHLAClothingHeadCargoCap
+
+- type: loadout
+  id: DHLALoadoutClothingShoesLaceup
+  equipment:
+    shoes: DHLAClothingShoesLaceup
+
+- type: loadout
+  id: DHLALoadoutClothingShoesLeather
+  equipment:
+    shoes: DHLAClothingShoesLeather
+
+- type: loadout
+  id: DHLALoadoutClothingShoesSneakers
+  equipment:
+    shoes: DHLAClothingShoesSneakers
+
+- type: loadout
+  id: DHLALoadoutClothingShoesWorkBoots
+  equipment:
+    shoes: DHLAClothingShoesWorkBoots
+
+- type: loadout
+  id: DHLALoadoutClothingUniformAdmin
+  equipment:
+    jumpsuit: DHLAClothingUniformAdmin
+
+- type: loadout
+  id: DHLALoadoutClothingUniformColonist
+  equipment:
+    jumpsuit: DHLAClothingUniformColonist
+
+- type: loadout
+  id: DHLALoadoutClothingUniformMetro
+  equipment:
+    jumpsuit: DHLAClothingUniformMetro
+
+- type: loadout
+  id: DHLALoadoutClothingUniformOffice
+  equipment:
+    jumpsuit: DHLAClothingUniformOffice
+
+- type: loadout
+  id: DHLALoadoutClothingUniformOveralls
+  equipment:
+    jumpsuit: DHLAClothingUniformOveralls
+
+- type: loadout
+  id: DHLALoadoutClothingUniformSuitCharcoal
+  equipment:
+    jumpsuit: DHLAClothingUniformSuitCharcoal
+
+- type: loadout
+  id: DHLALoadoutClothingUniformSuspenders
+  equipment:
+    jumpsuit: DHLAClothingUniformSuspenders
+
+- type: loadout
+  id: DHLALoadoutClothingUniformUtility
+  equipment:
+    jumpsuit: DHLAClothingUniformUtility
+
+- type: loadoutGroup
+  id: DHLAResidentUniform
+  name: dh-loadout-group-la-jumpsuit
+  loadouts:
+  - DHLALoadoutCivRandomUniformCasual
+  - DHLALoadoutCivRandomUniformFormal
+  - DHLALoadoutCivRandomUniformWork
+  - DHLALoadoutCivUniformBlueJumpsuit
+  - DHLALoadoutCivUniformBrownJumpsuit
+  - DHLALoadoutCivUniformGreyJumpsuit
+  - DHLALoadoutCivUniformLightBrownJumpsuit
+  - DHLALoadoutCivUniformYellowJumpsuit
+  - DHLALoadoutCivUniformWhiteJumpsuit
+  - DHLALoadoutCivUniformCheckered
+  - DHLALoadoutCivUniformDailyGrind
+  - DHLALoadoutCivUniformBlueUtility
+  - DHLALoadoutCivUniformBrownUtility
+  - DHLALoadoutCivUniformGrayUtility
+  - DHLALoadoutCivUniformGreenUtility
+  - DHLALoadoutCivUniformRedUtility
+  - DHLALoadoutCivUniformYellowUtility
+  - DHLALoadoutCivUniformKhakiWorkwear
+  - DHLALoadoutCivUniformFrontier
+  - DHLALoadoutCivUniformJumper
+  - DHLALoadoutCivUniformShorts
+  - DHLALoadoutCivUniformBlueShirtTanPants
+  - DHLALoadoutCivUniformOliveShirtBlackPants
+  - DHLALoadoutCivUniformWhiteShirtGreenPants
+  - DHLALoadoutCivUniformTShirtGray
+  - DHLALoadoutCivUniformTShirtRed
+  - DHLALoadoutCivUniformTShirtWhite
+  - DHLALoadoutCivUniformCargoShorts
+  - DHLALoadoutCivUniformOuting
+  - DHLALoadoutCivUniformOutingRed
+  - DHLALoadoutCivUniformGreenWorkwear
+  - DHLALoadoutCivUniformGreyWorkwear
+  - DHLALoadoutCivUniformPinkWorkwear
+  - DHLALoadoutCivUniformStowaway
+  - DHLALoadoutCivUniformDetectiveBrown
+  - DHLALoadoutCivUniformDetectiveGrey
+  - DHLALoadoutClothingUniformColonist
+  - DHLALoadoutCivUniformEngineerWorkerAlt
+  - DHLALoadoutCivUniformSanitation
+  - DHLALoadoutCivUniformMining
+  - DHLALoadoutClothingUniformOveralls
+  - DHLALoadoutClothingUniformUtility
+  - DHLALoadoutClothingUniformMetro
+  - DHLALoadoutCivUniformBlackPants
+  - DHLALoadoutCivUniformBlackSuit
+  - DHLALoadoutCivUniformBurgundySuit
+  - DHLALoadoutCivUniformCheckeredSuit
+  - DHLALoadoutCivUniformNavySuit
+  - DHLALoadoutCivUniformColonyAdmin
+  - DHLALoadoutCivUniformBlueBlazer
+  - DHLALoadoutCivUniformRegular
+  - DHLALoadoutCivUniformFormal
+  - DHLALoadoutCivUniformManager
+  - DHLALoadoutCivUniformLegal
+  - DHLALoadoutCivUniformSkirt
+  - DHLALoadoutCivUniformExpensiveSuit
+  - DHLALoadoutClothingUniformSuitCharcoal
+  - DHLALoadoutClothingUniformAdmin
+  - DHLALoadoutClothingUniformOffice
+  - DHLALoadoutClothingUniformSuspenders
+
+- type: loadoutGroup
+  id: DHLAResidentOuter
+  name: dh-loadout-group-la-outer
+  loadouts:
+  - DHLALoadoutCivRandomOuterCasual
+  - DHLALoadoutCivRandomOuterFormal
+  - DHLALoadoutCivOuterBomberBlack
+  - DHLALoadoutCivOuterBomberGrey
+  - DHLALoadoutCivOuterBomberKhaki
+  - DHLALoadoutCivOuterBomberRed
+  - DHLALoadoutCivOuterBrownVest
+  - DHLALoadoutCivOuterGreyVest
+  - DHLALoadoutCivOuterTanVest
+  - DHLALoadoutCivOuterCoatBlue
+  - DHLALoadoutCivOuterCoatBrown
+  - DHLALoadoutCivOuterCoatDarkBlue
+  - DHLALoadoutCivOuterCoatGreen
+  - DHLALoadoutCivOuterCoatRed
+  - DHLALoadoutCivOuterLongCoat
+  - DHLALoadoutCivOuterTrenchCoat
+  - DHLALoadoutCivOuterWindbreaker
+  - DHLALoadoutCivOuterWindbreakerBrown
+  - DHLALoadoutCivOuterWindbreakerGrey
+  - DHLALoadoutCivOuterWindbreakerExpedition
+  - DHLALoadoutClothingOuterVestHazard
+  - DHLALoadoutCivOuterFormalCoat
+  - DHLALoadoutCivOuterWaistcoat
+  - DHLALoadoutClothingOuterCoatGentle
+
+- type: loadoutGroup
+  id: DHLAResidentHead
+  name: dh-loadout-group-la-head
+  loadouts:
+  - DHLALoadoutCivRandomHeadCasual
+  - DHLALoadoutCivHeadTruckerBlue
+  - DHLALoadoutCivHeadTruckerRed
+  - DHLALoadoutCivHeadBucket
+  - DHLALoadoutCivHeadCapOld
+  - DHLALoadoutCivHeadFlapcap
+  - DHLALoadoutCivHeadSoftcapBlue
+  - DHLALoadoutCivHeadSoftcapYellow
+  - DHLALoadoutCivHeadUshanka
+  - DHLALoadoutCivHeadDurag
+  - DHLALoadoutCivHeadDuragBlack
+  - DHLALoadoutCivHeadFedoraBrown
+  - DHLALoadoutCivHeadFedoraGrey
+  - DHLALoadoutCivHeadFedoraTan
+  - DHLALoadoutCivHeadBeanie
+  - DHLALoadoutCivHeadBeanieGray
+  - DHLALoadoutCivHeadBeanieGreen
+  - DHLALoadoutCivHeadBeanieTan
+  - DHLALoadoutCivHeadBoonieFisher
+  - DHLALoadoutCivHeadCowboyDark
+  - DHLALoadoutCivHeadCowboyLight
+  - DHLALoadoutClothingHeadCargoCap
+  - DHLALoadoutClothingHeadHatHardhatYellow
+  - DHLALoadoutClothingHeadHatHardhatOrange
+
+- type: loadoutGroup
+  id: DHLAResidentShoes
+  name: dh-loadout-group-la-shoes
+  loadouts:
+  - DHLALoadoutCivRandomShoesCasual
+  - DHLALoadoutCivRandomShoesFormal
+  - DHLALoadoutCivShoesSneakersBlue
+  - DHLALoadoutCivShoesSneakersBrown
+  - DHLALoadoutCivShoesSneakersGreen
+  - DHLALoadoutCivShoesSneakersRed
+  - DHLALoadoutCivShoesSneakersWhite
+  - DHLALoadoutCivShoesSneakersYellow
+  - DHLALoadoutCivShoesBootsGrey
+  - DHLALoadoutCivShoesBootsBlack
+  - DHLALoadoutClothingShoesSneakers
+  - DHLALoadoutClothingShoesWorkBoots
+  - DHLALoadoutCivShoesLaceupBrown
+  - DHLALoadoutCivShoesFancyLeather
+  - DHLALoadoutClothingShoesLeather
+  - DHLALoadoutClothingShoesLaceup
+
+- type: loadoutGroup
+  id: DHLAResidentBack
+  name: dh-loadout-group-la-back
+  loadouts:
+  - DHLALoadoutCivRandomBackCasual
+  - DHLALoadoutCivBackSatchelBlack
+  - DHLALoadoutCivBackSatchelBlue
+  - DHLALoadoutCivBackSatchelClassic
+  - DHLALoadoutCivBackBackpack
+  - DHLALoadoutClothingBackpackSatchel
+
+- type: roleLoadout
+  id: JobDHLAResident
+  groups:
+  - DHLAResidentUniform
+  - DHLAResidentOuter
+  - DHLAResidentHead
+  - DHLAResidentShoes
+  - DHLAResidentBack
+  - Glasses
+  - Trinkets
+
+- type: loadoutGroup
+  id: DHLAEntrepreneurUniform
+  name: dh-loadout-group-la-jumpsuit
+  loadouts:
+  - DHLALoadoutClothingUniformSuspenders
+  - DHLALoadoutCivRandomUniformCasual
+  - DHLALoadoutCivRandomUniformFormal
+  - DHLALoadoutCivRandomUniformWork
+  - DHLALoadoutCivUniformBlueJumpsuit
+  - DHLALoadoutCivUniformBrownJumpsuit
+  - DHLALoadoutCivUniformGreyJumpsuit
+  - DHLALoadoutCivUniformLightBrownJumpsuit
+  - DHLALoadoutCivUniformYellowJumpsuit
+  - DHLALoadoutCivUniformWhiteJumpsuit
+  - DHLALoadoutCivUniformCheckered
+  - DHLALoadoutCivUniformDailyGrind
+  - DHLALoadoutCivUniformBlueUtility
+  - DHLALoadoutCivUniformBrownUtility
+  - DHLALoadoutCivUniformGrayUtility
+  - DHLALoadoutCivUniformGreenUtility
+  - DHLALoadoutCivUniformRedUtility
+  - DHLALoadoutCivUniformYellowUtility
+  - DHLALoadoutCivUniformKhakiWorkwear
+  - DHLALoadoutCivUniformFrontier
+  - DHLALoadoutCivUniformJumper
+  - DHLALoadoutCivUniformShorts
+  - DHLALoadoutCivUniformBlueShirtTanPants
+  - DHLALoadoutCivUniformOliveShirtBlackPants
+  - DHLALoadoutCivUniformWhiteShirtGreenPants
+  - DHLALoadoutCivUniformTShirtGray
+  - DHLALoadoutCivUniformTShirtRed
+  - DHLALoadoutCivUniformTShirtWhite
+  - DHLALoadoutCivUniformCargoShorts
+  - DHLALoadoutCivUniformOuting
+  - DHLALoadoutCivUniformOutingRed
+  - DHLALoadoutCivUniformGreenWorkwear
+  - DHLALoadoutCivUniformGreyWorkwear
+  - DHLALoadoutCivUniformPinkWorkwear
+  - DHLALoadoutCivUniformStowaway
+  - DHLALoadoutCivUniformDetectiveBrown
+  - DHLALoadoutCivUniformDetectiveGrey
+  - DHLALoadoutClothingUniformColonist
+  - DHLALoadoutCivUniformBlackPants
+  - DHLALoadoutCivUniformBlackSuit
+  - DHLALoadoutCivUniformBurgundySuit
+  - DHLALoadoutCivUniformCheckeredSuit
+  - DHLALoadoutCivUniformNavySuit
+  - DHLALoadoutCivUniformColonyAdmin
+  - DHLALoadoutCivUniformBlueBlazer
+  - DHLALoadoutCivUniformRegular
+  - DHLALoadoutCivUniformFormal
+  - DHLALoadoutCivUniformManager
+  - DHLALoadoutCivUniformLegal
+  - DHLALoadoutCivUniformSkirt
+  - DHLALoadoutCivUniformExpensiveSuit
+  - DHLALoadoutClothingUniformSuitCharcoal
+  - DHLALoadoutClothingUniformAdmin
+  - DHLALoadoutClothingUniformOffice
+
+- type: loadoutGroup
+  id: DHLAEntrepreneurOuter
+  name: dh-loadout-group-la-outer
+  loadouts:
+  - DHLALoadoutClothingOuterApronBar
+  - DHLALoadoutCivRandomOuterCasual
+  - DHLALoadoutCivRandomOuterFormal
+  - DHLALoadoutCivOuterBomberBlack
+  - DHLALoadoutCivOuterBomberGrey
+  - DHLALoadoutCivOuterBomberKhaki
+  - DHLALoadoutCivOuterBomberRed
+  - DHLALoadoutCivOuterBrownVest
+  - DHLALoadoutCivOuterGreyVest
+  - DHLALoadoutCivOuterTanVest
+  - DHLALoadoutCivOuterCoatBlue
+  - DHLALoadoutCivOuterCoatBrown
+  - DHLALoadoutCivOuterCoatDarkBlue
+  - DHLALoadoutCivOuterCoatGreen
+  - DHLALoadoutCivOuterCoatRed
+  - DHLALoadoutCivOuterLongCoat
+  - DHLALoadoutCivOuterTrenchCoat
+  - DHLALoadoutCivOuterWindbreaker
+  - DHLALoadoutCivOuterWindbreakerBrown
+  - DHLALoadoutCivOuterWindbreakerGrey
+  - DHLALoadoutCivOuterWindbreakerExpedition
+  - DHLALoadoutCivOuterFormalCoat
+  - DHLALoadoutCivOuterWaistcoat
+  - DHLALoadoutClothingOuterCoatGentle
+
+- type: loadoutGroup
+  id: DHLAEntrepreneurHead
+  name: dh-loadout-group-la-head
+  minLimit: 0
+  loadouts:
+  - DHLALoadoutCivRandomHeadCasual
+  - DHLALoadoutCivHeadTruckerBlue
+  - DHLALoadoutCivHeadTruckerRed
+  - DHLALoadoutCivHeadBucket
+  - DHLALoadoutCivHeadCapOld
+  - DHLALoadoutCivHeadFlapcap
+  - DHLALoadoutCivHeadSoftcapBlue
+  - DHLALoadoutCivHeadSoftcapYellow
+  - DHLALoadoutCivHeadUshanka
+  - DHLALoadoutCivHeadDurag
+  - DHLALoadoutCivHeadDuragBlack
+  - DHLALoadoutCivHeadFedoraBrown
+  - DHLALoadoutCivHeadFedoraGrey
+  - DHLALoadoutCivHeadFedoraTan
+  - DHLALoadoutCivHeadBeanie
+  - DHLALoadoutCivHeadBeanieGray
+  - DHLALoadoutCivHeadBeanieGreen
+  - DHLALoadoutCivHeadBeanieTan
+  - DHLALoadoutCivHeadBoonieFisher
+  - DHLALoadoutCivHeadCowboyDark
+  - DHLALoadoutCivHeadCowboyLight
+
+- type: loadoutGroup
+  id: DHLAEntrepreneurShoes
+  name: dh-loadout-group-la-shoes
+  loadouts:
+  - DHLALoadoutClothingShoesLaceup
+  - DHLALoadoutCivRandomShoesCasual
+  - DHLALoadoutCivRandomShoesFormal
+  - DHLALoadoutCivShoesSneakersBlue
+  - DHLALoadoutCivShoesSneakersBrown
+  - DHLALoadoutCivShoesSneakersGreen
+  - DHLALoadoutCivShoesSneakersRed
+  - DHLALoadoutCivShoesSneakersWhite
+  - DHLALoadoutCivShoesSneakersYellow
+  - DHLALoadoutCivShoesBootsGrey
+  - DHLALoadoutCivShoesBootsBlack
+  - DHLALoadoutClothingShoesSneakers
+  - DHLALoadoutCivShoesLaceupBrown
+  - DHLALoadoutCivShoesFancyLeather
+  - DHLALoadoutClothingShoesLeather
+
+- type: loadoutGroup
+  id: DHLAEntrepreneurBack
+  name: dh-loadout-group-la-back
+  loadouts:
+  - DHLALoadoutClothingBackpackSatchel
+  - DHLALoadoutCivRandomBackCasual
+  - DHLALoadoutCivBackSatchelBlack
+  - DHLALoadoutCivBackSatchelBlue
+  - DHLALoadoutCivBackSatchelClassic
+  - DHLALoadoutCivBackBackpack
+
+- type: roleLoadout
+  id: JobDHLAEntrepreneur
+  groups:
+  - DHLAEntrepreneurUniform
+  - DHLAEntrepreneurOuter
+  - DHLAEntrepreneurHead
+  - DHLAEntrepreneurShoes
+  - DHLAEntrepreneurBack
+  - Glasses
+  - Trinkets
+
+- type: loadoutGroup
+  id: DHLAOfficeWorkerUniform
+  name: dh-loadout-group-la-jumpsuit
+  loadouts:
+  - DHLALoadoutCivRandomUniformFormal
+  - DHLALoadoutCivRandomUniformCasual
+  - DHLALoadoutCivRandomUniformWork
+  - DHLALoadoutCivUniformOuting
+  - DHLALoadoutCivUniformOutingRed
+  - DHLALoadoutCivUniformBlackPants
+  - DHLALoadoutCivUniformBlackSuit
+  - DHLALoadoutCivUniformBurgundySuit
+  - DHLALoadoutCivUniformCheckeredSuit
+  - DHLALoadoutCivUniformNavySuit
+  - DHLALoadoutCivUniformColonyAdmin
+  - DHLALoadoutCivUniformBlueBlazer
+  - DHLALoadoutCivUniformRegular
+  - DHLALoadoutCivUniformFormal
+  - DHLALoadoutCivUniformManager
+  - DHLALoadoutCivUniformLegal
+  - DHLALoadoutCivUniformDetectiveBrown
+  - DHLALoadoutCivUniformDetectiveGrey
+  - DHLALoadoutCivUniformSkirt
+  - DHLALoadoutCivUniformExpensiveSuit
+  - DHLALoadoutClothingUniformSuitCharcoal
+  - DHLALoadoutClothingUniformAdmin
+  - DHLALoadoutClothingUniformOffice
+  - DHLALoadoutClothingUniformSuspenders
+  - DHLALoadoutCivUniformBlueJumpsuit
+  - DHLALoadoutCivUniformBrownJumpsuit
+  - DHLALoadoutCivUniformGreyJumpsuit
+  - DHLALoadoutCivUniformLightBrownJumpsuit
+  - DHLALoadoutCivUniformYellowJumpsuit
+  - DHLALoadoutCivUniformWhiteJumpsuit
+  - DHLALoadoutCivUniformCheckered
+  - DHLALoadoutCivUniformDailyGrind
+  - DHLALoadoutCivUniformBlueUtility
+  - DHLALoadoutCivUniformBrownUtility
+  - DHLALoadoutCivUniformGrayUtility
+  - DHLALoadoutCivUniformGreenUtility
+  - DHLALoadoutCivUniformRedUtility
+  - DHLALoadoutCivUniformYellowUtility
+  - DHLALoadoutCivUniformKhakiWorkwear
+  - DHLALoadoutCivUniformFrontier
+  - DHLALoadoutCivUniformJumper
+  - DHLALoadoutCivUniformShorts
+  - DHLALoadoutCivUniformBlueShirtTanPants
+  - DHLALoadoutCivUniformOliveShirtBlackPants
+  - DHLALoadoutCivUniformWhiteShirtGreenPants
+  - DHLALoadoutCivUniformTShirtGray
+  - DHLALoadoutCivUniformTShirtRed
+  - DHLALoadoutCivUniformTShirtWhite
+  - DHLALoadoutCivUniformCargoShorts
+  - DHLALoadoutCivUniformGreenWorkwear
+  - DHLALoadoutCivUniformGreyWorkwear
+  - DHLALoadoutCivUniformPinkWorkwear
+  - DHLALoadoutCivUniformStowaway
+  - DHLALoadoutClothingUniformColonist
+
+- type: loadoutGroup
+  id: DHLAOfficeWorkerOuter
+  name: dh-loadout-group-la-outer
+  loadouts:
+  - DHLALoadoutCivRandomOuterFormal
+  - DHLALoadoutCivRandomOuterCasual
+  - DHLALoadoutCivOuterLongCoat
+  - DHLALoadoutCivOuterFormalCoat
+  - DHLALoadoutCivOuterWaistcoat
+  - DHLALoadoutCivOuterTrenchCoat
+  - DHLALoadoutClothingOuterCoatGentle
+  - DHLALoadoutCivOuterBomberBlack
+  - DHLALoadoutCivOuterBomberGrey
+  - DHLALoadoutCivOuterBomberKhaki
+  - DHLALoadoutCivOuterBomberRed
+  - DHLALoadoutCivOuterBrownVest
+  - DHLALoadoutCivOuterGreyVest
+  - DHLALoadoutCivOuterTanVest
+  - DHLALoadoutCivOuterCoatBlue
+  - DHLALoadoutCivOuterCoatBrown
+  - DHLALoadoutCivOuterCoatDarkBlue
+  - DHLALoadoutCivOuterCoatGreen
+  - DHLALoadoutCivOuterCoatRed
+  - DHLALoadoutCivOuterWindbreaker
+  - DHLALoadoutCivOuterWindbreakerBrown
+  - DHLALoadoutCivOuterWindbreakerGrey
+  - DHLALoadoutCivOuterWindbreakerExpedition
+
+- type: loadoutGroup
+  id: DHLAOfficeWorkerHead
+  name: dh-loadout-group-la-head
+  minLimit: 0
+  loadouts:
+  - DHLALoadoutCivRandomHeadCasual
+  - DHLALoadoutCivHeadFedoraBrown
+  - DHLALoadoutCivHeadFedoraGrey
+  - DHLALoadoutCivHeadFedoraTan
+  - DHLALoadoutCivHeadTruckerBlue
+  - DHLALoadoutCivHeadTruckerRed
+  - DHLALoadoutCivHeadBucket
+  - DHLALoadoutCivHeadCapOld
+  - DHLALoadoutCivHeadFlapcap
+  - DHLALoadoutCivHeadSoftcapBlue
+  - DHLALoadoutCivHeadSoftcapYellow
+  - DHLALoadoutCivHeadUshanka
+  - DHLALoadoutCivHeadDurag
+  - DHLALoadoutCivHeadDuragBlack
+  - DHLALoadoutCivHeadBeanie
+  - DHLALoadoutCivHeadBeanieGray
+  - DHLALoadoutCivHeadBeanieGreen
+  - DHLALoadoutCivHeadBeanieTan
+  - DHLALoadoutCivHeadBoonieFisher
+  - DHLALoadoutCivHeadCowboyDark
+  - DHLALoadoutCivHeadCowboyLight
+
+- type: loadoutGroup
+  id: DHLAOfficeWorkerShoes
+  name: dh-loadout-group-la-shoes
+  loadouts:
+  - DHLALoadoutCivRandomShoesFormal
+  - DHLALoadoutCivRandomShoesCasual
+  - DHLALoadoutCivShoesLaceupBrown
+  - DHLALoadoutCivShoesFancyLeather
+  - DHLALoadoutClothingShoesLeather
+  - DHLALoadoutClothingShoesLaceup
+  - DHLALoadoutCivShoesSneakersBlue
+  - DHLALoadoutCivShoesSneakersBrown
+  - DHLALoadoutCivShoesSneakersGreen
+  - DHLALoadoutCivShoesSneakersRed
+  - DHLALoadoutCivShoesSneakersWhite
+  - DHLALoadoutCivShoesSneakersYellow
+  - DHLALoadoutCivShoesBootsGrey
+  - DHLALoadoutCivShoesBootsBlack
+  - DHLALoadoutClothingShoesSneakers
+
+- type: loadoutGroup
+  id: DHLAOfficeWorkerBack
+  name: dh-loadout-group-la-back
+  loadouts:
+  - DHLALoadoutClothingBackpackSatchel
+  - DHLALoadoutCivRandomBackCasual
+  - DHLALoadoutCivBackSatchelBlack
+  - DHLALoadoutCivBackSatchelClassic
+  - DHLALoadoutCivBackSatchelBlue
+  - DHLALoadoutCivBackBackpack
+
+- type: roleLoadout
+  id: JobDHLAOfficeWorker
+  groups:
+  - DHLAOfficeWorkerUniform
+  - DHLAOfficeWorkerOuter
+  - DHLAOfficeWorkerHead
+  - DHLAOfficeWorkerShoes
+  - DHLAOfficeWorkerBack
+  - Glasses
+  - Trinkets
+
+- type: loadoutGroup
+  id: DHLADistrictStaffUniform
+  name: dh-loadout-group-la-jumpsuit
+  loadouts:
+  - DHLALoadoutClothingUniformAdmin
+  - DHLALoadoutCivRandomUniformCasual
+  - DHLALoadoutCivRandomUniformFormal
+  - DHLALoadoutCivRandomUniformWork
+  - DHLALoadoutCivUniformOuting
+  - DHLALoadoutCivUniformOutingRed
+  - DHLALoadoutCivUniformBlackPants
+  - DHLALoadoutCivUniformBlackSuit
+  - DHLALoadoutCivUniformBurgundySuit
+  - DHLALoadoutCivUniformCheckeredSuit
+  - DHLALoadoutCivUniformNavySuit
+  - DHLALoadoutCivUniformColonyAdmin
+  - DHLALoadoutCivUniformBlueBlazer
+  - DHLALoadoutCivUniformRegular
+  - DHLALoadoutCivUniformFormal
+  - DHLALoadoutCivUniformManager
+  - DHLALoadoutCivUniformLegal
+  - DHLALoadoutCivUniformDetectiveBrown
+  - DHLALoadoutCivUniformDetectiveGrey
+  - DHLALoadoutCivUniformSkirt
+  - DHLALoadoutCivUniformExpensiveSuit
+  - DHLALoadoutClothingUniformSuitCharcoal
+  - DHLALoadoutClothingUniformOffice
+  - DHLALoadoutClothingUniformSuspenders
+
+- type: loadoutGroup
+  id: DHLADistrictStaffOuter
+  name: dh-loadout-group-la-outer
+  minLimit: 0
+  loadouts:
+  - DHLALoadoutCivRandomOuterCasual
+  - DHLALoadoutCivRandomOuterFormal
+  - DHLALoadoutCivOuterLongCoat
+  - DHLALoadoutCivOuterFormalCoat
+  - DHLALoadoutCivOuterWaistcoat
+  - DHLALoadoutCivOuterTrenchCoat
+  - DHLALoadoutClothingOuterCoatGentle
+
+- type: loadoutGroup
+  id: DHLADistrictStaffHead
+  name: dh-loadout-group-la-head
+  minLimit: 0
+  loadouts:
+  - DHLALoadoutCivRandomHeadCasual
+  - DHLALoadoutCivHeadFedoraBrown
+  - DHLALoadoutCivHeadFedoraGrey
+  - DHLALoadoutCivHeadFedoraTan
+
+- type: loadoutGroup
+  id: DHLADistrictStaffShoes
+  name: dh-loadout-group-la-shoes
+  loadouts:
+  - DHLALoadoutClothingShoesLeather
+  - DHLALoadoutCivRandomShoesCasual
+  - DHLALoadoutCivRandomShoesFormal
+  - DHLALoadoutCivShoesLaceupBrown
+  - DHLALoadoutCivShoesFancyLeather
+  - DHLALoadoutClothingShoesLaceup
+
+- type: loadoutGroup
+  id: DHLADistrictStaffBack
+  name: dh-loadout-group-la-back
+  loadouts:
+  - DHLALoadoutClothingBackpackSatchel
+  - DHLALoadoutCivRandomBackCasual
+  - DHLALoadoutCivBackSatchelBlack
+  - DHLALoadoutCivBackSatchelClassic
+
+- type: roleLoadout
+  id: JobDHLADistrictStaff
+  groups:
+  - DHLADistrictStaffUniform
+  - DHLADistrictStaffOuter
+  - DHLADistrictStaffHead
+  - DHLADistrictStaffShoes
+  - DHLADistrictStaffBack
+  - Glasses
+  - Trinkets
+
+- type: loadoutGroup
+  id: DHLADistrictHeadUniform
+  name: dh-loadout-group-la-jumpsuit
+  loadouts:
+  - DHLALoadoutClothingUniformSuitCharcoal
+  - DHLALoadoutCivRandomUniformCasual
+  - DHLALoadoutCivRandomUniformFormal
+  - DHLALoadoutCivRandomUniformWork
+  - DHLALoadoutCivUniformOuting
+  - DHLALoadoutCivUniformOutingRed
+  - DHLALoadoutCivUniformBlackPants
+  - DHLALoadoutCivUniformBlackSuit
+  - DHLALoadoutCivUniformBurgundySuit
+  - DHLALoadoutCivUniformCheckeredSuit
+  - DHLALoadoutCivUniformNavySuit
+  - DHLALoadoutCivUniformColonyAdmin
+  - DHLALoadoutCivUniformBlueBlazer
+  - DHLALoadoutCivUniformRegular
+  - DHLALoadoutCivUniformFormal
+  - DHLALoadoutCivUniformManager
+  - DHLALoadoutCivUniformLegal
+  - DHLALoadoutCivUniformDetectiveBrown
+  - DHLALoadoutCivUniformDetectiveGrey
+  - DHLALoadoutCivUniformSkirt
+  - DHLALoadoutCivUniformExpensiveSuit
+  - DHLALoadoutClothingUniformAdmin
+  - DHLALoadoutClothingUniformOffice
+  - DHLALoadoutClothingUniformSuspenders
+
+- type: loadoutGroup
+  id: DHLADistrictHeadOuter
+  name: dh-loadout-group-la-outer
+  loadouts:
+  - DHLALoadoutClothingOuterCoatGentle
+  - DHLALoadoutCivRandomOuterCasual
+  - DHLALoadoutCivRandomOuterFormal
+  - DHLALoadoutCivOuterLongCoat
+  - DHLALoadoutCivOuterFormalCoat
+  - DHLALoadoutCivOuterWaistcoat
+  - DHLALoadoutCivOuterTrenchCoat
+
+- type: loadoutGroup
+  id: DHLADistrictHeadHead
+  name: dh-loadout-group-la-head
+  minLimit: 0
+  loadouts:
+  - DHLALoadoutCivRandomHeadCasual
+  - DHLALoadoutCivHeadFedoraBrown
+  - DHLALoadoutCivHeadFedoraGrey
+  - DHLALoadoutCivHeadFedoraTan
+
+- type: loadoutGroup
+  id: DHLADistrictHeadShoes
+  name: dh-loadout-group-la-shoes
+  loadouts:
+  - DHLALoadoutClothingShoesLeather
+  - DHLALoadoutCivRandomShoesCasual
+  - DHLALoadoutCivRandomShoesFormal
+  - DHLALoadoutCivShoesLaceupBrown
+  - DHLALoadoutCivShoesFancyLeather
+  - DHLALoadoutClothingShoesLaceup
+
+- type: loadoutGroup
+  id: DHLADistrictHeadBack
+  name: dh-loadout-group-la-back
+  loadouts:
+  - DHLALoadoutClothingBackpackSatchel
+  - DHLALoadoutCivRandomBackCasual
+  - DHLALoadoutCivBackSatchelBlack
+  - DHLALoadoutCivBackSatchelClassic
+
+- type: roleLoadout
+  id: JobDHLADistrictHead
+  groups:
+  - DHLADistrictHeadUniform
+  - DHLADistrictHeadOuter
+  - DHLADistrictHeadHead
+  - DHLADistrictHeadShoes
+  - DHLADistrictHeadBack
+  - Glasses
+  - Trinkets
+
+- type: loadoutGroup
+  id: DHLAFactoryWorkerUniform
+  name: dh-loadout-group-la-jumpsuit
+  loadouts:
+  - DHLALoadoutClothingUniformOveralls
+  - DHLALoadoutCivRandomUniformCasual
+  - DHLALoadoutCivRandomUniformFormal
+  - DHLALoadoutCivRandomUniformWork
+  - DHLALoadoutCivUniformBlueUtility
+  - DHLALoadoutCivUniformBrownUtility
+  - DHLALoadoutCivUniformGrayUtility
+  - DHLALoadoutCivUniformGreenUtility
+  - DHLALoadoutCivUniformRedUtility
+  - DHLALoadoutCivUniformYellowUtility
+  - DHLALoadoutCivUniformKhakiWorkwear
+  - DHLALoadoutCivUniformJumper
+  - DHLALoadoutCivUniformGreenWorkwear
+  - DHLALoadoutCivUniformGreyWorkwear
+  - DHLALoadoutCivUniformEngineerWorkerAlt
+  - DHLALoadoutCivUniformSanitation
+  - DHLALoadoutCivUniformMining
+  - DHLALoadoutClothingUniformUtility
+  - DHLALoadoutClothingUniformMetro
+  - DHLALoadoutCivUniformBlueJumpsuit
+  - DHLALoadoutCivUniformBrownJumpsuit
+  - DHLALoadoutCivUniformGreyJumpsuit
+  - DHLALoadoutCivUniformLightBrownJumpsuit
+  - DHLALoadoutCivUniformYellowJumpsuit
+  - DHLALoadoutCivUniformWhiteJumpsuit
+  - DHLALoadoutCivUniformCheckered
+  - DHLALoadoutCivUniformDailyGrind
+  - DHLALoadoutCivUniformFrontier
+  - DHLALoadoutCivUniformShorts
+  - DHLALoadoutCivUniformBlueShirtTanPants
+  - DHLALoadoutCivUniformOliveShirtBlackPants
+  - DHLALoadoutCivUniformWhiteShirtGreenPants
+  - DHLALoadoutCivUniformTShirtGray
+  - DHLALoadoutCivUniformTShirtRed
+  - DHLALoadoutCivUniformTShirtWhite
+  - DHLALoadoutCivUniformCargoShorts
+  - DHLALoadoutCivUniformOuting
+  - DHLALoadoutCivUniformOutingRed
+  - DHLALoadoutCivUniformPinkWorkwear
+  - DHLALoadoutCivUniformStowaway
+  - DHLALoadoutCivUniformDetectiveBrown
+  - DHLALoadoutCivUniformDetectiveGrey
+  - DHLALoadoutClothingUniformColonist
+
+- type: loadoutGroup
+  id: DHLAFactoryWorkerOuter
+  name: dh-loadout-group-la-outer
+  minLimit: 0
+  loadouts:
+  - DHLALoadoutCivRandomOuterCasual
+  - DHLALoadoutCivRandomOuterFormal
+  - DHLALoadoutCivOuterBrownVest
+  - DHLALoadoutCivOuterGreyVest
+  - DHLALoadoutCivOuterTanVest
+  - DHLALoadoutCivOuterWindbreaker
+  - DHLALoadoutCivOuterWindbreakerBrown
+  - DHLALoadoutCivOuterWindbreakerGrey
+  - DHLALoadoutCivOuterWindbreakerExpedition
+  - DHLALoadoutClothingOuterVestHazard
+  - DHLALoadoutCivOuterBomberBlack
+  - DHLALoadoutCivOuterBomberGrey
+  - DHLALoadoutCivOuterBomberKhaki
+  - DHLALoadoutCivOuterBomberRed
+  - DHLALoadoutCivOuterCoatBlue
+  - DHLALoadoutCivOuterCoatBrown
+  - DHLALoadoutCivOuterCoatDarkBlue
+  - DHLALoadoutCivOuterCoatGreen
+  - DHLALoadoutCivOuterCoatRed
+  - DHLALoadoutCivOuterLongCoat
+  - DHLALoadoutCivOuterTrenchCoat
+
+- type: loadoutGroup
+  id: DHLAFactoryWorkerHead
+  name: dh-loadout-group-la-head
+  loadouts:
+  - DHLALoadoutClothingHeadHatHardhatYellow
+  - DHLALoadoutCivRandomHeadCasual
+  - DHLALoadoutCivHeadTruckerBlue
+  - DHLALoadoutCivHeadTruckerRed
+  - DHLALoadoutCivHeadCapOld
+  - DHLALoadoutCivHeadFlapcap
+  - DHLALoadoutCivHeadBeanie
+  - DHLALoadoutCivHeadBeanieGray
+  - DHLALoadoutCivHeadBeanieGreen
+  - DHLALoadoutCivHeadBeanieTan
+  - DHLALoadoutClothingHeadCargoCap
+  - DHLALoadoutClothingHeadHatHardhatOrange
+  - DHLALoadoutCivHeadBucket
+  - DHLALoadoutCivHeadSoftcapBlue
+  - DHLALoadoutCivHeadSoftcapYellow
+  - DHLALoadoutCivHeadUshanka
+  - DHLALoadoutCivHeadDurag
+  - DHLALoadoutCivHeadDuragBlack
+  - DHLALoadoutCivHeadFedoraBrown
+  - DHLALoadoutCivHeadFedoraGrey
+  - DHLALoadoutCivHeadFedoraTan
+  - DHLALoadoutCivHeadBoonieFisher
+  - DHLALoadoutCivHeadCowboyDark
+  - DHLALoadoutCivHeadCowboyLight
+
+- type: loadoutGroup
+  id: DHLAFactoryWorkerShoes
+  name: dh-loadout-group-la-shoes
+  loadouts:
+  - DHLALoadoutClothingShoesWorkBoots
+  - DHLALoadoutCivRandomShoesCasual
+  - DHLALoadoutCivRandomShoesFormal
+  - DHLALoadoutCivShoesBootsGrey
+  - DHLALoadoutCivShoesBootsBlack
+  - DHLALoadoutCivShoesSneakersBlue
+  - DHLALoadoutCivShoesSneakersBrown
+  - DHLALoadoutCivShoesSneakersGreen
+  - DHLALoadoutCivShoesSneakersRed
+  - DHLALoadoutCivShoesSneakersWhite
+  - DHLALoadoutCivShoesSneakersYellow
+  - DHLALoadoutClothingShoesSneakers
+
+- type: loadoutGroup
+  id: DHLAFactoryWorkerBack
+  name: dh-loadout-group-la-back
+  loadouts:
+  - DHLALoadoutClothingBackpackSatchel
+  - DHLALoadoutCivRandomBackCasual
+  - DHLALoadoutCivBackBackpack
+  - DHLALoadoutCivBackSatchelBlack
+  - DHLALoadoutCivBackSatchelBlue
+  - DHLALoadoutCivBackSatchelClassic
+
+- type: roleLoadout
+  id: JobDHLAFactoryWorker
+  groups:
+  - DHLAFactoryWorkerUniform
+  - DHLAFactoryWorkerOuter
+  - DHLAFactoryWorkerHead
+  - DHLAFactoryWorkerShoes
+  - DHLAFactoryWorkerBack
+  - Glasses
+  - Trinkets
+
+- type: loadoutGroup
+  id: DHLAUtilityWorkerUniform
+  name: dh-loadout-group-la-jumpsuit
+  loadouts:
+  - DHLALoadoutClothingUniformUtility
+  - DHLALoadoutCivRandomUniformCasual
+  - DHLALoadoutCivRandomUniformFormal
+  - DHLALoadoutCivRandomUniformWork
+  - DHLALoadoutCivUniformBlueUtility
+  - DHLALoadoutCivUniformBrownUtility
+  - DHLALoadoutCivUniformGrayUtility
+  - DHLALoadoutCivUniformGreenUtility
+  - DHLALoadoutCivUniformRedUtility
+  - DHLALoadoutCivUniformYellowUtility
+  - DHLALoadoutCivUniformKhakiWorkwear
+  - DHLALoadoutCivUniformJumper
+  - DHLALoadoutCivUniformGreenWorkwear
+  - DHLALoadoutCivUniformGreyWorkwear
+  - DHLALoadoutCivUniformEngineerWorkerAlt
+  - DHLALoadoutCivUniformSanitation
+  - DHLALoadoutCivUniformMining
+  - DHLALoadoutClothingUniformOveralls
+  - DHLALoadoutClothingUniformMetro
+  - DHLALoadoutCivUniformBlueJumpsuit
+  - DHLALoadoutCivUniformBrownJumpsuit
+  - DHLALoadoutCivUniformGreyJumpsuit
+  - DHLALoadoutCivUniformLightBrownJumpsuit
+  - DHLALoadoutCivUniformYellowJumpsuit
+  - DHLALoadoutCivUniformWhiteJumpsuit
+  - DHLALoadoutCivUniformCheckered
+  - DHLALoadoutCivUniformDailyGrind
+  - DHLALoadoutCivUniformFrontier
+  - DHLALoadoutCivUniformShorts
+  - DHLALoadoutCivUniformBlueShirtTanPants
+  - DHLALoadoutCivUniformOliveShirtBlackPants
+  - DHLALoadoutCivUniformWhiteShirtGreenPants
+  - DHLALoadoutCivUniformTShirtGray
+  - DHLALoadoutCivUniformTShirtRed
+  - DHLALoadoutCivUniformTShirtWhite
+  - DHLALoadoutCivUniformCargoShorts
+  - DHLALoadoutCivUniformOuting
+  - DHLALoadoutCivUniformOutingRed
+  - DHLALoadoutCivUniformPinkWorkwear
+  - DHLALoadoutCivUniformStowaway
+  - DHLALoadoutCivUniformDetectiveBrown
+  - DHLALoadoutCivUniformDetectiveGrey
+  - DHLALoadoutClothingUniformColonist
+
+- type: loadoutGroup
+  id: DHLAUtilityWorkerOuter
+  name: dh-loadout-group-la-outer
+  loadouts:
+  - DHLALoadoutClothingOuterVestHazard
+  - DHLALoadoutCivRandomOuterCasual
+  - DHLALoadoutCivRandomOuterFormal
+  - DHLALoadoutCivOuterBrownVest
+  - DHLALoadoutCivOuterGreyVest
+  - DHLALoadoutCivOuterTanVest
+  - DHLALoadoutCivOuterWindbreaker
+  - DHLALoadoutCivOuterWindbreakerBrown
+  - DHLALoadoutCivOuterWindbreakerGrey
+  - DHLALoadoutCivOuterWindbreakerExpedition
+  - DHLALoadoutCivOuterBomberBlack
+  - DHLALoadoutCivOuterBomberGrey
+  - DHLALoadoutCivOuterBomberKhaki
+  - DHLALoadoutCivOuterBomberRed
+  - DHLALoadoutCivOuterCoatBlue
+  - DHLALoadoutCivOuterCoatBrown
+  - DHLALoadoutCivOuterCoatDarkBlue
+  - DHLALoadoutCivOuterCoatGreen
+  - DHLALoadoutCivOuterCoatRed
+  - DHLALoadoutCivOuterLongCoat
+  - DHLALoadoutCivOuterTrenchCoat
+
+- type: loadoutGroup
+  id: DHLAUtilityWorkerHead
+  name: dh-loadout-group-la-head
+  loadouts:
+  - DHLALoadoutClothingHeadHatHardhatOrange
+  - DHLALoadoutCivRandomHeadCasual
+  - DHLALoadoutCivHeadTruckerBlue
+  - DHLALoadoutCivHeadTruckerRed
+  - DHLALoadoutCivHeadCapOld
+  - DHLALoadoutCivHeadFlapcap
+  - DHLALoadoutCivHeadBeanie
+  - DHLALoadoutCivHeadBeanieGray
+  - DHLALoadoutCivHeadBeanieGreen
+  - DHLALoadoutCivHeadBeanieTan
+  - DHLALoadoutClothingHeadCargoCap
+  - DHLALoadoutClothingHeadHatHardhatYellow
+  - DHLALoadoutCivHeadBucket
+  - DHLALoadoutCivHeadSoftcapBlue
+  - DHLALoadoutCivHeadSoftcapYellow
+  - DHLALoadoutCivHeadUshanka
+  - DHLALoadoutCivHeadDurag
+  - DHLALoadoutCivHeadDuragBlack
+  - DHLALoadoutCivHeadFedoraBrown
+  - DHLALoadoutCivHeadFedoraGrey
+  - DHLALoadoutCivHeadFedoraTan
+  - DHLALoadoutCivHeadBoonieFisher
+  - DHLALoadoutCivHeadCowboyDark
+  - DHLALoadoutCivHeadCowboyLight
+
+- type: loadoutGroup
+  id: DHLAUtilityWorkerShoes
+  name: dh-loadout-group-la-shoes
+  loadouts:
+  - DHLALoadoutClothingShoesWorkBoots
+  - DHLALoadoutCivRandomShoesCasual
+  - DHLALoadoutCivRandomShoesFormal
+  - DHLALoadoutCivShoesBootsGrey
+  - DHLALoadoutCivShoesBootsBlack
+  - DHLALoadoutCivShoesSneakersBlue
+  - DHLALoadoutCivShoesSneakersBrown
+  - DHLALoadoutCivShoesSneakersGreen
+  - DHLALoadoutCivShoesSneakersRed
+  - DHLALoadoutCivShoesSneakersWhite
+  - DHLALoadoutCivShoesSneakersYellow
+  - DHLALoadoutClothingShoesSneakers
+
+- type: loadoutGroup
+  id: DHLAUtilityWorkerBack
+  name: dh-loadout-group-la-back
+  loadouts:
+  - DHLALoadoutClothingBackpackSatchel
+  - DHLALoadoutCivRandomBackCasual
+  - DHLALoadoutCivBackBackpack
+  - DHLALoadoutCivBackSatchelBlack
+  - DHLALoadoutCivBackSatchelBlue
+  - DHLALoadoutCivBackSatchelClassic
+
+- type: roleLoadout
+  id: JobDHLAUtilityWorker
+  groups:
+  - DHLAUtilityWorkerUniform
+  - DHLAUtilityWorkerOuter
+  - DHLAUtilityWorkerHead
+  - DHLAUtilityWorkerShoes
+  - DHLAUtilityWorkerBack
+  - Glasses
+  - Trinkets
+
+- type: loadoutGroup
+  id: DHLAMetroWorkerUniform
+  name: dh-loadout-group-la-jumpsuit
+  loadouts:
+  - DHLALoadoutClothingUniformMetro
+  - DHLALoadoutCivRandomUniformCasual
+  - DHLALoadoutCivRandomUniformFormal
+  - DHLALoadoutCivRandomUniformWork
+  - DHLALoadoutCivUniformBlueUtility
+  - DHLALoadoutCivUniformBrownUtility
+  - DHLALoadoutCivUniformGrayUtility
+  - DHLALoadoutCivUniformGreenUtility
+  - DHLALoadoutCivUniformRedUtility
+  - DHLALoadoutCivUniformYellowUtility
+  - DHLALoadoutCivUniformKhakiWorkwear
+  - DHLALoadoutCivUniformJumper
+  - DHLALoadoutCivUniformGreenWorkwear
+  - DHLALoadoutCivUniformGreyWorkwear
+  - DHLALoadoutCivUniformEngineerWorkerAlt
+  - DHLALoadoutCivUniformSanitation
+  - DHLALoadoutCivUniformMining
+  - DHLALoadoutClothingUniformOveralls
+  - DHLALoadoutClothingUniformUtility
+  - DHLALoadoutCivUniformBlueJumpsuit
+  - DHLALoadoutCivUniformBrownJumpsuit
+  - DHLALoadoutCivUniformGreyJumpsuit
+  - DHLALoadoutCivUniformLightBrownJumpsuit
+  - DHLALoadoutCivUniformYellowJumpsuit
+  - DHLALoadoutCivUniformWhiteJumpsuit
+  - DHLALoadoutCivUniformCheckered
+  - DHLALoadoutCivUniformDailyGrind
+  - DHLALoadoutCivUniformFrontier
+  - DHLALoadoutCivUniformShorts
+  - DHLALoadoutCivUniformBlueShirtTanPants
+  - DHLALoadoutCivUniformOliveShirtBlackPants
+  - DHLALoadoutCivUniformWhiteShirtGreenPants
+  - DHLALoadoutCivUniformTShirtGray
+  - DHLALoadoutCivUniformTShirtRed
+  - DHLALoadoutCivUniformTShirtWhite
+  - DHLALoadoutCivUniformCargoShorts
+  - DHLALoadoutCivUniformOuting
+  - DHLALoadoutCivUniformOutingRed
+  - DHLALoadoutCivUniformPinkWorkwear
+  - DHLALoadoutCivUniformStowaway
+  - DHLALoadoutCivUniformDetectiveBrown
+  - DHLALoadoutCivUniformDetectiveGrey
+  - DHLALoadoutClothingUniformColonist
+
+- type: loadoutGroup
+  id: DHLAMetroWorkerOuter
+  name: dh-loadout-group-la-outer
+  minLimit: 0
+  loadouts:
+  - DHLALoadoutCivRandomOuterCasual
+  - DHLALoadoutCivRandomOuterFormal
+  - DHLALoadoutCivOuterBrownVest
+  - DHLALoadoutCivOuterGreyVest
+  - DHLALoadoutCivOuterTanVest
+  - DHLALoadoutCivOuterWindbreaker
+  - DHLALoadoutCivOuterWindbreakerBrown
+  - DHLALoadoutCivOuterWindbreakerGrey
+  - DHLALoadoutCivOuterWindbreakerExpedition
+  - DHLALoadoutClothingOuterVestHazard
+  - DHLALoadoutCivOuterBomberBlack
+  - DHLALoadoutCivOuterBomberGrey
+  - DHLALoadoutCivOuterBomberKhaki
+  - DHLALoadoutCivOuterBomberRed
+  - DHLALoadoutCivOuterCoatBlue
+  - DHLALoadoutCivOuterCoatBrown
+  - DHLALoadoutCivOuterCoatDarkBlue
+  - DHLALoadoutCivOuterCoatGreen
+  - DHLALoadoutCivOuterCoatRed
+  - DHLALoadoutCivOuterLongCoat
+  - DHLALoadoutCivOuterTrenchCoat
+
+- type: loadoutGroup
+  id: DHLAMetroWorkerHead
+  name: dh-loadout-group-la-head
+  loadouts:
+  - DHLALoadoutClothingHeadCargoCap
+  - DHLALoadoutCivRandomHeadCasual
+  - DHLALoadoutCivHeadTruckerBlue
+  - DHLALoadoutCivHeadTruckerRed
+  - DHLALoadoutCivHeadCapOld
+  - DHLALoadoutCivHeadFlapcap
+  - DHLALoadoutCivHeadBeanie
+  - DHLALoadoutCivHeadBeanieGray
+  - DHLALoadoutCivHeadBeanieGreen
+  - DHLALoadoutCivHeadBeanieTan
+  - DHLALoadoutClothingHeadHatHardhatYellow
+  - DHLALoadoutClothingHeadHatHardhatOrange
+  - DHLALoadoutCivHeadBucket
+  - DHLALoadoutCivHeadSoftcapBlue
+  - DHLALoadoutCivHeadSoftcapYellow
+  - DHLALoadoutCivHeadUshanka
+  - DHLALoadoutCivHeadDurag
+  - DHLALoadoutCivHeadDuragBlack
+  - DHLALoadoutCivHeadFedoraBrown
+  - DHLALoadoutCivHeadFedoraGrey
+  - DHLALoadoutCivHeadFedoraTan
+  - DHLALoadoutCivHeadBoonieFisher
+  - DHLALoadoutCivHeadCowboyDark
+  - DHLALoadoutCivHeadCowboyLight
+
+- type: loadoutGroup
+  id: DHLAMetroWorkerShoes
+  name: dh-loadout-group-la-shoes
+  loadouts:
+  - DHLALoadoutClothingShoesWorkBoots
+  - DHLALoadoutCivRandomShoesCasual
+  - DHLALoadoutCivRandomShoesFormal
+  - DHLALoadoutCivShoesBootsGrey
+  - DHLALoadoutCivShoesBootsBlack
+  - DHLALoadoutCivShoesSneakersBlue
+  - DHLALoadoutCivShoesSneakersBrown
+  - DHLALoadoutCivShoesSneakersGreen
+  - DHLALoadoutCivShoesSneakersRed
+  - DHLALoadoutCivShoesSneakersWhite
+  - DHLALoadoutCivShoesSneakersYellow
+  - DHLALoadoutClothingShoesSneakers
+
+- type: loadoutGroup
+  id: DHLAMetroWorkerBack
+  name: dh-loadout-group-la-back
+  loadouts:
+  - DHLALoadoutClothingBackpackSatchel
+  - DHLALoadoutCivRandomBackCasual
+  - DHLALoadoutCivBackBackpack
+  - DHLALoadoutCivBackSatchelBlack
+  - DHLALoadoutCivBackSatchelBlue
+  - DHLALoadoutCivBackSatchelClassic
+
+- type: roleLoadout
+  id: JobDHLAMetroWorker
+  groups:
+  - DHLAMetroWorkerUniform
+  - DHLAMetroWorkerOuter
+  - DHLAMetroWorkerHead
+  - DHLAMetroWorkerShoes
+  - DHLAMetroWorkerBack
+  - Glasses
+  - Trinkets

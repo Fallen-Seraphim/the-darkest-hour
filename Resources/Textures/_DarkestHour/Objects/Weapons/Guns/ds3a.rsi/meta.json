@@ -33,6 +33,27 @@
     },
     {
       "name": "optic8x"
+    },
+    {
+      "name": "muzzlebrake"
+    },
+    {
+      "name": "longbarrel"
+    },
+    {
+      "name": "bipod"
+    },
+    {
+      "name": "handstop"
+    },
+    {
+      "name": "optic3x"
+    },
+    {
+      "name": "laser"
+    },
+    {
+      "name": "light"
     }
   ]
 }

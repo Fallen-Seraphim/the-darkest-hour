@@ -1,0 +1,94 @@
+# DarkestHour: наборы обвеса (решение автора 2026-11-06) — по одной случайной модификации из каждой группы.
+
+- type: entity
+  parent: BoxCardboard
+  id: DHAttachmentKitRifle
+  name: rifle attachment kit
+  description: "A field kit with a muzzle device, a grip and a sight for an assault rifle."
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHAttachmentSuppressor
+      orGroup: barrel
+    - id: DHAttachmentFlashHider
+      orGroup: barrel
+    - id: DHAttachmentCompensator
+      orGroup: barrel
+    - id: DHAttachmentMuzzleBrake
+      orGroup: barrel
+    - id: DHAttachmentLongBarrel
+      orGroup: barrel
+    - id: DHAttachmentVerticalGrip
+      orGroup: grip
+    - id: DHAttachmentAngledGrip
+      orGroup: grip
+    - id: DHAttachmentHandstop
+      orGroup: grip
+    - id: DHAttachmentOpticHolo
+      orGroup: optic
+    - id: DHAttachmentOptic2x
+      orGroup: optic
+    - id: DHAttachmentOptic3x
+      orGroup: optic
+    - id: DHAttachmentLaser
+      orGroup: rail
+    - id: DHAttachmentLight
+      orGroup: rail
+
+- type: entity
+  parent: BoxCardboard
+  id: DHAttachmentKitSupport
+  name: support weapon attachment kit
+  description: "Bipod legs, a muzzle device and a sight for a machine gun."
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHAttachmentBipod
+    - id: DHAttachmentFlashHider
+      orGroup: barrel
+    - id: DHAttachmentMuzzleBrake
+      orGroup: barrel
+    - id: DHAttachmentOptic2x
+      orGroup: optic
+    - id: DHAttachmentOptic3x
+      orGroup: optic
+    - id: DHAttachmentOptic4x
+      orGroup: optic
+
+- type: entity
+  parent: BoxCardboard
+  id: DHAttachmentKitMarksman
+  name: marksman attachment kit
+  description: "Long-range kit: a barrel device, a bipod or handstop and a high-power sight."
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHAttachmentLongBarrel
+      orGroup: barrel
+    - id: DHAttachmentMuzzleBrake
+      orGroup: barrel
+    - id: DHAttachmentSuppressor
+      orGroup: barrel
+    - id: DHAttachmentBipod
+      orGroup: grip
+    - id: DHAttachmentHandstop
+      orGroup: grip
+    - id: DHAttachmentOptic4x
+      orGroup: optic
+    - id: DHAttachmentOptic8x
+      orGroup: optic
+
+- type: entity
+  parent: BoxCardboard
+  id: DHAttachmentKitClose
+  name: close-quarters attachment kit
+  description: "A suppressor, a holographic sight and a rail module for SMGs and pistols."
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHAttachmentSuppressor
+    - id: DHAttachmentOpticHolo
+    - id: DHAttachmentLaser
+      orGroup: rail
+    - id: DHAttachmentLight
+      orGroup: rail

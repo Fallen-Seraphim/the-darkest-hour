@@ -255,14 +255,14 @@
 - type: startingGear
   id: DHImperialGearBase
   equipment:
-    jumpsuit: ClothingUniformJumpsuitOperative
-    back: ClothingBackpackDuffelSyndicate
+    jumpsuit: DHImperialClothingUniformFatigues
+    back: DHImperialClothingBackpack
     eyes: ClothingEyesHudSyndicate
     ears: ClothingHeadsetAltSyndicate
-    gloves: ClothingHandsGlovesCombat
+    gloves: DHImperialClothingHandsGlovesCombat
     shoes: DHClothingShoesMagArmoredLightImperial
     id: DHDogtagsImperialRifleman
-    belt: ClothingBeltMilitaryWebbing
+    belt: DHImperialClothingBeltWebbing
     pocket1: CombatKnife
     pocket2: DHParachute
   storage:
@@ -276,6 +276,7 @@
   parent: DHImperialGearBase
   id: DHImperialCommanderGear
   equipment:
+    jumpsuit: DHImperialClothingUniformLead
     ears: DHClothingHeadsetAltImperialCommand
     id: DHDogtagsImperialCommander
     neck: SyndicateWhistle
@@ -283,6 +284,7 @@
     suitstorage: DHWeaponPistolIMP17
   storage:
     back:
+    - DHAttachmentKitRifle
     - DHPainkillerAutoinjector
     - DHMagazine145x114Std
     - DHMagazine145x114Std
@@ -304,13 +306,21 @@
     id: DHDogtagsImperialWeaponsSpecialist
   inhand:
   - DHImperialKitWeaponsSpecialist
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - PinpointerSyndicateNuclear
+    - CombatMedipen
+    - DHIFAKFilled
+    - DHAttachmentKitClose
 
 - type: startingGear
   parent: DHImperialGearBase
   id: DHImperialFieldMedicGear
   equipment:
+    back: DHImperialClothingBackpackMedic
     id: DHDogtagsImperialFieldMedic
-    belt: ClothingBeltMilitaryWebbingMedFilled
+    belt: DHImperialClothingBeltMedicFilled
   inhand:
   - DHImperialKitFieldMedic
   storage:
@@ -335,12 +345,26 @@
     id: DHDogtagsImperialMachinegunner
   inhand:
   - DHImperialKitMachinegunner
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - PinpointerSyndicateNuclear
+    - CombatMedipen
+    - DHIFAKFilled
+    - DHAttachmentKitSupport
 
 - type: startingGear
   parent: DHImperialGearBase
   id: DHImperialRiflemanGear
   inhand:
   - DHImperialKitRifleman
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - PinpointerSyndicateNuclear
+    - CombatMedipen
+    - DHIFAKFilled
+    - DHAttachmentKitRifle
 
 - type: entity
   parent: ToolboxThief

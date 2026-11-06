@@ -14,7 +14,7 @@
   - type: IconSmooth
     key: walls
     states:
-    - !type:CornerSpriteSmoothing
+    - !type:DHLegacyCornerSpriteSmoothing
       mask: [ walls, windows, grilles, marble, doors ]
       base: rock
 
@@ -31,7 +31,7 @@
   - type: IconSmooth
     key: walls
     states:
-    - !type:CornerSpriteSmoothing
+    - !type:DHLegacyCornerSpriteSmoothing
       mask: [ walls, windows, grilles, marble, doors ]
       base: rock_border
 
@@ -59,7 +59,7 @@
   - type: IconSmooth
     key: walls
     states:
-    - !type:CornerSpriteSmoothing
+    - !type:DHLegacyCornerSpriteSmoothing
       mask: [ walls, windows, grilles, marble, doors ]
       base: metal
 
@@ -79,7 +79,7 @@
   - type: IconSmooth
     key: walls
     states:
-    - !type:CornerSpriteSmoothing
+    - !type:DHLegacyCornerSpriteSmoothing
       mask: [ walls, windows, grilles, marble, doors ]
       base: strata_bare_outpost_
 
@@ -97,7 +97,7 @@
   - type: IconSmooth
     key: walls
     states:
-    - !type:CornerSpriteSmoothing
+    - !type:DHLegacyCornerSpriteSmoothing
       mask: [ walls, windows, grilles, marble, doors ]
       base: strata_ribbed_outpost_
 
@@ -116,7 +116,7 @@
   - type: IconSmooth
     key: walls
     states:
-    - !type:CornerSpriteSmoothing
+    - !type:DHLegacyCornerSpriteSmoothing
       mask: [ walls, windows, grilles, marble, doors ]
       base: strata_ribbed_outpost_
 
@@ -220,7 +220,7 @@
   - type: IconSmooth
     key: walls
     states:
-    - !type:CornerSpriteSmoothing
+    - !type:DHLegacyCornerSpriteSmoothing
       mask: [ walls, windows, grilles, marble, doors ]
       base: metal
 
@@ -239,7 +239,7 @@
   - type: IconSmooth
     key: walls
     states:
-    - !type:CornerSpriteSmoothing
+    - !type:DHLegacyCornerSpriteSmoothing
       mask: [ walls, windows, grilles, marble, doors ]
       base: rwall
 
@@ -258,7 +258,7 @@
   - type: IconSmooth
     key: walls
     states:
-    - !type:CornerSpriteSmoothing
+    - !type:DHLegacyCornerSpriteSmoothing
       mask: [ walls, windows, grilles, marble, doors ]
       base: rwall
 

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Taken from tgstation at commit https://github.com/tgstation/tgstation/commit/94f27c7b25bbde39c1412e24fb32bf6470fcc394, inhands by TiniestShark (github).",
+  "copyright": "Taken from tgstation at commit https://github.com/tgstation/tgstation/commit/94f27c7b25bbde39c1412e24fb32bf6470fcc394, inhands by TiniestShark (github).. DarkestHour: RMC-like sprites from RMC-14 (Taken from cmss13 at https://github.com/cmss13-devs/cmss13/blob/60ca3cddb69147cb17fcaef3b0514586292a4c55/icons/mob/humans/onmob/items_lefthand_0.dmi, https://github.com/cmss13-devs/cmss13/blob/60ca3cddb69147cb17fcaef3b0514586292a4c55/icons/mob/humans/onmob/items_righthand_0.dmi,https://github.com/cmss13-devs/cmss13/blob/bec6653d487a49aa2b5a8e0c97bed9612f620211/icons/obj/items/devices.dmi )",
   "size": {
     "x": 32,
     "y": 32
@@ -27,7 +27,7 @@
       "name": "inhand-right",
       "directions": 4
     },
-	  {
+    {
       "name": "green-inhand-left",
       "directions": 4
     },
@@ -35,7 +35,7 @@
       "name": "green-inhand-right",
       "directions": 4
     },
-	  {
+    {
       "name": "yellow-inhand-left",
       "directions": 4
     },
@@ -43,7 +43,7 @@
       "name": "yellow-inhand-right",
       "directions": 4
     },
-	  {
+    {
       "name": "red-inhand-left",
       "directions": 4
     },

@@ -157,3 +157,49 @@
     sprite: _RMC14/Objects/Clothing/Shoes/Boots/jackboots.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Shoes/Boots/jackboots.rsi
+
+# ---------------------------------------------------------------- LA-V: визоры (решение автора 2026-11-06), RMC-14 CC-BY-SA-3.0
+
+- type: entity
+  parent: ClothingEyesGlassesSecurity
+  id: DHLAVClothingEyesHUD
+  name: LA-V security HUD
+  description: "A side-mounted LA-V security HUD: records, threat markers and a flash filter."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/securityhud.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/securityhud.rsi
+
+- type: entity
+  parent: ClothingEyesGlassesSecurity
+  id: DHLAVClothingEyesVisorTactical
+  name: LA-V tactical visor
+  description: "Tinted tactical goggles of the LA-V security response teams, with the security HUD built in."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/swatgoggles.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/swatgoggles.rsi
+
+- type: entity
+  parent: ClothingEyesGlassesSunglasses
+  id: DHLAVClothingEyesShades
+  name: LA-V executive shades
+  description: "Angular corporate shades with a flash filter. Standard issue for LA-V management."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/jensen_shades.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/jensen_shades.rsi
+
+- type: entity
+  parent: ClothingEyesGlassesSunglasses
+  id: DHLAVClothingEyesGlasses
+  name: LA-V office glasses
+  description: "Black-framed glasses with a flash filter, issued to LA-V staff."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/trimax_black_glasses.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/trimax_black_glasses.rsi
