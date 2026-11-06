@@ -57,6 +57,17 @@ public sealed partial class DHAdminTab : Control
         callDeadend.OnPressed += _ => _console.ExecuteCommand("dhcallrepublicdeadend");
         root.AddChild(callDeadend);
 
+        var callPmc = new ConfirmButton
+        {
+            Text = Loc.GetString("dh-admin-tab-call-lav-pmc"),
+            ToolTip = Loc.GetString("dh-admin-tab-call-lav-pmc-tooltip"),
+            HorizontalAlignment = HAlignment.Left,
+            MinWidth = 260,
+            ModulateSelfOverride = Color.FromHex("#A68BE8"),
+        };
+        callPmc.OnPressed += _ => _console.ExecuteCommand("dhcalllavpmc");
+        root.AddChild(callPmc);
+
         AddChild(root);
     }
 }

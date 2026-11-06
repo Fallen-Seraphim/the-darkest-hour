@@ -163,6 +163,10 @@ def gen(f):
   - type: DHPartArmor
     parts: [ Head ]
     armorClass: %(helmet_class)s
+  # Встроенный противогаз занимает и слот маски (решение автора 2026-11-06).
+  - type: DHIntegratedMask
+  - type: SlotBlock
+    slots: [ MASK ]
 ''' % dict(F, f=f, outer=outer, helmet_class=HELMET_CLASS))
 
     for part, slot_flag, state, pname in (('ArmLeft', 'ARMS', 'arm_left', 'left arm module'),

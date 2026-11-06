@@ -92,8 +92,7 @@ public sealed partial class DHModularArmorDamageSystem : EntitySystem
             }
 
             any = true;
-            if (partArmor.Parts.Contains(part))
-                level = Math.Max(level, partArmor.ArmorClass);
+            level = Math.Max(level, partArmor.ClassFor(part));
         }
 
         return any;
@@ -157,11 +156,11 @@ public sealed partial class DHModularArmorDamageSystem : EntitySystem
 
     private void OnPartArmorDamageModify(Entity<DHPartArmorComponent> ent, ref InventoryRelayedEvent<DamageModifyEvent> args)
     {
-        if (ent.Comp.ArmorClass <= 0 || BulletHandledNow(args.Owner))
+        if (ent.Comp.MaxClass() <= 0 || BulletHandledNow(args.Owner))
             return;
 
         var part = PeekOrPick(args.Owner, args.Args.Origin);
-        if (ent.Comp.Parts.Contains(part))
+        if (ent.Comp.ClassFor(part) > 0)
             args.Args.Damage = ConvertPhysical(args.Args.Damage, DHModularArmor.NonBulletFraction, toBlunt: false);
     }
 

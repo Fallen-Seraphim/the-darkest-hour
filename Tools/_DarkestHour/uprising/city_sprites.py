@@ -156,6 +156,25 @@ def icons():
         im.save(os.path.join(d, name + '.png'))
         meta['states'].append({'name': name})
 
+    # ЧВК LA-V (решение автора 2026-11-06): графит с фиолетовой «V», метка роли — внизу.
+    pmc = (58, 58, 66, 255)
+    violet = (178, 146, 255, 255)
+    for name, mark in (('lav_pmc_commander', (236, 200, 96, 255)), ('lav_pmc_medic', None),
+                       ('lav_pmc_specialist', (120, 200, 120, 255)), ('lav_pmc_rifleman', (150, 150, 160, 255))):
+        im, dr = base(pmc, (104, 72, 176, 255))
+        for x, y in ((2, 2), (2, 3), (3, 4), (4, 4), (5, 3), (5, 2)):
+            dr.point((x, y), fill=violet)
+        if name == 'lav_pmc_medic':
+            dr.line([2, 6, 5, 6], fill=(240, 240, 250, 255))
+            dr.point((3, 5), fill=(214, 60, 60, 255))
+            dr.point((4, 5), fill=(214, 60, 60, 255))
+        elif mark:
+            dr.line([1, 6, 6, 6], fill=mark)
+        if name == 'lav_pmc_commander':
+            dr.rectangle([0, 0, 7, 7], outline=mark)
+        im.save(os.path.join(d, name + '.png'))
+        meta['states'].append({'name': name})
+
     red = (140, 20, 20, 255)
     star = (236, 196, 60, 255)
     marks = {'front_leader': (236, 196, 60, 255), 'front_saboteur': (240, 120, 40, 255),

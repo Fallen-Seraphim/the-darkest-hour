@@ -48,6 +48,7 @@ public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRule
 
         SubscribeLocalEvent<PlayerSpawnCompleteEvent>(OnPlayerSpawned);
         SubscribeLocalEvent<DHUprisingMemberComponent, MobStateChangedEvent>(OnMemberMobState);
+        InitializePmc();
     }
 
     protected override void Started(Entity<DHUprisingRuleComponent, GameRuleComponent> rule, ref GameRuleStartedEvent args)
@@ -124,7 +125,7 @@ public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRule
 
     private void OnMemberMobState(Entity<DHUprisingMemberComponent> ent, ref MobStateChangedEvent args)
     {
-        if (args.NewMobState != MobState.Dead ||
+        if (args.NewMobState != MobState.Dead || ent.Comp.Combatant ||
             ent.Comp.Side is not (DHUprisingSide.Civilian or DHUprisingSide.Vanguard))
         {
             return;
@@ -275,6 +276,9 @@ public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRule
         _chat.DispatchGlobalAnnouncement(Loc.GetString("dh-uprising-flight-landed",
                 ("minutes", (int) rule.FlightStay.TotalMinutes)),
             Loc.GetString("dh-uprising-sender-aeronautics"), true, FlightSound, CivilianGrey);
+
+        if (rule.PmcPending)
+            LandPmc(rule, grid.Value);
     }
 
     private void Depart(DHUprisingRuleComponent rule, EntityUid flight)

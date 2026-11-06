@@ -183,12 +183,40 @@ public sealed partial class DHArmorSpecialComponent : Component
 [RegisterComponent, NetworkedComponent]
 public sealed partial class DHPartArmorComponent : Component
 {
-    [DataField(required: true)]
+    [DataField]
     public List<string> Parts = new();
 
     /// <summary>Класс брони (0–3): пули ниже этого класса не пробивают.</summary>
     [DataField]
     public int ArmorClass = 1;
+
+    /// <summary>
+    /// Свой класс для отдельных частей (немодульная броня на всё тело: торс плотнее конечностей). Части отсюда
+    /// защищены, даже если их нет в <see cref="Parts"/>.
+    /// </summary>
+    [DataField]
+    public Dictionary<string, int> Classes = new();
+
+    /// <summary>Класс брони на части тела; 0 — часть не закрыта.</summary>
+    public int ClassFor(string part)
+    {
+        if (Classes.TryGetValue(part, out var level))
+            return level;
+
+        return Parts.Contains(part) ? ArmorClass : 0;
+    }
+
+    /// <summary>Наибольший класс среди закрытых частей.</summary>
+    public int MaxClass()
+    {
+        var max = Parts.Count > 0 ? ArmorClass : 0;
+        foreach (var level in Classes.Values)
+        {
+            max = Math.Max(max, level);
+        }
+
+        return max;
+    }
 }
 
 /// <summary>Стойка обслуживания брони: рядом с ней ставятся и снимаются тяжёлые модули.</summary>

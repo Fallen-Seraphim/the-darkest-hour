@@ -60,6 +60,17 @@ public sealed partial class DHUprisingRuleComponent : Component
     [DataField]
     public HashSet<ProtoId<JobPrototype>> LeaderJobs = new();
 
+    /// <summary>Точки появления отряда ЧВК LA-V: командир, медик, специалист, стрелок.</summary>
+    [DataField]
+    public List<EntProtoId> PmcSpawners = new()
+    {
+        "DHSpawnerLAVPmcCommander", "DHSpawnerLAVPmcMedic", "DHSpawnerLAVPmcSpecialist", "DHSpawnerLAVPmcRifleman",
+    };
+
+    /// <summary>Сколько борт с ЧВК ждёт на ЗП-1: отряду нужно успеть привести представителя.</summary>
+    [DataField]
+    public TimeSpan PmcFlightStay = TimeSpan.FromMinutes(12);
+
     // --- состояние раунда ---
 
     [ViewVariables]
@@ -91,20 +102,31 @@ public sealed partial class DHUprisingRuleComponent : Component
 
     [ViewVariables]
     public bool Ended;
+
+    /// <summary>ЧВК вызвана и прилетит ближайшим бортом.</summary>
+    [ViewVariables]
+    public bool PmcPending;
+
+    [ViewVariables]
+    public int PmcCalls;
 }
 
 /// <summary>Игрок «Восстания»: его сторона (по должности) и важная ли он персона.</summary>
 [RegisterComponent]
 public sealed partial class DHUprisingMemberComponent : Component
 {
-    [ViewVariables]
+    [DataField]
     public DHUprisingSide Side;
 
-    [ViewVariables]
+    [DataField]
     public bool Vip;
 
-    [ViewVariables]
+    [DataField]
     public bool Leader;
+
+    /// <summary>Боец (ЧВК LA-V): его гибель не считается гибелью мирного.</summary>
+    [DataField]
+    public bool Combatant;
 }
 
 /// <summary>Метка посадочной площадки ЗП-1 «Аэронавтика»: сюда садится борт «Восстания».</summary>

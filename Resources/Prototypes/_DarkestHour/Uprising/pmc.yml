@@ -1,0 +1,696 @@
+# ЧВК LA-V (решение автора 2026-11-06): отряд из четырёх бойцов — командир, медик, специалист, стрелок — прилетает
+# бортом «Аэронавтики» на ЗП-1 по вызову администрации (dhcalllavpmc, кнопка в админ-панели). Задача — вывезти
+# представителя LA-V любой ценой, остальных — по возможности. Броня немодульная, но закрывает все конечности
+# (DHPartArmor.classes): лёгкая K1 — торс 2, конечности 1; тяжёлая K3 — торс 3, конечности 2. Шлемы — со встроенным
+# противогазом, занимают и слот маски. Спрайты — ЧВК Вейланд-Ютани из RMC-14 (CC-BY-SA), копирует rmc_skins.py.
+
+# ---------------------------------------------------------------- форма
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAVPmcClothingUniform
+  name: LA-V PMC fatigues
+  description: Grey combat fatigues of the Lost Angels—Vanguard private military contractors.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/PMC/standard.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/PMC/standard.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAVPmcClothingUniformCommander
+  name: LA-V PMC commander fatigues
+  description: Fatigues of an LA-V contractor team leader.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/PMC/officer.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/PMC/officer.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: DHLAVPmcClothingUniformSpecialist
+  name: LA-V PMC specialist fatigues
+  description: Dark fatigues of an LA-V contractor specialist.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Uniforms/PMC/commando.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Uniforms/PMC/commando.rsi
+
+# ---------------------------------------------------------------- броня
+
+- type: entity
+  abstract: true
+  parent: DHClothingOuterVestBase
+  id: DHLAVPmcClothingOuterArmorBase
+  components:
+  - type: Item
+    size: Huge
+  - type: ExplosionResistance
+    damageCoefficient: 0.75
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 3000
+
+- type: entity
+  parent: DHLAVPmcClothingOuterArmorBase
+  id: DHLAVPmcClothingOuterArmorLight
+  name: LA-V K1 combat armour
+  description: Non-modular corporate combat armour with plates over the chest, arms and legs. Class 2 for the torso, class 1 for the limbs.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/PMC/pmc.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/PMC/pmc.rsi
+  - type: DHPartArmor
+    classes:
+      Torso: 2
+      ArmLeft: 1
+      ArmRight: 1
+      LegLeft: 1
+      LegRight: 1
+  - type: ClothingSpeedModifier
+    walkModifier: 0.97
+    sprintModifier: 0.97
+  - type: HeldSpeedModifier
+
+- type: entity
+  parent: DHLAVPmcClothingOuterArmorBase
+  id: DHLAVPmcClothingOuterArmorHeavy
+  name: LA-V K3 heavy armour
+  description: Heavy non-modular corporate armour covering the whole body. Class 3 for the torso, class 2 for the limbs.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/OuterClothing/PMC/commando.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/OuterClothing/PMC/commando.rsi
+  - type: DHPartArmor
+    classes:
+      Torso: 3
+      ArmLeft: 2
+      ArmRight: 2
+      LegLeft: 2
+      LegRight: 2
+  - type: ExplosionResistance
+    damageCoefficient: 0.65
+  - type: ClothingSpeedModifier
+    walkModifier: 0.9
+    sprintModifier: 0.9
+  - type: HeldSpeedModifier
+
+# ---------------------------------------------------------------- шлемы со встроенным противогазом
+
+- type: entity
+  abstract: true
+  parent: [ ClothingHeadBase, TemperatureProtection ]
+  id: DHLAVPmcClothingHeadHelmetBase
+  components:
+  - type: Clothing
+    quickEquip: false
+    slots: [ HEAD ]
+  - type: BreathMask
+  - type: IngestionBlocker
+  - type: IdentityBlocker
+  - type: DHBioProtection
+    airborne: 0.6
+  # Встроенный противогаз: шлем занимает и слот маски.
+  - type: DHIntegratedMask
+  - type: SlotBlock
+    slots: [ MASK ]
+  - type: HideLayerClothing
+    slots:
+    - Hair
+    - Snout
+    - HeadTop
+    - HeadSide
+    - FacialHair
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+
+- type: entity
+  parent: DHLAVPmcClothingHeadHelmetBase
+  id: DHLAVPmcClothingHeadHelmet
+  name: LA-V PMC helmet
+  description: A sealed corporate combat helmet with a built-in gas mask. Class 2 protection for the head. Takes the mask slot too.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/PMC/helmet.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/PMC/helmet.rsi
+  - type: DHPartArmor
+    parts: [ Head ]
+    armorClass: 2
+
+- type: entity
+  parent: DHLAVPmcClothingHeadHelmetBase
+  id: DHLAVPmcClothingHeadHelmetCommander
+  name: LA-V PMC commander helmet
+  description: A team leader's sealed combat helmet with a built-in gas mask. Class 2 protection for the head. Takes the mask slot too.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/PMC/commando_alt.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/PMC/commando_alt.rsi
+  - type: DHPartArmor
+    parts: [ Head ]
+    armorClass: 2
+
+- type: entity
+  parent: DHLAVPmcClothingHeadHelmetBase
+  id: DHLAVPmcClothingHeadHelmetHeavy
+  name: LA-V PMC heavy helmet
+  description: A heavy sealed helmet with a built-in gas mask. Class 3 protection for the head. Takes the mask slot too.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/PMC/heavy.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/PMC/heavy.rsi
+  - type: DHPartArmor
+    parts: [ Head ]
+    armorClass: 3
+
+- type: entity
+  parent: DHLAVPmcClothingHeadHelmetBase
+  id: DHLAVPmcClothingHeadHelmetSpecialist
+  name: LA-V PMC specialist helmet
+  description: A sealed helmet with a built-in gas mask and a rangefinder mount. Class 3 protection for the head. Takes the mask slot too.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/PMC/commando.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/PMC/commando.rsi
+  - type: DHPartArmor
+    parts: [ Head ]
+    armorClass: 3
+
+# ---------------------------------------------------------------- перчатки, ботинки (кисти и стопы — класс 1)
+
+- type: entity
+  parent: ClothingHandsGlovesCombat
+  id: DHLAVPmcClothingHandsGloves
+  name: LA-V PMC armoured gloves
+  description: Black combat gloves with armoured knuckles and backs. Class 1 protection for the hands.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Hands/Gloves/pmc.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Hands/Gloves/pmc.rsi
+  - type: DHPartArmor
+    parts: [ HandLeft, HandRight ]
+    armorClass: 1
+
+- type: entity
+  parent: ClothingShoesBootsCombat
+  id: DHLAVPmcClothingShoesBoots
+  name: LA-V PMC armoured boots
+  description: Heavy corporate assault boots. Class 1 protection for the feet.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Shoes/Boots/swat.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Shoes/Boots/swat.rsi
+  - type: DHPartArmor
+    parts: [ FootLeft, FootRight ]
+    armorClass: 1
+
+# ---------------------------------------------------------------- визоры
+
+- type: entity
+  parent: ClothingEyesGlassesSecurity
+  id: DHLAVPmcClothingEyesVisor
+  name: LA-V PMC tactical visor
+  description: Violet-tinted ballistic goggles of the LA-V contractors with a threat HUD and a flash filter.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/purple_ballistic_goggles.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/purple_ballistic_goggles.rsi
+
+- type: entity
+  parent: [ ClothingEyesSunglassesBase, ShowMedicalIcons ]
+  id: DHLAVPmcClothingEyesVisorMedic
+  name: LA-V PMC medical visor
+  description: Polarised ballistic goggles of an LA-V contract medic with a medical HUD and a flash filter.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/blue_polarized_ballistic_goggles.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/blue_polarized_ballistic_goggles.rsi
+
+- type: entity
+  parent: ClothingEyesGlassesSecurity
+  id: DHLAVPmcClothingEyesScoutSight
+  name: LA-V PMC scout sight
+  description: A monocular sight of an LA-V contract specialist with a threat HUD and a flash filter.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/m42_scoutsight.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/m42_scoutsight.rsi
+
+# ---------------------------------------------------------------- рюкзаки и пояса
+
+- type: entity
+  parent: ClothingBackpackMerc
+  id: DHLAVPmcClothingBackpack
+  name: LA-V PMC pack
+  description: A grey assault pack of the LA-V contractors.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Back/Backpacks/PMC/standard.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Back/Backpacks/PMC/standard.rsi
+
+- type: entity
+  parent: ClothingBackpackMerc
+  id: DHLAVPmcClothingBackpackCommando
+  name: LA-V PMC heavy pack
+  description: A dark heavy pack of the LA-V contractors.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Back/Backpacks/PMC/commando.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Back/Backpacks/PMC/commando.rsi
+
+- type: entity
+  parent: ClothingBackpackMerc
+  id: DHLAVPmcClothingBackpackMedic
+  name: LA-V PMC medical satchel
+  description: A contract medic's satchel marked with the cross.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Back/Satchels/PMC/medic.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Back/Satchels/PMC/medic.rsi
+
+- type: entity
+  parent: ClothingBeltMilitaryWebbing
+  id: DHLAVPmcClothingBeltWebbing
+  name: LA-V PMC load-bearing belt
+  description: A contractor's belt with magazine pouches.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Belt/pmc.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Belt/pmc.rsi
+
+- type: entity
+  parent: ClothingBeltMilitaryWebbingMedFilled
+  id: DHLAVPmcClothingBeltMedicFilled
+  name: LA-V PMC medical belt
+  description: A contract medic's belt with medical pouches.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Belt/medicbag_pmc.rsi
+    state: icon
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Belt/medicbag_pmc.rsi
+
+# ---------------------------------------------------------------- удостоверение
+
+- type: entity
+  parent: DHLAVIDCardBase
+  id: DHLAIDCardVPmc
+  suffix: LA-V PMC
+  components:
+  - type: Sprite
+    layers:
+    - state: pmc
+  - type: PresetIdCard
+    job: DHLAVPmcRifleman
+
+- type: entity
+  parent: DHLAIDCardVPmc
+  id: DHLAIDCardVPmcCommander
+  suffix: LA-V PMC commander
+  components:
+  - type: PresetIdCard
+    job: DHLAVPmcCommander
+
+- type: entity
+  parent: DHLAIDCardVPmc
+  id: DHLAIDCardVPmcMedic
+  suffix: LA-V PMC medic
+  components:
+  - type: PresetIdCard
+    job: DHLAVPmcMedic
+
+- type: entity
+  parent: DHLAIDCardVPmc
+  id: DHLAIDCardVPmcSpecialist
+  suffix: LA-V PMC specialist
+  components:
+  - type: PresetIdCard
+    job: DHLAVPmcSpecialist
+
+# ---------------------------------------------------------------- снаряжение
+
+- type: startingGear
+  id: DHLAVPmcGearBase
+  equipment:
+    gloves: DHLAVPmcClothingHandsGloves
+    shoes: DHLAVPmcClothingShoesBoots
+    ears: DHClothingHeadsetLAVanguard
+    pocket1: DHWeaponPistolMk58
+    pocket2: FlashlightSeclite
+
+- type: startingGear
+  parent: DHLAVPmcGearBase
+  id: DHLAVPmcCommanderGear
+  equipment:
+    id: DHLAIDCardVPmcCommander
+    jumpsuit: DHLAVPmcClothingUniformCommander
+    outerClothing: DHLAVPmcClothingOuterArmorLight
+    head: DHLAVPmcClothingHeadHelmetCommander
+    eyes: DHLAVPmcClothingEyesVisor
+    back: DHLAVPmcClothingBackpack
+    belt: DHLAVPmcClothingBeltWebbing
+    suitstorage: DHWeaponRifleLAVR61
+  storage:
+    back:
+    - DHMagazineLAVR61LS
+    - DHMagazineLAVR61LS
+    - DHMagazineLAVR61LAP
+    - DHMagazineLAVR61LAP
+    - DHAttachmentKitRifle
+    - DHMagazine10x24ShortE
+    - Binoculars
+    - DHIFAKFilled
+    - Handcuffs
+    - Handcuffs
+
+- type: startingGear
+  parent: DHLAVPmcGearBase
+  id: DHLAVPmcMedicGear
+  equipment:
+    id: DHLAIDCardVPmcMedic
+    jumpsuit: DHLAVPmcClothingUniform
+    outerClothing: DHLAVPmcClothingOuterArmorLight
+    head: DHLAVPmcClothingHeadHelmet
+    eyes: DHLAVPmcClothingEyesVisorMedic
+    back: DHLAVPmcClothingBackpackMedic
+    belt: DHLAVPmcClothingBeltMedicFilled
+    suitstorage: DHWeaponSMGLAVSMG23
+  storage:
+    back:
+    - DHMagazineLAVSMG23LS
+    - DHMagazineLAVSMG23LS
+    - DHMagazineLAVSMG23LHP
+    - DHAttachmentKitClose
+    - HandheldHealthAnalyzer
+    - MedkitCombatFilled
+    - DHBloodPackFull
+    - DHPainkillerAutoinjector
+    - DHPainBlockerAutoinjector
+    - DHIFAKFilled
+    - DHFieldSurgeryKitFilled
+
+- type: startingGear
+  parent: DHLAVPmcGearBase
+  id: DHLAVPmcSpecialistGear
+  equipment:
+    id: DHLAIDCardVPmcSpecialist
+    jumpsuit: DHLAVPmcClothingUniformSpecialist
+    outerClothing: DHLAVPmcClothingOuterArmorHeavy
+    head: DHLAVPmcClothingHeadHelmetSpecialist
+    eyes: DHLAVPmcClothingEyesScoutSight
+    back: DHLAVPmcClothingBackpackCommando
+    belt: DHLAVPmcClothingBeltWebbing
+    suitstorage: DHWeaponSniperLAVR90
+  storage:
+    back:
+    - DHMagazineLAVR90LM
+    - DHMagazineLAVR90LM
+    - DHMagazineLAVR90LAP
+    - DHMagazineLAVR90LAP
+    - DHAttachmentKitMarksman
+    - DHMagazine10x24ShortE
+    - DHMagazine10x24ShortE
+    - Binoculars
+    - DHIFAKFilled
+
+- type: startingGear
+  parent: DHLAVPmcGearBase
+  id: DHLAVPmcRiflemanGear
+  equipment:
+    id: DHLAIDCardVPmc
+    jumpsuit: DHLAVPmcClothingUniform
+    outerClothing: DHLAVPmcClothingOuterArmorHeavy
+    head: DHLAVPmcClothingHeadHelmetHeavy
+    eyes: DHLAVPmcClothingEyesVisor
+    back: DHLAVPmcClothingBackpackCommando
+    belt: DHLAVPmcClothingBeltWebbing
+    suitstorage: DHWeaponRifleLAVR55
+  storage:
+    back:
+    - DHMagazineLAVR55LS
+    - DHMagazineLAVR55LS
+    - DHMagazineLAVR55LS
+    - DHMagazineLAVR55LAP
+    - DHMagazineLAVR55LAP
+    - DHMagazineLAVR55LHP
+    - DHAttachmentKitSupport
+    - DHIFAKFilled
+    - Handcuffs
+
+# ---------------------------------------------------------------- должности (только гост-роли)
+
+- type: job
+  id: DHLAVPmcCommander
+  name: dh-job-lav-pmc-commander-name
+  description: dh-job-lav-pmc-commander-desc
+  playTimeTracker: JobDHLAVPmcCommander
+  setPreference: false
+  startingGear: DHLAVPmcCommanderGear
+  icon: JobIconDHLAVPmcCommander
+  supervisors: dh-job-lav-pmc-supervisors
+  access:
+  - DHLAVanguard
+  - DHLAVanguardOffice
+
+- type: job
+  id: DHLAVPmcMedic
+  name: dh-job-lav-pmc-medic-name
+  description: dh-job-lav-pmc-medic-desc
+  playTimeTracker: JobDHLAVPmcMedic
+  setPreference: false
+  startingGear: DHLAVPmcMedicGear
+  icon: JobIconDHLAVPmcMedic
+  supervisors: dh-job-lav-pmc-supervisors-squad
+  access:
+  - DHLAVanguard
+  - DHLAVanguardOffice
+
+- type: job
+  id: DHLAVPmcSpecialist
+  name: dh-job-lav-pmc-specialist-name
+  description: dh-job-lav-pmc-specialist-desc
+  playTimeTracker: JobDHLAVPmcSpecialist
+  setPreference: false
+  startingGear: DHLAVPmcSpecialistGear
+  icon: JobIconDHLAVPmcSpecialist
+  supervisors: dh-job-lav-pmc-supervisors-squad
+  access:
+  - DHLAVanguard
+  - DHLAVanguardOffice
+
+- type: job
+  id: DHLAVPmcRifleman
+  name: dh-job-lav-pmc-rifleman-name
+  description: dh-job-lav-pmc-rifleman-desc
+  playTimeTracker: JobDHLAVPmcRifleman
+  setPreference: false
+  startingGear: DHLAVPmcRiflemanGear
+  icon: JobIconDHLAVPmcRifleman
+  supervisors: dh-job-lav-pmc-supervisors-squad
+  access:
+  - DHLAVanguard
+  - DHLAVanguardOffice
+
+- type: playTimeTracker
+  id: JobDHLAVPmcCommander
+
+- type: playTimeTracker
+  id: JobDHLAVPmcMedic
+
+- type: playTimeTracker
+  id: JobDHLAVPmcSpecialist
+
+- type: playTimeTracker
+  id: JobDHLAVPmcRifleman
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAVPmcCommander
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/uprising_job_icons.rsi
+    state: lav_pmc_commander
+  jobName: dh-job-lav-pmc-commander-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAVPmcMedic
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/uprising_job_icons.rsi
+    state: lav_pmc_medic
+  jobName: dh-job-lav-pmc-medic-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAVPmcSpecialist
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/uprising_job_icons.rsi
+    state: lav_pmc_specialist
+  jobName: dh-job-lav-pmc-specialist-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAVPmcRifleman
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/uprising_job_icons.rsi
+    state: lav_pmc_rifleman
+  jobName: dh-job-lav-pmc-rifleman-name
+
+# ---------------------------------------------------------------- гост-роли (ставит DHUprisingRuleSystem на борт)
+
+- type: randomHumanoidSettings
+  id: DHEventHumanoidLAVPmc
+  parent: EventHumanoid
+  randomizeName: false
+  components:
+  - type: DHLAVPmc
+
+- type: entity
+  id: DHSpawnerLAVPmcCommander
+  name: LA-V PMC commander
+  suffix: Ghost role
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/PMC/commando_alt.rsi
+    state: icon
+  - type: RandomHumanoidSpawner
+    settings: DHLAVPmcCommander
+
+- type: randomHumanoidSettings
+  id: DHLAVPmcCommander
+  parent: DHEventHumanoidLAVPmc
+  components:
+  - type: GhostRole
+    name: dh-ghost-role-lav-pmc-commander-name
+    description: dh-ghost-role-lav-pmc-commander-desc
+    rules: ghost-role-information-nonantagonist-rules
+    raffle:
+      settings: short
+    job: DHLAVPmcCommander
+  - type: Loadout
+    prototypes: [ DHLAVPmcCommanderGear ]
+    roleLoadout: [ RoleSurvivalMilitaryDouble ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-lav-pmc-commander
+
+- type: entity
+  id: DHSpawnerLAVPmcMedic
+  name: LA-V PMC medic
+  suffix: Ghost role
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/PMC/helmet.rsi
+    state: icon
+  - type: RandomHumanoidSpawner
+    settings: DHLAVPmcMedic
+
+- type: randomHumanoidSettings
+  id: DHLAVPmcMedic
+  parent: DHEventHumanoidLAVPmc
+  components:
+  - type: GhostRole
+    name: dh-ghost-role-lav-pmc-medic-name
+    description: dh-ghost-role-lav-pmc-medic-desc
+    rules: ghost-role-information-nonantagonist-rules
+    raffle:
+      settings: short
+    job: DHLAVPmcMedic
+  - type: Loadout
+    prototypes: [ DHLAVPmcMedicGear ]
+    roleLoadout: [ RoleSurvivalMilitaryDouble ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-lav-pmc-medic
+
+- type: entity
+  id: DHSpawnerLAVPmcSpecialist
+  name: LA-V PMC specialist
+  suffix: Ghost role
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/PMC/commando.rsi
+    state: icon
+  - type: RandomHumanoidSpawner
+    settings: DHLAVPmcSpecialist
+
+- type: randomHumanoidSettings
+  id: DHLAVPmcSpecialist
+  parent: DHEventHumanoidLAVPmc
+  components:
+  - type: GhostRole
+    name: dh-ghost-role-lav-pmc-specialist-name
+    description: dh-ghost-role-lav-pmc-specialist-desc
+    rules: ghost-role-information-nonantagonist-rules
+    raffle:
+      settings: short
+    job: DHLAVPmcSpecialist
+  - type: Loadout
+    prototypes: [ DHLAVPmcSpecialistGear ]
+    roleLoadout: [ RoleSurvivalMilitaryDouble ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-lav-pmc-specialist
+
+- type: entity
+  id: DHSpawnerLAVPmcRifleman
+  name: LA-V PMC rifleman
+  suffix: Ghost role
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/PMC/heavy.rsi
+    state: icon
+  - type: RandomHumanoidSpawner
+    settings: DHLAVPmcRifleman
+
+- type: randomHumanoidSettings
+  id: DHLAVPmcRifleman
+  parent: DHEventHumanoidLAVPmc
+  components:
+  - type: GhostRole
+    name: dh-ghost-role-lav-pmc-rifleman-name
+    description: dh-ghost-role-lav-pmc-rifleman-desc
+    rules: ghost-role-information-nonantagonist-rules
+    raffle:
+      settings: short
+    job: DHLAVPmcRifleman
+  - type: Loadout
+    prototypes: [ DHLAVPmcRiflemanGear ]
+    roleLoadout: [ RoleSurvivalMilitaryDouble ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-name-format-lav-pmc-rifleman
