@@ -1,6 +1,7 @@
 using Content.Shared._DarkestHour.Environment;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Timing;
+using Robust.Shared.Console;
 
 namespace Content.Server._DarkestHour.Environment;
 
@@ -51,5 +52,57 @@ public sealed partial class DHDayNightSystem : EntitySystem
         cycle.BaseColor = noon;
         cycle.Start = _timing.CurTime;
         Dirty(map, cycle);
+    }
+}
+
+/// <summary>
+/// dhdaynight — время суток на карте, где стоит админ: доля суток, часы и цвет. dhdaynight 0.5 — поставить полдень
+/// (0 — полночь, 0.25 — восход, 0.75 — закат) на всех картах со сменой суток.
+/// </summary>
+[Content.Server.Administration.AdminCommand(Content.Shared.Administration.AdminFlags.Admin)]
+public sealed partial class DHDayNightCommand : LocalizedEntityCommands
+{
+    [Dependency] private IGameTiming _timing = default!;
+
+    public override string Command => "dhdaynight";
+
+    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    {
+        if (shell.Player?.AttachedEntity is not { } player ||
+            EntityManager.GetComponent<TransformComponent>(player).MapUid is not { } map ||
+            !EntityManager.TryGetComponent<DHDayNightCycleComponent>(map, out var cycle))
+        {
+            shell.WriteError(Loc.GetString("cmd-dhdaynight-no-cycle"));
+            return;
+        }
+
+        var now = _timing.CurTime;
+        if (args.Length > 0)
+        {
+            if (!float.TryParse(args[0], System.Globalization.NumberStyles.Float,
+                    System.Globalization.CultureInfo.InvariantCulture, out var target) || target < 0f || target >= 1f)
+            {
+                shell.WriteError(Loc.GetString("cmd-dhdaynight-bad"));
+                return;
+            }
+
+            // Все карты со сменой суток (поверхность и этажи) — одинаково, чтобы уровни не разошлись.
+            var query = EntityManager.EntityQueryEnumerator<DHDayNightCycleComponent>();
+            while (query.MoveNext(out var uid, out var other))
+            {
+                other.Start = now;
+                other.StartFraction = target;
+                EntityManager.Dirty(uid, other);
+            }
+        }
+
+        var fraction = DHDayNight.Fraction(cycle, now);
+        var hours = fraction * 24f;
+        shell.WriteLine(Loc.GetString("cmd-dhdaynight-status",
+            ("map", EntityManager.ToPrettyString(map)),
+            ("fraction", fraction.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)),
+            ("time", $"{(int) hours:00}:{(int) (hours % 1f * 60f):00}"),
+            ("color", DHDayNight.GetColor(cycle, fraction).ToHex()),
+            ("minutes", (int) cycle.Duration.TotalMinutes)));
     }
 }
