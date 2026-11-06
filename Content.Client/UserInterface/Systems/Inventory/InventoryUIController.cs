@@ -433,19 +433,50 @@ public sealed partial class InventoryUIController : UIController, IOnStateEntere
             inventoryButton.StorageButton.Visible = showStorage;
         }
 
-        if (_slotGroups.GetValueOrDefault(group)?.GetButton(name) is not { } button)
+        if (_slotGroups.GetValueOrDefault(group)?.GetButton(name) is { } button)
+        {
+            if (_entities.TryGetComponent(entity, out VirtualItemComponent? virtb))
+            {
+                button.SetEntity(virtb.BlockingEntity);
+                button.Blocked = true;
+            }
+            else
+            {
+                button.SetEntity(entity);
+                button.Blocked = false;
+                button.StorageButton.Visible = showStorage;
+            }
+        }
+
+        // DarkestHour: шлем со встроенным противогазом занимает и слот маски — показываем его там закрытым.
+        if (name is "head" or "mask")
+            DHRefreshIntegratedMask();
+    }
+
+    /// <summary>DarkestHour: пустой слот маски под шлемом со встроенным противогазом — с шлемом и закрыт.</summary>
+    private void DHRefreshIntegratedMask()
+    {
+        if (_playerUid is not { } player)
             return;
 
-        if (_entities.TryGetComponent(entity, out VirtualItemComponent? virtb))
+        _inventorySystem.TryGetSlotEntity(player, "mask", out var mask);
+        if (mask != null)
+            return; // обычный предмет в слоте — его уже показали
+
+        EntityUid? blocker = null;
+        if (_inventorySystem.TryGetSlotEntity(player, "head", out var head) &&
+            _entities.HasComponent<Content.Shared._DarkestHour.Clothing.DHIntegratedMaskComponent>(head))
         {
-            button.SetEntity(virtb.BlockingEntity);
-            button.Blocked = true;
+            blocker = head;
         }
-        else
+
+        foreach (var slotGroup in _slotGroups.Values)
         {
-            button.SetEntity(entity);
-            button.Blocked = false;
-            button.StorageButton.Visible = showStorage;
+            if (slotGroup.GetButton("mask") is not { } maskButton)
+                continue;
+
+            maskButton.SetEntity(blocker);
+            maskButton.Blocked = blocker != null;
         }
     }
 

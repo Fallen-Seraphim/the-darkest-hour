@@ -44,3 +44,5 @@ ent-DHActionGhostLevelUp = Уровнем выше
 
 ent-DHActionGhostLevelDown = Уровнем ниже
     .desc = Перейти в ту же точку на Z-уровень ниже.
+ent-DHZStairShaft = лестничный проём
+    .desc = Открытый проём лестничного марша. Осторожно, внизу пролёт.
