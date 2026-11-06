@@ -55,8 +55,6 @@
     body: AP
     mapped: true
     groundTile: RMCFloorAsphalt
-    # Город: воздух этажей и подземелий — из атмосферы карты, без потайловой симуляции (оптимизация Z-уровней).
-    levelAtmosphere: false
     levels:
       -3: /Maps/_DarkestHour/Uprising/lost_angels_m3.yml
       -2: /Maps/_DarkestHour/Uprising/lost_angels_m2.yml
