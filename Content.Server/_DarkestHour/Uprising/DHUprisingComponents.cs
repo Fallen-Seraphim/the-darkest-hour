@@ -17,7 +17,8 @@ public enum DHUprisingSide : byte
 /// <summary>
 /// Режим «Восстание» (решение автора 2026-11-05): квартал Лост-Энджелса. Военная Полиция ищет лидеров ОФСК среди
 /// жителей, ОФСК держит квартал, LA-V торгует и должна вывезти представителя через ЗП-1 «Аэронавтика». Борт на ЗП-1
-/// прилетает по расписанию: забирает представителя (эвакуация), с ним приходят подкрепления военпола.
+/// прилетает только по вызову: эвакуационный борт заказывают с компьютера бюджета LA-V (или его приводит вызванный
+/// администрацией отряд ЧВК LA-V). Расписания рейсов нет (решение автора 2026-11-06).
 /// </summary>
 [RegisterComponent]
 public sealed partial class DHUprisingRuleComponent : Component
@@ -25,9 +26,9 @@ public sealed partial class DHUprisingRuleComponent : Component
     [DataField]
     public TimeSpan TimeLimit = TimeSpan.FromMinutes(70);
 
-    /// <summary>Когда (от начала раунда) борт садится на ЗП-1.</summary>
+    /// <summary>Когда (от начала раунда) вызванные борты садятся на ЗП-1. По расписанию рейсов нет — только вызовы.</summary>
     [DataField]
-    public List<TimeSpan> Flights = new() { TimeSpan.FromMinutes(25), TimeSpan.FromMinutes(50) };
+    public List<TimeSpan> Flights = new();
 
     /// <summary>За сколько до посадки объявляют о борте.</summary>
     [DataField]
@@ -103,7 +104,7 @@ public sealed partial class DHUprisingRuleComponent : Component
     [ViewVariables]
     public bool Ended;
 
-    /// <summary>ЧВК вызвана и прилетит ближайшим бортом.</summary>
+    /// <summary>ЧВК вызвана и прилетит вызванным эвакуационным бортом.</summary>
     [ViewVariables]
     public bool PmcPending;
 

@@ -17,8 +17,8 @@ using Robust.Shared.Map.Components;
 namespace Content.Server._DarkestHour.Uprising;
 
 /// <summary>
-/// «Восстание»: стороны по должностям, вступительные инструкции, борт на ЗП-1 по расписанию (эвакуация
-/// представителя LA-V), учёт убитых мирных и итоги раунда.
+/// «Восстание»: стороны по должностям, вступительные инструкции, эвакуационный борт на ЗП-1 по вызову
+/// (эвакуация представителя LA-V), учёт убитых мирных и итоги раунда.
 /// </summary>
 public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRuleComponent>
 {

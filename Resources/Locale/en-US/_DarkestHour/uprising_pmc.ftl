@@ -1,9 +1,10 @@
 ## LA-V PMC
 
 dh-uprising-sender-vanguard = Lost Angels—Vanguard
-dh-uprising-pmc-called = LA-V is sending a private military contractor team into the district. Their flight lands at LZ-1 Aeronautics in { $minutes } min. LA-V staff, make your way to the pad.
+dh-uprising-pmc-called = Lost Angels—Vanguard is sending an evacuation flight with a private military contractor team into the district. It lands at LZ-1 Aeronautics in { $minutes } min. LA-V staff, make your way to the pad.
+dh-uprising-pmc-called-evac = A private military contractor team is flying in on the LA-V evacuation flight. Landing at LZ-1 Aeronautics in { $minutes } min.
 dh-uprising-pmc-landed = The LA-V contractor team has landed at LZ-1 Aeronautics. The flight waits { $minutes } min for the corporate representative. Any interference will be suppressed.
-dh-uprising-pmc-call-done = LA-V PMC team called: lands at LZ-1 in { $minutes } min.
+dh-uprising-pmc-call-done = LA-V PMC team called: arrives on the evacuation flight at LZ-1 in { $minutes } min.
 dh-uprising-pmc-call-done-now = LA-V PMC team deployed from the flight already on LZ-1.
 dh-uprising-pmc-call-pending = The LA-V PMC team is already on its way.
 dh-uprising-briefing-pmc =
@@ -41,4 +42,4 @@ dh-armor-verb-class-parts = Class [color=cyan]{ $level }[/color]: { $parts }.
 cmd-dhcalllavpmc-desc = Calls the LA-V PMC team (4 ghost roles) on an Aeronautics flight to LZ-1 in the Uprising mode.
 cmd-dhcalllavpmc-help = Usage: dhcalllavpmc
 dh-admin-tab-call-lav-pmc = Call the LA-V PMC team (Uprising)
-dh-admin-tab-call-lav-pmc-tooltip = A team of four ghost roles (commander, medic, specialist, rifleman) arrives on the next flight to LZ-1 Aeronautics (3 min if off schedule). Their task is to get the LA-V representative out. The flight waits 12 min. Uprising mode only.
+dh-admin-tab-call-lav-pmc-tooltip = A team of four ghost roles (commander, medic, specialist, rifleman) arrives on the evacuation flight at LZ-1 Aeronautics: the one already ordered, or the corporation sends one with the team in 3 min. Their task is to get the LA-V representative out. The flight waits 12 min. Uprising mode only.

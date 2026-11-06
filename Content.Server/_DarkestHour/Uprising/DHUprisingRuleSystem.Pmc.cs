@@ -15,7 +15,8 @@ namespace Content.Server._DarkestHour.Uprising;
 
 /// <summary>
 /// ЧВК LA-V (решение автора 2026-11-06): отряд из четырёх бойцов (командир, медик, специалист, стрелок) по вызову
-/// администрации прилетает ближайшим бортом «Аэронавтики» на ЗП-1. Борт с ними ждёт дольше обычного: отряду нужно
+/// администрации прилетает на ЗП-1 «Аэронавтика» эвакуационным бортом: если эвакуацию уже заказали — им, если нет —
+/// корпорация присылает эвакуационный борт вместе с отрядом. Борт с ними ждёт дольше обычного: отряду нужно
 /// найти представителя LA-V и вывезти его любой ценой, остальных — по возможности.
 /// </summary>
 public sealed partial class DHUprisingRuleSystem
@@ -43,7 +44,7 @@ public sealed partial class DHUprisingRuleSystem
         _antag.SendBriefing(ent.Owner, Loc.GetString(ent.Comp.Briefing), VanguardPurple, null);
     }
 
-    /// <summary>Вызов ЧВК: прилетит ближайшим бортом (если борта нет скоро — вне расписания, через предупреждение).</summary>
+    /// <summary>Вызов ЧВК: летит заказанным эвакуационным бортом, а если эвакуацию не заказывали — со своим.</summary>
     public bool TryCallPmc(out string message)
     {
         var query = QueryActiveRules();
@@ -69,21 +70,25 @@ public sealed partial class DHUprisingRuleSystem
                 return true;
             }
 
-            var at = Timing.CurTime + rule.FlightWarning - rule.Start;
-            var minutes = (int) Math.Ceiling(rule.FlightWarning.TotalMinutes);
-            if (rule.NextFlight < rule.Flights.Count && rule.Flights[rule.NextFlight] <= at)
+            int minutes;
+            string key;
+            if (rule.NextFlight < rule.Flights.Count)
             {
-                // Ближайший рейс и так скоро — ЧВК летит им.
+                // Эвакуацию уже заказали — отряд летит этим бортом.
                 minutes = Math.Max(0, (int) Math.Ceiling((rule.Start + rule.Flights[rule.NextFlight] - Timing.CurTime).TotalMinutes));
+                key = "dh-uprising-pmc-called-evac";
             }
             else
             {
-                rule.Flights.Insert(rule.NextFlight, at);
+                // Эвакуацию не заказывали — корпорация присылает эвакуационный борт с отрядом.
+                rule.Flights.Insert(rule.NextFlight, Timing.CurTime + rule.FlightWarning - rule.Start);
                 rule.FlightWarned = false;
+                minutes = (int) Math.Ceiling(rule.FlightWarning.TotalMinutes);
+                key = "dh-uprising-pmc-called";
             }
 
             rule.PmcPending = true;
-            _chat.DispatchGlobalAnnouncement(Loc.GetString("dh-uprising-pmc-called", ("minutes", minutes)),
+            _chat.DispatchGlobalAnnouncement(Loc.GetString(key, ("minutes", minutes)),
                 Loc.GetString("dh-uprising-sender-vanguard"), true, PmcSound, VanguardPurple);
             message = Loc.GetString("dh-uprising-pmc-call-done", ("minutes", minutes));
             return true;
