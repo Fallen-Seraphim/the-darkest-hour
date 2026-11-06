@@ -980,7 +980,9 @@ def write(lv, path, name, surface):
         lines += ['    - type: Map', '      mapPaused: True', '    - type: GridTree']
     else:
         lines += ['      parent: invalid']
-    lines += ['    - type: MapGrid', '      chunks:']
+    # canSplit: False — иначе движок при загрузке режет грид уровня на острова (здания) в новые гриды со своим
+    # смещением: стены и платформы оказываются не прикручены, лифты рвутся (ошибка, найдена автором 2026-11-06).
+    lines += ['    - type: MapGrid', '      canSplit: False', '      chunks:']
     for cx, cy, data in ch:
         lines += ['        %d,%d:' % (cx, cy), '          ind: %d,%d' % (cx, cy), '          tiles: %s' % data,
                   '          version: 7']

@@ -27,6 +27,7 @@ entities:
     - type: Transform
       parent: invalid
     - type: MapGrid
+      canSplit: False
       chunks:
         -3,-4:
           ind: -3,-4
