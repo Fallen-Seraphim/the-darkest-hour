@@ -6,6 +6,7 @@ id-card-access-level-dhla-vanguard = LA-V базовый
 id-card-access-level-dhla-vanguard-office = LA-V командный
 id-card-access-level-dhla-police = Военная Полиция
 id-card-access-level-dhla-police-command = командование Военной Полиции
+id-card-access-level-dhla-police-armory = оружейная Военной Полиции
 dh-department-dhla-civilians = Жители Лост-Энджелса
 dh-department-dhla-civilians-description = Люди квартала: рабочие, чиновники, лавочники и жители.
 dh-department-dhla-vanguard = Lost Angels—Vanguard

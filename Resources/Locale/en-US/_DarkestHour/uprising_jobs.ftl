@@ -6,6 +6,7 @@ id-card-access-level-dhla-vanguard = LA-V basic
 id-card-access-level-dhla-vanguard-office = LA-V command
 id-card-access-level-dhla-police = Military Police
 id-card-access-level-dhla-police-command = Military Police command
+id-card-access-level-dhla-police-armory = Military Police armory
 dh-department-dhla-civilians = Civilians of Lost Angels
 dh-department-dhla-civilians-description = People of the district: workers, officials, shopkeepers and residents.
 dh-department-dhla-vanguard = Lost Angels—Vanguard

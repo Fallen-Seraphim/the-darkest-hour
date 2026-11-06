@@ -179,22 +179,25 @@ public sealed partial class DHArmorSpecialComponent : Component
     public TimeSpan NextUse;
 }
 
-/// <summary>Отдельная броня по частям тела вне модулей (шлем — голова).</summary>
-[RegisterComponent, NetworkedComponent]
+/// <summary>
+/// Отдельная броня по частям тела вне модулей (шлем — голова). Состояние сетевое: наплечники и наколенники
+/// добавляют классы на форму во время игры (<see cref="DHLimbPadsComponent"/>).
+/// </summary>
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class DHPartArmorComponent : Component
 {
-    [DataField]
+    [DataField, AutoNetworkedField]
     public List<string> Parts = new();
 
     /// <summary>Класс брони (0–3): пули ниже этого класса не пробивают.</summary>
-    [DataField]
+    [DataField, AutoNetworkedField]
     public int ArmorClass = 1;
 
     /// <summary>
     /// Свой класс для отдельных частей (немодульная броня на всё тело: торс плотнее конечностей). Части отсюда
     /// защищены, даже если их нет в <see cref="Parts"/>.
     /// </summary>
-    [DataField]
+    [DataField, AutoNetworkedField]
     public Dictionary<string, int> Classes = new();
 
     /// <summary>Класс брони на части тела; 0 — часть не закрыта.</summary>
