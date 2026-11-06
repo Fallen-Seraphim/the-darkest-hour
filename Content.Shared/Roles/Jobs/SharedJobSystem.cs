@@ -53,6 +53,15 @@ public abstract partial class SharedJobSystem : EntitySystem
     }
 
     /// <summary>
+    /// DarkestHour: как <see cref="GetJobPrototype"/>, но без исключения — трекер может остаться от удалённой
+    /// должности (например, JobLibrarian в таймерах лоадаутов).
+    /// </summary>
+    public bool TryGetJobPrototype(string trackerProto, [NotNullWhen(true)] out string? job)
+    {
+        return _inverseTrackerLookup.TryGetValue(trackerProto, out job);
+    }
+
+    /// <summary>
     /// Tries to get the first job prototype using the given job icon.
     /// </summary>
     public bool TryGetJobFromIcon(ProtoId<JobIconPrototype> jobIcon, [NotNullWhen(true)] out JobPrototype? jobPrototype)

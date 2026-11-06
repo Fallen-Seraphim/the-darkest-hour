@@ -1,4 +1,5 @@
 ent-RMCGrassDesert = пустынная трава
+    .desc = { "" }
     .suffix = редкая
 
 ent-RMCGrassDesert1 = пустынная трава
@@ -24,6 +25,7 @@ ent-RMCGrassDesert10 = пустынная трава
 ent-RMCGrassDesert11 = пустынная трава
 
 ent-RMCGrassDesertHeavy = пустынная трава
+    .desc = { "" }
     .suffix = густая
 
 ent-RMCGrassDesertHeavy1 = пустынная трава

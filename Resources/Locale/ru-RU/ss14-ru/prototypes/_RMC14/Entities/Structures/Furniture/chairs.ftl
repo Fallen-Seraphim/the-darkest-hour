@@ -1,4 +1,5 @@
 ent-CMSeatBase = стул (основа)
+    .desc = На этом сидят. Добровольно или принудительно.
     .suffix = RMC
 
 ent-CMChair = стул

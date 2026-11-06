@@ -2,6 +2,8 @@ using System.Numerics;
 using Content.Shared._DarkestHour.CCVar;
 using Content.Shared._DarkestHour.Levels;
 using Robust.Shared.Configuration;
+using Robust.Client.ComponentTrees;
+using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Shared.Enums;
 using Robust.Shared.Graphics;
@@ -24,6 +26,7 @@ public sealed partial class DHZLevelRenderSystem : EntitySystem
     [Dependency] private DHZLevelSystem _z = default!;
     [Dependency] private IConfigurationManager _cfg = default!;
     [Dependency] private SharedMapSystem _map = default!;
+    [Dependency] private SpriteTreeSystem _spriteTree = default!;
 
     /// <summary>Радиус поиска проёмов вокруг глаза, тайлов.</summary>
     private const int OpeningRadius = 14;
@@ -45,6 +48,9 @@ public sealed partial class DHZLevelRenderSystem : EntitySystem
 
     /// <summary>Серое туманное небо Лост-Энджелса — то, что видно вниз глубже трёх уровней.</summary>
     private static readonly Color FogColor = Color.FromHex("#8C939C");
+
+    private readonly List<Entity<SpriteComponent, TransformComponent>> _treeCheck = new();
+    private TimeSpan _staleLoggedAt;
 
     public override void Initialize()
     {
@@ -106,6 +112,39 @@ public sealed partial class DHZLevelRenderSystem : EntitySystem
         }
 
         return true;
+    }
+    /// <summary>
+    /// Чинит «застрявшие» записи дерева спрайтов перед проходом уровня. Движок при обновлении дерева бросает всю
+    /// очередь, если сущность ушла на грид/карту без дерева (удаляемый грид) — и сущности, перешедшие в тот же кадр
+    /// на другой уровень (падение, лестница, лифт), остаются числиться в дереве старой карты. Основной вид этих мест
+    /// обычно не видит, а проход нижнего уровня рисует их: «Target entity (Уровень +5) not in transform hierarchy»
+    /// и IndexOutOfRangeException в RenderSprite — экран перестаёт рисоваться. Здесь такие записи переставляются
+    /// по одной (чтобы сброс очереди не задел остальные).
+    /// </summary>
+    public void FixSpriteTree(MapId map, Vector2 center, float radius)
+    {
+        if (map == MapId.Nullspace)
+            return;
+
+        _treeCheck.Clear();
+        _spriteTree.QueryAabb(_treeCheck, map, Box2.CenteredAround(center, new Vector2(radius * 2f)));
+        var stale = 0;
+        foreach (var (uid, sprite, xform) in _treeCheck)
+        {
+            if (sprite.TreeUid == (xform.GridUid ?? xform.MapUid))
+                continue;
+
+            stale++;
+            _spriteTree.QueueTreeUpdate(uid, sprite, xform);
+            _spriteTree.UpdateTreePositions();
+        }
+
+        _treeCheck.Clear();
+        if (stale == 0 || _timing.RealTime < _staleLoggedAt + TimeSpan.FromSeconds(10))
+            return;
+
+        _staleLoggedAt = _timing.RealTime;
+        Log.Debug($"Z-уровни: переставлено застрявших спрайтов в дереве карты {map}: {stale}.");
     }
 }
 

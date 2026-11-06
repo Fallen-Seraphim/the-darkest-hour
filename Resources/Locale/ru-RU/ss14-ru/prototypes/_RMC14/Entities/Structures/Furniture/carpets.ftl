@@ -144,13 +144,17 @@ ent-RMCCarpetBlack9 = чёрный ковёр
 ent-RMCBaseColourableRug = коврик
 
 ent-RMCColourableRugGrey = резиновый коврик
+    .desc = { "" }
     .suffix = серый
 
 ent-RMCColourableRugGreen = резиновый коврик
+    .desc = { "" }
     .suffix = зелёный
 
 ent-RMCColourableRugRed = коврик
+    .desc = { "" }
     .suffix = красный
 
 ent-RMCColourableRugBlue = коврик
+    .desc = { "" }
     .suffix = синий

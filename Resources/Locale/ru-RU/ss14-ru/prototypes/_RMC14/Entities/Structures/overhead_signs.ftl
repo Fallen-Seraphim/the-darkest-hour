@@ -50,4 +50,5 @@ ent-RMCOverheadSignNeonPizza = вывеска
 ent-RMCOverheadSignNeonWeYaMart = вывеска
 
 ent-RMCOverheadSignNeonWeYaMartOffset = вывеска
+    .desc = { "" }
     .suffix = смещён

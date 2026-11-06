@@ -1,4 +1,5 @@
 ent-SpawnPointDHLADistrictHead = глава района
+    .desc = { "" }
     .suffix = точка появления
 
 ent-DHLAIDCardDistrictHead = { ent-DHLAPassportBase }
@@ -6,6 +7,7 @@ ent-DHLAIDCardDistrictHead = { ent-DHLAPassportBase }
     .suffix = глава района
 
 ent-SpawnPointDHLADistrictStaff = сотрудник управы
+    .desc = { "" }
     .suffix = точка появления
 
 ent-DHLAIDCardDistrictStaff = { ent-DHLAPassportBase }
@@ -13,6 +15,7 @@ ent-DHLAIDCardDistrictStaff = { ent-DHLAPassportBase }
     .suffix = сотрудник управы
 
 ent-SpawnPointDHLAOfficeWorker = офисный работник
+    .desc = { "" }
     .suffix = точка появления
 
 ent-DHLAIDCardOfficeWorker = { ent-DHLAPassportBase }
@@ -20,6 +23,7 @@ ent-DHLAIDCardOfficeWorker = { ent-DHLAPassportBase }
     .suffix = офисный работник
 
 ent-SpawnPointDHLAEntrepreneur = мелкий предприниматель
+    .desc = { "" }
     .suffix = точка появления
 
 ent-DHLAIDCardEntrepreneur = { ent-DHLAPassportBase }
@@ -27,6 +31,7 @@ ent-DHLAIDCardEntrepreneur = { ent-DHLAPassportBase }
     .suffix = мелкий предприниматель
 
 ent-SpawnPointDHLAFactoryWorker = рабочий завода
+    .desc = { "" }
     .suffix = точка появления
 
 ent-DHLAIDCardFactoryWorker = { ent-DHLAPassportBase }
@@ -34,6 +39,7 @@ ent-DHLAIDCardFactoryWorker = { ent-DHLAPassportBase }
     .suffix = рабочий завода
 
 ent-SpawnPointDHLAUtilityWorker = коммунальщик
+    .desc = { "" }
     .suffix = точка появления
 
 ent-DHLAIDCardUtilityWorker = { ent-DHLAPassportBase }
@@ -41,6 +47,7 @@ ent-DHLAIDCardUtilityWorker = { ent-DHLAPassportBase }
     .suffix = коммунальщик
 
 ent-SpawnPointDHLAMetroWorker = работник метро
+    .desc = { "" }
     .suffix = точка появления
 
 ent-DHLAIDCardMetroWorker = { ent-DHLAPassportBase }
@@ -48,6 +55,7 @@ ent-DHLAIDCardMetroWorker = { ent-DHLAPassportBase }
     .suffix = работник метро
 
 ent-SpawnPointDHLAResident = житель
+    .desc = { "" }
     .suffix = точка появления
 
 ent-DHLAIDCardResident = { ent-DHLAPassportBase }
@@ -55,6 +63,7 @@ ent-DHLAIDCardResident = { ent-DHLAPassportBase }
     .suffix = житель
 
 ent-SpawnPointDHLAVRepresentative = представитель корпорации
+    .desc = { "" }
     .suffix = точка появления
 
 ent-DHLAIDCardVRepresentative = { ent-DHLAVIDCardBase }
@@ -62,6 +71,7 @@ ent-DHLAIDCardVRepresentative = { ent-DHLAVIDCardBase }
     .suffix = представитель корпорации
 
 ent-SpawnPointDHLAVAssistant = помощник представителя
+    .desc = { "" }
     .suffix = точка появления
 
 ent-DHLAIDCardVAssistant = { ent-DHLAVIDCardBase }
@@ -69,6 +79,7 @@ ent-DHLAIDCardVAssistant = { ent-DHLAVIDCardBase }
     .suffix = помощник представителя
 
 ent-SpawnPointDHLAVSecurity = офицер СБ LA-V
+    .desc = { "" }
     .suffix = точка появления
 
 ent-DHLAIDCardVSecurity = { ent-DHLAVIDCardBase }
@@ -76,6 +87,7 @@ ent-DHLAIDCardVSecurity = { ent-DHLAVIDCardBase }
     .suffix = офицер СБ LA-V
 
 ent-SpawnPointDHLAVEmployee = сотрудник LA-V
+    .desc = { "" }
     .suffix = точка появления
 
 ent-DHLAIDCardVEmployee = { ent-DHLAVIDCardBase }
@@ -83,6 +95,7 @@ ent-DHLAIDCardVEmployee = { ent-DHLAVIDCardBase }
     .suffix = сотрудник LA-V
 
 ent-SpawnPointDHLAMPChief = начальник Военной Полиции
+    .desc = { "" }
     .suffix = точка появления
 
 ent-DHLAIDCardMPChief = { ent-DHDogtags }
@@ -90,6 +103,7 @@ ent-DHLAIDCardMPChief = { ent-DHDogtags }
     .suffix = начальник Военной Полиции
 
 ent-SpawnPointDHLAMPDeputyChief = заместитель начальника Военной Полиции
+    .desc = { "" }
     .suffix = точка появления
 
 ent-DHLAIDCardMPDeputyChief = { ent-DHDogtags }
@@ -97,6 +111,7 @@ ent-DHLAIDCardMPDeputyChief = { ent-DHDogtags }
     .suffix = заместитель начальника Военной Полиции
 
 ent-SpawnPointDHLAMPInvestigator = следователь Военной Полиции
+    .desc = { "" }
     .suffix = точка появления
 
 ent-DHLAIDCardMPInvestigator = { ent-DHDogtags }
@@ -104,6 +119,7 @@ ent-DHLAIDCardMPInvestigator = { ent-DHDogtags }
     .suffix = следователь Военной Полиции
 
 ent-SpawnPointDHLAMPWarden = тюремный надзиратель Военной Полиции
+    .desc = { "" }
     .suffix = точка появления
 
 ent-DHLAIDCardMPWarden = { ent-DHDogtags }
@@ -111,6 +127,7 @@ ent-DHLAIDCardMPWarden = { ent-DHDogtags }
     .suffix = тюремный надзиратель Военной Полиции
 
 ent-SpawnPointDHLAMPOfficer = офицер Военной Полиции
+    .desc = { "" }
     .suffix = точка появления
 
 ent-DHLAIDCardMPOfficer = { ent-DHDogtags }
@@ -118,6 +135,7 @@ ent-DHLAIDCardMPOfficer = { ent-DHDogtags }
     .suffix = офицер Военной Полиции
 
 ent-SpawnPointDHLAMPCadet = кадет Военной Полиции
+    .desc = { "" }
     .suffix = точка появления
 
 ent-DHLAIDCardMPCadet = { ent-DHDogtags }
@@ -125,16 +143,21 @@ ent-DHLAIDCardMPCadet = { ent-DHDogtags }
     .suffix = кадет Военной Полиции
 
 ent-SpawnPointDHLAFrontLeader = глава отряда ОФСК
+    .desc = { "" }
     .suffix = точка появления
 
 ent-SpawnPointDHLAFrontSaboteur = диверсант ОФСК
+    .desc = { "" }
     .suffix = точка появления
 
 ent-SpawnPointDHLAFrontSpecialist = специалист ОФСК
+    .desc = { "" }
     .suffix = точка появления
 
 ent-SpawnPointDHLAFrontMachinegunner = пулемётчик ОФСК
+    .desc = { "" }
     .suffix = точка появления
 
 ent-SpawnPointDHLAFrontRebel = повстанец ОФСК
+    .desc = { "" }
     .suffix = точка появления

@@ -1,4 +1,5 @@
 ent-RMCGrassTallBase = высокая трава
+    .desc = { "" }
     .suffix = центр
 
 ent-RMCGrassTallDesert = высокая трава

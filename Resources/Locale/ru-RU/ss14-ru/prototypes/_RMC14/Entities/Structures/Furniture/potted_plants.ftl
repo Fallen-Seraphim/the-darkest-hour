@@ -1,7 +1,9 @@
 ent-CMPottedPlantRandom = случайное растение в горшке
+    .desc = { "" }
     .suffix = RMC
 
 ent-CMPottedPlantBase = растение в горшке
+    .desc = { "" }
     .suffix = RMC
 
 ent-CMPottedPlant0 = растение в горшке

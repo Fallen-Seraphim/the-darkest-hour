@@ -23,14 +23,17 @@ ent-RMCFlacculationsArm = флокуляционный вал
     .desc = Вал с одной длинной лопастью, вращение которого помогает фильтровать воду.
 
 ent-RMCFiltrationMachine = фильтровальная установка
+    .desc = { ent-RMCFiltration.desc }
     .suffix = лево
 
 ent-RMCFiltrationMachineBroken = фильтровальная установка
 
 ent-RMCFiltrationMachineA = фильтровальная установка
+    .desc = { ent-RMCFiltration.desc }
     .suffix = центр
 
 ent-RMCFiltrationMachineB = фильтровальная установка
+    .desc = { ent-RMCFiltration.desc }
     .suffix = право
 
 ent-RMCFiltrationMachineABroken = сломанная фильтровальная установка
@@ -79,51 +82,67 @@ ent-RMCFiltrationCollectionsPipe4broken = сломанные водозабор�
     .desc = Трубы, забирающие воду из реки и подающие её на станцию для фильтрации. Эти сломаны.
 
 ent-RMCCoagulationCatwalkNE1 = мостки коагулятора
+    .desc = { ent-Catwalk.desc }
     .suffix = СВ, верх
 
 ent-RMCCoagulationCatwalkNE2 = мостки коагулятора
+    .desc = { ent-Catwalk.desc }
     .suffix = СВ, верх, вар. 2
 
 ent-RMCCoagulationCatwalkNE3 = мостки коагулятора
+    .desc = { ent-Catwalk.desc }
     .suffix = СВ, низ
 
 ent-RMCCoagulationCatwalkNE4 = мостки коагулятора
+    .desc = { ent-Catwalk.desc }
     .suffix = СВ, конец
 
 ent-RMCCoagulationCatwalkNE5 = мостки коагулятора
+    .desc = { ent-Catwalk.desc }
     .suffix = СВ, конец, вар. 2
 
 ent-RMCCoagulationCatwalkNLeft = мостки коагулятора
+    .desc = { ent-Catwalk.desc }
     .suffix = С, лево
 
 ent-RMCCoagulationCatwalkNMid = мостки коагулятора
+    .desc = { ent-Catwalk.desc }
     .suffix = С, центр
 
 ent-RMCCoagulationCatwalkNRight = мостки коагулятора
+    .desc = { ent-Catwalk.desc }
     .suffix = С, право
 
 ent-RMCCoagulationCatwalkNW1 = мостки коагулятора
+    .desc = { ent-Catwalk.desc }
     .suffix = СЗ, верх
 
 ent-RMCCoagulationCatwalkNW2 = мостки коагулятора
+    .desc = { ent-Catwalk.desc }
     .suffix = СЗ, низ
 
 ent-RMCCoagulationCatwalkNW3 = мостки коагулятора
+    .desc = { ent-Catwalk.desc }
     .suffix = СЗ, конец
 
 ent-RMCCoagulationCatwalkNW4 = мостки коагулятора
+    .desc = { ent-Catwalk.desc }
     .suffix = СЗ, конец, вар. 2
 
 ent-RMCCoagulationCatwalkSE1 = мостки коагулятора
+    .desc = { ent-Catwalk.desc }
     .suffix = ЮВ, верх
 
 ent-RMCCoagulationCatwalkSE2 = мостки коагулятора
+    .desc = { ent-Catwalk.desc }
     .suffix = ЮВ, низ
 
 ent-RMCCoagulationCatwalkSW1 = мостки коагулятора
+    .desc = { ent-Catwalk.desc }
     .suffix = ЮЗ, верх
 
 ent-RMCCoagulationCatwalkSW2 = мостки коагулятора
+    .desc = { ent-Catwalk.desc }
     .suffix = ЮЗ, низ
 
 ent-RMCFiltrationMachineSoloTankEmpty = пустой резервуар
