@@ -13,6 +13,9 @@ using Robust.Shared.Audio;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Physics;
+using Robust.Shared.Physics.Components;
+using Robust.Shared.Physics.Systems;
 
 namespace Content.Server._DarkestHour.Uprising;
 
@@ -28,6 +31,7 @@ public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRule
     [Dependency] private RoundEndSystem _roundEnd = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private MetaDataSystem _meta = default!;
+    [Dependency] private SharedPhysicsSystem _physics = default!;
 
     public static readonly Color PoliceBlue = Color.FromHex("#5B8AD6");
     public static readonly Color FrontRed = Color.FromHex("#8B0000"); // тёмно-красный (решение автора 2026-11-05)
@@ -273,6 +277,9 @@ public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRule
         // Центр борта — на площадке.
         var center = grid.Value.Comp.LocalAABB.Center;
         _transform.SetWorldPosition(grid.Value.Owner, padPos - center);
+        // ЗП-1 — на крыше «Ворот» (свой грид): борт стоит неподвижно поверх неё, а не выталкивается физикой.
+        if (TryComp<PhysicsComponent>(grid.Value, out var body))
+            _physics.SetBodyType(grid.Value, BodyType.Static, body: body);
         _meta.SetEntityName(grid.Value, Loc.GetString(rule.FlightName));
 
         rule.Flight = grid.Value;
