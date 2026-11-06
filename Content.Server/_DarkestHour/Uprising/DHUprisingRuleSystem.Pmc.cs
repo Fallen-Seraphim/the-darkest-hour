@@ -1,5 +1,7 @@
 using Content.Server.Administration;
 using Content.Server.Administration.Logs;
+using Content.Server._DarkestHour.City;
+using Content.Shared._DarkestHour.City;
 using Content.Shared._DarkestHour.Uprising;
 using Content.Shared.Administration;
 using Content.Shared.Database;
@@ -22,6 +24,7 @@ namespace Content.Server._DarkestHour.Uprising;
 public sealed partial class DHUprisingRuleSystem
 {
     [Dependency] private IAdminLogManager _adminLog = default!;
+    [Dependency] private DHBankSystem _bank = default!;
     [Dependency] private SharedMapSystem _maps = default!;
     [Dependency] private TurfSystem _turf = default!;
 
@@ -41,7 +44,7 @@ public sealed partial class DHUprisingRuleSystem
         var member = EnsureComp<DHUprisingMemberComponent>(ent);
         member.Side = DHUprisingSide.Vanguard;
         member.Combatant = true;
-        _antag.SendBriefing(ent.Owner, Loc.GetString(ent.Comp.Briefing), VanguardPurple, null);
+        _antag.SendBriefing(ent.Owner, Loc.GetString(ent.Comp.Briefing), VanguardPurple, VanguardSound);
     }
 
     /// <summary>Вызов ЧВК: летит заказанным эвакуационным бортом, а если эвакуацию не заказывали — со своим.</summary>
@@ -59,11 +62,10 @@ public sealed partial class DHUprisingRuleSystem
                 return false;
             }
 
-            rule.PmcCalls++;
-
             // Борт уже на площадке — отряд высаживается с него сейчас.
             if (rule.Flight is { } flight && Exists(flight))
             {
+                rule.PmcCalls++;
                 rule.PmcPending = true;
                 LandPmc(rule, flight);
                 message = Loc.GetString("dh-uprising-pmc-call-done-now");
@@ -80,13 +82,24 @@ public sealed partial class DHUprisingRuleSystem
             }
             else
             {
-                // Эвакуацию не заказывали — корпорация присылает эвакуационный борт с отрядом.
+                // Эвакуацию не заказывали — борт с отрядом оплачивается из бюджета LA-V, как обычная эвакуация.
+                // Денег нет — борт не придёт (решение автора 2026-11-06).
+                var account = _bank.OrgAccount(DHBankOrg.Vanguard);
+                if (account.Balance < DHBankDevicesSystem.EvacCost ||
+                    !_bank.Withdraw(account, DHBankDevicesSystem.EvacCost, Loc.GetString("dh-bank-note-evac-pmc")))
+                {
+                    message = Loc.GetString("dh-uprising-pmc-call-no-funds",
+                        ("balance", account.Balance), ("cost", DHBankDevicesSystem.EvacCost));
+                    return false;
+                }
+
                 rule.Flights.Insert(rule.NextFlight, Timing.CurTime + rule.FlightWarning - rule.Start);
                 rule.FlightWarned = false;
                 minutes = (int) Math.Ceiling(rule.FlightWarning.TotalMinutes);
                 key = "dh-uprising-pmc-called";
             }
 
+            rule.PmcCalls++;
             rule.PmcPending = true;
             _chat.DispatchGlobalAnnouncement(Loc.GetString(key, ("minutes", minutes)),
                 Loc.GetString("dh-uprising-sender-vanguard"), true, PmcSound, VanguardPurple);

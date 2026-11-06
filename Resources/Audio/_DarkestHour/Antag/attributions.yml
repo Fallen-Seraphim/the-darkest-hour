@@ -7,3 +7,8 @@
   license: "Custom"
   copyright: "\"American Anarchy\" (TFR; track tag \"AmericanCaligula\"). Added at the request of the project owner as the Republic role theme; not under a free licence, permission to be confirmed. Converted from WAV to OGG, metadata stripped."
   source: "https://github.com/Fallen-Seraphim/the-darkest-hour"
+
+- files: ["corporates.ogg"]
+  license: "Custom"
+  copyright: "\"Corporates\" — provided by the project owner as the LA-V / LA-V PMC role theme; author and licence not stated, permission to be confirmed. Converted from M4A to OGG, metadata stripped."
+  source: "https://github.com/Fallen-Seraphim/the-darkest-hour"

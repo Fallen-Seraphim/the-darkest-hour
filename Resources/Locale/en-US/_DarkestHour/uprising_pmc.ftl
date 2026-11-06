@@ -42,4 +42,6 @@ dh-armor-verb-class-parts = Class [color=cyan]{ $level }[/color]: { $parts }.
 cmd-dhcalllavpmc-desc = Calls the LA-V PMC team (4 ghost roles) on an Aeronautics flight to LZ-1 in the Uprising mode.
 cmd-dhcalllavpmc-help = Usage: dhcalllavpmc
 dh-admin-tab-call-lav-pmc = Call the LA-V PMC team (Uprising)
-dh-admin-tab-call-lav-pmc-tooltip = A team of four ghost roles (commander, medic, specialist, rifleman) arrives on the evacuation flight at LZ-1 Aeronautics: the one already ordered, or the corporation sends one with the team in 3 min. Their task is to get the LA-V representative out. The flight waits 12 min. Uprising mode only.
+dh-admin-tab-call-lav-pmc-tooltip = A team of four ghost roles (commander, medic, specialist, rifleman) arrives on the evacuation flight at LZ-1 Aeronautics: the one already ordered, or one is ordered from the LA-V budget (40,000 cr.) and arrives in 3 min; no money, no flight. Their task is to get the LA-V representative out. The flight waits 12 min. Uprising mode only.
+dh-uprising-pmc-call-no-funds = No evacuation ordered and the LA-V budget has { $balance } cr. of { $cost } — the flight with the team will not come.
+dh-bank-note-evac-pmc = evacuation flight with the PMC team

@@ -37,6 +37,9 @@ public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRule
 
     /// <summary>Вступление военпола — основной звук Республики (как у гарнизона «Штурма»).</summary>
     private static readonly SoundPathSpecifier PoliceSound = new("/Audio/_DarkestHour/Antag/republic_anthem.ogg");
+    /// <summary>Вступление LA-V и ЧВК LA-V (решение автора 2026-11-06).</summary>
+    public static readonly SoundPathSpecifier VanguardSound = new("/Audio/_DarkestHour/Antag/corporates.ogg");
+
     public static readonly Color VanguardPurple = Color.FromHex("#A68BE8");
     public static readonly Color CivilianGrey = Color.FromHex("#C8C8C8");
 
@@ -107,6 +110,7 @@ public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRule
                 {
                     DHUprisingSide.Front => FrontSound,
                     DHUprisingSide.Police => PoliceSound,
+                    DHUprisingSide.Vanguard => VanguardSound,
                     _ => null,
                 });
             break;
