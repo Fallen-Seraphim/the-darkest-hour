@@ -117,6 +117,7 @@
   parent: RMCFloorCementBase
   id: RMCFloorCement1
   sprite: /Textures/_RMC14/Tiles/asphalt/cement1.png
+  weather: true # DarkestHour: уличный тайл Лост-Энджелса — дождь и опасности погоды (под этажами — крыша)
 
 - type: tile
   parent: RMCFloorCementBase

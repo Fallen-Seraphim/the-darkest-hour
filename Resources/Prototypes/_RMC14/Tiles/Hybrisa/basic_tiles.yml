@@ -71,6 +71,7 @@
   id: RMCFloorHybrisaCementFlat
   name: cement
   sprite: /Textures/_RMC14/Tiles/hybrisa/cementflat.png
+  weather: true # DarkestHour: уличный тайл Лост-Энджелса — дождь и опасности погоды (под этажами — крыша)
 
 - type: tile
   parent: RMCFloorHybrisaBasicBase
