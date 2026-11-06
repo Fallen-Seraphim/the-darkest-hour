@@ -1,0 +1,13 @@
+dh-phone-program-weather = Погода
+dh-weather-app-place = Лост-Энджелс, Энджелс-Просперети
+dh-weather-app-forecast = Прогноз
+dh-weather-app-refresh = Обновить
+dh-weather-app-updated = Обновлено в { $time }
+dh-weather-app-offline = Метеослужба недоступна
+dh-weather-app-until = сейчас, до { $time }
+dh-weather-app-temperature = { $value } °C
+dh-weather-forecast-clear = без осадков
+dh-weather-forecast-rain = дождь
+dh-weather-forecast-downpour = ливень с грозой
+dh-weather-forecast-sandstorm = песчаная буря
+dh-weather-forecast-sandstorm-heavy = сильная песчаная буря

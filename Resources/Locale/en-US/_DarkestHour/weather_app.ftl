@@ -1,0 +1,13 @@
+dh-phone-program-weather = Weather
+dh-weather-app-place = Lost Angels, Angels-Prosperity
+dh-weather-app-forecast = Forecast
+dh-weather-app-refresh = Refresh
+dh-weather-app-updated = Updated at { $time }
+dh-weather-app-offline = Weather service unavailable
+dh-weather-app-until = now, until { $time }
+dh-weather-app-temperature = { $value } °C
+dh-weather-forecast-clear = no precipitation
+dh-weather-forecast-rain = rain
+dh-weather-forecast-downpour = downpour with thunder
+dh-weather-forecast-sandstorm = sandstorm
+dh-weather-forecast-sandstorm-heavy = heavy sandstorm

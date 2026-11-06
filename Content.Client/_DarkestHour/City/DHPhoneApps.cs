@@ -420,3 +420,107 @@ public sealed class DHCallFragment : BoxContainer
         }
     }
 }
+
+// ---------------------------------------------------------------- погода
+
+public sealed partial class DHWeatherAppUi : UIFragment
+{
+    private DHWeatherAppFragment? _fragment;
+
+    public override Control GetUIFragmentRoot()
+    {
+        return _fragment!;
+    }
+
+    public override void Setup(BoundUserInterface userInterface, EntityUid? fragmentOwner)
+    {
+        _fragment = new DHWeatherAppFragment();
+        _fragment.OnRefresh += () => DHPhoneUi.Send(userInterface, new DHWeatherAppRefreshMessage());
+    }
+
+    public override void UpdateState(BoundUserInterfaceState state)
+    {
+        if (state is DHWeatherAppUiState weather)
+            _fragment?.UpdateState(weather);
+    }
+}
+
+public sealed class DHWeatherAppFragment : BoxContainer
+{
+    public event Action? OnRefresh;
+
+    private static readonly Color Warm = Color.FromHex("#E8B04A");
+    private static readonly Color Cold = Color.FromHex("#6FC2E8");
+
+    private readonly Label _now = new() { FontColorOverride = DHPhoneUi.Accent };
+    private readonly Label _nowTemp = new();
+    private readonly BoxContainer _list = DHPhoneUi.Column(3);
+    private readonly Label _updated = new() { FontColorOverride = DHPhoneUi.Dim };
+
+    public DHWeatherAppFragment()
+    {
+        Orientation = LayoutOrientation.Vertical;
+        HorizontalExpand = true;
+        VerticalExpand = true;
+        SeparationOverride = 6;
+
+        AddChild(new Label { Text = Loc.GetString("dh-weather-app-place"), FontColorOverride = DHPhoneUi.Dim });
+        var now = DHPhoneUi.Row(8);
+        _now.HorizontalExpand = true;
+        now.AddChild(_now);
+        now.AddChild(_nowTemp);
+        AddChild(now);
+        AddChild(new Label { Text = Loc.GetString("dh-weather-app-forecast"), FontColorOverride = DHPhoneUi.Accent });
+        AddChild(DHPhoneUi.Scroll(_list));
+
+        var bottom = DHPhoneUi.Row();
+        _updated.HorizontalExpand = true;
+        bottom.AddChild(_updated);
+        var refresh = new Button { Text = Loc.GetString("dh-weather-app-refresh") };
+        refresh.OnPressed += _ => OnRefresh?.Invoke();
+        bottom.AddChild(refresh);
+        AddChild(bottom);
+    }
+
+    private static Color TempColor(int temperature)
+    {
+        return temperature >= 15 ? Warm : Cold;
+    }
+
+    private static string TempText(int temperature)
+    {
+        return Loc.GetString("dh-weather-app-temperature", ("value", temperature));
+    }
+
+    public void UpdateState(DHWeatherAppUiState state)
+    {
+        _list.RemoveAllChildren();
+        if (state.Updated.Length == 0 || state.Lines.Count == 0)
+        {
+            _now.Text = Loc.GetString("dh-weather-app-offline");
+            _nowTemp.Text = string.Empty;
+            _updated.Text = string.Empty;
+            return;
+        }
+
+        var current = state.Lines[0];
+        _now.Text = current.Condition;
+        _nowTemp.Text = TempText(current.Temperature);
+        _nowTemp.FontColorOverride = TempColor(current.Temperature);
+        _updated.Text = Loc.GetString("dh-weather-app-updated", ("time", state.Updated));
+
+        foreach (var line in state.Lines)
+        {
+            var row = DHPhoneUi.Row(8);
+            row.AddChild(new Label
+            {
+                Text = line.Time,
+                MinWidth = 120,
+                FontColorOverride = line.Current ? DHPhoneUi.Accent : DHPhoneUi.Dim,
+            });
+            row.AddChild(new Label { Text = line.Condition, HorizontalExpand = true, ClipText = true });
+            row.AddChild(new Label { Text = TempText(line.Temperature), FontColorOverride = TempColor(line.Temperature) });
+            _list.AddChild(row);
+        }
+    }
+}

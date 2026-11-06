@@ -107,6 +107,20 @@
 
 - type: entity
   parent: BasePDACartridge
+  id: DHWeatherAppCartridge
+  name: weather app
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    state: cart-y
+  - type: UIFragment
+    ui: !type:DHWeatherAppUi
+  - type: Cartridge
+    programName: dh-phone-program-weather
+  - type: DHWeatherAppCartridge
+
+- type: entity
+  parent: BasePDACartridge
   id: DHCallCartridge
   name: phone app
   categories: [ HideSpawnMenu ]
@@ -166,6 +180,7 @@
         - id: DHMessengerCartridge
         - id: NotekeeperCartridge
         - id: DHBankAppCartridge
+        - id: DHWeatherAppCartridge
   - type: ActivatableUI
     key: enum.DHPhoneUiKey.Key
     singleUser: true
@@ -181,13 +196,13 @@
   parent: BaseStructure
   id: DHCityComputerBase
   components:
+  # Настольный компьютер (решение автора 2026-11-06), спрайты RMC-14 — _DarkestHour/Structures/Machines/desktop.rsi.
+  # Ставится на стол — стол отдельным объектом (на карте build_map.py ставит его в ту же клетку).
   - type: Sprite
-    sprite: Structures/Machines/computers.rsi
+    sprite: _DarkestHour/Structures/Machines/desktop.rsi
+    drawdepth: Items # поверх стола
     layers:
-    - state: computer
-    - state: generic_keyboard
-    - state: generic
-      shader: unshaded
+    - state: retro
   - type: InteractionOutline
   - type: Rotatable
   - type: PointLight
@@ -237,6 +252,7 @@
         - id: DHMessengerCartridge
         - id: NotekeeperCartridge
         - id: DHBankAppCartridge
+        - id: DHWeatherAppCartridge
   - type: ActivatableUI
     key: enum.DHPhoneUiKey.Key
   - type: UserInterface
@@ -252,10 +268,7 @@
   components:
   - type: Sprite
     layers:
-    - state: computer
-    - state: id_key
-    - state: supply
-      shader: unshaded
+    - state: retro2
   - type: PointLight
     color: "#a68be8"
   - type: DHBudgetComputer
@@ -278,10 +291,7 @@
   components:
   - type: Sprite
     layers:
-    - state: computer
-    - state: security_key
-    - state: security
-      shader: unshaded
+    - state: security_det
   - type: PointLight
     color: "#5b8ad6"
   - type: DHBudgetComputer

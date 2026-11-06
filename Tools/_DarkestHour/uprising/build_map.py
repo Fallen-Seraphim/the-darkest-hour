@@ -479,6 +479,7 @@ def gates():
     lv.put('LockerSecurityFilled', bx1 - 2, by0 + 2)
     # у лифта (x1-3, y0+4) место занято шахтой — сейф и терминал у перегородки
     lv.put('DHLAVArmory', bx1 - 2, by0 + 7)
+    lv.put('CMTableWooden', bx1 - 4, by0 + 7)
     lv.put('DHCityTerminal', bx1 - 4, by0 + 7)
     pent = L(8)
     px0, py0, px1, py1 = bx0 + 4, by0 + 6, bx1 - 1, by1 - 1
@@ -488,6 +489,7 @@ def gates():
     pent.put('CMChairComfyBlack', (px0 + px1) // 2, py1 - 2, ROT_S)
     pent.put('RMCBookcase', px0 + 1, py1 - 1)
     pent.put('DHLAVSafe', px0 + 2, py1 - 1)
+    pent.put('CMTableWooden', px1 - 2, py1 - 1)
     pent.put('DHBudgetComputerVanguard', px1 - 2, py1 - 1)
     pent.put('CMPottedPlant7', px1 - 1, py1 - 1)
     pent.put('CMPottedPlant8', px1 - 1, py0 + 1)
@@ -536,7 +538,9 @@ def police():
     lv = L(1)
     furnish_office(lv, x0, y0, x1, y1)
     lv.put('SpawnPointDHLAMPChief', mid, y1 - 3)
+    lv.put('CMTable', x1 - 1, y0 + 1)
     lv.put('DHBudgetComputerPolice', x1 - 1, y0 + 1)
+    lv.put('CMTable', x1 - 1, y0 + 4)
     lv.put('DHCityTerminal', x1 - 1, y0 + 4)
     lv.put('SpawnPointDHLAMPDeputyChief', mid - 2, y1 - 3)
     lv.put('SpawnPointDHLAMPInvestigator', mid + 2, y1 - 3)

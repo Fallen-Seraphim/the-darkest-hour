@@ -21,6 +21,14 @@ public sealed partial class DHWeatherHazardComponent : Component
     /// <summary>Сообщение тем, кто на карте, когда погода начинается.</summary>
     [DataField]
     public LocId? StartMessage;
+
+    /// <summary>Как погода называется в прогнозе (приложение «Погода»).</summary>
+    [DataField]
+    public LocId? Forecast;
+
+    /// <summary>На сколько градусов погода холоднее обычного (в прогнозе).</summary>
+    [DataField]
+    public float TemperatureShift;
 }
 
 /// <summary>Расписание погоды карты: ясные промежутки и случайные непогоды между ними.</summary>
@@ -47,6 +55,33 @@ public sealed partial class DHWeatherScheduleComponent : Component
 
     [ViewVariables]
     public TimeSpan NextChange;
+
+    /// <summary>
+    /// План погоды наперёд (решение автора 2026-11-06: прогноз в приложении «Погода»): ясные промежутки и непогоды
+    /// по порядку, на <see cref="Horizon"/> вперёд. Непогода включается, когда наступает её начало.
+    /// </summary>
+    [ViewVariables]
+    public List<DHWeatherPeriod> Plan = new();
+
+    [DataField]
+    public TimeSpan Horizon = TimeSpan.FromHours(3);
+
+    /// <summary>Средняя температура днём, °C (для прогноза).</summary>
+    [DataField]
+    public float Temperature = 18f;
+
+    /// <summary>Суточный размах: днём теплее на столько, ночью холоднее, °C.</summary>
+    [DataField]
+    public float DailySwing = 5f;
+}
+
+/// <summary>Отрезок плана погоды: с Start до End — Weather (null — ясно).</summary>
+public sealed class DHWeatherPeriod
+{
+    public TimeSpan Start;
+    public TimeSpan End;
+    public EntProtoId? Weather;
+    public bool Applied;
 }
 
 [DataDefinition]
