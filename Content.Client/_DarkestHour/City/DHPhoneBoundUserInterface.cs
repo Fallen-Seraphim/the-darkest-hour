@@ -28,7 +28,14 @@ public sealed class DHPhoneBoundUserInterface : CartridgeLoaderBoundUserInterfac
         _window = this.CreateWindow<DHPhoneWindow>();
         var ticker = EntMan.System<ClientGameTicker>();
         var status = EntMan.System<DHCityStatusClientSystem>();
-        _window.Clock = () => DHCityClock.DateTimeText(ticker.RoundDuration());
+        var timing = Robust.Shared.IoC.IoCManager.Resolve<Robust.Shared.Timing.IGameTiming>();
+        // RoundDuration() на клиенте всегда ноль (RunLevel клиенту не приходит) — часы стояли на 09:00.
+        // Время раунда считаем как КПК: текущее время минус начало раунда.
+        _window.Clock = () =>
+        {
+            var round = timing.CurTime - ticker.RoundStartTimeSpan;
+            return DHCityClock.DateTimeText(round < TimeSpan.Zero ? TimeSpan.Zero : round);
+        };
         _window.Status = () => status.Status;
         _window.OnProgram += uid => ActivateCartridge(uid);
         _window.OnHome += DeactivateActiveCartridge;
