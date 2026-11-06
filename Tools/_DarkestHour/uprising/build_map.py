@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
-"""Карта «Восстания» — квартал Лост-Энджелса, все Z-уровни −3..+8. Уменьшена и уплотнена (решение автора
-2026-11-06): 99×149 тайлов вместо 193×171; убраны подстанция, завод и четыре башни.
+"""Карта «Восстания» — квартал Лост-Энджелса, все Z-уровни −3..+8. Уменьшена и уплотнена (решения автора
+2026-11-06): 99×128 тайлов вместо 193×171; убраны подстанция, завод и четыре башни; ЗП-1 — на крыше «Ворот».
 
 Схема (север сверху):
   * ТЦ/БЦ «Ворота» (север) — две башни по 7 этажей (уровни 0..7, крыша +8), под ними парковка −1/−2;
-    между башнями — переход на 3-м и 4-м уровне. На 7-м уровне и на крыше (+8) второй башни — офис LA-V.
+    между башнями — переход на 3-м и 4-м уровне. Вторая башня: 6-й уровень — офис LA-V, 7-й — кабинет
+    представителя, крыша (+8) — ЗП-1 «Аэронавтика» (на неё садится борт, DHUprisingFlightPad).
     Управа района — 1-й и 2-й уровни первой башни. Восточнее — открытая стоянка.
-  * Под «Воротами»: площадь (запад) с павильоном метро сбоку, посередине — проспект от «Ворот» на юг,
-    восточнее — ЗП-1 «Аэронавтика» (на неё садится борт, DHUprisingFlightPad). Под площадью — станция метро (−1)
-    и техэтаж (−2).
+  * Под «Воротами»: небольшая площадь (запад) с павильоном метро сбоку, посередине — проспект от «Ворот» на юг,
+    восточнее — торговые ряды. Под площадью — станция метро (−1) и техэтаж (−2).
   * Военпол (центр) — 4 этажа вверх (0..3, крыша +4) и 3 вниз (−1..−3), со своим лифтом; главный вход на юг,
     служебный на север. По бокам — техузел района (коммунальщики) и бар.
   * Юг, плотно: две панельки на 5 этажей (0..4, крыша +5) с подвалами, тесный двор между ними; уменьшенный склад
     (2 этажа и техэтаж −1) и гаражи впритык к нему.
   * Под землёй: −1 — коллекторы под улицами (люки); −2 — тоннели и катакомбы, проходы под всё, кроме военпола;
-    −3 — грязные катакомбы с логовами ОФСК и подземный резервуар под ЗП-1.
+    −3 — грязные катакомбы с логовами ОФСК и подземный резервуар под торговыми рядами.
 
 Выход: Resources/Maps/_DarkestHour/Uprising/lost_angels.yml (уровень 0 — карта-поверхность, станция LostAngels)
 и lost_angels_{m3,m2,m1,p1..p8}.yml (гриды уровней). Уровни грузит DHPlanetBase (Uprising/uprising.yml).
@@ -33,7 +33,7 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..'
 OUT = ROOT + '/Resources/Maps/_DarkestHour/Uprising'
 RND = random.Random(2318)
 
-X0, X1, Y0, Y1 = -50, 48, -72, 76   # границы квартала (включительно); плотная застройка (решение автора 2026-11-06)
+X0, X1, Y0, Y1 = -50, 48, -72, 55   # границы квартала (включительно); плотная застройка (решение автора 2026-11-06)
 PI = math.pi
 ROT_N, ROT_S, ROT_E, ROT_W = PI, 0.0, PI / 2, -PI / 2  # куда «смотрит» сущность (ToWorldVec)
 
@@ -287,7 +287,7 @@ def road(g, x0, y0, x1, y1, horizontal, posts=True):
     return (x0, y0, x1, y1)
 
 
-PROSPECT = (-3, 7, 4, 45)        # проспект: от «Ворот» на юг, между площадью и ЗП-1
+PROSPECT = (-3, 7, 4, 24)        # проспект: от «Ворот» на юг, между площадью и торговыми рядами
 STREET_A = (X0 + 2, 1, X1 - 2, 5)     # улица перед военполом (север)
 STREET_B = (X0 + 2, -33, X1 - 2, -29)  # улица за военполом (юг) — к панелькам и складу
 LANES = [(-46, -28, -42, 0), (41, -28, 45, 0)]   # проезды по бокам военпола
@@ -316,7 +316,7 @@ def streets():
                     g.tiles[(x, y)] = T_ASPHALT
 
     # тротуар перед «Воротами»
-    g.floor(X0 + 1, 46, X1 - 1, 49, T_WALK)
+    g.floor(X0 + 1, 25, X1 - 1, 28, T_WALK)
 
     # светофоры на перекрёстках
     for (x0, x1, y0, y1) in ((-3, 4, 1, 5), (-46, -42, 1, 5), (41, 45, 1, 5), (-46, -42, -33, -29), (41, 45, -33, -29)):
@@ -344,42 +344,62 @@ def streets():
     g.put('DHCityAtm', 34, 0)
 
     # стоянка восточнее «Ворот»
-    g.floor(9, 51, X1 - 2, Y1 - 2, T_ASPHALT)
+    g.floor(9, 30, X1 - 2, Y1 - 2, T_ASPHALT)
     for x in range(10, X1 - 2, 3):
-        g.tiles[(x, 62)] = T_LINE
+        g.tiles[(x, 41)] = T_LINE
     for x in range(10, X1 - 4, 4):
-        g.put(RND.choice(cars), x, 55)
-        g.put(RND.choice(cars), x + 1, 69)
+        g.put(RND.choice(cars), x, 34)
+        g.put(RND.choice(cars), x + 1, 48)
     for x in range(12, X1 - 2, 10):
-        g.put(POST, x, 50)
+        g.put(POST, x, 29)
         g.put(POST, x + 5, Y1 - 1)
 
 
 def square():
-    """Площадь у «Ворот» (запад от проспекта), с павильоном метро сбоку."""
+    """Небольшая площадь у «Ворот» (запад от проспекта) с павильоном метро сбоку."""
     g = L(0)
-    g.floor(X0 + 2, 7, -5, 45, T_PLAZA)
+    g.floor(X0 + 2, 7, -5, 24, T_PLAZA)
     for x in range(X0 + 4, -6, 8):
         g.put(POST, x, 8)
-        g.put(POST, x, 44)
-        g.put('RMCPlanter', x + 3, 44)
-    for x in range(-30, -8, 8):
-        g.put('RMCBenchLeft', x, 12)
-        g.put('RMCBenchRight', x + 1, 12)
-    for i, x in enumerate((-31, -25, -19, -13)):
-        g.put(VENDORS[i % len(VENDORS)], x, 42)
-    g.put('DHCityAtm', -10, 42)
-    g.put('SpawnPointLatejoin', -20, 30)
+        g.put(POST, x, 23)
+    g.put('RMCBenchLeft', -24, 9)
+    g.put('RMCBenchRight', -23, 9)
+    g.put('RMCPlanter', -16, 9)
+    for i, x in enumerate((-30, -26, -12)):
+        g.put(VENDORS[i % len(VENDORS)], x, 22)
+    g.put('DHCityAtm', -8, 22)
+    g.put('SpawnPointLatejoin', -18, 15)
     for dx in (-3, 0, 3):
-        g.put('SpawnPointLatejoin', -20 + dx, 34)
-        g.put('SpawnPointDHLAResident', -24 + dx, 20)
+        g.put('SpawnPointLatejoin', -18 + dx, 18)
+        g.put('SpawnPointDHLAResident', -22 + dx, 12)
+
+
+def market():
+    """Торговые ряды восточнее проспекта (бывшая ЗП-1): лавки впритык, проход посредине."""
+    g = L(0)
+    x0, y0, x1, y1 = 7, 7, 46, 24
+    g.floor(x0, y0, x1, y1, T_PLAZA)
+    mid = (y0 + y1) // 2
+    for row_y0, row_y1, door_y in ((y0, mid - 2, mid - 2), (mid + 2, y1, mid + 2)):
+        for sx in range(x0, x1 - 4, 6):
+            exterior(g, sx, row_y0, sx + 6, row_y1, W_STORE, T_SHOP, WINDOW_PLAIN, every=3)
+            g.door(sx + 3, door_y, 'AirlockGlass')
+            g.put(RND.choice(['RMCPropSupermartShelf1', 'RMCPropSupermartShelf2', 'RMCPropSupermartSodaRack']),
+                  sx + 2, (row_y0 + row_y1) // 2)
+            g.put('CMTable', sx + 4, (row_y0 + row_y1) // 2)
+            g.put(LIGHT, sx + 3, row_y1 - 1, ROT_N)
+            roof(L(1), sx, row_y0, sx + 6, row_y1, rails=False)
+    for sx in range(x0 + 3, x1 - 4, 12):
+        g.put('SpawnPointDHLAEntrepreneur', sx, mid)
+    for x in range(x0 + 1, x1, 8):
+        g.put(POST, x, mid)
 
 
 # ------------------------------------------------------------------ «Ворота» (север)
 
-GATES_A = (-44, 52, -25, 71)
-GATES_B = (-14, 50, 5, 69)
-BRIDGE_Y = (59, 63)
+GATES_A = (-44, 31, -25, 50)
+GATES_B = (-14, 29, 5, 48)
+BRIDGE_Y = (38, 42)
 
 
 def gates():
@@ -388,17 +408,17 @@ def gates():
     # парковка −1/−2 под обеими башнями и между ними
     for z in (-2, -1):
         lv = L(z)
-        lv.box(ax0, 50, bx1, ay1, W_CONCRETE, T_ASPHALT)
+        lv.box(ax0, 29, bx1, ay1, W_CONCRETE, T_ASPHALT)
         for x in range(ax0 + 3, bx1 - 2, 4):
-            lv.tiles[(x, 60)] = T_LINE
+            lv.tiles[(x, 39)] = T_LINE
         for x in range(ax0 + 3, bx1 - 3, 7):
-            lv.put(RND.choice(['RMCPropVehicleMonoSupronBlack', 'RMCPropVehicleBoxVanBlueGrey']), x, 55)
-            lv.put(RND.choice(['RMCPropVehicleMonoSupronBlack', 'RMCPropVehicleMonoSupronBlackDamaged1']), x + 2, 66)
+            lv.put(RND.choice(['RMCPropVehicleMonoSupronBlack', 'RMCPropVehicleBoxVanBlueGrey']), x, 34)
+            lv.put(RND.choice(['RMCPropVehicleMonoSupronBlack', 'RMCPropVehicleMonoSupronBlackDamaged1']), x + 2, 45)
         for x in range(ax0 + 4, bx1 - 3, 8):
             lv.put(LIGHT_DIM, x, ay1 - 1, ROT_N)
     # въезд на парковку между башнями (лестница на −1) и съезд −1 → −2
-    stairwell([-2, -1, 0], -20, 53, w=3, l=2)
-    L(0).floor(-21, 51, -18, 54, T_CONCRETE)
+    stairwell([-2, -1, 0], -20, 32, w=3, l=2)
+    L(0).floor(-21, 30, -18, 33, T_CONCRETE)
 
     # башни: уровни 0..7, крыша +8
     for (x0, y0, x1, y1), name in ((GATES_A, 'A'), (GATES_B, 'B')):
@@ -455,7 +475,7 @@ def gates():
             for i in range(3):
                 lv.put('SpawnPointDHLAOfficeWorker', ax0 + 3 + i * 2, ay1 - 4)
 
-    for z in range(1, 7):
+    for z in range(1, 6):
         lv = L(z)
         furnish_office(lv, bx0, by0 + 8, bx1, by1)
         if z in (3, 4):
@@ -473,88 +493,83 @@ def gates():
         lv.put('CMPottedPlant3', ax1 + 2, BRIDGE_Y[0] + 1)
     roof(L(5), ax1 + 1, BRIDGE_Y[0], bx0 - 1, BRIDGE_Y[1], rails=False)
 
-    # офис LA-V: 7-й уровень второй башни и пентхаус на крыше (+8)
-    lv = L(7)
-    lv.floor(bx0 + 1, by0 + 1, bx1 - 1, by1 - 1, T_LAV)
-    lv.hline(bx0 + 1, bx1 - 1, by0 + 8, W_OFFICE)
-    lv.door((bx0 + bx1) // 2, by0 + 8, 'DHLAAirlockVanguardOfficeLocked')
-    lv.door(bx0 + 3, by0 + 8, 'DHLAAirlockVanguardLocked')
+    # офис LA-V — 6-й и 7-й уровни второй башни (решение автора 2026-11-06), на крыше (+8) — ЗП-1 (landing_zone).
+    # Юг этажа — холл с лестницей и лифтом, север — за перегородкой с дверью по доступу LA-V.
+    for z in (6, 7):
+        lv = L(z)
+        lv.floor(bx0 + 1, by0 + 1, bx1 - 1, by1 - 1, T_LAV if z == 6 else T_LAV_CARPET)
+        lv.hline(bx0 + 1, bx1 - 1, by0 + 8, W_OFFICE)
+        lv.door((bx0 + bx1) // 2, by0 + 8,
+                'DHLAAirlockVanguardLocked' if z == 6 else 'DHLAAirlockVanguardOfficeLocked')
+        lv.put('CMPottedPlant%d' % (7 if z == 6 else 8), bx0 + 9, by0 + 6)
+        lv.put(LIGHT, bx0 + 9, by0 + 7, ROT_N)
+    # 6: офис — сотрудники, охрана, оружейная
+    lv = L(6)
     furnish_office(lv, bx0, by0 + 8, bx1, by1, fancy=True)
     lv.put('SpawnPointDHLAVEmployee', bx0 + 4, by1 - 3)
     lv.put('SpawnPointDHLAVEmployee', bx0 + 6, by1 - 3)
     lv.put('SpawnPointDHLAVSecurity', (bx0 + bx1) // 2, by0 + 6)
     lv.put('SpawnPointDHLAVSecurity', (bx0 + bx1) // 2 + 1, by0 + 6)
-    for x in range(bx0 + 2, bx1 - 1, 4):
-        lv.put('RMCCouchMidBlack', x, by0 + 2)
-    lv.put('LockerSecurityFilled', bx1 - 2, by0 + 2)
+    lv.put('LockerSecurityFilled', bx0 + 1, by0 + 9)
     # у лифта (x1-3, y0+4) место занято шахтой — сейф и терминал у перегородки
     lv.put('DHLAVArmory', bx1 - 2, by0 + 7)
     lv.put('CMTableWooden', bx1 - 4, by0 + 7)
     lv.put('DHCityTerminal', bx1 - 4, by0 + 7)
-    pent = L(8)
-    px0, py0, px1, py1 = bx0 + 4, by0 + 6, bx1 - 1, by1 - 1
-    exterior(pent, px0, py0, px1, py1, W_OFFICE, T_LAV_CARPET, every=2)
-    pent.door(px0, py0 + 4, 'DHLAAirlockVanguardOfficeLocked')
-    pent.put('CMTableWoodenFancy', (px0 + px1) // 2, py1 - 3)
-    pent.put('CMChairComfyBlack', (px0 + px1) // 2, py1 - 2, ROT_S)
-    pent.put('RMCBookcase', px0 + 1, py1 - 1)
-    pent.put('DHLAVSafe', px0 + 2, py1 - 1)
-    pent.put('CMTableWooden', px1 - 2, py1 - 1)
-    pent.put('DHBudgetComputerVanguard', px1 - 2, py1 - 1)
-    pent.put('CMPottedPlant7', px1 - 1, py1 - 1)
-    pent.put('CMPottedPlant8', px1 - 1, py0 + 1)
-    pent.put('SpawnPointDHLAVRepresentative', (px0 + px1) // 2, py1 - 4)
-    pent.put('SpawnPointDHLAVAssistant', (px0 + px1) // 2 - 2, py1 - 4)
-    pent.put(LIGHT, (px0 + px1) // 2, py1 - 1, ROT_N)
+    # 7: кабинет представителя компании
+    lv = L(7)
+    cx, top = (bx0 + bx1) // 2, by1 - 1
+    lv.put('CMTableWoodenFancy', cx, top - 3)
+    lv.put('CMChairComfyBlack', cx, top - 2, ROT_S)
+    lv.put('RMCBookcase', bx0 + 1, top)
+    lv.put('RMCBookcase', bx0 + 2, top)
+    lv.put('DHLAVSafe', bx0 + 3, top)
+    lv.put('CMTableWooden', bx1 - 2, top)
+    lv.put('DHBudgetComputerVanguard', bx1 - 2, top)
+    lv.put('CMPottedPlant7', bx1 - 1, top)
+    lv.put('CMPottedPlant8', bx1 - 1, by0 + 9)
+    for x in range(bx0 + 2, bx1 - 1, 4):
+        lv.put('RMCCouchMidBlack', x, by0 + 10)
+    lv.put('SpawnPointDHLAVRepresentative', cx, top - 5)
+    lv.put('SpawnPointDHLAVAssistant', cx - 2, top - 5)
+    lights_in(lv, bx0, by0 + 8, bx1, by1)
     # переход «Ворота» → площадь: тротуар у входов
-    L(0).floor(GATES_A[0], 48, GATES_B[2], 51, T_WALK)
+    L(0).floor(GATES_A[0], 27, GATES_B[2], 30, T_WALK)
 
 
-# ------------------------------------------------------------------ ЗП-1, метро (под «Воротами»)
-
-ZP1 = (9, 8, 43, 42)
-
+# ------------------------------------------------------------------ ЗП-1 (крыша «Ворот»), метро (под «Воротами»)
 
 def landing_zone():
-    g = L(0)
-    x0, y0, x1, y1 = ZP1
-    g.floor(x0, y0, x1, y1, T_PAD)
-    g.floor(x0 + 4, y0 + 4, x1 - 4, y1 - 4, T_PAD2)
-    for x in range(x0, x1 + 1, 4):
-        g.put(POST, x, y1 + 1)
-    cx, cy = (x0 + x1) // 2, (y0 + y1) // 2
-    g.put('DHUprisingFlightPad', cx, cy)
-    # нейтральная антенна: канал ОФСК заработает, когда её взломают
-    g.put('DHLANeutralAntenna', x0 - 2, y1 - 4)
-    # будка «Аэронавтики»
-    exterior(g, x1 + 1, y1 - 8, x1 + 3, y1 - 2, W_METRO, T_METRO, WINDOW_PLAIN)
-    g.door(x1 + 1, y1 - 5, 'Airlock')
-    roof(L(1), x1 + 1, y1 - 8, x1 + 3, y1 - 2, rails=False)
-    g.put('RMCOverheadSignNeonHotel', cx, y1 + 2)
-    # посадочные огни по краю и прожекторы по углам
-    for x in range(x0, x1 + 1, 3):
-        g.put('LandingZoneLightOne', x, y0)
-        g.put('LandingZoneLightOne', x, y1)
+    """ЗП-1 «Аэронавтика» — на крыше второй башни «Ворот» (+8), решение автора 2026-11-06. Площадка восточнее
+    выхода лестницы: борт (9×18) садится по центру метки DHUprisingFlightPad."""
+    roof_ = L(8)
+    bx0, by0, bx1, by1 = GATES_B
+    x0, y0, x1, y1 = bx1 - 10, by0 + 1, bx1 - 1, by1 - 1
+    roof_.floor(x0, y0, x1, y1, T_PAD)
+    roof_.floor(x0 + 2, y0 + 2, x1 - 2, y1 - 2, T_PAD2)
+    roof_.put('DHUprisingFlightPad', x1 - 5, (y0 + y1) // 2)
     for y in range(y0, y1 + 1, 3):
-        g.put('LandingZoneLightOne', x0, y)
-        g.put('LandingZoneLightOne', x1, y)
-    for (x, y) in ((x0 + 1, y0 + 1), (x1 - 1, y0 + 1), (x0 + 1, y1 - 1), (x1 - 1, y1 - 1)):
-        g.put('RMCLZFloodlight', x, y)
+        roof_.put('LandingZoneLightOne', x0 - 1, y)
+    for (x, y) in ((x0 - 2, y0 + 1), (x0 - 2, y1 - 1)):
+        roof_.put('RMCLZFloodlight', x, y)
+    roof_.put('RMCOverheadSignNeonHotel', bx0 + 4, by1 - 2)
+    # нейтральная антенна (канал ОФСК заработает, когда её взломают) — на крыше первой башни
+    ax0, ay0, ax1, ay1 = GATES_A
+    roof_.put('DHLANeutralAntenna', ax1 - 4, ay1 - 4)
 
 
-METRO = (-48, 10, -8, 34)
-PAVILION = (-44, 19, -34, 27)
+METRO = (-48, 8, -8, 22)
+PAVILION = (-44, 11, -34, 19)
 
 
 def metro():
     g = L(0)
     x0, y0, x1, y1 = PAVILION
     exterior(g, x0, y0, x1, y1, W_METRO, T_METRO)
-    g.door(x0, 23, 'AirlockGlass')
-    g.door(x1, 23, 'AirlockGlass')
+    g.door(x0, 15, 'AirlockGlass')
+    g.door(x1, 15, 'AirlockGlass')
     g.put(LIGHT, (x0 + x1) // 2, y1 - 1, ROT_N)
     roof(L(1), x0, y0, x1, y1, rails=False)
-    stairwell([-2, -1, 0], x0 + 3, 22, w=3, l=2)
+    stairwell([-2, -1, 0], x0 + 3, 14, w=3, l=2)
     # станция −1: зал и платформа с путями
     mx0, my0, mx1, my1 = METRO
     st = L(-1)
@@ -569,10 +584,10 @@ def metro():
         st.put('SpawnPointDHLAMetroWorker', mx0 + 4 + i * 2, my1 - 3)
     # техэтаж −2
     tech = L(-2)
-    tech.box(-46, 16, -30, 30, W_METRO, T_TECH)
+    tech.box(-46, 10, -30, 22, W_METRO, T_TECH)
     for x in range(-44, -31, 4):
-        tech.put('RMCMachinePropBig1', x, 28)
-        tech.put(LIGHT_DIM, x, 29, ROT_N)
+        tech.put('RMCMachinePropBig1', x, 20)
+        tech.put(LIGHT_DIM, x, 21, ROT_N)
 
 
 # ------------------------------------------------------------------ военпол (центр)
@@ -775,7 +790,7 @@ def sewers():
     """−1: коллекторы под улицами (вода посредине), люки на улицах."""
     lv = L(-1)
     runs = [(STREET_A[0] + 1, 2, STREET_A[2] - 1, 4, True), (STREET_B[0] + 1, -32, STREET_B[2] - 1, -30, True),
-            (0, 6, 1, 44, False), (-45, -28, -43, 0, False), (42, -28, 44, 0, False)]
+            (0, 6, 1, 24, False), (-45, -28, -43, 0, False), (42, -28, 44, 0, False)]
     for x0, y0, x1, y1, horizontal in runs:
         lv.floor(x0, y0, x1, y1, T_UNDER)
         if horizontal:
@@ -789,7 +804,7 @@ def sewers():
             for y in range(y0 + 4, y1, 12):
                 lv.put(LIGHT_DIM, x1, y, ROT_E)
     # люки на улицах ↔ лестницы в коллекторе
-    manholes = [(-30, 3), (20, 3), (-20, -31), (30, -31), (1, 25), (-44, -14), (43, -14)]
+    manholes = [(-30, 3), (20, 3), (-20, -31), (30, -31), (1, 15), (-44, -14), (43, -14)]
     for x, y in manholes:
         L(0).put('DHZManhole', x, y)
         lv.put('DHZLadderUp', x, y)
@@ -803,14 +818,14 @@ def tunnels():
     """−2: заброшенные тоннели и катакомбы, проходы под все здания, кроме военпола."""
     lv = L(-2)
     corridors = [
-        (-49, -71, -48, 48),     # западный тоннель
-        (45, -71, 46, 48),       # восточный тоннель
-        (-47, 46, 44, 47),       # северный — под тротуаром «Ворот»
+        (-49, -71, -48, 27),     # западный тоннель
+        (45, -71, 46, 27),       # восточный тоннель
+        (-47, 25, 44, 26),       # северный — под тротуаром «Ворот»
         (-47, 6, 44, 7),         # под улицей перед военполом
         (-47, -37, 44, -36),     # под южной улицей
         (-47, -71, 44, -70),     # южный
-        (-48, 60, -45, 61),      # к парковке «Ворот»
-        (-38, 8, -37, 15),       # к техэтажу метро
+        (-48, 39, -45, 40),      # к парковке «Ворот»
+        (-38, 8, -37, 9),        # к техэтажу метро
         (-45, -35, -44, -27),    # к коллектору западного проезда
         (-10, -69, -9, -38),     # под панельками
         (12, -69, 13, -38),      # под складом
@@ -818,19 +833,19 @@ def tunnels():
     for x0, y0, x1, y1 in corridors:
         lv.floor(x0, y0, x1, y1, T_UNDER)
     # катакомбы: ниши с костями и мусором
-    for cx, cy in [(-30, -50), (28, -52), (14, 14), (-20, 36)]:
+    for cx, cy in [(-30, -50), (28, -52), (14, 14), (-20, 16)]:
         lv.floor(cx - 4, cy - 3, cx + 4, cy + 3, T_DIRT)
         lv.put(LIGHT_DIM, cx, cy + 2, ROT_N)
         lv.put('CrateGenericSteel', cx - 3, cy - 2)
     lv.floor(-26, -50, -11, -49, T_UNDER)      # ниша у панелек → тоннель под панельками
     lv.floor(14, -52, 24, -51, T_UNDER)        # ниша у склада → тоннель под складом
     lv.floor(14, 8, 15, 10, T_UNDER)           # ниша под ЗП → тоннель под улицей
-    lv.floor(-20, 37, -19, 45, T_UNDER)        # ниша у площади → северный тоннель
+    lv.floor(-20, 17, -19, 24, T_UNDER)        # ниша у площади → северный тоннель
     # двери в парковку «Ворот» (−2) и в техэтаж метро
-    lv.unwall(-44, 60)
-    lv.put('Airlock', -44, 60)
-    lv.unwall(-38, 16)
-    lv.put('DHLAAirlockMetroLocked', -38, 16)
+    lv.unwall(-44, 39)
+    lv.put('Airlock', -44, 39)
+    lv.unwall(-38, 10)
+    lv.put('DHLAAirlockMetroLocked', -38, 10)
     # спуски в катакомбы −3
     for x, y in [(-30, -50), (28, -52), (11, 11)]:
         lv.put('DHZHatchDown', x, y)
@@ -838,19 +853,19 @@ def tunnels():
 
 
 def catacombs():
-    """−3: грязные катакомбы и подземный резервуар с водой (под ЗП-1); логова ОФСК."""
+    """−3: грязные катакомбы и подземный резервуар с водой (под торговыми рядами); логова ОФСК."""
     lv = L(-3)
-    x0, y0, x1, y1 = 10, 10, 42, 40
+    x0, y0, x1, y1 = 10, 8, 42, 22
     lv.floor(x0, y0, x1, y1, T_UNDER)
     for x in range(x0 + 2, x1 - 1):
         for y in range(y0 + 2, y1 - 1):
             deep = x0 + 6 < x < x1 - 6 and y0 + 6 < y < y1 - 6
             lv.put('DHWaterDeep' if deep else 'DHWaterShallow', x, y)
-    corridors = [(-41, -62, -39, 53), (-39, -62, 30, -61), (29, -61, 30, -59), (-39, 14, 10, 15),
-                 (-39, 39, -35, 40), (-39, 51, -2, 53)]
+    corridors = [(-41, -62, -39, 32), (-39, -62, 30, -61), (29, -61, 30, -59), (-39, 14, 10, 15),
+                 (-39, 19, -35, 20), (-39, 30, -2, 32)]
     for cx0, cy0, cx1, cy1 in corridors:
         lv.floor(cx0, cy0, cx1, cy1, T_DIRT)
-    for i, (cx, cy) in enumerate([(-35, -50), (30, -55), (-30, 40)]):
+    for i, (cx, cy) in enumerate([(-35, -50), (30, -55), (-30, 19)]):
         lv.floor(cx - 5, cy - 4, cx + 5, cy + 4, T_DIRT)
         lv.put(LIGHT_DIM, cx, cy + 3, ROT_N)
         # логово ОФСК: глава отряда и бойцы
@@ -861,12 +876,12 @@ def catacombs():
                 lv.put(front_spawn(), cx + dx, cy + dy)
         lv.put('CrateGenericSteel', cx - 4, cy + 3)
         lv.put('RMCBedBunkBlue', cx + 4, cy + 3)
-    lv.put(LIGHT_DIM, 12, 39, ROT_N)
+    lv.put(LIGHT_DIM, 12, 21, ROT_N)
     # скрытые проходы наверх: в парковку «Ворот» (−2) и в техэтаж метро
-    lv.put('DHZLadderUp', -2, 52)
-    L(-2).put('DHZHatchDown', -2, 52)
-    lv.put('DHZLadderUp', -40, 25)
-    L(-2).put('DHZHatchDown', -40, 25)
+    lv.put('DHZLadderUp', -2, 31)
+    L(-2).put('DHZHatchDown', -2, 31)
+    lv.put('DHZLadderUp', -40, 18)
+    L(-2).put('DHZHatchDown', -40, 18)
 
 
 KEEP = {'DHZStairs', 'DHZStairwell', 'DHZStairShaft', 'DHZStairStep', 'DHZStairStepLeft', 'DHZStairStepRight',
@@ -1034,6 +1049,7 @@ def check(protos, tiles):
 def main():
     streets()
     square()
+    market()
     gates()
     police()
     side_buildings()
