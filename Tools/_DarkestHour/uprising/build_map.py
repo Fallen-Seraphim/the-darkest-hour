@@ -438,6 +438,9 @@ def gates():
         furnish_office(lv, mid + 2, ay0 + 8, ax1, ay1, fancy=z <= 2)
         if z == 1:
             lv.put('SpawnPointDHLADistrictHead', ax0 + 3, ay1 - 3)
+            lv.put('DHCityCommsDistrict', ax0 + 2, ay0 + 10)   # на первом столе кабинета управляющего
+        elif z == 2:
+            lv.put('DHCityNewsComputer', ax0 + 2, ay0 + 10)    # редакция района
             for i in range(3):
                 lv.put('SpawnPointDHLADistrictStaff', mid + 4 + i * 2, ay1 - 3)
         elif z in (3, 4):
@@ -542,6 +545,8 @@ def police():
     lv.put('DHBudgetComputerPolice', x1 - 1, y0 + 1)
     lv.put('CMTable', x1 - 1, y0 + 4)
     lv.put('DHCityTerminal', x1 - 1, y0 + 4)
+    lv.put('CMTable', x1 - 1, y0 + 2)
+    lv.put('DHCityCommsPolice', x1 - 1, y0 + 2)
     lv.put('SpawnPointDHLAMPDeputyChief', mid - 2, y1 - 3)
     lv.put('SpawnPointDHLAMPInvestigator', mid + 2, y1 - 3)
     lv.put('SpawnPointDHLAMPInvestigator', mid + 4, y1 - 3)
