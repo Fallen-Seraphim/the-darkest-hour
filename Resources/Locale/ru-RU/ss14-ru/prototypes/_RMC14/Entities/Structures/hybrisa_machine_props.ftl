@@ -5,6 +5,7 @@ ent-RMCMachinePropBaseWall = станок
 ent-RMCMachinePropBaseOverhead = станок
 
 ent-RMCMachinePropBaseOverheadFlipped = станок
+    .desc = { "" }
     .suffix = перевёрнут
 
 ent-RMCMachinePropBig1 = станок

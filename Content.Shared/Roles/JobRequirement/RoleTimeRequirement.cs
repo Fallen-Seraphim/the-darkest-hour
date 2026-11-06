@@ -43,7 +43,9 @@ public sealed partial class RoleTimeRequirement : JobRequirement
         if (!entManager.EntitySysManager.TryGetEntitySystem(out SharedJobSystem? jobSystem))
             return false;
 
-        var jobProto = jobSystem.GetJobPrototype(proto);
+        // DarkestHour: должности трекера нет (удалена) — требование не действует, а не роняет окно лоадаута.
+        if (!jobSystem.TryGetJobPrototype(proto, out var jobProto))
+            return true;
 
         if (jobSystem.TryGetDepartment(jobProto, out var departmentProto))
             departmentColor = departmentProto.Color;

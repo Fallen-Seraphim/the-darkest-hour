@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Content.Client._DarkestHour.Levels;
 using Robust.Client.Graphics;
+using System;
 using Robust.Shared.IoC;
 using Robust.Shared.Map;
 using Robust.Shared.Maths;
@@ -63,6 +64,8 @@ public sealed partial class ScalingViewport
         try
         {
             DHHideOverlaysForLowerPasses();
+            // Радиус обзора с запасом: половина диагонали вьюпорта в тайлах с учётом зума.
+            var radius = viewport.Size.Length() / EyeManager.PixelsPerMeter * MathF.Max(eye.Zoom.X, eye.Zoom.Y) / 2f + 4f;
             var first = true;
             foreach (var (map, depth) in _dhZPasses)
             {
@@ -74,6 +77,7 @@ public sealed partial class ScalingViewport
                 _dhZPassEye.DrawFov = false;
                 _dhZPassEye.Depth = depth;
 
+                zRender.FixSpriteTree(map, eye.Position.Position, radius);
                 viewport.Eye = _dhZPassEye;
                 viewport.ClearColor = first ? clear : null;
                 viewport.Render();
@@ -83,6 +87,7 @@ public sealed partial class ScalingViewport
             // Свой уровень — поверх, без очистки: в проёмах остаётся то, что нарисовано снизу (или дымка, если
             // видимых уровней ниже нет — тогда очистка цветом дымки).
             DHRestoreOverlays();
+            zRender.FixSpriteTree(eye.Position.MapId, eye.Position.Position, radius);
             viewport.Eye = originalEye;
             viewport.ClearColor = first ? clear : null;
             viewport.Render();
