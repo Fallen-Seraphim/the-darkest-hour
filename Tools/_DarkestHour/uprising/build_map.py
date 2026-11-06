@@ -293,6 +293,18 @@ STREET_B = (X0 + 2, -33, X1 - 2, -29)  # улица за военполом (ю�
 LANES = [(-46, -28, -42, 0), (41, -28, 45, 0)]   # проезды по бокам военпола
 
 
+def beacons():
+    """Городские ориентиры на уровне 0 (решение автора 2026-11-06): тактическая карта и приложение «Карты»."""
+    g = L(0)
+    ax0, ay0, ax1, ay1 = GATES_A
+    bx0, by0, bx1, by1 = GATES_B
+    g.put('DHMapBeaconGates', (ax1 + bx0) // 2, (ay0 + by1) // 2)
+    g.put('DHMapBeaconPolice', (MP[0] + MP[2]) // 2, (MP[1] + MP[3]) // 2 - 3)
+    g.put('DHMapBeaconWarehouse', (WAREHOUSE[0] + WAREHOUSE[2]) // 2, (WAREHOUSE[1] + WAREHOUSE[3]) // 2)
+    for proto, (x0, y0, x1, y1) in zip(('DHMapBeaconDana14', 'DHMapBeaconDana15'), PANELS):
+        g.put(proto, (x0 + x1) // 2, (y0 + y1) // 2 - 3)
+
+
 def streets():
     g = L(0)
     # всё — бетонная мостовая, по краю — стена квартала
@@ -1083,6 +1095,7 @@ def main():
     panels()
     warehouse()
     landing_zone()
+    beacons()
     metro()
     sewers()
     tunnels()

@@ -2,6 +2,7 @@ using System.Numerics;
 using Content.Server._DarkestHour.Assault;
 using Content.Server._DarkestHour.Shuttles.Rift;
 using Content.Shared._DarkestHour.Assault;
+using Content.Shared._DarkestHour.City;
 using Content.Shared._DarkestHour.ControlPoints;
 using Content.Shared._DarkestHour.HeavyGuns;
 using Content.Shared._DarkestHour.Overwatch;
@@ -369,6 +370,8 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
                 Loc.GetString("dh-tacmap-laser-mark", ("code", mark.Code)), faction, 0f, level));
         }
 
+        markers.AddRange(Beacons(map));
+
         var contacts = EntityQueryEnumerator<DHScanContactComponent, TransformComponent>();
         while (contacts.MoveNext(out _, out var contact, out var xform))
         {
@@ -376,6 +379,21 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
                 continue;
 
             markers.Add(Marker(DHTacticalMarkerKind.ScanContact, xform, contact.Label, null, 0f, level));
+        }
+
+        return markers;
+    }
+
+    /// <summary>Городские ориентиры (DHMapBeacon) на карте поверхности и её уровнях — видны всем.</summary>
+    public List<DHTacticalMarker> Beacons(EntityUid map)
+    {
+        var markers = new List<DHTacticalMarker>();
+        var levels = Levels(map);
+        var beacons = EntityQueryEnumerator<DHMapBeaconComponent, TransformComponent>();
+        while (beacons.MoveNext(out _, out var beacon, out var xform))
+        {
+            if (LevelOf(levels, xform.MapUid, out var level))
+                markers.Add(Marker(DHTacticalMarkerKind.Beacon, xform, Loc.GetString(beacon.BeaconName), null, 0f, level));
         }
 
         return markers;
