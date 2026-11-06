@@ -111,10 +111,12 @@
   - type: Item
     size: Small
     sprite: _RMC14/Objects/Medical/blood_pack.rsi
-  - type: SolutionContainerManager
-    solutions:
-      pack:
-        maxVol: 300
+  # Раствор — на самом пакете (новая химия SS14: компонент Solution с id). Старый SolutionContainerManager
+  # больше не создаёт растворов — пакеты были пустыми и ничего не переливали.
+  - type: Solution
+    id: pack
+    solution:
+      maxVol: 300
   - type: SolutionTransfer
     canChangeTransferAmount: true
   - type: Appearance
@@ -139,13 +141,13 @@
   id: DHBloodPackFull
   suffix: Blood, 300
   components:
-  - type: SolutionContainerManager
-    solutions:
-      pack:
-        maxVol: 300
-        reagents:
-        - ReagentId: Blood
-          Quantity: 300
+  - type: Solution
+    id: pack
+    solution:
+      maxVol: 300
+      reagents:
+      - ReagentId: Blood
+        Quantity: 300
 
 - type: entity
   parent: DHBloodPack
@@ -153,10 +155,10 @@
   name: saline pack
   suffix: Saline, 300
   components:
-  - type: SolutionContainerManager
-    solutions:
-      pack:
-        maxVol: 300
-        reagents:
-        - ReagentId: Saline
-          Quantity: 300
+  - type: Solution
+    id: pack
+    solution:
+      maxVol: 300
+      reagents:
+      - ReagentId: Saline
+        Quantity: 300

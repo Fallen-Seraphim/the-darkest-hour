@@ -41,15 +41,15 @@
     kind: AutoMed
     threshold: 70
     dose: 10
-  - type: SolutionContainerManager
-    solutions:
-      automed:
-        maxVol: 40
-        reagents:
-        - ReagentId: Tricordrazine
-          Quantity: 20
-        - ReagentId: Epinephrine
-          Quantity: 20
+  - type: Solution
+    id: automed
+    solution:
+      maxVol: 40
+      reagents:
+      - ReagentId: Tricordrazine
+        Quantity: 20
+      - ReagentId: Epinephrine
+        Quantity: 20
   - type: RefillableSolution
     solution: automed
   - type: ExaminableSolution

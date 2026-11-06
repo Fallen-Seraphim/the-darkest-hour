@@ -20,12 +20,13 @@
         - MobMask
         - BulletImpassable
   - type: Appearance
-  - type: SolutionContainerManager
-    solutions:
-      tank:
-        reagents:
-        - ReagentId: Water
-          Quantity: 500
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 500
+      reagents:
+      - ReagentId: Water
+        Quantity: 500
   - type: ContainerContainer
     containers:
       bin-container: !type:Container

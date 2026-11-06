@@ -21,10 +21,10 @@
     maxFillLevels: 1
     fillBaseName: sink-fill-
     solutionName: drainBuffer
-  - type: SolutionContainerManager
-    solutions:
-      drainBuffer:
-        maxVol: 100
+  - type: Solution
+    id: drainBuffer
+    solution:
+      maxVol: 100
   - type: Drain
     autoDrain: false
   - type: DumpableSolution
@@ -62,7 +62,7 @@
   name: sink
   suffix: Water
   components:
-  - type: SolutionContainerManager
-    solutions:
-      drainBuffer:
-        maxVol: 200
+  - type: Solution
+    id: drainBuffer
+    solution:
+      maxVol: 200

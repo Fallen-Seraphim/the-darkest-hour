@@ -38,12 +38,13 @@
     autoDrain: false
   - type: StaticPrice
     price: 25
-  - type: SolutionContainerManager
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 500
+  - type: SolutionManager
     solutions:
-      drainBuffer:
-        maxVol: 100
-      tank:
-        maxVol: 500
+    - SolutionDrainNormal
   - type: DrainableSolution
     solution: tank
   - type: ReagentTank
