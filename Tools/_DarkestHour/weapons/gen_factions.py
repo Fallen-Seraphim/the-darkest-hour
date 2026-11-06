@@ -21,12 +21,17 @@ G.TYPES.update({
     'RAS': ('RAS', 'Anti-Rastar: a chemically active core that eats through chitin; weak against people and armour.', '#7fbf3f'),
     'R':   ('R', 'Rail slug: a dense ferromagnetic penetrator thrown by the coils. Needs a charged battery.', '#6ad0ff'),
     'RUB': ('rubber', 'Rubber: knocks the wind out of a target and rarely kills.', '#3a3a3a'),
+    # LA-V corporate ammunition (author's decision 2026-11-06)
+    'LS':  ('LS', 'LA-V standard: a bonded polymer-jacketed bullet.', None),
+    'LAP': ('LAP', 'LA-V armour-piercing: a tungsten core against armour and cover.', '#2b2b2b'),
+    'LHP': ('LHP', 'LA-V hollow point: devastating against unarmoured targets, poor against armour.', '#c94040'),
+    'LM':  ('LM', 'LA-V match: a precision-loaded long-range bullet.', '#d0a040'),
 })
-G.CONTRA.update({'onk': 'BaseSyndicateContraband', 'rmp': 'BaseSecurityContraband'})
+G.CONTRA.update({'onk': 'BaseSyndicateContraband', 'rmp': 'BaseSecurityContraband', 'lav': 'BaseSecurityContraband'})
 
 # armour class each bullet penetrates (DHPartArmor: class >= armour class goes through)
-PEN_CLASS = {'CLN': 1, 'CLB': 2, 'CLE': 0, 'RAS': 0, 'R': 3, 'FMG': 1, 'RUB': 0}
-PEN_CLASS_OVERRIDE = {'DHBullet10x44CLN': 2}
+PEN_CLASS = {'CLN': 1, 'CLB': 2, 'CLE': 0, 'RAS': 0, 'R': 3, 'FMG': 1, 'RUB': 0, 'LS': 1, 'LAP': 2, 'LHP': 0, 'LM': 2}
+PEN_CLASS_OVERRIDE = {'DHBullet10x44CLN': 2, 'DHBullet755x23LAP': 1, 'DHBullet762x90LAP': 3}
 
 CALIBERS = [
     ('558x63', '5.58x63mm', 'onk', 'rifle_ammo_casing_steel', '5.56x45mm', 60, {
@@ -42,6 +47,15 @@ CALIBERS = [
         'CLN': T(20, ap=0.3)}),
     ('9x19', '9x19mm', 'rmp', 'pistol_ammo_casing', '9x19mm', 60, {
         'FMG': T(18), 'RUB': T(0, extra={'Blunt': 4}, box='rubber')}),
+    # LA-V corporate calibres
+    ('755x49', '7.55x49mm', 'lav', 'rifle_ammo_casing', '5.56x45mm', 60, {
+        'LS': T(28, ap=0.2), 'LAP': T(23, ap=0.5, box='steelAP'), 'LHP': T(35, unarm=1.35, arm=0.6, box='HP')}),
+    ('755x61', '7.55x61mm', 'lav', 'rifle_ammo_casing', '7.62x51mm', 40, {
+        'LS': T(38, ap=0.3), 'LAP': T(32, ap=0.6, box='steelAP'), 'LHP': T(44, unarm=1.35, arm=0.6, box='HP')}),
+    ('755x23', '7.55x23mm', 'lav', 'pistol_ammo_casing', '45_ACP', 60, {
+        'LS': T(20, ap=0.1), 'LAP': T(16, ap=0.45, box='synthAP'), 'LHP': T(25, unarm=1.35, arm=0.6, box='HP')}),
+    ('762x90', '7.62x90mm', 'lav', 'rifle_ammo_casing', '7.62x54mmR', 20, {
+        'LM': T(56, ap=0.5), 'LAP': T(48, ap=0.75, pen=60, box='steelAP')}),
 ]
 RUBBER_STAMINA = 24
 
@@ -56,6 +70,10 @@ MAGS = [
     ('DHMagazineDS3R', 'DHMagazineDS3R', '10x44R', 10, '12.7x99mm/12.7x99mm_mag', 'Destroyer-3R magazine', 'Small', 2),
     ('DHMagazineABZ9', 'DHMagazineABZ9', '476m', 20, '357_magnum/357_magnum_pistol_mag', 'Abuzforse-9 magazine', 'Tiny', 0),
     ('DHMagazine9x19', 'DHMagazine9x19', '9x19', 30, '45_ACP/45_ACP_smg_mag', 'RMPR-09-19 magazine', 'Small', 3),
+    ('DHMagazineLAVR55', 'DHMagazineLAVR55', '755x49', 30, '5.56x45mm/5.56x45mm_mag', 'LAVR-55 magazine', 'Small', 2),
+    ('DHMagazineLAVR61', 'DHMagazineLAVR61', '755x61', 20, '7.62x51mm/7.62x51mm_mag', 'LAVR-61 magazine', 'Small', 2),
+    ('DHMagazineLAVSMG23', 'DHMagazineLAVSMG23', '755x23', 30, '45_ACP/45_ACP_smg_mag', 'LAVSMG-23 magazine', 'Small', 3),
+    ('DHMagazineLAVR90', 'DHMagazineLAVR90', '762x90', 10, '7.62x51mm/7.62x51mm_cap_mag', 'LAVR-90 magazine', 'Small', 2),
 ]
 
 SND_RAIL = ('/Audio/Weapons/Guns/Gunshots/laser_cannon.ogg',) + SND_SNIPER[1:]
@@ -116,10 +134,28 @@ WEAPONS = [
       desc='The rifle of the Republic Military Police, on the old 7.62x39mm round. Takes Ravenger magazines.',
       mags=['DHMagazine762x39'], start='DHMagazine762x39FMG', cal='762x39', rate=6, modes=['FullAuto', 'SemiAuto'],
       spread=(4, 40), wield=(-3, -28), snd=SND_RIFLE, slots=[BARREL, GRIP, OPTIC], size='Large'),
+    # ------------------------------------------------ LA-V corporate security (RMC-14 W-Y-style sprites, rmc_guns.py)
+    W(id='DHWeaponRifleLAVR55', sprite='lavr55', name='LAVR-55', faction='lav', kind='rifle',
+      desc='The service rifle of LA-V corporate security: a sleek bullpup on the corporate 7.55x49mm round, with an integral carry rail. 30-round magazine: LS, LAP and LHP.',
+      mags=['DHMagazineLAVR55'], start='DHMagazineLAVR55LS', cal='755x49', rate=7, modes=['FullAuto', 'SemiAuto'],
+      spread=(3, 36), wield=(-3, -26), snd=SND_RIFLE, slots=[BARREL, GRIP, OPTIC], size='Huge'),
+    W(id='DHWeaponRifleLAVR61', sprite='lavr61', name='LAVR-61', faction='lav', kind='rifle',
+      desc='The LA-V battle rifle on the full-power 7.55x61mm round: hits hard at range, 20-round magazine. LS, LAP and LHP.',
+      mags=['DHMagazineLAVR61'], start='DHMagazineLAVR61LS', cal='755x61', rate=4.5, modes=['SemiAuto', 'FullAuto'],
+      spread=(2, 30), wield=(-2, -24), snd=SND_BATTLE, slots=[BARREL, GRIP, OPTIC], size='Huge', zoom=True),
+    W(id='DHWeaponSMGLAVSMG23', sprite='lavsmg23', name='LAVSMG-23', faction='lav', kind='smg',
+      desc='The compact submachine gun of LA-V close protection on the 7.55x23mm round. Fast, light, 30-round magazine: LS, LAP and LHP.',
+      mags=['DHMagazineLAVSMG23'], start='DHMagazineLAVSMG23LS', cal='755x23', rate=10, modes=['FullAuto', 'SemiAuto'],
+      spread=(4, 38), wield=(-2, -20), snd=SND_SMG, slots=[BARREL, OPTIC], size='Large'),
+    W(id='DHWeaponSniperLAVR90', sprite='lavr90', name='LAVR-90', faction='lav', kind='sniper',
+      desc='A light LA-V sniper rifle with an integral scope, on the long 7.62x90mm round. 10-round magazine: LM match and LAP.',
+      mags=['DHMagazineLAVR90'], start='DHMagazineLAVR90LM', cal='762x90', rate=1.5, modes=['SemiAuto'],
+      spread=(1, 22), wield=(-1, -20), snd=SND_SNIPER, slots=[BARREL, GRIP], size='Huge', zoom=True),
 ]
 
 OPTICS = {'fs2a': ['2x', '4x'], 'fs2s': ['2x'], 'fs2r': ['2x', '4x', '8x'], 'fs2t': ['2x', '4x'], 'fs2e': ['2x', '4x'],
-          'ds3a': ['4x', '8x'], 'ds3r': ['4x', '8x'], 'rmpr0919': ['2x'], 'rmpr6239': ['2x', '4x']}
+          'ds3a': ['4x', '8x'], 'ds3r': ['4x', '8x'], 'rmpr0919': ['2x'], 'rmpr6239': ['2x', '4x'],
+          'lavr55': ['2x', '4x'], 'lavr61': ['2x', '4x', '8x'], 'lavsmg23': ['2x']}
 
 _orig_whitelist = G.slot_whitelist
 
@@ -220,6 +256,10 @@ def run():
 
 # ============================================================================= Russian
 RU_TYPES = {
+    'LS': 'Стандартный LA-V: пуля в полимерной оболочке.',
+    'LAP': 'Бронебойный LA-V: вольфрамовый сердечник против брони и укрытий.',
+    'LHP': 'Экспансивный LA-V: разрушителен против небронированных целей, слаб против брони.',
+    'LM': 'Снайперский LA-V: пуля точного снаряжения для дальней стрельбы.',
     'CLN': 'Колониальный стандартный: простая пуля в стальной оболочке.',
     'CLB': 'Колониальный бронебойный: закалённый стальной сердечник против брони и укрытий.',
     'CLE': 'Колониальный экспансивный: разрушителен против небронированных целей, слаб против брони.',
@@ -230,13 +270,16 @@ RU_TYPES = {
 }
 RU_LABEL = {'RUB': 'резиновый'}
 RU_CAL = {'5.58x63mm': '5,58×63 мм', '5.58x63mm-R': '5,58×63 мм-R', '10x44mm': '10×44 мм', '10x44mm-R': '10×44 мм-R',
-          '4.76mm Magnum': '4,76 мм Магнум', '9x19mm': '9×19 мм', '7.62x39mm': '7,62×39 мм'}
+          '4.76mm Magnum': '4,76 мм Магнум', '9x19mm': '9×19 мм', '7.62x39mm': '7,62×39 мм',
+          '7.55x49mm': '7,55×49 мм', '7.55x61mm': '7,55×61 мм', '7.55x23mm': '7,55×23 мм', '7.62x90mm': '7,62×90 мм'}
 RU_MAG = {
     'Firestarter-2 magazine': 'магазин Firestarter-2', 'Firestarter-2 medium magazine': 'средний магазин Firestarter-2',
     'Firestarter-2 short magazine': 'короткий магазин Firestarter-2', 'Firestarter-2T pan': 'диск Firestarter-2T',
     'Firestarter-2E magazine': 'магазин Firestarter-2E', 'Firestarter-2R magazine': 'магазин Firestarter-2R',
     'Destroyer-3A magazine': 'магазин Destroyer-3A', 'Destroyer-3R magazine': 'магазин Destroyer-3R',
     'Abuzforse-9 magazine': 'магазин Abuzforse-9', 'RMPR-09-19 magazine': 'магазин RMPR-09-19',
+    'LAVR-55 magazine': 'магазин LAVR-55', 'LAVR-61 magazine': 'магазин LAVR-61',
+    'LAVSMG-23 magazine': 'магазин LAVSMG-23', 'LAVR-90 magazine': 'магазин LAVR-90',
 }
 RU_WEAPONS = {
     'DHWeaponRifleFS2A': ('Firestarter-2A', 'Основная штурмовая винтовка Объединённых Независимых Колоний: простая, живучая и дешёвая, создана для войны с Растаром. Встроенный пламегаситель и штык-нож. Магазины 5,58×63 мм на 30, 20 и 10 патронов: CLN, CLB, CLE и RAS.'),
@@ -249,6 +292,10 @@ RU_WEAPONS = {
     'DHWeaponPistolABZ9': ('Abuzforse-9', 'Личное оружие Объединённых Независимых Колоний: компактный, со скоростным патроном 4,76 магнум и магазином на 20 патронов.'),
     'DHWeaponSMGRMPR0919': ('RMPR-09-19', 'Пистолет-пулемёт военной полиции Республики. Дешёвый патрон 9×19 мм: цельнометаллическая оболочка для неприятностей, резина для толпы. Магазин на 30 патронов.'),
     'DHWeaponRifleRMPR6239': ('RMPR-62-39', 'Винтовка военной полиции Республики под старый патрон 7,62×39 мм. Принимает магазины Ravenger.'),
+    'DHWeaponRifleLAVR55': ('LAVR-55', 'Служебная винтовка корпоративной СБ LA-V: изящный буллпап под корпоративный патрон 7,55×49 мм со встроенной верхней планкой. Магазин на 30 патронов: LS, LAP и LHP.'),
+    'DHWeaponRifleLAVR61': ('LAVR-61', 'Боевая винтовка LA-V под полноразмерный патрон 7,55×61 мм: бьёт сильно и далеко, магазин на 20 патронов. LS, LAP и LHP.'),
+    'DHWeaponSMGLAVSMG23': ('LAVSMG-23', 'Компактный пистолет-пулемёт личной охраны LA-V под патрон 7,55×23 мм. Скорострельный и лёгкий, магазин на 30 патронов: LS, LAP и LHP.'),
+    'DHWeaponSniperLAVR90': ('LAVR-90', 'Лёгкая снайперская винтовка LA-V со встроенным прицелом под длинный патрон 7,62×90 мм. Магазин на 10 патронов: снайперские LM и бронебойные LAP.'),
 }
 RU_BATTERIES = {
     'DHBatteryFS2R': ('батарея катушек Firestarter-2R', 'Батарея катушек Firestarter-2R: одна обойма — пятнадцать выстрелов — на заряд. Заряжается в любом зарядном устройстве.'),

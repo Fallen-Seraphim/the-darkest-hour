@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken and modified from cmss13 at https://github.com/cmss13-devs/cmss13/blob/07455a5f3986b610e7ccdc3096cad1d914fca2f9/icons/obj/items/weapons/guns/guns_by_map/desert/back.dmi, https://github.com/cmss13-devs/cmss13/blob/07455a5f3986b610e7ccdc3096cad1d914fca2f9/icons/obj/items/weapons/guns/guns_by_map/desert/guns_lefthand.dmi, https://github.com/cmss13-devs/cmss13/blob/07455a5f3986b610e7ccdc3096cad1d914fca2f9/icons/obj/items/weapons/guns/guns_by_map/desert/guns_obj.dmi, https://github.com/cmss13-devs/cmss13/blob/07455a5f3986b610e7ccdc3096cad1d914fca2f9/icons/obj/items/weapons/guns/guns_by_map/desert/guns_righthand.dmi, https://github.com/cmss13-devs/cmss13/blob/07455a5f3986b610e7ccdc3096cad1d914fca2f9/icons/obj/items/weapons/guns/guns_by_map/desert/suit_slot.dmi | Attachment overlays drawn by Claude (Anthropic) for The Darkest Hour",
+  "size": {
+    "x": 48,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "icon"
+    },
+    {
+      "name": "base"
+    },
+    {
+      "name": "bolt-open"
+    },
+    {
+      "name": "mag-0"
+    },
+    {
+      "name": "suppressed"
+    },
+    {
+      "name": "flashhider"
+    },
+    {
+      "name": "compensator"
+    },
+    {
+      "name": "muzzlebrake"
+    },
+    {
+      "name": "longbarrel"
+    },
+    {
+      "name": "vgrip"
+    },
+    {
+      "name": "agrip"
+    },
+    {
+      "name": "bipod"
+    },
+    {
+      "name": "handstop"
+    },
+    {
+      "name": "opticholo"
+    },
+    {
+      "name": "optic2x"
+    },
+    {
+      "name": "optic3x"
+    },
+    {
+      "name": "optic4x"
+    },
+    {
+      "name": "optic8x"
+    },
+    {
+      "name": "laser"
+    },
+    {
+      "name": "light"
+    }
+  ]
+}

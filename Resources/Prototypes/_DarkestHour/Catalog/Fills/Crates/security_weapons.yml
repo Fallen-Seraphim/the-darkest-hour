@@ -96,6 +96,17 @@
     - id: DHAttachmentOptic4x
     - id: DHAttachmentOptic8x
     - id: DHAttachmentOptic16x
+    - id: DHAttachmentMuzzleBrake
+    - id: DHAttachmentLongBarrel
+    - id: DHAttachmentBipod
+    - id: DHAttachmentHandstop
+    - id: DHAttachmentOpticHolo
+      amount: 2
+    - id: DHAttachmentOptic3x
+    - id: DHAttachmentLaser
+      amount: 2
+    - id: DHAttachmentLight
+      amount: 2
 
 - type: entity
   id: DHCrateSecurityRSPMG

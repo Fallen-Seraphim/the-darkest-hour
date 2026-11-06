@@ -24,6 +24,24 @@
     },
     {
       "name": "optic2x"
+    },
+    {
+      "name": "vgrip"
+    },
+    {
+      "name": "agrip"
+    },
+    {
+      "name": "handstop"
+    },
+    {
+      "name": "opticholo"
+    },
+    {
+      "name": "laser"
+    },
+    {
+      "name": "light"
     }
   ]
 }

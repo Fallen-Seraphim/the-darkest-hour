@@ -143,6 +143,9 @@
   - BriefcaseBrownFilled
   storage:
     back:
+    - DHWeaponSMGLAVSMG23
+    - DHMagazineLAVSMG23LS
+    - DHMagazineLAVSMG23LS
     - DHBankCardVanguard
     - DHWeaponPistolMk58
     - DHMagazine10x24ShortE
@@ -163,6 +166,8 @@
     pocket2: Pen
   storage:
     back:
+    - DHWeaponPistolMk58
+    - DHMagazine10x24ShortE
     - BoxFolderBlue
     - Paper
 
@@ -179,14 +184,15 @@
     eyes: DHLAVClothingEyesHUD
     back: ClothingBackpackSecurity
     belt: ClothingBeltSecurityWebbing
-    suitstorage: DHWeaponSMGRAPTORM1216
+    suitstorage: DHWeaponRifleLAVR55
     pocket1: DHWeaponPistolMk58
     pocket2: FlashlightSeclite
   storage:
     back:
-    - DHMagazine10x24SVP
-    - DHMagazine10x24SVP
-    - DHMagazine10x24SVP
+    - DHMagazineLAVR55LS
+    - DHMagazineLAVR55LS
+    - DHMagazineLAVR55LHP
+    - DHAttachmentKitRifle
     - DHMagazine10x24ShortE
     - Handcuffs
     - Handcuffs

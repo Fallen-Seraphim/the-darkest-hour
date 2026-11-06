@@ -33,6 +33,39 @@
     },
     {
       "name": "optic8x"
+    },
+    {
+      "name": "suppressed"
+    },
+    {
+      "name": "flashhider"
+    },
+    {
+      "name": "compensator"
+    },
+    {
+      "name": "muzzlebrake"
+    },
+    {
+      "name": "longbarrel"
+    },
+    {
+      "name": "bipod"
+    },
+    {
+      "name": "handstop"
+    },
+    {
+      "name": "opticholo"
+    },
+    {
+      "name": "optic3x"
+    },
+    {
+      "name": "laser"
+    },
+    {
+      "name": "light"
     }
   ]
 }

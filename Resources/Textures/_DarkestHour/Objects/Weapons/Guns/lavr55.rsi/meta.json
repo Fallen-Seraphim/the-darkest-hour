@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Sprites by github noctyrnal. mag-1, mag-2 by kleinerstation13 (Github) | Attachment overlays drawn by Claude (Anthropic) for The Darkest Hour",
+  "size": {
+    "x": 64,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "icon"
+    },
+    {
+      "name": "base"
+    },
+    {
+      "name": "bolt-open"
+    },
+    {
+      "name": "mag-0"
+    },
+    {
+      "name": "suppressed"
+    },
+    {
+      "name": "flashhider"
+    },
+    {
+      "name": "compensator"
+    },
+    {
+      "name": "muzzlebrake"
+    },
+    {
+      "name": "longbarrel"
+    },
+    {
+      "name": "vgrip"
+    },
+    {
+      "name": "agrip"
+    },
+    {
+      "name": "bipod"
+    },
+    {
+      "name": "handstop"
+    },
+    {
+      "name": "opticholo"
+    },
+    {
+      "name": "optic2x"
+    },
+    {
+      "name": "optic3x"
+    },
+    {
+      "name": "optic4x"
+    },
+    {
+      "name": "optic8x"
+    },
+    {
+      "name": "laser"
+    },
+    {
+      "name": "light"
+    }
+  ]
+}
