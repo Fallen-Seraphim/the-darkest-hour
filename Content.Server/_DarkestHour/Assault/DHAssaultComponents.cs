@@ -265,6 +265,14 @@ public sealed partial class DHPlanetBaseComponent : Component
     [DataField]
     public Dictionary<int, ResPath> Levels = new();
 
+    /// <summary>
+    /// Симулировать атмосферу гридов уровней (<see cref="Levels"/>) потайлово. false — воздух берётся из атмосферы
+    /// карты уровня, как у нарисованной поверхности: без потайловой симуляции десятков тысяч тайлов этажей
+    /// (оптимизация Z-уровней, решение автора 2026-11-06).
+    /// </summary>
+    [DataField]
+    public bool LevelAtmosphere = true;
+
     [ViewVariables]
     public Dictionary<int, EntityUid> LevelGrids = new();
 

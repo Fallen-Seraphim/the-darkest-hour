@@ -267,7 +267,9 @@ public sealed partial class DHPlanetBaseSystem : EntitySystem
         gridUid = grid.Value;
         _meta.SetEntityName(grid.Value, name);
         _station.AddGridToStation(ent.Owner, grid.Value);
-        FillAir(grid.Value);
+        if (ent.Comp.LevelAtmosphere)
+            FillAir(grid.Value);
+
         return true;
     }
 

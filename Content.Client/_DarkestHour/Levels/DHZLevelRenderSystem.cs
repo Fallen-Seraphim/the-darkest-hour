@@ -1,5 +1,7 @@
 using System.Numerics;
+using Content.Shared._DarkestHour.CCVar;
 using Content.Shared._DarkestHour.Levels;
+using Robust.Shared.Configuration;
 using Robust.Client.Graphics;
 using Robust.Shared.Enums;
 using Robust.Shared.Graphics;
@@ -20,16 +22,21 @@ public sealed partial class DHZLevelRenderSystem : EntitySystem
     [Dependency] private IOverlayManager _overlays = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private DHZLevelSystem _z = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
 
     /// <summary>Радиус поиска проёмов вокруг глаза, тайлов.</summary>
     private const int OpeningRadius = 14;
 
-    private static readonly TimeSpan OpeningRecheck = TimeSpan.FromSeconds(0.25);
+    /// <summary>Шаг выборки дыр: проёмы лестниц — 3 тайла, шаг 2 их не пропускает.</summary>
+    private const int OpeningStep = 2;
 
-    private MapId _openingMap = MapId.Nullspace;
-    private Vector2i _openingTile;
-    private bool _opening;
-    private TimeSpan _openingChecked;
+    private static readonly TimeSpan Recheck = TimeSpan.FromSeconds(0.25);
+
+    private MapId _cachedMap = MapId.Nullspace;
+    private Vector2i _cachedTile;
+    private TimeSpan _cachedAt;
+    private readonly List<(EntityUid Map, int Level)> _visible = new();
+    private readonly List<(MapId Map, int Depth)> _cached = new();
 
     public override void Initialize()
     {
@@ -44,63 +51,37 @@ public sealed partial class DHZLevelRenderSystem : EntitySystem
     }
 
     /// <summary>
-    /// Какие уровни рисовать под глазом (от самого нижнего): с этажа — до земли, из подземелья — до самого низа.
-    /// Пусто — рисовать как обычно.
+    /// Какие уровни рисовать под глазом (от самого нижнего): только те, что реально видны сквозь проёмы вокруг
+    /// (<see cref="DHZLevelSystem.VisibleLowerLevels"/>), не больше настройки <c>dh.zlevels_render_depth</c>.
+    /// Пусто — рисовать как обычно. Пересчёт — не чаще раза в 0,25 с и при сдвиге глаза больше чем на 2 тайла.
     /// </summary>
     public bool TryGetLowerPasses(IEye eye, List<(MapId Map, int Depth)> passes)
     {
         passes.Clear();
-        var mapId = eye.Position.MapId;
-        if (mapId == MapId.Nullspace || !_z.TryGetLevel(mapId, out var own) || own.Level == 0)
+        var at = eye.Position;
+        if (at.MapId == MapId.Nullspace || !_z.TryGetLevel(at.MapId, out var own) || own.Level == 0)
             return false;
 
-        if (!HasOpening(eye.Position))
-            return false;
-
-        foreach (var (map, level) in _z.Levels(own.Stack))
-        {
-            if (level >= own.Level || own.Level > 0 && level < 0)
-                continue;
-
-            if (!TryComp<MapComponent>(map, out var mapComp))
-                continue;
-
-            passes.Add((mapComp.MapId, own.Level - level));
-        }
-
-        // Levels() — по возрастанию: первым идёт самый нижний.
-        return passes.Count > 0;
-    }
-
-    private bool HasOpening(MapCoordinates at)
-    {
         var tile = new Vector2i((int) MathF.Floor(at.Position.X), (int) MathF.Floor(at.Position.Y));
         var now = _timing.RealTime;
-        if (at.MapId == _openingMap && now < _openingChecked + OpeningRecheck &&
-            Math.Abs(tile.X - _openingTile.X) + Math.Abs(tile.Y - _openingTile.Y) <= 2)
+        if (at.MapId != _cachedMap || now >= _cachedAt + Recheck ||
+            Math.Abs(tile.X - _cachedTile.X) + Math.Abs(tile.Y - _cachedTile.Y) > 2)
         {
-            return _opening;
-        }
+            _cachedMap = at.MapId;
+            _cachedTile = tile;
+            _cachedAt = now;
+            _z.VisibleLowerLevels(at, OpeningRadius, OpeningStep, _cfg.GetCVar(DHCVars.ZLevelsRenderDepth), _visible);
 
-        _openingMap = at.MapId;
-        _openingTile = tile;
-        _openingChecked = now;
-        _opening = false;
-
-        for (var x = -OpeningRadius; x <= OpeningRadius && !_opening; x++)
-        {
-            for (var y = -OpeningRadius; y <= OpeningRadius; y++)
+            _cached.Clear();
+            foreach (var (map, level) in _visible)
             {
-                var point = new MapCoordinates(new Vector2(tile.X + x + 0.5f, tile.Y + y + 0.5f), at.MapId);
-                if (_z.HasFloor(point))
-                    continue;
-
-                _opening = true;
-                break;
+                if (TryComp<MapComponent>(map, out var mapComp))
+                    _cached.Add((mapComp.MapId, own.Level - level));
             }
         }
 
-        return _opening;
+        passes.AddRange(_cached);
+        return passes.Count > 0;
     }
 }
 

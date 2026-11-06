@@ -95,6 +95,51 @@ public sealed partial class DHZLevelSystem : EntitySystem
         return new MapCoordinates(coords.Position, Transform(map).MapID);
     }
 
+    /// <summary>
+    /// Какие нижние уровни на самом деле видны вокруг точки (оптимизация, решение автора 2026-11-06): берутся клетки
+    /// без пола на своём уровне в радиусе <paramref name="radius"/> (через <paramref name="step"/>), и уровни вниз
+    /// перебираются, пока сквозь них ещё есть дыры. Берутся только уровни, у которых под дырами есть пол (то, что
+    /// реально видно); клетка, накрытая полом, дальше вниз не смотрит. Не больше <paramref name="maxDepth"/> уровней. Результат — по возрастанию
+    /// (первым самый нижний); пусто — проёмов нет.
+    /// </summary>
+    public void VisibleLowerLevels(MapCoordinates at, int radius, int step, int maxDepth,
+        List<(EntityUid Map, int Level)> result)
+    {
+        result.Clear();
+        if (maxDepth <= 0 || !TryGetLevel(at.MapId, out var own) || own.Level == 0)
+            return;
+
+        var holes = new List<Vector2>();
+        var center = new Vector2(MathF.Floor(at.Position.X) + 0.5f, MathF.Floor(at.Position.Y) + 0.5f);
+        for (var x = -radius; x <= radius; x += step)
+        {
+            for (var y = -radius; y <= radius; y += step)
+            {
+                var point = center + new Vector2(x, y);
+                if (!HasFloor(new MapCoordinates(point, at.MapId)))
+                    holes.Add(point);
+            }
+        }
+
+        if (holes.Count == 0)
+            return;
+
+        var levels = Levels(own.Stack);
+        for (var i = levels.Count - 1; i >= 0 && holes.Count > 0 && result.Count < maxDepth; i--)
+        {
+            var (map, level) = levels[i];
+            if (level >= own.Level || own.Level > 0 && level < 0)
+                continue;
+
+            // Уровень виден, только если под какой-то дырой у него есть пол; пустой (воздух у края башни) — пропуск.
+            var mapId = Transform(map).MapID;
+            if (holes.RemoveAll(point => HasFloor(new MapCoordinates(point, mapId))) > 0)
+                result.Add((map, level));
+        }
+
+        result.Reverse();
+    }
+
     #endregion
 
     #region Пол и крыша
