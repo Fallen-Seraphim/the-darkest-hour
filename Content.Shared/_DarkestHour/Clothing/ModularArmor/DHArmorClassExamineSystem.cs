@@ -38,13 +38,51 @@ public sealed partial class DHArmorClassExamineSystem : EntitySystem
 
     private void OnPartArmorVerb(Entity<DHPartArmorComponent> ent, ref GetVerbsEvent<ExamineVerb> args)
     {
-        if (!args.CanInteract || ent.Comp.ArmorClass <= 0)
+        if (!args.CanInteract || ent.Comp.MaxClass() <= 0)
             return;
 
         var msg = new FormattedMessage();
-        msg.AddMarkupOrThrow(Loc.GetString("dh-armor-verb-class", ("level", ent.Comp.ArmorClass)));
-        msg.PushNewline();
-        msg.AddMarkupOrThrow(Loc.GetString("dh-armor-verb-parts", ("parts", PartsText(ent.Comp.Parts))));
+        if (ent.Comp.Classes.Count == 0)
+        {
+            msg.AddMarkupOrThrow(Loc.GetString("dh-armor-verb-class", ("level", ent.Comp.ArmorClass)));
+            msg.PushNewline();
+            msg.AddMarkupOrThrow(Loc.GetString("dh-armor-verb-parts", ("parts", PartsText(ent.Comp.Parts))));
+        }
+        else
+        {
+            // Разные классы по частям: строка на каждый класс, от прочного к лёгкому.
+            var byClass = new SortedDictionary<int, List<string>>(Comparer<int>.Create((a, b) => b.CompareTo(a)));
+            var parts = new List<string>(ent.Comp.Parts);
+            foreach (var part in ent.Comp.Classes.Keys)
+            {
+                if (!parts.Contains(part))
+                    parts.Add(part);
+            }
+
+            foreach (var part in parts)
+            {
+                var level = ent.Comp.ClassFor(part);
+                if (level <= 0)
+                    continue;
+
+                if (!byClass.TryGetValue(level, out var list))
+                    byClass[level] = list = new List<string>();
+
+                list.Add(part);
+            }
+
+            var first = true;
+            foreach (var (level, list) in byClass)
+            {
+                if (!first)
+                    msg.PushNewline();
+
+                first = false;
+                msg.AddMarkupOrThrow(Loc.GetString("dh-armor-verb-class-parts",
+                    ("level", level), ("parts", PartsText(list))));
+            }
+        }
+
         AddArmorVerb(args, ent.Comp, msg);
     }
 

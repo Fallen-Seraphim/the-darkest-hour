@@ -28,7 +28,7 @@ dh-uprising-briefing-front-leader =
     Do not raise the uprising straight away. Prepare the conditions first. Scout the Military Police patrols and posts, hand out the weapons from the caches, arrange communications, find sympathisers among the residents. Decide who in LA-V you can deal with: the corporation sells weapons to both sides. Move only when the cell is ready. An early move is a gift to the Military Police.
     Your goals: hold the district, strike the factory or broadcast the manifesto. Remember, the Front rests on you: if you are caught or killed, the uprising fails. The Independent Colonies armed you; your radio is on your ear. For liberty and justice for all!
 dh-uprising-briefing-vanguard = You work for Lost Angels—Vanguard. The corporation sells to whoever pays. Protect the office and the representative.
-dh-uprising-briefing-vanguard-vip = You are the LA-V representative in the district. Do business with both sides and get out alive: board the flight at LZ-1 Aeronautics (next in { $minutes } min).
+dh-uprising-briefing-vanguard-vip = You are the LA-V representative in the district. Do business with both sides and get out alive: leave on an evacuation flight from LZ-1 Aeronautics. Order it from the LA-V budget computer at the company's expense.
 dh-uprising-end-front = The district stays with the Front: { $free } of { $leaders } LFFC squad leaders remain free.
 dh-uprising-end-police = The Military Police broke the uprising: every LFFC squad leader was arrested or killed.
 dh-uprising-end-no-leaders = The uprising had no squad leaders.

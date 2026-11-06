@@ -374,10 +374,10 @@ public sealed partial class DHModularArmorSystem : EntitySystem
 
     private void OnPartArmorExamined(Entity<DHPartArmorComponent> ent, ref ExaminedEvent args)
     {
-        if (!args.IsInDetailsRange || ent.Comp.ArmorClass <= 0)
+        if (!args.IsInDetailsRange || ent.Comp.MaxClass() <= 0)
             return;
 
-        args.PushMarkup(Loc.GetString("dh-armor-part-examine-class", ("level", ent.Comp.ArmorClass)));
+        args.PushMarkup(Loc.GetString("dh-armor-part-examine-class", ("level", ent.Comp.MaxClass())));
     }
 
     private void OnModuleExamined(Entity<DHArmorModuleComponent> ent, ref ExaminedEvent args)

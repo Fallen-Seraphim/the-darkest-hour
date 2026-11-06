@@ -20,6 +20,18 @@
       "name": "lav_employee"
     },
     {
+      "name": "lav_pmc_commander"
+    },
+    {
+      "name": "lav_pmc_medic"
+    },
+    {
+      "name": "lav_pmc_specialist"
+    },
+    {
+      "name": "lav_pmc_rifleman"
+    },
+    {
       "name": "front_leader"
     },
     {

@@ -81,6 +81,10 @@
   - type: DHPartArmor
     parts: [ Head ]
     armorClass: 1
+  # Встроенный противогаз занимает и слот маски (решение автора 2026-11-06).
+  - type: DHIntegratedMask
+  - type: SlotBlock
+    slots: [ MASK ]
 
 - type: entity
   parent: BaseItem

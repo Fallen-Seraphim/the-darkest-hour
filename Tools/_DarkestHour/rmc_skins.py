@@ -216,6 +216,15 @@ COPY = [
     # LA-V: визоры и очки (решение автора 2026-11-06)
     C + 'Eyes/Glasses/securityhud.rsi', C + 'Eyes/Glasses/swatgoggles.rsi', C + 'Eyes/Glasses/jensen_shades.rsi',
     C + 'Eyes/Glasses/trimax_black_glasses.rsi',
+    # ЧВК LA-V (решение автора 2026-11-06): по мотивам ЧВК Вейланд-Ютани из RMC
+    C + 'Uniforms/PMC/standard.rsi', C + 'Uniforms/PMC/commando.rsi', C + 'Uniforms/PMC/officer.rsi',
+    C + 'OuterClothing/PMC/pmc.rsi', C + 'OuterClothing/PMC/commando.rsi', C + 'OuterClothing/PMC/heavy.rsi',
+    C + 'Head/PMC/helmet.rsi', C + 'Head/PMC/commando.rsi', C + 'Head/PMC/commando_alt.rsi', C + 'Head/PMC/heavy.rsi',
+    C + 'Hands/Gloves/pmc.rsi', C + 'Shoes/Boots/swat.rsi',
+    C + 'Back/Backpacks/PMC/standard.rsi', C + 'Back/Backpacks/PMC/commando.rsi', C + 'Back/Satchels/PMC/medic.rsi',
+    C + 'Belt/pmc.rsi', C + 'Belt/medicbag_pmc.rsi',
+    C + 'Eyes/Glasses/purple_ballistic_goggles.rsi', C + 'Eyes/Glasses/blue_polarized_ballistic_goggles.rsi',
+    C + 'Eyes/Glasses/m42_scoutsight.rsi',
 ]
 
 # new RSIs assembled from RMC states: path -> {state: (rmc rsi, rmc state)}

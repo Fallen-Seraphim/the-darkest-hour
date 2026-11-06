@@ -17,8 +17,8 @@ using Robust.Shared.Map.Components;
 namespace Content.Server._DarkestHour.Uprising;
 
 /// <summary>
-/// «Восстание»: стороны по должностям, вступительные инструкции, борт на ЗП-1 по расписанию (эвакуация
-/// представителя LA-V), учёт убитых мирных и итоги раунда.
+/// «Восстание»: стороны по должностям, вступительные инструкции, эвакуационный борт на ЗП-1 по вызову
+/// (эвакуация представителя LA-V), учёт убитых мирных и итоги раунда.
 /// </summary>
 public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRuleComponent>
 {
@@ -37,6 +37,9 @@ public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRule
 
     /// <summary>Вступление военпола — основной звук Республики (как у гарнизона «Штурма»).</summary>
     private static readonly SoundPathSpecifier PoliceSound = new("/Audio/_DarkestHour/Antag/republic_anthem.ogg");
+    /// <summary>Вступление LA-V и ЧВК LA-V (решение автора 2026-11-06).</summary>
+    public static readonly SoundPathSpecifier VanguardSound = new("/Audio/_DarkestHour/Antag/corporates.ogg");
+
     public static readonly Color VanguardPurple = Color.FromHex("#A68BE8");
     public static readonly Color CivilianGrey = Color.FromHex("#C8C8C8");
 
@@ -48,6 +51,7 @@ public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRule
 
         SubscribeLocalEvent<PlayerSpawnCompleteEvent>(OnPlayerSpawned);
         SubscribeLocalEvent<DHUprisingMemberComponent, MobStateChangedEvent>(OnMemberMobState);
+        InitializePmc();
     }
 
     protected override void Started(Entity<DHUprisingRuleComponent, GameRuleComponent> rule, ref GameRuleStartedEvent args)
@@ -106,6 +110,7 @@ public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRule
                 {
                     DHUprisingSide.Front => FrontSound,
                     DHUprisingSide.Police => PoliceSound,
+                    DHUprisingSide.Vanguard => VanguardSound,
                     _ => null,
                 });
             break;
@@ -124,7 +129,7 @@ public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRule
 
     private void OnMemberMobState(Entity<DHUprisingMemberComponent> ent, ref MobStateChangedEvent args)
     {
-        if (args.NewMobState != MobState.Dead ||
+        if (args.NewMobState != MobState.Dead || ent.Comp.Combatant ||
             ent.Comp.Side is not (DHUprisingSide.Civilian or DHUprisingSide.Vanguard))
         {
             return;
@@ -275,6 +280,9 @@ public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRule
         _chat.DispatchGlobalAnnouncement(Loc.GetString("dh-uprising-flight-landed",
                 ("minutes", (int) rule.FlightStay.TotalMinutes)),
             Loc.GetString("dh-uprising-sender-aeronautics"), true, FlightSound, CivilianGrey);
+
+        if (rule.PmcPending)
+            LandPmc(rule, grid.Value);
     }
 
     private void Depart(DHUprisingRuleComponent rule, EntityUid flight)
