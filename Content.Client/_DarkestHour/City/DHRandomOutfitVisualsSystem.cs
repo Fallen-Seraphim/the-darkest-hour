@@ -1,3 +1,4 @@
+using Content.Shared.Clothing.EntitySystems;
 using Content.Shared._DarkestHour.City;
 using Content.Shared.Clothing.Components;
 using Content.Shared.Item;
@@ -11,6 +12,7 @@ namespace Content.Client._DarkestHour.City;
 /// <summary>Заготовка случайной одежды рисуется спрайтами выбранной вещи (на полу, в руках и на теле).</summary>
 public sealed partial class DHRandomOutfitVisualsSystem : EntitySystem
 {
+    [Dependency] private ClothingSystem _clothing = default!;
     [Dependency] private IComponentFactory _factory = default!;
     [Dependency] private SharedItemSystem _item = default!;
     [Dependency] private IPrototypeManager _proto = default!;
@@ -46,8 +48,9 @@ public sealed partial class DHRandomOutfitVisualsSystem : EntitySystem
             return;
         }
 
+        // RsiPath пишет только ClothingSystem (RA0002) — копируем вид одежды варианта через неё.
         if (TryComp<ClothingComponent>(ent, out var clothing))
-            clothing.RsiPath = path;
+            _clothing.CopyVisuals(ent, protoClothing, clothing);
 
         if (TryComp<SpriteComponent>(ent, out var sprite) &&
             _resources.TryGetResource(SpriteSpecifierSerializer.TextureRoot / path, out RSIResource? rsi))
