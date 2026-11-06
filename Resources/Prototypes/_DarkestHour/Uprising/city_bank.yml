@@ -196,12 +196,12 @@
   parent: BaseStructure
   id: DHCityComputerBase
   components:
-  # Настольный компьютер на столе (решение автора 2026-11-06), спрайты RMC-14 — _DarkestHour/Structures/Machines/desktop.rsi.
+  # Настольный компьютер (решение автора 2026-11-06), спрайты RMC-14 — _DarkestHour/Structures/Machines/desktop.rsi.
+  # Ставится на стол — стол отдельным объектом (на карте build_map.py ставит его в ту же клетку).
   - type: Sprite
     sprite: _DarkestHour/Structures/Machines/desktop.rsi
+    drawdepth: Items # поверх стола
     layers:
-    - sprite: Structures/Furniture/Tables/wood.rsi
-      state: full
     - state: retro
   - type: InteractionOutline
   - type: Rotatable
@@ -268,8 +268,6 @@
   components:
   - type: Sprite
     layers:
-    - sprite: Structures/Furniture/Tables/wood.rsi
-      state: full
     - state: retro2
   - type: PointLight
     color: "#a68be8"
@@ -293,8 +291,6 @@
   components:
   - type: Sprite
     layers:
-    - sprite: Structures/Furniture/Tables/generic.rsi
-      state: full
     - state: security_det
   - type: PointLight
     color: "#5b8ad6"
