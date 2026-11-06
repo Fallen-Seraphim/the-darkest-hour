@@ -22,6 +22,14 @@ public sealed class DHTacticalMapControl : Control
     private static readonly Color MarkColor = Color.FromHex("#ff9a2e");
     private static readonly Color ScanColor = Color.FromHex("#ff5fd2");
     private static readonly Color RadarColor = Color.FromHex("#6fc3ff");
+    private static readonly Color BeaconColor = Color.FromHex("#9fe0ff");
+    private static readonly Color SelfColor = Color.FromHex("#ffe066");
+
+    /// <summary>Где ты (приложение «Карты»): точка с кольцом; null — не показывать.</summary>
+    public Vector2? Self;
+
+    /// <summary>Ты на другом уровне, чем показанный (на этаже или под землёй) — кольцо без точки.</summary>
+    public bool SelfElsewhere;
 
     private readonly DHTacticalMapSystem _terrain;
     private readonly Font _font;
@@ -104,6 +112,13 @@ public sealed class DHTacticalMapControl : Control
         if (ground != null)
             EnsureView(ground);
 
+        if (_pendingCenter is { } pending && _zoom > 0f)
+        {
+            _center = pending;
+            _zoom = MathF.Max(_zoom, _pendingZoom);
+            _pendingCenter = null;
+        }
+
         if (ground == null || _zoom <= 0f)
         {
             // Сервер не нашёл поверхности планеты — ждать нечего; иначе местность ещё идёт с сервера.
@@ -152,7 +167,7 @@ public sealed class DHTacticalMapControl : Control
 
         foreach (var marker in _state.Markers)
         {
-            if (marker.Level != SelectedLevel && marker.Kind != DHTacticalMarkerKind.LandingZone)
+            if (marker.Level != SelectedLevel && marker.Kind is not (DHTacticalMarkerKind.LandingZone or DHTacticalMarkerKind.Beacon))
                 continue;
 
             var p = ToPixel(new Vector2(marker.X, marker.Y));
@@ -171,6 +186,13 @@ public sealed class DHTacticalMapControl : Control
                     handle.DrawCircle(p, 4f, FactionColor(marker.Owner));
                     handle.DrawCircle(p, 4f, Color.Black, false);
                     break;
+                case DHTacticalMarkerKind.Beacon:
+                    // Городской ориентир: флажок и название.
+                    handle.DrawLine(p, p + new Vector2(0, -10), BeaconColor);
+                    handle.DrawRect(new UIBox2(p + new Vector2(0, -10), p + new Vector2(6, -6)), BeaconColor);
+                    handle.DrawCircle(p, 2f, BeaconColor);
+                    handle.DrawString(_font, p + new Vector2(8, -10), marker.Name, BeaconColor);
+                    break;
                 case DHTacticalMarkerKind.ScanContact:
                     // Ромб: отметка глобального скана.
                     handle.DrawLine(p + new Vector2(0, -6), p + new Vector2(6, 0), ScanColor);
@@ -179,6 +201,17 @@ public sealed class DHTacticalMapControl : Control
                     handle.DrawLine(p + new Vector2(-6, 0), p + new Vector2(0, -6), ScanColor);
                     handle.DrawString(_font, p + new Vector2(8, -6), marker.Name, ScanColor);
                     break;
+            }
+        }
+
+        if (Self is { } self)
+        {
+            var p = ToPixel(self);
+            handle.DrawCircle(p, 7f, SelfColor, false);
+            if (!SelfElsewhere)
+            {
+                handle.DrawCircle(p, 4f, SelfColor);
+                handle.DrawCircle(p, 4f, Color.Black, false);
             }
         }
 
@@ -252,4 +285,15 @@ public sealed class DHTacticalMapControl : Control
     {
         _zoom = -1f;
     }
+
+    private Vector2? _pendingCenter;
+
+    /// <summary>Навести карту на точку с приближением (приложение «Карты»: «Где я»).</summary>
+    public void CenterOn(Vector2 world, float zoom = 4f)
+    {
+        _pendingCenter = world;
+        _pendingZoom = zoom;
+    }
+
+    private float _pendingZoom;
 }

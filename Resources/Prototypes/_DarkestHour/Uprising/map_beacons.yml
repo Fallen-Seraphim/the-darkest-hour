@@ -1,0 +1,54 @@
+# Городские ориентиры (решение автора 2026-11-06), как станционные маяки: название здания или адреса на тактической
+# карте и в приложении «Карты». Ставятся на уровне 0 (build_map.py).
+
+- type: entity
+  abstract: true
+  parent: MarkerBase
+  id: DHMapBeaconBase
+  name: city landmark
+  components:
+  - type: Sprite
+    layers:
+    - state: blue
+  - type: DHMapBeacon
+    beaconName: dh-map-beacon-gates
+
+- type: entity
+  parent: DHMapBeaconBase
+  id: DHMapBeaconGates
+  suffix: Gates Business Centre
+  components:
+  - type: DHMapBeacon
+    beaconName: dh-map-beacon-gates
+
+- type: entity
+  parent: DHMapBeaconBase
+  id: DHMapBeaconPolice
+  suffix: Military Police
+  components:
+  - type: DHMapBeacon
+    beaconName: dh-map-beacon-police
+
+- type: entity
+  parent: DHMapBeaconBase
+  id: DHMapBeaconWarehouse
+  suffix: LA-V Logistics
+  components:
+  - type: DHMapBeacon
+    beaconName: dh-map-beacon-warehouse
+
+- type: entity
+  parent: DHMapBeaconBase
+  id: DHMapBeaconDana14
+  suffix: 14 Dana St
+  components:
+  - type: DHMapBeacon
+    beaconName: dh-map-beacon-dana-14
+
+- type: entity
+  parent: DHMapBeaconBase
+  id: DHMapBeaconDana15
+  suffix: 15 Dana St
+  components:
+  - type: DHMapBeacon
+    beaconName: dh-map-beacon-dana-15

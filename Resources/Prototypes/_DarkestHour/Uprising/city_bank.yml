@@ -121,6 +121,20 @@
 
 - type: entity
   parent: BasePDACartridge
+  id: DHMapAppCartridge
+  name: maps app
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    state: cart-nav
+  - type: UIFragment
+    ui: !type:DHMapAppUi
+  - type: Cartridge
+    programName: dh-phone-program-map
+  - type: DHMapAppCartridge
+
+- type: entity
+  parent: BasePDACartridge
   id: DHCallCartridge
   name: phone app
   categories: [ HideSpawnMenu ]
@@ -182,6 +196,7 @@
         - id: DHBankAppCartridge
         - id: DHWeatherAppCartridge
         - id: NewsReaderCartridge
+        - id: DHMapAppCartridge
   - type: ActivatableUI
     key: enum.DHPhoneUiKey.Key
     singleUser: true

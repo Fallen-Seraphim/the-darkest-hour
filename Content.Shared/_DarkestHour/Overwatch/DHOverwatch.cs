@@ -130,6 +130,9 @@ public enum DHTacticalMarkerKind : byte
 
     /// <summary>Отметка глобального скана (до следующего скана).</summary>
     ScanContact,
+
+    /// <summary>Городской ориентир (DHMapBeacon): здание или адрес, видно всем.</summary>
+    Beacon,
 }
 
 [Serializable, NetSerializable]

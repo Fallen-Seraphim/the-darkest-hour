@@ -1,0 +1,15 @@
+ent-DHMapBeaconGates = городской ориентир
+    .desc = { "" }
+    .suffix = БЦ «Ворота»
+ent-DHMapBeaconPolice = городской ориентир
+    .desc = { "" }
+    .suffix = Военная Полиция
+ent-DHMapBeaconWarehouse = городской ориентир
+    .desc = { "" }
+    .suffix = LA-V Logistics
+ent-DHMapBeaconDana14 = городской ориентир
+    .desc = { "" }
+    .suffix = ул. Дейна, 14
+ent-DHMapBeaconDana15 = городской ориентир
+    .desc = { "" }
+    .suffix = ул. Дейна, 15
