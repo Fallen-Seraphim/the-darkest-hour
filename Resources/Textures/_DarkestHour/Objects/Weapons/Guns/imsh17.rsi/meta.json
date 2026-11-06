@@ -21,6 +21,15 @@
     },
     {
       "name": "optic2x"
+    },
+    {
+      "name": "opticholo"
+    },
+    {
+      "name": "laser"
+    },
+    {
+      "name": "light"
     }
   ]
 }

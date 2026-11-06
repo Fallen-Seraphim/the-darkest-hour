@@ -15,6 +15,7 @@
     - map: ["barrelAttachment"]
     - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Huge
     sprite: _DarkestHour/Objects/Weapons/Guns/rar_m11_1_inhands.rsi
@@ -82,13 +83,21 @@
         whitelist:
           tags:
           - DHAttachmentOptic
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
-      gun_magazine: !type:ContainerSlot
-      gun_chamber: !type:ContainerSlot
       attachment_barrel: !type:ContainerSlot
       attachment_grip: !type:ContainerSlot
       attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
@@ -111,6 +120,11 @@
       whitelist:
         tags:
         - DHAttachmentOptic
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -137,6 +151,16 @@
         whitelist:
           tags:
           - DHAttachmentCompensator
+      - containerId: attachment_barrel
+        state: muzzlebrake
+        whitelist:
+          tags:
+          - DHAttachmentMuzzleBrake
+      - containerId: attachment_barrel
+        state: longbarrel
+        whitelist:
+          tags:
+          - DHAttachmentLongBarrel
       gripAttachment:
       - containerId: attachment_grip
         state: vgrip
@@ -148,12 +172,32 @@
         whitelist:
           tags:
           - DHAttachmentAngledGrip
+      - containerId: attachment_grip
+        state: bipod
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
       - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
+      - containerId: attachment_optic
+        state: optic3x
+        whitelist:
+          tags:
+          - DHAttachmentOptic3x
       - containerId: attachment_optic
         state: optic4x
         whitelist:
@@ -164,6 +208,18 @@
         whitelist:
           tags:
           - DHAttachmentOptic8x
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "RAR-M-11-2"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseSecurityContraband ]
@@ -180,6 +236,7 @@
     - map: ["barrelAttachment"]
     - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Huge
     sprite: _DarkestHour/Objects/Weapons/Guns/rar_m11_2_inhands.rsi
@@ -247,18 +304,30 @@
         whitelist:
           tags:
           - DHAttachmentOptic
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
-      gun_magazine: !type:ContainerSlot
-      gun_chamber: !type:ContainerSlot
       attachment_barrel: !type:ContainerSlot
       attachment_grip: !type:ContainerSlot
       attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
     zeroVisible: true
   - type: Appearance
+  - type: CursorOffsetRequiresWield
+  - type: EyeCursorOffset
+    maxOffset: 2
+    pvsIncrease: 0.2
   - type: ESAttachableGun
     slots:
     - name: es-gun-attachments-slot-name-barrel
@@ -276,6 +345,11 @@
       whitelist:
         tags:
         - DHAttachmentOptic
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -302,6 +376,16 @@
         whitelist:
           tags:
           - DHAttachmentCompensator
+      - containerId: attachment_barrel
+        state: muzzlebrake
+        whitelist:
+          tags:
+          - DHAttachmentMuzzleBrake
+      - containerId: attachment_barrel
+        state: longbarrel
+        whitelist:
+          tags:
+          - DHAttachmentLongBarrel
       gripAttachment:
       - containerId: attachment_grip
         state: vgrip
@@ -313,12 +397,32 @@
         whitelist:
           tags:
           - DHAttachmentAngledGrip
+      - containerId: attachment_grip
+        state: bipod
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
       - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
+      - containerId: attachment_optic
+        state: optic3x
+        whitelist:
+          tags:
+          - DHAttachmentOptic3x
       - containerId: attachment_optic
         state: optic4x
         whitelist:
@@ -329,10 +433,18 @@
         whitelist:
           tags:
           - DHAttachmentOptic8x
-  - type: CursorOffsetRequiresWield
-  - type: EyeCursorOffset
-    maxOffset: 2
-    pvsIncrease: 0.2
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "RAR-M-11-3"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseSecurityContraband ]
@@ -349,6 +461,7 @@
     - map: ["barrelAttachment"]
     - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Large
     sprite: _DarkestHour/Objects/Weapons/Guns/rar_m11_3_inhands.rsi
@@ -417,13 +530,21 @@
         whitelist:
           tags:
           - DHAttachmentOptic
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
-      gun_magazine: !type:ContainerSlot
-      gun_chamber: !type:ContainerSlot
       attachment_barrel: !type:ContainerSlot
       attachment_grip: !type:ContainerSlot
       attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
@@ -446,6 +567,11 @@
       whitelist:
         tags:
         - DHAttachmentOptic
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -472,6 +598,16 @@
         whitelist:
           tags:
           - DHAttachmentCompensator
+      - containerId: attachment_barrel
+        state: muzzlebrake
+        whitelist:
+          tags:
+          - DHAttachmentMuzzleBrake
+      - containerId: attachment_barrel
+        state: longbarrel
+        whitelist:
+          tags:
+          - DHAttachmentLongBarrel
       gripAttachment:
       - containerId: attachment_grip
         state: vgrip
@@ -483,12 +619,32 @@
         whitelist:
           tags:
           - DHAttachmentAngledGrip
+      - containerId: attachment_grip
+        state: bipod
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
       - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
+      - containerId: attachment_optic
+        state: optic3x
+        whitelist:
+          tags:
+          - DHAttachmentOptic3x
       - containerId: attachment_optic
         state: optic4x
         whitelist:
@@ -499,6 +655,18 @@
         whitelist:
           tags:
           - DHAttachmentOptic8x
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "RAMG-M-14-1"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseSecurityContraband ]
@@ -512,7 +680,10 @@
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
+    - map: ["barrelAttachment"]
+    - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Huge
     sprite: _DarkestHour/Objects/Weapons/Guns/ramg_m14_1_inhands.rsi
@@ -559,32 +730,78 @@
         whitelist:
           tags:
           - DHCartridge556x45
+      attachment_barrel:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentBarrel
+      attachment_grip:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+          - DHAttachmentHandstop
       attachment_optic:
         insertSound: /Audio/Items/screwdriver2.ogg
         ejectSound: /Audio/Items/screwdriver2.ogg
         priority: 0
         whitelist:
           tags:
+          - DHAttachmentOpticHolo
           - DHAttachmentOptic2x
+          - DHAttachmentOptic3x
           - DHAttachmentOptic4x
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
+      attachment_barrel: !type:ContainerSlot
+      attachment_grip: !type:ContainerSlot
+      attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
       gun_magazine: !type:ContainerSlot
       gun_chamber: !type:ContainerSlot
-      attachment_optic: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
     zeroVisible: true
   - type: Appearance
+  - type: GunRequiresWield
   - type: ESAttachableGun
     slots:
+    - name: es-gun-attachments-slot-name-barrel
+      containerId: attachment_barrel
+      whitelist:
+        tags:
+        - DHAttachmentBarrel
+    - name: es-gun-attachments-slot-name-grip
+      containerId: attachment_grip
+      whitelist:
+        tags:
+        - DHAttachmentBipod
+        - DHAttachmentHandstop
     - name: es-gun-attachments-slot-name-optic
       containerId: attachment_optic
       whitelist:
         tags:
+        - DHAttachmentOpticHolo
         - DHAttachmentOptic2x
+        - DHAttachmentOptic3x
         - DHAttachmentOptic4x
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -595,18 +812,76 @@
         type: ESGunAttachmentBui
   - type: ESItemMapper
     mappings:
+      barrelAttachment:
+      - containerId: attachment_barrel
+        state: suppressed
+        whitelist:
+          tags:
+          - DHAttachmentSuppressor
+      - containerId: attachment_barrel
+        state: flashhider
+        whitelist:
+          tags:
+          - DHAttachmentFlashHider
+      - containerId: attachment_barrel
+        state: compensator
+        whitelist:
+          tags:
+          - DHAttachmentCompensator
+      - containerId: attachment_barrel
+        state: muzzlebrake
+        whitelist:
+          tags:
+          - DHAttachmentMuzzleBrake
+      - containerId: attachment_barrel
+        state: longbarrel
+        whitelist:
+          tags:
+          - DHAttachmentLongBarrel
+      gripAttachment:
+      - containerId: attachment_grip
+        state: bipod
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
       - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
       - containerId: attachment_optic
+        state: optic3x
+        whitelist:
+          tags:
+          - DHAttachmentOptic3x
+      - containerId: attachment_optic
         state: optic4x
         whitelist:
           tags:
           - DHAttachmentOptic4x
-  - type: GunRequiresWield
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "RAMG-M-14-2"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseSecurityContraband ]
@@ -620,7 +895,10 @@
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
+    - map: ["barrelAttachment"]
+    - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Huge
     sprite: _DarkestHour/Objects/Weapons/Guns/ramg_m14_2_inhands.rsi
@@ -667,32 +945,78 @@
         whitelist:
           tags:
           - DHCartridge762x51
+      attachment_barrel:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentBarrel
+      attachment_grip:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+          - DHAttachmentHandstop
       attachment_optic:
         insertSound: /Audio/Items/screwdriver2.ogg
         ejectSound: /Audio/Items/screwdriver2.ogg
         priority: 0
         whitelist:
           tags:
+          - DHAttachmentOpticHolo
           - DHAttachmentOptic2x
+          - DHAttachmentOptic3x
           - DHAttachmentOptic4x
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
+      attachment_barrel: !type:ContainerSlot
+      attachment_grip: !type:ContainerSlot
+      attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
       gun_magazine: !type:ContainerSlot
       gun_chamber: !type:ContainerSlot
-      attachment_optic: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
     zeroVisible: true
   - type: Appearance
+  - type: GunRequiresWield
   - type: ESAttachableGun
     slots:
+    - name: es-gun-attachments-slot-name-barrel
+      containerId: attachment_barrel
+      whitelist:
+        tags:
+        - DHAttachmentBarrel
+    - name: es-gun-attachments-slot-name-grip
+      containerId: attachment_grip
+      whitelist:
+        tags:
+        - DHAttachmentBipod
+        - DHAttachmentHandstop
     - name: es-gun-attachments-slot-name-optic
       containerId: attachment_optic
       whitelist:
         tags:
+        - DHAttachmentOpticHolo
         - DHAttachmentOptic2x
+        - DHAttachmentOptic3x
         - DHAttachmentOptic4x
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -703,18 +1027,76 @@
         type: ESGunAttachmentBui
   - type: ESItemMapper
     mappings:
+      barrelAttachment:
+      - containerId: attachment_barrel
+        state: suppressed
+        whitelist:
+          tags:
+          - DHAttachmentSuppressor
+      - containerId: attachment_barrel
+        state: flashhider
+        whitelist:
+          tags:
+          - DHAttachmentFlashHider
+      - containerId: attachment_barrel
+        state: compensator
+        whitelist:
+          tags:
+          - DHAttachmentCompensator
+      - containerId: attachment_barrel
+        state: muzzlebrake
+        whitelist:
+          tags:
+          - DHAttachmentMuzzleBrake
+      - containerId: attachment_barrel
+        state: longbarrel
+        whitelist:
+          tags:
+          - DHAttachmentLongBarrel
+      gripAttachment:
+      - containerId: attachment_grip
+        state: bipod
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
       - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
       - containerId: attachment_optic
+        state: optic3x
+        whitelist:
+          tags:
+          - DHAttachmentOptic3x
+      - containerId: attachment_optic
         state: optic4x
         whitelist:
           tags:
           - DHAttachmentOptic4x
-  - type: GunRequiresWield
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "RAP-TOR-M-12-16"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseSecurityContraband ]
@@ -729,7 +1111,9 @@
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
     - map: ["barrelAttachment"]
+    - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Large
     sprite: _DarkestHour/Objects/Weapons/Guns/raptor_m12_16_inhands.rsi
@@ -783,19 +1167,38 @@
         whitelist:
           tags:
           - DHAttachmentBarrel
+      attachment_grip:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentVerticalGrip
+          - DHAttachmentAngledGrip
+          - DHAttachmentHandstop
       attachment_optic:
         insertSound: /Audio/Items/screwdriver2.ogg
         ejectSound: /Audio/Items/screwdriver2.ogg
         priority: 0
         whitelist:
           tags:
+          - DHAttachmentOpticHolo
           - DHAttachmentOptic2x
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
+      attachment_barrel: !type:ContainerSlot
+      attachment_grip: !type:ContainerSlot
+      attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
       gun_magazine: !type:ContainerSlot
       gun_chamber: !type:ContainerSlot
-      attachment_barrel: !type:ContainerSlot
-      attachment_optic: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
@@ -808,11 +1211,24 @@
       whitelist:
         tags:
         - DHAttachmentBarrel
+    - name: es-gun-attachments-slot-name-grip
+      containerId: attachment_grip
+      whitelist:
+        tags:
+        - DHAttachmentVerticalGrip
+        - DHAttachmentAngledGrip
+        - DHAttachmentHandstop
     - name: es-gun-attachments-slot-name-optic
       containerId: attachment_optic
       whitelist:
         tags:
+        - DHAttachmentOpticHolo
         - DHAttachmentOptic2x
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -839,12 +1255,55 @@
         whitelist:
           tags:
           - DHAttachmentCompensator
+      - containerId: attachment_barrel
+        state: muzzlebrake
+        whitelist:
+          tags:
+          - DHAttachmentMuzzleBrake
+      - containerId: attachment_barrel
+        state: longbarrel
+        whitelist:
+          tags:
+          - DHAttachmentLongBarrel
+      gripAttachment:
+      - containerId: attachment_grip
+        state: vgrip
+        whitelist:
+          tags:
+          - DHAttachmentVerticalGrip
+      - containerId: attachment_grip
+        state: agrip
+        whitelist:
+          tags:
+          - DHAttachmentAngledGrip
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
       - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "RMAR-AS-M-15-18"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseSecurityContraband ]
@@ -858,7 +1317,10 @@
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
+    - map: ["barrelAttachment"]
+    - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Huge
     sprite: _DarkestHour/Objects/Weapons/Guns/rmar_as_m15_18_inhands.rsi
@@ -904,34 +1366,82 @@
         whitelist:
           tags:
           - DHCartridge127x105
+      attachment_barrel:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentBarrel
+      attachment_grip:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+          - DHAttachmentHandstop
       attachment_optic:
         insertSound: /Audio/Items/screwdriver2.ogg
         ejectSound: /Audio/Items/screwdriver2.ogg
         priority: 0
         whitelist:
           tags:
+          - DHAttachmentOptic3x
           - DHAttachmentOptic4x
           - DHAttachmentOptic8x
           - DHAttachmentOptic16x
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
+      attachment_barrel: !type:ContainerSlot
+      attachment_grip: !type:ContainerSlot
+      attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
       gun_magazine: !type:ContainerSlot
       gun_chamber: !type:ContainerSlot
-      attachment_optic: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
     zeroVisible: true
   - type: Appearance
+  - type: GunRequiresWield
+  - type: CursorOffsetRequiresWield
+  - type: EyeCursorOffset
+    maxOffset: 2
+    pvsIncrease: 0.2
   - type: ESAttachableGun
     slots:
+    - name: es-gun-attachments-slot-name-barrel
+      containerId: attachment_barrel
+      whitelist:
+        tags:
+        - DHAttachmentBarrel
+    - name: es-gun-attachments-slot-name-grip
+      containerId: attachment_grip
+      whitelist:
+        tags:
+        - DHAttachmentBipod
+        - DHAttachmentHandstop
     - name: es-gun-attachments-slot-name-optic
       containerId: attachment_optic
       whitelist:
         tags:
+        - DHAttachmentOptic3x
         - DHAttachmentOptic4x
         - DHAttachmentOptic8x
         - DHAttachmentOptic16x
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -942,7 +1452,49 @@
         type: ESGunAttachmentBui
   - type: ESItemMapper
     mappings:
+      barrelAttachment:
+      - containerId: attachment_barrel
+        state: suppressed
+        whitelist:
+          tags:
+          - DHAttachmentSuppressor
+      - containerId: attachment_barrel
+        state: flashhider
+        whitelist:
+          tags:
+          - DHAttachmentFlashHider
+      - containerId: attachment_barrel
+        state: compensator
+        whitelist:
+          tags:
+          - DHAttachmentCompensator
+      - containerId: attachment_barrel
+        state: muzzlebrake
+        whitelist:
+          tags:
+          - DHAttachmentMuzzleBrake
+      - containerId: attachment_barrel
+        state: longbarrel
+        whitelist:
+          tags:
+          - DHAttachmentLongBarrel
+      gripAttachment:
+      - containerId: attachment_grip
+        state: bipod
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: optic3x
+        whitelist:
+          tags:
+          - DHAttachmentOptic3x
       - containerId: attachment_optic
         state: optic4x
         whitelist:
@@ -953,16 +1505,18 @@
         whitelist:
           tags:
           - DHAttachmentOptic8x
-      - containerId: attachment_optic
-        state: optic8x
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
         whitelist:
           tags:
-          - DHAttachmentOptic16x
-  - type: GunRequiresWield
-  - type: CursorOffsetRequiresWield
-  - type: EyeCursorOffset
-    maxOffset: 2
-    pvsIncrease: 0.2
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "RMAD-AS-M-15-17"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseSecurityContraband ]
@@ -979,6 +1533,7 @@
     - map: ["barrelAttachment"]
     - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Huge
     sprite: _DarkestHour/Objects/Weapons/Guns/rmad_as_m15_17_inhands.rsi
@@ -1045,18 +1600,30 @@
         whitelist:
           tags:
           - DHAttachmentOptic
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
-      gun_magazine: !type:ContainerSlot
-      gun_chamber: !type:ContainerSlot
       attachment_barrel: !type:ContainerSlot
       attachment_grip: !type:ContainerSlot
       attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
     zeroVisible: true
   - type: Appearance
+  - type: CursorOffsetRequiresWield
+  - type: EyeCursorOffset
+    maxOffset: 2
+    pvsIncrease: 0.2
   - type: ESAttachableGun
     slots:
     - name: es-gun-attachments-slot-name-barrel
@@ -1074,6 +1641,11 @@
       whitelist:
         tags:
         - DHAttachmentOptic
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -1100,6 +1672,16 @@
         whitelist:
           tags:
           - DHAttachmentCompensator
+      - containerId: attachment_barrel
+        state: muzzlebrake
+        whitelist:
+          tags:
+          - DHAttachmentMuzzleBrake
+      - containerId: attachment_barrel
+        state: longbarrel
+        whitelist:
+          tags:
+          - DHAttachmentLongBarrel
       gripAttachment:
       - containerId: attachment_grip
         state: vgrip
@@ -1111,12 +1693,32 @@
         whitelist:
           tags:
           - DHAttachmentAngledGrip
+      - containerId: attachment_grip
+        state: bipod
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
       - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
+      - containerId: attachment_optic
+        state: optic3x
+        whitelist:
+          tags:
+          - DHAttachmentOptic3x
       - containerId: attachment_optic
         state: optic4x
         whitelist:
@@ -1127,10 +1729,18 @@
         whitelist:
           tags:
           - DHAttachmentOptic8x
-  - type: CursorOffsetRequiresWield
-  - type: EyeCursorOffset
-    maxOffset: 2
-    pvsIncrease: 0.2
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "RMAD-IN-M-91-19"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseSecurityContraband ]
@@ -1144,7 +1754,10 @@
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
+    - map: ["barrelAttachment"]
+    - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Huge
     sprite: _DarkestHour/Objects/Weapons/Guns/rmad_in_m91_19_inhands.rsi
@@ -1190,6 +1803,22 @@
         whitelist:
           tags:
           - DHCartridge1066
+      attachment_barrel:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentBarrel
+      attachment_grip:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentVerticalGrip
+          - DHAttachmentAngledGrip
+          - DHAttachmentHandstop
       attachment_optic:
         insertSound: /Audio/Items/screwdriver2.ogg
         ejectSound: /Audio/Items/screwdriver2.ogg
@@ -1197,23 +1826,54 @@
         whitelist:
           tags:
           - DHAttachmentOptic
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
+      attachment_barrel: !type:ContainerSlot
+      attachment_grip: !type:ContainerSlot
+      attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
       gun_magazine: !type:ContainerSlot
       gun_chamber: !type:ContainerSlot
-      attachment_optic: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
     zeroVisible: true
   - type: Appearance
+  - type: CursorOffsetRequiresWield
+  - type: EyeCursorOffset
+    maxOffset: 2
+    pvsIncrease: 0.2
   - type: ESAttachableGun
     slots:
+    - name: es-gun-attachments-slot-name-barrel
+      containerId: attachment_barrel
+      whitelist:
+        tags:
+        - DHAttachmentBarrel
+    - name: es-gun-attachments-slot-name-grip
+      containerId: attachment_grip
+      whitelist:
+        tags:
+        - DHAttachmentVerticalGrip
+        - DHAttachmentAngledGrip
+        - DHAttachmentHandstop
     - name: es-gun-attachments-slot-name-optic
       containerId: attachment_optic
       whitelist:
         tags:
         - DHAttachmentOptic
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -1224,12 +1884,64 @@
         type: ESGunAttachmentBui
   - type: ESItemMapper
     mappings:
+      barrelAttachment:
+      - containerId: attachment_barrel
+        state: suppressed
+        whitelist:
+          tags:
+          - DHAttachmentSuppressor
+      - containerId: attachment_barrel
+        state: flashhider
+        whitelist:
+          tags:
+          - DHAttachmentFlashHider
+      - containerId: attachment_barrel
+        state: compensator
+        whitelist:
+          tags:
+          - DHAttachmentCompensator
+      - containerId: attachment_barrel
+        state: muzzlebrake
+        whitelist:
+          tags:
+          - DHAttachmentMuzzleBrake
+      - containerId: attachment_barrel
+        state: longbarrel
+        whitelist:
+          tags:
+          - DHAttachmentLongBarrel
+      gripAttachment:
+      - containerId: attachment_grip
+        state: vgrip
+        whitelist:
+          tags:
+          - DHAttachmentVerticalGrip
+      - containerId: attachment_grip
+        state: agrip
+        whitelist:
+          tags:
+          - DHAttachmentAngledGrip
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
       - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
+      - containerId: attachment_optic
+        state: optic3x
+        whitelist:
+          tags:
+          - DHAttachmentOptic3x
       - containerId: attachment_optic
         state: optic4x
         whitelist:
@@ -1240,10 +1952,18 @@
         whitelist:
           tags:
           - DHAttachmentOptic8x
-  - type: CursorOffsetRequiresWield
-  - type: EyeCursorOffset
-    maxOffset: 2
-    pvsIncrease: 0.2
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "RPR-M-9-02"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseSecurityContraband ]
@@ -1258,7 +1978,9 @@
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
     - map: ["barrelAttachment"]
+    - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Normal
     sprite: _DarkestHour/Objects/Weapons/Guns/rpr_m9_02_inhands.rsi
@@ -1310,19 +2032,38 @@
         whitelist:
           tags:
           - DHAttachmentBarrel
+      attachment_grip:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentVerticalGrip
+          - DHAttachmentAngledGrip
+          - DHAttachmentHandstop
       attachment_optic:
         insertSound: /Audio/Items/screwdriver2.ogg
         ejectSound: /Audio/Items/screwdriver2.ogg
         priority: 0
         whitelist:
           tags:
+          - DHAttachmentOpticHolo
           - DHAttachmentOptic2x
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
+      attachment_barrel: !type:ContainerSlot
+      attachment_grip: !type:ContainerSlot
+      attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
       gun_magazine: !type:ContainerSlot
       gun_chamber: !type:ContainerSlot
-      attachment_barrel: !type:ContainerSlot
-      attachment_optic: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
@@ -1335,11 +2076,24 @@
       whitelist:
         tags:
         - DHAttachmentBarrel
+    - name: es-gun-attachments-slot-name-grip
+      containerId: attachment_grip
+      whitelist:
+        tags:
+        - DHAttachmentVerticalGrip
+        - DHAttachmentAngledGrip
+        - DHAttachmentHandstop
     - name: es-gun-attachments-slot-name-optic
       containerId: attachment_optic
       whitelist:
         tags:
+        - DHAttachmentOpticHolo
         - DHAttachmentOptic2x
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -1366,12 +2120,55 @@
         whitelist:
           tags:
           - DHAttachmentCompensator
+      - containerId: attachment_barrel
+        state: muzzlebrake
+        whitelist:
+          tags:
+          - DHAttachmentMuzzleBrake
+      - containerId: attachment_barrel
+        state: longbarrel
+        whitelist:
+          tags:
+          - DHAttachmentLongBarrel
+      gripAttachment:
+      - containerId: attachment_grip
+        state: vgrip
+        whitelist:
+          tags:
+          - DHAttachmentVerticalGrip
+      - containerId: attachment_grip
+        state: agrip
+        whitelist:
+          tags:
+          - DHAttachmentAngledGrip
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
       - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "IR-17"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseSyndicateContraband ]
@@ -1388,6 +2185,7 @@
     - map: ["barrelAttachment"]
     - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Huge
     sprite: _DarkestHour/Objects/Weapons/Guns/ir17_inhands.rsi
@@ -1455,13 +2253,21 @@
         whitelist:
           tags:
           - DHAttachmentOptic
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
-      gun_magazine: !type:ContainerSlot
-      gun_chamber: !type:ContainerSlot
       attachment_barrel: !type:ContainerSlot
       attachment_grip: !type:ContainerSlot
       attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
@@ -1484,6 +2290,11 @@
       whitelist:
         tags:
         - DHAttachmentOptic
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -1511,12 +2322,32 @@
         whitelist:
           tags:
           - DHAttachmentAngledGrip
+      - containerId: attachment_grip
+        state: bipod
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
       - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
+      - containerId: attachment_optic
+        state: optic3x
+        whitelist:
+          tags:
+          - DHAttachmentOptic3x
       - containerId: attachment_optic
         state: optic4x
         whitelist:
@@ -1527,6 +2358,18 @@
         whitelist:
           tags:
           - DHAttachmentOptic8x
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "IMG-17L"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseSyndicateContraband ]
@@ -1541,7 +2384,9 @@
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
     - map: ["barrelAttachment"]
+    - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Large
     sprite: _DarkestHour/Objects/Weapons/Guns/img17l_inhands.rsi
@@ -1595,19 +2440,38 @@
         whitelist:
           tags:
           - DHAttachmentSuppressor
+      attachment_grip:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentVerticalGrip
+          - DHAttachmentAngledGrip
+          - DHAttachmentHandstop
       attachment_optic:
         insertSound: /Audio/Items/screwdriver2.ogg
         ejectSound: /Audio/Items/screwdriver2.ogg
         priority: 0
         whitelist:
           tags:
+          - DHAttachmentOpticHolo
           - DHAttachmentOptic2x
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
+      attachment_barrel: !type:ContainerSlot
+      attachment_grip: !type:ContainerSlot
+      attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
       gun_magazine: !type:ContainerSlot
       gun_chamber: !type:ContainerSlot
-      attachment_barrel: !type:ContainerSlot
-      attachment_optic: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
@@ -1620,11 +2484,24 @@
       whitelist:
         tags:
         - DHAttachmentSuppressor
+    - name: es-gun-attachments-slot-name-grip
+      containerId: attachment_grip
+      whitelist:
+        tags:
+        - DHAttachmentVerticalGrip
+        - DHAttachmentAngledGrip
+        - DHAttachmentHandstop
     - name: es-gun-attachments-slot-name-optic
       containerId: attachment_optic
       whitelist:
         tags:
+        - DHAttachmentOpticHolo
         - DHAttachmentOptic2x
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -1641,12 +2518,45 @@
         whitelist:
           tags:
           - DHAttachmentSuppressor
+      gripAttachment:
+      - containerId: attachment_grip
+        state: vgrip
+        whitelist:
+          tags:
+          - DHAttachmentVerticalGrip
+      - containerId: attachment_grip
+        state: agrip
+        whitelist:
+          tags:
+          - DHAttachmentAngledGrip
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
       - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "IMG-17T"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseSyndicateContraband ]
@@ -1660,7 +2570,10 @@
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
+    - map: ["barrelAttachment"]
+    - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Huge
     sprite: _DarkestHour/Objects/Weapons/Guns/img17t_inhands.rsi
@@ -1706,32 +2619,78 @@
         whitelist:
           tags:
           - DHCartridge842x54
+      attachment_barrel:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentBarrel
+      attachment_grip:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+          - DHAttachmentHandstop
       attachment_optic:
         insertSound: /Audio/Items/screwdriver2.ogg
         ejectSound: /Audio/Items/screwdriver2.ogg
         priority: 0
         whitelist:
           tags:
+          - DHAttachmentOpticHolo
           - DHAttachmentOptic2x
+          - DHAttachmentOptic3x
           - DHAttachmentOptic4x
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
+      attachment_barrel: !type:ContainerSlot
+      attachment_grip: !type:ContainerSlot
+      attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
       gun_magazine: !type:ContainerSlot
       gun_chamber: !type:ContainerSlot
-      attachment_optic: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
     zeroVisible: true
   - type: Appearance
+  - type: GunRequiresWield
   - type: ESAttachableGun
     slots:
+    - name: es-gun-attachments-slot-name-barrel
+      containerId: attachment_barrel
+      whitelist:
+        tags:
+        - DHAttachmentBarrel
+    - name: es-gun-attachments-slot-name-grip
+      containerId: attachment_grip
+      whitelist:
+        tags:
+        - DHAttachmentBipod
+        - DHAttachmentHandstop
     - name: es-gun-attachments-slot-name-optic
       containerId: attachment_optic
       whitelist:
         tags:
+        - DHAttachmentOpticHolo
         - DHAttachmentOptic2x
+        - DHAttachmentOptic3x
         - DHAttachmentOptic4x
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -1742,18 +2701,76 @@
         type: ESGunAttachmentBui
   - type: ESItemMapper
     mappings:
+      barrelAttachment:
+      - containerId: attachment_barrel
+        state: suppressed
+        whitelist:
+          tags:
+          - DHAttachmentSuppressor
+      - containerId: attachment_barrel
+        state: flashhider
+        whitelist:
+          tags:
+          - DHAttachmentFlashHider
+      - containerId: attachment_barrel
+        state: compensator
+        whitelist:
+          tags:
+          - DHAttachmentCompensator
+      - containerId: attachment_barrel
+        state: muzzlebrake
+        whitelist:
+          tags:
+          - DHAttachmentMuzzleBrake
+      - containerId: attachment_barrel
+        state: longbarrel
+        whitelist:
+          tags:
+          - DHAttachmentLongBarrel
+      gripAttachment:
+      - containerId: attachment_grip
+        state: bipod
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
       - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
       - containerId: attachment_optic
+        state: optic3x
+        whitelist:
+          tags:
+          - DHAttachmentOptic3x
+      - containerId: attachment_optic
         state: optic4x
         whitelist:
           tags:
           - DHAttachmentOptic4x
-  - type: GunRequiresWield
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "IMP-17"
   parent: [ DHBaseWeaponPistol, BaseSyndicateContraband ]
@@ -1915,6 +2932,7 @@
         whitelist:
           tags:
           - DHAttachmentIMPGyro
+
 - type: entity
   name: "IMSH-17"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseSyndicateContraband ]
@@ -1929,6 +2947,7 @@
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Huge
     sprite: _DarkestHour/Objects/Weapons/Guns/imsh17_inhands.rsi
@@ -1981,24 +3000,40 @@
         priority: 0
         whitelist:
           tags:
+          - DHAttachmentOpticHolo
           - DHAttachmentOptic2x
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
+      attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
       gun_magazine: !type:ContainerSlot
       gun_chamber: !type:ContainerSlot
-      attachment_optic: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
     zeroVisible: true
   - type: Appearance
+  - type: GunRequiresWield
   - type: ESAttachableGun
     slots:
     - name: es-gun-attachments-slot-name-optic
       containerId: attachment_optic
       whitelist:
         tags:
+        - DHAttachmentOpticHolo
         - DHAttachmentOptic2x
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -2011,11 +3046,27 @@
     mappings:
       opticAttachment:
       - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
+      - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
-  - type: GunRequiresWield
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "IMPSH-17P"
   parent: [ DHBaseWeaponShotgun, BaseSyndicateContraband ]
@@ -2054,6 +3105,7 @@
   - type: GunSpreadModifier
     spread: 0.5
   - type: GunRequiresWield
+
 - type: entity
   name: "Vympel"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseSecurityContraband ]
@@ -2070,6 +3122,7 @@
     - map: ["barrelAttachment"]
     - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Large
     sprite: _DarkestHour/Objects/Weapons/Guns/vympel_inhands.rsi
@@ -2136,20 +3189,31 @@
         priority: 0
         whitelist:
           tags:
+          - DHAttachmentOpticHolo
           - DHAttachmentOptic2x
+          - DHAttachmentOptic3x
           - DHAttachmentOptic4x
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
-      gun_magazine: !type:ContainerSlot
-      gun_chamber: !type:ContainerSlot
       attachment_barrel: !type:ContainerSlot
       attachment_grip: !type:ContainerSlot
       attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
     zeroVisible: true
   - type: Appearance
+  - type: GunRequiresWield
   - type: ESAttachableGun
     slots:
     - name: es-gun-attachments-slot-name-barrel
@@ -2166,8 +3230,15 @@
       containerId: attachment_optic
       whitelist:
         tags:
+        - DHAttachmentOpticHolo
         - DHAttachmentOptic2x
+        - DHAttachmentOptic3x
         - DHAttachmentOptic4x
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -2194,6 +3265,16 @@
         whitelist:
           tags:
           - DHAttachmentCompensator
+      - containerId: attachment_barrel
+        state: muzzlebrake
+        whitelist:
+          tags:
+          - DHAttachmentMuzzleBrake
+      - containerId: attachment_barrel
+        state: longbarrel
+        whitelist:
+          tags:
+          - DHAttachmentLongBarrel
       gripAttachment:
       - containerId: attachment_grip
         state: vgrip
@@ -2205,18 +3286,49 @@
         whitelist:
           tags:
           - DHAttachmentAngledGrip
+      - containerId: attachment_grip
+        state: bipod
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
       - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
       - containerId: attachment_optic
+        state: optic3x
+        whitelist:
+          tags:
+          - DHAttachmentOptic3x
+      - containerId: attachment_optic
         state: optic4x
         whitelist:
           tags:
           - DHAttachmentOptic4x
-  - type: GunRequiresWield
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "WSPR"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseSecurityContraband ]
@@ -2230,7 +3342,10 @@
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
+    - map: ["barrelAttachment"]
+    - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Large
     sprite: _DarkestHour/Objects/Weapons/Guns/wspr_inhands.rsi
@@ -2280,6 +3395,22 @@
         whitelist:
           tags:
           - DHCartridge9x51
+      attachment_barrel:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentBarrel
+      attachment_grip:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentVerticalGrip
+          - DHAttachmentAngledGrip
+          - DHAttachmentHandstop
       attachment_optic:
         insertSound: /Audio/Items/screwdriver2.ogg
         ejectSound: /Audio/Items/screwdriver2.ogg
@@ -2287,11 +3418,21 @@
         whitelist:
           tags:
           - DHAttachmentOptic
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
+      attachment_barrel: !type:ContainerSlot
+      attachment_grip: !type:ContainerSlot
+      attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
       gun_magazine: !type:ContainerSlot
       gun_chamber: !type:ContainerSlot
-      attachment_optic: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
@@ -2299,11 +3440,28 @@
   - type: Appearance
   - type: ESAttachableGun
     slots:
+    - name: es-gun-attachments-slot-name-barrel
+      containerId: attachment_barrel
+      whitelist:
+        tags:
+        - DHAttachmentBarrel
+    - name: es-gun-attachments-slot-name-grip
+      containerId: attachment_grip
+      whitelist:
+        tags:
+        - DHAttachmentVerticalGrip
+        - DHAttachmentAngledGrip
+        - DHAttachmentHandstop
     - name: es-gun-attachments-slot-name-optic
       containerId: attachment_optic
       whitelist:
         tags:
         - DHAttachmentOptic
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -2314,12 +3472,64 @@
         type: ESGunAttachmentBui
   - type: ESItemMapper
     mappings:
+      barrelAttachment:
+      - containerId: attachment_barrel
+        state: suppressed
+        whitelist:
+          tags:
+          - DHAttachmentSuppressor
+      - containerId: attachment_barrel
+        state: flashhider
+        whitelist:
+          tags:
+          - DHAttachmentFlashHider
+      - containerId: attachment_barrel
+        state: compensator
+        whitelist:
+          tags:
+          - DHAttachmentCompensator
+      - containerId: attachment_barrel
+        state: muzzlebrake
+        whitelist:
+          tags:
+          - DHAttachmentMuzzleBrake
+      - containerId: attachment_barrel
+        state: longbarrel
+        whitelist:
+          tags:
+          - DHAttachmentLongBarrel
+      gripAttachment:
+      - containerId: attachment_grip
+        state: vgrip
+        whitelist:
+          tags:
+          - DHAttachmentVerticalGrip
+      - containerId: attachment_grip
+        state: agrip
+        whitelist:
+          tags:
+          - DHAttachmentAngledGrip
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
       - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
+      - containerId: attachment_optic
+        state: optic3x
+        whitelist:
+          tags:
+          - DHAttachmentOptic3x
       - containerId: attachment_optic
         state: optic4x
         whitelist:
@@ -2330,6 +3540,18 @@
         whitelist:
           tags:
           - DHAttachmentOptic8x
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "Ravenger"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseSecurityContraband ]
@@ -2346,6 +3568,7 @@
     - map: ["barrelAttachment"]
     - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Huge
     sprite: _DarkestHour/Objects/Weapons/Guns/ravenger_inhands.rsi
@@ -2413,18 +3636,27 @@
         whitelist:
           tags:
           - DHAttachmentOptic
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
-      gun_magazine: !type:ContainerSlot
-      gun_chamber: !type:ContainerSlot
       attachment_barrel: !type:ContainerSlot
       attachment_grip: !type:ContainerSlot
       attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
     zeroVisible: true
   - type: Appearance
+  - type: GunRequiresWield
   - type: ESAttachableGun
     slots:
     - name: es-gun-attachments-slot-name-barrel
@@ -2442,6 +3674,11 @@
       whitelist:
         tags:
         - DHAttachmentOptic
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -2468,6 +3705,16 @@
         whitelist:
           tags:
           - DHAttachmentCompensator
+      - containerId: attachment_barrel
+        state: muzzlebrake
+        whitelist:
+          tags:
+          - DHAttachmentMuzzleBrake
+      - containerId: attachment_barrel
+        state: longbarrel
+        whitelist:
+          tags:
+          - DHAttachmentLongBarrel
       gripAttachment:
       - containerId: attachment_grip
         state: vgrip
@@ -2479,12 +3726,32 @@
         whitelist:
           tags:
           - DHAttachmentAngledGrip
+      - containerId: attachment_grip
+        state: bipod
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
       - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
+      - containerId: attachment_optic
+        state: optic3x
+        whitelist:
+          tags:
+          - DHAttachmentOptic3x
       - containerId: attachment_optic
         state: optic4x
         whitelist:
@@ -2495,7 +3762,18 @@
         whitelist:
           tags:
           - DHAttachmentOptic8x
-  - type: GunRequiresWield
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "Mk 58"
   parent: [ DHBaseWeaponPistol, BaseSecurityContraband ]
@@ -2509,6 +3787,9 @@
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
+    - map: ["barrelAttachment"]
+    - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Small
     sprite: _DarkestHour/Objects/Weapons/Guns/mk58_inhands.rsi
@@ -2549,8 +3830,32 @@
         whitelist:
           tags:
           - DHCartridge10x24
+      attachment_barrel:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentSuppressor
+      attachment_optic:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
+      attachment_barrel: !type:ContainerSlot
+      attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
       gun_magazine: !type:ContainerSlot
       gun_chamber: !type:ContainerSlot
   - type: MagazineVisuals
@@ -2561,6 +3866,57 @@
   - type: StealTarget
     stealGroup:
     - OfficerHandgun
+  - type: ESAttachableGun
+    slots:
+    - name: es-gun-attachments-slot-name-barrel
+      containerId: attachment_barrel
+      whitelist:
+        tags:
+        - DHAttachmentSuppressor
+    - name: es-gun-attachments-slot-name-optic
+      containerId: attachment_optic
+      whitelist:
+        tags:
+        - DHAttachmentOpticHolo
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
+  - type: ActivatableUI
+    key: enum.ESAttachableGunUiKey.Key
+    verbOnly: true
+    verbText: es-gun-attachments-verb-text
+  - type: UserInterface
+    interfaces:
+      enum.ESAttachableGunUiKey.Key:
+        type: ESGunAttachmentBui
+  - type: ESItemMapper
+    mappings:
+      barrelAttachment:
+      - containerId: attachment_barrel
+        state: suppressed
+        whitelist:
+          tags:
+          - DHAttachmentSuppressor
+      opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "TIT/MG-10"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseTaskForceContraband ]
@@ -2577,6 +3933,7 @@
     - map: ["barrelAttachment"]
     - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Huge
     sprite: _DarkestHour/Objects/Weapons/Guns/tit_mg10_inhands.rsi
@@ -2653,19 +4010,28 @@
         whitelist:
           tags:
           - DHAttachmentOptic
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
-      gun_magazine: !type:ContainerSlot
-      gun_chamber: !type:ContainerSlot
       attachment_barrel: !type:ContainerSlot
       attachment_grip: !type:ContainerSlot
       attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
       gun_magazine_2: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
     zeroVisible: true
   - type: Appearance
+  - type: DHDualMagazine
   - type: ESAttachableGun
     slots:
     - name: es-gun-attachments-slot-name-barrel
@@ -2683,6 +4049,11 @@
       whitelist:
         tags:
         - DHAttachmentOptic
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -2709,6 +4080,16 @@
         whitelist:
           tags:
           - DHAttachmentCompensator
+      - containerId: attachment_barrel
+        state: muzzlebrake
+        whitelist:
+          tags:
+          - DHAttachmentMuzzleBrake
+      - containerId: attachment_barrel
+        state: longbarrel
+        whitelist:
+          tags:
+          - DHAttachmentLongBarrel
       gripAttachment:
       - containerId: attachment_grip
         state: vgrip
@@ -2720,12 +4101,32 @@
         whitelist:
           tags:
           - DHAttachmentAngledGrip
+      - containerId: attachment_grip
+        state: bipod
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
       - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
+      - containerId: attachment_optic
+        state: optic3x
+        whitelist:
+          tags:
+          - DHAttachmentOptic3x
       - containerId: attachment_optic
         state: optic4x
         whitelist:
@@ -2736,7 +4137,18 @@
         whitelist:
           tags:
           - DHAttachmentOptic8x
-  - type: DHDualMagazine
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "TIT/R-15"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseTaskForceContraband ]
@@ -2753,6 +4165,7 @@
     - map: ["barrelAttachment"]
     - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Large
     sprite: _DarkestHour/Objects/Weapons/Guns/tit_r15_inhands.rsi
@@ -2819,15 +4232,25 @@
         priority: 0
         whitelist:
           tags:
+          - DHAttachmentOpticHolo
           - DHAttachmentOptic2x
+          - DHAttachmentOptic3x
           - DHAttachmentOptic4x
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
-      gun_magazine: !type:ContainerSlot
-      gun_chamber: !type:ContainerSlot
       attachment_barrel: !type:ContainerSlot
       attachment_grip: !type:ContainerSlot
       attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
@@ -2849,8 +4272,15 @@
       containerId: attachment_optic
       whitelist:
         tags:
+        - DHAttachmentOpticHolo
         - DHAttachmentOptic2x
+        - DHAttachmentOptic3x
         - DHAttachmentOptic4x
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -2877,6 +4307,16 @@
         whitelist:
           tags:
           - DHAttachmentCompensator
+      - containerId: attachment_barrel
+        state: muzzlebrake
+        whitelist:
+          tags:
+          - DHAttachmentMuzzleBrake
+      - containerId: attachment_barrel
+        state: longbarrel
+        whitelist:
+          tags:
+          - DHAttachmentLongBarrel
       gripAttachment:
       - containerId: attachment_grip
         state: vgrip
@@ -2888,17 +4328,49 @@
         whitelist:
           tags:
           - DHAttachmentAngledGrip
+      - containerId: attachment_grip
+        state: bipod
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
       - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
       - containerId: attachment_optic
+        state: optic3x
+        whitelist:
+          tags:
+          - DHAttachmentOptic3x
+      - containerId: attachment_optic
         state: optic4x
         whitelist:
           tags:
           - DHAttachmentOptic4x
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "ALT/R-16"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseTaskForceContraband ]
@@ -2915,6 +4387,7 @@
     - map: ["barrelAttachment"]
     - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Huge
     sprite: _DarkestHour/Objects/Weapons/Guns/alt_r16_inhands.rsi
@@ -2982,18 +4455,30 @@
         whitelist:
           tags:
           - DHAttachmentOptic
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
-      gun_magazine: !type:ContainerSlot
-      gun_chamber: !type:ContainerSlot
       attachment_barrel: !type:ContainerSlot
       attachment_grip: !type:ContainerSlot
       attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
     zeroVisible: true
   - type: Appearance
+  - type: CursorOffsetRequiresWield
+  - type: EyeCursorOffset
+    maxOffset: 2
+    pvsIncrease: 0.2
   - type: ESAttachableGun
     slots:
     - name: es-gun-attachments-slot-name-barrel
@@ -3011,6 +4496,11 @@
       whitelist:
         tags:
         - DHAttachmentOptic
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -3037,6 +4527,16 @@
         whitelist:
           tags:
           - DHAttachmentCompensator
+      - containerId: attachment_barrel
+        state: muzzlebrake
+        whitelist:
+          tags:
+          - DHAttachmentMuzzleBrake
+      - containerId: attachment_barrel
+        state: longbarrel
+        whitelist:
+          tags:
+          - DHAttachmentLongBarrel
       gripAttachment:
       - containerId: attachment_grip
         state: vgrip
@@ -3048,12 +4548,32 @@
         whitelist:
           tags:
           - DHAttachmentAngledGrip
+      - containerId: attachment_grip
+        state: bipod
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
       - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
+      - containerId: attachment_optic
+        state: optic3x
+        whitelist:
+          tags:
+          - DHAttachmentOptic3x
       - containerId: attachment_optic
         state: optic4x
         whitelist:
@@ -3064,10 +4584,18 @@
         whitelist:
           tags:
           - DHAttachmentOptic8x
-  - type: CursorOffsetRequiresWield
-  - type: EyeCursorOffset
-    maxOffset: 2
-    pvsIncrease: 0.2
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "PRO/R-12"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseTaskForceContraband ]
@@ -3081,7 +4609,10 @@
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
+    - map: ["barrelAttachment"]
+    - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Huge
     sprite: _DarkestHour/Objects/Weapons/Guns/pro_r12_inhands.rsi
@@ -3127,34 +4658,82 @@
         whitelist:
           tags:
           - DHCartridge127x105
+      attachment_barrel:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentBarrel
+      attachment_grip:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+          - DHAttachmentHandstop
       attachment_optic:
         insertSound: /Audio/Items/screwdriver2.ogg
         ejectSound: /Audio/Items/screwdriver2.ogg
         priority: 0
         whitelist:
           tags:
+          - DHAttachmentOptic3x
           - DHAttachmentOptic4x
           - DHAttachmentOptic8x
           - DHAttachmentOptic16x
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
+      attachment_barrel: !type:ContainerSlot
+      attachment_grip: !type:ContainerSlot
+      attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
       gun_magazine: !type:ContainerSlot
       gun_chamber: !type:ContainerSlot
-      attachment_optic: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
     zeroVisible: true
   - type: Appearance
+  - type: GunRequiresWield
+  - type: CursorOffsetRequiresWield
+  - type: EyeCursorOffset
+    maxOffset: 2
+    pvsIncrease: 0.2
   - type: ESAttachableGun
     slots:
+    - name: es-gun-attachments-slot-name-barrel
+      containerId: attachment_barrel
+      whitelist:
+        tags:
+        - DHAttachmentBarrel
+    - name: es-gun-attachments-slot-name-grip
+      containerId: attachment_grip
+      whitelist:
+        tags:
+        - DHAttachmentBipod
+        - DHAttachmentHandstop
     - name: es-gun-attachments-slot-name-optic
       containerId: attachment_optic
       whitelist:
         tags:
+        - DHAttachmentOptic3x
         - DHAttachmentOptic4x
         - DHAttachmentOptic8x
         - DHAttachmentOptic16x
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -3165,7 +4744,49 @@
         type: ESGunAttachmentBui
   - type: ESItemMapper
     mappings:
+      barrelAttachment:
+      - containerId: attachment_barrel
+        state: suppressed
+        whitelist:
+          tags:
+          - DHAttachmentSuppressor
+      - containerId: attachment_barrel
+        state: flashhider
+        whitelist:
+          tags:
+          - DHAttachmentFlashHider
+      - containerId: attachment_barrel
+        state: compensator
+        whitelist:
+          tags:
+          - DHAttachmentCompensator
+      - containerId: attachment_barrel
+        state: muzzlebrake
+        whitelist:
+          tags:
+          - DHAttachmentMuzzleBrake
+      - containerId: attachment_barrel
+        state: longbarrel
+        whitelist:
+          tags:
+          - DHAttachmentLongBarrel
+      gripAttachment:
+      - containerId: attachment_grip
+        state: bipod
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: optic3x
+        whitelist:
+          tags:
+          - DHAttachmentOptic3x
       - containerId: attachment_optic
         state: optic4x
         whitelist:
@@ -3176,16 +4797,18 @@
         whitelist:
           tags:
           - DHAttachmentOptic8x
-      - containerId: attachment_optic
-        state: optic8x
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
         whitelist:
           tags:
-          - DHAttachmentOptic16x
-  - type: GunRequiresWield
-  - type: CursorOffsetRequiresWield
-  - type: EyeCursorOffset
-    maxOffset: 2
-    pvsIncrease: 0.2
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "PRO/AMR-16"
   parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseTaskForceContraband ]
@@ -3199,7 +4822,10 @@
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
+    - map: ["barrelAttachment"]
+    - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Huge
     sprite: _DarkestHour/Objects/Weapons/Guns/pro_amr16_inhands.rsi
@@ -3254,35 +4880,87 @@
         whitelist:
           tags:
           - DHBatteryAMR16
+      attachment_barrel:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentBarrel
+      attachment_grip:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+          - DHAttachmentHandstop
       attachment_optic:
         insertSound: /Audio/Items/screwdriver2.ogg
         ejectSound: /Audio/Items/screwdriver2.ogg
         priority: 0
         whitelist:
           tags:
+          - DHAttachmentOptic3x
           - DHAttachmentOptic4x
           - DHAttachmentOptic8x
           - DHAttachmentOptic16x
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: ContainerContainer
     containers:
+      attachment_barrel: !type:ContainerSlot
+      attachment_grip: !type:ContainerSlot
+      attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
       gun_magazine: !type:ContainerSlot
       gun_chamber: !type:ContainerSlot
-      attachment_optic: !type:ContainerSlot
       cell_slot: !type:ContainerSlot
   - type: MagazineVisuals
     magState: mag
     steps: 1
     zeroVisible: true
   - type: Appearance
+  - type: PowerCellSlot
+    cellSlotId: cell_slot
+  - type: DHGunChargePerShot
+    charge: 200
+  - type: GunRequiresWield
+  - type: CursorOffsetRequiresWield
+  - type: EyeCursorOffset
+    maxOffset: 2
+    pvsIncrease: 0.2
   - type: ESAttachableGun
     slots:
+    - name: es-gun-attachments-slot-name-barrel
+      containerId: attachment_barrel
+      whitelist:
+        tags:
+        - DHAttachmentBarrel
+    - name: es-gun-attachments-slot-name-grip
+      containerId: attachment_grip
+      whitelist:
+        tags:
+        - DHAttachmentBipod
+        - DHAttachmentHandstop
     - name: es-gun-attachments-slot-name-optic
       containerId: attachment_optic
       whitelist:
         tags:
+        - DHAttachmentOptic3x
         - DHAttachmentOptic4x
         - DHAttachmentOptic8x
         - DHAttachmentOptic16x
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -3293,7 +4971,49 @@
         type: ESGunAttachmentBui
   - type: ESItemMapper
     mappings:
+      barrelAttachment:
+      - containerId: attachment_barrel
+        state: suppressed
+        whitelist:
+          tags:
+          - DHAttachmentSuppressor
+      - containerId: attachment_barrel
+        state: flashhider
+        whitelist:
+          tags:
+          - DHAttachmentFlashHider
+      - containerId: attachment_barrel
+        state: compensator
+        whitelist:
+          tags:
+          - DHAttachmentCompensator
+      - containerId: attachment_barrel
+        state: muzzlebrake
+        whitelist:
+          tags:
+          - DHAttachmentMuzzleBrake
+      - containerId: attachment_barrel
+        state: longbarrel
+        whitelist:
+          tags:
+          - DHAttachmentLongBarrel
+      gripAttachment:
+      - containerId: attachment_grip
+        state: bipod
+        whitelist:
+          tags:
+          - DHAttachmentBipod
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: optic3x
+        whitelist:
+          tags:
+          - DHAttachmentOptic3x
       - containerId: attachment_optic
         state: optic4x
         whitelist:
@@ -3304,20 +5024,18 @@
         whitelist:
           tags:
           - DHAttachmentOptic8x
-      - containerId: attachment_optic
-        state: optic8x
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
         whitelist:
           tags:
-          - DHAttachmentOptic16x
-  - type: PowerCellSlot
-    cellSlotId: cell_slot
-  - type: DHGunChargePerShot
-    charge: 200
-  - type: GunRequiresWield
-  - type: CursorOffsetRequiresWield
-  - type: EyeCursorOffset
-    maxOffset: 2
-    pvsIncrease: 0.2
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "PRO/LR-17"
   parent: [ BaseItem, BaseGunWieldable, BaseTaskForceContraband ]
@@ -3329,7 +5047,9 @@
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
+    - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Huge
     sprite: _DarkestHour/Objects/Weapons/Guns/pro_lr17_inhands.rsi
@@ -3369,20 +5089,40 @@
         whitelist:
           tags:
           - DHEnergyCellPRO
+      attachment_grip:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentVerticalGrip
+          - DHAttachmentAngledGrip
+          - DHAttachmentHandstop
       attachment_optic:
         insertSound: /Audio/Items/screwdriver2.ogg
         ejectSound: /Audio/Items/screwdriver2.ogg
         priority: 0
         whitelist:
           tags:
+          - DHAttachmentOpticHolo
           - DHAttachmentOptic2x
+          - DHAttachmentOptic3x
           - DHAttachmentOptic4x
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: PowerCellSlot
     cellSlotId: cell_slot
   - type: ContainerContainer
     containers:
-      cell_slot: !type:ContainerSlot
+      attachment_grip: !type:ContainerSlot
       attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
+      cell_slot: !type:ContainerSlot
   - type: Appearance
   - type: DHOverheat
     maxHeat: 14
@@ -3391,12 +5131,26 @@
     overheatLockout: 4
   - type: ESAttachableGun
     slots:
+    - name: es-gun-attachments-slot-name-grip
+      containerId: attachment_grip
+      whitelist:
+        tags:
+        - DHAttachmentVerticalGrip
+        - DHAttachmentAngledGrip
+        - DHAttachmentHandstop
     - name: es-gun-attachments-slot-name-optic
       containerId: attachment_optic
       whitelist:
         tags:
+        - DHAttachmentOpticHolo
         - DHAttachmentOptic2x
+        - DHAttachmentOptic3x
         - DHAttachmentOptic4x
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -3407,17 +5161,55 @@
         type: ESGunAttachmentBui
   - type: ESItemMapper
     mappings:
+      gripAttachment:
+      - containerId: attachment_grip
+        state: vgrip
+        whitelist:
+          tags:
+          - DHAttachmentVerticalGrip
+      - containerId: attachment_grip
+        state: agrip
+        whitelist:
+          tags:
+          - DHAttachmentAngledGrip
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
       - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
       - containerId: attachment_optic
+        state: optic3x
+        whitelist:
+          tags:
+          - DHAttachmentOptic3x
+      - containerId: attachment_optic
         state: optic4x
         whitelist:
           tags:
           - DHAttachmentOptic4x
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "EAR-20/LR"
   parent: [ BaseItem, BaseGunWieldable, BaseSecurityContraband ]
@@ -3429,6 +5221,8 @@
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
+    - map: ["gripAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Huge
     sprite: _DarkestHour/Objects/Weapons/Guns/ear20_inhands.rsi
@@ -3473,12 +5267,82 @@
         whitelist:
           tags:
           - DHKaneCartridgeEAR
+      attachment_grip:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentVerticalGrip
+          - DHAttachmentAngledGrip
+          - DHAttachmentHandstop
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: PowerCellSlot
     cellSlotId: cell_slot
   - type: ContainerContainer
     containers:
+      attachment_grip: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
       cell_slot: !type:ContainerSlot
   - type: Appearance
+  - type: ESAttachableGun
+    slots:
+    - name: es-gun-attachments-slot-name-grip
+      containerId: attachment_grip
+      whitelist:
+        tags:
+        - DHAttachmentVerticalGrip
+        - DHAttachmentAngledGrip
+        - DHAttachmentHandstop
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
+  - type: ActivatableUI
+    key: enum.ESAttachableGunUiKey.Key
+    verbOnly: true
+    verbText: es-gun-attachments-verb-text
+  - type: UserInterface
+    interfaces:
+      enum.ESAttachableGunUiKey.Key:
+        type: ESGunAttachmentBui
+  - type: ESItemMapper
+    mappings:
+      gripAttachment:
+      - containerId: attachment_grip
+        state: vgrip
+        whitelist:
+          tags:
+          - DHAttachmentVerticalGrip
+      - containerId: attachment_grip
+        state: agrip
+        whitelist:
+          tags:
+          - DHAttachmentAngledGrip
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "KL-1"
   parent: [ BaseItem, BaseSecurityContraband ]
@@ -3490,6 +5354,8 @@
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
+    - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Small
     sprite: _DarkestHour/Objects/Weapons/Guns/kl1_inhands.rsi
@@ -3523,12 +5389,68 @@
         whitelist:
           tags:
           - DHKanePowerCell
+      attachment_optic:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: PowerCellSlot
     cellSlotId: cell_slot
   - type: ContainerContainer
     containers:
+      attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
       cell_slot: !type:ContainerSlot
   - type: Appearance
+  - type: ESAttachableGun
+    slots:
+    - name: es-gun-attachments-slot-name-optic
+      containerId: attachment_optic
+      whitelist:
+        tags:
+        - DHAttachmentOpticHolo
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
+  - type: ActivatableUI
+    key: enum.ESAttachableGunUiKey.Key
+    verbOnly: true
+    verbText: es-gun-attachments-verb-text
+  - type: UserInterface
+    interfaces:
+      enum.ESAttachableGunUiKey.Key:
+        type: ESGunAttachmentBui
+  - type: ESItemMapper
+    mappings:
+      opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight
+
 - type: entity
   name: "KR-3"
   parent: [ BaseItem, BaseGunWieldable, BaseSecurityContraband ]
@@ -3540,7 +5462,9 @@
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
+    - map: ["gripAttachment"]
     - map: ["opticAttachment"]
+    - map: ["accessoryAttachment"]
   - type: Item
     size: Huge
     sprite: _DarkestHour/Objects/Weapons/Guns/kr3_inhands.rsi
@@ -3580,20 +5504,40 @@
         whitelist:
           tags:
           - DHKanePowerCell
+      attachment_grip:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentVerticalGrip
+          - DHAttachmentAngledGrip
+          - DHAttachmentHandstop
       attachment_optic:
         insertSound: /Audio/Items/screwdriver2.ogg
         ejectSound: /Audio/Items/screwdriver2.ogg
         priority: 0
         whitelist:
           tags:
+          - DHAttachmentOpticHolo
           - DHAttachmentOptic2x
+          - DHAttachmentOptic3x
           - DHAttachmentOptic4x
+      attachment_accessory:
+        insertSound: /Audio/Items/screwdriver2.ogg
+        ejectSound: /Audio/Items/screwdriver2.ogg
+        priority: 0
+        whitelist:
+          tags:
+          - DHAttachmentAccessory
   - type: PowerCellSlot
     cellSlotId: cell_slot
   - type: ContainerContainer
     containers:
-      cell_slot: !type:ContainerSlot
+      attachment_grip: !type:ContainerSlot
       attachment_optic: !type:ContainerSlot
+      attachment_accessory: !type:ContainerSlot
+      cell_slot: !type:ContainerSlot
   - type: Appearance
   - type: DHOverheat
     maxHeat: 16
@@ -3602,12 +5546,26 @@
     overheatLockout: 4
   - type: ESAttachableGun
     slots:
+    - name: es-gun-attachments-slot-name-grip
+      containerId: attachment_grip
+      whitelist:
+        tags:
+        - DHAttachmentVerticalGrip
+        - DHAttachmentAngledGrip
+        - DHAttachmentHandstop
     - name: es-gun-attachments-slot-name-optic
       containerId: attachment_optic
       whitelist:
         tags:
+        - DHAttachmentOpticHolo
         - DHAttachmentOptic2x
+        - DHAttachmentOptic3x
         - DHAttachmentOptic4x
+    - name: dh-gun-attachments-slot-name-accessory
+      containerId: attachment_accessory
+      whitelist:
+        tags:
+        - DHAttachmentAccessory
   - type: ActivatableUI
     key: enum.ESAttachableGunUiKey.Key
     verbOnly: true
@@ -3618,14 +5576,51 @@
         type: ESGunAttachmentBui
   - type: ESItemMapper
     mappings:
+      gripAttachment:
+      - containerId: attachment_grip
+        state: vgrip
+        whitelist:
+          tags:
+          - DHAttachmentVerticalGrip
+      - containerId: attachment_grip
+        state: agrip
+        whitelist:
+          tags:
+          - DHAttachmentAngledGrip
+      - containerId: attachment_grip
+        state: handstop
+        whitelist:
+          tags:
+          - DHAttachmentHandstop
       opticAttachment:
+      - containerId: attachment_optic
+        state: opticholo
+        whitelist:
+          tags:
+          - DHAttachmentOpticHolo
       - containerId: attachment_optic
         state: optic2x
         whitelist:
           tags:
           - DHAttachmentOptic2x
       - containerId: attachment_optic
+        state: optic3x
+        whitelist:
+          tags:
+          - DHAttachmentOptic3x
+      - containerId: attachment_optic
         state: optic4x
         whitelist:
           tags:
           - DHAttachmentOptic4x
+      accessoryAttachment:
+      - containerId: attachment_accessory
+        state: laser
+        whitelist:
+          tags:
+          - DHAttachmentLaser
+      - containerId: attachment_accessory
+        state: light
+        whitelist:
+          tags:
+          - DHAttachmentLight

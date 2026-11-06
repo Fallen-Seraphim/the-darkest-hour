@@ -284,6 +284,7 @@
     suitstorage: DHWeaponPistolIMP17
   storage:
     back:
+    - DHAttachmentKitRifle
     - DHPainkillerAutoinjector
     - DHMagazine145x114Std
     - DHMagazine145x114Std
@@ -305,6 +306,13 @@
     id: DHDogtagsImperialWeaponsSpecialist
   inhand:
   - DHImperialKitWeaponsSpecialist
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - PinpointerSyndicateNuclear
+    - CombatMedipen
+    - DHIFAKFilled
+    - DHAttachmentKitClose
 
 - type: startingGear
   parent: DHImperialGearBase
@@ -337,12 +345,26 @@
     id: DHDogtagsImperialMachinegunner
   inhand:
   - DHImperialKitMachinegunner
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - PinpointerSyndicateNuclear
+    - CombatMedipen
+    - DHIFAKFilled
+    - DHAttachmentKitSupport
 
 - type: startingGear
   parent: DHImperialGearBase
   id: DHImperialRiflemanGear
   inhand:
   - DHImperialKitRifleman
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - PinpointerSyndicateNuclear
+    - CombatMedipen
+    - DHIFAKFilled
+    - DHAttachmentKitRifle
 
 - type: entity
   parent: ToolboxThief

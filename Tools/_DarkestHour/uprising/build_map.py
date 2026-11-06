@@ -477,7 +477,9 @@ def gates():
     for x in range(bx0 + 2, bx1 - 1, 4):
         lv.put('RMCCouchMidBlack', x, by0 + 2)
     lv.put('LockerSecurityFilled', bx1 - 2, by0 + 2)
-    lv.put('DHCityTerminal', bx1 - 2, by0 + 4)
+    # у лифта (x1-3, y0+4) место занято шахтой — сейф и терминал у перегородки
+    lv.put('DHLAVArmory', bx1 - 2, by0 + 7)
+    lv.put('DHCityTerminal', bx1 - 4, by0 + 7)
     pent = L(8)
     px0, py0, px1, py1 = bx0 + 4, by0 + 6, bx1 - 1, by1 - 1
     exterior(pent, px0, py0, px1, py1, W_OFFICE, T_LAV_CARPET, every=2)

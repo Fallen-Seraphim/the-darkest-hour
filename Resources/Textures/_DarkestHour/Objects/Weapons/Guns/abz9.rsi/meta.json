@@ -18,6 +18,18 @@
     },
     {
       "name": "mag-0"
+    },
+    {
+      "name": "suppressed"
+    },
+    {
+      "name": "opticholo"
+    },
+    {
+      "name": "laser"
+    },
+    {
+      "name": "light"
     }
   ]
 }

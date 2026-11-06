@@ -21,6 +21,18 @@
   id: DHCartridge558x63R
 
 - type: Tag
+  id: DHCartridge755x23
+
+- type: Tag
+  id: DHCartridge755x49
+
+- type: Tag
+  id: DHCartridge755x61
+
+- type: Tag
+  id: DHCartridge762x90
+
+- type: Tag
   id: DHCartridge9x19
 
 - type: Tag
@@ -46,4 +58,16 @@
 
 - type: Tag
   id: DHMagazineFS2T
+
+- type: Tag
+  id: DHMagazineLAVR55
+
+- type: Tag
+  id: DHMagazineLAVR61
+
+- type: Tag
+  id: DHMagazineLAVR90
+
+- type: Tag
+  id: DHMagazineLAVSMG23
 

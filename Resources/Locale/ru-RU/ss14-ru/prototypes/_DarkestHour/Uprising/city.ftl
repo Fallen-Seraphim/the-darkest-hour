@@ -30,3 +30,6 @@ ent-DHLAFrontSuitcase = потёртый чемодан
 
 ent-DHLAVSafe = сейф LA-V
     .desc = Корпоративный сейф районного офиса Lost Angels—Vanguard. Открывается командным доступом LA-V.
+ent-DHLAVArmory = оружейный сейф СБ LA-V
+    .desc = Оружейный сейф корпоративной СБ LA-V. Открывается картой LA-V.
+    .suffix = Заполненный

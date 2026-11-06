@@ -36,6 +36,27 @@
     },
     {
       "name": "optic2x"
+    },
+    {
+      "name": "muzzlebrake"
+    },
+    {
+      "name": "longbarrel"
+    },
+    {
+      "name": "bipod"
+    },
+    {
+      "name": "handstop"
+    },
+    {
+      "name": "opticholo"
+    },
+    {
+      "name": "laser"
+    },
+    {
+      "name": "light"
     }
   ]
 }

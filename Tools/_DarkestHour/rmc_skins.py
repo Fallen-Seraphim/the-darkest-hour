@@ -213,6 +213,9 @@ COPY = [
     C + 'Head/Hats/cargo_cap.rsi',
     C + 'Shoes/Sneakers/black.rsi', C + 'Shoes/leather.rsi', C + 'Shoes/laceup.rsi', C + 'Shoes/Boots/brown.rsi',
     C + 'Back/Satchels/Civilians/norm.rsi',
+    # LA-V: визоры и очки (решение автора 2026-11-06)
+    C + 'Eyes/Glasses/securityhud.rsi', C + 'Eyes/Glasses/swatgoggles.rsi', C + 'Eyes/Glasses/jensen_shades.rsi',
+    C + 'Eyes/Glasses/trimax_black_glasses.rsi',
 ]
 
 # new RSIs assembled from RMC states: path -> {state: (rmc rsi, rmc state)}

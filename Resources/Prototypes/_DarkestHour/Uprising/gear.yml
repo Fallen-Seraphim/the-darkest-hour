@@ -38,12 +38,11 @@
     sprite: _RMC14/Objects/CMIDs/silver_id.rsi
 
 # ---------------------------------------------------------------- мирные
+# Одежда, обувь, головной убор и сумка — из лоадаута должности (Uprising/civ_clothing.yml, gen_civ_clothing.py).
 
 - type: startingGear
   id: DHLACivilianGearBase
   equipment:
-    shoes: DHLAClothingShoesSneakers
-    back: DHLAClothingBackpackSatchel
     pocket1: DHWalletFilled
     pocket2: DHApartmentKey
 
@@ -52,9 +51,6 @@
   id: DHLADistrictHeadGear
   equipment:
     id: DHLAIDCardDistrictHead
-    jumpsuit: DHLAClothingUniformSuitCharcoal
-    outerClothing: ClothingOuterCoatGentle
-    shoes: DHLAClothingShoesLeather
     ears: ClothingHeadsetGrey
   storage:
     back:
@@ -67,8 +63,6 @@
   id: DHLADistrictStaffGear
   equipment:
     id: DHLAIDCardDistrictStaff
-    jumpsuit: DHLAClothingUniformAdmin
-    shoes: DHLAClothingShoesLeather
     ears: ClothingHeadsetGrey
   storage:
     back:
@@ -79,9 +73,7 @@
   parent: DHLACivilianGearBase
   id: DHLAOfficeWorkerGear
   equipment:
-    shoes: DHLAClothingShoesLaceup
     id: DHLAIDCardOfficeWorker
-    jumpsuit: DHLAClothingUniformOffice
     neck: ClothingNeckTieRed
   storage:
     back:
@@ -92,9 +84,6 @@
   id: DHLAEntrepreneurGear
   equipment:
     id: DHLAIDCardEntrepreneur
-    jumpsuit: DHLAClothingUniformSuspenders
-    outerClothing: ClothingOuterApronBar
-    shoes: DHLAClothingShoesLaceup
   storage:
     back:
     - DHRepublicCredit500
@@ -104,9 +93,6 @@
   id: DHLAFactoryWorkerGear
   equipment:
     id: DHLAIDCardFactoryWorker
-    jumpsuit: DHLAClothingUniformOveralls
-    head: ClothingHeadHatHardhatYellow
-    shoes: DHLAClothingShoesWorkBoots
     gloves: ClothingHandsGlovesColorBlack
     belt: ClothingBeltUtilityFilled
 
@@ -114,11 +100,7 @@
   parent: DHLACivilianGearBase
   id: DHLAUtilityWorkerGear
   equipment:
-    head: ClothingHeadHatHardhatOrange
     id: DHLAIDCardUtilityWorker
-    jumpsuit: DHLAClothingUniformUtility
-    outerClothing: ClothingOuterVestHazard
-    shoes: DHLAClothingShoesWorkBoots
     gloves: ClothingHandsGlovesColorBlack
     belt: ClothingBeltUtilityEngineering
     ears: ClothingHeadsetGrey
@@ -131,10 +113,7 @@
   parent: DHLACivilianGearBase
   id: DHLAMetroWorkerGear
   equipment:
-    shoes: DHLAClothingShoesWorkBoots
     id: DHLAIDCardMetroWorker
-    jumpsuit: DHLAClothingUniformMetro
-    head: DHLAClothingHeadCargoCap
     ears: ClothingHeadsetGrey
   storage:
     back:
@@ -145,14 +124,13 @@
   id: DHLAResidentGear
   equipment:
     id: DHLAIDCardResident
-    jumpsuit: DHLAClothingUniformColonist
-    outerClothing: ClothingOuterHoodieGrey
 
 # ---------------------------------------------------------------- LA-V
 
 - type: startingGear
   id: DHLAVRepresentativeGear
   equipment:
+    eyes: DHLAVClothingEyesShades
     id: DHLAIDCardVRepresentative
     jumpsuit: DHLAVClothingUniformExecutive
     outerClothing: DHLAVClothingOuterJacket
@@ -165,6 +143,9 @@
   - BriefcaseBrownFilled
   storage:
     back:
+    - DHWeaponSMGLAVSMG23
+    - DHMagazineLAVSMG23LS
+    - DHMagazineLAVSMG23LS
     - DHBankCardVanguard
     - DHWeaponPistolMk58
     - DHMagazine10x24ShortE
@@ -173,6 +154,7 @@
 - type: startingGear
   id: DHLAVAssistantGear
   equipment:
+    eyes: DHLAVClothingEyesShades
     id: DHLAIDCardVAssistant
     jumpsuit: DHLAVClothingUniformFormal
     outerClothing: DHLAVClothingOuterJacketManager
@@ -184,6 +166,8 @@
     pocket2: Pen
   storage:
     back:
+    - DHWeaponPistolMk58
+    - DHMagazine10x24ShortE
     - BoxFolderBlue
     - Paper
 
@@ -197,17 +181,18 @@
     gloves: DHLAVClothingHandsGlovesSecurity
     shoes: DHLAVClothingShoesJackboots
     ears: DHClothingHeadsetLAVanguard
-    eyes: ClothingEyesGlassesSecurity
+    eyes: DHLAVClothingEyesHUD
     back: ClothingBackpackSecurity
     belt: ClothingBeltSecurityWebbing
-    suitstorage: DHWeaponSMGRAPTORM1216
+    suitstorage: DHWeaponRifleLAVR55
     pocket1: DHWeaponPistolMk58
     pocket2: FlashlightSeclite
   storage:
     back:
-    - DHMagazine10x24SVP
-    - DHMagazine10x24SVP
-    - DHMagazine10x24SVP
+    - DHMagazineLAVR55LS
+    - DHMagazineLAVR55LS
+    - DHMagazineLAVR55LHP
+    - DHAttachmentKitRifle
     - DHMagazine10x24ShortE
     - Handcuffs
     - Handcuffs
@@ -216,6 +201,7 @@
 - type: startingGear
   id: DHLAVEmployeeGear
   equipment:
+    eyes: DHLAVClothingEyesGlasses
     id: DHLAIDCardVEmployee
     jumpsuit: DHLAVClothingUniformBlack
     shoes: ClothingShoesLeather

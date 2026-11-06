@@ -251,3 +251,35 @@
       amount: 2
     - id: DHRepublicCredit1000
       amount: 5
+
+# LA-V: оружейный сейф СБ (решение автора 2026-11-06) — боевые винтовки, снайперская и обвес.
+- type: entity
+  parent: GunSafe
+  id: DHLAVArmory
+  name: LA-V armoury safe
+  description: The weapons safe of LA-V corporate security. Opens with an LA-V card.
+  suffix: Filled
+  components:
+  - type: AccessReader
+    access: [["DHLAVanguard"]]
+  - type: StorageFill
+    contents:
+    - id: DHWeaponRifleLAVR61
+      amount: 2
+    - id: DHMagazineLAVR61LS
+      amount: 4
+    - id: DHMagazineLAVR61LAP
+      amount: 2
+    - id: DHWeaponSniperLAVR90
+    - id: DHMagazineLAVR90LM
+      amount: 3
+    - id: DHMagazineLAVR90LAP
+    - id: DHWeaponSMGLAVSMG23
+    - id: DHMagazineLAVSMG23LS
+      amount: 3
+    - id: DHMagazineLAVR55LAP
+      amount: 3
+    - id: DHAttachmentKitMarksman
+    - id: DHAttachmentKitClose
+    - id: DHAttachmentKitRifle
+      amount: 2

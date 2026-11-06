@@ -30,6 +30,30 @@
     },
     {
       "name": "optic2x"
+    },
+    {
+      "name": "muzzlebrake"
+    },
+    {
+      "name": "longbarrel"
+    },
+    {
+      "name": "vgrip"
+    },
+    {
+      "name": "agrip"
+    },
+    {
+      "name": "handstop"
+    },
+    {
+      "name": "opticholo"
+    },
+    {
+      "name": "laser"
+    },
+    {
+      "name": "light"
     }
   ]
 }
