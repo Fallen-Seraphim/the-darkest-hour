@@ -110,11 +110,13 @@
   parent: RMCFloorHybrisaBlueCarpet
   id: RMCFloorHybrisaBlueSpacePort1
   sprite: /Textures/_RMC14/Tiles/hybrisa/spaceport1.png
+  weather: true # DarkestHour: уличный тайл Лост-Энджелса — дождь и опасности погоды (под этажами — крыша)
 
 - type: tile
   parent: RMCFloorHybrisaBlueCarpet
   id: RMCFloorHybrisaBlueSpacePort2
   sprite: /Textures/_RMC14/Tiles/hybrisa/spaceport2.png
+  weather: true # DarkestHour: уличный тайл Лост-Энджелса — дождь и опасности погоды (под этажами — крыша)
 
 - type: tile
   parent: RMCFloorHybrisaBlueFull
