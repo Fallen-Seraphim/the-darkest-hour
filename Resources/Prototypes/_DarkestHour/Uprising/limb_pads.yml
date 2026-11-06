@@ -1,0 +1,58 @@
+# Наплечники и наколенники (решение автора 2026-11-06): у военпола и ОФСК. Использовать в руке — пристегнуть к
+# надетой форме (DHLimbPads): форма получает класс 1 на руки или ноги. Иконки — Tools/_DarkestHour/uprising/pads_sprites.py.
+
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: DHLimbPadsBase
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Clothing/limb_pads.rsi
+  - type: Item
+    size: Small
+  - type: StaticPrice
+    price: 150
+
+- type: entity
+  parent: DHLimbPadsBase
+  id: DHLAMPShoulderPads
+  name: Military Police shoulder pads
+  description: Hard plastic shoulder and elbow pads. Use in hand to strap them onto your uniform — class 1 protection for the arms.
+  components:
+  - type: Sprite
+    state: shoulder_mp
+  - type: DHLimbPads
+    parts: [ ArmLeft, ArmRight ]
+
+- type: entity
+  parent: DHLimbPadsBase
+  id: DHLAMPKneePads
+  name: Military Police knee pads
+  description: Hard plastic knee and shin pads. Use in hand to strap them onto your uniform — class 1 protection for the legs.
+  components:
+  - type: Sprite
+    state: knee_mp
+  - type: DHLimbPads
+    parts: [ LegLeft, LegRight ]
+
+- type: entity
+  parent: DHLimbPadsBase
+  id: DHLAFrontShoulderPads
+  name: Front shoulder pads
+  description: Scavenged shoulder and elbow pads. Use in hand to strap them onto your clothes — class 1 protection for the arms.
+  components:
+  - type: Sprite
+    state: shoulder_front
+  - type: DHLimbPads
+    parts: [ ArmLeft, ArmRight ]
+
+- type: entity
+  parent: DHLimbPadsBase
+  id: DHLAFrontKneePads
+  name: Front knee pads
+  description: Scavenged knee and shin pads. Use in hand to strap them onto your clothes — class 1 protection for the legs.
+  components:
+  - type: Sprite
+    state: knee_front
+  - type: DHLimbPads
+    parts: [ LegLeft, LegRight ]

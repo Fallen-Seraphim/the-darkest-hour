@@ -18,6 +18,9 @@ using Content.Shared.Movement.Systems;
 using Content.Shared.Popups;
 using Content.Shared.StatusEffectNew;
 using Content.Shared.Stunnable;
+using Content.Shared.Wieldable.Components;
+using Content.Server.Movement.Components;
+using Content.Shared.Movement.Components;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
@@ -58,12 +61,19 @@ public sealed partial class DHTraumaSystem : EntitySystem
     private static readonly string[] BruteTypes = { "Blunt", "Slash", "Piercing" };
     private static readonly string[] BurnTypes = { "Heat", "Cold", "Shock", "Caustic" };
 
+    /// <summary>
+    /// Случайное попадание (решение автора 2026-11-06): голова 10 %, руки с кистями 23 %, ноги со стопами 25 %,
+    /// торс — остальное. Издалека прицелиться в голову, минуя броню, нельзя — только повысить шанс прицелом.
+    /// </summary>
     private static readonly (string Part, float Weight)[] RandomWeights =
     {
-        ("Torso", 35f), ("Head", 10f),
-        ("ArmLeft", 10f), ("ArmRight", 10f), ("LegLeft", 10f), ("LegRight", 10f),
-        ("HandLeft", 3.75f), ("HandRight", 3.75f), ("FootLeft", 3.75f), ("FootRight", 3.75f),
+        ("Torso", 42f), ("Head", 10f),
+        ("ArmLeft", 9f), ("ArmRight", 9f), ("HandLeft", 2.5f), ("HandRight", 2.5f),
+        ("LegLeft", 10f), ("LegRight", 10f), ("FootLeft", 2.5f), ("FootRight", 2.5f),
     };
+
+    /// <summary>С какого расстояния (тайлов) прицельная зона перестаёт работать «напрямую» и попадание случайное.</summary>
+    private const float AimedRange = 4f;
 
     private static readonly SoundSpecifier FractureSound = new SoundPathSpecifier("/Audio/Effects/bone_rattle.ogg");
     private static readonly SoundSpecifier SeverSound = new SoundCollectionSpecifier("gib");
@@ -254,26 +264,71 @@ public sealed partial class DHTraumaSystem : EntitySystem
         return part;
     }
 
-    /// <summary>Куда пришёлся удар: в выбранную атакующим зону (с точностью) или случайно.</summary>
+    /// <summary>
+    /// Куда пришёлся удар. Вблизи (рукопашная и стрельба ближе <see cref="AimedRange"/> тайлов) — в выбранную атакующим
+    /// зону с точностью, иначе случайно. Дальше — случайно по <see cref="RandomWeights"/>, но вес выбранной зоны
+    /// умножается прицелом оружия в руках (<see cref="AimMultiplier"/>): без прицела голова — 10 %.
+    /// </summary>
     private string PickPart(Entity<DHTraumaComponent> ent, EntityUid? origin, bool far)
     {
-        if (origin is { } attacker && attacker != ent.Owner &&
-            TryComp<DHTargetingComponent>(attacker, out var targeting) &&
-            _random.Prob(far ? RangedAccuracy : MeleeAccuracy))
+        string? aimed = null;
+        var multiplier = 1f;
+        if (origin is { } attacker && attacker != ent.Owner && Exists(attacker) &&
+            TryComp<DHTargetingComponent>(attacker, out var targeting))
         {
-            return targeting.Target;
+            var close = !far || _transform.InRange(Transform(attacker).Coordinates, Transform(ent).Coordinates, AimedRange);
+            if (close)
+            {
+                if (_random.Prob(far ? RangedAccuracy : MeleeAccuracy))
+                    return targeting.Target;
+            }
+            else
+            {
+                aimed = targeting.Target;
+                multiplier = AimMultiplier(attacker);
+            }
         }
 
-        var total = RandomWeights.Sum(w => w.Weight);
+        var total = 0f;
+        foreach (var (part, weight) in RandomWeights)
+        {
+            total += part == aimed ? weight * multiplier : weight;
+        }
+
         var roll = _random.NextFloat() * total;
         foreach (var (part, weight) in RandomWeights)
         {
-            roll -= weight;
+            roll -= part == aimed ? weight * multiplier : weight;
             if (roll <= 0f)
                 return part;
         }
 
         return "Torso";
+    }
+
+    /// <summary>
+    /// Во сколько раз прицел повышает шанс попасть в выбранную зону издалека: по смещению обзора прицела в руках
+    /// (если прицел требует хвата двумя руками — только в двух руках). Коллиматор ×1,4, 3x ×1,9, 4x ×2,6, 8x ×3,6,
+    /// 16x ×4,6; без прицела ×1.
+    /// </summary>
+    private float AimMultiplier(EntityUid attacker)
+    {
+        var best = 1f;
+        foreach (var held in _hands.EnumerateHeld(attacker))
+        {
+            if (!TryComp<EyeCursorOffsetComponent>(held, out var optic))
+                continue;
+
+            if (HasComp<CursorOffsetRequiresWieldComponent>(held) &&
+                (!TryComp<WieldableComponent>(held, out var wield) || !wield.Wielded))
+            {
+                continue;
+            }
+
+            best = MathF.Max(best, 1f + 0.4f * optic.MaxOffset);
+        }
+
+        return best;
     }
 
     /// <summary>Если части тела нет (отрублена), удар приходится на ближайшую родительскую.</summary>

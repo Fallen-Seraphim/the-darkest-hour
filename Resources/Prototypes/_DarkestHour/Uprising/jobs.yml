@@ -34,6 +34,10 @@
   id: DHLAPoliceCommand
   name: id-card-access-level-dhla-police-command
 
+- type: accessLevel
+  id: DHLAPoliceArmory
+  name: id-card-access-level-dhla-police-armory
+
 - type: department
   id: DHLACivilians
   name: dh-department-dhla-civilians
@@ -641,6 +645,7 @@
   access:
   - DHLAPolice
   - DHLAPoliceCommand
+  - DHLAPoliceArmory
 
 - type: playTimeTracker
   id: JobDHLAMPChief
@@ -685,6 +690,7 @@
   access:
   - DHLAPolice
   - DHLAPoliceCommand
+  - DHLAPoliceArmory
 
 - type: playTimeTracker
   id: JobDHLAMPDeputyChief
@@ -772,6 +778,7 @@
   access:
   - DHLAPolice
   - DHLAPoliceCommand
+  - DHLAPoliceArmory
 
 - type: playTimeTracker
   id: JobDHLAMPWarden

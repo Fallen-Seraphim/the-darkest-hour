@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Drawn for The Darkest Hour (Tools/_DarkestHour/uprising/pads_sprites.py)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "knee_mp"
+    },
+    {
+      "name": "shoulder_mp"
+    },
+    {
+      "name": "knee_front"
+    },
+    {
+      "name": "shoulder_front"
+    }
+  ]
+}

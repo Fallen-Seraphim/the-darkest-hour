@@ -152,3 +152,21 @@
   - type: ContainerFill
     containers:
       board: [ DHLADoorElectronicsMetro ]
+
+# Оружейная Военной Полиции (решение автора 2026-11-06): начальник, заместитель, надзиратель.
+- type: entity
+  parent: DoorElectronics
+  id: DHLADoorElectronicsPoliceArmory
+  suffix: Lost Angels, Military Police armory
+  components:
+  - type: AccessReader
+    access: [["DHLAPoliceArmory"]]
+
+- type: entity
+  parent: AirlockSecurity
+  id: DHLAAirlockPoliceArmoryLocked
+  suffix: Lost Angels, Military Police armory, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DHLADoorElectronicsPoliceArmory ]

@@ -78,11 +78,11 @@ JOBS = [
      'Work in the LA-V office.',
      'Работайте в офисе LA-V.', None),
     # военпол (решение автора 2026-11-05): кадет, офицер, следователь, зам. начальника, начальник, надзиратель
-    ('DHLAMPChief', 'DHLAMilitaryPolice', 'HeadOfSecurity', 1, ['DHLAPolice', 'DHLAPoliceCommand'],
+    ('DHLAMPChief', 'DHLAMilitaryPolice', 'HeadOfSecurity', 1, ['DHLAPolice', 'DHLAPoliceCommand', 'DHLAPoliceArmory'],
      'Military Police chief', 'начальник Военной Полиции',
      'Command the district Military Police: find the LFFC leaders and protect the residents.',
      'Командуйте отделением Военной Полиции: найдите лидеров ОФСК и защитите жителей.', None),
-    ('DHLAMPDeputyChief', 'DHLAMilitaryPolice', 'SeniorOfficer', 1, ['DHLAPolice', 'DHLAPoliceCommand'],
+    ('DHLAMPDeputyChief', 'DHLAMilitaryPolice', 'SeniorOfficer', 1, ['DHLAPolice', 'DHLAPoliceCommand', 'DHLAPoliceArmory'],
      'Deputy chief of the Military Police', 'заместитель начальника Военной Полиции',
      'Lead the patrols in the field and stand in for the chief.',
      'Ведите патрули в поле и замещайте начальника.', None),
@@ -90,7 +90,7 @@ JOBS = [
      'Military Police investigator', 'следователь Военной Полиции',
      'Investigate, interrogate the detained and find out who leads the Front.',
      'Расследуйте, допрашивайте задержанных и выясните, кто стоит во главе Фронта.', None),
-    ('DHLAMPWarden', 'DHLAMilitaryPolice', 'Warden', 2, ['DHLAPolice', 'DHLAPoliceCommand'],
+    ('DHLAMPWarden', 'DHLAMilitaryPolice', 'Warden', 2, ['DHLAPolice', 'DHLAPoliceCommand', 'DHLAPoliceArmory'],
      'Military Police prison warden', 'тюремный надзиратель Военной Полиции',
      'Guard the cells of the Military Police station and the detained in them.',
      'Охраняйте камеры отделения Военной Полиции и задержанных в них.', None),
@@ -142,6 +142,7 @@ ACCESS = [
     ('DHLAVanguardOffice', 'LA-V command', 'LA-V командный'),
     ('DHLAPolice', 'Military Police', 'Военная Полиция'),
     ('DHLAPoliceCommand', 'Military Police command', 'командование Военной Полиции'),
+    ('DHLAPoliceArmory', 'Military Police armory', 'оружейная Военной Полиции'),
 ]
 
 

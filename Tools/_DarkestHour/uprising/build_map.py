@@ -618,10 +618,35 @@ def police():
         g.box(cx, y1 - 6, cx + 4, y1 - 1, W_POLICE)
         g.door(cx + 2, y1 - 6, 'DHLAAirlockPoliceGlassLocked')
         g.put('CMBed', cx + 2, y1 - 3)
+    # оружейная (решение автора 2026-11-06): доступ «оружейная Военной Полиции» — начальник, заместитель, надзиратель
     g.box(x1 - 12, y1 - 7, x1 - 1, y1 - 1, W_POLICE)
-    g.door(x1 - 6, y1 - 7, 'DHLAAirlockPoliceCommandLocked')
-    for x in range(x1 - 10, x1 - 2, 2):
-        g.put('LockerSecurityFilled', x, y1 - 2)
+    g.door(x1 - 6, y1 - 7, 'DHLAAirlockPoliceArmoryLocked')
+    ax0, ay = x1 - 11, y1 - 2          # северный ряд стеллажей: оружие
+    guns = ['DHWeaponRifleRMPR6239'] * 4 + ['DHWeaponSMGRMPR0919'] * 4 + ['DHWeaponLMGRAMGM141'] * 2
+    for i, gun in enumerate(guns):
+        g.put('CMRack', ax0 + i, ay)
+        g.put(gun, ax0 + i, ay)
+    ammo = [  # средний ряд столов: магазины и коробки патронов
+        ['DHMagazine762x39FMG'] * 4, ['DHMagazine762x39BB'] * 2 + ['DHMagazine762x39E'] * 2,
+        ['DHMagazine9x19FMG'] * 4, ['DHMagazine9x19RUB'] * 4,
+        ['DHMagazineBox556x45FMG'] * 3, ['DHMagazineBox556x45BB'] * 3,
+        ['DHAmmoBox762x39FMG', 'DHAmmoBox762x39BB', 'DHAmmoBox762x39E'],
+        ['DHAmmoBox9x19FMG', 'DHAmmoBox9x19RUB', 'DHAmmoBox9x19RUB'],
+    ]
+    for i, items in enumerate(ammo):
+        g.put('CMTableReinforced', ax0 + i, ay - 2)
+        for item in items:
+            g.put(item, ax0 + i, ay - 2)
+    # южный ряд: станковый пулемёт с лентами, наплечники и наколенники
+    g.put('DHWeaponHMGRSPMG1054', ax0 + 8, ay - 4)
+    g.put('CMTableReinforced', ax0 + 9, ay - 2)
+    for item in ['DHMagazineBelt762x51FMG'] * 3:
+        g.put(item, ax0 + 9, ay - 2)
+    for i in range(2):
+        g.put('CMRack', ax0 + i, ay - 4)
+        for item in ['DHLAMPShoulderPads', 'DHLAMPKneePads'] * 3:
+            g.put(item, ax0 + i, ay - 4)
+    g.put(LIGHT, x1 - 6, y1 - 2, ROT_N)
     for x in range(x0 + 4, x1 - 4, 4):
         g.put('CMTableReinforced', x, y0 + 3)
         g.put('CMChairComfyBlue', x, y0 + 4, ROT_S)

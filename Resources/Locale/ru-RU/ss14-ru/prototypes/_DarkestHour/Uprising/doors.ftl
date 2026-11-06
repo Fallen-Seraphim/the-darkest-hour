@@ -69,3 +69,11 @@ ent-DHLADoorElectronicsMetro = { ent-DoorElectronics }
 ent-DHLAAirlockMetroLocked = { ent-AirlockMaint }
     .desc = { ent-AirlockMaint.desc }
     .suffix = Лост-Энджелс, метро, закрыт
+
+ent-DHLADoorElectronicsPoliceArmory = { ent-DoorElectronics }
+    .desc = { ent-DoorElectronics.desc }
+    .suffix = Лост-Энджелс, оружейная Военной Полиции
+
+ent-DHLAAirlockPoliceArmoryLocked = { ent-AirlockSecurity }
+    .desc = { ent-AirlockSecurity.desc }
+    .suffix = Лост-Энджелс, оружейная Военной Полиции, закрыт

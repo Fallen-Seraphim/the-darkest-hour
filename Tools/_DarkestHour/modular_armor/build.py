@@ -230,18 +230,68 @@ def cut_modules(src, masks, faction, keep_accent, recolor=True, module_key='modu
     return {p: assemble(fs) for p, fs in layers.items()}
 
 
-def icon_from(layer):
-    """Item icon: the south-facing piece, centred on a 32x32 canvas and scaled up if small."""
-    south = layer.crop((0, 0, 32, 32))
-    box = south.getbbox()
+def largest_piece(frame):
+    """Только самый крупный связный кусок кадра (у торса RMC снизу висят обрывки ремней — в иконке они лишние)."""
+    px = frame.load()
+    w, h = frame.size
+    seen, best = set(), []
+    for y in range(h):
+        for x in range(w):
+            if px[x, y][3] == 0 or (x, y) in seen:
+                continue
+            comp, stack = [], [(x, y)]
+            seen.add((x, y))
+            while stack:
+                cx, cy = stack.pop()
+                comp.append((cx, cy))
+                for nx, ny in ((cx + 1, cy), (cx - 1, cy), (cx, cy + 1), (cx, cy - 1)):
+                    if 0 <= nx < w and 0 <= ny < h and (nx, ny) not in seen and px[nx, ny][3]:
+                        seen.add((nx, ny))
+                        stack.append((nx, ny))
+            if len(comp) > len(best):
+                best = comp
+    out = Image.new('RGBA', frame.size, (0, 0, 0, 0))
+    opx = out.load()
+    for x, y in best:
+        opx[x, y] = px[x, y]
+    return out
+
+
+def icon_from(layer, prefer_side=False, front_only=False, main_piece=False):
+    """
+    Иконка предмета: кусок с того направления, где он виден крупнее (рука спереди — узкая полоска, сбоку — вся),
+    обрезанный по содержимому и увеличенный под холст 32x32 (до 26 px по большей стороне, целым коэффициентом),
+    с тёмным контуром — чтобы в окне инвентаря читался силуэт (решение автора 2026-11-06).
+    """
+    frames = [layer.crop((x, y, x + 32, y + 32)) for (x, y) in ((0, 0), (32, 0), (0, 32), (32, 32))]
+    if front_only:
+        frames = frames[:1]
+    if main_piece:
+        frames = [largest_piece(f) for f in frames]
+    best, best_area = None, -1
+    for i, frame in enumerate(frames):
+        box = frame.getbbox()
+        if not box:
+            continue
+        area = (box[2] - box[0]) * (box[3] - box[1])
+        if prefer_side and i >= 2:
+            area *= 1.3
+        if area > best_area:
+            best, best_area = frame.crop(box), area
     out = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
-    if not box:
+    if best is None:
         return out
-    piece = south.crop(box)
-    w, h = piece.size
-    k = max(1, min(int(24 / max(w, h)), 3))
-    piece = piece.resize((w * k, h * k), Image.NEAREST)
-    out.alpha_composite(piece, ((32 - piece.width) // 2, (32 - piece.height) // 2))
+    w, h = best.size
+    k = max(1, min(26 // max(w, h), 4))
+    piece = best.resize((w * k, h * k), Image.NEAREST)
+    # контур: тёмная обводка по альфе
+    outline = Image.new('RGBA', (piece.width + 2, piece.height + 2), (0, 0, 0, 0))
+    alpha = piece.split()[3]
+    dark = Image.new('RGBA', piece.size, (18, 20, 16, 255))
+    for dx, dy in ((0, 1), (2, 1), (1, 0), (1, 2)):
+        outline.paste(dark, (dx, dy), alpha)
+    outline.alpha_composite(piece, (1, 1))
+    out.alpha_composite(outline, ((32 - outline.width) // 2, (32 - outline.height) // 2))
     return out
 
 
@@ -333,6 +383,8 @@ def main(mono, rmc=None):
                                       lambda c: from_ramp(faction['body'], lum(c) / 0.55))
             body_copy = 'Body suit cut from Monolith TSFMC experimental hardsuit (CC0, original work by TJohnson), ' \
                 'recoloured for The Darkest Hour (Tools/_DarkestHour/modular_armor)'
+        # иконка корпуса — сам корпус на теле (южный вид), а не сложенная форма RMC
+        body_icon = icon_from(body, front_only=True)
         write_rsi(os.path.join(OUT_OUTER, fid + '_body.rsi'),
                   {'icon': (body_icon, 1), 'equipped-OUTERCLOTHING': (body, 4)}, body_copy)
         for cls, (src, keep_accent) in CLASSES.items():
@@ -355,7 +407,8 @@ def main(mono, rmc=None):
             states = {}
             for part, img in layers.items():
                 states[part] = (img, 4)
-                states['icon_' + part] = (icon_from(img), 1)
+                states['icon_' + part] = (icon_from(img, prefer_side=part.startswith('arm'),
+                                                    front_only=part == 'torso', main_piece=part == 'torso'), 1)
             write_rsi(os.path.join(OUT_OUTER, '%s_%s.rsi' % (fid, cls)), states,
                       (copyright_ + ' | Cut into armour modules by body part' + ('' if rmc_tex else ' and recoloured') +
                        ' for The Darkest Hour (Tools/_DarkestHour/modular_armor)').strip(' |'),
