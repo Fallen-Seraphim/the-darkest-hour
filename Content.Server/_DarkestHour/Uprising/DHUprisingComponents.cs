@@ -39,7 +39,7 @@ public sealed partial class DHUprisingRuleComponent : Component
     public TimeSpan FlightStay = TimeSpan.FromMinutes(4);
 
     [DataField]
-    public ResPath FlightPath = new("/Maps/Shuttles/arrivals.yml"); // гражданский борт «Аэронавтики», не ОБР (решение автора 2026-11-05)
+    public ResPath FlightPath = new("/Maps/_DarkestHour/Uprising/lav_shuttle.yml"); // мини-шаттл LA-V (решение автора 2026-11-07; был arrivals)
 
     [DataField]
     public LocId FlightName = "dh-uprising-flight-name";

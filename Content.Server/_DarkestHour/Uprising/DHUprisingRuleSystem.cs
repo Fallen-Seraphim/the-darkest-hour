@@ -193,7 +193,7 @@ public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRule
             rule.FlightWarned = true;
             _chat.DispatchGlobalAnnouncement(Loc.GetString("dh-uprising-flight-incoming",
                     ("minutes", (int) Math.Ceiling((arrive - now).TotalMinutes)),
-                    ("stay", (int) rule.FlightStay.TotalMinutes)),
+                    ("stay", (int) FlightStayFor(rule).TotalMinutes)),
                 Loc.GetString("dh-uprising-sender-aeronautics"), true, FlightSound, CivilianGrey);
         }
 
@@ -283,13 +283,21 @@ public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRule
         _meta.SetEntityName(grid.Value, Loc.GetString(rule.FlightName));
 
         rule.Flight = grid.Value;
-        rule.FlightDeparts = Timing.CurTime + rule.FlightStay;
+        rule.FlightDeparts = Timing.CurTime + FlightStayFor(rule);
         _chat.DispatchGlobalAnnouncement(Loc.GetString("dh-uprising-flight-landed",
-                ("minutes", (int) rule.FlightStay.TotalMinutes)),
+                ("minutes", (int) FlightStayFor(rule).TotalMinutes)),
             Loc.GetString("dh-uprising-sender-aeronautics"), true, FlightSound, CivilianGrey);
 
-        if (rule.PmcPending)
-            LandPmc(rule, grid.Value);
+        // Отряд ЧВК LA-V летит каждым эвакуационным бортом (решение автора 2026-11-07), а не только по вызову.
+        if (!rule.PmcPending)
+            rule.PmcCalls++;
+        LandPmc(rule, grid.Value);
+    }
+
+    /// <summary>Стоянка борта: с ним всегда прилетает отряд ЧВК, которому нужно время привести представителя.</summary>
+    private static TimeSpan FlightStayFor(DHUprisingRuleComponent rule)
+    {
+        return rule.PmcFlightStay > rule.FlightStay ? rule.PmcFlightStay : rule.FlightStay;
     }
 
     private void Depart(DHUprisingRuleComponent rule, EntityUid flight)
