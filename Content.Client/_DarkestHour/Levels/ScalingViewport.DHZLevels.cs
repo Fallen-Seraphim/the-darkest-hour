@@ -65,7 +65,7 @@ public sealed partial class ScalingViewport
         {
             DHHideOverlaysForLowerPasses();
             // Радиус обзора с запасом: половина диагонали вьюпорта в тайлах с учётом зума.
-            var radius = viewport.Size.Length() / EyeManager.PixelsPerMeter * MathF.Max(eye.Zoom.X, eye.Zoom.Y) / 2f + 4f;
+            var radius = viewport.Size.Length / EyeManager.PixelsPerMeter * MathF.Max(eye.Zoom.X, eye.Zoom.Y) / 2f + 4f;
             var first = true;
             foreach (var (map, depth) in _dhZPasses)
             {
