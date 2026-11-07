@@ -214,7 +214,8 @@
     - Paper
 
 # ---------------------------------------------------------------- Военная Полиция (решение автора 2026-11-05)
-# Снаряжение маршалов КМБ; оружие — RMPR-09-19 (в т. ч. резина), RMPR-62-39 и частично слабое оружие Республики.
+# Снаряжение маршалов КМБ; оружие — RMPR-09-19 (в т. ч. резина), RMPR-62-39, RAP-TOR-M-12-16 (патруль и заместитель,
+# решение автора 2026-11-07) и частично слабое оружие Республики. Оружие военпола бьёт на 25% сильнее (DHGunDamageMultiplier).
 
 - type: startingGear
   id: DHLAMPGearBase
@@ -263,13 +264,13 @@
     jumpsuit: DHLAMPClothingUniformCommand
     head: DHLAMPClothingHeadBeret
     outerClothing: DHLAMPClothingOuterVestCommand
-    suitstorage: DHWeaponRifleRMPR6239
+    suitstorage: DHWeaponSMGRAPTORM1216 # решение автора 2026-11-07
   storage:
     back:
     - DHOverwatchTabletPolice
-    - DHMagazine762x39FMG
-    - DHMagazine762x39FMG
-    - DHMagazine762x39FMG
+    - DHMagazine10x24SVP
+    - DHMagazine10x24SVP
+    - DHMagazine10x24E
     - Handcuffs
     - DHIFAKFilled
 
@@ -318,12 +319,12 @@
     id: DHLAIDCardMPOfficer
     head: DHLAMPClothingHeadHelmetPatrol
     outerClothing: DHLAMPClothingOuterVestPatrol
-    suitstorage: DHWeaponRifleRMPR6239
+    suitstorage: DHWeaponSMGRAPTORM1216 # решение автора 2026-11-07
   storage:
     back:
-    - DHMagazine762x39FMG
-    - DHMagazine762x39FMG
-    - DHMagazine762x39FMG
+    - DHMagazine10x24SVP
+    - DHMagazine10x24SVP
+    - DHMagazine10x24E
     - Handcuffs
     - DHIFAKFilled
 

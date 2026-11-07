@@ -1724,16 +1724,18 @@
     - Back
     - suitStorage
   - type: GunWieldBonus
-    minAngle: -2
-    maxAngle: -18
+    minAngle: -1
+    maxAngle: -16
+  - type: DHGunDamageMultiplier # бафф военпола (решение автора 2026-11-07)
+    multiplier: 1.25
   - type: Gun
-    fireRate: 9
+    fireRate: 11
     selectedMode: FullAuto
     availableModes:
     - FullAuto
     - SemiAuto
-    minAngle: 3
-    maxAngle: 36
+    minAngle: 2
+    maxAngle: 26
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/smg.ogg
   - type: ChamberMagazineAmmoProvider
@@ -1931,16 +1933,18 @@
     - Back
     - suitStorage
   - type: GunWieldBonus
-    minAngle: -3
-    maxAngle: -28
+    minAngle: -1.5
+    maxAngle: -20
+  - type: DHGunDamageMultiplier # бафф военпола (решение автора 2026-11-07)
+    multiplier: 1.25
   - type: Gun
-    fireRate: 6
+    fireRate: 7.5
     selectedMode: FullAuto
     availableModes:
     - FullAuto
     - SemiAuto
-    minAngle: 4
-    maxAngle: 40
+    minAngle: 2.5
+    maxAngle: 28
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/rifle2.ogg
   - type: ChamberMagazineAmmoProvider
