@@ -128,12 +128,12 @@ WEAPONS = [
     # ------------------------------------------------ Republic Military Police
     W(id='DHWeaponSMGRMPR0919', sprite='rmpr0919', name='RMPR-09-19', faction='rmp', kind='smg',
       desc='The submachine gun of the Republic Military Police. A cheap 9x19mm round: full metal jacket for trouble, rubber for crowds. 30-round magazine.',
-      mags=['DHMagazine9x19'], start='DHMagazine9x19RUB', cal='9x19', rate=9, modes=['FullAuto', 'SemiAuto'],
-      spread=(3, 36), wield=(-2, -18), snd=SND_SMG, slots=[BARREL, OPTIC], size='Large'),
+      mags=['DHMagazine9x19'], start='DHMagazine9x19RUB', cal='9x19', rate=11, modes=['FullAuto', 'SemiAuto'],
+      spread=(2, 26), wield=(-1, -16), snd=SND_SMG, slots=[BARREL, OPTIC], size='Large'),
     W(id='DHWeaponRifleRMPR6239', sprite='rmpr6239', name='RMPR-62-39', faction='rmp', kind='rifle',
       desc='The rifle of the Republic Military Police, on the old 7.62x39mm round. Takes Ravenger magazines.',
-      mags=['DHMagazine762x39'], start='DHMagazine762x39FMG', cal='762x39', rate=6, modes=['FullAuto', 'SemiAuto'],
-      spread=(4, 40), wield=(-3, -28), snd=SND_RIFLE, slots=[BARREL, GRIP, OPTIC], size='Large'),
+      mags=['DHMagazine762x39'], start='DHMagazine762x39FMG', cal='762x39', rate=7.5, modes=['FullAuto', 'SemiAuto'],
+      spread=(2.5, 28), wield=(-1.5, -20), snd=SND_RIFLE, slots=[BARREL, GRIP, OPTIC], size='Large'),
     # ------------------------------------------------ LA-V corporate security (RMC-14 W-Y-style sprites, rmc_guns.py)
     W(id='DHWeaponRifleLAVR55', sprite='lavr55', name='LAVR-55', faction='lav', kind='rifle',
       desc='The service rifle of LA-V corporate security: a sleek bullpup on the corporate 7.55x49mm round, with an integral carry rail. 30-round magazine: LS, LAP and LHP.',

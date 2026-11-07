@@ -195,8 +195,8 @@ WEAPONS = [
       spread=(1, 25), wield=(-1, -20), snd=SND_SNIPER, slots=[OPTIC], size='Huge', zoom=True),
     W(id='DHWeaponSMGRPRM902', sprite='rpr_m9_02', name='RPR-M-9-02', faction='rep', kind='smg',
       desc='Weapon of the Military Police and city law enforcement. Compact and accurate; takes expanding rounds to stop a target without over-penetration. Uses 10x24mm.',
-      mags=['DHMagazine10x24Short'], start='DHMagazine10x24ShortE', cal='10x24', rate=6, modes=['SemiAuto', 'FullAuto'],
-      spread=(3, 35), wield=(-2, -18), snd=SND_SMG, slots=[BARREL, OPTIC], size='Normal'),
+      mags=['DHMagazine10x24Short'], start='DHMagazine10x24ShortE', cal='10x24', rate=8, modes=['SemiAuto', 'FullAuto'],
+      spread=(2, 26), wield=(-1, -16), snd=SND_SMG, slots=[BARREL, OPTIC], size='Normal'),
     # ------------------------------------------------ Empire
     W(id='DHWeaponRifleIR17', sprite='ir17', name='IR-17', faction='emp', kind='rifle',
       desc='The main rifle of the Imperial Army. A heavy calibre, a powerful round and excellent control thanks to the integral compensator. Uses 8.42x54mm ImpS, ImpR and ImpZ.',

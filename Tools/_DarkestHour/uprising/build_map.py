@@ -634,7 +634,8 @@ def police():
     g.box(x1 - 12, y1 - 7, x1 - 1, y1 - 1, W_POLICE)
     g.door(x1 - 6, y1 - 7, 'DHLAAirlockPoliceArmoryLocked')
     ax0, ay = x1 - 11, y1 - 2          # северный ряд стеллажей: оружие
-    guns = ['DHWeaponRifleRMPR6239'] * 4 + ['DHWeaponSMGRMPR0919'] * 4 + ['DHWeaponLMGRAMGM141'] * 2
+    guns = (['DHWeaponRifleRMPR6239'] * 3 + ['DHWeaponSMGRMPR0919'] * 3   # Raptor — решение автора 2026-11-07
+            + ['DHWeaponSMGRAPTORM1216'] * 2 + ['DHWeaponLMGRAMGM141'] * 2)
     for i, gun in enumerate(guns):
         g.put('CMRack', ax0 + i, ay)
         g.put(gun, ax0 + i, ay)
@@ -654,6 +655,9 @@ def police():
     g.put('CMTableReinforced', ax0 + 9, ay - 2)
     for item in ['DHMagazineBelt762x51FMG'] * 3:
         g.put(item, ax0 + 9, ay - 2)
+    g.put('CMTableReinforced', ax0 + 2, ay - 4)          # магазины 10×24 к Raptor
+    for item in ['DHMagazine10x24SVP'] * 3 + ['DHMagazine10x24E'] * 3:
+        g.put(item, ax0 + 2, ay - 4)
     for i in range(2):
         g.put('CMRack', ax0 + i, ay - 4)
         for item in ['DHLAMPShoulderPads', 'DHLAMPKneePads'] * 6:   # по одному на руку/ногу: 6 комплектов
