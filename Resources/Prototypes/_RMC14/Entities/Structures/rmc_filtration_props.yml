@@ -229,6 +229,11 @@
   id: RMCFiltrationCatwalk
   name: filtration catwalks
   components:
+  # DarkestHour: свой спрайт без углов catwalk_* — ванильное угловое сглаживание мостков добавляло слои с
+  # несуществующими состояниями и смещением направления, и клиент падал (IndexOutOfRange в RenderSprite).
+  - type: IconSmooth
+    key: catwalk
+    states: []
   - type: Sprite
     sprite: _RMC14/Structures/Filtration/32x32.rsi
     state: filtration_catwalk
@@ -336,6 +341,11 @@
   description: ""
   suffix: NE, upper
   components:
+  # DarkestHour: свой спрайт без углов catwalk_* — ванильное угловое сглаживание мостков добавляло слои с
+  # несуществующими состояниями и смещением направления, и клиент падал (IndexOutOfRange в RenderSprite).
+  - type: IconSmooth
+    key: catwalk
+    states: []
   - type: Sprite
     sprite: _RMC14/Structures/Filtration/32x32.rsi
     state: ne1

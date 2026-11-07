@@ -4,6 +4,11 @@
   name: water cover
   description: ""
   components:
+  # DarkestHour: свой спрайт без углов catwalk_* — ванильное угловое сглаживание мостков добавляло слои с
+  # несуществующими состояниями и смещением направления, и клиент падал (IndexOutOfRange в RenderSprite).
+  - type: IconSmooth
+    key: catwalk
+    states: []
   - type: Sprite
     sprite: _RMC14/Structures/water_cover.rsi
     state: icon
