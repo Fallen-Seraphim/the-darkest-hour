@@ -70,7 +70,7 @@ dh-budget-ui-evac = Order an evacuation flight ({$cost} cr.)
 dh-uprising-evac-on-pad = A flight is already on the pad.
 dh-uprising-evac-soon = A flight is already on its way.
 dh-uprising-evac-no-mode = No flights are available.
-dh-uprising-evac-called = Lost Angels—Vanguard has chartered an evacuation flight: it lands at LZ-1 Aeronautics in a few minutes.
+dh-uprising-evac-called = Lost Angels—Vanguard has chartered an evacuation flight carrying a PMC squad: it lands at LZ-1 Aeronautics in a few minutes.
 
 ## телефон
 dh-mobile-ui-title = Phone

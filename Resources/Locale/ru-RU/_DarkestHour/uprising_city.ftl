@@ -70,7 +70,7 @@ dh-budget-ui-evac = Заказать эвакуационный борт ({$cost
 dh-uprising-evac-on-pad = Борт уже на площадке.
 dh-uprising-evac-soon = Борт уже в пути.
 dh-uprising-evac-no-mode = Борты недоступны.
-dh-uprising-evac-called = Lost Angels—Vanguard зафрахтовала эвакуационный борт: он сядет на ЗП-1 «Аэронавтика» через несколько минут.
+dh-uprising-evac-called = Lost Angels—Vanguard зафрахтовала эвакуационный борт с отрядом частной военной компании: он сядет на ЗП-1 «Аэронавтика» через несколько минут.
 
 ## телефон
 dh-mobile-ui-title = Телефон
