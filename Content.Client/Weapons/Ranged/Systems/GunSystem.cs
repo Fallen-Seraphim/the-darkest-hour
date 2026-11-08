@@ -212,14 +212,27 @@ public sealed partial class GunSystem : SharedGunSystem
 
         // DarkestHour: стрелок в отсеке техники сидит на другой карте — прицел считаем от орудия, а не от стрелка.
         var anchor = Transform(entity).MapID == mousePos.MapId ? entity : gun.Owner;
-        var coordinates = TransformSystem.ToCoordinates(anchor, mousePos);
+        EntityCoordinates coordinates;
 
-        // DarkestHour: стрелок смотрит на другой Z-уровень — цель на той карте, а не на своей.
+        // DarkestHour: стрелок смотрит на другой Z-уровень — цель на той карте, а не на своей. Проверяем до
+        // ToCoordinates: перевод координат чужой карты в координаты оружия сыпал ошибками в лог.
         if (Transform(anchor).MapID != mousePos.MapId &&
             _maps.GetMapOrInvalid(mousePos.MapId) is var levelMap && levelMap.IsValid() &&
             HasComp<Content.Shared._DarkestHour.Levels.DHZLevelComponent>(levelMap))
         {
             coordinates = new EntityCoordinates(levelMap, mousePos.Position);
+        }
+        else if (Transform(anchor).MapID != mousePos.MapId)
+        {
+            // Курсор на карте, куда стрелять нельзя (вид с другой карты) — не стреляем.
+            if (gun.Comp.ShotCounter != 0)
+                RaisePredictiveEvent(new RequestStopShootEvent { Gun = GetNetEntity(gun) });
+
+            return;
+        }
+        else
+        {
+            coordinates = TransformSystem.ToCoordinates(anchor, mousePos);
         }
 
         Log.Debug($"Sending shoot request tick {Timing.CurTick} / {Timing.CurTime}");
