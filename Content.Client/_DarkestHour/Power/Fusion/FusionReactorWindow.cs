@@ -16,14 +16,9 @@ public sealed class FusionReactorWindow : DefaultWindow
     private readonly Label _status = new();
     private readonly Label _fuel = new();
     private readonly Label _power = new();
-    private readonly Label _heat = new();
-    private readonly Label _core = new();
-    private readonly Label _field = new();
-    private readonly Label _gas = new();
-    private readonly Label _flow = new();
-    private readonly Label _flowWarning = new() { FontColorOverride = Color.OrangeRed };
-    private readonly ProgressBar _coreBar = new() { MinValue = 0f, MaxValue = 1f, MinHeight = 14f, HorizontalExpand = true };
-    private readonly ProgressBar _fieldBar = new() { MinValue = 0f, MaxValue = 100f, MinHeight = 14f, HorizontalExpand = true };
+    private readonly Label _output = new();
+    private readonly ProgressBar _fuelBar = new() { MinValue = 0f, MaxValue = 1f, MinHeight = 14f, HorizontalExpand = true };
+    private readonly ProgressBar _outputBar = new() { MinValue = 0f, MaxValue = 1f, MinHeight = 14f, HorizontalExpand = true };
     private readonly Button _toggle = new() { HorizontalExpand = true };
 
     private float _powerSetting;
@@ -33,7 +28,7 @@ public sealed class FusionReactorWindow : DefaultWindow
     {
         DHFonts.RegisterTerminal(this); // DarkestHour: терминальный шрифт
         Title = Loc.GetString("fusion-reactor-ui-title");
-        MinSize = new System.Numerics.Vector2(400, 380);
+        MinSize = new System.Numerics.Vector2(380, 240);
 
         var root = new BoxContainer
         {
@@ -44,15 +39,9 @@ public sealed class FusionReactorWindow : DefaultWindow
 
         root.AddChild(_status);
         root.AddChild(_fuel);
-
-        root.AddChild(_core);
-        root.AddChild(_coreBar);
-        root.AddChild(_field);
-        root.AddChild(_fieldBar);
-        root.AddChild(_heat);
-        root.AddChild(_gas);
-        root.AddChild(_flow);
-        root.AddChild(_flowWarning);
+        root.AddChild(_fuelBar);
+        root.AddChild(_output);
+        root.AddChild(_outputBar);
 
         var powerRow = new BoxContainer
         {
@@ -87,52 +76,26 @@ public sealed class FusionReactorWindow : DefaultWindow
         _powerSetting = state.PowerSetting;
 
         string status;
-        if (state.Breached)
-            status = Loc.GetString("fusion-reactor-ui-status-breached");
-        else if (!state.Active)
+        if (!state.Active)
             status = Loc.GetString("fusion-reactor-ui-status-off");
-        else if (!state.Powered)
-            status = Loc.GetString("fusion-reactor-ui-status-no-power");
         else if (!state.HasCassette || state.Fuel <= 0f)
             status = Loc.GetString("fusion-reactor-ui-status-no-fuel");
         else
             status = Loc.GetString("fusion-reactor-ui-status-running");
         _status.Text = status;
 
+        var fuelFraction = state.FuelMax > 0f ? state.Fuel / state.FuelMax : 0f;
         _fuel.Text = state.HasCassette
-            ? Loc.GetString("fusion-reactor-ui-fuel",
-                ("percent", MathF.Round(state.FuelMax > 0f ? state.Fuel / state.FuelMax * 100f : 0f)))
+            ? Loc.GetString("fusion-reactor-ui-fuel", ("percent", MathF.Round(fuelFraction * 100f)))
             : Loc.GetString("fusion-reactor-ui-fuel-none");
+        _fuelBar.Value = state.HasCassette ? fuelFraction : 0f;
 
         _power.Text = Loc.GetString("fusion-reactor-ui-power", ("percent", MathF.Round(state.PowerSetting * 100f)));
-        _heat.Text = Loc.GetString("fusion-reactor-ui-heat",
-            ("output", MathF.Round(state.HeatOutput / 1000f)),
-            ("max", MathF.Round(state.MaxHeatOutput / 1000f)));
-
-        _core.Text = Loc.GetString("fusion-reactor-ui-core",
-            ("temperature", MathF.Round(state.CoreTemperature)),
-            ("safe", MathF.Round(state.SafeTemperature)));
-        _coreBar.Value = state.CriticalTemperature > 0f
-            ? Math.Clamp(state.CoreTemperature / state.CriticalTemperature, 0f, 1f)
-            : 0f;
-
-        _field.Text = Loc.GetString("fusion-reactor-ui-field", ("integrity", MathF.Round(state.Integrity)));
-        _fieldBar.Value = state.Integrity;
-
-        _gas.Text = Loc.GetString("fusion-reactor-ui-gas",
-            ("inlet", MathF.Round(state.InletTemperature)),
-            ("outlet", MathF.Round(state.OutletTemperature)));
-
-        _flow.Text = Loc.GetString("fusion-reactor-ui-flow",
-            ("inlet", MathF.Round(state.InletPressure)),
-            ("outlet", MathF.Round(state.OutletPressure)),
-            ("flow", MathF.Round(state.MolesPerSecond)));
-
-        // Running without coolant flow is the usual way to cook the core.
-        _flowWarning.Visible = state.Active && !state.Breached && state.MolesPerSecond < 1f;
-        _flowWarning.Text = Loc.GetString("fusion-reactor-ui-no-flow");
+        _output.Text = Loc.GetString("fusion-reactor-ui-output",
+            ("output", MathF.Round(state.PowerOutput / 1000f)),
+            ("max", MathF.Round(state.MaxPowerOutput / 1000f)));
+        _outputBar.Value = state.MaxPowerOutput > 0f ? Math.Clamp(state.PowerOutput / state.MaxPowerOutput, 0f, 1f) : 0f;
 
         _toggle.Text = Loc.GetString(state.Active ? "fusion-reactor-ui-turn-off" : "fusion-reactor-ui-turn-on");
-        _toggle.Disabled = state.Breached;
     }
 }

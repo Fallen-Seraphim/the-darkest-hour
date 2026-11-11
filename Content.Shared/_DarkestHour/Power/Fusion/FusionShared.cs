@@ -49,23 +49,12 @@ public enum FusionReactorUiKey : byte
 public sealed class FusionReactorBuiState : BoundUserInterfaceState
 {
     public bool Active;
-    public bool Powered;
-    public bool Breached;
     public bool HasCassette;
     public float Fuel;
     public float FuelMax;
     public float PowerSetting;
-    public float HeatOutput;
-    public float MaxHeatOutput;
-    public float CoreTemperature;
-    public float SafeTemperature;
-    public float CriticalTemperature;
-    public float Integrity;
-    public float InletTemperature;
-    public float OutletTemperature;
-    public float InletPressure;
-    public float OutletPressure;
-    public float MolesPerSecond;
+    public float PowerOutput;
+    public float MaxPowerOutput;
 }
 
 /// <summary>
