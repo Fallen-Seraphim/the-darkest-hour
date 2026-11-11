@@ -245,7 +245,7 @@ public sealed partial class DHWeightSystem : EntitySystem
 
     private void OnEncumbranceState(Entity<DHEncumbranceComponent> ent, ref AfterAutoHandleStateEvent args)
     {
-        _movement.RefreshMovementSpeedModifiers(ent);
+        _movement.RefreshMovementSpeedModifiers(ent.Owner);
     }
 
     private void OnRefreshSpeed(Entity<DHEncumbranceComponent> ent, ref RefreshMovementSpeedModifiersEvent args)
@@ -296,6 +296,6 @@ public sealed partial class DHWeightSystem : EntitySystem
         Dirty(ent);
 
         if (MathF.Abs(oldExcess - ent.Comp.Excess) > 0.001f)
-            _movement.RefreshMovementSpeedModifiers(ent);
+            _movement.RefreshMovementSpeedModifiers(ent.Owner);
     }
 }
