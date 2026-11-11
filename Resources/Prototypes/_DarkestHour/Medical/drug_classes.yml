@@ -1,0 +1,45 @@
+# DarkestHour: фармакологические классы (этап 2 переработки медицины, claude/chemistry-rework.md).
+# Нагрузка класса растёт, пока препарат действует (эффект DHDrug), и спадает на decay в секунду.
+# Опиоиды + седативные + алкоголь вместе угнетают дыхание (DHPharmacologySystem).
+
+- type: dhDrugClass
+  id: Opioid
+  name: dh-drug-class-opioid
+  toleranceGain: 0.002      # за ~4 минуты непрерывного действия обезболивание слабеет вдвое
+  toleranceMax: 0.5
+  dependenceThreshold: 300  # 5 минут суммарного действия
+  withdrawalDelay: 90
+  withdrawalPain: 30
+  withdrawalJitter: true
+  respiratoryDepressant: true
+  withdrawalLines: 3
+
+- type: dhDrugClass
+  id: Sedative
+  name: dh-drug-class-sedative
+  toleranceGain: 0.001
+  toleranceMax: 0.4
+  dependenceThreshold: 600
+  withdrawalDelay: 120
+  withdrawalJitter: true
+  respiratoryDepressant: true
+  withdrawalLines: 2
+
+- type: dhDrugClass
+  id: Alcohol
+  name: dh-drug-class-alcohol
+  maxLoad: 40
+  respiratoryDepressant: true
+
+- type: dhDrugClass
+  id: Stimulant
+  name: dh-drug-class-stimulant
+  toleranceGain: 0.002
+  toleranceMax: 0.5
+  dependenceThreshold: 400
+  withdrawalDelay: 120
+  withdrawalLines: 2
+
+- type: dhDrugClass
+  id: Nsaid
+  name: dh-drug-class-nsaid
