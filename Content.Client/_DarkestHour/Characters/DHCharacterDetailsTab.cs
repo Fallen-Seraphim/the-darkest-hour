@@ -1,5 +1,6 @@
 using System.Linq;
 using Content.Shared._DarkestHour.Characters;
+using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
@@ -88,7 +89,7 @@ public sealed class DHCharacterDetailsTab : BoxContainer
         {
             _birthplace.SelectId(args.Id);
             var place = args.Id >= 0 && args.Id < _birthplaceIds.Count ? _birthplaceIds[args.Id] : null;
-            Changed(d => d.Birthplace = place == null ? null : new ProtoId<DHBirthplacePrototype>(place.ID));
+            Changed(d => d.Birthplace = place == null ? null : (ProtoId<DHBirthplacePrototype>?) new ProtoId<DHBirthplacePrototype>(place.ID));
         };
         _general.OnTextChanged += _ => Changed(d => d.GeneralRecord = Rope.Collapse(_general.TextRope));
         _medical.OnTextChanged += _ => Changed(d => d.MedicalRecord = Rope.Collapse(_medical.TextRope));
