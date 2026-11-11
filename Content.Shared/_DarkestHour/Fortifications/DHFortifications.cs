@@ -9,18 +9,25 @@ using Robust.Shared.Serialization;
 
 namespace Content.Shared._DarkestHour.Fortifications;
 
-// Полевые укрепления «Штурма» (по образцу RMC-14): мешки с песком и палатки.
+// Полевые укрепления «Штурма» (по образцу RMC-14): баррикады (мешки, металл, пласталь), колючка и палатки.
 
 /// <summary>
-/// Баррикада из мешков с песком: тонкая стенка по переднему краю тайла (как у баррикад RMC). Пули спереди задерживает
-/// с шансом <see cref="BlockChance"/>, из-за спины пропускает — из-за мешков стреляют, по укрывшимся попасть трудно.
+/// Баррикада (общая система, решение автора 2026-11-11): тонкая стенка по переднему краю тайла, как в CM-SS13 / RMC.
+/// Пули спереди задерживает с шансом <see cref="BlockChance"/>, из-за спины пропускает — из-за баррикады стреляют,
+/// по укрывшимся попасть трудно. Колючая проволока — <see cref="DHWireableComponent"/>, повреждения — трещины,
+/// ремонт — у каждого вида свой (мешки досыпают, металл и пласталь варят).
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class DHSandbagBarricadeComponent : Component
+public sealed partial class DHBarricadeComponent : Component
 {
     [DataField]
     public float BlockChance = 0.6f;
+}
 
+/// <summary>Баррикада из мешков с песком: досыпается мешками, разбирается лопатой.</summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class DHSandbagBarricadeComponent : Component
+{
     /// <summary>Сколько мешков возвращается при разборке.</summary>
     [DataField]
     public int Refund = 5;
@@ -28,31 +35,12 @@ public sealed partial class DHSandbagBarricadeComponent : Component
     [DataField]
     public EntProtoId Sandbags = "DHSandbagsFull";
 
-    /// <summary>Поверх мешков натянута колючая проволока (перелезть — порезаться).</summary>
-    [ViewVariables]
-    public bool Wired;
-
-    /// <summary>Урон тому, кто перелез через баррикаду с колючкой.</summary>
-    [DataField]
-    public DamageSpecifier WireDamage = new() { DamageDict = { ["Slash"] = FixedPoint2.New(10) } };
-
-    /// <summary>Что возвращается, когда колючку срезают.</summary>
-    [DataField]
-    public EntProtoId Wire = "DHBarbedWire";
-
     /// <summary>Ремонт: один наполненный мешок снимает столько урона (решение автора 2026-10-29 — «досыпать мешки»).</summary>
     [DataField]
     public float RepairPerSandbag = 112.5f;
 
     [DataField]
     public TimeSpan RepairTime = TimeSpan.FromSeconds(3);
-}
-
-[Serializable, NetSerializable]
-public enum DHSandbagVisuals : byte
-{
-    /// <summary>bool: на баррикаде колючая проволока.</summary>
-    Wired,
 }
 
 /// <summary>Колючая проволока (стопка мотков): натянуть на мешки с песком; на земле её ставят через меню строительства.</summary>
@@ -94,12 +82,6 @@ public sealed partial class DHWireOnDoAfterEvent : SimpleDoAfterEvent;
 
 [Serializable, NetSerializable]
 public sealed partial class DHWireOffDoAfterEvent : SimpleDoAfterEvent;
-
-[Serializable, NetSerializable]
-public sealed partial class DHSandbagWireDoAfterEvent : SimpleDoAfterEvent;
-
-[Serializable, NetSerializable]
-public sealed partial class DHSandbagUnwireDoAfterEvent : SimpleDoAfterEvent;
 
 [Serializable, NetSerializable]
 public sealed partial class DHSandbagRepairDoAfterEvent : SimpleDoAfterEvent;
@@ -177,10 +159,10 @@ public sealed partial class DHTentDeployDoAfterEvent : SimpleDoAfterEvent;
 public sealed partial class DHTentFoldDoAfterEvent : SimpleDoAfterEvent;
 
 /// <summary>
-/// Укрытие за мешками (общая логика, чтобы клиент предсказывал так же): пуля, летящая в переднюю стенку, задерживается
-/// с шансом; летящая из-за спины проходит. Шанс — детерминированный по паре сущностей.
+/// Укрытие за баррикадой (общая логика, чтобы клиент предсказывал так же): пуля, летящая в переднюю стенку,
+/// задерживается с шансом; летящая из-за спины проходит. Шанс — детерминированный по паре сущностей.
 /// </summary>
-public sealed partial class DHSandbagCoverSystem : EntitySystem
+public sealed partial class DHBarricadeCoverSystem : EntitySystem
 {
     [Dependency] private SharedTransformSystem _transform = default!;
 
@@ -188,10 +170,10 @@ public sealed partial class DHSandbagCoverSystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<DHSandbagBarricadeComponent, PreventCollideEvent>(OnPreventCollide);
+        SubscribeLocalEvent<DHBarricadeComponent, PreventCollideEvent>(OnPreventCollide);
     }
 
-    private void OnPreventCollide(Entity<DHSandbagBarricadeComponent> ent, ref PreventCollideEvent args)
+    private void OnPreventCollide(Entity<DHBarricadeComponent> ent, ref PreventCollideEvent args)
     {
         if (args.Cancelled || !HasComp<ProjectileComponent>(args.OtherEntity))
             return;

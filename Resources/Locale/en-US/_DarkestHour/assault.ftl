@@ -258,8 +258,6 @@ dh-tinnitus-start = Your ears ring!
 
 ## Barbed wire
 dh-stack-barbed-wire = barbed wire
-dh-sandbag-already-wired = There is already barbed wire on it.
-dh-sandbag-wired = {CAPITALIZE(THE($user))} strings barbed wire on the sandbags.
 dh-sandbag-wire-cut = The barbed wire tears at you!
 dh-wireable-already-wired = There is already barbed wire on it.
 dh-wireable-wired = {CAPITALIZE(THE($user))} strings barbed wire along the fence.
@@ -303,3 +301,9 @@ dh-sandbag-repaired = You patch the barricade with fresh sandbags.
 dh-dropship-ui-flares = FIRE DECOY FLARES ({$count}/{$max})
 dh-dropship-ui-flares-active = Decoy flares are covering the craft ({$count}/{$max})
 dh-dropship-flares-fired = Decoy flares away! Enemy air defence will lose the craft for the rest of this run. Salvos left: {$left}.
+
+# Barricades (DHBarricade)
+dh-construction-barricade-metal = metal barricade
+dh-construction-barricade-metal-desc = A barricade of four steel sheets. Stops most bullets from the front.
+dh-construction-barricade-plasteel = plasteel barricade
+dh-construction-barricade-plasteel-desc = A barricade of four plasteel sheets. Stops nearly every bullet from the front.

@@ -1,5 +1,5 @@
 # Полевые укрепления «Штурма» по образцу RMC-14: мешки с песком и палатки. Механика — DHFortificationSystem,
-# укрытие за мешками — DHSandbagCoverSystem. Спрайты — RMC-14 (cmss13, CC-BY-SA-3.0/4.0, см. meta.json).
+# укрытие за баррикадами — DHBarricadeCoverSystem. Спрайты — RMC-14 (cmss13, CC-BY-SA-3.0/4.0, см. meta.json).
 
 # --- Мешки с песком ---
 
@@ -88,38 +88,21 @@
     Heat: 0.2
     Structural: 1.0
 
+# --- Баррикады (общая система, решение автора 2026-11-11) ---
+# Тонкая стенка по переднему краю тайла, как в CM-SS13 / RMC: спереди держит пули с шансом (DHBarricade.blockChance),
+# из-за неё стреляют; перелезть можно; колючка — DHWireable; трещины по урону; ремонт у каждого вида свой.
+
 - type: entity
+  abstract: true
   parent: BaseStructure
-  id: DHSandbagBarricade
-  name: sandbag barricade
-  description: A low wall of sandbags. Stops most bullets coming from the front; you can shoot over it from behind and climb across. Barbed wire can be strung on top of it (whoever climbs over gets cut). Patch it with filled sandbags, dig it up with a shovel, cut the wire with wirecutters.
+  id: DHBarricadeBase
   placement:
     mode: SnapgridCenter
   components:
   - type: Transform
     anchored: true
-  - type: Sprite
-    sprite: _RMC14/Structures/Walls/Barricades/sandbag_barricade.rsi
-    layers:
-    - state: sandbag
-    - state: sandbag_wire
-      map: [ "wire" ]
-      visible: false
-    drawdepth: WallTops
+  - type: Rotatable
   - type: Appearance
-  - type: GenericVisualizer
-    visuals:
-      enum.DHSandbagVisuals.Wired:
-        wire:
-          True: { visible: true }
-          False: { visible: false }
-  # Трещины поверх мешков — оверлеем, как у окон (targetLayers ждёт enum-ключи слоёв, строка не парсится).
-  - type: DamageVisuals
-    thresholds: [4, 8, 12]
-    damageDivisor: 28.125
-    trackAllDamage: true
-    damageOverlay:
-      sprite: _RMC14/Structures/Walls/Barricades/sandbag_cracks.rsi
   - type: Fixtures
     fixtures:
       fix1:
@@ -136,6 +119,43 @@
   - type: InteractionOutline
   - type: Injurable
     damageContainer: Inorganic
+  - type: DHBarricade
+    blockChance: 0.6
+  - type: DHWireable
+    wireDamage:
+      types:
+        Slash: 10
+  - type: Tag
+    tags:
+    - Structure
+
+- type: entity
+  parent: DHBarricadeBase
+  id: DHSandbagBarricade
+  name: sandbag barricade
+  description: A low wall of sandbags. Stops most bullets coming from the front; you can shoot over it from behind and climb across. Barbed wire can be strung on top of it (whoever climbs over gets cut). Patch it with filled sandbags, dig it up with a shovel, cut the wire with wirecutters.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Walls/Barricades/sandbag_barricade.rsi
+    layers:
+    - state: sandbag
+    - state: sandbag_wire
+      map: [ "wire" ]
+      visible: false
+    drawdepth: WallTops
+  - type: GenericVisualizer
+    visuals:
+      enum.DHWireVisuals.Wired:
+        wire:
+          True: { visible: true }
+          False: { visible: false }
+  # Трещины поверх мешков — оверлеем, как у окон (targetLayers ждёт enum-ключи слоёв, строка не парсится).
+  - type: DamageVisuals
+    thresholds: [4, 8, 12]
+    damageDivisor: 28.125
+    trackAllDamage: true
+    damageOverlay:
+      sprite: _RMC14/Structures/Walls/Barricades/sandbag_cracks.rsi
   - type: Damageable
     damageModifierSet: DHSandbag
   - type: Destructible
@@ -147,11 +167,138 @@
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
   - type: DHSandbagBarricade
-    blockChance: 0.6
     refund: 5
-  - type: Tag
-    tags:
-    - Structure
+
+- type: damageModifierSet
+  id: DHBarricadeMetal
+  coefficients:
+    Heat: 1.15
+    Shock: 1.15
+    Cold: 1.15
+    Caustic: 1.15
+
+# Металлическая (4 листа стали) и пласталевая (4 листа пластали) — как в CM-SS13 / RMC. Строятся через меню
+# строительства, чинятся сваркой, разбираются отвёрткой и ломом (сначала срезать колючку).
+- type: entity
+  abstract: true
+  parent: DHBarricadeBase
+  id: DHBarricadeMetalBase
+  components:
+  - type: Anchorable
+  - type: MeleeSound
+    soundGroups:
+      Brute:
+        path: /Audio/_RMC14/Structures/metalhit.ogg
+  - type: Damageable
+    damageModifierSet: DHBarricadeMetal
+
+- type: entity
+  parent: DHBarricadeMetalBase
+  id: DHBarricadeMetal
+  name: metal barricade
+  description: A sturdy, quickly assembled barricade of metal plates. Stops most bullets coming from the front; you can shoot over it from behind. Weld it to repair; screwdriver and crowbar to take it apart.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Walls/Barricades/barricade.rsi
+    layers:
+    - state: metal
+    - state: metal_wire
+      map: [ "wire" ]
+      visible: false
+    drawdepth: WallTops
+  - type: GenericVisualizer
+    visuals:
+      enum.DHWireVisuals.Wired:
+        wire:
+          True: { visible: true }
+          False: { visible: false }
+  - type: DamageVisuals
+    thresholds: [4, 8, 12]
+    damageDivisor: 28.125
+    trackAllDamage: true
+    damageOverlay:
+      sprite: _RMC14/Structures/Walls/Barricades/metal_barricade_cracks.rsi
+  - type: Repairable
+    fuelCost: 10
+    doAfterDelay: 10
+    damageValue: 200
+  - type: DHBarricade
+    blockChance: 0.7
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 450
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 2
+            max: 2
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: Construction
+    graph: DHBarricadeMetal
+    node: barricade
+  - type: StaticPrice
+    price: 40
+
+- type: entity
+  parent: DHBarricadeMetalBase
+  id: DHBarricadePlasteel
+  name: plasteel barricade
+  description: A heavy barricade of reinforced plasteel plates — the pinnacle of strongpoints. Stops nearly every bullet from the front; you can shoot over it from behind. Weld it to repair; screwdriver and crowbar to take it apart.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Walls/Barricades/barricade.rsi
+    layers:
+    - state: plasteel
+    - state: plasteel_wire
+      map: [ "wire" ]
+      visible: false
+    drawdepth: WallTops
+  - type: GenericVisualizer
+    visuals:
+      enum.DHWireVisuals.Wired:
+        wire:
+          True: { visible: true }
+          False: { visible: false }
+  - type: DamageVisuals
+    thresholds: [4, 8, 12]
+    damageDivisor: 56.25
+    trackAllDamage: true
+    damageOverlay:
+      sprite: _RMC14/Structures/Walls/Barricades/plasteel_barricade_cracks.rsi
+  - type: Repairable
+    fuelCost: 20
+    doAfterDelay: 10
+    damageValue: 200
+  - type: DHBarricade
+    blockChance: 0.85
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 900
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetPlasteel1:
+            min: 3
+            max: 3
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: Construction
+    graph: DHBarricadePlasteel
+    node: barricade
+  - type: StaticPrice
+    price: 120
 
 # --- Палатки ---
 
@@ -396,3 +543,91 @@
         Slash: -0.5
         Piercing: -0.5
         Heat: -0.3
+
+# --- Строительство металлической и пласталевой баррикад ---
+
+- type: construction
+  id: DHBarricadeMetal
+  name: dh-construction-barricade-metal
+  description: dh-construction-barricade-metal-desc
+  graph: DHBarricadeMetal
+  startNode: start
+  targetNode: barricade
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DHBarricadePlasteel
+  name: dh-construction-barricade-plasteel
+  description: dh-construction-barricade-plasteel-desc
+  graph: DHBarricadePlasteel
+  startNode: start
+  targetNode: barricade
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: constructionGraph
+  id: DHBarricadeMetal
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: barricade
+      completed:
+      - !type:SnapToGrid
+      steps:
+      - material: Steel
+        amount: 4
+        doAfter: 2
+  - node: barricade
+    entity: DHBarricadeMetal
+    edges:
+    - to: start
+      completed:
+      - !type:DHDropWire
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 3
+      - !type:DeleteEntity
+      steps:
+      - tool: Screwing
+        doAfter: 1
+      - tool: Prying
+        doAfter: 2
+
+- type: constructionGraph
+  id: DHBarricadePlasteel
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: barricade
+      completed:
+      - !type:SnapToGrid
+      steps:
+      - material: Plasteel
+        amount: 4
+        doAfter: 4
+  - node: barricade
+    entity: DHBarricadePlasteel
+    edges:
+    - to: start
+      completed:
+      - !type:DHDropWire
+      - !type:SpawnPrototype
+        prototype: SheetPlasteel1
+        amount: 3
+      - !type:DeleteEntity
+      steps:
+      - tool: Screwing
+        doAfter: 2
+      - tool: Prying
+        doAfter: 4
