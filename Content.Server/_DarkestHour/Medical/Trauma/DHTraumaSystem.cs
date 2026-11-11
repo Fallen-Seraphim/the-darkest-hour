@@ -148,6 +148,10 @@ public sealed partial class DHTraumaSystem : EntitySystem
         if (category == null)
             return;
 
+        // Куда пришёлся удар — для пятен крови на снаряжении (DHBloodStainSystem).
+        var hitEv = new DHPartHitEvent(category, brute, origin);
+        RaiseLocalEvent(ent, ref hitEv);
+
         var part = GetPart(ent.Comp, category);
         var maxBefore = MaxOf(ent.Comp, category);
         var overflow = MathF.Max(0f, part.Brute + brute - maxBefore) - MathF.Max(0f, part.Brute - maxBefore);
@@ -904,3 +908,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
         return Loc.TryGetString($"dh-surgery-part-{category}", out var name) && name != null ? name.ToLowerInvariant() : category;
     }
 }
+
+/// <summary>Удар пришёлся в часть тела <paramref name="Part"/> (после выбора зоны травмами).</summary>
+[ByRefEvent]
+public readonly record struct DHPartHitEvent(string Part, float Brute, EntityUid? Origin);

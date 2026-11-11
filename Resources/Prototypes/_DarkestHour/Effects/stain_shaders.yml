@@ -1,0 +1,7 @@
+# Пятна на предметах — перенесено из RussianCM (CMU14, AGPL v3): шейдер CMUItemStain.
+- type: shader
+  id: DHItemStain
+  kind: source
+  path: "/Textures/_DarkestHour/Shaders/item_stain.swsl"
+  params:
+    stainColor: 0.5, 0.0, 0.0, 1.0

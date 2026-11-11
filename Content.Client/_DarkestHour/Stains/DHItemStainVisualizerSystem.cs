@@ -1,0 +1,271 @@
+// Перенесено из RussianCM (CMU14, github.com/flex5hybrid/RussianCM, AGPL v3): CMUItemStainVisualizerSystem.
+using System.Linq;
+using Content.Client.Clothing;
+using Content.Client.Items.Systems;
+using Content.Shared._DarkestHour.Stains;
+using Content.Shared.Clothing;
+using Content.Shared.Item;
+using Robust.Client.GameObjects;
+using Robust.Client.Graphics;
+using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Utility;
+
+namespace Content.Client._DarkestHour.Stains;
+
+/// <summary>
+/// Renders clipped stains on item sprites and directional stains on equipped clothing.
+/// </summary>
+public sealed partial class DHItemStainVisualizerSystem : EntitySystem
+{
+    private static readonly ProtoId<ShaderPrototype> ItemStainShader = "DHItemStain";
+    private static readonly ResPath ItemStainsRsi = new("_DarkestHour/Effects/item_stains.rsi");
+
+    private const string ItemBloodState = "itemblood";
+    private const string LayerPrefix = "dh-item-stain";
+
+    [Dependency] private ItemSystem _item = default!;
+    [Dependency] private IPrototypeManager _prototypes = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        SubscribeLocalEvent<DHItemStainComponent, ComponentStartup>(OnStartup);
+        SubscribeLocalEvent<DHItemStainComponent, ComponentRemove>(OnRemove);
+        SubscribeLocalEvent<DHItemStainComponent, AfterAutoHandleStateEvent>(OnAfterState);
+        SubscribeLocalEvent<DHItemStainComponent, AppearanceChangeEvent>(OnAppearanceChange);
+        SubscribeLocalEvent<DHItemStainComponent, GetEquipmentVisualsEvent>(OnGetEquipmentVisuals,
+            after: [typeof(ClientClothingSystem)]);
+    }
+
+    private void OnStartup(Entity<DHItemStainComponent> ent, ref ComponentStartup args)
+    {
+        Refresh(ent);
+    }
+
+    private void OnRemove(Entity<DHItemStainComponent> ent, ref ComponentRemove args)
+    {
+        if (TryComp<SpriteComponent>(ent, out var sprite))
+            ClearWorldLayers((ent.Owner, sprite));
+
+        _item.VisualsChanged(ent);
+    }
+
+    private void OnAfterState(Entity<DHItemStainComponent> ent, ref AfterAutoHandleStateEvent args)
+    {
+        Refresh(ent);
+    }
+
+    private void OnAppearanceChange(Entity<DHItemStainComponent> ent, ref AppearanceChangeEvent args)
+    {
+        if (args.Sprite != null)
+            RefreshWorldLayers(ent, args.Sprite);
+    }
+
+    private void OnGetEquipmentVisuals(Entity<DHItemStainComponent> ent, ref GetEquipmentVisualsEvent args)
+    {
+        if (ent.Comp.Color is not { } color)
+            return;
+
+        var state = GetWornState(ent.Comp, args.Slot);
+        if (state == null)
+            return;
+
+        var key = $"{LayerPrefix}-equipped-{args.Slot}";
+        var layer = new PrototypeLayerData
+        {
+            RsiPath = ItemStainsRsi.ToString(),
+            State = state,
+            Color = color,
+            MapKeys = [key],
+        };
+        args.Layers.Add((key, layer));
+    }
+
+    private void Refresh(Entity<DHItemStainComponent> ent)
+    {
+        _item.VisualsChanged(ent);
+        if (TryComp<SpriteComponent>(ent, out var sprite))
+            RefreshWorldLayers(ent, sprite);
+    }
+
+    private void RefreshWorldLayers(Entity<DHItemStainComponent> ent, SpriteComponent sprite)
+    {
+        var spriteEnt = new Entity<SpriteComponent?>(ent.Owner, sprite);
+        if (ent.Comp.Color is not { } color || !_prototypes.TryIndex(ItemStainShader, out var shaderPrototype))
+        {
+            ClearWorldLayers((ent.Owner, sprite));
+            return;
+        }
+
+        var visuals = EnsureComp<DHItemStainVisualsComponent>(ent);
+        visuals.OwnedLayers.Clear();
+        foreach (var key in visuals.LayerKeys)
+            if (_sprite.TryGetLayer(spriteEnt, key, out var owned, false))
+                visuals.OwnedLayers.Add(owned);
+
+        var sourceLayers = visuals.SourceBuffer;
+        sourceLayers.Clear();
+        foreach (var layer in sprite.AllLayers)
+        {
+            if (layer is SpriteComponent.Layer source && source.Visible && !source.Blank &&
+                source.CopyToShaderParameters == null && !visuals.OwnedLayers.Contains(source))
+                sourceLayers.Add(source);
+        }
+
+        var reusable = sourceLayers.Count == visuals.Layers.Count;
+        for (var i = 0; reusable && i < sourceLayers.Count; i++)
+        {
+            var entry = visuals.Layers[i];
+            reusable = ReferenceEquals(sourceLayers[i], entry.Source) &&
+                       _sprite.TryGetLayer(spriteEnt, entry.OverlayKey, out var overlay, false) &&
+                       ReferenceEquals(overlay, entry.Overlay) &&
+                       _sprite.TryGetLayer(spriteEnt, entry.MaskKey, out var mask, false) &&
+                       ReferenceEquals(mask, entry.Mask);
+        }
+
+        if (reusable)
+        {
+            foreach (var entry in visuals.Layers)
+            {
+                SynchronizeSourceClone(entry.Source, entry.Overlay);
+                if (visuals.Color != color)
+                    entry.Overlay.Shader?.SetParameter("stainColor", color.RGBA);
+            }
+            visuals.Color = color;
+            sourceLayers.Clear();
+            return;
+        }
+
+        ClearWorldLayers((ent.Owner, sprite));
+        visuals.Color = color;
+        for (var i = 0; i < sourceLayers.Count; i++)
+        {
+            var source = sourceLayers[i];
+            var overlayIndex = AddSourceClone(spriteEnt, source);
+            if (overlayIndex < 0)
+                continue;
+
+            var overlayKey = $"{LayerPrefix}-overlay-{i}";
+            _sprite.LayerMapSet(spriteEnt, overlayKey, overlayIndex);
+            visuals.LayerKeys.Add(overlayKey);
+
+            var shader = shaderPrototype.InstanceUnique();
+            shader.SetParameter("stainColor", color.RGBA);
+            sprite.LayerSetShader(overlayIndex, shader, ItemStainShader.Id);
+
+            // Shader-input layers must precede their target so their texture and UVs are populated before it draws.
+            var maskIndex = _sprite.AddRsiLayer(
+                spriteEnt,
+                new RSI.StateId(ItemBloodState),
+                ItemStainsRsi,
+                overlayIndex);
+            if (maskIndex < 0 || !_sprite.TryGetLayer(spriteEnt, maskIndex, out var maskLayer, false))
+                continue;
+
+            var maskKey = $"{LayerPrefix}-mask-{i}";
+            _sprite.LayerMapSet(spriteEnt, maskKey, maskIndex);
+            visuals.LayerKeys.Add(maskKey);
+            maskLayer.CopyToShaderParameters = new SpriteComponent.CopyToShaderParameters(overlayKey)
+            {
+                ParameterTexture = "stainMask",
+                ParameterUV = "stainMaskUV",
+            };
+            if (_sprite.TryGetLayer(spriteEnt, overlayKey, out var overlayLayer, false))
+                visuals.Layers.Add(new(source, overlayLayer, maskLayer, overlayKey, maskKey));
+        }
+        sourceLayers.Clear();
+    }
+
+    private void SynchronizeSourceClone(SpriteComponent.Layer source, SpriteComponent.Layer clone)
+    {
+        if (source.State.IsValid && source.ActualRsi != null)
+        {
+            if (clone.RSI != source.ActualRsi || clone.State != source.State)
+                _sprite.LayerSetRsi(clone, source.ActualRsi, source.State);
+        }
+        else if (clone.State.IsValid || clone.Texture != source.Texture)
+            _sprite.LayerSetTexture(clone, source.Texture);
+
+        _sprite.LayerSetScale(clone, source.Scale);
+        _sprite.LayerSetRotation(clone, source.Rotation);
+        _sprite.LayerSetOffset(clone, source.Offset);
+        _sprite.LayerSetDirOffset(clone, source.DirOffset);
+        _sprite.LayerSetRenderingStrategy(clone, source.RenderingStrategy);
+        _sprite.LayerSetAutoAnimated(clone, source.AutoAnimated);
+        if (clone.AnimationTime != source.AnimationTime)
+            _sprite.LayerSetAnimationTime(clone, source.AnimationTime);
+        clone.Cycle = source.Cycle;
+        clone.Loop = source.Loop;
+    }
+
+    private int AddSourceClone(Entity<SpriteComponent?> sprite, SpriteComponent.Layer source)
+    {
+        int index;
+        if (source.State.IsValid && source.ActualRsi != null)
+            index = _sprite.AddRsiLayer(sprite, source.State, source.ActualRsi);
+        else if (source.Texture != null)
+            index = _sprite.AddTextureLayer(sprite, source.Texture);
+        else
+            return -1;
+
+        _sprite.LayerSetScale(sprite, index, source.Scale);
+        _sprite.LayerSetRotation(sprite, index, source.Rotation);
+        _sprite.LayerSetOffset(sprite, index, source.Offset);
+        _sprite.LayerSetDirOffset(sprite, index, source.DirOffset);
+        _sprite.LayerSetRenderingStrategy(sprite, index, source.RenderingStrategy);
+        _sprite.LayerSetAutoAnimated(sprite, index, source.AutoAnimated);
+        _sprite.LayerSetAnimationTime(sprite, index, source.AnimationTime);
+
+        if (_sprite.TryGetLayer(sprite, index, out var clone, false))
+        {
+            clone.Cycle = source.Cycle;
+            clone.Loop = source.Loop;
+        }
+
+        return index;
+    }
+
+    private void ClearWorldLayers(Entity<SpriteComponent> sprite)
+    {
+        if (!TryComp<DHItemStainVisualsComponent>(sprite, out var visuals))
+            return;
+
+        var indices = visuals.RemovalIndices;
+        indices.Clear();
+        foreach (var key in visuals.LayerKeys)
+        {
+            if (_sprite.LayerMapTryGet(sprite.AsNullable(), key, out var index, false))
+                indices.Add(index);
+        }
+
+        indices.Sort(static (a, b) => b.CompareTo(a));
+        foreach (var index in indices.Distinct())
+            _sprite.RemoveLayer(sprite.AsNullable(), index, false);
+
+        visuals.LayerKeys.Clear();
+        visuals.Layers.Clear();
+        visuals.OwnedLayers.Clear();
+        visuals.Color = null;
+        indices.Clear();
+    }
+
+    private static string? GetWornState(DHItemStainComponent component, string slot)
+    {
+        if (component.WornStates.TryGetValue(slot, out var state))
+            return state;
+
+        return slot switch
+        {
+            DHItemStainSystem.JumpsuitSlot => "uniform_blood",
+            DHItemStainSystem.GlovesSlot => "hands_blood",
+            DHItemStainSystem.ShoesSlot => "feet_blood",
+            DHItemStainSystem.MaskSlot => "mask_blood",
+            DHItemStainSystem.HeadSlot => "helmet_blood",
+            DHItemStainSystem.OuterClothingSlot => "suit_blood",
+            _ => null,
+        };
+    }
+}

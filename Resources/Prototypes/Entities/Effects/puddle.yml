@@ -173,6 +173,7 @@
       mask: [ walls, windows, marble, puddles ]
       base: splat
   - type: Puddle
+  - type: DHPuddleFootPrints # DarkestHour: в луже пачкаются ноги — следы (как в CMU)
   - type: Solution
     id: puddle
   - type: MixableSolution
