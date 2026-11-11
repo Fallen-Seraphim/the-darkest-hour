@@ -227,6 +227,7 @@ public sealed partial class HumanoidProfileEditor
     private void SetAge(int newAge)
     {
         Profile = Profile?.WithAge(newAge);
+        _dhDetails?.SetAge(newAge); // DarkestHour: год рождения → список мест рождения
         ReloadPreview();
     }
 

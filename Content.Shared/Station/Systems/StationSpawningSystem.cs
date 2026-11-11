@@ -370,6 +370,9 @@ public sealed partial class StationSpawningSystem : EntitySystem
             {
                 AddComp<DetailExaminableComponent>(entity.Value).Content = profile.FlavorText;
             }
+
+            // DarkestHour: подробное описание и место рождения (окно «Подробное описание» при осмотре).
+            EntityManager.System<Content.Shared._DarkestHour.Characters.DHCharacterDescriptionSystem>().Apply(entity.Value, profile);
         }
 
         if (loadout != null)

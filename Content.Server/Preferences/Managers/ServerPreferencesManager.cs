@@ -197,7 +197,11 @@ namespace Content.Server.Preferences.Managers
                 antags.ToHashSet(),
                 traits.ToHashSet(),
                 loadouts
-            );
+            )
+            {
+                // DarkestHour: подробное описание и место рождения (JSON-колонка dh_details).
+                DHDetails = Content.Server._DarkestHour.Characters.DHCharacterDetailsDb.Deserialize(profile.DHDetails),
+            };
         }
 
         private async void HandleSelectCharacterMessage(MsgSelectCharacter message)

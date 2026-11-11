@@ -21,6 +21,10 @@ public sealed partial class DetailExaminableSystem : EntitySystem
         if (Identity.Name(args.Target, EntityManager) != MetaData(args.Target).EntityName)
             return;
 
+        // DarkestHour: описание внешности показывает окно «Подробное описание» (DHCharacterDescription).
+        if (HasComp<Content.Shared._DarkestHour.Characters.DHCharacterDescriptionComponent>(ent))
+            return;
+
         var detailsRange = _examine.IsInDetailsRange(args.User, ent);
 
         var user = args.User;

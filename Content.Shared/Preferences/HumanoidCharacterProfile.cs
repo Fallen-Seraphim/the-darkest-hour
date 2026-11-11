@@ -78,6 +78,10 @@ namespace Content.Shared.Preferences
         [DataField]
         public string FlavorText { get; set; } = string.Empty;
 
+        /// <summary>DarkestHour: подробное описание и место рождения (как в CMU).</summary>
+        [DataField]
+        public Content.Shared._DarkestHour.Characters.DHCharacterDetails DHDetails { get; set; } = new();
+
         /// <summary>
         /// Associated <see cref="SpeciesPrototype"/> for this profile.
         /// </summary>
@@ -193,6 +197,7 @@ namespace Content.Shared.Preferences
                 new HashSet<ProtoId<TraitPrototype>>(other.TraitPreferences),
                 new Dictionary<string, RoleLoadout>(other.Loadouts))
         {
+            DHDetails = other.DHDetails.Clone(); // DarkestHour
         }
 
         /// <summary>
@@ -397,6 +402,12 @@ namespace Content.Shared.Preferences
         public HumanoidCharacterProfile WithFlavorText(string flavorText)
         {
             return new(this) { FlavorText = flavorText };
+        }
+
+        /// <summary>DarkestHour: подробное описание персонажа.</summary>
+        public HumanoidCharacterProfile WithDHDetails(Content.Shared._DarkestHour.Characters.DHCharacterDetails details)
+        {
+            return new(this) { DHDetails = details.Clone() };
         }
 
         public HumanoidCharacterProfile WithAge(int age)
@@ -626,6 +637,7 @@ namespace Content.Shared.Preferences
             if (!_traitPreferences.SequenceEqual(other._traitPreferences)) return false;
             if (!Loadouts.SequenceEqual(other.Loadouts)) return false;
             if (FlavorText != other.FlavorText) return false;
+            if (!DHDetails.MemberwiseEquals(other.DHDetails)) return false; // DarkestHour
             return Appearance.Equals(other.Appearance);
         }
 
@@ -760,6 +772,7 @@ namespace Content.Shared.Preferences
             Name = name;
             FlavorText = flavortext;
             Age = age;
+            DHDetails.EnsureValid(prototypeManager, age); // DarkestHour: тексты, рост/вес, место рождения по году
             Sex = sex;
             Voice = voice;
             Gender = gender;
@@ -879,6 +892,7 @@ namespace Content.Shared.Preferences
             hashCode.Add(_loadouts);
             hashCode.Add(Name);
             hashCode.Add(FlavorText);
+            hashCode.Add(DHDetails); // DarkestHour
             hashCode.Add(Species);
             hashCode.Add(Age);
             hashCode.Add((int)Sex);
