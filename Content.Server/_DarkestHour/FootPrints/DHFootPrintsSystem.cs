@@ -206,7 +206,9 @@ public sealed partial class DHFootPrintsSystem : EntitySystem
         if (!wounded)
             return false;
 
-        color = blood.BloodReferenceSolution.GetColor(_proto).WithAlpha(DragTrailAlpha);
+        // Компонент даёт только чтение: берём копию ссылки и уже у неё спрашиваем цвет.
+        var reference = blood.BloodReferenceSolution;
+        color = reference.GetColor(_proto).WithAlpha(DragTrailAlpha);
         return true;
     }
 
