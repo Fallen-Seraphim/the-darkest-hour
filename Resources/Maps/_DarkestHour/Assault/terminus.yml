@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 10/30/2026 11:55:31
-  entityCount: 34189
+  entityCount: 34193
 maps:
 - 1
 grids:
@@ -174931,5 +174931,33 @@ entities:
     components:
     - type: Transform
       pos: -170.5,63.5
+      parent: 1
+- proto: DHGearVendorRepublicWeapons
+  entities:
+  - uid: 34933
+    components:
+    - type: Transform
+      pos: 8.5,-13.5
+      parent: 1
+- proto: DHGearVendorRepublicAttachments
+  entities:
+  - uid: 34934
+    components:
+    - type: Transform
+      pos: 8.5,-14.5
+      parent: 1
+- proto: DHGearVendorRepublicEquipment
+  entities:
+  - uid: 34935
+    components:
+    - type: Transform
+      pos: 8.5,-15.5
+      parent: 1
+- proto: DHGearVendorRepublicMedic
+  entities:
+  - uid: 34936
+    components:
+    - type: Transform
+      pos: 8.5,-16.5
       parent: 1
 ...
