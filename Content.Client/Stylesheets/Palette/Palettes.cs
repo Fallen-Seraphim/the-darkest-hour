@@ -24,6 +24,14 @@ public static class Palettes
     public static readonly ColorPalette Gold = ColorPalette.FromHexBase("#a88b5e");
     public static readonly ColorPalette Maroon = ColorPalette.FromHexBase("#9b2236");
 
+    // DarkestHour: янтарный «терминал» TDH (выбор автора 2026-11-11 по макетам «Интерфейс TDH»).
+    public static readonly ColorPalette DHAmberDark = ColorPalette.FromHexBase("#6a4f27", lightnessShift: 0.055f, chromaShift: 0.004f);
+    public static readonly ColorPalette DHUmber = ColorPalette.FromHexBase("#544a3b", lightnessShift: 0.055f);
+    public static readonly ColorPalette DHAmber = ColorPalette.FromHexBase("#e3a440");
+
+    /// <summary>DarkestHour: основной цвет текста интерфейса — тёплый светлый, под янтарную палитру.</summary>
+    public static readonly Color DHText = Color.FromHex("#EEDFC4");
+
     // Intended to be used with `ModulateSelf` to darken / lighten something
     public static readonly ColorPalette AlphaModulate = ColorPalette.FromHexBase("#ffffff");
 

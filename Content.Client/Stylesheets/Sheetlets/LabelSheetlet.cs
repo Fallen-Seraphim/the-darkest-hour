@@ -20,6 +20,9 @@ public sealed class LabelSheetlet : Sheetlet<PalettedStylesheet>
 
         return
         [
+            // DarkestHour: текст по умолчанию — тёплый светлый под янтарную палитру (без класса; классы ниже главнее).
+            E<Label>()
+                .FontColor(Palettes.DHText),
             E<Label>()
                 .Class(StyleClass.LabelHeading)
                 .Font(DHFonts.Header(ResCache, 16)) // DarkestHour
