@@ -7,7 +7,7 @@
   components:
   - type: Sprite
     layers:
-    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_exo_medium.rsi
       state: icon
     - sprite: _DarkestHour/Objects/Weapons/Guns/rar_m11_2.rsi
       state: icon
@@ -40,7 +40,7 @@
   components:
   - type: Sprite
     layers:
-    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_exo_medium.rsi
       state: icon
     - sprite: _DarkestHour/Objects/Weapons/Guns/rmar_as_m15_18.rsi
       state: icon
@@ -73,7 +73,7 @@
   components:
   - type: Sprite
     layers:
-    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_exo_medium.rsi
       state: icon
     - sprite: _DarkestHour/Objects/Weapons/Guns/ramg_m14_1.rsi
       state: icon
@@ -106,7 +106,7 @@
   components:
   - type: Sprite
     layers:
-    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_exo_medium.rsi
       state: icon
     - sprite: _DarkestHour/Objects/Weapons/Guns/rar_m11_1.rsi
       state: icon
@@ -139,7 +139,7 @@
   components:
   - type: Sprite
     layers:
-    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_exo_medium.rsi
       state: icon
     - sprite: _DarkestHour/Objects/Weapons/Guns/raptor_m12_16.rsi
       state: icon
@@ -172,7 +172,7 @@
   components:
   - type: Sprite
     layers:
-    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_exo_medium.rsi
       state: icon
     - sprite: _RMC14/Objects/Weapons/Guns/Flamethrower/colony.rsi
       state: base
@@ -207,7 +207,7 @@
   components:
   - type: Sprite
     layers:
-    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_exo_medium.rsi
       state: icon
       color: "#C9A8F0"
     - sprite: _DarkestHour/Objects/Devices/tactical_warhead.rsi
@@ -241,7 +241,7 @@
   components:
   - type: Sprite
     layers:
-    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_exo_medium.rsi
       state: icon
       color: "#C9A8F0"
     - sprite: _DarkestHour/Objects/Weapons/Guns/rmar_as_m15_18.rsi
@@ -275,7 +275,7 @@
   components:
   - type: Sprite
     layers:
-    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_exo_medium.rsi
       state: icon
       color: "#C9A8F0"
     - sprite: _DarkestHour/Objects/Weapons/Guns/ramg_m14_1.rsi
@@ -309,7 +309,7 @@
   components:
   - type: Sprite
     layers:
-    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_exo_medium.rsi
       state: icon
       color: "#C9A8F0"
     - sprite: _DarkestHour/Objects/Weapons/Guns/rar_m11_1.rsi
@@ -343,7 +343,7 @@
   components:
   - type: Sprite
     layers:
-    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_exo_medium.rsi
       state: icon
       color: "#C9A8F0"
     - sprite: _DarkestHour/Objects/Weapons/Guns/raptor_m12_16.rsi
@@ -377,7 +377,7 @@
   components:
   - type: Sprite
     layers:
-    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_body.rsi
+    - sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/rmb1_exo_medium.rsi
       state: icon
       color: "#C9A8F0"
     - sprite: _RMC14/Objects/Weapons/Guns/Flamethrower/colony.rsi

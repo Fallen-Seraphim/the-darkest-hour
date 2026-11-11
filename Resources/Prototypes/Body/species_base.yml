@@ -20,6 +20,7 @@
   save: false
   components:
   - type: DHFootPrints # DarkestHour: кровавые следы и след волочения (как в CMU); здесь — общий предок всех видов
+  - type: DHEncumbrance # DarkestHour: нагрузка в кг (вес снаряжения), перегруз замедляет
   - type: DamageVisuals
     thresholds: [ 10, 20, 30, 50, 70, 100 ]
     targetLayers:

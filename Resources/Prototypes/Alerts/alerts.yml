@@ -37,6 +37,7 @@
     - alertType: DHRadiation # DarkestHour
     - alertType: DHChronite # DarkestHour
     - alertType: DHNoSignal # DarkestHour
+    - alertType: DHLoad # DarkestHour
     - category: Temperature
     - category: Hunger
     - category: Thirst

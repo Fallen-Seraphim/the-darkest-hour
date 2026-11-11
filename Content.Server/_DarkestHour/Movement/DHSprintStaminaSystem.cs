@@ -1,4 +1,5 @@
 using Content.Shared._DarkestHour.Movement;
+using Content.Shared._DarkestHour.Weight;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Mobs.Systems;
@@ -62,7 +63,17 @@ public sealed partial class DHSprintStaminaSystem : EntitySystem
                 continue;
             }
 
-            _stamina.TakeStaminaDamage(uid, DrainPerSecond * dt, stamina, visual: false);
+            // Перегруз: при сильном рывка нет вовсе, до того — рывок дороже.
+            var drain = DrainPerSecond;
+            if (TryComp<DHEncumbranceComponent>(uid, out var load))
+            {
+                if (load.NoSprint)
+                    continue;
+
+                drain *= 1f + load.StaminaPerExcess * load.Excess;
+            }
+
+            _stamina.TakeStaminaDamage(uid, drain * dt, stamina, visual: false);
             if (stamina.StaminaDamage / stamina.CritThreshold >= ExhaustAt)
             {
                 EnsureComp<DHSprintExhaustedComponent>(uid);

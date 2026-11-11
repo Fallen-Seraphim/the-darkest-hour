@@ -1,7 +1,7 @@
 {
     "version": 1,
     "license": "CC-BY-SA-3.0",
-    "copyright": "Torso and arms: Taken from cmss13 at https://github.com/cmss13-devs/cmss13/blob/06d35efb20e830eacc57d3c77fea047dadbcdee3/icons/mob/humans/onmob/suit_1.dmi, https://github.com/cmss13-devs/cmss13/blob/a50253802b9d56391f7b857684e345119a207f43/icons/mob/humans/onmob/items_lefthand_0.dmi, https://github.com/cmss13-devs/cmss13/blob/a50253802b9d56391f7b857684e345119a207f43/icons/mob/humans/onmob/items_righthand_0.dmi, https://github.com/cmss13-devs/cmss13/blob/06d35efb20e830eacc57d3c77fea047dadbcdee3/icons/obj/items/clothing/cm_suits.dmi; legs: Taken from paradise-ss13 suits.dmi at mob/clothing/hats, obj/clothing/hats, mob/clothing/suits, and obj/clothing/suits.(https://github.com/ParadiseSS13/Paradise/blob/master/icons/obj/clothing/suits.dmi), equipped-OUTERCLOTHING-reptilian/hydrakin sprite by Zethine / @synthetic_086 (discord), Vox modifications by 10KE | Cut into armour modules by body part for The Darkest Hour (Tools/_DarkestHour/modular_armor)",
+    "copyright": "Drawn for The Darkest Hour (Tools/_DarkestHour/modular_armor/exo_sprites.py)",
     "size": {
         "x": 32,
         "y": 32

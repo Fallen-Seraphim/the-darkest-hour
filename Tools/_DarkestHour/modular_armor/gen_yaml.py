@@ -1,120 +1,200 @@
-"""Prototypes of the modular armour IMB-1 / RMB-1: body suits, helmets, modules, special systems and the suit presets
-that the squad kits hand out.
+"""Prototypes of the modular armour IMB-1 / RMB-1: exoskeletons (light / medium / heavy), their gas-mask helmets,
+armour plates, limb covers and the exoskeleton builds that the squad kits hand out; plus the ru-RU entity names.
 
 Run from the repository root:  python3 Tools/_DarkestHour/modular_armor/gen_yaml.py
-Writes Resources/Prototypes/_DarkestHour/Clothing/ModularArmor/{imb1,rmb1}.yml (the shared parts — special systems,
-built-in weapons, the maintenance rack — live in special.yml, written by hand)."""
+Writes Resources/Prototypes/_DarkestHour/Clothing/ModularArmor/{imb1,rmb1}.yml and
+Resources/Locale/ru-RU/ss14-ru/prototypes/_DarkestHour/Clothing/ModularArmor/{imb1,rmb1}.ftl (the shared parts — special
+systems, built-in weapons, the maintenance rack — live in special.yml, written by hand). Sprites — exo_sprites.py."""
 import os
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
 OUT = os.path.join(ROOT, 'Resources/Prototypes/_DarkestHour/Clothing/ModularArmor')
+OUT_FTL = os.path.join(ROOT, 'Resources/Locale/ru-RU/ss14-ru/prototypes/_DarkestHour/Clothing/ModularArmor')
 
 FACTIONS = {
-    'imb1': dict(Id='IMB1', name='IMB-1', who='Imperial Marine Corps', contra='BaseSyndicateContraband',
-                 body_desc='The sealed black body suit of the IMB-1 modular armour of the Imperial Marine Corps. White '
-                           'armour modules lock onto it at the arms, legs and torso; a special system fits on the back.',
-                 helmet_desc='The IMB-1 helmet: a white combat helmet over a twin-filter gas mask. Seals the suit.'),
-    'rmb1': dict(Id='RMB1', name='RMB-1', who='Republican Army Corps', contra='BaseTaskForceContraband',
-                 body_desc='The sealed green body suit of the RMB-1 modular armour of the Republican Army Corps. Khaki '
-                           'armour modules lock onto it at the arms, legs and torso; a special system fits on the back.',
-                 helmet_desc='The RMB-1 helmet: a khaki combat helmet over a twin-filter gas mask. Seals the suit.'),
+    'imb1': dict(Id='IMB1', name='IMB-1', ru='ИМБ-1', who='Imperial Marine Corps', contra='BaseSyndicateContraband',
+                 suit='black', ru_suit='чёрного'),
+    'rmb1': dict(Id='RMB1', name='RMB-1', ru='РМБ-1', who='Republican Army Corps', contra='BaseTaskForceContraband',
+                 suit='dark olive', ru_suit='тёмно-оливкового'),
 }
 
-# Классы брони (решение автора 2026-10-30): без брони 0, композитный 1, лёгкий 2, тяжёлый 3. Резистов у модулей нет:
-# пуля с классом бронепробития не ниже класса модуля проходит полностью, иначе — 15% тупым уроном (заброневая травма);
-# холодное оружие и взрывы — ×0,5 физического урона. Логика — DHModularArmorDamageSystem.
-# class: (name, speed per module, integrity)
+# Экзоскелеты (решение автора 2026-11-11): лёгкий — композитные пластины, средний — композитные и лёгкие, тяжёлый —
+# тяжёлые. Пластины экзоскелет несёт сам: лёгкий слегка ускоряет, средний компенсирует ровно, тяжёлый замедляет.
+# load — доля веса остального снаряжения на носителе, melee — множитель урона в ближнем бою. Все, кроме лёгкого,
+# герметичны; у лёгкого нет спецсистемы.
+EXOS = {
+    'Light': dict(plates=['Composite'], speed=1.05, load=0.85, melee=1.1, sealed=False, special=False, weight=8,
+                  price=2500, ru='лёгкий', ru_n='лёгкого'),
+    'Medium': dict(plates=['Composite', 'Light'], speed=1.0, load=0.7, melee=1.25, sealed=True, special=True,
+                   weight=14, price=4000, ru='средний', ru_n='среднего'),
+    'Heavy': dict(plates=['Heavy'], speed=0.9, load=0.55, melee=1.5, sealed=True, special=True, weight=24,
+                  price=6000, ru='тяжёлый', ru_n='тяжёлого'),
+}
+EXO_DESC = {
+    'Light': ('A light open-frame exoskeleton worn over the uniform: struts along the limbs, actuators in the joints. '
+              'Takes composite plates only, carries itself and its plates and even quickens the step. Not sealed; no '
+              'mount for a special system.',
+              'Лёгкий открытый экзоскелет поверх формы: стойки вдоль рук и ног, приводы в суставах. Берёт только '
+              'композитные пластины, несёт себя и их сам и даже слегка ускоряет шаг. Не герметичен, спецсистему не '
+              'поставить.'),
+    'Medium': ('A sealed exoskeleton over a %(suit)s pressure suit. Takes composite and light plates and carries them '
+               'exactly: the wearer moves as if unarmoured. A special system mounts on the back power unit.',
+               'Герметичный экзоскелет поверх %(ru_suit)s комбинезона. Берёт композитные и лёгкие пластины и несёт их '
+               'ровно: носитель двигается как без брони. На спинной силовой блок ставится спецсистема.'),
+    'Heavy': ('A sealed heavy exoskeleton with massive actuators over a %(suit)s pressure suit. Takes only heavy plates; '
+              'slower, but it carries most of the gear and hits hard in melee. A special system mounts on the back '
+              'power unit.',
+              'Герметичный тяжёлый экзоскелет с мощными приводами поверх %(ru_suit)s комбинезона. Берёт только '
+              'тяжёлые пластины; медленнее, зато берёт на себя большую часть снаряжения и сильно бьёт в ближнем бою. '
+              'На спинной силовой блок ставится спецсистема.'),
+}
+HELMET_DESC = {
+    'Heavy': ('A bulky helmet with an integrated gas mask: two round lenses and a filter snout. Seals the suit.',
+              'Массивный шлем со встроенным противогазом: две круглые линзы и рыло фильтра. Герметизирует костюм.'),
+    'Medium': ('A sleek helmet with an integrated gas mask and a narrow visor. Seals the suit.',
+               'Обтекаемый шлем со встроенным противогазом и узким визором. Герметизирует костюм.'),
+    'Light': ('A sleek helmet with an integrated gas mask and a narrow visor. The light exoskeleton is not sealed.',
+              'Обтекаемый шлем со встроенным противогазом и узким визором. Лёгкий экзоскелет не герметичен.'),
+}
+
+# Классы брони (решение автора 2026-10-30): без брони 0, композитный 1, лёгкий 2, тяжёлый 3. Резистов у пластин нет:
+# пуля с классом бронепробития не ниже класса пластины проходит полностью, иначе — 15% тупым уроном (заброневая
+# травма); холодное оружие и взрывы — ×0,5 физического урона. Логика — DHModularArmorDamageSystem.
+# class: (sprite name, integrity, limb plate weight kg, ru adjective m/f)
 CLASSES = {
-    'Light': ('light', 0.99, 100),
-    'Heavy': ('heavy', 0.95, 260),
-    'Composite': ('composite', 0.98, 170),
+    'Light': ('light', 100, 1.5, ('лёгкий', 'лёгкая')),
+    'Heavy': ('heavy', 260, 4.0, ('тяжёлый', 'тяжёлая')),
+    'Composite': ('composite', 170, 2.5, ('композитный', 'композитная')),
 }
 HELMET_CLASS = 1
 CLASS_DESC = {
-    'Light': 'A light armour module, protection class 2: stops ordinary rounds, barely slows you down. Can be swapped '
-             'in the field.',
-    'Heavy': 'A heavy armour module, protection class 3: only the heaviest armour-piercing rounds get through, but it '
-             'weighs you down. Can only be fitted or removed at an armour maintenance rack.',
-    'Composite': 'A composite armour module, protection class 1: layered plates that stop only the weakest rounds, '
-                 'light enough to swap in the field.',
+    'Light': ('A light armour plate, protection class 2: stops ordinary rounds. Fits medium exoskeletons; can be '
+              'swapped in the field.',
+              'Лёгкая бронепластина, класс защиты 2: держит обычные патроны. Встаёт на средний экзоскелет, меняется '
+              'в поле.'),
+    'Heavy': ('A heavy armour plate, protection class 3: only the heaviest armour-piercing rounds get through. Fits '
+              'heavy exoskeletons only and can only be fitted or removed at an armour maintenance rack.',
+              'Тяжёлая бронепластина, класс защиты 3: пробивают только тяжёлые бронебойные патроны. Встаёт только на '
+              'тяжёлый экзоскелет, ставится и снимается только на стойке обслуживания брони.'),
+    'Composite': ('A composite armour plate, protection class 1: layered lames that stop only the weakest rounds. '
+                  'Fits light and medium exoskeletons; can be swapped in the field.',
+                  'Композитная бронепластина, класс защиты 1: слоёные ламели держат только самые слабые патроны. '
+                  'Встаёт на лёгкий и средний экзоскелет, меняется в поле.'),
 }
 
-# slot: (enum, part state, item name, torso integrity multiplier)
+# slot: (enum, part state, item name, ru name, ru gender 0 m / 1 f, integrity multiplier, weight multiplier)
 SLOTS = {
-    'Torso': ('Torso', 'torso', 'torso plate', 1.5),
-    'ArmLeft': ('ArmLeft', 'arm_left', 'left arm guard', 1.0),
-    'ArmRight': ('ArmRight', 'arm_right', 'right arm guard', 1.0),
-    'LegLeft': ('LegLeft', 'leg_left', 'left leg guard', 1.0),
-    'LegRight': ('LegRight', 'leg_right', 'right leg guard', 1.0),
+    'Torso': ('Torso', 'torso', 'torso plate', 'пластина торса', 1, 1.5, 2.0),
+    'ArmLeft': ('ArmLeft', 'arm_left', 'left arm guard', 'щиток левой руки', 0, 1.0, 1.0),
+    'ArmRight': ('ArmRight', 'arm_right', 'right arm guard', 'щиток правой руки', 0, 1.0, 1.0),
+    'LegLeft': ('LegLeft', 'leg_left', 'left leg guard', 'щиток левой ноги', 0, 1.0, 1.0),
+    'LegRight': ('LegRight', 'leg_right', 'right leg guard', 'щиток правой ноги', 0, 1.0, 1.0),
 }
 
-# preset id suffix: (torso, arms, legs, special or None)
+# preset id suffix: (exo, torso, arms, legs, special or None). Id остались со времён корпусов — на них ссылаются
+# наборы отрядов.
 PRESETS = {
     'imb1': {
-        'Composite': ('Composite', 'Composite', 'Composite', None),
-        'Standard': ('Composite', 'Light', 'Light', None),
-        'StandardAutoMed': ('Composite', 'Light', 'Light', 'DHArmorSpecialAutoMed'),
-        'StandardStorage': ('Composite', 'Light', 'Light', 'DHArmorSpecialStorage'),
-        'StandardTanks': ('Composite', 'Light', 'Light', 'DHArmorSpecialTankStorage'),
-        'LightFlamer': ('Light', 'Light', 'Light', 'DHArmorSpecialFlamer'),
-        'LightShotgun': ('Light', 'Light', 'Light', 'DHArmorSpecialShotgun'),
-        'LightAutoMed': ('Light', 'Light', 'Light', 'DHArmorSpecialAutoMed'),
-        'HeavyAutoMed': ('Heavy', 'Heavy', 'Heavy', 'DHArmorSpecialAutoMed'),
+        'Composite': ('Light', 'Composite', 'Composite', 'Composite', None),
+        'Standard': ('Medium', 'Composite', 'Light', 'Light', None),
+        'StandardAutoMed': ('Medium', 'Composite', 'Light', 'Light', 'DHArmorSpecialAutoMed'),
+        'StandardStorage': ('Medium', 'Composite', 'Light', 'Light', 'DHArmorSpecialStorage'),
+        'StandardTanks': ('Medium', 'Composite', 'Light', 'Light', 'DHArmorSpecialTankStorage'),
+        'LightFlamer': ('Medium', 'Light', 'Light', 'Light', 'DHArmorSpecialFlamer'),
+        'LightShotgun': ('Medium', 'Light', 'Light', 'Light', 'DHArmorSpecialShotgun'),
+        'LightAutoMed': ('Medium', 'Light', 'Light', 'Light', 'DHArmorSpecialAutoMed'),
+        'HeavyAutoMed': ('Heavy', 'Heavy', 'Heavy', 'Heavy', 'DHArmorSpecialAutoMed'),
     },
     'rmb1': {
-        'Composite': ('Composite', 'Composite', 'Composite', None),
-        'CompositeAutoMed': ('Composite', 'Composite', 'Composite', 'DHArmorSpecialAutoMed'),
-        'StandardAutoMed': ('Composite', 'Light', 'Light', 'DHArmorSpecialAutoMed'),
-        'StandardStorage': ('Composite', 'Light', 'Light', 'DHArmorSpecialStorage'),
-        'LightAutoMed': ('Light', 'Light', 'Light', 'DHArmorSpecialAutoMed'),
-        'HeavyAutoMed': ('Heavy', 'Heavy', 'Heavy', 'DHArmorSpecialAutoMed'),
-        'HeavyTanks': ('Heavy', 'Heavy', 'Heavy', 'DHArmorSpecialTankStorage'),
+        'Composite': ('Light', 'Composite', 'Composite', 'Composite', None),
+        'CompositeAutoMed': ('Medium', 'Composite', 'Composite', 'Composite', 'DHArmorSpecialAutoMed'),
+        'StandardAutoMed': ('Medium', 'Composite', 'Light', 'Light', 'DHArmorSpecialAutoMed'),
+        'StandardStorage': ('Medium', 'Composite', 'Light', 'Light', 'DHArmorSpecialStorage'),
+        'LightAutoMed': ('Medium', 'Light', 'Light', 'Light', 'DHArmorSpecialAutoMed'),
+        'HeavyAutoMed': ('Heavy', 'Heavy', 'Heavy', 'Heavy', 'DHArmorSpecialAutoMed'),
+        'HeavyTanks': ('Heavy', 'Heavy', 'Heavy', 'Heavy', 'DHArmorSpecialTankStorage'),
     },
 }
+
+OUTER = '_DarkestHour/Clothing/OuterClothing/ModularArmor'
+HEAD = '_DarkestHour/Clothing/Head/ModularArmor'
 
 
 def module_id(f, cls, slot):
     return 'DHArmorModule%s%s%s' % (FACTIONS[f]['Id'], cls, slot)
 
 
-def gen(f):
-    F = FACTIONS[f]
-    out = ['# DarkestHour: модульная броня %s (%s). Сгенерировано Tools/_DarkestHour/modular_armor/gen_yaml.py —\n'
-           '# правьте генератор. Спрайты — Tools/_DarkestHour/modular_armor/build.py.\n' % (F['name'], F['who'])]
-    outer = '_DarkestHour/Clothing/OuterClothing/ModularArmor'
-    out.append('''
+def exo_id(f, exo):
+    return 'DHClothingOuterExo%s%s' % (FACTIONS[f]['Id'], exo)
+
+
+def helmet_id(f, exo):
+    return 'DHClothingHeadHelmetExo%s%s' % (FACTIONS[f]['Id'], exo)
+
+
+def q(s):
+    return s.replace('"', '\\"')
+
+
+def gen_exo(f, exo):
+    F, E = FACTIONS[f], EXOS[exo]
+    sealed = E['sealed']
+    d = dict(F, f=f, outer=OUTER, head=HEAD, cls=exo.lower(), exo=exo, eid=exo_id(f, exo), hid=helmet_id(f, exo),
+             desc=q(EXO_DESC[exo][0] % F), hdesc=q(HELMET_DESC[exo][0]), plates=', '.join(E['plates']),
+             speed=E['speed'], load=E['load'], melee=E['melee'], special='true' if E['special'] else 'false',
+             weight=E['weight'], price=E['price'], helmet_class=HELMET_CLASS,
+             parent='ClothingOuterHardsuitBase' if sealed else 'ClothingOuterBase',
+             tags='    - Hardsuit\n    - WhitelistChameleon\n' if sealed else '    - WhitelistChameleon\n')
+    out = ['''
 - type: entity
-  parent: [ ClothingOuterHardsuitBase, %(contra)s ]
-  id: DHClothingOuterModular%(Id)s
-  name: %(name)s body suit
-  description: "%(body_desc)s"
+  parent: [ %(parent)s, %(contra)s ]
+  id: %(eid)s
+  name: %(name)s %(cls)s exoskeleton
+  description: "%(desc)s"
   components:
   - type: Sprite
-    sprite: %(outer)s/%(f)s_body.rsi
+    sprite: %(outer)s/%(f)s_exo_%(cls)s.rsi
+    state: icon
   - type: Clothing
-    sprite: %(outer)s/%(f)s_body.rsi
+    sprite: %(outer)s/%(f)s_exo_%(cls)s.rsi
   - type: Item
     size: Huge
     shape:
     - 0,0,3,3
-  - type: PressureProtection
+  - type: DHWeight
+    weight: %(weight)s
+''' % d]
+    if sealed:
+        out.append('''  - type: PressureProtection
     highPressureMultiplier: 0.1
     lowPressureMultiplier: 1000
   - type: ExplosionResistance
     damageCoefficient: 0.8
-  # Физическую защиту дают только модули (классы брони); корпус — от радиации и кислоты.
+  # Физическую защиту дают только пластины (классы брони); комбинезон — от радиации и кислоты.
   - type: Armor
     modifiers:
       coefficients:
         Radiation: 0.6
         Caustic: 0.6
+''')
+    out.append('''  # Скорость задаёт класс экзоскелета (DHExoskeleton), пластины её не меняют.
   - type: ClothingSpeedModifier
     walkModifier: 1
     sprintModifier: 1
   - type: HeldSpeedModifier
   - type: ToggleableClothing
-    clothingPrototype: DHClothingHeadHelmetModular%(Id)s
-  # Пока корпус надет, модули рук и ног занимают слоты правой/левой руки и ноги (DHArmorLimbCover).
+    slot: head
+    verbText: toggle-clothing-verb-helmet
+    action: ActionToggleSuitPiece
+    clothingPrototype: %(hid)s
+  - type: DHExoskeleton
+    class: %(exo)s
+    plates: [ %(plates)s ]
+    speed: %(speed)s
+    loadFactor: %(load)s
+    meleeMultiplier: %(melee)s
+    special: %(special)s
+  # Пока экзоскелет надет, пластины рук и ног занимают слоты правой/левой руки и ноги (DHArmorLimbCover).
   - type: DHModularArmor
     faction: %(f)s
     covers:
@@ -131,27 +211,55 @@ def gen(f):
       dh_armor_legleft: !type:ContainerSlot {}
       dh_armor_legright: !type:ContainerSlot {}
       dh_armor_special: !type:ContainerSlot {}
+  - type: GroupExamine
   - type: Tag
     tags:
-    - Hardsuit
-    - WhitelistChameleon
-  - type: StaticPrice
-    price: 4000
+%(tags)s  - type: StaticPrice
+    price: %(price)s
+''' % d)
 
+    # шлем с встроенным противогазом
+    if sealed:
+        out.append('''
 - type: entity
   parent: [ ClothingHeadHardsuitBase, %(contra)s ]
-  id: DHClothingHeadHelmetModular%(Id)s
-  name: %(name)s helmet
-  description: "%(helmet_desc)s"
+  id: %(hid)s
+  name: %(name)s %(cls)s exoskeleton helmet
+  description: "%(hdesc)s"
   components:
   - type: Sprite
-    sprite: _DarkestHour/Clothing/Head/ModularArmor/%(f)s_helmet.rsi
+    sprite: %(head)s/%(f)s_helmet_%(cls)s.rsi
   - type: Clothing
-    sprite: _DarkestHour/Clothing/Head/ModularArmor/%(f)s_helmet.rsi
+    sprite: %(head)s/%(f)s_helmet_%(cls)s.rsi
   - type: PressureProtection
     highPressureMultiplier: 0.1
     lowPressureMultiplier: 1000
-  # Шлем защищает только голову (часть тела выбирают травмы), общей брони у него нет.
+''' % d)
+    else:
+        out.append('''
+- type: entity
+  parent: [ ClothingHeadBase, %(contra)s ]
+  id: %(hid)s
+  name: %(name)s %(cls)s exoskeleton helmet
+  description: "%(hdesc)s"
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: %(head)s/%(f)s_helmet_%(cls)s.rsi
+    state: icon
+  - type: Clothing
+    sprite: %(head)s/%(f)s_helmet_%(cls)s.rsi
+    equipSound: /Audio/Mecha/mechmove03.ogg
+    unequipSound: /Audio/Mecha/mechmove03.ogg
+    quickEquip: false
+    slots: [ HEAD ]
+  - type: BreathMask
+  - type: IngestionBlocker
+  - type: IdentityBlocker
+  - type: HideLayerClothing
+  - type: GroupExamine
+''' % d)
+    out.append('''  # Шлем защищает только голову (часть тела выбирают травмы), общей брони у него нет.
   - type: Armor
     modifiers:
       coefficients:
@@ -167,18 +275,33 @@ def gen(f):
   - type: DHIntegratedMask
   - type: SlotBlock
     slots: [ MASK ]
-''' % dict(F, f=f, outer=outer, helmet_class=HELMET_CLASS))
+''' % d)
+    ftl = ['ent-%s = %s экзоскелет %s\n    .desc = %s\n' % (d['eid'], E['ru'], F['ru'], EXO_DESC[exo][1] % F),
+           'ent-%s = шлем %s экзоскелета %s\n    .desc = %s\n' % (d['hid'], E['ru_n'], F['ru'], HELMET_DESC[exo][1])]
+    return ''.join(out), ftl
 
-    for part, slot_flag, state, pname in (('ArmLeft', 'ARMS', 'arm_left', 'left arm module'),
-                                          ('ArmRight', 'ARMS', 'arm_right', 'right arm module'),
-                                          ('LegLeft', 'LEGS', 'leg_left', 'left leg module'),
-                                          ('LegRight', 'LEGS', 'leg_right', 'right leg module')):
+
+def gen(f):
+    F = FACTIONS[f]
+    out = ['# DarkestHour: модульная броня %s (%s) — экзоскелеты и пластины. Сгенерировано\n'
+           '# Tools/_DarkestHour/modular_armor/gen_yaml.py — правьте генератор. Спрайты — exo_sprites.py.\n'
+           % (F['name'], F['who'])]
+    ftl = []
+    for exo in EXOS:
+        yml, lines = gen_exo(f, exo)
+        out.append(yml)
+        ftl += lines
+
+    for part, slot_flag, state, pname, ru_part in (('ArmLeft', 'ARMS', 'arm_left', 'left arm module', 'левой руки'),
+                                                   ('ArmRight', 'ARMS', 'arm_right', 'right arm module', 'правой руки'),
+                                                   ('LegLeft', 'LEGS', 'leg_left', 'left leg module', 'левой ноги'),
+                                                   ('LegRight', 'LEGS', 'leg_right', 'right leg module', 'правой ноги')):
         out.append('''
 - type: entity
   parent: BaseItem
   id: DHArmorCover%(Id)s%(part)s
   name: %(name)s %(pname)s
-  description: "A module of the worn %(name)s suit. It comes off together with the suit or when the module is taken out; examine for its protection."
+  description: "A plate of the worn %(name)s exoskeleton. It comes off together with the exoskeleton or when the plate is taken out; examine for its protection."
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
@@ -186,7 +309,10 @@ def gen(f):
     state: icon_%(state)s
   - type: Item
     size: Normal
-  # Сам модуль рисует корпус; здесь — только место в слоте инвентаря.
+  # Вес пластины считается в экзоскелете.
+  - type: DHWeight
+    weight: 0
+  # Саму пластину рисует экзоскелет; здесь — только место в слоте инвентаря.
   - type: Clothing
     slots: [ %(slot_flag)s ]
     clothingVisuals:
@@ -194,11 +320,14 @@ def gen(f):
   - type: Unremoveable
     deleteOnDrop: true
   - type: DHArmorLimbCover
-''' % dict(F, part=part, pname=pname, outer=outer, f=f, state=state, slot_flag=slot_flag,
+''' % dict(F, part=part, pname=pname, outer=OUTER, f=f, state=state, slot_flag=slot_flag,
            slot=part[0].lower() + part[1:]))
+        ftl.append('ent-DHArmorCover%s%s = пластина %s %s\n    .desc = Пластина надетого экзоскелета %s. Снимается '
+                   'вместе с экзоскелетом или когда пластину вынимают; осмотрите, чтобы увидеть её защиту.\n'
+                   % (F['Id'], part, ru_part, F['ru'], F['ru']))
 
-    for cls, (cname, speed, integrity) in CLASSES.items():
-        for slot, (enum, state, iname, mult) in SLOTS.items():
+    for cls, (cname, integrity, weight, ru_adj) in CLASSES.items():
+        for slot, (enum, state, iname, ru_name, gender, mult, wmult) in SLOTS.items():
             hp = int(integrity * mult)
             out.append('''
 - type: entity
@@ -212,22 +341,28 @@ def gen(f):
     state: icon_%(state)s
   - type: Item
     size: %(size)s
+  - type: DHWeight
+    weight: %(weight)s
   - type: DHArmorModule
     slot: %(enum)s
     class: %(cls)s
     faction: %(f)s
-    speed: %(speed)s
     maxIntegrity: %(hp)s
     integrity: %(hp)s
     equippedRsi: %(outer)s/%(f)s_%(cname)s.rsi
     equippedState: %(state)s
   - type: StaticPrice
     price: %(price)s
-''' % dict(F, mid=module_id(f, cls, slot), cname=cname, iname=iname, desc=CLASS_DESC[cls], outer=outer, f=f,
-                state=state, size='Large' if cls == 'Heavy' else 'Normal', enum=enum, cls=cls, speed=speed, hp=hp,
-                price={'Light': 300, 'Composite': 700, 'Heavy': 900}[cls]))
+''' % dict(F, mid=module_id(f, cls, slot), cname=cname, iname=iname, desc=q(CLASS_DESC[cls][0]), outer=OUTER, f=f,
+                state=state, size='Large' if cls == 'Heavy' else 'Normal', enum=enum, cls=cls, hp=hp,
+                weight=round(weight * wmult, 1), price={'Light': 300, 'Composite': 700, 'Heavy': 900}[cls]))
+            ftl.append('ent-%s = %s %s %s\n    .desc = %s\n' % (module_id(f, cls, slot), ru_adj[gender], ru_name,
+                                                              F['ru'], CLASS_DESC[cls][1]))
 
-    for preset, (torso, arms, legs, special) in PRESETS[f].items():
+    for preset, (exo, torso, arms, legs, special) in PRESETS[f].items():
+        for plate in {torso, arms, legs}:
+            assert plate in EXOS[exo]['plates'], (f, preset)
+        assert special is None or EXOS[exo]['special'], (f, preset)
         lines = [
             '      Torso: %s' % module_id(f, torso, 'Torso'),
             '      ArmLeft: %s' % module_id(f, arms, 'ArmLeft'),
@@ -239,7 +374,7 @@ def gen(f):
             lines.append('      Special: %s' % special)
         out.append('''
 - type: entity
-  parent: DHClothingOuterModular%(Id)s
+  parent: %(eid)s
   id: DHClothingOuterModular%(Id)s%(preset)s
   suffix: %(preset)s
   components:
@@ -252,15 +387,21 @@ def gen(f):
       LegRight: DHArmorCover%(Id)sLegRight
     startingModules:
 %(lines)s
-''' % dict(F, f=f, preset=preset, lines='\n'.join(lines)))
-    return ''.join(out)
+''' % dict(F, f=f, preset=preset, lines='\n'.join(lines), eid=exo_id(f, exo)))
+        ftl.append('ent-DHClothingOuterModular%s%s = { ent-%s }\n    .desc = { ent-%s.desc }\n'
+                   % (F['Id'], preset, exo_id(f, exo), exo_id(f, exo)))
+    return ''.join(out), ftl
 
 
 def main():
     os.makedirs(OUT, exist_ok=True)
+    os.makedirs(OUT_FTL, exist_ok=True)
     for f in FACTIONS:
+        yml, ftl = gen(f)
         with open(os.path.join(OUT, f + '.yml'), 'w', encoding='utf-8') as fh:
-            fh.write(gen(f).rstrip('\n') + '\n')
+            fh.write(yml.rstrip('\n') + '\n')
+        with open(os.path.join(OUT_FTL, f + '.ftl'), 'w', encoding='utf-8') as fh:
+            fh.write('\n'.join(sorted(ftl)))
 
 
 if __name__ == '__main__':

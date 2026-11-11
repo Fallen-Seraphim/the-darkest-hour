@@ -166,3 +166,18 @@
     state: nosignal
   name: dh-alert-no-signal-name
   description: dh-alert-no-signal-desc
+
+# Перегруз (вес снаряжения): 0 — тяжело, 1 — рывка нет, 2 — полный перегруз. DHEncumbranceSystem.
+- type: alert
+  id: DHLoad
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/load.rsi
+    state: load0
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/load.rsi
+    state: load1
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/load.rsi
+    state: load2
+  name: dh-alert-load-name
+  description: dh-alert-load-desc
+  minSeverity: 0
+  maxSeverity: 2

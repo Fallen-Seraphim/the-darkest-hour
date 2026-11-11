@@ -1,3 +1,4 @@
+using Content.Shared._DarkestHour.Weight;
 using Content.Shared.Movement.Systems;
 using Robust.Shared.GameStates;
 
@@ -52,7 +53,14 @@ public sealed partial class DHSprintExhaustionSystem : EntitySystem
 
     public bool IsSprinting(EntityUid uid)
     {
-        return TryComp<DHSprintComponent>(uid, out var sprint) && sprint.Held && !HasComp<DHSprintExhaustedComponent>(uid);
+        return TryComp<DHSprintComponent>(uid, out var sprint) && sprint.Held && !HasComp<DHSprintExhaustedComponent>(uid) &&
+               !Overloaded(uid);
+    }
+
+    /// <summary>Сильный перегруз: рывка нет (DHEncumbranceComponent).</summary>
+    public bool Overloaded(EntityUid uid)
+    {
+        return TryComp<DHEncumbranceComponent>(uid, out var load) && load.NoSprint;
     }
 
     private void OnExhaustedStartup(Entity<DHSprintExhaustedComponent> ent, ref ComponentStartup args)
@@ -68,7 +76,7 @@ public sealed partial class DHSprintExhaustionSystem : EntitySystem
     private void OnRefreshSpeed(Entity<DHSprintComponent> ent, ref RefreshMovementSpeedModifiersEvent args)
     {
         if (!ent.Comp.Held || TryComp<DHSprintExhaustedComponent>(ent, out var exhausted) &&
-            exhausted.LifeStage <= ComponentLifeStage.Running)
+            exhausted.LifeStage <= ComponentLifeStage.Running || Overloaded(ent))
         {
             return;
         }

@@ -44,6 +44,47 @@ public enum DHArmorSpecialKind : byte
     Storage,
 }
 
+[Serializable, NetSerializable]
+public enum DHExoClass : byte
+{
+    Light,
+    Medium,
+    Heavy,
+}
+
+/// <summary>
+/// Экзоскелет — основа модульной брони (решение автора 2026-11-11). Класс задаёт, какие пластины на него встают
+/// (лёгкий — композитные, средний — композитные и лёгкие, тяжёлый — тяжёлые), скорость носителя (вес пластин экзоскелет
+/// несёт сам: лёгкий слегка ускоряет, средний компенсирует ровно, тяжёлый замедляет), разгрузку (доля веса остального
+/// снаряжения, которая ложится на носителя) и силу удара в ближнем бою. У лёгкого нет спецсистемы и он не герметичен.
+/// </summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class DHExoskeletonComponent : Component
+{
+    [DataField]
+    public DHExoClass Class = DHExoClass.Medium;
+
+    /// <summary>Классы пластин, которые встают на этот экзоскелет.</summary>
+    [DataField]
+    public List<DHArmorClass> Plates = new() { DHArmorClass.Composite, DHArmorClass.Light };
+
+    /// <summary>Множитель скорости носителя (пластины уже учтены).</summary>
+    [DataField]
+    public float Speed = 1f;
+
+    /// <summary>Доля веса остального снаряжения, которая ложится на носителя.</summary>
+    [DataField]
+    public float LoadFactor = 0.7f;
+
+    /// <summary>Множитель урона в ближнем бою.</summary>
+    [DataField]
+    public float MeleeMultiplier = 1.25f;
+
+    /// <summary>Есть ли слот спецсистемы.</summary>
+    [DataField]
+    public bool Special = true;
+}
+
 /// <summary>Корпус модульной брони.</summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class DHModularArmorComponent : Component
