@@ -177,6 +177,9 @@
   suffix: DH, элементы
   components:
   - type: ReagentDispenser
+  # лаборатории DH стоят там, где нет электросети (город, крыло авианосца, база): питание не нужно
+  - type: ApcPowerReceiver
+    needsPower: false
   - type: EntityTableContainerFill
     containers:
       storagebase: !type:AllSelector
@@ -280,3 +283,28 @@
   cost: 2000
   category: cargoproduct-category-name-medical
   group: market
+
+# Остальное оборудование лабораторий DH — без сети питания (как раздатчик выше).
+- type: entity
+  id: DHChemMaster
+  parent: ChemMaster
+  suffix: DH, без питания
+  components:
+  - type: ApcPowerReceiver
+    needsPower: false
+
+- type: entity
+  id: DHElectrolysisUnit
+  parent: MachineElectrolysisUnit
+  suffix: DH, без питания
+  components:
+  - type: ApcPowerReceiver
+    needsPower: false
+
+- type: entity
+  id: DHChemistryHotplate
+  parent: ChemistryHotplate
+  suffix: DH, без питания
+  components:
+  - type: ApcPowerReceiver
+    needsPower: false

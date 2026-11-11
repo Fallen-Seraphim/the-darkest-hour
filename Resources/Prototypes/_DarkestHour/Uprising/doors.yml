@@ -170,3 +170,38 @@
   - type: ContainerFill
     containers:
       board: [ DHLADoorElectronicsPoliceArmory ]
+
+# Поликлиника «Ворот» (решение автора 2026-11-11): служебные помещения и кабинет главврача.
+- type: entity
+  parent: DoorElectronics
+  id: DHLADoorElectronicsClinic
+  suffix: Lost Angels, clinic
+  components:
+  - type: AccessReader
+    access: [["DHLAClinic"]]
+
+- type: entity
+  parent: AirlockMedicalGlass
+  id: DHLAAirlockClinicLocked
+  suffix: Lost Angels, clinic, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DHLADoorElectronicsClinic ]
+
+- type: entity
+  parent: DoorElectronics
+  id: DHLADoorElectronicsClinicHead
+  suffix: Lost Angels, head physician
+  components:
+  - type: AccessReader
+    access: [["DHLAClinicHead"]]
+
+- type: entity
+  parent: AirlockMedical
+  id: DHLAAirlockClinicHeadLocked
+  suffix: Lost Angels, head physician, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DHLADoorElectronicsClinicHead ]

@@ -77,3 +77,19 @@ ent-DHLADoorElectronicsPoliceArmory = { ent-DoorElectronics }
 ent-DHLAAirlockPoliceArmoryLocked = { ent-AirlockSecurity }
     .desc = { ent-AirlockSecurity.desc }
     .suffix = Лост-Энджелс, оружейная Военной Полиции, закрыт
+
+ent-DHLADoorElectronicsClinic = { ent-DoorElectronics }
+    .desc = { ent-DoorElectronics.desc }
+    .suffix = Лост-Энджелс, поликлиника
+
+ent-DHLAAirlockClinicLocked = { ent-AirlockMedicalGlass }
+    .desc = { ent-AirlockMedicalGlass.desc }
+    .suffix = Лост-Энджелс, поликлиника, закрыт
+
+ent-DHLADoorElectronicsClinicHead = { ent-DoorElectronics }
+    .desc = { ent-DoorElectronics.desc }
+    .suffix = Лост-Энджелс, главврач
+
+ent-DHLAAirlockClinicHeadLocked = { ent-AirlockMedical }
+    .desc = { ent-AirlockMedical.desc }
+    .suffix = Лост-Энджелс, главврач, закрыт

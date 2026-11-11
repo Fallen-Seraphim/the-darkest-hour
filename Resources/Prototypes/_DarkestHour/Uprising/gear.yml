@@ -462,3 +462,67 @@
     - DHMagazineFS2ERAS
     - ClothingMaskBandRed
     - DHIFAKFilled
+
+# ---------------------------------------------------------------- поликлиника «Ворот» (решение автора 2026-11-11)
+# Медицинская форма — сразу в снаряжении (лоадаутов одежды у поликлиники нет).
+
+- type: startingGear
+  parent: DHLACivilianGearBase
+  id: DHLAClinicHeadGear
+  equipment:
+    id: DHLAIDCardClinicHead
+    jumpsuit: ClothingUniformJumpsuitCMO
+    outerClothing: ClothingOuterCoatLabCmo
+    shoes: ClothingShoesColorWhite
+    neck: ClothingNeckStethoscope
+    back: ClothingBackpackSatchelMedical
+  storage:
+    back:
+    - HandheldHealthAnalyzer
+    - ClothingHandsGlovesLatex
+    - Pen
+
+- type: startingGear
+  parent: DHLACivilianGearBase
+  id: DHLAClinicDoctorGear
+  equipment:
+    id: DHLAIDCardClinicDoctor
+    jumpsuit: ClothingUniformJumpsuitMedicalDoctor
+    outerClothing: ClothingOuterCoatLab
+    shoes: ClothingShoesColorWhite
+    neck: ClothingNeckStethoscope
+    back: ClothingBackpackSatchelMedical
+  storage:
+    back:
+    - HandheldHealthAnalyzer
+    - ClothingHandsGlovesLatex
+    - ClothingMaskSterile
+
+- type: startingGear
+  parent: DHLACivilianGearBase
+  id: DHLAClinicNurseGear
+  equipment:
+    id: DHLAIDCardClinicNurse
+    jumpsuit: ClothingUniformJumpsuitParamedic
+    head: ClothingHeadNurseHat
+    shoes: ClothingShoesColorWhite
+    back: ClothingBackpackSatchelMedical
+  storage:
+    back:
+    - ClothingHandsGlovesLatex
+    - Syringe
+
+- type: startingGear
+  parent: DHLACivilianGearBase
+  id: DHLAClinicPharmacistGear
+  equipment:
+    id: DHLAIDCardClinicPharmacist
+    jumpsuit: ClothingUniformJumpsuitChemistry
+    outerClothing: ClothingOuterCoatLabChem
+    eyes: ClothingEyesGlassesChemical
+    shoes: ClothingShoesColorWhite
+    back: ClothingBackpackSatchelChemistry
+  storage:
+    back:
+    - ClothingHandsGlovesLatex
+    - ClothingMaskSterile

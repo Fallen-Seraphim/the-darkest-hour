@@ -19,6 +19,14 @@
   name: id-card-access-level-dhla-metro
 
 - type: accessLevel
+  id: DHLAClinic
+  name: id-card-access-level-dhla-clinic
+
+- type: accessLevel
+  id: DHLAClinicHead
+  name: id-card-access-level-dhla-clinic-head
+
+- type: accessLevel
   id: DHLAVanguard
   name: id-card-access-level-dhla-vanguard
 
@@ -91,6 +99,22 @@
   - DHLAMPWarden
   - DHLAMPOfficer
   - DHLAMPCadet
+
+- type: department
+  id: DHLAClinic
+  name: dh-department-dhla-clinic
+  description: dh-department-dhla-clinic-description
+  color: "#5aa9c8"
+  weight: 80
+  dhMode: dh-jobs-mode-uprising
+  dhModeOrder: 2
+  dhSide: dh-jobs-side-civilians
+  dhSideOrder: 2
+  roles:
+  - DHLAClinicHead
+  - DHLAClinicDoctor
+  - DHLAClinicNurse
+  - DHLAClinicPharmacist
 
 - type: department
   id: DHLAFront
@@ -446,6 +470,181 @@
     - state: green
     - sprite: Interface/Misc/job_icons.rsi
       state: Passenger
+
+- type: job
+  id: DHLAClinicHead
+  name: dh-job-la-clinic-head-name
+  description: dh-job-la-clinic-head-desc
+  playTimeTracker: JobDHLAClinicHead
+  startingGear: DHLAClinicHeadGear
+  icon: JobIconDHLAClinicHead
+  supervisors: dh-job-la-clinic-supervisors
+  access:
+  - DHLAClinic
+  - DHLAClinicHead
+  - Chemistry
+
+- type: playTimeTracker
+  id: JobDHLAClinicHead
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAClinicHead
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: ChiefMedicalOfficer
+  jobName: dh-job-la-clinic-head-name
+
+- type: entity
+  parent: DHLAPassportBase
+  id: DHLAIDCardClinicHead
+  suffix: Head physician
+  components:
+  - type: PresetIdCard
+    job: DHLAClinicHead
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAClinicHead
+  name: head physician
+  components:
+  - type: SpawnPoint
+    job_id: DHLAClinicHead
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: ChiefMedicalOfficer
+
+- type: job
+  id: DHLAClinicDoctor
+  name: dh-job-la-clinic-doctor-name
+  description: dh-job-la-clinic-doctor-desc
+  playTimeTracker: JobDHLAClinicDoctor
+  startingGear: DHLAClinicDoctorGear
+  icon: JobIconDHLAClinicDoctor
+  supervisors: dh-job-la-clinic-supervisors
+  access:
+  - DHLAClinic
+
+- type: playTimeTracker
+  id: JobDHLAClinicDoctor
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAClinicDoctor
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: MedicalDoctor
+  jobName: dh-job-la-clinic-doctor-name
+
+- type: entity
+  parent: DHLAPassportBase
+  id: DHLAIDCardClinicDoctor
+  suffix: Clinic doctor
+  components:
+  - type: PresetIdCard
+    job: DHLAClinicDoctor
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAClinicDoctor
+  name: clinic doctor
+  components:
+  - type: SpawnPoint
+    job_id: DHLAClinicDoctor
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: MedicalDoctor
+
+- type: job
+  id: DHLAClinicNurse
+  name: dh-job-la-clinic-nurse-name
+  description: dh-job-la-clinic-nurse-desc
+  playTimeTracker: JobDHLAClinicNurse
+  startingGear: DHLAClinicNurseGear
+  icon: JobIconDHLAClinicNurse
+  supervisors: dh-job-la-clinic-supervisors
+  access:
+  - DHLAClinic
+
+- type: playTimeTracker
+  id: JobDHLAClinicNurse
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAClinicNurse
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: MedicalIntern
+  jobName: dh-job-la-clinic-nurse-name
+
+- type: entity
+  parent: DHLAPassportBase
+  id: DHLAIDCardClinicNurse
+  suffix: Nurse
+  components:
+  - type: PresetIdCard
+    job: DHLAClinicNurse
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAClinicNurse
+  name: nurse
+  components:
+  - type: SpawnPoint
+    job_id: DHLAClinicNurse
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: MedicalIntern
+
+- type: job
+  id: DHLAClinicPharmacist
+  name: dh-job-la-clinic-pharmacist-name
+  description: dh-job-la-clinic-pharmacist-desc
+  playTimeTracker: JobDHLAClinicPharmacist
+  startingGear: DHLAClinicPharmacistGear
+  icon: JobIconDHLAClinicPharmacist
+  supervisors: dh-job-la-clinic-supervisors
+  access:
+  - DHLAClinic
+  - Chemistry
+
+- type: playTimeTracker
+  id: JobDHLAClinicPharmacist
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAClinicPharmacist
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: Chemist
+  jobName: dh-job-la-clinic-pharmacist-name
+
+- type: entity
+  parent: DHLAPassportBase
+  id: DHLAIDCardClinicPharmacist
+  suffix: Pharmacist-chemist
+  components:
+  - type: PresetIdCard
+    job: DHLAClinicPharmacist
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: SpawnPointDHLAClinicPharmacist
+  name: pharmacist-chemist
+  components:
+  - type: SpawnPoint
+    job_id: DHLAClinicPharmacist
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Interface/Misc/job_icons.rsi
+      state: Chemist
 
 - type: job
   id: DHLAVRepresentative

@@ -21,6 +21,9 @@ DEPTS = {
     'DHLAMilitaryPolice': ('#3f5f9e', 'Military Police', 'Военная Полиция',
                            'The Republican Military Police district station.',
                            'Районное отделение Военной Полиции Республики.'),
+    'DHLAClinic': ('#5aa9c8', 'Gates clinic', 'Поликлиника «Ворот»',
+                   'The district clinic on the 1st and 2nd floors of the second Gates tower.',
+                   'Районная поликлиника на 1-м и 2-м этажах второй башни «Ворот».'),
     'DHLAFront': ('#c8322b', 'Liberation Front of Free Colonies', 'Освободительный Фронт Свободных Колоний',
                   'LFFC cells hiding among the residents.',
                   'Ячейки ОФСК, скрывающиеся среди жителей.'),
@@ -60,6 +63,23 @@ JOBS = [
      'Resident', 'житель',
      'Live through another day in the district.',
      'Переживите ещё один день в квартале.', None),
+    # поликлиника «Ворот» (решение автора 2026-11-11): главврач, два врача, медсестра, фармацевт-химик
+    ('DHLAClinicHead', 'DHLAClinic', 'ChiefMedicalOfficer', 1, ['DHLAClinic', 'DHLAClinicHead', 'Chemistry'],
+     'Head physician', 'главный врач',
+     'Run the Gates clinic: treat the wounded of every side and keep the clinic stocked.',
+     'Руководите поликлиникой «Ворот»: лечите раненых любой стороны и следите, чтобы лекарств хватало.', None),
+    ('DHLAClinicDoctor', 'DHLAClinic', 'MedicalDoctor', 2, ['DHLAClinic'],
+     'Clinic doctor', 'врач поликлиники',
+     'Receive patients, treat wounds and operate.',
+     'Принимайте пациентов, лечите раны, оперируйте.', None),
+    ('DHLAClinicNurse', 'DHLAClinic', 'MedicalIntern', 1, ['DHLAClinic'],
+     'Nurse', 'медсестра',
+     'Meet patients at reception, give injections and drips, look after the ward.',
+     'Встречайте пациентов в приёмной, ставьте уколы и капельницы, следите за палатой.', None),
+    ('DHLAClinicPharmacist', 'DHLAClinic', 'Chemist', 1, ['DHLAClinic', 'Chemistry'],
+     'Pharmacist-chemist', 'фармацевт-химик',
+     'Make medicines in the clinic lab and keep the pharmacy stocked.',
+     'Делайте лекарства в лаборатории поликлиники и пополняйте аптеку.', None),
     # LA-V
     ('DHLAVRepresentative', 'DHLAVanguard', 'dh:lav_representative', 1, ['DHLAVanguard', 'DHLAVanguardOffice'],
      'Corporate representative', 'представитель корпорации',
@@ -128,7 +148,7 @@ JOBS = [
 ]
 
 DH_ICONS = '/Textures/_DarkestHour/Interface/uprising_job_icons.rsi'
-CARD_BASE = {'DHLACivilians': 'DHLAPassportBase', 'DHLAVanguard': 'DHLAVIDCardBase',
+CARD_BASE = {'DHLACivilians': 'DHLAPassportBase', 'DHLAClinic': 'DHLAPassportBase', 'DHLAVanguard': 'DHLAVIDCardBase',
              'DHLAMilitaryPolice': 'DHDogtags', 'DHLAFront': 'DHLAPassportBase'}
 LAV_CARD = {'DHLAVRepresentative': 'corporate_liaison', 'DHLAVAssistant': 'corporate_liaison',
             'DHLAVSecurity': 'pmc', 'DHLAVEmployee': 'silver'}
@@ -138,6 +158,8 @@ ACCESS = [
     ('DHLAFactory', 'Factory and warehouse', 'завод и склад'),
     ('DHLAUtility', 'Utilities', 'коммунальные службы'),
     ('DHLAMetro', 'Metro', 'метро'),
+    ('DHLAClinic', 'Gates clinic', 'поликлиника «Ворот»'),
+    ('DHLAClinicHead', 'Head physician', 'главный врач'),
     ('DHLAVanguard', 'LA-V basic', 'LA-V базовый'),
     ('DHLAVanguardOffice', 'LA-V command', 'LA-V командный'),
     ('DHLAPolice', 'Military Police', 'Военная Полиция'),
@@ -167,6 +189,7 @@ for aid, aen, aru in ACCESS:
 
 # вкладки окна персонажа: режим «Восстание», стороны (решение автора 2026-11-06)
 SIDES = {'DHLAMilitaryPolice': ('dh-jobs-side-military-police', 1), 'DHLACivilians': ('dh-jobs-side-civilians', 2),
+         'DHLAClinic': ('dh-jobs-side-civilians', 2),
          'DHLAVanguard': ('dh-jobs-side-corporates', 3), 'DHLAFront': ('dh-jobs-side-rebels', 4)}
 
 for dept, (color, den, dru, dden, ddru) in DEPTS.items():
@@ -249,6 +272,7 @@ for jid, dept, icon, slots, access, nen, nru, den, dru, card_as in JOBS:
     ru += ['%s-name = %s' % (k, nru), '%s-desc = %s' % (k, dru)]
 
 for dept, en_s, ru_s in [('DHLACivilians', 'the district head', 'глава района'),
+                         ('DHLAClinic', 'the head physician', 'главный врач'),
                          ('DHLAVanguard', 'the LA-V board of directors', 'совет директоров LA-V'),
                          ('DHLAMilitaryPolice', 'the Military Police command', 'командование Военной Полиции'),
                          ('DHLAFront', 'the squad leader', 'глава отряда')]:
@@ -265,7 +289,7 @@ rp = ROOT + '/Resources/Locale/ru-RU/ss14-ru/prototypes/_DarkestHour/Uprising/jo
 os.makedirs(os.path.dirname(rp), exist_ok=True)
 lines = []
 for jid, dept, icon, slots, access, nen, nru, den, dru, card_as in JOBS:
-    lines.append('ent-SpawnPoint%s = %s\n    .suffix = точка появления' % (jid, nru))
+    lines.append('ent-SpawnPoint%s = %s\n    .desc = { "" }\n    .suffix = точка появления' % (jid, nru))
     if card_as is None:
         base = CARD_BASE[dept]
         lines.append('ent-DHLAIDCard%s = { ent-%s }\n    .desc = { ent-%s.desc }\n    .suffix = %s' % (jid[4:], base, base, nru))
