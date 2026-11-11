@@ -37,9 +37,12 @@
     Bloodstream:
       metabolismRate: 0.2
       effects:
+      - !type:DHDrug
+        class: Opioid
       - !type:DHSuppressPain
         amount: 70
         duration: 4
+        toleranceClass: Opioid
       - !type:MovementSpeedModifier
         walkSpeedModifier: 0.9
         sprintSpeedModifier: 0.9

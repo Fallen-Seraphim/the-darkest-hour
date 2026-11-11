@@ -145,6 +145,13 @@
     Metabolites:
       metabolismRate: 0.05
       effects:
+      # DarkestHour: алкоголь — угнетающий дыхание класс; вместе с опиоидами/седативными опасен (DHPharmacologySystem).
+      - !type:DHDrug
+        class: Alcohol
+        conditions:
+        - !type:ReagentCondition
+          reagent: Ethanol
+          min: 10
       - !type:HealthChange
         conditions:
         - !type:ReagentCondition

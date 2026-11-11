@@ -1,3 +1,4 @@
+using Content.Shared._DarkestHour.Medical.Pharmacology;
 using Content.Shared.Body;
 using Content.Shared.EntityEffects;
 using Content.Shared.Movement.Systems;
@@ -60,6 +61,10 @@ public sealed partial class DHSuppressPainEntityEffectSystem : EntityEffectSyste
     protected override void Effect(Entity<DHTraumaComponent> entity, ref EntityEffectEvent<DHSuppressPain> args)
     {
         var amount = args.Effect.Amount * args.Scale;
+        // Привыкание: чем выше толерантность к классу препарата, тем слабее обезболивание.
+        if (args.Effect.ToleranceClass != null && TryComp<DHPharmacologyComponent>(entity, out var pharm))
+            amount *= 1f - pharm.ToleranceOf(args.Effect.ToleranceClass);
+
         var now = _timing.CurTime;
         if (now > entity.Comp.PainSuppressionUntil || amount > entity.Comp.PainSuppression)
             entity.Comp.PainSuppression = amount;
@@ -77,6 +82,10 @@ public sealed partial class DHSuppressPain : EntityEffectBase<DHSuppressPain>
 
     [DataField]
     public TimeSpan Duration = TimeSpan.FromSeconds(4);
+
+    /// <summary>Класс препарата, к которому вырабатывается привыкание (ослабляет обезболивание).</summary>
+    [DataField]
+    public ProtoId<DHDrugClassPrototype>? ToleranceClass;
 
     public override string EntityEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
         Loc.GetString("dh-entity-effect-guidebook-suppress-pain", ("chance", Probability), ("amount", Amount));
