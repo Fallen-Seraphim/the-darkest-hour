@@ -12,7 +12,7 @@ namespace Content.Client._DarkestHour.Characters;
 /// рост, вес, телосложение, место рождения (список зависит от года рождения = 2318 − возраст) и «документы» —
 /// биография, медицинская карта, судимости.
 /// </summary>
-public sealed class DHCharacterDetailsTab : BoxContainer
+public sealed partial class DHCharacterDetailsTab : BoxContainer
 {
     [Dependency] private IPrototypeManager _proto = default!;
 
@@ -172,7 +172,7 @@ public sealed class DHCharacterDetailsTab : BoxContainer
         _birthplace.AddItem(Loc.GetString("dh-details-birthplace-none"), 0);
         _birthplaceIds.Add(null);
 
-        string? group = null;
+        LocId? group = null;
         foreach (var place in _proto.EnumeratePrototypes<DHBirthplacePrototype>().OrderBy(p => p.Order))
         {
             if (!place.AvailableIn(year))

@@ -14,7 +14,7 @@ namespace Content.Client._DarkestHour.UI;
 /// строки развёртки (<c>dh.ui_scanlines</c>), надписи окон — моноширинным IBM Plex Mono (<c>dh.ui_mono_windows</c>).
 /// Телефон остаётся «гражданским» — его не трогаем. Работает и в лобби, и в игре.
 /// </summary>
-public sealed class DHWindowStyleUIController : UIController
+public sealed partial class DHWindowStyleUIController : UIController
 {
     [Dependency] private IConfigurationManager _cfg = default!;
 
@@ -67,7 +67,7 @@ public sealed class DHWindowStyleUIController : UIController
 }
 
 /// <summary>Строки развёртки поверх окна: тёмная полоса каждые 3 пикселя; мышь проходит насквозь.</summary>
-public sealed class DHScanlines : Control
+public sealed partial class DHScanlines : Control
 {
     private static readonly Color Line = Color.Black.WithAlpha(0.13f);
 
