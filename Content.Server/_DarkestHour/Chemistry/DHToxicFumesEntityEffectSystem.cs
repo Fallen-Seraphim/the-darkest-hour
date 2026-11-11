@@ -29,7 +29,7 @@ public sealed partial class DHToxicFumesEntityEffectSystem : EntityEffectSystem<
     protected override void Effect(Entity<SolutionComponent> entity, ref EntityEffectEvent<DHToxicFumes> args)
     {
         var effect = args.Effect;
-        if (args.Scale < effect.MinScale)
+        if (args.Scale < effect.MinReacted)
             return;
 
         var xform = Transform(entity);
