@@ -31,6 +31,10 @@ public sealed partial class ServerGameTicker
             _lobbyBackgrounds.Add(new ProtoId<LobbyBackgroundPrototype>(proto.ID));
         }
 
+        // DarkestHour: если есть свои фоны (id на «DH») — только они (ночной Лост-Энджелс, решение автора 2026-11-11).
+        if (_lobbyBackgrounds.Any(b => b.Id.StartsWith("DH")))
+            _lobbyBackgrounds.RemoveAll(b => !b.Id.StartsWith("DH"));
+
         RandomizeLobbyBackground();
     }
 
