@@ -89,18 +89,6 @@
     PolytrinicAcid: 3
 
 - type: reaction
-  id: SulfuricAcid
-  reactants:
-    Hydrogen:
-      amount: 1
-    Sulfur:
-      amount: 1
-    Oxygen:
-      amount: 2
-  products:
-    SulfuricAcid: 3
-
-- type: reaction
   id: FluorosulfuricAcid
   reactants:
     Fluorine:
@@ -548,19 +536,6 @@
       amount: 1
   products:
     Lye: 2
-
-- type: reaction
-  id: PhosphoricAcid
-  minTemp: 373.15
-  reactants:
-    Phosphorus:
-      amount: 2
-    Oxygen:
-      amount: 5
-    Water:
-      amount: 3
-  products:
-    PhosphoricAcid: 10
 
 - type: reaction
   id: Nyctalon

@@ -1,0 +1,377 @@
+# DarkestHour: реакции этапа 4 (claude/chemistry-rework.md). Цепочки по учебнику: контактный способ (серная
+# кислота), способ Оствальда (азотная), фосфорная кислота через P₄O₁₀, хлор-щелочной электролиз, оксиды, органика.
+# Условия — температура (К), катализаторы (не расходуются), электролиз. Опасности — едкие кислоты (Touch),
+# ядовитые облака (DHToxicFumes), нагрев. Ванильные прямые рецепты серной и ортофосфорной кислот убраны.
+
+# Сера горит: сернистый газ. Часть уходит удушливым облаком — работайте под вытяжкой или в маске.
+- type: reaction
+  id: DHSulfurDioxide
+  impact: Medium
+  minTemp: 500
+  reactants:
+    Sulfur:
+      amount: 1
+    Oxygen:
+      amount: 2
+  products:
+    DHSulfurDioxide: 2
+  effects:
+  - !type:DHToxicFumes
+    reagent: DHSulfurDioxide
+    ratio: 0.25
+
+# Окисление на катализаторе (оксид железа, как в первых контактных установках).
+- type: reaction
+  id: DHSulfurTrioxide
+  minTemp: 650
+  reactants:
+    DHSulfurDioxide:
+      amount: 2
+    Oxygen:
+      amount: 1
+    DHIronOxide:
+      amount: 1
+      catalyst: true
+  products:
+    DHSulfurTrioxide: 2
+
+# Серный ангидрид с водой — серная кислота, с сильным нагревом.
+- type: reaction
+  id: DHSulfuricAcid
+  reactants:
+    DHSulfurTrioxide:
+      amount: 1
+    Water:
+      amount: 1
+  products:
+    SulfuricAcid: 2
+  effects:
+  - !type:AdjustSolutionThermalEnergy
+    delta: 40
+
+# Окисление аммиака на серебряном катализаторе.
+- type: reaction
+  id: DHNitricOxide
+  minTemp: 600
+  reactants:
+    Ammonia:
+      amount: 1
+    Oxygen:
+      amount: 2
+    Silver:
+      amount: 1
+      catalyst: true
+  products:
+    DHNitricOxide: 1
+    Water: 1
+
+# NO на воздухе — бурый ядовитый NO₂.
+- type: reaction
+  id: DHNitrogenDioxide
+  impact: Medium
+  reactants:
+    DHNitricOxide:
+      amount: 1
+    Oxygen:
+      amount: 1
+  products:
+    DHNitrogenDioxide: 1
+  effects:
+  - !type:DHToxicFumes
+    reagent: DHNitrogenDioxide
+    ratio: 0.3
+
+# 3NO₂ + H₂O → 2HNO₃ + NO: оксид азота(II) снова идёт в дело.
+- type: reaction
+  id: DHNitricAcid
+  reactants:
+    DHNitrogenDioxide:
+      amount: 3
+    Water:
+      amount: 1
+  products:
+    DHNitricAcid: 2
+    DHNitricOxide: 1
+
+# Фосфор вспыхивает от лёгкого нагрева.
+- type: reaction
+  id: DHPhosphorusPentoxide
+  minTemp: 320
+  reactants:
+    Phosphorus:
+      amount: 2
+    Oxygen:
+      amount: 5
+  products:
+    DHPhosphorusPentoxide: 2
+
+- type: reaction
+  id: DHPhosphoricAcid
+  reactants:
+    DHPhosphorusPentoxide:
+      amount: 1
+    Water:
+      amount: 3
+  products:
+    PhosphoricAcid: 2
+  effects:
+  - !type:AdjustSolutionThermalEnergy
+    delta: 30
+
+# Лабораторный способ: соль и серная кислота при нагреве.
+- type: reaction
+  id: DHHydrogenChloride
+  impact: Medium
+  minTemp: 330
+  reactants:
+    TableSalt:
+      amount: 2
+    SulfuricAcid:
+      amount: 1
+  products:
+    DHHydrogenChloride: 2
+  effects:
+  - !type:DHToxicFumes
+    reagent: DHHydrogenChloride
+    ratio: 0.2
+
+- type: reaction
+  id: DHHydrochloricAcid
+  reactants:
+    DHHydrogenChloride:
+      amount: 1
+    Water:
+      amount: 1
+  products:
+    DHHydrochloricAcid: 2
+
+- type: reaction
+  id: DHPotassiumChloride
+  reactants:
+    Potassium:
+      amount: 1
+    Chlorine:
+      amount: 1
+  products:
+    DHPotassiumChloride: 2
+  effects:
+  - !type:AdjustSolutionThermalEnergy
+    delta: 20
+
+# Электролиз раствора соли: щёлочь, хлор и водород (хлор-щелочной способ).
+- type: reaction
+  id: DHChlorAlkaliSodium
+  priority: 1
+  requiredMixerCategories:
+  - Electrolysis
+  reactants:
+    TableSalt:
+      amount: 2
+    Water:
+      amount: 2
+  products:
+    SodiumHydroxide: 2
+    Chlorine: 1
+    Hydrogen: 1
+
+- type: reaction
+  id: DHChlorAlkaliPotassium
+  requiredMixerCategories:
+  - Electrolysis
+  reactants:
+    DHPotassiumChloride:
+      amount: 2
+    Water:
+      amount: 2
+  products:
+    DHPotassiumHydroxide: 2
+    Chlorine: 1
+    Hydrogen: 1
+
+- type: reaction
+  id: DHCopperSulfate
+  reactants:
+    DHCopperOxide:
+      amount: 1
+    SulfuricAcid:
+      amount: 1
+  products:
+    DHCopperSulfate: 1
+    Water: 1
+
+- type: reaction
+  id: DHIronSulfate
+  reactants:
+    Iron:
+      amount: 1
+    SulfuricAcid:
+      amount: 1
+  products:
+    DHIronSulfate: 1
+    Hydrogen: 1
+
+# Приоритет ниже гистамина: там ортофосфорная кислота — катализатор.
+- type: reaction
+  id: DHAmmoniumPhosphate
+  priority: -1
+  reactants:
+    Ammonia:
+      amount: 1
+    PhosphoricAcid:
+      amount: 1
+  products:
+    DHAmmoniumPhosphate: 2
+  effects:
+  - !type:AdjustSolutionThermalEnergy
+    delta: 15
+
+- type: reaction
+  id: DHIronOxide
+  minTemp: 500
+  reactants:
+    Iron:
+      amount: 2
+    Oxygen:
+      amount: 3
+  products:
+    DHIronOxide: 2
+
+- type: reaction
+  id: DHCopperOxide
+  minTemp: 500
+  reactants:
+    Copper:
+      amount: 1
+    Oxygen:
+      amount: 1
+  products:
+    DHCopperOxide: 1
+
+- type: reaction
+  id: DHZincOxide
+  minTemp: 500
+  reactants:
+    Zinc:
+      amount: 1
+    Oxygen:
+      amount: 1
+  products:
+    DHZincOxide: 1
+
+- type: reaction
+  id: DHSiliconDioxide
+  minTemp: 700
+  reactants:
+    Silicon:
+      amount: 1
+    Oxygen:
+      amount: 2
+  products:
+    DHSiliconDioxide: 1
+
+# Углерод сгорает в углекислый газ.
+- type: reaction
+  id: DHCarbonDioxide
+  minTemp: 700
+  reactants:
+    Carbon:
+      amount: 1
+    Oxygen:
+      amount: 2
+  products:
+    CarbonDioxide: 1
+
+# Метанол из CO₂ и водорода на медно-цинковом катализаторе.
+- type: reaction
+  id: DHMethanol
+  minTemp: 500
+  reactants:
+    CarbonDioxide:
+      amount: 1
+    Hydrogen:
+      amount: 3
+    DHZincOxide:
+      amount: 1
+      catalyst: true
+    Copper:
+      amount: 1
+      catalyst: true
+  products:
+    DHMethanol: 1
+    Water: 1
+
+- type: reaction
+  id: DHFormaldehyde
+  impact: Medium
+  minTemp: 600
+  reactants:
+    DHMethanol:
+      amount: 2
+    Oxygen:
+      amount: 1
+    Silver:
+      amount: 1
+      catalyst: true
+  products:
+    DHFormaldehyde: 2
+    Water: 1
+  effects:
+  - !type:DHToxicFumes
+    reagent: DHFormaldehyde
+    ratio: 0.15
+
+# Карбонилирование метанола на иодном катализаторе (уксус из спирта — слабый, ванильный Vinegar).
+- type: reaction
+  id: DHAceticAcid
+  minTemp: 450
+  reactants:
+    DHMethanol:
+      amount: 1
+    Carbon:
+      amount: 1
+    Oxygen:
+      amount: 1
+    Iodine:
+      amount: 1
+      catalyst: true
+  products:
+    DHAceticAcid: 2
+
+- type: reaction
+  id: DHToluene
+  minTemp: 400
+  reactants:
+    Benzene:
+      amount: 1
+    DHMethanol:
+      amount: 1
+    Aluminium:
+      amount: 1
+      catalyst: true
+  products:
+    DHToluene: 1
+    Water: 1
+
+# Омыление жира щёлочью: глицерин.
+- type: reaction
+  id: DHGlycerol
+  minTemp: 330
+  reactants:
+    Oil:
+      amount: 3
+    SodiumHydroxide:
+      amount: 1
+  products:
+    DHGlycerol: 1
+
+- type: reaction
+  id: DHUrea
+  minTemp: 450
+  reactants:
+    Ammonia:
+      amount: 2
+    CarbonDioxide:
+      amount: 1
+  products:
+    DHUrea: 1
+    Water: 1

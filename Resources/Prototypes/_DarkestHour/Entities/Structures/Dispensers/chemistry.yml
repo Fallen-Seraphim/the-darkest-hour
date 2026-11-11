@@ -1,0 +1,282 @@
+# DarkestHour: химия этапа 4 — раздатчик химика DH, кувшины, ящики для заказа в карго.
+
+- type: entity
+  parent: Jug
+  suffix: zinc
+  id: DHJugZinc
+  components:
+  - type: Label
+    localizedLabel: reagent-name-zinc
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Zinc
+        Quantity: 240
+
+- type: entity
+  parent: Jug
+  suffix: table salt
+  id: DHJugTableSalt
+  components:
+  - type: Label
+    localizedLabel: reagent-name-table-salt
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: TableSalt
+        Quantity: 240
+
+- type: entity
+  parent: Jug
+  suffix: oil
+  id: DHJugOil
+  components:
+  - type: Label
+    localizedLabel: reagent-name-oil
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Oil
+        Quantity: 240
+
+- type: entity
+  parent: Jug
+  suffix: sulfuric acid
+  id: DHJugSulfuricAcid
+  components:
+  - type: Label
+    localizedLabel: reagent-name-sulfuric-acid
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: SulfuricAcid
+        Quantity: 240
+
+- type: entity
+  parent: Jug
+  suffix: nitric acid
+  id: DHJugNitricAcid
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-nitricacid
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHNitricAcid
+        Quantity: 240
+
+- type: entity
+  parent: Jug
+  suffix: hydrochloric acid
+  id: DHJugHydrochloricAcid
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-hydrochloricacid
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHHydrochloricAcid
+        Quantity: 240
+
+- type: entity
+  parent: Jug
+  suffix: phosphoric acid
+  id: DHJugPhosphoricAcid
+  components:
+  - type: Label
+    localizedLabel: reagent-name-phosphoric-acid
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: PhosphoricAcid
+        Quantity: 240
+
+- type: entity
+  parent: Jug
+  suffix: sodium hydroxide
+  id: DHJugSodiumHydroxide
+  components:
+  - type: Label
+    localizedLabel: reagent-name-sodium-hydroxide
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: SodiumHydroxide
+        Quantity: 240
+
+- type: entity
+  parent: Jug
+  suffix: ammonia
+  id: DHJugAmmonia
+  components:
+  - type: Label
+    localizedLabel: reagent-name-ammonia
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Ammonia
+        Quantity: 240
+
+- type: entity
+  parent: Jug
+  suffix: acetone
+  id: DHJugAcetone
+  components:
+  - type: Label
+    localizedLabel: reagent-name-acetone
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Acetone
+        Quantity: 240
+
+- type: entity
+  parent: Jug
+  suffix: methanol
+  id: DHJugMethanol
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-methanol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHMethanol
+        Quantity: 240
+
+- type: entity
+  parent: Jug
+  suffix: benzene
+  id: DHJugBenzene
+  components:
+  - type: Label
+    localizedLabel: reagent-name-benzene
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Benzene
+        Quantity: 240
+
+- type: entity
+  parent: Jug
+  suffix: phenol
+  id: DHJugPhenol
+  components:
+  - type: Label
+    localizedLabel: reagent-name-phenol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Phenol
+        Quantity: 240
+
+# Раздатчик химика: только элементы и базовые вещества (вода, спирт, сахар, соль, масло). Кислоты, щёлочи и
+# органику синтезируют сами или заказывают ящиками в карго.
+- type: entity
+  id: DHChemDispenser
+  parent: ChemDispenserEmpty
+  suffix: DH, элементы
+  components:
+  - type: ReagentDispenser
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: JugAluminium
+        - id: JugCarbon
+        - id: JugChlorine
+        - id: JugCopper
+        - id: JugFluorine
+        - id: JugHydrogen
+        - id: JugIodine
+        - id: JugIron
+        - id: JugLithium
+        - id: JugMercury
+        - id: JugNitrogen
+        - id: JugOxygen
+        - id: JugPhosphorus
+        - id: JugPotassium
+        - id: JugSilicon
+        - id: JugSilver
+        - id: JugSodium
+        - id: JugSulfur
+        - id: DHJugZinc
+        - id: JugWater
+        - id: JugEthanol
+        - id: JugSugar
+        - id: DHJugTableSalt
+        - id: DHJugOil
+
+- type: entity
+  parent: CrateChemistrySecure
+  id: DHCrateChemistryAcids
+  name: chemicals crate (acids)
+  description: Jugs of acids for the chemistry lab. Requires Chemistry access to open.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:AllSelector
+        children:
+        - id: DHJugSulfuricAcid
+        - id: DHJugNitricAcid
+        - id: DHJugHydrochloricAcid
+        - id: DHJugPhosphoricAcid
+
+- type: cargoProduct
+  id: DHChemistryAcids
+  icon:
+    sprite: Objects/Specific/Chemistry/jug.rsi
+    state: icon_empty
+  product: DHCrateChemistryAcids
+  cost: 2000
+  category: cargoproduct-category-name-medical
+  group: market
+
+- type: entity
+  parent: CrateChemistrySecure
+  id: DHCrateChemistryBases
+  name: chemicals crate (bases and salts)
+  description: Jugs of bases and salts for the chemistry lab. Requires Chemistry access to open.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:AllSelector
+        children:
+        - id: DHJugSodiumHydroxide
+        - id: DHJugAmmonia
+        - id: DHJugTableSalt
+        - id: DHJugZinc
+
+- type: cargoProduct
+  id: DHChemistryBases
+  icon:
+    sprite: Objects/Specific/Chemistry/jug.rsi
+    state: icon_empty
+  product: DHCrateChemistryBases
+  cost: 1500
+  category: cargoproduct-category-name-medical
+  group: market
+
+- type: entity
+  parent: CrateChemistrySecure
+  id: DHCrateChemistryOrganics
+  name: chemicals crate (organics)
+  description: Jugs of organics for the chemistry lab. Requires Chemistry access to open.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:AllSelector
+        children:
+        - id: DHJugAcetone
+        - id: DHJugMethanol
+        - id: DHJugBenzene
+        - id: DHJugPhenol
+
+- type: cargoProduct
+  id: DHChemistryOrganics
+  icon:
+    sprite: Objects/Specific/Chemistry/jug.rsi
+    state: icon_empty
+  product: DHCrateChemistryOrganics
+  cost: 2000
+  category: cargoproduct-category-name-medical
+  group: market
