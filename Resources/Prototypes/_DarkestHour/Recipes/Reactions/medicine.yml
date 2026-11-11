@@ -145,17 +145,17 @@
   products:
     DHNeuroblocker: 2
 
-# ── Этап 3 переработки медицины: рецепты новых лекарств (временные; на этапе 4 — через промежуточные вещества:
-# кислоты, оксиды, органику). Реальные синтезы наркотических средств намеренно не воспроизводятся.
+# ── Этап 3–4 переработки медицины: рецепты лекарств через промежуточные вещества (кислоты, оксиды, органику —
+# Reactions/chemistry.yml). Реальные синтезы наркотических средств намеренно не воспроизводятся.
 
 - type: reaction
   id: DHKetorolac
   reactants:
     Phenol:
       amount: 1
-    Ammonia:
+    DHAceticAcid:
       amount: 1
-    Oxygen:
+    Ammonia:
       amount: 1
   products:
     DHKetorolac: 3
@@ -165,7 +165,7 @@
   reactants:
     DHMorphine:
       amount: 1
-    Phenol:
+    DHMethanol:
       amount: 1
     Ammonia:
       amount: 1
@@ -178,9 +178,9 @@
   reactants:
     DHMorphine:
       amount: 2
-    Acetone:
+    DHAceticAcid:
       amount: 1
-    Chlorine:
+    DHHydrochloricAcid:
       amount: 1
   products:
     DHFentanyl: 1
@@ -188,13 +188,13 @@
 - type: reaction
   id: DHKetamine
   reactants:
-    Chlorine:
+    DHHydrochloricAcid:
       amount: 1
-    Acetone:
+    DHToluene:
+      amount: 1
+    DHMethanol:
       amount: 1
     Ammonia:
-      amount: 1
-    Carbon:
       amount: 1
   products:
     DHKetamine: 3
@@ -216,7 +216,7 @@
   reactants:
     Saline:
       amount: 2
-    Potassium:
+    DHPotassiumChloride:
       amount: 1
   products:
     DHRinger: 3
@@ -229,13 +229,15 @@
       amount: 2
     Sugar:
       amount: 1
-    Hydroxide:
+    SodiumHydroxide:
       amount: 1
   products:
     DHColloid: 4
 
+# Альбумин осаждают из крови холодным спиртом — смесь нужно охладить.
 - type: reaction
   id: DHAlbumin
+  maxTemp: 280
   reactants:
     Blood:
       amount: 2
@@ -251,7 +253,7 @@
   reactants:
     Epinephrine:
       amount: 1
-    Ammonia:
+    DHHydrochloricAcid:
       amount: 1
   products:
     DHNorepinephrine: 2
@@ -259,15 +261,16 @@
 - type: reaction
   id: DHAtropine
   reactants:
-    Nitrogen:
+    DHToluene:
       amount: 1
-    Phenol:
+    Ammonia:
       amount: 1
-    Ethanol:
+    DHAceticAcid:
       amount: 1
   products:
     DHAtropine: 3
 
+# Пропофол вводят в жировой эмульсии.
 - type: reaction
   id: DHPropofol
   reactants:
@@ -283,16 +286,14 @@
 - type: reaction
   id: DHMidazolam
   reactants:
-    Phenol:
+    Benzene:
       amount: 1
-    Chlorine:
+    DHHydrochloricAcid:
       amount: 1
     Ammonia:
       amount: 1
-    Carbon:
-      amount: 1
   products:
-    DHMidazolam: 4
+    DHMidazolam: 3
 
 - type: reaction
   id: DHNaloxone
@@ -301,7 +302,7 @@
       amount: 1
     Oxygen:
       amount: 1
-    Hydroxide:
+    SodiumHydroxide:
       amount: 1
   products:
     DHNaloxone: 2
@@ -325,19 +326,17 @@
       amount: 1
     Sugar:
       amount: 1
-    Oxygen:
-      amount: 1
-    Carbon:
+    DHAceticAcid:
       amount: 1
   products:
-    DHDexamethasone: 4
+    DHDexamethasone: 3
 
 - type: reaction
   id: DHPrussianBlue
   reactants:
-    Iron:
+    DHIronSulfate:
       amount: 1
-    Potassium:
+    DHPotassiumChloride:
       amount: 1
     Carbon:
       amount: 1
