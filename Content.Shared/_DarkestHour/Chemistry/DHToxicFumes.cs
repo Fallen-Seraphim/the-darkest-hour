@@ -24,7 +24,7 @@ public sealed partial class DHToxicFumes : EntityEffectBase<DHToxicFumes>
 
     /// <summary>Облако появляется, только если прореагировало не меньше этого.</summary>
     [DataField]
-    public float MinScale = 2f;
+    public float MinReacted = 2f;
 
     [DataField]
     public float Duration = 8f;
