@@ -46,7 +46,7 @@ dh-surgery-excise-chronite = Excise chronite skin
 dh-surgery-excise-chronite-desc = Cut away the skin crystallised by chronite and cover it with a graft. Removes a large part of the chronite from the body. Impossible at the last stage.
 
 reagent-name-dh-chronosorb = chronosorb
-reagent-desc-dh-chronosorb = Binds chronite in the body and flushes it out. Toxic on its own: give it together with dylovene. Useless once chronite disease reaches its last stage.
+reagent-desc-dh-chronosorb = Binds chronite in the body and flushes it out. Toxic on its own: give it together with activated charcoal. Useless once chronite disease reaches its last stage.
 
 ## Экспериментальное лечение хронитовой болезни
 reagent-name-dh-chronolysin = chronolysin

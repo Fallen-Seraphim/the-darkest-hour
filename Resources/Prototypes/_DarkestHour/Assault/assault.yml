@@ -109,7 +109,7 @@
   storage:
     back:
     - DHPainkillerAutoinjector
-    - CombatMedipen
+    - DHMedipenOmnireazin
     - Handcuffs
     - Handcuffs
     - DHIFAKFilled
@@ -125,7 +125,7 @@
   storage:
     back:
     - DHPainkillerAutoinjector
-    - CombatMedipen
+    - DHMedipenOmnireazin
     - Handcuffs
     - Handcuffs
     - DHIFAKFilled
@@ -141,7 +141,7 @@
   storage:
     back:
     - DHPainkillerAutoinjector
-    - CombatMedipen
+    - DHMedipenOmnireazin
     - Handcuffs
     - Handcuffs
     - DHIFAKFilled

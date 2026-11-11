@@ -37,11 +37,11 @@
           state: firstaid
     - type: RandomSpawner
       rarePrototypes:
-        - PillCanisterDermaline
-        - PillCanisterDylovene
-        - PillCanisterBicaridine
-        - PillCanisterKelotane
-        - PillCanisterDexalin
+        - DHPillCanisterDexamethasone
+        - PillCanisterCharcoal
+        - DHPillCanisterTramadol
+        - DHPillCanisterDexamethasone
+        - PillCanisterIron
         - HandheldHealthAnalyzer
         - ClothingHandsGlovesLatex
       rareChance: 0.1
@@ -55,9 +55,9 @@
         - Gauze
         - EmergencyMedipen
         - ChemistryBottleEpinephrine
-        - PillCanisterTricordrazine
+        - DHPillCanisterKetorolac
         - PillCanisterCharcoal
-        - PillCanisterHyronalin
+        - DHPillCanisterPrussianBlue
         - PillCanisterIron
         - DHBloodPackFull
         - MedkitFilled

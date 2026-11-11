@@ -817,11 +817,11 @@
     containers:
       storagebase: !type:GroupSelector
         children:
-        - id: PillDexalin
+        - id: PillIron
           amount: 1, 6
-        - id: PillDylovene
+        - id: PillCharcoal
           amount: 1, 6
-        - id: PillHyronalin
+        - id: DHPillPrussianBlue
           amount: 1, 6
         - id: PillPotassiumIodide
           amount: 1, 6
@@ -829,13 +829,13 @@
           amount: 1, 6
         - id: PillCopper
           amount: 1, 6
-        - id: PillKelotane
+        - id: DHPillDexamethasone
           amount: 1, 6
-        - id: PillDermaline
+        - id: DHPillDexamethasone
           amount: 1, 6
-        - id: PillTricordrazine
+        - id: DHPillKetorolac
           amount: 1, 6
-        - id: PillBicaridine
+        - id: DHPillTramadol
           amount: 1, 6
         - id: PillCharcoal
           amount: 1, 6
@@ -1048,31 +1048,31 @@
   id: RandomSafePillTable
   table: !type:GroupSelector
     children:
-    - id: PillBicaridine
+    - id: DHPillTramadol
     - id: PillCharcoal
     - id: PillCopper
-    - id: PillDermaline
-    - id: PillDexalin
-    - id: PillDylovene
-    - id: PillHyronalin
+    - id: DHPillDexamethasone
     - id: PillIron
-    - id: PillKelotane
+    - id: PillCharcoal
+    - id: DHPillPrussianBlue
+    - id: PillIron
+    - id: DHPillDexamethasone
     - id: PillPotassiumIodide
-    - id: PillTricordrazine
+    - id: DHPillKetorolac
     - id: StrangePill
 
 - type: entityTable
   id: RandomSafeSyringeTable
   table: !type:GroupSelector
     children:
-    - id: SyringeBicaridine
-    - id: SyringeDermaline
+    - id: DHSyringeTramadol
+    - id: DHSyringeDexamethasone
     - id: SyringeEphedrine
-    - id: SyringeEthylredoxrazine
-    - id: SyringeHyronalin
-    - id: SyringeInaprovaline
+    - id: DHSyringeNaloxone
+    - id: DHSyringePrussianBlue
+    - id: DHSyringeNorepinephrine
     - id: SyringeIpecac
-    - id: SyringePhalanximine
+    - id: DHSyringePrussianBlue
     - id: SyringeSaline
-    - id: SyringeSigynate
+    - id: DHSyringeDexamethasone
     - id: SyringeTranexamicAcid

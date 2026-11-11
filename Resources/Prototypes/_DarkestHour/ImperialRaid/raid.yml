@@ -269,7 +269,7 @@
     back:
     - DHPainkillerAutoinjector
     - PinpointerSyndicateNuclear
-    - CombatMedipen
+    - DHMedipenOmnireazin
     - DHIFAKFilled
 
 - type: startingGear
@@ -310,7 +310,7 @@
     back:
     - DHPainkillerAutoinjector
     - PinpointerSyndicateNuclear
-    - CombatMedipen
+    - DHMedipenOmnireazin
     - DHIFAKFilled
     - DHAttachmentKitClose
 
@@ -334,7 +334,7 @@
     - DHBloodPackFull
     - Cautery
     - SawAdvanced
-    - CombatMedipen
+    - DHMedipenOmnireazin
     - DHIFAKFilled
     - DHFieldSurgeryKitFilled
 
@@ -349,7 +349,7 @@
     back:
     - DHPainkillerAutoinjector
     - PinpointerSyndicateNuclear
-    - CombatMedipen
+    - DHMedipenOmnireazin
     - DHIFAKFilled
     - DHAttachmentKitSupport
 
@@ -362,7 +362,7 @@
     back:
     - DHPainkillerAutoinjector
     - PinpointerSyndicateNuclear
-    - CombatMedipen
+    - DHMedipenOmnireazin
     - DHIFAKFilled
     - DHAttachmentKitRifle
 

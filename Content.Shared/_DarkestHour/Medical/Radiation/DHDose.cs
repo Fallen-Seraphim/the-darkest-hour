@@ -75,7 +75,7 @@ public sealed partial class DHDosimeterComponent : Component;
 public sealed partial class DHSkinGraftComponent : Component;
 
 /// <summary>
-/// Выведение накопленной дозы (Hyronalin/Arithrazine — радиация, Хроносорб — хронит).
+/// Выведение накопленной дозы (берлинская лазурь — радиация, Хроносорб — хронит).
 /// Хронит на последней (неизлечимой) стадии лекарством не снижается.
 /// </summary>
 /// <inheritdoc cref="EntityEffectSystem{T, TEffect}"/>

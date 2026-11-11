@@ -3,7 +3,7 @@
 - type: reaction
   id: DHSpacecillin
   reactants:
-    Dylovene:
+    Charcoal:
       amount: 1
     Ethanol:
       amount: 1
@@ -27,7 +27,7 @@
 - type: reaction
   id: DHViracide
   reactants:
-    Dylovene:
+    Charcoal:
       amount: 1
     Silicon:
       amount: 1
@@ -125,7 +125,7 @@
   reactants:
     DHMorphine:
       amount: 1
-    Dylovene:
+    Charcoal:
       amount: 1
     Ethanol:
       amount: 1
@@ -144,3 +144,219 @@
       amount: 1
   products:
     DHNeuroblocker: 2
+
+# ── Этап 3 переработки медицины: рецепты новых лекарств (временные; на этапе 4 — через промежуточные вещества:
+# кислоты, оксиды, органику). Реальные синтезы наркотических средств намеренно не воспроизводятся.
+
+- type: reaction
+  id: DHKetorolac
+  reactants:
+    Phenol:
+      amount: 1
+    Ammonia:
+      amount: 1
+    Oxygen:
+      amount: 1
+  products:
+    DHKetorolac: 3
+
+- type: reaction
+  id: DHTramadol
+  reactants:
+    DHMorphine:
+      amount: 1
+    Phenol:
+      amount: 1
+    Ammonia:
+      amount: 1
+  products:
+    DHTramadol: 3
+
+- type: reaction
+  id: DHFentanyl
+  minTemp: 380
+  reactants:
+    DHMorphine:
+      amount: 2
+    Acetone:
+      amount: 1
+    Chlorine:
+      amount: 1
+  products:
+    DHFentanyl: 1
+
+- type: reaction
+  id: DHKetamine
+  reactants:
+    Chlorine:
+      amount: 1
+    Acetone:
+      amount: 1
+    Ammonia:
+      amount: 1
+    Carbon:
+      amount: 1
+  products:
+    DHKetamine: 3
+
+- type: reaction
+  id: DHEtamsylate
+  reactants:
+    TranexamicAcid:
+      amount: 1
+    SulfuricAcid:
+      amount: 1
+    Ethanol:
+      amount: 1
+  products:
+    DHEtamsylate: 3
+
+- type: reaction
+  id: DHRinger
+  reactants:
+    Saline:
+      amount: 2
+    Potassium:
+      amount: 1
+  products:
+    DHRinger: 3
+
+- type: reaction
+  id: DHColloid
+  minTemp: 340
+  reactants:
+    Saline:
+      amount: 2
+    Sugar:
+      amount: 1
+    Hydroxide:
+      amount: 1
+  products:
+    DHColloid: 4
+
+- type: reaction
+  id: DHAlbumin
+  reactants:
+    Blood:
+      amount: 2
+    Saline:
+      amount: 1
+    Ethanol:
+      amount: 1
+  products:
+    DHAlbumin: 3
+
+- type: reaction
+  id: DHNorepinephrine
+  reactants:
+    Epinephrine:
+      amount: 1
+    Ammonia:
+      amount: 1
+  products:
+    DHNorepinephrine: 2
+
+- type: reaction
+  id: DHAtropine
+  reactants:
+    Nitrogen:
+      amount: 1
+    Phenol:
+      amount: 1
+    Ethanol:
+      amount: 1
+  products:
+    DHAtropine: 3
+
+- type: reaction
+  id: DHPropofol
+  reactants:
+    Phenol:
+      amount: 1
+    Acetone:
+      amount: 1
+    Oil:
+      amount: 1
+  products:
+    DHPropofol: 3
+
+- type: reaction
+  id: DHMidazolam
+  reactants:
+    Phenol:
+      amount: 1
+    Chlorine:
+      amount: 1
+    Ammonia:
+      amount: 1
+    Carbon:
+      amount: 1
+  products:
+    DHMidazolam: 4
+
+- type: reaction
+  id: DHNaloxone
+  reactants:
+    DHMorphine:
+      amount: 1
+    Oxygen:
+      amount: 1
+    Hydroxide:
+      amount: 1
+  products:
+    DHNaloxone: 2
+
+- type: reaction
+  id: DHFlumazenil
+  reactants:
+    DHMidazolam:
+      amount: 1
+    Fluorine:
+      amount: 1
+    Oxygen:
+      amount: 1
+  products:
+    DHFlumazenil: 2
+
+- type: reaction
+  id: DHDexamethasone
+  reactants:
+    Fluorine:
+      amount: 1
+    Sugar:
+      amount: 1
+    Oxygen:
+      amount: 1
+    Carbon:
+      amount: 1
+  products:
+    DHDexamethasone: 4
+
+- type: reaction
+  id: DHPrussianBlue
+  reactants:
+    Iron:
+      amount: 1
+    Potassium:
+      amount: 1
+    Carbon:
+      amount: 1
+    Nitrogen:
+      amount: 1
+  products:
+    DHPrussianBlue: 4
+
+- type: reaction
+  id: DHOmnireazin
+  minTemp: 360
+  reactants:
+    DHEtamsylate:
+      amount: 1
+    DHKetorolac:
+      amount: 1
+    Silicon:
+      amount: 1
+    Saline:
+      amount: 1
+  products:
+    DHOmnireazin: 3

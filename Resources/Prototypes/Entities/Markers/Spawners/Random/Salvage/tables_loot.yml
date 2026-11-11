@@ -259,7 +259,7 @@
     - id: BlueprintSeismicCharge
     - id: WeaponCrusherGlaive
     - id: ClothingOuterHardsuitSalvage
-    - id: ChemistryBottleOmnizine
+    - id: DHBottleAlbumin
     - !type:GroupSelector
       children:
       - id: JetpackBlueFilled

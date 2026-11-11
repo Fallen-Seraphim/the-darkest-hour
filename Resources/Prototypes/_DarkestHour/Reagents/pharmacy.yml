@@ -1,0 +1,487 @@
+# DarkestHour: лекарства этапа 3 переработки медицины (claude/chemistry-rework.md). Реальные названия, игровые эффекты.
+# Химия — средняя лечилка: лекарства прежде всего снимают состояния (боль, кровотечение, шок, отравление),
+# урон лечат умеренно. Классы препаратов (привыкание, ломка, угнетение дыхания) — drug_classes.yml.
+# Передозировка — по количеству в крови (ReagentCondition).
+
+# ── Обезболивающие ──────────────────────────────────────────────────────────────────────────────────────────
+
+# Кеторолак (НПВС): слабое, но долгое обезболивание без привыкания. Мешает свёртыванию — при кровотечении хуже.
+- type: reagent
+  id: DHKetorolac
+  name: reagent-name-dh-ketorolac
+  group: Medicine
+  desc: reagent-desc-dh-ketorolac
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: bitter
+  color: "#f2efe0"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.1
+      effects:
+      - !type:DHDrug
+        class: Nsaid
+      - !type:DHSuppressPain
+        amount: 25
+        duration: 4
+      - !type:ModifyBleed
+        amount: 0.05
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHKetorolac
+          min: 30
+        damage:
+          types:
+            Poison: 1
+
+# Трамадол: слабый опиоид, обезболивание средней силы; передозировка — судороги.
+- type: reagent
+  id: DHTramadol
+  name: reagent-name-dh-tramadol
+  group: Medicine
+  desc: reagent-desc-dh-tramadol
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: bitter
+  color: "#e6e8f2"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.2
+      effects:
+      - !type:DHDrug
+        class: Opioid
+        load: 0.75
+      - !type:DHSuppressPain
+        amount: 45
+        duration: 4
+        toleranceClass: Opioid
+      - !type:Jitter
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHTramadol
+          min: 25
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHTramadol
+          min: 25
+        damage:
+          types:
+            Poison: 1
+
+# Фентанил: очень сильный опиоид в малых дозах; легко угнетает дыхание.
+- type: reagent
+  id: DHFentanyl
+  name: reagent-name-dh-fentanyl
+  group: Medicine
+  desc: reagent-desc-dh-fentanyl
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: bitter
+  color: "#f4f4f8"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.2
+      effects:
+      - !type:DHDrug
+        class: Opioid
+        load: 3
+      - !type:DHSuppressPain
+        amount: 130
+        duration: 4
+        toleranceClass: Opioid
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectDrowsiness
+        time: 2
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHFentanyl
+          min: 8
+        damage:
+          types:
+            Asphyxiation: 3
+
+# Кетамин: полевой наркоз — сильное обезболивание, от 10 ед. в крови пациент «выключается» (можно оперировать).
+- type: reagent
+  id: DHKetamine
+  name: reagent-name-dh-ketamine
+  group: Medicine
+  desc: reagent-desc-dh-ketamine
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: bitter
+  color: "#eef6f6"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.3
+      effects:
+      - !type:DHDrug
+        class: Sedative
+      - !type:DHSuppressPain
+        amount: 100
+        duration: 4
+      - !type:ModifyStatusEffect
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHKetamine
+          min: 10
+        effectProto: StatusEffectForcedSleeping
+        time: 3
+        type: Update
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectDrowsiness
+        time: 2
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHKetamine
+          min: 30
+        damage:
+          types:
+            Asphyxiation: 1.5
+
+# ── Гемостатики ─────────────────────────────────────────────────────────────────────────────────────────────
+
+# Этамзилат: долгий гемостатик — понемногу останавливает кровотечение, замедляет внутреннее.
+- type: reagent
+  id: DHEtamsylate
+  name: reagent-name-dh-etamsylate
+  group: Medicine
+  desc: reagent-desc-dh-etamsylate
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: medicine
+  color: "#f6f0d8"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.1
+      effects:
+      - !type:ModifyBleed
+        amount: -0.5
+      - !type:DHSlowInternalBleeding
+        duration: 3
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHEtamsylate
+          min: 40
+        damage:
+          types:
+            Poison: 0.5
+
+# ── Восполнение объёма (плазму крови не вводим — вместо неё альбумин и коллоид) ──────────────────────────────
+
+# Раствор Рингера: как физраствор, но с солями — восполняет объём чуть лучше.
+- type: reagent
+  id: DHRinger
+  name: reagent-name-dh-ringer
+  group: Medicine
+  desc: reagent-desc-dh-ringer
+  physicalDesc: reagent-physical-desc-salty
+  flavor: salty
+  color: "#3c86d0"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:Satiate
+        satiationType: Thirst
+        factor: 6
+      - !type:ModifyBloodLevel
+        amount: 8
+      - !type:HealthChange
+        damage:
+          types:
+            Bloodloss: -0.5
+
+# Коллоид (гидроксиэтилкрахмал): держится в сосудах — восполняет объём сильнее; много — мешает свёртыванию.
+- type: reagent
+  id: DHColloid
+  name: reagent-name-dh-colloid
+  group: Medicine
+  desc: reagent-desc-dh-colloid
+  physicalDesc: reagent-physical-desc-viscous
+  flavor: medicine
+  color: "#d8e4ee"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:ModifyBloodLevel
+        amount: 12
+      - !type:HealthChange
+        damage:
+          types:
+            Bloodloss: -1
+      - !type:ModifyBleed
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHColloid
+          min: 40
+        amount: 0.5
+
+# Альбумин: белок крови — восполняет объём и выводит из шока.
+- type: reagent
+  id: DHAlbumin
+  name: reagent-name-dh-albumin
+  group: Medicine
+  desc: reagent-desc-dh-albumin
+  physicalDesc: reagent-physical-desc-viscous
+  flavor: medicine
+  color: "#f2d98c"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:ModifyBloodLevel
+        amount: 10
+      - !type:HealthChange
+        damage:
+          types:
+            Bloodloss: -1.5
+
+# ── Реанимация и шок (адреналин — ванильный Epinephrine) ───────────────────────────────────────────────────
+
+# Норадреналин: шок и критическое состояние — держит давление; передозировка бьёт по сердцу.
+- type: reagent
+  id: DHNorepinephrine
+  name: reagent-name-dh-norepinephrine
+  group: Medicine
+  desc: reagent-desc-dh-norepinephrine
+  physicalDesc: reagent-physical-desc-odorless
+  flavor: medicine
+  color: "#f8e8f0"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:MobStateCondition
+          mobstate: Critical
+        - !type:ReagentCondition
+          reagent: DHNorepinephrine
+          max: 15
+        damage:
+          types:
+            Asphyxiation: -2
+            Bloodloss: -1
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHNorepinephrine
+          min: 15
+        damage:
+          types:
+            Asphyxiation: 1
+            Poison: 1
+
+# Атропин: антидот при отравлениях нервно-паралитическими веществами, поддержка дыхания; передозировка — тремор.
+- type: reagent
+  id: DHAtropine
+  name: reagent-name-dh-atropine
+  group: Medicine
+  desc: reagent-desc-dh-atropine
+  physicalDesc: reagent-physical-desc-odorless
+  flavor: bitter
+  color: "#f0f6e8"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHAtropine
+          max: 15
+        damage:
+          types:
+            Poison: -1
+            Asphyxiation: -0.5
+      - !type:Jitter
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHAtropine
+          min: 15
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHAtropine
+          min: 15
+        damage:
+          types:
+            Poison: 1
+
+# ── Наркоз и седация ────────────────────────────────────────────────────────────────────────────────────────
+
+# Пропофол: внутривенный наркоз для операций — пациент спит, пока препарат в крови. Угнетает дыхание.
+- type: reagent
+  id: DHPropofol
+  name: reagent-name-dh-propofol
+  group: Medicine
+  desc: reagent-desc-dh-propofol
+  physicalDesc: reagent-physical-desc-milky
+  flavor: medicine
+  color: "#fbfbf6"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DHDrug
+        class: Sedative
+        load: 2
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectForcedSleeping
+        time: 3
+        type: Update
+      - !type:DHSuppressPain
+        amount: 150
+        duration: 3
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHPropofol
+          min: 20
+        damage:
+          types:
+            Asphyxiation: 2
+
+# Мидазолам: успокоительное — снимает тремор и возбуждение; большая доза усыпляет.
+- type: reagent
+  id: DHMidazolam
+  name: reagent-name-dh-midazolam
+  group: Medicine
+  desc: reagent-desc-dh-midazolam
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: bitter
+  color: "#eef0fa"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.2
+      effects:
+      - !type:DHDrug
+        class: Sedative
+      - !type:GenericStatusEffect
+        key: Jitter
+        time: 3.0
+        type: Remove
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectDrowsiness
+        time: 2
+      - !type:ModifyStatusEffect
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHMidazolam
+          min: 15
+        effectProto: StatusEffectForcedSleeping
+        time: 3
+        type: Update
+
+# ── Антидоты (активированный уголь — ванильный Charcoal) ───────────────────────────────────────────────────
+
+# Налоксон: снимает действие опиоидов и угнетение дыхания от них; у зависимых — сразу ломка.
+- type: reagent
+  id: DHNaloxone
+  name: reagent-name-dh-naloxone
+  group: Medicine
+  desc: reagent-desc-dh-naloxone
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: medicine
+  color: "#e8f4ff"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DHDrugAntagonist
+        class: Opioid
+        amount: 15
+      - !type:AdjustReagent
+        reagent: DHMorphine
+        amount: -3
+      - !type:AdjustReagent
+        reagent: DHFentanyl
+        amount: -2
+      - !type:AdjustReagent
+        reagent: DHTramadol
+        amount: -3
+
+# Флумазенил: снимает действие седативных (мидазолам, пропофол, кетамин).
+- type: reagent
+  id: DHFlumazenil
+  name: reagent-name-dh-flumazenil
+  group: Medicine
+  desc: reagent-desc-dh-flumazenil
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: medicine
+  color: "#e8fff4"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DHDrugAntagonist
+        class: Sedative
+        amount: 15
+      - !type:AdjustReagent
+        reagent: DHMidazolam
+        amount: -3
+      - !type:AdjustReagent
+        reagent: DHPropofol
+        amount: -3
+      - !type:AdjustReagent
+        reagent: DHKetamine
+        amount: -3
+
+# ── Противовоспалительные и прочее ──────────────────────────────────────────────────────────────────────────
+
+# Дексаметазон: гормон против отёка и воспаления — умеренно лечит ожоги, химические ожоги и аллергию.
+- type: reagent
+  id: DHDexamethasone
+  name: reagent-name-dh-dexamethasone
+  group: Medicine
+  desc: reagent-desc-dh-dexamethasone
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: bitter
+  color: "#f6f2ea"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.25
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHDexamethasone
+          max: 30
+        damage:
+          types:
+            Heat: -0.75
+            Cold: -0.5
+            Caustic: -0.5
+      - !type:AdjustReagent
+        reagent: Histamine
+        amount: -3
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHDexamethasone
+          min: 30
+        damage:
+          types:
+            Poison: 1
+
+# Берлинская лазурь: связывает радиоактивные изотопы — выводит облучение.
+- type: reagent
+  id: DHPrussianBlue
+  name: reagent-name-dh-prussianblue
+  group: Medicine
+  desc: reagent-desc-dh-prussianblue
+  physicalDesc: reagent-physical-desc-powdery
+  flavor: chalky
+  color: "#1f3a8a"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.25
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Radiation: -1
+      - !type:DHReduceDose
+        kind: Radiation
+        amount: 1
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHPrussianBlue
+          min: 30
+        damage:
+          types:
+            Poison: 1

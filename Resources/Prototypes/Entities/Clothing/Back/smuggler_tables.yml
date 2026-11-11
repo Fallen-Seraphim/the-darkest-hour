@@ -122,8 +122,8 @@
     - id: ChemistryBottleEphedrine
       amount: !type:RangeNumberSelector
         range: 1, 5
-    - id: ChemistryBottleOmnizine
-    - id: ChemistryBottleCognizine
+    - id: DHBottleAlbumin
+    - id: DHBottleMidazolam
     - id: ChemistryBottleToxin
     - id: ChemistryBottleNocturine
     - id: VestineChemistryVial
@@ -513,12 +513,12 @@
     children:
     - id: SpaceCash100
       weight: 10
-    - id: SyringeAmbuzol
-    - id: SyringeHyronalin
-    - id: SyringeDermaline
-    - id: SyringeBicaridine
+    - id: DHSyringeKetorolac
+    - id: DHSyringePrussianBlue
+    - id: DHSyringeDexamethasone
+    - id: DHSyringeTramadol
     - id: SyringeTranexamicAcid
-    - id: SyringeInaprovaline
+    - id: DHSyringeNorepinephrine
     - id: SyringeEphedrine
     - id: Gauze
     - id: DHBloodPackFull
@@ -527,20 +527,20 @@
     - id: EmergencyMedipen
       amount: !type:RangeNumberSelector
         range: 1, 5
-    - id: AntiPoisonMedipen
+    - id: DHMedipenAtropine
       amount: !type:RangeNumberSelector
         range: 1, 5
-    - id: BruteAutoInjector
+    - id: DHMedipenOmnireazin
       amount: !type:RangeNumberSelector
         range: 1, 5
-    - id: BurnAutoInjector
+    - id: DHMedipenDexamethasone
       amount: !type:RangeNumberSelector
         range: 1, 5
-    - id: SpaceMedipen
+    - id: DHMedipenNorepinephrine
       amount: !type:RangeNumberSelector
         range: 1, 5
     - id: Stimpack
-    - id: CombatMedipen
+    - id: DHMedipenOmnireazin
 
 - type: entityTable #1x Medium
   id: RandomSatchelMysteriesTable

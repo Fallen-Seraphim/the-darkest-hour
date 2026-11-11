@@ -58,8 +58,8 @@
     # rare armor
     ClothingOuterArmorRiot: 1.0
     # rare chemicals
-    ChemistryBottleCognizine: 1.0
-    ChemistryBottleOmnizine: 1.0
+    DHBottleMidazolam: 1.0
+    DHBottleAlbumin: 1.0
     # money
     SpaceCash2500: 1.0
     SpaceCash5000: 0.75

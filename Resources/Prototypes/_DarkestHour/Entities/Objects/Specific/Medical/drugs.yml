@@ -1,0 +1,809 @@
+# DarkestHour: упаковки лекарств (сгенерировано Tools/_DarkestHour/medicine/gen_drug_items.py — правьте генератор).
+
+- type: entity
+  name: pill
+  suffix: Ketorolac 10u
+  parent: Pill
+  id: DHPillKetorolac
+  components:
+  - type: Pill
+    pillType: 0
+  - type: Sprite
+    state: pill1
+  - type: Label
+    localizedLabel: dh-pill-label-ketorolac
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHKetorolac
+        Quantity: 10
+
+- type: entity
+  name: pill canister
+  parent: PillCanister
+  id: DHPillCanisterKetorolac
+  suffix: Ketorolac 10u, 5
+  components:
+  - type: Label
+    localizedLabel: dh-pill-label-ketorolac
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: DHPillKetorolac
+        amount: 5
+
+- type: entity
+  name: pill
+  suffix: Tramadol 10u
+  parent: Pill
+  id: DHPillTramadol
+  components:
+  - type: Pill
+    pillType: 4
+  - type: Sprite
+    state: pill5
+  - type: Label
+    localizedLabel: dh-pill-label-tramadol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHTramadol
+        Quantity: 10
+
+- type: entity
+  name: pill canister
+  parent: PillCanister
+  id: DHPillCanisterTramadol
+  suffix: Tramadol 10u, 5
+  components:
+  - type: Label
+    localizedLabel: dh-pill-label-tramadol
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: DHPillTramadol
+        amount: 5
+
+- type: entity
+  name: pill
+  suffix: Dexamethasone 10u
+  parent: Pill
+  id: DHPillDexamethasone
+  components:
+  - type: Pill
+    pillType: 6
+  - type: Sprite
+    state: pill7
+  - type: Label
+    localizedLabel: dh-pill-label-dexamethasone
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHDexamethasone
+        Quantity: 10
+
+- type: entity
+  name: pill canister
+  parent: PillCanister
+  id: DHPillCanisterDexamethasone
+  suffix: Dexamethasone 10u, 5
+  components:
+  - type: Label
+    localizedLabel: dh-pill-label-dexamethasone
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: DHPillDexamethasone
+        amount: 5
+
+- type: entity
+  name: pill
+  suffix: PrussianBlue 15u
+  parent: Pill
+  id: DHPillPrussianBlue
+  components:
+  - type: Pill
+    pillType: 9
+  - type: Sprite
+    state: pill10
+  - type: Label
+    localizedLabel: dh-pill-label-prussianblue
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHPrussianBlue
+        Quantity: 15
+
+- type: entity
+  name: pill canister
+  parent: PillCanister
+  id: DHPillCanisterPrussianBlue
+  suffix: PrussianBlue 15u, 5
+  components:
+  - type: Label
+    localizedLabel: dh-pill-label-prussianblue
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: DHPillPrussianBlue
+        amount: 5
+
+- type: entity
+  suffix: Ketorolac
+  parent: PrefilledSyringe
+  id: DHSyringeKetorolac
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-ketorolac
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHKetorolac
+        Quantity: 15
+
+- type: entity
+  suffix: Tramadol
+  parent: PrefilledSyringe
+  id: DHSyringeTramadol
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-tramadol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHTramadol
+        Quantity: 15
+
+- type: entity
+  suffix: Morphine
+  parent: PrefilledSyringe
+  id: DHSyringeMorphine
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-morphine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHMorphine
+        Quantity: 10
+
+- type: entity
+  suffix: Ketamine
+  parent: PrefilledSyringe
+  id: DHSyringeKetamine
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-ketamine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHKetamine
+        Quantity: 15
+
+- type: entity
+  suffix: Etamsylate
+  parent: PrefilledSyringe
+  id: DHSyringeEtamsylate
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-etamsylate
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHEtamsylate
+        Quantity: 15
+
+- type: entity
+  suffix: Norepinephrine
+  parent: PrefilledSyringe
+  id: DHSyringeNorepinephrine
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-norepinephrine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHNorepinephrine
+        Quantity: 10
+
+- type: entity
+  suffix: Atropine
+  parent: PrefilledSyringe
+  id: DHSyringeAtropine
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-atropine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHAtropine
+        Quantity: 15
+
+- type: entity
+  suffix: Midazolam
+  parent: PrefilledSyringe
+  id: DHSyringeMidazolam
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-midazolam
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHMidazolam
+        Quantity: 10
+
+- type: entity
+  suffix: Naloxone
+  parent: PrefilledSyringe
+  id: DHSyringeNaloxone
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-naloxone
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHNaloxone
+        Quantity: 10
+
+- type: entity
+  suffix: Flumazenil
+  parent: PrefilledSyringe
+  id: DHSyringeFlumazenil
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-flumazenil
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHFlumazenil
+        Quantity: 10
+
+- type: entity
+  suffix: Dexamethasone
+  parent: PrefilledSyringe
+  id: DHSyringeDexamethasone
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-dexamethasone
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHDexamethasone
+        Quantity: 15
+
+- type: entity
+  suffix: PrussianBlue
+  parent: PrefilledSyringe
+  id: DHSyringePrussianBlue
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-prussianblue
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHPrussianBlue
+        Quantity: 15
+
+- type: entity
+  id: DHBottleKetorolac
+  suffix: Ketorolac
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-ketorolac
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHKetorolac
+        Quantity: 30
+
+- type: entity
+  id: DHBottleTramadol
+  suffix: Tramadol
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-tramadol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHTramadol
+        Quantity: 30
+
+- type: entity
+  id: DHBottleMorphine
+  suffix: Morphine
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-morphine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHMorphine
+        Quantity: 30
+
+- type: entity
+  id: DHBottleFentanyl
+  suffix: Fentanyl
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-fentanyl
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHFentanyl
+        Quantity: 10
+
+- type: entity
+  id: DHBottleKetamine
+  suffix: Ketamine
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-ketamine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHKetamine
+        Quantity: 30
+
+- type: entity
+  id: DHBottleEtamsylate
+  suffix: Etamsylate
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-etamsylate
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHEtamsylate
+        Quantity: 30
+
+- type: entity
+  id: DHBottleRinger
+  suffix: Ringer
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-ringer
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHRinger
+        Quantity: 30
+
+- type: entity
+  id: DHBottleColloid
+  suffix: Colloid
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-colloid
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHColloid
+        Quantity: 30
+
+- type: entity
+  id: DHBottleAlbumin
+  suffix: Albumin
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-albumin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHAlbumin
+        Quantity: 30
+
+- type: entity
+  id: DHBottleNorepinephrine
+  suffix: Norepinephrine
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-norepinephrine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHNorepinephrine
+        Quantity: 30
+
+- type: entity
+  id: DHBottleAtropine
+  suffix: Atropine
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-atropine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHAtropine
+        Quantity: 30
+
+- type: entity
+  id: DHBottlePropofol
+  suffix: Propofol
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-propofol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHPropofol
+        Quantity: 30
+
+- type: entity
+  id: DHBottleMidazolam
+  suffix: Midazolam
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-midazolam
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHMidazolam
+        Quantity: 30
+
+- type: entity
+  id: DHBottleNaloxone
+  suffix: Naloxone
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-naloxone
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHNaloxone
+        Quantity: 30
+
+- type: entity
+  id: DHBottleFlumazenil
+  suffix: Flumazenil
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-flumazenil
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHFlumazenil
+        Quantity: 30
+
+- type: entity
+  id: DHBottleDexamethasone
+  suffix: Dexamethasone
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-dexamethasone
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHDexamethasone
+        Quantity: 30
+
+- type: entity
+  id: DHBottlePrussianBlue
+  suffix: PrussianBlue
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-prussianblue
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHPrussianBlue
+        Quantity: 30
+
+- type: entity
+  parent: Jug
+  suffix: Ringer
+  id: DHJugRinger
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-ringer
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHRinger
+        Quantity: 240
+
+- type: entity
+  parent: Jug
+  suffix: Colloid
+  id: DHJugColloid
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-colloid
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHColloid
+        Quantity: 240
+
+- type: entity
+  parent: Jug
+  suffix: Albumin
+  id: DHJugAlbumin
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-albumin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHAlbumin
+        Quantity: 240
+
+- type: entity
+  parent: ChemicalMedipen
+  id: DHMedipenOmnireazin
+  name: omnireazine auto-injector
+  description: "An army omnireazine auto-injector, the same drug as in the modular armour's auto-medkit. Knits light and moderate wounds and dulls the pain. The soldier is still wounded; they can just keep fighting. For now."
+  components:
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: base-needle-inhand-left
+      - state: base-colorA-inhand-left
+        color: "#5bcaca"
+      - state: base-colorB-inhand-left
+      right:
+      - state: base-needle-inhand-right
+      - state: base-colorA-inhand-right
+        color: "#5bcaca"
+      - state: base-colorB-inhand-right
+  - type: Sprite
+    sprite: Objects/Specific/Medical/medipen.rsi
+    layers:
+    - state: morphen
+      map: ["enum.SolutionContainerLayers.Fill"]
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    changeColor: false
+    emptySpriteName: morphen_empty
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHOmnireazin
+        Quantity: 15
+
+- type: entity
+  parent: ChemicalMedipen
+  id: DHMedipenMorphine
+  name: morphine auto-injector
+  description: "A morphine auto-injector: strong pain relief. Do not use two in a row, it depresses breathing."
+  components:
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: base-needle-inhand-left
+      - state: base-colorA-inhand-left
+        color: "#e8e4f0"
+      - state: base-colorB-inhand-left
+      right:
+      - state: base-needle-inhand-right
+      - state: base-colorA-inhand-right
+        color: "#e8e4f0"
+      - state: base-colorB-inhand-right
+  - type: Sprite
+    sprite: Objects/Specific/Medical/medipen.rsi
+    layers:
+    - state: stimpen
+      map: ["enum.SolutionContainerLayers.Fill"]
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    changeColor: false
+    emptySpriteName: stimpen_empty
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHMorphine
+        Quantity: 10
+
+- type: entity
+  parent: ChemicalMedipen
+  id: DHMedipenEtamsylate
+  name: etamsylate auto-injector
+  description: "An etamsylate auto-injector: gradually stops bleeding and slows internal bleeding."
+  components:
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: base-needle-inhand-left
+      - state: base-colorA-inhand-left
+        color: "#c7a333"
+      - state: base-colorB-inhand-left
+      right:
+      - state: base-needle-inhand-right
+      - state: base-colorA-inhand-right
+        color: "#c7a333"
+      - state: base-colorB-inhand-right
+  - type: Sprite
+    sprite: Objects/Specific/Medical/medipen.rsi
+    layers:
+    - state: punctpen
+      map: ["enum.SolutionContainerLayers.Fill"]
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    changeColor: false
+    emptySpriteName: punctpen_empty
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHEtamsylate
+        Quantity: 15
+
+- type: entity
+  parent: ChemicalMedipen
+  id: DHMedipenDexamethasone
+  name: dexamethasone auto-injector
+  description: "A dexamethasone auto-injector: reduces swelling and inflammation, moderately treats burns."
+  components:
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: base-needle-inhand-left
+      - state: base-colorA-inhand-left
+        color: "#d17c2c"
+      - state: base-colorB-inhand-left
+      right:
+      - state: base-needle-inhand-right
+      - state: base-colorA-inhand-right
+        color: "#d17c2c"
+      - state: base-colorB-inhand-right
+  - type: Sprite
+    sprite: Objects/Specific/Medical/medipen.rsi
+    layers:
+    - state: dermpen
+      map: ["enum.SolutionContainerLayers.Fill"]
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    changeColor: false
+    emptySpriteName: dermpen_empty
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHDexamethasone
+        Quantity: 15
+
+- type: entity
+  parent: ChemicalMedipen
+  id: DHMedipenAtropine
+  name: atropine auto-injector
+  description: "An atropine auto-injector: an antidote for poisoning that supports breathing."
+  components:
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: base-needle-inhand-left
+      - state: base-colorA-inhand-left
+        color: "#573d9e"
+      - state: base-colorB-inhand-left
+      right:
+      - state: base-needle-inhand-right
+      - state: base-colorA-inhand-right
+        color: "#573d9e"
+      - state: base-colorB-inhand-right
+  - type: Sprite
+    sprite: Objects/Specific/Medical/medipen.rsi
+    layers:
+    - state: penacid
+      map: ["enum.SolutionContainerLayers.Fill"]
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    changeColor: false
+    emptySpriteName: penacid_empty
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHAtropine
+        Quantity: 15
+
+- type: entity
+  parent: ChemicalMedipen
+  id: DHMedipenNorepinephrine
+  name: norepinephrine auto-injector
+  description: "A norepinephrine auto-injector: keeps blood pressure up in shock and critical condition."
+  components:
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: base-needle-inhand-left
+      - state: base-colorA-inhand-left
+        color: "#2a6bd1"
+      - state: base-colorB-inhand-left
+      right:
+      - state: base-needle-inhand-right
+      - state: base-colorA-inhand-right
+        color: "#2a6bd1"
+      - state: base-colorB-inhand-right
+  - type: Sprite
+    sprite: Objects/Specific/Medical/medipen.rsi
+    layers:
+    - state: dexpen
+      map: ["enum.SolutionContainerLayers.Fill"]
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    changeColor: false
+    emptySpriteName: dexpen_empty
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHNorepinephrine
+        Quantity: 10
+
+- type: entity
+  parent: ChemicalMedipen
+  id: DHMedipenPrussianBlue
+  name: Prussian blue auto-injector
+  description: "A Prussian blue auto-injector: flushes out radioactive isotopes."
+  components:
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: base-needle-inhand-left
+      - state: base-colorA-inhand-left
+        color: "#1f3a8a"
+      - state: base-colorB-inhand-left
+      right:
+      - state: base-needle-inhand-right
+      - state: base-colorA-inhand-right
+        color: "#1f3a8a"
+      - state: base-colorB-inhand-right
+  - type: Sprite
+    sprite: Objects/Specific/Medical/medipen.rsi
+    layers:
+    - state: arithpen
+      map: ["enum.SolutionContainerLayers.Fill"]
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    changeColor: false
+    emptySpriteName: arithpen_empty
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHPrussianBlue
+        Quantity: 15
+
+- type: entity
+  parent: ChemicalMedipen
+  id: DHMedipenNaloxone
+  name: naloxone auto-injector
+  description: "A naloxone auto-injector: reverses an opioid overdose."
+  components:
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: base-needle-inhand-left
+      - state: base-colorA-inhand-left
+        color: "#3cb4c8"
+      - state: base-colorB-inhand-left
+      right:
+      - state: base-needle-inhand-right
+      - state: base-colorA-inhand-right
+        color: "#3cb4c8"
+      - state: base-colorB-inhand-right
+  - type: Sprite
+    sprite: Objects/Specific/Medical/medipen.rsi
+    layers:
+    - state: salpen
+      map: ["enum.SolutionContainerLayers.Fill"]
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    changeColor: false
+    emptySpriteName: salpen_empty
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHNaloxone
+        Quantity: 10

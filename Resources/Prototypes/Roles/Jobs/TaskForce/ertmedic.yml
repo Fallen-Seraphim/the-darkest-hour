@@ -24,17 +24,17 @@
   storage:
     back:
     - Hypospray
-    - BeakerSmallBruiz
-    - BeakerSmallLace
-    - JugPunctTranex
-    - JugPyraDerma
-    - JugDexPlusSaline # End of first line
-    - JugTrico
-    - BeakerSmallArith
+    - DHBottleTramadol
+    - DHBottleEtamsylate
+    - DHJugColloid
+    - DHJugAlbumin
+    - DHJugAlbumin # End of first line
+    - DHJugRinger
+    - DHBottlePrussianBlue
     - BeakerSmallDiph
-    - BeakerSmallSigy
+    - DHBottleDexamethasone
     - ClothingEyesGlassesChemical
-    - ChemistryBottleOmnizine
+    - DHBottleAlbumin
     belt:
     - DefibrillatorCompact
     - MedkitCombatFilled
@@ -47,15 +47,15 @@
   storage:
     back:
     - Hypospray
-    - JugPunctTranex
-    - JugPyraDerma
-    - JugDexPlusSaline
-    - JugTrico # End of first line
-    - BeakerSmallArith
+    - DHJugColloid
+    - DHJugAlbumin
+    - DHJugAlbumin
+    - DHJugRinger # End of first line
+    - DHBottlePrussianBlue
     - DefibrillatorCompact
     - MedkitCombatFilled
     - ClothingEyesGlassesChemical
-    - ChemistryBottleOmnizine
+    - DHBottleAlbumin
     - Truncheon
     belt:
     - Zipties
