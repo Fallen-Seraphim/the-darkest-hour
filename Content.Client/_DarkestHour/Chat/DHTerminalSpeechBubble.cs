@@ -273,7 +273,7 @@ public sealed class DHTerminalSpeechBubble : SpeechBubble
 
             if (EdgeArrow != 0)
             {
-                DrawLine(handle, origin, EdgeArrow + " " + _edgeText, scale, _color);
+                DrawLine(handle, origin, string.Concat(EdgeArrow.ToString(), " ", _edgeText), scale, _color);
                 return;
             }
 
