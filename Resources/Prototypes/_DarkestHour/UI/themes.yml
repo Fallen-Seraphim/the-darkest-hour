@@ -1,0 +1,25 @@
+# HUD-тема TDH «Терминал» (выбор автора 2026-11-11): слоты с рублеными углами в янтарной гамме.
+# Текстуры — Tools/_DarkestHour/ui/hud_theme.py. Тема по умолчанию (Content.Client/Entry/EntryPoint.cs).
+- type: uiTheme
+  id: DHTerminalTheme
+  path: /Textures/_DarkestHour/Interface/Terminal/
+  colors:
+    whiteText: "#EEDFC4"
+    slotSelectedGold: "#E3A440"
+    slotColor: "#100C08"
+    slotOutline: "#5A4120"
+    slotText: "#9C7A45"
+    nanoGold: "#E3A440"
+    goodGreenFore: "#6FB04A"
+    concerningOrangeFore: "#E3A440"
+    dangerousRedFore: "#D2452F"
+    disabledFore: "#5A5046"
+    _itemstatus_content_margin_right: "#06060604"
+    _itemstatus_content_margin_left: "#06060604"
+    _itemstatus_patch_margin: "#07060404"
+
+- type: hudTheme
+  id: DHTerminalTheme
+  name: dh-hud-theme-terminal
+  path: Terminal
+  order: -2
