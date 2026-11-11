@@ -11,7 +11,7 @@
         - id: Brutepack
         - id: Ointment
         - id: Gauze
-        - id: PillCanisterTricordrazine
+        - id: DHPillCanisterKetorolac
       # see https://github.com/tgstation/blob/master/code/game/objects/items/storage/firstaid.dm for example contents
 
 - type: entity
@@ -25,8 +25,8 @@
         children:
         - id: Ointment
           amount: 2
-        - id: PillCanisterKelotane
-        - id: PillCanisterDermaline
+        - id: DHPillCanisterDexamethasone
+        - id: DHPillCanisterKetorolac
 
 - type: entity
   id: MedkitBruteFilled
@@ -53,9 +53,9 @@
       storagebase: !type:AllSelector
         children:
         - id: SyringeIpecac
-        - id: SyringeEthylredoxrazine
-        - id: AntiPoisonMedipen
-        - id: PillCanisterDylovene
+        - id: DHSyringeNaloxone
+        - id: DHMedipenAtropine
+        - id: PillCanisterCharcoal
         - id: PillCanisterCharcoal
 
 - type: entity
@@ -70,8 +70,8 @@
         - id: ClothingMaskBreathMedical
         - id: EmergencyOxygenTankFilled
         - id: EmergencyMedipen
-        - id: SyringeInaprovaline
-        - id: PillCanisterDexalin
+        - id: DHSyringeNorepinephrine
+        - id: PillCanisterIron
 
 - type: entity
   id: MedkitRadiationFilled
@@ -82,10 +82,10 @@
     containers:
       storagebase: !type:AllSelector
         children:
-        - id: SyringePhalanximine
-        - id: RadAutoInjector
+        - id: DHSyringePrussianBlue
+        - id: DHMedipenPrussianBlue
         - id: PillCanisterPotassiumIodide
-        - id: PillCanisterHyronalin
+        - id: DHPillCanisterPrussianBlue
 
 - type: entity
   id: MedkitAdvancedFilled
@@ -114,8 +114,8 @@
         - id: RegenerativeMesh
         - id: SyringeEphedrine
         - id: SyringeSaline
-        - id: BruteAutoInjector
-        - id: BurnAutoInjector
+        - id: DHMedipenOmnireazin
+        - id: DHMedipenDexamethasone
 
 - type: entity
   id: StimkitFilled

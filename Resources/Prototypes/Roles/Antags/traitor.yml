@@ -101,7 +101,7 @@
     gloves: ClothingHandsGlovesLatex
     belt: ClothingBeltMedicalFilled
     eyes: ClothingEyesHudMedical
-    pocket2: PillCanisterBicaridine
+    pocket2: DHPillCanisterTramadol
   inhand:
     - MedkitCombatFilled
   storage:

@@ -1237,27 +1237,23 @@
   id: CoreMedicineReagentBottleTable
   table: !type:GroupSelector
     children:
-    - id: ChemistryBottleBicaridine
-    - id: ChemistryBottleKelotane
-    - id: ChemistryBottleDylovene
-    - id: ChemistryBottleInaprovaline
-    - id: ChemistryBottleDexalin
+    - id: DHBottleTramadol
+    - id: DHBottleDexamethasone
+    - id: ChemistryBottleCharcoal
+    - id: DHBottleNorepinephrine
     - id: ChemistryBottleSaline
-    - id: ChemistryBottleTricordrazine
-    - id: ChemistryBottleHyronalin
+    - id: DHBottleKetorolac
+    - id: DHBottlePrussianBlue
 
 - type: entityTable
   id: SpecialtyMedicineReagentBottleTable
   table: !type:GroupSelector
     children:
-    - id: ChemistryBottleCryoxadone
+    - id: DHBottleAlbumin
     - id: ChemistryBottleEpinephrine
-    - id: ChemistryBottleHyronalin
-    - id: ChemistryBottleArithrazine
-    - id: ChemistryBottlePhalanximine
-    - id: ChemistryBottleTricordrazine
+    - id: DHBottlePrussianBlue
+    - id: DHBottleKetorolac
     - id: ChemistryBottleTranexamicAcid
-    - id: ChemistryBottleOculine
     - id: ChemistryBottleCharcoal
     - id: ChemistryBottleLaughter
 
@@ -1265,54 +1261,34 @@
   id: AllMedicineReagentBottlesTable
   table: !type:GroupSelector
     children:
-    - id: ChemistryBottleAloxadone
-    - id: ChemistryBottleAmbuzol
-    - id: ChemistryBottleAmbuzolPlus
-    - id: ChemistryBottleArithrazine
-    - id: ChemistryBottleBarozine
-    - id: ChemistryBottleBicaridine
-    - id: ChemistryBottleBruizine
-    - id: ChemistryBottleCognizine
-    - id: ChemistryBottleCryoxadone
+    - id: DHBottleDexamethasone
+    - id: DHBottleKetorolac
+    - id: DHBottlePrussianBlue
+    - id: DHBottleNorepinephrine
+    - id: DHBottleTramadol
+    - id: DHBottleMidazolam
+    - id: DHBottleAlbumin
     - id: ChemistryBottleCryptobiolin
-    - id: ChemistryBottleDermaline
-    - id: ChemistryBottleDexalin
-    - id: ChemistryBottleDexalinPlus
     - id: ChemistryBottleDiphenhydramine
-    - id: ChemistryBottleDiphenylmethylamine
-    - id: ChemistryBottleDoxarubixadone
-    - id: ChemistryBottleDylovene
+    - id: ChemistryBottleCharcoal
     - id: ChemistryBottleEpinephrine
-    - id: ChemistryBottleEthyloxyephedrine
-    - id: ChemistryBottleEthylredoxrazine
+    - id: DHBottleNaloxone
     - id: ChemistryBottleHaloperidol
     - id: ChemistryBottleHolywater
-    - id: ChemistryBottleHyronalin
-    - id: ChemistryBottleInaprovaline
-    - id: ChemistryBottleInsuzine
     - id: ChemistryBottleIpecac
-    - id: ChemistryBottleKelotane
-    - id: ChemistryBottleLacerinol
-    - id: ChemistryBottleLeporazine
-    - id: ChemistryBottleLipozine
+    - id: DHBottleEtamsylate
     - id: ChemistryBottleMannitol
-    - id: ChemistryBottleOculine
-    - id: ChemistryBottleOmnizine
-    - id: ChemistryBottleOpporozidone
-    - id: ChemistryBottlePhalanximine
-    - id: ChemistryBottlePolypyryliumOligomers
     - id: ChemistryBottlePotassiumIodide
-    - id: ChemistryBottlePsicodine
     - id: ChemistryBottlePulpedBananaPeel
-    - id: ChemistryBottlePuncturase
-    - id: ChemistryBottlePyrazine
     - id: ChemistryBottleSaline
-    - id: ChemistryBottleSiderlac
-    - id: ChemistryBottleSigynate
-    - id: ChemistryBottleStellibinin
-    - id: ChemistryBottleSynaptizine
+    - id: DHBottleAtropine
     - id: ChemistryBottleTranexamicAcid
-    - id: ChemistryBottleTricordrazine
-    - id: ChemistryBottleUltravasculine
-    - id: ChemistryBottleCharcoal
     - id: ChemistryBottleLaughter
+    - id: DHBottleMorphine
+    - id: DHBottleFentanyl
+    - id: DHBottleKetamine
+    - id: DHBottleRinger
+    - id: DHBottleColloid
+    - id: DHBottlePropofol
+    - id: DHBottleFlumazenil
+

@@ -79,10 +79,10 @@ dh-virology-recipe-header = TREATMENT — {$disease}
 dh-virology-recipe-group = Group: {$group}
 dh-virology-recipe-treatment = Treatment: {$treatment}
 
-dh-virology-recipe-cold = Usually passes on its own. Viracide (dylovene + silicon + chlorine) speeds recovery. Vaccine: viracide + saline + sugar, 1:1:1.
+dh-virology-recipe-cold = Usually passes on its own. Viracide (activated charcoal + silicon + chlorine) speeds recovery. Vaccine: viracide + saline + sugar, 1:1:1.
 dh-virology-recipe-flu-taurus = Vaccine: viracide + iodine + sugar, 1:1:1 — gives immunity and breaks the running disease. Viracide holds it back until then. Isolate patients, masks for everyone nearby.
-dh-virology-recipe-dysentery = Spacecillin (dylovene + ethanol + sulfur) with dylovene and saline. Gloves when handling patients.
-dh-virology-recipe-wound-infection = Spacecillin (dylovene + ethanol + sulfur) until the fever stops. Gangrene — amputation. Operate only in a sterile mask and gloves.
+dh-virology-recipe-dysentery = Spacecillin (activated charcoal + ethanol + sulfur) with activated charcoal and saline. Gloves when handling patients.
+dh-virology-recipe-wound-infection = Spacecillin (activated charcoal + ethanol + sulfur) until the fever stops. Gangrene — amputation. Operate only in a sterile mask and gloves.
 
 dh-entity-effect-guidebook-vaccinate =
     { $chance ->
@@ -118,9 +118,9 @@ dh-symptom-pain = pain
 dh-symptom-moving-lump = moving lump under the skin
 
 dh-virology-recipe-kelvin-fever = Vaccine: viracide + tranexamic acid + sugar, 1:1:1. Until it works — blood transfusions and tranexamic acid. Blood and contact spread: gloves, no melee near patients.
-dh-virology-recipe-pneumonia = Spacecillin (dylovene + ethanol + sulfur) with dexalin for the breathing. Masks near patients.
+dh-virology-recipe-pneumonia = Spacecillin (activated charcoal + ethanol + sulfur) with oxygen for the breathing. Masks near patients.
 dh-virology-recipe-mrs14 = Spacecillin does not work. Carbapenem-R: spacecillin + fluorine + lithium, 1:1:1, keep under 20u. Gloves and isolation — spreads through medbay by contact.
-dh-virology-recipe-black-mold = Fluconazole: fluorine + phenol + silicon, 1:1:1, a long course. Dexalin for breathing. Find and clean the source of the spores.
+dh-virology-recipe-black-mold = Fluconazole: fluorine + phenol + silicon, 1:1:1, a long course. Oxygen for breathing. Find and clean the source of the spores.
 dh-virology-recipe-grey-scab = Fluconazole: fluorine + phenol + silicon, 1:1:1, and dressings for the cracked skin. Gloves — spreads by touch.
 dh-virology-recipe-helminths = Albendazole: sulfur + nitrogen + copper, 1:1:1. Feed the patient. Cook meat properly.
 dh-virology-recipe-planetary-worm = Surgical removal: open the torso (incision, clamp, retract) and extract the larva with a hemostat. Albendazole only slows it down until the operation.

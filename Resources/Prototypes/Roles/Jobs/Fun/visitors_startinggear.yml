@@ -548,7 +548,7 @@
     pocket1: PillCanisterCharcoal
     pocket2: PillCanisterRandom
   inhand:
-  - SyringePhalanximine
+  - DHSyringePrussianBlue
 
 - type: startingGear
   id: VisitorGeneticistAlt
@@ -563,10 +563,10 @@
     ears: ClothingHeadsetMedical
     eyes: ClothingEyesHudMedical
     outerClothing: ClothingOuterWinterGen
-    pocket1: PillCanisterHyronalin
+    pocket1: DHPillCanisterPrussianBlue
     pocket2: PillCanisterRandom
   inhand:
-  - SyringeBicaridine
+  - DHSyringeTramadol
 
 - type: startingGear
   id: VisitorVirologist
@@ -581,10 +581,10 @@
     ears: ClothingHeadsetMedical
     eyes: ClothingEyesHudMedical
     outerClothing: ClothingOuterCoatLabViro
-    pocket1: PillCanisterTricordrazine
+    pocket1: DHPillCanisterKetorolac
     pocket2: PillCanisterRandom
   inhand:
-  - SyringeSigynate
+  - DHSyringeDexamethasone
 
 - type: startingGear
   id: VisitorVirologistAlt
@@ -600,7 +600,7 @@
     ears: ClothingHeadsetMedical
     eyes: ClothingEyesHudMedical
     outerClothing: ClothingOuterWinterViro
-    pocket1: PillCanisterTricordrazine
+    pocket1: DHPillCanisterKetorolac
     pocket2: PillCanisterRandom
   inhand:
   - SyringeEphedrine
@@ -619,10 +619,10 @@
     ears: ClothingHeadsetMedical
     eyes: ClothingEyesHudMedical
     outerClothing: ClothingOuterCoatLab
-    pocket1: PillCanisterTricordrazine
-    pocket2: PillCanisterDermaline
+    pocket1: DHPillCanisterKetorolac
+    pocket2: DHPillCanisterDexamethasone
   inhand:
-  - SyringeInaprovaline
+  - DHSyringeNorepinephrine
 
 - type: startingGear
   id: VisitorMedicalDoctorAlt
@@ -638,8 +638,8 @@
     ears: ClothingHeadsetMedical
     eyes: ClothingEyesHudMedical
     outerClothing: ClothingOuterWinterMed
-    pocket1: PillCanisterTricordrazine
-    pocket2: PillCanisterBicaridine
+    pocket1: DHPillCanisterKetorolac
+    pocket2: DHPillCanisterTramadol
   inhand:
   - SyringeSaline
 
@@ -711,7 +711,7 @@
     ears: ClothingHeadsetMedical
     eyes: ClothingEyesHudMedical
     outerClothing: ClothingOuterWinterPara
-    pocket1: CombatMedipen
+    pocket1: DHMedipenOmnireazin
     pocket2: Brutepack
   inhand:
   - SyringeTranexamicAcid
@@ -731,10 +731,10 @@
     ears: ClothingHeadsetMedical
     eyes: ClothingEyesHudMedical
     outerClothing: ClothingOuterCoatParamedicWB
-    pocket1: CombatMedipen
+    pocket1: DHMedipenOmnireazin
     pocket2: Brutepack
   inhand:
-  - AntiPoisonMedipen
+  - DHMedipenAtropine
   - Gauze
 
 - type: startingGear
@@ -784,7 +784,7 @@
     ears: ClothingHeadsetMedical
     eyes: ClothingEyesHudMedical
     pocket1: RegenerativeMesh
-    pocket2: PillCanisterBicaridine
+    pocket2: DHPillCanisterTramadol
   inhand:
   - ScalpelAdvanced
   - MedicatedSuture
@@ -802,7 +802,7 @@
     ears: ClothingHeadsetMedical
     eyes: ClothingEyesHudMedical
     pocket1: RegenerativeMesh
-    pocket2: PillCanisterBicaridine
+    pocket2: DHPillCanisterTramadol
   inhand:
   - ScalpelAdvanced
   - MedicatedSuture
@@ -820,7 +820,7 @@
     ears: ClothingHeadsetMedical
     eyes: ClothingEyesHudMedical
     pocket1: RegenerativeMesh
-    pocket2: PillCanisterBicaridine
+    pocket2: DHPillCanisterTramadol
   inhand:
   - ScalpelAdvanced
   - MedicatedSuture
@@ -1518,7 +1518,7 @@
     back: ClothingBackpackDuffel
     ears: ClothingHeadsetService
     pocket1: WeaponFlareGun
-    pocket2: PillCanisterDylovene
+    pocket2: PillCanisterCharcoal
 
 - type: startingGear
   id: VisitorZookeeperAlt
@@ -1530,7 +1530,7 @@
     belt: ClothingBeltStorageWaistbag
     ears: ClothingHeadsetService
     pocket1: WeaponFlareGun
-    pocket2: PillCanisterDylovene
+    pocket2: PillCanisterCharcoal
 
 # Misc
 

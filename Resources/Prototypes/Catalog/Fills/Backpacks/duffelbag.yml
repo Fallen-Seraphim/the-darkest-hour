@@ -48,10 +48,10 @@
     containers:
       storagebase: !type:AllSelector
         children:
-        - id: JugBicaridine
-        - id: JugPunctTranex
-        - id: JugPyraDerma
-        - id: JugDexPlusSaline
+        - id: DHJugRinger
+        - id: DHJugColloid
+        - id: DHJugAlbumin
+        - id: DHJugAlbumin
 
 #       - id: ThermalImagingGoggles
 
@@ -247,7 +247,7 @@
       storagebase: !type:AllSelector
         children:
         - id: SyringeRomerol
-        - id: PillCanisterAmbuzol
+        - id: DHPillCanisterKetorolac
           amount: 5
 
 - type: entity
@@ -265,13 +265,13 @@
           amount: 4
         - id: Tourniquet
           amount: 4
-        - id: CombatMedipen
+        - id: DHMedipenOmnireazin
           amount: 4
-        - id: PunctAutoInjector
+        - id: DHMedipenEtamsylate
           amount: 4
-        - id: PyraAutoInjector
+        - id: DHMedipenDexamethasone
           amount: 4
-        - id: AirlossAutoInjector
+        - id: DHMedipenNorepinephrine
           amount: 4
 
 - type: entity

@@ -15,8 +15,8 @@
   storage:
     back:
     - GrenadeFlashBang
-    - PillAmbuzolPlus
-    - PillAmbuzol
+    - DHPillKetorolac
+    - DHPillKetorolac
 
 - type: chameleonOutfit
   id: CBURNChameleonOutfit

@@ -92,7 +92,7 @@
   id: UplinkCombatMedipen
   name: uplink-combat-medipen-name
   description: uplink-combat-medipen-desc
-  productEntity: CombatMedipen
+  productEntity: DHMedipenOmnireazin
   discountCategory: usualDiscounts
   discountDownTo:
     Telecrystal: 2
