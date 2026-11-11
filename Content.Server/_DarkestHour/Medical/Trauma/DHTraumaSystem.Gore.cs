@@ -96,7 +96,7 @@ public sealed partial class DHTraumaSystem
         if (present.Count == 0)
             return;
 
-        var picked = _random.Pick(present);
+        var picked = present[_random.Next(present.Count)];
         Sever(ent, picked, organs[picked]);
     }
 
@@ -203,7 +203,8 @@ public sealed partial class DHTraumaSystem
         {
             var offset = _random.NextVector2(spread);
             var at = new EntityCoordinates(grid, center + offset + DecalCenter);
-            var decal = i == 0 && shift == null ? _random.Pick(FloorDecals) : _random.Pick(SplatterDecals);
+            var pool = i == 0 && shift == null ? FloorDecals : SplatterDecals;
+            var decal = pool[_random.Next(pool.Length)];
             _decals.TryAddDecal(decal, at, out _, rotation: _random.NextAngle(), cleanable: true);
         }
     }
