@@ -12,6 +12,7 @@ using Content.Shared.Traits.Assorted;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 
 namespace Content.Server._DarkestHour.Medical.Trauma;
 
@@ -49,6 +50,7 @@ public sealed partial class DHTraumaSystem
     };
 
     private static readonly Vector2 DecalCenter = new(-0.5f, -0.5f);
+    private static readonly ProtoId<DamageTypePrototype> KillDamageType = "Blunt";
     private static readonly TimeSpan CoughCooldown = TimeSpan.FromSeconds(8);
 
     /// <summary>Идёт смертельный урон после обезглавливания: травмы по нему не считаются.</summary>
@@ -121,7 +123,7 @@ public sealed partial class DHTraumaSystem
             var missing = threshold.Value - _damageable.GetTotalDamage(ent.Owner) + 1;
             if (missing > FixedPoint2.Zero)
             {
-                var kill = new DamageSpecifier(_proto.Index<DamageTypePrototype>("Blunt"), missing);
+                var kill = new DamageSpecifier(_proto.Index(KillDamageType), missing);
                 _killing = true;
                 try
                 {

@@ -1,6 +1,7 @@
 using System.Numerics;
 using Content.Shared._DarkestHour.Vehicles;
 using Content.Shared.Damage;
+using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Doors.Components;
