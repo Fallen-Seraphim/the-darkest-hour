@@ -69,7 +69,7 @@
   prefRoles:
   - DHImperialWeaponsSpecialist
   spawnerPrototype: DHSpawnPointImperialWeaponsSpecialist
-  startingGear: DHImperialWeaponsSpecialistGear
+  startingGear: DHRaidImperialWeaponsSpecialistGear
   components:
   - type: NukeOperative
     syndStatusIcon: DHImperialFaction
@@ -119,7 +119,7 @@
   prefRoles:
   - DHImperialFieldMedic
   spawnerPrototype: DHSpawnPointImperialFieldMedic
-  startingGear: DHImperialFieldMedicGear
+  startingGear: DHRaidImperialFieldMedicGear
   components:
   - type: NukeOperative
     syndStatusIcon: DHImperialFaction
@@ -169,7 +169,7 @@
   prefRoles:
   - DHImperialMachinegunner
   spawnerPrototype: DHSpawnPointImperialMachinegunner
-  startingGear: DHImperialMachinegunnerGear
+  startingGear: DHRaidImperialMachinegunnerGear
   components:
   - type: NukeOperative
     syndStatusIcon: DHImperialFaction
@@ -219,7 +219,7 @@
   prefRoles:
   - DHImperialRifleman
   spawnerPrototype: DHSpawnPointImperialRifleman
-  startingGear: DHImperialRiflemanGear
+  startingGear: DHRaidImperialRiflemanGear
   components:
   - type: NukeOperative
     syndStatusIcon: DHImperialFaction
@@ -304,15 +304,12 @@
   id: DHImperialWeaponsSpecialistGear
   equipment:
     id: DHDogtagsImperialWeaponsSpecialist
-  inhand:
-  - DHImperialKitWeaponsSpecialist
   storage:
     back:
     - DHPainkillerAutoinjector
     - PinpointerSyndicateNuclear
     - DHMedipenOmnireazin
     - DHIFAKFilled
-    - DHAttachmentKitClose
 
 - type: startingGear
   parent: DHImperialGearBase
@@ -321,8 +318,6 @@
     back: DHImperialClothingBackpackMedic
     id: DHDogtagsImperialFieldMedic
     belt: DHImperialClothingBeltMedicFilled
-  inhand:
-  - DHImperialKitFieldMedic
   storage:
     back:
     - DHPainkillerAutoinjector
@@ -343,28 +338,51 @@
   id: DHImperialMachinegunnerGear
   equipment:
     id: DHDogtagsImperialMachinegunner
-  inhand:
-  - DHImperialKitMachinegunner
   storage:
     back:
     - DHPainkillerAutoinjector
     - PinpointerSyndicateNuclear
     - DHMedipenOmnireazin
     - DHIFAKFilled
-    - DHAttachmentKitSupport
 
 - type: startingGear
   parent: DHImperialGearBase
   id: DHImperialRiflemanGear
-  inhand:
-  - DHImperialKitRifleman
   storage:
     back:
     - DHPainkillerAutoinjector
     - PinpointerSyndicateNuclear
     - DHMedipenOmnireazin
     - DHIFAKFilled
-    - DHAttachmentKitRifle
+
+# Рейд (без вендоматов): кейс выбора комплекта и набор модулей в руках. В «Штурме» снаряжение
+# берётся из вендоматов авианосца (Vendors/gear_vendors.yml), поэтому базовые наборы выше — без кейса.
+- type: startingGear
+  parent: DHImperialWeaponsSpecialistGear
+  id: DHRaidImperialWeaponsSpecialistGear
+  inhand:
+  - DHImperialKitWeaponsSpecialist
+  - DHAttachmentKitClose
+
+- type: startingGear
+  parent: DHImperialFieldMedicGear
+  id: DHRaidImperialFieldMedicGear
+  inhand:
+  - DHImperialKitFieldMedic
+
+- type: startingGear
+  parent: DHImperialMachinegunnerGear
+  id: DHRaidImperialMachinegunnerGear
+  inhand:
+  - DHImperialKitMachinegunner
+  - DHAttachmentKitSupport
+
+- type: startingGear
+  parent: DHImperialRiflemanGear
+  id: DHRaidImperialRiflemanGear
+  inhand:
+  - DHImperialKitRifleman
+  - DHAttachmentKitRifle
 
 - type: entity
   parent: ToolboxThief

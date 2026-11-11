@@ -48,8 +48,6 @@
     head: DHRepublicClothingHeadPatrolCap
     id: DHDogtagsGarrisonOfficer
     ears: DHClothingHeadsetAltRepublicCommand
-  inhand:
-  - DHRepublicKitOfficer
   storage:
     back:
     - DHPainkillerAutoinjector
@@ -97,15 +95,13 @@
     - DHIFAKFilled
     - DHFieldRadioJammer
 
-# Остальной гарнизон: стрелок, пулемётчик, снайпер и медик выбирают комплект (кейс в руке, как у десанта),
-# огнемётчик — снаряжение отряда зачистки. Жетоны — свои.
+# Остальной гарнизон: стрелок, пулемётчик, снайпер, медик и офицер берут оружие, броню и модули в вендоматах
+# базы (Vendors/gear_vendors.yml), огнемётчик — снаряжение отряда зачистки. Жетоны — свои.
 - type: startingGear
   parent: DHRepublicGearBase
   id: DHGarrisonRiflemanGear
   equipment:
     id: DHDogtagsGarrisonRifleman
-  inhand:
-  - DHRepublicKitRifleman
   storage:
     back:
     - DHPainkillerAutoinjector
@@ -113,15 +109,12 @@
     - Handcuffs
     - Handcuffs
     - DHIFAKFilled
-    - DHAttachmentKitRifle
 
 - type: startingGear
   parent: DHRepublicGearBase
   id: DHGarrisonMachinegunnerGear
   equipment:
     id: DHDogtagsGarrisonMachinegunner
-  inhand:
-  - DHRepublicKitMachinegunner
   storage:
     back:
     - DHPainkillerAutoinjector
@@ -129,15 +122,12 @@
     - Handcuffs
     - Handcuffs
     - DHIFAKFilled
-    - DHAttachmentKitSupport
 
 - type: startingGear
   parent: DHRepublicGearBase
   id: DHGarrisonSniperGear
   equipment:
     id: DHDogtagsGarrisonSniper
-  inhand:
-  - DHRepublicKitSniper
   storage:
     back:
     - DHPainkillerAutoinjector
@@ -145,7 +135,6 @@
     - Handcuffs
     - Handcuffs
     - DHIFAKFilled
-    - DHAttachmentKitMarksman
 
 - type: startingGear
   parent: DHRepublicFlamerGear
@@ -161,8 +150,6 @@
     jumpsuit: DHRepublicClothingUniformMedic
     id: DHDogtagsGarrisonMedic
     belt: DHRepublicClothingBeltMedicFilled
-  inhand:
-  - DHRepublicKitMedic
   storage:
     back:
     - DHPainkillerAutoinjector
@@ -176,7 +163,8 @@
     - DHIFAKFilled
     - DHFieldSurgeryKitFilled
 
-# --- Выбор комплекта гарнизона (баланс — по наборам десанта: оружие, патроны, броня РМБ-1, бронеботинки) ---
+# --- Комплекты гарнизона (баланс — по наборам десанта: оружие, патроны, броня РМБ-1, бронеботинки) ---
+# Выдаются вендоматом снаряжения (раздел «Основной комплект»); кейсы-выборщики оставлены для маппинга и админов.
 
 - type: entity
   parent: ToolboxThief

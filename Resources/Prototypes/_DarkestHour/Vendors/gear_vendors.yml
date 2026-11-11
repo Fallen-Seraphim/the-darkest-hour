@@ -1,0 +1,433 @@
+# Вендоматы снаряжения в духе морпехов RMC/CMU (решение автора 2026-11-11): вместо кейсов выбора комплекта
+# бойцы берут оружие, патроны, модули и снаряжение в автоматах своей стороны. Лимит выборов — на бойца,
+# общий для всех автоматов одной группы; чужие должности свои разделы не видят (медик — медицину и т. п.).
+# Механика — DHGearVendorSystem. Спрайты — ColMarTech из RMC-14 (CC-BY-SA-3.0, CM-SS13).
+
+- type: entity
+  abstract: true
+  id: DHGearVendorBase
+  name: gear vendor
+  description: An automated requisition rack. Pick your loadout; each soldier gets a limited number of choices.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 200
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Sprite
+    sprite: _RMC14/Structures/Machines/VendingMachines/ColMarTech/gear.rsi
+    state: base
+    noRot: true
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: StructuralMetallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1000
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: ActivatableUI
+    key: enum.DHGearVendorUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHGearVendorUiKey.Key:
+        type: DHGearVendorBoundUserInterface
+  - type: Tag
+    tags:
+    - Structure
+
+# --- Республика (гарнизон базы REP-27-7) ---
+
+- type: entity
+  parent: DHGearVendorBase
+  id: DHGearVendorRepublicWeapons
+  name: RAC weapons rack
+  description: "Republican Army Corps arsenal: primary kit and spare ammunition."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Machines/VendingMachines/ColMarTech/guns.rsi
+    state: base
+  - type: AccessReader
+    access: [["DHRepublic"]]
+  - type: DHGearVendor
+    group: Republic
+    sections:
+    - id: primary
+      name: dh-gear-section-primary
+      jobs: [ DHGarrisonRifleman ]
+      entries:
+      - set: DHRepublicSetRiflemanRifle
+      - set: DHRepublicSetRiflemanMarksman
+      - set: DHRepublicSetRiflemanSmg
+    - id: primary
+      name: dh-gear-section-primary
+      jobs: [ DHGarrisonMachinegunner ]
+      entries:
+      - set: DHRepublicSetMachinegunnerLight
+      - set: DHRepublicSetMachinegunnerHeavy
+    - id: primary
+      name: dh-gear-section-primary
+      jobs: [ DHGarrisonSniper ]
+      entries:
+      - set: DHRepublicSetSniperAntiMateriel
+      - set: DHRepublicSetSniperMarksman
+    - id: primary
+      name: dh-gear-section-primary
+      jobs: [ DHGarrisonMedic ]
+      entries:
+      - set: DHRepublicSetMedicSmg
+      - set: DHRepublicSetMedicRifle
+    - id: primary
+      name: dh-gear-section-primary
+      jobs: [ DHGarrisonOfficer ]
+      entries:
+      - set: DHRepublicSetOfficerRifle
+      - set: DHRepublicSetOfficerSmg
+    - id: ammo
+      name: dh-gear-section-ammo
+      choices: 2
+      entries:
+      - proto: DHMagazine556x45FMG
+        count: 2
+        jobs: [ DHGarrisonRifleman, DHGarrisonMedic, DHGarrisonSapper ]
+      - proto: DHMagazine762x51FMG
+        count: 2
+        jobs: [ DHGarrisonRifleman, DHGarrisonOfficer ]
+      - proto: DHMagazine10x24E
+        count: 2
+        jobs: [ DHGarrisonRifleman, DHGarrisonMedic, DHGarrisonOfficer, DHGarrisonAAGunner, DHGarrisonCommander ]
+      - proto: DHMagazineBox556x45FMG
+        jobs: [ DHGarrisonMachinegunner ]
+      - proto: DHMagazineBelt762x51FMG
+        jobs: [ DHGarrisonMachinegunner ]
+      - proto: DHMagazine10x51FMG
+        count: 2
+        jobs: [ DHGarrisonSniper ]
+      - proto: DHMagazine127x105SVP
+        jobs: [ DHGarrisonSniper ]
+
+- type: entity
+  parent: DHGearVendorBase
+  id: DHGearVendorRepublicAttachments
+  name: RAC attachments rack
+  description: "Weapon attachments of the Republican Army Corps."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Machines/VendingMachines/ColMarTech/attachments.rsi
+    state: base
+  - type: AccessReader
+    access: [["DHRepublic"]]
+  - type: DHGearVendor
+    group: Republic
+    sections:
+    - id: attachments
+      name: dh-gear-section-attachments
+      choices: 3
+      entries:
+      - proto: DHAttachmentSuppressor
+      - proto: DHAttachmentFlashHider
+      - proto: DHAttachmentCompensator
+      - proto: DHAttachmentMuzzleBrake
+      - proto: DHAttachmentVerticalGrip
+      - proto: DHAttachmentAngledGrip
+      - proto: DHAttachmentBipod
+      - proto: DHAttachmentHandstop
+      - proto: DHAttachmentLongBarrel
+      - proto: DHAttachmentOpticHolo
+      - proto: DHAttachmentOptic2x
+      - proto: DHAttachmentOptic3x
+      - proto: DHAttachmentOptic4x
+      - proto: DHAttachmentLaser
+      - proto: DHAttachmentLight
+      - proto: DHAttachmentOptic8x
+        jobs: [ DHGarrisonSniper ]
+      - proto: DHAttachmentOptic16x
+        jobs: [ DHGarrisonSniper ]
+
+- type: entity
+  parent: DHGearVendorBase
+  id: DHGearVendorRepublicEquipment
+  name: RAC equipment rack
+  description: "Field equipment and armour upgrades of the Republican Army Corps."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Machines/VendingMachines/ColMarTech/gear.rsi
+    state: base
+  - type: AccessReader
+    access: [["DHRepublic"]]
+  - type: DHGearVendor
+    group: Republic
+    sections:
+    - id: armor
+      name: dh-gear-section-armor
+      entries:
+      - proto: DHArmorSpecialAutoMed
+      - proto: DHArmorSpecialStorage
+      - proto: DHArmorSpecialTankStorage
+      - proto: DHArmorSpecialShotgun
+      - proto: DHArmorSpecialFlamer
+    - id: plates
+      name: dh-gear-section-plates
+      entries:
+      - proto: DHArmorModuleRMB1LightTorso
+      - proto: DHArmorModuleRMB1HeavyTorso
+      - proto: DHArmorModuleRMB1CompositeTorso
+    - id: equipment
+      name: dh-gear-section-equipment
+      choices: 3
+      entries:
+      - proto: ExGrenade
+        count: 2
+      - proto: SmokeGrenade
+        count: 2
+      - proto: Binoculars
+      - proto: Shovel
+      - proto: DHSandbagsEmpty25
+      - proto: DHBarbedWire10
+      - proto: DHSignalFlareKit
+      - proto: FlashlightLantern
+      - proto: Handcuffs
+        count: 2
+      - proto: DHIFAKFilled
+
+- type: entity
+  parent: DHGearVendorBase
+  id: DHGearVendorRepublicMedic
+  name: RAC medical rack
+  description: "Medical supplies for Republican field medics only."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Machines/VendingMachines/ColMarTech/medical_gear.rsi
+    state: base
+  - type: AccessReader
+    access: [["DHRepublic"]]
+  - type: DHGearVendor
+    group: Republic
+    jobs: [ DHGarrisonMedic ]
+    sections:
+    - id: medical
+      name: dh-gear-section-medical
+      choices: 4
+      entries:
+      - proto: MedkitCombatFilled
+      - proto: DHBloodPackFull
+        count: 2
+      - proto: DHPainBlockerAutoinjector
+        count: 2
+      - proto: DHPainkillerAutoinjector
+        count: 3
+      - proto: DHMedipenOmnireazin
+        count: 2
+      - proto: DHIFAKFilled
+        count: 2
+      - proto: DHSplint
+        count: 3
+      - proto: DHFieldSurgeryKitFilled
+
+# --- Империя (десантный авианосец) ---
+
+- type: entity
+  parent: DHGearVendorBase
+  id: DHGearVendorEmpireWeapons
+  name: IMC weapons rack
+  description: "Imperial Marine Corps arsenal: primary kit and spare ammunition."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Machines/VendingMachines/ColMarTech/guns.rsi
+    state: base
+  - type: AccessReader
+    access: [["NuclearOperative"]]
+  - type: DHGearVendor
+    group: Empire
+    sections:
+    - id: primary
+      name: dh-gear-section-primary
+      jobs: [ DHMarineRifleman ]
+      entries:
+      - set: DHImperialSetRiflemanRifle
+      - set: DHImperialSetRiflemanSmg
+      - set: DHImperialSetRiflemanShotgun
+    - id: primary
+      name: dh-gear-section-primary
+      jobs: [ DHMarineMachinegunner ]
+      entries:
+      - set: DHImperialSetMachinegunnerLight
+      - set: DHImperialSetMachinegunnerHeavy
+    - id: primary
+      name: dh-gear-section-primary
+      jobs: [ DHMarineFieldMedic ]
+      entries:
+      - set: DHImperialSetFieldMedicSmg
+      - set: DHImperialSetFieldMedicRifle
+    - id: primary
+      name: dh-gear-section-primary
+      jobs: [ DHMarineWeaponsSpecialist ]
+      entries:
+      - set: DHImperialSetWeaponsSpecialistAssault
+      - set: DHImperialSetWeaponsSpecialistRifle
+      - set: DHImperialSetWeaponsSpecialistFlamer
+    - id: ammo
+      name: dh-gear-section-ammo
+      choices: 2
+      entries:
+      - proto: DHMagazine842x54ImpS
+        count: 2
+        jobs: [ DHMarineRifleman, DHMarineFieldMedic, DHMarineWeaponsSpecialist, DHMarineCommander ]
+      - proto: DHMagazine842x54ImpR
+        count: 2
+        jobs: [ DHMarineRifleman, DHMarineWeaponsSpecialist ]
+      - proto: DHMagazine104x16ImpB
+        count: 2
+        jobs: [ DHMarineRifleman, DHMarineFieldMedic ]
+      - proto: DHAmmoBox14gShot
+        jobs: [ DHMarineRifleman, DHMarineFieldMedic ]
+      - proto: DHMagazineDrum14gShot
+        jobs: [ DHMarineWeaponsSpecialist ]
+      - proto: DHMagazineDrum14gSlug
+        jobs: [ DHMarineWeaponsSpecialist ]
+      - proto: DHFlamerTankNapalm
+        jobs: [ DHMarineWeaponsSpecialist ]
+      - proto: DHMagazineDrum842x54ImpS
+        jobs: [ DHMarineMachinegunner ]
+      - proto: DHMagazineBelt145x114Std
+        jobs: [ DHMarineMachinegunner ]
+
+- type: entity
+  parent: DHGearVendorBase
+  id: DHGearVendorEmpireAttachments
+  name: IMC attachments rack
+  description: "Weapon attachments of the Imperial Marine Corps."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Machines/VendingMachines/ColMarTech/attachments.rsi
+    state: base
+  - type: AccessReader
+    access: [["NuclearOperative"]]
+  - type: DHGearVendor
+    group: Empire
+    sections:
+    - id: attachments
+      name: dh-gear-section-attachments
+      choices: 3
+      entries:
+      - proto: DHAttachmentSuppressor
+      - proto: DHAttachmentFlashHider
+      - proto: DHAttachmentCompensator
+      - proto: DHAttachmentMuzzleBrake
+      - proto: DHAttachmentVerticalGrip
+      - proto: DHAttachmentAngledGrip
+      - proto: DHAttachmentBipod
+      - proto: DHAttachmentHandstop
+      - proto: DHAttachmentLongBarrel
+      - proto: DHAttachmentOpticHolo
+      - proto: DHAttachmentOptic2x
+      - proto: DHAttachmentOptic3x
+      - proto: DHAttachmentOptic4x
+      - proto: DHAttachmentLaser
+      - proto: DHAttachmentLight
+      - proto: DHAttachmentIMPBarrel
+      - proto: DHAttachmentIMPStock
+      - proto: DHAttachmentIMPGyro
+      - proto: DHAttachmentOptic8x
+        jobs: [ DHMarineWeaponsSpecialist ]
+
+- type: entity
+  parent: DHGearVendorBase
+  id: DHGearVendorEmpireEquipment
+  name: IMC equipment rack
+  description: "Field equipment and armour upgrades of the Imperial Marine Corps."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Machines/VendingMachines/ColMarTech/prep.rsi
+    state: base
+  - type: AccessReader
+    access: [["NuclearOperative"]]
+  - type: DHGearVendor
+    group: Empire
+    sections:
+    - id: armor
+      name: dh-gear-section-armor
+      entries:
+      - proto: DHArmorSpecialAutoMed
+      - proto: DHArmorSpecialStorage
+      - proto: DHArmorSpecialTankStorage
+      - proto: DHArmorSpecialShotgun
+      - proto: DHArmorSpecialFlamer
+    - id: plates
+      name: dh-gear-section-plates
+      entries:
+      - proto: DHArmorModuleIMB1LightTorso
+      - proto: DHArmorModuleIMB1HeavyTorso
+      - proto: DHArmorModuleIMB1CompositeTorso
+    - id: equipment
+      name: dh-gear-section-equipment
+      choices: 3
+      entries:
+      - proto: ExGrenade
+        count: 2
+      - proto: SmokeGrenade
+        count: 2
+      - proto: Binoculars
+      - proto: Shovel
+      - proto: DHSandbagsEmpty25
+      - proto: DHBarbedWire10
+      - proto: DHSignalFlareKit
+      - proto: FlashlightLantern
+      - proto: Handcuffs
+        count: 2
+      - proto: DHIFAKFilled
+
+- type: entity
+  parent: DHGearVendorBase
+  id: DHGearVendorEmpireMedic
+  name: IMC medical rack
+  description: "Medical supplies for Imperial field medics only."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Machines/VendingMachines/ColMarTech/medical_gear.rsi
+    state: base
+  - type: AccessReader
+    access: [["NuclearOperative"]]
+  - type: DHGearVendor
+    group: Empire
+    jobs: [ DHMarineFieldMedic ]
+    sections:
+    - id: medical
+      name: dh-gear-section-medical
+      choices: 4
+      entries:
+      - proto: MedkitCombatFilled
+      - proto: DHBloodPackFull
+        count: 2
+      - proto: DHPainBlockerAutoinjector
+        count: 2
+      - proto: DHPainkillerAutoinjector
+        count: 3
+      - proto: DHMedipenOmnireazin
+        count: 2
+      - proto: DHIFAKFilled
+        count: 2
+      - proto: DHSplint
+        count: 3
+      - proto: DHFieldSurgeryKitFilled
