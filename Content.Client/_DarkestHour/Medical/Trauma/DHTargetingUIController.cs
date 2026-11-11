@@ -34,6 +34,10 @@ public sealed partial class DHTargetingUIController : UIController
 
     private PanelContainer? _panel;
     private DHTargetingDoll? _doll;
+    private Control? _hud;
+
+    /// <summary>Отступ куклы от правого края экрана и от плашки HUD.</summary>
+    private const float Gap = 10f;
 
     public override void Initialize()
     {
@@ -89,6 +93,45 @@ public sealed partial class DHTargetingUIController : UIController
         _panel?.Orphan();
         _panel = null;
         _doll = null;
+        _hud = null;
+    }
+
+    /// <summary>
+    /// Плашка HUD TDH (уровень, компас, рация) стоит в правом нижнем углу игрового окна. В обычной раскладке это тот же
+    /// угол экрана — кукла встаёт левее плашки; в раздельной плашка у края игрового окна, а кукла — у края экрана.
+    /// </summary>
+    private void PlaceBesideHud(Control screen)
+    {
+        _hud ??= FindHud(screen);
+        var right = Gap;
+        if (_hud is { Visible: true } hud)
+        {
+            var hudLeft = hud.GlobalPosition.X;
+            var hudRight = hudLeft + hud.Size.X;
+            // Плашка прижата к правому краю экрана — сдвигаемся за её левый край.
+            if (screen.Size.X - hudRight < _panel!.Size.X + Gap)
+                right = screen.Size.X - hudLeft + Gap;
+        }
+
+        if (Math.Abs(_panel!.GetValue<float>(LayoutContainer.MarginRightProperty) + right) > 0.5f)
+        {
+            LayoutContainer.SetMarginLeft(_panel!, -right - _panel!.Size.X);
+            LayoutContainer.SetMarginRight(_panel!, -right);
+        }
+    }
+
+    private static Control? FindHud(Control root)
+    {
+        foreach (var child in root.Children)
+        {
+            if (child is Content.Client._DarkestHour.UI.DHHudWidget)
+                return child;
+
+            if (FindHud(child) is { } found)
+                return found;
+        }
+
+        return null;
     }
 
     private void OnZoneSelected(string zone)
@@ -113,5 +156,7 @@ public sealed partial class DHTargetingUIController : UIController
 
         _panel.Visible = true;
         _doll.Selection = targeting.Target;
+        if (_panel.Parent is { } screen)
+            PlaceBesideHud(screen);
     }
 }

@@ -64,3 +64,12 @@ dh-armor-part-footright = right foot
 dh-penetration-verb-text = Armour penetration
 dh-penetration-verb-class = Penetration class: [color=orange]{ $level }[/color].
 dh-penetration-verb-hint = Defeats armour of class 0–{ $level }; tougher armour stops it (blunt trauma only).
+
+# Exoskeletons (DHExoskeletonComponent)
+dh-exo-speed-same = unchanged
+dh-exo-class-light = light
+dh-exo-class-medium = medium
+dh-exo-class-heavy = heavy
+dh-exo-no-special = A light exoskeleton has no mount for a special system.
+dh-exo-wrong-plate = A { $exo } exoskeleton does not take { $plate } plates.
+dh-exo-examine = [color=lightblue]{ CAPITALIZE($exo) } exoskeleton[/color]: takes { $plates } plates; speed { $speed }, carries { $load }% of your gear, melee strikes +{ $melee }%.

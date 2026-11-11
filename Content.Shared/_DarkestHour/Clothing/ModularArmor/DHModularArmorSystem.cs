@@ -147,6 +147,23 @@ public sealed partial class DHModularArmorSystem : EntitySystem
             return false;
         }
 
+        if (TryComp<DHExoskeletonComponent>(ent, out var exo))
+        {
+            if (module.Slot == DHArmorSlot.Special && !exo.Special)
+            {
+                reason = Loc.GetString("dh-exo-no-special");
+                return false;
+            }
+
+            if (module.Slot != DHArmorSlot.Special && !exo.Plates.Contains(module.Class))
+            {
+                reason = Loc.GetString("dh-exo-wrong-plate",
+                    ("plate", Loc.GetString("dh-armor-class-" + module.Class.ToString().ToLowerInvariant())),
+                    ("exo", Loc.GetString("dh-exo-class-" + exo.Class.ToString().ToLowerInvariant())));
+                return false;
+            }
+        }
+
         if (module.Class == DHArmorClass.Heavy && !NearRack(ent, user))
         {
             reason = Loc.GetString("dh-armor-module-needs-rack");
@@ -330,6 +347,13 @@ public sealed partial class DHModularArmorSystem : EntitySystem
 
     private void OnRefreshSpeed(Entity<DHModularArmorComponent> ent, ref InventoryRelayedEvent<RefreshMovementSpeedModifiersEvent> args)
     {
+        // Экзоскелет несёт пластины сам: скорость задаёт только его класс.
+        if (TryComp<DHExoskeletonComponent>(ent, out var exo))
+        {
+            args.Args.ModifySpeed(exo.Speed, exo.Speed);
+            return;
+        }
+
         var speed = 1f;
         foreach (var (_, _, module) in GetModules(ent))
         {
@@ -347,6 +371,24 @@ public sealed partial class DHModularArmorSystem : EntitySystem
 
         using (args.PushGroup(nameof(DHModularArmorComponent)))
         {
+            if (TryComp<DHExoskeletonComponent>(ent, out var exo))
+            {
+                var plates = new List<string>();
+                foreach (var plate in exo.Plates)
+                {
+                    plates.Add(Loc.GetString("dh-armor-class-" + plate.ToString().ToLowerInvariant()));
+                }
+
+                args.PushMarkup(Loc.GetString("dh-exo-examine",
+                    ("exo", Loc.GetString("dh-exo-class-" + exo.Class.ToString().ToLowerInvariant())),
+                    ("plates", string.Join(", ", plates)),
+                    ("speed", MathF.Abs(exo.Speed - 1f) < 0.005f
+                        ? Loc.GetString("dh-exo-speed-same")
+                        : ((int) MathF.Round((exo.Speed - 1f) * 100f)).ToString("+0;-0") + "%"),
+                    ("load", (int) MathF.Round((1f - exo.LoadFactor) * 100f)),
+                    ("melee", (int) MathF.Round((exo.MeleeMultiplier - 1f) * 100f))));
+            }
+
             var any = false;
             foreach (var (slot, module, comp) in GetModules(ent))
             {

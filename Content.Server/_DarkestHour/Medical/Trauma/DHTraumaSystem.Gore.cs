@@ -28,7 +28,6 @@ namespace Content.Server._DarkestHour.Medical.Trauma;
 public sealed partial class DHTraumaSystem
 {
     [Dependency] private DecalSystem _decals = default!;
-    [Dependency] private IPrototypeManager _proto = default!;
     [Dependency] private MobThresholdSystem _thresholds = default!;
 
     /// <summary>Урон от взрыва за раз, с которого возможен отрыв конечности.</summary>

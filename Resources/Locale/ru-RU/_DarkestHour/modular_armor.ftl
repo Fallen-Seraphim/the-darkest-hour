@@ -66,3 +66,12 @@ dh-armor-part-footright = правая стопа
 dh-penetration-verb-text = Бронепробитие
 dh-penetration-verb-class = Класс бронепробития: [color=orange]{ $level }[/color].
 dh-penetration-verb-hint = Пробивает броню классов 0–{ $level }; более прочная броня держит (заброневой удар).
+
+# Экзоскелеты (DHExoskeletonComponent)
+dh-exo-speed-same = без изменений
+dh-exo-class-light = лёгкий
+dh-exo-class-medium = средний
+dh-exo-class-heavy = тяжёлый
+dh-exo-no-special = На лёгкий экзоскелет спецсистему не поставить.
+dh-exo-wrong-plate = { CAPITALIZE($exo) } экзоскелет не принимает такие пластины (класс «{ $plate }»).
+dh-exo-examine = [color=lightblue]{ CAPITALIZE($exo) } экзоскелет[/color]: пластины классов { $plates }; скорость { $speed }, берёт на себя { $load }% веса снаряжения, удар в ближнем бою +{ $melee }%.

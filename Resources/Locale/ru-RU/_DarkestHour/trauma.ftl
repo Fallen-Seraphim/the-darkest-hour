@@ -95,3 +95,8 @@ dh-trauma-cough-blood-self = Вы кашляете кровью. В груди �
 dh-limb-examine-fresh = [color=yellow]Ещё свежая[/color]: пришить можно ещё около { $minutes } мин. Держите в холоде — в холодильнике, морозильном шкафу или морге.
 dh-limb-examine-cold = [color=lightblue]В холоде[/color]: здесь не иссохнет (вне холода осталось около { $minutes } мин).
 dh-limb-examine-withered = [color=gray]Иссохла[/color]: пришить уже нельзя.
+
+dh-alert-pain-name = [color=orange]Боль[/color]
+dh-alert-pain-desc = Чем сильнее боль, тем ярче значок. В болевом шоке валит с ног, сильнее — теряете сознание. Обезболивающее снимет её на время.
+dh-alert-fracture-name = [color=red]Перелом[/color]
+dh-alert-fracture-desc = Сломана кость: без шины — сильная боль и хромота (или роняете вещи). С шиной легче, но кость срастётся только после операции.

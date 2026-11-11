@@ -95,3 +95,8 @@ dh-trauma-cough-blood-self = You cough up blood. Something is badly wrong inside
 dh-limb-examine-fresh = [color=yellow]Still fresh[/color]: it can be reattached for about { $minutes } more min. Keep it cold — a fridge, a freezer or the morgue.
 dh-limb-examine-cold = [color=lightblue]Kept cold[/color]: it will not wither here (about { $minutes } min left outside).
 dh-limb-examine-withered = [color=gray]Withered[/color]: it can no longer be reattached.
+
+dh-alert-pain-name = [color=orange]Pain[/color]
+dh-alert-pain-desc = The stronger the pain, the brighter the icon. Pain shock knocks you down, worse than that and you pass out. Painkillers dull it for a while.
+dh-alert-fracture-name = [color=red]Fracture[/color]
+dh-alert-fracture-desc = A broken bone: without a splint it hurts badly and you limp (or drop things). A splint helps, but the bone only heals after surgery.
