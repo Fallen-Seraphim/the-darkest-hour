@@ -1,7 +1,7 @@
 {
     "version": 1,
     "license": "CC-BY-SA-3.0",
-    "copyright": "Torso and arms: Created for RMC-14/RMC-14 by @TadJohnson00 (GitHub).; legs: Made by Ghost581 (discord), Hydrakin sprite by Zethine / @synthetic_086 (discord), Vox sprite by 10KE | Cut into armour modules by body part for The Darkest Hour (Tools/_DarkestHour/modular_armor)",
+    "copyright": "Drawn for The Darkest Hour (Tools/_DarkestHour/modular_armor/exo_sprites.py)",
     "size": {
         "x": 32,
         "y": 32

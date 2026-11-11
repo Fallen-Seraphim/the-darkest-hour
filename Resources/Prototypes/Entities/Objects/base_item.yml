@@ -5,6 +5,7 @@
   components:
   - type: Item
     size: Small
+  - type: DHWeight # DarkestHour: вес в кг (без явного — по размеру), виден при осмотре
   - type: Animateable
   - type: Clickable
   - type: InteractionOutline

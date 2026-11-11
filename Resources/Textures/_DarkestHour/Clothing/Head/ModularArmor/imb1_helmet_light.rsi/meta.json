@@ -1,0 +1,25 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Drawn for The Darkest Hour (Tools/_DarkestHour/modular_armor/exo_sprites.py)",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "icon"
+        },
+        {
+            "name": "icon-unshaded"
+        },
+        {
+            "name": "equipped-head",
+            "directions": 4
+        },
+        {
+            "name": "equipped-head-unshaded",
+            "directions": 4
+        }
+    ]
+}

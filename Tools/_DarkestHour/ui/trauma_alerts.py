@@ -273,6 +273,20 @@ def no_signal():
     return outline(img)
 
 
+def load(level):
+    """Перегруз: гиря; жёлтая — тяжело, оранжевая — рывка нет, красная — полный перегруз."""
+    color = [(230, 200, 60, 255), (235, 130, 40, 255), (210, 40, 30, 255)][level]
+    img = new()
+    d = ImageDraw.Draw(img)
+    d.ellipse([10, 5, 22, 15], outline=color, width=3)  # дужка
+    d.polygon([(8, 14), (24, 14), (27, 27), (5, 27)], fill=color)
+    d.rectangle([12, 18, 20, 21], fill=(40, 30, 20, 255))  # «кг»
+    for i in range(level):  # стрелки вниз — степень
+        x = 9 + i * 12
+        d.polygon([(x, 29), (x + 4, 29), (x + 2, 31)], fill=(255, 255, 255, 255))
+    return outline(img)
+
+
 ICONS = {
     'internal_bleeding': [('ib%d' % i, lambda i=i: internal_bleeding(i)) for i in range(3)],
     'shrapnel': [('shrapnel%d' % i, lambda i=i: shrapnel(i)) for i in range(3)],
@@ -289,6 +303,7 @@ ICONS = {
     'dose': [('rad%d' % i, lambda i=i: trefoil(i, (240, 210, 40, 255))) for i in range(4)]
             + [('chronite%d' % i, lambda i=i: crystal(i)) for i in range(4)],
     'comms': [('nosignal', no_signal)],
+    'load': [('load%d' % i, lambda i=i: load(i)) for i in range(3)],
 }
 
 
