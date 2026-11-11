@@ -1,0 +1,10 @@
+# Крики людей из CM-SS13 / Colonial Marines Universe (через RuCM) вместо ванильных (решение автора 2026-11-11).
+- files: ["female_scream_1.ogg", "female_scream_2.ogg", "female_scream_3.ogg", "female_scream_4.ogg", "female_scream_5.ogg", "male_scream_2.ogg", "male_scream_3.ogg", "male_scream_4.ogg", "male_scream_5.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13 (human_male_scream_*, human_female_scream_*), via RMC-14 and Colonial Marines Universe / RuCM"
+  source: "https://github.com/cmss13-devs/cmss13/tree/master/sound/voice"
+
+- files: ["male_scream_6.ogg", "male_scream_ryan_1.ogg", "male_scream_ryan_2.ogg", "male_scream_ryan_3.ogg", "male_scream_ryan_4.ogg", "male_scream_ryan_5.ogg", "male_scream_ryan_6.ogg", "male_scream_ryan_7.ogg", "male_scream_ryan_8.ogg", "male_scream_ryan_9.ogg", "male_scream_ryan_10.ogg", "male_scream_ryan_11.ogg", "male_scream_ryan_12.ogg", "male_scream_ryan_13.ogg", "male_warcry_1.ogg", "male_warcry_2.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Colonial Marines Universe (AU-14), Content.CMU/Resources/Audio/CMU14/Voice (Screams, UpdatedVoice/Male/Ryan/Scream, UpdatedVoice/Male/Koala/ScreamWarcry); assets of that repository are CC-BY-SA-3.0 unless stated otherwise. Taken via RuCM, files renamed."
+  source: "https://github.com/flex5hybrid/russiancm/tree/master/Content.CMU/Resources/Audio/CMU14/Voice"

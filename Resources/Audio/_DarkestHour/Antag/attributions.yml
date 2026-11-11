@@ -1,6 +1,6 @@
 - files: ["imperial_raid_start.ogg"]
   license: "Custom"
-  copyright: "\"The Might of the Empire\" by James Hannigan, Command & Conquer: Red Alert 3 soundtrack (Electronic Arts). Added at the request of the project owner; not under a free licence, permission to be confirmed. Converted from MP3 to OGG."
+  copyright: "\"The Might of the Empire\" by James Hannigan, Command & Conquer: Red Alert 3 soundtrack (Electronic Arts). Added at the request of the project owner; not under a free licence, permission to be confirmed. Converted from MP3 to OGG; volume lowered by 8 dB at the owner's request (2026-11-11)."
   source: "https://github.com/Fallen-Seraphim/the-darkest-hour"
 
 - files: ["republic_anthem.ogg"]
