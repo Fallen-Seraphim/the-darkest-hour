@@ -131,6 +131,13 @@ public sealed partial class DHVehicleSystem : EntitySystem
         if (ent.Comp.SmokeControl && vehicleComp.Smoke)
             _actions.AddAction(user, ref ent.Comp.SmokeActionEntity, vehicleComp.SmokeAction, vehicle);
 
+        // Механик-водитель: гудок и фары.
+        if (ent.Comp.Role == DHVehicleSeatRole.Driver)
+        {
+            _actions.AddAction(user, ref ent.Comp.HornActionEntity, vehicleComp.HornAction, vehicle);
+            _actions.AddAction(user, ref ent.Comp.LightsActionEntity, vehicleComp.LightsAction, vehicle);
+        }
+
         _popup.PopupEntity(Loc.GetString("dh-vehicle-station-taken", ("station", ent.Owner)), ent, user);
     }
 
@@ -171,10 +178,18 @@ public sealed partial class DHVehicleSystem : EntitySystem
 
             if (ent.Comp.SmokeActionEntity is { } action)
                 _actions.RemoveAction(user, action);
+
+            if (ent.Comp.HornActionEntity is { } horn)
+                _actions.RemoveAction(user, horn);
+
+            if (ent.Comp.LightsActionEntity is { } lights)
+                _actions.RemoveAction(user, lights);
         }
 
         ent.Comp.PreviousMaxZoom = null;
         ent.Comp.SmokeActionEntity = null;
+        ent.Comp.HornActionEntity = null;
+        ent.Comp.LightsActionEntity = null;
     }
 
     private void ReleaseCrew(EntityUid user)
@@ -299,7 +314,33 @@ public sealed partial class DHVehicleSystem : EntitySystem
     /// <summary>Башня доворачивается к прицелу при выстреле.</summary>
     private void OnGunAttemptShoot(Entity<DHVehicleGunComponent> ent, ref AttemptShootEvent args)
     {
-        if (args.Cancelled || !ent.Comp.Turret || ent.Comp.Vehicle is not { } vehicle ||
+        if (args.Cancelled)
+            return;
+
+        // Разбитый модуль орудия не стреляет.
+        if (ent.Comp.Disabled)
+        {
+            args.Cancelled = true;
+            return;
+        }
+
+        // Сектор обстрела: бортовой порт бьёт только в свой борт.
+        if (ent.Comp.Arc < 360f && ent.Comp.Vehicle is { } arcVehicle && TryComp<GunComponent>(ent, out var arcGun) &&
+            arcGun.ShootCoordinates is { } arcAim &&
+            TryGetTurretAngle(arcVehicle, _transform.ToMapCoordinates(arcAim), out var relative))
+        {
+            var off = (relative - Angle.FromDegrees(ent.Comp.ArcCenter)).Reduced().Theta;
+            if (off > Math.PI)
+                off -= 2 * Math.PI;
+
+            if (Math.Abs(off) > Angle.FromDegrees(ent.Comp.Arc / 2f).Theta)
+            {
+                args.Cancelled = true;
+                return;
+            }
+        }
+
+        if (!ent.Comp.Turret || ent.Comp.Vehicle is not { } vehicle ||
             !TryComp<DHVehicleComponent>(vehicle, out var vehicleComp) ||
             !TryComp<GunComponent>(ent, out var gun) || gun.ShootCoordinates is not { } aim)
         {

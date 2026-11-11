@@ -1,0 +1,480 @@
+# Модули техники (hardpoints), как в CM-SS13 / RMC (решение автора 2026-11-11). Код — DHVehicleServerSystem.Hardpoints.
+#  * поставить: модулем по машине (6 с); снять: гаечным ключом — пункт «Снять модуль» в меню машины (6 с);
+#  * чинить: включённой сваркой — «Чинить модуль» в меню машины или сваркой по снятому модулю;
+#  * каждый модуль получает долю урона по машине (damageShare), броня забирает свою долю на себя (armorAbsorb);
+#  * разбитый модуль не работает: без колёс/гусениц машина стоит, орудие молчит, без гранатомётов нет дыма.
+# Спрайты — cmss13 через RMC-14 (CC-BY-SA-3.0).
+
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: DHHardpointBase
+  components:
+  - type: Item
+    size: Huge
+  - type: StaticPrice
+    price: 1500
+
+# ------------------------------------------------------------------ RAM-45 (БТР Республики)
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointRAM45DualCannon
+  name: RAM-45 twin autocannon
+  description: The RAM-45 turret with a twin 30 mm autocannon.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/hardpoints/apc.rsi
+    state: dual_cannon
+  - type: DHHardpoint
+    slot: Primary
+    families: [ RAM45 ]
+    maxIntegrity: 350
+    integrity: 350
+    damageShare: 0.1
+    vehicleState: dualcannon_0
+    damagedVehicleState: dualcannon_1
+    gun: DHVehicleGunAutocannon30
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointRAM45FrontCannon
+  name: RAM-45 bow machine gun
+  description: A heavy machine gun in a ball mount on the RAM-45 bow.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/hardpoints/apc.rsi
+    state: front_cannon
+  - type: DHHardpoint
+    slot: Secondary
+    families: [ RAM45 ]
+    maxIntegrity: 250
+    integrity: 250
+    damageShare: 0.1
+    vehicleState: frontalcannon_0
+    damagedVehicleState: frontalcannon_1
+    gun: DHVehicleGunHMG
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointRAM45CommsRelay
+  name: RAM-45 radio mast
+  description: The radio relay mast of the RAM-45.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/hardpoints/apc.rsi
+    state: comms_relay
+  - type: DHHardpoint
+    slot: Support
+    families: [ RAM45 ]
+    maxIntegrity: 200
+    integrity: 200
+    damageShare: 0.08
+    vehicleState: comms_relay_0
+    damagedVehicleState: comms_relay_1
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointRAM45Wheels
+  name: RAM-45 wheel set
+  description: Run-flat wheels and suspension for the RAM-45. Without them the APC goes nowhere.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/hardpoints/apc.rsi
+    state: tires
+  - type: DHHardpoint
+    slot: Wheels
+    families: [ RAM45 ]
+    maxIntegrity: 500
+    integrity: 500
+    damageShare: 0.15
+    vehicleState: wheels_0
+    damagedVehicleState: wheels_1
+
+# ------------------------------------------------------------------ IM-30 (БТР Империи)
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointIM30Autocannon
+  name: IM-30 autocannon
+  description: The IM-30 turret autocannon.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/hardpoints/sppapc.rsi
+    state: apc_autocannon
+  - type: DHHardpoint
+    slot: Primary
+    families: [ IM30 ]
+    maxIntegrity: 350
+    integrity: 350
+    damageShare: 0.1
+    vehicleState: apc_autocannon_0
+    damagedVehicleState: apc_autocannon_1
+    gun: DHVehicleGunAutocannon30
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointIM30CoaxHMG
+  name: IM-30 coaxial machine gun
+  description: The heavy machine gun paired with the IM-30 autocannon.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/hardpoints/sppapc.rsi
+    state: apc_minigun
+  - type: DHHardpoint
+    slot: Secondary
+    families: [ IM30 ]
+    maxIntegrity: 250
+    integrity: 250
+    damageShare: 0.1
+    gun: DHVehicleGunHMG
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointIM30FlareLauncher
+  name: IM-30 flare launcher
+  description: Flare and decoy launchers on the IM-30 hull.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/hardpoints/sppapc.rsi
+    state: spp_flare_launcher
+  - type: DHHardpoint
+    slot: Support
+    families: [ IM30 ]
+    maxIntegrity: 200
+    integrity: 200
+    damageShare: 0.08
+    vehicleState: spp_flare_launcher_0
+    damagedVehicleState: spp_flare_launcher_1
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointIM30Wheels
+  name: IM-30 wheel set
+  description: Wheels and suspension for the IM-30. Without them the APC goes nowhere.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/hardpoints/sppapc.rsi
+    state: spp_tires
+  - type: DHHardpoint
+    slot: Wheels
+    families: [ IM30 ]
+    maxIntegrity: 500
+    integrity: 500
+    damageShare: 0.15
+    vehicleState: wheels_0
+    damagedVehicleState: wheels_1
+
+# ------------------------------------------------------------------ бортовые порты (оба БТР)
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointPortGun
+  name: firing port machine gun
+  description: A machine gun in a side firing port. The troops shoot it from inside the APC, only to their own side.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/hardpoints/apc.rsi
+    state: m56_FPW
+  - type: Item
+    size: Large
+  - type: DHHardpoint
+    slot: PortLeft
+    families: [ RAM45, IM30 ]
+    maxIntegrity: 200
+    integrity: 200
+    damageShare: 0.05
+    gun: DHVehicleGunPortLeft
+
+- type: entity
+  parent: DHHardpointPortGun
+  id: DHHardpointPortGunRight
+  suffix: right
+  components:
+  - type: DHHardpoint
+    slot: PortRight
+    families: [ RAM45, IM30 ]
+    maxIntegrity: 200
+    integrity: 200
+    damageShare: 0.05
+    gun: DHVehicleGunPortRight
+
+# ------------------------------------------------------------------ танк Республики
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointTankRepublicCannon
+  name: Republic tank main gun
+  description: The long-barrelled main gun of the Republic tank.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/hardpoints/spptank.rsi
+    state: p17702
+  - type: DHHardpoint
+    slot: Primary
+    families: [ TankRepublic ]
+    maxIntegrity: 500
+    integrity: 500
+    damageShare: 0.1
+    vehicleState: p17702_0
+    damagedVehicleState: p17702_1
+    gun: DHVehicleGunTankCannon
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointTankRepublicCoaxMG
+  name: Republic tank coaxial machine gun
+  description: The machine gun mounted beside the Republic tank's main gun.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/hardpoints/spptank.rsi
+    state: t60p3m
+  - type: DHHardpoint
+    slot: Secondary
+    families: [ TankRepublic ]
+    maxIntegrity: 250
+    integrity: 250
+    damageShare: 0.1
+    vehicleState: t60p3m_0
+    damagedVehicleState: t60p3m_1
+    gun: DHVehicleGunCoaxMG
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointTankRepublicSmoke
+  name: Republic tank smoke dischargers
+  description: Smoke grenade dischargers for the Republic tank.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/hardpoints/spptank.rsi
+    state: turret_slauncher
+  - type: DHHardpoint
+    slot: Support
+    families: [ TankRepublic ]
+    maxIntegrity: 200
+    integrity: 200
+    damageShare: 0.08
+    vehicleState: slauncher_0
+    damagedVehicleState: slauncher_1
+    smoke: true
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointTankRepublicArmor
+  name: Republic tank reactive armour
+  description: Explosive reactive armour blocks for the Republic tank. Takes a third of the damage to the vehicle on itself until it is shot away.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/hardpoints/spptank.rsi
+    state: reactive_armor
+  - type: DHHardpoint
+    slot: Armor
+    families: [ TankRepublic ]
+    maxIntegrity: 1200
+    integrity: 1200
+    armorAbsorb: 0.35
+    vehicleState: reactive_armor_0
+    damagedVehicleState: reactive_armor_1
+    repairPerCycle: 100
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointTankRepublicTreads
+  name: Republic tank tracks
+  description: Tracks and road wheels for the Republic tank. Without them the tank goes nowhere.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/hardpoints/tank.rsi
+    state: treads
+  - type: DHHardpoint
+    slot: Wheels
+    families: [ TankRepublic ]
+    maxIntegrity: 600
+    integrity: 600
+    damageShare: 0.15
+    vehicleState: wheels_0
+    damagedVehicleState: wheels_1
+
+# ------------------------------------------------------------------ танк Империи
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointTankEmpireCannon
+  name: Imperial tank main gun
+  description: The long-barrelled main gun of the Imperial tank.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/hardpoints/tank.rsi
+    state: ltb_cannon
+  - type: DHHardpoint
+    slot: Primary
+    families: [ TankEmpire ]
+    maxIntegrity: 500
+    integrity: 500
+    damageShare: 0.1
+    vehicleState: ltb_cannon_0
+    damagedVehicleState: ltb_cannon_1
+    gun: DHVehicleGunTankCannon
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointTankEmpireCupolaMG
+  name: Imperial tank cupola machine gun
+  description: The machine gun cupola of the Imperial tank.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/hardpoints/tank.rsi
+    state: m56_cupola
+  - type: DHHardpoint
+    slot: Secondary
+    families: [ TankEmpire ]
+    maxIntegrity: 250
+    integrity: 250
+    damageShare: 0.1
+    vehicleState: m56cupola_0
+    damagedVehicleState: m56cupola_1
+    gun: DHVehicleGunCoaxMG
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointTankEmpireSmoke
+  name: Imperial tank smoke dischargers
+  description: Smoke grenade dischargers for the Imperial tank.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/hardpoints/tank.rsi
+    state: slauncher_0
+  - type: DHHardpoint
+    slot: Support
+    families: [ TankEmpire ]
+    maxIntegrity: 200
+    integrity: 200
+    damageShare: 0.08
+    vehicleState: slauncher_0
+    damagedVehicleState: slauncher_1
+    smoke: true
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointTankEmpireArmor
+  name: Imperial tank ballistic armour
+  description: Add-on ballistic armour plates for the Imperial tank. Takes a third of the damage to the vehicle on itself until it is shot away.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/hardpoints/tank.rsi
+    state: ballistic_armor
+  - type: DHHardpoint
+    slot: Armor
+    families: [ TankEmpire ]
+    maxIntegrity: 1000
+    integrity: 1000
+    armorAbsorb: 0.35
+    vehicleState: ballistic_armor_0
+    damagedVehicleState: ballistic_armor_1
+    repairPerCycle: 100
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointTankEmpireTreads
+  name: Imperial tank tracks
+  description: Tracks and road wheels for the Imperial tank. Without them the tank goes nowhere.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/hardpoints/tank.rsi
+    state: treads
+  - type: DHHardpoint
+    slot: Wheels
+    families: [ TankEmpire ]
+    maxIntegrity: 600
+    integrity: 600
+    damageShare: 0.15
+    vehicleState: wheels_0
+    damagedVehicleState: wheels_1
+
+# ------------------------------------------------------------------ бортовые пулемёты, посты у портов, действия водителя
+
+# Порт бьёт только в свой борт (сектор 120°). Патроны — ослабленные танковые пулемётные (как у спаренного).
+- type: entity
+  parent: DHVehicleGunBase
+  id: DHVehicleGunPortLeft
+  name: firing port machine gun
+  components:
+  - type: Gun
+    fireRate: 6
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/lmg.ogg
+  - type: DHVehicleGun
+    muzzleOffset: 1.6
+    turret: false
+    arc: 120
+    arcCenter: 90
+  - type: BasicEntityAmmoProvider
+    proto: DHVehicleBulletTankMG
+    capacity: 150
+    count: 150
+
+- type: entity
+  parent: DHVehicleGunPortLeft
+  id: DHVehicleGunPortRight
+  components:
+  - type: DHVehicleGun
+    muzzleOffset: 1.6
+    turret: false
+    arc: 120
+    arcCenter: -90
+
+- type: entity
+  parent: DHVehicleConsoleBase
+  id: DHVehicleConsolePortLeft
+  name: firing port
+  description: A firing port with a machine gun in a ball mount. Sit in the seat next to it and use it; in combat mode you fire out of the port, to this side only.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/Interiors/apc.rsi
+    layers:
+    - state: m56_FPW
+  - type: PointLight
+    enabled: false
+  - type: DHVehicleStation
+    role: Gunner
+    weapon: port_left
+
+- type: entity
+  parent: DHVehicleConsolePortLeft
+  id: DHVehicleConsolePortRight
+  components:
+  - type: DHVehicleStation
+    role: Gunner
+    weapon: port_right
+
+- type: entity
+  parent: BaseAction
+  id: DHActionVehicleHorn
+  name: Horn
+  description: Sound the horn.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 3
+  - type: Sprite
+    sprite: Objects/Fun/bikehorn.rsi
+    layers:
+    - state: icon
+  - type: InstantAction
+    event: !type:DHVehicleHornActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionVehicleLights
+  name: Headlights
+  description: Switch the headlights on or off.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 1
+  - type: Sprite
+    sprite: Objects/Tools/flashlight.rsi
+    layers:
+    - state: flashlight
+  - type: InstantAction
+    event: !type:DHVehicleLightsActionEvent
