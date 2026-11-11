@@ -52,6 +52,7 @@ namespace Content.Server._DarkestHour.Assault;
 public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleComponent>
 {
     [Dependency] private AntagSelectionSystem _antag = default!;
+    [Dependency] private Content.Server._DarkestHour.Chat.DHSpeechColorSystem _speechColor = default!;
     [Dependency] private AtmosphereSystem _atmos = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private DHCelestialSystem _celestial = default!;
@@ -185,6 +186,7 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
 
         var faction = factionStation.Faction;
         EnsureComp<DHAssaultFighterComponent>(ev.Mob).Faction = faction;
+        _speechColor.SetColor(ev.Mob, SpeechColor(faction));
 
         foreach (var rule in ActiveRules())
         {
@@ -322,6 +324,7 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
             _mind.WipeMind(session);
             _serverTicker.DoSpawn(session, profile, station, job, true, out var mob, out _, out _);
             EnsureComp<DHAssaultFighterComponent>(mob).Faction = faction;
+            _speechColor.SetColor(mob, SpeechColor(faction));
             _antag.SendBriefing(session, Loc.GetString("dh-assault-reinforced",
                 ("tickets", rule.Tickets[faction])), FactionColor(faction), rule.BriefingSound.GetValueOrDefault(faction));
             returned++;
@@ -732,4 +735,15 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
     }
 
     #endregion
+
+    /// <summary>Цвет реплик над головой по стороне (решение автора 2026-11-11).</summary>
+    private static Color SpeechColor(DHAssaultFaction faction)
+    {
+        return faction switch
+        {
+            DHAssaultFaction.Republic => Content.Shared._DarkestHour.Chat.DHSpeechColors.Republic,
+            DHAssaultFaction.Empire => Content.Shared._DarkestHour.Chat.DHSpeechColors.Empire,
+            _ => Content.Shared._DarkestHour.Chat.DHSpeechColors.Front,
+        };
+    }
 }

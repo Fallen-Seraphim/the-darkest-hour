@@ -26,6 +26,7 @@ namespace Content.Server._DarkestHour.Uprising;
 public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRuleComponent>
 {
     [Dependency] private AntagSelectionSystem _antag = default!;
+    [Dependency] private Content.Server._DarkestHour.Chat.DHSpeechColorSystem _speechColor = default!;
     [Dependency] private ChatSystem _chat = default!;
     [Dependency] private MapLoaderSystem _loader = default!;
     [Dependency] private RoundEndSystem _roundEnd = default!;
@@ -99,6 +100,20 @@ public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRule
                 EnsureComp<DHAssaultFighterComponent>(ev.Mob).Faction = DHAssaultFaction.Republic;
             else if (side == DHUprisingSide.Front)
                 EnsureComp<DHAssaultFighterComponent>(ev.Mob).Faction = DHAssaultFaction.Front;
+
+            // Цвет реплик над головой по стороне (решение автора 2026-11-11); гражданские — нейтральный.
+            switch (side)
+            {
+                case DHUprisingSide.Police:
+                    _speechColor.SetColor(ev.Mob, Content.Shared._DarkestHour.Chat.DHSpeechColors.Police);
+                    break;
+                case DHUprisingSide.Front:
+                    _speechColor.SetColor(ev.Mob, Content.Shared._DarkestHour.Chat.DHSpeechColors.Front);
+                    break;
+                case DHUprisingSide.Vanguard:
+                    _speechColor.SetColor(ev.Mob, Content.Shared._DarkestHour.Chat.DHSpeechColors.Vanguard);
+                    break;
+            }
 
             var (key, color) = side switch
             {
