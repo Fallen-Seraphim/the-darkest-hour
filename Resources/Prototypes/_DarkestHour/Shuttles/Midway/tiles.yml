@@ -1,0 +1,109 @@
+# Плитка пола «Мидуэя» (CM-SS13, CC-BY-SA-3.0; кадры извлечены CMU-14). Невидимая плитка — под деталями корпуса.
+
+- type: tile
+  abstract: true
+  parent: CMTileBaseUnpryable
+  id: DHMidwayTileBase
+  name: tiles-dh-midway-floor
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHMidwayTileInvisible
+  name: tiles-dh-midway-hull
+  sprite: /Textures/_CMU14/Dropships/Mohawk/tiles/invisible.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHMidwayTile05528f8ef01d
+  name: tiles-dh-midway-floor
+  sprite: /Textures/_CMU14/Dropships/Mohawk/tiles/CMUMohawkTile05528f8ef01d.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHMidwayTile0db3d9a30801
+  name: tiles-dh-midway-floor
+  sprite: /Textures/_CMU14/Dropships/Mohawk/tiles/CMUMohawkTile0db3d9a30801.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHMidwayTile20190f72d92e
+  name: tiles-dh-midway-floor
+  sprite: /Textures/_CMU14/Dropships/Mohawk/tiles/CMUMohawkTile20190f72d92e.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHMidwayTile2d85996352d5
+  name: tiles-dh-midway-ramp
+  sprite: /Textures/_CMU14/Dropships/Mohawk/tiles/CMUMohawkTile2d85996352d5.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHMidwayTile3db5a317160a
+  name: tiles-dh-midway-floor
+  sprite: /Textures/_CMU14/Dropships/Mohawk/tiles/CMUMohawkTile3db5a317160a.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHMidwayTile47ecc14cca5a
+  name: tiles-dh-midway-ramp
+  sprite: /Textures/_CMU14/Dropships/Mohawk/tiles/CMUMohawkTile47ecc14cca5a.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHMidwayTile4e82477b5e37
+  name: tiles-dh-midway-ramp
+  sprite: /Textures/_CMU14/Dropships/Mohawk/tiles/CMUMohawkTile4e82477b5e37.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHMidwayTile51512ef0a69c
+  name: tiles-dh-midway-ramp
+  sprite: /Textures/_CMU14/Dropships/Mohawk/tiles/CMUMohawkTile51512ef0a69c.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHMidwayTile5c13f6115556
+  name: tiles-dh-midway-ramp
+  sprite: /Textures/_CMU14/Dropships/Mohawk/tiles/CMUMohawkTile5c13f6115556.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHMidwayTile93fa42a22977
+  name: tiles-dh-midway-ramp
+  sprite: /Textures/_CMU14/Dropships/Mohawk/tiles/CMUMohawkTile93fa42a22977.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHMidwayTile9713d89efcb1
+  name: tiles-dh-midway-ramp
+  sprite: /Textures/_CMU14/Dropships/Mohawk/tiles/CMUMohawkTile9713d89efcb1.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHMidwayTile998b8f69ed1e
+  name: tiles-dh-midway-ramp
+  sprite: /Textures/_CMU14/Dropships/Mohawk/tiles/CMUMohawkTile998b8f69ed1e.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHMidwayTilec91c38e278ef
+  name: tiles-dh-midway-ramp
+  sprite: /Textures/_CMU14/Dropships/Mohawk/tiles/CMUMohawkTilec91c38e278ef.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHMidwayTiledc9474af2984
+  name: tiles-dh-midway-ramp
+  sprite: /Textures/_CMU14/Dropships/Mohawk/tiles/CMUMohawkTiledc9474af2984.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHMidwayTilee9d4dd51f339
+  name: tiles-dh-midway-ramp
+  sprite: /Textures/_CMU14/Dropships/Mohawk/tiles/CMUMohawkTilee9d4dd51f339.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHMidwayTilef01de899f566
+  name: tiles-dh-midway-ramp
+  sprite: /Textures/_CMU14/Dropships/Mohawk/tiles/CMUMohawkTilef01de899f566.png

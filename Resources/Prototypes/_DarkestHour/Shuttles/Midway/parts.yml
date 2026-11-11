@@ -1,0 +1,3101 @@
+# Сгенерировано из прототипов CMU-14 (Content.CMU/.../Dropships/Mohawk, 0e24ae881d) скриптом переноса «Мидуэя»:
+# детали корпуса, кресла, светильники, люки и пульты. Облик — CM-SS13 (CC-BY-SA-3.0).
+
+- type: entity
+  parent: DHMidwaySeatBase
+  id: DHMidwayAdjustableLayer7d1bd1f6c5
+  name: passenger seat
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/omaha/seats.rsi
+    offset: "-0.5,0.25"
+    noRot: false
+    layers:
+    - state: "passenger_chair"
+      map: [ "seat" ]
+
+- type: entity
+  parent: DHMidwaySeatBase
+  id: DHMidwayAdjustableLayer91a71b7f04
+  name: passenger seat
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/omaha/seats.rsi
+    offset: "0,0.25"
+    noRot: false
+    layers:
+    - state: "passenger_chair"
+      map: [ "seat" ]
+
+- type: entity
+  parent: DHMidwaySeatBase
+  id: DHMidwayAdjustableLayerf84e8b9774
+  name: passenger seat
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/omaha/seats.rsi
+    offset: "-0,0.25"
+    noRot: false
+    layers:
+    - state: "passenger_chair"
+      map: [ "seat" ]
+
+- type: entity
+  parent: DHMidwaySeatBase
+  id: DHMidwayAdjustableLayerfae113eec8
+  name: passenger seat
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/omaha/seats.rsi
+    offset: "0.5,0.25"
+    noRot: false
+    layers:
+    - state: "passenger_chair"
+      map: [ "seat" ]
+
+- type: entity
+  parent: DHMidwayLightBase
+  id: DHMidwayBlue28c4a8e6d5
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/items/lighting.rsi
+    offset: "-0.5,-0.375"
+    noRot: false
+    layers:
+    - state: "bptube1"
+      map: [ "enum.PoweredLightLayers.Base" ]
+  - type: PointLight
+    offset: "-0.5,-0.025"
+
+- type: entity
+  parent: DHMidwayLightBase
+  id: DHMidwayBlue8b06850b54
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/items/lighting.rsi
+    offset: "0.5,-0.375"
+    noRot: false
+    layers:
+    - state: "bptube1"
+      map: [ "enum.PoweredLightLayers.Base" ]
+  - type: PointLight
+    offset: "0.5,-0.025"
+
+- type: entity
+  parent: DHMidwayLightBase
+  id: DHMidwayBluef3d77a47c4
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/items/lighting.rsi
+    offset: "-0,-0.375"
+    noRot: false
+    layers:
+    - state: "bptube1"
+      map: [ "enum.PoweredLightLayers.Base" ]
+  - type: PointLight
+    offset: "-0,-0.025"
+
+- type: entity
+  parent: DHMidwayLightBase
+  id: DHMidwayBluef4dcea5589
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/items/lighting.rsi
+    offset: "0,0"
+    noRot: false
+    layers:
+    - state: "bptube1"
+      map: [ "enum.PoweredLightLayers.Base" ]
+  - type: PointLight
+    offset: "0,0.35"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBody003689d9f445
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "-1,0"
+    layers:
+    - state: "3,8"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBody017cc094e3c8
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "1,0"
+    layers:
+    - state: "13,8"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBody10b69b440a90
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "-1,0"
+    layers:
+    - state: "3,9"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBody1113abee2a54
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "1,0"
+    layers:
+    - state: "13,9"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBody208803cda2e3
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "-1,0"
+    layers:
+    - state: "3,10"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBody213a7555a090
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "1,0"
+    layers:
+    - state: "13,10"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBody30e180b8fd1a
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "3,11"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBody31debab34ec9
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "13,11"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBody406b8b886f53
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "3,12"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBody41c1a6430d73
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "13,12"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBody509705f88ad4
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "3,13"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBody5179c27a2c9f
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "13,13"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBorder00cd100a7080
+  name: boarding ramp edging
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/ramp.rsi
+    offset: "0,0"
+    layers:
+    - state: "0,0"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBorder01c320197fca
+  name: boarding ramp edging
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/ramp.rsi
+    offset: "0,0"
+    layers:
+    - state: "1,0"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBorder025f39505247
+  name: boarding ramp edging
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/ramp.rsi
+    offset: "0,0"
+    layers:
+    - state: "2,0"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBorder10cbab552b8b
+  name: boarding ramp edging
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/ramp.rsi
+    offset: "0,0"
+    layers:
+    - state: "0,1"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBorder1182a4c68801
+  name: boarding ramp edging
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/ramp.rsi
+    offset: "0,0"
+    layers:
+    - state: "2,1"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBorder206b6a20fc75
+  name: boarding ramp edging
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/ramp.rsi
+    offset: "0,0"
+    layers:
+    - state: "0,2"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBorder21fa13a6ed7d
+  name: boarding ramp edging
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/ramp.rsi
+    offset: "0,0"
+    layers:
+    - state: "2,2"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBorder3052669fd8b8
+  name: boarding ramp edging
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/ramp.rsi
+    offset: "0,-1"
+    layers:
+    - state: "0,3"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBorder31166e90d462
+  name: boarding ramp edging
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/ramp.rsi
+    offset: "0,-1"
+    layers:
+    - state: "1,3"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayBorder32d4000d1359
+  name: boarding ramp edging
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/ramp.rsi
+    offset: "0,-1"
+    layers:
+    - state: "2,3"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayBottom006f2c327ad6
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "5,0"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "5,0"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayBottom0112844db5c9
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "6,0"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "6,0"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayBottom0275a5151f34
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "7,0"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "7,0"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayBottom0324030be0d7
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "8,0"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "8,0"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayBottom04c06fd6918e
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "9,0"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "9,0"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayBottom05625fee61ed
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "10,0"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "10,0"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayBottom06f1946e9c74
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "11,0"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "11,0"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayBottom10f3f4c3bd84
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "5,1"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "5,1"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayBottom11216fd07af8
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "6,1"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "6,1"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayBottom12d122cb5fd3
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "7,1"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "7,1"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayBottom1350357d451a
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "8,1"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "8,1"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayBottom148ea8af9bc5
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "9,1"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "9,1"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayBottom1544a97452e5
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "10,1"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "10,1"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayBottom1620210eb20c
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "11,1"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "11,1"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayBottom30654b46a28c
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "4,3"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "4,3"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayBottom36a472e4a6bb
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "12,3"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "12,3"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayDecal74a5ad69ce
+  name: dropship hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc.rsi
+    offset: "0,0"
+    layers:
+    - state: "decal"
+
+- type: entity
+  parent: DHMidwayWallmountBase
+  id: DHMidwayDropshipMidway1ed63c452c
+  name: dropship surveillance camera
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Wallmounts/camera.rsi
+    drawdepth: WallMountedItems
+    offset: "0,0.5"
+    noRot: false
+    layers:
+    - state: "camera"
+      cycle: true
+
+- type: entity
+  parent: DHMidwayWallmountBase
+  id: DHMidwayDropshipMidway4692a3f612
+  name: dropship surveillance camera
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Wallmounts/camera.rsi
+    drawdepth: WallMountedItems
+    offset: "-0,0.5"
+    noRot: false
+    layers:
+    - state: "camera"
+      cycle: true
+
+- type: entity
+  parent: DHMidwayMachineBase
+  id: DHMidwayDropshipMidway4eef289d79
+  name: dropship weapons console
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/controls.rsi
+    drawdepth: SmallObjects
+    offset: "-0.03125,0.25"
+    layers:
+    - state: "system_monitor"
+
+- type: entity
+  parent: DHMidwayWallmountBase
+  id: DHMidwayDropshipMidway695cc2bf5d
+  name: dropship surveillance camera
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Wallmounts/camera.rsi
+    drawdepth: WallMountedItems
+    offset: "0,1"
+    noRot: false
+    layers:
+    - state: "camera"
+      cycle: true
+
+- type: entity
+  parent: DHMidwayWallmountBase
+  id: DHMidwayDropshipMidway8f46dd790a
+  name: dropship surveillance camera
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Wallmounts/camera.rsi
+    drawdepth: WallMountedItems
+    offset: "-0,0.5"
+    noRot: false
+    layers:
+    - state: "camera"
+      cycle: true
+
+- type: entity
+  parent: DHMidwayMachineBase
+  id: DHMidwayGunneryea0f8d621b
+  name: gunnery console
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/modules.rsi
+    drawdepth: SmallObjects
+    offset: "0,-0.5"
+    layers:
+    - state: "gunnery"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft00f7314aa7fc
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "2,14"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "2,14"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft01370d7cbafa
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "1,18"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "1,18"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft0162c029ff0a
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "3,14"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "3,14"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft0285990689c7
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "2,18"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "2,18"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft03f4a7e4b3b9
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "3,18"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "3,18"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft0471cd8ff8cc
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "4,18"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "4,18"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayLeft1084e3359581
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "-1,0"
+    layers:
+    - state: "0,15"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft112cd5456e8e
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "1,15"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "1,15"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft114dd89d9b61
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "2,19"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "2,19"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft124f2eb035ac
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "3,19"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "3,19"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft12a5377a90c3
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "2,15"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "2,15"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft13b318ca044d
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "3,15"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "3,15"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft13d692385c26
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "4,19"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "4,19"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft144dfda38dcd
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "4,15"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "4,15"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft144e26071f06
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "5,19"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "5,19"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayLeft209e88aeee14
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "-1,0"
+    layers:
+    - state: "0,16"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft21596ad386ac
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "1,16"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "1,16"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayLeft21db6c97a5dd
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,1"
+    layers:
+    - state: "2,20"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft223f081da649
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "2,16"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "2,16"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft22e25cc4ff54
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "3,20"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "3,20"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft2374b10f5ed7
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "4,20"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "4,20"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft23c7364d7124
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "3,16"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "3,16"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft2450a1dda7c5
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "5,20"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "5,20"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayLeft302b3bec370a
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "-1,0"
+    layers:
+    - state: "0,17"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft30940aca3faa
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "0,17"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "0,17"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft31cc4e02a578
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "1,17"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "1,17"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft3223feabc840
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "2,17"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "2,17"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLeft33ca505027a9
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "3,17"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "3,17"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLowerLeftWing2d438d6740
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc_64x64.rsi
+    offset: "-0.5,0"
+    layers:
+    - state: "wingpoint_left"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc_64x64.rsi
+    state: "wingpoint_left"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayLowerRightWing3c3910e508
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc_64x64.rsi
+    offset: "0.5,0"
+    layers:
+    - state: "wingpoint_right"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc_64x64.rsi
+    state: "wingpoint_right"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayDoorBase
+  id: DHMidwayMidway3d7bfd7b2b
+  name: cockpit hatch
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/dropship_door.rsi
+    offset: "0,0"
+    snapCardinals: false
+    layers:
+    - state: "door_closed"
+      map: [ "enum.DoorVisualLayers.Base" ]
+    - state: "door_closed"
+      visible: false
+      map: [ "enum.DoorVisualLayers.BaseUnlit" ]
+    - sprite: _RMC14/Structures/Doors/Airlocks/personal_door.rsi
+      state: "welded"
+      visible: false
+      map: [ "enum.WeldableLayers.BaseWelded" ]
+    - state: "door_locked"
+      visible: false
+      map: [ "enum.DoorVisualLayers.BaseBolted" ]
+    - state: "door_spark"
+      visible: false
+      map: [ "enum.DoorVisualLayers.BaseEmergencyAccess" ]
+    - sprite: _RMC14/Structures/Doors/Airlocks/personal_door.rsi
+      state: "panel_open"
+      visible: false
+      map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+
+- type: entity
+  parent: DHMidwayFlightConsoleBase
+  id: DHMidwayMidway6a168ad015
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/controls.rsi
+    drawdepth: SmallObjects
+    offset: "-0.03125,0.1875"
+    layers:
+    - state: "console"
+
+- type: entity
+  parent: DHMidwayDoorBase
+  id: DHMidwayMidway8e223701ef
+  name: port access hatch
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/dropship_door.rsi
+    offset: "0,0"
+    snapCardinals: false
+    layers:
+    - state: "door_closed"
+      map: [ "enum.DoorVisualLayers.Base" ]
+    - state: "door_closed"
+      visible: false
+      map: [ "enum.DoorVisualLayers.BaseUnlit" ]
+    - sprite: _RMC14/Structures/Doors/Airlocks/personal_door.rsi
+      state: "welded"
+      visible: false
+      map: [ "enum.WeldableLayers.BaseWelded" ]
+    - state: "door_locked"
+      visible: false
+      map: [ "enum.DoorVisualLayers.BaseBolted" ]
+    - state: "door_spark"
+      visible: false
+      map: [ "enum.DoorVisualLayers.BaseEmergencyAccess" ]
+    - sprite: _RMC14/Structures/Doors/Airlocks/personal_door.rsi
+      state: "panel_open"
+      visible: false
+      map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+
+- type: entity
+  parent: DHMidwayControlBase
+  id: DHMidwayMidwayAft19d11253d9
+  name: ramp access
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/interior_item.rsi
+    drawdepth: WallMountedItems
+    offset: "0,1"
+    layers:
+    - state: "ramp_control"
+
+- type: entity
+  parent: DHMidwaySeatBase
+  id: DHMidwayMidwayGunner9ec7eb79e9
+  name: gunner seat
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/seats.rsi
+    offset: "-0,-0"
+    noRot: false
+    layers:
+    - state: "passenger_chair"
+      map: [ "seat" ]
+
+- type: entity
+  parent: DHMidwayControlBase
+  id: DHMidwayMidwayHatchLeft17cd21d658
+  name: port hatch access
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/interior_item.rsi
+    drawdepth: WallMountedItems
+    offset: "-1,0"
+    layers:
+    - state: "doorctrl"
+
+- type: entity
+  parent: DHMidwayControlBase
+  id: DHMidwayMidwayHatchRight213aa8e792
+  name: starboard hatch access
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/interior_item.rsi
+    drawdepth: WallMountedItems
+    offset: "1,-0"
+    layers:
+    - state: "doorctrl"
+
+- type: entity
+  parent: DHMidwayControlBase
+  id: DHMidwayMidwaya9192995eb
+  name: hatch ladder access
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/interior_item.rsi
+    drawdepth: WallMountedItems
+    offset: "0.15625,-0.5"
+    layers:
+    - state: "doorctrl"
+
+- type: entity
+  parent: DHMidwayMachineBase
+  id: DHMidwayMidwayaed5026d44
+  name: tactical map table
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/modules.rsi
+    drawdepth: SmallObjects
+    offset: "0,0.625"
+    layers:
+    - state: "omaha_map"
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,1.45"
+        density: 60
+        mask: [ MachineMask ]
+        layer: [ MidImpassable, LowImpassable ]
+
+- type: entity
+  parent: DHMidwayMachineBase
+  id: DHMidwayMidwayb95eb43eb6
+  name: overwatch console
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/modules.rsi
+    drawdepth: SmallObjects
+    offset: "0.3125,0.6875"
+    overrideDir: West
+    enableOverrideDir: true
+    layers:
+    - state: "overwatch_module"
+
+- type: entity
+  parent: DHMidwayDoorBase
+  id: DHMidwayMidwaybbd6b8ad32
+  name: starboard access hatch
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/dropship_door.rsi
+    offset: "0,0"
+    snapCardinals: false
+    layers:
+    - state: "door_closed"
+      map: [ "enum.DoorVisualLayers.Base" ]
+    - state: "door_closed"
+      visible: false
+      map: [ "enum.DoorVisualLayers.BaseUnlit" ]
+    - sprite: _RMC14/Structures/Doors/Airlocks/personal_door.rsi
+      state: "welded"
+      visible: false
+      map: [ "enum.WeldableLayers.BaseWelded" ]
+    - state: "door_locked"
+      visible: false
+      map: [ "enum.DoorVisualLayers.BaseBolted" ]
+    - state: "door_spark"
+      visible: false
+      map: [ "enum.DoorVisualLayers.BaseEmergencyAccess" ]
+    - sprite: _RMC14/Structures/Doors/Airlocks/personal_door.rsi
+      state: "panel_open"
+      visible: false
+      map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayMidwayc4cd0257cf
+  name: ladder hatch
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/interior_item.rsi
+    offset: "0,0"
+    layers:
+    - state: "ladder-hatch-closed"
+
+- type: entity
+  parent: DHMidwayWallmountBase
+  id: DHMidwayMidwayd518401c98
+  name: dropship intercom
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/interior_item.rsi
+    drawdepth: WallMountedItems
+    offset: "0.625,0"
+    noRot: false
+    layers:
+    - state: "intercom"
+
+- type: entity
+  parent: DHMidwayMachineBase
+  id: DHMidwayMidwayd883d96d87
+  name: dropship camera console
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/controls.rsi
+    drawdepth: SmallObjects
+    offset: "0,0.3125"
+    layers:
+    - state: "weapons_console"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayMidwaydbd665ce18
+  name: overwatch station
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/modules.rsi
+    offset: "0.3125,0.6875"
+    layers:
+    - state: "overwatch_module_dummy"
+
+- type: entity
+  parent: DHMidwayWallmountBase
+  id: DHMidwayMidwayf72a240418
+  name: dropship intercom
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/interior_item.rsi
+    drawdepth: WallMountedItems
+    offset: "0,0.875"
+    noRot: false
+    layers:
+    - state: "intercom"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayNose006bf756d0a8
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "2,19"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "2,19"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayNose01c43f639b0b
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "3,19"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayNose022d9e0579ae
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "5,19"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayNose034d867d73e9
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "6,19"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "6,19"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayNose10f95bd5707c
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "2,20"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "2,20"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayNose11cb640e5d26
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "3,20"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "3,20"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayNose12f418126adf
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "4,20"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "4,20"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayNose130e2cd906ed
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "5,20"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "5,20"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayNose1430655fce7c
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "6,20"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "6,20"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwaySeatBase
+  id: DHMidwayOmahaPassenger7794d520d1
+  name: passenger seat
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/omaha/seats.rsi
+    offset: "0.25,-0"
+    noRot: false
+    layers:
+    - state: "passenger_chair"
+      map: [ "seat" ]
+
+- type: entity
+  parent: DHMidwaySeatBase
+  id: DHMidwayOmahaPassenger78043b1378
+  name: passenger seat
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/omaha/seats.rsi
+    offset: "-0.25,-0"
+    noRot: false
+    layers:
+    - state: "passenger_chair"
+      map: [ "seat" ]
+
+- type: entity
+  parent: DHMidwaySeatBase
+  id: DHMidwayOmahaPassenger934fe6b701
+  name: passenger seat
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/omaha/seats.rsi
+    offset: "-0.25,0"
+    noRot: false
+    layers:
+    - state: "passenger_chair"
+      map: [ "seat" ]
+
+- type: entity
+  parent: DHMidwaySeatBase
+  id: DHMidwayOmahaPassengerbae5a3aea5
+  name: passenger seat
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/omaha/seats.rsi
+    offset: "0.25,0"
+    noRot: false
+    layers:
+    - state: "passenger_chair"
+      map: [ "seat" ]
+
+- type: entity
+  parent: DHMidwaySeatBase
+  id: DHMidwayOmahaPassengerbb55cf175e
+  name: passenger seat
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/omaha/seats.rsi
+    offset: "0,-0"
+    noRot: false
+    layers:
+    - state: "passenger_chair"
+      map: [ "seat" ]
+
+- type: entity
+  parent: DHMidwaySeatBase
+  id: DHMidwayOmahaPassengerbd78b670eb
+  name: passenger seat
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/omaha/seats.rsi
+    offset: "0,-0"
+    noRot: false
+    layers:
+    - state: "passenger_chair"
+      map: [ "seat" ]
+
+- type: entity
+  parent: DHMidwaySeatBase
+  id: DHMidwayOmahaPilot00f0878681
+  name: pilot seat
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/omaha/seats.rsi
+    offset: "-0,0.1875"
+    noRot: false
+    layers:
+    - state: "passenger_chair"
+      map: [ "seat" ]
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayPanelFull88f7898504
+  name: dropship hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc.rsi
+    offset: "0,0"
+    layers:
+    - state: "panel_full"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayPanelHalf54ae2575da
+  name: walkway panel
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc.rsi
+    offset: "0,0"
+    layers:
+    - state: "panel_half"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayPanelHalf7011e9cd50
+  name: walkway panel
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc.rsi
+    offset: "0,0"
+    layers:
+    - state: "panel_half"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayPanelHalf713dfbb10a
+  name: walkway panel
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc.rsi
+    offset: "0,0"
+    layers:
+    - state: "panel_half"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayPanelHalff6c1b5970c
+  name: walkway panel
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc.rsi
+    offset: "0,0"
+    layers:
+    - state: "panel_half"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayPlatformDecal557c3e5955
+  name: raised walkway
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc.rsi
+    offset: "0,0"
+    layers:
+    - state: "platform_decal"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayPlatformDecal853a2b8886
+  name: raised walkway
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc.rsi
+    offset: "0,0"
+    layers:
+    - state: "platform_decal"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayPlatformc4c43c8117
+  name: raised walkway
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc.rsi
+    offset: "0,0"
+    layers:
+    - state: "platform"
+
+- type: entity
+  parent: DHMidwayRailingBase
+  id: DHMidwayRampRailing
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/railing.rsi
+    offset: "0,0.5"
+    noRot: true
+    layers:
+    - state: "railing0"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight002e958b4f6c
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "12,14"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "12,14"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight0100a23f0413
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "13,14"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "13,14"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight010528aca376
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "12,18"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "12,18"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight02e6692c4ca7
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "14,14"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "14,14"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight02f0ebb39833
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "13,18"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "13,18"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight03e165be544d
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "14,18"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "14,18"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight048cf1346d3a
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "15,18"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "15,18"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight109e81579858
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "12,15"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "12,15"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight11138905661c
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "13,15"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "13,15"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight11f39319bdeb
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "11,19"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "11,19"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight121d037c0d54
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "12,19"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "12,19"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight12ef7df682f4
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "14,15"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "14,15"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight137824eb96a9
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "15,15"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "15,15"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight13a8ce33c372
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "13,19"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "13,19"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayRight14207dd81b29
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "1,0"
+    layers:
+    - state: "16,15"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight14b6335da626
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "14,19"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "14,19"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight2099b4384f5f
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "13,16"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "13,16"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight213e837589b4
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "14,16"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "14,16"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight21af388d1701
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "11,20"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "11,20"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight22287bb36100
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "12,20"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "12,20"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight22ee99ceb28d
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "15,16"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "15,16"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight23b012c4ce1b
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "13,20"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "13,20"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayRight23b6ae6f1075
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "1,0"
+    layers:
+    - state: "16,16"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayRight24b9274c8a7b
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,1"
+    layers:
+    - state: "14,20"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight304ae3f45ac1
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "13,17"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "13,17"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight31bedbcfb32b
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "14,17"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "14,17"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayRight32d6931ec8d3
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "0,0"
+    layers:
+    - state: "15,17"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    state: "15,17"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayRight339c67565b01
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/facade.rsi
+    offset: "1,0"
+    layers:
+    - state: "16,17"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayStairsDecalBot50510faa18
+  name: dropship hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc.rsi
+    offset: "0,0"
+    layers:
+    - state: "stairs_decal_bot"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayStairsDecalTop05fa3fe355
+  name: dropship hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc.rsi
+    offset: "0,0"
+    layers:
+    - state: "stairs_decal_top"
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayStairsPlatforma4255f5b67
+  name: dropship hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc.rsi
+    offset: "0,0"
+    layers:
+    - state: "stairs_platform"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall005571eefb90
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "1,0"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "1,0"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall01251fab436a
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "2,0"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "2,0"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall02f50f0f0f44
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "3,0"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "3,0"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall03d551a17ea6
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "4,0"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "4,0"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall047e3a09de0c
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "5,0"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "5,0"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall052925a79155
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "6,0"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "6,0"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall06514118b053
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "7,0"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "7,0"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall10f1c016022d
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "1,1"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "1,1"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall11b8f72e3136
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "7,1"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "7,1"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall20cacb0b6653
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "0,2"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "0,2"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall21296e3a675d
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "1,2"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "1,2"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall224fcbada172
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "2,2"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "2,2"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall23f2986dbe1c
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "6,2"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "6,2"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall24abfa15664f
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "7,2"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "7,2"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall251064f1b66b
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "8,2"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "8,2"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall30fd72dea2c2
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "0,3"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "0,3"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall317c41316b6d
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "8,3"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "8,3"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall4016983374db
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "0,4"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "0,4"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall4141ff52bfa9
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "8,4"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "8,4"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall502b5e7b225a
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "0,5"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "0,5"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall5182f211f6dd
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "8,5"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "8,5"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall609cc44f7822
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "0,6"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "0,6"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall61732e371aed
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "8,6"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "8,6"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall70e1ad3c9a79
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "0,7"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "0,7"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall71adeec2acf1
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "8,7"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "8,7"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall800db656c369
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "0,8"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "0,8"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall817e9cc44ce2
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "8,8"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "8,8"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall900612f4bca3
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "0,9"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "0,9"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall914b05a60374
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "1,9"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "1,9"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall9226ba718ee1
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "2,9"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "2,9"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall9336ba077758
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "6,9"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "6,9"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall94573c92e988
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "7,9"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "7,9"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWall95e458a59c73
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "8,9"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "8,9"
+
+- type: entity
+  parent: DHMidwayWallmountBase
+  id: DHMidwayWallMede96e054ca8
+  name: NanoMed medical cabinet
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Machines/VendingMachines/nanomed.rsi
+    drawdepth: WallMountedItems
+    offset: "0,0.84375"
+    noRot: false
+    layers:
+    - state: "off"
+    - state: "normal-unshaded"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid00b59d8b79ee
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "1,11"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "1,11"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid019664b3bf3b
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "2,11"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "2,11"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid02fce087bbe4
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "4,11"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "4,11"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid03a9636f6cf2
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "6,11"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "6,11"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid042e69766bac
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "7,11"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "7,11"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid1023121ba378
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "0,12"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "0,12"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid11ddaef03b93
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "1,12"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "1,12"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid1291a4c8b648
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "4,12"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "4,12"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid135399091362
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "7,12"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "7,12"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid145f710372a8
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "8,12"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "8,12"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid2047f57bdd8e
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "0,13"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "0,13"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid219937dabbc2
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "8,13"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "8,13"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid301c68556424
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "0,14"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "0,14"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid31b3e3715a8f
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "8,14"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "8,14"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid405b75a93d0d
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "0,15"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "0,15"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid416a164e62cf
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "1,15"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "1,15"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid42b73c7f2c04
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "7,15"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "7,15"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid43d456e02b57
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "8,15"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "8,15"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid50f97eca9c6f
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "1,16"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "1,16"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid51261d9fac70
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "2,16"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "2,16"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid52c4fb527e8e
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "3,16"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "3,16"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid53b3ab482bc6
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "5,16"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "5,16"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid54d29fe7e3ad
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "6,16"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "6,16"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid55c4dbaa00ef
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "7,16"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "7,16"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid609f45482f48
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "2,17"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "2,17"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid61ceaa9f0885
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "6,17"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "6,17"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid700da178647c
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "2,18"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "2,18"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWallMid7104eb31ab37
+  name: dropship bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    offset: "0,0"
+    layers:
+    - state: "6,18"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    state: "6,18"
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWeaponHardpointLeftae395dc899
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc.rsi
+    offset: "0,0"
+    layers:
+    - state: "hardpoint_left"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc.rsi
+    state: "hardpoint_left"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHMidwayBulkheadBase
+  id: DHMidwayWeaponHardpointRight9e7cacfb7e
+  name: outer hull plating
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc.rsi
+    offset: "0,0"
+    layers:
+    - state: "hardpoint_right"
+  - type: Icon
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc.rsi
+    state: "hardpoint_right"
+  - type: Occluder
+    enabled: false

@@ -1,0 +1,25 @@
+- files:
+  - CMUMohawkTile05528f8ef01d.png
+  - CMUMohawkTile0db3d9a30801.png
+  - CMUMohawkTile20190f72d92e.png
+  - CMUMohawkTile2d85996352d5.png
+  - CMUMohawkTile3db5a317160a.png
+  - CMUMohawkTile47ecc14cca5a.png
+  - CMUMohawkTile4e82477b5e37.png
+  - CMUMohawkTile51512ef0a69c.png
+  - CMUMohawkTile5c13f6115556.png
+  - CMUMohawkTile93fa42a22977.png
+  - CMUMohawkTile9713d89efcb1.png
+  - CMUMohawkTile998b8f69ed1e.png
+  - CMUMohawkTilec91c38e278ef.png
+  - CMUMohawkTiledc9474af2984.png
+  - CMUMohawkTilee9d4dd51f339.png
+  - CMUMohawkTilef01de899f566.png
+  license: "CC-BY-SA-3.0"
+  copyright: "CM-SS13 contributors: thwomper, PoltavskaPraca, Steelpoint. Directional tile frames extracted from the adjacent imported RSI sheets."
+  source: "https://github.com/cmss13-devs/cmss13/pull/12866"
+- files:
+  - invisible.png
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13 at https://github.com/cmss13-devs/cmss13/blob/71d46ee8057d19b12e1495419cb299d2fedef6cc/icons/turf/shuttle.dmi (via RMC-14)"
+  source: "https://github.com/RMC-14/RMC-14"

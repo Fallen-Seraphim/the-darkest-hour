@@ -18,6 +18,8 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Physics.Components;
+using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
@@ -31,6 +33,10 @@ public sealed partial class DHDropshipComponent : Component
 {
     [ViewVariables]
     public EntityUid? Carrier;
+
+    /// <summary>Место стоянки в ангаре авианосца (<see cref="DHDropshipHangarComponent"/>), если челнок стоит в ангаре, а не у шлюза.</summary>
+    [ViewVariables]
+    public EntityUid? Hangar;
 
     [ViewVariables]
     public DHDropshipState State = DHDropshipState.Docked;
@@ -93,6 +99,27 @@ public sealed partial class DHDropshipComponent : Component
 }
 
 /// <summary>
+/// Место стоянки челнока в ангаре авианосца (решение автора 2026-11-11, «Зона вылета 1»): маркер на гриде авианосца,
+/// у которого в начале раунда загружается свой челнок (карта <see cref="Map"/>) и куда он возвращается из полёта.
+/// Челнок ставится так, что точка <see cref="Anchor"/> его грида совпадает с маркером, а поворот — с поворотом маркера.
+/// Под челнок в полу авианосца оставлен вырез по его клеткам: люки выходят прямо на палубу ангара.
+/// Если маркеров на авианосце нет — по-старому: челноки пристыковываются к шлюзам.
+/// </summary>
+[RegisterComponent]
+public sealed partial class DHDropshipHangarComponent : Component
+{
+    [DataField]
+    public ResPath Map = new("/Maps/_DarkestHour/Shuttles/midway.yml");
+
+    /// <summary>Точка грида челнока (в его координатах), которая встаёт на маркер.</summary>
+    [DataField]
+    public Vector2 Anchor = new(0.5f, 0.5f);
+
+    [ViewVariables]
+    public EntityUid? Ship;
+}
+
+/// <summary>
 /// Челноки «Штурма»: стоят пристыкованными к авианосцу, по команде с консоли пилота летят на автопилоте на ЗП
 /// (готовые площадки у базы или переносные маяки) и обратно в ангар. В полёте челнок висит в атмосфере над целью —
 /// по нему бьют ПКО и ПВО, из него можно прыгнуть с парашютом. Авианосец сам на поверхность не садится.
@@ -108,6 +135,7 @@ public sealed partial class DHDropshipSystem : EntitySystem
     [Dependency] private DHLandingSystem _landing = default!;
     [Dependency] private MapLoaderSystem _loader = default!;
     [Dependency] private MetaDataSystem _meta = default!;
+    [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private DHRiftSystem _rift = default!;
@@ -151,39 +179,106 @@ public sealed partial class DHDropshipSystem : EntitySystem
 
     #region Появление челноков
 
-    /// <summary>Загрузить челноки рядом с авианосцем и пристыковать их; они входят в станцию авианосца.</summary>
+    /// <summary>
+    /// Загрузить челноки авианосца: в ангар на маркеры <see cref="DHDropshipHangarComponent"/>, а если их нет —
+    /// рядом с авианосцем с пристыковкой к шлюзам. Челноки входят в станцию авианосца.
+    /// </summary>
     public void SpawnDropships(EntityUid carrier, EntityUid? station, ResPath path, IReadOnlyList<string> names)
     {
         var xform = Transform(carrier);
-        var origin = _transform.GetWorldPosition(xform);
+
+        var hangars = new List<Entity<DHDropshipHangarComponent>>();
+        var query = EntityQueryEnumerator<DHDropshipHangarComponent, TransformComponent>();
+        while (query.MoveNext(out var uid, out var hangar, out var hangarXform))
+        {
+            if (hangarXform.GridUid == carrier)
+                hangars.Add((uid, hangar));
+        }
+
+        if (hangars.Count > 0)
+        {
+            hangars.Sort((a, b) => a.Owner.Id.CompareTo(b.Owner.Id));
+            for (var i = 0; i < hangars.Count; i++)
+            {
+                var hangar = hangars[i];
+                var (origin, rotation) = HangarPlacement(hangar);
+                if (!_loader.TryLoadGrid(xform.MapID, hangar.Comp.Map, out var grid, offset: origin, rot: rotation))
+                {
+                    Log.Error($"Failed to load dropship {hangar.Comp.Map}");
+                    continue;
+                }
+
+                hangar.Comp.Ship = grid.Value.Owner;
+                var name = i < names.Count ? names[i] : Loc.GetString("dh-dropship-name-extra", ("number", i + 1));
+                SetupDropship(grid.Value, carrier, station, name).Hangar = hangar.Owner;
+            }
+
+            return;
+        }
+
+        var worldOrigin = _transform.GetWorldPosition(xform);
         for (var i = 0; i < names.Count; i++)
         {
-            if (!_loader.TryLoadGrid(xform.MapID, path, out var grid, offset: origin + new Vector2(-60f - i * 25f, 0f)))
+            if (!_loader.TryLoadGrid(xform.MapID, path, out var grid, offset: worldOrigin + new Vector2(-60f - i * 25f, 0f)))
             {
                 Log.Error($"Failed to load dropship {path}");
                 continue;
             }
 
-            _meta.SetEntityName(grid.Value, names[i]);
-            var atmos = EnsureComp<GridAtmosphereComponent>(grid.Value);
-            EnsureComp<GasTileOverlayComponent>(grid.Value);
-            _atmos.RebuildGridAtmosphere((grid.Value, atmos, grid.Value.Comp));
-
-            var dropship = EnsureComp<DHDropshipComponent>(grid.Value);
-            dropship.Carrier = carrier;
-            if (station != null)
-                _station.AddGridToStation(station.Value, grid.Value);
-
+            var dropship = SetupDropship(grid.Value, carrier, station, names[i]);
             Dock((grid.Value, dropship));
         }
     }
 
+    private DHDropshipComponent SetupDropship(Entity<MapGridComponent> grid, EntityUid carrier, EntityUid? station, string name)
+    {
+        _meta.SetEntityName(grid, name);
+        var atmos = EnsureComp<GridAtmosphereComponent>(grid);
+        EnsureComp<GasTileOverlayComponent>(grid);
+        _atmos.RebuildGridAtmosphere((grid, atmos, grid.Comp));
+
+        var dropship = EnsureComp<DHDropshipComponent>(grid);
+        dropship.Carrier = carrier;
+        if (station != null)
+            _station.AddGridToStation(station.Value, grid);
+
+        return dropship;
+    }
+
+    /// <summary>Мировые положение начала грида челнока и его поворот для стоянки на маркере ангара.</summary>
+    private (Vector2 Origin, Angle Rotation) HangarPlacement(Entity<DHDropshipHangarComponent> hangar)
+    {
+        var (position, rotation) = _transform.GetWorldPositionRotation(hangar);
+        return (position - rotation.RotateVec(hangar.Comp.Anchor), rotation);
+    }
+
     private void Dock(Entity<DHDropshipComponent> ship)
     {
-        if (ship.Comp.Carrier is not { } carrier || !Exists(carrier) || !TryComp<ShuttleComponent>(ship, out var shuttle))
+        if (ship.Comp.Carrier is not { } carrier || !Exists(carrier))
             return;
 
-        _shuttle.TryFTLDock(ship, shuttle, carrier);
+        if (ship.Comp.Hangar is { } hangarUid && TryComp<DHDropshipHangarComponent>(hangarUid, out var hangar))
+        {
+            // В ангар челнок ставится точно на своё место, без стыковки.
+            if (Transform(carrier).MapUid is not { } map)
+                return;
+
+            var (origin, rotation) = HangarPlacement((hangarUid, hangar));
+            _transform.SetCoordinates(ship, Transform(ship), new EntityCoordinates(map, origin), rotation);
+            if (TryComp<PhysicsComponent>(ship, out var physics))
+            {
+                _physics.SetLinearVelocity(ship, Vector2.Zero, body: physics);
+                _physics.SetAngularVelocity(ship, 0f, body: physics);
+            }
+        }
+        else
+        {
+            if (!TryComp<ShuttleComponent>(ship, out var shuttle))
+                return;
+
+            _shuttle.TryFTLDock(ship, shuttle, carrier);
+        }
+
         ship.Comp.State = DHDropshipState.Docked;
         ship.Comp.Zone = null;
     }
