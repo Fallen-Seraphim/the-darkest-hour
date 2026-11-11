@@ -10,3 +10,6 @@ dh-ventilator-connected = {CAPITALIZE($user)} подключает к аппар
 dh-life-support-connected = {CAPITALIZE($user)} подключает к системе жизнеобеспечения: {$target}.
 dh-machine-disconnected = {CAPITALIZE($target)}: отключено от аппарата.
 dh-machine-tubes-pulled = {CAPITALIZE($target)}: трубки аппарата выскочили!
+
+guide-entry-dh-resuscitation = Реанимация и стационар
+guide-entry-dh-chemistry-chains = Цепочки синтеза

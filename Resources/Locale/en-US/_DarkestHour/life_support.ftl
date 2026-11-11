@@ -10,3 +10,6 @@ dh-ventilator-connected = {CAPITALIZE(THE($user))} connects {THE($target)} to th
 dh-life-support-connected = {CAPITALIZE(THE($user))} connects {THE($target)} to the life support system.
 dh-machine-disconnected = {CAPITALIZE(THE($target))} is disconnected from the machine.
 dh-machine-tubes-pulled = The machine's tubes are pulled out of {THE($target)}!
+
+guide-entry-dh-resuscitation = Resuscitation and the ward
+guide-entry-dh-chemistry-chains = Synthesis chains

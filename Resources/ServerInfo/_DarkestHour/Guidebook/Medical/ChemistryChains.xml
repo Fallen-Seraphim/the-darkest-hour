@@ -1,0 +1,56 @@
+<Document>
+  # Цепочки синтеза
+
+  Раздатчик химика выдаёт только [bold]элементы и базовые вещества[/bold]: воду, спирт, сахар, соль, масло. Кислоты, щёлочи и органику получают по цепочкам — как в учебнике — или заказывают ящиками в карго («кислоты», «щёлочи и соли», «органика»). Лекарства собираются из этих промежуточных веществ.
+
+  ## Условия
+  - [bold]Температура.[/bold] Многие реакции идут только при нагреве (плитка); альбумин, наоборот, осаждают на холоде.
+  - [bold]Катализатор.[/bold] Нужен в смеси, но не расходуется: оксид железа, серебро, медь, оксид цинка, иод, алюминий.
+  - [bold]Электролиз.[/bold] Раствор соли в электролизёре даёт щёлочь, хлор и водород.
+
+  ## Опасность
+  - [color=red]Ядовитые облака.[/color] При получении сернистого газа, диоксида азота, хлороводорода и формальдегида часть продукта уходит облаком. Работайте в маске и подальше от людей.
+  - [color=red]Едкие вещества.[/color] Кислоты и щёлочи обжигают кожу.
+  - [color=orange]Нагрев.[/color] Серный и фосфорный ангидриды с водой сильно греют смесь.
+
+  ## Серная кислота (контактный способ)
+  Сера сгорает в сернистый газ, он окисляется на оксиде железа в серный ангидрид, тот с водой даёт кислоту.
+  <GuideReagentEmbed Reagent="DHSulfurDioxide"/>
+  <GuideReagentEmbed Reagent="DHSulfurTrioxide"/>
+  <GuideReagentEmbed Reagent="SulfuricAcid"/>
+
+  ## Азотная кислота (способ Оствальда)
+  Аммиак окисляется на серебре до оксида азота(II), тот на воздухе — до бурого диоксида, а диоксид с водой даёт кислоту.
+  <GuideReagentEmbed Reagent="DHNitricOxide"/>
+  <GuideReagentEmbed Reagent="DHNitrogenDioxide"/>
+  <GuideReagentEmbed Reagent="DHNitricAcid"/>
+
+  ## Ортофосфорная и соляная кислоты
+  <GuideReagentEmbed Reagent="DHPhosphorusPentoxide"/>
+  <GuideReagentEmbed Reagent="PhosphoricAcid"/>
+  <GuideReagentEmbed Reagent="DHHydrogenChloride"/>
+  <GuideReagentEmbed Reagent="DHHydrochloricAcid"/>
+
+  ## Щёлочи и соли
+  <GuideReagentEmbed Reagent="SodiumHydroxide"/>
+  <GuideReagentEmbed Reagent="DHPotassiumChloride"/>
+  <GuideReagentEmbed Reagent="DHPotassiumHydroxide"/>
+  <GuideReagentEmbed Reagent="DHCopperSulfate"/>
+  <GuideReagentEmbed Reagent="DHIronSulfate"/>
+  <GuideReagentEmbed Reagent="DHAmmoniumPhosphate"/>
+
+  ## Оксиды
+  <GuideReagentEmbed Reagent="DHIronOxide"/>
+  <GuideReagentEmbed Reagent="DHCopperOxide"/>
+  <GuideReagentEmbed Reagent="DHZincOxide"/>
+  <GuideReagentEmbed Reagent="DHSiliconDioxide"/>
+  <GuideReagentEmbed Reagent="CarbonDioxide"/>
+
+  ## Органика
+  <GuideReagentEmbed Reagent="DHMethanol"/>
+  <GuideReagentEmbed Reagent="DHFormaldehyde"/>
+  <GuideReagentEmbed Reagent="DHAceticAcid"/>
+  <GuideReagentEmbed Reagent="DHToluene"/>
+  <GuideReagentEmbed Reagent="DHGlycerol"/>
+  <GuideReagentEmbed Reagent="DHUrea"/>
+</Document>

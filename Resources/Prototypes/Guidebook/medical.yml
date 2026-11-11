@@ -7,6 +7,7 @@
   - Chemist
   - Cloning
   - Cryogenics
+  - DHResuscitation # DarkestHour: клиническая смерть, СЛР, ИВЛ, жизнеобеспечение
 
 - type: guideEntry
   id: MedicalDoctor
@@ -32,12 +33,12 @@
   # Duplicate guide entries are currently not supported
   # TODO GUIDEBOOK Maybe allow duplicate entries?
   - Botanicals
-  - AdvancedBrute
+  - DHChemistryChains # DarkestHour: цепочки синтеза
 
 - type: guideEntry
   id: Medicine
   name: guide-entry-medicine
-  text: "/ServerInfo/Guidebook/Medical/Medicine.xml"
+  text: "/ServerInfo/_DarkestHour/Guidebook/Medical/Medicine.xml" # DarkestHour: лекарства TDH
   filterEnabled: True
 
 - type: guideEntry
@@ -45,8 +46,3 @@
   name: guide-entry-botanicals
   text: "/ServerInfo/Guidebook/Medical/Botanicals.xml"
   filterEnabled: True
-
-- type: guideEntry
-  id: AdvancedBrute
-  name: guide-entry-brute
-  text: "/ServerInfo/Guidebook/Medical/AdvancedBrute.xml"

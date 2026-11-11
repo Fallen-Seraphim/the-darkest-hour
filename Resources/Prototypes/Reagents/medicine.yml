@@ -21,7 +21,7 @@
 - type: reagent
   id: Dylovene
   name: reagent-name-dylovene
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-dylovene
   physicalDesc: reagent-physical-desc-translucent
   flavor: medicine
@@ -101,7 +101,7 @@
 - type: reagent
   id: Ethylredoxrazine
   name: reagent-name-ethylredoxrazine
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-ethylredoxrazine
   physicalDesc: reagent-physical-desc-opaque
   flavor: medicine
@@ -121,7 +121,7 @@
 - type: reagent
   id: Arithrazine
   name: reagent-name-arithrazine
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-arithrazine
   physicalDesc: reagent-physical-desc-cloudy
   flavor: medicine
@@ -141,7 +141,7 @@
 - type: reagent
   id: Bicaridine
   name: reagent-name-bicaridine
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-bicaridine
   physicalDesc: reagent-physical-desc-opaque
   flavor: medicine
@@ -177,7 +177,7 @@
 - type: reagent
   id: Cryoxadone
   name: reagent-name-cryoxadone
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-cryoxadone
   physicalDesc: reagent-physical-desc-fizzy
   flavor: medicine
@@ -208,7 +208,7 @@
 - type: reagent
   id: Doxarubixadone
   name: reagent-name-doxarubixadone
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-doxarubixadone
   physicalDesc: reagent-physical-desc-bubbling
   flavor: medicine
@@ -227,7 +227,7 @@
 - type: reagent
   id: Dermaline
   name: reagent-name-dermaline
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-dermaline
   physicalDesc: reagent-physical-desc-translucent
   flavor: medicine
@@ -260,7 +260,7 @@
 - type: reagent
   id: Dexalin
   name: reagent-name-dexalin
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-dexalin
   physicalDesc: reagent-physical-desc-opaque
   flavor: medicine
@@ -286,7 +286,7 @@
 - type: reagent
   id: DexalinPlus
   name: reagent-name-dexalin-plus
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-dexalin-plus
   physicalDesc: reagent-physical-desc-cloudy
   flavor: medicine
@@ -399,7 +399,7 @@
 - type: reagent
   id: Hyronalin
   name: reagent-name-hyronalin
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-hyronalin
   physicalDesc: reagent-physical-desc-cloudy
   flavor: medicine
@@ -453,7 +453,7 @@
 - type: reagent
   id: Inaprovaline
   name: reagent-name-inaprovaline
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-inaprovaline
   physicalDesc: reagent-physical-desc-opaque
   flavor: medicine
@@ -476,7 +476,7 @@
 - type: reagent
   id: Kelotane
   name: reagent-name-kelotane
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-kelotane
   physicalDesc: reagent-physical-desc-strong-smelling
   flavor: medicine
@@ -512,7 +512,7 @@
 - type: reagent
   id: Leporazine
   name: reagent-name-leporazine
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-leporazine
   physicalDesc: reagent-physical-desc-pungent
   flavor: medicine
@@ -546,7 +546,7 @@
 - type: reagent
   id: Barozine
   name: reagent-name-barozine
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-barozine
   physicalDesc: reagent-physical-desc-viscous
   flavor: medicine
@@ -592,7 +592,7 @@
 - type: reagent
   id: Phalanximine
   name: reagent-name-phalanximine
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-phalanximine
   physicalDesc: reagent-physical-desc-acrid
   flavor: medicine
@@ -634,7 +634,7 @@
 - type: reagent
   id: PolypyryliumOligomers
   name: reagent-name-polypyrylium-oligomers
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-polypyrylium-oligomers
   physicalDesc: reagent-physical-desc-pungent
   flavor: violets
@@ -660,7 +660,7 @@
 - type: reagent
   id: Ambuzol
   name: reagent-name-ambuzol
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-ambuzol
   physicalDesc: reagent-physical-desc-crisp
   flavor: medicine
@@ -684,7 +684,7 @@
 - type: reagent
   id: AmbuzolPlus
   name: reagent-name-ambuzol-plus
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-ambuzol-plus
   physicalDesc: reagent-physical-desc-crisp
   flavor: medicine
@@ -741,7 +741,7 @@
 - type: reagent
   id: Siderlac
   name: reagent-name-siderlac
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-siderlac
   physicalDesc: reagent-physical-desc-milky
   flavor: medicine
@@ -757,7 +757,7 @@
 - type: reagent
   id: Stellibinin
   name: reagent-name-stellibinin
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-stellibinin
   physicalDesc: reagent-physical-desc-starry
   flavor: medicine
@@ -783,7 +783,7 @@
 - type: reagent
   id: Synaptizine
   name: reagent-name-synaptizine
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-synaptizine
   physicalDesc: reagent-physical-desc-pungent
   flavor: medicine
@@ -835,7 +835,7 @@
 - type: reagent
   id: Tricordrazine
   name: reagent-name-tricordrazine
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-tricordrazine
   physicalDesc: reagent-physical-desc-opaque
   flavor: medicine
@@ -865,7 +865,7 @@
 - type: reagent
   id: Lipozine
   name: reagent-name-lipozine
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-lipozine
   allowedDepartments:
   - Medical
@@ -884,7 +884,7 @@
 - type: reagent
   id: Omnizine
   name: reagent-name-omnizine
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-omnizine
   physicalDesc: reagent-physical-desc-soothing
   flavor: medicine
@@ -902,7 +902,7 @@
 - type: reagent
   id: Ultravasculine
   name: reagent-name-ultravasculine
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-ultravasculine
   physicalDesc: reagent-physical-desc-thick-and-grainy
   flavor: medicine
@@ -961,7 +961,7 @@
   id: Oculine
   name: reagent-name-oculine
   desc: reagent-desc-oculine
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   physicalDesc: reagent-physical-desc-translucent
   flavor: medicine
   color: "#404040"
@@ -974,7 +974,7 @@
   id: Cognizine
   name: reagent-name-cognizine
   desc: reagent-desc-cognizine
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   physicalDesc: reagent-physical-desc-enigmatic
   flavor: magical
   color: "#b50ee8"
@@ -991,7 +991,7 @@
   id: Ethyloxyephedrine
   name: reagent-name-ethyloxyephedrine
   desc: reagent-desc-ethyloxyephedrine
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   physicalDesc: reagent-physical-desc-shiny
   flavor: medicine
   color: "#d5d5e4"
@@ -1021,7 +1021,7 @@
   id: Diphenylmethylamine
   name: reagent-name-diphenylmethylamine
   desc: reagent-desc-diphenylmethylamine
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   physicalDesc: reagent-physical-desc-glowing
   flavor: medicine
   color: "#b0abaa"
@@ -1046,7 +1046,7 @@
 - type: reagent
   id: Sigynate
   name: reagent-name-sigynate
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-sigynate
   physicalDesc: reagent-physical-desc-thick
   flavor: sweet
@@ -1106,7 +1106,7 @@
 - type: reagent
   id: Lacerinol
   name: reagent-name-lacerinol
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-lacerinol
   physicalDesc: reagent-physical-desc-viscous
   flavor: syrupy
@@ -1132,7 +1132,7 @@
 - type: reagent
   id: Puncturase
   name: reagent-name-puncturase
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-puncturase
   physicalDesc: reagent-physical-desc-fizzy
   flavor: fizzy
@@ -1158,7 +1158,7 @@
 - type: reagent
   id: Bruizine
   name: reagent-name-bruizine
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-bruizine
   physicalDesc: reagent-physical-desc-mucus-like
   flavor: sour
@@ -1229,7 +1229,7 @@
 - type: reagent
   id: Pyrazine
   name: reagent-name-pyrazine
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-pyrazine
   physicalDesc: reagent-physical-desc-thick
   flavor: syrupy
@@ -1269,7 +1269,7 @@
 - type: reagent
   id: Insuzine
   name: reagent-name-insuzine
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-insuzine
   physicalDesc: reagent-physical-desc-frosty
   flavor: metallic
@@ -1316,7 +1316,7 @@
 - type: reagent
   id: Opporozidone #Name based of an altered version of the startreck chem "Opporozine"
   name: reagent-name-opporozidone
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-opporozidone
   physicalDesc: reagent-physical-desc-sickly
   flavor: acid
@@ -1339,7 +1339,7 @@
 - type: reagent
   id: Arcryox
   name: reagent-name-arcryox
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-arcryox
   physicalDesc: reagent-physical-desc-arcryox
   flavor: medicine
@@ -1361,7 +1361,7 @@
 - type: reagent
   id: Aloxadone
   name: reagent-name-aloxadone
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-aloxadone
   physicalDesc: reagent-physical-desc-soothing
   flavor: medicine
@@ -1403,7 +1403,7 @@
 - type: reagent
   id: Psicodine
   name: reagent-name-psicodine
-  group: Medicine
+  group: DHRemoved # DarkestHour: убран из игры (этап 3 медицины), скрыт из справочника
   desc: reagent-desc-psicodine
   physicalDesc: reagent-physical-desc-shiny
   flavor: bitter

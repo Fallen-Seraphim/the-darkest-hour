@@ -1,0 +1,13 @@
+# DarkestHour: справочник медицины TDH (решение автора 2026-11-11). Страница «Medicine» (ваниль) перенаправлена на
+# /ServerInfo/_DarkestHour/Guidebook/Medical/Medicine.xml; новые страницы подвешены к «Medical» и «Chemist».
+
+- type: guideEntry
+  id: DHResuscitation
+  name: guide-entry-dh-resuscitation
+  text: "/ServerInfo/_DarkestHour/Guidebook/Medical/Resuscitation.xml"
+
+- type: guideEntry
+  id: DHChemistryChains
+  name: guide-entry-dh-chemistry-chains
+  text: "/ServerInfo/_DarkestHour/Guidebook/Medical/ChemistryChains.xml"
+  filterEnabled: True
