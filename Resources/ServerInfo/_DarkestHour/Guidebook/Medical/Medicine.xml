@@ -1,0 +1,62 @@
+<Document>
+  # Лекарства
+
+  В «Тёмном часе» нет станционных «чудо-лекарств» вроде бикаридина или диловена. Химия здесь — [bold]средняя лечилка[/bold]: лекарства снимают состояния (боль, кровотечение, шок, отравление), а урон лечат умеренно. Раны быстро закрывают перевязка, швы и хирургия.
+
+  ## Как действуют лекарства
+  - [bold]Путь введения.[/bold] Таблетка идёт через желудок — действует позже и дольше. Укол — сразу в кровь.
+  - [bold]Передозировка.[/bold] У каждого лекарства есть порог: выше него — отравление, удушье или судороги. Порог указан в описании ниже.
+  - [bold]Привыкание.[/bold] Опиоиды (трамадол, морфин, фентанил) со временем обезболивают слабее.
+  - [bold]Зависимость.[/bold] После нескольких минут приёма опиоидов или седативных без них начинается ломка: боль, тремор. Приём снимает ломку, со временем зависимость проходит. Налоксон вызывает ломку у зависимого сразу.
+  - [bold]Опасные сочетания.[/bold] Опиоиды, седативные (кетамин, пропофол, мидазолам) и алкоголь вместе [color=red]угнетают дыхание[/color] — пациент задыхается.
+
+  ## Омниреазин
+  Универсальное средство Ассоциации и стандарт модульной брони с МБ-2М: автоаптечка на правом предплечье и армейские автоинъекторы. Останавливает кровотечение, сращивает лёгкие и средние раны, притупляет боль. [color=orange]Тяжёлые раны и переломы не лечит.[/color] Когда действие проходит, боль возвращается. У ветеранов, много раз воевавших на нём с тяжёлыми ранами, — фантомные боли и ощущение, что тело чужое.
+
+  Солдат, которому он помог, всё ещё ранен. Он просто может продолжать бой. Пока.
+
+  <GuideReagentEmbed Reagent="DHOmnireazin"/>
+
+  ## Обезболивающие
+  <GuideReagentEmbed Reagent="DHKetorolac"/>
+  <GuideReagentEmbed Reagent="DHTramadol"/>
+  <GuideReagentEmbed Reagent="DHMorphine"/>
+  <GuideReagentEmbed Reagent="DHFentanyl"/>
+  <GuideReagentEmbed Reagent="DHKetamine"/>
+
+  ## Кровотечение и кровопотеря
+  <GuideReagentEmbed Reagent="TranexamicAcid"/>
+  <GuideReagentEmbed Reagent="DHEtamsylate"/>
+  <GuideReagentEmbed Reagent="Saline"/>
+  <GuideReagentEmbed Reagent="DHRinger"/>
+  <GuideReagentEmbed Reagent="DHColloid"/>
+  <GuideReagentEmbed Reagent="DHAlbumin"/>
+
+  ## Шок и реанимация
+  <GuideReagentEmbed Reagent="Epinephrine"/>
+  <GuideReagentEmbed Reagent="DHNorepinephrine"/>
+  <GuideReagentEmbed Reagent="DHAtropine"/>
+
+  ## Наркоз и седация
+  Пациент без сознания не дёргается на операционном столе.
+  <GuideReagentEmbed Reagent="DHPropofol"/>
+  <GuideReagentEmbed Reagent="DHMidazolam"/>
+
+  ## Антидоты
+  <GuideReagentEmbed Reagent="Charcoal"/>
+  <GuideReagentEmbed Reagent="DHNaloxone"/>
+  <GuideReagentEmbed Reagent="DHFlumazenil"/>
+
+  ## Ожоги, воспаление, радиация
+  <GuideReagentEmbed Reagent="DHDexamethasone"/>
+  <GuideReagentEmbed Reagent="DHPrussianBlue"/>
+  <GuideReagentEmbed Reagent="PotassiumIodide"/>
+
+  ## Инфекции и хронит
+  <GuideReagentEmbed Reagent="DHSpacecillin"/>
+  <GuideReagentEmbed Reagent="DHViracide"/>
+  <GuideReagentEmbed Reagent="DHChronosorb"/>
+
+  ## Все лекарства
+  <GuideReagentGroupEmbed Group="Medicine"/>
+</Document>
