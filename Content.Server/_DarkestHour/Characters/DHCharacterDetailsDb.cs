@@ -45,7 +45,7 @@ public static class DHCharacterDetailsDb
             details.Height = dto.Height;
             details.Weight = dto.Weight;
             details.Build = Enum.TryParse<DHBuild>(dto.Build, out var build) ? build : DHBuild.Average;
-            details.Birthplace = string.IsNullOrEmpty(dto.Birthplace) ? null : new ProtoId<DHBirthplacePrototype>(dto.Birthplace);
+            details.Birthplace = string.IsNullOrEmpty(dto.Birthplace) ? null : (ProtoId<DHBirthplacePrototype>?) new ProtoId<DHBirthplacePrototype>(dto.Birthplace);
             details.GeneralRecord = dto.GeneralRecord ?? string.Empty;
             details.MedicalRecord = dto.MedicalRecord ?? string.Empty;
             details.CriminalRecord = dto.CriminalRecord ?? string.Empty;
