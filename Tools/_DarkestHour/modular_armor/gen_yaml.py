@@ -52,12 +52,14 @@ HELMET_DESC = {
     'Heavy': ('A tall bulky helmet with an integrated gas mask: two lenses and two side filters. Seals the suit.',
               'Высокий массивный шлем со встроенным противогазом: две линзы и два боковых фильтра. Герметизирует '
               'костюм.'),
-    'Medium': ('A smooth helmet with an integrated gas mask: two lenses and two side filters. Seals the suit.',
-               'Гладкий шлем со встроенным противогазом: две линзы и два боковых фильтра. Герметизирует костюм.'),
-    'Light': ('A smooth helmet with an integrated gas mask: two lenses and two side filters. The light exoskeleton is '
-              'not sealed.',
-              'Гладкий шлем со встроенным противогазом: две линзы и два боковых фильтра. Лёгкий экзоскелет не '
-              'герметичен.'),
+    'Medium': ('A combat helmet over an integrated panoramic gas mask: a wide visor, a round speech diaphragm and a '
+               'cheek filter. Seals the suit.',
+               'Каска поверх встроенного панорамного противогаза: широкое стекло, круглое переговорное устройство и '
+               'фильтр на щеке. Герметизирует костюм.'),
+    'Light': ('A combat helmet over an integrated panoramic gas mask: a wide visor, a round speech diaphragm and a '
+              'cheek filter. The light exoskeleton is not sealed.',
+              'Каска поверх встроенного панорамного противогаза: широкое стекло, круглое переговорное устройство и '
+              'фильтр на щеке. Лёгкий экзоскелет не герметичен.'),
 }
 
 # Классы брони (решение автора 2026-10-30): без брони 0, композитный 1, лёгкий 2, тяжёлый 3. Резистов у пластин нет:

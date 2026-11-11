@@ -63,7 +63,7 @@
   parent: [ ClothingHeadBase, BaseTaskForceContraband ]
   id: DHClothingHeadHelmetExoRMB1Light
   name: RMB-1 light exoskeleton helmet
-  description: "A smooth helmet with an integrated gas mask: two lenses and two side filters. The light exoskeleton is not sealed."
+  description: "A combat helmet over an integrated panoramic gas mask: a wide visor, a round speech diaphragm and a cheek filter. The light exoskeleton is not sealed."
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
@@ -171,7 +171,7 @@
   parent: [ ClothingHeadHardsuitBase, BaseTaskForceContraband ]
   id: DHClothingHeadHelmetExoRMB1Medium
   name: RMB-1 medium exoskeleton helmet
-  description: "A smooth helmet with an integrated gas mask: two lenses and two side filters. Seals the suit."
+  description: "A combat helmet over an integrated panoramic gas mask: a wide visor, a round speech diaphragm and a cheek filter. Seals the suit."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Head/ModularArmor/rmb1_helmet_medium.rsi
