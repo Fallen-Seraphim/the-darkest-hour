@@ -1,6 +1,7 @@
 using System.Linq;
 using Content.Shared._DarkestHour.Medical.Pharmacology;
 using Content.Shared._DarkestHour.Medical.Trauma;
+using Content.Shared.Alert;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
@@ -22,6 +23,7 @@ namespace Content.Server._DarkestHour.Medical.Pharmacology;
 /// </summary>
 public sealed partial class DHPharmacologySystem : EntitySystem
 {
+    [Dependency] private AlertsSystem _alerts = default!;
     [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private SharedJitteringSystem _jitter = default!;
     [Dependency] private MobStateSystem _mobState = default!;
@@ -34,6 +36,16 @@ public sealed partial class DHPharmacologySystem : EntitySystem
     private const float RespiratoryThreshold = 20f;
 
     private static readonly ProtoId<DamageTypePrototype> Asphyxiation = "Asphyxiation";
+    private static readonly ProtoId<AlertPrototype> RespiratoryAlert = "DHRespiratoryDepression";
+    private static readonly ProtoId<AlertPrototype> WithdrawalAlert = "DHWithdrawal";
+
+    /// <summary>Значок ломки по классу (степень алерта DHWithdrawal).</summary>
+    private static readonly Dictionary<ProtoId<DHDrugClassPrototype>, short> WithdrawalIcon = new()
+    {
+        ["Opioid"] = 0,
+        ["Sedative"] = 1,
+        ["Stimulant"] = 2,
+    };
 
     public override void Update(float frameTime)
     {
@@ -108,7 +120,29 @@ public sealed partial class DHPharmacologySystem : EntitySystem
                 ent.Comp.Classes.Remove(id);
         }
 
-        if (alive && depressantClasses >= 2 && depressantLoad >= RespiratoryThreshold)
+        var depressed = alive && depressantClasses >= 2 && depressantLoad >= RespiratoryThreshold;
+        if (depressed)
+            _alerts.ShowAlert(ent.Owner, RespiratoryAlert);
+        else
+            _alerts.ClearAlert(ent.Owner, RespiratoryAlert);
+
+        // Ломка: значок класса (опиоиды важнее седативных, те — стимуляторов).
+        short? withdrawal = null;
+        foreach (var (id, state) in ent.Comp.Classes)
+        {
+            if (!state.Withdrawal || !alive || !WithdrawalIcon.TryGetValue(id, out var icon))
+                continue;
+
+            if (withdrawal == null || icon < withdrawal)
+                withdrawal = icon;
+        }
+
+        if (withdrawal is { } severity)
+            _alerts.ShowAlert(ent.Owner, WithdrawalAlert, severity);
+        else
+            _alerts.ClearAlert(ent.Owner, WithdrawalAlert);
+
+        if (depressed)
         {
             var damage = MathF.Min(4f, depressantLoad / RespiratoryThreshold);
             _damageable.TryChangeDamage(ent.Owner, new DamageSpecifier { DamageDict = { [Asphyxiation] = FixedPoint2.New(damage) } },
@@ -122,7 +156,11 @@ public sealed partial class DHPharmacologySystem : EntitySystem
         }
 
         if (ent.Comp.Classes.Count == 0)
+        {
+            _alerts.ClearAlert(ent.Owner, RespiratoryAlert);
+            _alerts.ClearAlert(ent.Owner, WithdrawalAlert);
             RemCompDeferred<DHPharmacologyComponent>(ent);
+        }
     }
 
     private void Withdraw(Entity<DHPharmacologyComponent> ent, string id, DHDrugClassPrototype proto, DHDrugState state,

@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Made for The Darkest Hour (Tools/_DarkestHour/ui/trauma_alerts.py)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "rad0"
+    },
+    {
+      "name": "rad1"
+    },
+    {
+      "name": "rad2"
+    },
+    {
+      "name": "rad3"
+    },
+    {
+      "name": "chronite0"
+    },
+    {
+      "name": "chronite1"
+    },
+    {
+      "name": "chronite2"
+    },
+    {
+      "name": "chronite3"
+    }
+  ]
+}

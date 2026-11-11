@@ -9,6 +9,7 @@
   physicalDesc: reagent-physical-desc-opaque
   flavor: medicine
   color: "#d8d0a8"
+  dhOverdose: 30
   metabolisms:
     Bloodstream:
       effects:
@@ -33,6 +34,7 @@
   physicalDesc: reagent-physical-desc-translucent
   flavor: bitter
   color: "#e8e4f0"
+  dhOverdose: 20
   metabolisms:
     Bloodstream:
       metabolismRate: 0.2
@@ -63,6 +65,7 @@
   physicalDesc: reagent-physical-desc-translucent
   flavor: medicine
   color: "#9fd6c8"
+  dhOverdose: 30
   metabolisms:
     Bloodstream:
       effects:
@@ -151,6 +154,7 @@
   physicalDesc: reagent-physical-desc-opaque
   flavor: medicine
   color: "#c8b060"
+  dhOverdose: 20
   metabolisms:
     Bloodstream:
       effects:
@@ -176,6 +180,7 @@
   physicalDesc: reagent-physical-desc-translucent
   flavor: medicine
   color: "#b8d0e8"
+  dhOverdose: 30
   metabolisms:
     Bloodstream:
       metabolismRate: 0.25
@@ -201,6 +206,7 @@
   physicalDesc: reagent-physical-desc-chalky
   flavor: bitter
   color: "#e0d8c0"
+  dhOverdose: 30
   metabolisms:
     Bloodstream:
       effects:
@@ -225,6 +231,7 @@
   physicalDesc: reagent-physical-desc-translucent
   flavor: bitter
   color: "#c9d8f2"
+  dhOverdose: 30
   metabolisms:
     Bloodstream:
       metabolismRate: 0.25
@@ -249,6 +256,7 @@
   physicalDesc: reagent-physical-desc-glowing
   flavor: medicine
   color: "#7fe0ff"
+  dhOverdose: 15
   metabolisms:
     Bloodstream:
       metabolismRate: 0.4
@@ -278,6 +286,7 @@
   physicalDesc: reagent-physical-desc-opaque
   flavor: medicine
   color: "#b8e0c8"
+  dhOverdose: 30
   metabolisms:
     Bloodstream:
       metabolismRate: 0.5

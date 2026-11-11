@@ -4,6 +4,7 @@ using Content.Server.Ghost;
 using Content.Shared._DarkestHour.CCVar;
 using Content.Shared._DarkestHour.Medical.LifeSupport;
 using Content.Shared._DarkestHour.Medical.Trauma;
+using Content.Shared.Alert;
 using Content.Shared.Atmos.Rotting;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
@@ -41,6 +42,7 @@ namespace Content.Server._DarkestHour.Medical.LifeSupport;
 /// </summary>
 public sealed partial class DHLifeSupportSystem : EntitySystem
 {
+    [Dependency] private AlertsSystem _alerts = default!;
     [Dependency] private IConfigurationManager _cfg = default!;
     [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
@@ -57,6 +59,8 @@ public sealed partial class DHLifeSupportSystem : EntitySystem
     [Dependency] private SharedTransformSystem _transform = default!;
 
     private static readonly ProtoId<DamageTypePrototype> Asphyxiation = "Asphyxiation";
+    private static readonly ProtoId<AlertPrototype> ClinicalDeathAlert = "DHClinicalDeath";
+    private static readonly ProtoId<AlertPrototype> MachineAlert = "DHMedicalMachine";
     private static readonly ProtoId<DamageTypePrototype> Bloodloss = "Bloodloss";
     private static readonly ProtoId<DamageTypePrototype> Blunt = "Blunt";
 
@@ -106,6 +110,7 @@ public sealed partial class DHLifeSupportSystem : EntitySystem
         else
         {
             RemCompDeferred<DHClinicalDeathComponent>(args.Target);
+            _alerts.ClearAlert(args.Target, ClinicalDeathAlert);
         }
     }
 
@@ -129,15 +134,31 @@ public sealed partial class DHLifeSupportSystem : EntitySystem
         if (_window <= 0f)
             return;
 
+        var now = _timing.CurTime;
         var query = EntityQueryEnumerator<DHClinicalDeathComponent>();
         while (query.MoveNext(out var uid, out var death))
         {
-            if (HasComp<UnrevivableComponent>(uid) || !_mobState.IsDead(uid) || IsPerfused(uid, death))
+            if (HasComp<UnrevivableComponent>(uid) || !_mobState.IsDead(uid))
+            {
+                _alerts.ClearAlert(uid, ClinicalDeathAlert);
                 continue;
+            }
+
+            if (IsPerfused(uid, death))
+            {
+                // Мозг снабжается кровью — отсчёт стоит.
+                _alerts.ShowAlert(uid, ClinicalDeathAlert, 1);
+                continue;
+            }
 
             death.Elapsed += 1f;
+            // Таймер до смерти мозга: начало сдвигается на время, пока отсчёт стоял.
+            var start = now - TimeSpan.FromSeconds(death.Elapsed);
+            _alerts.ShowAlert(uid, ClinicalDeathAlert, 0, (start, start + TimeSpan.FromSeconds(_window)));
             if (death.Elapsed < _window)
                 continue;
+
+            _alerts.ClearAlert(uid, ClinicalDeathAlert);
 
             var unrevivable = EnsureComp<UnrevivableComponent>(uid);
             unrevivable.ReasonMessage = "dh-revive-brain-death";
@@ -309,6 +330,7 @@ public sealed partial class DHLifeSupportSystem : EntitySystem
             RaiseDeathThreshold((patient, link), ent.Comp.DeathThresholdBonus);
         }
 
+        UpdateMachineAlert((patient, link));
         _popup.PopupEntity(Loc.GetString(ent.Comp.Kind == DHMedicalMachineKind.Ventilator
                 ? "dh-ventilator-connected"
                 : "dh-life-support-connected", ("user", user), ("target", patient)),
@@ -338,6 +360,7 @@ public sealed partial class DHLifeSupportSystem : EntitySystem
                 RestoreDeathThreshold((patient, link));
             }
 
+            UpdateMachineAlert((patient, link));
             if (link.Ventilator == null && link.LifeSupport == null)
                 RemCompDeferred<DHMachinePatientComponent>(patient);
         }
@@ -347,6 +370,20 @@ public sealed partial class DHLifeSupportSystem : EntitySystem
             _popup.PopupEntity(Loc.GetString(user == null ? "dh-machine-tubes-pulled" : "dh-machine-disconnected",
                 ("target", patient)), patient, PopupType.SmallCaution);
         }
+    }
+
+    /// <summary>Значок «подключён к аппарату»: жизнеобеспечение важнее ИВЛ.</summary>
+    private void UpdateMachineAlert(Entity<DHMachinePatientComponent> patient)
+    {
+        if (TerminatingOrDeleted(patient))
+            return;
+
+        if (patient.Comp.LifeSupport != null)
+            _alerts.ShowAlert(patient.Owner, MachineAlert, 1);
+        else if (patient.Comp.Ventilator != null)
+            _alerts.ShowAlert(patient.Owner, MachineAlert, 0);
+        else
+            _alerts.ClearAlert(patient.Owner, MachineAlert);
     }
 
     private void RaiseDeathThreshold(Entity<DHMachinePatientComponent> patient, float bonus)
@@ -381,6 +418,8 @@ public sealed partial class DHLifeSupportSystem : EntitySystem
         }
 
         RestoreDeathThreshold(ent);
+        if (!TerminatingOrDeleted(ent))
+            _alerts.ClearAlert(ent.Owner, MachineAlert);
     }
 
     private void TickMachines()

@@ -1,0 +1,168 @@
+# DarkestHour: алерты травм, лекарств, стационара, облучения и связи (решение автора 2026-11-11).
+# Иконки — Tools/_DarkestHour/ui/trauma_alerts.py.
+
+- type: alert
+  id: DHInternalBleeding
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/internal_bleeding.rsi
+    state: ib0
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/internal_bleeding.rsi
+    state: ib1
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/internal_bleeding.rsi
+    state: ib2
+  name: dh-alert-internal-bleeding-name
+  description: dh-alert-internal-bleeding-desc
+  minSeverity: 0
+  maxSeverity: 2
+
+- type: alert
+  id: DHShrapnel
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/shrapnel.rsi
+    state: shrapnel0
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/shrapnel.rsi
+    state: shrapnel1
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/shrapnel.rsi
+    state: shrapnel2
+  name: dh-alert-shrapnel-name
+  description: dh-alert-shrapnel-desc
+  minSeverity: 0
+  maxSeverity: 2
+
+- type: alert
+  id: DHTourniquet
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/tourniquet.rsi
+    state: icon
+  name: dh-alert-tourniquet-name
+  description: dh-alert-tourniquet-desc
+
+- type: alert
+  id: DHOrganFailure
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/organ.rsi
+    state: failure
+  name: dh-alert-organ-failure-name
+  description: dh-alert-organ-failure-desc
+
+- type: alert
+  id: DHPainSuppressed
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/painkiller.rsi
+    state: icon
+  name: dh-alert-pain-suppressed-name
+  description: dh-alert-pain-suppressed-desc
+
+- type: alert
+  id: DHOmnireazin
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/omnireazin.rsi
+    state: active
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/omnireazin.rsi
+    state: rebound
+  name: dh-alert-omnireazin-name
+  description: dh-alert-omnireazin-desc
+  minSeverity: 0
+  maxSeverity: 1
+
+- type: alert
+  id: DHPhantomPain
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/phantom.rsi
+    state: icon
+  name: dh-alert-phantom-pain-name
+  description: dh-alert-phantom-pain-desc
+
+- type: alert
+  id: DHWithdrawal
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/withdrawal.rsi
+    state: opioid
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/withdrawal.rsi
+    state: sedative
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/withdrawal.rsi
+    state: stimulant
+  name: dh-alert-withdrawal-name
+  description: dh-alert-withdrawal-desc
+  minSeverity: 0
+  maxSeverity: 2
+
+- type: alert
+  id: DHRespiratoryDepression
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/respiratory.rsi
+    state: depressed
+  name: dh-alert-respiratory-depression-name
+  description: dh-alert-respiratory-depression-desc
+
+- type: alert
+  id: DHOverdose
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/overdose.rsi
+    state: icon
+  name: dh-alert-overdose-name
+  description: dh-alert-overdose-desc
+
+- type: alert
+  id: DHMedicalMachine
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/machines.rsi
+    state: ventilator
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/machines.rsi
+    state: lifesupport
+  name: dh-alert-medical-machine-name
+  description: dh-alert-medical-machine-desc
+  minSeverity: 0
+  maxSeverity: 1
+
+- type: alert
+  id: DHClinicalDeath
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/clinical_death.rsi
+    state: countdown
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/clinical_death.rsi
+    state: perfused
+  name: dh-alert-clinical-death-name
+  description: dh-alert-clinical-death-desc
+  minSeverity: 0
+  maxSeverity: 1
+
+- type: alert
+  id: DHRadiation
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/dose.rsi
+    state: rad0
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/dose.rsi
+    state: rad1
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/dose.rsi
+    state: rad2
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/dose.rsi
+    state: rad3
+  name: dh-alert-radiation-name
+  description: dh-alert-radiation-desc
+  minSeverity: 0
+  maxSeverity: 3
+
+- type: alert
+  id: DHChronite
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/dose.rsi
+    state: chronite0
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/dose.rsi
+    state: chronite1
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/dose.rsi
+    state: chronite2
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/dose.rsi
+    state: chronite3
+  name: dh-alert-chronite-name
+  description: dh-alert-chronite-desc
+  minSeverity: 0
+  maxSeverity: 3
+
+- type: alert
+  id: DHNoSignal
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/comms.rsi
+    state: nosignal
+  name: dh-alert-no-signal-name
+  description: dh-alert-no-signal-desc
