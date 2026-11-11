@@ -584,6 +584,9 @@ def clinic():
     ox = (bx0 + mid) // 2
     lv.put('OperatingTable', ox, part + 5)
     lv.put('DHIVDripFilled', ox + 1, part + 5)
+    # аппараты стационара (этап 6): ИВЛ и жизнеобеспечение у операционного стола
+    lv.put('DHVentilator', ox - 1, part + 6, ROT_S)
+    lv.put('DHLifeSupport', ox - 1, part + 4, ROT_S)
     lv.put('CrateMedicalSurgery', bx0 + 1, by1 - 1)
     lv.put('LockerMedicalFilled', bx0 + 2, by1 - 1)
     lv.put('SinkWide', mid - 1, by1 - 1)
@@ -645,6 +648,8 @@ def clinic():
     for y in (part + 2, part + 5, by1 - 1):
         lv.put('MedicalBed', bx1 - 1, y)
         lv.put('DHIVDripFilled', bx1 - 2, y)
+    lv.put('DHVentilator', bx1 - 1, part + 3, ROT_W)
+    lv.put('DHLifeSupport', bx1 - 1, part + 4, ROT_W)
     lv.put('CMTable', mid + 2, by1 - 1)
     lv.put('CMChair', mid + 2, by1 - 2, ROT_N)
     lv.put('DHSalinePackFull', mid + 2, by1 - 1)

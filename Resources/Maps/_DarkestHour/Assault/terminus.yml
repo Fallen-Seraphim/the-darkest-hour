@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 10/30/2026 11:55:31
-  entityCount: 34187
+  entityCount: 34189
 maps:
 - 1
 grids:
@@ -174917,5 +174917,19 @@ entities:
     components:
     - type: Transform
       pos: -162.5,67.5
+      parent: 1
+- proto: DHVentilator
+  entities:
+  - uid: 34931
+    components:
+    - type: Transform
+      pos: -170.5,61.5
+      parent: 1
+- proto: DHLifeSupport
+  entities:
+  - uid: 34932
+    components:
+    - type: Transform
+      pos: -170.5,63.5
       parent: 1
 ...
