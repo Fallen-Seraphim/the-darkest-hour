@@ -2,6 +2,7 @@ using System.Linq;
 using Content.Server._DarkestHour.Medical.Surgery;
 using Content.Server.Chat.Systems;
 using Content.Shared._DarkestHour.Medical.Trauma;
+using Content.Shared.Alert;
 using Content.Shared.Bed.Sleep;
 using Content.Shared.Body;
 using Content.Shared.Body.Systems;
@@ -37,6 +38,7 @@ namespace Content.Server._DarkestHour.Medical.Trauma;
 /// </summary>
 public sealed partial class DHTraumaSystem : EntitySystem
 {
+    [Dependency] private AlertsSystem _alerts = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private BloodstreamSystem _bloodstream = default!;
     [Dependency] private ChatSystem _chat = default!;
@@ -78,6 +80,8 @@ public sealed partial class DHTraumaSystem : EntitySystem
     private static readonly SoundSpecifier FractureSound = new SoundPathSpecifier("/Audio/Effects/bone_rattle.ogg");
     private static readonly SoundSpecifier SeverSound = new SoundCollectionSpecifier("gib");
     private static readonly EntProtoId ForcedSleep = "StatusEffectForcedSleeping";
+    private static readonly ProtoId<AlertPrototype> PainAlert = "DHPain";
+    private static readonly ProtoId<AlertPrototype> FractureAlert = "DHFracture";
 
     private const float MeleeRange = 1.6f;
     private const float MeleeAccuracy = 0.85f;
@@ -454,9 +458,45 @@ public sealed partial class DHTraumaSystem : EntitySystem
         }
     }
 
+    /// <summary>Алерты: боль по степеням (лёгкая → без сознания) и перелом (с шиной / без).</summary>
+    private void UpdateAlerts(Entity<DHTraumaComponent> ent)
+    {
+        var comp = ent.Comp;
+        short? pain = comp.Pain switch
+        {
+            >= PainUnconscious => 3,
+            >= PainShock => 2,
+            >= PainModerate => 1,
+            >= PainMild => 0,
+            _ => null,
+        };
+
+        if (pain is { } painSeverity && !_mobState.IsDead(ent))
+            _alerts.ShowAlert(ent.Owner, PainAlert, painSeverity);
+        else
+            _alerts.ClearAlert(ent.Owner, PainAlert);
+
+        var fractured = false;
+        var unsplinted = false;
+        foreach (var part in comp.Parts.Values)
+        {
+            if (!part.Fracture)
+                continue;
+
+            fractured = true;
+            unsplinted |= !part.Splinted;
+        }
+
+        if (fractured)
+            _alerts.ShowAlert(ent.Owner, FractureAlert, (short) (unsplinted ? 1 : 0));
+        else
+            _alerts.ClearAlert(ent.Owner, FractureAlert);
+    }
+
     /// <summary>Строки для анализатора здоровья: по частям тела (без общего урона) и уровень боли.</summary>
     private void UpdateSummary(Entity<DHTraumaComponent> ent)
     {
+        UpdateAlerts(ent);
         var comp = ent.Comp;
         var lines = new List<string>();
 

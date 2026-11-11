@@ -20,6 +20,8 @@
     - category: Breathing # Vox gang not calling this oxygen
     - category: Pressure
     - alertType: Bleed
+    - alertType: DHPain # DarkestHour
+    - alertType: DHFracture # DarkestHour
     - category: Temperature
     - category: Hunger
     - category: Thirst

@@ -1,0 +1,28 @@
+# DarkestHour: алерты травм (решение автора 2026-11-11): боль по степеням и перелом. Ставит DHTraumaSystem.
+- type: alert
+  id: DHPain
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/pain.rsi
+    state: pain0
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/pain.rsi
+    state: pain1
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/pain.rsi
+    state: pain2
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/pain.rsi
+    state: pain3
+  name: dh-alert-pain-name
+  description: dh-alert-pain-desc
+  minSeverity: 0
+  maxSeverity: 3
+
+- type: alert
+  id: DHFracture
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/fracture.rsi
+    state: splinted
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/fracture.rsi
+    state: fracture
+  name: dh-alert-fracture-name
+  description: dh-alert-fracture-desc
+  minSeverity: 0
+  maxSeverity: 1
