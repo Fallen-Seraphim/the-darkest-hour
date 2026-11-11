@@ -18,4 +18,12 @@ public sealed class DHCVars
     /// <summary>Реплики над персонажем появляются посимвольно (терминальная строка, решение автора 2026-11-11).</summary>
     public static readonly CVarDef<bool> SpeechTypewriter =
         CVarDef.Create("dh.speech_typewriter", true, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    /// <summary>Строки развёртки поверх окон (общий стиль TDH, выбор автора 2026-11-11).</summary>
+    public static readonly CVarDef<bool> UiScanlines =
+        CVarDef.Create("dh.ui_scanlines", true, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    /// <summary>Надписи окон — моноширинным шрифтом (общий стиль TDH).</summary>
+    public static readonly CVarDef<bool> UiMonoWindows =
+        CVarDef.Create("dh.ui_mono_windows", true, CVar.CLIENTONLY | CVar.ARCHIVE);
 }
