@@ -14,7 +14,7 @@ namespace Content.Client._DarkestHour.Vendors;
 /// Окно вендомата снаряжения: разделы с лимитом выборов, у каждой позиции — значок, название, состав комплекта
 /// и кнопка «Взять». Недоступное по должности или исчерпанное показывается, но кнопка выключена.
 /// </summary>
-public sealed class DHGearVendorWindow : DefaultWindow
+public sealed partial class DHGearVendorWindow : DefaultWindow
 {
     [Dependency] private IEntityManager _entMan = default!;
     [Dependency] private IPrototypeManager _proto = default!;

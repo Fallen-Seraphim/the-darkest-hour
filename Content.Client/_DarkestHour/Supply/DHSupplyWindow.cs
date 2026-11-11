@@ -7,7 +7,7 @@ using Robust.Shared.Prototypes;
 namespace Content.Client._DarkestHour.Supply;
 
 /// <summary>Окно компьютера снабжения: запас по разделам, заказ и управление лифтом. Собрано кодом, без XAML.</summary>
-public sealed class DHSupplyWindow : DefaultWindow
+public sealed partial class DHSupplyWindow : DefaultWindow
 {
     [Dependency] private IPrototypeManager _proto = default!;
 
