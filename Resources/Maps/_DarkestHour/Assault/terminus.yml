@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 10/30/2026 11:55:31
-  entityCount: 34166
+  entityCount: 34187
 maps:
 - 1
 grids:
@@ -25408,6 +25408,21 @@ entities:
     - type: Transform
       parent: 1
       pos: -163.5,60.5
+  - uid: 34921
+    components:
+    - type: Transform
+      pos: -164.5,68.5
+      parent: 1
+  - uid: 34922
+    components:
+    - type: Transform
+      pos: -163.5,68.5
+      parent: 1
+  - uid: 34923
+    components:
+    - type: Transform
+      pos: -162.5,68.5
+      parent: 1
 - proto: VendingMachineYouTool
   entities:
   - uid: 3734
@@ -173415,6 +173430,46 @@ entities:
     - type: Transform
       parent: 1
       pos: 187.5,58.5
+  - uid: 34910
+    components:
+    - type: Transform
+      pos: -167.5,65.5
+      parent: 1
+  - uid: 34911
+    components:
+    - type: Transform
+      pos: -166.5,65.5
+      parent: 1
+  - uid: 34912
+    components:
+    - type: Transform
+      pos: -165.5,65.5
+      parent: 1
+  - uid: 34913
+    components:
+    - type: Transform
+      pos: -163.5,65.5
+      parent: 1
+  - uid: 34914
+    components:
+    - type: Transform
+      pos: -162.5,65.5
+      parent: 1
+  - uid: 34915
+    components:
+    - type: Transform
+      pos: -167.5,66.5
+      parent: 1
+  - uid: 34916
+    components:
+    - type: Transform
+      pos: -167.5,67.5
+      parent: 1
+  - uid: 34917
+    components:
+    - type: Transform
+      pos: -167.5,68.5
+      parent: 1
 - proto: WallWood
   entities:
   - uid: 33104
@@ -174793,4 +174848,74 @@ entities:
     - type: Transform
       parent: 1
       pos: -6.5,-14.5
+- proto: AirlockMedicalGlass
+  entities:
+  - uid: 34918
+    components:
+    - type: Transform
+      pos: -164.5,65.5
+      parent: 1
+- proto: DHChemDispenser
+  entities:
+  - uid: 34919
+    components:
+    - type: Transform
+      pos: -166.5,68.5
+      parent: 1
+- proto: DHChemMaster
+  entities:
+  - uid: 34920
+    components:
+    - type: Transform
+      pos: -165.5,68.5
+      parent: 1
+- proto: DHChemistryHotplate
+  entities:
+  - uid: 34924
+    components:
+    - type: Transform
+      pos: -164.5,68.5
+      parent: 1
+- proto: DHElectrolysisUnit
+  entities:
+  - uid: 34925
+    components:
+    - type: Transform
+      pos: -163.5,68.5
+      parent: 1
+- proto: BoxBeaker
+  entities:
+  - uid: 34926
+    components:
+    - type: Transform
+      pos: -162.5,68.5
+      parent: 1
+- proto: LargeBeaker
+  entities:
+  - uid: 34927
+    components:
+    - type: Transform
+      pos: -162.5,68.5
+      parent: 1
+- proto: DHCrateChemistryAcids
+  entities:
+  - uid: 34928
+    components:
+    - type: Transform
+      pos: -166.5,66.5
+      parent: 1
+- proto: DHCrateChemistryBases
+  entities:
+  - uid: 34929
+    components:
+    - type: Transform
+      pos: -162.5,66.5
+      parent: 1
+- proto: DHCrateChemistryOrganics
+  entities:
+  - uid: 34930
+    components:
+    - type: Transform
+      pos: -162.5,67.5
+      parent: 1
 ...

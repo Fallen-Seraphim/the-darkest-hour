@@ -62,6 +62,38 @@ ent-DHLAIDCardResident = { ent-DHLAPassportBase }
     .desc = { ent-DHLAPassportBase.desc }
     .suffix = житель
 
+ent-SpawnPointDHLAClinicHead = главный врач
+    .desc = { "" }
+    .suffix = точка появления
+
+ent-DHLAIDCardClinicHead = { ent-DHLAPassportBase }
+    .desc = { ent-DHLAPassportBase.desc }
+    .suffix = главный врач
+
+ent-SpawnPointDHLAClinicDoctor = врач поликлиники
+    .desc = { "" }
+    .suffix = точка появления
+
+ent-DHLAIDCardClinicDoctor = { ent-DHLAPassportBase }
+    .desc = { ent-DHLAPassportBase.desc }
+    .suffix = врач поликлиники
+
+ent-SpawnPointDHLAClinicNurse = медсестра
+    .desc = { "" }
+    .suffix = точка появления
+
+ent-DHLAIDCardClinicNurse = { ent-DHLAPassportBase }
+    .desc = { ent-DHLAPassportBase.desc }
+    .suffix = медсестра
+
+ent-SpawnPointDHLAClinicPharmacist = фармацевт-химик
+    .desc = { "" }
+    .suffix = точка появления
+
+ent-DHLAIDCardClinicPharmacist = { ent-DHLAPassportBase }
+    .desc = { ent-DHLAPassportBase.desc }
+    .suffix = фармацевт-химик
+
 ent-SpawnPointDHLAVRepresentative = представитель корпорации
     .desc = { "" }
     .suffix = точка появления

@@ -487,8 +487,10 @@ def gates():
             for i in range(3):
                 lv.put('SpawnPointDHLAOfficeWorker', ax0 + 3 + i * 2, ay1 - 4)
 
+    # 1–2: поликлиника (clinic()), 3–5: офисы. Для 1–2 мебель «расставляется» в пустоту, чтобы не сдвигать
+    # случайные выборы остальной карты.
     for z in range(1, 6):
-        lv = L(z)
+        lv = L(z) if z >= 3 else Level(z)
         furnish_office(lv, bx0, by0 + 8, bx1, by1)
         if z in (3, 4):
             for i in range(3):
@@ -546,6 +548,107 @@ def gates():
     lights_in(lv, bx0, by0 + 8, bx1, by1)
     # переход «Ворота» → площадь: тротуар у входов
     L(0).floor(GATES_A[0], 27, GATES_B[2], 30, T_WALK)
+
+
+def clinic():
+    """Поликлиника «Ворот» — 1-й и 2-й уровни второй башни (решение автора 2026-11-11). Юг этажей — холлы у лестницы
+    (запад) и лифта (восток), север — за перегородкой.
+      1: приёмная (стойка медсестры, ожидание, NanoMed); операционная (запад, служебная) и кабинет приёма с койками.
+      2: кабинет главврача (юг посредине); химлаборатория с аптекой (запад, служебная) и стационар (восток)."""
+    bx0, by0, bx1, by1 = GATES_B
+    part = by0 + 9          # перегородка: юг — холл, север — помещения
+    mid = bx0 + 10          # стена между западным и восточным помещениями
+    for z in (1, 2):
+        lv = L(z)
+        lv.floor(bx0 + 1, by0 + 1, bx1 - 1, by1 - 1, T_METRO)
+        lv.hline(bx0 + 1, bx1 - 1, part, W_INNER)
+        lv.vline(mid, part + 1, by1 - 1, W_INNER)
+        lv.door(bx0 + 6, part, 'DHLAAirlockClinicLocked')       # служебное помещение (запад)
+        lv.door(bx1 - 4, part, 'AirlockMedicalGlass')           # к пациентам (восток)
+        lights_in(lv, bx0, part, mid, by1)
+        lights_in(lv, mid, part, bx1, by1)
+        lv.put(LIGHT, mid - 1, part - 1, ROT_N)
+
+    # ---- 1: приёмная, операционная, кабинет приёма
+    lv = L(1)
+    rx = mid - 2            # стойка регистратуры между лестницей и лифтом
+    lv.put('CMTableReinforcedBlack', rx, by0 + 3)
+    lv.put('CMTableReinforcedBlack', rx + 1, by0 + 3)
+    lv.put('CMChairComfy', rx, by0 + 4, ROT_S)
+    lv.put('SpawnPointDHLAClinicNurse', rx + 1, by0 + 4)
+    for x in (mid - 2, mid + 1, mid + 4):
+        lv.put('RMCCouchMidBlack', x, part - 2)
+    lv.put('VendingMachineMedical', bx1 - 1, part - 3)
+    lv.put('CMPottedPlant5', bx1 - 1, part - 1)
+    # операционная (запад, служебная)
+    ox = (bx0 + mid) // 2
+    lv.put('OperatingTable', ox, part + 5)
+    lv.put('DHIVDripFilled', ox + 1, part + 5)
+    lv.put('CrateMedicalSurgery', bx0 + 1, by1 - 1)
+    lv.put('LockerMedicalFilled', bx0 + 2, by1 - 1)
+    lv.put('SinkWide', mid - 1, by1 - 1)
+    lv.put('CMTable', bx0 + 1, part + 2)
+    lv.put('BoxSyringe', bx0 + 1, part + 2)
+    lv.put('CMTable', bx0 + 1, part + 3)
+    lv.put('DHBloodPackFull', bx0 + 1, part + 3)
+    lv.put('DHBloodPackFull', bx0 + 1, part + 3)
+    lv.put('DHSalinePackFull', bx0 + 1, part + 3)
+    # кабинет приёма: два стола врачей и койки
+    for i, y in enumerate((part + 3, part + 6)):
+        lv.put('CMTable', mid + 3, y)
+        lv.put('CMChairComfy', mid + 3, y + 1, ROT_S)
+        lv.put('CMChair', mid + 3, y - 1, ROT_N)
+        lv.put('SpawnPointDHLAClinicDoctor', mid + 4, y + 1)
+    lv.put('HandheldHealthAnalyzer', mid + 3, part + 3)
+    for y in (part + 2, part + 5, by1 - 1):
+        lv.put('MedicalBed', bx1 - 1, y)
+    lv.put('LockerMedicineFilled', mid + 1, by1 - 1)
+
+    # ---- 2: кабинет главврача, лаборатория с аптекой, стационар
+    lv = L(2)
+    # кабинет главврача — между лестницей (x ≤ bx0+7) и лифтом (x ≥ bx1−4, пульт на bx1−5, by0+5), у южной стены;
+    # дверь на север, в коридор холла
+    hx0, hx1, hy = mid - 2, mid + 4, by0 + 4
+    lv.vline(hx0, by0 + 1, hy, W_INNER)
+    lv.vline(hx1, by0 + 1, hy, W_INNER)
+    lv.hline(hx0, hx1, hy, W_INNER)
+    lv.door((hx0 + hx1) // 2, hy, 'DHLAAirlockClinicHeadLocked')
+    lv.floor(hx0 + 1, by0 + 1, hx1 - 1, hy - 1, T_WOOD)
+    lv.put('CMTableWooden', hx0 + 2, by0 + 2)
+    lv.put('CMChairComfyBlack', hx0 + 2, by0 + 3, ROT_S)
+    lv.put('CMFilingCabinetTall', hx1 - 1, by0 + 1)
+    lv.put('SpawnPointDHLAClinicHead', hx0 + 3, by0 + 3)
+    lv.put(LIGHT_DIM, hx0 + 2, hy - 1, ROT_N)
+    # лаборатория и аптека (запад, служебная): раздатчик, ХимМастер, плитка и электролиз на столе, сырьё в ящиках
+    lv.put('DHChemDispenser', bx0 + 1, by1 - 1)
+    lv.put('DHChemMaster', bx0 + 2, by1 - 1)
+    lv.put('SinkWide', bx0 + 3, by1 - 1)
+    for x in (bx0 + 5, bx0 + 6, bx0 + 7):
+        lv.put('CMTableReinforcedBlack', x, by1 - 1)
+    lv.put('DHChemistryHotplate', bx0 + 5, by1 - 1)
+    lv.put('DHElectrolysisUnit', bx0 + 6, by1 - 1)
+    lv.put('BoxBeaker', bx0 + 7, by1 - 1)
+    lv.put('LargeBeaker', bx0 + 7, by1 - 1)
+    lv.put('LargeBeaker', bx0 + 7, by1 - 1)
+    for x in (bx0 + 1, bx0 + 2):
+        lv.put('CMTable', x, part + 4)
+    lv.put('BoxPillCanister', bx0 + 1, part + 4)
+    lv.put('BoxBottle', bx0 + 2, part + 4)
+    lv.put('BoxSyringe', bx0 + 2, part + 4)
+    lv.put('DHCrateChemistryAcids', bx0 + 1, part + 1)
+    lv.put('DHCrateChemistryBases', bx0 + 2, part + 1)
+    lv.put('DHCrateChemistryOrganics', bx0 + 3, part + 1)
+    lv.put('LockerMedicineFilled', mid - 1, part + 1)
+    lv.put('CMChair', bx0 + 5, by1 - 2, ROT_N)
+    lv.put('SpawnPointDHLAClinicPharmacist', bx0 + 6, part + 5)
+    # стационар (восток): койки с капельницами, пост медсестры
+    for y in (part + 2, part + 5, by1 - 1):
+        lv.put('MedicalBed', bx1 - 1, y)
+        lv.put('DHIVDripFilled', bx1 - 2, y)
+    lv.put('CMTable', mid + 2, by1 - 1)
+    lv.put('CMChair', mid + 2, by1 - 2, ROT_N)
+    lv.put('DHSalinePackFull', mid + 2, by1 - 1)
+    lv.put('DHBloodPackFull', mid + 2, by1 - 1)
 
 
 # ------------------------------------------------------------------ ЗП-1 (крыша «Ворот»), метро (под «Воротами»)
@@ -1094,6 +1197,7 @@ def main():
     square()
     market()
     gates()
+    clinic()
     police()
     side_buildings()
     panels()
