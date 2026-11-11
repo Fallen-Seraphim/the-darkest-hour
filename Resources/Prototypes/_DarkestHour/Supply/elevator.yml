@@ -1,0 +1,77 @@
+# DarkestHour: грузовой лифт и компьютер снабжения, как ASRS в RMC/CMU (решение автора 2026-11-11).
+# Лифт 5×5: опущен — яма (в неё не войти), поднят — платформа. Заказ с компьютера уходит на лифт, при подъёме
+# ящики появляются на платформе; что осталось на платформе при спуске — уходит в трюм. Людей лифт вниз не возит.
+# Спрайт лифта и звуки — cmss13 через RMC-14 (CC-BY-SA-3.0); компьютер — настольный DH.
+
+- type: entity
+  id: DHSupplyElevator
+  name: cargo elevator
+  description: The supply elevator from the ship's holds. Orders from the supply console come up on it.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: Sprite
+    sprite: _RMC14/Effects/elevator.rsi
+    drawdepth: LowFloors
+    layers:
+    - state: supply_elevator_lowered
+      map: [ "enum.DHSupplyElevatorLayers.Base" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHSupplyElevatorVisuals.Mode:
+        enum.DHSupplyElevatorLayers.Base:
+          Lowered: { state: supply_elevator_lowered }
+          Raising: { state: supply_elevator_raising }
+          Raised: { state: supply_elevator_raised }
+          Lowering: { state: supply_elevator_lowering }
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      pit:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-2.45,-2.45,2.45,2.45"
+        density: 1000
+        hard: true
+        layer:
+        - MidImpassable
+        - LowImpassable
+  - type: DHSupplyElevator
+
+- type: entity
+  parent: BaseComputer
+  id: DHComputerSupply
+  name: supply console
+  description: Orders crates from the side's supply stock and drives the cargo elevator. Nothing costs money; what is in stock is what you get. Stock is topped up while the side holds more than two points.
+  components:
+  - type: ComputerVisuals
+    stateFrame: frame
+    stateKeyboard: generic_keyboard
+    stateScreen: request
+    stateKeys: generic_keys
+    statePanel: panel
+  - type: DHSupplyConsole
+    catalog: DHSupplyEmpire
+  - type: ActivatableUI
+    key: enum.DHSupplyUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHSupplyUiKey.Key:
+        type: DHSupplyBoundUserInterface
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#b89f25"
+
+- type: entity
+  parent: DHComputerSupply
+  id: DHComputerSupplyRepublic
+  suffix: Republic
+  components:
+  - type: DHSupplyConsole
+    catalog: DHSupplyRepublic

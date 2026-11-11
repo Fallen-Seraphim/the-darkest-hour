@@ -1,0 +1,22 @@
+# DarkestHour: снабжение стороны (DHSupplySystem)
+dh-supply-ui-title = Компьютер снабжения
+dh-supply-ui-elevator = Лифт: { $mode }. Заказов на подъём: { $pending }.
+dh-supply-ui-no-elevator = Грузового лифта поблизости нет.
+dh-supply-ui-refill = Удерживается точек: { $points }. Запас пополняется раз в { $minutes } мин, пока у стороны { $min } точки и больше.
+dh-supply-ui-raise = Поднять лифт
+dh-supply-ui-lower = Опустить лифт
+dh-supply-ui-order = Заказать
+dh-supply-ui-count = осталось: { $count }
+dh-supply-mode-lowered = опущен
+dh-supply-mode-raising = поднимается
+dh-supply-mode-raised = поднят
+dh-supply-mode-lowering = опускается
+dh-supply-no-elevator = Грузового лифта поблизости нет.
+dh-supply-out-of-stock = Этого больше нет.
+dh-supply-ordered = Заказано: { $item }. Поднимется с лифтом.
+dh-supply-people-on-platform = На платформе люди — лифт вниз не пойдёт.
+dh-supply-category-artillery = Артиллерия
+dh-supply-category-ammo = Боеприпасы
+dh-supply-category-medical = Медицина
+dh-supply-category-engineering = Инженерное
+dh-supply-category-misc = Прочее

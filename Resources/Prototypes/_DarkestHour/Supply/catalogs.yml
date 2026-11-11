@@ -1,0 +1,44 @@
+# DarkestHour: каталоги снабжения сторон (решение автора 2026-11-11). Не за деньги: в начале раунда лежит initial,
+# раз в 10 минут добавляется refill (до max), если сторона держит больше двух точек. Код — DHSupplySystem.
+
+- type: dhSupplyCatalog
+  id: DHSupplyEmpire
+  faction: Empire
+  entries:
+  - { id: mortar-he, proto: DHSupplyCrateMortarHE, category: dh-supply-category-artillery, initial: 3, refill: 2, max: 6 }
+  - { id: mortar-frag, proto: DHSupplyCrateMortarFrag, category: dh-supply-category-artillery, initial: 2, refill: 1, max: 4 }
+  - { id: mortar-special, proto: DHSupplyCrateMortarSpecial, category: dh-supply-category-artillery, initial: 1, refill: 1, max: 3 }
+  - { id: mortar, proto: DHCrateMortar, category: dh-supply-category-artillery, initial: 1, refill: 0, max: 1 }
+  - { id: field-gun-75, proto: DHCrateFieldGun75, category: dh-supply-category-artillery, initial: 2, refill: 1, max: 4 }
+  - { id: ammo-imps, proto: DHSupplyCrateAmmoImpS, category: dh-supply-category-ammo, initial: 4, refill: 2, max: 8 }
+  - { id: ammo-impr, proto: DHSupplyCrateAmmoImpR, category: dh-supply-category-ammo, initial: 2, refill: 1, max: 4 }
+  - { id: ammo-impb, proto: DHSupplyCrateAmmoImpB, category: dh-supply-category-ammo, initial: 2, refill: 1, max: 4 }
+  - { id: ammo-14g, proto: DHSupplyCrateAmmo14g, category: dh-supply-category-ammo, initial: 2, refill: 1, max: 4 }
+  - { id: ammo-145, proto: DHSupplyCrateAmmo145, category: dh-supply-category-ammo, initial: 2, refill: 1, max: 4 }
+  - { id: medical, proto: DHSupplyCrateMedical, category: dh-supply-category-medical, initial: 3, refill: 2, max: 6 }
+  - { id: sandbags, proto: DHSupplyCrateSandbags, category: dh-supply-category-engineering, initial: 2, refill: 1, max: 4 }
+  - { id: barbed-wire, proto: DHSupplyCrateBarbedWire, category: dh-supply-category-engineering, initial: 2, refill: 1, max: 4 }
+  - { id: steel, proto: CrateMaterialSteel, category: dh-supply-category-engineering, initial: 2, refill: 1, max: 4 }
+  - { id: plasteel, proto: CrateMaterialPlasteel, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 2 }
+  - { id: fusion-fuel, proto: DHCrateFusionFuel, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 2 }
+  - { id: parachutes, proto: DHCrateParachutes, category: dh-supply-category-misc, initial: 1, refill: 1, max: 2 }
+
+- type: dhSupplyCatalog
+  id: DHSupplyRepublic
+  faction: Republic
+  entries:
+  - { id: mortar-he, proto: DHSupplyCrateMortarHE, category: dh-supply-category-artillery, initial: 3, refill: 2, max: 6 }
+  - { id: mortar-frag, proto: DHSupplyCrateMortarFrag, category: dh-supply-category-artillery, initial: 2, refill: 1, max: 4 }
+  - { id: mortar-special, proto: DHSupplyCrateMortarSpecial, category: dh-supply-category-artillery, initial: 1, refill: 1, max: 3 }
+  - { id: mortar, proto: DHCrateMortar, category: dh-supply-category-artillery, initial: 1, refill: 0, max: 1 }
+  - { id: field-gun-90, proto: DHCrateFieldGun90, category: dh-supply-category-artillery, initial: 2, refill: 1, max: 4 }
+  - { id: ammo-10x24, proto: DHSupplyCrateAmmo10x24, category: dh-supply-category-ammo, initial: 4, refill: 2, max: 8 }
+  - { id: ammo-10x51, proto: DHSupplyCrateAmmo10x51, category: dh-supply-category-ammo, initial: 2, refill: 1, max: 4 }
+  - { id: ammo-127, proto: DHSupplyCrateAmmo127, category: dh-supply-category-ammo, initial: 2, refill: 1, max: 4 }
+  - { id: ammo-9x51, proto: DHSupplyCrateAmmo9x51, category: dh-supply-category-ammo, initial: 2, refill: 1, max: 4 }
+  - { id: medical, proto: DHSupplyCrateMedical, category: dh-supply-category-medical, initial: 3, refill: 2, max: 6 }
+  - { id: sandbags, proto: DHSupplyCrateSandbags, category: dh-supply-category-engineering, initial: 2, refill: 1, max: 4 }
+  - { id: barbed-wire, proto: DHSupplyCrateBarbedWire, category: dh-supply-category-engineering, initial: 2, refill: 1, max: 4 }
+  - { id: steel, proto: CrateMaterialSteel, category: dh-supply-category-engineering, initial: 2, refill: 1, max: 4 }
+  - { id: plasteel, proto: CrateMaterialPlasteel, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 2 }
+  - { id: fusion-fuel, proto: DHCrateFusionFuel, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 2 }

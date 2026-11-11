@@ -1,0 +1,22 @@
+# DarkestHour: side supply (DHSupplySystem)
+dh-supply-ui-title = Supply console
+dh-supply-ui-elevator = Elevator: { $mode }. Orders waiting on it: { $pending }.
+dh-supply-ui-no-elevator = No cargo elevator nearby.
+dh-supply-ui-refill = Points held: { $points }. Stock is topped up every { $minutes } min while the side holds { $min } or more.
+dh-supply-ui-raise = Raise the elevator
+dh-supply-ui-lower = Lower the elevator
+dh-supply-ui-order = Order
+dh-supply-ui-count = left: { $count }
+dh-supply-mode-lowered = lowered
+dh-supply-mode-raising = rising
+dh-supply-mode-raised = raised
+dh-supply-mode-lowering = going down
+dh-supply-no-elevator = There is no cargo elevator nearby.
+dh-supply-out-of-stock = Out of stock.
+dh-supply-ordered = Ordered: { $item }. It comes up with the elevator.
+dh-supply-people-on-platform = There are people on the platform — the elevator will not go down.
+dh-supply-category-artillery = Artillery
+dh-supply-category-ammo = Ammunition
+dh-supply-category-medical = Medical
+dh-supply-category-engineering = Engineering
+dh-supply-category-misc = Other

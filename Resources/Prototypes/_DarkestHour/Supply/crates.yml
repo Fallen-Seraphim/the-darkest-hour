@@ -1,0 +1,264 @@
+# DarkestHour: ящики снабжения стороны (поднимает грузовой лифт, решение автора 2026-11-11). Каталоги — catalogs.yml.
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateMortarHE
+  name: 81 mm HE shell crate
+  description: Ten high-explosive 81 mm mortar shells.
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: DHParadroppable
+    requiredParachutes: 1
+  - type: StorageFill
+    contents:
+    - id: DHMortarShellHE
+      amount: 10
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateMortarFrag
+  name: 81 mm fragmentation shell crate
+  description: Ten fragmentation 81 mm mortar shells.
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: DHParadroppable
+    requiredParachutes: 1
+  - type: StorageFill
+    contents:
+    - id: DHMortarShellFrag
+      amount: 10
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateMortarSpecial
+  name: 81 mm incendiary and flare shell crate
+  description: Five incendiary and five flare 81 mm mortar shells.
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: DHParadroppable
+    requiredParachutes: 1
+  - type: StorageFill
+    contents:
+    - id: DHMortarShellIncendiary
+      amount: 5
+    - id: DHMortarShellFlare
+      amount: 5
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateAmmoImpS
+  name: 8.42×54 ImpS ammunition crate
+  description: Six boxes of standard 8.42×54 ImpS rifle ammunition.
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: DHParadroppable
+    requiredParachutes: 1
+  - type: StorageFill
+    contents:
+    - id: DHAmmoBox842x54ImpS
+      amount: 6
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateAmmoImpR
+  name: 8.42×54 ImpR ammunition crate
+  description: Four boxes of armour-piercing 8.42×54 ImpR ammunition.
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: DHParadroppable
+    requiredParachutes: 1
+  - type: StorageFill
+    contents:
+    - id: DHAmmoBox842x54ImpR
+      amount: 4
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateAmmoImpB
+  name: 10.4×16 ImpB ammunition crate
+  description: Four boxes of 10.4×16 ImpB pistol and SMG ammunition.
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: DHParadroppable
+    requiredParachutes: 1
+  - type: StorageFill
+    contents:
+    - id: DHAmmoBox104x16ImpB
+      amount: 4
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateAmmo14g
+  name: 14 g shotgun ammunition crate
+  description: Shot and slug boxes for 14 g shotguns.
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: DHParadroppable
+    requiredParachutes: 1
+  - type: StorageFill
+    contents:
+    - id: DHAmmoBox14gShot
+      amount: 3
+    - id: DHAmmoBox14gSlug
+      amount: 2
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateAmmo145
+  name: 14.5×114 ammunition crate
+  description: Two boxes of 14.5×114 heavy machine gun ammunition.
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: DHParadroppable
+    requiredParachutes: 1
+  - type: StorageFill
+    contents:
+    - id: DHAmmoBox145x114Std
+      amount: 2
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateAmmo10x24
+  name: 10×24 ammunition crate
+  description: Six boxes of 10×24 rifle ammunition.
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: DHParadroppable
+    requiredParachutes: 1
+  - type: StorageFill
+    contents:
+    - id: DHAmmoBox10x24SVP
+      amount: 2
+    - id: DHAmmoBox10x24E
+      amount: 4
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateAmmo10x51
+  name: 10×51 ammunition crate
+  description: Four boxes of 10×51 ammunition.
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: DHParadroppable
+    requiredParachutes: 1
+  - type: StorageFill
+    contents:
+    - id: DHAmmoBox10x51FMG
+      amount: 3
+    - id: DHAmmoBox10x51SVP
+      amount: 1
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateAmmo127
+  name: 12.7×105 ammunition crate
+  description: Three boxes of 12.7×105 heavy ammunition.
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: DHParadroppable
+    requiredParachutes: 1
+  - type: StorageFill
+    contents:
+    - id: DHAmmoBox127x105FMG
+      amount: 2
+    - id: DHAmmoBox127x105A
+      amount: 1
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateAmmo9x51
+  name: 9×51 ammunition crate
+  description: Four boxes of 9×51 pistol and SMG ammunition.
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: DHParadroppable
+    requiredParachutes: 1
+  - type: StorageFill
+    contents:
+    - id: DHAmmoBox9x51FMG
+      amount: 3
+    - id: DHAmmoBox9x51DZ
+      amount: 1
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateBarbedWire
+  name: barbed wire crate
+  description: Three coils of ten lengths of barbed wire.
+  components:
+  - type: DHParadroppable
+    requiredParachutes: 1
+  - type: StorageFill
+    contents:
+    - id: DHBarbedWire10
+      amount: 3
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateSandbags
+  name: sandbag crate
+  description: Fifty empty and twenty-five filled sandbags.
+  components:
+  - type: DHParadroppable
+    requiredParachutes: 1
+  - type: StorageFill
+    contents:
+    - id: DHSandbagsEmpty25
+      amount: 2
+    - id: DHSandbagsFull25
+      amount: 1
+
+- type: entity
+  parent: CrateMedical
+  id: DHSupplyCrateMedical
+  name: field medical crate
+  description: Individual first aid kits, a combat medkit, painkillers and splints.
+  components:
+  - type: DHParadroppable
+    requiredParachutes: 1
+  - type: StorageFill
+    contents:
+    - id: DHIFAKFilled
+      amount: 4
+    - id: MedkitCombatFilled
+      amount: 1
+    - id: DHPainkillerAutoinjector
+      amount: 4
+    - id: DHSplint
+      amount: 3
