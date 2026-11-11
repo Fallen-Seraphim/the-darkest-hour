@@ -5,6 +5,7 @@ regenerating them (idempotent: a map that already has a DHChemDispenser is left 
 
 - Firebase Terminus (terminus.yml): the north-east corner of the medbay (x -167..-163, y 66..68) is walled off as the
   lab, with a glass door from the medbay; the medbay sink and locker stay inside it.
+- Stage 6: a ventilator and a life support system by the medbay beds of both maps.
 - IC-3 Sovereign (imperial_carrier.yml): a new compartment south of the gun deck wing (x 8..14, y -28..-22), door in
   the wing's south wall. Air comes in from the gun deck when the door opens.
 
@@ -23,10 +24,10 @@ def p(x, y):
     return '%s,%s' % (x + 0.5, y + 0.5)
 
 
-def patch(path, adds, drop_at=(), floor=None, grid=1):
+def patch(path, adds, drop_at=(), floor=None, grid=1, marker='DHChemDispenser'):
     s = open(path, encoding='utf-8').read()
-    if 'DHChemDispenser' in s:
-        print(path, 'already has a lab')
+    if '- proto: %s\n' % marker in s:
+        print(path, 'already has', marker)
         return
 
     if floor:
@@ -125,6 +126,17 @@ def carrier():
     patch('Resources/Maps/_DarkestHour/Shuttles/imperial_carrier.yml', adds, drop_at=[(11, -22)], floor=room)
 
 
+def medbay_machines():
+    """Stage 6 (author's decision 2026-11-11): a ventilator and a life support system next to the medbay beds."""
+    # Terminus medbay: beds at (-170, 60/62/66) — machines against the west wall between them
+    patch('Resources/Maps/_DarkestHour/Assault/terminus.yml',
+          [('DHVentilator', -171, 61), ('DHLifeSupport', -171, 63)], marker='DHLifeSupport')
+    # carrier medbay: beds at (2, -11) and (2, -14)
+    patch('Resources/Maps/_DarkestHour/Shuttles/imperial_carrier.yml',
+          [('DHVentilator', 1, -11), ('DHLifeSupport', 1, -13)], marker='DHLifeSupport')
+
+
 if __name__ == '__main__':
     terminus()
     carrier()
+    medbay_machines()

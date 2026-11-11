@@ -1,3 +1,4 @@
+using Content.Server._DarkestHour.Medical.LifeSupport;
 using Content.Shared._DarkestHour.Medical.Surgery;
 using Content.Shared._DarkestHour.Medical.Trauma;
 using Content.Shared.Body;
@@ -16,6 +17,7 @@ public sealed partial class DHVitalOrgansSystem : EntitySystem
 {
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private DamageableSystem _damageable = default!;
+    [Dependency] private DHLifeSupportSystem _lifeSupport = default!;
     [Dependency] private MobStateSystem _mobState = default!;
     [Dependency] private IGameTiming _timing = default!;
 
@@ -104,6 +106,10 @@ public sealed partial class DHVitalOrgansSystem : EntitySystem
 
             foreach (var category in comp.Absent)
             {
+                // ИВЛ и жизнеобеспечение заменяют лёгкие и сердце (операции на них, пересадка).
+                if (_lifeSupport.ReplacesOrgan(uid, category.Id))
+                    continue;
+
                 if (comp.Missing.TryGetValue(category, out var damage))
                     _damageable.TryChangeDamage(uid, damage, ignoreResistances: true, interruptsDoAfters: false);
             }

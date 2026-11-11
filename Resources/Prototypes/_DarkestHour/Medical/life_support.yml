@@ -1,0 +1,36 @@
+# DarkestHour: аппараты стационара (этап 6 переработки медицины). Ставятся у койки или операционного стола;
+# подключение — действие на аппарате (ПКМ → «Подключить пациента»): берётся ближайший пациент без сознания.
+# Спрайты — пульты сна и сканера CM-SS13 из RMC-14 (CC-BY-SA-3.0). Питание не нужно (в городе и на базе нет сети).
+
+- type: entity
+  id: DHMedicalMachineBase
+  parent: [ BaseMachine, BaseMachineDestructible ]
+  abstract: true
+  components:
+  - type: Sprite
+    state: icon
+    noRot: false
+  - type: Transform
+    noRot: false
+
+- type: entity
+  id: DHVentilator
+  parent: DHMedicalMachineBase
+  name: ventilator
+  description: Breathes for a patient who cannot breathe on their own and replaces the lungs during surgery. Connect it to a patient on a bed or table next to it.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Machines/Medical/ventilator.rsi
+  - type: DHMedicalMachine
+    kind: Ventilator
+
+- type: entity
+  id: DHLifeSupport
+  parent: DHMedicalMachineBase
+  name: life support system
+  description: Keeps a patient in critical condition from dying, takes over the heart and lungs during surgery and keeps the brain supplied with blood after clinical death. Connect it to a patient on a bed or table next to it.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Machines/Medical/life_support.rsi
+  - type: DHMedicalMachine
+    kind: LifeSupport

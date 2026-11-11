@@ -1,0 +1,12 @@
+dh-revive-brain-death = The brain is dead. Resuscitation is pointless.
+dh-cpr-verb = Perform CPR
+dh-cpr-start = {CAPITALIZE(THE($user))} starts performing CPR on {THE($target)}.
+dh-cpr-rib = Something cracks under your palms: a broken rib.
+dh-cpr-restart = {CAPITALIZE(POSS-ADJ($target))} heart starts beating again!
+dh-machine-connect-verb = Connect patient
+dh-machine-disconnect-verb = Disconnect patient
+dh-machine-no-patient = There is no unconscious patient nearby.
+dh-ventilator-connected = {CAPITALIZE(THE($user))} connects {THE($target)} to the ventilator.
+dh-life-support-connected = {CAPITALIZE(THE($user))} connects {THE($target)} to the life support system.
+dh-machine-disconnected = {CAPITALIZE(THE($target))} is disconnected from the machine.
+dh-machine-tubes-pulled = The machine's tubes are pulled out of {THE($target)}!
