@@ -262,3 +262,43 @@
           types:
             Asphyxiation: 3
             Poison: 1
+
+# Омниреазин — универсальное средство Ассоциации, стандарт с МБ-2М: автоаптечка модульной брони (правое предплечье,
+# рядом с огнетушителем). Останавливает кровотечение, сращивает лёгкие и средние повреждения, притупляет боль.
+# Тяжёлые раны и переломы не лечит, конечности не восстанавливает. Когда действие кончается — боль возвращается;
+# у ветеранов — фантомные боли и ощущение, что тело чужое (DHOmnireazinSystem).
+- type: reagent
+  id: DHOmnireazin
+  name: reagent-name-dh-omnireazin
+  group: Medicine
+  desc: reagent-desc-dh-omnireazin
+  physicalDesc: reagent-physical-desc-opaque
+  flavor: medicine
+  color: "#b8e0c8"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.5
+      effects:
+      - !type:DHOmnireazin
+        heal: 2
+      - !type:ModifyBleed
+        amount: -1
+      - !type:DHSlowInternalBleeding
+        duration: 3
+      # Притупляет, но не снимает боль полностью.
+      - !type:DHSuppressPain
+        amount: 35
+        duration: 3
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHOmnireazin
+          min: 30
+        damage:
+          types:
+            Poison: 1.5
+      - !type:Jitter
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHOmnireazin
+          min: 30

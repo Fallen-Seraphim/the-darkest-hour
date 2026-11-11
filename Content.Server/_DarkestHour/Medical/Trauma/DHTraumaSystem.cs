@@ -439,7 +439,8 @@ public sealed partial class DHTraumaSystem : EntitySystem
 
             comp.NextUpdate = now + comp.Interval;
 
-            if (comp.Parts.Count == 0 && comp.Organs.Count == 0 && comp.PainSpike <= 0f && comp.SpeedModifier >= 1f)
+            if (comp.Parts.Count == 0 && comp.Organs.Count == 0 && comp.PainSpike <= 0f && comp.SpeedModifier >= 1f &&
+                comp.ExtraPain <= 0f && comp.PhantomPain <= 0f)
             {
                 comp.Pain = 0f;
                 UpdateSummary((uid, comp));
@@ -533,10 +534,12 @@ public sealed partial class DHTraumaSystem : EntitySystem
 
         // Боль.
         comp.PainSpike = MathF.Max(0f, comp.PainSpike - 8f);
-        var pain = CalculatePain(comp) + TourniquetPain(comp, now);
+        comp.ExtraPain = MathF.Max(0f, comp.ExtraPain - comp.ExtraPainDecay * (float) comp.Interval.TotalSeconds);
+        var pain = CalculatePain(comp) + TourniquetPain(comp, now) + comp.ExtraPain;
         if (now < comp.PainSuppressionUntil)
             pain = MathF.Max(0f, pain - comp.PainSuppression);
-        comp.Pain = pain;
+        // Фантомная боль (омниреазин) обезболиванию не поддаётся.
+        comp.Pain = pain + comp.PhantomPain;
 
         var incapacitated = _mobState.IsIncapacitated(ent);
 

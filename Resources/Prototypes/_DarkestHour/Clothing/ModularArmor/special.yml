@@ -32,24 +32,22 @@
   parent: DHArmorSpecialBase
   id: DHArmorSpecialAutoMed
   name: armour auto-medic
-  description: "A special system for modular armour: injects 10 units of its medicine mix into the wearer's blood when they are badly hurt, at most once a minute. Refill it with a syringe."
+  description: "A special system for modular armour, standard since MB-2M: an omnireazine auto-medkit on the right forearm. Injects 10 units into the wearer's blood when they are hurt, at most once a minute. Refill it with a syringe."
   components:
   - type: Sprite
     sprite: Objects/Specific/Medical/firstaidkits.rsi
     state: blackkit
   - type: DHArmorSpecial
     kind: AutoMed
-    threshold: 70
+    threshold: 50
     dose: 10
   - type: Solution
     id: automed
     solution:
       maxVol: 40
       reagents:
-      - ReagentId: Tricordrazine
-        Quantity: 20
-      - ReagentId: Epinephrine
-        Quantity: 20
+      - ReagentId: DHOmnireazin
+        Quantity: 40
   - type: RefillableSolution
     solution: automed
   - type: ExaminableSolution

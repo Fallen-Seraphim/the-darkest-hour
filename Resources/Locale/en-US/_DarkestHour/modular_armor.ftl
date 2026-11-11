@@ -20,7 +20,7 @@ dh-armor-class-heavy = heavy
 dh-armor-class-composite = composite
 
 dh-armor-automed-status = The auto-medic is armed and watches your vitals.
-dh-armor-automed-injected = Your armour injects you with medicine.
+dh-armor-automed-injected = Your armour injects you with omnireazine.
 
 dh-armor-automed-examine-volume = Medicine: [color=#7fd4ff]{ $volume }/{ $max } u[/color] — { $doses } { $doses ->
     [one] dose

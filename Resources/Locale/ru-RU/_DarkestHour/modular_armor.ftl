@@ -20,7 +20,7 @@ dh-armor-class-heavy = тяжёлый
 dh-armor-class-composite = композитный
 
 dh-armor-automed-status = Автомедик взведён и следит за вашим состоянием.
-dh-armor-automed-injected = Броня вводит вам лекарство.
+dh-armor-automed-injected = Броня вводит вам омниреазин.
 
 dh-armor-automed-examine-volume = Лекарство: [color=#7fd4ff]{ $volume }/{ $max } ед.[/color] — осталось { $doses } { $doses ->
     [one] доза

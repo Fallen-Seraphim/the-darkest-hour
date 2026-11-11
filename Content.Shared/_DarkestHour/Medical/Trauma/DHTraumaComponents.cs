@@ -116,6 +116,20 @@ public sealed partial class DHTraumaComponent : Component
     [DataField]
     public TimeSpan PainSuppressionUntil;
 
+    /// <summary>
+    /// Дополнительная боль, которая снимается обезболиванием (откат омниреазина); медленно спадает,
+    /// на <see cref="ExtraPainDecay"/> в секунду.
+    /// </summary>
+    [DataField]
+    public float ExtraPain;
+
+    [DataField]
+    public float ExtraPainDecay = 0.25f;
+
+    /// <summary>Фантомная боль ветеранов омниреазина: не спадает и не снимается ничем.</summary>
+    [DataField]
+    public float PhantomPain;
+
     /// <summary>Внутреннее кровотечение замедлено (транексамовая кислота) до этого времени.</summary>
     [DataField]
     public TimeSpan BleedingSlowedUntil;
