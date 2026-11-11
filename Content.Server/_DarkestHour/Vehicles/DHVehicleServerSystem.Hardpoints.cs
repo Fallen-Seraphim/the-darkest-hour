@@ -447,7 +447,7 @@ public sealed partial class DHVehicleServerSystem
             ent.Comp.CanDrive = canDrive;
             ent.Comp.SpeedMultiplier = speed;
             Dirty(ent);
-            _movementSpeed.RefreshMovementSpeedModifiers(ent);
+            _movementSpeed.RefreshMovementSpeedModifiers(ent.Owner);
         }
     }
 
