@@ -23,6 +23,11 @@ public sealed partial class DefaultGameScreen : InGameScreen
         SetAnchorAndMarginPreset(Chat, LayoutPreset.TopRight, margin: 10);
         SetAnchorAndMarginPreset(Alerts, LayoutPreset.TopRight, margin: 10);
 
+        // DarkestHour: плашка HUD TDH (уровень, компас, рация) — правый нижний угол игрового окна.
+        var dhHud = new Content.Client._DarkestHour.UI.DHHudWidget();
+        ViewportContainer.AddChild(dhHud);
+        SetAnchorAndMarginPreset(dhHud, LayoutPreset.BottomRight, margin: 10);
+
         Chat.OnResized += ChatOnResized;
         Chat.OnChatResizeFinish += ChatOnResizeFinish;
 
