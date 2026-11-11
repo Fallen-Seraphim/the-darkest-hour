@@ -14,4 +14,8 @@ public sealed class DHCVars
     /// <summary>Сколько нижних Z-уровней сервер присылает игроку сквозь проёмы (зонды видимости).</summary>
     public static readonly CVarDef<int> ZLevelsProbeDepth =
         CVarDef.Create("dh.zlevels_probe_depth", 3, CVar.SERVERONLY);
+
+    /// <summary>Реплики над персонажем появляются посимвольно (терминальная строка, решение автора 2026-11-11).</summary>
+    public static readonly CVarDef<bool> SpeechTypewriter =
+        CVarDef.Create("dh.speech_typewriter", true, CVar.CLIENTONLY | CVar.ARCHIVE);
 }

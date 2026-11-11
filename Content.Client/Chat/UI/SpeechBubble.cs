@@ -47,14 +47,11 @@ namespace Content.Client.Chat.UI
         {
             switch (type)
             {
+                // DarkestHour: речь, шёпот и действия — «терминальная строка» вместо облачков (решение автора 2026-11-11).
                 case SpeechType.Emote:
-                    return new TextSpeechBubble(message, senderEntity, "emoteBox");
-
                 case SpeechType.Say:
-                    return new FancyTextSpeechBubble(message, senderEntity, "sayBox");
-
                 case SpeechType.Whisper:
-                    return new FancyTextSpeechBubble(message, senderEntity, "whisperBox");
+                    return new Content.Client._DarkestHour.Chat.DHTerminalSpeechBubble(type, message, senderEntity);
 
                 case SpeechType.Looc:
                     return new TextSpeechBubble(message, senderEntity, "emoteBox", Color.FromHex("#48d1cc"));
@@ -79,8 +76,11 @@ namespace Content.Client.Chat.UI
             ContentSize = bubble.DesiredSize;
             VerticalOffsetAchieved = -ContentSize.Y;
 
-            _deathTime = _timing.RealTime + TotalTime;
+            _deathTime = _timing.RealTime + (LifetimeOverride ?? TotalTime); // DarkestHour: своё время жизни
         }
+
+        /// <summary>DarkestHour: время жизни реплики (выставляется в <see cref="BuildBubble"/>); null — стандартное.</summary>
+        protected TimeSpan? LifetimeOverride;
 
         protected abstract Control BuildBubble(ChatMessage message, string speechStyleClass, Color? fontColor = null);
 

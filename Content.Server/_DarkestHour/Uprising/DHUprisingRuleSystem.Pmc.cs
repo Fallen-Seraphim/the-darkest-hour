@@ -44,6 +44,7 @@ public sealed partial class DHUprisingRuleSystem
         var member = EnsureComp<DHUprisingMemberComponent>(ent);
         member.Side = DHUprisingSide.Vanguard;
         member.Combatant = true;
+        _speechColor.SetColor(ent.Owner, Content.Shared._DarkestHour.Chat.DHSpeechColors.Vanguard);
         _antag.SendBriefing(ent.Owner, Loc.GetString(ent.Comp.Briefing), VanguardPurple, VanguardSound);
     }
 
