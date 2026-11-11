@@ -2,12 +2,12 @@
 """Спрайты экзоскелетов и пластин модульной брони (решение автора 2026-11-11).
 
 Экзоскелет — силовая рама в духе «Грани будущего»: стойки вдоль рук и ног, приводы в суставах, хребет и силовой
-блок на спине; у среднего и тяжёлого под рамой герметичный комбинезон, лёгкий надевается поверх формы. Пластины —
-ламеллярные, немного «самурайские»: до (торс) из поперечных полос со шнуровкой, содэ (наплечники) и котэ (наручи),
-хайдатэ (набедренники), наколенник и сунэатэ (поножи). Тяжёлые — массивные (наплечники шире, юбка-кусадзури),
-композитные и лёгкие — стройные. Империя — белые пластины с оранжевым акцентом, Республика — зелёные с латунным.
-Шлемы — с встроенным противогазом: тяжёлый — с двумя круглыми линзами и рылом фильтра, средний и лёгкий — с узким
-визором.
+блок на спине; у среднего и тяжёлого под рамой герметичный комбинезон, лёгкий надевается поверх формы.
+Пластины (правка автора 2026-11-11) — гладкие формованные, как у штурмовиков и клонов «Звёздных войн»: тонкие,
+атлетичные, с округлыми наплечниками; между пластинами виден комбинезон. Тяжёлые — выше и массивнее, в духе силовой
+брони Fallout и Комбайна HL2: цельный корпус с высоким воротом, большие наплечники, силовой блок в спине. Империя —
+белые пластины, Республика — зелёные. Шлемы — со встроенным противогазом: две линзы (у Империи жёлтые, у Республики
+зелёные) и два фильтра по бокам; тяжёлый шлем выше.
 
 Всё рисуется попиксельно (32x32, четыре направления: юг, север, восток, запад). Лицензия — CC-BY-SA-3.0, свои
 рисунки. Запуск из корня репозитория:
@@ -37,20 +37,16 @@ FACTIONS = {
     'imb1': dict(
         name='IMB-1',
         plate=[hexc(c) for c in ('#55585f', '#9a9ea6', '#c9ccd2', '#e6e8eb', '#fbfbfc')],
-        lacing=hexc('#2b2d3a'),
         accent=hexc('#e2762a'),
         suit=[hexc(c) for c in ('#141519', '#22242a', '#30333a', '#3d4048')],
-        lens_heavy=hexc('#f2c230'),
-        lens_light=hexc('#e0302a'),
+        lens=hexc('#f2c230'),
     ),
     'rmb1': dict(
         name='RMB-1',
         plate=[hexc(c) for c in ('#1f2617', '#3b4729', '#556638', '#6e8248', '#8b9f5d')],
-        lacing=hexc('#2a2116'),
         accent=hexc('#c9a445'),
         suit=[hexc(c) for c in ('#15180f', '#22281a', '#2f3624', '#3c442e')],
-        lens_heavy=hexc('#f0a028'),
-        lens_light=hexc('#e8b030'),
+        lens=hexc('#5ee05a'),
     ),
 }
 METAL = [hexc(c) for c in ('#141518', '#2f3136', '#4e5159', '#787c86', '#a3a7b0')]
@@ -91,38 +87,31 @@ def spans_rect(x0, y0, x1, y1):
     return [(y, x0, x1) for y in range(y0, y1 + 1)]
 
 
-def plate(cv, spans, pal, band=3, lacing=None, accent=None, light='left', laced=True, top_rim=True):
+def plate(cv, spans, pal, light='left', **_):
     """
-    Пластина из поперечных полос (ламели): верхняя строка полосы светлая, нижняя — шов; по шву — шнуровка
-    вертикальными «шнурами» (у краёв и по центру широкой пластины); края — тёмный контур. spans — [(y, x0, x1)].
+    Гладкая формованная пластина (как у штурмовиков): тёмный контур, блик по верхнему и освещённому краю, тень по
+    нижнему и теневому, основной тон внутри. spans — [(y, x0, x1)].
     """
-    if not spans:
-        return
-    ys = sorted({y for y, _, _ in spans})
-    y_top = ys[0]
     filled = {(x, y) for y, x0, x1 in spans for x in range(x0, x1 + 1)}
-    for y, x0, x1 in spans:
-        k = (y - y_top) % band
-        seam = band > 1 and k == band - 1 and y != ys[-1]
-        cords = {x0 + 1, x1 - 1} if x1 - x0 >= 3 else set()
-        if x1 - x0 >= 7:
-            cords.add((x0 + x1) // 2)
-        lit = x0 + 1 if light == 'left' else x1 - 1
-        for x in range(x0, x1 + 1):
-            edge = (x - 1, y) not in filled or (x + 1, y) not in filled or (x, y + 1) not in filled
-            if edge:
-                c = pal[0]
-            elif seam:
-                c = lacing if laced and lacing is not None and x in cords else pal[1]
-            elif k == 0 and top_rim:
-                c = pal[4] if x == lit else pal[3]
-            else:
-                c = pal[3] if x == lit else pal[2]
-            cv.put(x, y, c)
-    if accent is not None:
-        # узел шнуровки-акцент по центру первого шва
-        y, x0, x1 = spans[min(len(spans) - 1, band - 1)]
-        cv.put((x0 + x1) // 2, y, accent)
+
+    def edge(x, y):
+        return any((x + dx, y + dy) not in filled for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+
+    lx = -1 if light == 'left' else 1
+    for (x, y) in filled:
+        if edge(x, y):
+            c = pal[0]
+        elif edge(x, y - 1) and (x, y - 1) in filled or edge(x + lx, y) and (x + lx, y) in filled:
+            c = pal[4]
+        elif edge(x, y + 1) and (x, y + 1) in filled or edge(x - lx, y) and (x - lx, y) in filled:
+            c = pal[2]
+        else:
+            c = pal[3]
+        cv.put(x, y, c)
+
+
+def rows(y0, y1, x0, x1):
+    return [(y, x0, x1) for y in range(y0, y1 + 1)]
 
 
 def bar(cv, x0, y0, x1, y1, pal=METAL):
@@ -266,105 +255,118 @@ def exo_frame(cls, faction, view):
 # Пластины (по слотам модулей), класс пластин: composite / light / heavy.
 
 def torso_plate(cls, f, view):
+    """Нагрудник и спинные пластины. Средний — грудь и пресс раздельно (между ними виден комбинезон), композитный —
+    только грудь, тяжёлый — цельная бочка с высоким воротом, как у силовой брони."""
     cv = Canvas()
-    pal, lac, acc = f['plate'], f['lacing'], f['accent']
-    if view in ('south', 'north'):
-        back = view == 'north'
+    pal = f['plate']
+    if view == 'south':
         if cls == 'composite':
-            # нагрудник: две широкие полосы
-            spans = [(12, 12, 18), (13, 12, 18), (14, 12, 18), (15, 13, 17), (16, 13, 17), (17, 13, 17)]
-            if back:
-                spans = [(y, 12, 18) for y in range(17, 21)]
-            plate(cv, spans, pal, band=3, lacing=lac)
+            plate(cv, [(11, 12, 18), (12, 11, 19), (13, 11, 19), (14, 12, 18), (15, 13, 17)], pal)
         elif cls == 'light':
-            # до: ламели через 2 пикселя со шнуровкой
-            spans = [(11, 12, 18)] + [(y, 11, 19) for y in range(12, 21)] + [(21, 12, 18)]
-            if back:
-                spans = [(y, 11, 19) for y in range(17, 22)]
-            plate(cv, spans, pal, band=3, lacing=lac, accent=acc if not back else None)
+            plate(cv, [(11, 12, 18), (12, 11, 19), (13, 11, 19), (14, 11, 19), (15, 12, 18), (16, 13, 17)], pal)
+            plate(cv, rows(18, 20, 13, 17), pal)
+            cv.put(15, 13, pal[2])
+            cv.put(15, 14, pal[2])
         else:
-            # массивный до с воротом и юбкой-кусадзури
-            spans = [(10, 12, 18)] + [(y, 10, 20) for y in range(11, 22)]
-            if back:
-                spans = [(y, 10, 20) for y in range(18, 22)]
-            plate(cv, spans, pal, band=3, lacing=lac, accent=acc if not back else None)
-            for x0, x1 in ((10, 14), (16, 20)):
-                plate(cv, [(y, x0, x1) for y in range(22, 26)], pal, band=3, lacing=lac)
-            if not back:
-                cv.rect(14, 10, 16, 10, pal[1])  # ворот-нодова
-    else:  # east: грудь справа
+            plate(cv, [(8, 12, 18), (9, 11, 19)] + rows(10, 18, 10, 20) + [(19, 11, 19), (20, 11, 19), (21, 12, 18)],
+                  pal)
+            cv.rect(13, 9, 17, 9, METAL[1])          # горловина под шлем
+            for x in range(13, 18):
+                cv.put(x, 16, pal[2])                # шов груди и живота
+            cv.put(15, 12, f['accent'])
+    elif view == 'north':
         if cls == 'composite':
-            plate(cv, [(y, 16, 20) for y in range(12, 18)], pal, band=3, lacing=lac, light='right')
+            plate(cv, rows(12, 14, 11, 13), pal)
+            plate(cv, rows(12, 14, 17, 19), pal)
         elif cls == 'light':
-            plate(cv, [(11, 14, 19)] + [(y, 13, 20) for y in range(12, 22)], pal, band=3, lacing=lac, light='right')
+            plate(cv, [(11, 12, 13)] + rows(12, 15, 11, 14), pal)
+            plate(cv, [(11, 17, 18)] + rows(12, 15, 16, 19), pal)
+            plate(cv, rows(18, 20, 12, 18), pal)
         else:
-            plate(cv, [(10, 14, 19)] + [(y, 12, 21) for y in range(11, 22)], pal, band=3, lacing=lac, light='right')
-            plate(cv, [(y, 12, 19) for y in range(22, 26)], pal, band=3, lacing=lac, light='right')
+            plate(cv, [(8, 12, 18), (9, 11, 19)] + rows(10, 20, 10, 20) + [(21, 12, 18)], pal)
+            # силовой блок, утопленный в спину
+            cv.rect(12, 11, 18, 16, METAL[1])
+            cv.rect(12, 11, 18, 11, METAL[3])
+            for x in (13, 15, 17):
+                cv.put(x, 13, METAL[0])
+                cv.put(x, 14, METAL[0])
+            cv.put(12, 16, GLOW)
+            cv.put(18, 16, GLOW)
+    else:  # east: грудь справа, спина слева
+        if cls == 'composite':
+            plate(cv, [(11, 15, 19), (12, 15, 20), (13, 15, 20), (14, 16, 20), (15, 17, 19)], pal, light='right')
+        elif cls == 'light':
+            plate(cv, [(11, 15, 19)] + rows(12, 15, 15, 20) + [(16, 16, 19)], pal, light='right')
+            plate(cv, rows(18, 20, 16, 19), pal, light='right')
+        else:
+            plate(cv, [(8, 13, 18), (9, 12, 19)] + rows(10, 19, 10, 21) + [(20, 11, 20), (21, 12, 19)], pal,
+                  light='right')
+            cv.rect(8, 11, 10, 17, METAL[1])          # силовой блок за спиной
+            cv.rect(8, 11, 10, 11, METAL[3])
+            cv.put(8, 15, GLOW)
     return cv.image()
 
 
 def arm_plate(cls, f, view):
-    """Правая рука персонажа (на юге — слева от зрителя). Остальные получаются зеркалом."""
+    """Правая рука персонажа (на юге — слева от зрителя): округлый наплечник и наруч, у тяжёлого — ещё плечо целиком."""
     cv = Canvas()
-    pal, lac, acc = f['plate'], f['lacing'], f['accent']
+    pal = f['plate']
     if view == 'south':
         if cls == 'composite':
-            plate(cv, [(11, 9, 10), (12, 8, 10), (13, 8, 10)], pal, band=3, lacing=lac)        # содэ
-            plate(cv, [(y, 7, 9) for y in range(17, 20)], pal, band=3, lacing=lac)              # котэ
+            plate(cv, [(11, 8, 10), (12, 7, 11), (13, 7, 11), (14, 8, 10)], pal)
+            plate(cv, [(17, 7, 9), (18, 7, 9), (19, 8, 9)], pal)
         elif cls == 'light':
-            plate(cv, [(11, 8, 10), (12, 7, 10), (13, 7, 10), (14, 7, 10), (15, 7, 10)], pal, band=3, lacing=lac)
-            plate(cv, [(y, 7, 10) for y in range(17, 21)], pal, band=3, lacing=lac)
+            plate(cv, [(10, 8, 10), (11, 7, 11), (12, 6, 11), (13, 6, 11), (14, 7, 10)], pal)
+            plate(cv, [(16, 8, 9), (17, 7, 10), (18, 7, 10), (19, 8, 10)], pal)
         else:
-            plate(cv, [(10, 8, 10), (11, 6, 10)] + [(y, 5, 10) for y in range(12, 17)], pal, band=3, lacing=lac,
-                  accent=acc)
-            plate(cv, [(y, 6, 10) for y in range(17, 21)], pal, band=3, lacing=lac)
-    else:  # east — ближняя рука (левая); правую сзади не видно
+            plate(cv, [(8, 8, 11), (9, 6, 12), (10, 5, 12), (11, 4, 12), (12, 4, 12), (13, 4, 12), (14, 5, 11),
+                       (15, 6, 10)], pal)
+            plate(cv, rows(16, 20, 5, 10), pal)
+            cv.put(6, 18, f['accent'])
+    else:  # east — ближняя рука (левая)
         if cls == 'composite':
-            plate(cv, [(11, 14, 16), (12, 14, 17), (13, 14, 17)], pal, band=3, lacing=lac, light='right')
-            plate(cv, [(y, 17, 19) for y in range(17, 20)], pal, band=3, lacing=lac, light='right')
+            plate(cv, [(11, 14, 17), (12, 13, 18), (13, 13, 18), (14, 14, 17)], pal, light='right')
+            plate(cv, [(17, 17, 19), (18, 17, 19)], pal, light='right')
         elif cls == 'light':
-            plate(cv, [(11, 14, 17)] + [(y, 13, 18) for y in range(12, 16)], pal, band=3, lacing=lac, light='right')
-            plate(cv, [(y, 16, 19) for y in range(16, 20)], pal, band=3, lacing=lac, light='right')
+            plate(cv, [(10, 14, 17), (11, 13, 18), (12, 13, 18), (13, 13, 18), (14, 14, 17)], pal, light='right')
+            plate(cv, [(16, 17, 18), (17, 16, 19), (18, 16, 19), (19, 17, 19)], pal, light='right')
         else:
-            plate(cv, [(10, 13, 17)] + [(y, 12, 19) for y in range(11, 17)], pal, band=3, lacing=lac, light='right',
-                  accent=acc)
-            plate(cv, [(y, 16, 20) for y in range(17, 21)], pal, band=3, lacing=lac, light='right')
+            plate(cv, [(8, 13, 17), (9, 12, 18), (10, 11, 19), (11, 11, 19), (12, 11, 19), (13, 11, 19),
+                       (14, 12, 18), (15, 13, 17)], pal, light='right')
+            plate(cv, rows(16, 20, 16, 20), pal, light='right')
     return cv.image()
 
 
 def leg_plate(cls, f, view):
-    """Правая нога персонажа (на юге — слева от зрителя)."""
+    """Правая нога персонажа (на юге — слева от зрителя): набедренник и щиток голени, между ними колено."""
     cv = Canvas()
-    pal, lac = f['plate'], f['lacing']
+    pal = f['plate']
     if view in ('south', 'north'):
-        back = view == 'north'
         if cls == 'composite':
-            plate(cv, [(y, 11, 14) for y in range(23, 26)], pal, band=3, lacing=lac)       # хайдатэ
-            if not back:
-                plate(cv, [(y, 12, 14) for y in range(27, 30)], pal, band=3, lacing=lac)   # сунэатэ
+            plate(cv, [(23, 11, 14), (24, 11, 14), (25, 12, 14)], pal)
+            plate(cv, [(28, 12, 14), (29, 12, 14)], pal)
         elif cls == 'light':
-            plate(cv, [(y, 11, 14) for y in range(23, 27)], pal, band=3, lacing=lac)
-            plate(cv, [(y, 11, 14) for y in range(27, 30)], pal, band=3, lacing=lac, laced=back)
-            if not back:
-                cv.rect(12, 27, 13, 27, pal[4])  # наколенник
+            plate(cv, [(23, 11, 14), (24, 11, 14), (25, 11, 14), (26, 12, 14)], pal)
+            plate(cv, [(28, 11, 14), (29, 11, 14), (30, 12, 13)], pal)
+            if view == 'south':
+                cv.put(12, 27, pal[3])
+                cv.put(13, 27, pal[3])
         else:
-            plate(cv, [(y, 10, 14) for y in range(23, 27)], pal, band=3, lacing=lac)
-            plate(cv, [(y, 10, 14) for y in range(27, 30)], pal, band=3, lacing=lac, laced=False)
-            if not back:
-                cv.rect(11, 27, 13, 28, pal[4])
-                cv.put(12, 28, pal[2])
+            plate(cv, rows(22, 26, 10, 14), pal)
+            plate(cv, [(27, 10, 14)] + rows(28, 31, 9, 15), pal)
+            if view == 'south':
+                cv.rect(11, 27, 13, 27, pal[4])
     else:  # east — ближняя нога (левая)
         if cls == 'composite':
-            plate(cv, [(y, 14, 18) for y in range(23, 26)], pal, band=3, lacing=lac, light='right')
-            plate(cv, [(y, 16, 18) for y in range(27, 30)], pal, band=3, lacing=lac, light='right')
+            plate(cv, [(23, 14, 17), (24, 14, 17), (25, 15, 17)], pal, light='right')
+            plate(cv, [(28, 16, 18), (29, 16, 18)], pal, light='right')
         elif cls == 'light':
-            plate(cv, [(y, 14, 18) for y in range(23, 27)], pal, band=3, lacing=lac, light='right')
-            plate(cv, [(y, 15, 18) for y in range(27, 30)], pal, band=3, lacing=lac, light='right', laced=False)
-            cv.put(18, 27, pal[4])
+            plate(cv, [(23, 14, 18), (24, 14, 18), (25, 14, 18), (26, 15, 18)], pal, light='right')
+            plate(cv, [(27, 17, 18), (28, 15, 18), (29, 15, 18), (30, 16, 18)], pal, light='right')
         else:
-            plate(cv, [(y, 13, 19) for y in range(23, 27)], pal, band=3, lacing=lac, light='right')
-            plate(cv, [(y, 14, 19) for y in range(27, 30)], pal, band=3, lacing=lac, light='right', laced=False)
-            cv.rect(18, 27, 19, 28, pal[4])
+            plate(cv, rows(22, 26, 13, 19), pal, light='right')
+            plate(cv, [(27, 14, 19)] + rows(28, 31, 13, 20), pal, light='right')
+            cv.rect(18, 27, 19, 27, pal[4])
     return cv.image()
 
 
@@ -399,74 +401,56 @@ def part_layers(cls, f):
 # Шлемы с противогазом.
 
 def helmet(cls, f, view):
+    """Шлем со встроенным противогазом: две линзы и два фильтра по бокам рта. Тяжёлый — выше и массивнее."""
     cv = Canvas()
     pal = f['plate']
+    lens = f['lens']
     heavy = cls == 'heavy'
-    lens = f['lens_heavy'] if heavy else f['lens_light']
-    mask = METAL[1]
+
+    def filt(x, y, big):
+        cv.put(x, y, METAL[2])
+        cv.put(x, y + 1, METAL[1])
+        if big:
+            cv.put(x + (1 if x > 15 else -1), y, METAL[3])
+            cv.put(x + (1 if x > 15 else -1), y + 1, METAL[1])
+
     if view in ('south', 'north'):
-        back = view == 'north'
-        # купол
         if heavy:
-            shell = [(1, 13, 17), (2, 11, 19), (3, 10, 20), (4, 10, 20), (5, 10, 20)]
+            dome = [(0, 13, 17), (1, 11, 19), (2, 10, 20)] + rows(3, 8, 10, 20) + [(9, 11, 19), (10, 12, 18)]
         else:
-            shell = [(2, 13, 17), (3, 12, 18), (4, 11, 19), (5, 11, 19)]
-        # лицо — маска, по бокам — сиқоро (ламели назатыльника)
-        face = [(y, 12, 18) for y in range(6, 10)] + [(10, 13, 17)]
-        for y, x0, x1 in face:
-            for x in range(x0, x1 + 1):
-                cv.put(x, y, METAL[0] if x in (x0, x1) else mask)
-        if back:
-            plate(cv, shell + [(y, 10 if heavy else 11, 20 if heavy else 19) for y in range(6, 10)], pal, band=2,
-                  lacing=f['lacing'])
-        else:
-            plate(cv, shell, pal, band=6 if not heavy else 3, lacing=f['lacing'], laced=False)
-            # нащёчники
-            for x in ((10, 11, 19, 20) if heavy else (11, 19)):
-                for y in range(6, 10 if heavy else 9):
-                    cv.put(x, y, pal[1] if x in (10, 20) else pal[2])
-            if heavy:
-                # две круглые линзы и рыло фильтра
-                for lx in (13, 17):
-                    cv.put(lx, 6, lens)
-                    cv.put(lx, 7, lens)
-                    cv.put(lx - 1 if lx < 15 else lx + 1, 6, METAL[0])
-                cv.rect(14, 8, 16, 10, METAL[2])
-                cv.put(15, 9, METAL[0])
-                cv.put(14, 10, METAL[0])
-                cv.put(16, 10, METAL[0])
-                cv.rect(12, 1, 18, 1, pal[4])
-                cv.put(15, 2, f['accent'])  # гребень
-            else:
-                # узкий визор и два щёчных фильтра
-                cv.rect(12, 6, 18, 6, lens)
-                cv.put(12, 6, METAL[0])
-                cv.put(18, 6, METAL[0])
-                cv.put(13, 9, METAL[2])
-                cv.put(17, 9, METAL[2])
-                cv.put(15, 8, METAL[0])
+            dome = [(2, 13, 17), (3, 12, 18)] + rows(4, 7, 11, 19) + [(8, 12, 18), (9, 13, 17)]
+        plate(cv, dome, pal)
+        if view == 'north':
+            cv.rect(13, 8 if heavy else 7, 17, 8 if heavy else 7, pal[2])
+            return cv.image()
+        ly = 5 if heavy else 5
+        for lx in ((12, 13), (17, 18)):
+            cv.rect(lx[0], ly, lx[1], ly + (1 if heavy else 0), lens)
+        cv.put(12, ly, METAL[0] if not heavy else lens)
+        # маска: тёмная «рамка» рта, по бокам два фильтра
+        my = 8 if heavy else 7
+        cv.rect(14, my, 16, my + 1, METAL[0])
+        cv.put(15, my, METAL[2])
+        filt(12, my, heavy)
+        filt(18, my, heavy)
+        if heavy:
+            cv.rect(13, 2, 17, 2, pal[4])
+            cv.put(15, 3, f['accent'])
     else:  # east — лицо справа
         if heavy:
-            shell = [(1, 13, 17), (2, 11, 19), (3, 10, 20), (4, 10, 20), (5, 10, 20)]
-            neck = [(y, 9, 13) for y in range(6, 11)]
+            dome = [(0, 12, 17), (1, 11, 19), (2, 10, 20)] + rows(3, 8, 10, 21) + [(9, 11, 20), (10, 12, 19)]
         else:
-            shell = [(2, 13, 17), (3, 12, 19), (4, 11, 19), (5, 11, 19)]
-            neck = [(y, 10, 13) for y in range(6, 10)]
-        for y in range(6, 10):
-            for x in range(13, 21):
-                cv.put(x, y, METAL[0] if x == 20 else mask)
-        plate(cv, shell, pal, band=3 if heavy else 6, lacing=f['lacing'], laced=False, light='right')
-        plate(cv, neck, pal, band=3, lacing=f['lacing'], light='right')
+            dome = [(2, 13, 17), (3, 12, 19)] + rows(4, 7, 11, 20) + [(8, 12, 19), (9, 13, 18)]
+        plate(cv, dome, pal, light='right')
+        ly = 5
+        cv.rect(18, ly, 20 if heavy else 19, ly + (1 if heavy else 0), lens)
+        my = 8 if heavy else 7
+        cv.rect(19, my, 21 if heavy else 20, my + 1, METAL[0])
+        cv.put(17, my, METAL[2])
+        cv.put(17, my + 1, METAL[1])
         if heavy:
-            cv.put(19, 6, lens)
-            cv.put(19, 7, lens)
-            cv.rect(20, 8, 21, 10, METAL[2])
-            cv.put(21, 9, METAL[0])
-            cv.rect(14, 6, 15, 9, pal[2])
-        else:
-            cv.rect(17, 6, 20, 6, lens)
-            cv.put(19, 8, METAL[2])
-            cv.put(20, 9, METAL[2])
+            cv.put(16, my, METAL[3])
+            cv.put(16, my + 1, METAL[1])
     return cv.image()
 
 

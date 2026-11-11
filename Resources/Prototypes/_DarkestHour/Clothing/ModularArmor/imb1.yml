@@ -63,7 +63,7 @@
   parent: [ ClothingHeadBase, BaseSyndicateContraband ]
   id: DHClothingHeadHelmetExoIMB1Light
   name: IMB-1 light exoskeleton helmet
-  description: "A sleek helmet with an integrated gas mask and a narrow visor. The light exoskeleton is not sealed."
+  description: "A smooth helmet with an integrated gas mask: two lenses and two side filters. The light exoskeleton is not sealed."
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
@@ -171,7 +171,7 @@
   parent: [ ClothingHeadHardsuitBase, BaseSyndicateContraband ]
   id: DHClothingHeadHelmetExoIMB1Medium
   name: IMB-1 medium exoskeleton helmet
-  description: "A sleek helmet with an integrated gas mask and a narrow visor. Seals the suit."
+  description: "A smooth helmet with an integrated gas mask: two lenses and two side filters. Seals the suit."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Head/ModularArmor/imb1_helmet_medium.rsi
@@ -271,7 +271,7 @@
   parent: [ ClothingHeadHardsuitBase, BaseSyndicateContraband ]
   id: DHClothingHeadHelmetExoIMB1Heavy
   name: IMB-1 heavy exoskeleton helmet
-  description: "A bulky helmet with an integrated gas mask: two round lenses and a filter snout. Seals the suit."
+  description: "A tall bulky helmet with an integrated gas mask: two lenses and two side filters. Seals the suit."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/Head/ModularArmor/imb1_helmet_heavy.rsi
@@ -637,7 +637,7 @@
   parent: [ BaseItem, BaseSyndicateContraband ]
   id: DHArmorModuleIMB1CompositeTorso
   name: IMB-1 composite torso plate
-  description: "A composite armour plate, protection class 1: layered lames that stop only the weakest rounds. Fits light and medium exoskeletons; can be swapped in the field."
+  description: "A composite armour plate, protection class 1: layered plates that stop only the weakest rounds. Fits light and medium exoskeletons; can be swapped in the field."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_composite.rsi
@@ -661,7 +661,7 @@
   parent: [ BaseItem, BaseSyndicateContraband ]
   id: DHArmorModuleIMB1CompositeArmLeft
   name: IMB-1 composite left arm guard
-  description: "A composite armour plate, protection class 1: layered lames that stop only the weakest rounds. Fits light and medium exoskeletons; can be swapped in the field."
+  description: "A composite armour plate, protection class 1: layered plates that stop only the weakest rounds. Fits light and medium exoskeletons; can be swapped in the field."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_composite.rsi
@@ -685,7 +685,7 @@
   parent: [ BaseItem, BaseSyndicateContraband ]
   id: DHArmorModuleIMB1CompositeArmRight
   name: IMB-1 composite right arm guard
-  description: "A composite armour plate, protection class 1: layered lames that stop only the weakest rounds. Fits light and medium exoskeletons; can be swapped in the field."
+  description: "A composite armour plate, protection class 1: layered plates that stop only the weakest rounds. Fits light and medium exoskeletons; can be swapped in the field."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_composite.rsi
@@ -709,7 +709,7 @@
   parent: [ BaseItem, BaseSyndicateContraband ]
   id: DHArmorModuleIMB1CompositeLegLeft
   name: IMB-1 composite left leg guard
-  description: "A composite armour plate, protection class 1: layered lames that stop only the weakest rounds. Fits light and medium exoskeletons; can be swapped in the field."
+  description: "A composite armour plate, protection class 1: layered plates that stop only the weakest rounds. Fits light and medium exoskeletons; can be swapped in the field."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_composite.rsi
@@ -733,7 +733,7 @@
   parent: [ BaseItem, BaseSyndicateContraband ]
   id: DHArmorModuleIMB1CompositeLegRight
   name: IMB-1 composite right leg guard
-  description: "A composite armour plate, protection class 1: layered lames that stop only the weakest rounds. Fits light and medium exoskeletons; can be swapped in the field."
+  description: "A composite armour plate, protection class 1: layered plates that stop only the weakest rounds. Fits light and medium exoskeletons; can be swapped in the field."
   components:
   - type: Sprite
     sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/imb1_composite.rsi

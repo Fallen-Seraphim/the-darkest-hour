@@ -49,12 +49,15 @@ EXO_DESC = {
               'На спинной силовой блок ставится спецсистема.'),
 }
 HELMET_DESC = {
-    'Heavy': ('A bulky helmet with an integrated gas mask: two round lenses and a filter snout. Seals the suit.',
-              'Массивный шлем со встроенным противогазом: две круглые линзы и рыло фильтра. Герметизирует костюм.'),
-    'Medium': ('A sleek helmet with an integrated gas mask and a narrow visor. Seals the suit.',
-               'Обтекаемый шлем со встроенным противогазом и узким визором. Герметизирует костюм.'),
-    'Light': ('A sleek helmet with an integrated gas mask and a narrow visor. The light exoskeleton is not sealed.',
-              'Обтекаемый шлем со встроенным противогазом и узким визором. Лёгкий экзоскелет не герметичен.'),
+    'Heavy': ('A tall bulky helmet with an integrated gas mask: two lenses and two side filters. Seals the suit.',
+              'Высокий массивный шлем со встроенным противогазом: две линзы и два боковых фильтра. Герметизирует '
+              'костюм.'),
+    'Medium': ('A smooth helmet with an integrated gas mask: two lenses and two side filters. Seals the suit.',
+               'Гладкий шлем со встроенным противогазом: две линзы и два боковых фильтра. Герметизирует костюм.'),
+    'Light': ('A smooth helmet with an integrated gas mask: two lenses and two side filters. The light exoskeleton is '
+              'not sealed.',
+              'Гладкий шлем со встроенным противогазом: две линзы и два боковых фильтра. Лёгкий экзоскелет не '
+              'герметичен.'),
 }
 
 # Классы брони (решение автора 2026-10-30): без брони 0, композитный 1, лёгкий 2, тяжёлый 3. Резистов у пластин нет:
@@ -76,9 +79,9 @@ CLASS_DESC = {
               'heavy exoskeletons only and can only be fitted or removed at an armour maintenance rack.',
               'Тяжёлая бронепластина, класс защиты 3: пробивают только тяжёлые бронебойные патроны. Встаёт только на '
               'тяжёлый экзоскелет, ставится и снимается только на стойке обслуживания брони.'),
-    'Composite': ('A composite armour plate, protection class 1: layered lames that stop only the weakest rounds. '
+    'Composite': ('A composite armour plate, protection class 1: layered plates that stop only the weakest rounds. '
                   'Fits light and medium exoskeletons; can be swapped in the field.',
-                  'Композитная бронепластина, класс защиты 1: слоёные ламели держат только самые слабые патроны. '
+                  'Композитная бронепластина, класс защиты 1: слоёные пластины держат только самые слабые патроны. '
                   'Встаёт на лёгкий и средний экзоскелет, меняется в поле.'),
 }
 
