@@ -88,3 +88,10 @@ reagent-name-dh-tramadex = трамадекс
 reagent-desc-dh-tramadex = Продвинутое обезболивающее: сильнее морфина и не замедляет. Свыше 30 ед. отравляет печень.
 reagent-name-dh-neuroblocker = нейроблокатор
 reagent-desc-dh-neuroblocker = Боевой блокатор боли: полностью отключает боль, раненый остаётся на ногах. Свыше 15 ед. останавливает сердце.
+
+# Кашель кровью и отделённые части тела (DHTraumaSystem.Gore, DHLimbDecaySystem)
+dh-trauma-cough-blood = {CAPITALIZE($target)} кашляет кровью!
+dh-trauma-cough-blood-self = Вы кашляете кровью. В груди что-то серьёзно не так.
+dh-limb-examine-fresh = [color=yellow]Ещё свежая[/color]: пришить можно ещё около { $minutes } мин. Держите в холоде — в холодильнике, морозильном шкафу или морге.
+dh-limb-examine-cold = [color=lightblue]В холоде[/color]: здесь не иссохнет (вне холода осталось около { $minutes } мин).
+dh-limb-examine-withered = [color=gray]Иссохла[/color]: пришить уже нельзя.

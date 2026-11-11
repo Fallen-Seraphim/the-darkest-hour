@@ -99,6 +99,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
         SubscribeLocalEvent<DHTraumaComponent, DHSplintDoAfterEvent>(OnSplintDoAfter);
 
         InitializeFieldMedicine();
+        InitializeGore();
     }
 
     #region Damage
@@ -111,8 +112,15 @@ public sealed partial class DHTraumaSystem : EntitySystem
         var brute = Positive(delta, BruteTypes);
         var burn = Positive(delta, BurnTypes);
 
-        if (args.DamageIncreased && brute + burn > 0.5f)
+        // Смертельный урон после обезглавливания травм не добавляет.
+        if (args.DamageIncreased && brute + burn > 0.5f && !_killing)
+        {
             ApplyHit(ent, delta, brute, burn, args.Origin);
+
+            // Урон от взрыва, задевшего тело в этот тик: может оторвать конечность или голову.
+            if (ent.Comp.ExplosionTick == _timing.CurTick && !TerminatingOrDeleted(ent))
+                TryExplosionSever(ent, brute);
+        }
 
         Sync(ent);
     }
@@ -204,6 +212,14 @@ public sealed partial class DHTraumaSystem : EntitySystem
         }
 
         ent.Comp.PainSpike = MathF.Min(100f, ent.Comp.PainSpike + brute * 0.8f + burn * 0.6f);
+
+        // Обезглавливание: тяжёлый рубящий или дробящий удар по разбитой голове (редко).
+        if (category == "Head" && ShouldDecapitate(part, max, slash, blunt) &&
+            organs.TryGetValue(category, out var head))
+        {
+            Sever(ent, category, head);
+            return;
+        }
 
         // Отрыв конечности: часть разбита вдвое сверх прочности и удар рубящий или очень тяжёлый.
         if (category != "Torso" && category != "Head" &&
@@ -410,6 +426,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
 
         // Отлетает в сторону.
         _transform.SetCoordinates(detached, Transform(ent).Coordinates.Offset(_random.NextVector2(0.6f)));
+        AfterSever(ent, category, detached);
     }
 
     private void OnOrganRemoved(Entity<DHTraumaComponent> ent, ref OrganRemovedFromEvent args)
@@ -525,6 +542,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
         }
 
         TickTourniquets(ent, now);
+        TickBloodCough(ent, now);
 
         if (now < comp.BleedingSlowedUntil)
             bloodLoss *= 0.25f;

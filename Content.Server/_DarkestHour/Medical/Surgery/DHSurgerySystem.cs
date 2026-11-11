@@ -8,6 +8,7 @@ using Content.Server._DarkestHour.Medical.Trauma;
 using Content.Shared._DarkestHour.Medical.Disease;
 using Content.Server.Chat.Systems;
 using Content.Shared._DarkestHour.Medical.Surgery;
+using Content.Shared._DarkestHour.Medical.Trauma;
 using Content.Shared.Bed.Sleep;
 using Content.Shared.Body;
 using Content.Shared.Body.Systems;
@@ -48,6 +49,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private DetachableOrganSystem _detachable = default!;
+    [Dependency] private DHLimbDecaySystem _limbDecay = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
     [Dependency] private InventorySystem _inventory = default!;
@@ -474,7 +476,14 @@ public sealed partial class DHSurgerySystem : EntitySystem
                 break;
             case DHSurgeryEffect.AttachLimb:
                 if (FindDetachedRoot(item, category) != null)
-                    return true;
+                {
+                    // Иссохшую часть тела не пришить (решение автора 2026-11-11): её надо было держать в холоде.
+                    if (_limbDecay.IsViable(item))
+                        return true;
+
+                    _popup.PopupEntity(Loc.GetString("dh-surgery-limb-withered"), patient, user);
+                    return false;
+                }
                 break;
             case DHSurgeryEffect.GraftSkin:
                 if (HasComp<DHSkinGraftComponent>(item))
@@ -541,6 +550,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
                 if (_detachable.Detach(part) is not { } detached)
                     return false;
 
+                EnsureComp<DHLimbDecayComponent>(detached);
                 _hands.PickupOrDrop(user, detached);
 
                 // Культя: родительская часть остаётся открытой, её нужно прижечь («Закрыть рану»).

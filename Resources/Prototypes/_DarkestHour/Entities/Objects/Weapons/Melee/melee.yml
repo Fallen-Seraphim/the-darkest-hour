@@ -1,0 +1,156 @@
+# DarkestHour: своё холодное оружие (решение автора 2026-11-11) — кувалда, штурмовой молот, мачете с ножнами.
+# Пока только для спавна и маппинга. Спрайты — CM-SS13 через RMC-14 (CC-BY-SA-3.0) и SS14.
+
+- type: entity
+  parent: Sledgehammer
+  id: DHSledgehammer
+  name: sledgehammer
+  description: A long-handled sledgehammer. Swing it with both hands; it breaks bones and doors alike.
+  components:
+  - type: MeleeWeapon
+    attackRate: 0.75
+    wideAnimationRotation: -135
+    damage:
+      types:
+        Blunt: 14
+        Structural: 15
+    soundHit:
+      collection: MetalThud
+  - type: Wieldable
+  - type: IncreaseDamageOnWield
+    damage:
+      types:
+        Blunt: 14
+        Structural: 25
+  - type: Item
+    size: Large
+  - type: StaticPrice
+    price: 80
+
+- type: entity
+  parent: BaseItem
+  id: DHAssaultHammer
+  name: assault hammer
+  description: A breaching hammer with a heavy tungsten head. Two hands only; it crushes armour, bones and barricades.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Melee/assault_hammer.rsi
+    state: icon
+  - type: Item
+    size: Huge
+    sprite: _DarkestHour/Objects/Weapons/Melee/assault_hammer.rsi
+  - type: Clothing
+    slots: [ Back ]
+    quickEquip: false
+    sprite: _DarkestHour/Objects/Weapons/Melee/assault_hammer.rsi
+  - type: Wieldable
+  - type: MeleeRequiresWield
+  - type: MeleeWeapon
+    attackRate: 0.5
+    wideAnimationRotation: 90
+    damage:
+      types:
+        Blunt: 32
+        Structural: 60
+    soundHit:
+      collection: MetalThud
+  - type: StaticPrice
+    price: 250
+
+- type: entity
+  parent: [ BaseItem, BaseKnife ]
+  id: DHMachete
+  name: machete
+  description: A long military machete. Cuts through brush, bone and flesh; it can also pry open a door.
+  components:
+  - type: Tag
+    tags:
+    - Knife
+    - DHMachete
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Melee/machete.rsi
+    state: icon
+  - type: Item
+    size: Large
+    sprite: _DarkestHour/Objects/Weapons/Melee/machete.rsi
+  - type: Clothing
+    slots: [ suitStorage ]
+    quickEquip: false
+    sprite: _DarkestHour/Objects/Weapons/Melee/machete.rsi
+  - type: MeleeWeapon
+    attackRate: 1.1
+    wideAnimationRotation: -135
+    damage:
+      types:
+        Slash: 22
+    soundHit:
+      path: /Audio/Weapons/bladeslice.ogg
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Slash: 10
+  - type: Tool
+    qualities:
+    - Slicing
+    - Prying
+  - type: Prying
+    pryPowered: false
+    speedModifier: 0.8
+    useSound:
+      path: /Audio/Items/crowbar.ogg
+  - type: StaticPrice
+    price: 60
+
+- type: entity
+  parent: [ Clothing, ClothingSlotBase ]
+  id: DHMacheteScabbard
+  name: machete scabbard
+  description: A leather scabbard for a machete. It straps to the back, the belt or the suit.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Clothing/Scabbards/machete.rsi
+    state: sheath
+  - type: Item
+    size: Large
+  - type: Clothing
+    sprite: _DarkestHour/Objects/Clothing/Scabbards/machete.rsi
+    quickEquip: false
+    slots: [ back, belt, suitStorage ]
+  - type: ItemSlots
+    allowSmartEquip: true
+    slots:
+      item:
+        name: dh-scabbard-slot-machete
+        insertVerbText: sheath-insert-verb
+        ejectVerbText: sheath-eject-verb
+        insertSound: /Audio/Items/sheath.ogg
+        ejectSound: /Audio/Items/unsheath.ogg
+        whitelist:
+          tags:
+          - DHMachete
+  - type: ItemMapper
+    mapLayers:
+      sheath-machete:
+        whitelist:
+          tags:
+          - DHMachete
+  - type: Appearance
+
+- type: entity
+  parent: DHMacheteScabbard
+  id: DHMacheteScabbardFilled
+  suffix: Filled
+  components:
+  - type: ItemSlots
+    allowSmartEquip: true
+    slots:
+      item:
+        name: dh-scabbard-slot-machete
+        startingItem: DHMachete
+        insertVerbText: sheath-insert-verb
+        ejectVerbText: sheath-eject-verb
+        insertSound: /Audio/Items/sheath.ogg
+        ejectSound: /Audio/Items/unsheath.ogg
+        whitelist:
+          tags:
+          - DHMachete
