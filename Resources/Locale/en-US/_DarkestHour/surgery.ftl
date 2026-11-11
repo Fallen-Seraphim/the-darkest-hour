@@ -109,3 +109,4 @@ dh-surgery-extract-parasite = Extract parasite
 dh-surgery-extract-parasite-desc = Pull a burrowed parasite larva out of the torso tissue. Slow — it clings on.
 dh-surgery-step-extract-parasite = extract the larva
 dh-surgery-injury-parasite = parasite larva in the tissue
+dh-surgery-limb-withered = This part has withered and can no longer be reattached.

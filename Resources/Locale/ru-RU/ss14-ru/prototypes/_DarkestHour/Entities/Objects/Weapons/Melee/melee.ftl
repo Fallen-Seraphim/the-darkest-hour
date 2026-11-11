@@ -1,0 +1,10 @@
+ent-DHSledgehammer = кувалда
+    .desc = Кувалда на длинной рукояти. Бить двумя руками — ломает и кости, и двери.
+ent-DHAssaultHammer = штурмовой молот
+    .desc = Молот для пролома с тяжёлым вольфрамовым бойком. Только двумя руками: крушит броню, кости и баррикады.
+ent-DHMachete = мачете
+    .desc = Длинное армейское мачете. Рубит кусты, кости и плоть; им можно и вскрыть дверь.
+ent-DHMacheteScabbard = ножны для мачете
+    .desc = Кожаные ножны для мачете. Крепятся на спину, пояс или к костюму.
+ent-DHMacheteScabbardFilled = { ent-DHMacheteScabbard }
+    .desc = { ent-DHMacheteScabbard.desc }

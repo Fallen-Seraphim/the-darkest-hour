@@ -1,0 +1,106 @@
+# DarkestHour: кровь на полу как в CM-SS13 / CMU (порт декалей RMC-14, CC-BY-SA-3.0): брызги от кашля кровью и
+# отрыва частей тела — DHTraumaSystem.
+
+- type: decal
+  parent: CMDecalBase
+  id: DHDecalBloodSplatter1
+  tags: ["dh-blood"]
+  sprite:
+    sprite: _DarkestHour/Decals/blood.rsi
+    state: splatter1
+
+- type: decal
+  parent: CMDecalBase
+  id: DHDecalBloodSplatter2
+  tags: ["dh-blood"]
+  sprite:
+    sprite: _DarkestHour/Decals/blood.rsi
+    state: splatter2
+
+- type: decal
+  parent: CMDecalBase
+  id: DHDecalBloodSplatter3
+  tags: ["dh-blood"]
+  sprite:
+    sprite: _DarkestHour/Decals/blood.rsi
+    state: splatter3
+
+- type: decal
+  parent: CMDecalBase
+  id: DHDecalBloodSplatter4
+  tags: ["dh-blood"]
+  sprite:
+    sprite: _DarkestHour/Decals/blood.rsi
+    state: splatter4
+
+- type: decal
+  parent: CMDecalBase
+  id: DHDecalBloodSplatter5
+  tags: ["dh-blood"]
+  sprite:
+    sprite: _DarkestHour/Decals/blood.rsi
+    state: splatter5
+
+- type: decal
+  parent: CMDecalBase
+  id: DHDecalBloodSplatter6
+  tags: ["dh-blood"]
+  sprite:
+    sprite: _DarkestHour/Decals/blood.rsi
+    state: splatter6
+
+- type: decal
+  parent: CMDecalBase
+  id: DHDecalBloodFloor1
+  tags: ["dh-blood"]
+  sprite:
+    sprite: _DarkestHour/Decals/blood_floor.rsi
+    state: mfloor1
+
+- type: decal
+  parent: CMDecalBase
+  id: DHDecalBloodFloor2
+  tags: ["dh-blood"]
+  sprite:
+    sprite: _DarkestHour/Decals/blood_floor.rsi
+    state: mfloor2
+
+- type: decal
+  parent: CMDecalBase
+  id: DHDecalBloodFloor3
+  tags: ["dh-blood"]
+  sprite:
+    sprite: _DarkestHour/Decals/blood_floor.rsi
+    state: mfloor3
+
+- type: decal
+  parent: CMDecalBase
+  id: DHDecalBloodFloor4
+  tags: ["dh-blood"]
+  sprite:
+    sprite: _DarkestHour/Decals/blood_floor.rsi
+    state: mfloor4
+
+- type: decal
+  parent: CMDecalBase
+  id: DHDecalBloodFloor5
+  tags: ["dh-blood"]
+  sprite:
+    sprite: _DarkestHour/Decals/blood_floor.rsi
+    state: mfloor5
+
+- type: decal
+  parent: CMDecalBase
+  id: DHDecalBloodFloor6
+  tags: ["dh-blood"]
+  sprite:
+    sprite: _DarkestHour/Decals/blood_floor.rsi
+    state: mfloor6
+
+- type: decal
+  parent: CMDecalBase
+  id: DHDecalBloodFloor7
+  tags: ["dh-blood"]
+  sprite:
+    sprite: _DarkestHour/Decals/blood_floor.rsi
+    state: mfloor7

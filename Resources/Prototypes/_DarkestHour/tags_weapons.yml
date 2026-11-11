@@ -143,3 +143,6 @@
 - type: Tag
   id: DHShell14g
 
+
+- type: Tag
+  id: DHMachete # мачете (влезает в ножны DHMacheteScabbard)

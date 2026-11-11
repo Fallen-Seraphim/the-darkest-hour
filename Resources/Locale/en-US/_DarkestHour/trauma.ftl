@@ -89,6 +89,13 @@ reagent-desc-dh-tramadex = An advanced painkiller: stronger than morphine and do
 reagent-name-dh-neuroblocker = neuroblocker
 reagent-desc-dh-neuroblocker = A combat pain blocker: shuts pain off completely, keeping a wounded soldier on their feet. Above 15u it stops the heart.
 
+# Coughing blood and severed parts (DHTraumaSystem.Gore, DHLimbDecaySystem)
+dh-trauma-cough-blood = {CAPITALIZE(THE($target))} coughs up blood!
+dh-trauma-cough-blood-self = You cough up blood. Something is badly wrong inside your chest.
+dh-limb-examine-fresh = [color=yellow]Still fresh[/color]: it can be reattached for about { $minutes } more min. Keep it cold — a fridge, a freezer or the morgue.
+dh-limb-examine-cold = [color=lightblue]Kept cold[/color]: it will not wither here (about { $minutes } min left outside).
+dh-limb-examine-withered = [color=gray]Withered[/color]: it can no longer be reattached.
+
 dh-alert-pain-name = [color=orange]Pain[/color]
 dh-alert-pain-desc = The stronger the pain, the brighter the icon. Pain shock knocks you down, worse than that and you pass out. Painkillers dull it for a while.
 dh-alert-fracture-name = [color=red]Fracture[/color]

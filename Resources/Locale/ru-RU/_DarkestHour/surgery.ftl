@@ -107,3 +107,4 @@ dh-surgery-extract-parasite = Извлечение паразита
 dh-surgery-extract-parasite-desc = Вытащить зарывшуюся в ткани торса личинку паразита. Медленно — она цепляется.
 dh-surgery-step-extract-parasite = извлечение личинки
 dh-surgery-injury-parasite = личинка паразита в тканях
+dh-surgery-limb-withered = Эта часть тела иссохла — пришить её уже нельзя.

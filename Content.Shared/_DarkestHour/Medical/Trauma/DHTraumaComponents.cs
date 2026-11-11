@@ -158,6 +158,14 @@ public sealed partial class DHTraumaComponent : Component
     [ViewVariables]
     public GameTick PendingHitTick;
 
+    /// <summary>Тик, в который тело задел взрыв: урон этого тика — от взрыва (отрыв частей тела).</summary>
+    [ViewVariables]
+    public GameTick ExplosionTick;
+
+    /// <summary>Не раньше этого времени — следующий кашель кровью.</summary>
+    [DataField]
+    public TimeSpan NextBloodCough;
+
     /// <summary>
     /// Готовые строки травм для анализатора здоровья (переломы, кровотечения, осколки, органы, боль).
     /// Сервер обновляет раз в секунду и шлёт клиенту, только если изменились.
