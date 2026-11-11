@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Иконки алертов травм TDH (решение автора 2026-11-11): боль (4 степени) и перелом (наложена шина / нет).
+"""Иконки алертов TDH (решение автора 2026-11-11): травмы, лекарства, стационар, облучение, связь.
 Рисуются попиксельно 32×32 с тёмной обводкой, как ванильные алерты. Лицензия — CC-BY-SA-3.0 (свои рисунки).
 Запуск из корня репозитория: python3 Tools/_DarkestHour/ui/trauma_alerts.py"""
 import json
@@ -77,17 +77,237 @@ def fracture(splinted):
     return outline(img)
 
 
+def new():
+    return Image.new('RGBA', (S, S), (0, 0, 0, 0))
+
+
+def drop(d, cx, cy, r, color):
+    """Капля: круг снизу и треугольник сверху."""
+    d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=color)
+    d.polygon([(cx - r + 1, cy - 1), (cx + r - 1, cy - 1), (cx, cy - r * 2.2)], fill=color)
+
+
+def body(d, color):
+    """Силуэт торса с головой."""
+    d.ellipse([12, 3, 20, 11], fill=color)
+    d.rounded_rectangle([8, 12, 24, 29], radius=4, fill=color)
+
+
+def internal_bleeding(level):
+    img = new()
+    d = ImageDraw.Draw(img)
+    body(d, (205, 190, 170, 255))
+    for i in range(level + 1):
+        drop(d, [16, 12, 20][i], [22, 20, 20][i], 3, (190, 20, 25, 255))
+    return outline(img)
+
+
+def shrapnel(level):
+    img = new()
+    d = ImageDraw.Draw(img)
+    shards = [[(8, 22), (14, 12), (16, 24)], [(17, 8), (25, 12), (19, 17)], [(18, 22), (27, 20), (22, 28)],
+              [(5, 9), (11, 6), (9, 14)]]
+    for k in range(level + 2):
+        d.polygon(shards[k], fill=(170, 175, 182, 255))
+        a, b, _ = shards[k]
+        d.line([a, b], fill=(235, 238, 242, 255))
+    d.ellipse([13, 14, 18, 19], fill=(180, 25, 25, 255))
+    return outline(img)
+
+
+def tourniquet():
+    img = new()
+    d = ImageDraw.Draw(img)
+    d.rounded_rectangle([12, 2, 20, 30], radius=3, fill=(220, 190, 160, 255))  # конечность
+    d.rectangle([9, 13, 23, 18], fill=(190, 30, 30, 255))  # жгут
+    d.rectangle([21, 11, 26, 20], fill=(60, 60, 60, 255))  # закрутка
+    d.line([(9, 15), (23, 15)], fill=(240, 90, 80, 255))
+    return outline(img)
+
+
+def organ_failure():
+    img = new()
+    d = ImageDraw.Draw(img)
+    # почка/орган: бобовидная форма
+    d.ellipse([7, 6, 25, 27], fill=(150, 60, 70, 255))
+    d.ellipse([18, 13, 27, 20], fill=(0, 0, 0, 0))
+    d.line([(11, 9), (16, 15), (12, 19), (17, 25)], fill=(30, 10, 10, 255), width=2)
+    return outline(img)
+
+
+def pill(d, color, x0=6, y0=12):
+    d.rounded_rectangle([x0, y0, x0 + 20, y0 + 9], radius=4, fill=color)
+    d.rectangle([x0 + 10, y0, x0 + 20, y0 + 9], fill=(240, 240, 240, 255))
+    d.rounded_rectangle([x0 + 10, y0, x0 + 20, y0 + 9], radius=4, fill=(240, 240, 240, 255))
+    d.rectangle([x0 + 10, y0, x0 + 13, y0 + 9], fill=(240, 240, 240, 255))
+
+
+def painkiller():
+    img = new()
+    d = ImageDraw.Draw(img)
+    d.polygon(burst(6, 9, 4, 0.2), fill=(230, 160, 60, 110))
+    pill(d, (70, 140, 230, 255), 6, 18)
+    return outline(img)
+
+
+def cross(d, color, cx=16, cy=16, a=11, w=4):
+    d.rectangle([cx - w, cy - a, cx + w, cy + a], fill=color)
+    d.rectangle([cx - a, cy - w, cx + a, cy + w], fill=color)
+
+
+def omnireazin(rebound):
+    img = new()
+    d = ImageDraw.Draw(img)
+    cross(d, (120, 210, 160, 255))
+    cross(d, (190, 245, 210, 255), a=8, w=2)
+    if rebound:
+        d.polygon([(x + 6, y + 6) for x, y in burst(6, 7, 3, 0.3)], fill=(230, 60, 40, 255))
+    return outline(img)
+
+
+def phantom():
+    img = new()
+    d = ImageDraw.Draw(img)
+    d.polygon(burst(7, 12, 5, 0.1), fill=(160, 120, 210, 150))
+    d.polygon(burst(7, 6, 3, 0.55), fill=(220, 200, 255, 200))
+    return outline(img)
+
+
+def withdrawal(kind):
+    color = {'opioid': (210, 205, 225, 255), 'sedative': (120, 160, 235, 255), 'stimulant': (240, 200, 60, 255)}[kind]
+    img = new()
+    d = ImageDraw.Draw(img)
+    pill(d, color, 6, 11)
+    # «дрожь» и запрет
+    for y in (6, 26):
+        d.line([(6, y), (10, y - 2), (14, y), (18, y - 2), (22, y), (26, y - 2)], fill=(230, 80, 60, 255), width=2)
+    return outline(img)
+
+
+def lungs(d, color):
+    d.ellipse([5, 8, 15, 28], fill=color)
+    d.ellipse([17, 8, 27, 28], fill=color)
+    d.rectangle([15, 3, 17, 14], fill=color)
+
+
+def respiratory():
+    img = new()
+    d = ImageDraw.Draw(img)
+    lungs(d, (120, 150, 210, 255))
+    d.polygon([(11, 15), (21, 15), (16, 24)], fill=(220, 40, 40, 255))  # стрелка вниз
+    return outline(img)
+
+
+def overdose():
+    img = new()
+    d = ImageDraw.Draw(img)
+    pill(d, (210, 60, 60, 255), 6, 17)
+    d.ellipse([11, 2, 21, 12], fill=(235, 230, 220, 255))  # череп
+    d.rectangle([13, 11, 19, 14], fill=(235, 230, 220, 255))
+    d.point([(14, 7), (18, 7)], fill=(30, 20, 20, 255))
+    d.rectangle([13, 6, 14, 8], fill=(30, 20, 20, 255))
+    d.rectangle([18, 6, 19, 8], fill=(30, 20, 20, 255))
+    return outline(img)
+
+
+def heart(d, color, cx=16, cy=15, r=6):
+    d.ellipse([cx - r * 2 + 1, cy - r, cx + 1, cy + r - 1], fill=color)
+    d.ellipse([cx - 1, cy - r, cx + r * 2 - 1, cy + r - 1], fill=color)
+    d.polygon([(cx - r * 2 + 1, cy + 1), (cx + r * 2 - 1, cy + 1), (cx, cy + r * 2 + 1)], fill=color)
+
+
+def machine(kind):
+    img = new()
+    d = ImageDraw.Draw(img)
+    if kind == 'ventilator':
+        lungs(d, (120, 170, 220, 255))
+        d.line([(16, 3), (16, 0)], fill=(200, 200, 200, 255), width=2)
+    else:
+        heart(d, (200, 50, 60, 255))
+    d.line([(2, 26), (9, 26), (11, 21), (14, 30), (17, 24), (19, 26), (30, 26)], fill=(90, 230, 120, 255), width=2)
+    return outline(img)
+
+
+def clinical_death(perfused):
+    img = new()
+    d = ImageDraw.Draw(img)
+    heart(d, (200, 50, 60, 255) if perfused else (120, 110, 115, 255))
+    line = [(2, 26), (10, 26), (12, 21), (15, 30), (18, 24), (20, 26), (30, 26)] if perfused else [(2, 26), (30, 26)]
+    d.line(line, fill=(90, 230, 120, 255) if perfused else (230, 60, 50, 255), width=2)
+    return outline(img)
+
+
+def trefoil(level, color):
+    img = new()
+    d = ImageDraw.Draw(img)
+    c = (S - 1) / 2
+    r = [8, 10, 12, 14][level]
+    d.ellipse([c - r - 1, c - r - 1, c + r + 1, c + r + 1], fill=(30, 25, 10, 255))
+    for k in range(3):
+        a0 = -90 + k * 120 - 30
+        d.pieslice([c - r, c - r, c + r, c + r], a0, a0 + 60, fill=color)
+    d.ellipse([c - 2, c - 2, c + 2, c + 2], fill=color)
+    return outline(img)
+
+
+def crystal(level):
+    img = new()
+    d = ImageDraw.Draw(img)
+    shades = [(170, 120, 230, 255), (160, 90, 230, 255), (145, 60, 220, 255), (130, 30, 210, 255)][level]
+    n = level + 1
+    for k in range(n):
+        x = 16 + (k - (n - 1) / 2) * 6
+        h = 18 + (2 - abs(k - (n - 1) / 2)) * 2
+        d.polygon([(x - 3, 28), (x + 3, 28), (x + 3, 28 - h + 4), (x, 28 - h), (x - 3, 28 - h + 4)], fill=shades)
+        d.line([(x, 28 - h + 1), (x, 26)], fill=(225, 200, 255, 255))
+    return outline(img)
+
+
+def no_signal():
+    img = new()
+    d = ImageDraw.Draw(img)
+    d.line([(16, 30), (16, 10)], fill=(190, 190, 190, 255), width=2)
+    for r in (5, 9, 13):
+        d.arc([16 - r, 10 - r, 16 + r, 10 + r], 220, 320, fill=(190, 190, 190, 255), width=2)
+    d.line([(6, 6), (26, 26)], fill=(220, 40, 40, 255), width=3)
+    return outline(img)
+
+
+ICONS = {
+    'internal_bleeding': [('ib%d' % i, lambda i=i: internal_bleeding(i)) for i in range(3)],
+    'shrapnel': [('shrapnel%d' % i, lambda i=i: shrapnel(i)) for i in range(3)],
+    'tourniquet': [('icon', tourniquet)],
+    'organ': [('failure', organ_failure)],
+    'painkiller': [('icon', painkiller)],
+    'omnireazin': [('active', lambda: omnireazin(False)), ('rebound', lambda: omnireazin(True))],
+    'phantom': [('icon', phantom)],
+    'withdrawal': [(k, lambda k=k: withdrawal(k)) for k in ('opioid', 'sedative', 'stimulant')],
+    'respiratory': [('depressed', respiratory)],
+    'overdose': [('icon', overdose)],
+    'machines': [('ventilator', lambda: machine('ventilator')), ('lifesupport', lambda: machine('lifesupport'))],
+    'clinical_death': [('countdown', lambda: clinical_death(False)), ('perfused', lambda: clinical_death(True))],
+    'dose': [('rad%d' % i, lambda i=i: trefoil(i, (240, 210, 40, 255))) for i in range(4)]
+            + [('chronite%d' % i, lambda i=i: crystal(i)) for i in range(4)],
+    'comms': [('nosignal', no_signal)],
+}
+
+
+def save(name, states):
+    rsi = os.path.join(OUT, name + '.rsi')
+    os.makedirs(rsi, exist_ok=True)
+    for state, img in states:
+        img.save(os.path.join(rsi, state + '.png'))
+    meta = {'version': 1, 'license': 'CC-BY-SA-3.0',
+            'copyright': 'Made for The Darkest Hour (Tools/_DarkestHour/ui/trauma_alerts.py)',
+            'size': {'x': S, 'y': S}, 'states': [{'name': s} for s, _ in states]}
+    json.dump(meta, open(os.path.join(rsi, 'meta.json'), 'w'), indent=2)
+
+
 def main():
-    for name, states in (('pain', [('pain%d' % i, pain(i)) for i in range(4)]),
-                         ('fracture', [('fracture', fracture(False)), ('splinted', fracture(True))])):
-        rsi = os.path.join(OUT, name + '.rsi')
-        os.makedirs(rsi, exist_ok=True)
-        for state, img in states:
-            img.save(os.path.join(rsi, state + '.png'))
-        meta = {'version': 1, 'license': 'CC-BY-SA-3.0',
-                'copyright': 'Made for The Darkest Hour (Tools/_DarkestHour/ui/trauma_alerts.py)',
-                'size': {'x': S, 'y': S}, 'states': [{'name': s} for s, _ in states]}
-        json.dump(meta, open(os.path.join(rsi, 'meta.json'), 'w'), indent=2)
+    save('pain', [('pain%d' % i, pain(i)) for i in range(4)])
+    save('fracture', [('fracture', fracture(False)), ('splinted', fracture(True))])
+    for name, states in ICONS.items():
+        save(name, [(state, make()) for state, make in states])
 
 
 if __name__ == '__main__':

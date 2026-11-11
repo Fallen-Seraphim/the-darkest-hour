@@ -22,6 +22,21 @@
     - alertType: Bleed
     - alertType: DHPain # DarkestHour
     - alertType: DHFracture # DarkestHour
+    - alertType: DHInternalBleeding # DarkestHour
+    - alertType: DHShrapnel # DarkestHour
+    - alertType: DHTourniquet # DarkestHour
+    - alertType: DHOrganFailure # DarkestHour
+    - alertType: DHClinicalDeath # DarkestHour
+    - alertType: DHMedicalMachine # DarkestHour
+    - alertType: DHRespiratoryDepression # DarkestHour
+    - alertType: DHOverdose # DarkestHour
+    - alertType: DHWithdrawal # DarkestHour
+    - alertType: DHPainSuppressed # DarkestHour
+    - alertType: DHOmnireazin # DarkestHour
+    - alertType: DHPhantomPain # DarkestHour
+    - alertType: DHRadiation # DarkestHour
+    - alertType: DHChronite # DarkestHour
+    - alertType: DHNoSignal # DarkestHour
     - category: Temperature
     - category: Hunger
     - category: Thirst

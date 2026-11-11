@@ -320,6 +320,7 @@
 - type: reagent
   id: Epinephrine
   name: reagent-name-epinephrine
+  dhOverdose: 20 # DarkestHour: значок «Передозировка»
   group: Medicine
   desc: reagent-desc-epinephrine
   physicalDesc: reagent-physical-desc-odorless

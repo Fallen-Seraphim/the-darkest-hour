@@ -1,6 +1,7 @@
 using Content.Server._DarkestHour.Medical.Disease;
 using Content.Shared._DarkestHour.Medical.Disease;
 using Content.Shared._DarkestHour.Medical.Radiation;
+using Content.Shared.Alert;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
@@ -20,6 +21,10 @@ namespace Content.Server._DarkestHour.Medical.Radiation;
 /// </summary>
 public sealed partial class DHDoseSystem : EntitySystem
 {
+    private static readonly ProtoId<AlertPrototype> RadiationAlert = "DHRadiation";
+    private static readonly ProtoId<AlertPrototype> ChroniteAlert = "DHChronite";
+
+    [Dependency] private AlertsSystem _alerts = default!;
     [Dependency] private DHDiseaseSystem _disease = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private MobStateSystem _mobState = default!;
@@ -87,6 +92,8 @@ public sealed partial class DHDoseSystem : EntitySystem
                 dose.NextUpdate = TimeSpan.MaxValue;
                 _disease.SetStage(uid, RadiationSickness, null);
                 _disease.SetStage(uid, ChroniteSkin, null);
+                _alerts.ClearAlert(uid, RadiationAlert);
+                _alerts.ClearAlert(uid, ChroniteAlert);
                 continue;
             }
 
@@ -100,6 +107,10 @@ public sealed partial class DHDoseSystem : EntitySystem
             var chroniteStage = Stage(dose.Chronite, dose.ChroniteStages);
             _disease.SetStage(uid, ChroniteSkin, chroniteStage);
             UpdateGlow((uid, dose), chroniteStage);
+
+            // Значки накопленной дозы: стадия = степень (4 стадии — 4 размера знака).
+            StageAlert(uid, RadiationAlert, Stage(dose.Radiation, dose.RadiationStages));
+            StageAlert(uid, ChroniteAlert, chroniteStage);
         }
     }
 
@@ -124,6 +135,14 @@ public sealed partial class DHDoseSystem : EntitySystem
                 Wake(target);
             }
         }
+    }
+
+    private void StageAlert(EntityUid uid, ProtoId<AlertPrototype> alert, int? stage)
+    {
+        if (stage is { } s && !_mobState.IsDead(uid))
+            _alerts.ShowAlert(uid, alert, (short) Math.Min(3, s));
+        else
+            _alerts.ClearAlert(uid, alert);
     }
 
     /// <summary>Номер стадии по порогам (0 — первая), null — ниже первого порога.</summary>

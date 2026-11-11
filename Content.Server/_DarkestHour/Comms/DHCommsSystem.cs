@@ -370,6 +370,8 @@ public sealed partial class DHCommsSystem : EntitySystem
             if (_ui.IsUiOpen(uid, DHFieldPhoneUiKey.Key))
                 UpdatePhoneUi((uid, phone));
         }
+
+        UpdateSignalAlerts();
     }
 
     #endregion

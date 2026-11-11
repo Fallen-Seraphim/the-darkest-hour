@@ -2,7 +2,10 @@ using System.Linq;
 using Content.Server._DarkestHour.Medical.Surgery;
 using Content.Server.Chat.Systems;
 using Content.Shared._DarkestHour.Medical.Trauma;
+using Content.Shared._DarkestHour.Medical.Omnireazin;
 using Content.Shared.Alert;
+using Content.Shared.Body.Components;
+using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Bed.Sleep;
 using Content.Shared.Body;
 using Content.Shared.Body.Systems;
@@ -41,6 +44,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
     [Dependency] private AlertsSystem _alerts = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private BloodstreamSystem _bloodstream = default!;
+    [Dependency] private Content.Shared.Chemistry.EntitySystems.SharedSolutionContainerSystem _solutions = default!;
     [Dependency] private ChatSystem _chat = default!;
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private DamageableSystem _damageable = default!;
@@ -51,6 +55,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
     [Dependency] private MobStateSystem _mobState = default!;
     [Dependency] private MovementSpeedModifierSystem _movement = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private StatusEffectsSystem _status = default!;
     [Dependency] private SharedStunSystem _stun = default!;
@@ -82,6 +87,14 @@ public sealed partial class DHTraumaSystem : EntitySystem
     private static readonly EntProtoId ForcedSleep = "StatusEffectForcedSleeping";
     private static readonly ProtoId<AlertPrototype> PainAlert = "DHPain";
     private static readonly ProtoId<AlertPrototype> FractureAlert = "DHFracture";
+    private static readonly ProtoId<AlertPrototype> InternalBleedingAlert = "DHInternalBleeding";
+    private static readonly ProtoId<AlertPrototype> ShrapnelAlert = "DHShrapnel";
+    private static readonly ProtoId<AlertPrototype> TourniquetAlert = "DHTourniquet";
+    private static readonly ProtoId<AlertPrototype> OrganFailureAlert = "DHOrganFailure";
+    private static readonly ProtoId<AlertPrototype> PainSuppressedAlert = "DHPainSuppressed";
+    private static readonly ProtoId<AlertPrototype> OmnireazinAlert = "DHOmnireazin";
+    private static readonly ProtoId<AlertPrototype> PhantomPainAlert = "DHPhantomPain";
+    private static readonly ProtoId<AlertPrototype> OverdoseAlert = "DHOverdose";
 
     private const float MeleeRange = 1.6f;
     private const float MeleeAccuracy = 0.85f;
@@ -491,6 +504,79 @@ public sealed partial class DHTraumaSystem : EntitySystem
             _alerts.ShowAlert(ent.Owner, FractureAlert, (short) (unsplinted ? 1 : 0));
         else
             _alerts.ClearAlert(ent.Owner, FractureAlert);
+
+        var dead = _mobState.IsDead(ent);
+        var now = _timing.CurTime;
+
+        // Внутреннее кровотечение: сколько частей кровоточит (1, 2, 3+).
+        var bleeding = comp.Parts.Values.Count(p => p.InternalBleeding > 0f);
+        Toggle(ent, InternalBleedingAlert, bleeding > 0 && !dead, (short) Math.Min(2, bleeding - 1));
+
+        // Осколки: 1, 2–3, 4+.
+        var shrapnel = comp.Parts.Values.Sum(p => p.Shrapnel);
+        Toggle(ent, ShrapnelAlert, shrapnel > 0 && !dead, (short) (shrapnel >= 4 ? 2 : shrapnel >= 2 ? 1 : 0));
+
+        // Жгут: таймер до отмирания по самому раннему жгуту.
+        TimeSpan? since = null;
+        foreach (var part in comp.Parts.Values)
+        {
+            if (part.Tourniquet != null && (since == null || part.TourniquetSince < since))
+                since = part.TourniquetSince;
+        }
+
+        if (since is { } start && !dead)
+            _alerts.ShowAlert(ent.Owner, TourniquetAlert, cooldown: (start, start + TourniquetSafe));
+        else
+            _alerts.ClearAlert(ent.Owner, TourniquetAlert);
+
+        // Отказ органа.
+        var failing = comp.Organs.Values.Any(d => d >= comp.OrganMaxDamage);
+        Toggle(ent, OrganFailureAlert, failing && !dead);
+
+        // Обезболен (морфин, кетамин, омниреазин…) — пока действует подавление.
+        Toggle(ent, PainSuppressedAlert, !dead && comp.PainSuppression > 0f && now < comp.PainSuppressionUntil);
+
+        // Омниреазин: действует / откат боли.
+        var omniActive = TryComp<DHOmnireazinComponent>(ent, out var omni) && omni.Active;
+        if (!dead && omniActive)
+            _alerts.ShowAlert(ent.Owner, OmnireazinAlert, 0);
+        else if (!dead && comp.ExtraPain > 5f && omni != null)
+            _alerts.ShowAlert(ent.Owner, OmnireazinAlert, 1);
+        else
+            _alerts.ClearAlert(ent.Owner, OmnireazinAlert);
+
+        Toggle(ent, PhantomPainAlert, !dead && comp.PhantomPain > 0f);
+
+        // Передозировка: любой реагент в крови выше своего порога.
+        Toggle(ent, OverdoseAlert, !dead && Overdosed(ent));
+    }
+
+    private void Toggle(EntityUid uid, ProtoId<AlertPrototype> alert, bool show, short? severity = null)
+    {
+        if (show)
+            _alerts.ShowAlert(uid, alert, severity);
+        else
+            _alerts.ClearAlert(uid, alert);
+    }
+
+    private bool Overdosed(EntityUid uid)
+    {
+        if (!TryComp<BloodstreamComponent>(uid, out var blood) ||
+            !_solutions.TryGetSolution(uid, blood.BloodSolutionName, out _, out var solution))
+        {
+            return false;
+        }
+
+        foreach (var reagent in solution.Contents)
+        {
+            if (_proto.TryIndex<ReagentPrototype>(reagent.Reagent.Prototype, out var proto) &&
+                proto.DHOverdose is { } limit && reagent.Quantity >= limit)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /// <summary>Строки для анализатора здоровья: по частям тела (без общего урона) и уровень боли.</summary>
