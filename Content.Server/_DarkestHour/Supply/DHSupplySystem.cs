@@ -122,7 +122,8 @@ public sealed partial class DHSupplySystem : EntitySystem
         if (!_proto.TryIndex(ent.Comp.Catalog, out var catalog))
             return;
 
-        var entry = catalog.Entries.Find(e => e.Id == args.Id);
+        var id = args.Id;
+        var entry = catalog.Entries.Find(e => e.Id == id);
         if (entry == null)
             return;
 
