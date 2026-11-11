@@ -296,6 +296,7 @@ namespace Content.Client.Lobby.UI
             #endregion Markings
 
             RefreshFlavorText();
+            InitDHDetails(); // DarkestHour
 
             #region Dummy
 
@@ -393,6 +394,7 @@ namespace Content.Client.Lobby.UI
             RefreshSpecies();
             RefreshTraits();
             RefreshFlavorText();
+            UpdateDHDetails(); // DarkestHour
             ReloadPreview();
 
             if (Profile != null)
