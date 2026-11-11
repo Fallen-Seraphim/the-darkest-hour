@@ -27,6 +27,11 @@ public sealed partial class DefaultGameScreen : InGameScreen
         var dhHud = new Content.Client._DarkestHour.UI.DHHudWidget();
         ViewportContainer.AddChild(dhHud);
         SetAnchorAndMarginPreset(dhHud, LayoutPreset.BottomRight, margin: 10);
+        // Прижата к правому нижнему углу: расти влево и вверх, иначе уходит за край экрана.
+        SetGrowHorizontal(dhHud, GrowDirection.Begin);
+        SetGrowVertical(dhHud, GrowDirection.Begin);
+        // DarkestHour: строка состояний прижата к правому краю — растёт влево (иначе иконки уходят за экран).
+        SetGrowHorizontal(Alerts, GrowDirection.Begin);
 
         Chat.OnResized += ChatOnResized;
         Chat.OnChatResizeFinish += ChatOnResizeFinish;
