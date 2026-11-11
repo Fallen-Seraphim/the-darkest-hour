@@ -260,8 +260,6 @@ dh-tinnitus-start = У вас звенит в ушах!
 
 ## Barbed wire
 dh-stack-barbed-wire = колючая проволока
-dh-sandbag-already-wired = На ней уже есть колючая проволока.
-dh-sandbag-wired = {CAPITALIZE($user)} натягивает колючую проволоку на мешки.
 dh-sandbag-wire-cut = Колючая проволока рвёт вас!
 dh-wireable-already-wired = На нём уже есть колючая проволока.
 dh-wireable-wired = {CAPITALIZE($user)} натягивает колючую проволоку по забору.
@@ -305,3 +303,9 @@ dh-sandbag-repaired = Вы досыпаете мешки в баррикаду.
 dh-dropship-ui-flares = ОТСТРЕЛИТЬ ЛТЦ ({$count}/{$max})
 dh-dropship-ui-flares-active = ЛТЦ прикрывают челнок ({$count}/{$max})
 dh-dropship-flares-fired = Отстрел ЛТЦ! ПВО противника потеряет челнок до конца захода. Осталось залпов: {$left}.
+
+# Баррикады (DHBarricade)
+dh-construction-barricade-metal = металлическая баррикада
+dh-construction-barricade-metal-desc = Баррикада из четырёх листов стали. Держит большинство пуль спереди.
+dh-construction-barricade-plasteel = пласталевая баррикада
+dh-construction-barricade-plasteel-desc = Баррикада из четырёх листов пластали. Держит почти любую пулю спереди.
