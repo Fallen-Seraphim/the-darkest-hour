@@ -7,7 +7,10 @@ using Content.Shared._DarkestHour.FootPrints;
 using Content.Shared._DarkestHour.Stains;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
+using Content.Shared.Body.Components;
 using Content.Shared.Chemistry.Reagent;
+using Content.Shared.Damage.Prototypes;
+using Content.Shared.Damage.Systems;
 using Content.Shared.Decals;
 using Content.Shared.Fluids;
 using Content.Shared.Fluids.Components;
@@ -31,6 +34,7 @@ namespace Content.Server._DarkestHour.FootPrints;
 public sealed partial class DHFootPrintsSystem : EntitySystem
 {
     [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private DecalSystem _decals = default!;
     [Dependency] private SharedGravitySystem _gravity = default!;
     [Dependency] private InventorySystem _inventory = default!;
@@ -42,6 +46,12 @@ public sealed partial class DHFootPrintsSystem : EntitySystem
     [Dependency] private SharedTransformSystem _transform = default!;
 
     private static readonly ProtoId<ReagentPrototype> WaterReagent = "Water";
+    private static readonly ProtoId<DamageGroupPrototype> BruteGroup = "Brute";
+
+    /// <summary>С какого механического урона тело без кровотечения всё равно оставляет след волочения.</summary>
+    private const float WoundedBrute = 40f;
+
+    private const float DragTrailAlpha = 0.6f;
     private static readonly Vector2 DecalCenterOffset = new(-0.5f, -0.5f);
     private static readonly Angle DraggingRotationOffset = Angle.FromDegrees(-90f);
     private static readonly Angle StepRotationOffset = Angle.FromDegrees(180f);
@@ -64,12 +74,13 @@ public sealed partial class DHFootPrintsSystem : EntitySystem
     private void OnMove(Entity<DHFootPrintsComponent> ent, ref MoveEvent args)
     {
         var comp = ent.Comp;
-        if (comp.PrintsColor.A <= 0f)
-            return;
-
         var transform = args.Component;
         var state = TryComp<MobStateComponent>(ent, out var mobState) ? mobState.CurrentState : MobState.Alive;
         var dragging = state is MobState.Critical or MobState.Dead;
+
+        if (comp.PrintsColor.A <= 0f && !dragging)
+            return;
+
         var stepDelta = transform.LocalPosition - comp.StepPos;
         var stepSize = dragging ? comp.DragSize : comp.StepSize;
         if (stepDelta.LengthSquared() <= stepSize * stepSize)
@@ -81,6 +92,20 @@ public sealed partial class DHFootPrintsSystem : EntitySystem
             return;
         }
 
+        // Раненого, которого тащат (или он ползёт), за ним тянется кровавый след — даже если он не наступал в лужу.
+        var color = comp.PrintsColor;
+        var ownBlood = false;
+        if (color.A <= 0f)
+        {
+            if (!dragging || !TryGetWoundColor(ent, out color))
+            {
+                comp.StepPos = transform.LocalPosition;
+                return;
+            }
+
+            ownBlood = true;
+        }
+
         comp.RightStep = !comp.RightStep;
 
         if (dragging)
@@ -89,7 +114,7 @@ public sealed partial class DHFootPrintsSystem : EntitySystem
             {
                 var at = new EntityCoordinates(gridUid, transform.LocalPosition);
                 _decals.TryAddDecal(_random.Pick(comp.DraggingDecals), at.Offset(DecalCenterOffset), out _,
-                    comp.PrintsColor, stepDelta.ToAngle() + DraggingRotationOffset, cleanable: true);
+                    color, stepDelta.ToAngle() + DraggingRotationOffset, cleanable: true);
             }
         }
         else
@@ -100,8 +125,15 @@ public sealed partial class DHFootPrintsSystem : EntitySystem
             var at = new EntityCoordinates(gridUid, transform.LocalPosition + offset);
             var shod = _inventory.TryGetSlotEntity(ent, DHItemStainSystem.ShoesSlot, out _);
             var decal = shod ? comp.ShoesDecal : comp.RightStep ? comp.RightBareDecal : comp.LeftBareDecal;
-            _decals.TryAddDecal(decal, at.Offset(DecalCenterOffset), out _, comp.PrintsColor,
+            _decals.TryAddDecal(decal, at.Offset(DecalCenterOffset), out _, color,
                 transform.LocalRotation + StepRotationOffset, cleanable: true);
+        }
+
+        // Своя кровь не кончается, пока рана открыта; испачканные ноги — бледнеют.
+        if (ownBlood)
+        {
+            comp.StepPos = transform.LocalPosition;
+            return;
         }
 
         var alpha = Math.Max(0f, comp.PrintsColor.A - comp.ColorReduceAlpha);
@@ -155,6 +187,27 @@ public sealed partial class DHFootPrintsSystem : EntitySystem
 
         if (puddle.Solution is { } soln)
             _solutions.RemoveEachReagent(soln, 1);
+    }
+
+    /// <summary>
+    /// Цвет кровавого следа волочения: кровь самого тела, если оно кровоточит или сильно изранено
+    /// (у мёртвого кровотечение может уже не идти, но раны остаются).
+    /// </summary>
+    private bool TryGetWoundColor(EntityUid uid, out Color color)
+    {
+        color = default;
+        if (!TryComp<BloodstreamComponent>(uid, out var blood))
+            return false;
+
+        var wounded = blood.BleedAmount > 0f;
+        if (!wounded && _damageable.GetDamagePerGroup(uid).TryGetValue(BruteGroup, out var brute))
+            wounded = brute.Float() >= WoundedBrute;
+
+        if (!wounded)
+            return false;
+
+        color = blood.BloodReferenceSolution.GetColor(_proto).WithAlpha(DragTrailAlpha);
+        return true;
     }
 
     /// <summary>Сошёл с лужи — снова наступив в неё, опять испачкается.</summary>
