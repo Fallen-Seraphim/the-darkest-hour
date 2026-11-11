@@ -18,7 +18,7 @@ namespace Content.Client._DarkestHour.UI;
 /// Ставится в правый нижний угол контейнера вьюпорта в обеих раскладках (в раздельной — у края игрового окна,
 /// не под чатом).
 /// </summary>
-public sealed class DHHudWidget : PanelContainer
+public sealed partial class DHHudWidget : PanelContainer
 {
     [Dependency] private IEntityManager _entMan = default!;
     [Dependency] private IPlayerManager _player = default!;
