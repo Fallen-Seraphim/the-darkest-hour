@@ -88,3 +88,8 @@ reagent-name-dh-tramadex = tramadex
 reagent-desc-dh-tramadex = An advanced painkiller: stronger than morphine and does not slow you down. Above 30u it poisons the liver.
 reagent-name-dh-neuroblocker = neuroblocker
 reagent-desc-dh-neuroblocker = A combat pain blocker: shuts pain off completely, keeping a wounded soldier on their feet. Above 15u it stops the heart.
+
+dh-alert-pain-name = [color=orange]Pain[/color]
+dh-alert-pain-desc = The stronger the pain, the brighter the icon. Pain shock knocks you down, worse than that and you pass out. Painkillers dull it for a while.
+dh-alert-fracture-name = [color=red]Fracture[/color]
+dh-alert-fracture-desc = A broken bone: without a splint it hurts badly and you limp (or drop things). A splint helps, but the bone only heals after surgery.
