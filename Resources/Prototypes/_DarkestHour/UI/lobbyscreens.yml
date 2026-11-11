@@ -1,0 +1,13 @@
+# Фоны лобби TDH — ночной Лост-Энджелс (выбор автора 2026-11-11). Пока есть хоть один фон с id на «DH»,
+# сервер выбирает только из них (ServerGameTicker.LobbyBackground), ванильные не показываются.
+- type: lobbyBackground
+  id: DHLostAngelsNight
+  background: /Textures/_DarkestHour/LobbyScreens/lost_angels_night.webp
+  title: dh-lobby-background-night-title
+  artist: dh-lobby-background-artist
+
+- type: lobbyBackground
+  id: DHLostAngelsRain
+  background: /Textures/_DarkestHour/LobbyScreens/lost_angels_rain.webp
+  title: dh-lobby-background-rain-title
+  artist: dh-lobby-background-artist
