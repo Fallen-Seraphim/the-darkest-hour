@@ -6,7 +6,11 @@
 #  * кресло водителя — ведёте машину и видите то, что вокруг неё; кресла стрелков — стреляете из орудия (боевой
 #    режим), башня доворачивается за прицелом; командир — ещё и дымовая завеса (если есть);
 #  * броня: пули её почти не берут (10 % урона по постройкам), бронебойные снаряды и взрывы — полностью;
-#  * уничтоженная машина выбрасывает экипаж и десант наружу ранеными и оставляет остов.
+#  * уничтоженная машина выбрасывает экипаж и десант наружу ранеными и оставляет остов;
+#  * БТР и танки ездят по клеткам (DHGridDrive): вперёд, назад медленнее, вбок — поворот на месте; людей сбивают,
+#    баррикады и лёгкие постройки ломают, о стены и технику упираются;
+#  * модули (hardpoints.yml): колёса/гусеницы, орудия, поддержка, броня танка, бортовые пулемёты БТР — у каждого своя
+#    прочность, снимаются ключом, чинятся сваркой; у механика-водителя гудок и фары, люки запираются изнутри.
 
 # ------------------------------------------------------------------ основа
 
@@ -68,6 +72,10 @@
   parent: DHVehicleBase
   id: DHVehicleAPCBase
   components:
+  # Езда по клеткам, как в CM-SS13 / RMC (решение автора 2026-11-11).
+  - type: DHGridDrive
+    tilesPerSecond: 3.5
+    smashDamage: 300
   - type: Fixtures
     fixtures:
       fix1:
@@ -144,9 +152,22 @@
     turretLayers: [ ]
     exitOffset: 0,2.6
     wreck: DHVehicleWreckRAM45
-    weapons:
-      primary: DHVehicleGunAutocannon30
-      secondary: DHVehicleGunHMG
+  - type: DHVehicleHardpoints
+    family: RAM45
+    slots:
+      Primary: primary
+      Secondary: secondary
+      Support: support
+      Wheels: wheels
+      PortLeft: ""
+      PortRight: ""
+    starting:
+      Primary: DHHardpointRAM45DualCannon
+      Secondary: DHHardpointRAM45FrontCannon
+      Support: DHHardpointRAM45CommsRelay
+      Wheels: DHHardpointRAM45Wheels
+      PortLeft: DHHardpointPortGun
+      PortRight: DHHardpointPortGunRight
   - type: DHCommsRelay
     channels:
     - DHRepublic
@@ -217,9 +238,22 @@
     turretPivots: [ "0.02,0.02", "0.02,-0.09", "-0.03,-0.08", "0.06,-0.08" ] # юг, север, восток, запад
     exitOffset: 0,2.9
     wreck: DHVehicleWreckIM30
-    weapons:
-      primary: DHVehicleGunAutocannon30
-      secondary: DHVehicleGunHMG
+  - type: DHVehicleHardpoints
+    family: IM30
+    slots:
+      Primary: primary
+      Secondary: ""
+      Support: support
+      Wheels: wheels
+      PortLeft: ""
+      PortRight: ""
+    starting:
+      Primary: DHHardpointIM30Autocannon
+      Secondary: DHHardpointIM30CoaxHMG
+      Support: DHHardpointIM30FlareLauncher
+      Wheels: DHHardpointIM30Wheels
+      PortLeft: DHHardpointPortGun
+      PortRight: DHHardpointPortGunRight
   - type: DHCommsRelay
     channels:
     - Syndicate
@@ -235,6 +269,10 @@
   parent: DHVehicleBase
   id: DHVehicleTankBase
   components:
+  - type: DHGridDrive
+    tilesPerSecond: 2.5
+    turnTime: 1.2
+    smashDamage: 500
   - type: MovementSpeedModifier
     weightlessModifier: 0
     acceleration: 1
@@ -324,10 +362,20 @@
     turretPivots: [ "0,0.36", "0,-0.16", "-0.16,0.2", "0.16,0.2" ] # юг, север, восток, запад
     exitOffset: 0,2.6
     wreck: DHVehicleWreckTankRepublic
-    smoke: true
-    weapons:
-      primary: DHVehicleGunTankCannon
-      secondary: DHVehicleGunCoaxMG
+  - type: DHVehicleHardpoints
+    family: TankRepublic
+    slots:
+      Primary: primary
+      Secondary: secondary
+      Support: support
+      Armor: armor
+      Wheels: wheels
+    starting:
+      Primary: DHHardpointTankRepublicCannon
+      Secondary: DHHardpointTankRepublicCoaxMG
+      Support: DHHardpointTankRepublicSmoke
+      Armor: DHHardpointTankRepublicArmor
+      Wheels: DHHardpointTankRepublicTreads
 
 - type: entity
   parent: DHVehicleTankBase
@@ -375,10 +423,20 @@
     turretPivots: [ "0,0.3", "0,0.25", "-0.03,0.23", "0.03,0.23" ] # юг, север, восток, запад
     exitOffset: 0,2.6
     wreck: DHVehicleWreckTankEmpire
-    smoke: true
-    weapons:
-      primary: DHVehicleGunTankCannon
-      secondary: DHVehicleGunCoaxMG
+  - type: DHVehicleHardpoints
+    family: TankEmpire
+    slots:
+      Primary: primary
+      Secondary: secondary
+      Support: support
+      Armor: armor
+      Wheels: wheels
+    starting:
+      Primary: DHHardpointTankEmpireCannon
+      Secondary: DHHardpointTankEmpireCupolaMG
+      Support: DHHardpointTankEmpireSmoke
+      Armor: DHHardpointTankEmpireArmor
+      Wheels: DHHardpointTankEmpireTreads
 
 # ------------------------------------------------------------------ корпуса (о них упираются люди)
 
@@ -859,10 +917,12 @@
   parent: DHVehicleInteriorPropBase
   id: DHVehicleViewport
   name: periscope
-  description: A vision block in the hull.
+  description: A vision block in the hull. Use it to look outside; step away to stop.
   components:
   - type: Sprite
     state: viewport
+  - type: InteractionOutline
+  - type: DHVehiclePeriscope
 
 - type: entity
   parent: DHVehicleInteriorPropBase
@@ -938,11 +998,15 @@
   - { proto: DHVehicleAmmoAutocannon, pos: "1,2" }
   - { proto: DHVehicleAmmoMG, pos: "5,2" }
   - { proto: DHVehicleInteriorLight, pos: "3,3" }
+  - { proto: DHVehicleConsolePortRight, pos: "0,5", onWall: true }
+  - { proto: DHVehicleConsolePortLeft, pos: "6,5", onWall: true }
   - { proto: DHVehicleSeatPassenger, pos: "1,4", rot: 90 }
   - { proto: DHVehicleSeatPassenger, pos: "1,5", rot: 90 }
   - { proto: DHVehicleSeatPassenger, pos: "1,6", rot: 90 }
   - { proto: DHVehicleSeatPassenger, pos: "1,7", rot: 90 }
   - { proto: DHVehicleTacticalMap, pos: "3,5" }
+  - { proto: DHVehicleViewport, pos: "0,7", onWall: true }
+  - { proto: DHVehicleViewport, pos: "6,7", onWall: true }
   - { proto: DHVehicleSeatPassenger, pos: "5,4", rot: -90 }
   - { proto: DHVehicleSeatPassenger, pos: "5,5", rot: -90 }
   - { proto: DHVehicleSeatPassenger, pos: "5,6", rot: -90 }

@@ -32,7 +32,10 @@ public sealed partial class DHVehicleServerSystem
                 PlayEngine((uid, dh), EngineStartSound);
 
             dh.EngineRunning = running;
-            if (!running || physics.LinearVelocity.LengthSquared() < 0.04f || now < dh.NextEngineSound)
+            // По клеткам машину двигает DHGridDriveSystem — скорости у тела нет, смотрим на шаг.
+            var moving = physics.LinearVelocity.LengthSquared() >= 0.04f ||
+                         TryComp<DHGridDriveComponent>(uid, out var drive) && drive.Moving;
+            if (!running || !moving || now < dh.NextEngineSound)
                 continue;
 
             dh.NextEngineSound = now + EngineRunningCooldown;

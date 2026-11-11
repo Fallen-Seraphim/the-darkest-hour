@@ -2,6 +2,7 @@ using System.Numerics;
 using Content.Shared._DarkestHour.Assault;
 using Content.Shared.Actions;
 using Content.Shared.DoAfter;
+using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
@@ -112,6 +113,19 @@ public sealed partial class DHVehicleComponent : Component
 
     [DataField]
     public float RunoverDamage = 20f;
+
+    /// <summary>Люки заперты изнутри: снаружи не войти.</summary>
+    [DataField, AutoNetworkedField]
+    public bool Locked;
+
+    [DataField]
+    public EntProtoId HornAction = "DHActionVehicleHorn";
+
+    [DataField]
+    public EntProtoId LightsAction = "DHActionVehicleLights";
+
+    [DataField]
+    public SoundSpecifier HornSound = new SoundPathSpecifier("/Audio/Effects/Vehicle/carhorn.ogg");
 }
 
 public enum DHVehicleSeatRole : byte
@@ -156,6 +170,12 @@ public sealed partial class DHVehicleStationComponent : Component
 
     [ViewVariables]
     public EntityUid? SmokeActionEntity;
+
+    [ViewVariables]
+    public EntityUid? HornActionEntity;
+
+    [ViewVariables]
+    public EntityUid? LightsActionEntity;
 
     /// <summary>Предел отдаления камеры работающего до того, как он сел за пульт (вернуть потом).</summary>
     [ViewVariables]
@@ -225,6 +245,18 @@ public sealed partial class DHVehicleGunComponent : Component
     /// <summary>Орудие в башне: башня доворачивается за прицелом.</summary>
     [DataField]
     public bool Turret = true;
+
+    /// <summary>Модуль орудия разбит: не стреляет.</summary>
+    [DataField, AutoNetworkedField]
+    public bool Disabled;
+
+    /// <summary>Сектор обстрела в градусах (360 — во все стороны). Бортовые порты бьют только в свой борт.</summary>
+    [DataField]
+    public float Arc = 360f;
+
+    /// <summary>Середина сектора относительно корпуса, градусы (0 — вперёд, по ходу машины; 90 — влево).</summary>
+    [DataField]
+    public float ArcCenter;
 }
 
 /// <summary>Отсек: грид внутри машины.</summary>

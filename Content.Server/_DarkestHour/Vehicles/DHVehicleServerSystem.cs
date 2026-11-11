@@ -74,6 +74,8 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
         SubscribeLocalEvent<DHVehicleComponent, DHVehicleSmokeActionEvent>(OnSmoke);
         SubscribeLocalEvent<DHVehicleHatchComponent, InteractHandEvent>(OnHatchInteract);
         InitializeAmmo();
+        InitializeHardpoints();
+        InitializeCrew();
     }
 
     #region Появление: отсек и орудия
@@ -231,6 +233,12 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
             return;
 
         args.Handled = true;
+        if (ent.Comp.Locked)
+        {
+            _popup.PopupEntity(Loc.GetString("dh-vehicle-locked"), ent, args.User);
+            return;
+        }
+
         _popup.PopupEntity(Loc.GetString("dh-vehicle-entering", ("vehicle", ent.Owner)), ent, args.User);
         _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.EnterTime,
             new DHVehicleEnterDoAfterEvent(), ent, ent)

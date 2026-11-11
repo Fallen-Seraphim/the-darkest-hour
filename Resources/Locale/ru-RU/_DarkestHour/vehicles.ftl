@@ -14,3 +14,32 @@ dh-tow-hitch-verb = Прицепить к грузовику
 dh-tow-unhitch-verb = Отцепить от грузовика
 dh-tow-hitched = {CAPITALIZE($gun)} прицеплена к машине «{$vehicle}».
 dh-tow-unhitched = {CAPITALIZE($gun)} отцеплена.
+
+# Модули техники (DHVehicleServerSystem.Hardpoints)
+dh-hardpoint-wrong-vehicle = Этот модуль не подходит к этой машине.
+dh-hardpoint-slot-taken = Место уже занято — сначала снимите старый модуль гаечным ключом.
+dh-hardpoint-installed = Вы ставите { $module }.
+dh-hardpoint-removed = Вы снимаете { $module }.
+dh-hardpoint-intact = Модуль цел.
+dh-hardpoint-broken = { CAPITALIZE($module) } выведен из строя!
+dh-hardpoint-verb-remove = Снять: { $module }
+dh-hardpoint-verb-repair = Чинить: { $module } ({ $percent }%)
+dh-hardpoint-examine-header = [bold]Модули:[/bold]
+dh-hardpoint-examine-empty = { $slot }: [color=gray]пусто[/color]
+dh-hardpoint-examine-module = { $slot }: { $module } — [color={ $color }]{ $percent }%[/color]
+dh-hardpoint-examine-integrity = Целостность: [color={ $color }]{ $percent }%[/color]. Чинится сваркой.
+dh-hardpoint-slot-primary = основное орудие
+dh-hardpoint-slot-secondary = второе орудие
+dh-hardpoint-slot-support = поддержка
+dh-hardpoint-slot-armor = броня
+dh-hardpoint-slot-wheels = колёса / гусеницы
+dh-hardpoint-slot-port-left = левый порт
+dh-hardpoint-slot-port-right = правый порт
+
+# Экипаж (DHVehicleServerSystem.Crew)
+dh-vehicle-locked = Люки заперты изнутри.
+dh-vehicle-verb-lock = Запереть люки
+dh-vehicle-verb-unlock = Отпереть люки
+dh-vehicle-locked-now = Вы запираете люки. Снаружи никто не войдёт.
+dh-vehicle-unlocked-now = Вы отпираете люки.
+dh-vehicle-periscope-look = Вы смотрите в перископ. Отойдите, чтобы перестать.
