@@ -33,6 +33,7 @@
 - type: reagent
   id: SpaceCleaner
   name: reagent-name-space-cleaner
+  cleansItemStains: true # DarkestHour: моющее средство смывает кровь со снаряжения
   desc: reagent-desc-space-cleaner
   physicalDesc: reagent-physical-desc-lemony-fresh
   flavor: bitter
