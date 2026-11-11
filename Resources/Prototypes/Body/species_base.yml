@@ -4,7 +4,6 @@
   id: BaseSpeciesMob
   components:
   - type: DHCrawlWhileCrit # DarkestHour: ползти в крите
-  - type: DHFootPrints # DarkestHour: кровавые следы и след волочения (как в CMU)
   - type: DHZViewer # DarkestHour: посмотреть вверх/вниз (Z-уровни)
   - type: Crawler
 
@@ -20,6 +19,7 @@
   id: BaseSpeciesMobNoCrawl
   save: false
   components:
+  - type: DHFootPrints # DarkestHour: кровавые следы и след волочения (как в CMU); здесь — общий предок всех видов
   - type: DamageVisuals
     thresholds: [ 10, 20, 30, 50, 70, 100 ]
     targetLayers:

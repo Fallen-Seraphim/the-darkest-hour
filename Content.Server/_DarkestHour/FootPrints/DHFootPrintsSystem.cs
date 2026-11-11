@@ -53,6 +53,7 @@ public sealed partial class DHFootPrintsSystem : EntitySystem
         SubscribeLocalEvent<DHFootPrintsComponent, ComponentStartup>(OnStartup);
         SubscribeLocalEvent<DHFootPrintsComponent, MoveEvent>(OnMove);
         SubscribeLocalEvent<DHPuddleFootPrintsComponent, StartCollideEvent>(OnPuddleCollide);
+        SubscribeLocalEvent<DHPuddleFootPrintsComponent, EndCollideEvent>(OnPuddleEndCollide);
     }
 
     private void OnStartup(Entity<DHFootPrintsComponent> ent, ref ComponentStartup args)
@@ -154,6 +155,12 @@ public sealed partial class DHFootPrintsSystem : EntitySystem
 
         if (puddle.Solution is { } soln)
             _solutions.RemoveEachReagent(soln, 1);
+    }
+
+    /// <summary>Сошёл с лужи — снова наступив в неё, опять испачкается.</summary>
+    private void OnPuddleEndCollide(Entity<DHPuddleFootPrintsComponent> ent, ref EndCollideEvent args)
+    {
+        ent.Comp.ActivatedEntities.Remove(args.OtherEntity);
     }
 
     /// <summary>Обувь, наступившая в лужу: самый объёмный реагент пачкает её (кровь) или отмывает (вода).</summary>
