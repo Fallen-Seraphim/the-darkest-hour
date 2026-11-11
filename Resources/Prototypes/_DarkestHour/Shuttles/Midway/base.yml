@@ -1,0 +1,233 @@
+# Челнок «Мидуэй» (решение автора 2026-11-11): десантный челнок ГОВФОРа из CMU-14 (класс «Мохок»), перенесён
+# с одной палубой. Внешний вид — из CM-SS13 (CC-BY-SA-3.0, PR cmss13-devs/cmss13#12866), механики свои:
+# полёт — DHDropshipSystem, двери — обычные шлюзы, освещение всегда запитано. Детали корпуса (parts.yml)
+# сгенерированы из прототипов CMU, сюда — общие основы.
+
+- type: entity
+  abstract: true
+  parent: CMBaseWallInvincible
+  id: DHMidwayBulkheadBase
+  name: dropship bulkhead
+  description: Armoured plating of a Midway-class dropship.
+  suffix: Midway
+
+- type: entity
+  abstract: true
+  id: DHMidwayHullBase
+  name: dropship hull plating
+  description: Outer plating of a Midway-class dropship.
+  suffix: Midway
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: false
+    # Детали корпуса рисуются над пустыми клетками и не должны «соскальзывать» на карту при перемещении грида.
+    gridTraversal: false
+  - type: Sprite
+    drawdepth: Walls
+
+- type: entity
+  abstract: true
+  parent: DHMidwayHullBase
+  id: DHMidwayControlBase
+  name: hatch control panel
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    drawdepth: WallMountedItems
+  - type: Clickable
+  - type: InteractionOutline
+
+- type: entity
+  abstract: true
+  parent: DHMidwayHullBase
+  id: DHMidwayRailingBase
+  name: boarding ramp railing
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,-0.3"
+        density: 1000
+        mask:
+        - TableMask
+        layer:
+        - TableLayer
+
+- type: entity
+  abstract: true
+  parent: DHMidwayControlBase
+  id: DHMidwayWallmountBase
+  name: dropship fitting
+
+- type: entity
+  abstract: true
+  parent: BaseStructure
+  id: DHMidwayMachineBase
+  name: dropship console
+  description: A dropship station. This one is wired to the gunnery and camera systems, which the Imperial refit left disconnected.
+  suffix: Midway
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    drawdepth: SmallObjects
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 60
+        hard: false
+        mask:
+        - MachineMask
+        layer:
+        - LowImpassable
+
+- type: entity
+  abstract: true
+  parent: ChairBase
+  id: DHMidwaySeatBase
+  name: passenger seat
+  description: A sturdy dropship seat with a brace that lowers over your body. Fasten your seatbelt before landing.
+  suffix: Midway
+  components:
+  - type: Sprite
+    noRot: false
+  - type: Strap
+    buckleOffset: "0,0"
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.StrapVisuals.State:
+        seat:
+          True: { state: passenger_chair_buckled }
+          False: { state: passenger_chair }
+
+- type: entity
+  abstract: true
+  parent: RMCLightFixtureAlwaysPowered
+  id: DHMidwayLightBase
+  name: blue dropship light fixture
+  suffix: Midway
+  components:
+  - type: Transform
+    anchored: true
+    noRot: false
+  - type: Sprite
+    noRot: false
+  - type: PointLight
+    color: "#D2E3EC"
+  - type: PoweredLightVisuals
+    spriteStateMap:
+      Empty: bptube-empty
+      Off: bptube0
+      On: bptube1
+      Broken: bptube-broken
+      Burned: bptube-burned
+
+- type: entity
+  abstract: true
+  parent: Airlock
+  id: DHMidwayDoorBase
+  name: dropship hatch
+  suffix: Midway
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/dropship_door.rsi
+    snapCardinals: false
+    layers:
+    - state: door_closed
+      map: [ "enum.DoorVisualLayers.Base" ]
+    - state: door_closed
+      visible: false
+      map: [ "enum.DoorVisualLayers.BaseUnlit" ]
+    - sprite: _RMC14/Structures/Doors/Airlocks/personal_door.rsi
+      state: welded
+      visible: false
+      map: [ "enum.WeldableLayers.BaseWelded" ]
+    - state: door_locked
+      visible: false
+      map: [ "enum.DoorVisualLayers.BaseBolted" ]
+    - state: door_spark
+      visible: false
+      map: [ "enum.DoorVisualLayers.BaseEmergencyAccess" ]
+    - sprite: _RMC14/Structures/Doors/Airlocks/personal_door.rsi
+      state: panel_open
+      visible: false
+      map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+  - type: Door
+    openSpriteState: door_open
+    closedSpriteState: door_closed
+    openingSpriteState: door_opening
+    closingSpriteState: door_closing
+    canCrush: false
+    openSound:
+      path: /Audio/_DarkestHour/Midway/airlock.ogg
+    closeSound:
+      path: /Audio/_DarkestHour/Midway/airlock.ogg
+  - type: Airlock
+    openSpriteState: door_open
+    closedSpriteState: door_closed
+    openingSpriteState: door_opening
+    closingSpriteState: door_closing
+    denySpriteState: door_deny
+    animatePanel: false
+  - type: ApcPowerReceiver
+    needsPower: false
+    powerLoad: 0
+
+# Пульт пилота: тот же автопилот, что у прежнего челнока (DHDropshipConsole), в облике пульта «Мидуэя».
+- type: entity
+  abstract: true
+  parent: BaseStructure
+  id: DHMidwayFlightConsoleBase
+  name: dropship flight computer
+  description: The autopilot of a suborbital dropship. Pick a landing zone or the carrier's hangar, and the ship flies there on its own.
+  suffix: Midway
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    drawdepth: SmallObjects
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 60
+        hard: false
+        mask:
+        - MachineMask
+        layer:
+        - LowImpassable
+  - type: DHDropshipConsole
+  - type: ActivatableUI
+    key: enum.DHDropshipUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHDropshipUiKey.Key:
+        type: DHDropshipBoundUserInterface
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#5ac8e8"

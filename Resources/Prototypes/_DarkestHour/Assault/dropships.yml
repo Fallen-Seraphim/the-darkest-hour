@@ -128,3 +128,20 @@
     color: "#ffb347"
   - type: TimedDespawn
     lifetime: 10
+
+# Стоянка челнока в ангаре авианосца (DHDropshipHangarComponent). Ставится на гриде авианосца в клетку, где должен
+# оказаться центр челнока (для «Мидуэя» — клетка между бортовыми люками), с нужным поворотом; под челноком в полу
+# оставляется вырез по его клеткам. В начале раунда на каждом маркере загружается челнок, туда же он возвращается.
+- type: entity
+  parent: MarkerBase
+  id: DHDropshipHangarMidway
+  name: dropship hangar spot
+  suffix: Midway
+  components:
+  - type: Transform
+    anchored: false
+    gridTraversal: false
+  - type: Sprite
+    state: blue
+  - type: DHDropshipHangar
+    map: /Maps/_DarkestHour/Shuttles/midway.yml
