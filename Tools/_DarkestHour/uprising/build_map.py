@@ -738,6 +738,7 @@ def police():
         g.box(cx, y1 - 6, cx + 4, y1 - 1, W_POLICE)
         g.door(cx + 2, y1 - 6, 'DHLAAirlockPoliceGlassLocked')
         g.put('CMBed', cx + 2, y1 - 3)
+        g.put('DHPoliceCell', cx + 2, y1 - 4)        # камера: арест члена ОФСК (задания, решение автора 2026-11-12)
     # оружейная (решение автора 2026-11-06): доступ «оружейная Военной Полиции» — начальник, заместитель, надзиратель
     g.box(x1 - 12, y1 - 7, x1 - 1, y1 - 1, W_POLICE)
     g.door(x1 - 6, y1 - 7, 'DHLAAirlockPoliceArmoryLocked')
@@ -774,6 +775,10 @@ def police():
     for x in range(x0 + 4, x1 - 4, 4):
         g.put('CMTableReinforced', x, y0 + 3)
         g.put('CMChairComfyBlue', x, y0 + 4, ROT_S)
+    # дежурная часть: компьютер заданий и терминал базы данных; сервер базы — в архиве (−1)
+    g.put('DHComputerTasksPolice', x0 + 12, y0 + 3, ROT_N)
+    g.put('DHComputerPoliceDatabase', x0 + 8, y0 + 3, ROT_N)
+    L(-1).put('DHPoliceDatabaseServer', x0 + 4, y1 - 2)
     # 1-й уровень — кабинеты и командир, 2–3 — казарма
     lv = L(1)
     furnish_office(lv, x0, y0, x1, y1)
@@ -803,6 +808,7 @@ def police():
         L(-2).put('CrateGenericSteel', x, y0 + 2)
         L(-3).box(x, y1 - 5, x + 3, y1 - 1, W_POLICE)
         L(-3).door(x + 1, y1 - 5, 'DHLAAirlockPoliceLocked')
+        L(-3).put('DHPoliceCell', x + 1, y1 - 3)
     # тюремные надзиратели — у изолятора
     L(-3).put('SpawnPointDHLAMPWarden', x0 + 4, y1 - 7)
     L(-3).put('SpawnPointDHLAMPWarden', x0 + 6, y1 - 7)
@@ -1200,6 +1206,23 @@ def check(protos, tiles):
     return not bad and not badt
 
 
+def task_spots():
+    """Места для закладок и бомб заданий военпола (решение автора 2026-11-12): случайные свободные клетки пола на
+    уровнях −3..+1, кроме здания военпола и лестничных проёмов."""
+    rnd = random.Random(1112)
+    mx0, my0, mx1, my1 = MP
+    for z, count in ((-3, 10), (-2, 12), (-1, 12), (0, 24), (1, 10)):
+        lv = L(z)
+        taken = {(e[1], e[2]) for e in lv.ents}
+        shafts = set(SHAFT_CELLS.get(z, ())) | set(STAIR_CELLS.get(z, ()))
+        cells = sorted(c for c in lv.tiles
+                       if c not in lv.walls and c not in taken and c not in shafts
+                       and not (mx0 <= c[0] <= mx1 and my0 <= c[1] <= my1)
+                       and X0 <= c[0] <= X1 and Y0 <= c[1] <= Y1)
+        for c in rnd.sample(cells, min(count, len(cells))):
+            lv.put('DHTaskSpot', c[0], c[1])
+
+
 def main():
     streets()
     square()
@@ -1218,6 +1241,7 @@ def main():
     catacombs()
     clean_passages()
     rock_walls()
+    task_spots()
 
     # проёмы лестниц: пол убирается (на земле — нет, там под ним грунт планеты)
     for z, cells in SHAFT_CELLS.items():

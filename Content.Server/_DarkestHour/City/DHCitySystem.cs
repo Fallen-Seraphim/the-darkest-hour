@@ -35,6 +35,7 @@ public sealed partial class DHCityBriefingComponent : Component
 public sealed partial class DHCitySystem : EntitySystem
 {
     [Dependency] private DHBankSystem _bank = default!;
+    [Dependency] private DHPoliceDatabaseSystem _database = default!;
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
     [Dependency] private SharedIdCardSystem _idCard = default!;
@@ -222,15 +223,33 @@ public sealed partial class DHCitySystem : EntitySystem
     private void Fill(Entity<DHPassportComponent> passport, string name,
         (string Birth, string Place, string Sex, string Species) data)
     {
-        passport.Comp.Number = $"LA {_random.Next(10, 100)} {_random.Next(100000, 1000000)}";
+        // Серия номера — две последние цифры года выдачи (правило, по которому военпол проверяет базу). Поддельный
+        // паспорт ОФСК выдаёт только серия: она на год не совпадает с датой выдачи.
+        var issued = new DateTime(DHCityClock.Year - _random.Next(1, 10), _random.Next(1, 13), _random.Next(1, 29));
+        // Паспорт выдаётся не раньше 14 лет (тоже правило проверки базы).
+        if (DateTime.TryParseExact(data.Birth, "dd.MM.yyyy", null, System.Globalization.DateTimeStyles.None, out var born) &&
+            issued < born.AddYears(14))
+        {
+            issued = born.AddYears(14).AddDays(_random.Next(0, 200));
+            if (issued > DHCityClock.Start)
+                issued = DHCityClock.Start.AddDays(-_random.Next(1, 30));
+        }
+
+        var series = issued.Year % 100;
+        if (passport.Comp.Forged)
+            series = (series + (_random.Prob(0.5f) ? 1 : 99)) % 100;
+
+        passport.Comp.Number = $"LA {series:D2} {_random.Next(100000, 1000000)}";
         passport.Comp.Holder = name;
         passport.Comp.BirthDate = data.Birth;
         passport.Comp.BirthPlace = data.Place;
         passport.Comp.Sex = data.Sex;
         passport.Comp.Species = data.Species;
-        passport.Comp.Issued = new DateTime(DHCityClock.Year - _random.Next(1, 10), _random.Next(1, 13), _random.Next(1, 29))
-            .ToString("dd.MM.yyyy");
+        passport.Comp.Issued = issued.ToString("dd.MM.yyyy");
         Dirty(passport);
+
+        // В базу данных военпола (поддельный — с пометкой: за его удаление военполу платят больше).
+        _database.AddRecord(passport.Comp, passport.Comp.Forged);
 
         // Паспорт не в слоте документа (поддельный в сумке): имя на удостоверении ставим сами — станция заполняет
         // только карту в слоте.

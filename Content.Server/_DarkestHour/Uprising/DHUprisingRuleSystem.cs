@@ -148,16 +148,19 @@ public sealed partial class DHUprisingRuleSystem : GameRuleSystem<DHUprisingRule
 
     private void OnMemberMobState(Entity<DHUprisingMemberComponent> ent, ref MobStateChangedEvent args)
     {
-        if (args.NewMobState != MobState.Dead || ent.Comp.Combatant ||
-            ent.Comp.Side is not (DHUprisingSide.Civilian or DHUprisingSide.Vanguard))
-        {
+        if (args.NewMobState != MobState.Dead)
             return;
-        }
 
-        // Кто убил мирного: по источнику урона.
+        // Кто убил: по источнику урона.
         DHUprisingSide? killer = null;
         if (args.Origin is { } origin && TryComp<DHUprisingMemberComponent>(origin, out var originMember))
             killer = originMember.Side;
+
+        // Награды за убийства (задания «Восстания», DHTaskSystem).
+        RaiseLocalEvent(new DHUprisingKilledEvent(ent, ent.Comp.Side, killer));
+
+        if (ent.Comp.Combatant || ent.Comp.Side is not (DHUprisingSide.Civilian or DHUprisingSide.Vanguard))
+            return;
 
         var query = QueryActiveRules();
         while (query.MoveNext(out _, out var rule, out _, out _))
