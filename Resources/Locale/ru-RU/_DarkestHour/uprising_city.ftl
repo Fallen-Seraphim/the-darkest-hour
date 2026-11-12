@@ -130,13 +130,13 @@ dh-bank-org-front = ООО «Южный ветер»
 dh-budget-ui-title-front = Бюджет ОФСК
 dh-city-briefing-org = Счёт организации «{ $org }»: { $number }, логин { $login }, PIN-код { $password }. Реквизиты — на бумаге в сумке.
 dh-bank-requisites-text = [head=2]Реквизиты счёта[/head]
-    [bold]{ $org }[/bold]
+    { "" }[bold]{ $org }[/bold]
 
     Номер счёта: [bold]{ $number }[/bold]
     Логин: [bold]{ $login }[/bold]
     PIN-код: [bold]{ $password }[/bold]
 
-    [italic]Банк Лост-Энджелса. Не передавайте реквизиты посторонним.[/italic]
+    { "" }[italic]Банк Лост-Энджелса. Не передавайте реквизиты посторонним.[/italic]
 
 dh-cheque-ui-title = Чековая машинка «Банк LA-V»
 dh-cheque-ui-section-seller = ПРОДАВЕЦ

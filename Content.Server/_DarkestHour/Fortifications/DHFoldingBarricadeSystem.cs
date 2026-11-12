@@ -66,7 +66,8 @@ public sealed partial class DHFoldingBarricadeSystem : EntitySystem
         SubscribeLocalEvent<DHFoldingBarricadeStackComponent, DHFoldingBarricadeRepairDoAfterEvent>(OnRepairDoAfter);
         SubscribeLocalEvent<DHFoldingBarricadeStackComponent, ExaminedEvent>(OnStackExamined);
 
-        SubscribeLocalEvent<DHFoldingBarricadeComponent, InteractUsingEvent>(OnBarricadeInteractUsing);
+        SubscribeLocalEvent<DHFoldingBarricadeComponent, InteractUsingEvent>(OnBarricadeInteractUsing,
+            before: new[] { typeof(StackSystem) });
         SubscribeLocalEvent<DHFoldingBarricadeComponent, GetVerbsEvent<AlternativeVerb>>(OnBarricadeVerbs);
         SubscribeLocalEvent<DHFoldingBarricadeComponent, CanDragEvent>(OnCanDrag);
         SubscribeLocalEvent<DHFoldingBarricadeComponent, CanDropDraggedEvent>(OnCanDropDragged);

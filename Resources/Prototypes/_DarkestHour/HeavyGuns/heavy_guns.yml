@@ -635,9 +635,9 @@
     walkModifier: 0.8
     sprintModifier: 0.8
   - type: DHInterceptorAmmo
-  - type: DHPowerLoaderGrabbable
     kind: Missile
     amount: 1
+  - type: DHPowerLoaderGrabbable
   - type: StaticPrice
     price: 300
 
@@ -654,9 +654,9 @@
     size: Large
     sprite: _DarkestHour/Objects/Weapons/HeavyGuns/interceptor_ammo.rsi
   - type: DHInterceptorAmmo
-  - type: DHPowerLoaderGrabbable
     kind: Autocannon
     amount: 4
+  - type: DHPowerLoaderGrabbable
   - type: StaticPrice
     price: 100
 

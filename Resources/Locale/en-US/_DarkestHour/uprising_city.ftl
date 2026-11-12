@@ -130,13 +130,13 @@ dh-bank-org-front = South Wind LLC
 dh-budget-ui-title-front = LFFC budget
 dh-city-briefing-org = Organisation account "{ $org }": { $number }, login { $login }, PIN { $password }. The details are on paper in your bag.
 dh-bank-requisites-text = [head=2]Account details[/head]
-    [bold]{ $org }[/bold]
+    { "" }[bold]{ $org }[/bold]
 
     Account number: [bold]{ $number }[/bold]
     Login: [bold]{ $login }[/bold]
     PIN: [bold]{ $password }[/bold]
 
-    [italic]Bank of Lost Angels. Do not share these details.[/italic]
+    { "" }[italic]Bank of Lost Angels. Do not share these details.[/italic]
 
 dh-cheque-ui-title = Bank of LA-V cheque machine
 dh-cheque-ui-section-seller = SELLER
