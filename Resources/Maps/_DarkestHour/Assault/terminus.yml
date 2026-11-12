@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 10/30/2026 11:55:31
-  entityCount: 34193
+  entityCount: 34195
 maps:
 - 1
 grids:
@@ -174959,5 +174959,20 @@ entities:
     components:
     - type: Transform
       pos: 8.5,-16.5
+      parent: 1
+- proto: DHSupplyElevator
+  entities:
+  - uid: 34937
+    components:
+    - type: Transform
+      pos: 9.5,-21.5
+      parent: 1
+- proto: DHComputerSupplyRepublic
+  entities:
+  - uid: 34938
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 12.5,-20.5
       parent: 1
 ...

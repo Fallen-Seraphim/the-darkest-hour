@@ -28,7 +28,7 @@ dh-tacmap-title = Tactical map
 dh-tacmap-loading = Loading terrain...
 dh-tacmap-no-surface = No planet surface data.
 dh-tacmap-reset = Fit
-dh-tacmap-legend = Wheel — zoom, drag — pan. Squares — capture zones, frames — landing zones, crosses — laser marks.
+dh-tacmap-legend = Wheel — zoom, drag — pan. Squares — capture zones, frames — landing zones, crosses — laser marks. Enemies — dots (troops) and squares (vehicles) spotted by your troops, vehicles, radars and detectors; pink — the last global scan, triangles — attack aircraft radar.
 dh-tacmap-laser-mark = Mark { $code }
 
 cmd-dhcontrolpoint-desc = Sets the owner of a capture zone.

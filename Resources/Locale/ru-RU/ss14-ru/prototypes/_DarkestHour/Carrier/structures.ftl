@@ -1,0 +1,12 @@
+ent-DHCarrierWall = переборка
+    .desc = Стальная переборка имперского военного корабля.
+ent-DHCarrierWallWhite = стерильная переборка
+    .desc = Переборка с моющимся белым покрытием, как на медицинской и лабораторной палубах.
+ent-DHCarrierHull = бронированный корпус
+    .desc = Бронированная внешняя обшивка имперского военного корабля.
+ent-DHCarrierWindow = бронированное окно
+    .desc = Толстое бронированное окно имперского военного корабля.
+ent-DHFusionReactorShip = { ent-DHFusionReactorFueled }
+    .desc = { ent-DHFusionReactorFueled.desc }
+ent-DHHangarAirSeal = воздушная завеса ангара
+    .desc = Силовая завеса по краю отсека челнока: воздух палубы держит, а людей пропускает.

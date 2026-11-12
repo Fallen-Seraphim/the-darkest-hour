@@ -1,0 +1,19 @@
+# Плитка «Алмаера» (Prototypes/_DarkestHour/Carrier/tiles.yml)
+tiles-cm-black = чёрная металлическая плитка
+tiles-cm-cargo = грузовая плитка
+tiles-cm-default = металлическая плитка
+tiles-cm-default-no-weeds = металлическая плитка
+tiles-cm-office = офисная плитка
+tiles-cm-plate = металлическая плита
+tiles-cm-plating = обшивка
+tiles-cm-sterile = стерильная металлическая плитка
+tiles-cm-tcomms = плитка узла связи
+tiles-cm-white = белая металлическая плитка
+tiles-cm-white-sterile = белая стерильная плитка
+tiles-rmc-empty = пустота
+tiles-rmc-mono = однотонная плитка
+tiles-rmc-outer-hull = внешняя обшивка корпуса
+tiles-rmc-research = плитка изоляционной лаборатории
+tiles-rmc-striped = плитка с разметкой
+tiles-rmc-tcomms = плитка узла связи
+tiles-rmc-underplating-no-weeds = обшивка

@@ -28,6 +28,7 @@ public sealed partial class DHGearVendorSystem : SharedDHGearVendorSystem
         base.Initialize();
 
         SubscribeLocalEvent<DHGearVendorComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<DHGearVendorComponent, BoundUIOpenedEvent>(OnOpened);
         SubscribeLocalEvent<DHGearVendorComponent, DHGearVendorRefreshMessage>(OnRefresh);
         SubscribeLocalEvent<DHGearVendorComponent, DHGearVendorVendMessage>(OnVend);
     }
@@ -46,9 +47,14 @@ public sealed partial class DHGearVendorSystem : SharedDHGearVendorSystem
         }
     }
 
+    private void OnOpened(Entity<DHGearVendorComponent> ent, ref BoundUIOpenedEvent args)
+    {
+        UpdateUi(ent);
+    }
+
     private void OnRefresh(Entity<DHGearVendorComponent> ent, ref DHGearVendorRefreshMessage args)
     {
-        SendState(ent, args.Actor);
+        UpdateUi(ent);
     }
 
     private void OnVend(Entity<DHGearVendorComponent> ent, ref DHGearVendorVendMessage args)
@@ -114,19 +120,27 @@ public sealed partial class DHGearVendorSystem : SharedDHGearVendorSystem
 
         _audio.PlayPvs(comp.VendSound, ent);
 
-        // Лимиты у каждого свои, запас общий — всем открывшим окно шлём их личное состояние.
-        foreach (var actor in _ui.GetActors(ent.Owner, DHGearVendorUiKey.Key))
-            SendState(ent, actor);
+        UpdateUi(ent);
     }
 
     private void Deny(Entity<DHGearVendorComponent> ent, EntityUid user, string message)
     {
         _audio.PlayPvs(ent.Comp.DenySound, ent);
         Popup.PopupEntity(Loc.GetString(message), ent, user);
-        SendState(ent, user);
+        UpdateUi(ent);
     }
 
-    private void SendState(Entity<DHGearVendorComponent> ent, EntityUid user)
+    /// <summary>Лимиты у каждого свои, запас общий — в состояние окна кладём личное состояние каждого, у кого оно открыто.</summary>
+    private void UpdateUi(Entity<DHGearVendorComponent> ent)
+    {
+        var users = new Dictionary<NetEntity, DHGearVendorUserState>();
+        foreach (var actor in _ui.GetActors(ent.Owner, DHGearVendorUiKey.Key))
+            users[GetNetEntity(actor)] = BuildState(ent, actor);
+
+        _ui.SetUiState(ent.Owner, DHGearVendorUiKey.Key, new DHGearVendorBuiState(users));
+    }
+
+    private DHGearVendorUserState BuildState(Entity<DHGearVendorComponent> ent, EntityUid user)
     {
         var comp = ent.Comp;
         var job = GetJob(user);
@@ -156,7 +170,7 @@ public sealed partial class DHGearVendorSystem : SharedDHGearVendorSystem
             sections.Add(state);
         }
 
-        _ui.ServerSendUiMessage(ent.Owner, DHGearVendorUiKey.Key, new DHGearVendorStateMessage(sections), user);
+        return new DHGearVendorUserState(sections);
     }
 
     private ProtoId<JobPrototype>? GetJob(EntityUid user)

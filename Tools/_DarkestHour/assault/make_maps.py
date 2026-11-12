@@ -649,6 +649,7 @@ def encode_chunks(tiles, space):
 
 
 def build_carrier(src, dst, name, drop, adds, floor=None):
+    # Устарело: авианосец с 2026-11-12 собирается Tools/_DarkestHour/carrier/build_carrier.py.
     s = open(src, encoding='utf-8').read()
     s = s.replace('GL Evac Serpent', name)
 
