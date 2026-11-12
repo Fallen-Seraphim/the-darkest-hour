@@ -11,6 +11,7 @@ public sealed class DHBankAccount
     public string Number = string.Empty;
     public string Holder = string.Empty;
     public string Login = string.Empty;
+    /// <summary>PIN-код из 4 цифр: банкомат, приложение банка, чековая машинка.</summary>
     public string Password = string.Empty;
     public int Balance;
     public DHBankOrg Org = DHBankOrg.None;
@@ -34,7 +35,6 @@ public sealed partial class DHBankSystem : EntitySystem
     private const int MaxLog = 30;
 
     private const string LoginLetters = "abcdefghkmnprstuvwxyz";
-    private const string PasswordLetters = "abcdefghkmnprstuvwxyz23456789";
 
     private readonly Dictionary<string, DHBankAccount> _accounts = new();
     private readonly Dictionary<DHBankOrg, string> _orgs = new();
@@ -85,7 +85,7 @@ public sealed partial class DHBankSystem : EntitySystem
             Number = number,
             Holder = holder,
             Login = login,
-            Password = RandomString(PasswordLetters, 6),
+            Password = _random.Next(0, 10000).ToString("D4"), // PIN из 4 цифр (решение автора 2026-11-12)
             Balance = balance,
             Org = org,
         };

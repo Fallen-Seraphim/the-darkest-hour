@@ -11,7 +11,7 @@
   parent: BaseItem
   id: DHBankCard
   name: bank card
-  description: A personal card of the Bank of Lost Angels. Insert it into an ATM and enter the password.
+  description: A personal card of the Bank of Lost Angels. Insert it into an ATM and enter the PIN.
   components:
   - type: Sprite
     sprite: _DarkestHour/Objects/City/bank_card.rsi
@@ -59,7 +59,7 @@
   parent: Paper
   id: DHBankRequisites
   name: account details
-  description: A folded sheet with an organisation's account number, login and password. Keep it away from strangers.
+  description: A folded sheet with an organisation's account number, login and PIN. Keep it away from strangers.
   components:
   - type: Sprite
     sprite: Objects/Misc/bureaucracy.rsi
@@ -77,7 +77,7 @@
   parent: BaseItem
   id: DHChequeMachine
   name: cheque machine
-  description: "A handheld Bank of LA-V payment terminal. The seller links their card and sets the amount (goods go into the tray), the buyer inserts their card and enters the password. Prints two cheques: for the buyer and for the seller."
+  description: "A handheld Bank of LA-V payment terminal. The seller links their card and sets the amount (goods go into the tray), the buyer inserts their card and enters the PIN. Prints two cheques: for the buyer and for the seller."
   components:
   - type: Sprite
     sprite: _DarkestHour/Objects/City/cheque_machine.rsi
@@ -478,7 +478,7 @@
   parent: BaseStructure
   id: DHCityAtm
   name: ATM
-  description: A Bank of Lost Angels ATM. Insert your card and enter the password to withdraw cash; tap banknotes on it to deposit them.
+  description: A Bank of Lost Angels ATM. Insert your card and enter the PIN to withdraw cash; tap banknotes on it to deposit them.
   components:
   - type: Sprite
     sprite: _NF/Structures/Machines/atm/atm.rsi

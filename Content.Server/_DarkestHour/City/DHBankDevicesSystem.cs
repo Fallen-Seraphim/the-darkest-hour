@@ -41,15 +41,7 @@ public sealed partial class DHBankDevicesSystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<DHAtmComponent, InteractUsingEvent>(OnAtmInteractUsing);
-        SubscribeLocalEvent<DHAtmComponent, EntInsertedIntoContainerMessage>(OnAtmCardChanged);
-        SubscribeLocalEvent<DHAtmComponent, EntRemovedFromContainerMessage>(OnAtmCardChanged);
-        Subs.BuiEvents<DHAtmComponent>(DHAtmUiKey.Key, subs =>
-        {
-            subs.Event<BoundUIOpenedEvent>(OnAtmOpened);
-            subs.Event<DHAtmLoginMessage>(OnAtmLogin);
-            subs.Event<DHAtmWithdrawMessage>(OnAtmWithdraw);
-        });
+        InitializeAtm();
 
         Subs.BuiEvents<DHBudgetComputerComponent>(DHBudgetUiKey.Key, subs =>
         {
@@ -70,124 +62,6 @@ public sealed partial class DHBankDevicesSystem : EntitySystem
 
         _audio.PlayPvs(CashSound, source);
     }
-
-    #region Банкомат
-
-    private DHBankAccount? AtmCardAccount(EntityUid atm, out DHBankCardComponent? card)
-    {
-        card = null;
-        if (_itemSlots.GetItemOrNull(atm, DHAtmComponent.CardSlotId) is not { } item ||
-            !TryComp(item, out card))
-        {
-            return null;
-        }
-
-        return _bank.Get(card.Number);
-    }
-
-    private void OnAtmCardChanged(Entity<DHAtmComponent> ent, ref EntInsertedIntoContainerMessage args)
-    {
-        if (args.Container.ID != DHAtmComponent.CardSlotId)
-            return;
-
-        ent.Comp.Authorized = null;
-        ent.Comp.Error = null;
-        UpdateAtm(ent);
-    }
-
-    private void OnAtmCardChanged(Entity<DHAtmComponent> ent, ref EntRemovedFromContainerMessage args)
-    {
-        if (args.Container.ID != DHAtmComponent.CardSlotId)
-            return;
-
-        ent.Comp.Authorized = null;
-        ent.Comp.Error = null;
-        UpdateAtm(ent);
-    }
-
-    private void OnAtmOpened(Entity<DHAtmComponent> ent, ref BoundUIOpenedEvent args)
-    {
-        UpdateAtm(ent);
-    }
-
-    private void OnAtmLogin(Entity<DHAtmComponent> ent, ref DHAtmLoginMessage args)
-    {
-        var account = AtmCardAccount(ent, out _);
-        if (account == null)
-        {
-            ent.Comp.Error = Loc.GetString("dh-bank-error-card");
-        }
-        else if (account.Password != args.Password.Trim())
-        {
-            ent.Comp.Error = Loc.GetString("dh-bank-error-password");
-            _audio.PlayPvs(DenySound, ent);
-        }
-        else
-        {
-            ent.Comp.Authorized = account.Number;
-            ent.Comp.Error = null;
-            _audio.PlayPvs(OkSound, ent);
-        }
-
-        UpdateAtm(ent);
-    }
-
-    private void OnAtmWithdraw(Entity<DHAtmComponent> ent, ref DHAtmWithdrawMessage args)
-    {
-        var account = AtmCardAccount(ent, out _);
-        if (account == null || ent.Comp.Authorized != account.Number)
-            return;
-
-        var amount = Math.Clamp(args.Amount, 0, MaxWithdraw);
-        if (amount <= 0 || !_bank.Withdraw(account, amount, Loc.GetString("dh-bank-note-atm")))
-        {
-            ent.Comp.Error = Loc.GetString("dh-bank-error-funds");
-            _audio.PlayPvs(DenySound, ent);
-            UpdateAtm(ent);
-            return;
-        }
-
-        ent.Comp.Error = null;
-        GiveCash(ent, args.Actor, amount);
-        UpdateAtm(ent);
-    }
-
-    /// <summary>Внесение: щёлкнуть республиканскими кредитами по банкомату с картой и введённым паролем.</summary>
-    private void OnAtmInteractUsing(Entity<DHAtmComponent> ent, ref InteractUsingEvent args)
-    {
-        if (args.Handled || _vendors.RepublicCash(args.Used) is not { } amount)
-            return;
-
-        args.Handled = true;
-        var account = AtmCardAccount(ent, out _);
-        if (account == null || ent.Comp.Authorized != account.Number)
-        {
-            _popup.PopupEntity(Loc.GetString("dh-atm-need-login"), ent, args.User);
-            _audio.PlayPvs(DenySound, ent);
-            return;
-        }
-
-        _bank.Deposit(account, amount, Loc.GetString("dh-bank-note-atm"));
-        QueueDel(args.Used);
-        _audio.PlayPvs(CashSound, ent);
-        _popup.PopupEntity(Loc.GetString("dh-atm-deposited", ("amount", amount)), ent, args.User);
-        UpdateAtm(ent);
-    }
-
-    private void UpdateAtm(Entity<DHAtmComponent> ent)
-    {
-        var account = AtmCardAccount(ent, out var card);
-        var hasCard = card != null;
-        var authorized = account != null && ent.Comp.Authorized == account.Number;
-        var state = new DHAtmState(hasCard, authorized,
-            card?.Number ?? string.Empty,
-            card?.Holder ?? string.Empty,
-            authorized ? account!.Balance : 0,
-            hasCard && account == null ? Loc.GetString("dh-bank-error-card") : ent.Comp.Error);
-        _ui.SetUiState(ent.Owner, DHAtmUiKey.Key, state);
-    }
-
-    #endregion
 
     #region Компьютер бюджета
 

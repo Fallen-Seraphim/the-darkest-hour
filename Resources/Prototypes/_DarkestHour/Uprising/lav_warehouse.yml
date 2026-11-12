@@ -244,6 +244,9 @@
   - { id: phones, proto: DHLAVCratePhones, category: dh-supply-category-lav-goods, price: 400 }
   - { id: wallets, proto: DHLAVCrateWallets, category: dh-supply-category-lav-goods, price: 150 }
   - { id: cheque-machines, proto: DHLAVCrateChequeMachines, category: dh-supply-category-lav-goods, price: 300 }
+  - { id: stationery, proto: DHLAVCrateStationery, category: dh-supply-category-lav-goods, price: 300 }
+  - { id: tablets, proto: DHLAVCrateTablets, category: dh-supply-category-lav-goods, price: 750 }
+  - { id: souvenirs, proto: DHLAVCrateSouvenirs, category: dh-supply-category-lav-goods, price: 400 }
 
 # Компьютер склада LA-V: заказ за деньги корпорации, лифт рядом.
 - type: entity

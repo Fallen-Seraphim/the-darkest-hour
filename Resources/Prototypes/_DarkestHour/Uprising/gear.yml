@@ -143,6 +143,9 @@
   - BriefcaseBrownFilled
   storage:
     back:
+    - DHLAVTablet
+    - DHLAVPenExecutive
+    - DHLAVPlanner
     - DHChequeMachine
     - DHWeaponSMGLAVSMG23
     - DHMagazineLAVSMG23LS
@@ -167,6 +170,8 @@
     pocket2: Pen
   storage:
     back:
+    - DHLAVPlanner
+    - DHLAVPen
     - DHChequeMachine
     - DHWeaponPistolMk58
     - DHMagazine10x24ShortE
@@ -210,7 +215,7 @@
     ears: DHClothingHeadsetLAVanguard
     back: ClothingBackpackSatchelLeather
     pocket1: DHRepublicCredit100
-    pocket2: Pen
+    pocket2: DHLAVPen
   storage:
     back:
     - DHChequeMachine

@@ -35,8 +35,8 @@ dh-bank-error-self = You cannot transfer to the same account.
 dh-bank-error-amount = Enter an amount.
 dh-bank-error-funds = Insufficient funds.
 dh-bank-error-card = The card is not recognised.
-dh-bank-error-password = Wrong password.
-dh-bank-error-login = Wrong login or password.
+dh-bank-error-password = Wrong PIN.
+dh-bank-error-login = Wrong login or PIN.
 dh-bank-status-sent = Sent {$amount} cr.
 dh-bank-status-withdrawn = Withdrawn {$amount} cr.
 dh-bank-status-evac = Flight ordered. It lands at LZ-1 Aeronautics in a few minutes.
@@ -49,12 +49,12 @@ dh-bank-ui-number = Account {$number}
 dh-bank-ui-balance = Balance: {$balance} cr.
 dh-bank-app-ui-welcome = Bank of Lost Angels — LA-V
 dh-bank-app-ui-login = Login
-dh-bank-app-ui-password = Password
+dh-bank-app-ui-password = PIN (4 digits)
 dh-bank-app-ui-enter = Sign in
 dh-bank-app-ui-logout = Sign out
-dh-bank-app-ui-hint = Your login and password are in the character window (C).
+dh-bank-app-ui-hint = Your login and PIN are in the character window (C).
 
-dh-atm-need-login = Insert your card and enter the password first.
+dh-atm-need-login = Insert your card and enter the PIN first.
 dh-atm-deposited = Deposited {$amount} cr.
 dh-atm-slot-card = Card
 dh-atm-ui-title = ATM
@@ -96,7 +96,7 @@ dh-phone-incoming = Incoming call: {$caller}.
 dh-city-briefing-header = — Phone and bank —
 dh-city-briefing-phone = Phone number: {$number}
 dh-city-briefing-account = Bank account: {$number} (opened with {$balance} cr.)
-dh-city-briefing-login = Bank login: {$login}, password: {$password}
+dh-city-briefing-login = Bank login: {$login}, PIN: {$password}
 
 ## антенна и овервотч
 dh-relay-hack-start = You plug the hacker into the antenna...
@@ -128,13 +128,13 @@ dh-passport-place-earth = Earth
 # LFFC account, account details, cheque machine
 dh-bank-org-front = South Wind LLC
 dh-budget-ui-title-front = LFFC budget
-dh-city-briefing-org = Organisation account "{ $org }": { $number }, login { $login }, password { $password }. The details are on paper in your bag.
+dh-city-briefing-org = Organisation account "{ $org }": { $number }, login { $login }, PIN { $password }. The details are on paper in your bag.
 dh-bank-requisites-text = [head=2]Account details[/head]
     [bold]{ $org }[/bold]
 
     Account number: [bold]{ $number }[/bold]
     Login: [bold]{ $login }[/bold]
-    Password: [bold]{ $password }[/bold]
+    PIN: [bold]{ $password }[/bold]
 
     [italic]Bank of Lost Angels. Do not share these details.[/italic]
 
@@ -156,7 +156,7 @@ dh-cheque-ui-reset = Clear bill
 dh-cheque-slot-card = Card
 dh-cheque-slot-goods = Goods tray
 dh-cheque-status-seller = Seller: { $seller }.
-dh-cheque-status-amount = Billed { $amount } cr. Buyer — insert your card and enter the password.
+dh-cheque-status-amount = Billed { $amount } cr. Buyer — insert your card and enter the PIN.
 dh-cheque-status-paid = Paid { $amount } cr. Cheque No. { $serial } printed.
 dh-cheque-error-card = Insert a bank card.
 dh-cheque-error-amount = Invalid amount.
@@ -173,3 +173,35 @@ dh-cheque-text-buyer = Buyer: { $name }, account { $number }
 dh-cheque-text-goods = Goods / service: { $goods }
 dh-cheque-text-amount = [bold]TOTAL: { $amount } cr.[/bold]
 dh-cheque-text-footer = [italic]Paid by card. Lost Angels—Vanguard Banking.[/italic]
+
+# ATM screen
+dh-atm-ui-reader-tooltip = Card reader: insert your card or take it back
+dh-atm-ui-cash-tooltip = Take the cash
+dh-atm-screen-header = BANK OF LOST ANGELS · LA-V
+dh-atm-screen-welcome = Welcome.
+dh-atm-screen-insert = INSERT YOUR CARD >
+dh-atm-screen-no-card = You have no bank card.
+dh-atm-screen-card = Card: { $holder }
+dh-atm-screen-pin = ENTER YOUR PIN:
+dh-atm-screen-pin-hint = ENTER — next, X — take card
+dh-atm-screen-wrong-pin = Wrong PIN. Attempts left: { $left }.
+dh-atm-screen-locked = Card locked for { $seconds } s.
+dh-atm-screen-balance = Balance: { $balance } cr.
+dh-atm-screen-balance-short = Balance: { $balance } cr.
+dh-atm-screen-menu-1 = 1 — balance
+dh-atm-screen-menu-2 = 2 — withdraw cash
+dh-atm-screen-menu-3 = 3 — transfer
+dh-atm-screen-menu-4 = 4 — history
+dh-atm-screen-menu-cancel = X — take card
+dh-atm-screen-withdraw = WITHDRAW CASH. Amount:
+dh-atm-screen-cr = cr.
+dh-atm-screen-enter-cancel = ENTER — next, X — back
+dh-atm-screen-transfer-account = TRANSFER. Account number (8 digits):
+dh-atm-screen-transfer-to = Recipient: { $holder }, { $number }
+dh-atm-screen-transfer-amount = Amount:
+dh-atm-screen-sent = Sent { $amount } cr. to { $number }.
+dh-atm-screen-history = HISTORY
+dh-atm-screen-history-hint = 8 — up, 2 — down, X — back
+dh-atm-screen-continue = ENTER — continue
+dh-atm-screen-take-cash = Take your cash: { $amount } cr.
+dh-atm-screen-cash-waiting = >> { $amount } cr. in the tray — take it <<
