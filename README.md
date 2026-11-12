@@ -1,14 +1,54 @@
 # The Darkest Hour
 
-Сервер Space Station 14: исследовательская станция Metallistick Group на границе Соединённой Республики и
-Первой Империи, 2413 год. Форк [space-wizards/space-station-14](https://github.com/space-wizards/space-station-14).
+Военный сервер [Space Station 14](https://github.com/space-wizards/space-station-14): наземные операции и десанты,
+окопы и укрепления, бронетехника, артиллерия и модульная броня. Основан на оригинальном билде SS14, с собственными
+системами и механиками, перенесёнными из [RMC-14](https://github.com/RMC-14/RMC-14),
+[Monolith](https://github.com/Monolith-Station/Monolith) и [Goob Station](https://github.com/Goob-Station/Goob-Station).
 
-Правила разработки и структура папок — в [DARKESTHOUR.md](DARKESTHOUR.md).
-Лицензия проекта — GNU AGPL v3 ([LICENSE-AGPLv3.TXT](LICENSE-AGPLv3.TXT)); код апстрима остаётся под MIT ([LICENSE.TXT](LICENSE.TXT)).
+## Что есть на сервере
 
-Ниже — оригинальный README апстрима.
+- **Наземные операции.** Высадка с кораблей на поверхность планеты, точки захвата, сброс людей и грузов на
+  парашютах, тактическая карта и наблюдение за бойцами своей стороны.
+- **Баллистика и броня.** У патронов есть класс бронепробития, у брони — класс защиты. Модульная броня
+  собирается по частям тела, модули изнашиваются и чинятся. Травмы, кровотечение и полевая медицина.
+- **Укрепления.** Окопы и траншеи, мешки с песком, колючая проволока, палатки, пулемётные гнёзда.
+- **Тяжёлое вооружение.** Станковые пулемёты, пехотные пушки, миномёты, артиллерия и ПВО.
+- **Бронетехника.** БТР и танки с отсеком экипажа, пультами, башней, боекомплектом и ремонтом сваркой.
+- **Корабли.** Корабельное оружие, межзвёздные переходы, посадка на планеты.
+- **Окружение.** Огонь на клетках, природная вода, эффекты взрывов, дыма и выстрелов из RMC-14.
 
----
+## Сборка и запуск
+
+Нужны [.NET SDK 10](https://dotnet.microsoft.com/download) и Python 3.
+
+```shell
+git clone https://github.com/Fallen-Seraphim/the-darkest-hour.git
+cd the-darkest-hour
+python RUN_THIS.py          # подтянуть RobustToolbox (подмодуль)
+dotnet build -c Release
+```
+
+Запуск: `runserver.bat` / `runserver.sh`, затем `runclient.bat` / `runclient.sh`. Подробнее о сборке SS14 —
+в [документации](https://docs.spacestation14.com/en/general-development/setup.html).
+
+## Разработка
+
+Правила разработки, структура папок и соглашения — в [DARKESTHOUR.md](DARKESTHOUR.md). Свой код и ассеты лежат в
+папках `_DarkestHour`, перенесённое из других форков — под их исходными префиксами (`_RMC14`, `_Mono`,
+`_Goobstation`, `_ES` и т.д.).
+
+## Лицензии и авторство
+
+- Проект в целом — **GNU AGPL v3** ([LICENSE-AGPLv3.TXT](LICENSE-AGPLv3.TXT)).
+- Код апстрима (Space Wizards) и RMC-14 — **MIT** ([LICENSE.TXT](LICENSE.TXT)); эти файлы сохраняют свою лицензию.
+- Перенесённый код Monolith и Goob Station сохраняет лицензию и заголовки источника.
+- Ассеты (спрайты, звуки) — по лицензиям в их `meta.json` и `attributions.yml`, в основном CC-BY-SA 3.0.
+
+Спасибо командам [Space Wizards](https://github.com/space-wizards), [RMC-14](https://github.com/RMC-14),
+[Monolith](https://github.com/Monolith-Station), [Goob Station](https://github.com/Goob-Station),
+CM-SS13 и всем авторам ассетов.
+
+## Оригинальный README апстрима
 
 <div class="header" align="center">  
 <img alt="Space Station 14" width="880" height="300" src="https://raw.githubusercontent.com/space-wizards/asset-dump/de329a7898bb716b9d5ba9a0cd07f38e61f1ed05/github-logo.svg">  
