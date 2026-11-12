@@ -145,8 +145,8 @@
   description: 150 high-explosive incendiary rounds for the attack aircraft's cannon. Load it into the aircraft on the deck.
   components:
   - type: Sprite
-    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
-    state: ammo_30mm
+    sprite: _RMC14/Objects/dropship_ammo.rsi
+    state: 30mm_crate_10
   - type: Item
     size: Large
   - type: DHAircraftCannonAmmo
@@ -159,8 +159,8 @@
   description: A free-fall high-explosive bomb for low passes. Hang it on a free hardpoint of the attack aircraft on the deck.
   components:
   - type: Sprite
-    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
-    state: bomb_he
+    sprite: _RMC14/Objects/dropship_ammo_64.rsi
+    state: jdam
   - type: Item
     size: Huge
   - type: DHAircraftMunition
@@ -173,8 +173,8 @@
   description: "A free-fall cluster bomb for low passes: scatters bomblets along the course. Best against infantry in the open."
   components:
   - type: Sprite
-    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
-    state: bomb_cluster
+    sprite: _RMC14/Objects/dropship_ammo_64.rsi
+    state: cluster
   - type: Item
     size: Huge
   - type: DHAircraftMunition
@@ -187,8 +187,8 @@
   description: "A free-fall napalm tank for low passes: lays a solid strip of fire along the course."
   components:
   - type: Sprite
-    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
-    state: bomb_napalm
+    sprite: _RMC14/Objects/dropship_ammo_64.rsi
+    state: napalm
   - type: Item
     size: Huge
   - type: DHAircraftMunition
@@ -201,8 +201,8 @@
   description: "A free-fall magnesium cluster bomb for low passes: chemical fire in separate patches that burns through armour."
   components:
   - type: Sprite
-    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
-    state: bomb_magnesium
+    sprite: _RMC14/Objects/dropship_ammo_64.rsi
+    state: jdami
   - type: Item
     size: Huge
   - type: DHAircraftMunition
@@ -215,8 +215,8 @@
   description: "A glide bomb launched from the atmosphere at a point picked on the tactical map. Slow — enemy air defence may shoot it down."
   components:
   - type: Sprite
-    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
-    state: bomb_guided
+    sprite: _RMC14/Objects/dropship_ammo_64.rsi
+    state: paveway
   - type: Item
     size: Huge
   - type: DHAircraftMunition
@@ -229,8 +229,8 @@
   description: "Launched from the atmosphere at a radar signature of armour (it homes on the vehicle) or at a laser mark."
   components:
   - type: Sprite
-    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
-    state: missile_at
+    sprite: _RMC14/Objects/dropship_ammo_64.rsi
+    state: single
   - type: Item
     size: Huge
   - type: DHAircraftMunition
@@ -243,8 +243,8 @@
   description: "Launched from the atmosphere at a radar signature or a laser mark; against infantry — only at a mark."
   components:
   - type: Sprite
-    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
-    state: missile_he
+    sprite: _RMC14/Objects/dropship_ammo_64.rsi
+    state: banshee
   - type: Item
     size: Huge
   - type: DHAircraftMunition
@@ -310,9 +310,9 @@
     itemIconStyle: NoItem
     useDelay: 0.5
   - type: Sprite
-    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
+    sprite: _RMC14/Objects/dropship_ammo.rsi
     layers:
-    - state: ammo_30mm
+    - state: 30mm_crate_10
   - type: InstantAction
     event: !type:DHAircraftCannonActionEvent
 
@@ -326,9 +326,9 @@
     itemIconStyle: NoItem
     useDelay: 1
   - type: Sprite
-    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
+    sprite: _RMC14/Objects/dropship_ammo_64.rsi
     layers:
-    - state: bomb_he
+    - state: jdam
   - type: InstantAction
     event: !type:DHAircraftDropActionEvent
 
@@ -342,9 +342,9 @@
     itemIconStyle: NoItem
     useDelay: 1
   - type: Sprite
-    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
+    sprite: _RMC14/Objects/dropship_ammo_64.rsi
     layers:
-    - state: missile_he
+    - state: banshee
   - type: InstantAction
     event: !type:DHAircraftFireActionEvent
 
