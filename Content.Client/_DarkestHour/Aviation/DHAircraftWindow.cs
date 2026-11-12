@@ -24,6 +24,10 @@ public sealed class DHAircraftWindow : DefaultWindow
     public event Action<int>? OnAltitude;
     public event Action<bool>? OnCannon;
     public event Action? OnDrop;
+    public event Action<int>? OnSelectHardpoint;
+    public event Action<DHAircraftMapMode>? OnMapMode;
+    public event Action<Vector2>? OnTarget;
+    public event Action? OnFire;
 
     private readonly Label _status = new();
     private readonly Label _fuel = new();
@@ -47,6 +51,11 @@ public sealed class DHAircraftWindow : DefaultWindow
     private readonly Button _clearPass = new();
     private readonly Button _cannon = new();
     private readonly Button _drop = new();
+    private readonly Button[] _pylons = new Button[4];
+    private readonly Button _modePass = new() { ToggleMode = true };
+    private readonly Button _modeTarget = new() { ToggleMode = true };
+    private readonly Button _fire = new();
+    private readonly Label _target = new();
     private readonly Label _passBlocker = new() { FontColorOverride = Color.FromHex("#e8a24a") };
     private readonly DHTacticalMapControl _map = new() { HorizontalExpand = true, VerticalExpand = true, MinHeight = 320 };
 
@@ -91,6 +100,24 @@ public sealed class DHAircraftWindow : DefaultWindow
         pass.AddChild(_cannon);
         pass.AddChild(_drop);
         root.AddChild(pass);
+        var pylons = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 4 };
+        for (var i = 0; i < _pylons.Length; i++)
+        {
+            var slot = i;
+            _pylons[i] = new Button { ToggleMode = true, MinWidth = 90 };
+            _pylons[i].OnPressed += _ => OnSelectHardpoint?.Invoke(slot);
+            pylons.AddChild(_pylons[i]);
+        }
+
+        pylons.AddChild(_fire);
+        root.AddChild(pylons);
+
+        var mode = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 4 };
+        mode.AddChild(new Label { Text = Loc.GetString("dh-aircraft-ui-map-mode") });
+        mode.AddChild(_modePass);
+        mode.AddChild(_modeTarget);
+        root.AddChild(mode);
+        root.AddChild(_target);
         root.AddChild(_passInfo);
         root.AddChild(_passBlocker);
         root.AddChild(_map);
@@ -108,7 +135,16 @@ public sealed class DHAircraftWindow : DefaultWindow
         _clearPass.OnPressed += _ => OnClearPass?.Invoke();
         _cannon.OnPressed += _ => OnCannon?.Invoke(!(_state?.CannonOn ?? false));
         _drop.OnPressed += _ => OnDrop?.Invoke();
-        _map.OnWorldClick += point => OnPassPoint?.Invoke(point);
+        _map.OnWorldClick += point =>
+        {
+            if (_state?.MapMode == DHAircraftMapMode.Target)
+                OnTarget?.Invoke(point);
+            else
+                OnPassPoint?.Invoke(point);
+        };
+        _modePass.OnPressed += _ => OnMapMode?.Invoke(DHAircraftMapMode.Pass);
+        _modeTarget.OnPressed += _ => OnMapMode?.Invoke(DHAircraftMapMode.Target);
+        _fire.OnPressed += _ => OnFire?.Invoke();
     }
 
     public void UpdateState(DHAircraftBuiState state)
@@ -119,7 +155,8 @@ public sealed class DHAircraftWindow : DefaultWindow
         _status.Text = Loc.GetString("dh-aircraft-ui-status", ("state", Loc.GetString("dh-aircraft-state-" + state.State.ToString().ToLowerInvariant())));
         _fuel.Text = Loc.GetString("dh-aircraft-ui-fuel", ("fuel", (int) state.Fuel), ("max", (int) state.FuelMax), ("takeoff", (int) state.TakeoffFuel));
         _integrity.Text = Loc.GetString("dh-aircraft-ui-integrity", ("integrity", (int) state.Integrity), ("max", (int) state.MaxIntegrity));
-        _flares.Text = Loc.GetString(state.FlaresActive ? "dh-aircraft-ui-flares-active" : "dh-aircraft-ui-flares",
+        _flares.Text = Loc.GetString(!state.Modules.Contains(DHAircraftModule.FlareDispenser) ? "dh-aircraft-ui-flares-none"
+                : state.FlaresActive ? "dh-aircraft-ui-flares-active" : "dh-aircraft-ui-flares",
             ("flares", state.Flares), ("max", state.MaxFlares));
         _position.Text = state.Position is { } p
             ? Loc.GetString("dh-aircraft-ui-position", ("x", (int) p.X), ("y", (int) p.Y), ("heading", (int) ((360 - state.HeadingDegrees % 360 + 360) % 360)))
@@ -139,20 +176,54 @@ public sealed class DHAircraftWindow : DefaultWindow
 
         var inPass = state.State == DHAircraftState.Pass;
         var loaded = state.Hardpoints.FindAll(h => h != DHAircraftMunition.None).Count;
+        var pods = state.Hardpoints.FindAll(h => h == DHAircraftMunition.CannonPod).Count;
+        var bombs = state.Hardpoints.FindAll(h => h is not (DHAircraftMunition.None or DHAircraftMunition.CannonPod)).Count;
+        var modules = state.Modules.FindAll(m => m != DHAircraftModule.None);
         _weapons.Text = Loc.GetString("dh-aircraft-ui-weapons", ("ammo", state.CannonAmmo), ("maxAmmo", state.MaxCannonAmmo),
+            ("pods", pods),
             ("pylons", string.Join(" ", state.Hardpoints.ConvertAll(h => Loc.GetString("dh-aircraft-munition-" + h.ToString().ToLowerInvariant())))),
-            ("loaded", loaded));
+            ("loaded", loaded)) + "\n" + Loc.GetString("dh-aircraft-ui-modules",
+            ("modules", modules.Count == 0
+                ? Loc.GetString("dh-aircraft-module-none")
+                : string.Join(", ", modules.ConvertAll(m => Loc.GetString("dh-aircraft-module-" + m.ToString().ToLowerInvariant()))))));
         _altitude.Text = Loc.GetString("dh-aircraft-ui-altitude", ("altitude", Loc.GetString("dh-aircraft-altitude-name-" + state.Altitude.ToString().ToLowerInvariant())));
         _startPass.Text = Loc.GetString("dh-aircraft-ui-start-pass");
         _startPass.Disabled = !state.CanPass;
         _clearPass.Text = Loc.GetString("dh-aircraft-ui-clear-pass");
         _clearPass.Disabled = inPass || state.PassStart == null;
         _cannon.Text = Loc.GetString(state.CannonOn ? "dh-aircraft-ui-cannon-off" : "dh-aircraft-ui-cannon-on");
+        _cannon.Disabled = pods == 0;
         _drop.Text = Loc.GetString("dh-aircraft-ui-drop");
-        _drop.Disabled = !inPass || loaded == 0;
-        _passInfo.Text = Loc.GetString(state.PassStart == null ? "dh-aircraft-ui-pass-hint-start"
-            : state.PassEnd == null ? "dh-aircraft-ui-pass-hint-end" : "dh-aircraft-ui-pass-ready");
+        _drop.Disabled = !inPass || bombs == 0;
+        _passInfo.Text = state.MapMode == DHAircraftMapMode.Target
+            ? Loc.GetString("dh-aircraft-ui-target-hint")
+            : Loc.GetString(state.PassStart == null ? "dh-aircraft-ui-pass-hint-start"
+                : state.PassEnd == null ? "dh-aircraft-ui-pass-hint-end" : "dh-aircraft-ui-pass-ready");
         _passBlocker.Text = airborne && !inPass && state.PassBlocker is { } passBlocker ? Loc.GetString(passBlocker) : string.Empty;
+
+        for (var i = 0; i < _pylons.Length; i++)
+        {
+            var munition = i < state.Hardpoints.Count ? state.Hardpoints[i] : DHAircraftMunition.None;
+            _pylons[i].Text = munition == DHAircraftMunition.CannonPod
+                ? Loc.GetString("dh-aircraft-ui-pylon-pod", ("slot", i + 1),
+                    ("rounds", i < state.HardpointAmmo.Count ? state.HardpointAmmo[i] : 0))
+                : Loc.GetString("dh-aircraft-ui-pylon", ("slot", i + 1),
+                    ("munition", Loc.GetString("dh-aircraft-munition-" + munition.ToString().ToLowerInvariant())));
+            _pylons[i].Pressed = state.SelectedHardpoint == i;
+        }
+
+        _fire.Text = Loc.GetString("dh-aircraft-ui-fire");
+        _modePass.Text = Loc.GetString("dh-aircraft-ui-map-mode-pass");
+        _modePass.Pressed = state.MapMode == DHAircraftMapMode.Pass;
+        _modeTarget.Text = Loc.GetString("dh-aircraft-ui-map-mode-target");
+        _modeTarget.Pressed = state.MapMode == DHAircraftMapMode.Target;
+        _target.Text = state.TargetLabel is { } label
+            ? Loc.GetString("dh-aircraft-ui-target", ("target", label))
+            : Loc.GetString("dh-aircraft-ui-target-none");
+
+        _map.Target = state.TargetPoint;
+        _map.Signatures = state.Signatures.ConvertAll(s => (s.Position,
+            Loc.GetString("dh-aircraft-signature-" + s.Kind.ToString().ToLowerInvariant())));
 
         if (state.Map is { } map)
             _map.SetState(map);

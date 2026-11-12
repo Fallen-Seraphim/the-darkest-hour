@@ -44,3 +44,12 @@
   copyright: "Fire Explosion by Iwan 'qubodup' Gabovitch (CC0), from EOD Broll package by Seaman Kelly Meyer / AFN Okinawa (18 November 2020). Excerpted, filtered, layered and normalized with CM13 Blackfoot mechanical into the CC-BY-SA-3.0 CMU mix credited above."
   source: https://freesound.org/people/qubodup/sounds/855898/
 
+- files: [missile-release.ogg, rocket-release.ogg]
+  license: CC0-1.0
+  copyright: "Missile by Jacco18. CMU edits: mono, pitch/duration, filtering and fades. Public HQ preview used."
+  source: https://freesound.org/people/Jacco18/sounds/428360/
+
+- files: [missile-impact.ogg, airburst.ogg]
+  license: CC0-1.0
+  copyright: "Fire Explosion by Iwan 'qubodup' Gabovitch, from EOD Broll package by Seaman Kelly Meyer / AFN Okinawa (18 November 2020). CMU edits: mono, pitch/duration, filtering and fades. Public HQ preview used."
+  source: https://freesound.org/people/qubodup/sounds/855898/

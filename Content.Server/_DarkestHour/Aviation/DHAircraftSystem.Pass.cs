@@ -18,7 +18,7 @@ public sealed partial class DHAircraftSystem
 
     private readonly List<PendingBomb> _bombs = new();
 
-    private readonly record struct PendingBomb(MapCoordinates Target, TimeSpan Impact, DHAircraftMunition Kind);
+    private readonly record struct PendingBomb(MapCoordinates Target, TimeSpan Impact, DHAircraftMunition Kind, Vector2 Direction);
 
     /// <summary>Разброс очередей пушки, клеток.</summary>
     private static float CannonSpread(DHAircraftAltitude altitude) => altitude switch
@@ -185,7 +185,12 @@ public sealed partial class DHAircraftSystem
 
     private void SetCannon(Entity<DHAircraftComponent> ent, bool on)
     {
-        if (on && ent.Comp.CannonAmmo < ent.Comp.RoundsPerBurst)
+        if (on && ent.Comp.CannonPods == 0)
+        {
+            Notify(ent, Loc.GetString("dh-aircraft-cannon-no-pod"), true);
+            on = false;
+        }
+        else if (on && !CanBurst(ent.Comp))
         {
             Notify(ent, Loc.GetString("dh-aircraft-cannon-empty"), true);
             on = false;
@@ -221,7 +226,11 @@ public sealed partial class DHAircraftSystem
             return;
         }
 
-        var slot = ent.Comp.Hardpoints.FindIndex(m => m == DHAircraftMunition.BombHE);
+        // Сначала выбранный узел, если на нём свободнопадающая бомба, иначе — первый такой.
+        var selected = ent.Comp.SelectedHardpoint;
+        var slot = selected >= 0 && selected < ent.Comp.Hardpoints.Count && IsFreeFall(ent.Comp.Hardpoints[selected])
+            ? selected
+            : ent.Comp.Hardpoints.FindIndex(IsFreeFall);
         if (slot < 0)
         {
             Notify(ent, Loc.GetString("dh-aircraft-drop-empty"), true);
@@ -234,10 +243,11 @@ public sealed partial class DHAircraftSystem
         var target = _transform.GetWorldPosition(xform) + nose * ent.Comp.PassSpeed * fall +
                      RandomInDisc(BombScatter(ent.Comp.Altitude));
 
+        var kind = ent.Comp.Hardpoints[slot];
         ent.Comp.Hardpoints[slot] = DHAircraftMunition.None;
         Dirty(ent);
         _bombs.Add(new PendingBomb(new MapCoordinates(target, xform.MapID), _timing.CurTime + TimeSpan.FromSeconds(fall),
-            DHAircraftMunition.BombHE));
+            kind, nose));
         Notify(ent, Loc.GetString("dh-aircraft-drop-released", ("slot", slot + 1)));
         UpdateUi(ent);
     }
@@ -251,12 +261,7 @@ public sealed partial class DHAircraftSystem
                 continue;
 
             _bombs.RemoveAt(i);
-            switch (bomb.Kind)
-            {
-                case DHAircraftMunition.BombHE:
-                    _explosion.QueueExplosion(bomb.Target, HeavyExplosion, 320f, 10f, 60f, null);
-                    break;
-            }
+            Detonate(bomb.Kind, bomb.Target, bomb.Direction, null);
         }
     }
 
@@ -288,7 +293,7 @@ public sealed partial class DHAircraftSystem
         if (comp.CannonOn && now >= comp.NextBurst)
         {
             comp.NextBurst = now + comp.CannonInterval;
-            if (comp.CannonAmmo < comp.RoundsPerBurst)
+            if (!CanBurst(comp))
             {
                 comp.CannonOn = false;
                 Dirty(ent);
@@ -304,24 +309,48 @@ public sealed partial class DHAircraftSystem
             EndPass(ent);
     }
 
-    /// <summary>Очередь 30 мм: разрывы впереди по курсу с разбросом по высоте.</summary>
+    /// <summary>Хотя бы в одном пушечном контейнере хватает снарядов на очередь.</summary>
+    private static bool CanBurst(DHAircraftComponent comp)
+    {
+        for (var i = 0; i < comp.Hardpoints.Count; i++)
+        {
+            if (comp.Hardpoints[i] == DHAircraftMunition.CannonPod && PodAmmo(comp, i) >= comp.RoundsPerBurst)
+                return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Очередь 30 мм: каждый заряженный контейнер даёт свою очередь впереди по курсу, со смещением в сторону своего крыла
+    /// (узлы 1–2 — левое крыло, 3–4 — правое), с разбросом по высоте.
+    /// </summary>
     private void FireBurst(Entity<DHAircraftComponent> ent, Vector2 position, Vector2 direction, MapId map, TimeSpan now)
     {
         var comp = ent.Comp;
-        comp.CannonAmmo -= comp.RoundsPerBurst;
-        Dirty(ent);
+        var right = new Vector2(direction.Y, -direction.X);
+        Vector2? lastTarget = null;
 
-        var target = position + direction * comp.CannonLead + RandomInDisc(CannonSpread(comp.Altitude));
-        var coordinates = new MapCoordinates(target, map);
-        _explosion.QueueExplosion(coordinates, CannonExplosion, 14f, 7f, 7f, null, canCreateVacuum: false);
-
-        if (now >= comp.NextCannonSound)
+        for (var i = 0; i < comp.Hardpoints.Count; i++)
         {
-            comp.NextCannonSound = now + TimeSpan.FromSeconds(1);
-            _audio.PlayPvs(comp.CannonSound, ent, AudioParams.Default.WithMaxDistance(40f));
-            if (_map.TryGetMap(map, out var mapUid))
-                _audio.PlayPvs(comp.CannonImpactSound, new EntityCoordinates(mapUid.Value, target));
+            if (comp.Hardpoints[i] != DHAircraftMunition.CannonPod || PodAmmo(comp, i) < comp.RoundsPerBurst)
+                continue;
+
+            SetPodAmmo(comp, i, PodAmmo(comp, i) - comp.RoundsPerBurst);
+            var side = i < comp.Hardpoints.Count / 2 ? -1f : 1f;
+            var target = position + direction * comp.CannonLead + right * side * 1.5f + RandomInDisc(CannonSpread(comp.Altitude));
+            _explosion.QueueExplosion(new MapCoordinates(target, map), CannonExplosion, 14f, 7f, 7f, null, canCreateVacuum: false);
+            lastTarget = target;
         }
+
+        Dirty(ent);
+        if (lastTarget is not { } impact || now < comp.NextCannonSound)
+            return;
+
+        comp.NextCannonSound = now + TimeSpan.FromSeconds(1);
+        _audio.PlayPvs(comp.CannonSound, ent, AudioParams.Default.WithMaxDistance(40f));
+        if (_map.TryGetMap(map, out var mapUid))
+            _audio.PlayPvs(comp.CannonImpactSound, new EntityCoordinates(mapUid.Value, impact));
     }
 
     /// <summary>Конец линии захода: набор высоты обратно в слой атмосферы.</summary>

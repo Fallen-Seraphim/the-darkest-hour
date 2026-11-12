@@ -36,6 +36,12 @@ public sealed class DHTacticalMapControl : Control
 
     public Vector2? PathEnd;
 
+    /// <summary>Сигнатуры РЛС штурмовика (треугольники с подписью).</summary>
+    public List<(Vector2 Position, string Label)> Signatures = new();
+
+    /// <summary>Выбранная цель для пуска из атмосферы (перекрестие).</summary>
+    public Vector2? Target;
+
     /// <summary>Правый клик по карте — точка в координатах поверхности (выбор захода штурмовика).</summary>
     public event Action<Vector2>? OnWorldClick;
 
@@ -210,6 +216,26 @@ public sealed class DHTacticalMapControl : Control
                     handle.DrawString(_font, p + new Vector2(8, -6), marker.Name, ScanColor);
                     break;
             }
+        }
+
+        foreach (var (position, label) in Signatures)
+        {
+            var sp = ToPixel(position);
+            handle.DrawLine(sp + new Vector2(0, -6), sp + new Vector2(6, 5), RepublicColor);
+            handle.DrawLine(sp + new Vector2(6, 5), sp + new Vector2(-6, 5), RepublicColor);
+            handle.DrawLine(sp + new Vector2(-6, 5), sp + new Vector2(0, -6), RepublicColor);
+            if (_zoom >= 1.5f)
+                handle.DrawString(_font, sp + new Vector2(8, -6), label, RepublicColor);
+        }
+
+        if (Target is { } target)
+        {
+            var tp = ToPixel(target);
+            handle.DrawCircle(tp, 9f, Color.White, false);
+            handle.DrawLine(tp + new Vector2(-13, 0), tp + new Vector2(-5, 0), Color.White);
+            handle.DrawLine(tp + new Vector2(5, 0), tp + new Vector2(13, 0), Color.White);
+            handle.DrawLine(tp + new Vector2(0, -13), tp + new Vector2(0, -5), Color.White);
+            handle.DrawLine(tp + new Vector2(0, 5), tp + new Vector2(0, 13), Color.White);
         }
 
         if (PathStart is { } pathStart)

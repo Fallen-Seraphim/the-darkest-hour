@@ -190,43 +190,4 @@ json.dump({
 }, open(SEAT + '/meta.json', 'w'), indent=4)
 print('ok')
 
-
-# --- боеприпасы штурмовика: фугасная бомба и короб снарядов 30 мм (иконки 32×32)
-def bomb_he():
-    im = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
-    d = ImageDraw.Draw(im)
-    d.ellipse([10, 4, 22, 26], fill=(70, 78, 64, 255))
-    d.rectangle([10, 10, 22, 22], fill=(70, 78, 64, 255))
-    d.ellipse([12, 5, 16, 16], fill=(96, 106, 88, 255))
-    d.rectangle([10, 13, 22, 14], fill=GOLD)
-    d.polygon([(11, 24), (16, 30), (21, 24)], fill=(50, 54, 48, 255))
-    d.line([(16, 24), (16, 30)], fill=EDGE)
-    d.rectangle([14, 2, 18, 4], fill=EDGE)
-    return outline(im)
-
-
-def ammo_box():
-    im = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
-    d = ImageDraw.Draw(im)
-    d.rectangle([5, 10, 27, 26], fill=(74, 82, 60, 255))
-    d.rectangle([5, 10, 27, 13], fill=(96, 104, 80, 255))
-    d.rectangle([13, 16, 19, 22], fill=GOLD)
-    d.text((14, 16), '', fill=BLACK)
-    for x in (8, 11, 21, 24):
-        d.rectangle([x, 6, x + 1, 10], fill=(200, 160, 60, 255))
-        d.point((x, 6), fill=(150, 150, 150, 255))
-    return outline(im)
-
-
-MUN = 'Resources/Textures/_DarkestHour/Vehicles/Aircraft/munitions.rsi'
-os.makedirs(MUN, exist_ok=True)
-bomb_he().save(MUN + '/bomb_he.png')
-ammo_box().save(MUN + '/ammo_30mm.png')
-json.dump({
-    'version': 1,
-    'license': 'CC-BY-SA-3.0',
-    'copyright': 'Drawn for The Darkest Hour (2026-11-12): attack aircraft munitions.',
-    'size': {'x': 32, 'y': 32},
-    'states': [{'name': 'bomb_he'}, {'name': 'ammo_30mm'}],
-}, open(MUN + '/meta.json', 'w'), indent=4)
-print('munitions ok')
+# Боеприпасы штурмовика — спрайты RMC-14 (dropship_ammo.rsi, dropship_ammo_64.rsi), не рисуются здесь.
