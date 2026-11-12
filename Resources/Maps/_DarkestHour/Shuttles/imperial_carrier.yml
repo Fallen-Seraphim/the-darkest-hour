@@ -24,7 +24,7 @@ tilemap:
   8: RMCFloorPlatingStriped
   9: RMCFloorPlatingStripedEast
   10: RMCFloorPlatingStripedWest
-  11: RMCFloorResearchContainment
+  11: RMCFloorResearchContainmentFloor2North
 entities:
 - proto: ""
   entities:

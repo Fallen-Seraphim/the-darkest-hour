@@ -116,7 +116,7 @@ FLOOR = {
     'hq': 'CMFloorBlack', 'hqhall': 'CMFloorSteel', 'cmd1': 'CMFloorOffice', 'cmd2': 'CMFloorOffice',
     'cmd3': 'CMFloorOffice', 'cmd4': 'CMFloorOffice', 'engL': 'CMFloorBlack', 'eng': 'CMFloorBlack',
     'engR': 'CMFloorBlack', 'labs': 'CMFloorWhite', 'or1': 'CMFloorSterile', 'or2': 'CMFloorSterile',
-    'chem': 'RMCFloorResearchContainment', 'morgue': 'CMFloorSterile',
+    'chem': 'RMCFloorResearchContainmentFloor2North', 'morgue': 'CMFloorSterile',
 }
 for p, r in REGION.items():
     T[p] = FLOOR[r]
