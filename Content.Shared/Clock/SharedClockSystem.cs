@@ -38,7 +38,12 @@ public abstract partial class SharedClockSystem : EntitySystem
 
     private TimeSpan GetGlobalTime()
     {
-        return (EntityQuery<GlobalTimeManagerComponent>().FirstOrDefault()?.TimeOffset ?? TimeSpan.Zero) + _ticker.RoundDuration();
+        // DarkestHour: без менеджера времени часы идут по городским часам (Лост-Энджелс, раунд начинается в 9:00 —
+        // DHCityClock), как терминалы, телефоны и банк; решение автора 2026-11-12.
+        if (EntityQuery<GlobalTimeManagerComponent>().FirstOrDefault() is not { } manager)
+            return Content.Shared._DarkestHour.City.DHCityClock.Now(_ticker.RoundDuration()).TimeOfDay;
+
+        return manager.TimeOffset + _ticker.RoundDuration();
     }
 
     public TimeSpan GetClockTime(Entity<ClockComponent> ent)

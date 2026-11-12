@@ -99,6 +99,8 @@
     sprite: _DarkestHour/Objects/City/lav_watch.rsi
   - type: Clothing
     sprite: _DarkestHour/Objects/City/lav_watch.rsi
+  - type: Clock
+    clockType: TwentyFourHour
 
 - type: entity
   parent: BriefcaseBrown

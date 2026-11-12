@@ -34,6 +34,9 @@ public enum DHTaskKind : byte
 
     /// <summary>ОФСК: подорвать объект — сработавшая взрывчатка с таймером рядом с меткой объекта.</summary>
     Bombing,
+
+    /// <summary>LA-V: продать N штук товара — по чекам чековой машинки (продавец — LA-V, покупатель — не LA-V).</summary>
+    Sales,
 }
 
 [Prototype("dhTask")]
@@ -100,6 +103,16 @@ public sealed partial class DHTaskPrototype : IPrototype
     /// <summary>Вымогательство: насколько реже выпадают военпол и LA-V, чем мирные.</summary>
     [DataField]
     public float VipWeight = 0.35f;
+
+    /// <summary>Продажи: из чего выбирается товар задания.</summary>
+    [DataField]
+    public List<EntProtoId> Goods = new();
+
+    [DataField]
+    public int CountMin = 2;
+
+    [DataField]
+    public int CountMax = 4;
 }
 
 /// <summary>Объект для подрыва (задание ОФСК): метка, расставлена генератором карты.</summary>
@@ -292,4 +305,61 @@ public sealed class DHPoliceDatabaseState(bool online, List<DHDatabaseRecordInfo
 public sealed class DHPoliceDatabaseDeleteMessage(int id) : BoundUserInterfaceMessage
 {
     public readonly int Id = id;
+}
+
+// ---------------------------------------------------------------- рабочий компьютер (решение автора 2026-11-12)
+// Офисным работникам: раз в 4 минуты — практическое задание про счета, проценты, налоги, графики. Верный ответ —
+// деньги на личный счёт работника.
+
+[RegisterComponent]
+public sealed partial class DHWorkComputerComponent : Component
+{
+    [DataField]
+    public TimeSpan Interval = TimeSpan.FromMinutes(4);
+
+    [DataField]
+    public int RewardMin = 50;
+
+    [DataField]
+    public int RewardMax = 100;
+
+    /// <summary>Неверных ответов до потери задания.</summary>
+    [DataField]
+    public int Attempts = 2;
+}
+
+[Serializable, NetSerializable]
+public enum DHWorkComputerUiKey : byte
+{
+    Key,
+}
+
+[Serializable, NetSerializable]
+public sealed class DHWorkComputerState(string? task, int reward, int secondsToNext, int attemptsLeft, int earned,
+    string? status)
+{
+    /// <summary>Текст задания (разметка); null — задания пока нет.</summary>
+    public readonly string? Task = task;
+
+    public readonly int Reward = reward;
+    public readonly int SecondsToNext = secondsToNext;
+    public readonly int AttemptsLeft = attemptsLeft;
+
+    /// <summary>Сколько этот работник заработал за смену.</summary>
+    public readonly int Earned = earned;
+
+    public readonly string? Status = status;
+}
+
+[Serializable, NetSerializable]
+public sealed class DHWorkComputerAnswerMessage(string answer) : BoundUserInterfaceMessage
+{
+    public readonly string Answer = answer;
+}
+
+/// <summary>Состояние рабочего компьютера — лично работнику (у каждого своё задание и таймер).</summary>
+[Serializable, NetSerializable]
+public sealed class DHWorkComputerStateMessage(DHWorkComputerState state) : BoundUserInterfaceMessage
+{
+    public readonly DHWorkComputerState State = state;
 }

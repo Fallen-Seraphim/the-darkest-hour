@@ -248,6 +248,14 @@ def furnish_apartment(lv, x0, y0, x1, y1):
     lv.put(LIGHT_DIM, (x0 + x1) // 2, y1 - 1, ROT_N)
 
 
+def on_tables(lv, proto, x0, y0, x1, y1, n):
+    """Поставить предмет на первые n офисных столов в прямоугольнике (по строкам снизу вверх)."""
+    tables = sorted({(e[2], e[1]) for e in lv.ents
+                     if e[0] in ('CMTable', 'CMTableReinforcedBlack') and x0 < e[1] < x1 and y0 < e[2] < y1})
+    for y, x in tables[:n]:
+        lv.put(proto, x, y)
+
+
 def furnish_office(lv, x0, y0, x1, y1, fancy=False):
     """Офис: ряды столов со стульями, шкафы, растения."""
     table = 'CMTableReinforcedBlack' if fancy else 'CMTable'
@@ -486,6 +494,9 @@ def gates():
         elif z in (3, 4):
             for i in range(3):
                 lv.put('SpawnPointDHLAOfficeWorker', ax0 + 3 + i * 2, ay1 - 4)
+            # рабочие компьютеры (решение автора 2026-11-12) — на столах кабинетов
+            on_tables(lv, 'DHWorkComputer', ax0, ay0 + 8, mid - 2, ay1, 3)
+            on_tables(lv, 'DHWorkComputer', mid + 2, ay0 + 8, ax1, ay1, 3)
 
     # 1–2: поликлиника (clinic()), 3–5: офисы. Для 1–2 мебель «расставляется» в пустоту, чтобы не сдвигать
     # случайные выборы остальной карты.
@@ -495,6 +506,7 @@ def gates():
         if z in (3, 4):
             for i in range(3):
                 lv.put('SpawnPointDHLAOfficeWorker', bx0 + 6 + i * 2, by1 - 4)
+            on_tables(lv, 'DHWorkComputer', bx0, by0 + 8, bx1, by1, 4)
 
     # переход между башнями на 3-м и 4-м уровнях (крыша перехода — на 5-м)
     for z in (3, 4):
@@ -524,6 +536,7 @@ def gates():
     lv.put('SpawnPointDHLAVEmployee', bx0 + 6, by1 - 3)
     lv.put('SpawnPointDHLAVSecurity', (bx0 + bx1) // 2, by0 + 6)
     lv.put('SpawnPointDHLAVSecurity', (bx0 + bx1) // 2 + 1, by0 + 6)
+    on_tables(lv, 'DHWorkComputer', bx0, by0 + 8, bx1, by1, 4)       # рабочие места сотрудников LA-V
     lv.put('LockerSecurityFilled', bx0 + 1, by0 + 9)
     # у лифта (x1-3, y0+4) место занято шахтой — сейф и терминал у перегородки
     lv.put('DHLAVArmory', bx1 - 2, by0 + 7)
@@ -539,6 +552,8 @@ def gates():
     lv.put('DHLAVSafe', bx0 + 3, top)
     lv.put('CMTableWooden', bx1 - 2, top)
     lv.put('DHBudgetComputerVanguard', bx1 - 2, top)
+    lv.put('CMTableWooden', bx1 - 4, top)
+    lv.put('DHComputerTasksVanguard', bx1 - 4, top)                   # задания продаж LA-V
     lv.put('CMPottedPlant7', bx1 - 1, top)
     lv.put('CMPottedPlant8', bx1 - 1, by0 + 9)
     for x in range(bx0 + 2, bx1 - 1, 4):

@@ -344,3 +344,98 @@ public sealed class DHPoliceDatabaseWindow : DefaultWindow
         }
     }
 }
+
+// ---------------------------------------------------------------- рабочий компьютер
+
+[UsedImplicitly]
+public sealed class DHWorkComputerBoundUserInterface : BoundUserInterface
+{
+    private DHWorkComputerWindow? _window;
+
+    public DHWorkComputerBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    {
+    }
+
+    protected override void Open()
+    {
+        base.Open();
+        _window = this.CreateWindow<DHWorkComputerWindow>();
+        _window.OnAnswer += answer => SendMessage(new DHWorkComputerAnswerMessage(answer));
+    }
+
+    protected override void ReceiveMessage(BoundUserInterfaceMessage message)
+    {
+        base.ReceiveMessage(message);
+        if (message is DHWorkComputerStateMessage state)
+            _window?.UpdateState(state.State);
+    }
+}
+
+public sealed class DHWorkComputerWindow : DefaultWindow
+{
+    public event Action<string>? OnAnswer;
+
+    private readonly Label _header = new() { FontColorOverride = DHPhoneUi.Accent };
+    private readonly RichTextLabel _task = new() { HorizontalExpand = true };
+    private readonly LineEdit _answer = new() { HorizontalExpand = true };
+    private readonly Button _send = new();
+    private readonly Label _status = new() { FontColorOverride = DHPhoneUi.Warn };
+    private readonly Label _earned = new() { FontColorOverride = DHPhoneUi.Money };
+    private string? _lastTask;
+
+    public DHWorkComputerWindow()
+    {
+        DHFonts.RegisterTerminal(this);
+        Title = Loc.GetString("dh-work-ui-title");
+        MinSize = new Vector2(440, 380);
+
+        var root = DHPhoneUi.Column(6);
+        root.Margin = new Thickness(8);
+        root.AddChild(_header);
+        root.AddChild(_task);
+        _answer.PlaceHolder = Loc.GetString("dh-work-ui-answer");
+        _answer.OnTextEntered += _ => Send();
+        _send.Text = Loc.GetString("dh-work-ui-send");
+        _send.OnPressed += _ => Send();
+        var row = DHPhoneUi.Row();
+        row.AddChild(_answer);
+        row.AddChild(_send);
+        root.AddChild(row);
+        root.AddChild(_status);
+        root.AddChild(_earned);
+        _task.SetMessage(Loc.GetString("dh-work-ui-idle"));
+
+        var scroll = new ScrollContainer { VerticalExpand = true, HScrollEnabled = false };
+        scroll.AddChild(root);
+        Contents.AddChild(scroll);
+    }
+
+    private void Send()
+    {
+        OnAnswer?.Invoke(_answer.Text);
+        _answer.Clear();
+    }
+
+    public void UpdateState(DHWorkComputerState state)
+    {
+        if (state.Task is { } task)
+        {
+            _header.Text = Loc.GetString("dh-work-ui-task", ("reward", state.Reward), ("left", state.AttemptsLeft));
+            if (task != _lastTask)
+                _task.SetMessage(task);
+        }
+        else
+        {
+            _header.Text = Loc.GetString("dh-work-ui-wait", ("time", $"{state.SecondsToNext / 60}:{state.SecondsToNext % 60:D2}"));
+            if (_lastTask != null)
+                _task.SetMessage(Loc.GetString("dh-work-ui-idle"));
+        }
+
+        _lastTask = state.Task;
+        _answer.Editable = state.Task != null;
+        _send.Disabled = state.Task == null;
+        if (state.Status != null)
+            _status.Text = state.Status;
+        _earned.Text = Loc.GetString("dh-work-ui-earned", ("earned", state.Earned));
+    }
+}
