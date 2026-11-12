@@ -1,0 +1,191 @@
+# «Восстание», задания (решение автора 2026-11-12, документ проекта claude/uprising-economy.md). Логика —
+# DHTaskSystem, база данных — DHPoliceDatabaseSystem. Суммы согласованы: задания военпола 300–600.
+
+# ---------------------------------------------------------------- задания военпола
+
+- type: dhTask
+  id: DHTaskPoliceStash
+  side: Police
+  kind: Stash
+  name: dh-task-police-stash-name
+  description: dh-task-police-stash-desc
+  rewardMin: 300
+  rewardMax: 400
+  timeLimit: 900
+
+- type: dhTask
+  id: DHTaskPoliceDefuse
+  side: Police
+  kind: Defuse
+  name: dh-task-police-defuse-name
+  description: dh-task-police-defuse-desc
+  rewardMin: 450
+  rewardMax: 600
+  bombTimer: 480
+
+- type: dhTask
+  id: DHTaskPoliceDatabase
+  side: Police
+  kind: Database
+  name: dh-task-police-database-name
+  description: dh-task-police-database-desc
+  rewardMin: 400
+  rewardMax: 500
+  fakes: 3
+  timeLimit: 1200
+
+# ---------------------------------------------------------------- компьютеры и предметы
+
+- type: entity
+  parent: DHCityComputerBase
+  id: DHComputerTasksPolice
+  name: Military Police task computer
+  description: Orders from district command. Three on offer, one at a time; pay goes to the station budget.
+  components:
+  - type: Sprite
+    layers:
+    - state: security_det
+  - type: PointLight
+    color: "#5b8ad6"
+  - type: DHTaskConsole
+    side: Police
+  - type: AccessReader
+    access: [["DHLAPolice"]]
+  - type: ActivatableUIRequiresAccess
+  - type: ActivatableUI
+    key: enum.DHTaskConsoleUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHTaskConsoleUiKey.Key:
+        type: DHTaskConsoleBoundUserInterface
+
+- type: entity
+  parent: DHCityComputerBase
+  id: DHComputerPoliceDatabase
+  name: Military Police database terminal
+  description: The district's passport records. Works while the database server in the archive is intact.
+  components:
+  - type: Sprite
+    layers:
+    - state: terminal1
+  - type: PointLight
+    color: "#5b8ad6"
+  - type: DHPoliceDatabaseTerminal
+  - type: AccessReader
+    access: [["DHLAPolice"]]
+  - type: ActivatableUIRequiresAccess
+  - type: ActivatableUI
+    key: enum.DHPoliceDatabaseUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHPoliceDatabaseUiKey.Key:
+        type: DHPoliceDatabaseBoundUserInterface
+
+- type: entity
+  parent: BaseStructure
+  id: DHPoliceDatabaseServer
+  name: Military Police database server
+  description: The rack that holds the district's passport records. Without it the database terminals go dark.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/server.rsi
+    layers:
+    - state: server
+    - state: variant-crew
+  - type: InteractionOutline
+  - type: DHPoliceDatabaseServer
+  - type: Anchorable
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.4"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Damageable
+    damageContainer: Inorganic
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+# Закладка: не предмет — щелчок военпола по ней закрывает задание.
+- type: entity
+  id: DHTaskStash
+  name: suspicious package
+  description: A small package wrapped in tape, tucked out of sight.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/ParcelWrap/wrapped_parcel.rsi
+    state: parcel-small
+    drawdepth: SmallObjects
+  - type: Clickable
+  - type: InteractionOutline
+  - type: DHTaskStash
+
+- type: entity
+  id: DHTaskBomb
+  name: improvised explosive device
+  description: A crude bomb with a timer and a code keypad. Someone has to type the right code before the timer runs out.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/bomb.rsi
+    state: base-bomb-active
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Transform
+    anchored: true
+  - type: DHTaskBomb
+  - type: ActivatableUI
+    key: enum.DHTaskBombUiKey.Key
+    requiresComplex: true
+  - type: UserInterface
+    interfaces:
+      enum.DHTaskBombUiKey.Key:
+        type: DHTaskBombBoundUserInterface
+
+# Невидимые метки (ставит генератор карты): места для закладок и бомб, камеры изолятора военпола.
+- type: entity
+  id: DHTaskSpot
+  name: task spot
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+  - type: DHTaskSpot
+  - type: Sprite
+    sprite: Markers/cross.rsi
+    state: green
+    visible: false
+
+- type: entity
+  id: DHPoliceCell
+  name: police cell marker
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+  - type: DHPoliceCell
+    radius: 2.5
+  - type: Sprite
+    sprite: Markers/cross.rsi
+    state: blue
+    visible: false
