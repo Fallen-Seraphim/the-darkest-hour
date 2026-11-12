@@ -290,7 +290,8 @@ public sealed partial class DHBankDevicesSystem
 
                 if (!Type(comp, key, 6) && key == "enter")
                 {
-                    if (int.TryParse(comp.Input, out var amount) && _bank.Transfer(account!, comp.TransferTo, amount, out var error))
+                    string? error = null;
+                    if (int.TryParse(comp.Input, out var amount) && _bank.Transfer(account!, comp.TransferTo, amount, out error))
                     {
                         _audio.PlayPvs(OkSound, ent);
                         ShowMessage(comp, Loc.GetString("dh-atm-screen-sent", ("amount", amount), ("number", comp.TransferTo)),
@@ -298,7 +299,7 @@ public sealed partial class DHBankDevicesSystem
                     }
                     else
                     {
-                        ShowMessage(comp, int.TryParse(comp.Input, out _) ? error : Loc.GetString("dh-bank-error-amount"),
+                        ShowMessage(comp, int.TryParse(comp.Input, out _) && error != null ? error : Loc.GetString("dh-bank-error-amount"),
                             true, DHAtmScreen.TransferAmount);
                     }
                 }

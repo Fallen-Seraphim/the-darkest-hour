@@ -185,7 +185,7 @@ public sealed class DHAircraftWindow : DefaultWindow
             ("loaded", loaded)) + "\n" + Loc.GetString("dh-aircraft-ui-modules",
             ("modules", modules.Count == 0
                 ? Loc.GetString("dh-aircraft-module-none")
-                : string.Join(", ", modules.ConvertAll(m => Loc.GetString("dh-aircraft-module-" + m.ToString().ToLowerInvariant()))))));
+                : string.Join(", ", modules.ConvertAll(m => Loc.GetString("dh-aircraft-module-" + m.ToString().ToLowerInvariant())))));
         _altitude.Text = Loc.GetString("dh-aircraft-ui-altitude", ("altitude", Loc.GetString("dh-aircraft-altitude-name-" + state.Altitude.ToString().ToLowerInvariant())));
         _startPass.Text = Loc.GetString("dh-aircraft-ui-start-pass");
         _startPass.Disabled = !state.CanPass;
