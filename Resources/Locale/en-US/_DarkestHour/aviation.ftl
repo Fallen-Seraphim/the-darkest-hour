@@ -16,6 +16,7 @@ dh-aircraft-lift-examine-lowering = The lift is going down.
 dh-aircraft-lift-verb-raise = Raise the aircraft
 dh-aircraft-lift-verb-lower = Lower the aircraft into the hangar
 dh-aircraft-lift-empty = There is no aircraft in the hangar.
+dh-aircraft-lift-not-stowed = The aircraft is not in the hangar: it is on deck or in the air.
 dh-aircraft-lift-not-parked = The aircraft must stand on the lift.
 dh-aircraft-lift-occupied = The pilot is in the cockpit — let them climb out first.
 dh-aircraft-control-on = Stick taken: WASD sets the course.

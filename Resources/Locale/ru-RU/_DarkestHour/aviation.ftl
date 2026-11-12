@@ -17,6 +17,7 @@ dh-aircraft-lift-examine-lowering = Лифт опускается.
 dh-aircraft-lift-verb-raise = Поднять самолёт
 dh-aircraft-lift-verb-lower = Опустить самолёт в ангар
 dh-aircraft-lift-empty = В ангаре нет самолёта.
+dh-aircraft-lift-not-stowed = Самолёт не в ангаре: он на палубе или в воздухе.
 dh-aircraft-lift-not-parked = Самолёт должен стоять на лифте.
 dh-aircraft-lift-occupied = В кабине пилот — пусть сначала выйдет.
 

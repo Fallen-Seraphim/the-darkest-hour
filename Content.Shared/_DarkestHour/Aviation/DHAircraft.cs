@@ -520,6 +520,10 @@ public sealed partial class DHAircraftLiftComponent : Component
     [ViewVariables]
     public EntityUid? Aircraft;
 
+    /// <summary>Стартовый самолёт уже выдан (при инициализации карты или при первом подъёме).</summary>
+    [ViewVariables]
+    public bool StartingSpawned;
+
     [DataField]
     public float RunwayLength = 50f;
 
