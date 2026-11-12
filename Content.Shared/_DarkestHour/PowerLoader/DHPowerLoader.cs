@@ -46,3 +46,27 @@ public sealed partial class DHPowerLoaderGrabbableComponent : Component;
 
 [Serializable, NetSerializable]
 public sealed partial class DHPowerLoaderGrabDoAfterEvent : SimpleDoAfterEvent;
+
+/// <summary>
+/// Зарядка «из клешни»: груз лежит в контейнере погрузчика, а не в руке пилота, и пилот сидит в кабине на расстоянии
+/// от цели (у штурмовика — до <see cref="DHPowerLoaderComponent.BigReach"/>). Стандартные проверки DoAfter
+/// (дистанция 1.5 до цели и до предмета, «предмет в руке») такую зарядку сразу обрывают — снимаем их; дальность
+/// погрузчик проверяет сам, а движение по-прежнему прерывает.
+/// </summary>
+public static class DHPowerLoaderDoAfter
+{
+    public static DoAfterArgs AllowPowerLoader(this DoAfterArgs args, IEntityManager entMan)
+    {
+        if (args.Used is not { } used ||
+            !entMan.TryGetComponent(used, out TransformComponent? xform) ||
+            !entMan.HasComponent<DHPowerLoaderComponent>(xform.ParentUid))
+        {
+            return args;
+        }
+
+        args.DistanceThreshold = null;
+        args.BreakOnDropItem = false;
+        args.BreakOnHandChange = false;
+        return args;
+    }
+}

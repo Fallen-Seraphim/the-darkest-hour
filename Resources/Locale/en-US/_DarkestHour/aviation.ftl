@@ -73,6 +73,7 @@ dh-aircraft-state-pass = low pass
 dh-aircraft-cannon-full = The cannon pods are full.
 dh-aircraft-cannon-loaded = Pod on hardpoint { $slot } loaded: { $rounds } rounds.
 dh-aircraft-hardpoints-full = All hardpoints are taken.
+dh-aircraft-load-not-parked = Load only an aircraft standing on the deck (raise it from the hangar with the lift first).
 dh-aircraft-munition-loaded = Hung on hardpoint { $slot }.
 dh-aircraft-pass-blocker-state = A low pass starts only from the atmosphere.
 dh-aircraft-pass-blocker-route = Set the pass line: right-click the map for the start, again for the end.

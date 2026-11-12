@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Numerics;
+using Content.Shared._DarkestHour.PowerLoader;
 using Content.Shared._DarkestHour.HeavyGuns;
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
@@ -80,7 +81,7 @@ public sealed partial class DHHeavyGunSystem
         {
             BreakOnMove = true,
             NeedHand = true,
-        });
+        }.AllowPowerLoader(EntityManager));
     }
 
     private void OnFieldGunLoaded(Entity<DHFieldGunComponent> ent, ref DHFieldGunLoadDoAfterEvent args)

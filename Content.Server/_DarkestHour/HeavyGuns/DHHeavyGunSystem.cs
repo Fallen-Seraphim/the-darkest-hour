@@ -7,6 +7,7 @@ using Content.Server.Decals;
 using Content.Server.Explosion.EntitySystems;
 using Content.Server.Parallax;
 using Content.Server.Shuttles.Systems;
+using Content.Shared._DarkestHour.PowerLoader;
 using Content.Shared._DarkestHour.Assault;
 using Content.Shared._DarkestHour.Atmos.Fire;
 using Content.Shared._DarkestHour.HeavyGuns;
@@ -203,7 +204,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         {
             BreakOnMove = true,
             NeedHand = true,
-        });
+        }.AllowPowerLoader(EntityManager));
     }
 
     private void OnBreechLoaded(Entity<DHHeavyGunBreechComponent> ent, ref DHHeavyGunLoadDoAfterEvent args)
@@ -271,7 +272,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         {
             BreakOnMove = true,
             NeedHand = true,
-        });
+        }.AllowPowerLoader(EntityManager));
     }
 
     private void OnInterceptorLoaded(Entity<DHInterceptorComponent> ent, ref DHInterceptorLoadDoAfterEvent args)

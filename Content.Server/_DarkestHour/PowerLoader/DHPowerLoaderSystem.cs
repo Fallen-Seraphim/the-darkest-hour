@@ -48,7 +48,10 @@ public sealed partial class DHPowerLoaderSystem : EntitySystem
 
     private void OnStartup(Entity<DHPowerLoaderComponent> ent, ref ComponentStartup args)
     {
-        _container.EnsureContainer<ContainerSlot>(ent, ent.Comp.Container);
+        // Груз видно в клешнях: содержимое контейнера рисуется поверх погрузчика.
+        var slot = _container.EnsureContainer<ContainerSlot>(ent, ent.Comp.Container);
+        slot.ShowContents = true;
+        slot.OccludesLight = false;
     }
 
     private void OnTerminating(Entity<DHPowerLoaderComponent> ent, ref EntityTerminatingEvent args)
