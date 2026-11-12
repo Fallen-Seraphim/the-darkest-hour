@@ -1,6 +1,7 @@
 using System.Numerics;
 using Content.Server._DarkestHour.Assault;
 using Content.Server.Station.Systems;
+using Content.Shared._DarkestHour.PowerLoader;
 using Content.Shared._DarkestHour.Assault;
 using Content.Shared._DarkestHour.HeavyGuns;
 using Content.Shared.DoAfter;
@@ -384,7 +385,7 @@ public sealed partial class DHHeavyGunSystem
         {
             BreakOnMove = true,
             NeedHand = true,
-        });
+        }.AllowPowerLoader(EntityManager));
     }
 
     private bool CanMortarFire(Entity<DHMortarComponent> ent, EntityUid user)

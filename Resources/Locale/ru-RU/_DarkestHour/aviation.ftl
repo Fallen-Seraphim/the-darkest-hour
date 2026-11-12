@@ -76,6 +76,7 @@ dh-aircraft-state-pass = бреющий заход
 dh-aircraft-cannon-full = Пушечные контейнеры полные.
 dh-aircraft-cannon-loaded = Контейнер на узле { $slot } заряжен: { $rounds } снарядов.
 dh-aircraft-hardpoints-full = Все узлы подвески заняты.
+dh-aircraft-load-not-parked = Заряжать можно только самолёт на палубе (сначала поднимите его из ангара лифтом).
 dh-aircraft-munition-loaded = Подвешено на узел { $slot }.
 dh-aircraft-pass-blocker-state = Заход — только из атмосферы.
 dh-aircraft-pass-blocker-route = Задайте линию захода: правый клик по карте — начало, ещё раз — конец.

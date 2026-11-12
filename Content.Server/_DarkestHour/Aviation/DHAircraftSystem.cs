@@ -1,6 +1,7 @@
 using System.Numerics;
 using Content.Server._DarkestHour.ControlPoints;
 using Content.Server.Explosion.EntitySystems;
+using Content.Shared._DarkestHour.PowerLoader;
 using Content.Shared._DarkestHour.Assault;
 using Content.Shared._DarkestHour.Aviation;
 using Content.Shared._DarkestHour.Overwatch;
@@ -267,7 +268,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         if (TryComp<DHAircraftFlareCassetteComponent>(args.Used, out var cassette))
         {
             args.Handled = true;
-            if (ent.Comp.State != DHAircraftState.Parked)
+            if (!CheckParkedForLoad(ent, args.User))
                 return;
 
             if (!HasModule(ent.Comp, DHAircraftModule.FlareDispenser))
@@ -292,7 +293,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         if (TryComp<DHAircraftCannonAmmoComponent>(args.Used, out var ammo))
         {
             args.Handled = true;
-            if (ent.Comp.State != DHAircraftState.Parked)
+            if (!CheckParkedForLoad(ent, args.User))
                 return;
 
             // Короб — в самый пустой пушечный контейнер.
@@ -324,7 +325,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         if (TryComp<DHAircraftModuleComponent>(args.Used, out var module))
         {
             args.Handled = true;
-            if (ent.Comp.State != DHAircraftState.Parked)
+            if (!CheckParkedForLoad(ent, args.User))
                 return;
 
             if (HasModule(ent.Comp, module.Kind))
@@ -346,7 +347,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         if (HasComp<DHAircraftMunitionComponent>(args.Used))
         {
             args.Handled = true;
-            if (ent.Comp.State != DHAircraftState.Parked)
+            if (!CheckParkedForLoad(ent, args.User))
                 return;
 
             if (!ent.Comp.Hardpoints.Contains(DHAircraftMunition.None))
@@ -372,6 +373,16 @@ public sealed partial class DHAircraftSystem : EntitySystem
         _tool.UseTool(args.Used, args.User, ent, 4f, WeldingQuality, new DHAircraftRepairDoAfterEvent(), fuel: 5);
     }
 
+    /// <summary>Заряжать можно только стоящий на палубе самолёт — иначе подсказка, а не молчание.</summary>
+    private bool CheckParkedForLoad(Entity<DHAircraftComponent> ent, EntityUid user)
+    {
+        if (ent.Comp.State == DHAircraftState.Parked)
+            return true;
+
+        _popup.PopupEntity(Loc.GetString("dh-aircraft-load-not-parked"), ent, user);
+        return false;
+    }
+
     private void StartLoad(Entity<DHAircraftComponent> ent, EntityUid user, EntityUid used)
     {
         _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, ent.Comp.LoadTime, new DHAircraftLoadDoAfterEvent(),
@@ -379,7 +390,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         {
             BreakOnMove = true,
             NeedHand = true,
-        });
+        }.AllowPowerLoader(EntityManager));
     }
 
     public static bool HasModule(DHAircraftComponent comp, DHAircraftModule module)
