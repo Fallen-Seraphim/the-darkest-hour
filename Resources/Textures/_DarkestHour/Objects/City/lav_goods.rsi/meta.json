@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Made for The Darkest Hour (2026-11-12): LA-V branded goods",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "pen"
+    },
+    {
+      "name": "pen_luxury"
+    },
+    {
+      "name": "tablet"
+    },
+    {
+      "name": "planner"
+    },
+    {
+      "name": "badge"
+    }
+  ]
+}

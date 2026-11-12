@@ -35,8 +35,8 @@ dh-bank-error-self = Нельзя перевести на тот же счёт.
 dh-bank-error-amount = Укажите сумму.
 dh-bank-error-funds = Недостаточно средств.
 dh-bank-error-card = Карта не распознана.
-dh-bank-error-password = Неверный пароль.
-dh-bank-error-login = Неверный логин или пароль.
+dh-bank-error-password = Неверный PIN-код.
+dh-bank-error-login = Неверный логин или PIN-код.
 dh-bank-status-sent = Отправлено {$amount} кр.
 dh-bank-status-withdrawn = Снято {$amount} кр.
 dh-bank-status-evac = Борт заказан. Он сядет на ЗП-1 «Аэронавтика» через несколько минут.
@@ -49,12 +49,12 @@ dh-bank-ui-number = Счёт {$number}
 dh-bank-ui-balance = Баланс: {$balance} кр.
 dh-bank-app-ui-welcome = Банк Лост-Энджелса — LA-V
 dh-bank-app-ui-login = Логин
-dh-bank-app-ui-password = Пароль
+dh-bank-app-ui-password = PIN-код (4 цифры)
 dh-bank-app-ui-enter = Войти
 dh-bank-app-ui-logout = Выйти
-dh-bank-app-ui-hint = Логин и пароль — в окне персонажа (C).
+dh-bank-app-ui-hint = Логин и PIN-код — в окне персонажа (C).
 
-dh-atm-need-login = Сначала вставьте карту и введите пароль.
+dh-atm-need-login = Сначала вставьте карту и введите PIN-код.
 dh-atm-deposited = Внесено {$amount} кр.
 dh-atm-slot-card = Карта
 dh-atm-ui-title = Банкомат
@@ -96,7 +96,7 @@ dh-phone-incoming = Входящий звонок: {$caller}.
 dh-city-briefing-header = — Телефон и банк —
 dh-city-briefing-phone = Номер телефона: {$number}
 dh-city-briefing-account = Банковский счёт: {$number} (открыт с {$balance} кр.)
-dh-city-briefing-login = Логин банка: {$login}, пароль: {$password}
+dh-city-briefing-login = Логин банка: {$login}, PIN-код: {$password}
 
 ## антенна и овервотч
 dh-relay-hack-start = Вы подключаете взломщик к антенне...
@@ -128,13 +128,13 @@ dh-passport-place-earth = Земля
 # счёт ОФСК, реквизиты, чековая машинка (решение автора 2026-11-12)
 dh-bank-org-front = ООО «Южный ветер»
 dh-budget-ui-title-front = Бюджет ОФСК
-dh-city-briefing-org = Счёт организации «{ $org }»: { $number }, логин { $login }, пароль { $password }. Реквизиты — на бумаге в сумке.
+dh-city-briefing-org = Счёт организации «{ $org }»: { $number }, логин { $login }, PIN-код { $password }. Реквизиты — на бумаге в сумке.
 dh-bank-requisites-text = [head=2]Реквизиты счёта[/head]
     [bold]{ $org }[/bold]
 
     Номер счёта: [bold]{ $number }[/bold]
     Логин: [bold]{ $login }[/bold]
-    Пароль: [bold]{ $password }[/bold]
+    PIN-код: [bold]{ $password }[/bold]
 
     [italic]Банк Лост-Энджелса. Не передавайте реквизиты посторонним.[/italic]
 
@@ -156,7 +156,7 @@ dh-cheque-ui-reset = Сбросить счёт
 dh-cheque-slot-card = Карта
 dh-cheque-slot-goods = Лоток для товара
 dh-cheque-status-seller = Продавец: { $seller }.
-dh-cheque-status-amount = Выставлено { $amount } кр. Покупатель — вставьте карту и введите пароль.
+dh-cheque-status-amount = Выставлено { $amount } кр. Покупатель — вставьте карту и введите PIN-код.
 dh-cheque-status-paid = Оплачено { $amount } кр. Чек № { $serial } напечатан.
 dh-cheque-error-card = Вставьте банковскую карту.
 dh-cheque-error-amount = Неверная сумма.
@@ -173,3 +173,35 @@ dh-cheque-text-buyer = Покупатель: { $name }, счёт { $number }
 dh-cheque-text-goods = Товар / услуга: { $goods }
 dh-cheque-text-amount = [bold]ИТОГО: { $amount } кр.[/bold]
 dh-cheque-text-footer = [italic]Оплачено картой. Lost Angels—Vanguard Banking.[/italic]
+
+# банкомат: экран (решение автора 2026-11-12, как банкомат CMU14)
+dh-atm-ui-reader-tooltip = Картоприёмник: вставить свою карту или забрать
+dh-atm-ui-cash-tooltip = Забрать наличные
+dh-atm-screen-header = БАНК ЛОСТ-ЭНДЖЕЛСА · LA-V
+dh-atm-screen-welcome = Добро пожаловать.
+dh-atm-screen-insert = ВСТАВЬТЕ КАРТУ >
+dh-atm-screen-no-card = У вас нет банковской карты.
+dh-atm-screen-card = Карта: { $holder }
+dh-atm-screen-pin = ВВЕДИТЕ PIN-КОД:
+dh-atm-screen-pin-hint = ENTER — далее, X — забрать карту
+dh-atm-screen-wrong-pin = Неверный PIN-код. Осталось попыток: { $left }.
+dh-atm-screen-locked = Карта заблокирована на { $seconds } с.
+dh-atm-screen-balance = Баланс: { $balance } кр.
+dh-atm-screen-balance-short = Баланс: { $balance } кр.
+dh-atm-screen-menu-1 = 1 — баланс
+dh-atm-screen-menu-2 = 2 — снять наличные
+dh-atm-screen-menu-3 = 3 — перевод на счёт
+dh-atm-screen-menu-4 = 4 — история операций
+dh-atm-screen-menu-cancel = X — забрать карту
+dh-atm-screen-withdraw = СНЯТИЕ НАЛИЧНЫХ. Сумма:
+dh-atm-screen-cr = кр.
+dh-atm-screen-enter-cancel = ENTER — далее, X — назад
+dh-atm-screen-transfer-account = ПЕРЕВОД. Номер счёта (8 цифр):
+dh-atm-screen-transfer-to = Получатель: { $holder }, { $number }
+dh-atm-screen-transfer-amount = Сумма перевода:
+dh-atm-screen-sent = Переведено { $amount } кр. на счёт { $number }.
+dh-atm-screen-history = ИСТОРИЯ ОПЕРАЦИЙ
+dh-atm-screen-history-hint = 8 — выше, 2 — ниже, X — назад
+dh-atm-screen-continue = ENTER — продолжить
+dh-atm-screen-take-cash = Заберите наличные: { $amount } кр.
+dh-atm-screen-cash-waiting = >> В лотке { $amount } кр. — заберите <<

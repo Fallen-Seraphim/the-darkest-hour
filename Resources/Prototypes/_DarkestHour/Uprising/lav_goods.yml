@@ -1,0 +1,149 @@
+# «Восстание»: корпоративные товары LA-V (решение автора 2026-11-12) — ручки, планшеты, ежедневники, пропуска,
+# сувениры. Продаются через чековую машинку (будущие задания продаж LA-V), заказываются на складе LA-V.
+# Спрайты — _DarkestHour/Objects/City/lav_goods.rsi (нарисованы для DH); в руках — спрайты исходных предметов.
+
+- type: entity
+  parent: Pen
+  id: DHLAVPen
+  name: LA-V pen
+  description: A blue corporate pen with the Lost Angels—Vanguard "V". Writes smoothly, clicks loudly.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/City/lav_goods.rsi
+    state: pen
+
+- type: entity
+  parent: Pen
+  id: DHLAVPenExecutive
+  name: LA-V executive pen
+  description: A heavy black pen with gold trim, handed out to LA-V partners and management.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/City/lav_goods.rsi
+    state: pen_luxury
+  - type: Item
+    sprite: Objects/Misc/pens.rsi
+    heldPrefix: overpriced_pen
+    size: Tiny
+
+- type: entity
+  parent: DHPhone
+  id: DHLAVTablet
+  name: LA-V tablet
+  description: A corporate LA-V tablet. Everything a phone can do — calls, messages, notes, maps and the bank app — on a bigger screen.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/City/lav_goods.rsi
+    state: tablet
+  - type: Item
+    size: Small
+    sprite: Objects/Devices/tablets.rsi
+
+- type: entity
+  parent: Paper
+  id: DHLAVPlanner
+  name: LA-V planner
+  description: A leather-bound LA-V day planner with a gold "V" on the cover. Something to write meetings, debts and grudges in.
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _DarkestHour/Objects/City/lav_goods.rsi
+      state: planner
+    - sprite: Objects/Misc/bureaucracy.rsi
+      state: paper_words
+      map: ["enum.PaperVisualLayers.Writing"]
+      visible: false
+    - sprite: Objects/Misc/bureaucracy.rsi
+      state: paper_stamp-generic
+      map: ["enum.PaperVisualLayers.Stamp"]
+      visible: false
+  - type: Item
+    size: Small
+
+- type: entity
+  parent: BaseItem
+  id: DHLAVBadge
+  name: LA-V visitor pass
+  description: A lanyard pass of the Lost Angels—Vanguard district office. Opens nothing on its own, but looks official.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/City/lav_goods.rsi
+    state: badge
+  - type: Item
+    size: Tiny
+
+- type: entity
+  parent: DrinkMugBlue
+  id: DHLAVMug
+  name: LA-V mug
+  description: A corporate mug. Coffee tastes the same, the "V" makes it a perk.
+
+- type: entity
+  parent: Wristwatch
+  id: DHLAVWatch
+  name: LA-V wristwatch
+  description: A company wristwatch given for long service at Lost Angels—Vanguard.
+
+- type: entity
+  parent: BriefcaseBrown
+  id: DHLAVBriefcase
+  name: LA-V briefcase
+  description: A dark corporate briefcase with an embossed "V".
+  components:
+  - type: Sprite
+    color: "#6a7ca6"
+
+# ящики склада
+- type: entity
+  parent: CrateGenericSteel
+  id: DHLAVCrateStationery
+  name: LA-V stationery crate
+  description: Six LA-V pens, two executive pens, four planners and four visitor passes.
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/plastic.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/plastic.rsi
+  - type: StorageFill
+    contents:
+    - id: DHLAVPen
+      amount: 6
+    - id: DHLAVPenExecutive
+      amount: 2
+    - id: DHLAVPlanner
+      amount: 4
+    - id: DHLAVBadge
+      amount: 4
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHLAVCrateTablets
+  name: LA-V tablet crate
+  description: Three LA-V tablets.
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/plastic.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/plastic.rsi
+  - type: StorageFill
+    contents:
+    - id: DHLAVTablet
+      amount: 3
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHLAVCrateSouvenirs
+  name: LA-V souvenir crate
+  description: Four LA-V mugs, two wristwatches and a briefcase.
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/plastic.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/plastic.rsi
+  - type: StorageFill
+    contents:
+    - id: DHLAVMug
+      amount: 4
+    - id: DHLAVWatch
+      amount: 2
+    - id: DHLAVBriefcase

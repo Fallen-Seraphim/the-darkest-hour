@@ -33,18 +33,82 @@ public sealed partial class DHBankCardComponent : Component
     public DHBankOrg Org = DHBankOrg.None;
 }
 
-/// <summary>Банкомат: карта в слоте, после пароля — снятие и внесение наличных.</summary>
+/// <summary>Экран банкомата.</summary>
+[Serializable, NetSerializable]
+public enum DHAtmScreen : byte
+{
+    Insert,
+    Pin,
+    Menu,
+    Withdraw,
+    TransferAccount,
+    TransferAmount,
+    History,
+    Message,
+}
+
+/// <summary>Огни картоприёмника (состояния atm_reader.rsi).</summary>
+[Serializable, NetSerializable]
+public enum DHAtmReaderLight : byte
+{
+    Idle,
+    Ready,
+    Reading,
+    Ok,
+    Locked,
+}
+
+/// <summary>
+/// Банкомат «Банка Лост-Энджелса» (решение автора 2026-11-12, окно — как банкомат CMU14, с маркой LA-V): карта в
+/// приёмник, PIN-код с клавиатуры, меню цифрами — баланс, снятие, перевод, история. Наличные выдаются в лоток,
+/// внесение — щелчком купюрами по банкомату.
+/// </summary>
 [RegisterComponent]
 public sealed partial class DHAtmComponent : Component
 {
     public const string CardSlotId = "dh-atm-card";
 
-    /// <summary>Номер счёта, для которого введён пароль (сбрасывается, когда карту вынули).</summary>
+    /// <summary>Неверных PIN-кодов подряд до блокировки карты на этом банкомате.</summary>
+    public const int MaxAttempts = 3;
+
+    [ViewVariables]
+    public DHAtmScreen Screen = DHAtmScreen.Insert;
+
+    /// <summary>Набранное с клавиатуры (PIN, сумма, номер счёта).</summary>
+    [ViewVariables]
+    public string Input = string.Empty;
+
+    /// <summary>Номер счёта, для которого введён PIN (сбрасывается, когда карту вынули).</summary>
     [ViewVariables]
     public string? Authorized;
 
     [ViewVariables]
-    public string? Error;
+    public int Attempts;
+
+    /// <summary>Счета, заблокированные на этом банкомате после неверных PIN-кодов: номер → до какого времени.</summary>
+    [ViewVariables]
+    public Dictionary<string, TimeSpan> Locked = new();
+
+    [ViewVariables]
+    public string TransferTo = string.Empty;
+
+    [ViewVariables]
+    public int HistoryOffset;
+
+    /// <summary>Сообщение на экране Message.</summary>
+    [ViewVariables]
+    public string Message = string.Empty;
+
+    [ViewVariables]
+    public bool MessageIsError;
+
+    /// <summary>Куда вернуться после сообщения.</summary>
+    [ViewVariables]
+    public DHAtmScreen AfterMessage = DHAtmScreen.Menu;
+
+    /// <summary>Выданные, но ещё не взятые из лотка наличные.</summary>
+    [ViewVariables]
+    public int CashPending;
 }
 
 [Serializable, NetSerializable]
@@ -54,28 +118,33 @@ public enum DHAtmUiKey : byte
 }
 
 [Serializable, NetSerializable]
-public sealed class DHAtmState(bool hasCard, bool authorized, string number, string holder, int balance, string? error)
-    : BoundUserInterfaceState
+public sealed class DHAtmState(DHAtmScreen screen, List<string> lines, bool hasCard, DHAtmReaderLight light,
+    int cashPending, bool error) : BoundUserInterfaceState
 {
+    public readonly DHAtmScreen Screen = screen;
+
+    /// <summary>Строки экрана (уже переведённые).</summary>
+    public readonly List<string> Lines = lines;
+
     public readonly bool HasCard = hasCard;
-    public readonly bool Authorized = authorized;
-    public readonly string Number = number;
-    public readonly string Holder = holder;
-    public readonly int Balance = balance;
-    public readonly string? Error = error;
+    public readonly DHAtmReaderLight Light = light;
+    public readonly int CashPending = cashPending;
+    public readonly bool Error = error;
 }
 
+/// <summary>Клавиша: "0".."9", "00", "clear", "cancel", "enter".</summary>
 [Serializable, NetSerializable]
-public sealed class DHAtmLoginMessage(string password) : BoundUserInterfaceMessage
+public sealed class DHAtmKeyMessage(string key) : BoundUserInterfaceMessage
 {
-    public readonly string Password = password;
+    public readonly string Key = key;
 }
 
+/// <summary>Щелчок по картоприёмнику: вставить свою карту или забрать.</summary>
 [Serializable, NetSerializable]
-public sealed class DHAtmWithdrawMessage(int amount) : BoundUserInterfaceMessage
-{
-    public readonly int Amount = amount;
-}
+public sealed class DHAtmReaderMessage : BoundUserInterfaceMessage;
+
+[Serializable, NetSerializable]
+public sealed class DHAtmTakeCashMessage : BoundUserInterfaceMessage;
 
 /// <summary>Компьютер бюджета: счёт организации (LA-V или военпол).</summary>
 [RegisterComponent]
