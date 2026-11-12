@@ -142,7 +142,7 @@
   parent: BaseItem
   id: DHAircraftCannonAmmo
   name: 30 mm cannon ammo box
-  description: 150 high-explosive incendiary rounds for the attack aircraft's cannon. Load it into the aircraft on the deck.
+  description: 150 high-explosive incendiary rounds for the attack aircraft's cannon pods. Load it into the aircraft on the deck — it goes into the emptiest pod.
   components:
   - type: Sprite
     sprite: _RMC14/Objects/dropship_ammo.rsi
@@ -250,6 +250,52 @@
   - type: DHAircraftMunition
     kind: MissileHE
 
+# Пушечный контейнер 30 мм: вешается на любой узел подвески, как бомба; контейнеров может быть несколько.
+- type: entity
+  parent: BaseItem
+  id: DHAircraftCannonPod
+  name: 30 mm cannon pod
+  description: "A 30 mm cannon pod for a wing hardpoint of the attack aircraft. Comes loaded; top it up with ammo boxes on the deck. While armed it fires along the course during a low pass — two pods fire twice as hard."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/dropship_attachments.rsi
+    state: 30mm_cannon
+  - type: Item
+    size: Huge
+  - type: DHAircraftMunition
+    kind: CannonPod
+    rounds: 300
+
+# Модули спецотсеков фюзеляжа (два отсека). Ставятся и снимаются на палубе.
+- type: entity
+  parent: BaseItem
+  id: DHAircraftModuleRadar
+  name: aircraft radar module
+  description: "The attack aircraft's ground-mapping radar. Without it there are no signatures on the tactical map — only laser marks and coordinates."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/dropship_electronic_system_attachments.rsi
+    state: targeting_system
+  - type: Item
+    size: Huge
+  - type: DHAircraftModule
+    kind: Radar
+
+- type: entity
+  parent: BaseItem
+  id: DHAircraftModuleFlares
+  name: flare dispenser module
+  description: "The attack aircraft's decoy flare dispenser. Without it the aircraft cannot fire flares. Keeps its remaining flares when removed."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/dropship_attachments.rsi
+    state: minirocket_pod
+  - type: Item
+    size: Huge
+  - type: DHAircraftModule
+    kind: FlareDispenser
+    flares: 8
+
 # --- способности пилота (появляются, когда пристёгиваешься к креслу)
 
 - type: entity
@@ -310,9 +356,9 @@
     itemIconStyle: NoItem
     useDelay: 0.5
   - type: Sprite
-    sprite: _RMC14/Objects/dropship_ammo.rsi
+    sprite: _RMC14/Objects/dropship_attachments.rsi
     layers:
-    - state: 30mm_crate_10
+    - state: 30mm_cannon
   - type: InstantAction
     event: !type:DHAircraftCannonActionEvent
 

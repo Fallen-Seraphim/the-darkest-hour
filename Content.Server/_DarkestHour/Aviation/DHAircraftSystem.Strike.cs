@@ -202,6 +202,13 @@ public sealed partial class DHAircraftSystem
             return;
         }
 
+        // Пушечный контейнер — «огонь» взводит или снимает пушку (стреляет она только на бреющем).
+        if (kind == DHAircraftMunition.CannonPod)
+        {
+            SetCannon(ent, !comp.CannonOn);
+            return;
+        }
+
         if (comp.State is not (DHAircraftState.Airborne or DHAircraftState.Returning))
         {
             Notify(ent, Loc.GetString("dh-aircraft-fire-atmosphere-only"));
@@ -390,6 +397,10 @@ public sealed partial class DHAircraftSystem
         comp.NextScan = now + comp.ScanInterval;
         comp.Signatures.Clear();
         comp.SignatureSources.Clear();
+
+        // Без РЛС в отсеке сигнатур нет: цели — только по меткам ЛЦУ и координатам.
+        if (!HasModule(comp, DHAircraftModule.Radar))
+            return;
 
         if (_tacmap.GetSurfaceMap() is not { } surface)
             return;

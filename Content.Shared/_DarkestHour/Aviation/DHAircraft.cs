@@ -146,15 +146,35 @@ public sealed partial class DHAircraftComponent : Component
     [DataField]
     public SoundSpecifier PassHighSound = new SoundPathSpecifier("/Audio/_DarkestHour/Aviation/jet-pass-high.ogg");
 
-    // ---------------------------------------------------------------- пушка 30 мм
+    // ---------------------------------------------------------------- пушка 30 мм (подвесные контейнеры)
 
+    /// <summary>Снаряды в каждом узле подвески (имеет смысл только для пушечных контейнеров).</summary>
     [DataField, AutoNetworkedField]
-    public int CannonAmmo = 300;
+    public List<int> HardpointAmmo = new() { 0, 0, 0, 0 };
 
+    /// <summary>Ёмкость одного пушечного контейнера.</summary>
     [DataField]
-    public int MaxCannonAmmo = 300;
+    public int PodCapacity = 300;
 
-    /// <summary>Снарядов в очереди (одна очередь — одно попадание по курсу).</summary>
+    /// <summary>Сколько снарядов во всех пушечных контейнерах.</summary>
+    public int CannonAmmo
+    {
+        get
+        {
+            var total = 0;
+            for (var i = 0; i < Hardpoints.Count && i < HardpointAmmo.Count; i++)
+            {
+                if (Hardpoints[i] == DHAircraftMunition.CannonPod)
+                    total += HardpointAmmo[i];
+            }
+
+            return total;
+        }
+    }
+
+    public int CannonPods => Hardpoints.FindAll(h => h == DHAircraftMunition.CannonPod).Count;
+
+    /// <summary>Снарядов в очереди одного контейнера (одна очередь — одно попадание по курсу).</summary>
     [DataField]
     public int RoundsPerBurst = 6;
 
@@ -193,6 +213,33 @@ public sealed partial class DHAircraftComponent : Component
     /// <summary>Выбранный узел подвески (на дисплее управления вооружением).</summary>
     [ViewVariables, AutoNetworkedField]
     public int SelectedHardpoint;
+
+    /// <summary>Что спавнить, когда боеприпас снимают с узла на палубе.</summary>
+    [DataField]
+    public Dictionary<DHAircraftMunition, EntProtoId> MunitionPrototypes = new()
+    {
+        { DHAircraftMunition.BombHE, "DHAircraftBombHE" },
+        { DHAircraftMunition.BombCluster, "DHAircraftBombCluster" },
+        { DHAircraftMunition.BombNapalm, "DHAircraftBombNapalm" },
+        { DHAircraftMunition.BombMagnesium, "DHAircraftBombMagnesium" },
+        { DHAircraftMunition.GuidedBomb, "DHAircraftGuidedBomb" },
+        { DHAircraftMunition.MissileAT, "DHAircraftMissileAT" },
+        { DHAircraftMunition.MissileHE, "DHAircraftMissileHE" },
+        { DHAircraftMunition.CannonPod, "DHAircraftCannonPod" },
+    };
+
+    // ---------------------------------------------------------------- спецотсеки (РЛС, ЛТЦ)
+
+    /// <summary>Два отсека спецсистем в фюзеляже: РЛС и блок ЛТЦ ставятся и снимаются на палубе.</summary>
+    [DataField, AutoNetworkedField]
+    public List<DHAircraftModule> Modules = new() { DHAircraftModule.Radar, DHAircraftModule.FlareDispenser };
+
+    [DataField]
+    public Dictionary<DHAircraftModule, EntProtoId> ModulePrototypes = new()
+    {
+        { DHAircraftModule.Radar, "DHAircraftModuleRadar" },
+        { DHAircraftModule.FlareDispenser, "DHAircraftModuleFlares" },
+    };
 
     // ---------------------------------------------------------------- удары из атмосферы (этап 3)
 
@@ -347,6 +394,34 @@ public enum DHAircraftMunition : byte
 
     /// <summary>Ракета воздух—земля осколочно-фугасная: из атмосферы по сигнатуре или метке.</summary>
     MissileHE,
+
+    /// <summary>Пушечный контейнер 30 мм: свои снаряды, бьёт по курсу на бреющем; контейнеров может быть несколько.</summary>
+    CannonPod,
+}
+
+/// <summary>Спецсистема в отсеке фюзеляжа.</summary>
+[Serializable, NetSerializable]
+public enum DHAircraftModule : byte
+{
+    None,
+
+    /// <summary>РЛС: сигнатуры техники и пехоты на поле боя.</summary>
+    Radar,
+
+    /// <summary>Блок отстрела ЛТЦ: без него завесу не поставить.</summary>
+    FlareDispenser,
+}
+
+/// <summary>Модуль спецсистемы (предмет; ставится в отсек самолёта на палубе).</summary>
+[RegisterComponent]
+public sealed partial class DHAircraftModuleComponent : Component
+{
+    [DataField(required: true)]
+    public DHAircraftModule Kind;
+
+    /// <summary>Блок ЛТЦ: сколько патронов в нём (переносятся при снятии и установке).</summary>
+    [DataField]
+    public int Flares;
 }
 
 /// <summary>Что показывает правый клик по тактической карте: линия захода или цель для пуска из атмосферы.</summary>
@@ -380,9 +455,13 @@ public sealed partial class DHAircraftMunitionComponent : Component
 {
     [DataField(required: true)]
     public DHAircraftMunition Kind;
+
+    /// <summary>Пушечный контейнер: снаряды в нём.</summary>
+    [DataField]
+    public int Rounds;
 }
 
-/// <summary>Короб снарядов 30 мм для пушки штурмовика.</summary>
+/// <summary>Короб снарядов 30 мм для пушечных контейнеров штурмовика.</summary>
 [RegisterComponent]
 public sealed partial class DHAircraftCannonAmmoComponent : Component
 {
@@ -543,6 +622,8 @@ public sealed class DHAircraftBuiState : BoundUserInterfaceState
     public int MaxCannonAmmo;
     public bool CannonOn;
     public List<DHAircraftMunition> Hardpoints = new();
+    public List<int> HardpointAmmo = new();
+    public List<DHAircraftModule> Modules = new();
     public int SelectedHardpoint;
     public DHAircraftMapMode MapMode;
     public Vector2? TargetPoint;

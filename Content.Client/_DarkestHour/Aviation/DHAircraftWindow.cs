@@ -155,7 +155,8 @@ public sealed class DHAircraftWindow : DefaultWindow
         _status.Text = Loc.GetString("dh-aircraft-ui-status", ("state", Loc.GetString("dh-aircraft-state-" + state.State.ToString().ToLowerInvariant())));
         _fuel.Text = Loc.GetString("dh-aircraft-ui-fuel", ("fuel", (int) state.Fuel), ("max", (int) state.FuelMax), ("takeoff", (int) state.TakeoffFuel));
         _integrity.Text = Loc.GetString("dh-aircraft-ui-integrity", ("integrity", (int) state.Integrity), ("max", (int) state.MaxIntegrity));
-        _flares.Text = Loc.GetString(state.FlaresActive ? "dh-aircraft-ui-flares-active" : "dh-aircraft-ui-flares",
+        _flares.Text = Loc.GetString(!state.Modules.Contains(DHAircraftModule.FlareDispenser) ? "dh-aircraft-ui-flares-none"
+                : state.FlaresActive ? "dh-aircraft-ui-flares-active" : "dh-aircraft-ui-flares",
             ("flares", state.Flares), ("max", state.MaxFlares));
         _position.Text = state.Position is { } p
             ? Loc.GetString("dh-aircraft-ui-position", ("x", (int) p.X), ("y", (int) p.Y), ("heading", (int) ((360 - state.HeadingDegrees % 360 + 360) % 360)))
@@ -175,17 +176,25 @@ public sealed class DHAircraftWindow : DefaultWindow
 
         var inPass = state.State == DHAircraftState.Pass;
         var loaded = state.Hardpoints.FindAll(h => h != DHAircraftMunition.None).Count;
+        var pods = state.Hardpoints.FindAll(h => h == DHAircraftMunition.CannonPod).Count;
+        var bombs = state.Hardpoints.FindAll(h => h is not (DHAircraftMunition.None or DHAircraftMunition.CannonPod)).Count;
+        var modules = state.Modules.FindAll(m => m != DHAircraftModule.None);
         _weapons.Text = Loc.GetString("dh-aircraft-ui-weapons", ("ammo", state.CannonAmmo), ("maxAmmo", state.MaxCannonAmmo),
+            ("pods", pods),
             ("pylons", string.Join(" ", state.Hardpoints.ConvertAll(h => Loc.GetString("dh-aircraft-munition-" + h.ToString().ToLowerInvariant())))),
-            ("loaded", loaded));
+            ("loaded", loaded)) + "\n" + Loc.GetString("dh-aircraft-ui-modules",
+            ("modules", modules.Count == 0
+                ? Loc.GetString("dh-aircraft-module-none")
+                : string.Join(", ", modules.ConvertAll(m => Loc.GetString("dh-aircraft-module-" + m.ToString().ToLowerInvariant()))))));
         _altitude.Text = Loc.GetString("dh-aircraft-ui-altitude", ("altitude", Loc.GetString("dh-aircraft-altitude-name-" + state.Altitude.ToString().ToLowerInvariant())));
         _startPass.Text = Loc.GetString("dh-aircraft-ui-start-pass");
         _startPass.Disabled = !state.CanPass;
         _clearPass.Text = Loc.GetString("dh-aircraft-ui-clear-pass");
         _clearPass.Disabled = inPass || state.PassStart == null;
         _cannon.Text = Loc.GetString(state.CannonOn ? "dh-aircraft-ui-cannon-off" : "dh-aircraft-ui-cannon-on");
+        _cannon.Disabled = pods == 0;
         _drop.Text = Loc.GetString("dh-aircraft-ui-drop");
-        _drop.Disabled = !inPass || loaded == 0;
+        _drop.Disabled = !inPass || bombs == 0;
         _passInfo.Text = state.MapMode == DHAircraftMapMode.Target
             ? Loc.GetString("dh-aircraft-ui-target-hint")
             : Loc.GetString(state.PassStart == null ? "dh-aircraft-ui-pass-hint-start"
@@ -195,8 +204,11 @@ public sealed class DHAircraftWindow : DefaultWindow
         for (var i = 0; i < _pylons.Length; i++)
         {
             var munition = i < state.Hardpoints.Count ? state.Hardpoints[i] : DHAircraftMunition.None;
-            _pylons[i].Text = Loc.GetString("dh-aircraft-ui-pylon", ("slot", i + 1),
-                ("munition", Loc.GetString("dh-aircraft-munition-" + munition.ToString().ToLowerInvariant())));
+            _pylons[i].Text = munition == DHAircraftMunition.CannonPod
+                ? Loc.GetString("dh-aircraft-ui-pylon-pod", ("slot", i + 1),
+                    ("rounds", i < state.HardpointAmmo.Count ? state.HardpointAmmo[i] : 0))
+                : Loc.GetString("dh-aircraft-ui-pylon", ("slot", i + 1),
+                    ("munition", Loc.GetString("dh-aircraft-munition-" + munition.ToString().ToLowerInvariant())));
             _pylons[i].Pressed = state.SelectedHardpoint == i;
         }
 

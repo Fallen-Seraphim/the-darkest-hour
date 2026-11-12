@@ -267,6 +267,12 @@ public sealed partial class DHAircraftSystem : EntitySystem
             if (ent.Comp.State != DHAircraftState.Parked)
                 return;
 
+            if (!HasModule(ent.Comp, DHAircraftModule.FlareDispenser))
+            {
+                _popup.PopupEntity(Loc.GetString("dh-aircraft-flares-no-module"), ent, args.User);
+                return;
+            }
+
             if (ent.Comp.Flares >= ent.Comp.MaxFlares)
             {
                 _popup.PopupEntity(Loc.GetString("dh-aircraft-flares-full"), ent, args.User);
@@ -286,16 +292,51 @@ public sealed partial class DHAircraftSystem : EntitySystem
             if (ent.Comp.State != DHAircraftState.Parked)
                 return;
 
-            if (ent.Comp.CannonAmmo >= ent.Comp.MaxCannonAmmo)
+            // Короб — в самый пустой пушечный контейнер.
+            var pod = -1;
+            for (var i = 0; i < ent.Comp.Hardpoints.Count; i++)
             {
-                _popup.PopupEntity(Loc.GetString("dh-aircraft-cannon-full"), ent, args.User);
+                if (ent.Comp.Hardpoints[i] != DHAircraftMunition.CannonPod || PodAmmo(ent.Comp, i) >= ent.Comp.PodCapacity)
+                    continue;
+
+                if (pod < 0 || PodAmmo(ent.Comp, i) < PodAmmo(ent.Comp, pod))
+                    pod = i;
+            }
+
+            if (pod < 0)
+            {
+                _popup.PopupEntity(Loc.GetString(ent.Comp.CannonPods == 0 ? "dh-aircraft-cannon-no-pod" : "dh-aircraft-cannon-full"),
+                    ent, args.User);
                 return;
             }
 
-            ent.Comp.CannonAmmo = Math.Min(ent.Comp.MaxCannonAmmo, ent.Comp.CannonAmmo + ammo.Rounds);
+            SetPodAmmo(ent.Comp, pod, Math.Min(ent.Comp.PodCapacity, PodAmmo(ent.Comp, pod) + ammo.Rounds));
             Dirty(ent);
             QueueDel(args.Used);
-            _popup.PopupEntity(Loc.GetString("dh-aircraft-cannon-loaded", ("rounds", ent.Comp.CannonAmmo)), ent, args.User);
+            _popup.PopupEntity(Loc.GetString("dh-aircraft-cannon-loaded", ("slot", pod + 1), ("rounds", PodAmmo(ent.Comp, pod))),
+                ent, args.User);
+            return;
+        }
+
+        if (TryComp<DHAircraftModuleComponent>(args.Used, out var module))
+        {
+            args.Handled = true;
+            if (ent.Comp.State != DHAircraftState.Parked)
+                return;
+
+            if (HasModule(ent.Comp, module.Kind))
+            {
+                _popup.PopupEntity(Loc.GetString("dh-aircraft-module-already"), ent, args.User);
+                return;
+            }
+
+            if (!ent.Comp.Modules.Contains(DHAircraftModule.None))
+            {
+                _popup.PopupEntity(Loc.GetString("dh-aircraft-modules-full"), ent, args.User);
+                return;
+            }
+
+            StartLoad(ent, args.User, args.Used);
             return;
         }
 
@@ -311,12 +352,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
                 return;
             }
 
-            _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.LoadTime, new DHAircraftLoadDoAfterEvent(),
-                ent.Owner, ent.Owner, args.Used)
-            {
-                BreakOnMove = true,
-                NeedHand = true,
-            });
+            StartLoad(ent, args.User, args.Used);
             return;
         }
 
@@ -333,6 +369,36 @@ public sealed partial class DHAircraftSystem : EntitySystem
         _tool.UseTool(args.Used, args.User, ent, 4f, WeldingQuality, new DHAircraftRepairDoAfterEvent(), fuel: 5);
     }
 
+    private void StartLoad(Entity<DHAircraftComponent> ent, EntityUid user, EntityUid used)
+    {
+        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, ent.Comp.LoadTime, new DHAircraftLoadDoAfterEvent(),
+            ent.Owner, ent.Owner, used)
+        {
+            BreakOnMove = true,
+            NeedHand = true,
+        });
+    }
+
+    public static bool HasModule(DHAircraftComponent comp, DHAircraftModule module)
+    {
+        return comp.Modules.Contains(module);
+    }
+
+    private static int PodAmmo(DHAircraftComponent comp, int slot)
+    {
+        return slot >= 0 && slot < comp.HardpointAmmo.Count ? comp.HardpointAmmo[slot] : 0;
+    }
+
+    private static void SetPodAmmo(DHAircraftComponent comp, int slot, int rounds)
+    {
+        while (comp.HardpointAmmo.Count < comp.Hardpoints.Count)
+        {
+            comp.HardpointAmmo.Add(0);
+        }
+
+        comp.HardpointAmmo[slot] = Math.Max(0, rounds);
+    }
+
     private void OnRepairDoAfter(Entity<DHAircraftComponent> ent, ref DHAircraftRepairDoAfterEvent args)
     {
         if (args.Cancelled || args.Handled)
@@ -346,11 +412,29 @@ public sealed partial class DHAircraftSystem : EntitySystem
 
     private void OnLoadDoAfter(Entity<DHAircraftComponent> ent, ref DHAircraftLoadDoAfterEvent args)
     {
-        if (args.Cancelled || args.Handled || args.Used is not { } used ||
-            !TryComp<DHAircraftMunitionComponent>(used, out var munition))
+        if (args.Cancelled || args.Handled || args.Used is not { } used || ent.Comp.State != DHAircraftState.Parked)
+            return;
+
+        if (TryComp<DHAircraftModuleComponent>(used, out var module))
         {
+            var bay = ent.Comp.Modules.IndexOf(DHAircraftModule.None);
+            if (bay < 0 || HasModule(ent.Comp, module.Kind))
+                return;
+
+            args.Handled = true;
+            ent.Comp.Modules[bay] = module.Kind;
+            if (module.Kind == DHAircraftModule.FlareDispenser)
+                ent.Comp.Flares = Math.Min(ent.Comp.MaxFlares, module.Flares);
+
+            Dirty(ent);
+            QueueDel(used);
+            _popup.PopupEntity(Loc.GetString("dh-aircraft-module-installed", ("bay", bay + 1),
+                ("module", Loc.GetString("dh-aircraft-module-" + module.Kind.ToString().ToLowerInvariant()))), ent, args.User);
             return;
         }
+
+        if (!TryComp<DHAircraftMunitionComponent>(used, out var munition))
+            return;
 
         var slot = ent.Comp.Hardpoints.IndexOf(DHAircraftMunition.None);
         if (slot < 0)
@@ -358,9 +442,65 @@ public sealed partial class DHAircraftSystem : EntitySystem
 
         args.Handled = true;
         ent.Comp.Hardpoints[slot] = munition.Kind;
+        SetPodAmmo(ent.Comp, slot, munition.Kind == DHAircraftMunition.CannonPod ? Math.Min(ent.Comp.PodCapacity, munition.Rounds) : 0);
         Dirty(ent);
         QueueDel(used);
         _popup.PopupEntity(Loc.GetString("dh-aircraft-munition-loaded", ("slot", slot + 1)), ent, args.User);
+    }
+
+    /// <summary>Снять с узла подвески то, что на нём висит (на палубе): боеприпас или пушечный контейнер с остатком снарядов.</summary>
+    private void Unload(Entity<DHAircraftComponent> ent, int slot, EntityUid user)
+    {
+        if (ent.Comp.State != DHAircraftState.Parked || slot < 0 || slot >= ent.Comp.Hardpoints.Count)
+            return;
+
+        var kind = ent.Comp.Hardpoints[slot];
+        if (kind == DHAircraftMunition.None || !ent.Comp.MunitionPrototypes.TryGetValue(kind, out var proto))
+            return;
+
+        var item = Spawn(proto, Transform(user).Coordinates);
+        if (TryComp<DHAircraftMunitionComponent>(item, out var munition))
+            munition.Rounds = kind == DHAircraftMunition.CannonPod ? PodAmmo(ent.Comp, slot) : munition.Rounds;
+
+        ent.Comp.Hardpoints[slot] = DHAircraftMunition.None;
+        SetPodAmmo(ent.Comp, slot, 0);
+        if (ent.Comp.CannonOn && ent.Comp.CannonPods == 0)
+            ent.Comp.CannonOn = false;
+
+        Dirty(ent);
+        _popup.PopupEntity(Loc.GetString("dh-aircraft-munition-unloaded", ("slot", slot + 1)), ent, user);
+        UpdateUi(ent);
+    }
+
+    /// <summary>Снять модуль спецсистемы из отсека (на палубе). Блок ЛТЦ уносит с собой оставшиеся патроны.</summary>
+    private void RemoveModule(Entity<DHAircraftComponent> ent, int bay, EntityUid user)
+    {
+        if (ent.Comp.State != DHAircraftState.Parked || bay < 0 || bay >= ent.Comp.Modules.Count)
+            return;
+
+        var kind = ent.Comp.Modules[bay];
+        if (kind == DHAircraftModule.None || !ent.Comp.ModulePrototypes.TryGetValue(kind, out var proto))
+            return;
+
+        var item = Spawn(proto, Transform(user).Coordinates);
+        if (kind == DHAircraftModule.FlareDispenser)
+        {
+            if (TryComp<DHAircraftModuleComponent>(item, out var module))
+                module.Flares = ent.Comp.Flares;
+
+            ent.Comp.Flares = 0;
+        }
+
+        if (kind == DHAircraftModule.Radar)
+        {
+            ent.Comp.Signatures.Clear();
+            ent.Comp.SignatureSources.Clear();
+        }
+
+        ent.Comp.Modules[bay] = DHAircraftModule.None;
+        Dirty(ent);
+        _popup.PopupEntity(Loc.GetString("dh-aircraft-module-removed", ("bay", bay + 1)), ent, user);
+        UpdateUi(ent);
     }
 
     /// <summary>Заправка из бака с горючим поблизости (бак подкатывают к самолёту).</summary>
@@ -375,6 +515,38 @@ public sealed partial class DHAircraftSystem : EntitySystem
             Text = Loc.GetString("dh-aircraft-verb-refuel"),
             Act = () => Refuel(ent, user),
         });
+
+        for (var i = 0; i < ent.Comp.Hardpoints.Count; i++)
+        {
+            var kind = ent.Comp.Hardpoints[i];
+            if (kind == DHAircraftMunition.None)
+                continue;
+
+            var slot = i;
+            args.Verbs.Add(new AlternativeVerb
+            {
+                Text = Loc.GetString("dh-aircraft-verb-unload", ("slot", slot + 1),
+                    ("munition", Loc.GetString("dh-aircraft-munition-" + kind.ToString().ToLowerInvariant()))),
+                Priority = -1 - slot,
+                Act = () => Unload(ent, slot, user),
+            });
+        }
+
+        for (var i = 0; i < ent.Comp.Modules.Count; i++)
+        {
+            var kind = ent.Comp.Modules[i];
+            if (kind == DHAircraftModule.None)
+                continue;
+
+            var bay = i;
+            args.Verbs.Add(new AlternativeVerb
+            {
+                Text = Loc.GetString("dh-aircraft-verb-remove-module", ("bay", bay + 1),
+                    ("module", Loc.GetString("dh-aircraft-module-" + kind.ToString().ToLowerInvariant()))),
+                Priority = -10 - bay,
+                Act = () => RemoveModule(ent, bay, user),
+            });
+        }
     }
 
     private void Refuel(Entity<DHAircraftComponent> ent, EntityUid user)
@@ -717,6 +889,12 @@ public sealed partial class DHAircraftSystem : EntitySystem
             return;
         }
 
+        if (!HasModule(aircraft, DHAircraftModule.FlareDispenser))
+        {
+            Notify(plane, Loc.GetString("dh-aircraft-flares-no-module"), true);
+            return;
+        }
+
         if (aircraft.Flares <= 0)
         {
             Notify(plane, Loc.GetString("dh-aircraft-flares-empty"), true);
@@ -779,9 +957,11 @@ public sealed partial class DHAircraftSystem : EntitySystem
             PassBlocker = passBlocker,
             Altitude = ent.Comp.Altitude,
             CannonAmmo = ent.Comp.CannonAmmo,
-            MaxCannonAmmo = ent.Comp.MaxCannonAmmo,
+            MaxCannonAmmo = ent.Comp.CannonPods * ent.Comp.PodCapacity,
             CannonOn = ent.Comp.CannonOn,
             Hardpoints = new List<DHAircraftMunition>(ent.Comp.Hardpoints),
+            HardpointAmmo = new List<int>(ent.Comp.HardpointAmmo),
+            Modules = new List<DHAircraftModule>(ent.Comp.Modules),
             SelectedHardpoint = ent.Comp.SelectedHardpoint,
             MapMode = ent.Comp.MapMode,
             TargetPoint = ent.Comp.TargetPoint,

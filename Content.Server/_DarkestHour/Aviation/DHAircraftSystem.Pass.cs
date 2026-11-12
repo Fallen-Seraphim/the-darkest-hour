@@ -185,7 +185,12 @@ public sealed partial class DHAircraftSystem
 
     private void SetCannon(Entity<DHAircraftComponent> ent, bool on)
     {
-        if (on && ent.Comp.CannonAmmo < ent.Comp.RoundsPerBurst)
+        if (on && ent.Comp.CannonPods == 0)
+        {
+            Notify(ent, Loc.GetString("dh-aircraft-cannon-no-pod"), true);
+            on = false;
+        }
+        else if (on && !CanBurst(ent.Comp))
         {
             Notify(ent, Loc.GetString("dh-aircraft-cannon-empty"), true);
             on = false;
@@ -288,7 +293,7 @@ public sealed partial class DHAircraftSystem
         if (comp.CannonOn && now >= comp.NextBurst)
         {
             comp.NextBurst = now + comp.CannonInterval;
-            if (comp.CannonAmmo < comp.RoundsPerBurst)
+            if (!CanBurst(comp))
             {
                 comp.CannonOn = false;
                 Dirty(ent);
@@ -304,24 +309,48 @@ public sealed partial class DHAircraftSystem
             EndPass(ent);
     }
 
-    /// <summary>Очередь 30 мм: разрывы впереди по курсу с разбросом по высоте.</summary>
+    /// <summary>Хотя бы в одном пушечном контейнере хватает снарядов на очередь.</summary>
+    private static bool CanBurst(DHAircraftComponent comp)
+    {
+        for (var i = 0; i < comp.Hardpoints.Count; i++)
+        {
+            if (comp.Hardpoints[i] == DHAircraftMunition.CannonPod && PodAmmo(comp, i) >= comp.RoundsPerBurst)
+                return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Очередь 30 мм: каждый заряженный контейнер даёт свою очередь впереди по курсу, со смещением в сторону своего крыла
+    /// (узлы 1–2 — левое крыло, 3–4 — правое), с разбросом по высоте.
+    /// </summary>
     private void FireBurst(Entity<DHAircraftComponent> ent, Vector2 position, Vector2 direction, MapId map, TimeSpan now)
     {
         var comp = ent.Comp;
-        comp.CannonAmmo -= comp.RoundsPerBurst;
-        Dirty(ent);
+        var right = new Vector2(direction.Y, -direction.X);
+        Vector2? lastTarget = null;
 
-        var target = position + direction * comp.CannonLead + RandomInDisc(CannonSpread(comp.Altitude));
-        var coordinates = new MapCoordinates(target, map);
-        _explosion.QueueExplosion(coordinates, CannonExplosion, 14f, 7f, 7f, null, canCreateVacuum: false);
-
-        if (now >= comp.NextCannonSound)
+        for (var i = 0; i < comp.Hardpoints.Count; i++)
         {
-            comp.NextCannonSound = now + TimeSpan.FromSeconds(1);
-            _audio.PlayPvs(comp.CannonSound, ent, AudioParams.Default.WithMaxDistance(40f));
-            if (_map.TryGetMap(map, out var mapUid))
-                _audio.PlayPvs(comp.CannonImpactSound, new EntityCoordinates(mapUid.Value, target));
+            if (comp.Hardpoints[i] != DHAircraftMunition.CannonPod || PodAmmo(comp, i) < comp.RoundsPerBurst)
+                continue;
+
+            SetPodAmmo(comp, i, PodAmmo(comp, i) - comp.RoundsPerBurst);
+            var side = i < comp.Hardpoints.Count / 2 ? -1f : 1f;
+            var target = position + direction * comp.CannonLead + right * side * 1.5f + RandomInDisc(CannonSpread(comp.Altitude));
+            _explosion.QueueExplosion(new MapCoordinates(target, map), CannonExplosion, 14f, 7f, 7f, null, canCreateVacuum: false);
+            lastTarget = target;
         }
+
+        Dirty(ent);
+        if (lastTarget is not { } impact || now < comp.NextCannonSound)
+            return;
+
+        comp.NextCannonSound = now + TimeSpan.FromSeconds(1);
+        _audio.PlayPvs(comp.CannonSound, ent, AudioParams.Default.WithMaxDistance(40f));
+        if (_map.TryGetMap(map, out var mapUid))
+            _audio.PlayPvs(comp.CannonImpactSound, new EntityCoordinates(mapUid.Value, impact));
     }
 
     /// <summary>Конец линии захода: набор высоты обратно в слой атмосферы.</summary>

@@ -73,8 +73,8 @@ dh-job-carrier-attack-pilot-desc = Летайте на имперском шту
 
 # Бреющий заход (этап 2)
 dh-aircraft-state-pass = бреющий заход
-dh-aircraft-cannon-full = Короба пушки полные.
-dh-aircraft-cannon-loaded = Пушка заряжена: { $rounds } снарядов.
+dh-aircraft-cannon-full = Пушечные контейнеры полные.
+dh-aircraft-cannon-loaded = Контейнер на узле { $slot } заряжен: { $rounds } снарядов.
 dh-aircraft-hardpoints-full = Все узлы подвески заняты.
 dh-aircraft-munition-loaded = Подвешено на узел { $slot }.
 dh-aircraft-pass-blocker-state = Заход — только из атмосферы.
@@ -94,7 +94,7 @@ dh-aircraft-cannon-off = Пушка на предохранителе.
 dh-aircraft-drop-not-pass = Бомбы сбрасываются только на бреющем.
 dh-aircraft-drop-empty = На подвесках нет бомб!
 dh-aircraft-drop-released = Бомба с узла { $slot } пошла!
-dh-aircraft-ui-weapons = Пушка 30 мм: { $ammo }/{ $maxAmmo }. Подвески ({ $loaded }/4): { $pylons }
+dh-aircraft-ui-weapons = Пушка 30 мм ({ $pods } конт.): { $ammo }/{ $maxAmmo }. Подвески ({ $loaded }/4): { $pylons }
 dh-aircraft-munition-none = [—]
 dh-aircraft-munition-bombhe = [ФАБ]
 dh-aircraft-ui-altitude = Высота бреющего: { $altitude }
@@ -140,3 +140,21 @@ dh-aircraft-fire-infantry-needs-mark = По пехоте ракету навес
 dh-aircraft-fire-missile = Ракета с узла { $slot } пошла!
 dh-aircraft-fire-bomb = Управляемая бомба с узла { $slot } сброшена!
 dh-aircraft-fire-intercepted = Боеприпас перехвачен ПВО!
+
+# подвесные пушки и спецотсеки
+dh-aircraft-munition-cannonpod = [30 мм]
+dh-aircraft-ui-pylon-pod = { $slot }: [30 мм { $rounds }]
+dh-aircraft-cannon-no-pod = На узлах нет пушечного контейнера 30 мм.
+dh-aircraft-munition-unloaded = Снято с узла { $slot }.
+dh-aircraft-verb-unload = Снять с узла { $slot }: { $munition }
+dh-aircraft-verb-remove-module = Снять из отсека { $bay }: { $module }
+dh-aircraft-module-radar = РЛС
+dh-aircraft-module-flaredispenser = блок ЛТЦ
+dh-aircraft-module-none = нет
+dh-aircraft-module-already = Такой модуль уже стоит.
+dh-aircraft-modules-full = Оба спецотсека заняты.
+dh-aircraft-module-installed = В отсек { $bay } установлен модуль: { $module }.
+dh-aircraft-module-removed = Модуль снят из отсека { $bay }.
+dh-aircraft-flares-no-module = Нет блока ЛТЦ!
+dh-aircraft-ui-flares-none = ЛТЦ: блок не установлен
+dh-aircraft-ui-modules = Спецотсеки: { $modules }
