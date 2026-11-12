@@ -18,6 +18,12 @@ public sealed class DHAircraftWindow : DefaultWindow
     public event Action? OnReturn;
     public event Action<float>? OnSpeed;
     public event Action<bool>? OnControl;
+    public event Action<Vector2>? OnPassPoint;
+    public event Action? OnClearPass;
+    public event Action? OnStartPass;
+    public event Action<int>? OnAltitude;
+    public event Action<bool>? OnCannon;
+    public event Action? OnDrop;
 
     private readonly Label _status = new();
     private readonly Label _fuel = new();
@@ -32,6 +38,16 @@ public sealed class DHAircraftWindow : DefaultWindow
     private readonly Button _control = new();
     private readonly Button _slower = new() { Text = "−" };
     private readonly Button _faster = new() { Text = "+" };
+    private readonly Label _weapons = new();
+    private readonly Label _passInfo = new();
+    private readonly Label _altitude = new() { MinWidth = 150 };
+    private readonly Button _lower = new() { Text = "▼" };
+    private readonly Button _higher = new() { Text = "▲" };
+    private readonly Button _startPass = new();
+    private readonly Button _clearPass = new();
+    private readonly Button _cannon = new();
+    private readonly Button _drop = new();
+    private readonly Label _passBlocker = new() { FontColorOverride = Color.FromHex("#e8a24a") };
     private readonly DHTacticalMapControl _map = new() { HorizontalExpand = true, VerticalExpand = true, MinHeight = 320 };
 
     private DHAircraftBuiState? _state;
@@ -39,8 +55,8 @@ public sealed class DHAircraftWindow : DefaultWindow
     public DHAircraftWindow()
     {
         DHFonts.RegisterTerminal(this);
-        MinSize = new Vector2(520, 640);
-        SetSize = new Vector2(620, 760);
+        MinSize = new Vector2(560, 760);
+        SetSize = new Vector2(640, 900);
 
         var root = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 4, Margin = new Thickness(6) };
         root.AddChild(_status);
@@ -62,6 +78,21 @@ public sealed class DHAircraftWindow : DefaultWindow
         buttons.AddChild(_control);
         root.AddChild(buttons);
         root.AddChild(_blocker);
+
+        root.AddChild(_weapons);
+        var altitude = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 4 };
+        altitude.AddChild(_altitude);
+        altitude.AddChild(_lower);
+        altitude.AddChild(_higher);
+        root.AddChild(altitude);
+        var pass = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 4 };
+        pass.AddChild(_startPass);
+        pass.AddChild(_clearPass);
+        pass.AddChild(_cannon);
+        pass.AddChild(_drop);
+        root.AddChild(pass);
+        root.AddChild(_passInfo);
+        root.AddChild(_passBlocker);
         root.AddChild(_map);
         Contents.AddChild(root);
 
@@ -71,6 +102,13 @@ public sealed class DHAircraftWindow : DefaultWindow
         _launch.OnPressed += _ => OnLaunch?.Invoke();
         _return.OnPressed += _ => OnReturn?.Invoke();
         _control.OnPressed += _ => OnControl?.Invoke(!(_state?.Control ?? false));
+        _lower.OnPressed += _ => OnAltitude?.Invoke(-1);
+        _higher.OnPressed += _ => OnAltitude?.Invoke(1);
+        _startPass.OnPressed += _ => OnStartPass?.Invoke();
+        _clearPass.OnPressed += _ => OnClearPass?.Invoke();
+        _cannon.OnPressed += _ => OnCannon?.Invoke(!(_state?.CannonOn ?? false));
+        _drop.OnPressed += _ => OnDrop?.Invoke();
+        _map.OnWorldClick += point => OnPassPoint?.Invoke(point);
     }
 
     public void UpdateState(DHAircraftBuiState state)
@@ -99,8 +137,27 @@ public sealed class DHAircraftWindow : DefaultWindow
 
         _blocker.Text = state.State == DHAircraftState.Parked && state.LaunchBlocker is { } blocker ? Loc.GetString(blocker) : string.Empty;
 
+        var inPass = state.State == DHAircraftState.Pass;
+        var loaded = state.Hardpoints.FindAll(h => h != DHAircraftMunition.None).Count;
+        _weapons.Text = Loc.GetString("dh-aircraft-ui-weapons", ("ammo", state.CannonAmmo), ("maxAmmo", state.MaxCannonAmmo),
+            ("pylons", string.Join(" ", state.Hardpoints.ConvertAll(h => Loc.GetString("dh-aircraft-munition-" + h.ToString().ToLowerInvariant())))),
+            ("loaded", loaded));
+        _altitude.Text = Loc.GetString("dh-aircraft-ui-altitude", ("altitude", Loc.GetString("dh-aircraft-altitude-name-" + state.Altitude.ToString().ToLowerInvariant())));
+        _startPass.Text = Loc.GetString("dh-aircraft-ui-start-pass");
+        _startPass.Disabled = !state.CanPass;
+        _clearPass.Text = Loc.GetString("dh-aircraft-ui-clear-pass");
+        _clearPass.Disabled = inPass || state.PassStart == null;
+        _cannon.Text = Loc.GetString(state.CannonOn ? "dh-aircraft-ui-cannon-off" : "dh-aircraft-ui-cannon-on");
+        _drop.Text = Loc.GetString("dh-aircraft-ui-drop");
+        _drop.Disabled = !inPass || loaded == 0;
+        _passInfo.Text = Loc.GetString(state.PassStart == null ? "dh-aircraft-ui-pass-hint-start"
+            : state.PassEnd == null ? "dh-aircraft-ui-pass-hint-end" : "dh-aircraft-ui-pass-ready");
+        _passBlocker.Text = airborne && !inPass && state.PassBlocker is { } passBlocker ? Loc.GetString(passBlocker) : string.Empty;
+
         if (state.Map is { } map)
             _map.SetState(map);
         _map.Self = state.Position;
+        _map.PathStart = state.PassStart;
+        _map.PathEnd = state.PassEnd;
     }
 }

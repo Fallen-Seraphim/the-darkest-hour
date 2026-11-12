@@ -46,9 +46,11 @@ public sealed partial class DHAircraftSystem : EntitySystem
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private AudioSystem _audio = default!;
     [Dependency] private SharedBuckleSystem _buckle = default!;
+    [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private DamageableSystem _damage = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private ExplosionSystem _explosion = default!;
+    [Dependency] private SharedMapSystem _map = default!;
     [Dependency] private SharedMoverController _mover = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
@@ -82,6 +84,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         SubscribeLocalEvent<DHAircraftComponent, ExaminedEvent>(OnAircraftExamined);
         SubscribeLocalEvent<DHAircraftComponent, InteractUsingEvent>(OnAircraftInteractUsing);
         SubscribeLocalEvent<DHAircraftComponent, DHAircraftRepairDoAfterEvent>(OnRepairDoAfter);
+        SubscribeLocalEvent<DHAircraftComponent, DHAircraftLoadDoAfterEvent>(OnLoadDoAfter);
         SubscribeLocalEvent<DHAircraftComponent, GetVerbsEvent<AlternativeVerb>>(OnAircraftVerbs);
 
         SubscribeLocalEvent<DHAircraftSeatComponent, StrappedEvent>(OnStrapped);
@@ -92,6 +95,8 @@ public sealed partial class DHAircraftSystem : EntitySystem
         SubscribeLocalEvent<DHAircraftPilotComponent, DHAircraftControlActionEvent>(OnControlAction);
         SubscribeLocalEvent<DHAircraftPilotComponent, DHAircraftFlaresActionEvent>(OnFlaresAction);
         SubscribeLocalEvent<DHAircraftPilotComponent, DHAircraftEjectActionEvent>(OnEjectAction);
+        SubscribeLocalEvent<DHAircraftPilotComponent, DHAircraftCannonActionEvent>(OnCannonAction);
+        SubscribeLocalEvent<DHAircraftPilotComponent, DHAircraftDropActionEvent>(OnDropAction);
 
         Subs.BuiEvents<DHAircraftComponent>(DHAircraftUiKey.Flight, subs =>
         {
@@ -101,6 +106,12 @@ public sealed partial class DHAircraftSystem : EntitySystem
             subs.Event<DHAircraftSpeedMessage>(OnSpeedMessage);
             subs.Event<DHAircraftControlMessage>(OnControlMessage);
             subs.Event<DHTacticalMapRequestMessage>(OnTerrainRequest);
+            subs.Event<DHAircraftPassPointMessage>(OnPassPoint);
+            subs.Event<DHAircraftClearPassMessage>(OnClearPass);
+            subs.Event<DHAircraftStartPassMessage>(OnStartPass);
+            subs.Event<DHAircraftAltitudeMessage>(OnAltitude);
+            subs.Event<DHAircraftCannonMessage>(OnCannonMessage);
+            subs.Event<DHAircraftDropMessage>(OnDropMessage);
         });
 
         SubscribeLocalEvent<DHAircraftLiftComponent, MapInitEvent>(OnLiftMapInit);
@@ -115,12 +126,17 @@ public sealed partial class DHAircraftSystem : EntitySystem
         var seat = SpawnAttachedTo(ent.Comp.SeatPrototype, new EntityCoordinates(ent, ent.Comp.SeatOffset));
         ent.Comp.Seat = seat;
         EnsureComp<DHAircraftSeatComponent>(seat).Aircraft = ent;
+
+        // Фонарь кабины — поверх пилота, стекло полупрозрачное.
+        ent.Comp.Canopy = SpawnAttachedTo(ent.Comp.CanopyPrototype, new EntityCoordinates(ent, Vector2.Zero));
     }
 
     private void OnAircraftShutdown(Entity<DHAircraftComponent> ent, ref ComponentShutdown args)
     {
         if (ent.Comp.Seat is { } seat && !TerminatingOrDeleted(seat))
             QueueDel(seat);
+        if (ent.Comp.Canopy is { } canopy && !TerminatingOrDeleted(canopy))
+            QueueDel(canopy);
     }
 
     private void OnStrapped(Entity<DHAircraftSeatComponent> ent, ref StrappedEvent args)
@@ -259,6 +275,46 @@ public sealed partial class DHAircraftSystem : EntitySystem
             return;
         }
 
+        if (TryComp<DHAircraftCannonAmmoComponent>(args.Used, out var ammo))
+        {
+            args.Handled = true;
+            if (ent.Comp.State != DHAircraftState.Parked)
+                return;
+
+            if (ent.Comp.CannonAmmo >= ent.Comp.MaxCannonAmmo)
+            {
+                _popup.PopupEntity(Loc.GetString("dh-aircraft-cannon-full"), ent, args.User);
+                return;
+            }
+
+            ent.Comp.CannonAmmo = Math.Min(ent.Comp.MaxCannonAmmo, ent.Comp.CannonAmmo + ammo.Rounds);
+            Dirty(ent);
+            QueueDel(args.Used);
+            _popup.PopupEntity(Loc.GetString("dh-aircraft-cannon-loaded", ("rounds", ent.Comp.CannonAmmo)), ent, args.User);
+            return;
+        }
+
+        if (HasComp<DHAircraftMunitionComponent>(args.Used))
+        {
+            args.Handled = true;
+            if (ent.Comp.State != DHAircraftState.Parked)
+                return;
+
+            if (!ent.Comp.Hardpoints.Contains(DHAircraftMunition.None))
+            {
+                _popup.PopupEntity(Loc.GetString("dh-aircraft-hardpoints-full"), ent, args.User);
+                return;
+            }
+
+            _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.LoadTime, new DHAircraftLoadDoAfterEvent(),
+                ent.Owner, ent.Owner, args.Used)
+            {
+                BreakOnMove = true,
+                NeedHand = true,
+            });
+            return;
+        }
+
         if (!_tool.HasQuality(args.Used, WeldingQuality) || ent.Comp.State != DHAircraftState.Parked)
             return;
 
@@ -281,6 +337,25 @@ public sealed partial class DHAircraftSystem : EntitySystem
         ent.Comp.Integrity = Math.Min(ent.Comp.MaxIntegrity, ent.Comp.Integrity + ent.Comp.RepairAmount);
         Dirty(ent);
         _popup.PopupEntity(Loc.GetString("dh-aircraft-repaired", ("integrity", (int) ent.Comp.Integrity)), ent, args.User);
+    }
+
+    private void OnLoadDoAfter(Entity<DHAircraftComponent> ent, ref DHAircraftLoadDoAfterEvent args)
+    {
+        if (args.Cancelled || args.Handled || args.Used is not { } used ||
+            !TryComp<DHAircraftMunitionComponent>(used, out var munition))
+        {
+            return;
+        }
+
+        var slot = ent.Comp.Hardpoints.IndexOf(DHAircraftMunition.None);
+        if (slot < 0)
+            return;
+
+        args.Handled = true;
+        ent.Comp.Hardpoints[slot] = munition.Kind;
+        Dirty(ent);
+        QueueDel(used);
+        _popup.PopupEntity(Loc.GetString("dh-aircraft-munition-loaded", ("slot", slot + 1)), ent, args.User);
     }
 
     /// <summary>Заправка из бака с горючим поблизости (бак подкатывают к самолёту).</summary>
@@ -631,7 +706,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
 
         args.Handled = true;
         var plane = (ent.Comp.Aircraft, aircraft);
-        if (aircraft.State is not (DHAircraftState.Airborne or DHAircraftState.Returning))
+        if (aircraft.State is not (DHAircraftState.Airborne or DHAircraftState.Returning or DHAircraftState.Pass))
         {
             Notify(plane, Loc.GetString("dh-aircraft-flares-ground"));
             return;
@@ -658,7 +733,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
             return;
 
         args.Handled = true;
-        if (aircraft.State is DHAircraftState.Airborne or DHAircraftState.Returning)
+        if (aircraft.State is DHAircraftState.Airborne or DHAircraftState.Returning or DHAircraftState.Pass)
             Crash((ent.Comp.Aircraft, aircraft), ejected: true);
         else if (aircraft.State == DHAircraftState.Parked)
             _buckle.TryUnbuckle(ent.Owner, ent.Owner, popup: false);
@@ -671,7 +746,8 @@ public sealed partial class DHAircraftSystem : EntitySystem
 
         var fuel = GetFuel(ent, out var max);
         var blocker = LaunchBlocker(ent);
-        var airborne = ent.Comp.State is DHAircraftState.Airborne or DHAircraftState.Returning;
+        var airborne = ent.Comp.State is DHAircraftState.Airborne or DHAircraftState.Returning or DHAircraftState.Pass;
+        var passBlocker = PassBlocker(ent);
         var xform = Transform(ent);
         var state = new DHAircraftBuiState
         {
@@ -692,6 +768,15 @@ public sealed partial class DHAircraftSystem : EntitySystem
             Position = airborne ? _transform.GetWorldPosition(xform) : null,
             HeadingDegrees = (float) ent.Comp.Heading.Degrees,
             Map = MapState(),
+            PassStart = ent.Comp.PassStart,
+            PassEnd = ent.Comp.PassEnd,
+            CanPass = passBlocker == null,
+            PassBlocker = passBlocker,
+            Altitude = ent.Comp.Altitude,
+            CannonAmmo = ent.Comp.CannonAmmo,
+            MaxCannonAmmo = ent.Comp.MaxCannonAmmo,
+            CannonOn = ent.Comp.CannonOn,
+            Hardpoints = new List<DHAircraftMunition>(ent.Comp.Hardpoints),
         };
 
         _ui.SetUiState(ent.Owner, DHAircraftUiKey.Flight, state);
@@ -728,6 +813,8 @@ public sealed partial class DHAircraftSystem : EntitySystem
                 UpdateLift((uid, lift), now);
         }
 
+        UpdateBombs(now);
+
         var refreshUi = now >= _nextUi;
         if (refreshUi)
             _nextUi = now + UiInterval;
@@ -747,6 +834,9 @@ public sealed partial class DHAircraftSystem : EntitySystem
                     break;
                 case DHAircraftState.Landing:
                     UpdateLanding(ent, frameTime);
+                    break;
+                case DHAircraftState.Pass:
+                    UpdatePass(ent, frameTime, now);
                     break;
             }
 
@@ -966,6 +1056,8 @@ public sealed partial class DHAircraftSystem : EntitySystem
         }
 
         Notify(ent, Loc.GetString("dh-aircraft-hit", ("integrity", (int) comp.Integrity)), true);
+        if (Pilot(comp) is { } pilot)
+            _audio.PlayEntity(comp.HitSound, pilot, pilot);
     }
 
     /// <summary>Самолёт потерян: пилот катапультируется (или падает с ним) на поверхность под точкой полёта.</summary>
@@ -974,7 +1066,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         var xform = Transform(ent);
         var position = _transform.GetWorldPosition(xform);
         var pilot = Pilot(ent.Comp);
-        var surface = SurfaceBelow(xform.MapUid);
+        var surface = HasComp<DHPlanetSurfaceMapComponent>(xform.MapUid) ? xform.MapUid : SurfaceBelow(xform.MapUid);
 
         if (pilot is { } p)
         {
@@ -992,6 +1084,8 @@ public sealed partial class DHAircraftSystem : EntitySystem
             var damage = new DamageSpecifier(_proto.Index(BluntType), FixedPoint2.New(ejected ? 15 : 45));
             _damage.TryChangeDamage(p, damage);
             _popup.PopupEntity(Loc.GetString(ejected ? "dh-aircraft-ejected" : "dh-aircraft-crashed"), p, p, PopupType.LargeCaution);
+            if (ejected)
+                _audio.PlayEntity(ent.Comp.EjectSound, p, p);
         }
 
         if (surface is { } surfaceMap && TryComp<MapComponent>(surfaceMap, out var mapComp))

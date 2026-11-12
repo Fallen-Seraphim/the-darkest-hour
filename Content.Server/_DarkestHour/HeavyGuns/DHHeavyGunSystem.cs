@@ -860,6 +860,20 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             }
 
             var position = _transform.GetWorldPosition(xform);
+
+            // Штурмовик на бреющем над этой ПВО: опасность зависит от высоты захода.
+            if (_aircraft.FindPassTarget(xform.MapUid, position, comp.AirRange) is { } pass)
+            {
+                comp.Ammo--;
+                comp.NextReady = now + comp.Cooldown;
+                _audio.PlayPvs(comp.Kind == DHInterceptorKind.Missile ? MissileSound : AutocannonSound, uid,
+                    AudioParams.Default.WithMaxDistance(40f));
+                _aircraft.WarnLocked(pass.Aircraft);
+                if (_random.Prob(Math.Min(0.95f, comp.AirChance * RadarFactor(uid) * pass.Factor)))
+                    _aircraft.Hit(pass.Aircraft, comp.AirDamage * AircraftDamageFactor);
+                continue;
+            }
+
             EntityUid? target = null;
             var carriers = EntityQueryEnumerator<DHAssaultCarrierComponent, TransformComponent>();
             while (carriers.MoveNext(out var carrier, out var carrierComp, out var carrierXform))

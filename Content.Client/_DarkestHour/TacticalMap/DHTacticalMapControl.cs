@@ -31,6 +31,14 @@ public sealed class DHTacticalMapControl : Control
     /// <summary>Ты на другом уровне, чем показанный (на этаже или под землёй) — кольцо без точки.</summary>
     public bool SelfElsewhere;
 
+    /// <summary>Линия захода штурмовика: начало и конец (рисуется стрелкой).</summary>
+    public Vector2? PathStart;
+
+    public Vector2? PathEnd;
+
+    /// <summary>Правый клик по карте — точка в координатах поверхности (выбор захода штурмовика).</summary>
+    public event Action<Vector2>? OnWorldClick;
+
     private readonly DHTacticalMapSystem _terrain;
     private readonly Font _font;
 
@@ -204,6 +212,25 @@ public sealed class DHTacticalMapControl : Control
             }
         }
 
+        if (PathStart is { } pathStart)
+        {
+            var a = ToPixel(pathStart);
+            handle.DrawCircle(a, 5f, MarkColor, false);
+            if (PathEnd is { } pathEnd)
+            {
+                var b = ToPixel(pathEnd);
+                handle.DrawLine(a, b, MarkColor);
+                var dir = b - a;
+                if (dir.LengthSquared() > 1f)
+                {
+                    dir = Vector2.Normalize(dir);
+                    var side = new Vector2(-dir.Y, dir.X);
+                    handle.DrawLine(b, b - dir * 10f + side * 5f, MarkColor);
+                    handle.DrawLine(b, b - dir * 10f - side * 5f, MarkColor);
+                }
+            }
+        }
+
         if (Self is { } self)
         {
             var p = ToPixel(self);
@@ -243,9 +270,22 @@ public sealed class DHTacticalMapControl : Control
         }
     }
 
+    private Vector2 FromPixel(Vector2 pixel)
+    {
+        var d = pixel - new Vector2(PixelSize.X, PixelSize.Y) / 2f;
+        return _center + new Vector2(d.X, -d.Y) / _zoom;
+    }
+
     protected override void KeyBindDown(GUIBoundKeyEventArgs args)
     {
         base.KeyBindDown(args);
+        if (args.Function == EngineKeyFunctions.UIRightClick && _zoom > 0f && OnWorldClick != null)
+        {
+            OnWorldClick.Invoke(FromPixel(args.RelativePixelPosition));
+            args.Handle();
+            return;
+        }
+
         if (args.Function == EngineKeyFunctions.UIClick || args.Function == EngineKeyFunctions.Use)
         {
             _dragging = true;

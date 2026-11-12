@@ -1,10 +1,10 @@
 # Атмосферный штурмовик Империи (решение автора 2026-11-12), этап 1: самолёт, лифт, катапульта, полёт в атмосфере,
-# автопилот посадки, ЛТЦ, ПВО и катапультирование. Механика — DHAircraftSystem. Корпус — по образу F9F-5 и A-10C.
+# автопилот посадки, ЛТЦ, ПВО и катапультирование. Механика — DHAircraftSystem. Корпус — по образу F9F-5 и Су-25.
 
 - type: entity
   id: DHAttackAircraft
   name: Gyrfalcon attack aircraft
-  description: An Imperial atmospheric attack aircraft. Straight wings with tip tanks, two engines on the tail, a 30 mm cannon in the nose and four hardpoints. Fuel it from a fuel tank parked alongside, load flares and patch it up with a welder.
+  description: An Imperial atmospheric attack aircraft. Straight wings with engines on the tips, intakes at the wing roots, a built-in 30 mm cannon and four hardpoints. Fuel it from a fuel tank parked alongside, load flares and patch it up with a welder.
   placement:
     mode: SnapgridCenter
   components:
@@ -78,6 +78,22 @@
     buckleOffset: "0,0"
   - type: DHAircraftSeat
 
+# Фонарь кабины: полупрозрачное стекло с рамой поверх пилота (корпус показывает кабину изнутри).
+- type: entity
+  id: DHAttackAircraftCanopy
+  name: canopy
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: false
+    noRot: false
+    gridTraversal: false
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/Aircraft/attack_aircraft.rsi
+    state: canopy
+    noRot: false
+    drawdepth: OverMobs
+
 # Лифт штурмовика в начале ВПП (он же — начало катапульты; разгон в сторону «вверх» лифта).
 - type: entity
   id: DHAircraftLift
@@ -121,6 +137,34 @@
     size: Normal
   - type: DHAircraftFlareCassette
     flares: 4
+
+- type: entity
+  parent: BaseItem
+  id: DHAircraftCannonAmmo
+  name: 30 mm cannon ammo box
+  description: 150 high-explosive incendiary rounds for the attack aircraft's cannon. Load it into the aircraft on the deck.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
+    state: ammo_30mm
+  - type: Item
+    size: Large
+  - type: DHAircraftCannonAmmo
+    rounds: 150
+
+- type: entity
+  parent: BaseItem
+  id: DHAircraftBombHE
+  name: high-explosive bomb
+  description: A free-fall high-explosive bomb for low passes. Hang it on a free hardpoint of the attack aircraft on the deck.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
+    state: bomb_he
+  - type: Item
+    size: Huge
+  - type: DHAircraftMunition
+    kind: BombHE
 
 # --- способности пилота (появляются, когда пристёгиваешься к креслу)
 
@@ -171,6 +215,38 @@
     - state: flare_burn
   - type: InstantAction
     event: !type:DHAircraftFlaresActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionAircraftCannon
+  name: 30 mm cannon
+  description: Arm or safe the cannon. While armed it fires bursts along the course during a low pass.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 0.5
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
+    layers:
+    - state: ammo_30mm
+  - type: InstantAction
+    event: !type:DHAircraftCannonActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionAircraftDrop
+  name: Release bomb
+  description: Drop the next bomb from the hardpoints. Only on a low pass; it falls ahead along the course.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 1
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
+    layers:
+    - state: bomb_he
+  - type: InstantAction
+    event: !type:DHAircraftDropActionEvent
 
 - type: entity
   parent: BaseAction
