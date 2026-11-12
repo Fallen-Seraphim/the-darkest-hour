@@ -1,0 +1,189 @@
+# Атмосферный штурмовик Империи (решение автора 2026-11-12), этап 1: самолёт, лифт, катапульта, полёт в атмосфере,
+# автопилот посадки, ЛТЦ, ПВО и катапультирование. Механика — DHAircraftSystem. Корпус — по образу F9F-5 и A-10C.
+
+- type: entity
+  id: DHAttackAircraft
+  name: Gyrfalcon attack aircraft
+  description: An Imperial atmospheric attack aircraft. Straight wings with tip tanks, two engines on the tail, a 30 mm cannon in the nose and four hardpoints. Fuel it from a fuel tank parked alongside, load flares and patch it up with a welder.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: false
+    noRot: false
+    gridTraversal: false
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/Aircraft/attack_aircraft.rsi
+    noRot: false
+    drawdepth: FloorObjects
+    layers:
+    - state: shadow
+      offset: "0.25,-0.25"
+    - state: base
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-2.3,-2.3,2.3,2.3"
+        hard: false
+        density: 100
+        layer:
+        - MidImpassable
+  - type: InputMover
+  - type: NoRotateOnMove
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 0
+    baseSprintSpeed: 0
+  - type: DHAircraft
+  - type: Solution
+    id: fuel
+    solution:
+      maxVol: 300
+      reagents:
+      - ReagentId: WeldingFuel
+        Quantity: 100
+  - type: RefillableSolution
+    solution: fuel
+  - type: UserInterface
+    interfaces:
+      enum.DHAircraftUiKey.Flight:
+        type: DHAircraftBoundUserInterface
+
+- type: entity
+  id: DHAttackAircraftSeat
+  name: ejection seat
+  description: The pilot's ejection seat. Strap in to get the aircraft's controls.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: false
+    noRot: false
+    gridTraversal: false
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/Aircraft/aircraft_seat.rsi
+    state: seat
+    noRot: false
+    drawdepth: Objects
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Strap
+    position: Stand
+    buckleOffset: "0,0"
+  - type: DHAircraftSeat
+
+# Лифт штурмовика в начале ВПП (он же — начало катапульты; разгон в сторону «вверх» лифта).
+- type: entity
+  id: DHAircraftLift
+  name: aircraft lift
+  description: Brings the attack aircraft up from the hangar deck below and takes it back down. The catapult track starts here. Use the alternative action to raise or lower it.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _RMC14/Effects/elevator.rsi
+    drawdepth: FloorTiles
+    layers:
+    - state: supply_elevator_lowered
+      map: [ "enum.DHAircraftLiftLayers.Base" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHAircraftLiftVisuals.Mode:
+        enum.DHAircraftLiftLayers.Base:
+          Lowered: { state: supply_elevator_lowered }
+          Raising: { state: supply_elevator_raising }
+          Raised: { state: supply_elevator_raised }
+          Lowering: { state: supply_elevator_lowering }
+  - type: Clickable
+  - type: InteractionOutline
+  - type: DHAircraftLift
+    runwayLength: 50
+
+- type: entity
+  parent: BaseItem
+  id: DHAircraftFlareCassette
+  name: flare cassette
+  description: Four infrared decoy flares for the attack aircraft. Load it into the aircraft on the deck.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/flare.rsi
+    state: flare_unlit
+  - type: Item
+    size: Normal
+  - type: DHAircraftFlareCassette
+    flares: 4
+
+# --- способности пилота (появляются, когда пристёгиваешься к креслу)
+
+- type: entity
+  parent: BaseAction
+  id: DHActionAircraftFlight
+  name: Flight panel
+  description: Open the flight panel — catapult, take-off, speed, autopilot and the tactical map.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 0.5
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/Aircraft/attack_aircraft.rsi
+    layers:
+    - state: base
+  - type: InstantAction
+    event: !type:DHAircraftFlightActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionAircraftControl
+  name: Flight controls (WASD)
+  description: Take or release the stick — while it is on, WASD sets the course of the aircraft in the air.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 0.5
+  - type: Sprite
+    layers:
+    - texture: Interface/VerbIcons/rotate_cw.svg.192dpi.png
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHAircraftControlActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionAircraftFlares
+  name: Fire flares
+  description: Throw out infrared decoys — for a few seconds enemy air defence cannot lock on. Fire them before passing over enemy anti-air guns.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 2
+  - type: Sprite
+    sprite: Objects/Misc/flare.rsi
+    layers:
+    - state: flare_burn
+  - type: InstantAction
+    event: !type:DHAircraftFlaresActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionAircraftEject
+  name: Eject
+  description: In the air — eject over the battlefield (the aircraft is lost). On the deck — just climb out.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 3
+  - type: Sprite
+    layers:
+    - texture: Interface/VerbIcons/eject.svg.192dpi.png
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHAircraftEjectActionEvent
