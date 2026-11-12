@@ -32,8 +32,8 @@
     maxIntegrity: 350
     integrity: 350
     damageShare: 0.1
-    vehicleState: dualcannon_0
-    damagedVehicleState: dualcannon_1
+    vehicleState: apc_autocannon_0 # на спрайте бывшего IM-30 (sppapc)
+    damagedVehicleState: apc_autocannon_1
     gun: DHVehicleGunAutocannon30
 
 - type: entity
@@ -51,8 +51,6 @@
     maxIntegrity: 250
     integrity: 250
     damageShare: 0.1
-    vehicleState: frontalcannon_0
-    damagedVehicleState: frontalcannon_1
     gun: DHVehicleGunHMG
 
 - type: entity
@@ -70,8 +68,6 @@
     maxIntegrity: 200
     integrity: 200
     damageShare: 0.08
-    vehicleState: comms_relay_0
-    damagedVehicleState: comms_relay_1
 
 - type: entity
   parent: DHHardpointBase
@@ -93,24 +89,25 @@
 
 # ------------------------------------------------------------------ IM-30 (БТР Империи)
 
+# Спрайты на машине — Wolfpack (CMU, cmss13-pve, CC-BY-SA-3.0).
 - type: entity
   parent: DHHardpointBase
-  id: DHHardpointIM30Autocannon
-  name: IM-30 autocannon
-  description: The IM-30 turret autocannon.
+  id: DHHardpointIM30Cannon
+  name: IM-30 quick-firing gun
+  description: The IM-30 turret gun. Hits lighter than a tank gun but reloads fast and holds ten rounds in the breech.
   components:
   - type: Sprite
-    sprite: _RMC14/Structures/Vehicles/hardpoints/sppapc.rsi
-    state: apc_autocannon
+    sprite: _RMC14/Structures/Vehicles/hardpoints/tank.rsi
+    state: ltb_cannon
   - type: DHHardpoint
     slot: Primary
     families: [ IM30 ]
     maxIntegrity: 350
     integrity: 350
     damageShare: 0.1
-    vehicleState: apc_autocannon_0
-    damagedVehicleState: apc_autocannon_1
-    gun: DHVehicleGunAutocannon30
+    vehicleState: ltb_cannon_0
+    damagedVehicleState: ltb_cannon_1
+    gun: DHVehicleGunIM30Cannon
 
 - type: entity
   parent: DHHardpointBase
@@ -144,8 +141,8 @@
     maxIntegrity: 200
     integrity: 200
     damageShare: 0.08
-    vehicleState: spp_flare_launcher_0
-    damagedVehicleState: spp_flare_launcher_1
+    vehicleState: flare_launcher_0
+    damagedVehicleState: flare_launcher_1
 
 - type: entity
   parent: DHHardpointBase

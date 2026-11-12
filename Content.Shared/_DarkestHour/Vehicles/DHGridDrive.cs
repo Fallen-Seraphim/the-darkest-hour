@@ -1,63 +1,81 @@
-using System.Numerics;
 using Robust.Shared.GameStates;
 
 namespace Content.Shared._DarkestHour.Vehicles;
 
 /// <summary>
-/// Движение техники по клеткам, как в CM-SS13 / RMC (решение автора 2026-11-11): машина едет шагами по тайлам,
-/// разгоняется на прямой, поворачивает на месте на 90°, сдаёт назад медленнее. Кого задела — сбивает и отталкивает,
-/// баррикады и лёгкие постройки ломает, о стены и другую технику упирается. Колёса или гусеницы — модуль
-/// (<see cref="DHVehicleHardpointsComponent"/>): без них машина стоит.
+/// Вождение техники, как в RMC-14 / CMU (GridVehicleMover, решение автора 2026-11-12): W/S — газ и тормоз (задний ход),
+/// A/D — поворот корпуса с разгоном и торможением вращения; машина едет туда, куда смотрит, под любым углом. Танк
+/// крутится и на месте. На малой скорости корпус, почти выровненный по стороне света, сам довернёт до неё, а ровно
+/// стоящая машина держит полосу — так проще заехать в ворота. Кого задела — сбивает и отталкивает, баррикады и лёгкие
+/// постройки ломает, о стены и другую технику упирается. Колёса или гусеницы — модуль
+/// (<see cref="DHVehicleHardpointsComponent"/>): без них машина стоит. Числа — из прототипов RMC.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
 public sealed partial class DHGridDriveComponent : Component
 {
-    /// <summary>Наибольшая скорость, клеток в секунду.</summary>
+    /// <summary>Наибольшая скорость вперёд, тайлов в секунду.</summary>
     [DataField]
-    public float TilesPerSecond = 3f;
+    public float MaxSpeed = 3f;
 
-    /// <summary>Скорость с места (доля наибольшей); до наибольшей — за <see cref="RampSteps"/> шагов.</summary>
+    /// <summary>Разгон вперёд, тайлов/с².</summary>
     [DataField]
-    public float StartFraction = 0.4f;
+    public float Acceleration = 2f;
+
+    /// <summary>Торможение (газ отпущен или нажат в обратную сторону), тайлов/с².</summary>
+    [DataField]
+    public float Deceleration = 8f;
 
     [DataField]
-    public int RampSteps = 4;
+    public float MaxReverseSpeed = 2f;
 
-    /// <summary>Задний ход (доля наибольшей).</summary>
     [DataField]
-    public float ReverseFraction = 0.5f;
+    public float ReverseAcceleration = 2f;
 
-    /// <summary>Поворот на 90° на месте.</summary>
+    /// <summary>Наибольшая скорость поворота корпуса, градусов в секунду.</summary>
     [DataField]
-    public TimeSpan TurnTime = TimeSpan.FromSeconds(0.8);
+    public float MaxRotationSpeedDegrees = 45f;
 
-    /// <summary>Урон постройке, в которую машина въехала (за шаг).</summary>
+    [DataField]
+    public float RotationAccelerationDegrees = 90f;
+
+    /// <summary>Торможение вращения, когда A/D отпущены.</summary>
+    [DataField]
+    public float RotationDecelerationDegrees = 180f;
+
+    /// <summary>Поворот на месте (гусеницы). Колёсная машина рулит только на ходу.</summary>
+    [DataField]
+    public bool TurnInPlace;
+
+    /// <summary>Доводка до стороны света на малой скорости: в пределах стольких градусов.</summary>
+    [DataField]
+    public float AlignmentAssistDegrees = 8f;
+
+    /// <summary>Доводка работает не быстрее этой скорости, тайлов/с.</summary>
+    [DataField]
+    public float AlignmentAssistMaxSpeed = 1.5f;
+
+    /// <summary>Насколько можно сдвинуть корпус вбок (и вдоль), чтобы найти место для поворота или проехать в проём.</summary>
+    [DataField]
+    public float NudgeLimit = 0.45f;
+
+    /// <summary>Урон постройке, в которую машина упёрлась (не чаще раза в <see cref="SmashCooldown"/>).</summary>
     [DataField]
     public float SmashDamage = 300f;
 
+    [DataField]
+    public TimeSpan SmashCooldown = TimeSpan.FromSeconds(0.35);
+
     // --- состояние (сервер) ---
 
+    /// <summary>Скорость со знаком (минус — задний ход), тайлов/с.</summary>
     [ViewVariables]
-    public bool Moving;
+    public float CurrentSpeed;
 
+    /// <summary>Скорость вращения корпуса со знаком (плюс — против часовой, влево), градусов/с.</summary>
     [ViewVariables]
-    public Vector2 From;
+    public float AngularVelocityDegrees;
 
+    /// <summary>Едет или поворачивает (звук двигателя).</summary>
     [ViewVariables]
-    public Vector2 To;
-
-    [ViewVariables]
-    public float Progress;
-
-    [ViewVariables]
-    public float StepDuration;
-
-    [ViewVariables]
-    public int Streak;
-
-    [ViewVariables]
-    public TimeSpan BusyUntil;
-
-    [ViewVariables]
-    public TimeSpan LastStep;
+    public bool IsMoving;
 }
