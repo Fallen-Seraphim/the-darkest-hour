@@ -1,0 +1,89 @@
+# Стены, окна и служебные сущности имперского авианосца (решение автора 2026-11-11).
+# Облик — «Алмаер» из RMC-14 (CC-BY-SA-3.0, CM-SS13); поведение — наши основы (CMWallMetal, RMCBaseWallReinforced,
+# RMCWindowHybrisaReinforced) со сглаживанием DHLegacyCornerSpriteSmoothing / DHCardinalFlagsSpriteSmoothing.
+
+- type: entity
+  parent: CMWallMetal
+  id: DHCarrierWall
+  name: bulkhead
+  description: A steel bulkhead of an Imperial warship.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Walls/almayer_black.rsi
+  - type: Icon
+    sprite: _RMC14/Structures/Walls/almayer_black.rsi
+    state: wall
+  - type: IconSmooth
+    key: walls
+    states:
+    - !type:DHLegacyCornerSpriteSmoothing
+      mask: [ walls, windows, grilles, marble, doors ]
+      base: wall
+
+- type: entity
+  parent: DHCarrierWall
+  id: DHCarrierWallWhite
+  name: sterile bulkhead
+  description: A bulkhead with a washable white coating, as in the medical and laboratory decks.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Walls/almayer_white.rsi
+  - type: Icon
+    sprite: _RMC14/Structures/Walls/almayer_white.rsi
+    state: wall
+
+- type: entity
+  parent: RMCBaseWallReinforced
+  id: DHCarrierHull
+  name: reinforced hull
+  description: The armoured outer hull of an Imperial warship.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Walls/almayer_black.rsi
+  - type: Icon
+    sprite: _RMC14/Structures/Walls/almayer_black.rsi
+    state: reinforced
+  - type: IconSmooth
+    key: walls
+    states:
+    - !type:DHLegacyCornerSpriteSmoothing
+      mask: [ walls, windows, grilles, marble, doors ]
+      base: wall
+
+- type: entity
+  parent: RMCWindowHybrisaReinforced
+  id: DHCarrierWindow
+  name: reinforced window
+  description: A thick armoured window of an Imperial warship.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Windows/almayer_window.rsi
+  - type: Icon
+    sprite: _RMC14/Structures/Windows/almayer_window.rsi
+    state: alm_rwindow0
+  - type: IconSmooth
+    key: windows
+    states:
+    - !type:DHCardinalFlagsSpriteSmoothing
+      mask: [ windows, walls ]
+      base: alm_rwindow
+
+# Реактор авианосца запускается сразу — корабль приходит в бой под питанием (половина мощности).
+- type: entity
+  parent: DHFusionReactorFueled
+  id: DHFusionReactorShip
+  suffix: Fueled, Active
+  components:
+  - type: FusionReactor
+    active: true
+    powerSetting: 0.5
+
+# Воздушная завеса по краю выреза под челнок в палубе ангара: люди проходят, газ — нет (ставится стороной к вырезу).
+- type: entity
+  parent: AtmosDeviceFanDirectional
+  id: DHHangarAirSeal
+  name: hangar air curtain
+  description: A force curtain along the edge of the dropship bay. It keeps the deck's air in while letting crews walk aboard.
+  components:
+  - type: Sprite
+    visible: false

@@ -1,0 +1,34 @@
+# ПЗРК Республики (авиация, этап 4; решение автора 2026-11-12): бьёт только по штурмовику на бреющем.
+# Взять в обе руки и кликнуть в сторону неба — захват и пуск. Спрайты — EMBLR из CMU14 (CC-BY-SA-4.0, noctyrnal).
+
+- type: entity
+  parent: BaseItem
+  id: DHManpadsLauncher
+  name: MANPADS
+  description: "A shoulder-fired anti-aircraft missile launcher. Only reaches the Imperial attack aircraft on a low pass — it cannot touch it in the atmosphere. Wield it with both hands and click towards the sky to lock on and launch; fresh flares will most likely lead the missile astray. Reload with a missile after each launch."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Manpads/launcher.rsi
+    state: base
+  - type: Item
+    size: Huge
+    sprite: _DarkestHour/Objects/Weapons/Manpads/launcher_inhands.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Objects/Weapons/Manpads/launcher_inhands.rsi
+    slots: [ Back, suitStorage ]
+  - type: Wieldable
+  - type: DHManpads
+    loaded: true
+
+- type: entity
+  parent: BaseItem
+  id: DHManpadsMissile
+  name: MANPADS missile
+  description: A heat-seeking missile for a shoulder-fired anti-aircraft launcher.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Manpads/missile.rsi
+    state: emblr
+  - type: Item
+    size: Large
+  - type: DHManpadsMissile

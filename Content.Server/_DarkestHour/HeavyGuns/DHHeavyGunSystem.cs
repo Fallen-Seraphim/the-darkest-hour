@@ -41,6 +41,7 @@ namespace Content.Server._DarkestHour.HeavyGuns;
 /// </summary>
 public sealed partial class DHHeavyGunSystem : EntitySystem
 {
+    [Dependency] private Content.Server._DarkestHour.Aviation.DHAircraftSystem _aircraft = default!;
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private DHAssaultRuleSystem _assault = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
@@ -840,6 +841,9 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         }
     }
 
+    /// <summary>Урон ПВО по штурмовику: прочность самолёта в сотнях, у авианосца — в единицах.</summary>
+    private const float AircraftDamageFactor = 8f;
+
     /// <summary>ПВО на поверхности бьёт по авианосцу, висящему в атмосфере над ней в пределах дальности.</summary>
     private void UpdateAirDefence(TimeSpan now)
     {
@@ -856,6 +860,20 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             }
 
             var position = _transform.GetWorldPosition(xform);
+
+            // Штурмовик на бреющем над этой ПВО: опасность зависит от высоты захода.
+            if (_aircraft.FindPassTarget(xform.MapUid, position, comp.AirRange) is { } pass)
+            {
+                comp.Ammo--;
+                comp.NextReady = now + comp.Cooldown;
+                _audio.PlayPvs(comp.Kind == DHInterceptorKind.Missile ? MissileSound : AutocannonSound, uid,
+                    AudioParams.Default.WithMaxDistance(40f));
+                _aircraft.WarnLocked(pass.Aircraft);
+                if (_random.Prob(Math.Min(0.95f, comp.AirChance * RadarFactor(uid) * pass.Factor)))
+                    _aircraft.Hit(pass.Aircraft, comp.AirDamage * AircraftDamageFactor);
+                continue;
+            }
+
             EntityUid? target = null;
             var carriers = EntityQueryEnumerator<DHAssaultCarrierComponent, TransformComponent>();
             while (carriers.MoveNext(out var carrier, out var carrierComp, out var carrierXform))
@@ -887,6 +905,19 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
                     target = ship;
                     break;
                 }
+            }
+
+            // Штурмовик в небе над ПВО: без ЛТЦ его захватывают и бьют (решение автора 2026-11-12).
+            if (target == null && _aircraft.FindAirTarget(sky, position, comp.AirRange) is { } plane)
+            {
+                comp.Ammo--;
+                comp.NextReady = now + comp.Cooldown;
+                _audio.PlayPvs(comp.Kind == DHInterceptorKind.Missile ? MissileSound : AutocannonSound, uid,
+                    AudioParams.Default.WithMaxDistance(40f));
+                _aircraft.WarnLocked(plane);
+                if (_random.Prob(comp.AirChance * RadarFactor(uid)))
+                    _aircraft.Hit(plane, comp.AirDamage * AircraftDamageFactor);
+                continue;
             }
 
             if (target is not { } grid || !TryComp<MapGridComponent>(grid, out var gridComp))

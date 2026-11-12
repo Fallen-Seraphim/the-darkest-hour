@@ -72,4 +72,4 @@ dh-exo-class-medium = medium
 dh-exo-class-heavy = heavy
 dh-exo-no-special = A light exoskeleton has no mount for a special system.
 dh-exo-wrong-plate = A { $exo } exoskeleton does not take { $plate } plates.
-dh-exo-examine = [color=lightblue]{ CAPITALIZE($exo) } exoskeleton[/color]: takes { $plates } plates; speed { $speed }, carries { $load }% of your gear, melee strikes +{ $melee }%.
+dh-exo-examine = [color=lightblue]{ CAPITALIZE($exo) } exoskeleton[/color]: takes { $plates } plates; speed { $speed }, carries { $load }% of your gear, melee strikes (fists and weapons) +{ $melee }% plus { $blunt } blunt.

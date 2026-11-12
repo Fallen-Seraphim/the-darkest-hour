@@ -226,6 +226,13 @@ public sealed partial class DHHeavyGunSystem
             SpawnScanContact(side, name, new MapCoordinates(point, mapId));
         }
 
+        // Остальные замеченные бойцы (вне скоплений) — точками на тактической карте, без строки в отчёте.
+        for (var i = 0; i < infantry.Count; i++)
+        {
+            if (!assigned[i])
+                SpawnScanContact(side, string.Empty, new MapCoordinates(Jitter(infantry[i], ent.Comp.Spread * 0.5f), mapId), true);
+        }
+
         var report = new StringBuilder();
         report.AppendLine(Loc.GetString("dh-scan-report-header", ("surface", Name(surface))));
         if (lines.Count == 0)
@@ -265,11 +272,12 @@ public sealed partial class DHHeavyGunSystem
         }
     }
 
-    private void SpawnScanContact(DHAssaultFaction? side, string label, MapCoordinates coordinates)
+    private void SpawnScanContact(DHAssaultFaction? side, string label, MapCoordinates coordinates, bool blip = false)
     {
         var contact = Spawn(ScanContactProto, coordinates);
         var comp = EnsureComp<DHScanContactComponent>(contact);
         comp.Faction = side;
         comp.Label = label;
+        comp.Blip = blip;
     }
 }

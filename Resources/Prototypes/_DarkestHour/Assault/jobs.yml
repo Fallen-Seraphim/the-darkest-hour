@@ -134,6 +134,21 @@
   - NuclearOperative
   - SyndicateAgent
 
+# Пилот штурмовика (решение автора 2026-11-12): один на раунд.
+- type: job
+  id: DHCarrierAttackPilot
+  name: dh-job-carrier-attack-pilot-name
+  description: dh-job-carrier-attack-pilot-desc
+  playTimeTracker: JobDHCarrierAttackPilot
+  startingGear: DHCarrierAttackPilotGear
+  icon: JobIconDHImperialPilot
+  supervisors: dh-job-empire-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - NuclearOperative
+  - SyndicateAgent
+
 - type: job
   id: DHCarrierArtillerist
   name: dh-job-carrier-artillerist-name
@@ -498,6 +513,7 @@
   - DHCarrierOperationCommander
   - DHCarrierSupportOfficer
   - DHCarrierPilot
+  - DHCarrierAttackPilot
   - DHCarrierArtillerist
   - DHCarrierTechnician
 
@@ -557,6 +573,9 @@
 
 - type: playTimeTracker
   id: JobDHCarrierPilot
+
+- type: playTimeTracker
+  id: JobDHCarrierAttackPilot
 
 - type: playTimeTracker
   id: JobDHCarrierArtillerist

@@ -1,0 +1,19 @@
+# Плитка «Алмаера» (Prototypes/_DarkestHour/Carrier/tiles.yml)
+tiles-cm-black = black metal tile
+tiles-cm-cargo = cargo tile
+tiles-cm-default = metal tile
+tiles-cm-default-no-weeds = metal tile
+tiles-cm-office = office tile
+tiles-cm-plate = metal plate tile
+tiles-cm-plating = plating tile
+tiles-cm-sterile = metal sterile tile
+tiles-cm-tcomms = telecommunications tile
+tiles-cm-white = white metal tile
+tiles-cm-white-sterile = white metal sterile tile
+tiles-rmc-empty = empty space
+tiles-rmc-mono = mono tile
+tiles-rmc-outer-hull = outer hull tile
+tiles-rmc-research = research containment tile
+tiles-rmc-striped = striped tile
+tiles-rmc-tcomms = telecommunications tile
+tiles-rmc-underplating-no-weeds = plating
