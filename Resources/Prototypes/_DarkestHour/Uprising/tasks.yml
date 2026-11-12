@@ -189,3 +189,149 @@
     sprite: Markers/cross.rsi
     state: blue
     visible: false
+
+# ---------------------------------------------------------------- задания ОФСК (решение автора 2026-11-12)
+# Вымогательство: сумма приходит на счёт ОФСК сама, награда — премия сверх неё (за военпола и LA-V — больше).
+# Подрыв: 800–1500 (согласовано).
+
+- type: dhTask
+  id: DHTaskFrontExtortion
+  side: Front
+  kind: Extortion
+  name: dh-task-front-extortion-name
+  description: dh-task-front-extortion-desc
+  rewardMin: 200
+  rewardMax: 300
+  amountMin: 400
+  amountMax: 900
+  vipAmountMin: 1000
+  vipAmountMax: 1800
+  vipRewardMin: 500
+  vipRewardMax: 800
+  vipWeight: 0.35
+  timeLimit: 900
+
+- type: dhTask
+  id: DHTaskFrontBombing
+  side: Front
+  kind: Bombing
+  name: dh-task-front-bombing-name
+  description: dh-task-front-bombing-desc
+  rewardMin: 800
+  rewardMax: 1500
+  timeLimit: 1500
+
+- type: dhTask
+  id: DHTaskFrontBombingSecond
+  side: Front
+  kind: Bombing
+  name: dh-task-front-bombing-name
+  description: dh-task-front-bombing-desc
+  rewardMin: 800
+  rewardMax: 1500
+  timeLimit: 1500
+  weight: 0.6
+
+# Планшет заданий ОФСК — у главы ячейки.
+- type: entity
+  parent: BaseItem
+  id: DHTaskTabletFront
+  name: battered tablet
+  description: A scratched tablet with a cracked screen. Encrypted orders from the Front's command come here.
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/tablets.rsi
+    state: syndie
+  - type: Item
+    size: Small
+    sprite: Objects/Devices/tablets.rsi
+  - type: DHTaskConsole
+    side: Front
+  - type: ActivatableUI
+    key: enum.DHTaskConsoleUiKey.Key
+    inHandsOnly: true
+  - type: UserInterface
+    interfaces:
+      enum.DHTaskConsoleUiKey.Key:
+        type: DHTaskConsoleBoundUserInterface
+
+# Объекты для подрыва и логова ОФСК — невидимые метки (ставит генератор карты).
+- type: entity
+  abstract: true
+  id: DHBombTargetBase
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: Markers/cross.rsi
+    state: red
+    visible: false
+
+- type: entity
+  parent: DHBombTargetBase
+  id: DHBombTargetTransformer
+  name: bomb target (transformer)
+  components:
+  - type: DHBombTarget
+    targetName: dh-bomb-target-transformer
+    radius: 4
+
+- type: entity
+  parent: DHBombTargetBase
+  id: DHBombTargetMetro
+  name: bomb target (metro)
+  components:
+  - type: DHBombTarget
+    targetName: dh-bomb-target-metro
+    radius: 7
+
+- type: entity
+  parent: DHBombTargetBase
+  id: DHBombTargetClinic
+  name: bomb target (clinic)
+  components:
+  - type: DHBombTarget
+    targetName: dh-bomb-target-clinic
+    radius: 7
+
+- type: entity
+  parent: DHBombTargetBase
+  id: DHBombTargetLAVOffice
+  name: bomb target (LA-V office)
+  components:
+  - type: DHBombTarget
+    targetName: dh-bomb-target-lav-office
+    radius: 7
+
+- type: entity
+  parent: DHBombTargetBase
+  id: DHBombTargetLAVWarehouse
+  name: bomb target (LA-V warehouse)
+  components:
+  - type: DHBombTarget
+    targetName: dh-bomb-target-lav-warehouse
+    radius: 8
+
+- type: entity
+  parent: DHBombTargetBase
+  id: DHBombTargetPoliceLobby
+  name: bomb target (Military Police lobby)
+  components:
+  - type: DHBombTarget
+    targetName: dh-bomb-target-police-lobby
+    radius: 6
+
+- type: entity
+  id: DHFrontLair
+  name: LFFC lair marker
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+  - type: DHFrontLair
+    radius: 5
+  - type: Sprite
+    sprite: Markers/cross.rsi
+    state: pink
+    visible: false

@@ -451,6 +451,7 @@
     pocket2: DHWeaponPistolABZ9
   storage:
     back:
+    - DHTaskTabletFront
     - DHLFPassportForged
     - DHAntennaHacker
     - DHMagazineFS2CLN

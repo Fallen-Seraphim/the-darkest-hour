@@ -83,3 +83,26 @@ dh-police-db-removed-forged = Поддельный паспорт ОФСК «{ $
 dh-police-db-removed-genuine = Удалена настоящая запись «{ $name }»! Штраф: { $fine } кр.
 dh-police-db-fine-note = штраф: удалена настоящая запись ({ $name })
 dh-loadout-group-lav-eyes = Очки
+
+# ОФСК
+dh-task-side-civilian = житель
+dh-task-side-police = Военная Полиция
+dh-task-side-vanguard = LA-V
+dh-task-side-front = ОФСК
+dh-task-front-extortion-name = Вымогательство
+dh-task-front-extortion-desc = Выбить деньги из жителя района. Деньги приходят на счёт ОФСК, сверх того — премия. С военпола и LA-V — больше.
+dh-task-extortion-text = Цель: [bold]{ $name }[/bold] ({ $side }). Требование: [bold]{ $amount } кр.[/bold] на счёт ОФСК { $account } до { $time }. Цель уже получила сообщение со скрытого номера. Убедите её заплатить — переводом со своего счёта. Если цель погибнет — задание провалено.
+dh-task-extortion-sms = { $name }, мы знаем, где вы живёте. Переведите { $amount } кр. на счёт { $account } до { $time }. Иначе пожалеете. Полиции — ни слова.
+dh-task-log-extortion-paid = { $name } заплатил(а) { $amount } кр.
+dh-task-log-extortion-dead = Цель погибла: { $name }. Вымогательство сорвано.
+dh-task-front-bombing-name = Подорвать объект
+dh-task-front-bombing-desc = Командование требует громкой акции: заложить взрывчатку с таймером и подорвать указанный объект.
+dh-task-bombing-text = Объект: [bold]{ $target }[/bold] — { $hint }. Заложите взрывчатку с таймером (C4) не дальше { $radius } м от сердца объекта и дождитесь взрыва.
+dh-task-log-capture = пленный: { $name }
+
+dh-bomb-target-transformer = трансформаторная подстанция района
+dh-bomb-target-metro = станция метро
+dh-bomb-target-clinic = поликлиника «Ворот»
+dh-bomb-target-lav-office = офис LA-V
+dh-bomb-target-lav-warehouse = склад LA-V
+dh-bomb-target-police-lobby = дежурная часть Военной Полиции

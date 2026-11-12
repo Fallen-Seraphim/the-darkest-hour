@@ -39,6 +39,9 @@ public sealed partial class DHBankSystem : EntitySystem
     private readonly Dictionary<string, DHBankAccount> _accounts = new();
     private readonly Dictionary<DHBankOrg, string> _orgs = new();
 
+    /// <summary>Чей личный счёт: существо → номер (задания ОФСК: вымогательство).</summary>
+    private readonly Dictionary<EntityUid, string> _owners = new();
+
     public override void Initialize()
     {
         base.Initialize();
@@ -51,6 +54,7 @@ public sealed partial class DHBankSystem : EntitySystem
     {
         _accounts.Clear();
         _orgs.Clear();
+        _owners.Clear();
     }
 
     private void OnCardMapInit(Entity<DHBankCardComponent> ent, ref MapInitEvent args)
@@ -112,6 +116,17 @@ public sealed partial class DHBankSystem : EntitySystem
         var account = Create(holder, balance, org);
         _orgs[org] = account.Number;
         return account;
+    }
+
+    public void SetOwner(EntityUid owner, DHBankAccount account)
+    {
+        _owners[owner] = account.Number;
+    }
+
+    /// <summary>Личный счёт существа (если заведён при появлении).</summary>
+    public DHBankAccount? AccountOf(EntityUid owner)
+    {
+        return _owners.TryGetValue(owner, out var number) ? Get(number) : null;
     }
 
     public DHBankAccount? Get(string? number)
@@ -206,6 +221,7 @@ public sealed partial class DHBankSystem : EntitySystem
 
         from.Balance -= amount;
         to.Balance += amount;
+        RaiseLocalEvent(new DHBankTransferEvent(from.Number, to.Number, amount));
         AddLog(from, Loc.GetString("dh-bank-log-transfer-out", ("amount", amount), ("to", to.Holder), ("number", to.Number)));
         AddLog(to, Loc.GetString("dh-bank-log-transfer-in", ("amount", amount), ("from", from.Holder), ("number", from.Number)));
         return true;
@@ -242,4 +258,12 @@ public sealed partial class DHBankSystem : EntitySystem
 
         return new string(chars);
     }
+}
+
+/// <summary>Прошёл перевод между счетами (рассылается всем системам).</summary>
+public sealed class DHBankTransferEvent(string from, string to, int amount) : EntityEventArgs
+{
+    public readonly string From = from;
+    public readonly string To = to;
+    public readonly int Amount = amount;
 }

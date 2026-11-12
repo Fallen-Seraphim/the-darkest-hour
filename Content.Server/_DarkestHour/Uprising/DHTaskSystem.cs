@@ -64,7 +64,7 @@ public sealed partial class DHTaskSystem : EntitySystem
         public int Reward;
     }
 
-    private sealed class ActiveTask
+    private sealed partial class ActiveTask
     {
         public int Id;
         public DHTaskPrototype Proto = default!;
@@ -73,6 +73,16 @@ public sealed partial class DHTaskSystem : EntitySystem
         public string Text = string.Empty;
         public EntityUid? Target;
         public int Remaining;
+
+        // вымогательство (ОФСК)
+        public EntityUid? Victim;
+        public string VictimAccount = string.Empty;
+        public int Amount;
+        public int Paid;
+
+        // подрыв (ОФСК): метка объекта и взведённая рядом взрывчатка
+        public EntityUid? BombTarget;
+        public readonly HashSet<EntityUid> ArmedNear = new();
     }
 
     private sealed class SideState
@@ -101,6 +111,7 @@ public sealed partial class DHTaskSystem : EntitySystem
         });
 
         SubscribeLocalEvent<DHUprisingKilledEvent>(OnKilled);
+        SubscribeLocalEvent<DHBankTransferEvent>(OnTransfer);
         SubscribeLocalEvent<DHTaskStashComponent, InteractHandEvent>(OnStashInteract);
 
         Subs.BuiEvents<DHTaskConsoleComponent>(DHTaskConsoleUiKey.Key, subs =>
@@ -273,6 +284,10 @@ public sealed partial class DHTaskSystem : EntitySystem
                 _database.InjectFakes(task.Id, task.Proto.Fakes);
                 task.Text = Loc.GetString("dh-task-database-text", ("count", task.Proto.Fakes));
                 return true;
+            case DHTaskKind.Extortion:
+                return StartExtortion(task);
+            case DHTaskKind.Bombing:
+                return StartBombing(task);
         }
 
         return false;
@@ -488,6 +503,12 @@ public sealed partial class DHTaskSystem : EntitySystem
         // Военполу — за убитого члена ОФСК (меньше, чем за арест).
         if (ev.VictimSide == DHUprisingSide.Front && ev.KillerSide == DHUprisingSide.Police && _arrested.Add(ev.Victim))
             Reward(DHTaskSide.Police, KillReward, Loc.GetString("dh-task-log-kill", ("name", Name(ev.Victim))));
+
+        // ОФСК — за убитого военпола (меньше, чем за пленного).
+        if (ev.VictimSide == DHUprisingSide.Police && ev.KillerSide == DHUprisingSide.Front && _arrested.Add(ev.Victim))
+            Reward(DHTaskSide.Front, FrontKillReward, Loc.GetString("dh-task-log-kill", ("name", Name(ev.Victim))));
+
+        OnExtortionVictimKilled(ev.Victim);
     }
 
     /// <summary>Член ОФСК в наручниках в камере военпола — арест (раз за человека).</summary>
@@ -568,6 +589,8 @@ public sealed partial class DHTaskSystem : EntitySystem
         {
             _nextArrestCheck = now + ArrestInterval;
             CheckArrests();
+            CheckCaptures();
+            CheckBombings();
         }
 
         if (now < _nextUi)

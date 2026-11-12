@@ -1206,6 +1206,23 @@ def check(protos, tiles):
     return not bad and not badt
 
 
+def task_markers():
+    """Объекты для подрыва (задания ОФСК) и логова ОФСК (пленные военпола) — решение автора 2026-11-12."""
+    L(0).put('DHBombTargetTransformer', -33, -22)                       # техузел района
+    mx0, my0, mx1, my1 = METRO
+    L(-1).put('DHBombTargetMetro', (mx0 + mx1) // 2, (my0 + my1) // 2)   # станция метро
+    bx0, by0, bx1, by1 = GATES_B
+    cx, cy = (bx0 + bx1) // 2, (by0 + by1) // 2
+    L(1).put('DHBombTargetClinic', cx, cy)                              # поликлиника «Ворот»
+    L(6).put('DHBombTargetLAVOffice', cx, cy)                           # офис LA-V
+    wx0, wy0, wx1, wy1 = WAREHOUSE
+    L(0).put('DHBombTargetLAVWarehouse', (wx0 + wx1) // 2, (wy0 + wy1) // 2)
+    px0, py0, px1, py1 = MP
+    L(0).put('DHBombTargetPoliceLobby', (px0 + px1) // 2, py0 + 4)      # лобби военпола (дежурная часть)
+    for cx, cy in [(-35, -50), (30, -55), (-30, 19)]:
+        L(-3).put('DHFrontLair', cx, cy)
+
+
 def task_spots():
     """Места для закладок и бомб заданий военпола (решение автора 2026-11-12): случайные свободные клетки пола на
     уровнях −3..+1, кроме здания военпола и лестничных проёмов."""
@@ -1242,6 +1259,7 @@ def main():
     clean_passages()
     rock_walls()
     task_spots()
+    task_markers()
 
     # проёмы лестниц: пол убирается (на земле — нет, там под ним грунт планеты)
     for z, cells in SHAFT_CELLS.items():
