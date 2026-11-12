@@ -20,7 +20,7 @@ namespace Content.Client._DarkestHour.City;
 // (DHBankDevicesSystem.Atm): окно только рисует строки экрана и шлёт нажатия.
 
 [UsedImplicitly]
-public sealed class DHAtmBoundUserInterface : BoundUserInterface
+public sealed partial class DHAtmBoundUserInterface : BoundUserInterface
 {
     [Dependency] private IEntityManager _entities = default!;
     [Dependency] private IRobustRandom _random = default!;
@@ -104,7 +104,7 @@ public sealed class DHAtmBoundUserInterface : BoundUserInterface
 }
 
 /// <summary>Окно банкомата: машина пиксель-артом, всё по сетке арта, масштаб <see cref="Px"/>.</summary>
-public sealed class DHAtmWindow : DefaultWindow
+public sealed partial class DHAtmWindow : DefaultWindow
 {
     [Dependency] private IResourceCache _cache = default!;
 
@@ -123,11 +123,11 @@ public sealed class DHAtmWindow : DefaultWindow
     private static readonly Vector2 ViewSize = new(203, 181);
 
     // Прямоугольники в сетке арта (x, y, w, h) — как LAYOUT в atm_pixel_art.py.
-    private static readonly Box2 Glass = Rect(31, 102, 107, 84);
-    private static readonly Box2 Reader = Rect(145, 100, 51, 42);
-    private static readonly Box2 Cash = Rect(42, 196, 85, 27);
-    private static readonly Box2 LedPower = Rect(31, 196, 5, 5);
-    private static readonly Box2 LedActivity = Rect(31, 207, 5, 5);
+    private static readonly Box2 Glass = ArtRect(31, 102, 107, 84);
+    private static readonly Box2 Reader = ArtRect(145, 100, 51, 42);
+    private static readonly Box2 Cash = ArtRect(42, 196, 85, 27);
+    private static readonly Box2 LedPower = ArtRect(31, 196, 5, 5);
+    private static readonly Box2 LedActivity = ArtRect(31, 207, 5, 5);
 
     private const int KeyW = 15, KeyH = 13;
     private static readonly Vector2 KeyOrigin = new(146, 145);
@@ -197,7 +197,7 @@ public sealed class DHAtmWindow : DefaultWindow
             {
                 Off = Frame(keys, $"{label}_off"),
                 Hover = Frame(keys, $"{label}_hover"),
-                Pressed = Frame(keys, $"{label}_pressed"),
+                PressedTex = Frame(keys, $"{label}_pressed"),
             };
             var toneRow = label switch { "clear" or "0" or "00" => 3, _ => row };
             var toneCol = label switch { "clear" => 0, "0" => 1, "00" => 2, _ => col };
@@ -215,7 +215,7 @@ public sealed class DHAtmWindow : DefaultWindow
             {
                 Off = Frame(fkeys, $"{label}_off"),
                 Hover = Frame(fkeys, $"{label}_hover"),
-                Pressed = Frame(fkeys, $"{label}_pressed"),
+                PressedTex = Frame(fkeys, $"{label}_pressed"),
             };
             var name = label;
             key.OnPressed += _ => OnKey?.Invoke(name, label == "enter" ? 3 : 2, 3);
@@ -228,7 +228,7 @@ public sealed class DHAtmWindow : DefaultWindow
         Place(_reader, Reader);
 
         // Лоток: купюры, пока их не забрали.
-        _cash.Off = _cash.Hover = _cash.Pressed = Frame(cash, "dispensed_3");
+        _cash.Off = _cash.Hover = _cash.PressedTex = Frame(cash, "dispensed_3");
         _cash.OnPressed += _ => OnTakeCash?.Invoke();
         _cash.ToolTip = Loc.GetString("dh-atm-ui-cash-tooltip");
         _cash.Visible = false;
@@ -242,7 +242,7 @@ public sealed class DHAtmWindow : DefaultWindow
         SetLights(DHAtmReaderLight.Ready, false);
     }
 
-    private static Box2 Rect(float x, float y, float w, float h)
+    private static Box2 ArtRect(float x, float y, float w, float h)
     {
         return new Box2(x, y, x + w, y + h);
     }
@@ -273,7 +273,7 @@ public sealed class DHAtmWindow : DefaultWindow
             DHAtmReaderLight.Locked => "lights_locked",
             _ => "lights_idle",
         };
-        _reader.Off = _reader.Hover = _reader.Pressed = Frame(_readerRsi, state);
+        _reader.Off = _reader.Hover = _reader.PressedTex = Frame(_readerRsi, state);
         _reader.Scale = Reader.Size * Px / (_reader.Off?.Size ?? Vector2.One);
         _ledActivity.Texture = Frame(_ledRsi, error ? "red" : light == DHAtmReaderLight.Ok ? "amber_busy" : "amber_idle");
     }
@@ -302,7 +302,7 @@ public sealed class DHAtmWindow : DefaultWindow
     {
         private Texture? _off;
         public Texture? Hover;
-        public Texture? Pressed;
+        public Texture? PressedTex;
 
         public Texture? Off
         {
@@ -320,7 +320,7 @@ public sealed class DHAtmWindow : DefaultWindow
             TextureNormal = DrawMode switch
             {
                 DrawModeEnum.Hover => Hover ?? _off,
-                DrawModeEnum.Pressed => Pressed ?? _off,
+                DrawModeEnum.Pressed => PressedTex ?? _off,
                 _ => _off,
             };
         }
