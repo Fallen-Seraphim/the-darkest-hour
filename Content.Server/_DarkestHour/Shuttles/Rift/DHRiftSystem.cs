@@ -232,11 +232,7 @@ public sealed partial class DHRiftSystem : EntitySystem
             return false;
         }
 
-        if (mass > best.MaxMass)
-        {
-            reason = Loc.GetString("dh-rift-too-heavy", ("mass", (int) mass), ("max", (int) best.MaxMass));
-            return false;
-        }
+        // Ограничения по массе нет (решение автора 2026-11-12): масса влияет только на силу хронитовой вспышки.
 
         if (best.Chronite < best.ChronitePerJump)
         {
