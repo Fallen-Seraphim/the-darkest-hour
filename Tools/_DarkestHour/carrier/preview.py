@@ -68,6 +68,8 @@ mid = '/tmp/claude-0/-home-claude/b98f3588-2b1f-59b9-a305-05f4e1959a09/scratchpa
 if os.path.exists(mid):
     m = Image.open(mid).convert('RGBA'); m = m.resize((m.width // 2, m.height // 2))
     # превью «Мидуэя»: от x = -10 до 10, от y = -14 до 12 его клеток (по 32 px), центр на (-14, 34)
-    img.alpha_composite(m, (px(-14 - 10, 34 + 12)[0], px(-14 - 10, 34 + 12)[1] + S))
+    mk = [e for p in d['entities'] if p['proto'] == 'DHDropshipHangarMidway' for e in p['entities']][0]
+    mx, my = [math.floor(float(v)) for v in [c for c in mk['components'] if c['type'] == 'Transform'][0]['pos'].split(',')]
+    img.alpha_composite(m, (px(mx - 10, my + 12)[0], px(mx - 10, my + 12)[1] + S))
 img.save(OUT)
 print(OUT, img.size)

@@ -1,498 +1,569 @@
-"""Имперский десантный авианосец IC-3 «Соверен» по схеме автора (2026-11-11), нос — вверху (+y).
+"""Имперский десантный авианосец IC-3 «Соверен» точно по схеме автора (2026-11-11), нос — вверху.
 
-Сверху вниз:
-- разрывной генератор и суперконденсатор (нос);
-- корабельная артиллерия: 570 мм в центре и два 300 мм, у каждого свой пульт;
-- «Зона вылета 1» со стоянкой «Мидуэя» (вырез в палубе по клеткам челнока, по краю — воздушные завесы),
-  рядом ВПП (открытая палуба), по правому борту — ПВО (ракетные установки и РЛС) и склад техники;
-- карго: лифт снабжения с пультом; напротив — подготовка (вендоматы снаряжения, стойка брони, станок);
-- казармы в духе «Алмаера» (двухъярусные койки, шкафчики, точки появления) и брифинговая;
-- штаб (мостик) и комнаты командования;
-- инженерный отсек между двумя двигателями: два термоядерных реактора (ВН) → СМЭС → подстанции (СН) →
-  ЛКП в каждом помещении (НН) → свет и техника;
-- корма: медотсек, две операционные, химическая лаборатория с вирусологией, морг.
+Схема задана прямоугольниками и треугольниками в пикселях рисунка автора (PX ниже); 1 клетка = 4 px.
+Помещения примыкают друг к другу без коридоров, как на схеме:
+- разрывной генератор и суперконденсатор — узкий шпиль на носу;
+- корабельная артиллерия со скосом по правому борту;
+- «Зона вылета 1» (стоянка «Мидуэя»: вырез в палубе по клеткам челнока, по краю — воздушные завесы) и ВПП справа;
+- карго под «Зоной вылета 1», казармы под карго, брифинговая под ВПП;
+- ПВО — треугольник справа от ВПП, под ним штаб и комнаты командования;
+- инженерный отсек между двумя двигателями;
+- блок на корме — медицинская и химическая лаборатории с операционными (просьба автора 2026-11-11).
+Питание: реакторы (ВН) → терминал → СМЭС → подстанции (СН) → ЛКП в каждом помещении (НН) → свет и техника.
 
-Стены, окна и плитка — «Алмаер» из RMC-14 (Prototypes/_DarkestHour/Carrier). Запуск из корня репозитория:
-    python3 Tools/_DarkestHour/carrier/build_carrier.py
+Запуск из корня репозитория:  python3 Tools/_DarkestHour/carrier/build_carrier.py
 Карта целиком перезаписывается (Resources/Maps/_DarkestHour/Shuttles/imperial_carrier.yml)."""
 import base64
 import json
 import math
 import struct
+from collections import deque
 
 OUT = 'Resources/Maps/_DarkestHour/Shuttles/imperial_carrier.yml'
 MIDWAY = json.load(open('Tools/_DarkestHour/midway/footprint.json'))
-
 PI = math.pi
-# Поворот настенного (светильник, ЛКП): к какой стене прикреплён — N: 0, S: π, W: π/2, E: -π/2.
-WALLROT = {'N': 0.0, 'S': PI, 'W': PI / 2, 'E': -PI / 2}
-# Поворот «лицом» в сторону: машина/стул смотрит на юг при 0.
-FACE = {'S': 0.0, 'N': PI, 'E': PI / 2, 'W': -PI / 2}
 
-T = {}      # (x, y) -> плитка
-W = {}      # (x, y) -> стена / окно / дверь
-E = []      # (proto, x, y, rot)
+# ---------------------------------------------------------------- схема автора (пиксели рисунка)
+PX0, PY0, SCALE = 715, 422, 4
+PX = {  # имя: многоугольник (x вправо, y вниз)
+    'rift':     [(715, 185), (735, 185), (735, 297), (715, 297)],
+    'art':      [(715, 297), (779, 297), (807, 422), (715, 422)],
+    'zone':     [(715, 422), (807, 422), (807, 526), (715, 526)],
+    'runway':   [(807, 422), (875, 422), (875, 678), (807, 678)],
+    'cargo':    [(715, 526), (807, 526), (807, 630), (715, 630)],
+    'barracks': [(715, 630), (807, 630), (807, 822), (715, 822)],
+    'brief':    [(807, 678), (875, 678), (875, 822), (807, 822)],
+    'pvo':      [(875, 598), (935, 674), (875, 674)],
+    'hq':       [(875, 674), (935, 674), (935, 822), (875, 822)],
+    'engL':     [(739, 822), (767, 822), (767, 942), (739, 942)],
+    'eng':      [(767, 822), (875, 822), (875, 962), (767, 962)],
+    'engR':     [(875, 822), (903, 822), (903, 942), (875, 942)],
+    'labs':     [(783, 962), (859, 962), (859, 1094), (783, 1094)],
+}
+ORDER = list(PX)
+
+
+def to_tiles(poly):
+    return [(round((x - PX0) / SCALE), -round((y - PY0) / SCALE)) for x, y in poly]
+
+
+POLY = {k: to_tiles(v) for k, v in PX.items()}
+
+
+def inside(poly, px, py):
+    c = False
+    n = len(poly)
+    for i in range(n):
+        x1, y1 = poly[i]
+        x2, y2 = poly[(i + 1) % n]
+        if (y1 > py) != (y2 > py):
+            xi = x1 + (py - y1) * (x2 - x1) / (y2 - y1)
+            if px < xi:
+                c = not c
+    return c
+
+
+REGION = {}   # (x, y) -> имя помещения
+for name in ORDER:
+    poly = POLY[name]
+    xs = [p[0] for p in poly]
+    ys = [p[1] for p in poly]
+    for x in range(min(xs), max(xs) + 1):
+        for y in range(min(ys), max(ys) + 1):
+            if (x, y) not in REGION and inside(poly, x + 0.5, y + 0.5):
+                REGION[(x, y)] = name
+
+# ---------------------------------------------------------------- подразделы внутри помещений (свои стены)
+SUB = {}  # (x, y) -> имя подраздела; стены между подразделами строятся так же, как между помещениями
+
+
+def subdivide(parent, name, x0, y0, x1, y1):
+    for x in range(x0, x1 + 1):
+        for y in range(y0, y1 + 1):
+            if REGION.get((x, y)) == parent:
+                REGION[(x, y)] = name
+    ORDER.append(name)
+
+
+def bbox(name):
+    cells = [p for p, r in REGION.items() if r == name]
+    return (min(p[0] for p in cells), min(p[1] for p in cells), max(p[0] for p in cells), max(p[1] for p in cells))
+
+
+# штаб: мостик сверху, ниже — коридор и четыре комнаты командования
+hx0, hy0, hx1, hy1 = bbox('hq')
+subdivide('hq', 'cmd1', hx0, hy0 + 10, (hx0 + hx1) // 2 - 1, hy0 + 18)
+subdivide('hq', 'cmd2', (hx0 + hx1) // 2 + 1, hy0 + 10, hx1, hy0 + 18)
+subdivide('hq', 'cmd3', hx0, hy0, (hx0 + hx1) // 2 - 1, hy0 + 9)
+subdivide('hq', 'cmd4', (hx0 + hx1) // 2 + 1, hy0, hx1, hy0 + 9)
+subdivide('hq', 'hqhall', (hx0 + hx1) // 2, hy0, (hx0 + hx1) // 2, hy0 + 18)
+# лаборатории: медотсек сверху, снизу операционные и химия с вирусологией, морг
+lx0, ly0, lx1, ly1 = bbox('labs')
+subdivide('labs', 'or1', lx0, ly0, lx0 + 5, ly0 + 9)
+subdivide('labs', 'chem', lx0 + 6, ly0, lx1 - 6, ly0 + 9)
+subdivide('labs', 'or2', lx1 - 5, ly0, lx1, ly0 + 9)
+subdivide('labs', 'morgue', lx1 - 5, ly1 - 6, lx1, ly1)
+
+T = {}
+W = {}
+E = []
 CABLE = {'CableHV': set(), 'CableMV': set(), 'CableApcExtension': set()}
-HULL = 'DHCarrierHull'
-WALL = 'DHCarrierWall'
-WHITE = 'DHCarrierWallWhite'
-WINDOW = 'DHCarrierWindow'
+HULL, WALL, WHITE, WINDOW = 'DHCarrierHull', 'DHCarrierWall', 'DHCarrierWallWhite', 'DHCarrierWindow'
+WHITE_ROOMS = {'labs', 'or1', 'or2', 'chem', 'morgue'}
+FLOOR = {
+    'rift': 'CMFloorBlack', 'art': 'CMFloorPlate', 'zone': 'CMFloorPlate', 'runway': 'CMFloorPlate',
+    'cargo': 'CMFloorCargo', 'barracks': 'CMFloorSteel', 'brief': 'CMFloorOffice', 'pvo': 'CMFloorBlack',
+    'hq': 'CMFloorBlack', 'hqhall': 'CMFloorSteel', 'cmd1': 'CMFloorOffice', 'cmd2': 'CMFloorOffice',
+    'cmd3': 'CMFloorOffice', 'cmd4': 'CMFloorOffice', 'engL': 'CMFloorBlack', 'eng': 'CMFloorBlack',
+    'engR': 'CMFloorBlack', 'labs': 'CMFloorWhite', 'or1': 'CMFloorSterile', 'or2': 'CMFloorSterile',
+    'chem': 'RMCFloorResearchContainment', 'morgue': 'CMFloorSterile',
+}
+for p, r in REGION.items():
+    T[p] = FLOOR[r]
+
+N8 = [(dx, dy) for dx in (-1, 0, 1) for dy in (-1, 0, 1) if dx or dy]
+N4 = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+RANK = {n: i for i, n in enumerate(ORDER)}
+for (x, y), r in REGION.items():
+    for dx, dy in N8:
+        o = REGION.get((x + dx, y + dy))
+        if o is None:
+            W[(x, y)] = HULL
+            break
+        if o != r and RANK[r] < RANK[o]:
+            W[(x, y)] = WHITE if r in WHITE_ROOMS or o in WHITE_ROOMS else WALL
+INNER = {}  # помещение -> клетки пола без стен
+for p, r in REGION.items():
+    if p not in W:
+        INNER.setdefault(r, set()).add(p)
 
 
-def floor(x0, y0, x1, y1, tile):
-    for x in range(x0, x1 + 1):
-        for y in range(y0, y1 + 1):
-            T[(x, y)] = tile
+def ibox(name):
+    c = INNER[name]
+    return (min(p[0] for p in c), min(p[1] for p in c), max(p[0] for p in c), max(p[1] for p in c))
 
 
-def room(x0, y0, x1, y1, tile, wall=WALL):
-    """Комната: пол внутри, стены по кольцу вокруг (если там ещё не дверь)."""
-    floor(x0, y0, x1, y1, tile)
-    for x in range(x0 - 1, x1 + 2):
-        for y in range(y0 - 1, y1 + 2):
-            if x0 <= x <= x1 and y0 <= y <= y1:
-                if W.get((x, y)) in (WALL, WHITE):
-                    del W[(x, y)]
-                continue
-            T.setdefault((x, y), tile)
-            if (x, y) not in W or W[(x, y)] in (WALL, WHITE):
-                W[(x, y)] = wall
+def free(p):
+    return p in T and p not in W
 
 
-def opening(x0, y0, x1, y1):
-    """Проём без двери (между смежными помещениями)."""
-    for x in range(x0, x1 + 1):
-        for y in range(y0, y1 + 1):
-            W.pop((x, y), None)
+# ---------------------------------------------------------------- двери и проёмы
+def between(a, b):
+    """Стены между помещениями a и b, через которые можно пройти (с одной стороны пол a, с другой — пол b)."""
+    out = []
+    for p, w in W.items():
+        if w == HULL:
+            continue
+        x, y = p
+        for (dx, dy) in ((1, 0), (0, 1)):
+            s1, s2 = (x - dx, y - dy), (x + dx, y + dy)
+            if s1 in INNER.get(a, ()) and s2 in INNER.get(b, ()) or s1 in INNER.get(b, ()) and s2 in INNER.get(a, ()):
+                out.append(p)
+    return sorted(set(out))
 
 
-def door(x, y, proto='AirlockSyndicateGlass'):
-    W[(x, y)] = proto
+def door(a, b, proto='AirlockSyndicateGlass', width=1, at=None):
+    c = between(a, b)
+    if not c:
+        raise SystemExit('нет общей стены: %s / %s' % (a, b))
+    if at is None:
+        mid = c[len(c) // 2]
+    else:
+        mid = min(c, key=lambda p: abs(p[0] - at[0]) + abs(p[1] - at[1]))
+    i = c.index(mid)
+    chosen = c[max(0, i - width // 2): i - width // 2 + width]
+    for p in chosen:
+        W[p] = proto
+    return chosen
 
 
-def put(proto, x, y, rot=None, n=1):
+def opening(a, b, margin=1):
+    c = between(a, b)
+    for p in c[margin:len(c) - margin]:
+        del W[p]
+        INNER.setdefault(REGION[p], set()).add(p)
+
+
+def put(proto, x, y, rot=None, n=1, force=False):
+    if not force and not free((x, y)):
+        return False
     for _ in range(n):
         E.append((proto, x, y, rot))
+    return True
 
 
-def line(kind, a, b):
-    """Кабель по L-пути: сначала по x, потом по y."""
-    (x0, y0), (x1, y1) = a, b
-    step = 1 if x1 >= x0 else -1
-    for x in range(x0, x1 + step, step):
-        CABLE[kind].add((x, y0))
-    step = 1 if y1 >= y0 else -1
-    for y in range(y0, y1 + step, step):
-        CABLE[kind].add((x1, y))
+FACE = {'S': 0.0, 'N': PI, 'E': PI / 2, 'W': -PI / 2}
 
 
-ROOMS = []  # (имя, прямоугольник, стена с ЛКП, позиция ЛКП)
+# ---------------------------------------------------------------- питание
+def bfs(start, goal, allowed):
+    q = deque([start])
+    prev = {start: None}
+    while q:
+        c = q.popleft()
+        if c == goal:
+            break
+        for dx, dy in N4:
+            n = (c[0] + dx, c[1] + dy)
+            if n not in prev and n in allowed:
+                prev[n] = c
+                q.append(n)
+    if goal not in prev:
+        raise SystemExit('нет пути %s -> %s' % (start, goal))
+    path = []
+    c = goal
+    while c is not None:
+        path.append(c)
+        c = prev[c]
+    return path
 
 
-def powered(name, x0, y0, x1, y1, apc, side, lights=True, step=5):
-    """ЛКП на стене + «гребёнка» НН через комнату (радиус приёма 3 клетки) + светильники по северной и южной стенам."""
-    ax, ay = apc
-    put('APCBasic', ax, ay, {'N': 0.0, 'S': PI, 'W': PI / 2, 'E': -PI / 2}[side])
-    # НН: от ЛКП внутрь комнаты, затем горизонтальные линии каждые 6 рядов, соединённые вертикалью.
-    inside = {'N': (ax, ay - 1), 'S': (ax, ay + 1), 'W': (ax + 1, ay), 'E': (ax - 1, ay)}[side]
-    CABLE['CableApcExtension'].add((ax, ay))
-    cx = min(max(inside[0], x0), x1)
+APCS = []
+SUBSTATION = None
+
+
+def apc(room, prefer='W'):
+    """ЛКП на стене помещения + НН «гребёнкой» (ряды через 6 клеток) + свет по северным и южным стенам."""
+    cells = INNER[room]
+    x0, y0, x1, y1 = ibox(room)
+    # стена для ЛКП: соседняя с полом этого помещения, не дверь; ближе к выбранной стороне
+    cand = []
+    for (x, y) in cells:
+        for side, (dx, dy) in (('W', (-1, 0)), ('E', (1, 0)), ('N', (0, 1)), ('S', (0, -1))):
+            w = (x + dx, y + dy)
+            if W.get(w) in (WALL, WHITE, HULL) and REGION.get(w) in (room, None) or W.get(w) in (WALL, WHITE, HULL):
+                cand.append((side, w, (x, y)))
+    key = {'W': lambda c: (c[0] != 'W', c[2][0], abs(c[2][1] - (y0 + y1) / 2)),
+           'E': lambda c: (c[0] != 'E', -c[2][0], abs(c[2][1] - (y0 + y1) / 2)),
+           'N': lambda c: (c[0] != 'N', -c[2][1], abs(c[2][0] - (x0 + x1) / 2)),
+           'S': lambda c: (c[0] != 'S', c[2][1], abs(c[2][0] - (x0 + x1) / 2))}[prefer]
+    taken = {(a[1], a[2]) for a in APCS}
+    side, wall, inner = min((c for c in cand if (c[1], c[2]) not in taken and c[1] not in {a[1] for a in APCS}), key=key)
+    E.append(('APCBasic', wall[0], wall[1], {'N': 0.0, 'S': PI, 'W': PI / 2, 'E': -PI / 2}[side]))
+    APCS.append((room, wall, inner))
+    CABLE['CableApcExtension'].add(wall)
     rows = list(range(y0 + 2, y1 + 1, 6)) or [y0]
     if y1 - rows[-1] > 3:
         rows.append(max(y0, y1 - 2))
-    line('CableApcExtension', inside, (cx, rows[0]))
-    line('CableApcExtension', (cx, rows[0]), (cx, rows[-1]))
     for r in rows:
-        line('CableApcExtension', (x0, r), (x1, r))
-    # СН до магистрали x = 0.
-    line('CableMV', (ax, ay), (0, ay))
-    ROOMS.append(name)
-    if lights:
-        for x in range(x0 + 1, x1, step):
-            if (x, y1 + 1) in W:
-                put('Poweredlight', x, y1, WALLROT['N'])
-            if (x, y0 - 1) in W and y1 - y0 >= 4:
-                put('Poweredlight', x, y0, WALLROT['S'])
+        run = sorted(x for (x, y) in cells if y == r)
+        if not run:
+            continue
+        for x in run:
+            CABLE['CableApcExtension'].add((x, r))
+        target = min(((x, r) for x in run), key=lambda p: abs(p[0] - inner[0]))
+        for p in bfs(inner, target, cells):
+            CABLE['CableApcExtension'].add(p)
+    # свет
+    for (x, y) in sorted(cells):
+        for side, (dx, dy), rot in (('N', (0, 1), 0.0), ('S', (0, -1), PI)):
+            if (x + dx, y + dy) in W and W[(x + dx, y + dy)] in (WALL, WHITE, HULL, WINDOW):
+                if (x - x0) % 5 == 2 and (side == 'N' or y1 - y0 >= 4):
+                    E.append(('Poweredlight', x, y, rot))
+    if x1 - x0 <= 4:   # узкие помещения — свет по боковой стене
+        for (x, y) in sorted(cells):
+            if (x - 1, y) in W and (y - y0) % 5 == 2:
+                E.append(('Poweredlight', x, y, PI / 2))
 
 
-# =============================================================== помещения
+# ================================================================ наполнение
+def C(name):
+    x0, y0, x1, y1 = ibox(name)
+    return (x0 + x1) // 2, (y0 + y1) // 2
 
-# --- нос: разрывной генератор и суперконденсатор
-room(-6, 66, 6, 72, 'CMFloorBlack')
-put('DHRiftGeneratorShip', -3, 70)
-put('DHRiftSupercapacitorShip', 3, 70)
-put('Rack', -5, 66)
-put('ClosetEmergencyFilledRandom', 5, 66)
-door(0, 65, 'AirlockEngineeringLocked')
-powered('rift', -6, 66, 6, 72, (-7, 69), 'W')
 
-# --- корабельная артиллерия
-room(-14, 54, 14, 64, 'CMFloorPlate')
-NORTH = 0.0  # ствол на клетку выше казённика
-for gx, breech, barrel in ((-8, 'DHHeavyGunBreech300', 'DHHeavyGunBarrel300'),
-                           (0, 'DHHeavyGunBreech570', 'DHHeavyGunBarrel570'),
-                           (8, 'DHHeavyGunBreech300', 'DHHeavyGunBarrel300')):
-    put(breech, gx, 60, NORTH)
-    put(barrel, gx, 61, NORTH)
-    put('DHComputerNavalArtillery', gx + 2, 58, FACE['S'])
-    put('ChairOfficeDark', gx + 2, 57, FACE['N'])
+# --- разрывной генератор и суперконденсатор (шпиль)
+x0, y0, x1, y1 = ibox('rift')
+cx = (x0 + x1) // 2
+put('DHRiftGeneratorShip', cx, y1 - 2)
+put('DHRiftSupercapacitorShip', cx, y1 - 6)
+put('ClosetEmergencyFilledRandom', x0, y0 + 1)
+door('rift', 'art', 'AirlockEngineeringLocked')
+
+# --- артиллерия
+x0, y0, x1, y1 = ibox('art')
+guns = (('DHHeavyGunBreech300', 'DHHeavyGunBarrel300', x0 + 3),
+        ('DHHeavyGunBreech570', 'DHHeavyGunBarrel570', (x0 + x1) // 2 - 1),
+        ('DHHeavyGunBreech300', 'DHHeavyGunBarrel300', x1 - 6))
+gy = y1 - 8
+for breech, barrel, gx in guns:
+    put(breech, gx, gy, 0.0)
+    put(barrel, gx, gy + 1, 0.0)
+    put('DHComputerNavalArtillery', gx + 1, gy - 2, FACE['S'])
+    put('ChairOfficeDark', gx + 1, gy - 3, FACE['N'])
 for i, wh in enumerate(('HighExplosive', 'ArmorPiercing', 'Incendiary', 'Cluster')):
-    put('DHHeavyShell300' + wh, -13 + i, 55, n=3)
-    put('DHHeavyShell300' + wh, 10 + i, 55, n=3)
-    put('DHHeavyShell570' + wh, -2 + i, 55, n=2)
-put('SyndieFlag', -14, 64)
-put('SyndieFlag', 14, 64)
-door(0, 53, 'AirlockSecurityGlassLocked')
-door(-1, 53, 'AirlockSecurityGlassLocked')
-door(1, 53, 'AirlockSecurityGlassLocked')
-powered('artillery', -14, 54, 14, 64, (-15, 59), 'W')
+    put('DHHeavyShell300' + wh, x0 + i, y0, n=3)
+    put('DHHeavyShell570' + wh, x0 + 5 + i, y0, n=2)
+    put('DHHeavyShell300' + wh, x0 + 10 + i, y0, n=3)
+put('SyndieFlag', x0, y1)
+put('SyndieFlag', x0 + 6, y1)
+door('art', 'zone', 'AirlockSecurityGlassLocked', width=3)
 
-# --- ангарная палуба: «Зона вылета 1» (запад) и ВПП (центр), ПВО и склад техники (восток)
-room(-23, 20, 13, 51, 'CMFloorPlate')
-for y in range(20, 52):          # разметка ВПП
-    T[(-2, y)] = 'RMCFloorPlatingStripedWest'
-    T[(12, y)] = 'RMCFloorPlatingStripedEast'
-for x in range(-1, 12):
-    T[(x, 51)] = 'RMCFloorPlatingStripedNorth'
-    T[(x, 20)] = 'RMCFloorPlatingStriped'
-powered('hangar', -23, 20, 13, 51, (14, 47), 'E', step=6)
-line('CableApcExtension', (-23, 21), (13, 21))
-line('CableApcExtension', (13, 21), (13, 47))
-# стоянка «Мидуэя»: центр челнока на клетке (-14, 34), вырез — по клеткам грида челнока
-MID = (-14, 34)
-put('DHDropshipHangarMidway', *MID)
+# --- «Зона вылета 1» и ВПП
+x0, y0, x1, y1 = ibox('zone')
+MID = ((x0 + x1) // 2, y1 - 11)     # клетка (0, 0) «Мидуэя»: вверх 10 клеток, вниз 12; сверху и снизу — проход
+put('DHDropshipHangarMidway', *MID, force=True)
 HOLE = {(MID[0] + x, MID[1] + y) for x, y in MIDWAY}
-# ПВО
-room(15, 34, 23, 51, 'CMFloorBlack')
-put('DHRadarEmpire', 19, 43)
-for p in ((17, 49), (21, 49), (17, 37), (21, 37)):
-    put('DHMissileLauncher', *p)
-put('DHInterceptorMissile', 15, 51, n=4)
-put('DHInterceptorMissile', 23, 34, n=4)
-put('DHCommsRelayEmpire', 22, 43)
-door(14, 43, 'AirlockSecurityGlassLocked')
-door(14, 42, 'AirlockSecurityGlassLocked')
-powered('aa', 15, 34, 23, 51, (24, 42), 'E')
-# склад техники и десантного снаряжения
-room(15, 20, 23, 32, 'CMFloorCargo')
-put('DHVehicleDropPalletTankEmpire', 17, 30)
-put('DHVehicleDropPalletIM30', 20, 30)
-put('DHFieldGun75', 17, 26)
-put('DHCrateFieldGun75', 18, 26)
-put('DHCrateMortar', 20, 26)
-put('DHCrateMortar', 21, 26)
-put('DHCrateParachutes', 22, 26)
-put('DHCrateParachutes', 22, 25)
-put('DHDropBeacon', 16, 22, n=4)
-put('DHTentImperialFolded', 18, 22)
-put('DHTentImperialMedicalFolded', 19, 22)
-put('DHCamoNetFolded', 20, 22, n=2)
-put('DHClothingOuterGhillie', 21, 22, n=2)
-put('DHSandbagsEmpty25', 22, 22, n=2)
-put('DHBarbedWire10', 23, 22, n=2)
-put('Shovel', 23, 23, n=2)
-for x in range(16, 23):
-    if x % 2 == 0:
-        put('Rack', x, 20)
-door(14, 26, 'AirlockCargoGlassLocked')
-door(14, 25, 'AirlockCargoGlassLocked')
-powered('vehicles', 15, 20, 23, 32, (24, 27), 'E')
-# проход с ангарной палубы к носу
-door(-1, 52, 'AirlockSyndicateGlass')
-door(0, 52, 'AirlockSyndicateGlass')
-door(1, 52, 'AirlockSyndicateGlass')
+bad = [p for p in HOLE if REGION.get(p) != 'zone' or p in W]
+if bad:
+    raise SystemExit('«Мидуэй» не помещается в «Зону вылета 1»: %s' % sorted(bad)[:5])
+opening('zone', 'runway', margin=2)
+rx0, ry0, rx1, ry1 = ibox('runway')
+for y in range(ry0, ry1 + 1):
+    if free((rx0, y)):
+        T[(rx0, y)] = 'RMCFloorPlatingStripedWest'
+    if free((rx1, y)):
+        T[(rx1, y)] = 'RMCFloorPlatingStripedEast'
+for y in range(ry0 + 2, ry1 - 1, 4):    # осевая разметка
+    T[((rx0 + rx1) // 2, y)] = 'RMCFloorPlatingStriped'
+# техника и десантное снаряжение — у бортов ВПП
+put('DHVehicleDropPalletTankEmpire', rx1 - 1, ry1 - 2)
+put('DHVehicleDropPalletIM30', rx1 - 1, ry1 - 5)
+put('DHFieldGun75', rx1 - 1, ry1 - 8)
+put('DHCrateFieldGun75', rx1 - 1, ry1 - 9)
+put('DHCrateMortar', rx1 - 1, ry1 - 11)
+put('DHCrateMortar', rx1 - 1, ry1 - 12)
+put('DHCrateParachutes', rx1 - 1, ry1 - 14)
+put('DHCrateParachutes', rx1 - 1, ry1 - 15)
+put('DHDropBeacon', rx1 - 1, ry1 - 17, n=4)
+put('DHTentImperialFolded', rx1 - 1, ry1 - 19)
+put('DHTentImperialMedicalFolded', rx1 - 1, ry1 - 20)
+put('DHCamoNetFolded', rx1 - 1, ry1 - 22, n=2)
+put('DHClothingOuterGhillie', rx1 - 1, ry1 - 23, n=2)
 
-# --- главный коридор (x -1..1) от карго до кормы
-room(-1, -13, 1, 18, 'CMFloorSteel')
-opening(-1, 19, 1, 19)
-powered('corridor', -1, -13, 1, 18, (2, 4), 'E', step=6)
+# --- ПВО (треугольник)
+door('runway', 'pvo', 'AirlockSecurityGlassLocked')
+pcells = sorted(INNER['pvo'], key=lambda p: (-p[1], p[0]))
+px0, py0, px1, py1 = ibox('pvo')
+put('DHRadarEmpire', px0 + 2, py0 + 2)
+put('DHCommsRelayEmpire', px0 + 4, py0 + 2)
+launchers = []
+for p in sorted(INNER['pvo'], key=lambda p: (p[1], -p[0])):
+    if len(launchers) >= 4:
+        break
+    if p[0] >= px0 + 6 and all(abs(p[0] - q[0]) + abs(p[1] - q[1]) >= 3 for q in launchers) and put('DHMissileLauncher', *p):
+        launchers.append(p)
+put('DHInterceptorMissile', px0, py0, n=6)
+put('DHInterceptorMissile', px0 + 1, py0, n=6)
 
-# --- карго: лифт снабжения
-room(-23, 7, -3, 18, 'CMFloorCargo')
-put('DHSupplyElevator', -13, 12)
-put('DHComputerSupply', -6, 15, FACE['S'])
-put('ChairOfficeDark', -6, 14, FACE['N'])
-for x in (-22, -20, -18):
-    put('CrateFilledSpawner', x, 17)
-put('Rack', -22, 7)
-put('Rack', -21, 7)
-put('LockerEvacRepairFilled', -4, 7)
-door(-2, 12, 'AirlockCargoGlassLocked')
-door(-2, 11, 'AirlockCargoGlassLocked')
-opening(-23, 19, -15, 19)   # грузы выкатываются прямо на ангарную палубу
-powered('cargo', -23, 7, -3, 18, (-24, 12), 'W')
+# --- карго
+x0, y0, x1, y1 = ibox('cargo')
+ex, ey = x0 + 5, (y0 + y1) // 2
+put('DHSupplyElevator', ex, ey)
+put('DHComputerSupply', ex + 5, ey + 3, FACE['S'])
+put('ChairOfficeDark', ex + 5, ey + 2, FACE['N'])
+for i in range(4):
+    put('CrateFilledSpawner', x1 - 1 - i, y1)
+put('Rack', x1, y0)
+put('Rack', x1 - 1, y0)
+put('LockerEvacRepairFilled', x1, y0 + 3)
+door('cargo', 'zone', 'AirlockCargoGlassLocked', width=3)
+door('cargo', 'runway', 'AirlockCargoGlassLocked', width=2)
 
-# --- подготовка: вендоматы снаряжения
-room(3, 7, 23, 18, 'CMFloorSteel')
-put('DHGearVendorEmpireWeapons', 5, 18)
-put('DHGearVendorEmpireAttachments', 7, 18)
-put('DHGearVendorEmpireEquipment', 9, 18)
-put('DHGearVendorEmpireMedic', 11, 18)
-put('DHArmorRack', 14, 18)
-put('DHArmorRack', 15, 18)
-put('DHFieldLathe', 18, 18)
-put('VendingMachineTankDispenserEVA', 21, 18)
-put('VendingMachineSec', 22, 18)
-put('WeaponCapacitorRecharger', 13, 10)
-put('PowerCellRecharger', 14, 10)
-put('TableReinforced', 13, 10)
-put('TableReinforced', 14, 10)
-for x in range(5, 12, 2):
-    put('TableReinforced', x, 12)
-door(2, 12)
-door(2, 11)
-powered('prep', 3, 7, 23, 18, (24, 12), 'E')
-
-# --- казармы (как на «Алмаере»: ряды двухъярусных коек со шкафчиками)
-room(-23, -12, -3, 5, 'CMFloorSteel')
-spawns = []
-for row_y in (3, -2, -7):
-    for x in range(-22, -4, 2):
-        put('RMCBedBunk', x, row_y)
-        spawns.append((x, row_y))
-        spawns.append((x, row_y - 1))
-for x in range(-22, -4, 3):
-    put('LockerSyndicatePersonal', x, 5)
-put('TableReinforced', -6, -11)
-put('TableReinforced', -5, -11)
-put('ChairFolding', -6, -10, FACE['S'])
-put('ChairFolding', -5, -10, FACE['S'])
-for x, y in spawns:
-    put('SpawnPointAnyJob', x, y)
-door(-2, 0)
-door(-2, -1)
-door(-2, -9)
-powered('barracks', -23, -12, -3, 5, (-24, -2), 'W')
+# --- казармы (как на «Алмаере») с уголком подготовки у входа
+x0, y0, x1, y1 = ibox('barracks')
+vend = ['DHGearVendorEmpireWeapons', 'DHGearVendorEmpireAttachments', 'DHGearVendorEmpireEquipment',
+        'DHGearVendorEmpireMedic', 'DHArmorRack', 'DHArmorRack', 'DHFieldLathe', 'VendingMachineTankDispenserEVA']
+for i, v in enumerate(vend):
+    put(v, x0 + 1 + i * 2, y1)
+put('WeaponCapacitorRecharger', x1, y1 - 2)
+put('PowerCellRecharger', x1, y1 - 3)
+spawns = 0
+for row_y in range(y1 - 5, y0 + 2, -5):
+    for x in range(x0 + 1, x1, 2):
+        if put('RMCBedBunk', x, row_y):
+            put('SpawnPointAnyJob', x, row_y)
+            put('SpawnPointAnyJob', x, row_y - 1)
+            spawns += 2
+    for x in range(x0 + 2, x1, 4):
+        put('LockerSyndicatePersonal', x, row_y + 2)
+put('TableReinforced', x1 - 1, y0)
+put('TableReinforced', x1, y0)
+door('barracks', 'cargo', width=3)
+door('barracks', 'brief', width=2)
+door('barracks', 'eng', 'AirlockEngineeringLocked', width=2)
+door('barracks', 'runway', width=2)
 
 # --- брифинговая
-room(3, -12, 23, 5, 'CMFloorOffice')
-put('Screen', 13, 6, WALLROT['N'])
-put('BannerSyndicate', 9, 5)
-put('BannerSyndicate', 17, 5)
-put('TableReinforced', 12, 3)
-put('TableReinforced', 13, 3)
-put('TableReinforced', 14, 3)
-for y in (0, -2, -4, -6, -8):
-    for x in list(range(6, 12)) + list(range(15, 21)):
-        put('ChairFolding', x, y, FACE['N'])
-for p in ((5, -11), (6, -11), (7, -11), (8, -11), (19, -11), (20, -11)):
-    put('SpawnPointLatejoin', *p)
-door(2, 0)
-door(2, -1)
-powered('briefing', 3, -12, 23, 5, (24, -3), 'E')
+x0, y0, x1, y1 = ibox('brief')
+put('Screen', (x0 + x1) // 2, y1 + 1, 0.0, force=True)
+put('BannerSyndicate', x0, y1)
+put('BannerSyndicate', x1, y1)
+for x in range((x0 + x1) // 2 - 1, (x0 + x1) // 2 + 2):
+    put('TableReinforced', x, y1 - 1)
+for y in range(y1 - 4, y0 + 3, -2):
+    for x in range(x0 + 1, x1):
+        if x != (x0 + x1) // 2:
+            put('ChairFolding', x, y, FACE['N'])
+for x in range(x0, x0 + 6):
+    put('SpawnPointLatejoin', x, y0)
+door('brief', 'runway', width=3)
+door('brief', 'hq')
+door('brief', 'eng', 'AirlockEngineeringLocked', width=2)
 
-# --- поперечный коридор (штабной ярус)
-room(-23, -16, 23, -14, 'CMFloorSteel')
-opening(-1, -13, 1, -13)
-powered('cross_n', -23, -16, 23, -14, (-12, -13), 'N', step=6)
-
-# --- штаб (мостик)
-room(-9, -30, 9, -18, 'CMFloorBlack')
-for x in range(-8, 9):
-    W[(x, -17)] = WINDOW if abs(x) > 2 else W.get((x, -17), WALL)
-door(0, -17, 'AirlockCommandGlassLocked')
-door(-1, -17, 'AirlockCommandGlassLocked')
-door(1, -17, 'AirlockCommandGlassLocked')
-bridge = [
-    ('DHComputerRiftNav', -1, -19), ('DHComputerLanding', 1, -19),
-    ('DHComputerOverwatchEmpire', -6, -19), ('DHComputerSquadsEmpire', -4, -19),
-    ('DHComputerOrbitalScan', 4, -19), ('ComputerRadar', 6, -19),
-    ('ComputerComms', -8, -24), ('ComputerCrewMonitoring', 8, -24),
-]
-for proto, x, y in bridge:
-    rot = FACE['S'] if y == -19 else (FACE['E'] if x < 0 else FACE['W'])
-    put(proto, x, y, rot)
-    cx, cy = (x, y - 1) if y == -19 else ((x + 1, y) if x < 0 else (x - 1, y))
-    put('ChairOfficeDark', cx, cy, FACE['N'] if y == -19 else (FACE['W'] if x < 0 else FACE['E']))
-put('DHFieldPhoneEmpireBridge', 0, -27)
-put('TableReinforced', -1, -26)
-put('TableReinforced', 0, -26)
-put('TableReinforced', 1, -26)
-put('SyndieFlag', -8, -30)
-put('SyndieFlag', 8, -30)
-put('DrinkChampagneBottleFull', 0, -26)
-powered('bridge', -9, -30, 9, -18, (10, -24), 'E')
-# комнаты командования
-room(-23, -23, -11, -18, 'CMFloorOffice')   # капитан
-room(-23, -30, -11, -25, 'CMFloorOffice')   # командир десанта
-room(11, -23, 23, -18, 'CMFloorOffice')     # командир операции
-room(11, -30, 23, -25, 'CMFloorOffice')     # офицер поддержки
-for x0, y0, x1, y1, dx in ((-23, -23, -11, -18, -17), (-23, -30, -11, -25, -17),
-                           (11, -23, 23, -18, 17), (11, -30, 23, -25, 17)):
-    put('Bed', x0 + 1 if x0 < 0 else x1 - 1, y1)
-    put('BedsheetSyndie', x0 + 1 if x0 < 0 else x1 - 1, y1)
-    put('TableReinforced', dx, y0 + 2)
-    put('TableReinforced', dx + 1, y0 + 2)
-    put('ChairOfficeDark', dx, y0 + 1, FACE['N'])
-    put('LockerSyndicatePersonal', x1 - 1 if x0 < 0 else x0 + 1, y1)
-    put('PottedPlantRandom', x1 if x0 < 0 else x0, y0)
-door(-17, -17, 'AirlockCommandGlassLocked')
-door(17, -17, 'AirlockCommandGlassLocked')
-door(-10, -27, 'AirlockCommandGlassLocked')
-door(10, -27, 'AirlockCommandGlassLocked')
-door(-17, -24, 'AirlockCommandGlassLocked')
-door(17, -24, 'AirlockCommandGlassLocked')
-powered('cmd_w', -23, -30, -11, -18, (-24, -24), 'W', step=6)
-powered('cmd_e', 11, -30, 23, -18, (24, -24), 'E', step=6)
-
-# --- поперечный коридор (инженерный ярус)
-room(-23, -34, 23, -32, 'CMFloorSteel')
-door(0, -31, 'AirlockCommandGlassLocked')
-powered('cross_s', -23, -34, 23, -32, (-12, -31), 'N', step=6)
+# --- штаб и комнаты командования
+x0, y0, x1, y1 = ibox('hq')
+bridge = ['DHComputerRiftNav', 'DHComputerLanding', 'DHComputerOverwatchEmpire', 'DHComputerSquadsEmpire',
+          'DHComputerOrbitalScan', 'ComputerRadar']
+for i, proto in enumerate(bridge):
+    x = x0 + 1 + i * 2
+    put(proto, x, y1, FACE['S'])
+    put('ChairOfficeDark', x, y1 - 1, FACE['N'])
+put('ComputerComms', x0, y0 + 4, FACE['E'])
+put('ChairOfficeDark', x0 + 1, y0 + 4, FACE['W'])
+put('ComputerCrewMonitoring', x1, y0 + 4, FACE['W'])
+put('ChairOfficeDark', x1 - 1, y0 + 4, FACE['E'])
+cx = (x0 + x1) // 2
+put('TableReinforced', cx - 1, y0 + 2)
+put('TableReinforced', cx, y0 + 2)
+put('TableReinforced', cx + 1, y0 + 2)
+put('DHFieldPhoneEmpireBridge', cx, y0 + 3)
+put('SyndieFlag', x0, y0)
+put('SyndieFlag', x1, y0)
+door('hq', 'pvo', 'AirlockCommandGlassLocked')
+door('hq', 'hqhall', 'AirlockCommandGlassLocked')
+for room in ('cmd1', 'cmd2', 'cmd3', 'cmd4'):
+    door(room, 'hqhall', 'AirlockCommandGlassLocked')
+    a0, b0, a1, b1 = ibox(room)
+    put('Bed', a0, b1)
+    put('BedsheetSyndie', a0, b1, force=True)
+    put('LockerSyndicatePersonal', a1, b1)
+    put('TableReinforced', a0, b0)
+    put('TableReinforced', a0 + 1, b0)
+    put('ChairOfficeDark', a0, b0 + 1, FACE['S'])
+    put('PottedPlantRandom', a1, b0)
+door('cmd3', 'engR', 'AirlockEngineeringLocked')
 
 # --- инженерный отсек
-room(-10, -50, 10, -36, 'CMFloorBlack')
-REACTORS = ((-5, -40), (5, -40))
+x0, y0, x1, y1 = ibox('eng')
+cx = (x0 + x1) // 2
+REACTORS = ((cx - 6, y1 - 4), (cx + 6, y1 - 4))
 for rx, ry in REACTORS:
     put('DHFusionReactorShip', rx, ry)
-put('CableTerminal', 0, -42, 0.0)
-put('SMESBasic', 0, -43)
-put('SubstationBasic', -2, -45)
-put('SubstationBasic', 2, -45)
-put('DHFusionFuelCassette', -8, -36, n=4)
-put('DHFusionFuelCassette', 8, -36, n=4)
-put('LockerEngineerFilled', -8, -50)
-put('LockerEngineerFilled', -7, -50)
-put('VendingMachineEngivend', 8, -50)
-put('VendingMachineYouTool', 7, -50)
-put('CrateEngineeringCableBulk', -4, -50)
-put('SheetSteel', -2, -50)
-put('SheetPlasteel', -1, -50)
-put('SheetGlass', 1, -50)
-put('WeldingFuelTankFull', 4, -50)
-put('WaterTankFull', 5, -50)
-door(0, -35, 'AirlockEngineeringLocked')
-door(-1, -35, 'AirlockEngineeringLocked')
-door(1, -35, 'AirlockEngineeringLocked')
-powered('engineering', -10, -50, 10, -36, (-11, -46), 'W')
-# ВН: реакторы → терминал → СМЭС → подстанции
-line('CableHV', REACTORS[0], REACTORS[1])
-line('CableHV', (0, -40), (0, -45))
-line('CableHV', (-2, -45), (2, -45))
-for sx in (-2, 2):
-    line('CableMV', (sx, -45), (0, -45))
-line('CableMV', (0, -45), (0, 70))
+put('CableTerminal', cx, y1 - 6, 0.0)
+put('SMESBasic', cx, y1 - 7)
+SUBS = ((cx - 2, y1 - 9), (cx + 2, y1 - 9))
+for sx, sy in SUBS:
+    put('SubstationBasic', sx, sy)
+put('DHFusionFuelCassette', x0, y1, n=4)
+put('DHFusionFuelCassette', x1, y1, n=4)
+for i, proto in enumerate(('LockerEngineerFilled', 'LockerEngineerFilled', 'VendingMachineEngivend', 'VendingMachineYouTool',
+                           'CrateEngineeringCableBulk', 'SheetSteel', 'SheetPlasteel', 'SheetGlass',
+                           'WeldingFuelTankFull', 'WaterTankFull')):
+    put(proto, x0 + 1 + i * 2, y0)
+door('eng', 'engL', 'AirlockEngineeringLocked', width=2)
+door('eng', 'engR', 'AirlockEngineeringLocked', width=2)
+door('eng', 'labs', 'AirlockMedicalGlassLocked', width=3)
+line_hv = bfs(REACTORS[0], REACTORS[1], INNER['eng'] | set(REACTORS))
+CABLE['CableHV'].update(line_hv)
+CABLE['CableHV'].update(bfs((cx, y1 - 4), SUBS[0], INNER['eng']))
+CABLE['CableHV'].update(bfs((cx, y1 - 4), SUBS[1], INNER['eng']))
+CABLE['CableHV'].update({(cx, y1 - 6), (cx, y1 - 7)})
+for s in SUBS:
+    CABLE['CableMV'].add(s)
 
 # --- двигатели
-for sign in (-1, 1):
-    x0, x1 = (-23, -12) if sign < 0 else (12, 23)
-    room(x0, -62, x1, -36, 'CMFloorBlack')
-    for x in range(x0, x1 + 1):
-        T[(x, -64)] = 'CMFloorBlack'
-        put('Thruster', x, -64)
-    put('ClosetEmergencyFilledRandom', x0 if sign < 0 else x1, -36)
-    put('ClosetEmergencyN2FilledRandom', x0 + 1 if sign < 0 else x1 - 1, -36)
-    door(-11 if sign < 0 else 11, -43, 'AirlockEngineeringLocked')
-    door(-11 if sign < 0 else 11, -42, 'AirlockEngineeringLocked')
-    powered('engine%d' % sign, x0, -62, x1, -36, ((x0 - 1) if sign < 0 else (x1 + 1), -48),
-            'W' if sign < 0 else 'E')
-    # тяговые за корпусом: НН до них
-    line('CableApcExtension', (x0, -62), (x1, -62))
-    for x in range(x0, x1 + 1):
-        CABLE['CableApcExtension'].add((x, -63))
+for room in ('engL', 'engR'):
+    x0, y0, x1, y1 = ibox(room)
+    put('ClosetEmergencyFilledRandom', x0, y1)
+    put('ClosetEmergencyN2FilledRandom', x1, y1)
+    for x in range(x0 - 1, x1 + 2):
+        T[(x, y0 - 2)] = 'CMFloorBlack'
+        E.append(('Thruster', x, y0 - 2, 0.0))
+        CABLE['CableApcExtension'].update({(x, y0 - 1), (x, y0), (x, y0 + 1)})
 
-# --- корма: медотсек, операционные, химлаборатория
-room(-10, -58, 10, -52, 'CMFloorWhite', WHITE)
-for x in range(-9, 10, 3):
-    put('MedicalBed', x, -52)
-put('StasisBed', -9, -58)
-put('StasisBed', -8, -58)
-put('DHLifeSupport', -5, -58)
-put('DHVentilator', -4, -58)
-put('DHIVDripFilled', -6, -53)
-put('DHIVDripFilled', 0, -53)
-put('DHIVDripFilled', 6, -53)
-put('VendingMachineMedical', 9, -58)
-put('LockerMedicineFilled', 8, -58)
-put('LockerMedicineFilled', 7, -58)
-put('Defibrillator', 2, -58)
-put('TableReinforcedGlass', 2, -58)
-put('TableReinforcedGlass', 3, -58)
-put('HandheldHealthAnalyzer', 3, -58)
-put('MedkitCombatFilled', 3, -58)
-put('DHBloodPackFull', 2, -58, n=4)
-put('VendingMachineWallMedical', -10, -55, WALLROT['W'])
-door(0, -51, 'AirlockMedicalGlassLocked')
-door(-1, -51, 'AirlockMedicalGlassLocked')
-door(1, -51, 'AirlockMedicalGlassLocked')
-powered('medbay', -10, -58, 10, -52, (11, -55), 'E')
-# морг (в машинном проходе медотсека)
-for x in (-9, -8, -7):
-    put('Morgue', x, -56, FACE['N'])
-# операционные
-for sign in (-1, 1):
-    x0, x1 = (-10, -5) if sign < 0 else (5, 10)
-    room(x0, -67, x1, -60, 'CMFloorSterile', WHITE)
-    cx = (x0 + x1) // 2
-    put('OperatingTable', cx, -64)
-    put('DHVentilator', cx - 1, -64)
-    put('DHLifeSupport', cx + 1, -64)
-    put('TableReinforcedGlass', x0, -67)
-    put('TableReinforcedGlass', x0 + 1, -67)
-    put('DHFieldSurgeryKitFilled', x0, -67)
-    put('SawAdvanced', x0 + 1, -67)
-    put('DHAutoclave', x1, -67)
-    put('DHIVDripFilled', cx, -62)
-    put('BoxLatexGloves', x0 + 1, -67)
-    put('BoxSterileMask', x0 + 1, -67)
-    put('SinkWide', x1, -60, FACE['S'])
-    door(cx, -59, 'AirlockMedicalGlassLocked')
-    powered('or%d' % sign, x0, -67, x1, -60, ((x0 - 1) if sign < 0 else (x1 + 1), -63), 'W' if sign < 0 else 'E')
-# химическая лаборатория и вирусология
-room(-3, -67, 3, -60, 'RMCFloorResearchContainment', WHITE)
-put('DHChemDispenser', -3, -60)
-put('DHChemDispenser', -2, -60)
-put('DHChemMaster', 2, -60)
-put('DHChemMaster', 3, -60)
-put('DHChemistryHotplate', -3, -63)
-put('DHChemistryHotplate', -3, -64)
-put('DHElectrolysisUnit', 3, -63)
-put('DHFumeHood', -3, -67)
-put('DHFumeHood', -2, -67)
-put('DHPathogenAnalyzer', 2, -67)
-put('DHVirologyComputer', 3, -67)
-put('DHCrateChemistryAcids', -1, -67)
-put('DHCrateChemistryBases', 0, -67)
-put('DHCrateChemistryOrganics', 1, -67)
-put('TableReinforcedGlass', 0, -63)
-put('TableReinforcedGlass', 1, -63)
-put('BoxBeaker', 0, -63)
-put('LargeBeaker', 1, -63, n=2)
-put('BoxSyringe', 1, -63)
-put('BoxPillCanister', 0, -63)
-put('SinkWide', 0, -60, FACE['S'])
-door(0, -59, 'AirlockMedicalGlassLocked')
-put('APCBasic', 0, -68, PI)
-CABLE['CableApcExtension'].update({(0, -68), (0, -67)})
-line('CableApcExtension', (-3, -66), (3, -66))
-line('CableApcExtension', (0, -67), (0, -61))
-line('CableApcExtension', (-3, -62), (3, -62))
-line('CableMV', (0, -68), (0, -45))
-put('Poweredlight', -1, -60, WALLROT['N'])
-put('Poweredlight', 1, -67, WALLROT['S'])
+# --- лаборатории
+x0, y0, x1, y1 = ibox('labs')
+for x in range(x0, x1 + 1, 3):
+    put('MedicalBed', x, y1)
+put('StasisBed', x0, y0)
+put('StasisBed', x0 + 1, y0)
+put('DHLifeSupport', x0 + 3, y0)
+put('DHVentilator', x0 + 4, y0)
+for x in range(x0 + 1, x1, 6):
+    put('DHIVDripFilled', x, y1 - 1)
+put('VendingMachineMedical', x1, y0)
+put('LockerMedicineFilled', x1 - 1, y0)
+put('LockerMedicineFilled', x1 - 2, y0)
+put('TableReinforcedGlass', x1 - 4, y0)
+put('Defibrillator', x1 - 4, y0, force=True)
+put('TableReinforcedGlass', x1 - 5, y0)
+put('HandheldHealthAnalyzer', x1 - 5, y0, force=True)
+put('MedkitCombatFilled', x1 - 5, y0, force=True)
+put('DHBloodPackFull', x1 - 4, y0, n=4, force=True)
+put('VendingMachineWallMedical', x0 - 1, (y0 + y1) // 2, PI / 2, force=True)
+for room in ('or1', 'or2'):
+    a0, b0, a1, b1 = ibox(room)
+    cx = (a0 + a1) // 2
+    put('OperatingTable', cx, (b0 + b1) // 2)
+    put('DHVentilator', cx - 1, (b0 + b1) // 2)
+    put('DHLifeSupport', cx + 1, (b0 + b1) // 2)
+    put('DHIVDripFilled', cx, (b0 + b1) // 2 + 2)
+    put('TableReinforcedGlass', a0, b0)
+    put('TableReinforcedGlass', a0 + 1, b0)
+    put('DHFieldSurgeryKitFilled', a0, b0, force=True)
+    put('SawAdvanced', a0 + 1, b0, force=True)
+    put('BoxLatexGloves', a0 + 1, b0, force=True)
+    put('BoxSterileMask', a0 + 1, b0, force=True)
+    put('DHAutoclave', a1, b0)
+    put('SinkWide', a1, b1, FACE['S'])
+    door(room, 'labs', 'AirlockMedicalGlassLocked')
+a0, b0, a1, b1 = ibox('chem')
+for i, proto in enumerate(('DHChemDispenser', 'DHChemDispenser', 'DHChemMaster', 'DHChemMaster')):
+    put(proto, a0 + i, b1)
+put('SinkWide', a1, b1, FACE['S'])
+put('DHChemistryHotplate', a0, b1 - 3)
+put('DHChemistryHotplate', a0, b1 - 4)
+put('DHElectrolysisUnit', a1, b1 - 3)
+for i, proto in enumerate(('DHFumeHood', 'DHFumeHood', 'DHCrateChemistryAcids', 'DHCrateChemistryBases', 'DHCrateChemistryOrganics')):
+    put(proto, a0 + i, b0)
+put('DHPathogenAnalyzer', a1 - 1, b0)
+put('DHVirologyComputer', a1, b0)
+put('TableReinforcedGlass', (a0 + a1) // 2, (b0 + b1) // 2)
+put('TableReinforcedGlass', (a0 + a1) // 2 + 1, (b0 + b1) // 2)
+for proto in ('BoxBeaker', 'LargeBeaker', 'LargeBeaker', 'BoxSyringe', 'BoxPillCanister'):
+    put(proto, (a0 + a1) // 2, (b0 + b1) // 2, force=True)
+door('chem', 'labs', 'AirlockMedicalGlassLocked', width=2)
+a0, b0, a1, b1 = ibox('morgue')
+for y in range(b0, b1 + 1, 2):
+    put('Morgue', a0, y, FACE['E'])
+put('BodyBagFolded', a1, b0, n=4)
+door('morgue', 'labs', 'AirlockMedicalGlassLocked')
 
-# =============================================================== корпус и вырез под челнок
+# --- ЛКП в каждом помещении (до выреза: кабели через вырез потом удаляются, поэтому у «Зоны вылета 1» ЛКП справа)
+for room, side in (('rift', 'W'), ('art', 'W'), ('zone', 'N'), ('runway', 'E'), ('pvo', 'S'), ('cargo', 'W'),
+                   ('barracks', 'W'), ('brief', 'S'), ('hq', 'E'), ('hqhall', 'S'), ('cmd1', 'E'), ('cmd2', 'E'),
+                   ('cmd3', 'E'), ('cmd4', 'E'), ('engL', 'W'), ('eng', 'S'), ('engR', 'E'), ('labs', 'W'),
+                   ('or1', 'W'), ('or2', 'E'), ('chem', 'S'), ('morgue', 'W')):
+    apc(room, side)
 
-# внешняя обшивка: стены, граничащие с космосом, — корпус
-tiles = set(T)
-for (x, y), proto in list(W.items()):
-    if proto in (WALL, WHITE):
-        if any((x + dx, y + dy) not in tiles for dx in (-1, 0, 1) for dy in (-1, 0, 1)):
-            W[(x, y)] = HULL
-
-# вырез: без плитки, стен и сущностей
+# --- вырез под «Мидуэй» и воздушные завесы
 for p in HOLE:
     T.pop(p, None)
     W.pop(p, None)
+    INNER['zone'].discard(p)
     for k in CABLE:
         CABLE[k].discard(p)
 E[:] = [e for e in E if (e[1], e[2]) not in HOLE or e[0] == 'DHDropshipHangarMidway']
-# воздушные завесы по краю выреза (проходимы, газ не пускают): клетка палубы, сторона к вырезу
 SEAL_ROT = {(0, -1): 0.0, (0, 1): PI, (1, 0): PI / 2, (-1, 0): -PI / 2}
 for (x, y) in list(T):
     for (dx, dy), rot in SEAL_ROT.items():
         if (x + dx, y + dy) in HOLE and (x, y) not in W:
-            put('DHHangarAirSeal', x, y, rot)
+            E.append(('DHHangarAirSeal', x, y, rot))
+# свет «Зоны вылета 1» — НН вдоль стен вокруг выреза
+zone = INNER['zone']
+ring = {p for p in zone if any((p[0] + dx, p[1] + dy) not in zone for dx, dy in N8)}
+apc_zone = next(a for a in APCS if a[0] == 'zone')
+CABLE['CableApcExtension'].update(ring)
+CABLE['CableApcExtension'] = {p for p in CABLE['CableApcExtension'] if p not in HOLE}
+
+# --- СН: от подстанций до каждого ЛКП по клеткам корабля
+ship = set(T)
+for room, wall, inner in APCS:
+    CABLE['CableMV'].update(bfs(SUBS[0], wall, ship))
+CABLE['CableMV'].update(bfs(SUBS[0], SUBS[1], ship))
+
+print('помещений', len(INNER), 'ЛКП', len(APCS), 'точек появления', spawns)
 
 # =============================================================== запись
 
@@ -538,7 +609,7 @@ w('  category: Grid')
 w('  engineVersion: 289.0.0')
 w('  forkId: ""')
 w('  forkVersion: ""')
-w('  time: 11/11/2026 22:30:00')
+w('  time: 11/12/2026 08:00:00')
 w('  entityCount: ENTITY_COUNT')
 w('maps: []')
 w('grids:')
@@ -619,4 +690,4 @@ w('...')
 text = '\n'.join(lines) + '\n'
 text = text.replace('ENTITY_COUNT', str(uid - 1))
 open(OUT, 'w', encoding='utf-8').write(text)
-print(OUT, 'entities', uid - 1, 'tiles', len(T), 'hole', len(HOLE), 'rooms', len(ROOMS))
+print(OUT, 'entities', uid - 1, 'tiles', len(T), 'hole', len(HOLE))
