@@ -316,6 +316,7 @@
   description: Open the flight panel — catapult, take-off, speed, autopilot and the tactical map.
   components:
   - type: Action
+    raiseOnUser: true # контейнер — кресло; события ловит пилот (DHAircraftPilot)
     itemIconStyle: NoItem
     useDelay: 0.5
   - type: Sprite
@@ -332,6 +333,7 @@
   description: Take or release the stick — while it is on, WASD sets the course of the aircraft in the air.
   components:
   - type: Action
+    raiseOnUser: true # контейнер — кресло; события ловит пилот (DHAircraftPilot)
     itemIconStyle: NoItem
     useDelay: 0.5
   - type: Sprite
@@ -348,6 +350,7 @@
   description: Throw out infrared decoys — for a few seconds enemy air defence cannot lock on. Fire them before passing over enemy anti-air guns.
   components:
   - type: Action
+    raiseOnUser: true # контейнер — кресло; события ловит пилот (DHAircraftPilot)
     itemIconStyle: NoItem
     useDelay: 2
   - type: Sprite
@@ -364,6 +367,7 @@
   description: Arm or safe the cannon. While armed it fires bursts along the course during a low pass.
   components:
   - type: Action
+    raiseOnUser: true # контейнер — кресло; события ловит пилот (DHAircraftPilot)
     itemIconStyle: NoItem
     useDelay: 0.5
   - type: Sprite
@@ -380,6 +384,7 @@
   description: Drop the next bomb from the hardpoints. Only on a low pass; it falls ahead along the course.
   components:
   - type: Action
+    raiseOnUser: true # контейнер — кресло; события ловит пилот (DHAircraftPilot)
     itemIconStyle: NoItem
     useDelay: 1
   - type: Sprite
@@ -396,6 +401,7 @@
   description: Fire the munition on the selected hardpoint — guided ones from the atmosphere at the selected target, free-fall ones on a low pass.
   components:
   - type: Action
+    raiseOnUser: true # контейнер — кресло; события ловит пилот (DHAircraftPilot)
     itemIconStyle: NoItem
     useDelay: 1
   - type: Sprite
@@ -412,6 +418,7 @@
   description: In the air — eject over the battlefield (the aircraft is lost). On the deck — just climb out.
   components:
   - type: Action
+    raiseOnUser: true # контейнер — кресло; события ловит пилот (DHAircraftPilot)
     itemIconStyle: NoItem
     useDelay: 3
   - type: Sprite
