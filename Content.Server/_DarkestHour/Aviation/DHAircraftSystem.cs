@@ -122,6 +122,8 @@ public sealed partial class DHAircraftSystem : EntitySystem
         SubscribeLocalEvent<DHAircraftLiftComponent, MapInitEvent>(OnLiftMapInit);
         SubscribeLocalEvent<DHAircraftLiftComponent, GetVerbsEvent<AlternativeVerb>>(OnLiftVerbs);
         SubscribeLocalEvent<DHAircraftLiftComponent, ExaminedEvent>(OnLiftExamined);
+
+        InitializeManpads();
     }
 
     #region Корпус и кресло
@@ -1005,6 +1007,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
 
         UpdateBombs(now);
         UpdateStrikes(now);
+        UpdateManpads(now);
 
         var refreshUi = now >= _nextUi;
         if (refreshUi)

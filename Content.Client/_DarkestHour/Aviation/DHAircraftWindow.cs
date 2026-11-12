@@ -222,8 +222,7 @@ public sealed class DHAircraftWindow : DefaultWindow
             : Loc.GetString("dh-aircraft-ui-target-none");
 
         _map.Target = state.TargetPoint;
-        _map.Signatures = state.Signatures.ConvertAll(s => (s.Position,
-            Loc.GetString("dh-aircraft-signature-" + s.Kind.ToString().ToLowerInvariant())));
+        // Сигнатуры РЛС приходят отметками тактической карты (их видят и другие пульты Империи).
 
         if (state.Map is { } map)
             _map.SetState(map);

@@ -158,3 +158,17 @@ dh-aircraft-module-removed = Модуль снят из отсека { $bay }.
 dh-aircraft-flares-no-module = Нет блока ЛТЦ!
 dh-aircraft-ui-flares-none = ЛТЦ: блок не установлен
 dh-aircraft-ui-modules = Спецотсеки: { $modules }
+
+# ПЗРК
+dh-manpads-examine-loaded = В трубе [color=yellow]ракета[/color].
+dh-manpads-examine-empty = Труба [color=red]пуста[/color] — нужна ракета.
+dh-manpads-not-wielded = Возьмите ПЗРК в обе руки.
+dh-manpads-empty = Нет ракеты.
+dh-manpads-no-target = Цели нет: штурмовик достать можно только на бреющем, в пределах дальности.
+dh-manpads-locking = Захват цели...
+dh-manpads-lost = Цель потеряна.
+dh-manpads-launched = Пуск!
+dh-manpads-already-loaded = Ракета уже в трубе.
+dh-manpads-reloaded = ПЗРК заряжен.
+dh-aircraft-manpads-decoyed = ЛТЦ увели ракету ПЗРК!
+dh-aircraft-manpads-missed = Ракета ПЗРК прошла мимо!

@@ -154,3 +154,17 @@ dh-aircraft-module-removed = Module removed from bay { $bay }.
 dh-aircraft-flares-no-module = No flare dispenser!
 dh-aircraft-ui-flares-none = Flares: no dispenser installed
 dh-aircraft-ui-modules = Special bays: { $modules }
+
+# MANPADS
+dh-manpads-examine-loaded = A [color=yellow]missile[/color] is in the tube.
+dh-manpads-examine-empty = The tube is [color=red]empty[/color] — it needs a missile.
+dh-manpads-not-wielded = Wield the MANPADS with both hands.
+dh-manpads-empty = No missile.
+dh-manpads-no-target = No target: the attack aircraft can only be reached on a low pass, within range.
+dh-manpads-locking = Locking on...
+dh-manpads-lost = Target lost.
+dh-manpads-launched = Launch!
+dh-manpads-already-loaded = There is already a missile in the tube.
+dh-manpads-reloaded = MANPADS loaded.
+dh-aircraft-manpads-decoyed = Flares decoyed a MANPADS missile!
+dh-aircraft-manpads-missed = A MANPADS missile missed!
