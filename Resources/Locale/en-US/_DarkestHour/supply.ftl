@@ -20,3 +20,7 @@ dh-supply-category-ammo = Ammunition
 dh-supply-category-medical = Medical
 dh-supply-category-engineering = Engineering
 dh-supply-category-misc = Other
+dh-supply-category-air-defence = Air defence
+dh-supply-category-naval = Naval artillery
+dh-supply-category-anti-orbital = Anti-orbital guns
+dh-supply-category-aviation = Aviation

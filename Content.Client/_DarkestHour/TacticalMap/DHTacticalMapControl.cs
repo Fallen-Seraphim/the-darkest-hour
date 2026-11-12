@@ -200,6 +200,21 @@ public sealed class DHTacticalMapControl : Control
                     handle.DrawCircle(p, 4f, FactionColor(marker.Owner));
                     handle.DrawCircle(p, 4f, Color.Black, false);
                     break;
+                case DHTacticalMarkerKind.EnemyVehicle:
+                    // Техника противника: квадрат цвета стороны с подписью.
+                    var vehicleColor = FactionColor(marker.Owner);
+                    handle.DrawRect(new UIBox2(p - new Vector2(6, 6), p + new Vector2(6, 6)), vehicleColor);
+                    handle.DrawRect(new UIBox2(p - new Vector2(6, 6), p + new Vector2(6, 6)), Color.Black, false);
+                    if (_zoom >= 1.5f)
+                        handle.DrawString(_font, p + new Vector2(9, -6), marker.Name, vehicleColor);
+                    break;
+                case DHTacticalMarkerKind.ScanBlip:
+                    // Одиночный боец с последнего глобального скана.
+                    handle.DrawCircle(p, 2.5f, ScanColor);
+                    break;
+                case DHTacticalMarkerKind.AirSignature:
+                    DrawSignature(handle, p, marker.Name, FactionColor(marker.Owner));
+                    break;
                 case DHTacticalMarkerKind.Beacon:
                     // Городской ориентир: флажок и название.
                     handle.DrawLine(p, p + new Vector2(0, -10), BeaconColor);
@@ -220,12 +235,7 @@ public sealed class DHTacticalMapControl : Control
 
         foreach (var (position, label) in Signatures)
         {
-            var sp = ToPixel(position);
-            handle.DrawLine(sp + new Vector2(0, -6), sp + new Vector2(6, 5), RepublicColor);
-            handle.DrawLine(sp + new Vector2(6, 5), sp + new Vector2(-6, 5), RepublicColor);
-            handle.DrawLine(sp + new Vector2(-6, 5), sp + new Vector2(0, -6), RepublicColor);
-            if (_zoom >= 1.5f)
-                handle.DrawString(_font, sp + new Vector2(8, -6), label, RepublicColor);
+            DrawSignature(handle, ToPixel(position), label, RepublicColor);
         }
 
         if (Target is { } target)
@@ -294,6 +304,16 @@ public sealed class DHTacticalMapControl : Control
             if (_zoom >= 3f)
                 handle.DrawString(_font, p + new Vector2(6, -6), fighter.Name, color);
         }
+    }
+
+    /// <summary>Сигнатура РЛС штурмовика: треугольник с подписью.</summary>
+    private void DrawSignature(DrawingHandleScreen handle, Vector2 sp, string label, Color color)
+    {
+        handle.DrawLine(sp + new Vector2(0, -6), sp + new Vector2(6, 5), color);
+        handle.DrawLine(sp + new Vector2(6, 5), sp + new Vector2(-6, 5), color);
+        handle.DrawLine(sp + new Vector2(-6, 5), sp + new Vector2(0, -6), color);
+        if (_zoom >= 1.5f)
+            handle.DrawString(_font, sp + new Vector2(8, -6), label, color);
     }
 
     private Vector2 FromPixel(Vector2 pixel)
