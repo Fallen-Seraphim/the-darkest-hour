@@ -23,12 +23,14 @@
   deconstructTools: [ ]
   isSubfloor: true
 
+# У RMC родитель — CMFloorPlating (его у нас нет): берём базу палубы, свойства переносим сюда.
 - type: tile
-  parent: CMFloorPlating
+  parent: CMTileBase
   id: RMCFloorPlatingNoBuild
   name: tiles-cm-plating
   sprite: /Textures/_RMC14/Tiles/almayer/plating.png
   deconstructTools: [ ]
+  isSubfloor: true
   friction: 1
 
 - type: tile
