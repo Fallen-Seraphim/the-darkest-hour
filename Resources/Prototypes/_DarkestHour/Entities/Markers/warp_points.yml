@@ -1,0 +1,18 @@
+# Метки телепорта для призраков и админов (решение автора 2026-11-12): база «Терминус» и авианосец «Суверен».
+# Ставятся генераторами карт (terminus_build.py, build_carrier.py).
+
+- type: entity
+  parent: WarpPoint
+  id: DHWarpPointTerminus
+  suffix: Terminus
+  components:
+  - type: WarpPoint
+    location: dh-warp-terminus
+
+- type: entity
+  parent: WarpPoint
+  id: DHWarpPointCarrier
+  suffix: Carrier
+  components:
+  - type: WarpPoint
+    location: dh-warp-carrier

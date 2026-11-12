@@ -1675,6 +1675,8 @@ def main():
     w.place_water()
     w.nature()
     w.edge()
+    # Метка телепорта призраков у штаба (палатка командования базы).
+    w.ent('DHWarpPointTerminus', 133, 62, free=True)
     if w.missing:
         print('НЕТ ПРОТОТИПОВ (пропущены):', sorted(w.missing))
 

@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 11/12/2026 12:00:00
-  entityCount: 84473
+  entityCount: 84474
 maps:
 - 1
 grids:
@@ -431427,4 +431427,11 @@ entities:
     - type: Transform
       parent: 1
       pos: -206.5,-59.5
+- proto: DHWarpPointTerminus
+  entities:
+  - uid: 84474
+    components:
+    - type: Transform
+      pos: 133.5,62.5
+      parent: 1
 ...
