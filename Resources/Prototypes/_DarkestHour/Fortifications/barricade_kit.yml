@@ -1,0 +1,535 @@
+# Складные баррикады и улучшения металлических баррикад — порт RMC-14 / CM-SS13 (решение автора 2026-11-12).
+# Спрайты RMC-14 (CC-BY-SA-3.0, из cmss13).
+
+- type: damageModifierSet
+  id: DHBarricadeFolding
+  coefficients:
+    Heat: 0.85
+    Shock: 0.85
+    Cold: 0.85
+    Caustic: 0.85
+
+- type: damageModifierSet
+  id: DHBarricadeBiohazard
+  coefficients:
+    Heat: 0.75
+    Shock: 0.75
+    Cold: 0.75
+    Caustic: 0.75
+
+- type: damageModifierSet
+  id: DHBarricadeReinforced
+  coefficients:
+    Blunt: 0.75
+    Slash: 0.75
+    Piercing: 0.75
+
+# --- Улучшенные баррикады: стальная и пласталевая × композит / биозащита / усиление ---
+
+- type: entity
+  parent: DHBarricadeMetal
+  id: DHBarricadeMetalComposite
+  suffix: Composite
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Walls/Barricades/barricade.rsi
+    layers:
+    - state: metal
+    - sprite: _RMC14/Structures/Walls/Barricades/explosive_barricade_cracks.rsi
+      state: AdditionalDamageOverlay_0
+    - state: metal_wire
+      map: [ "wire" ]
+      visible: false
+    drawdepth: WallTops
+  - type: DHBarricadeUpgradeable
+    upgrades: []
+  - type: DHBarricadeUpgraded
+    base: DHBarricadeMetal
+  - type: ExplosionResistance
+    damageCoefficient: 0.5
+  - type: DHBarricade
+    blockChance: 0.8
+
+- type: entity
+  parent: DHBarricadeMetal
+  id: DHBarricadeMetalBiohazard
+  suffix: Biohazard
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Walls/Barricades/barricade.rsi
+    layers:
+    - state: metal
+    - sprite: _RMC14/Structures/Walls/Barricades/burn_barricade_cracks.rsi
+      state: AdditionalDamageOverlay_0
+    - state: metal_wire
+      map: [ "wire" ]
+      visible: false
+    drawdepth: WallTops
+  - type: DHBarricadeUpgradeable
+    upgrades: []
+  - type: DHBarricadeUpgraded
+    base: DHBarricadeMetal
+  - type: Damageable
+    damageModifierSet: DHBarricadeBiohazard
+
+- type: entity
+  parent: DHBarricadeMetal
+  id: DHBarricadeMetalReinforced
+  suffix: Reinforced
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Walls/Barricades/barricade.rsi
+    layers:
+    - state: metal
+    - sprite: _RMC14/Structures/Walls/Barricades/brute_barricade_cracks.rsi
+      state: AdditionalDamageOverlay_0
+    - state: metal_wire
+      map: [ "wire" ]
+      visible: false
+    drawdepth: WallTops
+  - type: DHBarricadeUpgradeable
+    upgrades: []
+  - type: DHBarricadeUpgraded
+    base: DHBarricadeMetal
+  - type: Damageable
+    damageModifierSet: DHBarricadeReinforced
+
+- type: entity
+  parent: DHBarricadePlasteel
+  id: DHBarricadePlasteelComposite
+  suffix: Composite
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Walls/Barricades/barricade.rsi
+    layers:
+    - state: plasteel
+    - sprite: _RMC14/Structures/Walls/Barricades/explosive_barricade_cracks.rsi
+      state: AdditionalDamageOverlay_0
+    - state: plasteel_wire
+      map: [ "wire" ]
+      visible: false
+    drawdepth: WallTops
+  - type: DHBarricadeUpgradeable
+    upgrades: []
+  - type: DHBarricadeUpgraded
+    base: DHBarricadePlasteel
+  - type: ExplosionResistance
+    damageCoefficient: 0.5
+  - type: DHBarricade
+    blockChance: 0.92
+
+- type: entity
+  parent: DHBarricadePlasteel
+  id: DHBarricadePlasteelBiohazard
+  suffix: Biohazard
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Walls/Barricades/barricade.rsi
+    layers:
+    - state: plasteel
+    - sprite: _RMC14/Structures/Walls/Barricades/burn_barricade_cracks.rsi
+      state: AdditionalDamageOverlay_0
+    - state: plasteel_wire
+      map: [ "wire" ]
+      visible: false
+    drawdepth: WallTops
+  - type: DHBarricadeUpgradeable
+    upgrades: []
+  - type: DHBarricadeUpgraded
+    base: DHBarricadePlasteel
+  - type: Damageable
+    damageModifierSet: DHBarricadeBiohazard
+
+- type: entity
+  parent: DHBarricadePlasteel
+  id: DHBarricadePlasteelReinforced
+  suffix: Reinforced
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Walls/Barricades/barricade.rsi
+    layers:
+    - state: plasteel
+    - sprite: _RMC14/Structures/Walls/Barricades/brute_barricade_cracks.rsi
+      state: AdditionalDamageOverlay_0
+    - state: plasteel_wire
+      map: [ "wire" ]
+      visible: false
+    drawdepth: WallTops
+  - type: DHBarricadeUpgradeable
+    upgrades: []
+  - type: DHBarricadeUpgraded
+    base: DHBarricadePlasteel
+  - type: Damageable
+    damageModifierSet: DHBarricadeReinforced
+
+# --- Складная баррикада MB-6 ---
+
+- type: stack
+  id: DHFoldingBarricade
+  name: dh-stack-folding-barricade
+  icon: { sprite: _RMC14/Objects/Tools/folding_barricade.rsi, state: folding-1 }
+  spawn: DHFoldingBarricade
+  maxCount: 3
+
+- type: entity
+  parent: BaseItem
+  id: DHFoldingBarricade
+  name: MB-6 folding barricade
+  description: A portable composite barricade. Use it in hand to deploy it on your tile, facing where you look; fold it back with the alternative action or by dragging it onto yourself. Weld the stack to repair the folded ones.
+  suffix: Single
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Tools/folding_barricade.rsi
+    layers:
+    - state: folding-1
+      map: [ "base" ]
+  - type: Item
+    sprite: _RMC14/Objects/Tools/folding_barricade.rsi
+    size: Large
+  - type: Clothing
+    quickEquip: false
+    sprite: _RMC14/Objects/Tools/folding_barricade.rsi
+    slots:
+    - suitStorage
+    - Back
+  - type: Stack
+    stackType: DHFoldingBarricade
+    count: 1
+    baseLayer: base
+    layerStates:
+    - folding-1
+    - folding-2
+    - folding-3
+    layerFunction: Threshold
+  - type: StackLayerThreshold
+    thresholds: [2, 3]
+  - type: Appearance
+  - type: DHFoldingBarricadeStack
+  - type: StaticPrice
+    price: 60
+
+- type: entity
+  parent: DHFoldingBarricade
+  id: DHFoldingBarricadeThree
+  suffix: Three
+  components:
+  - type: Sprite
+    layers:
+    - state: folding-3
+      map: [ "base" ]
+  - type: Stack
+    stackType: DHFoldingBarricade
+    count: 3
+
+- type: entity
+  parent: DHBarricadeBase
+  id: DHBarricadeFolding
+  name: MB-6 portable composite barricade
+  description: A deployed MB-6. Light enough to fold back up, strong enough to hold a line. Stops most bullets from the front; fold it with the alternative action, by dragging it onto yourself or with a crowbar.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Walls/Barricades/barricade.rsi
+    layers:
+    - state: folding
+    drawdepth: WallTops
+  - type: DamageVisuals
+    thresholds: [4, 8, 12]
+    damageDivisor: 21.875
+    trackAllDamage: true
+    damageOverlay:
+      sprite: _RMC14/Structures/Walls/Barricades/folding_cracks.rsi
+  - type: MeleeSound
+    soundGroups:
+      Brute:
+        path: /Audio/_RMC14/Structures/metalhit.ogg
+  - type: Damageable
+    damageModifierSet: DHBarricadeFolding
+  - type: DHBarricade
+    blockChance: 0.65
+  - type: Repairable
+    fuelCost: 10
+    doAfterDelay: 10
+    damageValue: 200
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 350
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: DHFoldingBarricade
+
+# --- Складные баррикады-ворота: металлическая и пласталевая ---
+
+- type: entity
+  abstract: true
+  parent: DHBarricadeBase
+  id: DHBarricadeGateBase
+  components:
+  - type: Anchorable
+  - type: MeleeSound
+    soundGroups:
+      Brute:
+        path: /Audio/_RMC14/Structures/metalhit.ogg
+  - type: Damageable
+    damageModifierSet: DHBarricadeMetal
+  - type: Door
+    openSpriteState: folding_metal_closed
+    closedSpriteState: folding_metal
+    canPry: false
+    occludes: false
+    changeAirtight: false
+    bumpOpen: false
+    clickOpen: true
+    canCrush: false
+    closeTimeOne: 0
+    closeTimeTwo: 0
+    openTimeOne: 0
+    openTimeTwo: 0
+    openingAnimationTime: 0
+    closingAnimationTime: 0
+    performCollisionCheck: false
+    openSound:
+      path: /Audio/Items/ratchet.ogg
+    closeSound:
+      path: /Audio/Items/ratchet.ogg
+  - type: AnimationPlayer
+  - type: UseDelay
+    delay: 0.3
+  - type: DHBarricade
+    blockChance: 0.7
+
+- type: entity
+  parent: DHBarricadeGateBase
+  id: DHBarricadeGateMetal
+  name: folding metal barricade
+  description: A folding metal barricade, weaker than a solid one. Click to open or close it at a moment's notice (only while anchored). Weld it to repair; screwdriver and crowbar to take it apart.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Walls/Barricades/barricade.rsi
+    layers:
+    - state: folding_metal
+      map: [ "enum.DoorVisualLayers.Base" ]
+    - state: folding_metal_wire
+      map: [ "wire" ]
+      visible: false
+    drawdepth: WallTops
+  - type: GenericVisualizer
+    visuals:
+      enum.DHWireVisuals.Wired:
+        wire:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Repairable
+    fuelCost: 10
+    doAfterDelay: 10
+    damageValue: 200
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 3
+            max: 3
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: Construction
+    graph: DHBarricadeGateMetal
+    node: barricade
+  - type: DHFoldingGate
+    linkable: false
+  - type: StaticPrice
+    price: 60
+
+- type: entity
+  parent: DHBarricadeGateBase
+  id: DHBarricadeGatePlasteel
+  name: folding plasteel barricade
+  description: A tough folding plasteel barricade. Click to open or close it (only while anchored); link it with neighbours in a row (alternative action) and they open and close together. Weld it to repair; screwdriver and crowbar to take it apart.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Walls/Barricades/barricade.rsi
+    layers:
+    - state: folding_plasteel
+      map: [ "enum.DoorVisualLayers.Base" ]
+    - state: folding_plasteel_connection_1
+      map: [ "enum.DHFoldingGateLinkLayers.North" ]
+      visible: false
+    - state: folding_plasteel_connection_2
+      map: [ "enum.DHFoldingGateLinkLayers.South" ]
+      visible: false
+    - state: folding_plasteel_connection_4
+      map: [ "enum.DHFoldingGateLinkLayers.East" ]
+      visible: false
+    - state: folding_plasteel_connection_8
+      map: [ "enum.DHFoldingGateLinkLayers.West" ]
+      visible: false
+    - state: folding_plasteel_wire
+      map: [ "wire" ]
+      visible: false
+    drawdepth: WallTops
+  - type: GenericVisualizer
+    visuals:
+      enum.DHWireVisuals.Wired:
+        wire:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Door
+    openSpriteState: folding_plasteel_closed
+    closedSpriteState: folding_plasteel
+    canPry: false
+    occludes: false
+    changeAirtight: false
+    bumpOpen: false
+    clickOpen: true
+    canCrush: false
+    closeTimeOne: 0
+    closeTimeTwo: 0
+    openTimeOne: 0
+    openTimeTwo: 0
+    openingAnimationTime: 0
+    closingAnimationTime: 0
+    performCollisionCheck: false
+    openSound:
+      path: /Audio/Items/ratchet.ogg
+    closeSound:
+      path: /Audio/Items/ratchet.ogg
+  - type: DHBarricade
+    blockChance: 0.85
+  - type: Repairable
+    fuelCost: 20
+    doAfterDelay: 10
+    damageValue: 200
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 800
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetPlasteel1:
+            min: 4
+            max: 4
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: Construction
+    graph: DHBarricadeGatePlasteel
+    node: barricade
+  - type: DHFoldingGate
+    linkable: true
+    connectionStates:
+      North:
+        Closed: folding_plasteel_connection_1
+        Open: folding_plasteel_closed_connection_1
+      South:
+        Closed: folding_plasteel_connection_2
+        Open: folding_plasteel_closed_connection_2
+      East:
+        Closed: folding_plasteel_connection_4
+        Open: folding_plasteel_closed_connection_4
+      West:
+        Closed: folding_plasteel_connection_8
+        Open: folding_plasteel_closed_connection_8
+  - type: StaticPrice
+    price: 180
+
+- type: construction
+  id: DHBarricadeGateMetal
+  name: dh-construction-barricade-gate-metal
+  description: dh-construction-barricade-gate-metal-desc
+  graph: DHBarricadeGateMetal
+  startNode: start
+  targetNode: barricade
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DHBarricadeGatePlasteel
+  name: dh-construction-barricade-gate-plasteel
+  description: dh-construction-barricade-gate-plasteel-desc
+  graph: DHBarricadeGatePlasteel
+  startNode: start
+  targetNode: barricade
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: constructionGraph
+  id: DHBarricadeGateMetal
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: barricade
+      completed:
+      - !type:SnapToGrid
+      steps:
+      - material: Steel
+        amount: 6
+        doAfter: 3
+  - node: barricade
+    entity: DHBarricadeGateMetal
+    edges:
+    - to: start
+      completed:
+      - !type:DHDropWire
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 6
+      - !type:DeleteEntity
+      steps:
+      - tool: Screwing
+        doAfter: 1
+      - tool: Prying
+        doAfter: 5
+
+- type: constructionGraph
+  id: DHBarricadeGatePlasteel
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: barricade
+      completed:
+      - !type:SnapToGrid
+      steps:
+      - material: Plasteel
+        amount: 8
+        doAfter: 4
+  - node: barricade
+    entity: DHBarricadeGatePlasteel
+    edges:
+    - to: start
+      completed:
+      - !type:DHDropWire
+      - !type:SpawnPrototype
+        prototype: SheetPlasteel1
+        amount: 8
+      - !type:DeleteEntity
+      steps:
+      - tool: Screwing
+        doAfter: 2
+      - tool: Prying
+        doAfter: 5

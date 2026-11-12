@@ -262,3 +262,16 @@
       amount: 4
     - id: DHSplint
       amount: 3
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateFoldingBarricades
+  name: folding barricade crate
+  description: Six MB-6 folding barricades in two stacks.
+  components:
+  - type: DHParadroppable
+    requiredParachutes: 1
+  - type: StorageFill
+    contents:
+    - id: DHFoldingBarricadeThree
+      amount: 2

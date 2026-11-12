@@ -245,6 +245,18 @@
     node: barricade
   - type: StaticPrice
     price: 40
+  # Улучшения (решение автора 2026-11-12, как в CM/RMC): два листа стали — композит, биозащита или усиление.
+  - type: DHBarricadeUpgradeable
+    upgrades:
+    - name: dh-barricade-upgrade-composite
+      result: DHBarricadeMetalComposite
+      popup: dh-barricade-upgraded-composite
+    - name: dh-barricade-upgrade-biohazard
+      result: DHBarricadeMetalBiohazard
+      popup: dh-barricade-upgraded-biohazard
+    - name: dh-barricade-upgrade-reinforced
+      result: DHBarricadeMetalReinforced
+      popup: dh-barricade-upgraded-reinforced
 
 - type: entity
   parent: DHBarricadeMetalBase
@@ -299,6 +311,17 @@
     node: barricade
   - type: StaticPrice
     price: 120
+  - type: DHBarricadeUpgradeable
+    upgrades:
+    - name: dh-barricade-upgrade-composite
+      result: DHBarricadePlasteelComposite
+      popup: dh-barricade-upgraded-composite
+    - name: dh-barricade-upgrade-biohazard
+      result: DHBarricadePlasteelBiohazard
+      popup: dh-barricade-upgraded-biohazard
+    - name: dh-barricade-upgrade-reinforced
+      result: DHBarricadePlasteelReinforced
+      popup: dh-barricade-upgraded-reinforced
 
 # --- Палатки ---
 

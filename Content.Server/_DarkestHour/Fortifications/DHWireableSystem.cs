@@ -81,7 +81,7 @@ public sealed partial class DHWireableSystem : EntitySystem
             return;
 
         args.Handled = true;
-        SetWireableWired(ent, true);
+        SetWired(ent, true);
         _audio.PlayPvs(WireSound, ent);
         _popup.PopupEntity(Loc.GetString("dh-wireable-wired", ("user", args.User)), ent, PopupType.Small);
     }
@@ -92,11 +92,11 @@ public sealed partial class DHWireableSystem : EntitySystem
             return;
 
         args.Handled = true;
-        SetWireableWired(ent, false);
+        SetWired(ent, false);
         _hands.PickupOrDrop(args.User, Spawn(ent.Comp.Wire, Transform(ent).Coordinates));
     }
 
-    private void SetWireableWired(Entity<DHWireableComponent> ent, bool wired)
+    public void SetWired(Entity<DHWireableComponent> ent, bool wired)
     {
         ent.Comp.Wired = wired;
         _appearance.SetData(ent, DHWireVisuals.Wired, wired);
@@ -121,7 +121,7 @@ public sealed partial class DHWireableSystem : EntitySystem
             return;
 
         if (TryComp<DHWireableComponent>(args.New, out var next))
-            SetWireableWired((args.New, next), true);
+            SetWired((args.New, next), true);
         else
             Spawn(ent.Comp.Wire, Transform(ent).Coordinates);
     }

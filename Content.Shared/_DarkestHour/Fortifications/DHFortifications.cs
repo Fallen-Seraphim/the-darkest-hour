@@ -1,5 +1,7 @@
 using Content.Shared.Damage;
 using Content.Shared.DoAfter;
+using Content.Shared.Doors;
+using Content.Shared.Doors.Components;
 using Content.Shared.FixedPoint;
 using Content.Shared.Projectiles;
 using Robust.Shared.GameStates;
@@ -171,12 +173,34 @@ public sealed partial class DHBarricadeCoverSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<DHBarricadeComponent, PreventCollideEvent>(OnPreventCollide);
+        SubscribeLocalEvent<DHFoldingGateComponent, BeforeDoorOpenedEvent>(OnGateBeforeOpen);
+        SubscribeLocalEvent<DHFoldingGateComponent, BeforeDoorClosedEvent>(OnGateBeforeClose);
+    }
+
+    /// <summary>Складные ворота открываются и закрываются, только когда закреплены (как в RMC).</summary>
+    private void OnGateBeforeOpen(Entity<DHFoldingGateComponent> ent, ref BeforeDoorOpenedEvent args)
+    {
+        if (!Transform(ent).Anchored)
+            args.Cancel();
+    }
+
+    private void OnGateBeforeClose(Entity<DHFoldingGateComponent> ent, ref BeforeDoorClosedEvent args)
+    {
+        if (!Transform(ent).Anchored)
+            args.Cancel();
     }
 
     private void OnPreventCollide(Entity<DHBarricadeComponent> ent, ref PreventCollideEvent args)
     {
         if (args.Cancelled || !HasComp<ProjectileComponent>(args.OtherEntity))
             return;
+
+        // Открытые складные ворота лежат — не укрывают.
+        if (TryComp<DoorComponent>(ent, out var door) && door.State != DoorState.Closed)
+        {
+            args.Cancelled = true;
+            return;
+        }
 
         // Передний край — юг при повороте 0; нормаль наружу.
         var front = _transform.GetWorldRotation(ent).RotateVec(new System.Numerics.Vector2(0f, -1f));
