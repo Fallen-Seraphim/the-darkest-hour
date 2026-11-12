@@ -1,0 +1,59 @@
+# Ключи техники (решение автора 2026-11-12): без ключа при себе пульт механика-водителя не взять. Ключ подходит ко
+# всем машинам своего типа и стороны. Выдаются командирам танков и БТР, ключ грузовика LA-V — представителю
+# корпорации. Спрайт — RMC-14 (noctyrnal, CC-BY-SA-4.0).
+
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: DHVehicleKeyBase
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Misc/vehicle_key.rsi
+    state: key
+  - type: Item
+    size: Tiny
+
+- type: entity
+  parent: DHVehicleKeyBase
+  id: DHVehicleKeyTankRepublic
+  name: Republic tank key
+  description: Starts the Republic garrison's main battle tank.
+  components:
+  - type: DHVehicleKey
+    key: TankRepublic
+
+- type: entity
+  parent: DHVehicleKeyBase
+  id: DHVehicleKeyAPCRepublic
+  name: RAM-45 key
+  description: Starts the Republic RAM-45 armoured personnel carrier.
+  components:
+  - type: DHVehicleKey
+    key: APCRepublic
+
+- type: entity
+  parent: DHVehicleKeyBase
+  id: DHVehicleKeyTankEmpire
+  name: Imperial tank key
+  description: Starts the Imperial main battle tank.
+  components:
+  - type: DHVehicleKey
+    key: TankEmpire
+
+- type: entity
+  parent: DHVehicleKeyBase
+  id: DHVehicleKeyAPCEmpire
+  name: IM-30 key
+  description: Starts the Imperial IM-30 armoured personnel carrier.
+  components:
+  - type: DHVehicleKey
+    key: APCEmpire
+
+- type: entity
+  parent: DHVehicleKeyBase
+  id: DHVehicleKeyLAV
+  name: LA-V truck key
+  description: Starts the LA-V company van. Carries the corporate logo on the fob.
+  components:
+  - type: DHVehicleKey
+    key: LAV

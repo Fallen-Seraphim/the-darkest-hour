@@ -673,6 +673,7 @@
     suitstorage: DHWeaponSMGRAPTORM1216
   storage:
     back:
+    - DHVehicleKeyTankRepublic
     - DHPainkillerAutoinjector
     - DHIFAKFilled
     - DHMagazine10x24E
@@ -711,6 +712,7 @@
     suitstorage: DHWeaponSMGRAPTORM1216
   storage:
     back:
+    - DHVehicleKeyAPCRepublic
     - DHPainkillerAutoinjector
     - DHIFAKFilled
     - DHMagazine10x24E
@@ -846,6 +848,7 @@
     suitstorage: DHWeaponSMGIMG17L
   storage:
     back:
+    - DHVehicleKeyTankEmpire
     - DHPainkillerAutoinjector
     - DHIFAKFilled
     - PinpointerSyndicateNuclear
@@ -884,6 +887,7 @@
     suitstorage: DHWeaponSMGIMG17L
   storage:
     back:
+    - DHVehicleKeyAPCEmpire
     - DHPainkillerAutoinjector
     - DHIFAKFilled
     - PinpointerSyndicateNuclear
