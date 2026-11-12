@@ -335,3 +335,99 @@
     sprite: Markers/cross.rsi
     state: pink
     visible: false
+
+# ---------------------------------------------------------------- задания LA-V (решение автора 2026-11-12)
+# Продать N штук корпоративного товара: засчитываются чеки чековой машинки (продавец — LA-V, покупатель — не LA-V).
+
+- type: dhTask
+  id: DHTaskVanguardSalesGoods
+  side: Vanguard
+  kind: Sales
+  name: dh-task-vanguard-sales-goods-name
+  description: dh-task-vanguard-sales-goods-desc
+  rewardMin: 300
+  rewardMax: 500
+  countMin: 3
+  countMax: 5
+  timeLimit: 1500
+  goods:
+  - DHLAVPen
+  - DHLAVPenExecutive
+  - DHLAVPlanner
+  - DHLAVMug
+  - DHLAVBadge
+
+- type: dhTask
+  id: DHTaskVanguardSalesDevices
+  side: Vanguard
+  kind: Sales
+  name: dh-task-vanguard-sales-devices-name
+  description: dh-task-vanguard-sales-devices-desc
+  rewardMin: 450
+  rewardMax: 700
+  countMin: 2
+  countMax: 3
+  timeLimit: 1500
+  goods:
+  - DHLAVTablet
+  - DHLAVWatch
+  - DHLAVBriefcase
+  - DHPhone
+
+- type: dhTask
+  id: DHTaskVanguardSalesSecurity
+  side: Vanguard
+  kind: Sales
+  name: dh-task-vanguard-sales-security-name
+  description: dh-task-vanguard-sales-security-desc
+  rewardMin: 500
+  rewardMax: 800
+  countMin: 2
+  countMax: 3
+  timeLimit: 1500
+  goods:
+  - DHWeaponPistolMk58
+  - DHLAVClothingOuterVestSecurity
+  - DHLAVClothingHeadHelmetSecurity
+  - DHIFAKFilled
+
+- type: entity
+  parent: DHCityComputerBase
+  id: DHComputerTasksVanguard
+  name: LA-V sales computer
+  description: Sales targets from the LA-V regional office. Three on offer, one at a time; the bonus goes to the company account.
+  components:
+  - type: Sprite
+    layers:
+    - state: retro2
+  - type: PointLight
+    color: "#a68be8"
+  - type: DHTaskConsole
+    side: Vanguard
+  - type: AccessReader
+    access: [["DHLAVanguard"]]
+  - type: ActivatableUIRequiresAccess
+  - type: ActivatableUI
+    key: enum.DHTaskConsoleUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHTaskConsoleUiKey.Key:
+        type: DHTaskConsoleBoundUserInterface
+
+# Рабочий компьютер офиса: задание раз в 4 минуты, оплата работнику.
+- type: entity
+  parent: DHCityComputerBase
+  id: DHWorkComputer
+  name: office workstation
+  description: A desk workstation full of spreadsheets. Every few minutes the office manager sends another piece of busywork — paid on completion.
+  components:
+  - type: Sprite
+    layers:
+    - state: retro
+  - type: DHWorkComputer
+  - type: ActivatableUI
+    key: enum.DHWorkComputerUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHWorkComputerUiKey.Key:
+        type: DHWorkComputerBoundUserInterface

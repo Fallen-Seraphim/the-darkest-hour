@@ -123,6 +123,18 @@ public sealed partial class DHBankSystem : EntitySystem
         _owners[owner] = account.Number;
     }
 
+    /// <summary>Чей это личный счёт (null — организации или ничей).</summary>
+    public EntityUid? OwnerOf(string number)
+    {
+        foreach (var (owner, owned) in _owners)
+        {
+            if (owned == number)
+                return owner;
+        }
+
+        return null;
+    }
+
     /// <summary>Личный счёт существа (если заведён при появлении).</summary>
     public DHBankAccount? AccountOf(EntityUid owner)
     {

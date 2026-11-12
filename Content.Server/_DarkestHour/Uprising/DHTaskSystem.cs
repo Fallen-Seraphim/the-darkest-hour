@@ -74,6 +74,9 @@ public sealed partial class DHTaskSystem : EntitySystem
         public EntityUid? Target;
         public int Remaining;
 
+        // продажи (LA-V)
+        public string GoodsProto = string.Empty;
+
         // вымогательство (ОФСК)
         public EntityUid? Victim;
         public string VictimAccount = string.Empty;
@@ -112,6 +115,7 @@ public sealed partial class DHTaskSystem : EntitySystem
 
         SubscribeLocalEvent<DHUprisingKilledEvent>(OnKilled);
         SubscribeLocalEvent<DHBankTransferEvent>(OnTransfer);
+        SubscribeLocalEvent<DHChequeIssuedEvent>(OnCheque);
         SubscribeLocalEvent<DHTaskStashComponent, InteractHandEvent>(OnStashInteract);
 
         Subs.BuiEvents<DHTaskConsoleComponent>(DHTaskConsoleUiKey.Key, subs =>
@@ -288,6 +292,8 @@ public sealed partial class DHTaskSystem : EntitySystem
                 return StartExtortion(task);
             case DHTaskKind.Bombing:
                 return StartBombing(task);
+            case DHTaskKind.Sales:
+                return StartSales(task);
         }
 
         return false;
@@ -641,6 +647,10 @@ public sealed partial class DHTaskSystem : EntitySystem
             activeText = task.Text;
             if (task.Proto.Kind == DHTaskKind.Database)
                 activeText += "\n" + Loc.GetString("dh-task-database-left", ("count", task.Remaining));
+            else if (task.Proto.Kind == DHTaskKind.Sales)
+                activeText += "\n" + Loc.GetString("dh-task-sales-left", ("count", task.Remaining));
+            else if (task.Proto.Kind == DHTaskKind.Extortion && task.Paid > 0)
+                activeText += "\n" + Loc.GetString("dh-task-extortion-paid", ("paid", task.Paid), ("amount", task.Amount));
 
             reward = task.Reward;
             left = Math.Max(0, (int) (task.Deadline - now).TotalSeconds);

@@ -73,3 +73,7 @@ ent-DHBombTargetLAVOffice = цель подрыва (офис LA-V)
 ent-DHBombTargetLAVWarehouse = цель подрыва (склад LA-V)
 ent-DHBombTargetPoliceLobby = цель подрыва (дежурная часть ВП)
 ent-DHFrontLair = метка логова ОФСК
+ent-DHComputerTasksVanguard = компьютер продаж LA-V
+    .desc = Планы продаж от регионального офиса LA-V. Три на выбор, одно за раз; премия — на счёт компании.
+ent-DHWorkComputer = рабочая станция
+    .desc = Настольная рабочая станция, набитая таблицами. Каждые несколько минут руководство присылает очередную рутину — с оплатой по выполнении.
