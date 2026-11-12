@@ -218,15 +218,77 @@ def ammo_box():
     return outline(im)
 
 
+def bomb_variant(body, band, tail=(50, 54, 48, 255), dots=None):
+    im = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    d.ellipse([10, 4, 22, 26], fill=body)
+    d.rectangle([10, 10, 22, 22], fill=body)
+    d.ellipse([12, 5, 16, 16], fill=tuple(min(255, c + 24) for c in body[:3]) + (255,))
+    d.rectangle([10, 12, 22, 14], fill=band)
+    if dots:
+        for x, y in ((13, 18), (17, 17), (15, 21), (19, 20)):
+            d.point((x, y), fill=dots)
+    d.polygon([(11, 24), (16, 30), (21, 24)], fill=tail)
+    d.line([(16, 24), (16, 30)], fill=EDGE)
+    d.rectangle([14, 2, 18, 4], fill=EDGE)
+    return outline(im)
+
+
+def napalm():
+    im = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    d.rounded_rectangle([11, 3, 21, 28], radius=5, fill=(160, 150, 120, 255))
+    d.rectangle([11, 9, 21, 10], fill=BLACK)
+    d.rectangle([11, 20, 21, 21], fill=BLACK)
+    d.ellipse([13, 4, 17, 12], fill=(190, 180, 150, 255))
+    d.rectangle([14, 13, 18, 18], fill=(214, 120, 40, 255))
+    return outline(im)
+
+
+def guided():
+    im = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    d.rectangle([12, 6, 20, 25], fill=(92, 98, 90, 255))
+    d.ellipse([12, 2, 20, 10], fill=(40, 44, 48, 255))
+    d.point((16, 5), fill=(120, 200, 230, 255))
+    d.polygon([(12, 8), (8, 12), (12, 12)], fill=BLACK)
+    d.polygon([(20, 8), (24, 12), (20, 12)], fill=BLACK)
+    d.polygon([(12, 22), (7, 29), (12, 26)], fill=BLACK)
+    d.polygon([(20, 22), (25, 29), (20, 26)], fill=BLACK)
+    d.rectangle([12, 14, 20, 15], fill=GOLD)
+    return outline(im)
+
+
+def missile(band):
+    im = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    d.rectangle([14, 5, 18, 27], fill=(200, 202, 196, 255))
+    d.polygon([(14, 5), (16, 1), (18, 5)], fill=(60, 64, 70, 255))
+    d.rectangle([14, 9, 18, 10], fill=band)
+    d.polygon([(14, 22), (10, 28), (14, 27)], fill=BLACK)
+    d.polygon([(18, 22), (22, 28), (18, 27)], fill=BLACK)
+    d.polygon([(14, 7), (12, 10), (14, 10)], fill=BLACK)
+    d.polygon([(18, 7), (20, 10), (18, 10)], fill=BLACK)
+    d.rectangle([15, 27, 17, 29], fill=DARK)
+    return outline(im)
+
+
 MUN = 'Resources/Textures/_DarkestHour/Vehicles/Aircraft/munitions.rsi'
 os.makedirs(MUN, exist_ok=True)
 bomb_he().save(MUN + '/bomb_he.png')
 ammo_box().save(MUN + '/ammo_30mm.png')
+bomb_variant((70, 78, 64, 255), BLACK, dots=WHITE).save(MUN + '/bomb_cluster.png')
+bomb_variant((84, 88, 92, 255), WHITE, dots=(190, 190, 200, 255)).save(MUN + '/bomb_magnesium.png')
+napalm().save(MUN + '/bomb_napalm.png')
+guided().save(MUN + '/bomb_guided.png')
+missile(BLACK).save(MUN + '/missile_at.png')
+missile(GOLD).save(MUN + '/missile_he.png')
 json.dump({
     'version': 1,
     'license': 'CC-BY-SA-3.0',
     'copyright': 'Drawn for The Darkest Hour (2026-11-12): attack aircraft munitions.',
     'size': {'x': 32, 'y': 32},
-    'states': [{'name': 'bomb_he'}, {'name': 'ammo_30mm'}],
+    'states': [{'name': n} for n in ('bomb_he', 'ammo_30mm', 'bomb_cluster', 'bomb_magnesium', 'bomb_napalm',
+                                      'bomb_guided', 'missile_at', 'missile_he')],
 }, open(MUN + '/meta.json', 'w'), indent=4)
 print('munitions ok')

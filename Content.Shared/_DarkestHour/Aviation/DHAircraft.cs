@@ -190,6 +190,59 @@ public sealed partial class DHAircraftComponent : Component
     [DataField]
     public TimeSpan LoadTime = TimeSpan.FromSeconds(3);
 
+    /// <summary>Выбранный узел подвески (на дисплее управления вооружением).</summary>
+    [ViewVariables, AutoNetworkedField]
+    public int SelectedHardpoint;
+
+    // ---------------------------------------------------------------- удары из атмосферы (этап 3)
+
+    [ViewVariables, AutoNetworkedField]
+    public DHAircraftMapMode MapMode = DHAircraftMapMode.Pass;
+
+    /// <summary>Точка цели для пуска из атмосферы (координаты поверхности).</summary>
+    [ViewVariables, AutoNetworkedField]
+    public Vector2? TargetPoint;
+
+    /// <summary>Подпись выбранной цели (сигнатура, метка или координаты).</summary>
+    [ViewVariables, AutoNetworkedField]
+    public string? TargetLabel;
+
+    /// <summary>Захваченная техника (ракета наводится на неё до попадания).</summary>
+    [ViewVariables]
+    public EntityUid? TargetEntity;
+
+    /// <summary>Цель — метка ЛЦУ (ракеты идут по ней).</summary>
+    [ViewVariables]
+    public bool TargetIsMark;
+
+    /// <summary>Цель — скопление пехоты без метки: по ней ракету не навести.</summary>
+    [ViewVariables]
+    public bool TargetIsInfantry;
+
+    /// <summary>Дальность пуска из атмосферы (по горизонтали), клеток.</summary>
+    [DataField]
+    public float LaunchRange = 160f;
+
+    /// <summary>РЛС: как часто обновляются сигнатуры и насколько неточно.</summary>
+    [DataField]
+    public TimeSpan ScanInterval = TimeSpan.FromSeconds(12);
+
+    [DataField]
+    public float ScanJitter = 3f;
+
+    [ViewVariables]
+    public TimeSpan NextScan;
+
+    /// <summary>Последний снимок РЛС: сигнатуры и их источники (на сервере).</summary>
+    [ViewVariables]
+    public List<DHAircraftSignature> Signatures = new();
+
+    [ViewVariables]
+    public Dictionary<int, EntityUid> SignatureSources = new();
+
+    [DataField]
+    public SoundSpecifier MissileSound = new SoundPathSpecifier("/Audio/_DarkestHour/Aviation/missile-release.ogg");
+
     // ---------------------------------------------------------------- кресло и связи
 
     [DataField]
@@ -276,6 +329,49 @@ public enum DHAircraftMunition : byte
 
     /// <summary>Фугасная бомба: сброс на бреющем.</summary>
     BombHE,
+
+    /// <summary>Кассетная бомба: россыпь малых разрывов вдоль курса — по пехоте на площади.</summary>
+    BombCluster,
+
+    /// <summary>Напалм: сплошная полоса огня вдоль курса — против пехоты и для запрета зоны.</summary>
+    BombNapalm,
+
+    /// <summary>Магниевая кассетная: химический огонь очагами, прожигает броню.</summary>
+    BombMagnesium,
+
+    /// <summary>Управляемая бомба: пуск из атмосферы по точке на карте; её может перехватить ПВО.</summary>
+    GuidedBomb,
+
+    /// <summary>Ракета воздух—земля бронебойная: из атмосферы по сигнатуре техники или метке.</summary>
+    MissileAT,
+
+    /// <summary>Ракета воздух—земля осколочно-фугасная: из атмосферы по сигнатуре или метке.</summary>
+    MissileHE,
+}
+
+/// <summary>Что показывает правый клик по тактической карте: линия захода или цель для пуска из атмосферы.</summary>
+[Serializable, NetSerializable]
+public enum DHAircraftMapMode : byte
+{
+    Pass,
+    Target,
+}
+
+[Serializable, NetSerializable]
+public enum DHAircraftSignatureKind : byte
+{
+    Armor,
+    Truck,
+    Infantry,
+}
+
+/// <summary>Сигнатура с РЛС штурмовика: обнаружена с запаздыванием и неточно.</summary>
+[Serializable, NetSerializable]
+public sealed class DHAircraftSignature
+{
+    public int Id;
+    public DHAircraftSignatureKind Kind;
+    public Vector2 Position;
 }
 
 /// <summary>Боеприпас для подвески (предмет; заряжается в самолёт на палубе).</summary>
@@ -312,6 +408,7 @@ public sealed partial class DHAircraftSeatComponent : Component
         "DHActionAircraftFlares",
         "DHActionAircraftCannon",
         "DHActionAircraftDrop",
+        "DHActionAircraftFire",
         "DHActionAircraftEject",
     };
 
@@ -401,6 +498,8 @@ public sealed partial class DHAircraftCannonActionEvent : InstantActionEvent;
 
 public sealed partial class DHAircraftDropActionEvent : InstantActionEvent;
 
+public sealed partial class DHAircraftFireActionEvent : InstantActionEvent;
+
 [Serializable, NetSerializable]
 public enum DHAircraftUiKey : byte
 {
@@ -444,6 +543,11 @@ public sealed class DHAircraftBuiState : BoundUserInterfaceState
     public int MaxCannonAmmo;
     public bool CannonOn;
     public List<DHAircraftMunition> Hardpoints = new();
+    public int SelectedHardpoint;
+    public DHAircraftMapMode MapMode;
+    public Vector2? TargetPoint;
+    public string? TargetLabel;
+    public List<DHAircraftSignature> Signatures = new();
 }
 
 [Serializable, NetSerializable]
@@ -498,3 +602,26 @@ public sealed class DHAircraftCannonMessage(bool on) : BoundUserInterfaceMessage
 
 [Serializable, NetSerializable]
 public sealed class DHAircraftDropMessage : BoundUserInterfaceMessage;
+
+[Serializable, NetSerializable]
+public sealed class DHAircraftSelectHardpointMessage(int slot) : BoundUserInterfaceMessage
+{
+    public readonly int Slot = slot;
+}
+
+[Serializable, NetSerializable]
+public sealed class DHAircraftMapModeMessage(DHAircraftMapMode mode) : BoundUserInterfaceMessage
+{
+    public readonly DHAircraftMapMode Mode = mode;
+}
+
+/// <summary>Цель для пуска из атмосферы: правый клик по карте в режиме «Цель».</summary>
+[Serializable, NetSerializable]
+public sealed class DHAircraftTargetMessage(Vector2 point) : BoundUserInterfaceMessage
+{
+    public readonly Vector2 Point = point;
+}
+
+/// <summary>Пуск управляемого боеприпаса с выбранного узла по выбранной цели.</summary>
+[Serializable, NetSerializable]
+public sealed class DHAircraftFireMessage : BoundUserInterfaceMessage;

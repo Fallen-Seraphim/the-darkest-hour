@@ -12,6 +12,24 @@
         },
         {
             "name": "ammo_30mm"
+        },
+        {
+            "name": "bomb_cluster"
+        },
+        {
+            "name": "bomb_magnesium"
+        },
+        {
+            "name": "bomb_napalm"
+        },
+        {
+            "name": "bomb_guided"
+        },
+        {
+            "name": "missile_at"
+        },
+        {
+            "name": "missile_he"
         }
     ]
 }

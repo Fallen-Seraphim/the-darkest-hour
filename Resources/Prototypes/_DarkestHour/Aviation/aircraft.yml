@@ -166,6 +166,90 @@
   - type: DHAircraftMunition
     kind: BombHE
 
+- type: entity
+  parent: BaseItem
+  id: DHAircraftBombCluster
+  name: cluster bomb
+  description: "A free-fall cluster bomb for low passes: scatters bomblets along the course. Best against infantry in the open."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
+    state: bomb_cluster
+  - type: Item
+    size: Huge
+  - type: DHAircraftMunition
+    kind: BombCluster
+
+- type: entity
+  parent: BaseItem
+  id: DHAircraftBombNapalm
+  name: napalm tank
+  description: "A free-fall napalm tank for low passes: lays a solid strip of fire along the course."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
+    state: bomb_napalm
+  - type: Item
+    size: Huge
+  - type: DHAircraftMunition
+    kind: BombNapalm
+
+- type: entity
+  parent: BaseItem
+  id: DHAircraftBombMagnesium
+  name: magnesium cluster bomb
+  description: "A free-fall magnesium cluster bomb for low passes: chemical fire in separate patches that burns through armour."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
+    state: bomb_magnesium
+  - type: Item
+    size: Huge
+  - type: DHAircraftMunition
+    kind: BombMagnesium
+
+- type: entity
+  parent: BaseItem
+  id: DHAircraftGuidedBomb
+  name: guided bomb
+  description: "A glide bomb launched from the atmosphere at a point picked on the tactical map. Slow — enemy air defence may shoot it down."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
+    state: bomb_guided
+  - type: Item
+    size: Huge
+  - type: DHAircraftMunition
+    kind: GuidedBomb
+
+- type: entity
+  parent: BaseItem
+  id: DHAircraftMissileAT
+  name: anti-tank air-to-ground missile
+  description: "Launched from the atmosphere at a radar signature of armour (it homes on the vehicle) or at a laser mark."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
+    state: missile_at
+  - type: Item
+    size: Huge
+  - type: DHAircraftMunition
+    kind: MissileAT
+
+- type: entity
+  parent: BaseItem
+  id: DHAircraftMissileHE
+  name: high-explosive air-to-ground missile
+  description: "Launched from the atmosphere at a radar signature or a laser mark; against infantry — only at a mark."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
+    state: missile_he
+  - type: Item
+    size: Huge
+  - type: DHAircraftMunition
+    kind: MissileHE
+
 # --- способности пилота (появляются, когда пристёгиваешься к креслу)
 
 - type: entity
@@ -247,6 +331,22 @@
     - state: bomb_he
   - type: InstantAction
     event: !type:DHAircraftDropActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionAircraftFire
+  name: Launch
+  description: Fire the munition on the selected hardpoint — guided ones from the atmosphere at the selected target, free-fall ones on a low pass.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 1
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/Aircraft/munitions.rsi
+    layers:
+    - state: missile_he
+  - type: InstantAction
+    event: !type:DHAircraftFireActionEvent
 
 - type: entity
   parent: BaseAction

@@ -325,8 +325,10 @@ put('DHAircraftFlareCassette', lcx - 3, ry0 + 1, n=6, force=True)
 put('Welder', lcx - 3, ry0 + 1, force=True)
 put('Rack', lcx - 4, ry0 + 1)
 put('DHAircraftCannonAmmo', lcx - 4, ry0 + 1, n=2, force=True)
-for i in range(4):
-    put('DHAircraftBombHE', lcx - 5 - i, ry0 + 1)
+for i, munition in enumerate(('DHAircraftBombHE', 'DHAircraftBombHE', 'DHAircraftBombCluster', 'DHAircraftBombNapalm',
+                               'DHAircraftBombMagnesium', 'DHAircraftGuidedBomb', 'DHAircraftMissileAT', 'DHAircraftMissileAT',
+                               'DHAircraftMissileHE', 'DHAircraftMissileHE')):
+    put(munition, lcx + 4 + i // 2, ry0 + 1 + i % 2)
 # техника и десантное снаряжение — у бортов ВПП
 put('DHVehicleDropPalletTankEmpire', rx1 - 1, ry1 - 2)
 put('DHVehicleDropPalletIM30', rx1 - 1, ry1 - 5)

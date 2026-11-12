@@ -18,7 +18,7 @@ public sealed partial class DHAircraftSystem
 
     private readonly List<PendingBomb> _bombs = new();
 
-    private readonly record struct PendingBomb(MapCoordinates Target, TimeSpan Impact, DHAircraftMunition Kind);
+    private readonly record struct PendingBomb(MapCoordinates Target, TimeSpan Impact, DHAircraftMunition Kind, Vector2 Direction);
 
     /// <summary>Разброс очередей пушки, клеток.</summary>
     private static float CannonSpread(DHAircraftAltitude altitude) => altitude switch
@@ -221,7 +221,11 @@ public sealed partial class DHAircraftSystem
             return;
         }
 
-        var slot = ent.Comp.Hardpoints.FindIndex(m => m == DHAircraftMunition.BombHE);
+        // Сначала выбранный узел, если на нём свободнопадающая бомба, иначе — первый такой.
+        var selected = ent.Comp.SelectedHardpoint;
+        var slot = selected >= 0 && selected < ent.Comp.Hardpoints.Count && IsFreeFall(ent.Comp.Hardpoints[selected])
+            ? selected
+            : ent.Comp.Hardpoints.FindIndex(IsFreeFall);
         if (slot < 0)
         {
             Notify(ent, Loc.GetString("dh-aircraft-drop-empty"), true);
@@ -234,10 +238,11 @@ public sealed partial class DHAircraftSystem
         var target = _transform.GetWorldPosition(xform) + nose * ent.Comp.PassSpeed * fall +
                      RandomInDisc(BombScatter(ent.Comp.Altitude));
 
+        var kind = ent.Comp.Hardpoints[slot];
         ent.Comp.Hardpoints[slot] = DHAircraftMunition.None;
         Dirty(ent);
         _bombs.Add(new PendingBomb(new MapCoordinates(target, xform.MapID), _timing.CurTime + TimeSpan.FromSeconds(fall),
-            DHAircraftMunition.BombHE));
+            kind, nose));
         Notify(ent, Loc.GetString("dh-aircraft-drop-released", ("slot", slot + 1)));
         UpdateUi(ent);
     }
@@ -251,12 +256,7 @@ public sealed partial class DHAircraftSystem
                 continue;
 
             _bombs.RemoveAt(i);
-            switch (bomb.Kind)
-            {
-                case DHAircraftMunition.BombHE:
-                    _explosion.QueueExplosion(bomb.Target, HeavyExplosion, 320f, 10f, 60f, null);
-                    break;
-            }
+            Detonate(bomb.Kind, bomb.Target, bomb.Direction, null);
         }
     }
 

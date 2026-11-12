@@ -97,6 +97,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         SubscribeLocalEvent<DHAircraftPilotComponent, DHAircraftEjectActionEvent>(OnEjectAction);
         SubscribeLocalEvent<DHAircraftPilotComponent, DHAircraftCannonActionEvent>(OnCannonAction);
         SubscribeLocalEvent<DHAircraftPilotComponent, DHAircraftDropActionEvent>(OnDropAction);
+        SubscribeLocalEvent<DHAircraftPilotComponent, DHAircraftFireActionEvent>(OnFireAction);
 
         Subs.BuiEvents<DHAircraftComponent>(DHAircraftUiKey.Flight, subs =>
         {
@@ -112,6 +113,10 @@ public sealed partial class DHAircraftSystem : EntitySystem
             subs.Event<DHAircraftAltitudeMessage>(OnAltitude);
             subs.Event<DHAircraftCannonMessage>(OnCannonMessage);
             subs.Event<DHAircraftDropMessage>(OnDropMessage);
+            subs.Event<DHAircraftSelectHardpointMessage>(OnSelectHardpoint);
+            subs.Event<DHAircraftMapModeMessage>(OnMapMode);
+            subs.Event<DHAircraftTargetMessage>(OnTarget);
+            subs.Event<DHAircraftFireMessage>(OnFireMessage);
         });
 
         SubscribeLocalEvent<DHAircraftLiftComponent, MapInitEvent>(OnLiftMapInit);
@@ -777,6 +782,11 @@ public sealed partial class DHAircraftSystem : EntitySystem
             MaxCannonAmmo = ent.Comp.MaxCannonAmmo,
             CannonOn = ent.Comp.CannonOn,
             Hardpoints = new List<DHAircraftMunition>(ent.Comp.Hardpoints),
+            SelectedHardpoint = ent.Comp.SelectedHardpoint,
+            MapMode = ent.Comp.MapMode,
+            TargetPoint = ent.Comp.TargetPoint,
+            TargetLabel = ent.Comp.TargetLabel,
+            Signatures = new List<DHAircraftSignature>(ent.Comp.Signatures),
         };
 
         _ui.SetUiState(ent.Owner, DHAircraftUiKey.Flight, state);
@@ -814,6 +824,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         }
 
         UpdateBombs(now);
+        UpdateStrikes(now);
 
         var refreshUi = now >= _nextUi;
         if (refreshUi)
@@ -840,7 +851,13 @@ public sealed partial class DHAircraftSystem : EntitySystem
                     break;
             }
 
-            if (refreshUi && !TerminatingOrDeleted(uid))
+            if (TerminatingOrDeleted(uid))
+                continue;
+
+            if (comp.State is DHAircraftState.Airborne or DHAircraftState.Returning or DHAircraftState.Pass)
+                UpdateRadar(ent, now);
+
+            if (refreshUi)
                 UpdateUi(ent);
         }
     }
