@@ -137,6 +137,14 @@ public sealed partial class DHAircraftSystem : EntitySystem
 
         // Фонарь кабины — поверх пилота, стекло полупрозрачное.
         ent.Comp.Canopy = SpawnAttachedTo(ent.Comp.CanopyPrototype, new EntityCoordinates(ent, Vector2.Zero));
+
+        // Самолёт, поставленный на палубу (картой или вручную), а не выданный лифтом, — стоит, а не в ангаре.
+        // Лифт, выдающий самолёт, сразу убирает его в ангар (Stow) после спавна.
+        if (ent.Comp.State == DHAircraftState.Stowed && Transform(ent).GridUid != null)
+        {
+            ent.Comp.State = DHAircraftState.Parked;
+            Dirty(ent);
+        }
     }
 
     private void OnAircraftShutdown(Entity<DHAircraftComponent> ent, ref ComponentShutdown args)
@@ -595,13 +603,55 @@ public sealed partial class DHAircraftSystem : EntitySystem
         if (ent.Comp.StartingAircraft is not { } proto)
             return;
 
-        var aircraft = Spawn(proto, Transform(ent).Coordinates);
-        if (TryComp<DHAircraftComponent>(aircraft, out var comp))
-            comp.Lift = ent;
-
-        ent.Comp.Aircraft = aircraft;
-        Stow((aircraft, comp!));
+        SpawnStarting(ent, proto);
         SetLiftMode(ent, DHAircraftLiftMode.Lowered);
+    }
+
+    /// <summary>Выдать лифту стартовый самолёт — сразу в ангар.</summary>
+    private void SpawnStarting(Entity<DHAircraftLiftComponent> ent, EntProtoId proto)
+    {
+        ent.Comp.StartingSpawned = true;
+        var aircraft = Spawn(proto, Transform(ent).Coordinates);
+        if (!TryComp<DHAircraftComponent>(aircraft, out var comp))
+        {
+            Del(aircraft);
+            return;
+        }
+
+        comp.Lift = ent;
+        ent.Comp.Aircraft = aircraft;
+        Stow((aircraft, comp));
+    }
+
+    /// <summary>Стоящий на лифте самолёт (не в полёте).</summary>
+    private Entity<DHAircraftComponent>? ParkedOnLift(EntityUid lift)
+    {
+        foreach (var aircraft in _lookup.GetEntitiesInRange<DHAircraftComponent>(Transform(lift).Coordinates, 0.75f))
+        {
+            if (aircraft.Comp.State == DHAircraftState.Parked && OnLift(aircraft, lift))
+                return aircraft;
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Сверить лифт с тем, что на нём стоит: самолёт, поставленный на опущенный лифт вручную или севший мимо учёта,
+    /// лифт «принимает» — считается поднятым, его можно опустить и прицепить к катапульте.
+    /// </summary>
+    private void SyncLift(Entity<DHAircraftLiftComponent> ent)
+    {
+        if (ent.Comp.Mode != DHAircraftLiftMode.Lowered || ParkedOnLift(ent) is not { } parked)
+            return;
+
+        // Свой самолёт этого лифта уже в ангаре — второй на лифт не берём.
+        if (ent.Comp.Aircraft is { } own && own != parked.Owner && Exists(own))
+            return;
+
+        ent.Comp.Aircraft = parked;
+        parked.Comp.Lift = ent;
+        Dirty(parked);
+        SetLiftMode(ent, DHAircraftLiftMode.Raised);
     }
 
     private void Stow(Entity<DHAircraftComponent?> aircraft)
@@ -632,6 +682,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         if (!args.CanAccess || !args.CanInteract)
             return;
 
+        SyncLift(ent);
         var user = args.User;
         if (ent.Comp.Mode == DHAircraftLiftMode.Lowered)
         {
@@ -656,9 +707,24 @@ public sealed partial class DHAircraftSystem : EntitySystem
         if (ent.Comp.Mode != DHAircraftLiftMode.Lowered)
             return;
 
-        if (ent.Comp.Aircraft is not { } aircraft || !Exists(aircraft))
+        // Лифт поставлен без инициализации карты (маппинг, спавн на паузе) — стартовый самолёт выдаётся сейчас.
+        if ((ent.Comp.Aircraft is not { } existing || !Exists(existing)) &&
+            !ent.Comp.StartingSpawned && ent.Comp.StartingAircraft is { } proto)
+        {
+            SpawnStarting(ent, proto);
+        }
+
+        if (ent.Comp.Aircraft is not { } aircraft || !Exists(aircraft) ||
+            !TryComp<DHAircraftComponent>(aircraft, out var comp))
         {
             _popup.PopupEntity(Loc.GetString("dh-aircraft-lift-empty"), ent, user);
+            return;
+        }
+
+        // Поднять можно только самолёт, который в ангаре (не в полёте и не на палубе).
+        if (comp.State != DHAircraftState.Stowed)
+        {
+            _popup.PopupEntity(Loc.GetString("dh-aircraft-lift-not-stowed"), ent, user);
             return;
         }
 
@@ -798,6 +864,15 @@ public sealed partial class DHAircraftSystem : EntitySystem
     {
         if (!IsPilot(ent, args.Actor) || ent.Comp.State != DHAircraftState.Parked)
             return;
+
+        // Самолёт поставлен на лифт мимо учёта (вручную) — лифт принимает его.
+        if (args.Hook)
+        {
+            foreach (var nearLift in _lookup.GetEntitiesInRange<DHAircraftLiftComponent>(Transform(ent).Coordinates, 0.75f))
+            {
+                SyncLift(nearLift);
+            }
+        }
 
         if (args.Hook && (ent.Comp.Lift is not { } lift || !TryComp<DHAircraftLiftComponent>(lift, out var liftComp) ||
                           liftComp.Mode != DHAircraftLiftMode.Raised || !OnLift(ent, lift)))
