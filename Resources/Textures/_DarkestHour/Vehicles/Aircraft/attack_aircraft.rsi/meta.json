@@ -1,7 +1,7 @@
 {
     "version": 1,
     "license": "CC-BY-SA-3.0",
-    "copyright": "Drawn for The Darkest Hour (2026-11-12): Imperial attack aircraft after F9F-5 Panther and A-10C.",
+    "copyright": "Drawn for The Darkest Hour (2026-11-12): Imperial attack aircraft after F9F-5 Panther and Su-25.",
     "size": {
         "x": 160,
         "y": 160
@@ -12,6 +12,9 @@
         },
         {
             "name": "shadow"
+        },
+        {
+            "name": "canopy"
         }
     ]
 }

@@ -17,7 +17,7 @@ namespace Content.Shared._DarkestHour.Aviation;
 /// полем боя (WASD — направление, скорость из интерфейса полёта, топливо горит, ПВО бьёт без ЛТЦ) → автопилот посадки
 /// возвращает на палубу и закатывает на лифт. Бреющий заход и вооружение — следующие этапы.
 /// </summary>
-[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
 public sealed partial class DHAircraftComponent : Component
 {
     [DataField, AutoNetworkedField]
@@ -94,7 +94,7 @@ public sealed partial class DHAircraftComponent : Component
     public TimeSpan FlaresUntil;
 
     [DataField]
-    public SoundSpecifier FlareSound = new SoundPathSpecifier("/Audio/Weapons/Guns/Gunshots/flaregun.ogg");
+    public SoundSpecifier FlareSound = new SoundPathSpecifier("/Audio/_DarkestHour/Aviation/countermeasures.ogg");
 
     [DataField]
     public SoundSpecifier LaunchSound = new SoundPathSpecifier("/Audio/Effects/Shuttle/hyperspace_begin.ogg");
@@ -103,9 +103,100 @@ public sealed partial class DHAircraftComponent : Component
     public SoundSpecifier HookSound = new SoundPathSpecifier("/Audio/Machines/door_lock_on.ogg");
 
     [DataField]
-    public SoundSpecifier WarningSound = new SoundPathSpecifier("/Audio/Effects/alert.ogg");
+    public SoundSpecifier WarningSound = new SoundPathSpecifier("/Audio/_DarkestHour/Aviation/manpad-lock.wav");
+
+    [DataField]
+    public SoundSpecifier HitSound = new SoundPathSpecifier("/Audio/_DarkestHour/Aviation/airframe-hit.ogg");
+
+    [DataField]
+    public SoundSpecifier EjectSound = new SoundPathSpecifier("/Audio/_DarkestHour/Aviation/ejection.ogg");
+
+    // ---------------------------------------------------------------- бреющий заход (этап 2)
+
+    /// <summary>Сколько топлива съедает заход: снижение с атмосферы, проход над полем и набор высоты.</summary>
+    [DataField]
+    public float PassFuel = 40f;
+
+    /// <summary>Скорость на бреющем, клеток в секунду (курс задан линией захода).</summary>
+    [DataField]
+    public float PassSpeed = 12f;
+
+    /// <summary>Самый короткий заход, клеток.</summary>
+    [DataField]
+    public float MinPassLength = 30f;
+
+    /// <summary>Линия захода в координатах поверхности: начало и конец (выбираются на тактической карте).</summary>
+    [ViewVariables, AutoNetworkedField]
+    public Vector2? PassStart;
+
+    [ViewVariables, AutoNetworkedField]
+    public Vector2? PassEnd;
+
+    /// <summary>Слой атмосферы, из которого начат заход (туда самолёт возвращается в конце).</summary>
+    [ViewVariables]
+    public EntityUid? PassSky;
+
+    /// <summary>Высота бреющего: от неё зависят точность пушки и бомб и опасность ПВО.</summary>
+    [DataField, AutoNetworkedField]
+    public DHAircraftAltitude Altitude = DHAircraftAltitude.Medium;
+
+    [DataField]
+    public SoundSpecifier PassSound = new SoundPathSpecifier("/Audio/_DarkestHour/Aviation/jet-pass.ogg");
+
+    [DataField]
+    public SoundSpecifier PassHighSound = new SoundPathSpecifier("/Audio/_DarkestHour/Aviation/jet-pass-high.ogg");
+
+    // ---------------------------------------------------------------- пушка 30 мм
+
+    [DataField, AutoNetworkedField]
+    public int CannonAmmo = 300;
+
+    [DataField]
+    public int MaxCannonAmmo = 300;
+
+    /// <summary>Снарядов в очереди (одна очередь — одно попадание по курсу).</summary>
+    [DataField]
+    public int RoundsPerBurst = 6;
+
+    [DataField]
+    public TimeSpan CannonInterval = TimeSpan.FromSeconds(0.2);
+
+    /// <summary>Куда ложатся очереди: столько клеток впереди самолёта по курсу.</summary>
+    [DataField]
+    public float CannonLead = 7f;
+
+    /// <summary>Пушка включена: стреляет по курсу, пока самолёт на бреющем.</summary>
+    [ViewVariables, AutoNetworkedField]
+    public bool CannonOn;
+
+    [ViewVariables]
+    public TimeSpan NextBurst;
+
+    [DataField]
+    public SoundSpecifier CannonSound = new SoundPathSpecifier("/Audio/_DarkestHour/Aviation/gau-ground.ogg");
+
+    [DataField]
+    public SoundSpecifier CannonImpactSound = new SoundPathSpecifier("/Audio/_DarkestHour/Aviation/gau-impact.ogg");
+
+    [ViewVariables]
+    public TimeSpan NextCannonSound;
+
+    // ---------------------------------------------------------------- подвески
+
+    /// <summary>Четыре узла подвески; на каждом — один боеприпас.</summary>
+    [DataField, AutoNetworkedField]
+    public List<DHAircraftMunition> Hardpoints = new() { DHAircraftMunition.None, DHAircraftMunition.None, DHAircraftMunition.None, DHAircraftMunition.None };
+
+    [DataField]
+    public TimeSpan LoadTime = TimeSpan.FromSeconds(3);
 
     // ---------------------------------------------------------------- кресло и связи
+
+    [DataField]
+    public EntProtoId CanopyPrototype = "DHAttackAircraftCanopy";
+
+    [ViewVariables, AutoNetworkedField]
+    public EntityUid? Canopy;
 
     [DataField]
     public EntProtoId SeatPrototype = "DHAttackAircraftSeat";
@@ -114,7 +205,7 @@ public sealed partial class DHAircraftComponent : Component
     [DataField]
     public Vector2 SeatOffset = new(0f, 0.9f);
 
-    [ViewVariables]
+    [ViewVariables, AutoNetworkedField]
     public EntityUid? Seat;
 
     /// <summary>Лифт, на котором самолёт базируется (туда же возвращает автопилот).</summary>
@@ -163,7 +254,48 @@ public enum DHAircraftState : byte
 
     /// <summary>Пробег по ВПП к лифту после посадки.</summary>
     Landing,
+
+    /// <summary>Бреющий заход над полем боя по линии захода.</summary>
+    Pass,
 }
+
+/// <summary>Высота бреющего (вместо Z-уровней: +2, +3, +4 над землёй).</summary>
+[Serializable, NetSerializable]
+public enum DHAircraftAltitude : byte
+{
+    Low,
+    Medium,
+    High,
+}
+
+/// <summary>Боеприпас на узле подвески.</summary>
+[Serializable, NetSerializable]
+public enum DHAircraftMunition : byte
+{
+    None,
+
+    /// <summary>Фугасная бомба: сброс на бреющем.</summary>
+    BombHE,
+}
+
+/// <summary>Боеприпас для подвески (предмет; заряжается в самолёт на палубе).</summary>
+[RegisterComponent]
+public sealed partial class DHAircraftMunitionComponent : Component
+{
+    [DataField(required: true)]
+    public DHAircraftMunition Kind;
+}
+
+/// <summary>Короб снарядов 30 мм для пушки штурмовика.</summary>
+[RegisterComponent]
+public sealed partial class DHAircraftCannonAmmoComponent : Component
+{
+    [DataField]
+    public int Rounds = 150;
+}
+
+[Serializable, NetSerializable]
+public sealed partial class DHAircraftLoadDoAfterEvent : SimpleDoAfterEvent;
 
 /// <summary>Кресло пилота; при пристёгивании пилот получает способности самолёта.</summary>
 [RegisterComponent, NetworkedComponent]
@@ -178,6 +310,8 @@ public sealed partial class DHAircraftSeatComponent : Component
         "DHActionAircraftFlight",
         "DHActionAircraftControl",
         "DHActionAircraftFlares",
+        "DHActionAircraftCannon",
+        "DHActionAircraftDrop",
         "DHActionAircraftEject",
     };
 
@@ -263,6 +397,10 @@ public sealed partial class DHAircraftFlaresActionEvent : InstantActionEvent;
 
 public sealed partial class DHAircraftEjectActionEvent : InstantActionEvent;
 
+public sealed partial class DHAircraftCannonActionEvent : InstantActionEvent;
+
+public sealed partial class DHAircraftDropActionEvent : InstantActionEvent;
+
 [Serializable, NetSerializable]
 public enum DHAircraftUiKey : byte
 {
@@ -296,6 +434,16 @@ public sealed class DHAircraftBuiState : BoundUserInterfaceState
 
     /// <summary>Тактическая карта поверхности (как у пульта наблюдения).</summary>
     public DHOverwatchState? Map;
+
+    public Vector2? PassStart;
+    public Vector2? PassEnd;
+    public bool CanPass;
+    public string? PassBlocker;
+    public DHAircraftAltitude Altitude;
+    public int CannonAmmo;
+    public int MaxCannonAmmo;
+    public bool CannonOn;
+    public List<DHAircraftMunition> Hardpoints = new();
 }
 
 [Serializable, NetSerializable]
@@ -321,3 +469,32 @@ public sealed class DHAircraftControlMessage(bool control) : BoundUserInterfaceM
 {
     public readonly bool Control = control;
 }
+
+/// <summary>Точка линии захода, выбранная правым кликом на тактической карте.</summary>
+[Serializable, NetSerializable]
+public sealed class DHAircraftPassPointMessage(Vector2 point) : BoundUserInterfaceMessage
+{
+    public readonly Vector2 Point = point;
+}
+
+[Serializable, NetSerializable]
+public sealed class DHAircraftClearPassMessage : BoundUserInterfaceMessage;
+
+[Serializable, NetSerializable]
+public sealed class DHAircraftStartPassMessage : BoundUserInterfaceMessage;
+
+/// <summary>Сменить высоту бреющего: -1 ниже, +1 выше.</summary>
+[Serializable, NetSerializable]
+public sealed class DHAircraftAltitudeMessage(int delta) : BoundUserInterfaceMessage
+{
+    public readonly int Delta = delta;
+}
+
+[Serializable, NetSerializable]
+public sealed class DHAircraftCannonMessage(bool on) : BoundUserInterfaceMessage
+{
+    public readonly bool On = on;
+}
+
+[Serializable, NetSerializable]
+public sealed class DHAircraftDropMessage : BoundUserInterfaceMessage;
