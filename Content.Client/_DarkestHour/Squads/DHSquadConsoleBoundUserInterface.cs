@@ -19,6 +19,7 @@ public sealed class DHSquadConsoleBoundUserInterface : BoundUserInterface
 
         _window = this.CreateWindow<DHSquadConsoleWindow>();
         _window.OnAssign += (fighter, squad) => SendMessage(new DHSquadAssignMessage(fighter, squad));
+        _window.OnSetLeader += fighter => SendMessage(new DHSquadSetLeaderMessage(fighter));
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)

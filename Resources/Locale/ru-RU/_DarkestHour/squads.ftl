@@ -23,3 +23,12 @@ dh-squad-joined = Вы назначены в отряд «{$squad}»: в гар�
 dh-squad-left = Вы выведены из отряда.
 dh-squad-no-headset = Вас назначили в отряд, но на вас нет гарнитуры — отрядный ключ некуда поставить.
 dh-squad-examine = Отряд: [color={$color}]{$squad}[/color].
+dh-squad-console-make-leader = ★
+dh-squad-console-make-leader-tooltip = Назначить командиром отряда
+dh-squad-console-leader-mark = ★ {$text}
+dh-squad-console-leader = {CAPITALIZE($fighter)} — командир отряда «{$squad}».
+dh-squad-leader-you = Вы назначены командиром отряда «{$squad}». Бойцы отряда видят вас на трекере.
+dh-squad-leader-replaced = Вы больше не командир отряда: назначен другой.
+dh-squad-examine-leader = Командир отряда [color={$color}]{$squad}[/color].
+dh-alert-squad-tracker-name = Трекер командира отряда
+dh-alert-squad-tracker-desc = Стрелка указывает на командира вашего отряда. Погашен — командир не назначен или вне досягаемости.

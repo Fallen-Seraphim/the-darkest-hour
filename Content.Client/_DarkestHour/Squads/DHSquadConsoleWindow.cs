@@ -12,6 +12,7 @@ namespace Content.Client._DarkestHour.Squads;
 public sealed class DHSquadConsoleWindow : DefaultWindow
 {
     public event Action<NetEntity, string?>? OnAssign;
+    public event Action<NetEntity>? OnSetLeader;
 
     private static readonly Color Dim = Color.FromHex("#8A8A8A");
     private static readonly Color Dead = Color.FromHex("#a05050");
@@ -42,7 +43,8 @@ public sealed class DHSquadConsoleWindow : DefaultWindow
         // Сначала отряды (с составом), потом — бойцы без отряда.
         foreach (var squad in state.Squads)
         {
-            var members = state.Fighters.Where(f => f.Squad == squad.Id).ToList();
+            // Командир отряда — первым.
+            var members = state.Fighters.Where(f => f.Squad == squad.Id).OrderByDescending(f => f.Leader).ToList();
             _list.AddChild(new Label
             {
                 Text = Loc.GetString("dh-squad-console-squad", ("squad", squad.Name), ("count", members.Count)),
@@ -81,6 +83,9 @@ public sealed class DHSquadConsoleWindow : DefaultWindow
         };
 
         var text = string.IsNullOrEmpty(fighter.Job) ? fighter.Name : $"{fighter.Name} — {fighter.Job}";
+        if (fighter.Leader)
+            text = Loc.GetString("dh-squad-console-leader-mark", ("text", text));
+
         row.AddChild(new Label
         {
             Text = text,
@@ -90,6 +95,16 @@ public sealed class DHSquadConsoleWindow : DefaultWindow
         });
 
         var entity = fighter.Entity;
+        var leader = new Button
+        {
+            Text = Loc.GetString("dh-squad-console-make-leader"),
+            ToolTip = Loc.GetString("dh-squad-console-make-leader-tooltip"),
+            Disabled = fighter.Squad == null || fighter.Leader,
+            MinWidth = 40,
+        };
+        leader.OnPressed += _ => OnSetLeader?.Invoke(entity);
+        row.AddChild(leader);
+
         foreach (var squad in squads)
         {
             var button = new Button

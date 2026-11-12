@@ -1,0 +1,209 @@
+# DarkestHour: трекер командира отряда, как у морпехов CM (решение автора 2026-11-12). Стрелка указывает на
+# командира своего отряда; цвет — цвет отряда. Тяжесть: 0 — нет командира, 1 — рядом, 2–9 — направление.
+# Иконки — RMC-14/CM-SS13 (squad_tracker.rsi).
+
+- type: alertCategory
+  id: DHSquadTracker
+
+- type: alert
+  id: DHSquadTrackerAlpha
+  category: DHSquadTracker
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackoff
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-direct_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-south_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-southeast_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-east_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-northeast_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-north_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-northwest_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-west_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-southwest_dsl
+  name: dh-alert-squad-tracker-name
+  description: dh-alert-squad-tracker-desc
+  minSeverity: 0
+  maxSeverity: 9
+
+- type: alert
+  id: DHSquadTrackerBravo
+  category: DHSquadTracker
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackoff
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-direct_fsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-south_fsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-southeast_fsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-east_fsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-northeast_fsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-north_fsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-northwest_fsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-west_fsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-southwest_fsl
+  name: dh-alert-squad-tracker-name
+  description: dh-alert-squad-tracker-desc
+  minSeverity: 0
+  maxSeverity: 9
+
+- type: alert
+  id: DHSquadTrackerCharlie
+  category: DHSquadTracker
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackoff
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-direct_csl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-south_csl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-southeast_csl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-east_csl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-northeast_csl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-north_csl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-northwest_csl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-west_csl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-southwest_csl
+  name: dh-alert-squad-tracker-name
+  description: dh-alert-squad-tracker-desc
+  minSeverity: 0
+  maxSeverity: 9
+
+- type: alert
+  id: DHSquadTrackerDelta
+  category: DHSquadTracker
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackoff
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-direct_fosl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-south_fosl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-southeast_fosl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-east_fosl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-northeast_fosl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-north_fosl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-northwest_fosl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-west_fosl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-southwest_fosl
+  name: dh-alert-squad-tracker-name
+  description: dh-alert-squad-tracker-desc
+  minSeverity: 0
+  maxSeverity: 9
+
+- type: alert
+  id: DHSquadTrackerTau
+  category: DHSquadTracker
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackoff
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-direct_asl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-south_asl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-southeast_asl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-east_asl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-northeast_asl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-north_asl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-northwest_asl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-west_asl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-southwest_asl
+  name: dh-alert-squad-tracker-name
+  description: dh-alert-squad-tracker-desc
+  minSeverity: 0
+  maxSeverity: 9
+
+- type: alert
+  id: DHSquadTrackerEpsilon
+  category: DHSquadTracker
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackoff
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-direct_esl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-south_esl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-southeast_esl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-east_esl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-northeast_esl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-north_esl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-northwest_esl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-west_esl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-southwest_esl
+  name: dh-alert-squad-tracker-name
+  description: dh-alert-squad-tracker-desc
+  minSeverity: 0
+  maxSeverity: 9
+
+- type: alert
+  id: DHSquadTrackerOmega
+  category: DHSquadTracker
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackoff
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-direct_bsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-south_bsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-southeast_bsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-east_bsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-northeast_bsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-north_bsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-northwest_bsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-west_bsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-southwest_bsl
+  name: dh-alert-squad-tracker-name
+  description: dh-alert-squad-tracker-desc
+  minSeverity: 0
+  maxSeverity: 9
