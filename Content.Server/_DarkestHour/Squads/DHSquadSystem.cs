@@ -42,6 +42,7 @@ public sealed partial class DHSquadSystem : EntitySystem
         {
             subs.Event<BoundUIOpenedEvent>(OnOpened);
             subs.Event<DHSquadAssignMessage>(OnAssign);
+            subs.Event<DHSquadSetLeaderMessage>(OnSetLeader);
         });
 
         SubscribeLocalEvent<DHSquadMemberComponent, ExaminedEvent>(OnMemberExamined);
@@ -73,8 +74,9 @@ public sealed partial class DHSquadSystem : EntitySystem
             var job = _mind.TryGetMind(uid, out var mindId, out _) && _jobs.MindTryGetJobName(mindId, out var jobName)
                 ? jobName
                 : string.Empty;
-            string? squad = TryComp<DHSquadMemberComponent>(uid, out var member) ? member.Squad.Id : null;
-            fighters.Add(new DHSquadFighterEntry(GetNetEntity(uid), Name(uid), job, squad, !_mobState.IsDead(uid)));
+            TryComp<DHSquadMemberComponent>(uid, out var member);
+            fighters.Add(new DHSquadFighterEntry(GetNetEntity(uid), Name(uid), job, member?.Squad.Id,
+                !_mobState.IsDead(uid), member?.Leader ?? false));
         }
 
         fighters.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.CurrentCulture));
@@ -104,13 +106,58 @@ public sealed partial class DHSquadSystem : EntitySystem
         UpdateUi(ent);
     }
 
+    private void OnSetLeader(Entity<DHSquadConsoleComponent> ent, ref DHSquadSetLeaderMessage args)
+    {
+        if (!TryGetEntity(args.Fighter, out var target) ||
+            !TryComp<DHAssaultFighterComponent>(target, out var fighter) || fighter.Faction != ent.Comp.Faction ||
+            !TryComp<DHSquadMemberComponent>(target, out var member) ||
+            !_proto.TryIndex(member.Squad, out var squad))
+        {
+            return;
+        }
+
+        SetLeader((target.Value, member));
+        _popup.PopupEntity(Loc.GetString("dh-squad-console-leader", ("fighter", target.Value),
+            ("squad", Loc.GetString(squad.Name))), ent, args.Actor);
+        UpdateUi(ent);
+    }
+
+    /// <summary>Назначить бойца командиром его отряда; прежний командир этого отряда становится рядовым.</summary>
+    public void SetLeader(Entity<DHSquadMemberComponent> ent)
+    {
+        var query = EntityQueryEnumerator<DHSquadMemberComponent>();
+        while (query.MoveNext(out var uid, out var other))
+        {
+            if (uid == ent.Owner || other.Squad != ent.Comp.Squad || !other.Leader)
+                continue;
+
+            other.Leader = false;
+            _popup.PopupEntity(Loc.GetString("dh-squad-leader-replaced"), uid, uid, PopupType.Medium);
+        }
+
+        ent.Comp.Leader = true;
+        ClearTracker(ent); // командир сам себя не отслеживает
+        if (_proto.TryIndex(ent.Comp.Squad, out var squad))
+            _popup.PopupEntity(Loc.GetString("dh-squad-leader-you", ("squad", Loc.GetString(squad.Name))), ent, ent,
+                PopupType.Medium);
+    }
+
     /// <summary>Назначить бойца в отряд (null — вывести) и переставить отрядный ключ в его гарнитуре.</summary>
     public void Assign(EntityUid fighter, DHSquadPrototype? squad)
     {
         if (squad == null)
+        {
             RemComp<DHSquadMemberComponent>(fighter);
+            ClearTracker(fighter);
+        }
         else
-            EnsureComp<DHSquadMemberComponent>(fighter).Squad = squad.ID;
+        {
+            var member = EnsureComp<DHSquadMemberComponent>(fighter);
+            if (member.Squad != squad.ID)
+                member.Leader = false; // в новый отряд — рядовым
+
+            member.Squad = squad.ID;
+        }
 
         if (!_inventory.TryGetSlotEntity(fighter, "ears", out var headset) ||
             !TryComp<EncryptionKeyHolderComponent>(headset, out var holder))
@@ -155,13 +202,15 @@ public sealed partial class DHSquadSystem : EntitySystem
     private void OnMemberExamined(Entity<DHSquadMemberComponent> ent, ref ExaminedEvent args)
     {
         if (_proto.TryIndex(ent.Comp.Squad, out var squad))
-            args.PushMarkup(Loc.GetString("dh-squad-examine", ("squad", Loc.GetString(squad.Name)),
-                ("color", squad.Color.ToHex())));
+            args.PushMarkup(Loc.GetString(ent.Comp.Leader ? "dh-squad-examine-leader" : "dh-squad-examine",
+                ("squad", Loc.GetString(squad.Name)), ("color", squad.Color.ToHex())));
     }
 
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+
+        UpdateTrackers();
 
         var now = _timing.CurTime;
         if (now < _nextUpdate)

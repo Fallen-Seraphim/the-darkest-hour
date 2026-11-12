@@ -23,3 +23,12 @@ dh-squad-joined = You are assigned to {$squad} squad: the squad key is in your h
 dh-squad-left = You have been removed from your squad.
 dh-squad-no-headset = You were assigned to a squad, but you wear no headset to put the squad key in.
 dh-squad-examine = Squad: [color={$color}]{$squad}[/color].
+dh-squad-console-make-leader = ★
+dh-squad-console-make-leader-tooltip = Make squad leader
+dh-squad-console-leader-mark = ★ {$text}
+dh-squad-console-leader = {CAPITALIZE($fighter)} is now the leader of {$squad} squad.
+dh-squad-leader-you = You are now the leader of {$squad} squad. Your squad sees you on their tracker.
+dh-squad-leader-replaced = You are no longer the squad leader: another one was appointed.
+dh-squad-examine-leader = Leader of [color={$color}]{$squad}[/color] squad.
+dh-alert-squad-tracker-name = Squad leader tracker
+dh-alert-squad-tracker-desc = The arrow points to your squad leader. Off means no leader is assigned or they are out of range.

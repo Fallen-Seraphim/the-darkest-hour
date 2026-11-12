@@ -34,6 +34,7 @@
   key: DHEncryptionKeySquadAlpha
   color: "#5fb0ff"
   order: 0
+  trackerAlert: DHSquadTrackerAlpha
 
 - type: radioChannel
   id: DHSquadBravo
@@ -66,6 +67,7 @@
   key: DHEncryptionKeySquadBravo
   color: "#ffb347"
   order: 1
+  trackerAlert: DHSquadTrackerBravo
 
 - type: radioChannel
   id: DHSquadCharlie
@@ -98,6 +100,7 @@
   key: DHEncryptionKeySquadCharlie
   color: "#c77dff"
   order: 2
+  trackerAlert: DHSquadTrackerCharlie
 
 - type: radioChannel
   id: DHSquadDelta
@@ -130,6 +133,7 @@
   key: DHEncryptionKeySquadDelta
   color: "#5fe07a"
   order: 3
+  trackerAlert: DHSquadTrackerDelta
 
 - type: radioChannel
   id: DHSquadTau
@@ -162,6 +166,7 @@
   key: DHEncryptionKeySquadTau
   color: "#e8604a"
   order: 0
+  trackerAlert: DHSquadTrackerTau
 
 - type: radioChannel
   id: DHSquadEpsilon
@@ -194,6 +199,7 @@
   key: DHEncryptionKeySquadEpsilon
   color: "#4ad0e8"
   order: 1
+  trackerAlert: DHSquadTrackerEpsilon
 
 - type: radioChannel
   id: DHSquadOmega
@@ -226,6 +232,7 @@
   key: DHEncryptionKeySquadOmega
   color: "#e8c84a"
   order: 2
+  trackerAlert: DHSquadTrackerOmega
 
 # --- Консоли отрядов ---
 

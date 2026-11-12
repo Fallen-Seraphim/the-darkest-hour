@@ -1,4 +1,5 @@
 using Content.Shared._DarkestHour.Assault;
+using Content.Shared.Alert;
 using Content.Shared.Radio;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
@@ -36,6 +37,10 @@ public sealed partial class DHSquadPrototype : IPrototype
     /// <summary>Порядок в списке.</summary>
     [DataField]
     public int Order;
+
+    /// <summary>Алерт трекера командира отряда (стрелка цвета отряда).</summary>
+    [DataField]
+    public ProtoId<AlertPrototype>? TrackerAlert;
 }
 
 /// <summary>Боец состоит в отряде.</summary>
@@ -44,6 +49,10 @@ public sealed partial class DHSquadMemberComponent : Component
 {
     [DataField]
     public ProtoId<DHSquadPrototype> Squad;
+
+    /// <summary>Командир отряда: на него указывает трекер у остальных бойцов отряда.</summary>
+    [DataField]
+    public bool Leader;
 }
 
 /// <summary>Консоль отрядов: командование стороны распределяет бойцов по отрядам.</summary>
@@ -69,8 +78,10 @@ public sealed class DHSquadInfo(string id, string name, Color color)
 }
 
 [Serializable, NetSerializable]
-public sealed class DHSquadFighterEntry(NetEntity entity, string name, string job, string? squad, bool alive)
+public sealed class DHSquadFighterEntry(NetEntity entity, string name, string job, string? squad, bool alive,
+    bool leader)
 {
+    public readonly bool Leader = leader;
     public readonly NetEntity Entity = entity;
     public readonly string Name = name;
     public readonly string Job = job;
@@ -92,4 +103,11 @@ public sealed class DHSquadAssignMessage(NetEntity fighter, string? squad) : Bou
 {
     public readonly NetEntity Fighter = fighter;
     public readonly string? Squad = squad;
+}
+
+/// <summary>Назначить бойца командиром его отряда (прежний командир отряда снимается).</summary>
+[Serializable, NetSerializable]
+public sealed class DHSquadSetLeaderMessage(NetEntity fighter) : BoundUserInterfaceMessage
+{
+    public readonly NetEntity Fighter = fighter;
 }
