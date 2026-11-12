@@ -80,3 +80,26 @@ dh-police-db-removed-forged = LFFC forged passport "{ $name }" exposed and cance
 dh-police-db-removed-genuine = A genuine record "{ $name }" was deleted! Fine: { $fine } cr.
 dh-police-db-fine-note = fine: genuine record deleted ({ $name })
 dh-loadout-group-lav-eyes = Eyewear
+
+# LFFC
+dh-task-side-civilian = resident
+dh-task-side-police = Military Police
+dh-task-side-vanguard = LA-V
+dh-task-side-front = LFFC
+dh-task-front-extortion-name = Extortion
+dh-task-front-extortion-desc = Squeeze money out of a resident. The money goes to the LFFC account, plus a bonus. Military Police and LA-V pay more.
+dh-task-extortion-text = Target: [bold]{ $name }[/bold] ({ $side }). Demand: [bold]{ $amount } cr.[/bold] to the LFFC account { $account } by { $time }. The target has received a message from a hidden number. Convince them to pay — a transfer from their own account. If the target dies, the task fails.
+dh-task-extortion-sms = { $name }, we know where you live. Transfer { $amount } cr. to account { $account } by { $time }. Or you will regret it. Not a word to the police.
+dh-task-log-extortion-paid = { $name } paid { $amount } cr.
+dh-task-log-extortion-dead = The target died: { $name }. Extortion failed.
+dh-task-front-bombing-name = Blow up a target
+dh-task-front-bombing-desc = Command wants a loud action: plant a timed explosive and blow up the target.
+dh-task-bombing-text = Target: [bold]{ $target }[/bold] — { $hint }. Plant a timed explosive (C4) within { $radius } m of the target's heart and wait for the blast.
+dh-task-log-capture = prisoner: { $name }
+
+dh-bomb-target-transformer = district transformer substation
+dh-bomb-target-metro = metro station
+dh-bomb-target-clinic = Gates clinic
+dh-bomb-target-lav-office = LA-V office
+dh-bomb-target-lav-warehouse = LA-V warehouse
+dh-bomb-target-police-lobby = Military Police front desk

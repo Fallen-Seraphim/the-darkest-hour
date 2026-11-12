@@ -72,6 +72,7 @@ public sealed partial class DHCitySystem : EntitySystem
         var mob = ev.Mob;
         var name = Name(mob);
         var account = _bank.Create(name, StartBalance(ev.JobId));
+        _bank.SetOwner(mob, account);
 
         // Карта: из стартового набора (кошелёк) или новая — в сумку.
         var card = FindChild<DHBankCardComponent>(mob, c => c.Number.Length == 0 && c.Org == DHBankOrg.None)

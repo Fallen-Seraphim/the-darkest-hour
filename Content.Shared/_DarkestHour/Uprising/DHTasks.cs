@@ -28,6 +28,12 @@ public enum DHTaskKind : byte
 
     /// <summary>Проверить базу данных военпола: найти и удалить фальшивые записи.</summary>
     Database,
+
+    /// <summary>ОФСК: вымогать сумму у жителя (перевод со счёта жертвы на счёт ОФСК). Жертва погибла — провал.</summary>
+    Extortion,
+
+    /// <summary>ОФСК: подорвать объект — сработавшая взрывчатка с таймером рядом с меткой объекта.</summary>
+    Bombing,
 }
 
 [Prototype("dhTask")]
@@ -69,6 +75,51 @@ public sealed partial class DHTaskPrototype : IPrototype
     /// <summary>База данных: сколько фальшивых записей появится.</summary>
     [DataField]
     public int Fakes = 3;
+
+    /// <summary>Вымогательство: сумма с мирного.</summary>
+    [DataField]
+    public int AmountMin = 400;
+
+    [DataField]
+    public int AmountMax = 900;
+
+    /// <summary>Вымогательство: сумма с военпола и LA-V (они выпадают реже, но и платят больше).</summary>
+    [DataField]
+    public int VipAmountMin = 1000;
+
+    [DataField]
+    public int VipAmountMax = 1800;
+
+    /// <summary>Вымогательство: премия сверх самой суммы — за военпола и LA-V.</summary>
+    [DataField]
+    public int VipRewardMin = 500;
+
+    [DataField]
+    public int VipRewardMax = 800;
+
+    /// <summary>Вымогательство: насколько реже выпадают военпол и LA-V, чем мирные.</summary>
+    [DataField]
+    public float VipWeight = 0.35f;
+}
+
+/// <summary>Объект для подрыва (задание ОФСК): метка, расставлена генератором карты.</summary>
+[RegisterComponent]
+public sealed partial class DHBombTargetComponent : Component
+{
+    [DataField(required: true)]
+    public LocId TargetName;
+
+    /// <summary>Взрывчатка должна сработать не дальше этого от метки.</summary>
+    [DataField]
+    public float Radius = 5f;
+}
+
+/// <summary>Логово ОФСК: пленный военпол в наручниках здесь — награда ОФСК.</summary>
+[RegisterComponent]
+public sealed partial class DHFrontLairComponent : Component
+{
+    [DataField]
+    public float Radius = 5f;
 }
 
 /// <summary>Компьютер (или планшет) заданий стороны.</summary>

@@ -221,6 +221,37 @@ public sealed partial class DHPhoneSystem : EntitySystem
             UpdateMessenger(inbox, target);
     }
 
+    /// <summary>Телефон, записанный на это имя (выдаётся при появлении).</summary>
+    public EntityUid? FindPhoneByOwner(string owner)
+    {
+        var query = EntityQueryEnumerator<DHPhoneComponent>();
+        while (query.MoveNext(out var uid, out var phone))
+        {
+            if (!phone.Stationary && phone.OwnerName == owner)
+                return uid;
+        }
+
+        return null;
+    }
+
+    /// <summary>Входящее сообщение с номера, которого нет в сети (скрытый номер, задания ОФСК).</summary>
+    public void SendAnonymous(EntityUid target, string fromNumber, string text)
+    {
+        if (Program<DHMessengerCartridgeComponent>(target) is not { } inbox)
+            return;
+
+        AddMessage(inbox.Comp, fromNumber, new DHSmsEntry(false, text, Clock()));
+        if (inbox.Comp.Open != fromNumber || !IsActive(target, inbox))
+            inbox.Comp.Unread[fromNumber] = inbox.Comp.Unread.GetValueOrDefault(fromNumber) + 1;
+
+        _audio.PlayPvs(SmsSound, target);
+        if (Holder(target) is { } holder)
+            _popup.PopupEntity(Loc.GetString("dh-phone-sms-received", ("from", fromNumber)), holder, holder);
+
+        if (IsActive(target, inbox))
+            UpdateMessenger(inbox, target);
+    }
+
     private static void AddMessage(DHMessengerCartridgeComponent comp, string number, DHSmsEntry entry)
     {
         if (!comp.Chats.TryGetValue(number, out var chat))
