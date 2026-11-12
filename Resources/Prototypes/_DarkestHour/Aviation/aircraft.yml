@@ -165,6 +165,7 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
     kind: BombHE
   - type: DHPowerLoaderGrabbable
 
@@ -180,6 +181,7 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
     kind: BombCluster
   - type: DHPowerLoaderGrabbable
 
@@ -195,6 +197,7 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
     kind: BombNapalm
   - type: DHPowerLoaderGrabbable
 
@@ -210,6 +213,7 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
     kind: BombMagnesium
   - type: DHPowerLoaderGrabbable
 
@@ -225,6 +229,7 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
     kind: GuidedBomb
   - type: DHPowerLoaderGrabbable
 
@@ -240,6 +245,7 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
     kind: MissileAT
   - type: DHPowerLoaderGrabbable
 
@@ -255,6 +261,7 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
     kind: MissileHE
   - type: DHPowerLoaderGrabbable
 
@@ -271,6 +278,7 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
     kind: CannonPod
     rounds: 300
   - type: DHPowerLoaderGrabbable
@@ -288,6 +296,7 @@
   - type: Item
     size: Huge
   - type: DHAircraftModule
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
     kind: Radar
   - type: DHPowerLoaderGrabbable
 
@@ -303,6 +312,7 @@
   - type: Item
     size: Huge
   - type: DHAircraftModule
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
     kind: FlareDispenser
     flares: 8
   - type: DHPowerLoaderGrabbable
