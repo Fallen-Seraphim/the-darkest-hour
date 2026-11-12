@@ -28,3 +28,7 @@ dh-supply-category-lav-weapons = Weapons
 dh-supply-category-lav-ammo = Ammunition
 dh-supply-category-lav-gear = Equipment
 dh-supply-category-lav-goods = Goods
+dh-supply-category-air-defence = Air defence
+dh-supply-category-naval = Naval artillery
+dh-supply-category-anti-orbital = Anti-orbital guns
+dh-supply-category-aviation = Aviation

@@ -349,6 +349,66 @@
     - Handcuffs
     - DHIFAKFilled
 
+# ---------------------------------------------------------------- документы ОФСК (решение автора 2026-11-12)
+# Свои жетоны с должностью ОФСК (в слоте документа) и поддельный паспорт жителя на настоящее имя — в сумке, чтобы
+# сменить жетоны на паспорт и сойти за мирного. Паспорт заполняется при появлении (DHCitySystem.FillPassport).
+
+- type: entity
+  parent: DHDogtags
+  id: DHLFDogtags
+  name: LFFC dog tags
+  description: Dog tags of a fighter of the Liberation Front's combat squads. The squad position is stamped on them.
+  suffix: LFFC
+
+- type: entity
+  parent: DHLFDogtags
+  id: DHLFDogtagsLeader
+  suffix: LFFC squad leader
+  components:
+  - type: PresetIdCard
+    job: DHLAFrontLeader
+
+- type: entity
+  parent: DHLFDogtags
+  id: DHLFDogtagsSaboteur
+  suffix: LFFC saboteur
+  components:
+  - type: PresetIdCard
+    job: DHLAFrontSaboteur
+
+- type: entity
+  parent: DHLFDogtags
+  id: DHLFDogtagsSpecialist
+  suffix: LFFC specialist
+  components:
+  - type: PresetIdCard
+    job: DHLAFrontSpecialist
+
+- type: entity
+  parent: DHLFDogtags
+  id: DHLFDogtagsMachinegunner
+  suffix: LFFC machinegunner
+  components:
+  - type: PresetIdCard
+    job: DHLAFrontMachinegunner
+
+- type: entity
+  parent: DHLFDogtags
+  id: DHLFDogtagsRebel
+  suffix: LFFC rebel
+  components:
+  - type: PresetIdCard
+    job: DHLAFrontRebel
+
+# Поддельный паспорт: как настоящий паспорт жителя, выписан на настоящее имя бойца.
+- type: entity
+  parent: DHLAIDCardResident
+  id: DHLFPassportForged
+  suffix: Forged, LFFC
+  components:
+  - type: DHPassport
+    forged: true
+
 # ---------------------------------------------------------------- ОФСК (решение автора 2026-11-05)
 # Снаряжение КОФ-коммандос, выданное Объединёнными Независимыми Колониями; оружие — ОНК. Удостоверение — жителя.
 # Шлем и бронежилет — не выше 2-го класса; один предмет 3-го класса — бронежилет пулемётчика.
@@ -360,7 +420,7 @@
     legLeft: DHLAFrontKneePads
     armRight: DHLAFrontShoulderPads
     armLeft: DHLAFrontShoulderPads
-    id: DHLAIDCardResident
+    id: DHLFDogtagsRebel
     shoes: ClothingShoesBootsJack
     gloves: ClothingHandsGlovesFingerless
     ears: DHClothingHeadsetLAFront
@@ -370,6 +430,7 @@
   - DHLAFrontSuitcase
   storage:
     back:
+    - DHLFPassportForged
     - ClothingMaskBandRed
     - DHIFAKFilled
 
@@ -377,6 +438,7 @@
   parent: DHLAFrontGearBase
   id: DHLAFrontLeaderGear
   equipment:
+    id: DHLFDogtagsLeader
     jumpsuit: DHLFClothingUniformLeader
     head: DHLFClothingHeadHelmet
     outerClothing: DHLFClothingOuterVest
@@ -384,6 +446,7 @@
     pocket2: DHWeaponPistolABZ9
   storage:
     back:
+    - DHLFPassportForged
     - DHAntennaHacker
     - DHMagazineFS2CLN
     - DHMagazineFS2CLN
@@ -398,12 +461,14 @@
   parent: DHLAFrontGearBase
   id: DHLAFrontSaboteurGear
   equipment:
+    id: DHLFDogtagsSaboteur
     jumpsuit: DHLFClothingUniformFighter
     outerClothing: DHLFClothingOuterVestLight
     suitstorage: DHWeaponRifleFS2S
     pocket2: DHWeaponPistolABZ9
   storage:
     back:
+    - DHLFPassportForged
     - DHMagazineFS2MediumCLN
     - DHMagazineFS2MediumCLN
     - DHMagazineABZ9CLN
@@ -418,6 +483,7 @@
   parent: DHLAFrontGearBase
   id: DHLAFrontSpecialistGear
   equipment:
+    id: DHLFDogtagsSpecialist
     jumpsuit: DHLFClothingUniformSpecialist
     head: DHLFClothingHeadHelmet
     outerClothing: DHLFClothingOuterVest
@@ -425,6 +491,7 @@
     pocket2: DHWeaponPistolABZ9
   storage:
     back:
+    - DHLFPassportForged
     - DHMagazineDS3CLN
     - DHMagazineDS3CLN
     - DHMagazineDS3CLN
@@ -437,6 +504,7 @@
   parent: DHLAFrontGearBase
   id: DHLAFrontMachinegunnerGear
   equipment:
+    id: DHLFDogtagsMachinegunner
     jumpsuit: DHLFClothingUniformCommando
     head: DHLFClothingHeadHelmet
     outerClothing: DHLFClothingOuterVestHeavy
@@ -444,6 +512,7 @@
     pocket2: DHWeaponPistolABZ9
   storage:
     back:
+    - DHLFPassportForged
     - DHMagazineFS2TCLN
     - DHMagazineFS2TCLN
     - DHMagazineABZ9CLN
@@ -454,12 +523,14 @@
   parent: DHLAFrontGearBase
   id: DHLAFrontRebelGear
   equipment:
+    id: DHLFDogtagsRebel
     jumpsuit: DHLFClothingUniformFighter
     head: DHLFClothingHeadHelmetLight
     outerClothing: DHLFClothingOuterVestLight
     suitstorage: DHWeaponRifleFS2E
   storage:
     back:
+    - DHLFPassportForged
     - DHMagazineFS2ECLN
     - DHMagazineFS2ECLN
     - DHMagazineFS2ERAS

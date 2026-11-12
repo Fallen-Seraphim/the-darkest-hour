@@ -58,7 +58,7 @@ id-card-access-level-maintenance = Техобслуживание
 
 id-card-access-level-medical = Медицинский
 
-id-card-access-level-nuclear-operative = Ядерный оперативник
+id-card-access-level-nuclear-operative = Имперская морская пехота
 
 id-card-access-level-paramedic = Парамедик
 
@@ -76,7 +76,7 @@ id-card-access-level-service = Сервис
 
 id-card-access-level-station-ai = Искусственный Интеллект
 
-id-card-access-level-syndicate-agent = Агент Империи
+id-card-access-level-syndicate-agent = Имперская служба безопасности
 
 id-card-access-level-theatre = Театр
 

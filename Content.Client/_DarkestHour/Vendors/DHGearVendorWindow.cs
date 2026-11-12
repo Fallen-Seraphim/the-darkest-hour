@@ -22,7 +22,7 @@ public sealed partial class DHGearVendorWindow : DefaultWindow
     public event Action<int, int>? OnVend;
 
     private DHGearVendorComponent? _vendor;
-    private DHGearVendorStateMessage? _state;
+    private DHGearVendorUserState? _state;
     private readonly BoxContainer _list = new() { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 4 };
 
     private static readonly Color HeaderColor = Color.FromHex("#d6c38f");
@@ -45,7 +45,7 @@ public sealed partial class DHGearVendorWindow : DefaultWindow
         Rebuild();
     }
 
-    public void UpdateState(DHGearVendorStateMessage state)
+    public void UpdateState(DHGearVendorUserState state)
     {
         _state = state;
         Rebuild();

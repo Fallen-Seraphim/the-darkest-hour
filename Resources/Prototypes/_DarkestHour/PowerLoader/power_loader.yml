@@ -1,0 +1,86 @@
+# Погрузчик (авиация, этап 4; решение автора 2026-11-12) — по образцу LU-50 из RMC-14. Код — DHPowerLoaderSystem.
+# Спрайт и звуки — RMC-14 / CM-SS13 (CC-BY-SA-3.0).
+
+- type: entity
+  id: DHPowerLoader
+  name: power loader
+  description: "A cargo exoskeleton for heavy ordnance. Strap in to drive it; both hands become clamps. Click a heavy load (aircraft munitions, modules, shells, interceptor missiles, crates) to grab it, click the attack aircraft, a gun breech or an air-defence launcher to load it there, click the floor to set the load down."
+  placement:
+    mode: PlaceFree
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/power_loader.rsi
+    drawdepth: Mobs
+    noRot: true
+    layers:
+    - state: powerloader_open
+      map: [ "buckledLayer" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.StrapVisuals.State:
+        buckledLayer:
+          True: { state: powerloader_overlay }
+          False: { state: powerloader_open }
+  - type: DHPowerLoader
+  - type: MobMover
+  - type: InputMover
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 2.5
+    baseSprintSpeed: 2.5
+  - type: Physics
+    bodyType: KinematicController
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        density: 1000
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - FootstepSound
+  - type: FootstepModifier
+    footstepSoundCollection:
+      path: /Audio/Mecha/sound_mecha_powerloader_step.ogg
+  - type: ContainerContainer
+    containers:
+      dh-power-loader-clamp: !type:ContainerSlot
+        showEnts: True
+        occludes: False
+  - type: Strap
+    position: Stand
+    buckleOffset: "0,0"
+    buckleSound:
+      path: /Audio/_RMC14/Mecha/powerloader_buckle.ogg
+      params:
+        variation: 0.1
+    unbuckleSound:
+      path: /Audio/_RMC14/Mecha/powerloader_unbuckle.ogg
+      params:
+        variation: 0.1
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 2
+            max: 4
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]

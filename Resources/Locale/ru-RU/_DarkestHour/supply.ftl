@@ -28,3 +28,7 @@ dh-supply-category-lav-weapons = Оружие
 dh-supply-category-lav-ammo = Боеприпасы
 dh-supply-category-lav-gear = Снаряжение
 dh-supply-category-lav-goods = Товары
+dh-supply-category-air-defence = ПВО
+dh-supply-category-naval = Корабельная артиллерия
+dh-supply-category-anti-orbital = Орудия ПКО
+dh-supply-category-aviation = Авиация
