@@ -15,6 +15,8 @@
     layers:
     - texture: Interface/VerbIcons/eject.svg.192dpi.png
       map: ["enum.ActionVisuals.Icon"]
+  - type: Action
+    raiseOnUser: true # контейнер — станок; событие ловит стрелок (DHWeaponController)
   - type: InstantAction
     event: !type:DHDismountWeaponActionEvent
 
