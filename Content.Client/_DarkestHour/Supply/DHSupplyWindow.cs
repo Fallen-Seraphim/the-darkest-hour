@@ -51,8 +51,10 @@ public sealed partial class DHSupplyWindow : DefaultWindow
             ? Loc.GetString("dh-supply-ui-elevator", ("mode", Loc.GetString("dh-supply-mode-" + state.Mode.ToString().ToLowerInvariant())),
                 ("pending", state.Pending))
             : Loc.GetString("dh-supply-ui-no-elevator");
-        _refill.Text = Loc.GetString("dh-supply-ui-refill", ("points", state.Points), ("min", state.RefillMinPoints + 1),
-            ("minutes", state.RefillMinutes));
+        _refill.Text = state.Paid
+            ? Loc.GetString("dh-supply-ui-balance", ("account", state.Account), ("balance", state.Balance))
+            : Loc.GetString("dh-supply-ui-refill", ("points", state.Points), ("min", state.RefillMinPoints + 1),
+                ("minutes", state.RefillMinutes));
 
         _toggle.Disabled = !state.HasElevator ||
                            state.Mode is DHSupplyElevatorMode.Raising or DHSupplyElevatorMode.Lowering;
@@ -73,10 +75,17 @@ public sealed partial class DHSupplyWindow : DefaultWindow
             var line = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 6 };
             var name = _proto.TryIndex<EntityPrototype>(row.Proto, out var proto) ? proto.Name : row.Proto;
             line.AddChild(new Label { Text = name, HorizontalExpand = true, ClipText = true });
-            line.AddChild(new Label { Text = Loc.GetString("dh-supply-ui-count", ("count", row.Count)), MinWidth = 70 });
+            line.AddChild(new Label
+            {
+                Text = state.Paid
+                    ? Loc.GetString("dh-supply-ui-price", ("price", row.Price))
+                    : Loc.GetString("dh-supply-ui-count", ("count", row.Count)),
+                MinWidth = 70,
+            });
 
             var id = row.Id;
-            var order = new Button { Text = Loc.GetString("dh-supply-ui-order"), Disabled = row.Count <= 0 || !state.HasElevator };
+            var unavailable = state.Paid ? row.Price > state.Balance : row.Count <= 0;
+            var order = new Button { Text = Loc.GetString("dh-supply-ui-order"), Disabled = unavailable || !state.HasElevator };
             order.OnPressed += _ => OnOrder?.Invoke(id);
             line.AddChild(order);
             _list.AddChild(line);

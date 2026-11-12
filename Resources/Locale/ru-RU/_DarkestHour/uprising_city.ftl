@@ -124,3 +124,52 @@ dh-passport-place-new-tallinn = Нью-Таллин
 dh-passport-place-prosperity = Проспер
 dh-passport-place-titan = Титан
 dh-passport-place-earth = Земля
+
+# счёт ОФСК, реквизиты, чековая машинка (решение автора 2026-11-12)
+dh-bank-org-front = ООО «Южный ветер»
+dh-budget-ui-title-front = Бюджет ОФСК
+dh-city-briefing-org = Счёт организации «{ $org }»: { $number }, логин { $login }, пароль { $password }. Реквизиты — на бумаге в сумке.
+dh-bank-requisites-text = [head=2]Реквизиты счёта[/head]
+    [bold]{ $org }[/bold]
+
+    Номер счёта: [bold]{ $number }[/bold]
+    Логин: [bold]{ $login }[/bold]
+    Пароль: [bold]{ $password }[/bold]
+
+    [italic]Банк Лост-Энджелса. Не передавайте реквизиты посторонним.[/italic]
+
+dh-cheque-ui-title = Чековая машинка «Банк LA-V»
+dh-cheque-ui-section-seller = ПРОДАВЕЦ
+dh-cheque-ui-section-bill = СЧЁТ К ОПЛАТЕ
+dh-cheque-ui-section-pay = ОПЛАТА
+dh-cheque-ui-seller = { $name }, счёт { $number }
+dh-cheque-ui-no-seller = Продавец не задан: вставьте свою карту и нажмите «Карта — продавцу».
+dh-cheque-ui-set-seller = Карта — продавцу
+dh-cheque-ui-set-amount = Выставить
+dh-cheque-ui-description = Что продаётся (если товара в лотке нет)
+dh-cheque-ui-bill = К оплате: { $amount } кр.
+dh-cheque-ui-no-bill = Сумма не выставлена.
+dh-cheque-ui-goods = Товар: { $goods }
+dh-cheque-ui-goods-hint = Товар можно положить в лоток — он уйдёт покупателю после оплаты.
+dh-cheque-ui-pay = Оплатить
+dh-cheque-ui-reset = Сбросить счёт
+dh-cheque-slot-card = Карта
+dh-cheque-slot-goods = Лоток для товара
+dh-cheque-status-seller = Продавец: { $seller }.
+dh-cheque-status-amount = Выставлено { $amount } кр. Покупатель — вставьте карту и введите пароль.
+dh-cheque-status-paid = Оплачено { $amount } кр. Чек № { $serial } напечатан.
+dh-cheque-error-card = Вставьте банковскую карту.
+dh-cheque-error-amount = Неверная сумма.
+dh-cheque-error-no-seller = Продавец не задан.
+dh-cheque-error-no-amount = Сумма не выставлена.
+dh-cheque-goods-none = услуга
+dh-cheque-copy-buyer = экземпляр покупателя
+dh-cheque-copy-seller = экземпляр продавца
+dh-cheque-text-header = [head=2]БАНК LA-V — КАССОВЫЙ ЧЕК[/head]
+dh-cheque-text-serial = Чек № { $serial } ({ $copy })
+dh-cheque-text-time = Время: { $time }
+dh-cheque-text-seller = Продавец: { $name }, счёт { $number }
+dh-cheque-text-buyer = Покупатель: { $name }, счёт { $number }
+dh-cheque-text-goods = Товар / услуга: { $goods }
+dh-cheque-text-amount = [bold]ИТОГО: { $amount } кр.[/bold]
+dh-cheque-text-footer = [italic]Оплачено картой. Lost Angels—Vanguard Banking.[/italic]

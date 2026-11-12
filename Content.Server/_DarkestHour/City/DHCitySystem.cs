@@ -10,6 +10,7 @@ using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Inventory;
 using Content.Shared.Mind;
+using Content.Shared.Paper;
 using Content.Shared.Roles;
 using Content.Shared.Roles.Components;
 using Content.Shared.Storage.EntitySystems;
@@ -40,6 +41,7 @@ public sealed partial class DHCitySystem : EntitySystem
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private SharedMindSystem _mind = default!;
     [Dependency] private DHPhoneSystem _phones = default!;
+    [Dependency] private PaperSystem _paper = default!;
     [Dependency] private IPrototypeManager _proto = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private SharedStorageSystem _storage = default!;
@@ -91,13 +93,52 @@ public sealed partial class DHCitySystem : EntitySystem
 
         FillPassport(mob, name);
 
-        AddBriefing(mob, new List<string>
+        var briefing = new List<string>
         {
             Loc.GetString("dh-city-briefing-header"),
             Loc.GetString("dh-city-briefing-phone", ("number", number)),
             Loc.GetString("dh-city-briefing-account", ("number", account.Number), ("balance", account.Balance)),
             Loc.GetString("dh-city-briefing-login", ("login", account.Login), ("password", account.Password)),
-        });
+        };
+
+        // Главам организаций — реквизиты счёта организации на бумаге (и в брифинге).
+        if (ev.JobId != null && RequisitesOrg(ev.JobId) is { } org)
+        {
+            var orgAccount = _bank.OrgAccount(org);
+            GiveRequisites(mob, orgAccount);
+            if (org == DHBankOrg.Front)
+                Give(mob, FrontCardProto);
+
+            briefing.Add(Loc.GetString("dh-city-briefing-org", ("org", orgAccount.Holder), ("number", orgAccount.Number),
+                ("login", orgAccount.Login), ("password", orgAccount.Password)));
+        }
+
+        AddBriefing(mob, briefing);
+    }
+
+    private const string RequisitesProto = "DHBankRequisites";
+    private const string FrontCardProto = "DHBankCardFront";
+
+    /// <summary>Чей счёт доверен должности (решение автора 2026-11-12).</summary>
+    private static DHBankOrg? RequisitesOrg(string job)
+    {
+        return job switch
+        {
+            "DHLAMPChief" => DHBankOrg.Police,
+            "DHLAVRepresentative" => DHBankOrg.Vanguard,
+            "DHLAFrontLeader" => DHBankOrg.Front,
+            _ => null,
+        };
+    }
+
+    private void GiveRequisites(EntityUid mob, DHBankAccount account)
+    {
+        var paper = Give(mob, RequisitesProto);
+        if (!TryComp<PaperComponent>(paper, out var comp))
+            return;
+
+        _paper.SetContent((paper, comp), Loc.GetString("dh-bank-requisites-text", ("org", account.Holder),
+            ("number", account.Number), ("login", account.Login), ("password", account.Password)));
     }
 
     /// <summary>Город — самое частое место рождения жителей без выбранного в профиле.</summary>

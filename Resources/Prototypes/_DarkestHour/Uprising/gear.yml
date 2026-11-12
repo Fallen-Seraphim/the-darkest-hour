@@ -143,6 +143,7 @@
   - BriefcaseBrownFilled
   storage:
     back:
+    - DHChequeMachine
     - DHWeaponSMGLAVSMG23
     - DHMagazineLAVSMG23LS
     - DHMagazineLAVSMG23LS
@@ -166,6 +167,7 @@
     pocket2: Pen
   storage:
     back:
+    - DHChequeMachine
     - DHWeaponPistolMk58
     - DHMagazine10x24ShortE
     - BoxFolderBlue
@@ -211,6 +213,7 @@
     pocket2: Pen
   storage:
     back:
+    - DHChequeMachine
     - Paper
 
 # ---------------------------------------------------------------- Военная Полиция (решение автора 2026-11-05)

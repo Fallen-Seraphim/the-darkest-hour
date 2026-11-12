@@ -916,6 +916,9 @@ def warehouse():
                     lv.put('CrateGenericSteel', x, y + 2)
     for i in range(6):
         g.put('SpawnPointDHLAFactoryWorker', x0 + 6 + i * 2, y0 + 3)
+    # грузовой лифт LA-V (5×5) и компьютер склада: покупка за деньги корпорации (решение автора 2026-11-12)
+    g.put('DHSupplyElevator', x0 + 20, y0 + 5)
+    g.put('DHComputerSupplyLAV', x0 + 16, y0 + 7, ROT_E)
     L(-1).put('DHZHatchDown', 13, -55)
     L(-2).put('DHZLadderUp', 13, -55)
     # гаражи-склады восточнее, впритык

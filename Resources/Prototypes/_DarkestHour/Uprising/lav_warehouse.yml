@@ -1,0 +1,261 @@
+# «Восстание»: товары склада LA-V за деньги со счёта корпорации (грузовой лифт, решение автора 2026-11-12).
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHLAVCrateRifles
+  name: LA-V rifle crate
+  description: "Two LA-V R-55 rifles with four magazines."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: StorageFill
+    contents:
+    - id: DHWeaponRifleLAVR55
+      amount: 2
+    - id: DHMagazineLAVR55LS
+      amount: 4
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHLAVCrateSMG
+  name: LA-V SMG crate
+  description: "Two LA-V SMG-23 submachine guns with four magazines."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: StorageFill
+    contents:
+    - id: DHWeaponSMGLAVSMG23
+      amount: 2
+    - id: DHMagazineLAVSMG23LS
+      amount: 4
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHLAVCratePistols
+  name: pistol crate
+  description: "Three Mk58 pistols with six magazines."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: StorageFill
+    contents:
+    - id: DHWeaponPistolMk58
+      amount: 3
+    - id: DHMagazine10x24ShortE
+      amount: 6
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHLAVCrateAmmoRifle
+  name: R-55 magazine crate
+  description: "Eight R-55 rifle magazines."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: StorageFill
+    contents:
+    - id: DHMagazineLAVR55LS
+      amount: 8
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHLAVCrateAmmoSMG
+  name: SMG-23 magazine crate
+  description: "Eight SMG-23 magazines."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: StorageFill
+    contents:
+    - id: DHMagazineLAVSMG23LS
+      amount: 8
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHLAVCrateAmmoPistol
+  name: pistol magazine crate
+  description: "Ten Mk58 pistol magazines."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: StorageFill
+    contents:
+    - id: DHMagazine10x24ShortE
+      amount: 10
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHLAVCrateArmor
+  name: LA-V security armour crate
+  description: "Two security vests and two helmets of the LA-V security service."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/plastic.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/plastic.rsi
+  - type: StorageFill
+    contents:
+    - id: DHLAVClothingOuterVestSecurity
+      amount: 2
+    - id: DHLAVClothingHeadHelmetSecurity
+      amount: 2
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHLAVCrateUniforms
+  name: LA-V security uniform crate
+  description: "Two sets of LA-V security uniform: jumpsuit, gloves, boots and HUD glasses."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/plastic.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/plastic.rsi
+  - type: StorageFill
+    contents:
+    - id: DHLAVClothingUniformSecurity
+      amount: 2
+    - id: DHLAVClothingHandsGlovesSecurity
+      amount: 2
+    - id: DHLAVClothingShoesJackboots
+      amount: 2
+    - id: DHLAVClothingEyesHUD
+      amount: 2
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHLAVCrateAttachments
+  name: weapon kit crate
+  description: "Rifle and close-quarters attachment kits."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/plastic.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/plastic.rsi
+  - type: StorageFill
+    contents:
+    - id: DHAttachmentKitRifle
+      amount: 1
+    - id: DHAttachmentKitClose
+      amount: 1
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHLAVCrateMedical
+  name: first aid crate
+  description: "Four individual first aid kits."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/medical.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/medical.rsi
+  - type: StorageFill
+    contents:
+    - id: DHIFAKFilled
+      amount: 4
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHLAVCrateCuffs
+  name: handcuff crate
+  description: "Six pairs of handcuffs."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/plastic.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/plastic.rsi
+  - type: StorageFill
+    contents:
+    - id: Handcuffs
+      amount: 6
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHLAVCratePhones
+  name: phone crate
+  description: "Four LA-V phones, unregistered."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/plastic.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/plastic.rsi
+  - type: StorageFill
+    contents:
+    - id: DHPhone
+      amount: 4
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHLAVCrateWallets
+  name: wallet crate
+  description: "Six leather wallets."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/plastic.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/plastic.rsi
+  - type: StorageFill
+    contents:
+    - id: DHWallet
+      amount: 6
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHLAVCrateChequeMachines
+  name: cheque machine crate
+  description: "Two Bank of LA-V cheque machines."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/plastic.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/plastic.rsi
+  - type: StorageFill
+    contents:
+    - id: DHChequeMachine
+      amount: 2
+
+- type: dhSupplyCatalog
+  id: DHSupplyLAV
+  bank: Vanguard
+  entries:
+  - { id: rifles, proto: DHLAVCrateRifles, category: dh-supply-category-lav-weapons, price: 2400 }
+  - { id: smg, proto: DHLAVCrateSMG, category: dh-supply-category-lav-weapons, price: 1800 }
+  - { id: pistols, proto: DHLAVCratePistols, category: dh-supply-category-lav-weapons, price: 1200 }
+  - { id: ammo-rifle, proto: DHLAVCrateAmmoRifle, category: dh-supply-category-lav-ammo, price: 600 }
+  - { id: ammo-smg, proto: DHLAVCrateAmmoSMG, category: dh-supply-category-lav-ammo, price: 480 }
+  - { id: ammo-pistol, proto: DHLAVCrateAmmoPistol, category: dh-supply-category-lav-ammo, price: 350 }
+  - { id: armor, proto: DHLAVCrateArmor, category: dh-supply-category-lav-gear, price: 1400 }
+  - { id: uniforms, proto: DHLAVCrateUniforms, category: dh-supply-category-lav-gear, price: 700 }
+  - { id: attachments, proto: DHLAVCrateAttachments, category: dh-supply-category-lav-gear, price: 800 }
+  - { id: medical, proto: DHLAVCrateMedical, category: dh-supply-category-lav-gear, price: 600 }
+  - { id: cuffs, proto: DHLAVCrateCuffs, category: dh-supply-category-lav-gear, price: 250 }
+  - { id: phones, proto: DHLAVCratePhones, category: dh-supply-category-lav-goods, price: 400 }
+  - { id: wallets, proto: DHLAVCrateWallets, category: dh-supply-category-lav-goods, price: 150 }
+  - { id: cheque-machines, proto: DHLAVCrateChequeMachines, category: dh-supply-category-lav-goods, price: 300 }
+
+# Компьютер склада LA-V: заказ за деньги корпорации, лифт рядом.
+- type: entity
+  parent: DHComputerSupply
+  id: DHComputerSupplyLAV
+  name: LA-V warehouse console
+  description: "Orders goods from the LA-V logistics hub. Paid from the corporate account; the freight lift brings them up."
+  suffix: LA-V
+  components:
+  - type: DHSupplyConsole
+    catalog: DHSupplyLAV
+  - type: AccessReader
+    access: [["DHLAVanguard"]]
+  - type: ApcPowerReceiver
+    needsPower: false

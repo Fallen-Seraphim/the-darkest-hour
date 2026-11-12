@@ -30,6 +30,7 @@ public sealed partial class DHBankSystem : EntitySystem
 
     public const int VanguardStartBalance = 15000;
     public const int PoliceStartBalance = 8000;
+    public const int FrontStartBalance = 3000;
     private const int MaxLog = 30;
 
     private const string LoginLetters = "abcdefghkmnprstuvwxyz";
@@ -104,6 +105,7 @@ public sealed partial class DHBankSystem : EntitySystem
         {
             DHBankOrg.Vanguard => (Loc.GetString("dh-bank-org-vanguard"), VanguardStartBalance),
             DHBankOrg.Police => (Loc.GetString("dh-bank-org-police"), PoliceStartBalance),
+            DHBankOrg.Front => (Loc.GetString("dh-bank-org-front"), FrontStartBalance),
             _ => (Loc.GetString("dh-bank-org-none"), 0),
         };
 
