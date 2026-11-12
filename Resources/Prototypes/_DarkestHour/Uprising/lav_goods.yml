@@ -113,6 +113,21 @@
   - type: Item
     sprite: _DarkestHour/Objects/City/lav_briefcase.rsi
 
+# Чемодан представителя корпорации: бумаги и всё для сделок.
+- type: entity
+  parent: DHLAVBriefcase
+  id: DHLAVBriefcaseFilled
+  suffix: Filled
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHLAVTablet
+    - id: DHLAVPlanner
+    - id: DHChequeMachine
+    - id: BoxFolderBlue
+    - id: DHLAVPenExecutive
+    - id: DHBankCardVanguard
+
 # ящики склада
 - type: entity
   parent: CrateGenericSteel
