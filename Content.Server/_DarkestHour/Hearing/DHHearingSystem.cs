@@ -194,7 +194,8 @@ public sealed partial class DHHearingSystem : EntitySystem
         return factor;
     }
 
-    private void Ring(EntityUid uid, TimeSpan duration)
+    /// <summary>Звон в ушах не меньше <paramref name="duration"/> (продлевает текущий).</summary>
+    public void Ring(EntityUid uid, TimeSpan duration)
     {
         var now = _timing.CurTime;
         var tinnitus = EnsureComp<DHTinnitusComponent>(uid);

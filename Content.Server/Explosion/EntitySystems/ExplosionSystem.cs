@@ -355,6 +355,10 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
         // camera shake
         CameraShake(iterationIntensity.Count * 4f, pos, queued.TotalIntensity);
 
+        // DH: контузия и звон в ушах от близкого разрыва (DHConcussionSystem).
+        var dhExplosion = new Content.Server._DarkestHour.Hearing.DHExplosionSpawnedEvent(pos, queued.TotalIntensity, iterationIntensity.Count);
+        RaiseLocalEvent(ref dhExplosion);
+
         //For whatever bloody reason, sound system requires ENTITY coordinates.
         var mapEntityCoords = _transformSystem.ToCoordinates(_map.GetMap(pos.MapId), pos);
 
