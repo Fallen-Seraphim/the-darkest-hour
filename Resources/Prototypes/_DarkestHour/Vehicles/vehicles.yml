@@ -177,7 +177,11 @@
     interior: DHInteriorAPC
     hull: DHVehicleHullRAM45
     turretLayers: [ turret, primary ]
-    turretPivots: [ "0.02,0.02", "0.02,-0.09", "-0.03,-0.08", "0.06,-0.08" ] # юг, север, восток, запад
+    # Ось башни на корпусе — смещения башни SPP APC из RMC (пиксели / 32); кадры башни и пушки выровнены по оси.
+    turretPivots: [ "0,0.1875", "0,0.125", "-0.03125,0.875", "-0.03125,0.875" ] # юг, север, восток, запад
+    turretLayerPivots:
+      turret: [ "0,0", "0,0", "0,0", "0,0" ]
+      primary: [ "0,0", "0,0", "0,0", "0,0" ]
     exitOffset: 0,2.9
     wreck: DHVehicleWreckRAM45
   - type: DHVehicleHardpoints
@@ -263,7 +267,11 @@
     interior: DHInteriorIM30
     hull: DHVehicleHullIM30
     turretLayers: [ turret, primary ]
-    turretPivots: [ "0,-0.06", "0,0.03", "-0.06,0.1", "0.06,0.1" ] # юг, север, восток, запад
+    # Ось башни на корпусе — смещения башни Wolfpack из CMU (пиксели / 32). Кадры башни выровнены по её оси,
+    # ствол нарисован по корпусу (ось — там же, где на корпусе).
+    turretPivots: [ "0,0.4375", "0.03125,0.0625", "-0.28125,0.53125", "0.09375,0.53125" ] # юг, север, восток, запад
+    turretLayerPivots:
+      turret: [ "0,0", "0,0", "0,0", "0,0" ]
     exitOffset: 0,2.8
     wreck: DHVehicleWreckIM30
   - type: DHVehicleHardpoints

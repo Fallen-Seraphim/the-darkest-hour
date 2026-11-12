@@ -26,7 +26,7 @@ public sealed partial class DHVehicleVisualizerSystem : EntitySystem
     private const double EighthPi = Math.PI / 8d;
     private const double BoundaryEpsilon = 1e-12;
 
-    private readonly HashSet<int> _turretIndices = new();
+    private readonly Dictionary<int, string> _turretIndices = new();
 
     public override void FrameUpdate(float frameTime)
     {
@@ -51,13 +51,13 @@ public sealed partial class DHVehicleVisualizerSystem : EntitySystem
             foreach (var key in vehicle.TurretLayers)
             {
                 if (_sprite.LayerMapTryGet((uid, sprite), key, out var index, false))
-                    _turretIndices.Add(index);
+                    _turretIndices[index] = key;
             }
 
             for (var i = 0; i < sprite.AllLayers.Count(); i++)
             {
                 _sprite.LayerSetRenderingStrategy((uid, sprite), i, LayerRenderingStrategy.Default);
-                if (_turretIndices.Contains(i))
+                if (_turretIndices.ContainsKey(i))
                     continue;
 
                 var layer = sprite[i];
@@ -89,14 +89,17 @@ public sealed partial class DHVehicleVisualizerSystem : EntitySystem
                 _ => SpriteComponent.DirectionOffset.None,
             };
 
-            var hullPivot = PivotFor(vehicle, hullDir);
-            var turretPivot = PivotFor(vehicle, turretDir);
-            // Поворот слоя идёт вокруг центра спрайта: ось башни из кадра башни уводим на место оси в кадре корпуса.
-            // Смещение слоя поворачивается вместе с сущностью, поэтому из кадра корпуса переводим его в её оси.
-            var offset = (-hullAngle).RotateVec(hullPivot - residual.RotateVec(turretPivot));
-
-            foreach (var index in _turretIndices)
+            var hullPivot = PivotFor(vehicle.TurretPivots, hullDir);
+            foreach (var (index, key) in _turretIndices)
             {
+                var turretPivot = vehicle.TurretLayerPivots.TryGetValue(key, out var layerPivots)
+                    ? PivotFor(layerPivots, turretDir)
+                    : PivotFor(vehicle.TurretPivots, turretDir);
+
+                // Поворот слоя идёт вокруг центра спрайта: ось башни из кадра слоя уводим на место оси в кадре корпуса.
+                // Смещение слоя поворачивается вместе с сущностью, поэтому из кадра корпуса переводим его в её оси.
+                var offset = (-hullAngle).RotateVec(hullPivot - residual.RotateVec(turretPivot));
+
                 _sprite.LayerSetDirOffset((uid, sprite), index, dirOffset);
                 _sprite.LayerSetRotation((uid, sprite), index, residual - hullAngle);
                 _sprite.LayerSetOffset((uid, sprite), index, offset);
@@ -136,7 +139,7 @@ public sealed partial class DHVehicleVisualizerSystem : EntitySystem
         };
     }
 
-    private static Vector2 PivotFor(DHVehicleComponent vehicle, Direction dir)
+    private static Vector2 PivotFor(List<Vector2> pivots, Direction dir)
     {
         var index = dir switch
         {
@@ -146,6 +149,6 @@ public sealed partial class DHVehicleVisualizerSystem : EntitySystem
             _ => 0,
         };
 
-        return index < vehicle.TurretPivots.Count ? vehicle.TurretPivots[index] : Vector2.Zero;
+        return index < pivots.Count ? pivots[index] : Vector2.Zero;
     }
 }
