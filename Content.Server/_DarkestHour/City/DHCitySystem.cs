@@ -1,5 +1,8 @@
 using Content.Server._DarkestHour.Uprising;
+using Content.Shared._DarkestHour.Characters;
 using Content.Shared._DarkestHour.City;
+using Content.Shared.Access.Components;
+using Content.Shared.Access.Systems;
 using Content.Shared.GameTicking;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Hands.EntitySystems;
@@ -34,6 +37,7 @@ public sealed partial class DHCitySystem : EntitySystem
     [Dependency] private DHBankSystem _bank = default!;
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
+    [Dependency] private SharedIdCardSystem _idCard = default!;
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private SharedMindSystem _mind = default!;
     [Dependency] private DHPhoneSystem _phones = default!;
@@ -137,18 +141,36 @@ public sealed partial class DHCitySystem : EntitySystem
             ("number", account.Number), ("login", account.Login), ("password", account.Password)));
     }
 
-    private static readonly string[] BirthPlaces =
-    [
-        "dh-passport-place-lost-angels", "dh-passport-place-lost-angels", "dh-passport-place-new-tallinn",
-        "dh-passport-place-prosperity", "dh-passport-place-titan", "dh-passport-place-earth",
-    ];
+    /// <summary>Город — самое частое место рождения жителей без выбранного в профиле.</summary>
+    private const string LocalBirthPlace = "dh-passport-place-lost-angels";
 
-    /// <summary>Паспорт в слоте документа: номер, дата рождения (2318 − возраст), место, пол, раса.</summary>
+    /// <summary>
+    /// Все незаполненные паспорта в снаряжении: в слоте документа и поддельный в сумке (ОФСК). Данные одни и те же —
+    /// поддельный паспорт выписан на настоящее имя, чтобы сойти за жителя.
+    /// </summary>
     private void FillPassport(EntityUid mob, string name)
     {
-        if (!_inventory.TryGetSlotEntity(mob, "id", out var id) || !TryComp<DHPassportComponent>(id, out var passport))
-            return;
+        var data = PassportData(mob);
+        var filled = new HashSet<EntityUid>();
 
+        if (_inventory.TryGetSlotEntity(mob, "id", out var id) && TryComp<DHPassportComponent>(id, out var inSlot) &&
+            inSlot.Number.Length == 0)
+        {
+            Fill((id.Value, inSlot), name, data);
+            filled.Add(id.Value);
+        }
+
+        for (var i = 0; i < 4; i++)
+        {
+            if (FindChild<DHPassportComponent>(mob, p => p.Number.Length == 0) is not { } other || !filled.Add(other))
+                break;
+
+            Fill((other, Comp<DHPassportComponent>(other)), name, data);
+        }
+    }
+
+    private (string Birth, string Place, string Sex, string Species) PassportData(EntityUid mob)
+    {
         var age = 30;
         var sex = Loc.GetString("dh-passport-sex-unknown");
         var species = Loc.GetString("dh-passport-species-unknown");
@@ -169,15 +191,51 @@ public sealed partial class DHCitySystem : EntitySystem
         if (birth > DHCityClock.Start.AddYears(-age))
             birth = birth.AddYears(-1);
 
-        passport.Number = $"LA {_random.Next(10, 100)} {_random.Next(100000, 1000000)}";
-        passport.Holder = name;
-        passport.BirthDate = birth.ToString("dd.MM.yyyy");
-        passport.BirthPlace = Loc.GetString(_random.Pick(BirthPlaces));
-        passport.Sex = sex;
-        passport.Species = species;
-        passport.Issued = new DateTime(DHCityClock.Year - _random.Next(1, 10), _random.Next(1, 13), _random.Next(1, 29))
+        return (birth.ToString("dd.MM.yyyy"), BirthPlace(mob, birth.Year), sex, species);
+    }
+
+    /// <summary>Место рождения из профиля персонажа, иначе случайное: чаще всего город, иначе мир, где в год рождения жили.</summary>
+    private string BirthPlace(EntityUid mob, int birthYear)
+    {
+        if (TryComp<DHCharacterDescriptionComponent>(mob, out var description) &&
+            description.Details.Birthplace is { } chosen &&
+            _proto.TryIndex(chosen, out var chosenPlace))
+        {
+            return Loc.GetString(chosenPlace.Name);
+        }
+
+        if (_random.Prob(0.5f))
+            return Loc.GetString(LocalBirthPlace);
+
+        var places = new List<DHBirthplacePrototype>();
+        foreach (var place in _proto.EnumeratePrototypes<DHBirthplacePrototype>())
+        {
+            if (place.AvailableIn(birthYear))
+                places.Add(place);
+        }
+
+        return places.Count == 0
+            ? Loc.GetString(LocalBirthPlace)
+            : Loc.GetString(places[_random.Next(places.Count)].Name);
+    }
+
+    private void Fill(Entity<DHPassportComponent> passport, string name,
+        (string Birth, string Place, string Sex, string Species) data)
+    {
+        passport.Comp.Number = $"LA {_random.Next(10, 100)} {_random.Next(100000, 1000000)}";
+        passport.Comp.Holder = name;
+        passport.Comp.BirthDate = data.Birth;
+        passport.Comp.BirthPlace = data.Place;
+        passport.Comp.Sex = data.Sex;
+        passport.Comp.Species = data.Species;
+        passport.Comp.Issued = new DateTime(DHCityClock.Year - _random.Next(1, 10), _random.Next(1, 13), _random.Next(1, 29))
             .ToString("dd.MM.yyyy");
-        Dirty(id.Value, passport);
+        Dirty(passport);
+
+        // Паспорт не в слоте документа (поддельный в сумке): имя на удостоверении ставим сами — станция заполняет
+        // только карту в слоте.
+        if (TryComp<IdCardComponent>(passport, out var card) && string.IsNullOrEmpty(card.FullName))
+            _idCard.TryChangeFullName(passport, name, card);
     }
 
     private static int StartBalance(string? job)
