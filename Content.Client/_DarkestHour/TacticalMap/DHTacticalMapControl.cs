@@ -31,6 +31,20 @@ public sealed class DHTacticalMapControl : Control
     /// <summary>Ты на другом уровне, чем показанный (на этаже или под землёй) — кольцо без точки.</summary>
     public bool SelfElsewhere;
 
+    /// <summary>Линия захода штурмовика: начало и конец (рисуется стрелкой).</summary>
+    public Vector2? PathStart;
+
+    public Vector2? PathEnd;
+
+    /// <summary>Сигнатуры РЛС штурмовика (треугольники с подписью).</summary>
+    public List<(Vector2 Position, string Label)> Signatures = new();
+
+    /// <summary>Выбранная цель для пуска из атмосферы (перекрестие).</summary>
+    public Vector2? Target;
+
+    /// <summary>Правый клик по карте — точка в координатах поверхности (выбор захода штурмовика).</summary>
+    public event Action<Vector2>? OnWorldClick;
+
     private readonly DHTacticalMapSystem _terrain;
     private readonly Font _font;
 
@@ -186,6 +200,21 @@ public sealed class DHTacticalMapControl : Control
                     handle.DrawCircle(p, 4f, FactionColor(marker.Owner));
                     handle.DrawCircle(p, 4f, Color.Black, false);
                     break;
+                case DHTacticalMarkerKind.EnemyVehicle:
+                    // Техника противника: квадрат цвета стороны с подписью.
+                    var vehicleColor = FactionColor(marker.Owner);
+                    handle.DrawRect(new UIBox2(p - new Vector2(6, 6), p + new Vector2(6, 6)), vehicleColor);
+                    handle.DrawRect(new UIBox2(p - new Vector2(6, 6), p + new Vector2(6, 6)), Color.Black, false);
+                    if (_zoom >= 1.5f)
+                        handle.DrawString(_font, p + new Vector2(9, -6), marker.Name, vehicleColor);
+                    break;
+                case DHTacticalMarkerKind.ScanBlip:
+                    // Одиночный боец с последнего глобального скана.
+                    handle.DrawCircle(p, 2.5f, ScanColor);
+                    break;
+                case DHTacticalMarkerKind.AirSignature:
+                    DrawSignature(handle, p, marker.Name, FactionColor(marker.Owner));
+                    break;
                 case DHTacticalMarkerKind.Beacon:
                     // Городской ориентир: флажок и название.
                     handle.DrawLine(p, p + new Vector2(0, -10), BeaconColor);
@@ -201,6 +230,40 @@ public sealed class DHTacticalMapControl : Control
                     handle.DrawLine(p + new Vector2(-6, 0), p + new Vector2(0, -6), ScanColor);
                     handle.DrawString(_font, p + new Vector2(8, -6), marker.Name, ScanColor);
                     break;
+            }
+        }
+
+        foreach (var (position, label) in Signatures)
+        {
+            DrawSignature(handle, ToPixel(position), label, RepublicColor);
+        }
+
+        if (Target is { } target)
+        {
+            var tp = ToPixel(target);
+            handle.DrawCircle(tp, 9f, Color.White, false);
+            handle.DrawLine(tp + new Vector2(-13, 0), tp + new Vector2(-5, 0), Color.White);
+            handle.DrawLine(tp + new Vector2(5, 0), tp + new Vector2(13, 0), Color.White);
+            handle.DrawLine(tp + new Vector2(0, -13), tp + new Vector2(0, -5), Color.White);
+            handle.DrawLine(tp + new Vector2(0, 5), tp + new Vector2(0, 13), Color.White);
+        }
+
+        if (PathStart is { } pathStart)
+        {
+            var a = ToPixel(pathStart);
+            handle.DrawCircle(a, 5f, MarkColor, false);
+            if (PathEnd is { } pathEnd)
+            {
+                var b = ToPixel(pathEnd);
+                handle.DrawLine(a, b, MarkColor);
+                var dir = b - a;
+                if (dir.LengthSquared() > 1f)
+                {
+                    dir = Vector2.Normalize(dir);
+                    var side = new Vector2(-dir.Y, dir.X);
+                    handle.DrawLine(b, b - dir * 10f + side * 5f, MarkColor);
+                    handle.DrawLine(b, b - dir * 10f - side * 5f, MarkColor);
+                }
             }
         }
 
@@ -243,9 +306,32 @@ public sealed class DHTacticalMapControl : Control
         }
     }
 
+    /// <summary>Сигнатура РЛС штурмовика: треугольник с подписью.</summary>
+    private void DrawSignature(DrawingHandleScreen handle, Vector2 sp, string label, Color color)
+    {
+        handle.DrawLine(sp + new Vector2(0, -6), sp + new Vector2(6, 5), color);
+        handle.DrawLine(sp + new Vector2(6, 5), sp + new Vector2(-6, 5), color);
+        handle.DrawLine(sp + new Vector2(-6, 5), sp + new Vector2(0, -6), color);
+        if (_zoom >= 1.5f)
+            handle.DrawString(_font, sp + new Vector2(8, -6), label, color);
+    }
+
+    private Vector2 FromPixel(Vector2 pixel)
+    {
+        var d = pixel - new Vector2(PixelSize.X, PixelSize.Y) / 2f;
+        return _center + new Vector2(d.X, -d.Y) / _zoom;
+    }
+
     protected override void KeyBindDown(GUIBoundKeyEventArgs args)
     {
         base.KeyBindDown(args);
+        if (args.Function == EngineKeyFunctions.UIRightClick && _zoom > 0f && OnWorldClick != null)
+        {
+            OnWorldClick.Invoke(FromPixel(args.RelativePixelPosition));
+            args.Handle();
+            return;
+        }
+
         if (args.Function == EngineKeyFunctions.UIClick || args.Function == EngineKeyFunctions.Use)
         {
             _dragging = true;

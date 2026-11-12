@@ -1,0 +1,422 @@
+# Атмосферный штурмовик Империи (решение автора 2026-11-12), этап 1: самолёт, лифт, катапульта, полёт в атмосфере,
+# автопилот посадки, ЛТЦ, ПВО и катапультирование. Механика — DHAircraftSystem. Корпус — по образу F9F-5 и Су-25.
+
+- type: entity
+  id: DHAttackAircraft
+  name: Gyrfalcon attack aircraft
+  description: An Imperial atmospheric attack aircraft. Straight wings with engines on the tips, intakes at the wing roots, a built-in 30 mm cannon and four hardpoints. Fuel it from a fuel tank parked alongside, load flares and patch it up with a welder.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: false
+    noRot: false
+    gridTraversal: false
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/Aircraft/attack_aircraft.rsi
+    noRot: false
+    drawdepth: FloorObjects
+    layers:
+    - state: shadow
+      offset: "0.25,-0.25"
+    - state: base
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-2.3,-2.3,2.3,2.3"
+        hard: false
+        density: 100
+        layer:
+        - MidImpassable
+  - type: InputMover
+  - type: NoRotateOnMove
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 0
+    baseSprintSpeed: 0
+  - type: DHAircraft
+  - type: Solution
+    id: fuel
+    solution:
+      maxVol: 300
+      reagents:
+      - ReagentId: WeldingFuel
+        Quantity: 100
+  - type: RefillableSolution
+    solution: fuel
+  - type: UserInterface
+    interfaces:
+      enum.DHAircraftUiKey.Flight:
+        type: DHAircraftBoundUserInterface
+
+- type: entity
+  id: DHAttackAircraftSeat
+  name: ejection seat
+  description: The pilot's ejection seat. Strap in to get the aircraft's controls.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: false
+    noRot: false
+    gridTraversal: false
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/Aircraft/aircraft_seat.rsi
+    state: seat
+    noRot: false
+    drawdepth: Objects
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Strap
+    position: Stand
+    buckleOffset: "0,0"
+  - type: DHAircraftSeat
+
+# Фонарь кабины: полупрозрачное стекло с рамой поверх пилота (корпус показывает кабину изнутри).
+- type: entity
+  id: DHAttackAircraftCanopy
+  name: canopy
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: false
+    noRot: false
+    gridTraversal: false
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/Aircraft/attack_aircraft.rsi
+    state: canopy
+    noRot: false
+    drawdepth: OverMobs
+
+# Лифт штурмовика в начале ВПП (он же — начало катапульты; разгон в сторону «вверх» лифта).
+- type: entity
+  id: DHAircraftLift
+  name: aircraft lift
+  description: Brings the attack aircraft up from the hangar deck below and takes it back down. The catapult track starts here. Use the alternative action to raise or lower it.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _RMC14/Effects/elevator.rsi
+    drawdepth: FloorTiles
+    layers:
+    - state: supply_elevator_lowered
+      map: [ "enum.DHAircraftLiftLayers.Base" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHAircraftLiftVisuals.Mode:
+        enum.DHAircraftLiftLayers.Base:
+          Lowered: { state: supply_elevator_lowered }
+          Raising: { state: supply_elevator_raising }
+          Raised: { state: supply_elevator_raised }
+          Lowering: { state: supply_elevator_lowering }
+  - type: Clickable
+  - type: InteractionOutline
+  - type: DHAircraftLift
+    runwayLength: 50
+
+- type: entity
+  parent: BaseItem
+  id: DHAircraftFlareCassette
+  name: flare cassette
+  description: Four infrared decoy flares for the attack aircraft. Load it into the aircraft on the deck.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/flare.rsi
+    state: flare_unlit
+  - type: Item
+    size: Normal
+  - type: DHAircraftFlareCassette
+    flares: 4
+
+- type: entity
+  parent: BaseItem
+  id: DHAircraftCannonAmmo
+  name: 30 mm cannon ammo box
+  description: 150 high-explosive incendiary rounds for the attack aircraft's cannon pods. Load it into the aircraft on the deck — it goes into the emptiest pod.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/dropship_ammo.rsi
+    state: 30mm_crate_10
+  - type: Item
+    size: Large
+  - type: DHAircraftCannonAmmo
+  - type: DHPowerLoaderGrabbable
+    rounds: 150
+
+- type: entity
+  parent: BaseItem
+  id: DHAircraftBombHE
+  name: high-explosive bomb
+  description: A free-fall high-explosive bomb for low passes. Hang it on a free hardpoint of the attack aircraft on the deck.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/dropship_ammo_64.rsi
+    state: jdam
+  - type: Item
+    size: Huge
+  - type: DHAircraftMunition
+  - type: DHPowerLoaderGrabbable
+    kind: BombHE
+
+- type: entity
+  parent: BaseItem
+  id: DHAircraftBombCluster
+  name: cluster bomb
+  description: "A free-fall cluster bomb for low passes: scatters bomblets along the course. Best against infantry in the open."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/dropship_ammo_64.rsi
+    state: cluster
+  - type: Item
+    size: Huge
+  - type: DHAircraftMunition
+  - type: DHPowerLoaderGrabbable
+    kind: BombCluster
+
+- type: entity
+  parent: BaseItem
+  id: DHAircraftBombNapalm
+  name: napalm tank
+  description: "A free-fall napalm tank for low passes: lays a solid strip of fire along the course."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/dropship_ammo_64.rsi
+    state: napalm
+  - type: Item
+    size: Huge
+  - type: DHAircraftMunition
+  - type: DHPowerLoaderGrabbable
+    kind: BombNapalm
+
+- type: entity
+  parent: BaseItem
+  id: DHAircraftBombMagnesium
+  name: magnesium cluster bomb
+  description: "A free-fall magnesium cluster bomb for low passes: chemical fire in separate patches that burns through armour."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/dropship_ammo_64.rsi
+    state: jdami
+  - type: Item
+    size: Huge
+  - type: DHAircraftMunition
+  - type: DHPowerLoaderGrabbable
+    kind: BombMagnesium
+
+- type: entity
+  parent: BaseItem
+  id: DHAircraftGuidedBomb
+  name: guided bomb
+  description: "A glide bomb launched from the atmosphere at a point picked on the tactical map. Slow — enemy air defence may shoot it down."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/dropship_ammo_64.rsi
+    state: paveway
+  - type: Item
+    size: Huge
+  - type: DHAircraftMunition
+  - type: DHPowerLoaderGrabbable
+    kind: GuidedBomb
+
+- type: entity
+  parent: BaseItem
+  id: DHAircraftMissileAT
+  name: anti-tank air-to-ground missile
+  description: "Launched from the atmosphere at a radar signature of armour (it homes on the vehicle) or at a laser mark."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/dropship_ammo_64.rsi
+    state: single
+  - type: Item
+    size: Huge
+  - type: DHAircraftMunition
+  - type: DHPowerLoaderGrabbable
+    kind: MissileAT
+
+- type: entity
+  parent: BaseItem
+  id: DHAircraftMissileHE
+  name: high-explosive air-to-ground missile
+  description: "Launched from the atmosphere at a radar signature or a laser mark; against infantry — only at a mark."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/dropship_ammo_64.rsi
+    state: banshee
+  - type: Item
+    size: Huge
+  - type: DHAircraftMunition
+  - type: DHPowerLoaderGrabbable
+    kind: MissileHE
+
+# Пушечный контейнер 30 мм: вешается на любой узел подвески, как бомба; контейнеров может быть несколько.
+- type: entity
+  parent: BaseItem
+  id: DHAircraftCannonPod
+  name: 30 mm cannon pod
+  description: "A 30 mm cannon pod for a wing hardpoint of the attack aircraft. Comes loaded; top it up with ammo boxes on the deck. While armed it fires along the course during a low pass — two pods fire twice as hard."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/dropship_attachments.rsi
+    state: 30mm_cannon
+  - type: Item
+    size: Huge
+  - type: DHAircraftMunition
+  - type: DHPowerLoaderGrabbable
+    kind: CannonPod
+    rounds: 300
+
+# Модули спецотсеков фюзеляжа (два отсека). Ставятся и снимаются на палубе.
+- type: entity
+  parent: BaseItem
+  id: DHAircraftModuleRadar
+  name: aircraft radar module
+  description: "The attack aircraft's ground-mapping radar. Without it there are no signatures on the tactical map — only laser marks and coordinates."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/dropship_electronic_system_attachments.rsi
+    state: targeting_system
+  - type: Item
+    size: Huge
+  - type: DHAircraftModule
+  - type: DHPowerLoaderGrabbable
+    kind: Radar
+
+- type: entity
+  parent: BaseItem
+  id: DHAircraftModuleFlares
+  name: flare dispenser module
+  description: "The attack aircraft's decoy flare dispenser. Without it the aircraft cannot fire flares. Keeps its remaining flares when removed."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/dropship_attachments.rsi
+    state: minirocket_pod
+  - type: Item
+    size: Huge
+  - type: DHAircraftModule
+  - type: DHPowerLoaderGrabbable
+    kind: FlareDispenser
+    flares: 8
+
+# --- способности пилота (появляются, когда пристёгиваешься к креслу)
+
+- type: entity
+  parent: BaseAction
+  id: DHActionAircraftFlight
+  name: Flight panel
+  description: Open the flight panel — catapult, take-off, speed, autopilot and the tactical map.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 0.5
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/Aircraft/attack_aircraft.rsi
+    layers:
+    - state: base
+  - type: InstantAction
+    event: !type:DHAircraftFlightActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionAircraftControl
+  name: Flight controls (WASD)
+  description: Take or release the stick — while it is on, WASD sets the course of the aircraft in the air.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 0.5
+  - type: Sprite
+    layers:
+    - texture: Interface/VerbIcons/rotate_cw.svg.192dpi.png
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHAircraftControlActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionAircraftFlares
+  name: Fire flares
+  description: Throw out infrared decoys — for a few seconds enemy air defence cannot lock on. Fire them before passing over enemy anti-air guns.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 2
+  - type: Sprite
+    sprite: Objects/Misc/flare.rsi
+    layers:
+    - state: flare_burn
+  - type: InstantAction
+    event: !type:DHAircraftFlaresActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionAircraftCannon
+  name: 30 mm cannon
+  description: Arm or safe the cannon. While armed it fires bursts along the course during a low pass.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 0.5
+  - type: Sprite
+    sprite: _RMC14/Objects/dropship_attachments.rsi
+    layers:
+    - state: 30mm_cannon
+  - type: InstantAction
+    event: !type:DHAircraftCannonActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionAircraftDrop
+  name: Release bomb
+  description: Drop the next bomb from the hardpoints. Only on a low pass; it falls ahead along the course.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 1
+  - type: Sprite
+    sprite: _RMC14/Objects/dropship_ammo_64.rsi
+    layers:
+    - state: jdam
+  - type: InstantAction
+    event: !type:DHAircraftDropActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionAircraftFire
+  name: Launch
+  description: Fire the munition on the selected hardpoint — guided ones from the atmosphere at the selected target, free-fall ones on a low pass.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 1
+  - type: Sprite
+    sprite: _RMC14/Objects/dropship_ammo_64.rsi
+    layers:
+    - state: banshee
+  - type: InstantAction
+    event: !type:DHAircraftFireActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionAircraftEject
+  name: Eject
+  description: In the air — eject over the battlefield (the aircraft is lost). On the deck — just climb out.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 3
+  - type: Sprite
+    layers:
+    - texture: Interface/VerbIcons/eject.svg.192dpi.png
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHAircraftEjectActionEvent
