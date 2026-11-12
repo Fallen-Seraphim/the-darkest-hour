@@ -82,3 +82,4 @@ dh-police-db-removed-fake = Фальшивая запись «{ $name }» уда
 dh-police-db-removed-forged = Поддельный паспорт ОФСК «{ $name }» выявлен и аннулирован. Награда: { $reward } кр.
 dh-police-db-removed-genuine = Удалена настоящая запись «{ $name }»! Штраф: { $fine } кр.
 dh-police-db-fine-note = штраф: удалена настоящая запись ({ $name })
+dh-loadout-group-lav-eyes = Очки

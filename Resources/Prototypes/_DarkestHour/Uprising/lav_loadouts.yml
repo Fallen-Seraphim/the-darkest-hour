@@ -1,0 +1,326 @@
+# «Восстание»: лоадауты сотрудников LA-V (решение автора 2026-11-12) — корпоративная форма LA-V и деловая одежда
+# Лост-Энджелса. Группы без minLimit: 0 выбирают первый вариант по умолчанию (то же, что в стартовом наборе).
+
+- type: loadout
+  id: DHLAVLoadoutUniformExecutive
+  equipment:
+    jumpsuit: DHLAVClothingUniformExecutive
+
+- type: loadout
+  id: DHLAVLoadoutUniformFormal
+  equipment:
+    jumpsuit: DHLAVClothingUniformFormal
+
+- type: loadout
+  id: DHLAVLoadoutUniformBlack
+  equipment:
+    jumpsuit: DHLAVClothingUniformBlack
+
+- type: loadout
+  id: DHLAVLoadoutUniformBlue
+  equipment:
+    jumpsuit: DHLAVClothingUniformBlue
+
+- type: loadout
+  id: DHLAVLoadoutUniformSecurity
+  equipment:
+    jumpsuit: DHLAVClothingUniformSecurity
+
+- type: loadout
+  id: DHLAVLoadoutOuterJacket
+  equipment:
+    outerClothing: DHLAVClothingOuterJacket
+
+- type: loadout
+  id: DHLAVLoadoutOuterJacketManager
+  equipment:
+    outerClothing: DHLAVClothingOuterJacketManager
+
+- type: loadout
+  id: DHLAVLoadoutOuterVestSecurity
+  equipment:
+    outerClothing: DHLAVClothingOuterVestSecurity
+
+- type: loadout
+  id: DHLAVLoadoutOuterVestSecurityLight
+  equipment:
+    outerClothing: DHLAVClothingOuterVestSecurityLight
+
+- type: loadout
+  id: DHLAVLoadoutHeadHelmetSecurity
+  equipment:
+    head: DHLAVClothingHeadHelmetSecurity
+
+- type: loadout
+  id: DHLAVLoadoutHeadCapManager
+  equipment:
+    head: DHLAVClothingHeadCapManager
+
+- type: loadout
+  id: DHLAVLoadoutEyesHUD
+  equipment:
+    eyes: DHLAVClothingEyesHUD
+
+- type: loadout
+  id: DHLAVLoadoutEyesVisorTactical
+  equipment:
+    eyes: DHLAVClothingEyesVisorTactical
+
+- type: loadout
+  id: DHLAVLoadoutEyesShades
+  equipment:
+    eyes: DHLAVClothingEyesShades
+
+- type: loadout
+  id: DHLAVLoadoutEyesGlasses
+  equipment:
+    eyes: DHLAVClothingEyesGlasses
+
+- type: loadout
+  id: DHLAVLoadoutClothingShoesLeather
+  equipment:
+    shoes: ClothingShoesLeather
+
+- type: loadout
+  id: DHLAVLoadoutShoesJackboots
+  equipment:
+    shoes: DHLAVClothingShoesJackboots
+
+- type: loadoutGroup
+  id: DHLAVRepresentativeUniform
+  name: dh-loadout-group-la-jumpsuit
+  loadouts:
+  - DHLAVLoadoutUniformExecutive
+  - DHLAVLoadoutUniformFormal
+  - DHLAVLoadoutUniformBlack
+  - DHLAVLoadoutUniformBlue
+  - DHLALoadoutCivUniformBlackSuit
+  - DHLALoadoutCivUniformNavySuit
+  - DHLALoadoutCivUniformExpensiveSuit
+  - DHLALoadoutCivUniformBurgundySuit
+  - DHLALoadoutCivUniformCheckeredSuit
+  - DHLALoadoutClothingUniformSuitCharcoal
+  - DHLALoadoutCivUniformLegal
+  - DHLALoadoutCivUniformManager
+  - DHLALoadoutCivUniformFormal
+  - DHLALoadoutCivUniformBlueBlazer
+  - DHLALoadoutCivUniformSkirt
+  - DHLALoadoutClothingUniformOffice
+  - DHLALoadoutClothingUniformAdmin
+
+- type: loadoutGroup
+  id: DHLAVRepresentativeOuter
+  name: dh-loadout-group-la-outer
+  minLimit: 0
+  loadouts:
+  - DHLAVLoadoutOuterJacket
+  - DHLAVLoadoutOuterJacketManager
+  - DHLALoadoutCivOuterFormalCoat
+  - DHLALoadoutCivOuterLongCoat
+  - DHLALoadoutCivOuterTrenchCoat
+  - DHLALoadoutCivOuterWaistcoat
+  - DHLALoadoutClothingOuterCoatGentle
+  - DHLALoadoutCivOuterGreyVest
+
+- type: loadoutGroup
+  id: DHLAVRepresentativeShoes
+  name: dh-loadout-group-la-shoes
+  loadouts:
+  - DHLAVLoadoutClothingShoesLeather
+  - DHLALoadoutCivShoesFancyLeather
+  - DHLALoadoutClothingShoesLaceup
+  - DHLALoadoutCivShoesLaceupBrown
+  - DHLALoadoutCivShoesBootsBlack
+
+- type: loadoutGroup
+  id: DHLAVRepresentativeEyes
+  name: dh-loadout-group-lav-eyes
+  minLimit: 0
+  loadouts:
+  - DHLAVLoadoutEyesShades
+  - DHLAVLoadoutEyesGlasses
+
+- type: roleLoadout
+  id: JobDHLAVRepresentative
+  groups:
+  - DHLAVRepresentativeUniform
+  - DHLAVRepresentativeOuter
+  - DHLAVRepresentativeShoes
+  - DHLAVRepresentativeEyes
+  - Trinkets
+
+- type: loadoutGroup
+  id: DHLAVAssistantUniform
+  name: dh-loadout-group-la-jumpsuit
+  loadouts:
+  - DHLAVLoadoutUniformFormal
+  - DHLAVLoadoutUniformBlack
+  - DHLAVLoadoutUniformBlue
+  - DHLALoadoutCivUniformBlackSuit
+  - DHLALoadoutCivUniformNavySuit
+  - DHLALoadoutCivUniformExpensiveSuit
+  - DHLALoadoutCivUniformBurgundySuit
+  - DHLALoadoutCivUniformCheckeredSuit
+  - DHLALoadoutClothingUniformSuitCharcoal
+  - DHLALoadoutCivUniformLegal
+  - DHLALoadoutCivUniformManager
+  - DHLALoadoutCivUniformFormal
+  - DHLALoadoutCivUniformBlueBlazer
+  - DHLALoadoutCivUniformSkirt
+  - DHLALoadoutClothingUniformOffice
+  - DHLALoadoutClothingUniformAdmin
+
+- type: loadoutGroup
+  id: DHLAVAssistantOuter
+  name: dh-loadout-group-la-outer
+  minLimit: 0
+  loadouts:
+  - DHLAVLoadoutOuterJacketManager
+  - DHLAVLoadoutOuterJacket
+  - DHLALoadoutCivOuterFormalCoat
+  - DHLALoadoutCivOuterLongCoat
+  - DHLALoadoutCivOuterTrenchCoat
+  - DHLALoadoutCivOuterWaistcoat
+  - DHLALoadoutClothingOuterCoatGentle
+  - DHLALoadoutCivOuterGreyVest
+
+- type: loadoutGroup
+  id: DHLAVAssistantHead
+  name: dh-loadout-group-la-head
+  minLimit: 0
+  loadouts:
+  - DHLAVLoadoutHeadCapManager
+
+- type: loadoutGroup
+  id: DHLAVAssistantShoes
+  name: dh-loadout-group-la-shoes
+  loadouts:
+  - DHLAVLoadoutClothingShoesLeather
+  - DHLALoadoutCivShoesFancyLeather
+  - DHLALoadoutClothingShoesLaceup
+  - DHLALoadoutCivShoesLaceupBrown
+  - DHLALoadoutCivShoesBootsBlack
+
+- type: loadoutGroup
+  id: DHLAVAssistantEyes
+  name: dh-loadout-group-lav-eyes
+  minLimit: 0
+  loadouts:
+  - DHLAVLoadoutEyesShades
+  - DHLAVLoadoutEyesGlasses
+
+- type: roleLoadout
+  id: JobDHLAVAssistant
+  groups:
+  - DHLAVAssistantUniform
+  - DHLAVAssistantOuter
+  - DHLAVAssistantHead
+  - DHLAVAssistantShoes
+  - DHLAVAssistantEyes
+  - Trinkets
+
+- type: loadoutGroup
+  id: DHLAVEmployeeUniform
+  name: dh-loadout-group-la-jumpsuit
+  loadouts:
+  - DHLAVLoadoutUniformBlack
+  - DHLAVLoadoutUniformBlue
+  - DHLAVLoadoutUniformFormal
+  - DHLALoadoutCivUniformBlackSuit
+  - DHLALoadoutCivUniformNavySuit
+  - DHLALoadoutCivUniformExpensiveSuit
+  - DHLALoadoutCivUniformBurgundySuit
+  - DHLALoadoutCivUniformCheckeredSuit
+  - DHLALoadoutClothingUniformSuitCharcoal
+  - DHLALoadoutCivUniformLegal
+  - DHLALoadoutCivUniformManager
+  - DHLALoadoutCivUniformFormal
+  - DHLALoadoutCivUniformBlueBlazer
+  - DHLALoadoutCivUniformSkirt
+  - DHLALoadoutClothingUniformOffice
+  - DHLALoadoutClothingUniformAdmin
+
+- type: loadoutGroup
+  id: DHLAVEmployeeOuter
+  name: dh-loadout-group-la-outer
+  minLimit: 0
+  loadouts:
+  - DHLAVLoadoutOuterJacketManager
+  - DHLALoadoutCivOuterFormalCoat
+  - DHLALoadoutCivOuterLongCoat
+  - DHLALoadoutCivOuterTrenchCoat
+  - DHLALoadoutCivOuterWaistcoat
+  - DHLALoadoutClothingOuterCoatGentle
+  - DHLALoadoutCivOuterGreyVest
+
+- type: loadoutGroup
+  id: DHLAVEmployeeShoes
+  name: dh-loadout-group-la-shoes
+  loadouts:
+  - DHLAVLoadoutClothingShoesLeather
+  - DHLALoadoutCivShoesFancyLeather
+  - DHLALoadoutClothingShoesLaceup
+  - DHLALoadoutCivShoesLaceupBrown
+  - DHLALoadoutCivShoesBootsBlack
+
+- type: loadoutGroup
+  id: DHLAVEmployeeEyes
+  name: dh-loadout-group-lav-eyes
+  minLimit: 0
+  loadouts:
+  - DHLAVLoadoutEyesGlasses
+  - DHLAVLoadoutEyesShades
+
+- type: roleLoadout
+  id: JobDHLAVEmployee
+  groups:
+  - DHLAVEmployeeUniform
+  - DHLAVEmployeeOuter
+  - DHLAVEmployeeShoes
+  - DHLAVEmployeeEyes
+  - Trinkets
+
+- type: loadoutGroup
+  id: DHLAVSecurityUniform
+  name: dh-loadout-group-la-jumpsuit
+  loadouts:
+  - DHLAVLoadoutUniformSecurity
+  - DHLAVLoadoutUniformBlack
+
+- type: loadoutGroup
+  id: DHLAVSecurityOuter
+  name: dh-loadout-group-la-outer
+  loadouts:
+  - DHLAVLoadoutOuterVestSecurity
+  - DHLAVLoadoutOuterVestSecurityLight
+
+- type: loadoutGroup
+  id: DHLAVSecurityHead
+  name: dh-loadout-group-la-head
+  loadouts:
+  - DHLAVLoadoutHeadHelmetSecurity
+  - DHLAVLoadoutHeadCapManager
+
+- type: loadoutGroup
+  id: DHLAVSecurityShoes
+  name: dh-loadout-group-la-shoes
+  loadouts:
+  - DHLAVLoadoutShoesJackboots
+
+- type: loadoutGroup
+  id: DHLAVSecurityEyes
+  name: dh-loadout-group-lav-eyes
+  loadouts:
+  - DHLAVLoadoutEyesHUD
+  - DHLAVLoadoutEyesVisorTactical
+  - DHLAVLoadoutEyesShades
+
+- type: roleLoadout
+  id: JobDHLAVSecurity
+  groups:
+  - DHLAVSecurityUniform
+  - DHLAVSecurityOuter
+  - DHLAVSecurityHead
+  - DHLAVSecurityShoes
+  - DHLAVSecurityEyes
+  - Trinkets

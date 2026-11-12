@@ -11,6 +11,10 @@
   - type: Sprite
     sprite: _DarkestHour/Objects/City/lav_goods.rsi
     state: pen
+  - type: Item
+    sprite: _DarkestHour/Objects/City/lav_pens.rsi
+    heldPrefix: pen
+    size: Tiny
 
 - type: entity
   parent: Pen
@@ -22,7 +26,7 @@
     sprite: _DarkestHour/Objects/City/lav_goods.rsi
     state: pen_luxury
   - type: Item
-    sprite: Objects/Misc/pens.rsi
+    sprite: _DarkestHour/Objects/City/lav_pens.rsi
     heldPrefix: overpriced_pen
     size: Tiny
 
@@ -37,7 +41,7 @@
     state: tablet
   - type: Item
     size: Small
-    sprite: Objects/Devices/tablets.rsi
+    sprite: _DarkestHour/Objects/City/lav_tablets.rsi
 
 - type: entity
   parent: Paper
@@ -77,12 +81,24 @@
   id: DHLAVMug
   name: LA-V mug
   description: A corporate mug. Coffee tastes the same, the "V" makes it a perk.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/City/lav_mug.rsi
+  - type: Item
+    sprite: _DarkestHour/Objects/City/lav_mug.rsi
 
 - type: entity
   parent: Wristwatch
   id: DHLAVWatch
   name: LA-V wristwatch
   description: A company wristwatch given for long service at Lost Angels—Vanguard.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/City/lav_watch.rsi
+  - type: Item
+    sprite: _DarkestHour/Objects/City/lav_watch.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Objects/City/lav_watch.rsi
 
 - type: entity
   parent: BriefcaseBrown
@@ -91,7 +107,9 @@
   description: A dark corporate briefcase with an embossed "V".
   components:
   - type: Sprite
-    color: "#6a7ca6"
+    sprite: _DarkestHour/Objects/City/lav_briefcase.rsi
+  - type: Item
+    sprite: _DarkestHour/Objects/City/lav_briefcase.rsi
 
 # ящики склада
 - type: entity

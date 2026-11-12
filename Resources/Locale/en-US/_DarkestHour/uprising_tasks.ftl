@@ -79,3 +79,4 @@ dh-police-db-removed-fake = Fake record "{ $name }" deleted.
 dh-police-db-removed-forged = LFFC forged passport "{ $name }" exposed and cancelled. Reward: { $reward } cr.
 dh-police-db-removed-genuine = A genuine record "{ $name }" was deleted! Fine: { $fine } cr.
 dh-police-db-fine-note = fine: genuine record deleted ({ $name })
+dh-loadout-group-lav-eyes = Eyewear
