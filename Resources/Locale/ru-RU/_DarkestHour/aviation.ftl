@@ -1,0 +1,72 @@
+# Штурмовик (DHAircraftSystem)
+dh-aircraft-examine = Топливо: [color=yellow]{ $fuel }/{ $max }[/color]. Прочность: [color=yellow]{ $integrity }/{ $maxIntegrity }[/color]. ЛТЦ: [color=yellow]{ $flares }/{ $maxFlares }[/color].
+dh-aircraft-flares-full = ЛТЦ уже полные.
+dh-aircraft-flares-loaded = ЛТЦ заряжены: { $flares }.
+dh-aircraft-repair-full = Самолёт цел.
+dh-aircraft-repaired = Залатано. Прочность: { $integrity }.
+dh-aircraft-verb-refuel = Заправить из бака рядом
+dh-aircraft-refuel-full = Баки полные.
+dh-aircraft-refueled = Залито { $amount } ед. топлива.
+dh-aircraft-refuel-no-tank = Рядом нет бака с горючим — подкатите его к самолёту.
+dh-aircraft-cannot-unbuckle = В воздухе из кресла не выйти — только катапультироваться.
+
+dh-aircraft-lift-examine-lowered = Лифт опущен: самолёт в ангаре под палубой.
+dh-aircraft-lift-examine-raising = Лифт поднимается.
+dh-aircraft-lift-examine-raised = Лифт поднят.
+dh-aircraft-lift-examine-lowering = Лифт опускается.
+dh-aircraft-lift-verb-raise = Поднять самолёт
+dh-aircraft-lift-verb-lower = Опустить самолёт в ангар
+dh-aircraft-lift-empty = В ангаре нет самолёта.
+dh-aircraft-lift-not-parked = Самолёт должен стоять на лифте.
+dh-aircraft-lift-occupied = В кабине пилот — пусть сначала выйдет.
+
+dh-aircraft-control-on = Ручка управления: WASD задаёт курс.
+dh-aircraft-control-off = Ручка управления отпущена.
+dh-aircraft-hooked = Сцеплено с катапультой.
+dh-aircraft-unhooked = Отцеплено от катапульты.
+dh-aircraft-blocker-lift = Самолёт должен стоять на поднятом лифте у катапульты.
+dh-aircraft-blocker-state = Самолёт не на палубе.
+dh-aircraft-blocker-hook = Сначала подцепитесь к катапульте.
+dh-aircraft-blocker-fuel = Мало топлива для взлёта.
+dh-aircraft-blocker-damage = Самолёт повреждён — нужен ремонт сваркой.
+dh-aircraft-blocker-orbit = Авианосец не в атмосфере — взлетать некуда.
+dh-aircraft-no-carrier = Авианосца нет в этом небе — садиться некуда.
+dh-aircraft-returning = Автопилот: заход на посадку.
+dh-aircraft-return-cancelled = Автопилот отключён.
+dh-aircraft-flares-ground = ЛТЦ — только в воздухе.
+dh-aircraft-flares-empty = ЛТЦ кончились!
+dh-aircraft-flares-fired = ЛТЦ отстреляны. Осталось: { $left }.
+dh-aircraft-airborne = Отрыв! Вы в атмосфере. WASD — курс.
+dh-aircraft-no-fuel = Топливо кончилось!
+dh-aircraft-low-fuel = Мало топлива — пора на посадку.
+dh-aircraft-touchdown = Касание. Пробег к лифту.
+dh-aircraft-parked = Самолёт на лифте.
+dh-aircraft-aa-lock = ПВО захватило цель! Отстрелите ЛТЦ!
+dh-aircraft-hit = Попадание! Прочность: { $integrity }.
+dh-aircraft-ejected = Вы катапультировались!
+dh-aircraft-crashed = Самолёт разбился!
+
+dh-aircraft-ui-status = Состояние: { $state }
+dh-aircraft-state-stowed = в ангаре
+dh-aircraft-state-parked = на палубе
+dh-aircraft-state-launching = разгон катапультой
+dh-aircraft-state-airborne = в атмосфере
+dh-aircraft-state-returning = автопилот, заход на посадку
+dh-aircraft-state-landing = пробег после посадки
+dh-aircraft-ui-fuel = Топливо: { $fuel }/{ $max } (для взлёта — { $takeoff })
+dh-aircraft-ui-integrity = Прочность: { $integrity }/{ $max }
+dh-aircraft-ui-flares = ЛТЦ: { $flares }/{ $max }
+dh-aircraft-ui-flares-active = ЛТЦ: { $flares }/{ $max } — завеса активна
+dh-aircraft-ui-position = Над полем боя: X { $x }, Y { $y }, курс { $heading }°
+dh-aircraft-ui-position-deck = На палубе авианосца
+dh-aircraft-ui-speed = Скорость: { $speed }%
+dh-aircraft-ui-hook = Подцепиться к катапульте
+dh-aircraft-ui-unhook = Отцепиться
+dh-aircraft-ui-launch = Взлёт
+dh-aircraft-ui-return = Посадка (автопилот)
+dh-aircraft-ui-return-cancel = Отменить заход
+dh-aircraft-ui-control-on = Взять ручку (WASD)
+dh-aircraft-ui-control-off = Отпустить ручку
+
+dh-job-carrier-attack-pilot-name = Пилот штурмовика
+dh-job-carrier-attack-pilot-desc = Летайте на имперском штурмовике: поднимите его лифтом, проследите за заправкой и ЛТЦ, взлетайте с катапульты и поддерживайте десант с воздуха. Над зенитками отстреливайте ЛТЦ.

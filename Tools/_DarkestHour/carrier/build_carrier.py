@@ -316,6 +316,13 @@ for y in range(ry0, ry1 + 1):
         T[(rx1, y)] = 'RMCFloorPlatingStripedEast'
 for y in range(ry0 + 2, ry1 - 1, 4):    # осевая разметка
     T[((rx0 + rx1) // 2, y)] = 'RMCFloorPlatingStriped'
+# штурмовик: лифт в начале ВПП (у брифинговой), катапульта — вдоль ВПП к носу; рядом бак горючего и ЛТЦ
+lcx = (rx0 + rx1) // 2
+put('DHAircraftLift', lcx, ry0 + 3)
+put('WeldingFuelTankFull', lcx + 3, ry0 + 3)
+put('Rack', lcx - 3, ry0 + 1)
+put('DHAircraftFlareCassette', lcx - 3, ry0 + 1, n=6, force=True)
+put('Welder', lcx - 3, ry0 + 1, force=True)
 # техника и десантное снаряжение — у бортов ВПП
 put('DHVehicleDropPalletTankEmpire', rx1 - 1, ry1 - 2)
 put('DHVehicleDropPalletIM30', rx1 - 1, ry1 - 5)
