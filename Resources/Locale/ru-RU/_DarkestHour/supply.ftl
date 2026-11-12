@@ -20,3 +20,7 @@ dh-supply-category-ammo = Боеприпасы
 dh-supply-category-medical = Медицина
 dh-supply-category-engineering = Инженерное
 dh-supply-category-misc = Прочее
+dh-supply-category-air-defence = ПВО
+dh-supply-category-naval = Корабельная артиллерия
+dh-supply-category-anti-orbital = Орудия ПКО
+dh-supply-category-aviation = Авиация

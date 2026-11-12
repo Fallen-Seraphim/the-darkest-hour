@@ -261,6 +261,7 @@
   parent: BaseItem
   id: DHHeavyShellBase
   components:
+  - type: DHPowerLoaderGrabbable
   - type: Sprite
     sprite: _DarkestHour/Objects/Weapons/HeavyGuns/shells.rsi
   - type: Item
@@ -634,6 +635,7 @@
     walkModifier: 0.8
     sprintModifier: 0.8
   - type: DHInterceptorAmmo
+  - type: DHPowerLoaderGrabbable
     kind: Missile
     amount: 1
   - type: StaticPrice
@@ -652,6 +654,7 @@
     size: Large
     sprite: _DarkestHour/Objects/Weapons/HeavyGuns/interceptor_ammo.rsi
   - type: DHInterceptorAmmo
+  - type: DHPowerLoaderGrabbable
     kind: Autocannon
     amount: 4
   - type: StaticPrice

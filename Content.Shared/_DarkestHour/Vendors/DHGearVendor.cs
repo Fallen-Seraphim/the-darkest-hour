@@ -116,11 +116,22 @@ public sealed class DHGearVendorSectionState
     public List<DHGearVendorEntryState> Entries = new();
 }
 
-/// <summary>Состояние автомата для конкретного бойца (лимиты у каждого свои, поэтому шлётся сообщением лично).</summary>
+/// <summary>Состояние автомата для конкретного бойца (лимиты у каждого свои).</summary>
 [Serializable, NetSerializable]
-public sealed class DHGearVendorStateMessage(List<DHGearVendorSectionState> sections) : BoundUserInterfaceMessage
+public sealed class DHGearVendorUserState(List<DHGearVendorSectionState> sections)
 {
     public readonly List<DHGearVendorSectionState> Sections = sections;
+}
+
+/// <summary>
+/// Состояние окна: личные состояния всех, у кого оно открыто (каждый клиент берёт своё).
+/// Именно состояние, а не личное сообщение: оно приходит вместе с открытием окна и не теряется,
+/// если окно на клиенте ещё не успело создаться.
+/// </summary>
+[Serializable, NetSerializable]
+public sealed class DHGearVendorBuiState(Dictionary<NetEntity, DHGearVendorUserState> users) : BoundUserInterfaceState
+{
+    public readonly Dictionary<NetEntity, DHGearVendorUserState> Users = users;
 }
 
 [Serializable, NetSerializable]

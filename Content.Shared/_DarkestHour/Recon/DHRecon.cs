@@ -153,6 +153,10 @@ public sealed partial class DHScanContactComponent : Component
 
     [ViewVariables]
     public string Label = string.Empty;
+
+    /// <summary>Одиночный боец (не скопление): на карте — точка без подписи, в отчёт не идёт.</summary>
+    [ViewVariables]
+    public bool Blip;
 }
 
 [Serializable, NetSerializable]

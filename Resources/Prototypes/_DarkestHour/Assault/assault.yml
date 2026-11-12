@@ -557,6 +557,12 @@
 
 - type: startingGear
   parent: DHCarrierCrewGearBase
+  id: DHCarrierAttackPilotGear
+  equipment:
+    ears: DHClothingHeadsetAltImperialCommand
+
+- type: startingGear
+  parent: DHCarrierCrewGearBase
   id: DHCarrierArtilleristGear
   storage:
     back:
@@ -1162,12 +1168,13 @@
   - type: Transform
   - type: StationJobs
     availableJobs:
-      # Всего 50 (решение автора 2026-11-05).
-      # Авианосец (12)
+      # Всего 51 (решение автора 2026-11-05; +пилот штурмовика 2026-11-12).
+      # Авианосец (13)
       DHCarrierCaptain: [ 1, 1 ]
       DHCarrierOperationCommander: [ 1, 1 ]
       DHCarrierSupportOfficer: [ 1, 1 ]
       DHCarrierPilot: [ 3, 3 ]
+      DHCarrierAttackPilot: [ 1, 1 ]
       DHCarrierArtillerist: [ 3, 3 ]
       DHCarrierTechnician: [ 3, 3 ]
       # Десант (25)

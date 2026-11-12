@@ -30,6 +30,13 @@ public sealed partial class DHPassportComponent : Component
 
     [DataField, AutoNetworkedField]
     public string Issued = string.Empty;
+
+    /// <summary>
+    /// Поддельный (у бойцов ОФСК, решение автора 2026-11-12): с виду обычный паспорт жителя на настоящее имя.
+    /// Отличить можно только по базе — сам паспорт этого не показывает.
+    /// </summary>
+    [DataField]
+    public bool Forged;
 }
 
 public sealed partial class DHPassportSystem : EntitySystem

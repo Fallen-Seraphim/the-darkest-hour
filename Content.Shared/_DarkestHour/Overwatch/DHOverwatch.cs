@@ -133,6 +133,15 @@ public enum DHTacticalMarkerKind : byte
 
     /// <summary>Городской ориентир (DHMapBeacon): здание или адрес, видно всем.</summary>
     Beacon,
+
+    /// <summary>Техника противника, замеченная своими (РЛС, детекторы, бойцы и экипажи в прямой видимости).</summary>
+    EnemyVehicle,
+
+    /// <summary>Одиночный боец противника с последнего глобального скана (точка без подписи).</summary>
+    ScanBlip,
+
+    /// <summary>Сигнатура с РЛС своего штурмовика в воздухе.</summary>
+    AirSignature,
 }
 
 [Serializable, NetSerializable]

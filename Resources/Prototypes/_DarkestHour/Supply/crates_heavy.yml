@@ -1,0 +1,285 @@
+# DarkestHour: ящики снабжения для ПВО, ПКО, корабельной артиллерии, ПЗРК и штурмовика (авиация, этап 4, 2026-11-12).
+# Каталоги — catalogs.yml. Тяжёлые снаряды и авиабоеприпасы лежат в ящике как есть (ящик — EntityStorage).
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateInterceptorMissiles
+  name: interceptor missile crate
+  description: "Two interceptor missiles for a point-defence launcher or a missile silo."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: StorageFill
+    contents:
+    - id: DHInterceptorMissile
+      amount: 2
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateFlak30
+  name: 30 mm flak ammunition crate
+  description: "Three boxes of 30 mm flak rounds for a twin air-defence autocannon."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: StorageFill
+    contents:
+    - id: DHAutocannonAmmoBox30
+      amount: 3
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateShells300
+  name: 300 mm naval shell crate
+  description: "Five 300 mm shells for the IG-300 naval gun: two high-explosive, one armour-piercing, one incendiary and one cluster."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: StorageFill
+    contents:
+    - id: DHHeavyShell300HighExplosive
+      amount: 2
+    - id: DHHeavyShell300ArmorPiercing
+      amount: 1
+    - id: DHHeavyShell300Incendiary
+      amount: 1
+    - id: DHHeavyShell300Cluster
+      amount: 1
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateShells570
+  name: 570 mm naval shell crate
+  description: "Five 570 mm shells for the heavy naval gun: two high-explosive, one armour-piercing, one incendiary and one cluster."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: StorageFill
+    contents:
+    - id: DHHeavyShell570HighExplosive
+      amount: 2
+    - id: DHHeavyShell570ArmorPiercing
+      amount: 1
+    - id: DHHeavyShell570Incendiary
+      amount: 1
+    - id: DHHeavyShell570Cluster
+      amount: 1
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateShells400
+  name: 400 mm anti-orbital shell crate
+  description: "Five 400 mm shells for the anti-orbital gun: two high-explosive, one armour-piercing, one incendiary and one cluster."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: StorageFill
+    contents:
+    - id: DHHeavyShell400HighExplosive
+      amount: 2
+    - id: DHHeavyShell400ArmorPiercing
+      amount: 1
+    - id: DHHeavyShell400Incendiary
+      amount: 1
+    - id: DHHeavyShell400Cluster
+      amount: 1
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateShells700
+  name: 700 mm anti-orbital shell crate
+  description: "Five 700 mm shells for the heavy anti-orbital gun: two high-explosive, one armour-piercing, one incendiary and one cluster."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: StorageFill
+    contents:
+    - id: DHHeavyShell700HighExplosive
+      amount: 2
+    - id: DHHeavyShell700ArmorPiercing
+      amount: 1
+    - id: DHHeavyShell700Incendiary
+      amount: 1
+    - id: DHHeavyShell700Cluster
+      amount: 1
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateManpads
+  name: MANPADS crate
+  description: "A shoulder-fired anti-aircraft launcher and two missiles for it."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: StorageFill
+    contents:
+    - id: DHManpadsLauncher
+      amount: 1
+    - id: DHManpadsMissile
+      amount: 2
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateManpadsMissiles
+  name: MANPADS missile crate
+  description: "Four missiles for a shoulder-fired anti-aircraft launcher."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: StorageFill
+    contents:
+    - id: DHManpadsMissile
+      amount: 4
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateAircraftBombsHE
+  name: aircraft high-explosive bomb crate
+  description: "Two free-fall high-explosive bombs for the attack aircraft."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: StorageFill
+    contents:
+    - id: DHAircraftBombHE
+      amount: 2
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateAircraftBombsArea
+  name: aircraft area bomb crate
+  description: "A cluster bomb and a napalm tank for the attack aircraft."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: StorageFill
+    contents:
+    - id: DHAircraftBombCluster
+      amount: 1
+    - id: DHAircraftBombNapalm
+      amount: 1
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateAircraftBombsMagnesium
+  name: aircraft magnesium bomb crate
+  description: "Two magnesium cluster bombs for the attack aircraft."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: StorageFill
+    contents:
+    - id: DHAircraftBombMagnesium
+      amount: 2
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateAircraftGuidedBombs
+  name: aircraft guided bomb crate
+  description: "Two guided glide bombs for the attack aircraft."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: StorageFill
+    contents:
+    - id: DHAircraftGuidedBomb
+      amount: 2
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateAircraftMissilesAT
+  name: aircraft anti-tank missile crate
+  description: "Two anti-tank air-to-ground missiles for the attack aircraft."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: StorageFill
+    contents:
+    - id: DHAircraftMissileAT
+      amount: 2
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateAircraftMissilesHE
+  name: aircraft high-explosive missile crate
+  description: "Two high-explosive air-to-ground missiles for the attack aircraft."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: StorageFill
+    contents:
+    - id: DHAircraftMissileHE
+      amount: 2
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateAircraftCannonAmmo
+  name: aircraft 30 mm ammunition crate
+  description: "Three boxes of 30 mm rounds for the attack aircraft's cannon pods."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: StorageFill
+    contents:
+    - id: DHAircraftCannonAmmo
+      amount: 3
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateAircraftCannonPod
+  name: aircraft cannon pod crate
+  description: "A spare loaded 30 mm cannon pod for the attack aircraft."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: StorageFill
+    contents:
+    - id: DHAircraftCannonPod
+      amount: 1
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateAircraftFlares
+  name: aircraft flare crate
+  description: "Four flare cassettes for the attack aircraft."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: StorageFill
+    contents:
+    - id: DHAircraftFlareCassette
+      amount: 4

@@ -22,6 +22,18 @@
   - { id: plasteel, proto: CrateMaterialPlasteel, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 2 }
   - { id: fusion-fuel, proto: DHCrateFusionFuel, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 2 }
   - { id: parachutes, proto: DHCrateParachutes, category: dh-supply-category-misc, initial: 1, refill: 1, max: 2 }
+  - { id: interceptor-missiles, proto: DHSupplyCrateInterceptorMissiles, category: dh-supply-category-air-defence, initial: 2, refill: 1, max: 4 }
+  - { id: shells-300, proto: DHSupplyCrateShells300, category: dh-supply-category-naval, initial: 2, refill: 1, max: 4 }
+  - { id: shells-570, proto: DHSupplyCrateShells570, category: dh-supply-category-naval, initial: 1, refill: 1, max: 3 }
+  - { id: aircraft-bombs-he, proto: DHSupplyCrateAircraftBombsHE, category: dh-supply-category-aviation, initial: 2, refill: 1, max: 4 }
+  - { id: aircraft-bombs-area, proto: DHSupplyCrateAircraftBombsArea, category: dh-supply-category-aviation, initial: 1, refill: 1, max: 3 }
+  - { id: aircraft-bombs-magnesium, proto: DHSupplyCrateAircraftBombsMagnesium, category: dh-supply-category-aviation, initial: 1, refill: 1, max: 2 }
+  - { id: aircraft-guided-bombs, proto: DHSupplyCrateAircraftGuidedBombs, category: dh-supply-category-aviation, initial: 1, refill: 1, max: 2 }
+  - { id: aircraft-missiles-at, proto: DHSupplyCrateAircraftMissilesAT, category: dh-supply-category-aviation, initial: 1, refill: 1, max: 3 }
+  - { id: aircraft-missiles-he, proto: DHSupplyCrateAircraftMissilesHE, category: dh-supply-category-aviation, initial: 1, refill: 1, max: 3 }
+  - { id: aircraft-cannon-ammo, proto: DHSupplyCrateAircraftCannonAmmo, category: dh-supply-category-aviation, initial: 2, refill: 1, max: 4 }
+  - { id: aircraft-cannon-pod, proto: DHSupplyCrateAircraftCannonPod, category: dh-supply-category-aviation, initial: 1, refill: 0, max: 1 }
+  - { id: aircraft-flares, proto: DHSupplyCrateAircraftFlares, category: dh-supply-category-aviation, initial: 2, refill: 1, max: 4 }
 
 - type: dhSupplyCatalog
   id: DHSupplyRepublic
@@ -42,3 +54,9 @@
   - { id: steel, proto: CrateMaterialSteel, category: dh-supply-category-engineering, initial: 2, refill: 1, max: 4 }
   - { id: plasteel, proto: CrateMaterialPlasteel, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 2 }
   - { id: fusion-fuel, proto: DHCrateFusionFuel, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 2 }
+  - { id: interceptor-missiles, proto: DHSupplyCrateInterceptorMissiles, category: dh-supply-category-air-defence, initial: 2, refill: 1, max: 4 }
+  - { id: flak-30, proto: DHSupplyCrateFlak30, category: dh-supply-category-air-defence, initial: 2, refill: 1, max: 4 }
+  - { id: manpads, proto: DHSupplyCrateManpads, category: dh-supply-category-air-defence, initial: 2, refill: 0, max: 2 }
+  - { id: manpads-missiles, proto: DHSupplyCrateManpadsMissiles, category: dh-supply-category-air-defence, initial: 1, refill: 1, max: 3 }
+  - { id: shells-400, proto: DHSupplyCrateShells400, category: dh-supply-category-anti-orbital, initial: 2, refill: 1, max: 4 }
+  - { id: shells-700, proto: DHSupplyCrateShells700, category: dh-supply-category-anti-orbital, initial: 1, refill: 1, max: 3 }

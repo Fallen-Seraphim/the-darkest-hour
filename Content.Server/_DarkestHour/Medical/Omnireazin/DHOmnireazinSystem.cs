@@ -20,10 +20,10 @@ public sealed partial class DHOmnireazinSystem : EntitySystem
     [Dependency] private IRobustRandom _random = default!;
 
     /// <summary>С какого курса с тяжёлой раной появляются фантомные боли.</summary>
-    private const int PhantomCourses = 2;
+    private const int PhantomCourses = 3; // было 2: отсрочено (решение автора 2026-11-12)
 
     /// <summary>С какого курса — деперсонализация.</summary>
-    private const int DepersonalizationCourses = 4;
+    private const int DepersonalizationCourses = 5; // было 4
 
     private const float PhantomPerCourse = 6f;
     private const float PhantomMax = 25f;
@@ -97,7 +97,7 @@ public sealed partial class DHOmnireazinSystem : EntitySystem
         trauma.PhantomPain = phantom;
         if (first)
         {
-            omni.NextPhantom = now + TimeSpan.FromSeconds(60);
+            omni.NextPhantom = now + TimeSpan.FromSeconds(120);
             Popup(uid, "dh-omnireazin-phantom-start", PopupType.LargeCaution);
         }
 
