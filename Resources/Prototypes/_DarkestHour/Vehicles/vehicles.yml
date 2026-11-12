@@ -7,7 +7,8 @@
 #    режим), башня доворачивается за прицелом; командир — ещё и дымовая завеса (если есть);
 #  * броня: пули её почти не берут (10 % урона по постройкам), бронебойные снаряды и взрывы — полностью;
 #  * уничтоженная машина выбрасывает экипаж и десант наружу ранеными и оставляет остов;
-#  * БТР и танки ездят по клеткам (DHGridDrive): вперёд, назад медленнее, вбок — поворот на месте; людей сбивают,
+#  * вождение как в RMC / CMU (DHGridDrive): W/S — газ и задний ход, A/D — руль, корпус поворачивает плавно и едет
+#    под любым углом; танк крутится и на месте, колёсный БТР рулит только на ходу; людей сбивают,
 #    баррикады и лёгкие постройки ломают, о стены и технику упираются;
 #  * модули (hardpoints.yml): колёса/гусеницы, орудия, поддержка, броня танка, бортовые пулемёты БТР — у каждого своя
 #    прочность, снимаются ключом, чинятся сваркой; у механика-водителя гудок и фары, люки запираются изнутри.
@@ -72,9 +73,17 @@
   parent: DHVehicleBase
   id: DHVehicleAPCBase
   components:
-  # Езда по клеткам, как в CM-SS13 / RMC (решение автора 2026-11-11).
+  # Вождение как в RMC / CMU (решение автора 2026-11-12); числа — от БТР RMC, скорость наша.
   - type: DHGridDrive
-    tilesPerSecond: 3.5
+    maxSpeed: 3.5
+    acceleration: 3
+    deceleration: 10
+    maxReverseSpeed: 2.5
+    reverseAcceleration: 3
+    maxRotationSpeedDegrees: 90
+    rotationAccelerationDegrees: 150
+    rotationDecelerationDegrees: 210
+    alignmentAssistDegrees: 8
     smashDamage: 300
   - type: Fixtures
     fixtures:
@@ -118,72 +127,7 @@
   name: RAM-45 armoured personnel carrier
   description: A Republic command APC. Twin autocannon in the turret, a heavy machine gun in the bow, a radio relay mast on the roof and seats for a squad in the back.
   components:
-  - type: Sprite
-    sprite: _RMC14/Structures/Vehicles/apc.rsi
-    drawdepth: Mobs
-    layers:
-    - state: apc_base_com
-      map: [ "base" ]
-    - state: frontalcannon_0
-      map: [ "secondary" ]
-    - state: comms_relay_0
-      map: [ "support" ]
-    - state: dualcannon_0
-      map: [ "primary" ]
-    - state: wheels_0
-      map: [ "wheels" ]
-      loop: false
-  # wheels_0 — целые колёса/гусеницы (анимированы), wheels_1 — разбитые. Стоя — один проход анимации и стоп.
-  - type: SpriteMovement
-    movementLayers:
-      wheels:
-        state: wheels_0
-        loop: true
-    noMovementLayers:
-      wheels:
-        state: wheels_0
-        loop: false
-  - type: DHVehicle
-    maxIntegrity: 1500
-    faction: Republic
-    hullHalfSize: 1.15,1.95
-    interior: DHInteriorAPC
-    hull: DHVehicleHullRAM45
-    turretLayers: [ ]
-    exitOffset: 0,2.6
-    wreck: DHVehicleWreckRAM45
-  - type: DHVehicleHardpoints
-    family: RAM45
-    slots:
-      Primary: primary
-      Secondary: secondary
-      Support: support
-      Wheels: wheels
-      PortLeft: ""
-      PortRight: ""
-    starting:
-      Primary: DHHardpointRAM45DualCannon
-      Secondary: DHHardpointRAM45FrontCannon
-      Support: DHHardpointRAM45CommsRelay
-      Wheels: DHHardpointRAM45Wheels
-      PortLeft: DHHardpointPortGun
-      PortRight: DHHardpointPortGunRight
-  - type: DHCommsRelay
-    channels:
-    - DHRepublic
-    - DHRepublicCommand
-    - DHSquadAlpha
-    - DHSquadBravo
-    - DHSquadCharlie
-    - DHSquadDelta
-
-- type: entity
-  parent: DHVehicleAPCBase
-  id: DHVehicleIM30
-  name: IM-30 armoured personnel carrier
-  description: An Imperial APC. A turret with an autocannon and a coaxial heavy machine gun, a relay set for the Imperial channels and seats for a squad in the back.
-  components:
-  # Корпус IM-30 крупнее RAM-45 (спрайт 160 px).
+  # Спрайт и корпус — бывшие у IM-30 (решение автора 2026-11-12): в одной гамме с танком Республики.
   - type: Fixtures
     fixtures:
       fix1:
@@ -209,8 +153,6 @@
     layers:
     - state: sppapc_base
       map: [ "base" ]
-    - state: spp_flare_launcher_0
-      map: [ "support" ]
     - state: apc_turret_0
       map: [ "turret" ]
     - state: apc_autocannon_0
@@ -230,13 +172,107 @@
         loop: false
   - type: DHVehicle
     maxIntegrity: 1500
-    faction: Empire
+    faction: Republic
     hullHalfSize: 1.4,2.3
     interior: DHInteriorAPC
+    hull: DHVehicleHullRAM45
+    turretLayers: [ turret, primary ]
+    # Ось башни на корпусе — смещения башни SPP APC из RMC (пиксели / 32); кадры башни и пушки выровнены по оси.
+    turretPivots: [ "0,0.1875", "0,0.125", "-0.03125,0.875", "-0.03125,0.875" ] # юг, север, восток, запад
+    turretLayerPivots:
+      turret: [ "0,0", "0,0", "0,0", "0,0" ]
+      primary: [ "0,0", "0,0", "0,0", "0,0" ]
+    exitOffset: 0,2.9
+    wreck: DHVehicleWreckRAM45
+  - type: DHVehicleHardpoints
+    family: RAM45
+    slots:
+      Primary: primary
+      Secondary: "" # курсовой пулемёт и мачта на этом спрайте не нарисованы
+      Support: ""
+      Wheels: wheels
+      PortLeft: ""
+      PortRight: ""
+    starting:
+      Primary: DHHardpointRAM45DualCannon
+      Secondary: DHHardpointRAM45FrontCannon
+      Support: DHHardpointRAM45CommsRelay
+      Wheels: DHHardpointRAM45Wheels
+      PortLeft: DHHardpointPortGun
+      PortRight: DHHardpointPortGunRight
+  - type: DHCommsRelay
+    channels:
+    - DHRepublic
+    - DHRepublicCommand
+    - DHSquadAlpha
+    - DHSquadBravo
+    - DHSquadCharlie
+    - DHSquadDelta
+
+- type: entity
+  parent: DHVehicleAPCBase
+  id: DHVehicleIM30
+  name: IM-30 armoured personnel carrier
+  description: An Imperial APC. A turret with a quick-firing gun and a coaxial heavy machine gun, a relay set for the Imperial channels and seats for a squad in the back.
+  components:
+  # Спрайт — M577A3E2 «Wolfpack» из CMU (cmss13-pve, CC-BY-SA-3.0), решение автора 2026-11-12.
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.2,-2.2,1.2,2.25"
+        density: 5000
+        mask:
+        - Impassable
+        - LowImpassable
+        layer:
+        - LargeMobLayer
+      runover:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.25,-2.25,1.25,2.3"
+        hard: false
+        mask:
+        - MobLayer
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/apc_wolfpack.rsi
+    drawdepth: Mobs
+    layers:
+    - state: apc_base_wolfpack
+      map: [ "base" ]
+    - state: flare_launcher_0
+      map: [ "support" ]
+    - state: tank_turret_0
+      map: [ "turret" ]
+    - state: ltb_cannon_0
+      map: [ "primary" ]
+    - state: wheels_0
+      map: [ "wheels" ]
+      loop: false
+  # wheels_0 — целые колёса (анимированы), wheels_1 — разбитые. Стоя — один проход анимации и стоп.
+  - type: SpriteMovement
+    movementLayers:
+      wheels:
+        state: wheels_0
+        loop: true
+    noMovementLayers:
+      wheels:
+        state: wheels_0
+        loop: false
+  - type: DHVehicle
+    maxIntegrity: 1500
+    faction: Empire
+    hullHalfSize: 1.2,2.25
+    interior: DHInteriorIM30
     hull: DHVehicleHullIM30
     turretLayers: [ turret, primary ]
-    turretPivots: [ "0.02,0.02", "0.02,-0.09", "-0.03,-0.08", "0.06,-0.08" ] # юг, север, восток, запад
-    exitOffset: 0,2.9
+    # Ось башни на корпусе — смещения башни Wolfpack из CMU (пиксели / 32). Кадры башни выровнены по её оси,
+    # ствол нарисован по корпусу (ось — там же, где на корпусе).
+    turretPivots: [ "0,0.4375", "0.03125,0.0625", "-0.28125,0.53125", "0.09375,0.53125" ] # юг, север, восток, запад
+    turretLayerPivots:
+      turret: [ "0,0", "0,0", "0,0", "0,0" ]
+    exitOffset: 0,2.8
     wreck: DHVehicleWreckIM30
   - type: DHVehicleHardpoints
     family: IM30
@@ -248,7 +284,7 @@
       PortLeft: ""
       PortRight: ""
     starting:
-      Primary: DHHardpointIM30Autocannon
+      Primary: DHHardpointIM30Cannon
       Secondary: DHHardpointIM30CoaxHMG
       Support: DHHardpointIM30FlareLauncher
       Wheels: DHHardpointIM30Wheels
@@ -269,9 +305,18 @@
   parent: DHVehicleBase
   id: DHVehicleTankBase
   components:
+  # Числа — от танка RMC: гусеницы, поворот на месте.
   - type: DHGridDrive
-    tilesPerSecond: 2.5
-    turnTime: 1.2
+    maxSpeed: 2.5
+    acceleration: 1.8
+    deceleration: 8
+    maxReverseSpeed: 2
+    reverseAcceleration: 2.2
+    maxRotationSpeedDegrees: 60
+    rotationAccelerationDegrees: 120
+    rotationDecelerationDegrees: 180
+    alignmentAssistDegrees: 8
+    turnInPlace: true
     smashDamage: 500
   - type: MovementSpeedModifier
     weightlessModifier: 0
@@ -383,8 +428,9 @@
   name: Imperial main battle tank
   description: An Imperial marine tank. A long-barrelled main gun, a machine gun cupola, ballistic armour and smoke dischargers.
   components:
+  # Белая раскраска (wytank, RMC-14 / cmss13, CC-BY-SA-3.0) — решение автора 2026-11-12.
   - type: Sprite
-    sprite: _RMC14/Structures/Vehicles/tank.rsi
+    sprite: _RMC14/Structures/Vehicles/wytank.rsi
     drawdepth: Mobs
     layers:
     - state: tank_base
@@ -465,7 +511,7 @@
       hull:
         shape:
           !type:PhysShapeAabb
-          bounds: "-1.15,-1.9,1.15,1.95"
+          bounds: "-1.4,-2.25,1.4,2.3"
         density: 1
         layer:
         - MidImpassable
@@ -480,7 +526,7 @@
       hull:
         shape:
           !type:PhysShapeAabb
-          bounds: "-1.4,-2.25,1.4,2.3"
+          bounds: "-1.2,-2.2,1.2,2.25"
         density: 1
         layer:
         - MidImpassable
@@ -536,11 +582,11 @@
   id: DHVehicleWreckRAM45
   components:
   - type: Sprite
-    sprite: _RMC14/Structures/Vehicles/apc.rsi
+    sprite: _RMC14/Structures/Vehicles/sppapc.rsi
     drawdepth: Mobs
     color: "#5a5a5a"
     layers:
-    - state: apc_base_com
+    - state: sppapc_base
     - state: damaged_frame
 
 - type: entity
@@ -548,12 +594,13 @@
   id: DHVehicleWreckIM30
   components:
   - type: Sprite
-    sprite: _RMC14/Structures/Vehicles/sppapc.rsi
+    sprite: _DarkestHour/Vehicles/apc_wolfpack.rsi
     drawdepth: Mobs
     color: "#5a5a5a"
     layers:
-    - state: sppapc_base
+    - state: apc_base_wolfpack
     - state: damaged_frame
+    - state: tank_turret_1
 
 - type: entity
   parent: DHVehicleWreckBase
@@ -573,7 +620,7 @@
   id: DHVehicleWreckTankEmpire
   components:
   - type: Sprite
-    sprite: _RMC14/Structures/Vehicles/tank.rsi
+    sprite: _RMC14/Structures/Vehicles/wytank.rsi
     drawdepth: Mobs
     color: "#5a5a5a"
     layers:
@@ -687,6 +734,29 @@
     capacity: 3
     count: 3
 
+# Скорострельная пушка IM-30 (решение автора 2026-11-12): урон меньше танковой, перезарядка 2 с, в казённике 10.
+- type: entity
+  parent: DHVehicleGunBase
+  id: DHVehicleGunIM30Cannon
+  name: IM-30 quick-firing gun
+  components:
+  - type: Gun
+    fireRate: 0.5
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+      path: /Audio/_DarkestHour/HeavyGuns/cannon_fire.ogg
+      params:
+        volume: 2
+        maxDistance: 45
+  - type: DHVehicleGun
+    muzzleOffset: 2.6
+  - type: BasicEntityAmmoProvider
+    proto: DHVehicleShellIM30
+    capacity: 10
+    count: 10
+
 - type: entity
   parent: DHVehicleGunBase
   id: DHVehicleGunCoaxMG
@@ -735,6 +805,29 @@
     hitsToKill: # танк — 4 попадания, БТР — 3
       Tank: 4
       APC: 3
+
+- type: entity
+  parent: DHShipBullet90mmHE
+  id: DHVehicleShellIM30
+  name: IM-30 gun shell
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Blunt: 60
+        Structural: 120
+  - type: Explosive
+    explosionType: Default
+    totalIntensity: 30
+    intensitySlope: 6
+    maxIntensity: 10
+    maxTileBreak: 0
+    tileBreakScale: 1
+  - type: DHAntiArmor
+    hitsToKill: # танк — 7 попаданий, БТР — 5
+      Tank: 7
+      APC: 5
 
 # ------------------------------------------------------------------ отсек
 # Нос машины — нижний край отсека (юг). Впереди пульты экипажа, за ними кресла: сядьте в кресло у пульта и нажмите
@@ -1014,6 +1107,43 @@
   - { proto: DHVehicleInteriorLight, pos: "3,7" }
   - { proto: DHVehicleHatch, pos: "3,10" }
 
+# Отсек IM-30 — как у БТР, но вместо короба автопушки два ящика снарядов пушки.
+- type: dhVehicleInterior
+  id: DHInteriorIM30
+  size: 7,11
+  floor: FloorSteelMono
+  entry: 3,8
+  entities:
+  - { proto: DHVehicleViewport, pos: "2,0", onWall: true }
+  - { proto: DHVehicleViewport, pos: "4,0", onWall: true }
+  - { proto: DHVehicleAmmoRack, pos: "1,1" }
+  - { proto: DHVehicleConsoleDriver, pos: "2,1", rot: 180 }
+  - { proto: DHVehicleConsoleGunner, pos: "3,1", rot: 180 }
+  - { proto: DHVehicleConsoleCommander, pos: "4,1", rot: 180 }
+  - { proto: DHVehicleAmmoRack, pos: "5,1" }
+  - { proto: DHVehicleSeatCrew, pos: "2,2" }
+  - { proto: DHVehicleSeatCrew, pos: "3,2" }
+  - { proto: DHVehicleSeatCrew, pos: "4,2" }
+  - { proto: DHVehicleAmmoIM30Shell, pos: "1,2" }
+  - { proto: DHVehicleAmmoIM30Shell, pos: "1,2" }
+  - { proto: DHVehicleAmmoMG, pos: "5,2" }
+  - { proto: DHVehicleInteriorLight, pos: "3,3" }
+  - { proto: DHVehicleConsolePortRight, pos: "0,5", onWall: true }
+  - { proto: DHVehicleConsolePortLeft, pos: "6,5", onWall: true }
+  - { proto: DHVehicleSeatPassenger, pos: "1,4", rot: 90 }
+  - { proto: DHVehicleSeatPassenger, pos: "1,5", rot: 90 }
+  - { proto: DHVehicleSeatPassenger, pos: "1,6", rot: 90 }
+  - { proto: DHVehicleSeatPassenger, pos: "1,7", rot: 90 }
+  - { proto: DHVehicleTacticalMap, pos: "3,5" }
+  - { proto: DHVehicleViewport, pos: "0,7", onWall: true }
+  - { proto: DHVehicleViewport, pos: "6,7", onWall: true }
+  - { proto: DHVehicleSeatPassenger, pos: "5,4", rot: -90 }
+  - { proto: DHVehicleSeatPassenger, pos: "5,5", rot: -90 }
+  - { proto: DHVehicleSeatPassenger, pos: "5,6", rot: -90 }
+  - { proto: DHVehicleSeatPassenger, pos: "5,7", rot: -90 }
+  - { proto: DHVehicleInteriorLight, pos: "3,7" }
+  - { proto: DHVehicleHatch, pos: "3,10" }
+
 - type: dhVehicleInterior
   id: DHInteriorTank
   size: 5,6
@@ -1064,6 +1194,19 @@
   - type: DHVehicleAmmo
     ammo: DHVehicleShellTankAP
     amount: 6
+    loadTime: 4
+
+- type: entity
+  parent: DHVehicleAmmoBase
+  id: DHVehicleAmmoIM30Shell
+  name: IM-30 shell crate
+  description: Ten rounds for the IM-30 quick-firing gun. Load it into the vehicle's ammunition loader.
+  components:
+  - type: Sprite
+    state: ltbcannon_2
+  - type: DHVehicleAmmo
+    ammo: DHVehicleShellIM30
+    amount: 10
     loadTime: 4
 
 - type: entity

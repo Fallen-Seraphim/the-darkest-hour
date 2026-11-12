@@ -34,7 +34,7 @@ public sealed partial class DHVehicleServerSystem
             dh.EngineRunning = running;
             // По клеткам машину двигает DHGridDriveSystem — скорости у тела нет, смотрим на шаг.
             var moving = physics.LinearVelocity.LengthSquared() >= 0.04f ||
-                         TryComp<DHGridDriveComponent>(uid, out var drive) && drive.Moving;
+                         TryComp<DHGridDriveComponent>(uid, out var drive) && drive.IsMoving;
             if (!running || !moving || now < dh.NextEngineSound)
                 continue;
 

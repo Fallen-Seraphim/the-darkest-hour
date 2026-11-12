@@ -95,6 +95,14 @@ public sealed partial class DHVehicleComponent : Component
     public List<Vector2> TurretPivots = new();
 
     /// <summary>
+    /// Где ось башни нарисована в кадрах отдельных слоёв башни (ключ слоя → юг, север, восток, запад), если не там же,
+    /// где в кадре корпуса (<see cref="TurretPivots"/>). В RMC / CMU кадры башни выровнены по её оси (ось — центр
+    /// кадра, здесь 0,0), а ствол бывает нарисован по корпусу.
+    /// </summary>
+    [DataField]
+    public Dictionary<string, List<Vector2>> TurretLayerPivots = new();
+
+    /// <summary>
     /// Корпус — статичная дочерняя сущность с хитбоксом машины, о которую упираются люди (см. серверную систему).
     /// </summary>
     [DataField]
