@@ -1,4 +1,5 @@
 using Content.Shared._DarkestHour.Assault;
+using Content.Shared._DarkestHour.City;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
@@ -17,8 +18,15 @@ public sealed partial class DHSupplyCatalogPrototype : IPrototype
     [IdDataField]
     public string ID { get; private set; } = default!;
 
-    [DataField(required: true)]
-    public DHAssaultFaction Faction;
+    [DataField]
+    public DHAssaultFaction Faction = DHAssaultFaction.Republic;
+
+    /// <summary>
+    /// Покупка за деньги со счёта организации (грузовой лифт LA-V в «Восстании», решение автора 2026-11-12): запаса
+    /// нет, каждая позиция стоит <see cref="DHSupplyEntry.Price"/> кредитов.
+    /// </summary>
+    [DataField]
+    public DHBankOrg Bank = DHBankOrg.None;
 
     [DataField(required: true)]
     public List<DHSupplyEntry> Entries = new();
@@ -57,6 +65,10 @@ public sealed partial class DHSupplyEntry
     /// <summary>Больше этого запас не растёт.</summary>
     [DataField]
     public int Max = 5;
+
+    /// <summary>Цена в кредитах (только у каталогов за деньги).</summary>
+    [DataField]
+    public int Price;
 }
 
 /// <summary>Компьютер снабжения: заказ из каталога стороны и управление лифтом.</summary>
@@ -140,13 +152,15 @@ public sealed class DHSupplyStockRow
     public string Proto = string.Empty;
     public string Category = string.Empty;
     public int Count;
+    public int Price;
 
-    public DHSupplyStockRow(string id, string proto, string category, int count)
+    public DHSupplyStockRow(string id, string proto, string category, int count, int price = 0)
     {
         Id = id;
         Proto = proto;
         Category = category;
         Count = count;
+        Price = price;
     }
 }
 
@@ -160,6 +174,11 @@ public sealed class DHSupplyBuiState : BoundUserInterfaceState
     public int Points;
     public int RefillMinPoints;
     public int RefillMinutes;
+
+    /// <summary>Каталог за деньги: показывается баланс счёта, а не запас.</summary>
+    public bool Paid;
+    public string Account = string.Empty;
+    public int Balance;
 
     public DHSupplyBuiState(List<DHSupplyStockRow> rows, bool hasElevator, DHSupplyElevatorMode mode, int pending,
         int points, int refillMinPoints, int refillMinutes)

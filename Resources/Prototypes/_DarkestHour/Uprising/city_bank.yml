@@ -44,6 +44,99 @@
     org: Police
 
 - type: entity
+  parent: DHBankCard
+  id: DHBankCardFront
+  name: bank card
+  description: A business card of a small trading firm. Draws on the firm's account.
+  suffix: LFFC
+  components:
+  - type: DHBankCard
+    org: Front
+
+# Реквизиты счёта организации (решение автора 2026-11-12): выдаются при появлении начальнику военпола, представителю
+# LA-V и главе отряда ОФСК; текст заполняет DHCitySystem.
+- type: entity
+  parent: Paper
+  id: DHBankRequisites
+  name: account details
+  description: A folded sheet with an organisation's account number, login and password. Keep it away from strangers.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/bureaucracy.rsi
+    layers:
+    - state: paper
+    - state: paper_words
+      map: ["enum.PaperVisualLayers.Writing"]
+    - state: paper_stamp-generic
+      map: ["enum.PaperVisualLayers.Stamp"]
+      visible: false
+
+# ---------------------------------------------------------------- чековая машинка и чеки (решение автора 2026-11-12)
+
+- type: entity
+  parent: BaseItem
+  id: DHChequeMachine
+  name: cheque machine
+  description: "A handheld Bank of LA-V payment terminal. The seller links their card and sets the amount (goods go into the tray), the buyer inserts their card and enters the password. Prints two cheques: for the buyer and for the seller."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/City/cheque_machine.rsi
+    state: icon
+  - type: Item
+    size: Small
+    sprite: _DarkestHour/Objects/City/cheque_machine.rsi
+  - type: DHChequeMachine
+  - type: ItemSlots
+    slots:
+      dh-cheque-card:
+        name: dh-cheque-slot-card
+        insertSound: /Audio/Machines/id_insert.ogg
+        ejectSound: /Audio/Machines/id_swipe.ogg
+        priority: 2
+        whitelist:
+          components:
+          - DHBankCard
+      dh-cheque-goods:
+        name: dh-cheque-slot-goods
+        priority: 1
+        whitelist:
+          components:
+          - Item
+        blacklist:
+          components:
+          - DHBankCard
+  - type: ContainerContainer
+    containers:
+      dh-cheque-card: !type:ContainerSlot {}
+      dh-cheque-goods: !type:ContainerSlot {}
+  - type: ActivatableUI
+    key: enum.DHChequeMachineUiKey.Key
+    inHandsOnly: false
+  - type: UserInterface
+    interfaces:
+      enum.DHChequeMachineUiKey.Key:
+        type: DHChequeMachineBoundUserInterface
+
+- type: entity
+  parent: Paper
+  id: DHCheque
+  name: cheque
+  description: A Bank of LA-V cheque.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/bureaucracy.rsi
+    layers:
+    - state: paper_receipt
+    - state: paper_receipt_words
+      map: ["enum.PaperVisualLayers.Writing"]
+    - state: paper_stamp-generic
+      map: ["enum.PaperVisualLayers.Stamp"]
+      visible: false
+  - type: Item
+    size: Tiny
+  - type: DHCheque
+
+- type: entity
   parent: BaseStorageItem
   id: DHWallet
   name: wallet

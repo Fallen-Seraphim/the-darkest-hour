@@ -124,3 +124,52 @@ dh-passport-place-new-tallinn = New Tallinn
 dh-passport-place-prosperity = Prosperity
 dh-passport-place-titan = Titan
 dh-passport-place-earth = Earth
+
+# LFFC account, account details, cheque machine
+dh-bank-org-front = South Wind LLC
+dh-budget-ui-title-front = LFFC budget
+dh-city-briefing-org = Organisation account "{ $org }": { $number }, login { $login }, password { $password }. The details are on paper in your bag.
+dh-bank-requisites-text = [head=2]Account details[/head]
+    [bold]{ $org }[/bold]
+
+    Account number: [bold]{ $number }[/bold]
+    Login: [bold]{ $login }[/bold]
+    Password: [bold]{ $password }[/bold]
+
+    [italic]Bank of Lost Angels. Do not share these details.[/italic]
+
+dh-cheque-ui-title = Bank of LA-V cheque machine
+dh-cheque-ui-section-seller = SELLER
+dh-cheque-ui-section-bill = BILL
+dh-cheque-ui-section-pay = PAYMENT
+dh-cheque-ui-seller = { $name }, account { $number }
+dh-cheque-ui-no-seller = No seller set: insert your card and press "Card → seller".
+dh-cheque-ui-set-seller = Card → seller
+dh-cheque-ui-set-amount = Set
+dh-cheque-ui-description = What is sold (if the tray is empty)
+dh-cheque-ui-bill = To pay: { $amount } cr.
+dh-cheque-ui-no-bill = No amount set.
+dh-cheque-ui-goods = Goods: { $goods }
+dh-cheque-ui-goods-hint = Put the goods into the tray — they go to the buyer after payment.
+dh-cheque-ui-pay = Pay
+dh-cheque-ui-reset = Clear bill
+dh-cheque-slot-card = Card
+dh-cheque-slot-goods = Goods tray
+dh-cheque-status-seller = Seller: { $seller }.
+dh-cheque-status-amount = Billed { $amount } cr. Buyer — insert your card and enter the password.
+dh-cheque-status-paid = Paid { $amount } cr. Cheque No. { $serial } printed.
+dh-cheque-error-card = Insert a bank card.
+dh-cheque-error-amount = Invalid amount.
+dh-cheque-error-no-seller = No seller set.
+dh-cheque-error-no-amount = No amount set.
+dh-cheque-goods-none = service
+dh-cheque-copy-buyer = buyer's copy
+dh-cheque-copy-seller = seller's copy
+dh-cheque-text-header = [head=2]BANK OF LA-V — SALES CHEQUE[/head]
+dh-cheque-text-serial = Cheque No. { $serial } ({ $copy })
+dh-cheque-text-time = Time: { $time }
+dh-cheque-text-seller = Seller: { $name }, account { $number }
+dh-cheque-text-buyer = Buyer: { $name }, account { $number }
+dh-cheque-text-goods = Goods / service: { $goods }
+dh-cheque-text-amount = [bold]TOTAL: { $amount } cr.[/bold]
+dh-cheque-text-footer = [italic]Paid by card. Lost Angels—Vanguard Banking.[/italic]

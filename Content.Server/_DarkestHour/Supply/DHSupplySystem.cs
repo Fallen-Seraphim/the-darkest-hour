@@ -1,6 +1,8 @@
 using System.Numerics;
 using Content.Shared._DarkestHour.Assault;
 using Content.Shared._DarkestHour.ControlPoints;
+using Content.Server._DarkestHour.City;
+using Content.Shared._DarkestHour.City;
 using Content.Shared._DarkestHour.Supply;
 using Content.Shared.GameTicking;
 using Content.Shared.Item;
@@ -22,6 +24,7 @@ namespace Content.Server._DarkestHour.Supply;
 public sealed partial class DHSupplySystem : EntitySystem
 {
     [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private DHBankSystem _bank = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private FixtureSystem _fixtures = default!;
@@ -91,8 +94,11 @@ public sealed partial class DHSupplySystem : EntitySystem
     {
         foreach (var (catalogId, next) in new List<KeyValuePair<string, TimeSpan>>(_nextRefill))
         {
-            if (now < next || !_proto.TryIndex<DHSupplyCatalogPrototype>(catalogId, out var catalog))
+            if (now < next || !_proto.TryIndex<DHSupplyCatalogPrototype>(catalogId, out var catalog) ||
+                catalog.Bank != DHBankOrg.None)
+            {
                 continue;
+            }
 
             _nextRefill[catalogId] = now + catalog.RefillInterval;
             if (HeldPoints(catalog.Faction) <= catalog.RefillMinPoints)
@@ -133,14 +139,28 @@ public sealed partial class DHSupplySystem : EntitySystem
             return;
         }
 
-        var stock = Stock(catalog);
-        if (stock.GetValueOrDefault(entry.Id) <= 0)
+        if (catalog.Bank != DHBankOrg.None)
         {
-            _popup.PopupEntity(Loc.GetString("dh-supply-out-of-stock"), ent, args.Actor);
-            return;
+            // За деньги со счёта организации, без запаса.
+            var account = _bank.OrgAccount(catalog.Bank);
+            if (!_bank.Withdraw(account, entry.Price, Loc.GetString("dh-supply-log-order", ("item", _proto.Index(entry.Proto).Name))))
+            {
+                _popup.PopupEntity(Loc.GetString("dh-supply-no-money", ("price", entry.Price)), ent, args.Actor);
+                return;
+            }
+        }
+        else
+        {
+            var stock = Stock(catalog);
+            if (stock.GetValueOrDefault(entry.Id) <= 0)
+            {
+                _popup.PopupEntity(Loc.GetString("dh-supply-out-of-stock"), ent, args.Actor);
+                return;
+            }
+
+            stock[entry.Id]--;
         }
 
-        stock[entry.Id]--;
         elevator.Comp.Orders.Add(entry.Proto);
         _popup.PopupEntity(Loc.GetString("dh-supply-ordered", ("item", _proto.Index(entry.Proto).Name)),
             ent, args.Actor);
@@ -217,13 +237,23 @@ public sealed partial class DHSupplySystem : EntitySystem
         var rows = new List<DHSupplyStockRow>();
         foreach (var entry in catalog.Entries)
         {
-            rows.Add(new DHSupplyStockRow(entry.Id, entry.Proto, entry.Category, stock.GetValueOrDefault(entry.Id)));
+            rows.Add(new DHSupplyStockRow(entry.Id, entry.Proto, entry.Category, stock.GetValueOrDefault(entry.Id),
+                entry.Price));
         }
 
         var elevator = FindElevator(ent);
-        _ui.SetUiState(ent.Owner, DHSupplyUiKey.Key, new DHSupplyBuiState(rows, elevator != null,
+        var state = new DHSupplyBuiState(rows, elevator != null,
             elevator?.Comp.Mode ?? DHSupplyElevatorMode.Lowered, elevator?.Comp.Orders.Count ?? 0,
-            HeldPoints(catalog.Faction), catalog.RefillMinPoints, (int) catalog.RefillInterval.TotalMinutes));
+            HeldPoints(catalog.Faction), catalog.RefillMinPoints, (int) catalog.RefillInterval.TotalMinutes);
+        if (catalog.Bank != DHBankOrg.None)
+        {
+            var account = _bank.OrgAccount(catalog.Bank);
+            state.Paid = true;
+            state.Account = account.Number;
+            state.Balance = account.Balance;
+        }
+
+        _ui.SetUiState(ent.Owner, DHSupplyUiKey.Key, state);
     }
 
     #endregion

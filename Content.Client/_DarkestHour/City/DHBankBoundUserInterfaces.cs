@@ -204,7 +204,7 @@ public sealed class DHBudgetWindow : DefaultWindow
 
     public void UpdateState(DHBudgetState state)
     {
-        Title = Loc.GetString(state.Org == DHBankOrg.Vanguard ? "dh-budget-ui-title-vanguard" : "dh-budget-ui-title-police");
+        Title = Loc.GetString("dh-budget-ui-title-" + state.Org.ToString().ToLowerInvariant());
         _number.Text = Loc.GetString("dh-bank-ui-number", ("number", state.Number));
         _balance.Text = Loc.GetString("dh-bank-ui-balance", ("balance", state.Balance));
 
