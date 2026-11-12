@@ -44,12 +44,38 @@ public sealed partial class DHControlPointSystem : EntitySystem
         SubscribeLocalEvent<DHControlPointComponent, DHControlPointCaptureDoAfterEvent>(OnCaptured);
         SubscribeLocalEvent<DHControlPointComponent, ExaminedEvent>(OnExamined);
         SubscribeLocalEvent<DHControlPointPoweredComponent, MapInitEvent>(OnPoweredMapInit);
+        SubscribeLocalEvent<DHControlPointPoweredComponent, ExaminedEvent>(OnPoweredExamined);
+    }
+
+    private void OnPoweredExamined(Entity<DHControlPointPoweredComponent> ent, ref ExaminedEvent args)
+    {
+        if (ent.Comp.BackupUntil is { } until)
+        {
+            var left = Math.Max(0, (int) Math.Ceiling((until - _timing.CurTime).TotalMinutes));
+            args.PushMarkup(Loc.GetString("dh-control-point-powered-backup", ("minutes", left)));
+        }
+        else if (ent.Comp.Disabled)
+        {
+            args.PushMarkup(Loc.GetString("dh-control-point-powered-off"));
+        }
     }
 
     private void OnMapInit(Entity<DHControlPointComponent> ent, ref MapInitEvent args)
     {
         ent.Comp.NextOutput = _timing.CurTime + ent.Comp.Interval;
         UpdateAppearance(ent);
+
+        // Питаемое могло инициализироваться раньше зоны — сверить заново.
+        var powered = EntityQueryEnumerator<DHControlPointPoweredComponent>();
+        while (powered.MoveNext(out var uid, out var comp))
+        {
+            if (comp.Point != ent.Comp.PointId)
+                continue;
+
+            comp.BackupUntil = null;
+            comp.Disabled = false;
+            ApplyPower((uid, comp), ent.Comp.Holder);
+        }
     }
 
     private void OnPoweredMapInit(Entity<DHControlPointPoweredComponent> ent, ref MapInitEvent args)
@@ -178,6 +204,20 @@ public sealed partial class DHControlPointSystem : EntitySystem
     private void ApplyPower(Entity<DHControlPointPoweredComponent> ent, DHAssaultFaction? owner)
     {
         var enabled = owner == ent.Comp.Faction;
+
+        // Сеть пропала — военный объект переходит на резервный дизель (если он есть и ещё не на нём).
+        if (!enabled && ent.Comp.Backup > TimeSpan.Zero && !ent.Comp.Disabled)
+        {
+            ent.Comp.BackupUntil ??= _timing.CurTime + ent.Comp.Backup;
+            return;
+        }
+
+        ent.Comp.BackupUntil = null;
+        SetPowered(ent, enabled);
+    }
+
+    private void SetPowered(Entity<DHControlPointPoweredComponent> ent, bool enabled)
+    {
         ent.Comp.Disabled = !enabled;
 
         // Питаемое от сети — отключаем питание; без проводки (фонари «всегда включены») — гасим свет.
@@ -212,6 +252,17 @@ public sealed partial class DHControlPointSystem : EntitySystem
             return;
 
         _nextUpdate = now + UpdateInterval;
+
+        // Резерв кончился — гаснет.
+        var backups = EntityQueryEnumerator<DHControlPointPoweredComponent>();
+        while (backups.MoveNext(out var buid, out var bcomp))
+        {
+            if (bcomp.BackupUntil is { } until && now >= until)
+            {
+                bcomp.BackupUntil = null;
+                SetPowered((buid, bcomp), false);
+            }
+        }
 
         var query = EntityQueryEnumerator<DHControlPointComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var point, out var xform))

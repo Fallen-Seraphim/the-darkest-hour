@@ -1,5 +1,6 @@
 using Content.Shared.Damage;
 using Robust.Shared.Prototypes;
+using Robust.Shared.GameStates;
 
 namespace Content.Shared._DarkestHour.Environment;
 
@@ -98,4 +99,26 @@ public sealed partial class DHWeatherOption
 
     [DataField]
     public TimeSpan MaxDuration = TimeSpan.FromMinutes(5);
+}
+
+/// <summary>
+/// Районы грида без погоды (решение автора 2026-11-12: на «Терминусе» за рекой и дамбой умеренный климат — песчаная
+/// буря туда не доходит). Прямоугольники в клетках грида: левый нижний включительно, правый верхний — нет.
+/// </summary>
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class DHWeatherFreeAreaComponent : Component
+{
+    [DataField, AutoNetworkedField]
+    public List<Box2i> Areas = new();
+
+    public bool Contains(Vector2i tile)
+    {
+        foreach (var area in Areas)
+        {
+            if (tile.X >= area.Left && tile.X < area.Right && tile.Y >= area.Bottom && tile.Y < area.Top)
+                return true;
+        }
+
+        return false;
+    }
 }

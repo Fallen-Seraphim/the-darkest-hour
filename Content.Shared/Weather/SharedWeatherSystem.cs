@@ -38,6 +38,13 @@ public abstract partial class SharedWeatherSystem : EntitySystem
         if (Resolve(ent, ref ent.Comp2, false) && _roof.IsRooved((ent, ent.Comp1, ent.Comp2), tileRef.GridIndices))
             return false;
 
+        // DarkestHour: районы без погоды (умеренная зона «Терминуса»).
+        if (TryComp<Content.Shared._DarkestHour.Environment.DHWeatherFreeAreaComponent>(ent, out var freeArea) &&
+            freeArea.Contains(tileRef.GridIndices))
+        {
+            return false;
+        }
+
         var tileDef = (ContentTileDefinition)_tileDefManager[tileRef.Tile.TypeId];
 
         if (!tileDef.Weather)

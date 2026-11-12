@@ -38,3 +38,5 @@ cmd-dhcontrolpoint-not-found = Зоны с таким id нет.
 
 dh-tacmap-level = Уровень:
 dh-tacmap-level-ground = Земля
+dh-control-point-powered-backup = [color=#E0B050]Работает от резервного дизеля: осталось около {$minutes} мин.[/color]
+dh-control-point-powered-off = [color=#A05050]Нет питания: сеть АЭС потеряна.[/color]

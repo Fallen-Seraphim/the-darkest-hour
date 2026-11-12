@@ -62,6 +62,17 @@ public sealed partial class DHControlPointPoweredComponent : Component
     [DataField]
     public DHAssaultFaction Faction = DHAssaultFaction.Republic;
 
+    /// <summary>
+    /// Резервный дизель (военные объекты «Терминуса», решение автора 2026-11-12): после потери зоны работает ещё
+    /// столько, потом гаснет. Ноль — резерва нет. Зону вернули раньше — резерв снова полный.
+    /// </summary>
+    [DataField]
+    public TimeSpan Backup = TimeSpan.Zero;
+
+    /// <summary>Работает от резерва до этого времени (null — не на резерве).</summary>
+    [ViewVariables]
+    public TimeSpan? BackupUntil;
+
     [ViewVariables]
     public bool Disabled;
 }

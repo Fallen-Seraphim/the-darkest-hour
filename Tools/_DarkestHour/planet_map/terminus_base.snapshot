@@ -1,0 +1,9863 @@
+{
+"region": [
+-28,
+-34,
+20,
+11
+],
+"tiles": {
+"-17,-26": "FloorAsteroidSand",
+"-17,-25": "FloorAsteroidSand",
+"-17,-24": "FloorAsteroidSand",
+"-17,-23": "FloorAsteroidSand",
+"-17,-22": "FloorAsteroidSand",
+"-17,-21": "FloorAsteroidSand",
+"-17,-20": "FloorAsteroidSand",
+"-17,-19": "FloorAsteroidSand",
+"-17,-18": "FloorAsteroidSand",
+"-17,-17": "FloorAsteroidSand",
+"-17,-16": "FloorAsteroidSand",
+"-17,-15": "FloorAsteroidSand",
+"-17,-14": "FloorAsteroidSand",
+"-17,-13": "FloorAsteroidSand",
+"-17,-12": "FloorAsteroidSand",
+"-17,-11": "FloorAsteroidSand",
+"-17,-10": "FloorAsteroidSand",
+"-17,-9": "FloorAsteroidSand",
+"-17,-8": "FloorAsteroidSand",
+"-17,-7": "FloorAsteroidSand",
+"-17,-6": "FloorAsteroidSand",
+"-17,-5": "FloorAsteroidSand",
+"-17,-4": "FloorAsteroidSand",
+"-17,-3": "FloorAsteroidSand",
+"-17,-2": "FloorAsteroidSand",
+"-17,-1": "FloorAsteroidSand",
+"-17,0": "FloorAsteroidSand",
+"-17,1": "FloorAsteroidSand",
+"-17,2": "FloorAsteroidSand",
+"-17,3": "FloorAsteroidSand",
+"-17,4": "FloorAsteroidSand",
+"-17,5": "FloorAsteroidSand",
+"-17,6": "FloorAsteroidSand",
+"-17,7": "FloorAsteroidSand",
+"-17,8": "FloorAsteroidSand",
+"-17,9": "FloorAsteroidSand",
+"-16,-26": "FloorAsteroidSand",
+"-16,-25": "FloorConcreteMono",
+"-16,-24": "FloorConcreteMono",
+"-16,-23": "FloorConcreteMono",
+"-16,-22": "FloorConcreteMono",
+"-16,-21": "FloorConcreteMono",
+"-16,-20": "FloorConcreteMono",
+"-16,-19": "FloorConcreteMono",
+"-16,-18": "FloorConcreteMono",
+"-16,-17": "FloorConcreteMono",
+"-16,-16": "FloorConcreteMono",
+"-16,-15": "FloorConcreteMono",
+"-16,-14": "FloorConcreteMono",
+"-16,-13": "FloorConcreteMono",
+"-16,-12": "FloorConcreteMono",
+"-16,-11": "FloorConcreteMono",
+"-16,-10": "FloorConcreteMono",
+"-16,-9": "FloorConcreteMono",
+"-16,-8": "FloorConcreteMono",
+"-16,-7": "FloorConcreteMono",
+"-16,-6": "FloorConcreteMono",
+"-16,-5": "FloorConcreteMono",
+"-16,-4": "FloorConcreteMono",
+"-16,-3": "FloorConcreteMono",
+"-16,-2": "FloorConcreteMono",
+"-16,-1": "FloorConcreteMono",
+"-16,0": "FloorConcreteMono",
+"-16,1": "FloorConcreteMono",
+"-16,2": "FloorConcreteMono",
+"-16,3": "FloorConcreteMono",
+"-16,4": "FloorConcreteMono",
+"-16,5": "FloorConcreteMono",
+"-16,6": "FloorConcreteMono",
+"-16,7": "FloorConcreteMono",
+"-16,8": "FloorAsteroidSand",
+"-16,9": "FloorAsteroidSand",
+"-15,-26": "FloorAsteroidSand",
+"-15,-25": "FloorConcreteMono",
+"-15,-24": "FloorConcreteMono",
+"-15,-23": "FloorConcreteMono",
+"-15,-22": "FloorConcreteMono",
+"-15,-21": "FloorConcreteMono",
+"-15,-20": "FloorConcreteMono",
+"-15,-19": "FloorConcreteMono",
+"-15,-18": "FloorConcreteMono",
+"-15,-17": "FloorConcreteMono",
+"-15,-16": "FloorConcreteMono",
+"-15,-15": "FloorConcreteMono",
+"-15,-14": "FloorConcreteMono",
+"-15,-13": "FloorConcreteMono",
+"-15,-12": "FloorConcreteMono",
+"-15,-11": "FloorConcreteMono",
+"-15,-10": "FloorConcreteMono",
+"-15,-9": "FloorConcreteMono",
+"-15,-8": "FloorConcreteMono",
+"-15,-7": "FloorConcreteMono",
+"-15,-6": "FloorConcreteMono",
+"-15,-5": "FloorConcreteMono",
+"-15,-4": "FloorConcreteMono",
+"-15,-3": "FloorConcreteMono",
+"-15,-2": "FloorConcreteMono",
+"-15,-1": "FloorConcreteMono",
+"-15,0": "FloorConcreteMono",
+"-15,1": "FloorConcreteMono",
+"-15,2": "FloorConcreteMono",
+"-15,3": "FloorConcreteMono",
+"-15,4": "FloorConcreteMono",
+"-15,5": "FloorConcreteMono",
+"-15,6": "FloorConcreteMono",
+"-15,7": "FloorConcreteMono",
+"-15,8": "FloorAsteroidSand",
+"-15,9": "FloorAsteroidSand",
+"-14,-26": "FloorAsteroidSand",
+"-14,-25": "FloorConcreteMono",
+"-14,-24": "FloorConcreteMono",
+"-14,-23": "FloorAsteroidSand",
+"-14,-22": "FloorAsteroidSand",
+"-14,-21": "FloorAsteroidSand",
+"-14,-20": "FloorAsteroidSand",
+"-14,-19": "FloorAsteroidSand",
+"-14,-18": "FloorAsteroidSand",
+"-14,-17": "FloorAsteroidSand",
+"-14,-16": "FloorAsteroidSand",
+"-14,-15": "FloorAsteroidSand",
+"-14,-14": "FloorAsteroidSand",
+"-14,-13": "FloorAsteroidSand",
+"-14,-12": "FloorAsteroidSand",
+"-14,-11": "FloorAsteroidSand",
+"-14,-10": "FloorAsteroidSand",
+"-14,-9": "FloorAsteroidSand",
+"-14,-8": "FloorAsteroidSand",
+"-14,-7": "FloorAsteroidSand",
+"-14,-6": "FloorAsteroidSand",
+"-14,-5": "FloorAsteroidSand",
+"-14,-4": "FloorAsteroidSand",
+"-14,-3": "FloorAsteroidSand",
+"-14,-2": "FloorAsteroidSand",
+"-14,-1": "FloorAsteroidSand",
+"-14,0": "FloorAsteroidSand",
+"-14,1": "FloorAsteroidSand",
+"-14,2": "FloorAsteroidSand",
+"-14,3": "FloorAsteroidSand",
+"-14,4": "FloorAsteroidSand",
+"-14,5": "FloorAsteroidSand",
+"-14,6": "FloorConcreteMono",
+"-14,7": "FloorConcreteMono",
+"-14,8": "FloorAsteroidSand",
+"-14,9": "FloorAsteroidSand",
+"-13,-26": "FloorAsteroidSand",
+"-13,-25": "FloorConcreteMono",
+"-13,-24": "FloorConcreteMono",
+"-13,-23": "FloorAsteroidSand",
+"-13,-22": "FloorAsteroidSand",
+"-13,-21": "FloorAsteroidSand",
+"-13,-20": "FloorAsteroidSand",
+"-13,-19": "FloorAsteroidSand",
+"-13,-18": "FloorAsteroidSand",
+"-13,-17": "FloorAsteroidSand",
+"-13,-16": "FloorAsteroidSand",
+"-13,-15": "FloorAsteroidSand",
+"-13,-14": "FloorAsteroidSand",
+"-13,-13": "FloorAsteroidSand",
+"-13,-12": "FloorAsteroidSand",
+"-13,-11": "FloorAsteroidSand",
+"-13,-10": "FloorAsteroidSand",
+"-13,-9": "FloorAsteroidSand",
+"-13,-8": "FloorAsteroidSand",
+"-13,-7": "FloorAsteroidSand",
+"-13,-6": "FloorAsteroidSand",
+"-13,-5": "FloorAsteroidSand",
+"-13,-4": "FloorAsteroidSand",
+"-13,-3": "FloorAsteroidSand",
+"-13,-2": "FloorAsteroidSand",
+"-13,-1": "FloorAsteroidSand",
+"-13,0": "FloorAsteroidSand",
+"-13,1": "FloorAsteroidSand",
+"-13,2": "FloorAsteroidSand",
+"-13,3": "FloorAsteroidSand",
+"-13,4": "FloorAsteroidSand",
+"-13,5": "FloorAsteroidSand",
+"-13,6": "FloorConcreteMono",
+"-13,7": "FloorConcreteMono",
+"-13,8": "FloorAsteroidSand",
+"-13,9": "FloorAsteroidSand",
+"-12,-26": "FloorAsteroidSand",
+"-12,-25": "FloorConcreteMono",
+"-12,-24": "FloorConcreteMono",
+"-12,-23": "FloorAsteroidSand",
+"-12,-22": "FloorAsteroidSand",
+"-12,-21": "FloorAsteroidSand",
+"-12,-20": "FloorAsteroidSand",
+"-12,-19": "FloorAsteroidSand",
+"-12,-18": "FloorAsteroidSand",
+"-12,-17": "FloorAsteroidSand",
+"-12,-16": "FloorAsteroidSand",
+"-12,-15": "FloorAsteroidSand",
+"-12,-14": "FloorAsteroidSand",
+"-12,-13": "FloorAsteroidSand",
+"-12,-12": "FloorAsteroidSand",
+"-12,-11": "FloorAsteroidSand",
+"-12,-10": "FloorAsteroidSand",
+"-12,-9": "FloorAsteroidSand",
+"-12,-8": "FloorAsteroidSand",
+"-12,-7": "FloorAsteroidSand",
+"-12,-6": "FloorAsteroidSand",
+"-12,-5": "FloorAsteroidSand",
+"-12,-4": "FloorAsteroidSand",
+"-12,-3": "FloorAsteroidSand",
+"-12,-2": "FloorAsteroidSand",
+"-12,-1": "FloorAsteroidSand",
+"-12,0": "FloorAsteroidSand",
+"-12,1": "FloorAsteroidSand",
+"-12,2": "FloorAsteroidSand",
+"-12,3": "FloorAsteroidSand",
+"-12,4": "FloorAsteroidSand",
+"-12,5": "FloorAsteroidSand",
+"-12,6": "FloorConcreteMono",
+"-12,7": "FloorConcreteMono",
+"-12,8": "FloorAsteroidSand",
+"-12,9": "FloorAsteroidSand",
+"-11,-26": "FloorAsteroidSand",
+"-11,-25": "FloorConcreteMono",
+"-11,-24": "FloorConcreteMono",
+"-11,-23": "FloorAsteroidSand",
+"-11,-22": "FloorAsteroidSand",
+"-11,-21": "FloorAsteroidSand",
+"-11,-20": "FloorAsteroidSand",
+"-11,-19": "FloorAsteroidSand",
+"-11,-18": "FloorAsteroidSand",
+"-11,-17": "FloorAsteroidSand",
+"-11,-16": "FloorAsteroidSand",
+"-11,-15": "FloorAsteroidSand",
+"-11,-14": "FloorAsteroidSand",
+"-11,-13": "FloorAsteroidSand",
+"-11,-12": "FloorAsteroidSand",
+"-11,-11": "FloorAsteroidSand",
+"-11,-10": "FloorAsteroidSand",
+"-11,-9": "FloorAsteroidSand",
+"-11,-8": "FloorAsteroidSand",
+"-11,-7": "FloorAsteroidSand",
+"-11,-6": "FloorAsteroidSand",
+"-11,-5": "FloorAsteroidSand",
+"-11,-4": "FloorAsteroidSand",
+"-11,-3": "FloorAsteroidSand",
+"-11,-2": "FloorAsteroidSand",
+"-11,-1": "FloorAsteroidSand",
+"-11,0": "FloorAsteroidSand",
+"-11,1": "FloorAsteroidSand",
+"-11,2": "FloorAsteroidSand",
+"-11,3": "FloorAsteroidSand",
+"-11,4": "FloorAsteroidSand",
+"-11,5": "FloorAsteroidSand",
+"-11,6": "FloorConcreteMono",
+"-11,7": "FloorConcreteMono",
+"-11,8": "FloorAsteroidSand",
+"-11,9": "FloorAsteroidSand",
+"-10,-26": "FloorAsteroidSand",
+"-10,-25": "FloorConcreteMono",
+"-10,-24": "FloorConcreteMono",
+"-10,-23": "FloorAsteroidSand",
+"-10,-22": "FloorAsteroidSand",
+"-10,-21": "FloorAsteroidSand",
+"-10,-20": "FloorAsteroidSand",
+"-10,-19": "FloorAsteroidSand",
+"-10,-18": "FloorAsteroidSand",
+"-10,-17": "FloorAsteroidSand",
+"-10,-16": "FloorAsteroidSand",
+"-10,-15": "FloorAsteroidSand",
+"-10,-14": "FloorAsteroidSand",
+"-10,-13": "FloorAsteroidSand",
+"-10,-12": "FloorAsteroidSand",
+"-10,-11": "FloorAsteroidSand",
+"-10,-10": "FloorAsteroidSand",
+"-10,-9": "FloorAsteroidSand",
+"-10,-8": "FloorAsteroidSand",
+"-10,-7": "FloorAsteroidSand",
+"-10,-6": "FloorAsteroidSand",
+"-10,-5": "FloorAsteroidSand",
+"-10,-4": "FloorAsteroidSand",
+"-10,-3": "FloorAsteroidSand",
+"-10,-2": "FloorAsteroidSand",
+"-10,-1": "FloorAsteroidSand",
+"-10,0": "FloorAsteroidSand",
+"-10,1": "FloorAsteroidSand",
+"-10,2": "FloorAsteroidSand",
+"-10,3": "FloorAsteroidSand",
+"-10,4": "FloorAsteroidSand",
+"-10,5": "FloorAsteroidSand",
+"-10,6": "FloorConcreteMono",
+"-10,7": "FloorConcreteMono",
+"-10,8": "FloorAsteroidSand",
+"-10,9": "FloorAsteroidSand",
+"-9,-26": "FloorAsteroidSand",
+"-9,-25": "FloorConcreteMono",
+"-9,-24": "FloorConcreteMono",
+"-9,-23": "FloorAsteroidSand",
+"-9,-22": "FloorAsteroidSand",
+"-9,-21": "FloorAsteroidSand",
+"-9,-20": "FloorAsteroidSand",
+"-9,-19": "FloorAsteroidSand",
+"-9,-18": "FloorConcreteMono",
+"-9,-17": "FloorConcreteMono",
+"-9,-16": "FloorConcreteMono",
+"-9,-15": "FloorConcreteMono",
+"-9,-14": "FloorConcreteMono",
+"-9,-13": "FloorConcreteMono",
+"-9,-12": "FloorConcreteMono",
+"-9,-11": "FloorConcreteMono",
+"-9,-10": "FloorConcreteMono",
+"-9,-9": "FloorConcreteMono",
+"-9,-8": "FloorConcreteMono",
+"-9,-7": "FloorConcreteMono",
+"-9,-6": "FloorConcreteMono",
+"-9,-5": "FloorConcreteMono",
+"-9,-4": "FloorConcreteMono",
+"-9,-3": "FloorConcreteMono",
+"-9,-2": "FloorConcreteMono",
+"-9,-1": "FloorConcreteMono",
+"-9,0": "FloorConcreteMono",
+"-9,1": "FloorAsteroidSand",
+"-9,2": "FloorAsteroidSand",
+"-9,3": "FloorAsteroidSand",
+"-9,4": "FloorAsteroidSand",
+"-9,5": "FloorAsteroidSand",
+"-9,6": "FloorConcreteMono",
+"-9,7": "FloorConcreteMono",
+"-9,8": "FloorAsteroidSand",
+"-9,9": "FloorAsteroidSand",
+"-8,-34": "FloorAsphalt",
+"-8,-33": "FloorAsphalt",
+"-8,-32": "FloorAsphalt",
+"-8,-31": "FloorAsphalt",
+"-8,-30": "FloorAsphalt",
+"-8,-29": "FloorAsphalt",
+"-8,-28": "FloorAsphalt",
+"-8,-27": "FloorAsphalt",
+"-8,-26": "FloorAsteroidSand",
+"-8,-25": "FloorConcreteMono",
+"-8,-24": "FloorConcreteMono",
+"-8,-23": "FloorAsteroidSand",
+"-8,-22": "FloorAsteroidSand",
+"-8,-21": "FloorAsteroidSand",
+"-8,-20": "FloorAsteroidSand",
+"-8,-19": "FloorAsteroidSand",
+"-8,-18": "FloorConcreteMono",
+"-8,-17": "FloorConcreteMono",
+"-8,-16": "FloorConcreteMono",
+"-8,-15": "FloorConcreteMono",
+"-8,-14": "FloorConcreteMono",
+"-8,-13": "FloorConcreteMono",
+"-8,-12": "FloorConcreteMono",
+"-8,-11": "FloorConcreteMono",
+"-8,-10": "FloorConcreteMono",
+"-8,-9": "FloorConcreteMono",
+"-8,-8": "FloorConcreteMono",
+"-8,-7": "FloorConcreteMono",
+"-8,-6": "FloorConcreteMono",
+"-8,-5": "FloorConcreteMono",
+"-8,-4": "FloorConcreteMono",
+"-8,-3": "FloorConcreteMono",
+"-8,-2": "FloorConcreteMono",
+"-8,-1": "FloorConcreteMono",
+"-8,0": "FloorConcreteMono",
+"-8,1": "FloorAsteroidSand",
+"-8,2": "FloorAsteroidSand",
+"-8,3": "FloorAsteroidSand",
+"-8,4": "FloorAsteroidSand",
+"-8,5": "FloorAsteroidSand",
+"-8,6": "FloorConcreteMono",
+"-8,7": "FloorConcreteMono",
+"-8,8": "FloorAsteroidSand",
+"-8,9": "FloorAsteroidSand",
+"-8,10": "FloorAsphalt",
+"-8,11": "FloorAsphalt",
+"-7,-34": "FloorAsphalt",
+"-7,-33": "FloorAsphalt",
+"-7,-32": "FloorAsphalt",
+"-7,-31": "FloorAsphalt",
+"-7,-30": "FloorAsphalt",
+"-7,-29": "FloorAsphalt",
+"-7,-28": "FloorAsphalt",
+"-7,-27": "FloorAsphalt",
+"-7,-26": "FloorAsteroidSand",
+"-7,-25": "FloorConcreteMono",
+"-7,-24": "FloorConcreteMono",
+"-7,-23": "FloorAsteroidSand",
+"-7,-22": "FloorAsteroidSand",
+"-7,-21": "FloorAsteroidSand",
+"-7,-20": "FloorAsteroidSand",
+"-7,-19": "FloorAsteroidSand",
+"-7,-18": "FloorConcreteMono",
+"-7,-17": "FloorConcreteMono",
+"-7,-16": "FloorConcreteMono",
+"-7,-15": "FloorConcreteMono",
+"-7,-14": "FloorConcreteMono",
+"-7,-13": "FloorConcreteMono",
+"-7,-12": "FloorConcreteMono",
+"-7,-11": "FloorConcreteMono",
+"-7,-10": "FloorConcreteMono",
+"-7,-9": "FloorConcreteMono",
+"-7,-8": "FloorConcreteMono",
+"-7,-7": "FloorConcreteMono",
+"-7,-6": "FloorConcreteMono",
+"-7,-5": "FloorConcreteMono",
+"-7,-4": "FloorConcreteMono",
+"-7,-3": "FloorConcreteMono",
+"-7,-2": "FloorConcreteMono",
+"-7,-1": "FloorConcreteMono",
+"-7,0": "FloorConcreteMono",
+"-7,1": "FloorAsteroidSand",
+"-7,2": "FloorAsteroidSand",
+"-7,3": "FloorAsteroidSand",
+"-7,4": "FloorAsteroidSand",
+"-7,5": "FloorAsteroidSand",
+"-7,6": "FloorConcreteMono",
+"-7,7": "FloorConcreteMono",
+"-7,8": "FloorAsteroidSand",
+"-7,9": "FloorAsteroidSand",
+"-7,10": "FloorAsphalt",
+"-7,11": "FloorAsphalt",
+"-6,-34": "FloorAsphalt",
+"-6,-33": "FloorAsphalt",
+"-6,-32": "FloorAsphalt",
+"-6,-31": "FloorAsphalt",
+"-6,-30": "FloorAsphalt",
+"-6,-29": "FloorAsphalt",
+"-6,-28": "FloorAsphalt",
+"-6,-27": "FloorAsphalt",
+"-6,-26": "FloorAsteroidSand",
+"-6,-25": "FloorConcreteMono",
+"-6,-24": "FloorConcreteMono",
+"-6,-23": "FloorAsteroidSand",
+"-6,-22": "FloorAsteroidSand",
+"-6,-21": "FloorAsteroidSand",
+"-6,-20": "FloorAsteroidSand",
+"-6,-19": "FloorAsteroidSand",
+"-6,-18": "FloorConcreteMono",
+"-6,-17": "FloorConcreteMono",
+"-6,-16": "FloorConcreteMono",
+"-6,-15": "FloorConcreteMono",
+"-6,-14": "FloorConcreteMono",
+"-6,-13": "FloorConcreteMono",
+"-6,-12": "FloorConcreteMono",
+"-6,-11": "FloorConcreteMono",
+"-6,-10": "FloorConcreteMono",
+"-6,-9": "FloorConcreteMono",
+"-6,-8": "FloorConcreteMono",
+"-6,-7": "FloorConcreteMono",
+"-6,-6": "FloorConcreteMono",
+"-6,-5": "FloorConcreteMono",
+"-6,-4": "FloorConcreteMono",
+"-6,-3": "FloorConcreteMono",
+"-6,-2": "FloorConcreteMono",
+"-6,-1": "FloorConcreteMono",
+"-6,0": "FloorConcreteMono",
+"-6,1": "FloorAsteroidSand",
+"-6,2": "FloorAsteroidSand",
+"-6,3": "FloorAsteroidSand",
+"-6,4": "FloorAsteroidSand",
+"-6,5": "FloorAsteroidSand",
+"-6,6": "FloorConcreteMono",
+"-6,7": "FloorConcreteMono",
+"-6,8": "FloorAsteroidSand",
+"-6,9": "FloorAsteroidSand",
+"-6,10": "FloorAsphalt",
+"-6,11": "FloorAsphalt",
+"-5,-34": "FloorAsphalt",
+"-5,-33": "FloorAsphalt",
+"-5,-32": "FloorAsphalt",
+"-5,-31": "FloorAsphalt",
+"-5,-30": "FloorAsphalt",
+"-5,-29": "FloorAsphalt",
+"-5,-28": "FloorAsphalt",
+"-5,-27": "FloorAsphalt",
+"-5,-26": "FloorAsteroidSand",
+"-5,-25": "FloorConcreteMono",
+"-5,-24": "FloorConcreteMono",
+"-5,-23": "FloorAsteroidSand",
+"-5,-22": "FloorAsteroidSand",
+"-5,-21": "FloorAsteroidSand",
+"-5,-20": "FloorAsteroidSand",
+"-5,-19": "FloorAsteroidSand",
+"-5,-18": "FloorConcreteMono",
+"-5,-17": "FloorConcreteMono",
+"-5,-16": "FloorConcreteMono",
+"-5,-15": "FloorConcreteMono",
+"-5,-14": "FloorConcreteMono",
+"-5,-13": "FloorConcreteMono",
+"-5,-12": "FloorConcreteMono",
+"-5,-11": "FloorConcreteMono",
+"-5,-10": "FloorConcreteMono",
+"-5,-9": "FloorConcreteMono",
+"-5,-8": "FloorConcreteMono",
+"-5,-7": "FloorConcreteMono",
+"-5,-6": "FloorConcreteMono",
+"-5,-5": "FloorConcreteMono",
+"-5,-4": "FloorConcreteMono",
+"-5,-3": "FloorConcreteMono",
+"-5,-2": "FloorConcreteMono",
+"-5,-1": "FloorConcreteMono",
+"-5,0": "FloorConcreteMono",
+"-5,1": "FloorAsteroidSand",
+"-5,2": "FloorAsteroidSand",
+"-5,3": "FloorAsteroidSand",
+"-5,4": "FloorAsteroidSand",
+"-5,5": "FloorAsteroidSand",
+"-5,6": "FloorConcreteMono",
+"-5,7": "FloorConcreteMono",
+"-5,8": "FloorAsteroidSand",
+"-5,9": "FloorAsteroidSand",
+"-5,10": "FloorAsphalt",
+"-5,11": "FloorAsphalt",
+"-4,-34": "FloorAsphalt",
+"-4,-33": "FloorAsphalt",
+"-4,-32": "FloorAsphalt",
+"-4,-31": "FloorAsphalt",
+"-4,-30": "FloorAsphalt",
+"-4,-29": "FloorAsphalt",
+"-4,-28": "FloorAsphalt",
+"-4,-27": "FloorAsphalt",
+"-4,-26": "FloorAsteroidSand",
+"-4,-25": "FloorConcreteMono",
+"-4,-24": "FloorConcreteMono",
+"-4,-23": "FloorAsteroidSand",
+"-4,-22": "FloorAsteroidSand",
+"-4,-21": "FloorAsteroidSand",
+"-4,-20": "FloorAsteroidSand",
+"-4,-19": "FloorAsteroidSand",
+"-4,-18": "FloorConcreteMono",
+"-4,-17": "FloorConcreteMono",
+"-4,-16": "FloorConcreteMono",
+"-4,-15": "FloorConcreteMono",
+"-4,-14": "FloorConcreteMono",
+"-4,-13": "FloorConcreteMono",
+"-4,-12": "FloorConcreteMono",
+"-4,-11": "FloorConcreteMono",
+"-4,-10": "FloorConcreteMono",
+"-4,-9": "FloorConcreteMono",
+"-4,-8": "FloorConcreteMono",
+"-4,-7": "FloorConcreteMono",
+"-4,-6": "FloorConcreteMono",
+"-4,-5": "FloorConcreteMono",
+"-4,-4": "FloorConcreteMono",
+"-4,-3": "FloorConcreteMono",
+"-4,-2": "FloorConcreteMono",
+"-4,-1": "FloorConcreteMono",
+"-4,0": "FloorConcreteMono",
+"-4,1": "FloorAsteroidSand",
+"-4,2": "FloorAsteroidSand",
+"-4,3": "FloorAsteroidSand",
+"-4,4": "FloorAsteroidSand",
+"-4,5": "FloorAsteroidSand",
+"-4,6": "FloorConcreteMono",
+"-4,7": "FloorConcreteMono",
+"-4,8": "FloorAsteroidSand",
+"-4,9": "FloorAsteroidSand",
+"-4,10": "FloorAsphalt",
+"-4,11": "FloorAsphalt",
+"-3,-26": "FloorAsteroidSand",
+"-3,-25": "FloorConcreteMono",
+"-3,-24": "FloorConcreteMono",
+"-3,-23": "FloorAsteroidSand",
+"-3,-22": "FloorAsteroidSand",
+"-3,-21": "FloorAsteroidSand",
+"-3,-20": "FloorAsteroidSand",
+"-3,-19": "FloorAsteroidSand",
+"-3,-18": "FloorConcreteMono",
+"-3,-17": "FloorConcreteMono",
+"-3,-16": "FloorConcreteMono",
+"-3,-15": "FloorConcreteMono",
+"-3,-14": "FloorConcreteMono",
+"-3,-13": "FloorConcreteMono",
+"-3,-12": "FloorConcreteMono",
+"-3,-11": "FloorConcreteMono",
+"-3,-10": "FloorConcreteMono",
+"-3,-9": "FloorConcreteMono",
+"-3,-8": "FloorConcreteMono",
+"-3,-7": "FloorConcreteMono",
+"-3,-6": "FloorConcreteMono",
+"-3,-5": "FloorConcreteMono",
+"-3,-4": "FloorConcreteMono",
+"-3,-3": "FloorConcreteMono",
+"-3,-2": "FloorConcreteMono",
+"-3,-1": "FloorConcreteMono",
+"-3,0": "FloorConcreteMono",
+"-3,1": "FloorAsteroidSand",
+"-3,2": "FloorAsteroidSand",
+"-3,3": "FloorAsteroidSand",
+"-3,4": "FloorAsteroidSand",
+"-3,5": "FloorAsteroidSand",
+"-3,6": "FloorConcreteMono",
+"-3,7": "FloorConcreteMono",
+"-3,8": "FloorAsteroidSand",
+"-3,9": "FloorAsteroidSand",
+"-2,-26": "FloorAsteroidSand",
+"-2,-25": "FloorConcreteMono",
+"-2,-24": "FloorConcreteMono",
+"-2,-23": "FloorAsteroidSand",
+"-2,-22": "FloorAsteroidSand",
+"-2,-21": "FloorAsteroidSand",
+"-2,-20": "FloorAsteroidSand",
+"-2,-19": "FloorAsteroidSand",
+"-2,-18": "FloorConcreteMono",
+"-2,-17": "FloorConcreteMono",
+"-2,-16": "FloorConcreteMono",
+"-2,-15": "FloorConcreteMono",
+"-2,-14": "FloorConcreteMono",
+"-2,-13": "FloorConcreteMono",
+"-2,-12": "FloorConcreteMono",
+"-2,-11": "FloorConcreteMono",
+"-2,-10": "FloorConcreteMono",
+"-2,-9": "FloorConcreteMono",
+"-2,-8": "FloorConcreteMono",
+"-2,-7": "FloorConcreteMono",
+"-2,-6": "FloorConcreteMono",
+"-2,-5": "FloorConcreteMono",
+"-2,-4": "FloorConcreteMono",
+"-2,-3": "FloorConcreteMono",
+"-2,-2": "FloorConcreteMono",
+"-2,-1": "FloorConcreteMono",
+"-2,0": "FloorConcreteMono",
+"-2,1": "FloorAsteroidSand",
+"-2,2": "FloorAsteroidSand",
+"-2,3": "FloorAsteroidSand",
+"-2,4": "FloorAsteroidSand",
+"-2,5": "FloorAsteroidSand",
+"-2,6": "FloorConcreteMono",
+"-2,7": "FloorConcreteMono",
+"-2,8": "FloorAsteroidSand",
+"-2,9": "FloorAsteroidSand",
+"-1,-26": "FloorAsteroidSand",
+"-1,-25": "FloorConcreteMono",
+"-1,-24": "FloorConcreteMono",
+"-1,-23": "FloorAsteroidSand",
+"-1,-22": "FloorAsteroidSand",
+"-1,-21": "FloorAsteroidSand",
+"-1,-20": "FloorAsteroidSand",
+"-1,-19": "FloorAsteroidSand",
+"-1,-18": "FloorConcreteMono",
+"-1,-17": "FloorConcreteMono",
+"-1,-16": "FloorConcreteMono",
+"-1,-15": "FloorConcreteMono",
+"-1,-14": "FloorConcreteMono",
+"-1,-13": "FloorConcreteMono",
+"-1,-12": "FloorConcreteMono",
+"-1,-11": "FloorConcreteMono",
+"-1,-10": "FloorConcreteMono",
+"-1,-9": "FloorConcreteMono",
+"-1,-8": "FloorConcreteMono",
+"-1,-7": "FloorConcreteMono",
+"-1,-6": "FloorConcreteMono",
+"-1,-5": "FloorConcreteMono",
+"-1,-4": "FloorConcreteMono",
+"-1,-3": "FloorConcreteMono",
+"-1,-2": "FloorConcreteMono",
+"-1,-1": "FloorConcreteMono",
+"-1,0": "FloorConcreteMono",
+"-1,1": "FloorAsteroidSand",
+"-1,2": "FloorAsteroidSand",
+"-1,3": "FloorAsteroidSand",
+"-1,4": "FloorAsteroidSand",
+"-1,5": "FloorAsteroidSand",
+"-1,6": "FloorConcreteMono",
+"-1,7": "FloorConcreteMono",
+"-1,8": "FloorAsteroidSand",
+"-1,9": "FloorAsteroidSand",
+"0,-26": "FloorAsteroidSand",
+"0,-25": "FloorConcreteMono",
+"0,-24": "FloorConcreteMono",
+"0,-23": "FloorAsteroidSand",
+"0,-22": "FloorAsteroidSand",
+"0,-21": "FloorAsteroidSand",
+"0,-20": "FloorAsteroidSand",
+"0,-19": "FloorAsteroidSand",
+"0,-18": "FloorConcreteMono",
+"0,-17": "FloorConcreteMono",
+"0,-16": "FloorConcreteMono",
+"0,-15": "FloorConcreteMono",
+"0,-14": "FloorConcreteMono",
+"0,-13": "FloorConcreteMono",
+"0,-12": "FloorConcreteMono",
+"0,-11": "FloorConcreteMono",
+"0,-10": "FloorConcreteMono",
+"0,-9": "FloorConcreteMono",
+"0,-8": "FloorConcreteMono",
+"0,-7": "FloorConcreteMono",
+"0,-6": "FloorConcreteMono",
+"0,-5": "FloorConcreteMono",
+"0,-4": "FloorConcreteMono",
+"0,-3": "FloorConcreteMono",
+"0,-2": "FloorConcreteMono",
+"0,-1": "FloorConcreteMono",
+"0,0": "FloorConcreteMono",
+"0,1": "FloorAsteroidSand",
+"0,2": "FloorAsteroidSand",
+"0,3": "FloorAsteroidSand",
+"0,4": "FloorAsteroidSand",
+"0,5": "FloorAsteroidSand",
+"0,6": "FloorConcreteMono",
+"0,7": "FloorConcreteMono",
+"0,8": "FloorAsteroidSand",
+"0,9": "FloorAsteroidSand",
+"1,-26": "FloorAsteroidSand",
+"1,-25": "FloorConcreteMono",
+"1,-24": "FloorConcreteMono",
+"1,-23": "FloorAsteroidSand",
+"1,-22": "FloorAsteroidSand",
+"1,-21": "FloorAsteroidSand",
+"1,-20": "FloorAsteroidSand",
+"1,-19": "FloorAsteroidSand",
+"1,-18": "FloorConcreteMono",
+"1,-17": "FloorConcreteMono",
+"1,-16": "FloorConcreteMono",
+"1,-15": "FloorConcreteMono",
+"1,-14": "FloorConcreteMono",
+"1,-13": "FloorConcreteMono",
+"1,-12": "FloorConcreteMono",
+"1,-11": "FloorConcreteMono",
+"1,-10": "FloorConcreteMono",
+"1,-9": "FloorConcreteMono",
+"1,-8": "FloorConcreteMono",
+"1,-7": "FloorConcreteMono",
+"1,-6": "FloorConcreteMono",
+"1,-5": "FloorConcreteMono",
+"1,-4": "FloorConcreteMono",
+"1,-3": "FloorConcreteMono",
+"1,-2": "FloorConcreteMono",
+"1,-1": "FloorConcreteMono",
+"1,0": "FloorConcreteMono",
+"1,1": "FloorAsteroidSand",
+"1,2": "FloorAsteroidSand",
+"1,3": "FloorAsteroidSand",
+"1,4": "FloorAsteroidSand",
+"1,5": "FloorAsteroidSand",
+"1,6": "FloorConcreteMono",
+"1,7": "FloorConcreteMono",
+"1,8": "FloorAsteroidSand",
+"1,9": "FloorAsteroidSand",
+"2,-26": "FloorAsteroidSand",
+"2,-25": "FloorConcreteMono",
+"2,-24": "FloorConcreteMono",
+"2,-23": "FloorAsteroidSand",
+"2,-22": "FloorAsteroidSand",
+"2,-21": "FloorAsteroidSand",
+"2,-20": "FloorAsteroidSand",
+"2,-19": "FloorAsteroidSand",
+"2,-18": "FloorConcreteMono",
+"2,-17": "FloorConcreteMono",
+"2,-16": "FloorConcreteMono",
+"2,-15": "FloorConcreteMono",
+"2,-14": "FloorConcreteMono",
+"2,-13": "FloorConcreteMono",
+"2,-12": "FloorConcreteMono",
+"2,-11": "FloorConcreteMono",
+"2,-10": "FloorConcreteMono",
+"2,-9": "FloorConcreteMono",
+"2,-8": "FloorConcreteMono",
+"2,-7": "FloorConcreteMono",
+"2,-6": "FloorConcreteMono",
+"2,-5": "FloorConcreteMono",
+"2,-4": "FloorConcreteMono",
+"2,-3": "FloorConcreteMono",
+"2,-2": "FloorConcreteMono",
+"2,-1": "FloorConcreteMono",
+"2,0": "FloorConcreteMono",
+"2,1": "FloorAsteroidSand",
+"2,2": "FloorAsteroidSand",
+"2,3": "FloorAsteroidSand",
+"2,4": "FloorAsteroidSand",
+"2,5": "FloorAsteroidSand",
+"2,6": "FloorConcreteMono",
+"2,7": "FloorConcreteMono",
+"2,8": "FloorAsteroidSand",
+"2,9": "FloorAsteroidSand",
+"3,-26": "FloorAsteroidSand",
+"3,-25": "FloorConcreteMono",
+"3,-24": "FloorConcreteMono",
+"3,-23": "FloorAsteroidSand",
+"3,-22": "FloorAsteroidSand",
+"3,-21": "FloorAsteroidSand",
+"3,-20": "FloorAsteroidSand",
+"3,-19": "FloorAsteroidSand",
+"3,-18": "FloorConcreteMono",
+"3,-17": "FloorConcreteMono",
+"3,-16": "FloorConcreteMono",
+"3,-15": "FloorConcreteMono",
+"3,-14": "FloorConcreteMono",
+"3,-13": "FloorConcreteMono",
+"3,-12": "FloorConcreteMono",
+"3,-11": "FloorConcreteMono",
+"3,-10": "FloorConcreteMono",
+"3,-9": "FloorConcreteMono",
+"3,-8": "FloorConcreteMono",
+"3,-7": "FloorConcreteMono",
+"3,-6": "FloorConcreteMono",
+"3,-5": "FloorConcreteMono",
+"3,-4": "FloorConcreteMono",
+"3,-3": "FloorConcreteMono",
+"3,-2": "FloorConcreteMono",
+"3,-1": "FloorConcreteMono",
+"3,0": "FloorConcreteMono",
+"3,1": "FloorAsteroidSand",
+"3,2": "FloorAsteroidSand",
+"3,3": "FloorAsteroidSand",
+"3,4": "FloorAsteroidSand",
+"3,5": "FloorAsteroidSand",
+"3,6": "FloorConcreteMono",
+"3,7": "FloorConcreteMono",
+"3,8": "FloorAsteroidSand",
+"3,9": "FloorAsteroidSand",
+"4,-26": "FloorAsteroidSand",
+"4,-25": "FloorConcreteMono",
+"4,-24": "FloorConcreteMono",
+"4,-23": "FloorAsteroidSand",
+"4,-22": "FloorAsteroidSand",
+"4,-21": "FloorAsteroidSand",
+"4,-20": "FloorAsteroidSand",
+"4,-19": "FloorAsteroidSand",
+"4,-18": "FloorConcreteMono",
+"4,-17": "FloorConcreteMono",
+"4,-16": "FloorConcreteMono",
+"4,-15": "FloorConcreteMono",
+"4,-14": "FloorConcreteMono",
+"4,-13": "FloorConcreteMono",
+"4,-12": "FloorConcreteMono",
+"4,-11": "FloorConcreteMono",
+"4,-10": "FloorConcreteMono",
+"4,-9": "FloorConcreteMono",
+"4,-8": "FloorConcreteMono",
+"4,-7": "FloorConcreteMono",
+"4,-6": "FloorConcreteMono",
+"4,-5": "FloorConcreteMono",
+"4,-4": "FloorConcreteMono",
+"4,-3": "FloorConcreteMono",
+"4,-2": "FloorConcreteMono",
+"4,-1": "FloorConcreteMono",
+"4,0": "FloorConcreteMono",
+"4,1": "FloorAsteroidSand",
+"4,2": "FloorAsteroidSand",
+"4,3": "FloorAsteroidSand",
+"4,4": "FloorAsteroidSand",
+"4,5": "FloorAsteroidSand",
+"4,6": "FloorConcreteMono",
+"4,7": "FloorConcreteMono",
+"4,8": "FloorAsteroidSand",
+"4,9": "FloorAsteroidSand",
+"5,-26": "FloorAsteroidSand",
+"5,-25": "FloorConcreteMono",
+"5,-24": "FloorConcreteMono",
+"5,-23": "FloorAsteroidSand",
+"5,-22": "FloorAsteroidSand",
+"5,-21": "FloorAsteroidSand",
+"5,-20": "FloorAsteroidSand",
+"5,-19": "FloorAsteroidSand",
+"5,-18": "FloorConcreteMono",
+"5,-17": "FloorConcreteMono",
+"5,-16": "FloorConcreteMono",
+"5,-15": "FloorConcreteMono",
+"5,-14": "FloorConcreteMono",
+"5,-13": "FloorConcreteMono",
+"5,-12": "FloorConcreteMono",
+"5,-11": "FloorConcreteMono",
+"5,-10": "FloorConcreteMono",
+"5,-9": "FloorConcreteMono",
+"5,-8": "FloorConcreteMono",
+"5,-7": "FloorConcreteMono",
+"5,-6": "FloorConcreteMono",
+"5,-5": "FloorConcreteMono",
+"5,-4": "FloorConcreteMono",
+"5,-3": "FloorConcreteMono",
+"5,-2": "FloorConcreteMono",
+"5,-1": "FloorConcreteMono",
+"5,0": "FloorConcreteMono",
+"5,1": "FloorAsteroidSand",
+"5,2": "FloorAsteroidSand",
+"5,3": "FloorAsteroidSand",
+"5,4": "FloorAsteroidSand",
+"5,5": "FloorAsteroidSand",
+"5,6": "FloorConcreteMono",
+"5,7": "FloorConcreteMono",
+"5,8": "FloorAsteroidSand",
+"5,9": "FloorAsteroidSand",
+"6,-26": "FloorAsteroidSand",
+"6,-25": "FloorConcreteMono",
+"6,-24": "FloorConcreteMono",
+"6,-23": "FloorAsteroidSand",
+"6,-22": "FloorAsteroidSand",
+"6,-21": "FloorAsteroidSand",
+"6,-20": "FloorAsteroidSand",
+"6,-19": "FloorAsteroidSand",
+"6,-18": "FloorConcreteMono",
+"6,-17": "FloorConcreteMono",
+"6,-16": "FloorConcreteMono",
+"6,-15": "FloorConcreteMono",
+"6,-14": "FloorConcreteMono",
+"6,-13": "FloorConcreteMono",
+"6,-12": "FloorConcreteMono",
+"6,-11": "FloorConcreteMono",
+"6,-10": "FloorConcreteMono",
+"6,-9": "FloorConcreteMono",
+"6,-8": "FloorConcreteMono",
+"6,-7": "FloorConcreteMono",
+"6,-6": "FloorConcreteMono",
+"6,-5": "FloorConcreteMono",
+"6,-4": "FloorConcreteMono",
+"6,-3": "FloorConcreteMono",
+"6,-2": "FloorConcreteMono",
+"6,-1": "FloorConcreteMono",
+"6,0": "FloorConcreteMono",
+"6,1": "FloorAsteroidSand",
+"6,2": "FloorAsteroidSand",
+"6,3": "FloorAsteroidSand",
+"6,4": "FloorAsteroidSand",
+"6,5": "FloorAsteroidSand",
+"6,6": "FloorConcreteMono",
+"6,7": "FloorConcreteMono",
+"6,8": "FloorAsteroidSand",
+"6,9": "FloorAsteroidSand",
+"7,-26": "FloorAsteroidSand",
+"7,-25": "FloorConcreteMono",
+"7,-24": "FloorConcreteMono",
+"7,-23": "FloorAsteroidSand",
+"7,-22": "FloorAsteroidSand",
+"7,-21": "FloorAsteroidSand",
+"7,-20": "FloorAsteroidSand",
+"7,-19": "FloorAsteroidSand",
+"7,-18": "FloorConcreteMono",
+"7,-17": "FloorConcreteMono",
+"7,-16": "FloorConcreteMono",
+"7,-15": "FloorConcreteMono",
+"7,-14": "FloorConcreteMono",
+"7,-13": "FloorConcreteMono",
+"7,-12": "FloorConcreteMono",
+"7,-11": "FloorConcreteMono",
+"7,-10": "FloorConcreteMono",
+"7,-9": "FloorConcreteMono",
+"7,-8": "FloorConcreteMono",
+"7,-7": "FloorConcreteMono",
+"7,-6": "FloorConcreteMono",
+"7,-5": "FloorConcreteMono",
+"7,-4": "FloorConcreteMono",
+"7,-3": "FloorConcreteMono",
+"7,-2": "FloorConcreteMono",
+"7,-1": "FloorConcreteMono",
+"7,0": "FloorConcreteMono",
+"7,1": "FloorAsteroidSand",
+"7,2": "FloorAsteroidSand",
+"7,3": "FloorAsteroidSand",
+"7,4": "FloorAsteroidSand",
+"7,5": "FloorAsteroidSand",
+"7,6": "FloorConcreteMono",
+"7,7": "FloorConcreteMono",
+"7,8": "FloorAsteroidSand",
+"7,9": "FloorAsteroidSand",
+"8,-26": "FloorAsteroidSand",
+"8,-25": "FloorConcreteMono",
+"8,-24": "FloorConcreteMono",
+"8,-23": "FloorAsteroidSand",
+"8,-22": "FloorAsteroidSand",
+"8,-21": "FloorAsteroidSand",
+"8,-20": "FloorAsteroidSand",
+"8,-19": "FloorAsteroidSand",
+"8,-18": "FloorConcreteMono",
+"8,-17": "FloorConcreteMono",
+"8,-16": "FloorConcreteMono",
+"8,-15": "FloorConcreteMono",
+"8,-14": "FloorConcreteMono",
+"8,-13": "FloorConcreteMono",
+"8,-12": "FloorConcreteMono",
+"8,-11": "FloorConcreteMono",
+"8,-10": "FloorConcreteMono",
+"8,-9": "FloorConcreteMono",
+"8,-8": "FloorConcreteMono",
+"8,-7": "FloorConcreteMono",
+"8,-6": "FloorConcreteMono",
+"8,-5": "FloorConcreteMono",
+"8,-4": "FloorConcreteMono",
+"8,-3": "FloorConcreteMono",
+"8,-2": "FloorConcreteMono",
+"8,-1": "FloorConcreteMono",
+"8,0": "FloorConcreteMono",
+"8,1": "FloorAsteroidSand",
+"8,2": "FloorAsteroidSand",
+"8,3": "FloorAsteroidSand",
+"8,4": "FloorAsteroidSand",
+"8,5": "FloorAsteroidSand",
+"8,6": "FloorConcreteMono",
+"8,7": "FloorConcreteMono",
+"8,8": "FloorAsteroidSand",
+"8,9": "FloorAsteroidSand",
+"9,-26": "FloorAsteroidSand",
+"9,-25": "FloorConcreteMono",
+"9,-24": "FloorConcreteMono",
+"9,-23": "FloorAsteroidSand",
+"9,-22": "FloorAsteroidSand",
+"9,-21": "FloorAsteroidSand",
+"9,-20": "FloorAsteroidSand",
+"9,-19": "FloorAsteroidSand",
+"9,-18": "FloorConcreteMono",
+"9,-17": "FloorConcreteMono",
+"9,-16": "FloorConcreteMono",
+"9,-15": "FloorConcreteMono",
+"9,-14": "FloorConcreteMono",
+"9,-13": "FloorConcreteMono",
+"9,-12": "FloorConcreteMono",
+"9,-11": "FloorConcreteMono",
+"9,-10": "FloorConcreteMono",
+"9,-9": "FloorConcreteMono",
+"9,-8": "FloorConcreteMono",
+"9,-7": "FloorConcreteMono",
+"9,-6": "FloorConcreteMono",
+"9,-5": "FloorConcreteMono",
+"9,-4": "FloorConcreteMono",
+"9,-3": "FloorConcreteMono",
+"9,-2": "FloorConcreteMono",
+"9,-1": "FloorConcreteMono",
+"9,0": "FloorConcreteMono",
+"9,1": "FloorAsteroidSand",
+"9,2": "FloorAsteroidSand",
+"9,3": "FloorAsteroidSand",
+"9,4": "FloorAsteroidSand",
+"9,5": "FloorAsteroidSand",
+"9,6": "FloorConcreteMono",
+"9,7": "FloorConcreteMono",
+"9,8": "FloorAsteroidSand",
+"9,9": "FloorAsteroidSand",
+"10,-26": "FloorAsteroidSand",
+"10,-25": "FloorConcreteMono",
+"10,-24": "FloorConcreteMono",
+"10,-23": "FloorAsteroidSand",
+"10,-22": "FloorAsteroidSand",
+"10,-21": "FloorAsteroidSand",
+"10,-20": "FloorAsteroidSand",
+"10,-19": "FloorAsteroidSand",
+"10,-18": "FloorAsteroidSand",
+"10,-17": "FloorAsteroidSand",
+"10,-16": "FloorAsteroidSand",
+"10,-15": "FloorAsteroidSand",
+"10,-14": "FloorAsteroidSand",
+"10,-13": "FloorAsteroidSand",
+"10,-12": "FloorAsteroidSand",
+"10,-11": "FloorAsteroidSand",
+"10,-10": "FloorAsteroidSand",
+"10,-9": "FloorAsteroidSand",
+"10,-8": "FloorAsteroidSand",
+"10,-7": "FloorAsteroidSand",
+"10,-6": "FloorAsteroidSand",
+"10,-5": "FloorAsteroidSand",
+"10,-4": "FloorAsteroidSand",
+"10,-3": "FloorAsteroidSand",
+"10,-2": "FloorAsteroidSand",
+"10,-1": "FloorAsteroidSand",
+"10,0": "FloorAsteroidSand",
+"10,1": "FloorAsteroidSand",
+"10,2": "FloorAsteroidSand",
+"10,3": "FloorAsteroidSand",
+"10,4": "FloorAsteroidSand",
+"10,5": "FloorAsteroidSand",
+"10,6": "FloorConcreteMono",
+"10,7": "FloorConcreteMono",
+"10,8": "FloorAsteroidSand",
+"10,9": "FloorAsteroidSand",
+"11,-26": "FloorAsteroidSand",
+"11,-25": "FloorConcreteMono",
+"11,-24": "FloorConcreteMono",
+"11,-23": "FloorAsteroidSand",
+"11,-22": "FloorAsteroidSand",
+"11,-21": "FloorAsteroidSand",
+"11,-20": "FloorAsteroidSand",
+"11,-19": "FloorAsteroidSand",
+"11,-18": "FloorAsteroidSand",
+"11,-17": "FloorAsteroidSand",
+"11,-16": "FloorAsteroidSand",
+"11,-15": "FloorAsteroidSand",
+"11,-14": "FloorAsteroidSand",
+"11,-13": "FloorAsteroidSand",
+"11,-12": "FloorAsteroidSand",
+"11,-11": "FloorAsteroidSand",
+"11,-10": "FloorAsteroidSand",
+"11,-9": "FloorAsteroidSand",
+"11,-8": "FloorAsteroidSand",
+"11,-7": "FloorAsteroidSand",
+"11,-6": "FloorAsteroidSand",
+"11,-5": "FloorAsteroidSand",
+"11,-4": "FloorAsteroidSand",
+"11,-3": "FloorAsteroidSand",
+"11,-2": "FloorAsteroidSand",
+"11,-1": "FloorAsteroidSand",
+"11,0": "FloorAsteroidSand",
+"11,1": "FloorAsteroidSand",
+"11,2": "FloorAsteroidSand",
+"11,3": "FloorAsteroidSand",
+"11,4": "FloorAsteroidSand",
+"11,5": "FloorAsteroidSand",
+"11,6": "FloorConcreteMono",
+"11,7": "FloorConcreteMono",
+"11,8": "FloorAsteroidSand",
+"11,9": "FloorAsteroidSand",
+"12,-26": "FloorAsteroidSand",
+"12,-25": "FloorConcreteMono",
+"12,-24": "FloorConcreteMono",
+"12,-23": "FloorAsteroidSand",
+"12,-22": "FloorAsteroidSand",
+"12,-21": "FloorAsteroidSand",
+"12,-20": "FloorAsteroidSand",
+"12,-19": "FloorAsteroidSand",
+"12,-18": "FloorAsteroidSand",
+"12,-17": "FloorAsteroidSand",
+"12,-16": "FloorAsteroidSand",
+"12,-15": "FloorAsteroidSand",
+"12,-14": "FloorAsteroidSand",
+"12,-13": "FloorAsteroidSand",
+"12,-12": "FloorAsteroidSand",
+"12,-11": "FloorAsteroidSand",
+"12,-10": "FloorAsteroidSand",
+"12,-9": "FloorAsteroidSand",
+"12,-8": "FloorAsteroidSand",
+"12,-7": "FloorAsteroidSand",
+"12,-6": "FloorAsteroidSand",
+"12,-5": "FloorAsteroidSand",
+"12,-4": "FloorAsteroidSand",
+"12,-3": "FloorAsteroidSand",
+"12,-2": "FloorAsteroidSand",
+"12,-1": "FloorAsteroidSand",
+"12,0": "FloorAsteroidSand",
+"12,1": "FloorAsteroidSand",
+"12,2": "FloorAsteroidSand",
+"12,3": "FloorAsteroidSand",
+"12,4": "FloorAsteroidSand",
+"12,5": "FloorAsteroidSand",
+"12,6": "FloorConcreteMono",
+"12,7": "FloorConcreteMono",
+"12,8": "FloorAsteroidSand",
+"12,9": "FloorAsteroidSand",
+"13,-26": "FloorAsteroidSand",
+"13,-25": "FloorConcreteMono",
+"13,-24": "FloorConcreteMono",
+"13,-23": "FloorAsteroidSand",
+"13,-22": "FloorAsteroidSand",
+"13,-21": "FloorAsteroidSand",
+"13,-20": "FloorAsteroidSand",
+"13,-19": "FloorAsteroidSand",
+"13,-18": "FloorAsteroidSand",
+"13,-17": "FloorAsteroidSand",
+"13,-16": "FloorAsteroidSand",
+"13,-15": "FloorAsteroidSand",
+"13,-14": "FloorAsteroidSand",
+"13,-13": "FloorAsteroidSand",
+"13,-12": "FloorAsteroidSand",
+"13,-11": "FloorAsteroidSand",
+"13,-10": "FloorAsteroidSand",
+"13,-9": "FloorAsteroidSand",
+"13,-8": "FloorAsteroidSand",
+"13,-7": "FloorAsteroidSand",
+"13,-6": "FloorAsteroidSand",
+"13,-5": "FloorAsteroidSand",
+"13,-4": "FloorAsteroidSand",
+"13,-3": "FloorAsteroidSand",
+"13,-2": "FloorAsteroidSand",
+"13,-1": "FloorAsteroidSand",
+"13,0": "FloorAsteroidSand",
+"13,1": "FloorAsteroidSand",
+"13,2": "FloorAsteroidSand",
+"13,3": "FloorAsteroidSand",
+"13,4": "FloorAsteroidSand",
+"13,5": "FloorAsteroidSand",
+"13,6": "FloorConcreteMono",
+"13,7": "FloorConcreteMono",
+"13,8": "FloorAsteroidSand",
+"13,9": "FloorAsteroidSand",
+"14,-26": "FloorAsteroidSand",
+"14,-25": "FloorConcreteMono",
+"14,-24": "FloorConcreteMono",
+"14,-23": "FloorAsteroidSand",
+"14,-22": "FloorAsteroidSand",
+"14,-21": "FloorAsteroidSand",
+"14,-20": "FloorAsteroidSand",
+"14,-19": "FloorAsteroidSand",
+"14,-18": "FloorAsteroidSand",
+"14,-17": "FloorAsteroidSand",
+"14,-16": "FloorAsteroidSand",
+"14,-15": "FloorAsteroidSand",
+"14,-14": "FloorAsteroidSand",
+"14,-13": "FloorAsteroidSand",
+"14,-12": "FloorAsteroidSand",
+"14,-11": "FloorAsteroidSand",
+"14,-10": "FloorAsteroidSand",
+"14,-9": "FloorAsteroidSand",
+"14,-8": "FloorAsteroidSand",
+"14,-7": "FloorAsteroidSand",
+"14,-6": "FloorAsteroidSand",
+"14,-5": "FloorAsteroidSand",
+"14,-4": "FloorAsteroidSand",
+"14,-3": "FloorAsteroidSand",
+"14,-2": "FloorAsteroidSand",
+"14,-1": "FloorAsteroidSand",
+"14,0": "FloorAsteroidSand",
+"14,1": "FloorAsteroidSand",
+"14,2": "FloorAsteroidSand",
+"14,3": "FloorAsteroidSand",
+"14,4": "FloorAsteroidSand",
+"14,5": "FloorAsteroidSand",
+"14,6": "FloorConcreteMono",
+"14,7": "FloorConcreteMono",
+"14,8": "FloorAsteroidSand",
+"14,9": "FloorAsteroidSand",
+"15,-26": "FloorAsteroidSand",
+"15,-25": "FloorConcreteMono",
+"15,-24": "FloorConcreteMono",
+"15,-23": "FloorConcreteMono",
+"15,-22": "FloorConcreteMono",
+"15,-21": "FloorConcreteMono",
+"15,-20": "FloorConcreteMono",
+"15,-19": "FloorConcreteMono",
+"15,-18": "FloorConcreteMono",
+"15,-17": "FloorConcreteMono",
+"15,-16": "FloorConcreteMono",
+"15,-15": "FloorConcreteMono",
+"15,-14": "FloorConcreteMono",
+"15,-13": "FloorConcreteMono",
+"15,-12": "FloorConcreteMono",
+"15,-11": "FloorConcreteMono",
+"15,-10": "FloorConcreteMono",
+"15,-9": "FloorConcreteMono",
+"15,-8": "FloorConcreteMono",
+"15,-7": "FloorConcreteMono",
+"15,-6": "FloorConcreteMono",
+"15,-5": "FloorConcreteMono",
+"15,-4": "FloorConcreteMono",
+"15,-3": "FloorConcreteMono",
+"15,-2": "FloorConcreteMono",
+"15,-1": "FloorConcreteMono",
+"15,0": "FloorConcreteMono",
+"15,1": "FloorConcreteMono",
+"15,2": "FloorConcreteMono",
+"15,3": "FloorConcreteMono",
+"15,4": "FloorConcreteMono",
+"15,5": "FloorConcreteMono",
+"15,6": "FloorConcreteMono",
+"15,7": "FloorConcreteMono",
+"15,8": "FloorAsteroidSand",
+"15,9": "FloorAsteroidSand",
+"16,-26": "FloorAsteroidSand",
+"16,-25": "FloorConcreteMono",
+"16,-24": "FloorConcreteMono",
+"16,-23": "FloorConcreteMono",
+"16,-22": "FloorConcreteMono",
+"16,-21": "FloorConcreteMono",
+"16,-20": "FloorConcreteMono",
+"16,-19": "FloorConcreteMono",
+"16,-18": "FloorConcreteMono",
+"16,-17": "FloorConcreteMono",
+"16,-16": "FloorConcreteMono",
+"16,-15": "FloorConcreteMono",
+"16,-14": "FloorConcreteMono",
+"16,-13": "FloorConcreteMono",
+"16,-12": "FloorConcreteMono",
+"16,-11": "FloorConcreteMono",
+"16,-10": "FloorConcreteMono",
+"16,-9": "FloorConcreteMono",
+"16,-8": "FloorConcreteMono",
+"16,-7": "FloorConcreteMono",
+"16,-6": "FloorConcreteMono",
+"16,-5": "FloorConcreteMono",
+"16,-4": "FloorConcreteMono",
+"16,-3": "FloorConcreteMono",
+"16,-2": "FloorConcreteMono",
+"16,-1": "FloorConcreteMono",
+"16,0": "FloorConcreteMono",
+"16,1": "FloorConcreteMono",
+"16,2": "FloorConcreteMono",
+"16,3": "FloorConcreteMono",
+"16,4": "FloorConcreteMono",
+"16,5": "FloorConcreteMono",
+"16,6": "FloorConcreteMono",
+"16,7": "FloorConcreteMono",
+"16,8": "FloorAsteroidSand",
+"16,9": "FloorAsteroidSand",
+"17,-26": "FloorAsteroidSand",
+"17,-25": "FloorAsteroidSand",
+"17,-24": "FloorAsteroidSand",
+"17,-23": "FloorAsteroidSand",
+"17,-22": "FloorAsteroidSand",
+"17,-21": "FloorAsteroidSand",
+"17,-20": "FloorAsteroidSand",
+"17,-19": "FloorAsteroidSand",
+"17,-18": "FloorAsteroidSand",
+"17,-17": "FloorAsteroidSand",
+"17,-16": "FloorAsteroidSand",
+"17,-15": "FloorAsteroidSand",
+"17,-14": "FloorAsteroidSand",
+"17,-13": "FloorAsteroidSand",
+"17,-12": "FloorAsteroidSand",
+"17,-11": "FloorAsteroidSand",
+"17,-10": "FloorAsteroidSand",
+"17,-9": "FloorAsteroidSand",
+"17,-8": "FloorAsteroidSand",
+"17,-7": "FloorAsteroidSand",
+"17,-6": "FloorAsteroidSand",
+"17,-5": "FloorAsteroidSand",
+"17,-4": "FloorAsteroidSand",
+"17,-3": "FloorAsteroidSand",
+"17,-2": "FloorAsteroidSand",
+"17,-1": "FloorAsteroidSand",
+"17,0": "FloorAsteroidSand",
+"17,1": "FloorAsteroidSand",
+"17,2": "FloorAsteroidSand",
+"17,3": "FloorAsteroidSand",
+"17,4": "FloorAsteroidSand",
+"17,5": "FloorAsteroidSand",
+"17,6": "FloorAsteroidSand",
+"17,7": "FloorAsteroidSand",
+"17,8": "FloorAsteroidSand",
+"17,9": "FloorAsteroidSand",
+"18,-26": "FloorAsteroidSand",
+"18,-25": "FloorAsteroidSand",
+"18,-24": "FloorAsteroidSand",
+"18,-23": "FloorAsteroidSand",
+"18,-22": "FloorAsteroidSand",
+"18,-21": "FloorAsteroidSand",
+"18,-20": "FloorAsteroidSand",
+"18,-19": "FloorAsteroidSand",
+"18,-18": "FloorAsteroidSand",
+"18,-17": "FloorAsteroidSand",
+"18,-16": "FloorAsteroidSand",
+"18,-15": "FloorAsteroidSand",
+"18,-14": "FloorAsteroidSand",
+"18,-13": "FloorAsteroidSand",
+"18,-12": "FloorAsteroidSand",
+"18,-11": "FloorAsteroidSand",
+"18,-10": "FloorAsteroidSand",
+"18,-9": "FloorAsteroidSand",
+"18,-8": "FloorAsteroidSand",
+"18,-7": "FloorAsteroidSand",
+"18,-6": "FloorAsteroidSand",
+"18,-5": "FloorAsteroidSand",
+"18,-4": "FloorAsteroidSand",
+"18,-3": "FloorAsteroidSand",
+"18,-2": "FloorAsteroidSand",
+"18,-1": "FloorAsteroidSand",
+"18,0": "FloorAsteroidSand",
+"18,1": "FloorAsteroidSand",
+"18,2": "FloorAsteroidSand",
+"18,3": "FloorAsteroidSand",
+"18,4": "FloorAsteroidSand",
+"18,5": "FloorAsteroidSand",
+"18,6": "FloorAsteroidSand",
+"18,7": "FloorAsteroidSand",
+"18,8": "FloorAsteroidSand",
+"18,9": "FloorAsteroidSand"
+},
+"entities": [
+{
+"proto": "AlwaysPoweredWallLight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -1.5,9.5"
+]
+},
+{
+"proto": "AlwaysPoweredWallLight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 2.5,9.5"
+]
+},
+{
+"proto": "APCHyperCapacity",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-7.5"
+]
+},
+{
+"proto": "APCHyperCapacity",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-7.5"
+]
+},
+{
+"proto": "APCHyperCapacity",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-10.5"
+]
+},
+{
+"proto": "BannerMedical",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-21.5"
+]
+},
+{
+"proto": "BlastDoorOpen",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,-8.5"
+]
+},
+{
+"proto": "BlastDoorOpen",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 0.5,0.5"
+]
+},
+{
+"proto": "BlastDoorOpen",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 1.5,0.5"
+]
+},
+{
+"proto": "BlastDoorOpen",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -0.5,0.5"
+]
+},
+{
+"proto": "BlastDoorOpen",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,-9.5"
+]
+},
+{
+"proto": "BlastDoorOpen",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -8.5,-9.5"
+]
+},
+{
+"proto": "BlastDoorOpen",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -8.5,-8.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-8.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-14.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-11.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 4.5,-16.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 3.5,-16.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-16.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 5.5,-16.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-10.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-10.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-12.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-13.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-9.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-11.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-12.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-13.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-14.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-15.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-16.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-16.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-16.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,-0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 1.5,-16.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.5,-16.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,-16.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-16.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -3.5,-16.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -4.5,-16.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,-16.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -6.5,-16.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-16.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-16.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-15.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-14.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -6.5,-0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-1.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-2.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-3.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-4.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-6.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-5.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-3.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-2.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-1.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-4.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -6.5,-0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -4.5,-0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -3.5,-0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,-0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.5,-0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 1.5,-0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 4.5,-0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 5.5,-0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 3.5,-0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-6.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-4.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-5.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-3.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-1.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-2.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-1.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-2.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-5.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-6.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-8.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-9.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-9.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-9.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-10.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 5.5,-8.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 4.5,-8.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 3.5,-8.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 3.5,-8.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-8.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -3.5,-7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -4.5,-7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-3.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-4.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-5.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-6.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -6.5,-10.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,-7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,2.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,3.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -6.5,-7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,-10.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -4.5,-10.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -3.5,-10.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-10.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,-10.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.5,-10.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-10.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-10.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 3.5,-10.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 4.5,-10.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 5.5,-10.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 1.5,-10.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,1.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,4.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,5.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,6.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -3.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 1.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 3.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 4.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-13.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-18.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-23.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-22.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 10.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 9.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-21.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-16.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-17.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-15.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-14.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-20.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 15.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 13.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 14.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 11.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 12.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-12.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-19.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-11.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-8.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-9.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-10.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-5.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-4.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-6.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-3.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-2.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-1.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,1.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,2.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,3.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,5.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,6.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,4.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 5.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -4.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -6.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -8.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -9.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -10.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -11.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -12.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -13.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -14.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -13.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -14.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,6.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,5.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,4.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,3.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,2.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,1.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-0.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-2.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-3.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-4.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-5.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-6.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-7.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-8.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-9.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-1.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-11.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-12.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-13.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-14.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-15.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-16.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-10.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-17.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-20.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-21.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-22.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-19.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-23.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-18.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -12.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -11.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -10.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -9.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -8.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -6.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -4.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 1.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -3.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 3.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 4.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 5.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 9.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 10.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 11.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 12.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 14.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 15.5,-24.5"
+]
+},
+{
+"proto": "CableApcExtension",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 13.5,-24.5"
+]
+},
+{
+"proto": "CableHV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-2.5"
+]
+},
+{
+"proto": "CableHV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-1.5"
+]
+},
+{
+"proto": "CableHV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-0.5"
+]
+},
+{
+"proto": "CableHV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-6.5"
+]
+},
+{
+"proto": "CableHV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-0.5"
+]
+},
+{
+"proto": "CableHV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-2.5"
+]
+},
+{
+"proto": "CableHV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-1.5"
+]
+},
+{
+"proto": "CableHV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-0.5"
+]
+},
+{
+"proto": "CableHV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-1.5"
+]
+},
+{
+"proto": "CableHV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-3.5"
+]
+},
+{
+"proto": "CableHV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-4.5"
+]
+},
+{
+"proto": "CableHV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-3.5"
+]
+},
+{
+"proto": "CableHV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-4.5"
+]
+},
+{
+"proto": "CableHV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-5.5"
+]
+},
+{
+"proto": "CableHV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-6.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-6.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-6.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -14.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-7.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-7.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -3.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -4.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-9.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-10.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-10.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-10.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 5.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 4.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 3.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 1.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-7.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -6.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -8.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -9.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -10.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -11.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -12.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -13.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -14.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-7.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-6.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-5.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-4.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-3.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-2.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-1.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-0.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,0.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,1.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,2.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,3.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,5.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,4.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,6.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,7.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -14.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -13.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -12.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -11.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -10.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -9.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -8.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -6.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -4.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -3.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 1.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 4.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 5.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 3.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 9.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 12.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 11.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 13.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 10.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 14.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 15.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,7.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-24.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-23.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-22.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-21.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-20.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-19.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-17.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-16.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-15.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-14.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-13.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-12.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-11.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-10.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-9.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-8.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-7.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-6.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-18.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-5.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-4.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-3.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-1.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,0.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,1.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,2.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,3.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-2.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,4.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,5.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,6.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-0.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 15.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 14.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 13.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 12.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 11.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 10.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 9.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 4.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 5.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 1.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -3.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -4.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 3.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -6.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -8.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -9.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -10.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -11.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -12.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -13.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -14.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-25.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-9.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-24.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-10.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-11.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-12.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-13.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-14.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-15.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-16.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-17.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-18.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-19.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-20.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-21.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-22.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-23.5"
+]
+},
+{
+"proto": "CableMV",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -17.5,-8.5"
+]
+},
+{
+"proto": "CableTerminal",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 8.5,-4.5"
+]
+},
+{
+"proto": "CableTerminal",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 8.5,-3.5"
+]
+},
+{
+"proto": "CrateMedicalSurgery",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 3.5,-4.5"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -1.5,-16.5"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,-8.5"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,-9.5"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,-7.5"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -6.5,-10.5"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 1.5,0.5"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-7.5"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -1.5,-15.5"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,0.5"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.5,0.5"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -1.5,-2.5"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-10.5"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -1.5,-1.5"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -8.5,-8.5",
+"    - type: Door",
+"      state: Opening",
+"      secondsUntilStateChange: -1605.654",
+"    - type: DeviceLinkSource",
+"      lastSignals:",
+"        DoorStatus: True",
+"        DoorBoltStatus: False"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-10.5"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 2.5,-1.5"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -8.5,-9.5"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -6.5,-7.5"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-7.5"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 2.5,-2.5"
+]
+},
+{
+"proto": "DHAirlockRepublicGlassLocked",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,-10.5"
+]
+},
+{
+"proto": "DHAmmoBox556x45A",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -4.391932,-6.475991"
+]
+},
+{
+"proto": "DHAmmoBox556x45A",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -4.079432,-6.460366"
+]
+},
+{
+"proto": "DHAmmoBox556x45FMG",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.532557,-6.288491"
+]
+},
+{
+"proto": "DHAmmoBox556x45FMG",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.923182,-6.429116"
+]
+},
+{
+"proto": "DHAmmoBox556x45FMG",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -3.376307,-6.413491"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-22.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 5.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-18.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,8.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,7.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,6.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-17.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-3.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,1.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,9.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,4.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,5.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-6.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-9.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-1.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,2.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-0.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-8.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-5.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,3.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,0.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-7.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-2.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-14.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-12.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-4.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-13.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-11.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-5.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-12.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-13.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 16.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-16.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -5.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-24.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-15.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-15.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-14.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-19.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-17.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-18.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-24.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-20.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-22.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-25.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-21.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-23.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-7.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-9.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-16.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-8.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-11.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,9.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-0.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-3.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,0.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-1.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-4.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-6.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,1.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,-2.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-25.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 17.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 14.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 11.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -14.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -12.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -10.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -13.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -11.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -3.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -4.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -6.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 5.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,7.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 15.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 16.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 9.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -15.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 8.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-19.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,6.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -13.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 10.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 12.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -16.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,3.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,4.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -11.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -12.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 13.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-21.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -14.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,8.5",
+"      anchored: False",
+"    - type: Physics",
+"      bodyType: Dynamic"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -15.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,2.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 7.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 18.5,5.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 3.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -7.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -8.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 15.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-20.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -6.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -8.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -9.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -3.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -9.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -10.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -4.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 1.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 4.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 13.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 12.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 14.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 9.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 11.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 10.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 3.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-23.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-26.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 4.5,10.5"
+]
+},
+{
+"proto": "DHBarbedWireObstacle",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 6.5,10.5"
+]
+},
+{
+"proto": "DHComputerOverwatchRepublic",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,-15.5",
+"    - type: ApcPowerReceiver",
+"      powerLoad: 50"
+]
+},
+{
+"proto": "DHComputerOverwatchRepublic",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,-13.5",
+"    - type: ApcPowerReceiver",
+"      powerLoad: 50"
+]
+},
+{
+"proto": "DHCrateFieldGun90",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-20.5"
+]
+},
+{
+"proto": "DHCrateFieldGun90",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-19.5"
+]
+},
+{
+"proto": "DHCrateMortar",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-2.5"
+]
+},
+{
+"proto": "DHCrateMortar",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-1.5"
+]
+},
+{
+"proto": "DHCrateMortar",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,-13.5"
+]
+},
+{
+"proto": "DHCrateSecurityAmmo556x45",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-0.5"
+]
+},
+{
+"proto": "DHCrateSecurityAmmo556x45",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-5.5"
+]
+},
+{
+"proto": "DHCrateSecurityAmmo556x45",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-4.5"
+]
+},
+{
+"proto": "DHCrateSecurityAmmoRSPMG",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 14.5,-20.5"
+]
+},
+{
+"proto": "DHCrateSecurityAmmoRSPMG",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -9.5,4.5"
+]
+},
+{
+"proto": "DHCrateSecurityRSPMG",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 13.5,-20.5"
+]
+},
+{
+"proto": "DHCrateSecurityRSPMG",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -10.5,4.5"
+]
+},
+{
+"proto": "DHCrateShipAmmo30mm",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-3.5"
+]
+},
+{
+"proto": "DHCrateShipShells90mm",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,-12.5"
+]
+},
+{
+"proto": "DHCrateShipShells90mm",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.5,-12.5"
+]
+},
+{
+"proto": "DHFieldGun90",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,-19.5"
+]
+},
+{
+"proto": "DHFieldPhoneRepublicHQ",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -6.5,-15.5"
+]
+},
+{
+"proto": "DHFieldShell90APFSDS",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -4.745014,-18.636238"
+]
+},
+{
+"proto": "DHFieldSurgeryKitFilled",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.3116946,-19.646776"
+]
+},
+{
+"proto": "DHHatchTerminusBarracks",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -4.5,-0.5"
+]
+},
+{
+"proto": "DHHatchTerminusHQ",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -3.5,-11.5"
+]
+},
+{
+"proto": "DHLiftPanelTerminus",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 5.5,-14.5"
+]
+},
+{
+"proto": "DHLiftPlatformTerminus",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 3.5,-13.5",
+"    - type: Fixtures",
+"      fixtures: {}"
+]
+},
+{
+"proto": "DHMagazine556x45ShortA",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.641932,-4.881754"
+]
+},
+{
+"proto": "DHMagazine556x45ShortA",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.626307,-6.069595"
+]
+},
+{
+"proto": "DHMagazine556x45ShortA",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.657557,-3.803629"
+]
+},
+{
+"proto": "DHSandbagBarricade",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -14.5,3.5"
+]
+},
+{
+"proto": "DHSandbagBarricade",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -13.5,5.5"
+]
+},
+{
+"proto": "DHSandbagBarricade",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 2.5,1.5"
+]
+},
+{
+"proto": "DHSandbagBarricade",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -14.5,4.5"
+]
+},
+{
+"proto": "DHSandbagBarricade",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 13.5,-22.5"
+]
+},
+{
+"proto": "DHSandbagBarricade",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -14.5,5.5"
+]
+},
+{
+"proto": "DHSandbagBarricade",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 12.5,-22.5"
+]
+},
+{
+"proto": "DHSandbagBarricade",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -9.5,5.5"
+]
+},
+{
+"proto": "DHSandbagBarricade",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -1.5,1.5"
+]
+},
+{
+"proto": "DHSandbagBarricade",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 2.5,2.5"
+]
+},
+{
+"proto": "DHSandbagBarricade",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -12.5,5.5"
+]
+},
+{
+"proto": "DHSandbagBarricade",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -11.5,5.5"
+]
+},
+{
+"proto": "DHSandbagBarricade",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -14.5,2.5"
+]
+},
+{
+"proto": "DHSandbagBarricade",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 14.5,-22.5"
+]
+},
+{
+"proto": "DHSandbagBarricade",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 15.5,-22.5"
+]
+},
+{
+"proto": "DHSandbagBarricade",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 15.5,-21.5"
+]
+},
+{
+"proto": "DHSandbagBarricade",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 15.5,-20.5"
+]
+},
+{
+"proto": "DHSandbagBarricade",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -11.5,5.5"
+]
+},
+{
+"proto": "DHSandbagBarricade",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -1.5,2.5"
+]
+},
+{
+"proto": "DHSandbagBarricade",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -10.5,5.5"
+]
+},
+{
+"proto": "DHSandbagsEmpty25",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.18847966,-18.534"
+]
+},
+{
+"proto": "DHSandbagsEmpty25",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.48535466,-18.534"
+]
+},
+{
+"proto": "DHSandbagsEmpty25",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.73535466,-18.487125"
+]
+},
+{
+"proto": "DHSandbagsEmpty25",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 1.0322297,-18.487125"
+]
+},
+{
+"proto": "DHSandbagsFull",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.21777034,-18.328028",
+"    - type: Stack",
+"      count: 25"
+]
+},
+{
+"proto": "DHSMESKane",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-3.5"
+]
+},
+{
+"proto": "DHSMESKane",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-4.5"
+]
+},
+{
+"proto": "DHSplint",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.4523196,-19.443651"
+]
+},
+{
+"proto": "DHTentRepublic",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-19.5"
+]
+},
+{
+"proto": "DHTentRepublicCommand",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 5.5,-19.5"
+]
+},
+{
+"proto": "DHTentRepublicMedical",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-19.5"
+]
+},
+{
+"proto": "DHVehicleRAM45",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -26.5,-6.5"
+]
+},
+{
+"proto": "DHVehicleTankRepublic",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -24.5,-20.5"
+]
+},
+{
+"proto": "DHWeaponRifleRARM111",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -2.485682,-5.397866"
+]
+},
+{
+"proto": "DHWeaponRifleRARM111",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -2.438807,-4.585366"
+]
+},
+{
+"proto": "DHWeaponRifleRARM111",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -2.470057,-3.6634908"
+]
+},
+{
+"proto": "FenceMetalCorner",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -16.5,8.5"
+]
+},
+{
+"proto": "FenceMetalCorner",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 17.5,8.5"
+]
+},
+{
+"proto": "FenceMetalCorner",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalCorner",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -16.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalGate",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -5.5,8.5"
+]
+},
+{
+"proto": "FenceMetalGate",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 6.5,8.5"
+]
+},
+{
+"proto": "FenceMetalGate",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -6.5,-25.5",
+"      rot: 3.141592653589793 rad"
+]
+},
+{
+"proto": "FenceMetalGate",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,-25.5",
+"      rot: 3.141592653589793 rad"
+]
+},
+{
+"proto": "FenceMetalGate",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -4.5,-25.5",
+"      rot: 3.141592653589793 rad"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 15.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 16.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 16.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-21.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,2.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-17.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,1.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -6.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-24.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-19.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-18.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-15.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,5.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,7.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-20.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-16.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -4.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-7.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-9.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 12.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 14.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 13.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-10.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-0.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -0.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-3.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-5.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 15.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 1.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-4.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-6.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-1.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-2.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,0.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 2.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-14.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-16.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 8.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-15.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-18.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 11.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-11.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -13.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,6.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,4.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 10.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-12.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-13.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,7.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -14.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,5.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -12.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -11.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 8.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -9.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 0.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-21.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-22.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 5.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-19.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-20.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 4.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 9.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-23.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 6.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 7.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-24.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,-17.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -10.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -1.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 5.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 11.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 10.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -8.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -10.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -7.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -9.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 9.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -2.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 13.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 14.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 12.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -15.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -14.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -13.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -8.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -11.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -12.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 3.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -3.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -7.5,-25.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,4.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-10.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-12.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-11.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,6.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-14.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 7.5,8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 17.5,3.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-13.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,0.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,1.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-1.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-7.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,2.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,3.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-0.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-9.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-3.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-8.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-5.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-2.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-6.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-4.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-22.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -16.5,-23.5"
+]
+},
+{
+"proto": "FenceMetalStraight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -15.5,8.5"
+]
+},
+{
+"proto": "GeneratorRTG",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-0.5"
+]
+},
+{
+"proto": "GeneratorRTG",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-2.5"
+]
+},
+{
+"proto": "GeneratorRTG",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-2.5"
+]
+},
+{
+"proto": "GeneratorRTG",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-2.5"
+]
+},
+{
+"proto": "GeneratorRTG",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-1.5"
+]
+},
+{
+"proto": "GeneratorRTG",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 7.5,-0.5"
+]
+},
+{
+"proto": "GeneratorRTG",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-1.5"
+]
+},
+{
+"proto": "GeneratorRTG",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-0.5"
+]
+},
+{
+"proto": "GeneratorRTG",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-1.5"
+]
+},
+{
+"proto": "LightPostSmall",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -15.5,-8.5",
+"    - type: DHControlPointPowered",
+"      point: npp"
+]
+},
+{
+"proto": "LightPostSmall",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 16.5,-24.5",
+"    - type: DHControlPointPowered",
+"      point: npp"
+]
+},
+{
+"proto": "LightPostSmall",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,10.5",
+"    - type: DHControlPointPowered",
+"      point: npp"
+]
+},
+{
+"proto": "LightPostSmall",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 18.5,-26.5",
+"    - type: DHControlPointPowered",
+"      point: npp"
+]
+},
+{
+"proto": "LightPostSmall",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 18.5,10.5",
+"    - type: DHControlPointPowered",
+"      point: npp"
+]
+},
+{
+"proto": "LightPostSmall",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -17.5,-26.5",
+"    - type: DHControlPointPowered",
+"      point: npp"
+]
+},
+{
+"proto": "LightPostSmall",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 16.5,-8.5",
+"    - type: DHControlPointPowered",
+"      point: npp"
+]
+},
+{
+"proto": "LightPostSmall",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -15.5,7.5",
+"    - type: DHControlPointPowered",
+"      point: npp"
+]
+},
+{
+"proto": "LightPostSmall",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -15.5,-24.5",
+"    - type: DHControlPointPowered",
+"      point: npp"
+]
+},
+{
+"proto": "LightPostSmall",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 16.5,7.5",
+"    - type: DHControlPointPowered",
+"      point: npp"
+]
+},
+{
+"proto": "MedicatedSuture",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.4523196,-19.678026"
+]
+},
+{
+"proto": "MedicatedSuture",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.4679446,-20.162401"
+]
+},
+{
+"proto": "OperatingTable",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 4.5,-4.5"
+]
+},
+{
+"proto": "PoweredlightCyan",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 4.5,-9.5"
+]
+},
+{
+"proto": "PoweredlightCyan",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 0.5,-16.5"
+]
+},
+{
+"proto": "PoweredlightCyan",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 4.5,-8.5"
+]
+},
+{
+"proto": "PoweredlightCyan",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -5.5,-16.5"
+]
+},
+{
+"proto": "PoweredlightCyan",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -0.5,-5.5"
+]
+},
+{
+"proto": "PoweredlightCyan",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: 1.5,-5.5"
+]
+},
+{
+"proto": "PoweredlightCyan",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 3.5,-3.5"
+]
+},
+{
+"proto": "PoweredlightCyan",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -3.5,-9.5"
+]
+},
+{
+"proto": "PoweredlightCyan",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -3.5,-8.5"
+]
+},
+{
+"proto": "PoweredlightCyan",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 4.5,-11.5"
+]
+},
+{
+"proto": "PoweredlightYellow",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 10.5,-7.5"
+]
+},
+{
+"proto": "PoweredlightYellow",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-18.5"
+]
+},
+{
+"proto": "PoweredlightYellow",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -9.5,-10.5"
+]
+},
+{
+"proto": "PoweredlightYellow",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.5,-18.5"
+]
+},
+{
+"proto": "PoweredlightYellow",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -9.5,-16.5"
+]
+},
+{
+"proto": "PoweredlightYellow",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -7.5,1.5"
+]
+},
+{
+"proto": "PoweredlightYellow",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -9.5,-7.5"
+]
+},
+{
+"proto": "PoweredlightYellow",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,-18.5"
+]
+},
+{
+"proto": "PoweredlightYellow",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 10.5,-17.5"
+]
+},
+{
+"proto": "PoweredlightYellow",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -1.5,1.5"
+]
+},
+{
+"proto": "PoweredlightYellow",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 2.5,1.5"
+]
+},
+{
+"proto": "PoweredlightYellow",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 10.5,-10.5"
+]
+},
+{
+"proto": "PoweredlightYellow",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 10.5,0.5"
+]
+},
+{
+"proto": "PoweredlightYellow",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -9.5,0.5"
+]
+},
+{
+"proto": "PoweredWarmSmallLight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -7.5,-4.5"
+]
+},
+{
+"proto": "PoweredWarmSmallLight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: -1.5707963267948966 rad",
+"      pos: -2.5,-4.5"
+]
+},
+{
+"proto": "PoweredWarmSmallLight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,-0.5"
+]
+},
+{
+"proto": "PoweredWarmSmallLight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,7.5"
+]
+},
+{
+"proto": "PoweredWarmSmallLight",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,7.5"
+]
+},
+{
+"proto": "RegenerativeMesh",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.3273196,-19.209276"
+]
+},
+{
+"proto": "RegenerativeMesh",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.3741946,-18.756151"
+]
+},
+{
+"proto": "Shovel",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 1.4541047,-18.562458"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.5,-8.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,-9.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,-8.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -4.5,-9.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -4.5,-8.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -3.5,-9.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -3.5,-8.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-9.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-8.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-9.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-8.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,-9.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,-8.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.5,-9.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 1.5,-9.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 1.5,-8.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-9.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-8.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 3.5,-9.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 3.5,-8.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 4.5,-9.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 4.5,-8.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 5.5,-9.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 5.5,-8.5"
+]
+},
+{
+"proto": "SpawnPointAnyJob",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-8.5"
+]
+},
+{
+"proto": "SpawnPointLatejoin",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.5,-7.5"
+]
+},
+{
+"proto": "SpawnPointLatejoin",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.5,-6.5"
+]
+},
+{
+"proto": "SpawnPointLatejoin",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,-6.5"
+]
+},
+{
+"proto": "SpawnPointLatejoin",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 1.5,-6.5"
+]
+},
+{
+"proto": "SubstationBasic",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-6.5"
+]
+},
+{
+"proto": "TableFancyWhite",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-20.5"
+]
+},
+{
+"proto": "TableFancyWhite",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-18.5"
+]
+},
+{
+"proto": "TableFancyWhite",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-19.5"
+]
+},
+{
+"proto": "TableReinforced",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-6.5"
+]
+},
+{
+"proto": "TableReinforced",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -3.5,-6.5"
+]
+},
+{
+"proto": "TableReinforced",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -4.5,-6.5"
+]
+},
+{
+"proto": "TableReinforced",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-4.5"
+]
+},
+{
+"proto": "TableReinforced",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-5.5"
+]
+},
+{
+"proto": "TableReinforced",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-3.5"
+]
+},
+{
+"proto": "TableReinforced",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -6.5,-15.5"
+]
+},
+{
+"proto": "TableReinforced",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,-15.5"
+]
+},
+{
+"proto": "TableReinforced",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -5.5,-13.5"
+]
+},
+{
+"proto": "TableReinforced",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -6.5,-13.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-7.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 1.5,-10.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 4.5,0.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 6.5,0.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 3.5,0.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 2.5,0.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 5.5,0.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -8.5,-0.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -0.5,-10.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-10.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,0.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-4.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -8.5,-5.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -2.5,0.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -6.5,0.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -1.5,0.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 8.5,0.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -8.5,-15.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -8.5,-7.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-7.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -8.5,-12.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -8.5,-10.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -8.5,-14.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-0.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -8.5,-11.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -8.5,-13.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -8.5,-6.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -4.5,0.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 8.5,-7.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -3.5,0.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 3.5,8.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 7.5,0.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 2.5,8.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -5.5,0.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -8.5,-17.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -8.5,-16.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -8.5,-1.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -8.5,-4.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -4.5,-17.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -7.5,-17.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -8.5,-3.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -8.5,-2.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -6.5,-17.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -5.5,-17.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -3.5,8.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 1.5,8.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -0.5,-17.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -2.5,-17.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -1.5,-17.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -3.5,-17.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 7.5,-17.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 6.5,-17.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,-15.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,-16.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,-17.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 8.5,-17.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 5.5,-17.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 2.5,-17.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 4.5,-17.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 1.5,-17.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 0.5,-17.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,-0.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,-1.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 0.5,8.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-6.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: 4.5,8.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 3.5,-17.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,-2.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,-6.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,-10.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,-3.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,-4.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,-7.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,-11.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-10.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,-5.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,-14.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,-12.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-10.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 5.5,-10.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 3.5,-10.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-6.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-7.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: 9.5,-13.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 4.5,-10.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 3.5,-7.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 0.5,-10.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 6.5,-10.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-5.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 4.5,-7.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -3.5,-10.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 5.5,-7.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-13.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -4.5,-10.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -0.5,8.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -8.5,0.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 1.5707963267948966 rad",
+"      pos: -7.5,0.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -2.5,8.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      rot: 3.141592653589793 rad",
+"      pos: -1.5,8.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-12.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-3.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -2.5,-10.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-14.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -3.5,-7.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-3.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -7.5,-7.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-11.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-5.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 2.5,-0.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -1.5,-4.5"
+]
+},
+{
+"proto": "WallConcrete",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -4.5,-7.5"
+]
+},
+{
+"proto": "DHIVDripFilled",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 4.5,-3.5"
+]
+},
+{
+"proto": "DHAntiAirGun",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -12.5,-23.5"
+]
+},
+{
+"proto": "DHAntiAirGun",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 12.5,4.5"
+]
+},
+{
+"proto": "DHAutocannonAmmoBox30",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -11.5,-23.5"
+]
+},
+{
+"proto": "DHAutocannonAmmoBox30",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: 13.5,4.5"
+]
+},
+{
+"proto": "DHVehicleTruckRepublic",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -26.5,-12.5"
+]
+},
+{
+"proto": "DHVehicleTruckRepublic",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -21.5,-12.5"
+]
+},
+{
+"proto": "DHComputerSquadsRepublic",
+"lines": [
+"    - type: Transform",
+"      parent: 1",
+"      pos: -6.5,-14.5"
+]
+},
+{
+"proto": "DHGearVendorRepublicWeapons",
+"lines": [
+"    - type: Transform",
+"      pos: 8.5,-13.5",
+"      parent: 1"
+]
+},
+{
+"proto": "DHGearVendorRepublicAttachments",
+"lines": [
+"    - type: Transform",
+"      pos: 8.5,-14.5",
+"      parent: 1"
+]
+},
+{
+"proto": "DHGearVendorRepublicEquipment",
+"lines": [
+"    - type: Transform",
+"      pos: 8.5,-15.5",
+"      parent: 1"
+]
+},
+{
+"proto": "DHGearVendorRepublicMedic",
+"lines": [
+"    - type: Transform",
+"      pos: 8.5,-16.5",
+"      parent: 1"
+]
+}
+]
+}

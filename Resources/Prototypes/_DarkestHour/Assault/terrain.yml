@@ -223,3 +223,63 @@
   components:
   - type: DHControlPointPowered
     point: npp
+
+# --- Свет и резерв «Терминуса» (решение автора 2026-11-12) ---
+# Постройки карты питаются от сети АЭС без проводки: лампы и машины гаснут, когда Республика теряет АЭС.
+# У военных объектов (ПКО, ПВО, РЛС) — резервный дизель: после потери сети ещё 10 минут работы.
+
+- type: entity
+  parent: AlwaysPoweredWallLight
+  id: DHGridWallLight
+  suffix: NPP grid
+  description: A ceiling light fed by the power plant grid. Goes dark when the plant is lost.
+  components:
+  - type: DHControlPointPowered
+    point: npp
+
+- type: entity
+  parent: AlwaysPoweredWallLight
+  id: DHBunkerWallLight
+  suffix: NPP grid, backup diesel
+  description: A ceiling light fed by the power plant grid, with a backup diesel for when the plant is lost.
+  components:
+  - type: DHControlPointPowered
+    point: npp
+    backup: 600
+
+- type: entity
+  parent: BaseStructure
+  id: DHBackupDiesel
+  name: backup diesel generator
+  description: Keeps the post running for about ten minutes after the power plant grid is lost.
+  components:
+  - type: Sprite
+    sprite: Structures/Power/Generation/portable_generator.rsi
+    state: portgen1on
+    noRot: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.4"
+        density: 400
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: AmbientSound
+    volume: -8
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/engine_hum.ogg
+  - type: Damageable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]

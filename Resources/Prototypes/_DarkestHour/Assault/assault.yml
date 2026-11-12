@@ -1131,8 +1131,11 @@
     system: DHSystemREP27
     body: P7
     underground: /Maps/_DarkestHour/Assault/terminus_bunker.yml
-    # Поверхность нарисована вручную (вся планета — один грид карты, без биома). Маяки ЗП стоят на карте.
-    # После savemap прогнать Tools/_DarkestHour/planet_map/prepare.py.
+    # Шахтёрский городок: вторые этажи бараков (решение автора 2026-11-12).
+    levels:
+      1: /Maps/_DarkestHour/Assault/terminus_p1.yml
+    # Поверхность — один грид карты, без биома. Собирается генератором
+    # Tools/_DarkestHour/planet_map/terminus_build.py (план автора 2026-11-12); база — из снимка terminus_base.snapshot.
     mapped: true
     groundTile: FloorAsteroidSand
     groundTiles:
@@ -1143,6 +1146,7 @@
     - FloorDirt
     - FloorPlanetDirt
     - FloorPlanetGrass
+    - FloorGrass
   - type: DHAssaultFactionStation
     faction: Republic
 
