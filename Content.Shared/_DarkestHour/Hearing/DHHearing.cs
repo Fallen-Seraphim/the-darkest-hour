@@ -40,3 +40,20 @@ public sealed partial class DHTinnitusComponent : Component
     [DataField, AutoNetworkedField]
     public TimeSpan StartTime;
 }
+
+/// <summary>
+/// Контузия от близкого разрыва (решение автора 2026-11-12): вспышка и «муть» в глазах от <see cref="StartTime"/> до
+/// <see cref="EndTime"/>, сила — <see cref="Strength"/> (0–1); клиент рисует, затухая к концу.
+/// </summary>
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class DHConcussionComponent : Component
+{
+    [DataField, AutoNetworkedField]
+    public TimeSpan StartTime;
+
+    [DataField, AutoNetworkedField]
+    public TimeSpan EndTime;
+
+    [DataField, AutoNetworkedField]
+    public float Strength;
+}
