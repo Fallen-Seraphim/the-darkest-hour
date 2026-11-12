@@ -1,0 +1,55 @@
+# Звуки штурмовика взяты из CMU-14 (Content.CMU/Resources/Audio/CMU14/Fighter, RuCM 0e24ae881d), атрибуции сохранены.
+- files: [jet-pass.ogg]
+  license: CC0-1.0
+  copyright: "F-18 fly-over-and-circle above-DR070cut.wav by Ears68. Selected via Pixabay sound 76968. CMU edits: 2.5-10.5 second excerpt, mono, filtering, level and edge fades without pitch changes. Public HQ preview from the original CC0 upload used."
+  source: https://freesound.org/people/Ears68/sounds/150328/
+
+- files: [jet-pass-high.ogg]
+  license: CC0-1.0
+  copyright: "2 Royal Dutch Airforce F-16 Fighting Falcons flyby by Rudmer_Rotteveel. Selected via Pixabay sound 16990. CMU edits: mono, filtering and level; crossfaded 37-45.18 second cruise loops and faded 14-22 second high pass, without pitch changes. Public HQ preview from the original CC0 upload used."
+  source: https://freesound.org/people/Rudmer_Rotteveel/sounds/343746/
+
+- files: [ejection.ogg]
+  license: CC0-1.0
+  copyright: "Missile by Jacco18. CMU edits: mono, pitch/duration, filtering and fades. Public HQ preview used."
+  source: https://freesound.org/people/Jacco18/sounds/428360/
+
+- files: [countermeasures.ogg]
+  license: CC0-1.0
+  copyright: "Fire Explosion by Iwan 'qubodup' Gabovitch, from EOD Broll package by Seaman Kelly Meyer / AFN Okinawa (18 November 2020). Layered into the CMU mixes with the other credited sources. Mono excerpts, pitch changes, filtering and fades from the public HQ preview. Rebuild with Tools/fighter/generate-fighter-audio.py."
+  source: https://freesound.org/people/qubodup/sounds/855898/
+
+- files: [countermeasures.ogg]
+  license: CC0-1.0
+  copyright: "Missile by Jacco18. Layered into the CMU mixes with the other credited sources. Mono excerpts, pitch changes, filtering and fades from the public HQ preview. Rebuild with Tools/fighter/generate-fighter-audio.py."
+  source: https://freesound.org/people/Jacco18/sounds/428360/
+
+- files: [gau-ground.ogg, gau-impact.ogg]
+  license: CC-BY-SA-3.0
+  copyright: "CM13 gau.ogg, gau_incockpit.ogg and gauimpact.ogg. CMU edits: mono, filtering and level balancing; existing attribution preserved."
+  source: https://github.com/cmss13-devs/cmss13/tree/afb687eaaa1feadaf4da4765ac07c994f3400d4f/sound/effects
+
+- files: [manpad-lock.wav]
+  license: CC-BY-SA-3.0
+  copyright: "CM13 Blackfoot mechanical recording from PR #10291. CMU edits: excerpts, pitch and filtering; manpad-lock also includes original synthesized pressure and rumble. Approved MANPAD acquisition is preserved without opening clinks."
+  source: https://github.com/cmss13-devs/cmss13/tree/040a7c240f53d077c67edc92e2e57a927a477a4a/sound/vehicles/vtol
+
+- files: [airframe-hit.ogg]
+  license: CC-BY-SA-3.0
+  copyright: "CMU mix of CM13 Blackfoot mechanical (CC-BY-SA-3.0) and Fire Explosion by Iwan 'qubodup' Gabovitch (CC0). Excerpted, filtered, layered and normalized."
+  source: https://github.com/cmss13-devs/cmss13/tree/040a7c240f53d077c67edc92e2e57a927a477a4a/sound/vehicles/vtol
+
+- files: [airframe-hit.ogg]
+  license: CC-BY-SA-3.0
+  copyright: "Fire Explosion by Iwan 'qubodup' Gabovitch (CC0), from EOD Broll package by Seaman Kelly Meyer / AFN Okinawa (18 November 2020). Excerpted, filtered, layered and normalized with CM13 Blackfoot mechanical into the CC-BY-SA-3.0 CMU mix credited above."
+  source: https://freesound.org/people/qubodup/sounds/855898/
+
+- files: [missile-release.ogg, rocket-release.ogg]
+  license: CC0-1.0
+  copyright: "Missile by Jacco18. CMU edits: mono, pitch/duration, filtering and fades. Public HQ preview used."
+  source: https://freesound.org/people/Jacco18/sounds/428360/
+
+- files: [missile-impact.ogg, airburst.ogg]
+  license: CC0-1.0
+  copyright: "Fire Explosion by Iwan 'qubodup' Gabovitch, from EOD Broll package by Seaman Kelly Meyer / AFN Okinawa (18 November 2020). CMU edits: mono, pitch/duration, filtering and fades. Public HQ preview used."
+  source: https://freesound.org/people/qubodup/sounds/855898/

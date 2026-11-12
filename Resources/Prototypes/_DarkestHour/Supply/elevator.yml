@@ -75,3 +75,6 @@
   components:
   - type: DHSupplyConsole
     catalog: DHSupplyRepublic
+  # На Терминусе нет электросети — пульт гарнизона работает без питания.
+  - type: ApcPowerReceiver
+    needsPower: false

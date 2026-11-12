@@ -2,6 +2,11 @@ using System.Numerics;
 using Content.Server._DarkestHour.Assault;
 using Content.Server._DarkestHour.Shuttles.Rift;
 using Content.Shared._DarkestHour.Assault;
+using Content.Shared._DarkestHour.Aviation;
+using Content.Shared._DarkestHour.Vehicles;
+using Content.Shared.Examine;
+using Content.Shared.Stealth;
+using Content.Shared.Stealth.Components;
 using Content.Shared._DarkestHour.City;
 using Content.Shared._DarkestHour.ControlPoints;
 using Content.Shared._DarkestHour.HeavyGuns;
@@ -24,7 +29,9 @@ namespace Content.Server._DarkestHour.ControlPoints;
 /// </summary>
 public sealed partial class DHTacticalMapSystem : EntitySystem
 {
+    [Dependency] private ExamineSystemShared _examine = default!;
     [Dependency] private DHLandingSystem _landing = default!;
+    [Dependency] private SharedStealthSystem _stealth = default!;
     [Dependency] private SharedMapSystem _map = default!;
     [Dependency] private MobStateSystem _mobState = default!;
     [Dependency] private ITileDefinitionManager _tileDef = default!;
@@ -34,6 +41,15 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
 
     /// <summary>Сколько видит своя РЛС по поверхности.</summary>
     public const float RadarRange = 60f;
+
+    /// <summary>Сколько видит свой боец (в прямой видимости, сквозь стены — нет).</summary>
+    public const float SightRange = 9f;
+
+    /// <summary>Сколько видит экипаж своей техники (в прямой видимости).</summary>
+    public const float VehicleSightRange = 13f;
+
+    /// <summary>Замаскированного (видимость ниже этой) глаза бойцов не замечают.</summary>
+    private const float SightStealthThreshold = 0.35f;
 
     private static readonly TimeSpan TerrainLifetime = TimeSpan.FromMinutes(5);
 
@@ -336,28 +352,62 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
             eyes.Add((_transform.GetWorldPosition(xform), detector.Range));
         }
 
+        // Глаза бойцов и экипажей: противник в прямой видимости своих (на том же уровне).
+        var sight = new List<(EntityUid Eye, EntityUid? Map, Vector2 Position, float Range)>();
         var fighters = EntityQueryEnumerator<DHAssaultFighterComponent, TransformComponent>();
         while (fighters.MoveNext(out var uid, out var fighter, out var xform))
+        {
+            if (fighter.Faction == faction && LevelOf(levels, xform.MapUid, out _) && _mobState.IsAlive(uid))
+                sight.Add((uid, xform.MapUid, _transform.GetWorldPosition(xform), SightRange));
+        }
+
+        var ownVehicles = EntityQueryEnumerator<DHVehicleComponent, TransformComponent>();
+        while (ownVehicles.MoveNext(out var uid, out var vehicle, out var xform))
+        {
+            if (vehicle.Faction == faction && LevelOf(levels, xform.MapUid, out _))
+                sight.Add((uid, xform.MapUid, _transform.GetWorldPosition(xform), VehicleSightRange));
+        }
+
+        var enemies = EntityQueryEnumerator<DHAssaultFighterComponent, TransformComponent>();
+        while (enemies.MoveNext(out var uid, out var fighter, out var xform))
         {
             if (fighter.Faction == faction || !LevelOf(levels, xform.MapUid, out var level) || !_mobState.IsAlive(uid))
                 continue;
 
             var position = _transform.GetWorldPosition(xform);
-            foreach (var (eye, range) in eyes)
-            {
-                if (Vector2.Distance(eye, position) > range)
-                    continue;
+            var hidden = HasComp<StealthComponent>(uid) && _stealth.GetVisibility(uid) < SightStealthThreshold;
+            if (!SeenByEyes(eyes, position) && (hidden || !SeenBySight(sight, uid, xform.MapUid, position)))
+                continue;
 
-                markers.Add(new DHTacticalMarker
-                {
-                    Kind = DHTacticalMarkerKind.Enemy,
-                    X = position.X,
-                    Y = position.Y,
-                    Owner = fighter.Faction,
-                    Level = level,
-                });
-                break;
-            }
+            markers.Add(new DHTacticalMarker
+            {
+                Kind = DHTacticalMarkerKind.Enemy,
+                X = position.X,
+                Y = position.Y,
+                Owner = fighter.Faction,
+                Level = level,
+            });
+        }
+
+        var enemyVehicles = EntityQueryEnumerator<DHVehicleComponent, TransformComponent>();
+        while (enemyVehicles.MoveNext(out var uid, out var vehicle, out var xform))
+        {
+            if (vehicle.Faction == faction || !LevelOf(levels, xform.MapUid, out var level))
+                continue;
+
+            var position = _transform.GetWorldPosition(xform);
+            if (!SeenByEyes(eyes, position) && !SeenBySight(sight, uid, xform.MapUid, position, VehicleSightRange - SightRange))
+                continue;
+
+            markers.Add(new DHTacticalMarker
+            {
+                Kind = DHTacticalMarkerKind.EnemyVehicle,
+                X = position.X,
+                Y = position.Y,
+                Name = Name(uid),
+                Owner = vehicle.Faction,
+                Level = level,
+            });
         }
 
         var marks = EntityQueryEnumerator<DHLaserMarkComponent, TransformComponent>();
@@ -378,10 +428,66 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
             if (!LevelOf(levels, xform.MapUid, out var level) || contact.Faction != faction)
                 continue;
 
-            markers.Add(Marker(DHTacticalMarkerKind.ScanContact, xform, contact.Label, null, 0f, level));
+            markers.Add(Marker(contact.Blip ? DHTacticalMarkerKind.ScanBlip : DHTacticalMarkerKind.ScanContact, xform,
+                contact.Label, null, 0f, level));
+        }
+
+        // РЛС штурмовика в воздухе: сигнатуры техники и пехоты (только у его стороны).
+        if (faction == DHAssaultFaction.Empire)
+        {
+            var aircraft = EntityQueryEnumerator<DHAircraftComponent>();
+            while (aircraft.MoveNext(out var plane))
+            {
+                if (plane.State is not (DHAircraftState.Airborne or DHAircraftState.Returning or DHAircraftState.Pass) ||
+                    !plane.Modules.Contains(DHAircraftModule.Radar))
+                {
+                    continue;
+                }
+
+                foreach (var signature in plane.Signatures)
+                {
+                    markers.Add(new DHTacticalMarker
+                    {
+                        Kind = DHTacticalMarkerKind.AirSignature,
+                        X = signature.Position.X,
+                        Y = signature.Position.Y,
+                        Name = Loc.GetString("dh-aircraft-signature-" + signature.Kind.ToString().ToLowerInvariant()),
+                        Owner = DHAssaultFaction.Republic,
+                    });
+                }
+            }
         }
 
         return markers;
+    }
+
+    /// <summary>Точку видят РЛС или включённые детекторы движения (сквозь стены и уровни).</summary>
+    private static bool SeenByEyes(List<(Vector2 Position, float Range)> eyes, Vector2 position)
+    {
+        foreach (var (eye, range) in eyes)
+        {
+            if (Vector2.Distance(eye, position) <= range)
+                return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>Кого-то видит свой боец или экипаж: тот же уровень, в дальности и в прямой видимости.</summary>
+    private bool SeenBySight(List<(EntityUid Eye, EntityUid? Map, Vector2 Position, float Range)> sight, EntityUid target,
+        EntityUid? map, Vector2 position, float bonus = 0f)
+    {
+        foreach (var (eye, eyeMap, eyePosition, range) in sight)
+        {
+            var reach = range + bonus;
+            if (eyeMap != map || Vector2.Distance(eyePosition, position) > reach)
+                continue;
+
+            if (_examine.InRangeUnOccluded(eye, target, reach, e => e == eye || e == target))
+                return true;
+        }
+
+        return false;
     }
 
     /// <summary>Городские ориентиры (DHMapBeacon) на карте поверхности и её уровнях — видны всем.</summary>
