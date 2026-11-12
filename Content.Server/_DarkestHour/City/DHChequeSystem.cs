@@ -159,7 +159,7 @@ public sealed partial class DHChequeSystem : EntitySystem
             return;
         }
 
-        var goods = _itemSlots.GetItemOrNull(ent, DHChequeMachineComponent.GoodsSlotId);
+        var goods = _itemSlots.GetItemOrNull(ent.Owner, DHChequeMachineComponent.GoodsSlotId);
         var goodsName = goods is { } g ? Name(g) : comp.Description;
         if (goodsName.Length == 0)
             goodsName = Loc.GetString("dh-cheque-goods-none");
@@ -241,7 +241,7 @@ public sealed partial class DHChequeSystem : EntitySystem
             return;
 
         var card = Card(ent);
-        var goods = _itemSlots.GetItemOrNull(ent, DHChequeMachineComponent.GoodsSlotId);
+        var goods = _itemSlots.GetItemOrNull(ent.Owner, DHChequeMachineComponent.GoodsSlotId);
         _ui.SetUiState(ent.Owner, DHChequeMachineUiKey.Key, new DHChequeMachineState(
             card != null,
             card?.Holder ?? string.Empty,
