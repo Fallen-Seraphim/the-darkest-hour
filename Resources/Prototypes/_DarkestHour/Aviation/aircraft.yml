@@ -150,8 +150,8 @@
   - type: Item
     size: Large
   - type: DHAircraftCannonAmmo
-  - type: DHPowerLoaderGrabbable
     rounds: 150
+  - type: DHPowerLoaderGrabbable
 
 - type: entity
   parent: BaseItem
@@ -165,8 +165,8 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
-  - type: DHPowerLoaderGrabbable
     kind: BombHE
+  - type: DHPowerLoaderGrabbable
 
 - type: entity
   parent: BaseItem
@@ -180,8 +180,8 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
-  - type: DHPowerLoaderGrabbable
     kind: BombCluster
+  - type: DHPowerLoaderGrabbable
 
 - type: entity
   parent: BaseItem
@@ -195,8 +195,8 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
-  - type: DHPowerLoaderGrabbable
     kind: BombNapalm
+  - type: DHPowerLoaderGrabbable
 
 - type: entity
   parent: BaseItem
@@ -210,8 +210,8 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
-  - type: DHPowerLoaderGrabbable
     kind: BombMagnesium
+  - type: DHPowerLoaderGrabbable
 
 - type: entity
   parent: BaseItem
@@ -225,8 +225,8 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
-  - type: DHPowerLoaderGrabbable
     kind: GuidedBomb
+  - type: DHPowerLoaderGrabbable
 
 - type: entity
   parent: BaseItem
@@ -240,8 +240,8 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
-  - type: DHPowerLoaderGrabbable
     kind: MissileAT
+  - type: DHPowerLoaderGrabbable
 
 - type: entity
   parent: BaseItem
@@ -255,8 +255,8 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
-  - type: DHPowerLoaderGrabbable
     kind: MissileHE
+  - type: DHPowerLoaderGrabbable
 
 # Пушечный контейнер 30 мм: вешается на любой узел подвески, как бомба; контейнеров может быть несколько.
 - type: entity
@@ -271,9 +271,9 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
-  - type: DHPowerLoaderGrabbable
     kind: CannonPod
     rounds: 300
+  - type: DHPowerLoaderGrabbable
 
 # Модули спецотсеков фюзеляжа (два отсека). Ставятся и снимаются на палубе.
 - type: entity
@@ -288,8 +288,8 @@
   - type: Item
     size: Huge
   - type: DHAircraftModule
-  - type: DHPowerLoaderGrabbable
     kind: Radar
+  - type: DHPowerLoaderGrabbable
 
 - type: entity
   parent: BaseItem
@@ -303,9 +303,9 @@
   - type: Item
     size: Huge
   - type: DHAircraftModule
-  - type: DHPowerLoaderGrabbable
     kind: FlareDispenser
     flares: 8
+  - type: DHPowerLoaderGrabbable
 
 # --- способности пилота (появляются, когда пристёгиваешься к креслу)
 
