@@ -33,7 +33,8 @@
     plates: [ Composite ]
     speed: 1.05
     loadFactor: 0.85
-    meleeMultiplier: 1.1
+    meleeMultiplier: 1.3
+    meleeBluntBonus: 3
     special: false
   # Пока экзоскелет надет, пластины рук и ног занимают слоты правой/левой руки и ноги (DHArmorLimbCover).
   - type: DHModularArmor
@@ -140,7 +141,8 @@
     plates: [ Composite, Light ]
     speed: 1.0
     loadFactor: 0.7
-    meleeMultiplier: 1.25
+    meleeMultiplier: 1.6
+    meleeBluntBonus: 6
     special: true
   # Пока экзоскелет надет, пластины рук и ног занимают слоты правой/левой руки и ноги (DHArmorLimbCover).
   - type: DHModularArmor
@@ -240,7 +242,8 @@
     plates: [ Heavy ]
     speed: 0.9
     loadFactor: 0.55
-    meleeMultiplier: 1.5
+    meleeMultiplier: 2.25
+    meleeBluntBonus: 12
     special: true
   # Пока экзоскелет надет, пластины рук и ног занимают слоты правой/левой руки и ноги (DHArmorLimbCover).
   - type: DHModularArmor
