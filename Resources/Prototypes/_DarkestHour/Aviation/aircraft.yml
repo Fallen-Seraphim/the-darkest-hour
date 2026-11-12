@@ -150,6 +150,7 @@
   - type: Item
     size: Large
   - type: DHAircraftCannonAmmo
+  - type: DHPowerLoaderGrabbable
     rounds: 150
 
 - type: entity
@@ -164,6 +165,7 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
+  - type: DHPowerLoaderGrabbable
     kind: BombHE
 
 - type: entity
@@ -178,6 +180,7 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
+  - type: DHPowerLoaderGrabbable
     kind: BombCluster
 
 - type: entity
@@ -192,6 +195,7 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
+  - type: DHPowerLoaderGrabbable
     kind: BombNapalm
 
 - type: entity
@@ -206,6 +210,7 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
+  - type: DHPowerLoaderGrabbable
     kind: BombMagnesium
 
 - type: entity
@@ -220,6 +225,7 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
+  - type: DHPowerLoaderGrabbable
     kind: GuidedBomb
 
 - type: entity
@@ -234,6 +240,7 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
+  - type: DHPowerLoaderGrabbable
     kind: MissileAT
 
 - type: entity
@@ -248,6 +255,7 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
+  - type: DHPowerLoaderGrabbable
     kind: MissileHE
 
 # Пушечный контейнер 30 мм: вешается на любой узел подвески, как бомба; контейнеров может быть несколько.
@@ -263,6 +271,7 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
+  - type: DHPowerLoaderGrabbable
     kind: CannonPod
     rounds: 300
 
@@ -279,6 +288,7 @@
   - type: Item
     size: Huge
   - type: DHAircraftModule
+  - type: DHPowerLoaderGrabbable
     kind: Radar
 
 - type: entity
@@ -293,6 +303,7 @@
   - type: Item
     size: Huge
   - type: DHAircraftModule
+  - type: DHPowerLoaderGrabbable
     kind: FlareDispenser
     flares: 8
 

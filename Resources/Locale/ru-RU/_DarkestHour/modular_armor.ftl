@@ -74,4 +74,4 @@ dh-exo-class-medium = средний
 dh-exo-class-heavy = тяжёлый
 dh-exo-no-special = На лёгкий экзоскелет спецсистему не поставить.
 dh-exo-wrong-plate = { CAPITALIZE($exo) } экзоскелет не принимает такие пластины (класс «{ $plate }»).
-dh-exo-examine = [color=lightblue]{ CAPITALIZE($exo) } экзоскелет[/color]: пластины классов { $plates }; скорость { $speed }, берёт на себя { $load }% веса снаряжения, удар в ближнем бою +{ $melee }%.
+dh-exo-examine = [color=lightblue]{ CAPITALIZE($exo) } экзоскелет[/color]: пластины классов { $plates }; скорость { $speed }, берёт на себя { $load }% веса снаряжения, удар в ближнем бою (кулаком и оружием) +{ $melee }% и ещё +{ $blunt } дробящего.

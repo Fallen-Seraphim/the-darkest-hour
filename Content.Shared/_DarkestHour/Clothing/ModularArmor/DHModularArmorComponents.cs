@@ -76,9 +76,16 @@ public sealed partial class DHExoskeletonComponent : Component
     [DataField]
     public float LoadFactor = 0.7f;
 
-    /// <summary>Множитель урона в ближнем бою.</summary>
+    /// <summary>Множитель урона в ближнем бою (кулаки и любое холодное оружие).</summary>
     [DataField]
     public float MeleeMultiplier = 1.25f;
+
+    /// <summary>
+    /// Прибавка дробящего урона к каждому удару в ближнем бою (после множителя): сервоприводы бьют сами по себе,
+    /// поэтому даже лёгкий нож или кулак в тяжёлом экзоскелете бьёт ощутимо.
+    /// </summary>
+    [DataField]
+    public float MeleeBluntBonus;
 
     /// <summary>Есть ли слот спецсистемы.</summary>
     [DataField]

@@ -327,6 +327,7 @@ put('Rack', lcx - 4, ry0 + 1)
 put('DHAircraftCannonAmmo', lcx - 4, ry0 + 1, n=2, force=True)
 put('DHAircraftCannonPod', lcx - 5, ry0 + 1)    # пушечные контейнеры 30 мм — вешаются на узлы подвески
 put('DHAircraftCannonPod', lcx - 5, ry0 + 2)
+assert put('DHPowerLoader', lcx - 6, ry0 + 3), 'погрузчик у лифта штурмовика'
 for i, munition in enumerate(('DHAircraftBombHE', 'DHAircraftBombHE', 'DHAircraftBombCluster', 'DHAircraftBombNapalm',
                                'DHAircraftBombMagnesium', 'DHAircraftGuidedBomb', 'DHAircraftMissileAT', 'DHAircraftMissileAT',
                                'DHAircraftMissileHE', 'DHAircraftMissileHE')):
@@ -365,6 +366,11 @@ put('DHInterceptorMissile', px0 + 1, py0, n=6)
 x0, y0, x1, y1 = ibox('cargo')
 ex, ey = x0 + 5, (y0 + y1) // 2
 put('DHSupplyElevator', ex, ey)
+for dx, dy in ((4, -3), (4, 3), (-3, -3), (-3, 3), (5, 0)):   # погрузчик у грузового лифта
+    if put('DHPowerLoader', ex + dx, ey + dy):
+        break
+else:
+    raise SystemExit('нет места для погрузчика у грузового лифта')
 put('DHComputerSupply', ex + 5, ey + 3, FACE['S'])
 put('ChairOfficeDark', ex + 5, ey + 2, FACE['N'])
 for i in range(4):

@@ -386,7 +386,8 @@ public sealed partial class DHModularArmorSystem : EntitySystem
                         ? Loc.GetString("dh-exo-speed-same")
                         : ((int) MathF.Round((exo.Speed - 1f) * 100f)).ToString("+0;-0") + "%"),
                     ("load", (int) MathF.Round((1f - exo.LoadFactor) * 100f)),
-                    ("melee", (int) MathF.Round((exo.MeleeMultiplier - 1f) * 100f))));
+                    ("melee", (int) MathF.Round((exo.MeleeMultiplier - 1f) * 100f)),
+                    ("blunt", (int) MathF.Round(exo.MeleeBluntBonus))));
             }
 
             var any = false;
