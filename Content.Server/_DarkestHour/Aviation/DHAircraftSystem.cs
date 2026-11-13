@@ -44,6 +44,7 @@ namespace Content.Server._DarkestHour.Aviation;
 /// </summary>
 public sealed partial class DHAircraftSystem : EntitySystem
 {
+    [Dependency] private Content.Server._DarkestHour.PowerLoader.DHPowerLoaderSystem _powerLoader = default!;
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private AudioSystem _audio = default!;
@@ -480,7 +481,17 @@ public sealed partial class DHAircraftSystem : EntitySystem
         if (kind == DHAircraftMunition.None || !ent.Comp.MunitionPrototypes.TryGetValue(kind, out var proto))
             return;
 
-        var item = Spawn(proto, Transform(user).Coordinates);
+        // Снимают только погрузчиком: груз сразу в клешни.
+        if (!_powerLoader.TryGetFreeLoaderNear(user, ent, out var loader))
+            return;
+
+        var item = Spawn(proto, Transform(loader).Coordinates);
+        if (!_powerLoader.TryHold(loader, item))
+        {
+            Del(item);
+            return;
+        }
+
         if (TryComp<DHAircraftMunitionComponent>(item, out var munition))
             munition.Rounds = kind == DHAircraftMunition.CannonPod ? PodAmmo(ent.Comp, slot) : munition.Rounds;
 
@@ -504,7 +515,16 @@ public sealed partial class DHAircraftSystem : EntitySystem
         if (kind == DHAircraftModule.None || !ent.Comp.ModulePrototypes.TryGetValue(kind, out var proto))
             return;
 
-        var item = Spawn(proto, Transform(user).Coordinates);
+        if (!_powerLoader.TryGetFreeLoaderNear(user, ent, out var loader))
+            return;
+
+        var item = Spawn(proto, Transform(loader).Coordinates);
+        if (!_powerLoader.TryHold(loader, item))
+        {
+            Del(item);
+            return;
+        }
+
         if (kind == DHAircraftModule.FlareDispenser)
         {
             if (TryComp<DHAircraftModuleComponent>(item, out var module))
@@ -528,15 +548,22 @@ public sealed partial class DHAircraftSystem : EntitySystem
     /// <summary>Заправка из бака с горючим поблизости (бак подкатывают к самолёту).</summary>
     private void OnAircraftVerbs(Entity<DHAircraftComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
-        if (!args.CanAccess || !args.CanInteract || ent.Comp.State != DHAircraftState.Parked)
+        if (!args.CanInteract || ent.Comp.State != DHAircraftState.Parked)
             return;
 
         var user = args.User;
-        args.Verbs.Add(new AlternativeVerb
+        if (args.CanAccess)
         {
-            Text = Loc.GetString("dh-aircraft-verb-refuel"),
-            Act = () => Refuel(ent, user),
-        });
+            args.Verbs.Add(new AlternativeVerb
+            {
+                Text = Loc.GetString("dh-aircraft-verb-refuel"),
+                Act = () => Refuel(ent, user),
+            });
+        }
+
+        // Боеприпасы и модули снимают только из погрузчика (он достаёт до самолёта дальше, чем рука).
+        if (!_powerLoader.TryGetLoader(user, out _))
+            return;
 
         for (var i = 0; i < ent.Comp.Hardpoints.Count; i++)
         {
