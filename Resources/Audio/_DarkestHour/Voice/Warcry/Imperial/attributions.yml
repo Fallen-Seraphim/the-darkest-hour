@@ -1,0 +1,24 @@
+- files: ["jordan_charge_1.ogg", "jordan_charge_2.ogg", "jordan_charge_3.ogg", "jordan_charge_4.ogg", "jordan_charge_5.ogg", "jordan_charge_6.ogg", "jordan_forward_1.ogg", "jordan_forward_2.ogg", "jordan_forward_3.ogg", "jordan_glory_1.ogg", "jordan_glory_2.ogg", "jordan_glory_3.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Colonial Marines Universe (AU-14), Content.CMU/Resources/Audio/CMU14/Voice/UpdatedVoice/Male/Jordan(Scottish) (glory*, charge*, forward*); assets of that repository are CC-BY-SA-3.0 unless stated otherwise. Taken via RuCM, files renamed."
+  source: "https://github.com/flex5hybrid/russiancm/tree/master/Content.CMU/Resources/Audio/CMU14/Voice/UpdatedVoice"
+
+- files: ["kaye_warcry_1.ogg", "kaye_warcry_2.ogg", "kaye_warcry_3.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Colonial Marines Universe (AU-14), Content.CMU/Resources/Audio/CMU14/Voice/UpdatedVoice/Male/Kaye/Warcry; assets of that repository are CC-BY-SA-3.0 unless stated otherwise. Taken via RuCM, files renamed."
+  source: "https://github.com/flex5hybrid/russiancm/tree/master/Content.CMU/Resources/Audio/CMU14/Voice/UpdatedVoice"
+
+- files: ["male_attack.ogg", "male_charge_1.ogg", "male_charge_2.ogg", "male_yell_1.ogg", "male_yell_2.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Colonial Marines Universe (AU-14), Content.CMU/Resources/Audio/CMU14/Voice/UpdatedVoice/Male/Classic/Warcry (male_charge*, male_attack, malewarcry1-2); assets of that repository are CC-BY-SA-3.0 unless stated otherwise. Taken via RuCM, files renamed."
+  source: "https://github.com/flex5hybrid/russiancm/tree/master/Content.CMU/Resources/Audio/CMU14/Voice/UpdatedVoice"
+
+- files: ["female_charge_1.ogg", "female_warcry_1.ogg", "female_warcry_2.ogg", "female_warcry_3.ogg", "female_warcry_4.ogg", "female_warcry_5.ogg", "female_warcry_6.ogg", "female_yell_1.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Colonial Marines Universe (AU-14), Content.CMU/Resources/Audio/CMU14/Voice/UpdatedVoice/Female/Classic/Warcry (femalewarcry*, female_yell1, female_charge); assets of that repository are CC-BY-SA-3.0 unless stated otherwise. Taken via RuCM, files renamed."
+  source: "https://github.com/flex5hybrid/russiancm/tree/master/Content.CMU/Resources/Audio/CMU14/Voice/UpdatedVoice"
+
+- files: ["melissa_warcry_1.ogg", "melissa_warcry_2.ogg", "melissa_warcry_3.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Colonial Marines Universe (AU-14), Content.CMU/Resources/Audio/CMU14/Voice/UpdatedVoice/Female/Melissa/Warcry; assets of that repository are CC-BY-SA-3.0 unless stated otherwise. Taken via RuCM, files renamed."
+  source: "https://github.com/flex5hybrid/russiancm/tree/master/Content.CMU/Resources/Audio/CMU14/Voice/UpdatedVoice"

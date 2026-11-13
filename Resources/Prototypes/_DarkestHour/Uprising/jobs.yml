@@ -92,6 +92,8 @@
   dhModeOrder: 2
   dhSide: dh-jobs-side-military-police
   dhSideOrder: 1
+  dhComponents:
+  - type: DHRepublicWarcry
   roles:
   - DHLAMPChief
   - DHLAMPDeputyChief

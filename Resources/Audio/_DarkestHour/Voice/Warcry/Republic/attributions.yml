@@ -1,0 +1,24 @@
+- files: ["male_warcry_1.ogg", "male_warcry_2.ogg", "male_warcry_3.ogg", "male_warcry_4.ogg", "male_warcry_5.ogg", "male_warcry_6.ogg", "male_warcry_7.ogg", "male_warcry_8.ogg", "male_warcry_9.ogg", "male_warcry_10.ogg", "male_warcry_11.ogg", "male_warcry_12.ogg", "male_warcry_13.ogg", "male_warcry_14.ogg", "male_warcry_15.ogg", "male_warcry_16.ogg", "male_warcry_17.ogg", "male_warcry_18.ogg", "male_warcry_19.ogg", "male_warcry_20.ogg", "male_warcry_21.ogg", "male_warcry_22.ogg", "male_warcry_23.ogg", "male_warcry_24.ogg", "male_warcry_25.ogg", "male_warcry_26.ogg", "male_warcry_27.ogg", "male_warcry_28.ogg", "male_warcry_29.ogg", "male_warcry_30.ogg", "male_warcry_31.ogg", "male_warcry_32.ogg", "male_warcry_33.ogg", "male_warcry_34.ogg", "male_warcry_35.ogg", "male_warcry_36.ogg", "male_warcry_37.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Colonial Marines Universe (AU-14), Content.CMU/Resources/Audio/CMU14/Voice/UpdatedVoice/Male/Classic/Warcry (warcry_male_*, malewarcry); assets of that repository are CC-BY-SA-3.0 unless stated otherwise. Taken via RuCM, files renamed."
+  source: "https://github.com/flex5hybrid/russiancm/tree/master/Content.CMU/Resources/Audio/CMU14/Voice/UpdatedVoice"
+
+- files: ["ryan_warcry_1.ogg", "ryan_warcry_2.ogg", "ryan_warcry_3.ogg", "ryan_warcry_4.ogg", "ryan_warcry_5.ogg", "ryan_warcry_6.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Colonial Marines Universe (AU-14), Content.CMU/Resources/Audio/CMU14/Voice/UpdatedVoice/Male/Ryan/Warcry; assets of that repository are CC-BY-SA-3.0 unless stated otherwise. Taken via RuCM, files renamed."
+  source: "https://github.com/flex5hybrid/russiancm/tree/master/Content.CMU/Resources/Audio/CMU14/Voice/UpdatedVoice"
+
+- files: ["dragon_come_on_bastards_1.ogg", "dragon_come_on_bastards_2.ogg", "dragon_come_on_bastards_3.ogg", "dragon_come_on_bastards_4.ogg", "dragon_devil_dogs_1.ogg", "dragon_devil_dogs_2.ogg", "dragon_devil_dogs_3.ogg", "dragon_devil_dogs_4.ogg", "dragon_get_em_1.ogg", "dragon_get_em_2.ogg", "dragon_get_em_3.ogg", "dragon_give_em_hell_1.ogg", "dragon_give_em_hell_2.ogg", "dragon_give_em_hell_3.ogg", "dragon_give_em_hell_4.ogg", "dragon_lets_rock_1.ogg", "dragon_lets_rock_2.ogg", "dragon_lets_rock_3.ogg", "dragon_over_there_1.ogg", "dragon_over_there_2.ogg", "dragon_over_there_3.ogg", "dragon_see_them_dead_1.ogg", "dragon_squeal_1.ogg", "dragon_squeal_2.ogg", "dragon_swiss_cheese_1.ogg", "dragon_swiss_cheese_2.ogg", "dragon_swiss_cheese_3.ogg", "dragon_ufraah_1.ogg", "dragon_ufraah_2.ogg", "dragon_ufraah_3.ogg", "dragon_ufraah_4.ogg", "dragon_ufraah_5.ogg", "dragon_ufraah_6.ogg", "dragon_ufraah_7.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Colonial Marines Universe (AU-14), Content.CMU/Resources/Audio/CMU14/Voice/UpdatedVoice/Male/Dragon-V0942/Warcry; assets of that repository are CC-BY-SA-3.0 unless stated otherwise. Taken via RuCM, files renamed."
+  source: "https://github.com/flex5hybrid/russiancm/tree/master/Content.CMU/Resources/Audio/CMU14/Voice/UpdatedVoice"
+
+- files: ["landes_come_on_1.ogg", "landes_come_on_2.ogg", "landes_come_on_3.ogg", "landes_get_some_1.ogg", "landes_get_some_2.ogg", "landes_get_some_3.ogg", "landes_get_some_4.ogg", "landes_get_them_1.ogg", "landes_get_them_2.ogg", "landes_get_them_3.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Colonial Marines Universe (AU-14), Content.CMU/Resources/Audio/CMU14/Voice/UpdatedVoice/Male/StevenLandes/Warcry; assets of that repository are CC-BY-SA-3.0 unless stated otherwise. Taken via RuCM, files renamed."
+  source: "https://github.com/flex5hybrid/russiancm/tree/master/Content.CMU/Resources/Audio/CMU14/Voice/UpdatedVoice"
+
+- files: ["female_warcry_1.ogg", "female_warcry_2.ogg", "female_warcry_3.ogg", "female_warcry_4.ogg", "female_warcry_5.ogg", "female_warcry_6.ogg", "female_warcry_7.ogg", "female_warcry_8.ogg", "female_warcry_9.ogg", "female_warcry_10.ogg", "female_warcry_11.ogg", "female_warcry_12.ogg", "female_warcry_13.ogg", "female_warcry_14.ogg", "female_warcry_15.ogg", "female_warcry_16.ogg", "female_warcry_17.ogg", "female_warcry_18.ogg", "female_warcry_19.ogg", "female_warcry_20.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Colonial Marines Universe (AU-14), Content.CMU/Resources/Audio/CMU14/Voice/UpdatedVoice/Female/Classic/Warcry (warcry_female_*); assets of that repository are CC-BY-SA-3.0 unless stated otherwise. Taken via RuCM, files renamed."
+  source: "https://github.com/flex5hybrid/russiancm/tree/master/Content.CMU/Resources/Audio/CMU14/Voice/UpdatedVoice"

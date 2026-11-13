@@ -41,6 +41,11 @@
       collection: MaleGasp
     DefaultDeathgasp:
       collection: MaleDeathGasp
+    # DarkestHour: боевые кличи
+    DHWarcry:
+      collection: DHRepublicMaleWarcry
+    DHImperialWarcry:
+      collection: DHImperialMaleWarcry
 
 - type: emoteSounds
   id: FemaleHuman
@@ -84,6 +89,11 @@
       collection: FemaleGasp
     DefaultDeathgasp:
       collection: FemaleDeathGasp
+    # DarkestHour: боевые кличи
+    DHWarcry:
+      collection: DHRepublicFemaleWarcry
+    DHImperialWarcry:
+      collection: DHImperialFemaleWarcry
 
 - type: emoteSounds
   id: MaleReptilian

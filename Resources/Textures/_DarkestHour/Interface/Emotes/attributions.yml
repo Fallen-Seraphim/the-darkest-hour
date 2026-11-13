@@ -1,0 +1,9 @@
+- files: ["warcry.png"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Created by TyAshley (AllenTheGreat) at commit 7f6c7cd82943dbc9a1fe8a79d6a924ac600b3fdb, modified by Dutch-VanDerLinde at https://github.com/RMC-14/RMC-14/pull/3427/files, then modified by Orion Blackburn for use in AU14. Taken from Colonial Marines Universe via RuCM."
+  source: "https://github.com/flex5hybrid/russiancm/tree/master/Content.CMU/Resources/Textures/CMU14/Interface/Emotes"
+
+- files: ["imperial_warcry.png"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Based on warcry.png (TyAshley / Dutch-VanDerLinde / Orion Blackburn, AU14); exclamation recoloured gold for The Darkest Hour."
+  source: "https://github.com/flex5hybrid/russiancm/tree/master/Content.CMU/Resources/Textures/CMU14/Interface/Emotes"
