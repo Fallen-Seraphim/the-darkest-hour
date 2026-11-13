@@ -121,12 +121,8 @@
       map: [ "loaded" ]
       color: "#ffffff00"
       visible: false
-  - type: GenericVisualizer
-    visuals:
-      enum.DHHeavyGunVisuals.Loaded:
-        base:
-          True: { state: obc_loaded }
-          False: { state: obc_unloaded }
+  # пусто / заряжено и анимации зарядки и выстрела (DHHeavyGunAnimationSystem)
+  - type: DHHeavyGunAnimation
   - type: Fixtures
     fixtures:
       fix1:
@@ -188,12 +184,8 @@
       map: [ "loaded" ]
       color: "#ffffff00"
       visible: false
-  - type: GenericVisualizer
-    visuals:
-      enum.DHHeavyGunVisuals.Loaded:
-        base:
-          True: { state: obc_loaded }
-          False: { state: obc_unloaded }
+  # пусто / заряжено и анимации зарядки и выстрела (DHHeavyGunAnimationSystem)
+  - type: DHHeavyGunAnimation
   - type: Fixtures
     fixtures:
       fix1:

@@ -243,6 +243,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     {
         _appearance.SetData(ent, DHHeavyGunVisuals.Assembled, IsAssembled(ent));
         _appearance.SetData(ent, DHHeavyGunVisuals.Loaded, LoadedShell(ent) != null);
+        _appearance.SetData(ent, DHHeavyGunVisuals.Shots, ent.Comp.Shots);
     }
 
     #endregion
@@ -731,6 +732,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
 
             Del(shell);
             gun.Comp.NextShot = _timing.CurTime + gun.Comp.ReloadTime;
+            gun.Comp.Shots++;
             Muzzle(gun);
             UpdateAppearance(gun);
             _strikes.Add(strike);

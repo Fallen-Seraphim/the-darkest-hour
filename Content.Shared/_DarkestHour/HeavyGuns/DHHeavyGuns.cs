@@ -44,6 +44,10 @@ public sealed partial class DHHeavyGunBreechComponent : Component
     [DataField]
     public DHGunRole Role = DHGunRole.Artillery;
 
+    /// <summary>Счётчик выстрелов — для анимации (<see cref="DHHeavyGunVisuals.Shots"/>).</summary>
+    [ViewVariables]
+    public int Shots;
+
     /// <summary>Перезарядка после выстрела.</summary>
     [DataField]
     public TimeSpan ReloadTime = TimeSpan.FromSeconds(60);
@@ -197,6 +201,8 @@ public enum DHHeavyGunVisuals : byte
 {
     Assembled,
     Loaded,
+    /// <summary>Сколько раз орудие выстрелило (int): клиент по росту счётчика проигрывает анимацию выстрела.</summary>
+    Shots,
 }
 
 [Serializable, NetSerializable]
@@ -313,4 +319,37 @@ public enum DHRadarVisuals : byte
 {
     /// <summary>bool: РЛС цела и работает.</summary>
     Active,
+}
+
+/// <summary>
+/// Анимированное орудие (решение автора 2026-11-13; спрайт орбитального удара RMC): слой <see cref="Layer"/> показывает
+/// «пусто» или «заряжено», при зарядке — анимацию зарядки, при выстреле — анимацию выстрела.
+/// </summary>
+[RegisterComponent]
+public sealed partial class DHHeavyGunAnimationComponent : Component
+{
+    [DataField]
+    public string Layer = "base";
+
+    [DataField]
+    public string Unloaded = "obc_unloaded";
+
+    [DataField]
+    public string Loaded = "obc_loaded";
+
+    [DataField]
+    public string Loading = "obc_loading";
+
+    [DataField]
+    public TimeSpan LoadingTime = TimeSpan.FromSeconds(1);
+
+    [DataField]
+    public string Firing = "obc_firing";
+
+    [DataField]
+    public TimeSpan FiringTime = TimeSpan.FromSeconds(1.1);
+
+    // --- клиент: что уже показано
+    public bool? ShownLoaded;
+    public int ShownShots = -1;
 }
