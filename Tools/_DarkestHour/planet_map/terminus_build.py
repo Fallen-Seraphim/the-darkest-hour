@@ -902,23 +902,22 @@ class World:
         self.ent('DHAirlockRepublicGlassLocked', cx1 + 12, y0 + 12)
         self.wall_line(cx1 + 1, y0 + 20, x1 - 1, y0 + 20, 'WallPlastitanium', gaps=[(cx1 + 12, y0 + 20)])
         self.ent('DHAirlockRepublicGlassLocked', cx1 + 12, y0 + 20)
-        # галерея 700 мм (север): казённик + ствол (ствол западнее), консоль со стулом
+        # галерея 700 мм (север): железнодорожная «Дора» 4×11 стволом на запад — казённик на cx1 + 7, ствол над
+        # cx1 + 1 … cx1 + 6, тележки и площадка до cx1 + 11; консоль со стулом за площадкой
         gy = y0 + 24
-        self.ent('DHHeavyGunBarrel700', cx1 + 3, gy, R90)
-        self.ent('DHHeavyGunBreech700', cx1 + 4, gy, R90)
-        self.ent('Railing', cx1 + 4, gy - 1, 0.0)
-        self.ent('Chair', cx1 + 6, gy)
-        self.ent('DHComputerAntiOrbital', cx1 + 6, gy - 1, R180, comps=['    - type: ApcPowerReceiver', '      powerLoad: 50'])
+        self.ent('DHHeavyGunBarrel700', cx1 + 6, gy, R90)
+        self.ent('DHHeavyGunBreech700', cx1 + 7, gy, R90)
+        self.ent('Chair', cx1 + 14, gy)
+        self.ent('DHComputerAntiOrbital', cx1 + 14, gy - 1, R180, comps=['    - type: ApcPowerReceiver', '      powerLoad: 50'])
         for i, s in enumerate(['HighExplosive', 'HighExplosive', 'ArmorPiercing', 'Incendiary', 'Cluster']):
             self.ent('DHHeavyShell700' + s, cx1 + 9 + i, y1 - 1)
         self.ent('AlwaysPoweredlightRed', cx1 + 2, gy, R90, free=True)
-        # галерея 400 мм (середина)
+        # галерея 400 мм (середина): «Дора» 3×8 — казённик на cx1 + 7, площадка до cx1 + 10
         gy = y0 + 16
-        self.ent('DHHeavyGunBarrel400', cx1 + 3, gy, R90)
-        self.ent('DHHeavyGunBreech400', cx1 + 4, gy, R90)
-        self.ent('Railing', cx1 + 4, gy - 1, 0.0)
-        self.ent('Chair', cx1 + 6, gy)
-        self.ent('DHComputerAntiOrbital', cx1 + 6, gy - 1, R180, comps=['    - type: ApcPowerReceiver', '      powerLoad: 50'])
+        self.ent('DHHeavyGunBarrel400', cx1 + 6, gy, R90)
+        self.ent('DHHeavyGunBreech400', cx1 + 7, gy, R90)
+        self.ent('Chair', cx1 + 13, gy)
+        self.ent('DHComputerAntiOrbital', cx1 + 13, gy - 1, R180, comps=['    - type: ApcPowerReceiver', '      powerLoad: 50'])
         for i, s in enumerate(['HighExplosive', 'HighExplosive', 'ArmorPiercing', 'Incendiary', 'Cluster']):
             self.ent('DHHeavyShell400' + s, cx1 + 9 + i, y0 + 19)
         # склад снарядов и мастерская (юг)

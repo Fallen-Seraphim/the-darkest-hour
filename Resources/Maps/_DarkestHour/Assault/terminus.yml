@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 11/12/2026 12:00:00
-  entityCount: 84473
+  entityCount: 84471
 maps:
 - 1
 grids:
@@ -9513,12 +9513,12 @@ entities:
     components:
     - type: Transform
       parent: 1
-      pos: -5.5,122.5
+      pos: 2.5,122.5
   - uid: 496
     components:
     - type: Transform
       parent: 1
-      pos: -5.5,114.5
+      pos: 1.5,114.5
   - uid: 497
     components:
     - type: Transform
@@ -11713,7 +11713,7 @@ entities:
     components:
     - type: Transform
       parent: 1
-      pos: -5.5,121.5
+      pos: 2.5,121.5
       rot: 3.141592653589793 rad
     - type: ApcPowerReceiver
       powerLoad: 50
@@ -11721,7 +11721,7 @@ entities:
     components:
     - type: Transform
       parent: 1
-      pos: -5.5,113.5
+      pos: 1.5,113.5
       rot: 3.141592653589793 rad
     - type: ApcPowerReceiver
       powerLoad: 50
@@ -12405,7 +12405,7 @@ entities:
     components:
     - type: Transform
       parent: 1
-      pos: -8.5,114.5
+      pos: -5.5,114.5
       rot: 1.5707963267948966 rad
 - proto: DHHeavyGunBarrel700
   entities:
@@ -12413,7 +12413,7 @@ entities:
     components:
     - type: Transform
       parent: 1
-      pos: -8.5,122.5
+      pos: -5.5,122.5
       rot: 1.5707963267948966 rad
 - proto: DHHeavyGunBreech400
   entities:
@@ -12421,7 +12421,7 @@ entities:
     components:
     - type: Transform
       parent: 1
-      pos: -7.5,114.5
+      pos: -4.5,114.5
       rot: 1.5707963267948966 rad
 - proto: DHHeavyGunBreech700
   entities:
@@ -12429,7 +12429,7 @@ entities:
     components:
     - type: Transform
       parent: 1
-      pos: -7.5,122.5
+      pos: -4.5,122.5
       rot: 1.5707963267948966 rad
 - proto: DHHeavyShell400ArmorPiercing
   entities:
@@ -242369,16 +242369,6 @@ entities:
       parent: 1
       pos: 99.5,-93.5
       rot: 1.5707963267948966 rad
-  - uid: 46692
-    components:
-    - type: Transform
-      parent: 1
-      pos: -7.5,121.5
-  - uid: 46693
-    components:
-    - type: Transform
-      parent: 1
-      pos: -7.5,113.5
 - proto: RegenerativeMesh
   entities:
   - uid: 46694
