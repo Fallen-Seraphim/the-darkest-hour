@@ -1,0 +1,344 @@
+# Сгенерировано Tools/_DarkestHour/ranks/build_ranks.py — правьте генератор.
+# Звания «Тёмного часа» (решения автора 2026-11-13). Знаки различия — шевроны и погоны CMU/cmss13.
+
+- type: rank
+  id: DHRankRepublicPrivate
+  name: dh-rank-republic-private
+  prefix: dh-rank-republic-private-prefix
+  paygrade: E1
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/uscm.rsi
+    state: equipped-ranks_me1
+
+- type: rank
+  id: DHRankRepublicPrivateFirstClass
+  name: dh-rank-republic-private-first-class
+  prefix: dh-rank-republic-private-first-class-prefix
+  paygrade: E2
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/uscm.rsi
+    state: equipped-ranks_me2
+
+- type: rank
+  id: DHRankRepublicLanceCorporal
+  name: dh-rank-republic-lance-corporal
+  prefix: dh-rank-republic-lance-corporal-prefix
+  paygrade: E3
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/uscm.rsi
+    state: equipped-ranks_me3
+
+- type: rank
+  id: DHRankRepublicCorporal
+  name: dh-rank-republic-corporal
+  prefix: dh-rank-republic-corporal-prefix
+  paygrade: E4
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/uscm.rsi
+    state: equipped-ranks_me4
+
+- type: rank
+  id: DHRankRepublicSergeant
+  name: dh-rank-republic-sergeant
+  prefix: dh-rank-republic-sergeant-prefix
+  paygrade: E5
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/uscm.rsi
+    state: equipped-ranks_me5
+
+- type: rank
+  id: DHRankRepublicStaffSergeant
+  name: dh-rank-republic-staff-sergeant
+  prefix: dh-rank-republic-staff-sergeant-prefix
+  paygrade: E6
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/uscm.rsi
+    state: equipped-ranks_me6
+
+- type: rank
+  id: DHRankRepublicSecondLieutenant
+  name: dh-rank-republic-second-lieutenant
+  prefix: dh-rank-republic-second-lieutenant-prefix
+  paygrade: O1
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/officers.rsi
+    state: equipped-ranks_o1
+
+- type: rank
+  id: DHRankRepublicFirstLieutenant
+  name: dh-rank-republic-first-lieutenant
+  prefix: dh-rank-republic-first-lieutenant-prefix
+  paygrade: O2
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/officers.rsi
+    state: equipped-ranks_o2
+
+- type: rank
+  id: DHRankRepublicCaptain
+  name: dh-rank-republic-captain
+  prefix: dh-rank-republic-captain-prefix
+  paygrade: O3
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/officers.rsi
+    state: equipped-ranks_o3
+
+- type: rank
+  id: DHRankRepublicMajor
+  name: dh-rank-republic-major
+  prefix: dh-rank-republic-major-prefix
+  paygrade: O4
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/officers.rsi
+    state: equipped-ranks_o4
+
+- type: rank
+  id: DHRankRepublicLieutenantColonel
+  name: dh-rank-republic-lieutenant-colonel
+  prefix: dh-rank-republic-lieutenant-colonel-prefix
+  paygrade: O5
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/officers.rsi
+    state: equipped-ranks_o5
+
+- type: rank
+  id: DHRankRepublicColonel
+  name: dh-rank-republic-colonel
+  prefix: dh-rank-republic-colonel-prefix
+  paygrade: O6
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/officers.rsi
+    state: equipped-ranks_o6
+
+- type: rank
+  id: DHRankMPPrivate
+  name: dh-rank-m-p-private
+  prefix: dh-rank-m-p-private-prefix
+  paygrade: E1
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/usarmy.rsi
+    state: equipped-ranks_ae1
+
+- type: rank
+  id: DHRankMPCorporal
+  name: dh-rank-m-p-corporal
+  prefix: dh-rank-m-p-corporal-prefix
+  paygrade: E4
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/usarmy.rsi
+    state: equipped-ranks_ae4
+
+- type: rank
+  id: DHRankMPSergeant
+  name: dh-rank-m-p-sergeant
+  prefix: dh-rank-m-p-sergeant-prefix
+  paygrade: E5
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/usarmy.rsi
+    state: equipped-ranks_ae5
+
+- type: rank
+  id: DHRankMPStaffSergeant
+  name: dh-rank-m-p-staff-sergeant
+  prefix: dh-rank-m-p-staff-sergeant-prefix
+  paygrade: E6
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/usarmy.rsi
+    state: equipped-ranks_ae6
+
+- type: rank
+  id: DHRankMPWarrantOfficer
+  name: dh-rank-m-p-warrant-officer
+  prefix: dh-rank-m-p-warrant-officer-prefix
+  paygrade: W1
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/universal.rsi
+    state: equipped-ranks_warrant
+
+- type: rank
+  id: DHRankMPChiefWarrantOfficer
+  name: dh-rank-m-p-chief-warrant-officer
+  prefix: dh-rank-m-p-chief-warrant-officer-prefix
+  paygrade: W2
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/universal.rsi
+    state: equipped-ranks_warrant
+
+- type: rank
+  id: DHRankMPCaptain
+  name: dh-rank-m-p-captain
+  prefix: dh-rank-m-p-captain-prefix
+  paygrade: O3
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/officers.rsi
+    state: equipped-ranks_o3
+
+- type: rank
+  id: DHRankMPMajor
+  name: dh-rank-m-p-major
+  prefix: dh-rank-m-p-major-prefix
+  paygrade: O4
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/officers.rsi
+    state: equipped-ranks_o4
+
+- type: rank
+  id: DHRankMPLieutenantColonel
+  name: dh-rank-m-p-lieutenant-colonel
+  prefix: dh-rank-m-p-lieutenant-colonel-prefix
+  paygrade: O5
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/officers.rsi
+    state: equipped-ranks_o5
+
+- type: rank
+  id: DHRankImperialMarine
+  name: dh-rank-imperial-marine
+  prefix: dh-rank-imperial-marine-prefix
+  paygrade: IM1
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/universal.rsi
+    state: equipped-ranks_enlisted
+
+- type: rank
+  id: DHRankImperialLanceCorporal
+  name: dh-rank-imperial-lance-corporal
+  prefix: dh-rank-imperial-lance-corporal-prefix
+  paygrade: IM2
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/universal.rsi
+    state: equipped-ranks_enlisted
+
+- type: rank
+  id: DHRankImperialJuniorInfantryOfficer
+  name: dh-rank-imperial-junior-infantry-officer
+  prefix: dh-rank-imperial-junior-infantry-officer-prefix
+  paygrade: IM3
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/universal.rsi
+    state: equipped-ranks_nco
+
+- type: rank
+  id: DHRankImperialInfantryOfficer
+  name: dh-rank-imperial-infantry-officer
+  prefix: dh-rank-imperial-infantry-officer-prefix
+  paygrade: IM4
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/universal.rsi
+    state: equipped-ranks_snco
+
+- type: rank
+  id: DHRankImperialCommandor
+  name: dh-rank-imperial-commandor
+  prefix: dh-rank-imperial-commandor-prefix
+  paygrade: IM5
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/universal.rsi
+    state: equipped-ranks_warrant
+
+- type: rank
+  id: DHRankImperialCaptain
+  name: dh-rank-imperial-captain
+  prefix: dh-rank-imperial-captain-prefix
+  paygrade: IMO3
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/universal.rsi
+    state: equipped-ranks_officer
+
+- type: rank
+  id: DHRankImperialFlagCaptain
+  name: dh-rank-imperial-flag-captain
+  prefix: dh-rank-imperial-flag-captain-prefix
+  paygrade: IMO4
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/universal.rsi
+    state: equipped-ranks_officer
+
+- type: rank
+  id: DHRankImperialMajor
+  name: dh-rank-imperial-major
+  prefix: dh-rank-imperial-major-prefix
+  paygrade: IMO5
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/universal.rsi
+    state: equipped-ranks_flagofficer
+
+- type: rank
+  id: DHRankImperialFlagMajor
+  name: dh-rank-imperial-flag-major
+  prefix: dh-rank-imperial-flag-major-prefix
+  paygrade: IMO6
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/universal.rsi
+    state: equipped-ranks_flagofficer
+
+- type: rank
+  id: DHRankImperialSeaman
+  name: dh-rank-imperial-seaman
+  prefix: dh-rank-imperial-seaman-prefix
+  paygrade: IF1
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/universal.rsi
+    state: equipped-ranks_enlisted
+
+- type: rank
+  id: DHRankImperialSeniorSeaman
+  name: dh-rank-imperial-senior-seaman
+  prefix: dh-rank-imperial-senior-seaman-prefix
+  paygrade: IF2
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/universal.rsi
+    state: equipped-ranks_enlisted
+
+- type: rank
+  id: DHRankImperialMasterSeaman
+  name: dh-rank-imperial-master-seaman
+  prefix: dh-rank-imperial-master-seaman-prefix
+  paygrade: IF3
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/universal.rsi
+    state: equipped-ranks_nco
+
+- type: rank
+  id: DHRankImperialFleetLieutenant
+  name: dh-rank-imperial-fleet-lieutenant
+  prefix: dh-rank-imperial-fleet-lieutenant-prefix
+  paygrade: IFO1
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/universal.rsi
+    state: equipped-ranks_officer
+
+- type: rank
+  id: DHRankImperialFlagLieutenant
+  name: dh-rank-imperial-flag-lieutenant
+  prefix: dh-rank-imperial-flag-lieutenant-prefix
+  paygrade: IFO2
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/universal.rsi
+    state: equipped-ranks_officer
+
+- type: rank
+  id: DHRankImperialCaptain3
+  name: dh-rank-imperial-captain-3
+  prefix: dh-rank-imperial-captain-3-prefix
+  paygrade: IFO3
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/universal.rsi
+    state: equipped-ranks_officer
+
+- type: rank
+  id: DHRankImperialCaptain2
+  name: dh-rank-imperial-captain-2
+  prefix: dh-rank-imperial-captain-2-prefix
+  paygrade: IFO4
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/universal.rsi
+    state: equipped-ranks_flagofficer
+
+- type: rank
+  id: DHRankImperialCaptain1
+  name: dh-rank-imperial-captain-1
+  prefix: dh-rank-imperial-captain-1-prefix
+  paygrade: IFO5
+  insignia:
+    sprite: _CMU14/Clothing/Accessory/Chevrons/universal.rsi
+    state: equipped-ranks_flagofficer
