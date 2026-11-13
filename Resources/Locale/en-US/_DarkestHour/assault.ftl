@@ -209,7 +209,7 @@ dh-dropship-ui-flight = Course: {$destination}, {$seconds} s.
 
 ## Comms
 dh-chat-radio-republic-command = Garrison Command
-dh-chat-radio-imperial-command = Landing Command
+dh-chat-radio-imperial-command = Imperial Command
 dh-relay-broken = The relay falls silent!
 dh-relay-repaired = The relay hums back to life.
 dh-relay-examine-active = It is [color=green]relaying[/color] the radio nets.

@@ -278,7 +278,7 @@
   parent: DHComputerSquadsBase
   id: DHComputerSquadsEmpire
   name: landing force squad console
-  description: The landing force command's squad roster. Assign marines to the Tau, Epsilon and Omega squads; their headsets get the squad key at once.
+  description: The Imperial Command's roster of landing force squads. Assign marines to the Tau, Epsilon and Omega squads; their headsets get the squad key at once.
   components:
   - type: DHSquadConsole
     faction: Empire

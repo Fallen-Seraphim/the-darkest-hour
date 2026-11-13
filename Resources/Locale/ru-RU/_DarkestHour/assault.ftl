@@ -211,7 +211,7 @@ dh-dropship-ui-flight = Курс: {$destination}, {$seconds} с.
 
 ## Comms
 dh-chat-radio-republic-command = Командование гарнизона
-dh-chat-radio-imperial-command = Командование десанта
+dh-chat-radio-imperial-command = Имперское командование
 dh-relay-broken = Ретранслятор умолкает!
 dh-relay-repaired = Ретранслятор снова гудит.
 dh-relay-examine-active = Он [color=green]ретранслирует[/color] радиосети.

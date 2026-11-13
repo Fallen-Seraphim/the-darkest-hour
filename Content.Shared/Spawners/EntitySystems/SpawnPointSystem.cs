@@ -12,6 +12,7 @@ public sealed partial class SpawnPointSystem : EntitySystem
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private StationSystem _stationSystem = default!;
     [Dependency] private StationSpawningSystem _stationSpawning = default!;
+    [Dependency] private Robust.Shared.Prototypes.IPrototypeManager _prototypes = default!;
 
     [SubscribeLocalEvent]
     private void OnPlayerSpawning(PlayerSpawningEvent args)
@@ -23,7 +24,26 @@ public sealed partial class SpawnPointSystem : EntitySystem
         var points = EntityQueryEnumerator<SpawnPointComponent, TransformComponent>();
         var possiblePositions = new List<EntityCoordinates>();
 
-        while (points.MoveNext(out var uid, out var spawnPoint, out var xform))
+        // DarkestHour: должность с dhLateJoinAtJobSpawn и опоздавшие появляются на своих точках (ОФСК — в трущобах).
+        if (_gameTicker.RunLevel == GameRunLevel.InRound && args.Job is { } lateJob &&
+            _prototypes.TryIndex(lateJob, out var lateJobProto) && lateJobProto.DHLateJoinAtJobSpawn)
+        {
+            var jobPoints = EntityQueryEnumerator<SpawnPointComponent, TransformComponent>();
+            while (jobPoints.MoveNext(out var uid, out var spawnPoint, out var xform))
+            {
+                if (args.Station != null && _stationSystem.GetOwningStation(uid, xform) != args.Station)
+                    continue;
+
+                if (spawnPoint.SpawnType == SpawnPointType.Job &&
+                    (spawnPoint.Job == lateJob || spawnPoint.Jobs.Contains(lateJob)))
+                {
+                    possiblePositions.Add(xform.Coordinates);
+                }
+            }
+        }
+
+        var atJobPoints = possiblePositions.Count > 0;
+        while (!atJobPoints && points.MoveNext(out var uid, out var spawnPoint, out var xform))
         {
             if (args.Station != null && _stationSystem.GetOwningStation(uid, xform) != args.Station)
                 continue;

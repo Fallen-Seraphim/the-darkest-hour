@@ -1,7 +1,8 @@
 """Должности режима «Восстание» (Лост-Энджелс): job, иконка, удостоверение, точка появления, playTimeTracker и
 локализация (en/ru) — из одной таблицы. Снаряжение — в Resources/Prototypes/_DarkestHour/Uprising/gear.yml (руками).
 
-Запуск из корня репозитория: python3 Tools/_DarkestHour/uprising/gen_jobs.py"""
+Запуск из корня репозитория: python3 Tools/_DarkestHour/uprising/gen_jobs.py
+После него — python3 Tools/_DarkestHour/ranks/build_ranks.py (звания военпола вписываются в jobs.yml)."""
 import os
 import re
 
@@ -226,6 +227,9 @@ for jid, dept, icon, slots, access, nen, nru, den, dru, card_as in JOBS:
         w('  access:')
         for a in access:
             w('  - %s' % a)
+    if dept == 'DHLAFront':
+        # Опоздавшие ОФСК — в трущобах, на своих точках, а не на площади (решение автора 2026-11-13).
+        w('  dhLateJoinAtJobSpawn: true')
     w('')
     w('- type: playTimeTracker')
     w('  id: Job%s' % jid)

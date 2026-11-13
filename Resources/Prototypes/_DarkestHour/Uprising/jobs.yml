@@ -1141,6 +1141,7 @@
   startingGear: DHLAFrontLeaderGear
   icon: JobIconDHLAFrontLeader
   supervisors: dh-job-la-front-supervisors
+  dhLateJoinAtJobSpawn: true
 
 - type: playTimeTracker
   id: JobDHLAFrontLeader
@@ -1174,6 +1175,7 @@
   startingGear: DHLAFrontSaboteurGear
   icon: JobIconDHLAFrontSaboteur
   supervisors: dh-job-la-front-supervisors
+  dhLateJoinAtJobSpawn: true
 
 - type: playTimeTracker
   id: JobDHLAFrontSaboteur
@@ -1207,6 +1209,7 @@
   startingGear: DHLAFrontSpecialistGear
   icon: JobIconDHLAFrontSpecialist
   supervisors: dh-job-la-front-supervisors
+  dhLateJoinAtJobSpawn: true
 
 - type: playTimeTracker
   id: JobDHLAFrontSpecialist
@@ -1240,6 +1243,7 @@
   startingGear: DHLAFrontMachinegunnerGear
   icon: JobIconDHLAFrontMachinegunner
   supervisors: dh-job-la-front-supervisors
+  dhLateJoinAtJobSpawn: true
 
 - type: playTimeTracker
   id: JobDHLAFrontMachinegunner
@@ -1273,6 +1277,7 @@
   startingGear: DHLAFrontRebelGear
   icon: JobIconDHLAFrontRebel
   supervisors: dh-job-la-front-supervisors
+  dhLateJoinAtJobSpawn: true
 
 - type: playTimeTracker
   id: JobDHLAFrontRebel

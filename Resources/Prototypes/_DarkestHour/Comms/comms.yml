@@ -87,7 +87,7 @@
   parent: [ EncryptionKey, BaseCentcommContraband ]
   id: DHEncryptionKeyImperialCommand
   name: Imperial command encryption key
-  description: An encryption key of the Imperial landing force command net.
+  description: An encryption key of the Imperial Command net.
   components:
   - type: EncryptionKey
     channels:
