@@ -861,8 +861,8 @@
   parent: JobIcon
   id: JobIconDHLAMPChief
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: HeadOfSecurity
+    sprite: /Textures/_DarkestHour/Interface/military_police_job_icons.rsi
+    state: mp_chief
   jobName: dh-job-lamp-chief-name
 
 - type: entity
@@ -883,8 +883,8 @@
   - type: Sprite
     layers:
     - state: green
-    - sprite: Interface/Misc/job_icons.rsi
-      state: HeadOfSecurity
+    - sprite: _DarkestHour/Interface/military_police_job_icons.rsi
+      state: mp_chief
 
 - type: job
   id: DHLAMPDeputyChief
@@ -910,8 +910,8 @@
   parent: JobIcon
   id: JobIconDHLAMPDeputyChief
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: SeniorOfficer
+    sprite: /Textures/_DarkestHour/Interface/military_police_job_icons.rsi
+    state: mp_deputy_chief
   jobName: dh-job-lamp-deputy-chief-name
 
 - type: entity
@@ -932,8 +932,8 @@
   - type: Sprite
     layers:
     - state: green
-    - sprite: Interface/Misc/job_icons.rsi
-      state: SeniorOfficer
+    - sprite: _DarkestHour/Interface/military_police_job_icons.rsi
+      state: mp_deputy_chief
 
 - type: job
   id: DHLAMPInvestigator
@@ -961,8 +961,8 @@
   parent: JobIcon
   id: JobIconDHLAMPInvestigator
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: Detective
+    sprite: /Textures/_DarkestHour/Interface/military_police_job_icons.rsi
+    state: mp_investigator
   jobName: dh-job-lamp-investigator-name
 
 - type: entity
@@ -983,8 +983,8 @@
   - type: Sprite
     layers:
     - state: green
-    - sprite: Interface/Misc/job_icons.rsi
-      state: Detective
+    - sprite: _DarkestHour/Interface/military_police_job_icons.rsi
+      state: mp_investigator
 
 - type: job
   id: DHLAMPWarden
@@ -1010,8 +1010,8 @@
   parent: JobIcon
   id: JobIconDHLAMPWarden
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: Warden
+    sprite: /Textures/_DarkestHour/Interface/military_police_job_icons.rsi
+    state: mp_warden
   jobName: dh-job-lamp-warden-name
 
 - type: entity
@@ -1032,8 +1032,8 @@
   - type: Sprite
     layers:
     - state: green
-    - sprite: Interface/Misc/job_icons.rsi
-      state: Warden
+    - sprite: _DarkestHour/Interface/military_police_job_icons.rsi
+      state: mp_warden
 
 - type: job
   id: DHLAMPOfficer
@@ -1061,8 +1061,8 @@
   parent: JobIcon
   id: JobIconDHLAMPOfficer
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: SecurityOfficer
+    sprite: /Textures/_DarkestHour/Interface/military_police_job_icons.rsi
+    state: mp_officer
   jobName: dh-job-lamp-officer-name
 
 - type: entity
@@ -1083,8 +1083,8 @@
   - type: Sprite
     layers:
     - state: green
-    - sprite: Interface/Misc/job_icons.rsi
-      state: SecurityOfficer
+    - sprite: _DarkestHour/Interface/military_police_job_icons.rsi
+      state: mp_officer
 
 - type: job
   id: DHLAMPCadet
@@ -1108,8 +1108,8 @@
   parent: JobIcon
   id: JobIconDHLAMPCadet
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: SecurityCadet
+    sprite: /Textures/_DarkestHour/Interface/military_police_job_icons.rsi
+    state: mp_cadet
   jobName: dh-job-lamp-cadet-name
 
 - type: entity
@@ -1130,8 +1130,8 @@
   - type: Sprite
     layers:
     - state: green
-    - sprite: Interface/Misc/job_icons.rsi
-      state: SecurityCadet
+    - sprite: _DarkestHour/Interface/military_police_job_icons.rsi
+      state: mp_cadet
 
 - type: job
   id: DHLAFrontLeader
@@ -1141,6 +1141,7 @@
   startingGear: DHLAFrontLeaderGear
   icon: JobIconDHLAFrontLeader
   supervisors: dh-job-la-front-supervisors
+  dhLateJoinAtJobSpawn: true
 
 - type: playTimeTracker
   id: JobDHLAFrontLeader
@@ -1174,6 +1175,7 @@
   startingGear: DHLAFrontSaboteurGear
   icon: JobIconDHLAFrontSaboteur
   supervisors: dh-job-la-front-supervisors
+  dhLateJoinAtJobSpawn: true
 
 - type: playTimeTracker
   id: JobDHLAFrontSaboteur
@@ -1207,6 +1209,7 @@
   startingGear: DHLAFrontSpecialistGear
   icon: JobIconDHLAFrontSpecialist
   supervisors: dh-job-la-front-supervisors
+  dhLateJoinAtJobSpawn: true
 
 - type: playTimeTracker
   id: JobDHLAFrontSpecialist
@@ -1240,6 +1243,7 @@
   startingGear: DHLAFrontMachinegunnerGear
   icon: JobIconDHLAFrontMachinegunner
   supervisors: dh-job-la-front-supervisors
+  dhLateJoinAtJobSpawn: true
 
 - type: playTimeTracker
   id: JobDHLAFrontMachinegunner
@@ -1273,6 +1277,7 @@
   startingGear: DHLAFrontRebelGear
   icon: JobIconDHLAFrontRebel
   supervisors: dh-job-la-front-supervisors
+  dhLateJoinAtJobSpawn: true
 
 - type: playTimeTracker
   id: JobDHLAFrontRebel
