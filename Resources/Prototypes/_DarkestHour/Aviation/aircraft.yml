@@ -165,8 +165,8 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
-  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
     kind: BombHE
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
   - type: DHPowerLoaderGrabbable
 
 - type: entity
@@ -181,8 +181,8 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
-  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
     kind: BombCluster
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
   - type: DHPowerLoaderGrabbable
 
 - type: entity
@@ -197,8 +197,8 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
-  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
     kind: BombNapalm
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
   - type: DHPowerLoaderGrabbable
 
 - type: entity
@@ -213,8 +213,8 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
-  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
     kind: BombMagnesium
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
   - type: DHPowerLoaderGrabbable
 
 - type: entity
@@ -229,8 +229,8 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
-  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
     kind: GuidedBomb
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
   - type: DHPowerLoaderGrabbable
 
 - type: entity
@@ -245,8 +245,8 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
-  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
     kind: MissileAT
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
   - type: DHPowerLoaderGrabbable
 
 - type: entity
@@ -261,8 +261,8 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
-  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
     kind: MissileHE
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
   - type: DHPowerLoaderGrabbable
 
 # Пушечный контейнер 30 мм: вешается на любой узел подвески, как бомба; контейнеров может быть несколько.
@@ -278,9 +278,9 @@
   - type: Item
     size: Huge
   - type: DHAircraftMunition
-  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
     kind: CannonPod
     rounds: 300
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
   - type: DHPowerLoaderGrabbable
 
 # Модули спецотсеков фюзеляжа (два отсека). Ставятся и снимаются на палубе.
@@ -296,8 +296,8 @@
   - type: Item
     size: Huge
   - type: DHAircraftModule
-  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
     kind: Radar
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
   - type: DHPowerLoaderGrabbable
 
 - type: entity
@@ -312,9 +312,9 @@
   - type: Item
     size: Huge
   - type: DHAircraftModule
-  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
     kind: FlareDispenser
     flares: 8
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
   - type: DHPowerLoaderGrabbable
 
 # --- способности пилота (появляются, когда пристёгиваешься к креслу)
