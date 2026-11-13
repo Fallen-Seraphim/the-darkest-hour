@@ -93,6 +93,62 @@ public sealed partial class DHPowerLoaderSystem : EntitySystem
             : Loc.GetString("dh-power-loader-examine-empty"));
     }
 
+    /// <summary>Погрузчик, в котором сидит <paramref name="pilot"/>.</summary>
+    public bool TryGetLoader(EntityUid pilot, out Entity<DHPowerLoaderComponent> loader)
+    {
+        loader = default;
+        if (!TryComp<BuckleComponent>(pilot, out var buckle) || buckle.BuckledTo is not { } strap ||
+            !TryComp<DHPowerLoaderComponent>(strap, out var comp))
+        {
+            return false;
+        }
+
+        loader = (strap, comp);
+        return true;
+    }
+
+    /// <summary>
+    /// Погрузчик пилота с пустыми клешнями, достающий до <paramref name="target"/> (до штурмовика — дальше). Иначе —
+    /// подсказка пилоту и false.
+    /// </summary>
+    public bool TryGetFreeLoaderNear(EntityUid pilot, EntityUid target, out Entity<DHPowerLoaderComponent> loader,
+        bool popup = true)
+    {
+        if (!TryGetLoader(pilot, out loader))
+        {
+            if (popup)
+                _popup.PopupEntity(Loc.GetString("dh-power-loader-required"), target, pilot);
+            return false;
+        }
+
+        if (Held(loader) != null)
+        {
+            if (popup)
+                _popup.PopupEntity(Loc.GetString("dh-power-loader-clamp-busy"), loader, pilot);
+            return false;
+        }
+
+        var reach = HasComp<DHAircraftComponent>(target) ? loader.Comp.BigReach : loader.Comp.Reach;
+        if (Distance(loader, target) > reach)
+        {
+            if (popup)
+                _popup.PopupEntity(Loc.GetString("dh-power-loader-too-far"), loader, pilot);
+            return false;
+        }
+
+        return true;
+    }
+
+    /// <summary>Положить груз в пустые клешни (снятое с самолёта и т. п.).</summary>
+    public bool TryHold(Entity<DHPowerLoaderComponent> loader, EntityUid cargo)
+    {
+        if (Held(loader) != null || !_container.Insert(cargo, _container.GetContainer(loader, loader.Comp.Container)))
+            return false;
+
+        _audio.PlayPvs(loader.Comp.GrabSound, loader);
+        return true;
+    }
+
     private EntityUid? Held(Entity<DHPowerLoaderComponent> ent)
     {
         return _container.TryGetContainer(ent, ent.Comp.Container, out var container) &&

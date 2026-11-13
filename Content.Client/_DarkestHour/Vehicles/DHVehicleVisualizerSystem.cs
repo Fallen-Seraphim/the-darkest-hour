@@ -28,6 +28,9 @@ public sealed partial class DHVehicleVisualizerSystem : EntitySystem
 
     private readonly Dictionary<int, string> _turretIndices = new();
 
+    /// <summary>Куда смотрит машина «сбоку» (вправо) — помним, пока она едет вертикально.</summary>
+    private readonly Dictionary<EntityUid, bool> _sideRight = new();
+
     public override void FrameUpdate(float frameTime)
     {
         base.FrameUpdate(frameTime);
@@ -36,6 +39,12 @@ public sealed partial class DHVehicleVisualizerSystem : EntitySystem
         var query = EntityQueryEnumerator<DHVehicleComponent, SpriteComponent>();
         while (query.MoveNext(out var uid, out var vehicle, out var sprite))
         {
+            if (vehicle.SideView)
+            {
+                ApplySideView(uid, sprite, _transform.GetWorldRotation(uid) + eyeRotation);
+                continue;
+            }
+
             // Кадр корпуса — по сектору (с учётом поворота камеры); остаток угла даёт сам поворот сущности.
             var hullDir = GetRenderAlignedCardinalDir(_transform.GetWorldRotation(uid) + eyeRotation);
             var hullAngle = hullDir.ToAngle();
@@ -105,6 +114,28 @@ public sealed partial class DHVehicleVisualizerSystem : EntitySystem
                 _sprite.LayerSetOffset((uid, sprite), index, offset);
             }
         }
+    }
+
+    /// <summary>
+    /// Машина, нарисованная только сбоку: кадр юга — смотрит влево, севера — вправо. Едет вверх или вниз по экрану —
+    /// остаётся прежний кадр. Спрайт не поворачивается.
+    /// </summary>
+    private void ApplySideView(EntityUid uid, SpriteComponent sprite, Angle screen)
+    {
+        var right = screen.GetDir() switch
+        {
+            Direction.East or Direction.NorthEast or Direction.SouthEast => true,
+            Direction.West or Direction.NorthWest or Direction.SouthWest => false,
+            _ => _sideRight.GetValueOrDefault(uid),
+        };
+        if (_sideRight.Count > 512)
+            _sideRight.Clear();
+        _sideRight[uid] = right;
+
+        sprite.EnableDirectionOverride = true;
+        sprite.DirectionOverride = right ? Direction.North : Direction.South;
+        sprite.NoRotation = true;
+        _sprite.SetGranularLayersRendering((uid, sprite), false);
     }
 
     /// <summary>

@@ -309,3 +309,7 @@ dh-construction-barricade-metal = металлическая баррикада
 dh-construction-barricade-metal-desc = Баррикада из четырёх листов стали. Держит большинство пуль спереди.
 dh-construction-barricade-plasteel = пласталевая баррикада
 dh-construction-barricade-plasteel-desc = Баррикада из четырёх листов пластали. Держит почти любую пулю спереди.
+
+# Метки телепорта призраков
+dh-warp-terminus = База «Терминус» (штаб)
+dh-warp-carrier = Авианосец «Суверен» (мостик)
