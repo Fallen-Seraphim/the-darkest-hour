@@ -1,0 +1,978 @@
+# Сгенерировано Tools/_DarkestHour/loadouts/build_assault_loadouts.py — правьте генератор.
+# Лоадауты «Штурма»: личные вещи в рюкзак. Должности — roleLoadout Job<id>.
+
+- type: loadout
+  id: DHLoadoutClothingHeadBeretGreen
+  storage:
+    back:
+    - DHClothingHeadBeretGreen
+
+- type: loadout
+  id: DHLoadoutClothingHeadBeretCamo
+  storage:
+    back:
+    - DHClothingHeadBeretCamo
+
+- type: loadout
+  id: DHLoadoutClothingHeadBeretTan
+  storage:
+    back:
+    - DHClothingHeadBeretTan
+
+- type: loadout
+  id: DHLoadoutClothingHeadBoonie
+  storage:
+    back:
+    - DHClothingHeadBoonie
+
+- type: loadout
+  id: DHLoadoutClothingHeadBoonieTan
+  storage:
+    back:
+    - DHClothingHeadBoonieTan
+
+- type: loadout
+  id: DHLoadoutClothingHeadFieldCap
+  storage:
+    back:
+    - DHClothingHeadFieldCap
+
+- type: loadout
+  id: DHLoadoutClothingHeadBandGreen
+  storage:
+    back:
+    - DHClothingHeadBandGreen
+
+- type: loadout
+  id: DHLoadoutClothingHeadBandBrown
+  storage:
+    back:
+    - DHClothingHeadBandBrown
+
+- type: loadout
+  id: DHLoadoutClothingHeadBandTan
+  storage:
+    back:
+    - DHClothingHeadBandTan
+
+- type: loadout
+  id: DHLoadoutClothingHeadBandGray
+  storage:
+    back:
+    - DHClothingHeadBandGray
+
+- type: loadout
+  id: DHLoadoutClothingHeadBeanieGreen
+  storage:
+    back:
+    - DHClothingHeadBeanieGreen
+
+- type: loadout
+  id: DHLoadoutClothingHeadBeanieTan
+  storage:
+    back:
+    - DHClothingHeadBeanieTan
+
+- type: loadout
+  id: DHLoadoutClothingHeadBeanieGray
+  storage:
+    back:
+    - DHClothingHeadBeanieGray
+
+- type: loadout
+  id: DHLoadoutClothingHeadUshanka
+  storage:
+    back:
+    - DHClothingHeadUshanka
+
+- type: loadout
+  id: DHLoadoutImperialClothingHeadBeretBlack
+  storage:
+    back:
+    - DHImperialClothingHeadBeretBlack
+
+- type: loadout
+  id: DHLoadoutImperialClothingHeadBeret
+  storage:
+    back:
+    - DHImperialClothingHeadBeret
+
+- type: loadout
+  id: DHLoadoutImperialClothingHeadCap
+  storage:
+    back:
+    - DHImperialClothingHeadCap
+
+- type: loadout
+  id: DHLoadoutImperialClothingHeadBeretGuard
+  storage:
+    back:
+    - DHImperialClothingHeadBeretGuard
+
+- type: loadout
+  id: DHLoadoutClothingHeadBeretBlack
+  storage:
+    back:
+    - DHClothingHeadBeretBlack
+
+- type: loadout
+  id: DHLoadoutClothingHeadBandRed
+  storage:
+    back:
+    - DHClothingHeadBandRed
+
+- type: loadout
+  id: DHLoadoutClothingHeadBeanieBlack
+  storage:
+    back:
+    - DHClothingHeadBeanieBlack
+
+- type: loadout
+  id: DHLoadoutClothingEyesAviators
+  storage:
+    back:
+    - DHClothingEyesAviators
+
+- type: loadout
+  id: DHLoadoutClothingEyesBallisticGoggles
+  storage:
+    back:
+    - DHClothingEyesBallisticGoggles
+
+- type: loadout
+  id: DHLoadoutClothingEyesSunglasses
+  storage:
+    back:
+    - DHClothingEyesSunglasses
+
+- type: loadout
+  id: DHLoadoutClothingEyesEyepatch
+  storage:
+    back:
+    - DHClothingEyesEyepatch
+
+- type: loadout
+  id: DHLoadoutClothingMaskBalaclavaGreen
+  storage:
+    back:
+    - DHClothingMaskBalaclavaGreen
+
+- type: loadout
+  id: DHLoadoutClothingMaskCoif
+  storage:
+    back:
+    - DHClothingMaskCoif
+
+- type: loadout
+  id: DHLoadoutClothingMaskCoifTan
+  storage:
+    back:
+    - DHClothingMaskCoifTan
+
+- type: loadout
+  id: DHLoadoutClothingMaskScarfGreen
+  storage:
+    back:
+    - DHClothingMaskScarfGreen
+
+- type: loadout
+  id: DHLoadoutClothingMaskScarfTan
+  storage:
+    back:
+    - DHClothingMaskScarfTan
+
+- type: loadout
+  id: DHLoadoutClothingMaskNeckerchiefGreen
+  storage:
+    back:
+    - DHClothingMaskNeckerchiefGreen
+
+- type: loadout
+  id: DHLoadoutClothingMaskNeckerchiefTan
+  storage:
+    back:
+    - DHClothingMaskNeckerchiefTan
+
+- type: loadout
+  id: DHLoadoutClothingMaskNeckerchiefGray
+  storage:
+    back:
+    - DHClothingMaskNeckerchiefGray
+
+- type: loadout
+  id: DHLoadoutClothingMaskTornScarfGreen
+  storage:
+    back:
+    - DHClothingMaskTornScarfGreen
+
+- type: loadout
+  id: DHLoadoutClothingMaskBalaclava
+  storage:
+    back:
+    - DHClothingMaskBalaclava
+
+- type: loadout
+  id: DHLoadoutClothingMaskCoifGrey
+  storage:
+    back:
+    - DHClothingMaskCoifGrey
+
+- type: loadout
+  id: DHLoadoutClothingMaskScarfBlack
+  storage:
+    back:
+    - DHClothingMaskScarfBlack
+
+- type: loadout
+  id: DHLoadoutClothingMaskScarfGray
+  storage:
+    back:
+    - DHClothingMaskScarfGray
+
+- type: loadout
+  id: DHLoadoutClothingMaskNeckerchiefBlack
+  storage:
+    back:
+    - DHClothingMaskNeckerchiefBlack
+
+- type: loadout
+  id: DHLoadoutClothingMaskNeckerchiefRed
+  storage:
+    back:
+    - DHClothingMaskNeckerchiefRed
+
+- type: loadout
+  id: DHLoadoutClothingMaskTornScarfBlack
+  storage:
+    back:
+    - DHClothingMaskTornScarfBlack
+
+- type: loadout
+  id: DHLoadoutClothingMaskTornScarfGrey
+  storage:
+    back:
+    - DHClothingMaskTornScarfGrey
+
+- type: loadout
+  id: DHLoadoutCigPackGreen
+  storage:
+    back:
+    - CigPackGreen
+
+- type: loadout
+  id: DHLoadoutCigPackRed
+  storage:
+    back:
+    - CigPackRed
+
+- type: loadout
+  id: DHLoadoutCigPackBlue
+  storage:
+    back:
+    - CigPackBlue
+
+- type: loadout
+  id: DHLoadoutCigPackBlack
+  storage:
+    back:
+    - CigPackBlack
+
+- type: loadout
+  id: DHLoadoutLighter
+  storage:
+    back:
+    - Lighter
+
+- type: loadout
+  id: DHLoadoutFlippoLighter
+  storage:
+    back:
+    - FlippoLighter
+
+- type: loadout
+  id: DHLoadoutMatchbox
+  storage:
+    back:
+    - Matchbox
+
+- type: loadout
+  id: DHLoadoutDrinkCanteen
+  storage:
+    back:
+    - DHDrinkCanteen
+
+- type: loadout
+  id: DHLoadoutDrinkMetalFlask
+  storage:
+    back:
+    - DHDrinkMetalFlask
+
+- type: loadout
+  id: DHLoadoutDrinkFlaskBar
+  storage:
+    back:
+    - DrinkFlaskBar
+
+- type: loadout
+  id: DHLoadoutd6Dice
+  storage:
+    back:
+    - d6Dice
+
+- type: loadout
+  id: DHLoadoutd20Dice
+  storage:
+    back:
+    - d20Dice
+
+- type: loadout
+  id: DHLoadoutHarmonica
+  storage:
+    back:
+    - Harmonica
+
+- type: loadout
+  id: DHLoadoutFoodSnackChocolateBar
+  storage:
+    back:
+    - FoodSnackChocolateBar
+
+- type: loadout
+  id: DHLoadoutPen
+  storage:
+    back:
+    - Pen
+
+- type: loadout
+  id: DHLoadoutPaper
+  storage:
+    back:
+    - Paper
+
+- type: loadout
+  id: DHLoadoutCombatKnife
+  storage:
+    back:
+    - CombatKnife
+
+- type: loadout
+  id: DHLoadoutSurvivalKnife
+  storage:
+    back:
+    - SurvivalKnife
+
+- type: loadout
+  id: DHLoadoutCigarCase
+  storage:
+    back:
+    - CigarCase
+
+- type: loadout
+  id: DHLoadoutDrinkFlask
+  storage:
+    back:
+    - DrinkFlask
+
+- type: loadout
+  id: DHLoadoutRepublicClothingHeadCapOfficer
+  storage:
+    back:
+    - DHRepublicClothingHeadCapOfficer
+
+- type: loadout
+  id: DHLoadoutCigarGoldCase
+  storage:
+    back:
+    - CigarGoldCase
+
+- type: loadout
+  id: DHLoadoutImperialClothingHeadCapPeaked
+  storage:
+    back:
+    - DHImperialClothingHeadCapPeaked
+
+- type: loadoutGroup
+  id: DHLoadoutRepublicHead
+  name: dh-loadout-group-republichead
+  minLimit: 0
+  maxLimit: 1
+  loadouts:
+  - DHLoadoutClothingHeadBeretGreen
+  - DHLoadoutClothingHeadBeretCamo
+  - DHLoadoutClothingHeadBeretTan
+  - DHLoadoutClothingHeadBoonie
+  - DHLoadoutClothingHeadBoonieTan
+  - DHLoadoutClothingHeadFieldCap
+  - DHLoadoutClothingHeadBandGreen
+  - DHLoadoutClothingHeadBandBrown
+  - DHLoadoutClothingHeadBandTan
+  - DHLoadoutClothingHeadBandGray
+  - DHLoadoutClothingHeadBeanieGreen
+  - DHLoadoutClothingHeadBeanieTan
+  - DHLoadoutClothingHeadBeanieGray
+  - DHLoadoutClothingHeadUshanka
+
+- type: loadoutGroup
+  id: DHLoadoutImperialHead
+  name: dh-loadout-group-imperialhead
+  minLimit: 0
+  maxLimit: 1
+  loadouts:
+  - DHLoadoutImperialClothingHeadBeretBlack
+  - DHLoadoutImperialClothingHeadBeret
+  - DHLoadoutImperialClothingHeadCap
+  - DHLoadoutImperialClothingHeadBeretGuard
+  - DHLoadoutClothingHeadBeretBlack
+  - DHLoadoutClothingHeadBandRed
+  - DHLoadoutClothingHeadBandGray
+  - DHLoadoutClothingHeadBeanieBlack
+  - DHLoadoutClothingHeadBeanieGray
+  - DHLoadoutClothingHeadUshanka
+
+- type: loadoutGroup
+  id: DHLoadoutEyewear
+  name: dh-loadout-group-eyewear
+  minLimit: 0
+  maxLimit: 1
+  loadouts:
+  - DHLoadoutClothingEyesAviators
+  - DHLoadoutClothingEyesBallisticGoggles
+  - DHLoadoutClothingEyesSunglasses
+  - DHLoadoutClothingEyesEyepatch
+
+- type: loadoutGroup
+  id: DHLoadoutRepublicMask
+  name: dh-loadout-group-republicmask
+  minLimit: 0
+  maxLimit: 1
+  loadouts:
+  - DHLoadoutClothingMaskBalaclavaGreen
+  - DHLoadoutClothingMaskCoif
+  - DHLoadoutClothingMaskCoifTan
+  - DHLoadoutClothingMaskScarfGreen
+  - DHLoadoutClothingMaskScarfTan
+  - DHLoadoutClothingMaskNeckerchiefGreen
+  - DHLoadoutClothingMaskNeckerchiefTan
+  - DHLoadoutClothingMaskNeckerchiefGray
+  - DHLoadoutClothingMaskTornScarfGreen
+
+- type: loadoutGroup
+  id: DHLoadoutImperialMask
+  name: dh-loadout-group-imperialmask
+  minLimit: 0
+  maxLimit: 1
+  loadouts:
+  - DHLoadoutClothingMaskBalaclava
+  - DHLoadoutClothingMaskCoifGrey
+  - DHLoadoutClothingMaskScarfBlack
+  - DHLoadoutClothingMaskScarfGray
+  - DHLoadoutClothingMaskNeckerchiefBlack
+  - DHLoadoutClothingMaskNeckerchiefRed
+  - DHLoadoutClothingMaskNeckerchiefGray
+  - DHLoadoutClothingMaskTornScarfBlack
+  - DHLoadoutClothingMaskTornScarfGrey
+
+- type: loadoutGroup
+  id: DHLoadoutSmokables
+  name: dh-loadout-group-smokables
+  minLimit: 0
+  maxLimit: 2
+  loadouts:
+  - DHLoadoutCigPackGreen
+  - DHLoadoutCigPackRed
+  - DHLoadoutCigPackBlue
+  - DHLoadoutCigPackBlack
+  - DHLoadoutLighter
+  - DHLoadoutFlippoLighter
+  - DHLoadoutMatchbox
+
+- type: loadoutGroup
+  id: DHLoadoutFlasks
+  name: dh-loadout-group-flasks
+  minLimit: 0
+  maxLimit: 1
+  loadouts:
+  - DHLoadoutDrinkCanteen
+  - DHLoadoutDrinkMetalFlask
+  - DHLoadoutDrinkFlaskBar
+
+- type: loadoutGroup
+  id: DHLoadoutPersonal
+  name: dh-loadout-group-personal
+  minLimit: 0
+  maxLimit: 2
+  loadouts:
+  - DHLoadoutd6Dice
+  - DHLoadoutd20Dice
+  - DHLoadoutHarmonica
+  - DHLoadoutFoodSnackChocolateBar
+  - DHLoadoutPen
+  - DHLoadoutPaper
+
+- type: loadoutGroup
+  id: DHLoadoutKnife
+  name: dh-loadout-group-knife
+  minLimit: 0
+  maxLimit: 1
+  loadouts:
+  - DHLoadoutCombatKnife
+  - DHLoadoutSurvivalKnife
+
+- type: loadoutGroup
+  id: DHLoadoutRepublicCommand
+  name: dh-loadout-group-republiccommand
+  minLimit: 0
+  maxLimit: 2
+  loadouts:
+  - DHLoadoutCigarCase
+  - DHLoadoutDrinkFlask
+  - DHLoadoutRepublicClothingHeadCapOfficer
+
+- type: loadoutGroup
+  id: DHLoadoutImperialCommand
+  name: dh-loadout-group-imperialcommand
+  minLimit: 0
+  maxLimit: 2
+  loadouts:
+  - DHLoadoutCigarGoldCase
+  - DHLoadoutDrinkFlask
+  - DHLoadoutImperialClothingHeadCapPeaked
+
+- type: roleLoadout
+  id: JobDHGarrisonCommander
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutRepublicHead
+  - DHLoadoutEyewear
+  - DHLoadoutRepublicMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+  - DHLoadoutRepublicCommand
+
+- type: roleLoadout
+  id: JobDHGarrisonOfficer
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutRepublicHead
+  - DHLoadoutEyewear
+  - DHLoadoutRepublicMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+  - DHLoadoutRepublicCommand
+
+- type: roleLoadout
+  id: JobDHGarrisonArtilleryOfficer
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutRepublicHead
+  - DHLoadoutEyewear
+  - DHLoadoutRepublicMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+  - DHLoadoutRepublicCommand
+
+- type: roleLoadout
+  id: JobDHGarrisonRifleman
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutRepublicHead
+  - DHLoadoutEyewear
+  - DHLoadoutRepublicMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHGarrisonMachinegunner
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutRepublicHead
+  - DHLoadoutEyewear
+  - DHLoadoutRepublicMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHGarrisonSniper
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutRepublicHead
+  - DHLoadoutEyewear
+  - DHLoadoutRepublicMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHGarrisonFlamer
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutRepublicHead
+  - DHLoadoutEyewear
+  - DHLoadoutRepublicMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHGarrisonAAGunner
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutRepublicHead
+  - DHLoadoutEyewear
+  - DHLoadoutRepublicMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHGarrisonMedic
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutRepublicHead
+  - DHLoadoutEyewear
+  - DHLoadoutRepublicMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHGarrisonSapper
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutRepublicHead
+  - DHLoadoutEyewear
+  - DHLoadoutRepublicMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHGarrisonMortarCommander
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutRepublicHead
+  - DHLoadoutEyewear
+  - DHLoadoutRepublicMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHGarrisonMortarOperator
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutRepublicHead
+  - DHLoadoutEyewear
+  - DHLoadoutRepublicMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHGarrisonFieldArtillerist
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutRepublicHead
+  - DHLoadoutEyewear
+  - DHLoadoutRepublicMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHGarrisonTankCommander
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutRepublicHead
+  - DHLoadoutEyewear
+  - DHLoadoutRepublicMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHGarrisonTankCrew
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutRepublicHead
+  - DHLoadoutEyewear
+  - DHLoadoutRepublicMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHGarrisonAPCCommander
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutRepublicHead
+  - DHLoadoutEyewear
+  - DHLoadoutRepublicMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHGarrisonAPCCrew
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutRepublicHead
+  - DHLoadoutEyewear
+  - DHLoadoutRepublicMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHCarrierOperationCommander
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutImperialHead
+  - DHLoadoutEyewear
+  - DHLoadoutImperialMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+  - DHLoadoutImperialCommand
+
+- type: roleLoadout
+  id: JobDHCarrierCaptain
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutImperialHead
+  - DHLoadoutEyewear
+  - DHLoadoutImperialMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+  - DHLoadoutImperialCommand
+
+- type: roleLoadout
+  id: JobDHMarineCommander
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutImperialHead
+  - DHLoadoutEyewear
+  - DHLoadoutImperialMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+  - DHLoadoutImperialCommand
+
+- type: roleLoadout
+  id: JobDHCarrierSupportOfficer
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutImperialHead
+  - DHLoadoutEyewear
+  - DHLoadoutImperialMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+  - DHLoadoutImperialCommand
+
+- type: roleLoadout
+  id: JobDHCarrierPilot
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutImperialHead
+  - DHLoadoutEyewear
+  - DHLoadoutImperialMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHCarrierAttackPilot
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutImperialHead
+  - DHLoadoutEyewear
+  - DHLoadoutImperialMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHCarrierArtillerist
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutImperialHead
+  - DHLoadoutEyewear
+  - DHLoadoutImperialMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHCarrierTechnician
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutImperialHead
+  - DHLoadoutEyewear
+  - DHLoadoutImperialMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHMarineWeaponsSpecialist
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutImperialHead
+  - DHLoadoutEyewear
+  - DHLoadoutImperialMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHMarineFieldMedic
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutImperialHead
+  - DHLoadoutEyewear
+  - DHLoadoutImperialMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHMarineMachinegunner
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutImperialHead
+  - DHLoadoutEyewear
+  - DHLoadoutImperialMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHMarineRifleman
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutImperialHead
+  - DHLoadoutEyewear
+  - DHLoadoutImperialMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHMarineMortarCommander
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutImperialHead
+  - DHLoadoutEyewear
+  - DHLoadoutImperialMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHMarineMortarOperator
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutImperialHead
+  - DHLoadoutEyewear
+  - DHLoadoutImperialMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHMarineFieldArtillerist
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutImperialHead
+  - DHLoadoutEyewear
+  - DHLoadoutImperialMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHMarineTankCommander
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutImperialHead
+  - DHLoadoutEyewear
+  - DHLoadoutImperialMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHMarineTankCrew
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutImperialHead
+  - DHLoadoutEyewear
+  - DHLoadoutImperialMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHMarineAPCCommander
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutImperialHead
+  - DHLoadoutEyewear
+  - DHLoadoutImperialMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
+  id: JobDHMarineAPCCrew
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutImperialHead
+  - DHLoadoutEyewear
+  - DHLoadoutImperialMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife

@@ -195,6 +195,19 @@ def put(proto, x, y, rot=None, n=1, force=False):
 FACE = {'S': 0.0, 'N': PI, 'E': PI / 2, 'W': -PI / 2}
 
 
+def spawn(proto, cells, n):
+    """Точки появления должности (решение автора 2026-11-13): до n штук на свободных клетках пола (не стена)."""
+    placed = 0
+    for p in cells:
+        if placed >= n:
+            break
+        if p in T and p not in W and not any(e[0].startswith('DHSpawnPoint') and (e[1], e[2]) == p for e in E):
+            E.append((proto, p[0], p[1], None))
+            placed += 1
+    assert placed, 'нет места для ' + proto
+    return placed
+
+
 # ---------------------------------------------------------------- питание
 def bfs(start, goal, allowed):
     q = deque([start])
@@ -292,6 +305,7 @@ for breech, barrel, gx in guns:
     put(barrel, gx - 1, gy, PI / 2)
     put('DHComputerNavalArtillery', gx + 1, gy - 2, FACE['S'])
     put('ChairOfficeDark', gx + 1, gy - 3, FACE['N'])
+    spawn('DHSpawnPointImperialArtillerist', [(gx + 1, gy - 4), (gx + 2, gy - 4)], 1)
 for i, wh in enumerate(('HighExplosive', 'ArmorPiercing', 'Incendiary', 'Cluster')):
     put('DHHeavyShell300' + wh, x0 + i, y0, n=3)
     put('DHHeavyShell570' + wh, x0 + 5 + i, y0, n=2)
@@ -320,6 +334,7 @@ for y in range(ry0 + 2, ry1 - 1, 4):    # осевая разметка
 # штурмовик: лифт в начале ВПП (у брифинговой), катапульта — вдоль ВПП к носу; рядом бак горючего и ЛТЦ
 lcx = (rx0 + rx1) // 2
 put('DHAircraftLift', lcx, ry0 + 3)
+spawn('DHSpawnPointImperialAttackPilot', [(lcx + d, ry0 + 6) for d in (0, -1, 1)], 2)
 put('WeldingFuelTankFull', lcx + 3, ry0 + 3)
 put('Rack', lcx - 3, ry0 + 1)
 put('DHAircraftFlareCassette', lcx - 3, ry0 + 1, n=6, force=True)
@@ -347,6 +362,8 @@ put('DHTentImperialFolded', rx1 - 1, ry1 - 19)
 put('DHTentImperialMedicalFolded', rx1 - 1, ry1 - 20)
 put('DHCamoNetFolded', rx1 - 1, ry1 - 22, n=2)
 put('DHClothingOuterGhillie', rx1 - 1, ry1 - 23, n=2)
+spawn('DHSpawnPointImperialArmor', [(rx1 - 3, ry1 - 2 - i) for i in range(5)], 4)
+spawn('DHSpawnPointImperialArtillery', [(rx1 - 3, ry1 - 8 - i) for i in range(6)], 4)
 
 # --- ПВО (треугольник)
 door('runway', 'pvo', 'AirlockSecurityGlassLocked')
@@ -394,8 +411,8 @@ spawns = 0
 for row_y in range(y1 - 5, y0 + 2, -5):
     for x in range(x0 + 1, x1, 2):
         if put('RMCBedBunk', x, row_y):
-            put('SpawnPointAnyJob', x, row_y)
-            put('SpawnPointAnyJob', x, row_y - 1)
+            put('DHSpawnPointImperialInfantry', x, row_y)
+            put('DHSpawnPointImperialInfantry', x, row_y - 1)
             spawns += 2
     for x in range(x0 + 2, x1, 4):
         put('LockerSyndicatePersonal', x, row_y + 2)
@@ -443,18 +460,27 @@ put('TableReinforced', cx + 1, y0 + 2)
 put('DHFieldPhoneEmpireBridge', cx, y0 + 3)
 put('SyndieFlag', x0, y0)
 put('SyndieFlag', x1, y0)
-door('hq', 'pvo', 'AirlockCommandGlassLocked')
-door('hq', 'hqhall', 'AirlockCommandGlassLocked')
-for room in ('cmd1', 'cmd2', 'cmd3', 'cmd4'):
-    door(room, 'hqhall', 'AirlockCommandGlassLocked')
+# каюты командования: только командный доступ Империи (решение автора 2026-11-13); в каждой — своя должность и
+# стойки снаряжения (раздатчики снаряжения и модулей, стойка обслуживания брони)
+CMD = 'DHAirlockImperialCommandGlassLocked'
+door('hq', 'pvo', CMD)
+door('hq', 'hqhall', CMD)
+CABINS = (('cmd1', 'DHSpawnPointImperialOperationCommander'), ('cmd2', 'DHSpawnPointImperialCaptain'),
+          ('cmd3', 'DHSpawnPointImperialMarineCommander'), ('cmd4', 'DHSpawnPointImperialSupportOfficer'))
+for room, point in CABINS:
+    door(room, 'hqhall', CMD)
     a0, b0, a1, b1 = ibox(room)
     put('Bed', a0, b1)
     put('BedsheetSyndie', a0, b1, force=True)
     put('LockerSyndicatePersonal', a1, b1)
+    put('DHGearVendorEmpireEquipment', a0 + 2, b1)
+    put('DHGearVendorEmpireAttachments', a0 + 3, b1)
+    put('DHArmorRack', a1, b1 - 2)
     put('TableReinforced', a0, b0)
     put('TableReinforced', a0 + 1, b0)
     put('ChairOfficeDark', a0, b0 + 1, FACE['S'])
     put('PottedPlantRandom', a1, b0)
+    spawn(point, [(a0 + 2, (b0 + b1) // 2), (a0 + 3, (b0 + b1) // 2)], 1)
 door('cmd3', 'engR', 'AirlockEngineeringLocked')
 
 # --- инженерный отсек
@@ -474,6 +500,7 @@ for i, proto in enumerate(('LockerEngineerFilled', 'LockerEngineerFilled', 'Vend
                            'CrateEngineeringCableBulk', 'SheetSteel', 'SheetPlasteel', 'SheetGlass',
                            'WeldingFuelTankFull', 'WaterTankFull')):
     put(proto, x0 + 1 + i * 2, y0)
+spawn('DHSpawnPointImperialTechnician', [(cx + d, y0 + 3) for d in (-3, -2, 2, 3)], 3)
 door('eng', 'engL', 'AirlockEngineeringLocked', width=2)
 door('eng', 'engR', 'AirlockEngineeringLocked', width=2)
 door('eng', 'labs', 'AirlockMedicalGlassLocked', width=3)
@@ -515,6 +542,7 @@ put('HandheldHealthAnalyzer', x1 - 5, y0, force=True)
 put('MedkitCombatFilled', x1 - 5, y0, force=True)
 put('DHBloodPackFull', x1 - 4, y0, n=4, force=True)
 put('VendingMachineWallMedical', x0 - 1, (y0 + y1) // 2, PI / 2, force=True)
+spawn('DHSpawnPointImperialMedic', [(x, (y0 + y1) // 2) for x in range(x0 + 2, x1 - 1, 3)], 4)
 for room in ('or1', 'or2'):
     a0, b0, a1, b1 = ibox(room)
     cx = (a0 + a1) // 2
@@ -573,6 +601,7 @@ for (x, y) in list(T):
     for (dx, dy), rot in SEAL_ROT.items():
         if (x + dx, y + dy) in HOLE and (x, y) not in W:
             E.append(('DHHangarAirSeal', x, y, rot))
+spawn('DHSpawnPointImperialPilot', sorted((p for p in INNER['zone'] if p not in HOLE), key=lambda p: (-p[0], -p[1])), 3)
 # свет «Зоны вылета 1» — НН вдоль стен вокруг выреза
 zone = INNER['zone']
 ring = {p for p in zone if any((p[0] + dx, p[1] + dy) not in zone for dx, dy in N8)}

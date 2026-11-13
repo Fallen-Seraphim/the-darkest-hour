@@ -100,3 +100,15 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/ASO/cap_peaked_aso.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/ASO/cap_peaked_aso.rsi
+
+# Фуражка командующего операцией (решение автора 2026-11-13): чёрная, с золотой кокардой высшего ранга.
+- type: entity
+  parent: ClothingHeadBase
+  id: DHImperialClothingHeadCapOperationCommander
+  name: "Imperial operation commander's peaked cap"
+  description: "A black peaked cap with the gold cockade of the officer in command of the landing operation."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/TSE/tsepa_cap_peaked_rank_3.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/TSE/tsepa_cap_peaked_rank_3.rsi

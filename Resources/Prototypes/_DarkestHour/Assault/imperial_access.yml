@@ -1,0 +1,23 @@
+# Командный доступ Империи (решение автора 2026-11-13): каюты командования, коридор штаба и пост ПВО авианосца —
+# только командующему операцией, капитану, командиру десанта и офицеру поддержки. Остальной экипаж в каюты не войдёт.
+
+- type: accessLevel
+  id: DHImperialCommand
+  name: id-card-access-level-dh-imperial-command
+
+- type: entity
+  parent: DoorElectronics
+  id: DHDoorElectronicsImperialCommand
+  suffix: Imperial Command, Locked
+  components:
+  - type: AccessReader
+    access: [["DHImperialCommand"]]
+
+- type: entity
+  parent: AirlockCommandGlass
+  id: DHAirlockImperialCommandGlassLocked
+  suffix: Imperial Command, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DHDoorElectronicsImperialCommand ]

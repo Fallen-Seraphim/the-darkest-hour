@@ -553,13 +553,13 @@
   parent: DHCarrierCrewGearBase
   id: DHCarrierPilotGear
   equipment:
-    ears: DHClothingHeadsetAltImperialCommand
+    ears: DHClothingHeadsetAltImperialPilot
 
 - type: startingGear
   parent: DHCarrierCrewGearBase
   id: DHCarrierAttackPilotGear
   equipment:
-    ears: DHClothingHeadsetAltImperialCommand
+    ears: DHClothingHeadsetAltImperialPilot
 
 - type: startingGear
   parent: DHCarrierCrewGearBase
@@ -576,6 +576,7 @@
   parent: DHCarrierCrewGearBase
   id: DHCarrierTechnicianGear
   equipment:
+    ears: DHClothingHeadsetAltImperialSupply
     belt: ClothingBeltUtilityEngineering
   storage:
     back:
@@ -746,7 +747,7 @@
     ears: DHClothingHeadsetAltImperialCommand
     jumpsuit: ClothingUniformJumpsuitSyndieFormal
     outerClothing: ClothingOuterCoatSyndieCap
-    head: ClothingHeadHatSyndie
+    head: DHImperialClothingHeadCapOperationCommander
     neck: SyndicateWhistle
   storage:
     back:

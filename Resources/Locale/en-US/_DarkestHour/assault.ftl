@@ -311,3 +311,12 @@ dh-construction-barricade-plasteel-desc = A barricade of four plasteel sheets. S
 # Ghost warp points
 dh-warp-terminus = Terminus base (HQ)
 dh-warp-carrier = Carrier Sovereign (bridge)
+
+# Командование сторон, командный доступ Империи, сети «СКАТ» и снабжения (2026-11-13)
+dh-department-republic-command = Garrison Command
+dh-department-republic-command-description = The command of Terminus Military Base: the base commander and his officers. They start in the commandant's office.
+dh-department-imperial-command = Operation Command
+dh-department-imperial-command-description = The command of the Imperial landing operation: the operation commander, the carrier captain, the landing force commander and the support officer. They start in their cabins.
+id-card-access-level-dh-imperial-command = Imperial Operation Command
+dh-chat-radio-imperial-skat = SKAT
+dh-chat-radio-imperial-supply = Imperial Supply

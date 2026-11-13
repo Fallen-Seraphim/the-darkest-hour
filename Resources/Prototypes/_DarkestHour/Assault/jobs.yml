@@ -119,6 +119,7 @@
   access:
   - NuclearOperative
   - SyndicateAgent
+  - DHImperialCommand
 
 - type: job
   id: DHCarrierPilot
@@ -191,6 +192,7 @@
   access:
   - NuclearOperative
   - SyndicateAgent
+  - DHImperialCommand
 
 - type: job
   id: DHMarineWeaponsSpecialist
@@ -354,6 +356,7 @@
   access:
   - NuclearOperative
   - SyndicateAgent
+  - DHImperialCommand
 
 - type: job
   id: DHCarrierSupportOfficer
@@ -368,6 +371,7 @@
   access:
   - NuclearOperative
   - SyndicateAgent
+  - DHImperialCommand
 
 - type: job
   id: DHMarineMortarCommander
@@ -467,7 +471,39 @@
   - NuclearOperative
   - SyndicateAgent
 
-# Отделы: в лобби должности сгруппированы по сторонам
+# Отделы: в лобби должности сгруппированы по сторонам. Командование каждой стороны — отдельный отдел наверху списка
+# (решение автора 2026-11-13); порядок внутри — веса в Roles/job_weights.yml (командующий операцией — первый).
+
+- type: department
+  id: DHRepublicCommandStaff
+  name: dh-department-republic-command
+  description: dh-department-republic-command-description
+  color: "#B9E07A"
+  weight: 100
+  dhMode: dh-jobs-mode-assault
+  dhModeOrder: 1
+  dhSide: dh-jobs-side-republic
+  dhSideOrder: 1
+  roles:
+  - DHGarrisonCommander
+  - DHGarrisonOfficer
+  - DHGarrisonArtilleryOfficer
+
+- type: department
+  id: DHImperialCommandStaff
+  name: dh-department-imperial-command
+  description: dh-department-imperial-command-description
+  color: "#FFDD73"
+  weight: 100
+  dhMode: dh-jobs-mode-assault
+  dhModeOrder: 1
+  dhSide: dh-jobs-side-empire
+  dhSideOrder: 2
+  roles:
+  - DHCarrierOperationCommander
+  - DHCarrierCaptain
+  - DHMarineCommander
+  - DHCarrierSupportOfficer
 
 - type: department
   id: DHRepublicGarrison
@@ -480,9 +516,6 @@
   dhSide: dh-jobs-side-republic
   dhSideOrder: 1
   roles:
-  - DHGarrisonCommander
-  - DHGarrisonOfficer
-  - DHGarrisonArtilleryOfficer
   - DHGarrisonRifleman
   - DHGarrisonMachinegunner
   - DHGarrisonSniper
@@ -509,9 +542,6 @@
   dhSide: dh-jobs-side-empire
   dhSideOrder: 2
   roles:
-  - DHCarrierCaptain
-  - DHCarrierOperationCommander
-  - DHCarrierSupportOfficer
   - DHCarrierPilot
   - DHCarrierAttackPilot
   - DHCarrierArtillerist
@@ -528,7 +558,6 @@
   dhSide: dh-jobs-side-empire
   dhSideOrder: 2
   roles:
-  - DHMarineCommander
   - DHMarineWeaponsSpecialist
   - DHMarineFieldMedic
   - DHMarineMachinegunner

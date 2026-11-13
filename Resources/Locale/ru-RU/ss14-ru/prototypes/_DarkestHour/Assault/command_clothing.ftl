@@ -24,3 +24,6 @@ ent-DHImperialClothingOuterTunicSupportOfficer = китель офицера в�
 
 ent-DHImperialClothingHeadCapSupportOfficer = фуражка офицера вспомогательной поддержки Империи
     .desc = Фуражка имперского офицера вспомогательной поддержки.
+
+ent-DHImperialClothingHeadCapOperationCommander = фуражка командующего имперской операцией
+    .desc = Чёрная фуражка с золотой кокардой офицера, командующего десантной операцией.

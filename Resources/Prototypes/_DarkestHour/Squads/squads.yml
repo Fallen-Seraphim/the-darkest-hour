@@ -282,6 +282,10 @@
   components:
   - type: DHSquadConsole
     faction: Empire
+  # Только командование операции (командующий, капитан, командир десанта, офицер поддержки).
+  - type: ActivatableUIRequiresAccess
+  - type: AccessReader
+    access: [ [ "DHImperialCommand" ] ]
   - type: ComputerVisuals
     stateScreen: id
     stateKeys: syndie_key
