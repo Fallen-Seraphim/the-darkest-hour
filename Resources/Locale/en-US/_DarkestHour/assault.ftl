@@ -307,3 +307,7 @@ dh-construction-barricade-metal = metal barricade
 dh-construction-barricade-metal-desc = A barricade of four steel sheets. Stops most bullets from the front.
 dh-construction-barricade-plasteel = plasteel barricade
 dh-construction-barricade-plasteel-desc = A barricade of four plasteel sheets. Stops nearly every bullet from the front.
+
+# Ghost warp points
+dh-warp-terminus = Terminus base (HQ)
+dh-warp-carrier = Carrier Sovereign (bridge)
