@@ -20,7 +20,7 @@ namespace Content.Client._DarkestHour.Aviation;
 /// рассеиванием и формой поражения, линии огня пушечных контейнеров и зона пуска управляемых.
 /// Вычислитель считает по <see cref="DHAircraftBallistics"/> — тем же числам, что и сервер.
 /// </summary>
-public sealed class DHAircraftWeaponsWindow : DefaultWindow
+public sealed partial class DHAircraftWeaponsWindow : DefaultWindow
 {
     private static readonly Color BombColor = Color.FromHex("#ffb347");
     private static readonly Color CannonColor = Color.FromHex("#ff5a4a");
