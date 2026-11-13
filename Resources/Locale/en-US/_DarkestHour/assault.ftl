@@ -1,6 +1,6 @@
 ## «Штурм» — базовый режим: имперский десант штурмует военную базу Республики на REP-27-7
 
-dh-assault-title = Assault
+dh-assault-title = Siege
 dh-assault-description = An Imperial landing carrier jumps in from a neighbouring system to storm a Republican garrison base on REP-27-7 and carry off an experimental sample. The garrison has a few minutes to dig in.
 
 dh-assault-carrier-name = IC-3 Sovereign
@@ -134,10 +134,10 @@ dh-job-marine-apc-crew-desc = Drive the APC or work its guns; patch the hull wit
 
 ## Команды
 
-cmd-dhcarrierdamage-desc = Damages the Imperial carrier of the Assault round (anti-air hit). At zero hull it goes down on the planet.
+cmd-dhcarrierdamage-desc = Damages the Imperial carrier of the Siege round (anti-air hit). At zero hull it goes down on the planet.
 cmd-dhcarrierdamage-help = Usage: dhcarrierdamage <amount> (the carrier has 100 hull)
 cmd-dhcarrierdamage-done = The carrier took {$amount} damage.
-cmd-dhcarrierdamage-no-carrier = No active Assault round with a carrier that can still be hit.
+cmd-dhcarrierdamage-no-carrier = No active Siege round with a carrier that can still be hit.
 
 ## Укрепления: мешки с песком и палатки
 

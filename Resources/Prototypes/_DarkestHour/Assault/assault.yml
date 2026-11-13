@@ -1212,6 +1212,8 @@
   alias:
   - assault
   - shturm
+  - siege
+  - osada
   name: dh-assault-title
   description: dh-assault-description
   showInVote: true

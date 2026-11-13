@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""DarkestHour: лоадауты «Штурма» (решение автора 2026-11-13) — личные вещи бойцов Республики и Империи.
+"""DarkestHour: лоадауты «Осады» (решение автора 2026-11-13) — личные вещи бойцов Республики и Империи.
 
 Набор по образцу лоадаутов RMC-14/CMU: головной убор, очки, шарф/маска, курево, фляга, мелочи и нож. Всё кладётся
 в рюкзак (снаряжение должности надевается раньше — roleLoadout.dhAfterStartingGear), поэтому шлем, гарнитура и визоры
@@ -129,7 +129,7 @@ def loadout_id(item):
 
 def main():
     head = '# Сгенерировано Tools/_DarkestHour/loadouts/build_assault_loadouts.py — правьте генератор.\n'
-    y = [head, '# Личные вещи «Штурма»: одежда — спрайты RMC-14 (CC-BY-SA, cmss13).\n']
+    y = [head, '# Личные вещи «Осады»: одежда — спрайты RMC-14 (CC-BY-SA, cmss13).\n']
     ru = []
     for it in ITEMS:
         pid, parent, rsi, en, en_d, ru_n, ru_d = it[:7]
@@ -154,7 +154,7 @@ def main():
     open(f'{d}/assault_cosmetics.ftl', 'w', encoding='utf-8').write('\n'.join(ru))
 
     # лоадауты: по одному на предмет (всё — в рюкзак)
-    L = [head, '# Лоадауты «Штурма»: личные вещи в рюкзак. Должности — roleLoadout Job<id>.\n']
+    L = [head, '# Лоадауты «Осады»: личные вещи в рюкзак. Должности — roleLoadout Job<id>.\n']
     items = []
     for _, _, _, _, lst in GROUPS:
         for it in lst:
@@ -186,7 +186,7 @@ def main():
             L.append(f'\n- type: roleLoadout\n  id: Job{job}\n  dhAfterStartingGear: true\n  groups:\n')
             L += [f'  - {g}\n' for g in groups]
     open(f'{R}/Prototypes/_DarkestHour/Loadouts/assault_loadouts.yml', 'w', encoding='utf-8').write(''.join(L))
-    hdr = '# Группы лоадаутов «Штурма» (Tools/_DarkestHour/loadouts/build_assault_loadouts.py)\n'
+    hdr = '# Группы лоадаутов «Осады» (Tools/_DarkestHour/loadouts/build_assault_loadouts.py)\n'
     open(f'{R}/Locale/en-US/_DarkestHour/assault_loadouts.ftl', 'w', encoding='utf-8').write(hdr + '\n'.join(en_ftl) + '\n')
     open(f'{R}/Locale/ru-RU/_DarkestHour/assault_loadouts.ftl', 'w', encoding='utf-8').write(hdr + '\n'.join(ru_ftl) + '\n')
     print('предметов', len(ITEMS) + len(DRINKS), 'лоадаутов', len(items), 'должностей', len(REPUBLIC) + len(EMPIRE))

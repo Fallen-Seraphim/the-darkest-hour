@@ -1,4 +1,4 @@
-dh-jobs-mode-assault = Assault
+dh-jobs-mode-assault = Siege
 dh-jobs-mode-uprising = Uprising
 dh-jobs-mode-other = Other
 dh-jobs-side-republic = Republic

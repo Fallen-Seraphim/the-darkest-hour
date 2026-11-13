@@ -56,6 +56,7 @@
   dhModeOrder: 2
   dhSide: dh-jobs-side-civilians
   dhSideOrder: 2
+  editorHidden: true
   roles:
   - DHLADistrictHead
   - DHLADistrictStaff
@@ -76,6 +77,7 @@
   dhModeOrder: 2
   dhSide: dh-jobs-side-corporates
   dhSideOrder: 3
+  editorHidden: true
   roles:
   - DHLAVRepresentative
   - DHLAVAssistant
@@ -92,6 +94,7 @@
   dhModeOrder: 2
   dhSide: dh-jobs-side-military-police
   dhSideOrder: 1
+  editorHidden: true
   dhComponents:
   - type: DHRepublicWarcry
   roles:
@@ -112,6 +115,7 @@
   dhModeOrder: 2
   dhSide: dh-jobs-side-civilians
   dhSideOrder: 2
+  editorHidden: true
   roles:
   - DHLAClinicHead
   - DHLAClinicDoctor
@@ -128,6 +132,7 @@
   dhModeOrder: 2
   dhSide: dh-jobs-side-rebels
   dhSideOrder: 4
+  editorHidden: true
   roles:
   - DHLAFrontLeader
   - DHLAFrontSaboteur

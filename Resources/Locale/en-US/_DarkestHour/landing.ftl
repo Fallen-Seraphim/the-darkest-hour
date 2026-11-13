@@ -17,7 +17,7 @@ dh-landing-descending = Descending into the atmosphere of {$body}.
 dh-landing-ascending = Climbing to orbit.
 dh-landing-use-console = The ship is on the surface or in the atmosphere: climb to orbit with the landing computer.
 
-## Атмосфера и высадка с парашютом («Штурм»)
+## Атмосфера и высадка с парашютом («Осада»)
 
 dh-landing-atmosphere-map = {$body} — atmosphere
 dh-landing-in-atmosphere = In the atmosphere of {$body}, about 2 km above the surface. Fly with the shuttle computer; jump out to paradrop below.

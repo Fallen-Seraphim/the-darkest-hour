@@ -1,5 +1,5 @@
 # Сгенерировано Tools/_DarkestHour/loadouts/build_assault_loadouts.py — правьте генератор.
-# Лоадауты «Штурма»: личные вещи в рюкзак. Должности — roleLoadout Job<id>.
+# Лоадауты «Осады»: личные вещи в рюкзак. Должности — roleLoadout Job<id>.
 
 - type: loadout
   id: DHLoadoutClothingHeadBeretGreen
