@@ -437,3 +437,23 @@
       map: [ "enum.ActionVisuals.Icon" ]
   - type: InstantAction
     event: !type:DHAircraftEjectActionEvent
+
+# Тень штурмовика на земле во время захода (решение автора 2026-11-13: высота настоящая — сам самолёт на уровне
+# воздуха над полем боя, пехота видит только тень и слышит рёв захода).
+- type: entity
+  id: DHAttackAircraftShadow
+  name: aircraft shadow
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: false
+    noRot: false
+    gridTraversal: false
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/Aircraft/attack_aircraft.rsi
+    state: shadow
+    noRot: false
+    drawdepth: Overdoors
+    color: "#000000AA"
+  - type: TimedDespawn
+    lifetime: 180

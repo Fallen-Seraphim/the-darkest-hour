@@ -156,6 +156,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
             QueueDel(seat);
         if (ent.Comp.Canopy is { } canopy && !TerminatingOrDeleted(canopy))
             QueueDel(canopy);
+        RemoveShadow(ent);
     }
 
     private void OnStrapped(Entity<DHAircraftSeatComponent> ent, ref StrappedEvent args)
@@ -1154,6 +1155,9 @@ public sealed partial class DHAircraftSystem : EntitySystem
             if (TerminatingOrDeleted(uid))
                 continue;
 
+            if (comp.PassShadow != null && comp.State != DHAircraftState.Pass)
+                RemoveShadow(ent);
+
             if (comp.State is DHAircraftState.Airborne or DHAircraftState.Returning or DHAircraftState.Pass)
                 UpdateRadar(ent, now);
 
@@ -1383,7 +1387,10 @@ public sealed partial class DHAircraftSystem : EntitySystem
         var xform = Transform(ent);
         var position = _transform.GetWorldPosition(xform);
         var pilot = Pilot(ent.Comp);
-        var surface = HasComp<DHPlanetSurfaceMapComponent>(xform.MapUid) ? xform.MapUid : SurfaceBelow(xform.MapUid);
+        // На бреющем самолёт над поверхностью на уровне воздуха — падает на поверхность под заходом.
+        var surface = ent.Comp.PassSurface is { } passSurface && !TerminatingOrDeleted(passSurface) ? passSurface
+            : HasComp<DHPlanetSurfaceMapComponent>(xform.MapUid) ? xform.MapUid : SurfaceBelow(xform.MapUid);
+        RemoveShadow(ent);
 
         if (pilot is { } p)
         {

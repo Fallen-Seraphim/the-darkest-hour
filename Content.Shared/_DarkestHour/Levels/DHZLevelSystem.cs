@@ -87,6 +87,21 @@ public sealed partial class DHZLevelSystem : EntitySystem
         return max + 1;
     }
 
+    /// <summary>Уровень воздуха (штурмовик на бреющем): оттуда видно всю стопку до земли, здания — крышами.</summary>
+    public bool IsAirLevel(MapId mapId)
+    {
+        return HasComp<DHZAirLevelComponent>(_map.GetMapOrInvalid(mapId));
+    }
+
+    /// <summary>
+    /// На сколько уровней вниз видно с карты: обычно <paramref name="normal"/> (настройка, не больше трёх), с уровня
+    /// воздуха — до самой земли.
+    /// </summary>
+    public int ViewDepth(MapId mapId, int normal)
+    {
+        return IsAirLevel(mapId) && TryGetLevel(mapId, out var own) ? Math.Max(normal, own.Level) : normal;
+    }
+
     public MapCoordinates? OnLevel(MapCoordinates coords, int level)
     {
         if (!TryGetLevel(coords.MapId, out var here) || LevelMap(here.Stack, level) is not { } map)

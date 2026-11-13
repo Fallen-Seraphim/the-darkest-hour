@@ -139,15 +139,20 @@ public sealed partial class DHAircraftSystem
         ent.Comp.PassSky = Transform(ent).MapUid;
 
         var heading = HeadingOf(Vector2.Normalize(end - start));
-        _transform.SetCoordinates(ent, new EntityCoordinates(surface, start));
-        _transform.SetWorldRotation(ent, heading);
         ent.Comp.Heading = heading;
+        ent.Comp.PassSurface = surface;
+        // Высота настоящая: самолёт — на уровне воздуха над поверхностью, на земле — его тень.
+        _transform.SetCoordinates(ent, new EntityCoordinates(AirMap(surface, ent.Comp.Altitude) ?? surface, start));
+        _transform.SetWorldRotation(ent, heading);
+        SpawnShadow(ent, surface, start);
         ent.Comp.State = DHAircraftState.Pass;
         ent.Comp.NextBurst = _timing.CurTime;
         Dirty(ent);
 
-        _audio.PlayPvs(ent.Comp.Altitude == DHAircraftAltitude.High ? ent.Comp.PassHighSound : ent.Comp.PassSound, ent,
-            AudioParams.Default.WithMaxDistance(60f).WithVolume(4f));
+        var passSound = ent.Comp.Altitude == DHAircraftAltitude.High ? ent.Comp.PassHighSound : ent.Comp.PassSound;
+        _audio.PlayPvs(passSound, ent, AudioParams.Default.WithMaxDistance(60f).WithVolume(4f));
+        if (ent.Comp.PassShadow is { } shadow)
+            _audio.PlayPvs(passSound, shadow, AudioParams.Default.WithMaxDistance(60f).WithVolume(4f));
         Notify(ent, Loc.GetString("dh-aircraft-pass-started"));
         UpdateUi(ent);
     }
@@ -164,6 +169,8 @@ public sealed partial class DHAircraftSystem
         var level = Math.Clamp((int) ent.Comp.Altitude + Math.Sign(args.Delta), (int) DHAircraftAltitude.Low, (int) DHAircraftAltitude.High);
         ent.Comp.Altitude = (DHAircraftAltitude) level;
         Dirty(ent);
+        if (ent.Comp.State == DHAircraftState.Pass)
+            MoveToAltitude(ent);
         Notify(ent, Loc.GetString("dh-aircraft-altitude-" + ent.Comp.Altitude.ToString().ToLowerInvariant()));
         UpdateUi(ent);
     }
@@ -246,7 +253,7 @@ public sealed partial class DHAircraftSystem
         var kind = ent.Comp.Hardpoints[slot];
         ent.Comp.Hardpoints[slot] = DHAircraftMunition.None;
         Dirty(ent);
-        _bombs.Add(new PendingBomb(new MapCoordinates(target, xform.MapID), _timing.CurTime + TimeSpan.FromSeconds(fall),
+        _bombs.Add(new PendingBomb(new MapCoordinates(target, GroundMapId(ent)), _timing.CurTime + TimeSpan.FromSeconds(fall),
             kind, nose));
         Notify(ent, Loc.GetString("dh-aircraft-drop-released", ("slot", slot + 1)));
         UpdateUi(ent);
@@ -289,6 +296,7 @@ public sealed partial class DHAircraftSystem
         var direction = Vector2.Normalize(end - start);
         var position = _transform.GetWorldPosition(xform) + direction * comp.PassSpeed * frameTime;
         _transform.SetWorldPosition(ent, position);
+        MoveShadow(ent, position);
 
         if (comp.CannonOn && now >= comp.NextBurst)
         {
@@ -301,7 +309,7 @@ public sealed partial class DHAircraftSystem
             }
             else
             {
-                FireBurst(ent, position, direction, xform.MapID, now);
+                FireBurst(ent, position, direction, GroundMapId(ent), now);
             }
         }
 
@@ -361,6 +369,8 @@ public sealed partial class DHAircraftSystem
         comp.CannonOn = false;
         comp.PassStart = null;
         comp.PassEnd = null;
+        comp.PassSurface = null;
+        RemoveShadow(ent);
 
         if (comp.PassSky is not { } sky || TerminatingOrDeleted(sky))
         {
@@ -387,7 +397,7 @@ public sealed partial class DHAircraftSystem
         var query = EntityQueryEnumerator<DHAircraftComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var comp, out var xform))
         {
-            if (comp.State != DHAircraftState.Pass || xform.MapUid != map || now < comp.FlaresUntil ||
+            if (comp.State != DHAircraftState.Pass || GroundMapUid(comp, xform) != map || now < comp.FlaresUntil ||
                 Vector2.Distance(_transform.GetWorldPosition(xform), position) > range)
             {
                 continue;
