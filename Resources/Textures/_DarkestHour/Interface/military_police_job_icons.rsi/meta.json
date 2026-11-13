@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Royal Marines Commando job icons from RMC-14 (RCM standard.rsi), taken from https://github.com/cmss13-devs/cmss13/blob/71660f23ed6fdbd87e09ba595212f1693ed8e5cd/icons/mob/hud/factions/twe.dmi, RMC -> RCM by PursuitinAshes (Github). Cropped to 8x8 for The Darkest Hour Military Police.",
+  "size": {
+    "x": 8,
+    "y": 8
+  },
+  "states": [
+    {
+      "name": "mp_chief"
+    },
+    {
+      "name": "mp_deputy_chief"
+    },
+    {
+      "name": "mp_investigator"
+    },
+    {
+      "name": "mp_warden"
+    },
+    {
+      "name": "mp_officer"
+    },
+    {
+      "name": "mp_cadet"
+    }
+  ]
+}

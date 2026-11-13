@@ -99,27 +99,27 @@ JOBS = [
      'Work in the LA-V office.',
      'Работайте в офисе LA-V.', None),
     # военпол (решение автора 2026-11-05): кадет, офицер, следователь, зам. начальника, начальник, надзиратель
-    ('DHLAMPChief', 'DHLAMilitaryPolice', 'HeadOfSecurity', 1, ['DHLAPolice', 'DHLAPoliceCommand', 'DHLAPoliceArmory'],
+    ('DHLAMPChief', 'DHLAMilitaryPolice', 'mp:mp_chief', 1, ['DHLAPolice', 'DHLAPoliceCommand', 'DHLAPoliceArmory'],
      'Military Police chief', 'начальник Военной Полиции',
      'Command the district Military Police: find the LFFC leaders and protect the residents.',
      'Командуйте отделением Военной Полиции: найдите лидеров ОФСК и защитите жителей.', None),
-    ('DHLAMPDeputyChief', 'DHLAMilitaryPolice', 'SeniorOfficer', 1, ['DHLAPolice', 'DHLAPoliceCommand', 'DHLAPoliceArmory'],
+    ('DHLAMPDeputyChief', 'DHLAMilitaryPolice', 'mp:mp_deputy_chief', 1, ['DHLAPolice', 'DHLAPoliceCommand', 'DHLAPoliceArmory'],
      'Deputy chief of the Military Police', 'заместитель начальника Военной Полиции',
      'Lead the patrols in the field and stand in for the chief.',
      'Ведите патрули в поле и замещайте начальника.', None),
-    ('DHLAMPInvestigator', 'DHLAMilitaryPolice', 'Detective', 2, ['DHLAPolice'],
+    ('DHLAMPInvestigator', 'DHLAMilitaryPolice', 'mp:mp_investigator', 2, ['DHLAPolice'],
      'Military Police investigator', 'следователь Военной Полиции',
      'Investigate, interrogate the detained and find out who leads the Front.',
      'Расследуйте, допрашивайте задержанных и выясните, кто стоит во главе Фронта.', None),
-    ('DHLAMPWarden', 'DHLAMilitaryPolice', 'Warden', 2, ['DHLAPolice', 'DHLAPoliceCommand', 'DHLAPoliceArmory'],
+    ('DHLAMPWarden', 'DHLAMilitaryPolice', 'mp:mp_warden', 2, ['DHLAPolice', 'DHLAPoliceCommand', 'DHLAPoliceArmory'],
      'Military Police prison warden', 'тюремный надзиратель Военной Полиции',
      'Guard the cells of the Military Police station and the detained in them.',
      'Охраняйте камеры отделения Военной Полиции и задержанных в них.', None),
-    ('DHLAMPOfficer', 'DHLAMilitaryPolice', 'SecurityOfficer', 8, ['DHLAPolice'],
+    ('DHLAMPOfficer', 'DHLAMilitaryPolice', 'mp:mp_officer', 8, ['DHLAPolice'],
      'Military Police officer', 'офицер Военной Полиции',
      'Patrol the district, detain the LFFC fighters and do not shoot civilians.',
      'Патрулируйте район, задерживайте боевиков ОФСК и не стреляйте в мирных.', None),
-    ('DHLAMPCadet', 'DHLAMilitaryPolice', 'SecurityCadet', 3, ['DHLAPolice'],
+    ('DHLAMPCadet', 'DHLAMilitaryPolice', 'mp:mp_cadet', 3, ['DHLAPolice'],
      'Military Police cadet', 'кадет Военной Полиции',
      'Learn the job from the officers. Rubber rounds first.',
      'Учитесь у офицеров. Сначала — резиновые пули.', None),
@@ -149,6 +149,8 @@ JOBS = [
 ]
 
 DH_ICONS = '/Textures/_DarkestHour/Interface/uprising_job_icons.rsi'
+# Военпол — иконки королевских морпехов ИТМ из RMC-14 (решение автора 2026-11-13), префикс mp:.
+MP_ICONS = '/Textures/_DarkestHour/Interface/military_police_job_icons.rsi'
 CARD_BASE = {'DHLACivilians': 'DHLAPassportBase', 'DHLAClinic': 'DHLAPassportBase', 'DHLAVanguard': 'DHLAVIDCardBase',
              'DHLAMilitaryPolice': 'DHDogtags', 'DHLAFront': 'DHLAPassportBase'}
 LAV_CARD = {'DHLAVRepresentative': 'corporate_liaison', 'DHLAVAssistant': 'corporate_liaison',
@@ -235,7 +237,12 @@ for jid, dept, icon, slots, access, nen, nru, den, dru, card_as in JOBS:
     w('  id: Job%s' % jid)
     w('')
     # Иконка должности — своя у всех (ОФСК и LA-V — свои рисованные, решение автора 2026-11-05).
-    sprite_path, state = (DH_ICONS, icon[3:]) if icon.startswith('dh:') else ('/Textures/Interface/Misc/job_icons.rsi', icon)
+    if icon.startswith('dh:'):
+        sprite_path, state = DH_ICONS, icon[3:]
+    elif icon.startswith('mp:'):
+        sprite_path, state = MP_ICONS, icon[3:]
+    else:
+        sprite_path, state = '/Textures/Interface/Misc/job_icons.rsi', icon
     w('- type: jobIcon')
     w('  parent: JobIcon')
     w('  id: JobIcon%s' % jid)
