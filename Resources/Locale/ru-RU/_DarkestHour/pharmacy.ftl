@@ -30,3 +30,7 @@ reagent-name-dh-dexamethasone = дексаметазон
 reagent-desc-dh-dexamethasone = Гормон против отёка и воспаления: умеренно лечит ожоги, химические ожоги и аллергию.
 reagent-name-dh-prussianblue = берлинская лазурь
 reagent-desc-dh-prussianblue = Связывает радиоактивные изотопы и выводит облучение.
+
+# Таблетки после разрывного прыжка
+dh-pill-label-prussian-blue = берлинская лазурь 5 ед
+dh-pill-label-rift-jump = принять после разрывного прыжка
