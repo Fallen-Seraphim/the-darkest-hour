@@ -1,0 +1,206 @@
+# Боевые кличи (решение автора 2026-11-13).
+# «Боевой клич» — порт эмоции Warcry из Colonial Marines Universe (AU-14, через RuCM) для Республики и военпола.
+# «Имперский боевой клич» — своя эмоция Первой Империи; звук — шотландский голос Jordan («за славу», «в атаку», «вперёд»)
+# и прочие атакующие кличи CMU. Свою запись «За Императора!» можно положить в Voice/Warcry/Imperial и добавить в DHImperialMaleWarcry.
+# Кто может кричать — метки DHRepublicWarcry / DHImperialWarcry, их выдаёт dhComponents отдела (Assault/jobs.yml, Uprising/jobs.yml).
+
+- type: emote
+  id: DHWarcry
+  name: dh-emote-name-warcry
+  category: Vocal
+  icon: _DarkestHour/Interface/Emotes/warcry.png
+  whitelist:
+    requireAll: true
+    components:
+    - Vocal
+    - DHRepublicWarcry
+  blacklist:
+    components:
+    - BorgChassis
+  chatMessages: ["dh-chat-emote-msg-warcry"]
+  chatTriggers:
+  - боевой клич
+  - клич
+  - выкрикивает боевой клич
+  - выкрикивает боевой клич!
+  - warcry
+  - warcry!
+  - warcries
+
+- type: emote
+  id: DHImperialWarcry
+  name: dh-emote-name-imperial-warcry
+  category: Vocal
+  icon: _DarkestHour/Interface/Emotes/imperial_warcry.png
+  whitelist:
+    requireAll: true
+    components:
+    - Vocal
+    - DHImperialWarcry
+  blacklist:
+    components:
+    - BorgChassis
+  chatMessages: ["dh-chat-emote-msg-imperial-warcry"]
+  chatTriggers:
+  - имперский боевой клич
+  - имперский клич
+  - за императора
+  - за императора!
+  - imperial warcry
+  - for the emperor
+  - for the emperor!
+
+- type: soundCollection
+  id: DHRepublicMaleWarcry
+  files:
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_come_on_bastards_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_come_on_bastards_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_come_on_bastards_3.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_come_on_bastards_4.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_devil_dogs_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_devil_dogs_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_devil_dogs_3.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_devil_dogs_4.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_get_em_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_get_em_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_get_em_3.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_give_em_hell_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_give_em_hell_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_give_em_hell_3.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_give_em_hell_4.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_lets_rock_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_lets_rock_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_lets_rock_3.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_over_there_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_over_there_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_over_there_3.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_see_them_dead_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_squeal_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_squeal_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_swiss_cheese_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_swiss_cheese_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_swiss_cheese_3.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_ufraah_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_ufraah_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_ufraah_3.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_ufraah_4.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_ufraah_5.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_ufraah_6.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/dragon_ufraah_7.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/landes_come_on_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/landes_come_on_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/landes_come_on_3.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/landes_get_some_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/landes_get_some_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/landes_get_some_3.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/landes_get_some_4.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/landes_get_them_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/landes_get_them_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/landes_get_them_3.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_3.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_4.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_5.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_6.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_7.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_8.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_9.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_10.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_11.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_12.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_13.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_14.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_15.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_16.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_17.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_18.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_19.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_20.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_21.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_22.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_23.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_24.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_25.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_26.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_27.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_28.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_29.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_30.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_31.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_32.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_33.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_34.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_35.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_36.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/male_warcry_37.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/ryan_warcry_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/ryan_warcry_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/ryan_warcry_3.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/ryan_warcry_4.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/ryan_warcry_5.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/ryan_warcry_6.ogg
+  - /Audio/_DarkestHour/Voice/Screams/male_warcry_1.ogg
+
+- type: soundCollection
+  id: DHRepublicFemaleWarcry
+  files:
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/female_warcry_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/female_warcry_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/female_warcry_3.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/female_warcry_4.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/female_warcry_5.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/female_warcry_6.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/female_warcry_7.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/female_warcry_8.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/female_warcry_9.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/female_warcry_10.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/female_warcry_11.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/female_warcry_12.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/female_warcry_13.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/female_warcry_14.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/female_warcry_15.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/female_warcry_16.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/female_warcry_17.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/female_warcry_18.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/female_warcry_19.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Republic/female_warcry_20.ogg
+
+- type: soundCollection
+  id: DHImperialMaleWarcry
+  files:
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/jordan_charge_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/jordan_charge_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/jordan_charge_3.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/jordan_charge_4.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/jordan_charge_5.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/jordan_charge_6.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/jordan_forward_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/jordan_forward_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/jordan_forward_3.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/jordan_glory_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/jordan_glory_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/jordan_glory_3.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/kaye_warcry_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/kaye_warcry_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/kaye_warcry_3.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/male_attack.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/male_charge_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/male_charge_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/male_yell_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/male_yell_2.ogg
+
+- type: soundCollection
+  id: DHImperialFemaleWarcry
+  files:
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/female_charge_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/female_warcry_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/female_warcry_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/female_warcry_3.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/female_warcry_4.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/female_warcry_5.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/female_warcry_6.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/female_yell_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/melissa_warcry_1.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/melissa_warcry_2.ogg
+  - /Audio/_DarkestHour/Voice/Warcry/Imperial/melissa_warcry_3.ogg

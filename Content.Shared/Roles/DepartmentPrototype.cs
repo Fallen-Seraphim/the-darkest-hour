@@ -59,6 +59,13 @@ public sealed partial class DepartmentPrototype : IPrototype
     [DataField("dhSideOrder")]
     public int DHSideOrder;
 
+    /// <summary>
+    /// DarkestHour: компоненты, которые выдаются каждому, кто появился на должности этого отдела
+    /// (например, метки фракционных эмоций). Выдаёт DHDepartmentComponentsSystem.
+    /// </summary>
+    [DataField("dhComponents")]
+    public ComponentRegistry? DHComponents;
+
     // See https://github.com/space-wizards/space-station-14/issues/45214
     // 
     /// <summary>

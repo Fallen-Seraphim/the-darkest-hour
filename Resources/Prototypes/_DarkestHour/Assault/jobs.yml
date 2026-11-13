@@ -864,6 +864,8 @@
   dhModeOrder: 1
   dhSide: dh-jobs-side-republic
   dhSideOrder: 1
+  dhComponents: # эмоция боевого клича своей стороны
+  - type: DHRepublicWarcry
   roles:
   - DHGarrisonCommander
   - DHGarrisonOfficer
@@ -879,6 +881,8 @@
   dhModeOrder: 1
   dhSide: dh-jobs-side-empire
   dhSideOrder: 2
+  dhComponents: # эмоция боевого клича своей стороны
+  - type: DHImperialWarcry
   roles:
   - DHCarrierOperationCommander
   - DHCarrierCaptain
@@ -895,6 +899,8 @@
   dhModeOrder: 1
   dhSide: dh-jobs-side-republic
   dhSideOrder: 1
+  dhComponents: # эмоция боевого клича своей стороны
+  - type: DHRepublicWarcry
   roles:
   - DHGarrisonRifleman
   - DHGarrisonMachinegunner
@@ -921,6 +927,8 @@
   dhModeOrder: 1
   dhSide: dh-jobs-side-empire
   dhSideOrder: 2
+  dhComponents: # эмоция боевого клича своей стороны
+  - type: DHImperialWarcry
   roles:
   - DHCarrierPilot
   - DHCarrierAttackPilot
@@ -937,6 +945,8 @@
   dhModeOrder: 1
   dhSide: dh-jobs-side-empire
   dhSideOrder: 2
+  dhComponents: # эмоция боевого клича своей стороны
+  - type: DHImperialWarcry
   roles:
   - DHMarineWeaponsSpecialist
   - DHMarineFieldMedic
