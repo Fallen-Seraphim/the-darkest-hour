@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 11/12/2026 08:00:00
-  entityCount: 4238
+  entityCount: 4239
 maps: []
 grids:
 - 1
@@ -23030,5 +23030,12 @@ entities:
     components:
     - type: Transform
       pos: 30.5,-133.5
+      parent: 1
+- proto: DHWarpPointCarrier
+  entities:
+  - uid: 4239
+    components:
+    - type: Transform
+      pos: 47.5,-71.5
       parent: 1
 ...
