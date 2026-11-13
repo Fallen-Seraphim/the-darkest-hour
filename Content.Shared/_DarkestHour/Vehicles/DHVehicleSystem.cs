@@ -1,3 +1,4 @@
+using Robust.Shared.Containers;
 using Content.Shared._DarkestHour.Weapons.Ranged.Emplacements;
 using Content.Shared.Actions;
 using System.Numerics;
@@ -85,6 +86,14 @@ public sealed partial class DHVehicleSystem : EntitySystem
             return;
         }
 
+        // Механик-водитель заводит машину ключом.
+        if (ent.Comp.Role == DHVehicleSeatRole.Driver && ent.Comp.Vehicle is { } keyed &&
+            TryComp<DHVehicleComponent>(keyed, out var keyedComp) && keyedComp.Key is { } key && !HasKey(user, key))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-vehicle-key-required"), ent, user);
+            return;
+        }
+
         if (TryComp<DHVehicleCrewComponent>(user, out var crew) && crew.Station is { } previous &&
             TryComp<DHVehicleStationComponent>(previous, out var previousComp))
         {
@@ -92,6 +101,27 @@ public sealed partial class DHVehicleSystem : EntitySystem
         }
 
         TakeStation(ent, user);
+    }
+
+    /// <summary>Есть ли у бойца при себе ключ (в руках, на теле, в карманах и сумках — до 4 уровней вложенности).</summary>
+    public bool HasKey(EntityUid uid, string key, int depth = 0)
+    {
+        if (depth > 0 && TryComp<DHVehicleKeyComponent>(uid, out var found) && found.Key == key)
+            return true;
+
+        if (depth >= 4 || !TryComp<ContainerManagerComponent>(uid, out var manager))
+            return false;
+
+        foreach (var container in manager.Containers.Values)
+        {
+            foreach (var child in container.ContainedEntities)
+            {
+                if (HasKey(child, key, depth + 1))
+                    return true;
+            }
+        }
+
+        return false;
     }
 
     private void TakeStation(Entity<DHVehicleStationComponent> ent, EntityUid user)

@@ -436,6 +436,7 @@ put('ChairOfficeDark', x0 + 1, y0 + 4, FACE['W'])
 put('ComputerCrewMonitoring', x1, y0 + 4, FACE['W'])
 put('ChairOfficeDark', x1 - 1, y0 + 4, FACE['E'])
 cx = (x0 + x1) // 2
+put('DHWarpPointCarrier', 47, -72, force=True)  # метка телепорта призраков посреди мостика
 put('TableReinforced', cx - 1, y0 + 2)
 put('TableReinforced', cx, y0 + 2)
 put('TableReinforced', cx + 1, y0 + 2)

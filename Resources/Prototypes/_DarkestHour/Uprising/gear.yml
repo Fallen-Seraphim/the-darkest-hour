@@ -126,44 +126,32 @@
     id: DHLAIDCardResident
 
 # ---------------------------------------------------------------- LA-V
+# Одежду (форма, обувь, верх, очки, головной убор) выдаёт выбор снаряжения роли (lav_loadouts.yml), а не стартовый
+# набор: иначе то же место занято дважды и второй предмет падает на пол.
 
 - type: startingGear
   id: DHLAVRepresentativeGear
   equipment:
-    eyes: DHLAVClothingEyesShades
     id: DHLAIDCardVRepresentative
-    jumpsuit: DHLAVClothingUniformExecutive
-    outerClothing: DHLAVClothingOuterJacket
-    shoes: ClothingShoesLeather
     ears: DHClothingHeadsetLAVanguard
     back: ClothingBackpackSatchelLeather
     pocket1: DHRepublicCredit1000
     pocket2: Pen
   inhand:
-  - BriefcaseBrownFilled
+  - DHLAVBriefcaseFilled
   storage:
     back:
-    - DHLAVTablet
-    - DHLAVPenExecutive
-    - DHLAVPlanner
-    - DHChequeMachine
+    - DHVehicleKeyLAV
     - DHWeaponSMGLAVSMG23
     - DHMagazineLAVSMG23LS
     - DHMagazineLAVSMG23LS
-    - DHBankCardVanguard
     - DHWeaponPistolMk58
     - DHMagazine10x24ShortE
-    - BoxFolderBlue
 
 - type: startingGear
   id: DHLAVAssistantGear
   equipment:
-    eyes: DHLAVClothingEyesShades
     id: DHLAIDCardVAssistant
-    jumpsuit: DHLAVClothingUniformFormal
-    outerClothing: DHLAVClothingOuterJacketManager
-    head: DHLAVClothingHeadCapManager
-    shoes: ClothingShoesLeather
     ears: DHClothingHeadsetLAVanguard
     back: ClothingBackpackSatchelLeather
     pocket1: DHRepublicCredit500
@@ -182,13 +170,8 @@
   id: DHLAVSecurityGear
   equipment:
     id: DHLAIDCardVSecurity
-    jumpsuit: DHLAVClothingUniformSecurity
-    outerClothing: DHLAVClothingOuterVestSecurity
-    head: DHLAVClothingHeadHelmetSecurity
     gloves: DHLAVClothingHandsGlovesSecurity
-    shoes: DHLAVClothingShoesJackboots
     ears: DHClothingHeadsetLAVanguard
-    eyes: DHLAVClothingEyesHUD
     back: ClothingBackpackSecurity
     belt: ClothingBeltSecurityWebbing
     suitstorage: DHWeaponRifleLAVR55
@@ -208,10 +191,7 @@
 - type: startingGear
   id: DHLAVEmployeeGear
   equipment:
-    eyes: DHLAVClothingEyesGlasses
     id: DHLAIDCardVEmployee
-    jumpsuit: DHLAVClothingUniformBlack
-    shoes: ClothingShoesLeather
     ears: DHClothingHeadsetLAVanguard
     back: ClothingBackpackSatchelLeather
     pocket1: DHRepublicCredit100
