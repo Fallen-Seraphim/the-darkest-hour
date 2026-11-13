@@ -29,8 +29,8 @@ public sealed class DHZRoofOverlay : Overlay
     private readonly Texture _metal;
     private readonly Texture _slate;
     private readonly Texture _concrete;
-    private readonly Dictionary<ushort, Texture> _byTile = new();
-    private readonly List<Entity<MapGridComponent>> _grids = new();
+    private readonly Dictionary<int, Texture> _byTile = new();
+    private List<Entity<MapGridComponent>> _grids = new();
 
     public override OverlaySpace Space => OverlaySpace.WorldSpaceEntities;
 
@@ -86,7 +86,7 @@ public sealed class DHZRoofOverlay : Overlay
     }
 
     /// <summary>Крыша по полу под ней: металл над техническими и стальными полами, шифер над деревом, иначе бетон.</summary>
-    private Texture TextureFor(ushort tileId)
+    private Texture TextureFor(int tileId)
     {
         if (_byTile.TryGetValue(tileId, out var cached))
             return cached;

@@ -4,6 +4,7 @@ using Content.Shared._DarkestHour.Aviation;
 using Content.Shared._DarkestHour.Environment;
 using Content.Shared._DarkestHour.Levels;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 
 namespace Content.Server._DarkestHour.Aviation;
 
