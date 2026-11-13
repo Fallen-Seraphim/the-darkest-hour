@@ -43,3 +43,4 @@ dh-vehicle-verb-unlock = Отпереть люки
 dh-vehicle-locked-now = Вы запираете люки. Снаружи никто не войдёт.
 dh-vehicle-unlocked-now = Вы отпираете люки.
 dh-vehicle-periscope-look = Вы смотрите в перископ. Отойдите, чтобы перестать.
+dh-vehicle-key-required = Без ключа машину не завести.

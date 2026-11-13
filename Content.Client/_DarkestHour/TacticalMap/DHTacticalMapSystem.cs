@@ -40,6 +40,7 @@ public sealed class DHTacticalMapSystem : EntitySystem
         Color.FromHex("#4f86b8"), // Water
         Color.FromHex("#244c78"), // DeepWater
         Color.FromHex("#4a3a24"), // Trench
+        Color.FromHex("#6b8040"), // Grass
     };
 
     public override void Initialize()
