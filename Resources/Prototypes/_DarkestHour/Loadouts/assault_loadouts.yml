@@ -326,10 +326,10 @@
     - d20Dice
 
 - type: loadout
-  id: DHLoadoutHarmonica
+  id: DHLoadoutHarmonicaInstrument
   storage:
     back:
-    - Harmonica
+    - HarmonicaInstrument
 
 - type: loadout
   id: DHLoadoutFoodSnackChocolateBar
@@ -504,7 +504,7 @@
   loadouts:
   - DHLoadoutd6Dice
   - DHLoadoutd20Dice
-  - DHLoadoutHarmonica
+  - DHLoadoutHarmonicaInstrument
   - DHLoadoutFoodSnackChocolateBar
   - DHLoadoutPen
   - DHLoadoutPaper

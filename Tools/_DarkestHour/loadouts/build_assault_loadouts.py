@@ -11,7 +11,9 @@
   Resources/Prototypes/_DarkestHour/Loadouts/assault_loadouts.yml    — loadout, loadoutGroup, roleLoadout;
   Resources/Locale/ru-RU/ss14-ru/prototypes/_DarkestHour/Loadouts/assault_cosmetics.ftl — имена предметов.
 """
+import glob
 import os
+import re
 
 R = 'Resources'
 H = '_RMC14/Objects/Clothing/Head'
@@ -89,7 +91,7 @@ EMP_MASK = ['DHClothingMaskBalaclava', 'DHClothingMaskCoifGrey', 'DHClothingMask
             'DHClothingMaskTornScarfBlack', 'DHClothingMaskTornScarfGrey']
 SMOKES = ['CigPackGreen', 'CigPackRed', 'CigPackBlue', 'CigPackBlack', 'Lighter', 'FlippoLighter', 'Matchbox']
 FLASKS = ['DHDrinkCanteen', 'DHDrinkMetalFlask', 'DrinkFlaskBar']
-PERSONAL = ['d6Dice', 'd20Dice', 'Harmonica', 'FoodSnackChocolateBar', 'Pen', 'Paper']
+PERSONAL = ['d6Dice', 'd20Dice', 'HarmonicaInstrument', 'FoodSnackChocolateBar', 'Pen', 'Paper']
 KNIVES = ['CombatKnife', 'SurvivalKnife']
 REP_CMD = ['CigarCase', 'DrinkFlask', 'DHRepublicClothingHeadCapOfficer']
 EMP_CMD = ['CigarGoldCase', 'DrinkFlask', 'DHImperialClothingHeadCapPeaked']
@@ -158,6 +160,14 @@ def main():
         for it in lst:
             if it not in items:
                 items.append(it)
+    # каждый предмет — id сущности, а не лоадаута (иначе меню лоадаутов падает на спрайте)
+    known = {it[0] for it in ITEMS} | {d[0] for d in DRINKS}
+    for path in glob.glob(f'{R}/Prototypes/**/*.yml', recursive=True):
+        text = open(path, encoding='utf-8').read()
+        known |= set(re.findall(r'^- type: entity\n(?:  .*\n)*?  id: (\S+)', text, re.M))
+    missing = [it for it in items if it not in known]
+    if missing:
+        raise SystemExit('нет таких сущностей: ' + ', '.join(missing))
     for it in items:
         L.append(f'\n- type: loadout\n  id: {loadout_id(it)}\n  storage:\n    back:\n    - {it}\n')
     en_ftl, ru_ftl = [], []
