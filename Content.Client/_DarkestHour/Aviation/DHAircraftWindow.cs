@@ -9,7 +9,8 @@ namespace Content.Client._DarkestHour.Aviation;
 
 /// <summary>
 /// Интерфейс полёта штурмовика: состояние, топливо, прочность, ЛТЦ, скорость; на палубе — катапульта и взлёт,
-/// в воздухе — управление WASD, автопилот посадки и тактическая карта с отметкой самолёта.
+/// в воздухе — ручка (WASD), высота и линия бреющего захода на тактической карте, отстрел ЛТЦ и автопилот посадки.
+/// Вооружение — в отдельном окне (кнопка «Вооружение», решение автора 2026-11-13).
 /// </summary>
 public sealed class DHAircraftWindow : DefaultWindow
 {
@@ -22,12 +23,8 @@ public sealed class DHAircraftWindow : DefaultWindow
     public event Action? OnClearPass;
     public event Action? OnStartPass;
     public event Action<int>? OnAltitude;
-    public event Action<bool>? OnCannon;
-    public event Action? OnDrop;
-    public event Action<int>? OnSelectHardpoint;
-    public event Action<DHAircraftMapMode>? OnMapMode;
-    public event Action<Vector2>? OnTarget;
-    public event Action? OnFire;
+    public event Action? OnFlares;
+    public event Action? OnWeapons;
 
     private readonly Label _status = new();
     private readonly Label _fuel = new();
@@ -42,6 +39,8 @@ public sealed class DHAircraftWindow : DefaultWindow
     private readonly Button _control = new();
     private readonly Button _slower = new() { Text = "−" };
     private readonly Button _faster = new() { Text = "+" };
+    private readonly Button _fireFlares = new();
+    private readonly Button _weaponsButton = new();
     private readonly Label _weapons = new();
     private readonly Label _passInfo = new();
     private readonly Label _altitude = new() { MinWidth = 150 };
@@ -49,13 +48,6 @@ public sealed class DHAircraftWindow : DefaultWindow
     private readonly Button _higher = new() { Text = "▲" };
     private readonly Button _startPass = new();
     private readonly Button _clearPass = new();
-    private readonly Button _cannon = new();
-    private readonly Button _drop = new();
-    private readonly Button[] _pylons = new Button[4];
-    private readonly Button _modePass = new() { ToggleMode = true };
-    private readonly Button _modeTarget = new() { ToggleMode = true };
-    private readonly Button _fire = new();
-    private readonly Label _target = new();
     private readonly Label _passBlocker = new() { FontColorOverride = Color.FromHex("#e8a24a") };
     private readonly DHTacticalMapControl _map = new() { HorizontalExpand = true, VerticalExpand = true, MinHeight = 320 };
 
@@ -64,14 +56,18 @@ public sealed class DHAircraftWindow : DefaultWindow
     public DHAircraftWindow()
     {
         DHFonts.RegisterTerminal(this);
-        MinSize = new Vector2(560, 760);
-        SetSize = new Vector2(640, 900);
+        MinSize = new Vector2(560, 700);
+        SetSize = new Vector2(640, 840);
 
         var root = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 4, Margin = new Thickness(6) };
         root.AddChild(_status);
         root.AddChild(_fuel);
         root.AddChild(_integrity);
-        root.AddChild(_flares);
+
+        var flares = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 6 };
+        flares.AddChild(_flares);
+        flares.AddChild(_fireFlares);
+        root.AddChild(flares);
         root.AddChild(_position);
 
         var speed = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 4 };
@@ -88,7 +84,11 @@ public sealed class DHAircraftWindow : DefaultWindow
         root.AddChild(buttons);
         root.AddChild(_blocker);
 
-        root.AddChild(_weapons);
+        var weapons = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 6 };
+        weapons.AddChild(_weaponsButton);
+        weapons.AddChild(_weapons);
+        root.AddChild(weapons);
+
         var altitude = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 4 };
         altitude.AddChild(_altitude);
         altitude.AddChild(_lower);
@@ -97,27 +97,7 @@ public sealed class DHAircraftWindow : DefaultWindow
         var pass = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 4 };
         pass.AddChild(_startPass);
         pass.AddChild(_clearPass);
-        pass.AddChild(_cannon);
-        pass.AddChild(_drop);
         root.AddChild(pass);
-        var pylons = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 4 };
-        for (var i = 0; i < _pylons.Length; i++)
-        {
-            var slot = i;
-            _pylons[i] = new Button { ToggleMode = true, MinWidth = 90 };
-            _pylons[i].OnPressed += _ => OnSelectHardpoint?.Invoke(slot);
-            pylons.AddChild(_pylons[i]);
-        }
-
-        pylons.AddChild(_fire);
-        root.AddChild(pylons);
-
-        var mode = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 4 };
-        mode.AddChild(new Label { Text = Loc.GetString("dh-aircraft-ui-map-mode") });
-        mode.AddChild(_modePass);
-        mode.AddChild(_modeTarget);
-        root.AddChild(mode);
-        root.AddChild(_target);
         root.AddChild(_passInfo);
         root.AddChild(_passBlocker);
         root.AddChild(_map);
@@ -133,31 +113,26 @@ public sealed class DHAircraftWindow : DefaultWindow
         _higher.OnPressed += _ => OnAltitude?.Invoke(1);
         _startPass.OnPressed += _ => OnStartPass?.Invoke();
         _clearPass.OnPressed += _ => OnClearPass?.Invoke();
-        _cannon.OnPressed += _ => OnCannon?.Invoke(!(_state?.CannonOn ?? false));
-        _drop.OnPressed += _ => OnDrop?.Invoke();
-        _map.OnWorldClick += point =>
-        {
-            if (_state?.MapMode == DHAircraftMapMode.Target)
-                OnTarget?.Invoke(point);
-            else
-                OnPassPoint?.Invoke(point);
-        };
-        _modePass.OnPressed += _ => OnMapMode?.Invoke(DHAircraftMapMode.Pass);
-        _modeTarget.OnPressed += _ => OnMapMode?.Invoke(DHAircraftMapMode.Target);
-        _fire.OnPressed += _ => OnFire?.Invoke();
+        _fireFlares.OnPressed += _ => OnFlares?.Invoke();
+        _weaponsButton.OnPressed += _ => OnWeapons?.Invoke();
+        _map.OnWorldClick += point => OnPassPoint?.Invoke(point);
     }
 
     public void UpdateState(DHAircraftBuiState state)
     {
         _state = state;
         var airborne = state.State is DHAircraftState.Airborne or DHAircraftState.Returning;
+        var flying = airborne || state.State == DHAircraftState.Pass;
 
         _status.Text = Loc.GetString("dh-aircraft-ui-status", ("state", Loc.GetString("dh-aircraft-state-" + state.State.ToString().ToLowerInvariant())));
         _fuel.Text = Loc.GetString("dh-aircraft-ui-fuel", ("fuel", (int) state.Fuel), ("max", (int) state.FuelMax), ("takeoff", (int) state.TakeoffFuel));
         _integrity.Text = Loc.GetString("dh-aircraft-ui-integrity", ("integrity", (int) state.Integrity), ("max", (int) state.MaxIntegrity));
-        _flares.Text = Loc.GetString(!state.Modules.Contains(DHAircraftModule.FlareDispenser) ? "dh-aircraft-ui-flares-none"
+        var dispenser = state.Modules.Contains(DHAircraftModule.FlareDispenser);
+        _flares.Text = Loc.GetString(!dispenser ? "dh-aircraft-ui-flares-none"
                 : state.FlaresActive ? "dh-aircraft-ui-flares-active" : "dh-aircraft-ui-flares",
             ("flares", state.Flares), ("max", state.MaxFlares));
+        _fireFlares.Text = Loc.GetString("dh-aircraft-ui-fire-flares");
+        _fireFlares.Disabled = !flying || !dispenser || state.Flares <= 0;
         _position.Text = state.Position is { } p
             ? Loc.GetString("dh-aircraft-ui-position", ("x", (int) p.X), ("y", (int) p.Y), ("heading", (int) ((360 - state.HeadingDegrees % 360 + 360) % 360)))
             : Loc.GetString("dh-aircraft-ui-position-deck");
@@ -177,8 +152,8 @@ public sealed class DHAircraftWindow : DefaultWindow
         var inPass = state.State == DHAircraftState.Pass;
         var loaded = state.Hardpoints.FindAll(h => h != DHAircraftMunition.None).Count;
         var pods = state.Hardpoints.FindAll(h => h == DHAircraftMunition.CannonPod).Count;
-        var bombs = state.Hardpoints.FindAll(h => h is not (DHAircraftMunition.None or DHAircraftMunition.CannonPod)).Count;
         var modules = state.Modules.FindAll(m => m != DHAircraftModule.None);
+        _weaponsButton.Text = Loc.GetString("dh-aircraft-ui-open-weapons");
         _weapons.Text = Loc.GetString("dh-aircraft-ui-weapons", ("ammo", state.CannonAmmo), ("maxAmmo", state.MaxCannonAmmo),
             ("pods", pods),
             ("pylons", string.Join(" ", state.Hardpoints.ConvertAll(h => Loc.GetString("dh-aircraft-munition-" + h.ToString().ToLowerInvariant())))),
@@ -191,39 +166,11 @@ public sealed class DHAircraftWindow : DefaultWindow
         _startPass.Disabled = !state.CanPass;
         _clearPass.Text = Loc.GetString("dh-aircraft-ui-clear-pass");
         _clearPass.Disabled = inPass || state.PassStart == null;
-        _cannon.Text = Loc.GetString(state.CannonOn ? "dh-aircraft-ui-cannon-off" : "dh-aircraft-ui-cannon-on");
-        _cannon.Disabled = pods == 0;
-        _drop.Text = Loc.GetString("dh-aircraft-ui-drop");
-        _drop.Disabled = !inPass || bombs == 0;
-        _passInfo.Text = state.MapMode == DHAircraftMapMode.Target
-            ? Loc.GetString("dh-aircraft-ui-target-hint")
-            : Loc.GetString(state.PassStart == null ? "dh-aircraft-ui-pass-hint-start"
-                : state.PassEnd == null ? "dh-aircraft-ui-pass-hint-end" : "dh-aircraft-ui-pass-ready");
+        _passInfo.Text = Loc.GetString(state.PassStart == null ? "dh-aircraft-ui-pass-hint-start"
+            : state.PassEnd == null ? "dh-aircraft-ui-pass-hint-end" : "dh-aircraft-ui-pass-ready");
         _passBlocker.Text = airborne && !inPass && state.PassBlocker is { } passBlocker ? Loc.GetString(passBlocker) : string.Empty;
 
-        for (var i = 0; i < _pylons.Length; i++)
-        {
-            var munition = i < state.Hardpoints.Count ? state.Hardpoints[i] : DHAircraftMunition.None;
-            _pylons[i].Text = munition == DHAircraftMunition.CannonPod
-                ? Loc.GetString("dh-aircraft-ui-pylon-pod", ("slot", i + 1),
-                    ("rounds", i < state.HardpointAmmo.Count ? state.HardpointAmmo[i] : 0))
-                : Loc.GetString("dh-aircraft-ui-pylon", ("slot", i + 1),
-                    ("munition", Loc.GetString("dh-aircraft-munition-" + munition.ToString().ToLowerInvariant())));
-            _pylons[i].Pressed = state.SelectedHardpoint == i;
-        }
-
-        _fire.Text = Loc.GetString("dh-aircraft-ui-fire");
-        _modePass.Text = Loc.GetString("dh-aircraft-ui-map-mode-pass");
-        _modePass.Pressed = state.MapMode == DHAircraftMapMode.Pass;
-        _modeTarget.Text = Loc.GetString("dh-aircraft-ui-map-mode-target");
-        _modeTarget.Pressed = state.MapMode == DHAircraftMapMode.Target;
-        _target.Text = state.TargetLabel is { } label
-            ? Loc.GetString("dh-aircraft-ui-target", ("target", label))
-            : Loc.GetString("dh-aircraft-ui-target-none");
-
         _map.Target = state.TargetPoint;
-        // Сигнатуры РЛС приходят отметками тактической карты (их видят и другие пульты Империи).
-
         if (state.Map is { } map)
             _map.SetState(map);
         _map.Self = state.Position;

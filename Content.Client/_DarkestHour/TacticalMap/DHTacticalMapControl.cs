@@ -42,6 +42,15 @@ public sealed class DHTacticalMapControl : Control
     /// <summary>Выбранная цель для пуска из атмосферы (перекрестие).</summary>
     public Vector2? Target;
 
+    /// <summary>
+    /// Дополнительный слой поверх всего (баллистический вычислитель штурмовика): рисует владелец, координаты переводит
+    /// <see cref="WorldToPixel"/>, клеток в пикселе — <see cref="Zoom"/>.
+    /// </summary>
+    public Action<DrawingHandleScreen>? Overlay;
+
+    /// <summary>Пикселей на клетку (0 — карта ещё не готова).</summary>
+    public float Zoom => MathF.Max(_zoom, 0f);
+
     /// <summary>Правый клик по карте — точка в координатах поверхности (выбор захода штурмовика).</summary>
     public event Action<Vector2>? OnWorldClick;
 
@@ -109,6 +118,15 @@ public sealed class DHTacticalMapControl : Control
         var topLeft = ToPixel(new Vector2(layer.Left, layer.Bottom + layer.Height));
         var size = new Vector2(layer.Width, layer.Height) * _zoom;
         handle.DrawTextureRect(layer.Texture, new UIBox2(topLeft, topLeft + size), modulate);
+    }
+
+    public Vector2 WorldToPixel(Vector2 world) => ToPixel(world);
+
+    /// <summary>Сдвинуть центр карты, не меняя масштаба (слежение за самолётом).</summary>
+    public void SetCenter(Vector2 world)
+    {
+        if (_zoom > 0f && !_dragging)
+            _center = world;
     }
 
     private Vector2 ToPixel(Vector2 world)
@@ -304,6 +322,8 @@ public sealed class DHTacticalMapControl : Control
             if (_zoom >= 3f)
                 handle.DrawString(_font, p + new Vector2(6, -6), fighter.Name, color);
         }
+
+        Overlay?.Invoke(handle);
     }
 
     /// <summary>Сигнатура РЛС штурмовика: треугольник с подписью.</summary>

@@ -3,6 +3,7 @@ using System.Numerics;
 using Content.Server._DarkestHour.Assault;
 using Content.Shared._DarkestHour.Assault;
 using Content.Shared._DarkestHour.Aviation;
+using static Content.Shared._DarkestHour.Aviation.DHAircraftBallistics;
 using Content.Shared._DarkestHour.HeavyGuns;
 using Content.Shared._DarkestHour.Recon;
 using Content.Shared._DarkestHour.Vehicles;
@@ -57,49 +58,72 @@ public sealed partial class DHAircraftSystem
         public EntityUid Aircraft;
     }
 
-    public static bool IsGuided(DHAircraftMunition munition)
-    {
-        return munition is DHAircraftMunition.GuidedBomb or DHAircraftMunition.MissileAT or DHAircraftMunition.MissileHE;
-    }
-
-    public static bool IsFreeFall(DHAircraftMunition munition)
-    {
-        return munition is DHAircraftMunition.BombHE or DHAircraftMunition.BombCluster or DHAircraftMunition.BombNapalm or
-            DHAircraftMunition.BombMagnesium;
-    }
-
     #region Дисплей управления вооружением
 
-    private void OnSelectHardpoint(Entity<DHAircraftComponent> ent, ref DHAircraftSelectHardpointMessage args)
+    private void OnToggleHardpoint(Entity<DHAircraftComponent> ent, ref DHAircraftToggleHardpointMessage args)
     {
-        if (!IsPilot(ent, args.Actor))
+        if (!IsPilot(ent, args.Actor) || args.Slot < 0 || args.Slot >= ent.Comp.Hardpoints.Count)
             return;
 
-        ent.Comp.SelectedHardpoint = Math.Clamp(args.Slot, 0, ent.Comp.Hardpoints.Count - 1);
+        if (!ent.Comp.SelectedHardpoints.Remove(args.Slot))
+        {
+            if (ent.Comp.Hardpoints[args.Slot] == DHAircraftMunition.None)
+                return;
+
+            ent.Comp.SelectedHardpoints.Add(args.Slot);
+            ent.Comp.SelectedHardpoints.Sort();
+        }
+
         Dirty(ent);
         UpdateUi(ent);
     }
 
-    private void OnMapMode(Entity<DHAircraftComponent> ent, ref DHAircraftMapModeMessage args)
+    private void OnSelectAll(Entity<DHAircraftComponent> ent, ref DHAircraftSelectAllMessage args)
     {
         if (!IsPilot(ent, args.Actor))
             return;
 
-        ent.Comp.MapMode = args.Mode;
+        ent.Comp.SelectedHardpoints.Clear();
+        if (args.Select)
+        {
+            for (var i = 0; i < ent.Comp.Hardpoints.Count; i++)
+            {
+                if (ent.Comp.Hardpoints[i] != DHAircraftMunition.None)
+                    ent.Comp.SelectedHardpoints.Add(i);
+            }
+        }
+
         Dirty(ent);
         UpdateUi(ent);
     }
 
-    /// <summary>Правый клик в режиме «Цель»: ближайшая метка, затем сигнатура, иначе — координаты.</summary>
+    private void OnClearTarget(Entity<DHAircraftComponent> ent, ref DHAircraftClearTargetMessage args)
+    {
+        if (!IsPilot(ent, args.Actor))
+            return;
+
+        ClearTarget(ent.Comp);
+        Dirty(ent);
+        UpdateUi(ent);
+    }
+
+    private static void ClearTarget(DHAircraftComponent comp)
+    {
+        comp.TargetPoint = null;
+        comp.TargetLabel = null;
+        comp.TargetEntity = null;
+        comp.TargetIsMark = false;
+        comp.TargetIsInfantry = false;
+    }
+
+    /// <summary>Правый клик по карте управления вооружением: ближайшая метка, затем сигнатура, иначе — координаты.</summary>
     private void OnTarget(Entity<DHAircraftComponent> ent, ref DHAircraftTargetMessage args)
     {
         if (!IsPilot(ent, args.Actor))
             return;
 
         var comp = ent.Comp;
-        comp.TargetEntity = null;
-        comp.TargetIsInfantry = false;
-        comp.TargetIsMark = false;
+        ClearTarget(comp);
 
         if (NearestMark(args.Point) is { } mark)
         {
@@ -169,87 +193,121 @@ public sealed partial class DHAircraftSystem
         return best;
     }
 
-    private void OnFireAction(Entity<DHAircraftPilotComponent> ent, ref DHAircraftFireActionEvent args)
-    {
-        if (args.Handled || !TryComp<DHAircraftComponent>(ent.Comp.Aircraft, out var aircraft))
-            return;
-
-        args.Handled = true;
-        Fire((ent.Comp.Aircraft, aircraft));
-    }
-
     private void OnFireMessage(Entity<DHAircraftComponent> ent, ref DHAircraftFireMessage args)
     {
         if (IsPilot(ent, args.Actor))
-            Fire(ent);
+            FireSelected(ent);
     }
 
-    /// <summary>Пуск с выбранного узла: управляемое — из атмосферы по цели; свободнопадающее — сброс на бреющем.</summary>
-    private void Fire(Entity<DHAircraftComponent> ent)
+    /// <summary>
+    /// «Огонь»: все выбранные узлы сразу. Свободнопадающие бомбы уходят серией (только на бреющем), управляемые — залпом
+    /// по цели (только из атмосферы), пушечные контейнеры взводятся и бьют по курсу на бреющем. Что не может сработать
+    /// сейчас — остаётся на подвеске, пилот получает одну сводку.
+    /// </summary>
+    private void FireSelected(Entity<DHAircraftComponent> ent)
     {
         var comp = ent.Comp;
-        var slot = comp.SelectedHardpoint;
-        if (slot < 0 || slot >= comp.Hardpoints.Count || comp.Hardpoints[slot] == DHAircraftMunition.None)
+        var slots = comp.SelectedHardpoints.FindAll(s => s >= 0 && s < comp.Hardpoints.Count && comp.Hardpoints[s] != DHAircraftMunition.None);
+        if (slots.Count == 0)
         {
             Notify(ent, Loc.GetString("dh-aircraft-fire-empty"), true);
             return;
         }
 
-        var kind = comp.Hardpoints[slot];
-        if (IsFreeFall(kind))
+        var dropped = 0;
+        var launched = 0;
+        var pods = false;
+        var problems = new HashSet<string>();
+
+        foreach (var slot in slots)
         {
-            Drop(ent);
-            return;
+            var kind = comp.Hardpoints[slot];
+            if (IsFreeFall(kind))
+            {
+                if (comp.State != DHAircraftState.Pass)
+                {
+                    problems.Add(Loc.GetString("dh-aircraft-drop-not-pass"));
+                    continue;
+                }
+
+                DropSlot(ent, slot, dropped++);
+            }
+            else if (kind == DHAircraftMunition.CannonPod)
+            {
+                pods = true;
+            }
+            else if (GuidedBlocker(ent, kind) is { } blocker)
+            {
+                problems.Add(blocker);
+            }
+            else
+            {
+                Launch(ent, slot, launched++);
+            }
         }
 
-        // Пушечный контейнер — «огонь» взводит или снимает пушку (стреляет она только на бреющем).
-        if (kind == DHAircraftMunition.CannonPod)
+        if (pods && !comp.CannonOn)
+            SetCannon(ent, true);
+
+        if (dropped > 0)
+            Notify(ent, Loc.GetString("dh-aircraft-drop-salvo", ("count", dropped)));
+        if (launched > 0)
         {
-            SetCannon(ent, !comp.CannonOn);
-            return;
+            _audio.PlayPvs(comp.MissileSound, ent);
+            Notify(ent, Loc.GetString("dh-aircraft-fire-salvo", ("count", launched)));
         }
 
+        foreach (var problem in problems)
+        {
+            Notify(ent, problem, dropped + launched == 0 && !pods);
+        }
+
+        UpdateUi(ent);
+    }
+
+    /// <summary>Почему управляемый боеприпас нельзя пустить сейчас (текст) или null.</summary>
+    private string? GuidedBlocker(Entity<DHAircraftComponent> ent, DHAircraftMunition kind)
+    {
+        var comp = ent.Comp;
         if (comp.State is not (DHAircraftState.Airborne or DHAircraftState.Returning))
-        {
-            Notify(ent, Loc.GetString("dh-aircraft-fire-atmosphere-only"));
-            return;
-        }
+            return Loc.GetString("dh-aircraft-fire-atmosphere-only");
 
+        if (comp.TargetPoint is not { } point || _tacmap.GetSurfaceMap() == null)
+            return Loc.GetString("dh-aircraft-fire-no-target");
+
+        if (Vector2.Distance(_transform.GetWorldPosition(Transform(ent)), point) > comp.LaunchRange)
+            return Loc.GetString("dh-aircraft-fire-out-of-range", ("range", (int) comp.LaunchRange));
+
+        if (IsMissile(kind) && comp.TargetEntity == null && !comp.TargetIsMark)
+            return Loc.GetString(comp.TargetIsInfantry ? "dh-aircraft-fire-infantry-needs-mark" : "dh-aircraft-fire-needs-lock");
+
+        return null;
+    }
+
+    /// <summary>Пуск управляемого с узла по выбранной цели; <paramref name="index"/> — номер в залпе.</summary>
+    private void Launch(Entity<DHAircraftComponent> ent, int slot, int index)
+    {
+        var comp = ent.Comp;
         if (comp.TargetPoint is not { } point || _tacmap.GetSurfaceMap() is not { } surface ||
             !TryComp<MapComponent>(surface, out var surfaceMap))
         {
-            Notify(ent, Loc.GetString("dh-aircraft-fire-no-target"));
             return;
         }
 
-        if (Vector2.Distance(_transform.GetWorldPosition(Transform(ent)), point) > comp.LaunchRange)
-        {
-            Notify(ent, Loc.GetString("dh-aircraft-fire-out-of-range", ("range", (int) comp.LaunchRange)));
-            return;
-        }
-
-        var missile = kind is DHAircraftMunition.MissileAT or DHAircraftMunition.MissileHE;
-        if (missile && comp.TargetEntity == null && !comp.TargetIsMark)
-        {
-            Notify(ent, Loc.GetString(comp.TargetIsInfantry ? "dh-aircraft-fire-infantry-needs-mark" : "dh-aircraft-fire-needs-lock"));
-            return;
-        }
-
+        var kind = comp.Hardpoints[slot];
+        var missile = IsMissile(kind);
         comp.Hardpoints[slot] = DHAircraftMunition.None;
+        comp.SelectedHardpoints.Remove(slot);
         Dirty(ent);
 
         _strikes.Add(new PendingStrike
         {
             Target = new MapCoordinates(point, surfaceMap.MapId),
             Homing = missile ? comp.TargetEntity : null,
-            Impact = _timing.CurTime + TimeSpan.FromSeconds(missile ? 4 : 8),
+            Impact = _timing.CurTime + TimeSpan.FromSeconds((missile ? 4 : 8) + index * GuidedSalvoInterval),
             Kind = kind,
             Aircraft = ent,
         });
-
-        _audio.PlayPvs(comp.MissileSound, ent);
-        Notify(ent, Loc.GetString(missile ? "dh-aircraft-fire-missile" : "dh-aircraft-fire-bomb", ("slot", slot + 1)));
-        UpdateUi(ent);
     }
 
     #endregion

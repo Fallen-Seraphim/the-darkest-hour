@@ -34,12 +34,8 @@ public sealed partial class DHAircraftBoundUserInterface : BoundUserInterface
         _window.OnClearPass += () => SendMessage(new DHAircraftClearPassMessage());
         _window.OnStartPass += () => SendMessage(new DHAircraftStartPassMessage());
         _window.OnAltitude += delta => SendMessage(new DHAircraftAltitudeMessage(delta));
-        _window.OnCannon += on => SendMessage(new DHAircraftCannonMessage(on));
-        _window.OnDrop += () => SendMessage(new DHAircraftDropMessage());
-        _window.OnSelectHardpoint += slot => SendMessage(new DHAircraftSelectHardpointMessage(slot));
-        _window.OnMapMode += mode => SendMessage(new DHAircraftMapModeMessage(mode));
-        _window.OnTarget += point => SendMessage(new DHAircraftTargetMessage(point));
-        _window.OnFire += () => SendMessage(new DHAircraftFireMessage());
+        _window.OnFlares += () => SendMessage(new DHAircraftFlaresMessage());
+        _window.OnWeapons += () => SendMessage(new DHAircraftOpenWeaponsMessage());
 
         if (State is DHAircraftBuiState state)
             UpdateState(state);
