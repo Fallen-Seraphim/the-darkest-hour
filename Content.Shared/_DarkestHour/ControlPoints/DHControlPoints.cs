@@ -107,4 +107,6 @@ public enum DHTacticalTerrain : byte
     Water,
     DeepWater,
     Trench,
+    /// <summary>Трава (умеренная зона за рекой и т. п.) — зелёным, а не цветом пустыни.</summary>
+    Grass,
 }

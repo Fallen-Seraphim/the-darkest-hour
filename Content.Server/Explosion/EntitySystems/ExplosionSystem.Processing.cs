@@ -443,6 +443,10 @@ public sealed partial class ExplosionSystem
         float? fireStacksOnIgnite,
         EntityUid? cause)
     {
+        // DH: штурмовик в воздухе и его пилот — над разрывом (условная высота), взрыв их не трогает.
+        if (HasComp<Content.Shared._DarkestHour.Aviation.DHAirborneComponent>(uid))
+            return;
+
         if (originalDamage is not null)
         {
             GetEntitiesToDamage(uid, originalDamage, id);
