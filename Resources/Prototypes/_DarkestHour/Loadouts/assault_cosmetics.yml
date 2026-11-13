@@ -1,5 +1,5 @@
 # Сгенерировано Tools/_DarkestHour/loadouts/build_assault_loadouts.py — правьте генератор.
-# Личные вещи «Штурма»: одежда — спрайты RMC-14 (CC-BY-SA, cmss13).
+# Личные вещи «Осады»: одежда — спрайты RMC-14 (CC-BY-SA, cmss13).
 
 - type: entity
   parent: ClothingHeadBase

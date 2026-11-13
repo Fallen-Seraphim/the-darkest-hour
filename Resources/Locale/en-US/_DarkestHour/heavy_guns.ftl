@@ -1,4 +1,4 @@
-## Тяжёлые орудия «Штурма»: корабельная артиллерия, ПКО, ПВО
+## Тяжёлые орудия «Осады»: корабельная артиллерия, ПКО, ПВО
 
 dh-warhead-high-explosive = high-explosive
 dh-warhead-armor-piercing = armour-piercing

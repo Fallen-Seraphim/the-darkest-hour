@@ -1,4 +1,4 @@
-# Группы лоадаутов «Штурма» (Tools/_DarkestHour/loadouts/build_assault_loadouts.py)
+# Группы лоадаутов «Осады» (Tools/_DarkestHour/loadouts/build_assault_loadouts.py)
 dh-loadout-group-republichead = Головной убор
 dh-loadout-group-imperialhead = Головной убор
 dh-loadout-group-eyewear = Очки

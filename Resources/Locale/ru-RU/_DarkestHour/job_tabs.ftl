@@ -1,4 +1,4 @@
-dh-jobs-mode-assault = Штурм
+dh-jobs-mode-assault = Осада
 dh-jobs-mode-uprising = Восстание
 dh-jobs-mode-other = Прочее
 dh-jobs-side-republic = Республика

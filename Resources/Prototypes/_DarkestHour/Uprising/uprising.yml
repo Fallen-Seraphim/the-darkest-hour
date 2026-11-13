@@ -98,7 +98,7 @@
   - vosstanie
   name: dh-uprising-title
   description: dh-uprising-description
-  showInVote: true
+  showInVote: false # временно скрыто до открытия сервера и ОБТ (решение автора 2026-11-13); админы — setgamepreset uprising
   supportedMaps: DHUprisingMapPool
   rules:
   - DHUprisingRule

@@ -199,6 +199,10 @@ SIDES = {'DHLAMilitaryPolice': ('dh-jobs-side-military-police', 1), 'DHLACivilia
 # военпол — эмоция «Боевой клич» (решение автора 2026-11-13).
 DEPT_COMPONENTS = {'DHLAMilitaryPolice': ('DHRepublicWarcry',)}
 
+# «Восстание» временно скрыто (решение автора 2026-11-13): режим отложен до открытия сервера и ОБТ, его отделы
+# не показываются в выборе должностей. Вернуть — False и перегенерировать (затем build_ranks.py).
+UPRISING_HIDDEN = True
+
 for dept, (color, den, dru, dden, ddru) in DEPTS.items():
     key = 'dh-department-' + kebab(dept)
     w('- type: department')
@@ -211,6 +215,8 @@ for dept, (color, den, dru, dden, ddru) in DEPTS.items():
     w('  dhModeOrder: 2')
     w('  dhSide: %s' % SIDES[dept][0])
     w('  dhSideOrder: %d' % SIDES[dept][1])
+    if UPRISING_HIDDEN:
+        w('  editorHidden: true')
     if dept in DEPT_COMPONENTS:
         w('  dhComponents:')
         for comp in DEPT_COMPONENTS[dept]:
