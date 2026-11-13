@@ -1,0 +1,160 @@
+# Питание базы «Терминуса» (решение автора 2026-11-13): обычная сеть ВН → подстанция → СН → щитки → НН.
+#  * ввод от АЭС (DHGridIntake) — даёт ток в ВН, пока зона АЭС у Республики (DHControlPointPowered point: npp);
+#  * два дизель-генератора (DHDieselGenerator) — весь резерв базы; заводят руками, топливо — сварочное;
+#  * кабельный стояк (DHPowerRiser) — переносит ток СН с поверхности в бункер под базой (отдельная карта).
+
+- type: entity
+  parent: BaseGenerator
+  id: DHGridIntake
+  name: power plant grid intake
+  description: Where the high-voltage line from the power plant comes into the base. Gives power while the plant is held by the Republic.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: Structures/Power/substation.rsi
+    layers:
+    - state: substation
+    - state: screen
+      shader: unshaded
+  - type: PowerSupplier
+    supplyRate: 200000
+    supplyRampRate: 50000
+    supplyRampTolerance: 50000
+  - type: DHControlPointPowered
+    point: npp
+  - type: AmbientSound
+    volume: -8
+    range: 4
+    sound:
+      path: /Audio/Ambience/Objects/periodic_beep.ogg
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 600
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  parent: BaseGenerator
+  id: DHDieselGenerator
+  name: diesel generator
+  description: The base's backup generator. Start it by hand when the power plant grid is lost; it burns welding fuel from its tank.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: Structures/Power/Generation/portable_generator.rsi
+    noRot: true
+    layers:
+    - state: portgen1
+      map: [ "base" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHDieselGeneratorVisuals.Running:
+        base:
+          True: { state: portgen1on }
+          False: { state: portgen1 }
+  - type: PowerSupplier
+    supplyRate: 40000
+    supplyRampRate: 10000
+    supplyRampTolerance: 10000
+  - type: DHDieselGenerator
+    supplyRate: 40000
+  - type: SolutionContainerManager
+    solutions:
+      tank:
+        maxVol: 1000
+        reagents:
+        - ReagentId: WeldingFuel
+          Quantity: 1000
+  - type: RefillableSolution
+    solution: tank
+  - type: ExaminableSolution
+    solution: tank
+  - type: AmbientSound
+    enabled: false
+    volume: -4
+    range: 7
+    sound:
+      path: /Audio/Ambience/Objects/engine_hum.ogg
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:ExplodeBehavior
+
+- type: entity
+  abstract: true
+  parent: [ BaseMachine, StructureHealthMachineWeak ]
+  id: DHPowerRiserBase
+  name: cable riser
+  description: A thick armoured cable running between the surface and the bunker under the base.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: Structures/Power/substation.rsi
+    state: substation_wall
+    snapCardinals: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.35,-0.35,0.35,0.35"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+
+- type: entity
+  parent: DHPowerRiserBase
+  id: DHPowerRiserTerminusUp
+  suffix: Terminus, surface
+  components:
+  - type: NodeContainer
+    examinable: true
+    nodes:
+      input:
+        !type:CableDeviceNode
+        nodeGroupID: MVPower
+  - type: PowerConsumer
+    voltage: Medium
+    node: input
+    drawRate: 0
+  - type: DHPowerRiser
+    link: TerminusBunker
+    upper: true
+
+- type: entity
+  parent: DHPowerRiserBase
+  id: DHPowerRiserTerminusDown
+  suffix: Terminus, bunker
+  components:
+  - type: NodeContainer
+    examinable: true
+    nodes:
+      output:
+        !type:CableDeviceNode
+        nodeGroupID: MVPower
+  - type: PowerSupplier
+    voltage: Medium
+    node: output
+    supplyRate: 0
+    supplyRampRate: 20000
+    supplyRampTolerance: 20000
+  - type: DHPowerRiser
+    link: TerminusBunker

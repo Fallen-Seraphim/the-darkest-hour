@@ -15,3 +15,8 @@ ent-DHLiftPanelTerminus = пульт грузового лифта
 
 ent-DHLiftPlatformTerminus = платформа грузового лифта
     .desc = Тяжёлая грузовая платформа между поверхностью и бункером. Всё, что на ней стоит, едет вместе с ней.
+
+ent-DHHatchTerminusMed = люк медблока
+    .desc = Тяжёлый стальной люк с лестницей в подземный медблок. Используйте, чтобы спуститься.
+ent-DHLadderTerminusMed = { ent-DHLadderTerminusBarracks }
+    .desc = { ent-DHLadderTerminusBarracks.desc }

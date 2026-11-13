@@ -79,6 +79,24 @@
   - type: DHLadder
     link: TerminusBarracks
 
+# Медблок под базой (решение автора 2026-11-13).
+- type: entity
+  parent: DHHatchBase
+  id: DHHatchTerminusMed
+  suffix: Terminus medical
+  components:
+  - type: DHLadder
+    link: TerminusMed
+    down: true
+
+- type: entity
+  parent: DHLadderUpBase
+  id: DHLadderTerminusMed
+  suffix: Terminus medical
+  components:
+  - type: DHLadder
+    link: TerminusMed
+
 # --- Грузовой лифт ---
 
 - type: entity

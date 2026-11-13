@@ -221,7 +221,9 @@ public sealed partial class DHControlPointSystem : EntitySystem
         ent.Comp.Disabled = !enabled;
 
         // Питаемое от сети — отключаем питание; без проводки (фонари «всегда включены») — гасим свет.
-        if (TryComp<ApcPowerReceiverComponent>(ent, out var receiver))
+        if (TryComp<Content.Server.Power.Components.PowerSupplierComponent>(ent, out var supplier))
+            supplier.Enabled = enabled; // ввод от сети АЭС на базе (DHGridIntake)
+        else if (TryComp<ApcPowerReceiverComponent>(ent, out var receiver))
             _power.SetPowerDisabled(ent, !enabled, receiver);
         else if (_light.TryGetLight(ent, out var light))
             _light.SetEnabled(ent, enabled, light);

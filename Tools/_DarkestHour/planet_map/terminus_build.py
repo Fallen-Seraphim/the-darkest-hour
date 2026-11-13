@@ -10,14 +10,14 @@ DarkestHour: генератор карты «Терминус» 448×384 по п
 АЭС — источник сети: фонари, свет и машины локаций (DHControlPointPowered point: npp), у военных объектов —
 резервные дизели. Умеренный климат (трава, лес, без песчаных бурь) — только за рекой и дамбой: деревня, поле, ЗП-1.
 
-База гарнизона (нарисована вручную) переносится из снимка terminus_base.snapshot со смещением BASE_SHIFT; бункер
-под базой сдвигается тем же смещением (--bunker).
+База гарнизона (2026-11-13) — за забором у конца шоссе: ангары техники, карго, энергоблок (ввод от АЭС и два дизеля),
+комендатура, арсенал, павильон спуска; под ней бункер (штаб, казармы, столовая, медблок с лабораторией и
+операционными) — отдельная карта terminus_bunker.yml в тех же координатах. Питание — обычной проводкой.
 
 Запуск из корня репозитория:
-  python3 Tools/_DarkestHour/planet_map/terminus_build.py \
-      --bunker-in OLD_terminus_bunker.yml
+  python3 Tools/_DarkestHour/planet_map/terminus_build.py
 Пишет Resources/Maps/_DarkestHour/Assault/terminus.yml, terminus_p1.yml (+1 уровень) и terminus_bunker.yml.
-Детерминирован: повторный запуск даёт ту же карту. Бункер сдвигается, только если передан --bunker-in.
+Детерминирован: повторный запуск даёт ту же карту.
 """
 import argparse
 import base64
@@ -32,10 +32,8 @@ import sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
 OUT = os.path.join(ROOT, 'Resources/Maps/_DarkestHour/Assault')
-SNAPSHOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'terminus_base.snapshot')
 
 X0, X1, Y0, Y1 = -224, 223, -192, 191          # включительно; кратно чанкам 16×16
-BASE_SHIFT = (128, 80)                          # база x −17…18, y −26…9 → x 111…146, y 54…89
 
 PI = math.pi
 # Поворот настенной лампы: стена с этой стороны (как на нарисованной базе).
@@ -145,7 +143,17 @@ VILLAGE = (-222, -46, -164, 22)
 FIELD = (-222, -144, -160, -58)
 ZP1 = (-178, -168)
 CONSTRUCTION = (20, 52, 86, 84)
-BASE = (106, 50, 152, 92)                     # с запасом вокруг забора
+BASE = (108, 55, 188, 98)                     # забор базы гарнизона
+BASE_ROAD_X = (132, 136)                      # въезд с шоссе и дорога насквозь на север
+BASE_ROAD_Y = (74, 78)                        # главная улица базы (запад — восток)
+CARGO = (110, 57, 130, 72)
+HANGARS = (138, 57, 170, 72)
+POWER = (174, 57, 186, 68)
+KOMEND = (110, 80, 130, 96)
+ARSENAL = (138, 80, 158, 96)
+BLOCKHOUSE = (162, 80, 174, 92)
+BUNKER = (108, 56, 188, 97)                   # бункер под базой (те же координаты, отдельная карта)
+BUNKER_CORRIDOR = (73, 80)
 PKO = (-20, 98, 24, 126)
 PVO = (58, 106, 98, 130)
 RLS = (140, 112, 186, 146)
@@ -541,10 +549,9 @@ class World:
                        width=3, tile='FloorDirt', posts=0)
         # от шоссе к стройке и к воротам базы
         self.road_v(52, 55, CONSTRUCTION[1], h1, posts=0, line=False)
-        self.road_v(120, 124, h1 + 1, 54, posts=0, line=False)
+        self.road_v(BASE_ROAD_X[0], BASE_ROAD_X[1], h1 + 1, BASE[1] - 1, posts=0, line=False)
         # горная дорога: северные ворота базы → ПВО → ПКО
-        self.road_v(120, 123, 90, 102, tile='FloorDirt', posts=0, line=False)
-        self.road_v(132, 135, 90, 102, tile='FloorDirt', posts=0, line=False)
+        self.road_v(BASE_ROAD_X[0], BASE_ROAD_X[0] + 3, BASE[3] + 1, 102, tile='FloorDirt', posts=0, line=False)
         self.road_h(PVO[2] - 2, 135, 100, 103, tile='FloorDirt', posts=24, line=False)
         self.road_path([(PVO[0] + 2, 101), (40, 100), (30, 96), (PKO[2] - 2, 96)], width=4, tile='FloorDirt',
                        posts=24)
@@ -850,32 +857,479 @@ class World:
         for x in range(x0 + 4, x1, 12):
             self.post(x, y1 - 1)
 
-    # ---------- перенос базы ----------
+    # ---------- база гарнизона ----------
+    # Перемаппинг (решение автора 2026-11-13): база 84×46 за забором у конца шоссе. Наверху — ангары техники,
+    # карго (склад с грузовым лифтом и компьютером снабжения), комендатура, арсенал (ящики миномётов, мешки,
+    # колючка…), павильон спуска в бункер (три люка и грузовой лифт), энергоблок. Под землёй (Bunker) — штаб с
+    # хранилищем образца, две казармы со спавнами, столовая, санузел, медблок с лабораторией и двумя операционными.
+    # Питание — обычная сеть: ввод от АЭС и два дизеля (весь резерв) → ВН → подстанция → СН (магистрали вдоль дороги)
+    # → щитки зданий → НН. В бункер ток идёт кабельным стояком (DHPowerRiser).
+
+    def door(self, x, y, proto):
+        """Пробить дверь в уже поставленной стене (общая стена двух комнат, стена коридора)."""
+        self.ents = [e for e in self.ents if not (e[1] == x + 0.5 and e[2] == y + 0.5 and
+                                                  (e[0].startswith('Wall') or e[0].startswith('DHAirlock') or
+                                                   e[0].startswith('Airlock')))]
+        self.occ.discard((x, y))
+        self.ent(proto, x, y)
+
+    def cable(self, proto, cells):
+        for x, y in cells:
+            self.ents.append((proto, x + 0.5, y + 0.5, 0.0, None, None))
+
+    def line_cells(self, pts):
+        """Клетки ломаной из горизонтальных и вертикальных отрезков."""
+        out = []
+        for (ax, ay), (bx, by) in zip(pts, pts[1:]):
+            if ax == bx:
+                step = 1 if by >= ay else -1
+                out += [(ax, y) for y in range(ay, by + step, step)]
+            else:
+                step = 1 if bx >= ax else -1
+                out += [(x, ay) for x in range(ax, bx + step, step)]
+        seen, res = set(), []
+        for c in out:
+            if c not in seen:
+                seen.add(c)
+                res.append(c)
+        return res
+
+    def wire_room(self, x0, y0, x1, y1, apc, wall):
+        """Щиток на стене (apc — клетка стены) и сетка НН по комнате: ряды через 4 клетки и столбец от щитка."""
+        ax, ay = apc
+        self.ent('APCBasic', ax, ay, LIGHT_ROT[wall], free=True)
+        cells = []
+        rows = list(range(y0 + 1, y1, 4))
+        if y1 - 1 not in rows:
+            rows.append(y1 - 1)
+        for y in rows:
+            cells += [(x, y) for x in range(x0 + 1, x1)]
+        col = ax if x0 < ax < x1 else x0 + 1
+        cells += [(col, y) for y in range(y0 + 1, y1)]
+        cells.append((ax, ay))
+        if not x0 < ax < x1:          # щиток на боковой стене: дотянуть до столбца
+            cells += [(x, ay) for x in range(min(ax, col), max(ax, col) + 1)]
+        self.cable('CableApcExtension', set(cells))
+        self.cable('CableMV', [(ax, ay)])
 
     def base(self):
-        snap = json.load(open(SNAPSHOT, encoding='utf-8'))
-        dx, dy = BASE_SHIFT
         x0, y0, x1, y1 = BASE
-        self.reserve(x0, y0, x1, y1)
-        for key, name in snap['tiles'].items():
-            x, y = (int(v) for v in key.split(','))
-            self.tile(x + dx, y + dy, name)
-            if name in INDOOR:
-                self.roof.add((x + dx, y + dy))
-        self.base_ents = []
-        for e in snap['entities']:
-            lines = []
-            for l in e['lines']:
-                m = re.match(r'^(\s+pos: )(-?[\d.]+),(-?[\d.]+)$', l)
-                if m:
-                    px, py = float(m.group(2)) + dx, float(m.group(3)) + dy
-                    l = f'{m.group(1)}{fmt(px)},{fmt(py)}'
-                    self.occ.add((math.floor(px), math.floor(py)))
-                lines.append(l)
-            self.base_ents.append((e['proto'], lines))
-        # бетон стоянки техники у западного забора (танк и грузовики стоят за забором)
-        self.rect(x0 - 5, 58, x0 + 3, 76, 'FloorConcrete')
-        self.reserve(x0 - 7, 56, x0, 78)
+        self.reserve(x0 - 2, y0 - 2, x1 + 2, y1 + 3)
+        # площадка базы: бетон, дороги — асфальт
+        self.rect(x0 + 1, y0 + 1, x1 - 1, y1 - 1, 'FloorConcrete')
+        rx0, rx1 = BASE_ROAD_X
+        ry0, ry1 = BASE_ROAD_Y
+        self.rect(rx0, y0, rx1, y1, 'RMCFloorAsphalt')
+        self.rect(x0 + 1, ry0, x1 - 1, ry1, 'RMCFloorAsphalt')
+        for y in range(y0, y1 + 1):
+            if y % 4 < 2 and not ry0 <= y <= ry1:
+                self.decal('WarnLineGreyscaleE', (rx0 + rx1) // 2, y, '#C8C8C8A0')
+        for x in range(x0 + 1, x1):
+            if x % 4 < 2 and not rx0 <= x <= rx1:
+                self.decal('WarnLineGreyscaleN', x, (ry0 + ry1) // 2, '#C8C8C8A0')
+        # забор с воротами: юг — на шоссе, север — горная дорога к ПВО и ПКО
+        gates = [(x, y0) for x in range(rx0, rx1 + 1)] + [(x, y1) for x in range(rx0, rx0 + 4)]
+        self.fence_rect(x0, y0, x1, y1, gates=gates)
+        for x in range(x0 - 2, x1 + 3):
+            for y in (y0 - 2, y1 + 2):
+                # на севере у забора идёт горная дорога к ПВО — там колючки нет
+                if not rx0 - 2 <= x <= rx1 + 2 and x % 4 != 1 and not (y == y1 + 2 and x <= rx1 + 4):
+                    self.ent('DHBarbedWireObstacle', x, y)
+        for y in range(y0 - 1, y1 + 2):
+            for x in (x0 - 2, x1 + 2):
+                if y % 4 != 1:
+                    self.ent('DHBarbedWireObstacle', x, y)
+        # КПП у южных ворот: мешки снаружи, телефон и будка часового внутри
+        for x in list(range(rx0 - 6, rx0 - 1)) + list(range(rx1 + 2, rx1 + 7)):
+            self.ent('DHSandbagBarricade', x, y0 - 1)
+        self.ent('DHFieldPhoneRepublicGate', rx0 - 1, y0 + 1)
+        self.post(rx0 - 1, y0 + 2)
+        self.post(rx1 + 1, y0 + 1)
+        # столбы освещения вдоль дорог
+        for y in range(y0 + 4, y1 - 2, 10):
+            for px, py in ((rx0 - 1, y), (rx1 + 1, y + 5)):
+                if not ry0 - 1 <= py <= ry1 + 1:
+                    self.post(px, py)
+        for x in range(x0 + 4, x1 - 2, 12):
+            self.post(x, ry0 - 1)
+            self.post(x + 6, ry1 + 1)
+
+        self.hangars()
+        self.cargo()
+        self.power_block()
+        self.komendatura()
+        self.arsenal()
+        self.blockhouse()
+        self.base_defence()
+        self.base_mains()
+        self.bunker_level()
+
+    def hangars(self):
+        x0, y0, x1, y1 = HANGARS
+        bays = [(x0 + 1, x0 + 10), (x0 + 12, x0 + 21), (x0 + 23, x1 - 1)]
+        openings = set()
+        for bx0, bx1 in bays:
+            openings |= {(x, y1) for x in range(bx0 + 1, bx1)}
+        self.building(x0, y0, x1, y1, 'WallReinforced', 'FloorReinforced', skip=openings, lights=None)
+        for x in (x0 + 11, x0 + 22):
+            self.wall_line(x, y0 + 1, x, y1, 'WallReinforced', gaps=[(x, y0 + 4)])
+            self.ent('DHAirlockRepublic', x, y0 + 4)
+        for bx0, bx1 in bays:
+            for lx in range(bx0 + 2, bx1, 4):           # северная стена — ворота, свет только по южной
+                self.light(lx, y0 + 1, 'S', 'Poweredlight')
+            self.rect(bx0 + 1, y1 + 1, bx1 - 1, y1 + 1, 'FloorReinforced')      # въезд
+            self.reserve(bx0, y1 + 1, bx1, y1 + 1)
+            self.ent('ClosetToolFilled', bx0, y0 + 1)
+            self.ent('WeldingFuelTankFull', bx1, y0 + 1)
+        # техника Республики стоит носом к воротам (север)
+        (a0, a1), (b0, b1), (c0, c1) = bays
+        self.ent('DHVehicleTankRepublic', (a0 + a1) // 2, y0 + 8, R180, free=True)
+        self.ent('DHVehicleRAM45', (b0 + b1) // 2, y0 + 8, R180, free=True)
+        self.ent('DHVehicleTruckRepublic', c0 + 2, y0 + 7, R180, free=True)
+        self.ent('DHVehicleTruckRepublic', c1 - 2, y0 + 7, R180, free=True)
+        self.reserve(x0, y0, x1, y1 + 3)
+        self.wire_room(x0, y0, x1, y1, (x0 + 11, y1), 'N')
+
+    def cargo(self):
+        x0, y0, x1, y1 = CARGO
+        self.building(x0, y0, x1, y1, 'WallReinforced', 'FloorSteel',
+                      doors=[(x0 + 11, y1, 'AirlockCargoGlass'), (x0 + 12, y1, 'AirlockCargoGlass'),
+                             (x1, y0 + 8, 'AirlockCargoGlass'), (x1, y0 + 9, 'AirlockCargoGlass')],
+                      lights='Poweredlight', light_step=5)
+        # грузовой лифт 5×5 и компьютер снабжения
+        ex, ey = x0 + 5, y0 + 6
+        self.ent('DHSupplyElevator', ex, ey, foot=[(ex + i, ey + j) for i in range(-2, 3) for j in range(-2, 3)])
+        self.ent('DHComputerSupplyRepublic', ex + 4, ey + 3, R180)
+        self.ent('ChairOfficeDark', ex + 4, ey + 2)
+        self.ent('DHPowerLoader', x1 - 3, y0 + 3)
+        for x in range(x0 + 1, x1 - 4, 2):
+            self.ent('Rack', x, y1 - 1)
+        for y in range(y0 + 1, y0 + 6):
+            self.ent('ShelfMetal', x1 - 1, y)
+        for i, crate in enumerate(['CrateFoodMRE', 'CrateFoodMRE', 'DHSupplyCrateSandbags', 'DHSupplyCrateBarbedWire']):
+            self.ent(crate, x0 + 12 + i, y0 + 2)
+        self.ent('SignCargo', x0 + 13, y1, free=True)
+        self.wire_room(x0, y0, x1, y1, (x1 - 4, y1), 'N')
+
+    def power_block(self):
+        x0, y0, x1, y1 = POWER
+        self.building(x0, y0, x1, y1, 'WallReinforced', 'FloorSteel',
+                      doors=[(x0 + 4, y1, 'DHAirlockRepublicLocked')], lights='Poweredlight', light_step=5)
+        hv = []
+        intake = (x0 + 2, y1 - 2)
+        gens = [(x0 + 2, y0 + 2), (x0 + 5, y0 + 2)]
+        sub = (x1 - 3, y1 - 2)
+        self.ent('DHGridIntake', *intake)
+        for g in gens:
+            self.ent('DHDieselGenerator', *g)
+        self.ent('SubstationBasic', *sub)
+        bus = y0 + 4
+        hv += [(x, bus) for x in range(x0 + 2, sub[0] + 1)]
+        for dev in [intake, sub] + gens:
+            lo, hi = sorted((dev[1], bus))
+            hv += [(dev[0], y) for y in range(lo, hi + 1)]
+        self.cable('CableHV', set(hv))
+        self.ent('WeldingFuelTankFull', x1 - 1, y0 + 1)
+        self.ent('WeldingFuelTankFull', x1 - 2, y0 + 1)
+        self.ent('ClosetToolFilled', x1 - 1, y0 + 3)
+        self.ent('SignDanger', x0 + 3, y1, free=True)
+        self.wire_room(x0, y0, x1, y1, (x0 + 1, y1), 'N')
+        self.substation_tile = sub
+
+    def komendatura(self):
+        x0, y0, x1, y1 = KOMEND
+        door = (x0 + 11, y0)
+        self.building(x0, y0, x1, y1, 'WallReinforced', 'FloorSteel', doors=[door + ('DHAirlockRepublicGlass',)],
+                      windows=[(x0 + 4, y0), (x0 + 7, y0), (x0 + 15, y0), (x0 + 18, y0)],
+                      window='ReinforcedWindow' if 'ReinforcedWindow' in self.known else 'Window',
+                      lights='Poweredlight', light_step=6)
+        # приёмная (юг) и коридор к камерам и кабинетам (север)
+        self.wall_line(x0 + 1, y0 + 7, x1 - 1, y0 + 7, 'WallReinforced', gaps=[(x0 + 11, y0 + 7)])
+        self.ent('DHAirlockRepublicLocked', x0 + 11, y0 + 7)
+        for x in range(x0 + 8, x0 + 15):
+            self.ent('TableReinforced', x, y0 + 4)
+        self.ent('ChairOfficeDark', x0 + 10, y0 + 5)
+        self.ent('ChairOfficeDark', x0 + 12, y0 + 5)
+        self.ent('ComputerCriminalRecords', x0 + 9, y0 + 5, R180)
+        for x in (x0 + 2, x0 + 3, x0 + 4, x1 - 4, x1 - 3, x1 - 2):
+            self.ent('Chair', x, y0 + 2)
+        # камеры (северо-запад): три по 4×5
+        for i in range(3):
+            cx0 = x0 + 1 + i * 5
+            self.wall_line(cx0 + 4, y0 + 11, cx0 + 4, y1 - 1, 'WallReinforced')
+            self.ent('DHAirlockRepublicGlassLocked', cx0 + 2, y0 + 11)
+            self.ent('Bed', cx0 + 1, y1 - 1)
+            self.ent('ToiletEmpty', cx0 + 3, y1 - 1)
+            self.room_lights(cx0, y0 + 12, cx0 + 3, y1 - 1, 'Poweredlight', 5)
+        self.wall_line(x0 + 1, y0 + 11, x0 + 15, y0 + 11, 'WallReinforced',
+                       gaps=[(x0 + 3 + i * 5, y0 + 11) for i in range(3)])
+        # кабинет коменданта (северо-восток)
+        self.wall_line(x0 + 16, y0 + 8, x0 + 16, y1 - 1, 'WallReinforced', gaps=[(x0 + 16, y0 + 9)])
+        self.ent('DHAirlockRepublicLocked', x0 + 16, y0 + 9)
+        self.ent('TableWood', x1 - 3, y1 - 3)
+        self.ent('TableWood', x1 - 2, y1 - 3)
+        self.ent('ChairOfficeDark', x1 - 3, y1 - 2, R180)
+        self.ent('Chair', x1 - 3, y1 - 4)
+        self.ent('LockerSecurity', x0 + 17, y1 - 1)
+        self.ent('LockerSecurity', x0 + 18, y1 - 1)
+        self.ent('SignSecurity', x0 + 11, y0 + 7, free=True)
+        self.wire_room(x0, y0, x1, y1, (x1 - 4, y0), 'S')
+
+    def arsenal(self):
+        x0, y0, x1, y1 = ARSENAL
+        self.building(x0, y0, x1, y1, 'WallReinforced', 'FloorDark',
+                      doors=[(x0 + 9, y0, 'DHAirlockRepublicLocked'), (x0 + 10, y0, 'DHAirlockRepublicLocked')],
+                      lights='Poweredlight', light_step=5)
+        # раздатчики снаряжения у северной стены
+        for i, v in enumerate(['DHGearVendorRepublicWeapons', 'DHGearVendorRepublicEquipment',
+                               'DHGearVendorRepublicAttachments']):
+            self.ent(v, x0 + 3 + i * 2, y1 - 1)
+        # оружие и магазины на столах
+        for x in range(x0 + 11, x0 + 16):
+            self.ent('TableReinforced', x, y1 - 1)
+        for i in range(3):
+            self.item('DHWeaponRifleRARM111', x0 + 11 + i, y1 - 1)
+            self.item('DHMagazine556x45ShortA', x0 + 11 + i, y1 - 1)
+        self.item('DHAmmoBox556x45A', x0 + 14, y1 - 1)
+        self.item('DHAmmoBox556x45FMG', x0 + 15, y1 - 1)
+        # ящики: миномёты, мины, мешки, колючка, складные баррикады, пулемёты, пушка, ПЗРК
+        crates = (['DHCrateMortar'] * 3 + ['DHSupplyCrateMortarHE'] * 2 + ['DHSupplyCrateMortarFrag',
+                  'DHSupplyCrateMortarSpecial'] + ['DHSupplyCrateSandbags'] * 3 + ['DHSupplyCrateBarbedWire'] * 2 +
+                  ['DHSupplyCrateFoldingBarricades', 'DHCrateSecurityRSPMG', 'DHCrateSecurityRSPMG',
+                   'DHCrateSecurityAmmoRSPMG', 'DHCrateSecurityAmmoRSPMG', 'DHCrateSecurityAmmo556x45',
+                   'DHCrateSecurityAmmo556x45', 'DHCrateSecurityAmmo556x45', 'DHCrateFieldGun90',
+                   'DHCrateShipShells90mm', 'DHSupplyCrateManpads', 'DHCrateFlamer'])
+        cells = [(x, y) for y in range(y0 + 2, y1 - 2, 2) for x in range(x0 + 2, x1 - 1, 2)
+                 if not (x0 + 8 <= x <= x0 + 11 and y < y0 + 4)]
+        for crate, (x, y) in zip(crates, cells):
+            self.ent(crate, x, y)
+        # мешки и колючка стопками у входа
+        for i, stack in enumerate(['DHSandbagsFull25', 'DHSandbagsFull25', 'DHSandbagsEmpty25', 'DHSandbagsEmpty25',
+                                   'DHBarbedWire10', 'DHBarbedWire10']):
+            self.ent(stack, x1 - 1, y0 + 1 + i)
+        self.ent('SignArmory', x0 + 8, y0, free=True)
+        self.wire_room(x0, y0, x1, y1, (x1 - 3, y0), 'S')
+
+    def blockhouse(self):
+        x0, y0, x1, y1 = BLOCKHOUSE
+        cx = (x0 + x1) // 2
+        self.building(x0, y0, x1, y1, 'WallReinforced', 'FloorReinforced',
+                      doors=[(cx - 1, y0, 'DHAirlockRepublicGlass'), (cx, y0, 'DHAirlockRepublicGlass'),
+                             (cx + 1, y0, 'DHAirlockRepublicGlass')],
+                      lights='Poweredlight', light_step=5)
+        # три люка: штаб, казармы, медблок (подписаны дверными табличками), лифт посередине
+        self.ent('DHHatchTerminusHQ', x0 + 2, y1 - 2)
+        self.ent('DHHatchTerminusBarracks', cx, y1 - 2)
+        self.ent('DHHatchTerminusMed', x1 - 2, y1 - 2)
+        self.ent('DHLiftPlatformTerminus', cx, y0 + 4, foot=[(cx + i, y0 + 4 + j) for i in (-1, 0, 1) for j in (-1, 0, 1)])
+        self.ent('DHLiftPanelTerminus', cx + 3, y0 + 3)
+        self.ent('DHPowerRiserTerminusUp', x0 + 1, y0 + 1)
+        self.cable('CableMV', [(x0 + 1, y) for y in range(BASE_ROAD_Y[1] + 1, y0 + 2)])
+        self.wire_room(x0, y0, x1, y1, (x1 - 1, y0), 'S')
+
+    def base_defence(self):
+        x0, y0, x1, y1 = BASE
+        # ПВО и полевая пушка: северо-восточный двор (мешки кольцом) и двор у ангаров
+        for gx, gy, proto in ((x1 - 5, y1 - 5, 'DHAntiAirGun'), (x1 - 4, BASE_ROAD_Y[0] - 4, 'DHAntiAirGun'),
+                              (x1 - 11, y1 - 7, 'DHFieldGun90')):
+            self.ent(proto, gx, gy)
+            for dx in range(-2, 3):
+                for dy in (-2, 2):
+                    self.ent('DHSandbagBarricade', gx + dx, gy + dy)
+            for dy in (-1, 1):
+                self.ent('DHSandbagBarricade', gx - 2, gy + dy)
+                self.ent('DHSandbagBarricade', gx + 2, gy + dy)
+        self.ent('DHAutocannonAmmoBox30', x1 - 3, y1 - 2)
+        self.ent('DHFieldShell90APFSDS', x1 - 13, y1 - 4)
+        # вышка-пост у северных ворот
+        self.ent('DHSandbagBarricade', BASE_ROAD_X[0] - 2, y1 - 1)
+        self.ent('DHSandbagBarricade', BASE_ROAD_X[0] + 5, y1 - 1)
+
+    def base_mains(self):
+        """Магистрали СН: вдоль южного и северного края главной дороги, от подстанции к щиткам всех зданий."""
+        x0, y0, x1, y1 = BASE
+        ry0, ry1 = BASE_ROAD_Y
+        south = [(x, ry0 - 1) for x in range(x0 + 2, x1 - 1)]
+        north = [(x, ry1 + 1) for x in range(x0 + 2, x1 - 1)]
+        link = [(x1 - 2, y) for y in range(ry0 - 1, ry1 + 2)]
+        sx, sy = self.substation_tile
+        feed = self.line_cells([(sx, sy), (sx, POWER[3] + 1), (sx, ry0 - 1)])
+        cells = set(south + north + link + feed)
+        # отводы к щиткам
+        for e in self.ents:
+            if e[0] != 'APCBasic':
+                continue
+            ax, ay = int(e[1] - 0.5), int(e[2] - 0.5)
+            if ay <= ry0:
+                cells |= set(self.line_cells([(ax, ay), (ax, ry0 - 1)]))
+            else:
+                cells |= set(self.line_cells([(ax, ay), (ax, ry1 + 1)]))
+        self.cable('CableMV', cells)
+
+    # ---------- бункер под базой (отдельный уровень) ----------
+
+    def bunker_level(self):
+        b = World(self.known)
+        b.missing = self.missing
+        self.bunker = b
+        x0, y0, x1, y1 = BUNKER
+        cy0, cy1 = BUNKER_CORRIDOR
+        L = 'Poweredlight'
+        W = 'WallReinforced'
+        # коридор во всю длину: его стены — общие с комнатами
+        b.building(x0, cy0, x1, cy1, W, 'FloorDark', lights=L, light_step=6)
+        # север: казармы ×2, столовая, павильон спуска (лестницы и лифт), штаб, хранилище образца
+        rooms_n = {
+            'dorm1': (x0, cy1, x0 + 19, y1),
+            'dorm2': (x0 + 19, cy1, x0 + 38, y1),
+            'mess': (x0 + 38, cy1, x0 + 50, y1),
+            'hub': (x0 + 50, cy1, x0 + 66, y1 - 4),
+            'hq': (x0 + 66, cy1, x1, y1 - 6),
+            'vault': (x0 + 66, y1 - 6, x1, y1),
+        }
+        rooms_s = {
+            'med': (x0, y0, x0 + 22, cy0),
+            'or1': (x0 + 22, y0 + 8, x0 + 30, cy0),
+            'or2': (x0 + 30, y0 + 8, x0 + 38, cy0),
+            'lab': (x0 + 22, y0, x0 + 38, y0 + 8),
+            'wc': (x0 + 38, y0, x0 + 50, cy0),
+            'power': (x0 + 50, y0, x1, cy0),
+        }
+        for name, (rx0, ry0, rx1, ry1) in list(rooms_n.items()) + list(rooms_s.items()):
+            floor = 'FloorWhite' if name in ('med', 'or1', 'or2', 'lab', 'wc') else \
+                'FloorDark' if name in ('hq', 'vault', 'hub') else 'FloorSteel'
+            b.building(rx0, ry0, rx1, ry1, W, floor, lights=L, light_step=6)
+        # двери в коридор (север — на cy1, юг — на cy0) и между комнатами
+        def mid(r):
+            return (r[0] + r[2]) // 2
+        for name in ('dorm1', 'dorm2', 'mess', 'hq'):
+            b.door(mid(rooms_n[name]), cy1, 'DHAirlockRepublic')
+        for dx in (-1, 0, 1):
+            b.door(mid(rooms_n['hub']) + dx, cy1, 'DHAirlockRepublicGlass')
+        for name in ('med', 'or1', 'or2', 'wc'):
+            b.door(mid(rooms_s[name]), cy0, 'DHAirlockRepublic' if name != 'med' else 'DHAirlockRepublicGlass')
+        b.door(mid(rooms_s['power']), cy0, 'DHAirlockRepublicLocked')
+        b.door(mid(rooms_n['vault']), rooms_n['vault'][1], 'DHAirlockRepublicCommandLocked')
+        b.door(rooms_s['lab'][0], y0 + 4, 'DHAirlockRepublic')            # лаборатория ← медблок
+        # --- казармы: двухъярусные койки рядами, спавны на них
+        spawns = 0
+        late = 0
+        for name in ('dorm1', 'dorm2'):
+            rx0, ry0, rx1, ry1 = rooms_n[name]
+            for bx in range(rx0 + 2, rx1 - 1, 3):
+                for by in range(ry0 + 3, ry1 - 1, 3):
+                    b.ent('RMCBedBunk', bx, by)
+                    if spawns < 25:
+                        b.ent('SpawnPointAnyJob', bx, by, free=True)
+                        spawns += 1
+                    elif late < 4:
+                        b.ent('SpawnPointLatejoin', bx, by, free=True)
+                        late += 1
+            for x in range(rx0 + 2, rx1 - 1, 3):
+                b.ent('Rack', x, ry1 - 1)
+        # --- столовая
+        rx0, ry0, rx1, ry1 = rooms_n['mess']
+        for ty in range(ry0 + 3, ry1 - 3, 4):
+            for tx in range(rx0 + 2, rx1 - 2):
+                b.ent('Table', tx, ty)
+                b.ent('Chair', tx, ty - 1)
+                b.ent('Chair', tx, ty + 1, R180)
+        for i, v in enumerate(['VendingMachineCoffee', 'VendingMachineDiscount', 'WaterCooler', 'KitchenMicrowave']):
+            b.ent(v, rx0 + 1 + i, ry1 - 1)
+        b.ent('CrateFoodMRE', rx1 - 1, ry1 - 1)
+        b.ent('CrateFoodMRE', rx1 - 2, ry1 - 1)
+        # --- павильон: три лестницы наверх и грузовой лифт
+        rx0, ry0, rx1, ry1 = rooms_n['hub']
+        hx = (rx0 + rx1) // 2
+        b.ent('DHLadderTerminusHQ', rx1 - 2, ry1 - 2)
+        b.ent('DHLadderTerminusBarracks', rx0 + 2, ry1 - 2)
+        b.ent('DHLiftPlatformTerminus', hx, ry0 + 5, foot=[(hx + i, ry0 + 5 + j) for i in (-1, 0, 1) for j in (-1, 0, 1)])
+        b.ent('DHLiftPanelTerminus', hx + 3, ry0 + 4)
+        # --- штаб
+        rx0, ry0, rx1, ry1 = rooms_n['hq']
+        b.ent('DHComputerOverwatchRepublic', rx0 + 2, ry1 - 1)
+        b.ent('DHComputerOverwatchRepublic', rx0 + 4, ry1 - 1)
+        b.ent('DHComputerSquadsRepublic', rx0 + 6, ry1 - 1)
+        b.ent('ChairOfficeDark', rx0 + 2, ry1 - 2)
+        b.ent('ChairOfficeDark', rx0 + 4, ry1 - 2)
+        b.ent('ChairOfficeDark', rx0 + 6, ry1 - 2)
+        for x in range(rx0 + 3, rx1 - 2):
+            b.ent('TableReinforced', x, ry0 + 4)
+        b.item('Binoculars', rx0 + 4, ry0 + 4)
+        b.ent('DHFieldPhoneRepublicHQ', rx1 - 1, ry1 - 1)
+        b.ent('DHFieldPhoneRepublicBunker', rx1 - 1, ry0 + 2)
+        # --- хранилище образца
+        rx0, ry0, rx1, ry1 = rooms_n['vault']
+        b.ent('DHExperimentalSample', (rx0 + rx1) // 2, ry1 - 2)
+        # --- медблок: приёмная и палата, лестница наверх
+        rx0, ry0, rx1, ry1 = rooms_s['med']
+        b.ent('DHLadderTerminusMed', rx0 + 2, ry1 - 2)
+        for x in range(rx0 + 2, rx1 - 1, 3):
+            b.ent('MedicalBed', x, ry0 + 2)
+            b.ent('DHIVDripFilled', x + 1, ry0 + 2)
+        b.ent('DHGearVendorRepublicMedic', rx0 + 5, ry1 - 1)
+        for x in range(rx0 + 8, rx0 + 12):
+            b.ent('TableReinforced', x, ry1 - 3)
+        for i, it in enumerate(['MedkitCombatFilled', 'MedkitCombatFilled', 'DHIFAKFilled', 'DHIFAKFilled']):
+            b.item(it, rx0 + 8 + i, ry1 - 3)
+        b.ent('CrateMedicalSupplies', rx1 - 2, ry1 - 1)
+        b.ent('BannerMedical', rx0 + 1, ry1 - 1)
+        # --- операционные
+        for name in ('or1', 'or2'):
+            rx0, ry0, rx1, ry1 = rooms_s[name]
+            ox = (rx0 + rx1) // 2
+            b.ent('OperatingTable', ox, ry0 + 4)
+            b.ent('TableReinforced', ox + 2, ry0 + 4)
+            b.item('DHFieldSurgeryKitFilled', ox + 2, ry0 + 4)
+            b.ent('CrateMedicalSurgery', rx0 + 1, ry0 + 1)
+            b.ent('DHIVDripFilled', ox - 2, ry0 + 4)
+            b.ent('SinkWide', rx1 - 1, ry0 + 1)
+        # --- лаборатория
+        rx0, ry0, rx1, ry1 = rooms_s['lab']
+        b.ent('ChemMaster', rx0 + 3, ry1 - 1)
+        b.ent('ChemDispenser', rx0 + 5, ry1 - 1)
+        for x in range(rx0 + 7, rx0 + 11):
+            b.ent('TableReinforced', x, ry1 - 1)
+        b.ent('ShelfChemistry', rx1 - 2, ry1 - 1)
+        for i, c in enumerate(['DHCrateChemistryAcids', 'DHCrateChemistryBases', 'DHCrateChemistryOrganics']):
+            b.ent(c, rx0 + 2 + i * 2, ry0 + 2)
+        b.ent('SinkWide', rx1 - 1, ry0 + 1)
+        # --- санузел
+        rx0, ry0, rx1, ry1 = rooms_s['wc']
+        for x in range(rx0 + 2, rx1 - 1, 2):
+            b.ent('ToiletEmpty', x, ry0 + 1)
+            b.ent('SinkWide', x, ry1 - 1)
+            b.ent('Mirror', x, ry1, free=True)
+        # --- энергоблок бункера: стояк с поверхности, склад
+        rx0, ry0, rx1, ry1 = rooms_s['power']
+        b.ent('DHPowerRiserTerminusDown', rx0 + 2, ry1 - 2)
+        for x in range(rx0 + 6, rx1 - 1, 2):
+            b.ent('Rack', x, ry0 + 1)
+        for i, c in enumerate(['CrateFoodMRE', 'DHCrateSecurityAmmo556x45', 'DHCrateSecurityAmmo556x45',
+                               'DHSupplyCrateMedical', 'ClosetEmergencyFilledRandom', 'ClosetToolFilled']):
+            b.ent(c, rx0 + 6 + i * 2, ry0 + 4)
+        # --- питание: магистраль СН по коридору, щиток в каждой комнате (на стене к коридору)
+        trunk = [(x, cy0 + 1) for x in range(x0 + 1, x1)]
+        mv = set(trunk) | set(b.line_cells([(rx0 + 2, ry1 - 2), (rx0 + 2, cy0 + 1)]))
+        b.wire_room(x0, cy0, x1, cy1, (x0 + 3, cy0), 'S')
+        for name, r in list(rooms_n.items()) + list(rooms_s.items()):
+            if name == 'vault':
+                ax, ay, wall = r[0] + 2, r[1], 'S'
+            elif name == 'lab':
+                ax, ay, wall = r[2] - 3, r[3], 'N'
+            elif r[1] == cy1:
+                ax, ay, wall = r[0] + 2, cy1, 'S'
+            else:
+                ax, ay, wall = r[0] + 2, cy0, 'N'
+            b.wire_room(*r, (ax, ay), wall)
+            if name == 'vault':
+                mv |= set(b.line_cells([(ax, ay), (ax, cy1 - 1)]))
+            elif name == 'lab':
+                mv |= set(b.line_cells([(ax, ay), (rooms_s['or2'][0] + 1, ay), (rooms_s['or2'][0] + 1, cy0 + 1)]))
+            else:
+                mv |= set(b.line_cells([(ax, ay), (ax, cy0 + 1 if ay == cy0 else cy1 - 1)]))
+        mv |= set(b.line_cells([(x0 + 1, cy0 + 1), (x0 + 1, cy1 - 1), (x1 - 1, cy1 - 1)]))
+        b.cable('CableMV', mv)
 
     # ---------- бункер ПКО ----------
 
@@ -1495,17 +1949,12 @@ def write_surface(w, path):
     groups = {}
     for proto, x, y, rot, name, comps in w.ents:
         groups.setdefault(proto, []).append(('gen', x, y, rot, name, comps))
-    for proto, lines in w.base_ents:
-        groups.setdefault(proto, []).append(('base', lines))
     uid = 2
     for proto in sorted(groups):
         L += [f'- proto: {proto}', '  entities:']
         for g in groups[proto]:
             L += [f'  - uid: {uid}', '    components:']
             uid += 1
-            if g[0] == 'base':
-                L += g[1]
-                continue
             _, x, y, rot, name, comps = g
             if name:
                 L += ['    - type: MetaData', f'      name: {name}']
@@ -1558,68 +2007,45 @@ def write_level(lv, path, name):
     return set(groups), set(TILE_IDS)
 
 
-def shift_bunker(src, dst):
-    """Сдвинуть бункер под базой на BASE_SHIFT (тайлы и сущности на гриде)."""
-    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    dx, dy = BASE_SHIFT
-    text = open(src, encoding='utf-8-sig').read()
-    lines = text.split('\n')
-    out = []
-    i = 0
-    in_chunks = False
-    chunks = {}
-    order = []
-    while i < len(lines):
-        l = lines[i]
-        m = re.match(r'^        (-?\d+),(-?\d+):$', l)
-        if m and i + 1 < len(lines) and lines[i + 1].startswith('          ind:'):
-            cx, cy = int(m.group(1)), int(m.group(2))
-            data = lines[i + 2].strip()[len('tiles: '):]
-            ver = int(lines[i + 3].strip()[len('version: '):])
-            chunks[(cx, cy)] = (base64.b64decode(data), ver)
-            if not in_chunks:
-                in_chunks = True
-                out.append('@@CHUNKS@@')
-            i += 4
-            continue
-        m = re.match(r'^(\s+pos: )(-?[\d.]+),(-?[\d.]+)$', l)
-        if m:
-            l = f'{m.group(1)}{fmt(float(m.group(2)) + dx)},{fmt(float(m.group(3)) + dy)}'
-        out.append(l)
-        i += 1
-    # тайлы: пересобрать чанки со сдвигом
-    cells = {}
-    for (cx, cy), (data, ver) in chunks.items():
-        size = len(data) // 256
-        for k in range(256):
-            if size >= 7:
-                tid, flags, var, rot = struct.unpack_from('<iBBB', data, k * size)
-            else:
-                tid, flags, var = struct.unpack_from('<iBB', data, k * size)
-                rot = 0
-            x, y = cx * 16 + k % 16 + dx, cy * 16 + k // 16 + dy
-            cells[(x, y)] = (tid, flags, var, rot)
-    tm = re.search(r'^tilemap:\n((?:  .*\n)+)', text, re.M)
-    space = None
-    for l in tm.group(1).splitlines():
-        k, v = l.strip().split(': ', 1)
-        if v == 'Space':
-            space = int(k)
-    new = {}
-    for (x, y), v in cells.items():
-        new.setdefault((x // 16, y // 16), {})[(x % 16, y % 16)] = v
-    block = []
-    for (cx, cy), cc in sorted(new.items()):
-        data = bytearray()
-        for k in range(256):
-            v = cc.get((k % 16, k // 16), (space, 0, 0, 0))
-            data += struct.pack('<iBBB', *v)
-        block += [f'        {cx},{cy}:', f'          ind: {cx},{cy}',
-                  f'          tiles: {base64.b64encode(bytes(data)).decode()}', '          version: 7']
-    idx = out.index('@@CHUNKS@@')
-    out[idx:idx + 1] = block
-    open(dst, 'w', encoding='utf-8', newline='\n').write('\n'.join(out))
-    print(f'Бункер сдвинут на {BASE_SHIFT}: {os.path.relpath(dst, ROOT)}')
+def write_bunker(b, path):
+    """Бункер под базой: отдельный грид (грузится DHPlanetBaseSystem в тех же координатах, что и поверхность)."""
+    TILE_IDS.clear()
+    tile_id('Space')
+    ch = encode_chunks(b.tiles)
+    L = ['meta:', '  format: 7', '  category: Grid', '  engineVersion: 293.0.1', '  forkId: ""', '  forkVersion: ""',
+         '  time: 11/13/2026 12:00:00', '  entityCount: ENTITY_COUNT', 'maps: []', 'grids:', '- 1', 'orphans:', '- 1',
+         'nullspace: []', 'tilemap:']
+    for tname, idx in sorted(TILE_IDS.items(), key=lambda kv: kv[1]):
+        L.append(f'  {idx}: {tname}')
+    L += ['entities:', '- proto: ""', '  entities:', '  - uid: 1', '    components:', '    - type: MetaData',
+          '      name: Terminus Bunker', '    - type: Transform', '      parent: invalid', '    - type: MapGrid',
+          '      chunks:']
+    for cx, cy, data in ch:
+        L += [f'        {cx},{cy}:', f'          ind: {cx},{cy}', f'          tiles: {data}', '          version: 7']
+    L += ['    - type: Broadphase', '    - type: Physics', '      bodyStatus: InAir', '      angularDamping: 0.05',
+          '      linearDamping: 0.05', '      fixedRotation: False', '      bodyType: Dynamic', '    - type: Fixtures',
+          '      fixtures: {}', '    - type: OccluderTree', '    - type: GridPathfinding', '    - type: DecalGrid',
+          '      chunkCollection:', '        version: 2', '        nodes: []', '    - type: SpreaderGrid']
+    L += roof_data(set(b.tiles))
+    groups = {}
+    for proto, x, y, rot, name, comps in b.ents:
+        groups.setdefault(proto, []).append((x, y, rot, name, comps))
+    uid = 2
+    for proto in sorted(groups):
+        L += [f'- proto: {proto}', '  entities:']
+        for x, y, rot, name, comps in groups[proto]:
+            L += [f'  - uid: {uid}', '    components:']
+            uid += 1
+            if name:
+                L += ['    - type: MetaData', f'      name: {name}']
+            L += ['    - type: Transform', '      parent: 1', f'      pos: {fmt(x)},{fmt(y)}']
+            if rot:
+                L.append(f'      rot: {rot!r} rad')
+            L += comps or []
+    L.append('...')
+    open(path, 'w', encoding='utf-8', newline='\n').write('\n'.join(L).replace('ENTITY_COUNT', str(uid - 1)) + '\n')
+    print(f'{os.path.relpath(path, ROOT)}: тайлов {len(b.tiles)}, сущностей {uid - 1}')
+    return set(groups), set(TILE_IDS)
 
 
 def known_protos():
@@ -1649,8 +2075,7 @@ def known_protos():
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('--bunker-in', help='исходный бункер (на старом месте) — сдвинуть под новую базу')
-    args = ap.parse_args()
+    ap.parse_args()
 
     known, tiles = known_protos()
     KNOWN_TILES.update(tiles)
@@ -1674,19 +2099,18 @@ def main():
     w.place_water()
     w.nature()
     w.edge()
-    # Метка телепорта призраков у штаба (палатка командования базы).
-    w.ent('DHWarpPointTerminus', 133, 62, free=True)
+    # Метка телепорта призраков — у павильона спуска в бункер.
+    w.ent('DHWarpPointTerminus', (BLOCKHOUSE[0] + BLOCKHOUSE[2]) // 2, BLOCKHOUSE[1] - 2, free=True)
     if w.missing:
         print('НЕТ ПРОТОТИПОВ (пропущены):', sorted(w.missing))
 
     protos, used_tiles = write_surface(w, os.path.join(OUT, 'terminus.yml'))
     p1, t1 = write_level(w.p1, os.path.join(OUT, 'terminus_p1.yml'), 'Terminus +1')
-    bad = sorted(p for p in (protos | p1) if p not in known)
-    badt = sorted(t for t in (used_tiles | t1) if t not in tiles and t != 'Space')
+    pb, tb = write_bunker(w.bunker, os.path.join(OUT, 'terminus_bunker.yml'))
+    bad = sorted(p for p in (protos | p1 | pb) if p not in known)
+    badt = sorted(t for t in (used_tiles | t1 | tb) if t not in tiles and t != 'Space')
     if bad or badt:
         print('ОШИБКИ: прототипы', bad, 'тайлы', badt)
-    if args.bunker_in:
-        shift_bunker(args.bunker_in, os.path.join(OUT, 'terminus_bunker.yml'))
 
 
 if __name__ == '__main__':
