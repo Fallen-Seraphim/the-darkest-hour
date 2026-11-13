@@ -56,12 +56,20 @@ public sealed partial class DHZLevelRenderSystem : EntitySystem
     {
         base.Initialize();
         _overlays.AddOverlay(new DHZDepthShadeOverlay());
+        _overlays.AddOverlay(new DHZRoofOverlay(EntityManager));
     }
 
     public override void Shutdown()
     {
         base.Shutdown();
         _overlays.RemoveOverlay<DHZDepthShadeOverlay>();
+        _overlays.RemoveOverlay<DHZRoofOverlay>();
+    }
+
+    /// <summary>С уровня воздуха (пилот на бреющем) здания внизу видны крышами.</summary>
+    public bool ShowRoofs(IEye eye)
+    {
+        return eye.Position.MapId != MapId.Nullspace && _z.IsAirLevel(eye.Position.MapId);
     }
 
     /// <summary>
@@ -87,7 +95,7 @@ public sealed partial class DHZLevelRenderSystem : EntitySystem
             _cachedMap = at.MapId;
             _cachedTile = tile;
             _cachedAt = now;
-            var depth = Math.Clamp(_cfg.GetCVar(DHCVars.ZLevelsRenderDepth), 0, MaxRenderDepth);
+            var depth = _z.ViewDepth(at.MapId, Math.Clamp(_cfg.GetCVar(DHCVars.ZLevelsRenderDepth), 0, MaxRenderDepth));
             _cachedFog = _z.VisibleLowerLevels(at, OpeningRadius, OpeningStep, depth, _visible);
 
             _cached.Clear();
@@ -152,6 +160,9 @@ public sealed partial class DHZLevelRenderSystem : EntitySystem
 public sealed class DHZPassEye : Robust.Shared.Graphics.Eye
 {
     public int Depth;
+
+    /// <summary>Смотрят с уровня воздуха: здания этого уровня рисуются крышами.</summary>
+    public bool Roofs;
 }
 
 /// <summary>

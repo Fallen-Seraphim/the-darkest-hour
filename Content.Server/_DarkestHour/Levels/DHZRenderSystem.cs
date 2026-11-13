@@ -81,7 +81,7 @@ public sealed partial class DHZRenderSystem : EntitySystem
     private void Wanted(MapCoordinates at, List<(int Level, MapId Map)> wanted)
     {
         wanted.Clear();
-        _z.VisibleLowerLevels(at, OpeningRadius, OpeningStep, _probeDepth, _visible);
+        _z.VisibleLowerLevels(at, OpeningRadius, OpeningStep, _z.ViewDepth(at.MapId, _probeDepth), _visible);
         foreach (var (map, level) in _visible)
         {
             wanted.Add((level, Transform(map).MapID));

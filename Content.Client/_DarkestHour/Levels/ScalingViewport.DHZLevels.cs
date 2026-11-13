@@ -67,6 +67,7 @@ public sealed partial class ScalingViewport
             // Радиус обзора с запасом: половина диагонали вьюпорта в тайлах с учётом зума.
             var radius = viewport.Size.Length / EyeManager.PixelsPerMeter * MathF.Max(eye.Zoom.X, eye.Zoom.Y) / 2f + 4f;
             var first = true;
+            var roofs = zRender.ShowRoofs(eye);
             foreach (var (map, depth) in _dhZPasses)
             {
                 _dhZPassEye.Position = new MapCoordinates(eye.Position.Position, map);
@@ -76,6 +77,7 @@ public sealed partial class ScalingViewport
                 _dhZPassEye.DrawLight = eye.DrawLight;
                 _dhZPassEye.DrawFov = false;
                 _dhZPassEye.Depth = depth;
+                _dhZPassEye.Roofs = roofs;
 
                 zRender.FixSpriteTree(map, eye.Position.Position, radius);
                 viewport.Eye = _dhZPassEye;

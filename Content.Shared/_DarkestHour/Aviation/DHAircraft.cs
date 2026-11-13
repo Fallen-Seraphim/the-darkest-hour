@@ -136,6 +136,20 @@ public sealed partial class DHAircraftComponent : Component
     [ViewVariables]
     public EntityUid? PassSky;
 
+    /// <summary>
+    /// Поверхность под заходом (решение автора 2026-11-13: высота настоящая): сам самолёт на бреющем — на уровне воздуха
+    /// над ней (низко +2, средне +3, высоко +4 над верхним этажом), а пушка, бомбы, ПВО и ПЗРК работают по этой карте.
+    /// </summary>
+    [ViewVariables]
+    public EntityUid? PassSurface;
+
+    /// <summary>Тень самолёта на земле во время захода — её видит и слышит пехота.</summary>
+    [ViewVariables]
+    public EntityUid? PassShadow;
+
+    [DataField]
+    public EntProtoId ShadowPrototype = "DHAttackAircraftShadow";
+
     /// <summary>Высота бреющего: от неё зависят точность пушки и бомб и опасность ПВО.</summary>
     [DataField, AutoNetworkedField]
     public DHAircraftAltitude Altitude = DHAircraftAltitude.Medium;

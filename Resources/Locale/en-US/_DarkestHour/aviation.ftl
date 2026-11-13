@@ -170,3 +170,5 @@ dh-manpads-already-loaded = There is already a missile in the tube.
 dh-manpads-reloaded = MANPADS loaded.
 dh-aircraft-manpads-decoyed = Flares decoyed a MANPADS missile!
 dh-aircraft-manpads-missed = A MANPADS missile missed!
+
+dh-aircraft-air-map = Air over the battlefield (+{ $level })

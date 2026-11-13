@@ -174,3 +174,5 @@ dh-manpads-already-loaded = Ракета уже в трубе.
 dh-manpads-reloaded = ПЗРК заряжен.
 dh-aircraft-manpads-decoyed = ЛТЦ увели ракету ПЗРК!
 dh-aircraft-manpads-missed = Ракета ПЗРК прошла мимо!
+
+dh-aircraft-air-map = Воздух над полем боя (+{ $level })

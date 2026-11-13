@@ -49,7 +49,7 @@ public sealed partial class DHAircraftSystem
         var query = EntityQueryEnumerator<DHAircraftComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var comp, out var planeXform))
         {
-            if (comp.State != DHAircraftState.Pass || planeXform.MapUid != xform.MapUid)
+            if (comp.State != DHAircraftState.Pass || GroundMapUid(comp, planeXform) != xform.MapUid)
                 continue;
 
             var distance = Vector2.Distance(_transform.GetWorldPosition(planeXform), position);
