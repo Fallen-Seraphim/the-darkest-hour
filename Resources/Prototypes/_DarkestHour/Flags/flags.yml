@@ -1,0 +1,93 @@
+# Флаги сторон (решение автора 2026-11-13), по образцу флагов стран CMU/RMC: «использовать» в руке — водрузить на
+# своей клетке, альт-действие у воткнутого — снять. Спрайты — Tools/_DarkestHour/flags/build_flags.py; те же
+# полотнища висят на терминалах зон захвата.
+
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: DHFlagBase
+  components:
+  - type: Sprite
+    layers:
+    - state: icon
+      map: [ "base" ]
+  - type: Item
+    size: Large
+  - type: Appearance
+  - type: DHPlantableFlag
+  - type: GenericVisualizer
+    visuals:
+      enum.DHPlantableFlagVisuals.Planted:
+        base:
+          True: { state: deploy }
+          False: { state: icon }
+
+- type: entity
+  parent: DHFlagBase
+  id: DHFlagRepublic
+  name: flag of the United Republic
+  description: A white flag with thin black stripes along the top and bottom and the letters UR in the middle.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Flags/republic_flag.rsi
+  - type: Item
+    sprite: _DarkestHour/Objects/Flags/republic_flag.rsi
+
+- type: entity
+  parent: DHFlagBase
+  id: DHFlagEmpire
+  name: flag of the First Empire
+  description: A black flag with a golden double-headed eagle holding a sword and a sceptre, above the Imperial cross in a circle.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Flags/empire_flag.rsi
+  - type: Item
+    sprite: _DarkestHour/Objects/Flags/empire_flag.rsi
+
+- type: entity
+  parent: DHFlagBase
+  id: DHFlagFront
+  name: flag of the Liberation Front
+  description: A red flag with a golden star in the upper corner, the banner of the Liberation Front of Free Colonies.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Flags/front_flag.rsi
+  - type: Item
+    sprite: _DarkestHour/Objects/Flags/front_flag.rsi
+
+# Уже водружённые флаги — для карт (штаб авианосца, комендатура, логова ОФСК). Снимаются альт-действием.
+- type: entity
+  parent: DHFlagRepublic
+  id: DHFlagRepublicPlanted
+  suffix: Planted
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    layers:
+    - state: deploy
+      map: [ "base" ]
+
+- type: entity
+  parent: DHFlagEmpire
+  id: DHFlagEmpirePlanted
+  suffix: Planted
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    layers:
+    - state: deploy
+      map: [ "base" ]
+
+- type: entity
+  parent: DHFlagFront
+  id: DHFlagFrontPlanted
+  suffix: Planted
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    layers:
+    - state: deploy
+      map: [ "base" ]
