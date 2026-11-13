@@ -2,7 +2,11 @@
 # калибра на соседнем тайле перед казёнником (повёрнут так же); наводят с консоли, сидя на стуле. Снаряды — тяжёлые,
 # в две руки. Механика — DHHeavyGunSystem, спрайты — Tools/_DarkestHour/heavy_guns/build.py.
 # Авианосец: 570 мм ×1 и 300 мм ×2 (артиллерия по планете). Планета: 700 мм ×1 и 400 мм ×2 (ПКО по кораблям на
-# орбите; калибр больше — снаряду ещё преодолевать тяготение). ПВО: на авианосце 4 ракетные установки, на планете
+# орбите; калибр больше — снаряду ещё преодолевать тяготение).
+# Вид (решение автора 2026-11-13): пушки авианосца — орудие орбитального удара RMC-14 (cmss13, CC-BY-SA-3.0; рисунок
+# целиком на казённике, ствол невидим, смотрят стволом на запад), ПКО — железнодорожные «Доры»
+# (Tools/_DarkestHour/heavy_guns/railway_gun.py): RAO-400 — 3×8 клеток, RAO-700 — 4×11; рисунок разрезан по переднему
+# краю клетки казённика: казённик несёт тележки, люльку и площадку, ствол — ствол и передние концы тележек. ПВО: на авианосце 4 ракетные установки, на планете
 # 2 ракетные шахты и 2 спаренные 30-мм автопушки.
 
 - type: entity
@@ -99,17 +103,43 @@
   description: A 300 mm naval gun of the Imperial Fleet. Fires on surface coordinates from orbit. The breech holds one shell; the barrel goes on the tile in front of it.
   components:
   - type: Sprite
+    sprite: _RMC14/Structures/orbital_cannon.rsi
+    noRot: true
+    offset: -1,-0.8 # рисунок 4×2,4 клетки: казённик — у его восточного края, ствол на запад
+    drawdepth: Overdoors
     layers:
-    - state: medium
+    - state: obc_unloaded
       map: [ "base" ]
-    - state: assembled
+    # лампы базового казённика (их включает визуализатор родителя) — у орудия ОБ не видны
+    - sprite: _DarkestHour/Structures/HeavyGuns/breech.rsi
+      state: assembled
       map: [ "assembled" ]
-      shader: unshaded
+      color: "#ffffff00"
       visible: false
-    - state: loaded
+    - sprite: _DarkestHour/Structures/HeavyGuns/breech.rsi
+      state: loaded
       map: [ "loaded" ]
-      shader: unshaded
+      color: "#ffffff00"
       visible: false
+  - type: GenericVisualizer
+    visuals:
+      enum.DHHeavyGunVisuals.Loaded:
+        base:
+          True: { state: obc_loaded }
+          False: { state: obc_unloaded }
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.15,-0.95,1.15,2.95" # повёрнуто стволом на запад: 4×2,3 клетки
+        density: 500
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+        - BulletImpassable
   - type: DHHeavyGunBreech
     caliber: 300
     role: Artillery
@@ -126,8 +156,10 @@
   name: IG-300 naval gun barrel
   description: The barrel of a 300 mm gun. Set it on the tile in front of a breech of the same calibre, facing the same way.
   components:
+  # Ствол нарисован в орудии на казённике.
   - type: Sprite
     sprite: _DarkestHour/Structures/HeavyGuns/barrel_medium.rsi
+    visible: false
   - type: DHHeavyGunBarrel
     caliber: 300
 
@@ -138,17 +170,43 @@
   description: The 570 mm main gun of an Imperial landing carrier. Fires on surface coordinates from orbit. The breech holds one shell; the barrel goes on the tile in front of it.
   components:
   - type: Sprite
+    sprite: _RMC14/Structures/orbital_cannon.rsi
+    noRot: true
+    offset: -1,-0.8 # рисунок 4×2,4 клетки: казённик — у его восточного края, ствол на запад
+    drawdepth: Overdoors
     layers:
-    - state: heavy
+    - state: obc_unloaded
       map: [ "base" ]
-    - state: assembled
+    # лампы базового казённика (их включает визуализатор родителя) — у орудия ОБ не видны
+    - sprite: _DarkestHour/Structures/HeavyGuns/breech.rsi
+      state: assembled
       map: [ "assembled" ]
-      shader: unshaded
+      color: "#ffffff00"
       visible: false
-    - state: loaded
+    - sprite: _DarkestHour/Structures/HeavyGuns/breech.rsi
+      state: loaded
       map: [ "loaded" ]
-      shader: unshaded
+      color: "#ffffff00"
       visible: false
+  - type: GenericVisualizer
+    visuals:
+      enum.DHHeavyGunVisuals.Loaded:
+        base:
+          True: { state: obc_loaded }
+          False: { state: obc_unloaded }
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.15,-0.95,1.15,2.95" # повёрнуто стволом на запад: 4×2,3 клетки
+        density: 500
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+        - BulletImpassable
   - type: DHHeavyGunBreech
     caliber: 570
     role: Artillery
@@ -165,8 +223,10 @@
   name: IG-570 heavy naval gun barrel
   description: The barrel of a 570 mm gun. Set it on the tile in front of a breech of the same calibre, facing the same way.
   components:
+  # Ствол нарисован в орудии на казённике.
   - type: Sprite
     sprite: _DarkestHour/Structures/HeavyGuns/barrel_heavy.rsi
+    visible: false
   - type: DHHeavyGunBarrel
     caliber: 570
 
@@ -181,8 +241,9 @@
     faction: Republic
     alwaysVisible: true
   - type: Sprite
+    sprite: _DarkestHour/Structures/HeavyGuns/railway_400_breech.rsi
     layers:
-    - state: medium
+    - state: icon
       map: [ "base" ]
     - state: assembled
       map: [ "assembled" ]
@@ -192,6 +253,19 @@
       map: [ "loaded" ]
       shader: unshaded
       visible: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.45,-3.45,1.45,0.45" # тележки, люлька и площадка позади казённика
+        density: 500
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+        - BulletImpassable
   - type: DHHeavyGunBreech
     caliber: 400
     role: AntiOrbital
@@ -209,7 +283,20 @@
   description: The barrel of a 400 mm gun. Set it on the tile in front of a breech of the same calibre, facing the same way.
   components:
   - type: Sprite
-    sprite: _DarkestHour/Structures/HeavyGuns/barrel_medium.rsi
+    sprite: _DarkestHour/Structures/HeavyGuns/railway_400_barrel.rsi
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.45,-0.45,1.45,0.45" # передние концы тележек; ствол дальше — над головой
+        density: 500
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+        - BulletImpassable
   - type: DHHeavyGunBarrel
     caliber: 400
 
@@ -224,8 +311,9 @@
     faction: Republic
     alwaysVisible: true
   - type: Sprite
+    sprite: _DarkestHour/Structures/HeavyGuns/railway_700_breech.rsi
     layers:
-    - state: heavy
+    - state: icon
       map: [ "base" ]
     - state: assembled
       map: [ "assembled" ]
@@ -235,6 +323,19 @@
       map: [ "loaded" ]
       shader: unshaded
       visible: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.95,-4.45,1.95,0.45" # тележки, люлька и площадка позади казённика
+        density: 500
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+        - BulletImpassable
   - type: DHHeavyGunBreech
     caliber: 700
     role: AntiOrbital
@@ -252,7 +353,20 @@
   description: The barrel of a 700 mm gun. Set it on the tile in front of a breech of the same calibre, facing the same way.
   components:
   - type: Sprite
-    sprite: _DarkestHour/Structures/HeavyGuns/barrel_heavy.rsi
+    sprite: _DarkestHour/Structures/HeavyGuns/railway_700_barrel.rsi
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.95,-0.45,1.95,0.45" # передние концы тележек; ствол дальше — над головой
+        density: 500
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+        - BulletImpassable
   - type: DHHeavyGunBarrel
     caliber: 700
 

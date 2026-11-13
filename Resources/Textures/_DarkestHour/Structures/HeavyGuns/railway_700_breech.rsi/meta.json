@@ -1,0 +1,20 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Made for The Darkest Hour (Tools/_DarkestHour/heavy_guns/railway_gun.py)",
+    "size": {
+        "x": 128,
+        "y": 288
+    },
+    "states": [
+        {
+            "name": "icon"
+        },
+        {
+            "name": "assembled"
+        },
+        {
+            "name": "loaded"
+        }
+    ]
+}

@@ -287,8 +287,9 @@ guns = (('DHHeavyGunBreech300', 'DHHeavyGunBarrel300', x0 + 3),
         ('DHHeavyGunBreech300', 'DHHeavyGunBarrel300', x1 - 6))
 gy = y1 - 8
 for breech, barrel, gx in guns:
-    put(breech, gx, gy, 0.0)
-    put(barrel, gx, gy + 1, 0.0)
+    # орудия орбитального удара (спрайт RMC) — стволом на запад, рисунок на 4 клетки: gx - 3 … gx + 1
+    put(breech, gx, gy, PI / 2)
+    put(barrel, gx - 1, gy, PI / 2)
     put('DHComputerNavalArtillery', gx + 1, gy - 2, FACE['S'])
     put('ChairOfficeDark', gx + 1, gy - 3, FACE['N'])
 for i, wh in enumerate(('HighExplosive', 'ArmorPiercing', 'Incendiary', 'Cluster')):
