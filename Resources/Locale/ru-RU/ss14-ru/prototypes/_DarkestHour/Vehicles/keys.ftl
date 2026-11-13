@@ -1,0 +1,10 @@
+ent-DHVehicleKeyTankRepublic = ключ танка Республики
+    .desc = Заводит основной боевой танк гарнизона Республики.
+ent-DHVehicleKeyAPCRepublic = ключ RAM-45
+    .desc = Заводит бронетранспортёр Республики RAM-45.
+ent-DHVehicleKeyTankEmpire = ключ имперского танка
+    .desc = Заводит основной боевой танк Империи.
+ent-DHVehicleKeyAPCEmpire = ключ IM-30
+    .desc = Заводит имперский бронетранспортёр IM-30.
+ent-DHVehicleKeyLAV = ключ грузовика LA-V
+    .desc = Заводит бронефургон компании LA-V. На брелоке — логотип корпорации.

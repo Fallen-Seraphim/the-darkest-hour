@@ -69,6 +69,21 @@ public sealed partial class DHVehicleComponent : Component
     [DataField]
     public DHAssaultFaction Faction = DHAssaultFaction.Republic;
 
+    /// <summary>
+    /// Ключ машины (решение автора 2026-11-12): без ключа того же типа при себе (в руках, в карманах, в сумке) пульт
+    /// механика-водителя не взять. Ключи выдаются командирам техники (у грузовика LA-V — представителю корпорации).
+    /// null — ключ не нужен.
+    /// </summary>
+    [DataField]
+    public string? Key;
+
+    /// <summary>
+    /// Спрайт нарисован только сбоку (два кадра: юг — машина смотрит влево, север — вправо): кадр выбирается по тому,
+    /// куда машина едет на экране, без поворота спрайта.
+    /// </summary>
+    [DataField]
+    public bool SideView;
+
     /// <summary>Половина размеров корпуса (как у хитбокса): снаряды вылетают за его край, а не внутри него.</summary>
     [DataField]
     public Vector2 HullHalfSize = new(1.2f, 1.9f);
@@ -344,4 +359,12 @@ public sealed partial class DHVehicleInteriorEntity
     /// <summary>Висит на стене (смотровой прибор, телефон): стена под ним остаётся.</summary>
     [DataField]
     public bool OnWall;
+}
+
+/// <summary>Ключ техники: подходит к машинам с тем же <see cref="DHVehicleComponent.Key"/>.</summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class DHVehicleKeyComponent : Component
+{
+    [DataField(required: true)]
+    public string Key = string.Empty;
 }

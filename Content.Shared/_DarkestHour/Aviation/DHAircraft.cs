@@ -710,3 +710,10 @@ public sealed class DHAircraftTargetMessage(Vector2 point) : BoundUserInterfaceM
 /// <summary>Пуск управляемого боеприпаса с выбранного узла по выбранной цели.</summary>
 [Serializable, NetSerializable]
 public sealed class DHAircraftFireMessage : BoundUserInterfaceMessage;
+
+/// <summary>
+/// Самолёт в воздухе, его кресло, фонарь и пилот (ставит и снимает сервер по состоянию самолёта). Взрывы, поджог и
+/// воздух с земли под ним их не трогают — см. DHAircraftSystem.Airborne.
+/// </summary>
+[RegisterComponent]
+public sealed partial class DHAirborneComponent : Component;
