@@ -391,6 +391,12 @@
     back:
     - DHImperialClothingHeadCapPeaked
 
+- type: loadout
+  id: DHLoadoutPillCanisterRiftJump
+  storage:
+    back:
+    - DHPillCanisterRiftJump
+
 - type: loadoutGroup
   id: DHLoadoutRepublicHead
   name: dh-loadout-group-republichead
@@ -537,6 +543,14 @@
   - DHLoadoutCigarGoldCase
   - DHLoadoutDrinkFlask
   - DHLoadoutImperialClothingHeadCapPeaked
+
+- type: loadoutGroup
+  id: DHLoadoutRiftJump
+  name: dh-loadout-group-riftjump
+  minLimit: 1
+  maxLimit: 1
+  loadouts:
+  - DHLoadoutPillCanisterRiftJump
 
 - type: roleLoadout
   id: JobDHGarrisonCommander
@@ -757,6 +771,7 @@
   - DHLoadoutPersonal
   - DHLoadoutKnife
   - DHLoadoutImperialCommand
+  - DHLoadoutRiftJump
 
 - type: roleLoadout
   id: JobDHCarrierCaptain
@@ -770,6 +785,7 @@
   - DHLoadoutPersonal
   - DHLoadoutKnife
   - DHLoadoutImperialCommand
+  - DHLoadoutRiftJump
 
 - type: roleLoadout
   id: JobDHMarineCommander
@@ -783,6 +799,7 @@
   - DHLoadoutPersonal
   - DHLoadoutKnife
   - DHLoadoutImperialCommand
+  - DHLoadoutRiftJump
 
 - type: roleLoadout
   id: JobDHCarrierSupportOfficer
@@ -796,6 +813,7 @@
   - DHLoadoutPersonal
   - DHLoadoutKnife
   - DHLoadoutImperialCommand
+  - DHLoadoutRiftJump
 
 - type: roleLoadout
   id: JobDHCarrierPilot
@@ -808,6 +826,7 @@
   - DHLoadoutFlasks
   - DHLoadoutPersonal
   - DHLoadoutKnife
+  - DHLoadoutRiftJump
 
 - type: roleLoadout
   id: JobDHCarrierAttackPilot
@@ -820,6 +839,7 @@
   - DHLoadoutFlasks
   - DHLoadoutPersonal
   - DHLoadoutKnife
+  - DHLoadoutRiftJump
 
 - type: roleLoadout
   id: JobDHCarrierArtillerist
@@ -832,6 +852,7 @@
   - DHLoadoutFlasks
   - DHLoadoutPersonal
   - DHLoadoutKnife
+  - DHLoadoutRiftJump
 
 - type: roleLoadout
   id: JobDHCarrierTechnician
@@ -844,6 +865,7 @@
   - DHLoadoutFlasks
   - DHLoadoutPersonal
   - DHLoadoutKnife
+  - DHLoadoutRiftJump
 
 - type: roleLoadout
   id: JobDHMarineWeaponsSpecialist
@@ -856,6 +878,7 @@
   - DHLoadoutFlasks
   - DHLoadoutPersonal
   - DHLoadoutKnife
+  - DHLoadoutRiftJump
 
 - type: roleLoadout
   id: JobDHMarineFieldMedic
@@ -868,6 +891,7 @@
   - DHLoadoutFlasks
   - DHLoadoutPersonal
   - DHLoadoutKnife
+  - DHLoadoutRiftJump
 
 - type: roleLoadout
   id: JobDHMarineMachinegunner
@@ -880,6 +904,7 @@
   - DHLoadoutFlasks
   - DHLoadoutPersonal
   - DHLoadoutKnife
+  - DHLoadoutRiftJump
 
 - type: roleLoadout
   id: JobDHMarineRifleman
@@ -892,6 +917,7 @@
   - DHLoadoutFlasks
   - DHLoadoutPersonal
   - DHLoadoutKnife
+  - DHLoadoutRiftJump
 
 - type: roleLoadout
   id: JobDHMarineMortarCommander
@@ -904,6 +930,7 @@
   - DHLoadoutFlasks
   - DHLoadoutPersonal
   - DHLoadoutKnife
+  - DHLoadoutRiftJump
 
 - type: roleLoadout
   id: JobDHMarineMortarOperator
@@ -916,6 +943,7 @@
   - DHLoadoutFlasks
   - DHLoadoutPersonal
   - DHLoadoutKnife
+  - DHLoadoutRiftJump
 
 - type: roleLoadout
   id: JobDHMarineFieldArtillerist
@@ -928,6 +956,7 @@
   - DHLoadoutFlasks
   - DHLoadoutPersonal
   - DHLoadoutKnife
+  - DHLoadoutRiftJump
 
 - type: roleLoadout
   id: JobDHMarineTankCommander
@@ -940,6 +969,7 @@
   - DHLoadoutFlasks
   - DHLoadoutPersonal
   - DHLoadoutKnife
+  - DHLoadoutRiftJump
 
 - type: roleLoadout
   id: JobDHMarineTankCrew
@@ -952,6 +982,7 @@
   - DHLoadoutFlasks
   - DHLoadoutPersonal
   - DHLoadoutKnife
+  - DHLoadoutRiftJump
 
 - type: roleLoadout
   id: JobDHMarineAPCCommander
@@ -964,6 +995,7 @@
   - DHLoadoutFlasks
   - DHLoadoutPersonal
   - DHLoadoutKnife
+  - DHLoadoutRiftJump
 
 - type: roleLoadout
   id: JobDHMarineAPCCrew
@@ -976,3 +1008,4 @@
   - DHLoadoutFlasks
   - DHLoadoutPersonal
   - DHLoadoutKnife
+  - DHLoadoutRiftJump
