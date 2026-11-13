@@ -81,6 +81,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
+        InitializeAirborne();
 
         SubscribeLocalEvent<DHAircraftComponent, MapInitEvent>(OnAircraftMapInit);
         SubscribeLocalEvent<DHAircraftComponent, ComponentShutdown>(OnAircraftShutdown);
@@ -189,6 +190,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         ent.Comp.ActionEntities.Clear();
         RemComp<DHAircraftPilotComponent>(pilot);
         RemComp<RelayInputMoverComponent>(pilot);
+        RemComp<DHAirborneComponent>(pilot); // катапультировался — дальше уязвим, как все
 
         if (ent.Comp.Aircraft is { } aircraft)
             _ui.CloseUi(aircraft, DHAircraftUiKey.Flight, pilot);
@@ -1122,6 +1124,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         UpdateBombs(now);
         UpdateStrikes(now);
         UpdateManpads(now);
+        UpdateAirborne();
 
         var refreshUi = now >= _nextUi;
         if (refreshUi)
