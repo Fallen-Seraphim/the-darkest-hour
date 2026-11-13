@@ -1,0 +1,12 @@
+ent-DHGridIntake = ввод сети АЭС
+    .desc = Здесь линия высокого напряжения от АЭС входит на базу. Ток есть, пока АЭС у Республики.
+ent-DHDieselGenerator = дизель-генератор
+    .desc = Резервный генератор базы. Заводят вручную, когда пропадает сеть АЭС; жжёт сварочное топливо из бака.
+ent-DHPowerRiserBase = кабельный стояк
+    .desc = Толстый бронированный кабель между поверхностью и бункером под базой.
+ent-DHPowerRiserTerminusUp = { ent-DHPowerRiserBase }
+    .desc = { ent-DHPowerRiserBase.desc }
+    .suffix = Терминус, поверхность
+ent-DHPowerRiserTerminusDown = { ent-DHPowerRiserBase }
+    .desc = { ent-DHPowerRiserBase.desc }
+    .suffix = Терминус, бункер
