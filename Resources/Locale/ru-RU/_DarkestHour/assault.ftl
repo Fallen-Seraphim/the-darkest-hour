@@ -315,9 +315,9 @@ dh-warp-terminus = База «Терминус» (штаб)
 dh-warp-carrier = Авианосец «Суверен» (мостик)
 
 # Командование сторон, командный доступ Империи, сети «СКАТ» и снабжения (2026-11-13)
-dh-department-republic-command = Командование гарнизона
+dh-department-republic-command = Командование Республики
 dh-department-republic-command-description = Командование военной базы «Терминус»: командир базы и его офицеры. Появляются в комендатуре.
-dh-department-imperial-command = Командование операции
+dh-department-imperial-command = Имперское командование
 dh-department-imperial-command-description = Командование имперской десантной операции: командующий операцией, капитан авианосца, командир десанта и офицер поддержки. Появляются в своих каютах.
 id-card-access-level-dh-imperial-command = Командование имперской операции
 dh-chat-radio-imperial-skat = СКАТ
