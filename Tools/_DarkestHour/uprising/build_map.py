@@ -436,6 +436,8 @@ def gates():
             lv.put(RND.choice(['RMCPropVehicleMonoSupronBlack', 'RMCPropVehicleMonoSupronBlackDamaged1']), x + 2, 45)
         for x in range(ax0 + 4, bx1 - 3, 8):
             lv.put(LIGHT_DIM, x, ay1 - 1, ROT_N)
+    # грузовик LA-V у «Ворот», между башнями (ключ — у представителя корпорации; решение автора 2026-11-12)
+    L(0).put('DHVehicleTruckLAV', -20, 41)
     # въезд на парковку между башнями (лестница на −1) и съезд −1 → −2
     stairwell([-2, -1, 0], -20, 32, w=3, l=2)
     L(0).floor(-21, 30, -18, 33, T_CONCRETE)
