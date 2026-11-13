@@ -1,0 +1,487 @@
+# Сгенерировано Tools/_DarkestHour/loadouts/build_assault_loadouts.py — правьте генератор.
+# Личные вещи «Штурма»: одежда — спрайты RMC-14 (CC-BY-SA, cmss13).
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHClothingHeadBeretGreen
+  name: green beret
+  description: A plain green service beret.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/beret_green.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/beret_green.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHClothingHeadBeretTan
+  name: tan beret
+  description: A sand-coloured service beret.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/beret_tan.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/beret_tan.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHClothingHeadBeretCamo
+  name: camouflage beret
+  description: A beret in woodland camouflage.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/beret/jungle.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/beret/jungle.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHClothingHeadBoonie
+  name: boonie hat
+  description: A wide-brimmed field hat in woodland camouflage.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/boonie/jungle.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/boonie/jungle.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHClothingHeadBoonieTan
+  name: tan boonie hat
+  description: A wide-brimmed sand-coloured field hat.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/boonie_tan/jungle.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/boonie_tan/jungle.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHClothingHeadFieldCap
+  name: field cap
+  description: A camouflage field cap with a short visor.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/cap/jungle.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/cap/jungle.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHClothingHeadBandBrown
+  name: brown headband
+  description: A strip of brown cloth tied around the head.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/headband/brown.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/headband/brown.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHClothingHeadBandGreen
+  name: green headband
+  description: A strip of green cloth tied around the head.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/headband/green.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/headband/green.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHClothingHeadBandGray
+  name: grey headband
+  description: A strip of grey cloth tied around the head.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/headband/gray.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/headband/gray.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHClothingHeadBandRed
+  name: red headband
+  description: A strip of red cloth tied around the head.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/headband/red.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/headband/red.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHClothingHeadBandTan
+  name: tan headband
+  description: A strip of sand-coloured cloth tied around the head.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/headband/tan.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/headband/tan.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHClothingHeadBeanieBlack
+  name: black watch cap
+  description: A warm knitted watch cap.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Beanies/beanie.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Beanies/beanie.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHClothingHeadBeanieGreen
+  name: green watch cap
+  description: A warm knitted watch cap, olive green.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Beanies/green.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Beanies/green.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHClothingHeadBeanieTan
+  name: tan watch cap
+  description: A warm knitted watch cap, sand-coloured.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Beanies/tan.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Beanies/tan.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHClothingHeadBeanieGray
+  name: grey watch cap
+  description: A warm knitted watch cap, grey.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Beanies/gray.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Beanies/gray.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHClothingHeadUshanka
+  name: fur hat
+  description: A fur hat with ear flaps, for cold nights on the ground.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/ushanka.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/ushanka.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHImperialClothingHeadBeretBlack
+  name: Imperial beret
+  description: A black beret with the Imperial badge.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/TSE/tse_beret.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/TSE/tse_beret.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHImperialClothingHeadBeretGuard
+  name: Imperial guard beret
+  description: A beret of the Imperial guard regiments.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/TSE/tsepa_beret.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/TSE/tsepa_beret.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHClothingHeadBeretBlack
+  name: black beret
+  description: A plain black beret.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/Hats/black_beret.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/Hats/black_beret.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: DHImperialClothingHeadCapPeaked
+  name: Imperial officer peaked cap
+  description: A black peaked cap of an Imperial officer.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/TSE/tsepa_cap_peaked.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/TSE/tsepa_cap_peaked.rsi
+
+- type: entity
+  parent: ClothingEyesBase
+  id: DHClothingEyesAviators
+  name: aviator glasses
+  description: Tinted glasses in a thin metal frame.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/aviators.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/aviators.rsi
+
+- type: entity
+  parent: ClothingEyesBase
+  id: DHClothingEyesBallisticGoggles
+  name: ballistic goggles
+  description: Shatterproof goggles that keep grit and splinters out of the eyes.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/ballistic_goggles.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/ballistic_goggles.rsi
+
+- type: entity
+  parent: ClothingEyesBase
+  id: DHClothingEyesSunglasses
+  name: cheap sunglasses
+  description: Cheap sunglasses. They only keep the sun out.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/sunglasses.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/sunglasses.rsi
+
+- type: entity
+  parent: ClothingEyesBase
+  id: DHClothingEyesEyepatch
+  name: eyepatch
+  description: A black patch over one eye.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/eyepatch.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/eyepatch.rsi
+
+- type: entity
+  parent: ClothingMaskBase
+  id: DHClothingMaskBalaclava
+  name: balaclava
+  description: A black knitted balaclava that hides the face.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Mask/balaclava.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Mask/balaclava.rsi
+  - type: IdentityBlocker
+
+- type: entity
+  parent: ClothingMaskBase
+  id: DHClothingMaskBalaclavaGreen
+  name: green balaclava
+  description: An olive knitted balaclava that hides the face.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Mask/swatclava.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Mask/swatclava.rsi
+  - type: IdentityBlocker
+
+- type: entity
+  parent: ClothingMaskBase
+  id: DHClothingMaskCoif
+  name: coif
+  description: A woodland camouflage coif covering the neck and lower face.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Mask/coif.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Mask/coif.rsi
+  - type: IdentityBlocker
+
+- type: entity
+  parent: ClothingMaskBase
+  id: DHClothingMaskCoifGrey
+  name: grey coif
+  description: A grey coif covering the neck and lower face.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Mask/grey_coif.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Mask/grey_coif.rsi
+  - type: IdentityBlocker
+
+- type: entity
+  parent: ClothingMaskBase
+  id: DHClothingMaskCoifTan
+  name: tan coif
+  description: A sand-coloured coif covering the neck and lower face.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Mask/tan_coif.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Mask/tan_coif.rsi
+  - type: IdentityBlocker
+
+- type: entity
+  parent: ClothingMaskBase
+  id: DHClothingMaskScarfBlack
+  name: black face scarf
+  description: A black scarf worn over the mouth and nose against dust.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Mask/Scarfs/black.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Mask/Scarfs/black.rsi
+
+- type: entity
+  parent: ClothingMaskBase
+  id: DHClothingMaskScarfGray
+  name: grey face scarf
+  description: A grey scarf worn over the mouth and nose against dust.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Mask/Scarfs/gray.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Mask/Scarfs/gray.rsi
+
+- type: entity
+  parent: ClothingMaskBase
+  id: DHClothingMaskScarfGreen
+  name: green face scarf
+  description: A green scarf worn over the mouth and nose against dust.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Mask/Scarfs/green.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Mask/Scarfs/green.rsi
+
+- type: entity
+  parent: ClothingMaskBase
+  id: DHClothingMaskScarfTan
+  name: tan face scarf
+  description: A sand-coloured scarf worn over the mouth and nose against dust.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Mask/Scarfs/tan.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Mask/Scarfs/tan.rsi
+
+- type: entity
+  parent: ClothingMaskBase
+  id: DHClothingMaskNeckerchiefBlack
+  name: black neckerchief
+  description: A black cloth tied around the neck.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Mask/Neckerchief/black.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Mask/Neckerchief/black.rsi
+
+- type: entity
+  parent: ClothingMaskBase
+  id: DHClothingMaskNeckerchiefGreen
+  name: green neckerchief
+  description: A green cloth tied around the neck.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Mask/Neckerchief/green.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Mask/Neckerchief/green.rsi
+
+- type: entity
+  parent: ClothingMaskBase
+  id: DHClothingMaskNeckerchiefGray
+  name: grey neckerchief
+  description: A grey cloth tied around the neck.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Mask/Neckerchief/gray.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Mask/Neckerchief/gray.rsi
+
+- type: entity
+  parent: ClothingMaskBase
+  id: DHClothingMaskNeckerchiefRed
+  name: red neckerchief
+  description: A red cloth tied around the neck.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Mask/Neckerchief/red.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Mask/Neckerchief/red.rsi
+
+- type: entity
+  parent: ClothingMaskBase
+  id: DHClothingMaskNeckerchiefTan
+  name: tan neckerchief
+  description: A sand-coloured cloth tied around the neck.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Mask/Neckerchief/tan.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Mask/Neckerchief/tan.rsi
+
+- type: entity
+  parent: ClothingMaskBase
+  id: DHClothingMaskTornScarfBlack
+  name: torn black scarf
+  description: A ragged black scarf, worn thin by the field.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Mask/TornScarfs/black.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Mask/TornScarfs/black.rsi
+
+- type: entity
+  parent: ClothingMaskBase
+  id: DHClothingMaskTornScarfGreen
+  name: torn green scarf
+  description: A ragged green scarf, worn thin by the field.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Mask/TornScarfs/green.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Mask/TornScarfs/green.rsi
+
+- type: entity
+  parent: ClothingMaskBase
+  id: DHClothingMaskTornScarfGrey
+  name: torn grey scarf
+  description: A ragged grey scarf, worn thin by the field.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Mask/TornScarfs/grey.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Mask/TornScarfs/grey.rsi
+
+- type: entity
+  parent: [DrinkBaseMaterialStrongMetal, SolutionSmall, DrinkBase]
+  id: DHDrinkCanteen
+  name: canteen
+  description: A military water canteen.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Consumable/Drinks/canteen.rsi
+    state: canteen
+  - type: Item
+    size: Small
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Water
+        Quantity: 60
+
+- type: entity
+  parent: [DrinkBaseMaterialStrongMetal, SolutionSmall, DrinkBase]
+  id: DHDrinkMetalFlask
+  name: metal hip flask
+  description: A battered metal hip flask with a unit stamp.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Consumable/Drinks/canteen.rsi
+    state: flask_marine
+  - type: Item
+    size: Small

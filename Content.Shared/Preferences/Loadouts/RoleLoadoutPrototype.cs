@@ -40,4 +40,12 @@ public sealed partial class RoleLoadoutPrototype : IPrototype
     /// </summary>
     [DataField]
     public int? Points;
+
+    // DarkestHour: лоадаут кладёт личные вещи в рюкзак, который выдаёт снаряжение должности, —
+    // поэтому снаряжение должности надевается раньше лоадаута.
+    /// <summary>
+    /// Equip the job's starting gear before this loadout (the loadout only adds items to the job's backpack).
+    /// </summary>
+    [DataField("dhAfterStartingGear")]
+    public bool DHAfterStartingGear;
 }

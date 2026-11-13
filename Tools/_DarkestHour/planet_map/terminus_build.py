@@ -873,6 +873,11 @@ class World:
         self.occ.discard((x, y))
         self.ent(proto, x, y)
 
+    def spawns(self, proto, cells):
+        """Точки появления должностей (решение автора 2026-11-13) — маркеры, клетку не занимают."""
+        for x, y in cells:
+            self.ent(proto, x, y, free=True)
+
     def cable(self, proto, cells):
         for x, y in cells:
             self.ents.append((proto, x + 0.5, y + 0.5, 0.0, None, None))
@@ -987,6 +992,8 @@ class World:
         self.ent('DHVehicleRAM45', (b0 + b1) // 2, y0 + 8, R180, free=True)
         self.ent('DHVehicleTruckRepublic', c0 + 2, y0 + 7, R180, free=True)
         self.ent('DHVehicleTruckRepublic', c1 - 2, y0 + 7, R180, free=True)
+        self.spawns('DHSpawnPointRepublicArmor', [(a0 + 1, y0 + 3), (a0 + 2, y0 + 3), (b0 + 1, y0 + 3),
+                                                  (b0 + 2, y0 + 3)])
         self.reserve(x0, y0, x1, y1 + 3)
         self.wire_room(x0, y0, x1, y1, (x0 + 11, y1), 'N')
 
@@ -1072,6 +1079,12 @@ class World:
         self.ent('Chair', x1 - 3, y1 - 4)
         self.ent('LockerSecurity', x0 + 17, y1 - 1)
         self.ent('LockerSecurity', x0 + 18, y1 - 1)
+        # командование гарнизона появляется здесь; стойки снаряжения рядом
+        self.ent('DHGearVendorRepublicEquipment', x1 - 1, y0 + 9)
+        self.ent('DHGearVendorRepublicAttachments', x1 - 1, y0 + 10)
+        self.ent('DHArmorRack', x1 - 1, y0 + 12)
+        self.spawns('DHSpawnPointRepublicCommand', [(x0 + 17, y0 + 10), (x0 + 18, y0 + 10), (x0 + 17, y0 + 11),
+                                                    (x0 + 18, y0 + 11)])
         self.ent('SignSecurity', x0 + 11, y0 + 7, free=True)
         self.wire_room(x0, y0, x1, y1, (x1 - 4, y0), 'S')
 
@@ -1108,6 +1121,8 @@ class World:
                                    'DHBarbedWire10', 'DHBarbedWire10']):
             self.ent(stack, x1 - 1, y0 + 1 + i)
         self.ent('SignArmory', x0 + 8, y0, free=True)
+        self.spawns('DHSpawnPointRepublicArsenal', [(x0 + 9, y0 + 1), (x0 + 10, y0 + 1), (x0 + 9, y0 + 2),
+                                                    (x0 + 10, y0 + 2)])
         self.wire_room(x0, y0, x1, y1, (x1 - 3, y0), 'S')
 
     def blockhouse(self):
@@ -1124,6 +1139,8 @@ class World:
         self.ent('DHLiftPlatformTerminus', cx, y0 + 4, foot=[(cx + i, y0 + 4 + j) for i in (-1, 0, 1) for j in (-1, 0, 1)])
         self.ent('DHLiftPanelTerminus', cx + 3, y0 + 3)
         self.ent('DHPowerRiserTerminusUp', x0 + 1, y0 + 1)
+        # опоздавшие появляются и здесь, у спуска в казармы
+        self.spawns('SpawnPointLatejoin', [(x0 + 2, y1 - 4), (x1 - 2, y1 - 4)])
         self.cable('CableMV', [(x0 + 1, y) for y in range(BASE_ROAD_Y[1] + 1, y0 + 2)])
         self.wire_room(x0, y0, x1, y1, (x1 - 1, y0), 'S')
 
@@ -1133,6 +1150,8 @@ class World:
         for gx, gy, proto in ((x1 - 5, y1 - 5, 'DHAntiAirGun'), (x1 - 4, BASE_ROAD_Y[0] - 4, 'DHAntiAirGun'),
                               (x1 - 11, y1 - 7, 'DHFieldGun90')):
             self.ent(proto, gx, gy)
+            if proto == 'DHAntiAirGun':
+                self.spawns('DHSpawnPointRepublicAntiAir', [(gx - 1, gy - 1), (gx + 1, gy - 1)])
             for dx in range(-2, 3):
                 for dy in (-2, 2):
                     self.ent('DHSandbagBarricade', gx + dx, gy + dy)
@@ -1220,7 +1239,7 @@ class World:
                 for by in range(ry0 + 3, ry1 - 1, 3):
                     b.ent('RMCBedBunk', bx, by)
                     if spawns < 25:
-                        b.ent('SpawnPointAnyJob', bx, by, free=True)
+                        b.ent('DHSpawnPointRepublicInfantry', bx, by, free=True)
                         spawns += 1
                     elif late < 4:
                         b.ent('SpawnPointLatejoin', bx, by, free=True)
@@ -1274,6 +1293,7 @@ class World:
             b.item(it, rx0 + 8 + i, ry1 - 3)
         b.ent('CrateMedicalSupplies', rx1 - 2, ry1 - 1)
         b.ent('BannerMedical', rx0 + 1, ry1 - 1)
+        b.spawns('DHSpawnPointRepublicMedic', [(rx0 + 3 + 2 * i, ry0 + 5) for i in range(4)])
         # --- операционные
         for name in ('or1', 'or2'):
             rx0, ry0, rx1, ry1 = rooms_s[name]

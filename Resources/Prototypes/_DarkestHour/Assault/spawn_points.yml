@@ -1,0 +1,301 @@
+# Точки появления «Штурма» по должностям (решение автора 2026-11-13): командование Республики — в комендатуре,
+# пехота — в казармах бункера, медики — в медблоке, зенитчики — у ПВО, сапёры и расчёты — в арсенале, экипажи — в
+# ангарах. Командование Империи — в своих каютах, экипаж авианосца — на постах (пилоты у челнока, пилот штурмовика у
+# лифта самолёта, артиллеристы у орудий, техники в инженерном), десант — в казармах, медики — в лаборатории, расчёты и
+# экипажи — у своей техники на ВПП. Точки ставят генераторы terminus_build.py и build_carrier.py.
+# job_id обязателен: точка без него принимает любую должность.
+
+# --- Республика: командование — комендатура
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: DHSpawnPointRepublicCommand
+  name: garrison command spawn point
+  components:
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DHGarrisonCommander
+    jobs:
+    - DHGarrisonOfficer
+    - DHGarrisonArtilleryOfficer
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _DarkestHour/Interface/Misc/job_icons.rsi
+      state: RepublicCommander
+
+# --- Республика: пехота — казармы бункера
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: DHSpawnPointRepublicInfantry
+  name: garrison infantry spawn point
+  components:
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DHGarrisonRifleman
+    jobs:
+    - DHGarrisonMachinegunner
+    - DHGarrisonSniper
+    - DHGarrisonFlamer
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _DarkestHour/Interface/Misc/job_icons.rsi
+      state: RepublicRifleman
+
+# --- Республика: медики — медблок бункера
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: DHSpawnPointRepublicMedic
+  name: garrison medic spawn point
+  components:
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DHGarrisonMedic
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _DarkestHour/Interface/Misc/job_icons.rsi
+      state: RepublicMedic
+
+# --- Республика: зенитчики — позиции ПВО
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: DHSpawnPointRepublicAntiAir
+  name: garrison AA gunner spawn point
+  components:
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DHGarrisonAAGunner
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _DarkestHour/Interface/Misc/job_icons.rsi
+      state: RepublicAAGunner
+
+# --- Республика: сапёры и расчёты — арсенал
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: DHSpawnPointRepublicArsenal
+  name: garrison sapper and gun crew spawn point
+  components:
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DHGarrisonSapper
+    jobs:
+    - DHGarrisonMortarCommander
+    - DHGarrisonMortarOperator
+    - DHGarrisonFieldArtillerist
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _DarkestHour/Interface/Misc/job_icons.rsi
+      state: RepublicSapper
+
+# --- Республика: экипажи — ангары
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: DHSpawnPointRepublicArmor
+  name: garrison vehicle crew spawn point
+  components:
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DHGarrisonTankCommander
+    jobs:
+    - DHGarrisonTankCrew
+    - DHGarrisonAPCCommander
+    - DHGarrisonAPCCrew
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _DarkestHour/Interface/Misc/job_icons.rsi
+      state: RepublicTankCommander
+
+# --- Империя: каюты командования
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: DHSpawnPointImperialOperationCommander
+  name: operation commander spawn point
+  components:
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DHCarrierOperationCommander
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _DarkestHour/Interface/Misc/job_icons.rsi
+      state: ImperialOperationCommander
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: DHSpawnPointImperialCaptain
+  name: carrier captain spawn point
+  components:
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DHCarrierCaptain
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _DarkestHour/Interface/Misc/job_icons.rsi
+      state: ImperialCaptain
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: DHSpawnPointImperialMarineCommander
+  name: landing force commander spawn point
+  components:
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DHMarineCommander
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _DarkestHour/Interface/Misc/job_icons.rsi
+      state: ImperialCommander
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: DHSpawnPointImperialSupportOfficer
+  name: support officer spawn point
+  components:
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DHCarrierSupportOfficer
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _DarkestHour/Interface/Misc/job_icons.rsi
+      state: ImperialSupportOfficer
+
+# --- Империя: экипаж авианосца — на своих постах
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: DHSpawnPointImperialPilot
+  name: dropship pilot spawn point
+  components:
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DHCarrierPilot
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _DarkestHour/Interface/Misc/job_icons.rsi
+      state: ImperialPilot
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: DHSpawnPointImperialAttackPilot
+  name: attack aircraft pilot spawn point
+  components:
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DHCarrierAttackPilot
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _DarkestHour/Interface/Misc/job_icons.rsi
+      state: ImperialPilot
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: DHSpawnPointImperialArtillerist
+  name: carrier artillerist spawn point
+  components:
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DHCarrierArtillerist
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _DarkestHour/Interface/Misc/job_icons.rsi
+      state: ImperialArtillerist
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: DHSpawnPointImperialTechnician
+  name: carrier technician spawn point
+  components:
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DHCarrierTechnician
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _DarkestHour/Interface/Misc/job_icons.rsi
+      state: ImperialTechnician
+
+# --- Империя: десант
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: DHSpawnPointImperialInfantry
+  name: marine infantry spawn point
+  components:
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DHMarineRifleman
+    jobs:
+    - DHMarineWeaponsSpecialist
+    - DHMarineMachinegunner
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _DarkestHour/Interface/Misc/job_icons.rsi
+      state: ImperialRifleman
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: DHSpawnPointImperialMedic
+  name: marine field medic spawn point
+  components:
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DHMarineFieldMedic
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _DarkestHour/Interface/Misc/job_icons.rsi
+      state: ImperialMedic
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: DHSpawnPointImperialArtillery
+  name: marine gun crew spawn point
+  components:
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DHMarineMortarCommander
+    jobs:
+    - DHMarineMortarOperator
+    - DHMarineFieldArtillerist
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _DarkestHour/Interface/Misc/job_icons.rsi
+      state: ImperialMortarCommander
+
+- type: entity
+  parent: SpawnPointJobBase
+  id: DHSpawnPointImperialArmor
+  name: marine vehicle crew spawn point
+  components:
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DHMarineTankCommander
+    jobs:
+    - DHMarineTankCrew
+    - DHMarineAPCCommander
+    - DHMarineAPCCrew
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _DarkestHour/Interface/Misc/job_icons.rsi
+      state: ImperialTankCommander

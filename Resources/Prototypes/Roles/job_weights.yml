@@ -49,3 +49,11 @@
     Warden: 5
     Psychologist: 0
     Reporter: 0
+    # DarkestHour: командование «Штурма» — сверху списка и первым при раздаче должностей (решение автора 2026-11-13).
+    DHCarrierOperationCommander: 40
+    DHCarrierCaptain: 35
+    DHMarineCommander: 30
+    DHCarrierSupportOfficer: 25
+    DHGarrisonCommander: 40
+    DHGarrisonOfficer: 30
+    DHGarrisonArtilleryOfficer: 25

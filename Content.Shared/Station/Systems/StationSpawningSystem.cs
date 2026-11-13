@@ -375,7 +375,10 @@ public sealed partial class StationSpawningSystem : EntitySystem
             EntityManager.System<Content.Shared._DarkestHour.Characters.DHCharacterDescriptionSystem>().Apply(entity.Value, profile);
         }
 
-        if (loadout != null)
+        // DarkestHour: лоадауты «Штурма» кладут вещи в рюкзак из снаряжения должности — сначала снаряжение.
+        var gearFirst = roleProto?.DHAfterStartingGear == true;
+
+        if (loadout != null && !gearFirst)
         {
             EquipRoleLoadout(entity.Value, loadout, roleProto!);
         }
@@ -384,6 +387,11 @@ public sealed partial class StationSpawningSystem : EntitySystem
         {
             var startingGear = ProtoMan.Index<StartingGearPrototype>(prototype.StartingGear);
             EquipStartingGear(entity.Value, startingGear, raiseEvent: false);
+        }
+
+        if (loadout != null && gearFirst)
+        {
+            EquipRoleLoadout(entity.Value, loadout, roleProto!);
         }
 
         var gearEquippedEv = new StartingGearEquippedEvent(entity.Value);

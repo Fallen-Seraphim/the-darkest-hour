@@ -296,6 +296,8 @@
     channels:
     - Syndicate
     - DHImperialCommand
+    - DHImperialSkat
+    - DHImperialSupply
     - DHSquadTau
     - DHSquadEpsilon
     - DHSquadOmega
