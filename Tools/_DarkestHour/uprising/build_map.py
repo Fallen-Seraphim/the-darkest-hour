@@ -1048,6 +1048,7 @@ def catacombs():
             for dy in (-2, -1):
                 lv.put(front_spawn(), cx + dx, cy + dy)
         lv.put('CrateGenericSteel', cx - 4, cy + 3)
+        lv.put('DHFlagFrontPlanted', cx - 4, cy + 2)      # знамя ячейки (решение автора 2026-11-13)
         lv.put('RMCBedBunkBlue', cx + 4, cy + 3)
     lv.put(LIGHT_DIM, 12, 21, ROT_N)
     # скрытые проходы наверх: в парковку «Ворот» (−2) и в техэтаж метро

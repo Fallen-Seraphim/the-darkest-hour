@@ -362,6 +362,7 @@ put('DHTentImperialFolded', rx1 - 1, ry1 - 19)
 put('DHTentImperialMedicalFolded', rx1 - 1, ry1 - 20)
 put('DHCamoNetFolded', rx1 - 1, ry1 - 22, n=2)
 put('DHClothingOuterGhillie', rx1 - 1, ry1 - 23, n=2)
+put('DHFlagEmpire', rx1 - 1, ry1 - 24, n=2)   # водрузить на захваченной позиции
 spawn('DHSpawnPointImperialArmor', [(rx1 - 3, ry1 - 2 - i) for i in range(5)], 4)
 spawn('DHSpawnPointImperialArtillery', [(rx1 - 3, ry1 - 8 - i) for i in range(6)], 4)
 
@@ -458,8 +459,9 @@ put('TableReinforced', cx - 1, y0 + 2)
 put('TableReinforced', cx, y0 + 2)
 put('TableReinforced', cx + 1, y0 + 2)
 put('DHFieldPhoneEmpireBridge', cx, y0 + 3)
-put('SyndieFlag', x0, y0)
-put('SyndieFlag', x1, y0)
+# флаги Первой Империи по углам мостика (решение автора 2026-11-13)
+put('DHFlagEmpirePlanted', x0, y0)
+put('DHFlagEmpirePlanted', x1, y0)
 # каюты командования: только командный доступ Империи (решение автора 2026-11-13); в каждой — своя должность и
 # стойки снаряжения (раздатчики снаряжения и модулей, стойка обслуживания брони)
 CMD = 'DHAirlockImperialCommandGlassLocked'

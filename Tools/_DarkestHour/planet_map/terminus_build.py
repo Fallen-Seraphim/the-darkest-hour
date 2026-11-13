@@ -1083,6 +1083,7 @@ class World:
         self.ent('DHGearVendorRepublicEquipment', x1 - 1, y0 + 9)
         self.ent('DHGearVendorRepublicAttachments', x1 - 1, y0 + 10)
         self.ent('DHArmorRack', x1 - 1, y0 + 12)
+        self.ent('DHFlagRepublicPlanted', x1 - 2, y0 + 12)   # флаг Республики в кабинете коменданта
         self.spawns('DHSpawnPointRepublicCommand', [(x0 + 17, y0 + 10), (x0 + 18, y0 + 10), (x0 + 17, y0 + 11),
                                                     (x0 + 18, y0 + 11)])
         self.ent('SignSecurity', x0 + 11, y0 + 7, free=True)
@@ -1118,7 +1119,7 @@ class World:
             self.ent(crate, x, y)
         # мешки и колючка стопками у входа
         for i, stack in enumerate(['DHSandbagsFull25', 'DHSandbagsFull25', 'DHSandbagsEmpty25', 'DHSandbagsEmpty25',
-                                   'DHBarbedWire10', 'DHBarbedWire10']):
+                                   'DHBarbedWire10', 'DHBarbedWire10', 'DHFlagRepublic']):
             self.ent(stack, x1 - 1, y0 + 1 + i)
         self.ent('SignArmory', x0 + 8, y0, free=True)
         self.spawns('DHSpawnPointRepublicArsenal', [(x0 + 9, y0 + 1), (x0 + 10, y0 + 1), (x0 + 9, y0 + 2),
