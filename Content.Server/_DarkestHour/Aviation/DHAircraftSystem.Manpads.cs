@@ -1,5 +1,6 @@
 using System.Numerics;
 using Content.Shared._DarkestHour.Aviation;
+using static Content.Shared._DarkestHour.Aviation.DHAircraftBallistics;
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
 using Content.Shared.Interaction;

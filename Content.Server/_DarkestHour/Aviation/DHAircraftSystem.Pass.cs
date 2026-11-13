@@ -1,5 +1,6 @@
 using System.Numerics;
 using Content.Shared._DarkestHour.Aviation;
+using static Content.Shared._DarkestHour.Aviation.DHAircraftBallistics;
 using Robust.Shared.Audio;
 using Robust.Shared.Map;
 
@@ -19,38 +20,6 @@ public sealed partial class DHAircraftSystem
     private readonly List<PendingBomb> _bombs = new();
 
     private readonly record struct PendingBomb(MapCoordinates Target, TimeSpan Impact, DHAircraftMunition Kind, Vector2 Direction);
-
-    /// <summary>Разброс очередей пушки, клеток.</summary>
-    private static float CannonSpread(DHAircraftAltitude altitude) => altitude switch
-    {
-        DHAircraftAltitude.Low => 0.8f,
-        DHAircraftAltitude.Medium => 1.6f,
-        _ => 2.6f,
-    };
-
-    /// <summary>Рассеивание бомб, клеток.</summary>
-    private static float BombScatter(DHAircraftAltitude altitude) => altitude switch
-    {
-        DHAircraftAltitude.Low => 1f,
-        DHAircraftAltitude.Medium => 2.5f,
-        _ => 4.5f,
-    };
-
-    /// <summary>Время падения бомбы, с (самолёт за это время пролетает упреждение).</summary>
-    private static float BombFall(DHAircraftAltitude altitude) => altitude switch
-    {
-        DHAircraftAltitude.Low => 0.8f,
-        DHAircraftAltitude.Medium => 1.3f,
-        _ => 1.9f,
-    };
-
-    /// <summary>Насколько ПВО опаснее (или безопаснее) на этой высоте.</summary>
-    private static float AirDefenceFactor(DHAircraftAltitude altitude) => altitude switch
-    {
-        DHAircraftAltitude.Low => 1.6f,
-        DHAircraftAltitude.Medium => 1f,
-        _ => 0.55f,
-    };
 
     private Vector2 RandomInDisc(float radius)
     {
@@ -175,15 +144,6 @@ public sealed partial class DHAircraftSystem
         UpdateUi(ent);
     }
 
-    private void OnCannonAction(Entity<DHAircraftPilotComponent> ent, ref DHAircraftCannonActionEvent args)
-    {
-        if (args.Handled || !TryComp<DHAircraftComponent>(ent.Comp.Aircraft, out var aircraft))
-            return;
-
-        args.Handled = true;
-        SetCannon((ent.Comp.Aircraft, aircraft), !aircraft.CannonOn);
-    }
-
     private void OnCannonMessage(Entity<DHAircraftComponent> ent, ref DHAircraftCannonMessage args)
     {
         if (IsPilot(ent, args.Actor))
@@ -209,54 +169,25 @@ public sealed partial class DHAircraftSystem
         UpdateUi(ent);
     }
 
-    private void OnDropAction(Entity<DHAircraftPilotComponent> ent, ref DHAircraftDropActionEvent args)
+    /// <summary>
+    /// Сброс свободнопадающей бомбы с узла: на бреющем, с упреждением по курсу и рассеиванием. <paramref name="index"/> —
+    /// номер бомбы в серии: каждая следующая уходит на <see cref="DHAircraftBallistics.SalvoInterval"/> позже и ложится
+    /// дальше по курсу (так же считает баллистический вычислитель).
+    /// </summary>
+    private void DropSlot(Entity<DHAircraftComponent> ent, int slot, int index)
     {
-        if (args.Handled || !TryComp<DHAircraftComponent>(ent.Comp.Aircraft, out var aircraft))
-            return;
-
-        args.Handled = true;
-        Drop((ent.Comp.Aircraft, aircraft));
-    }
-
-    private void OnDropMessage(Entity<DHAircraftComponent> ent, ref DHAircraftDropMessage args)
-    {
-        if (IsPilot(ent, args.Actor))
-            Drop(ent);
-    }
-
-    /// <summary>Сбросить бомбу с первого заряженного узла: на бреющем, с упреждением по курсу и рассеиванием.</summary>
-    private void Drop(Entity<DHAircraftComponent> ent)
-    {
-        if (ent.Comp.State != DHAircraftState.Pass)
-        {
-            Notify(ent, Loc.GetString("dh-aircraft-drop-not-pass"));
-            return;
-        }
-
-        // Сначала выбранный узел, если на нём свободнопадающая бомба, иначе — первый такой.
-        var selected = ent.Comp.SelectedHardpoint;
-        var slot = selected >= 0 && selected < ent.Comp.Hardpoints.Count && IsFreeFall(ent.Comp.Hardpoints[selected])
-            ? selected
-            : ent.Comp.Hardpoints.FindIndex(IsFreeFall);
-        if (slot < 0)
-        {
-            Notify(ent, Loc.GetString("dh-aircraft-drop-empty"), true);
-            return;
-        }
-
         var xform = Transform(ent);
-        var fall = BombFall(ent.Comp.Altitude);
-        var nose = ent.Comp.Heading.RotateVec(Vector2.UnitY);
-        var target = _transform.GetWorldPosition(xform) + nose * ent.Comp.PassSpeed * fall +
-                     RandomInDisc(BombScatter(ent.Comp.Altitude));
+        var altitude = ent.Comp.Altitude;
+        var nose = Nose(ent.Comp.Heading);
+        var target = BombImpact(_transform.GetWorldPosition(xform), nose, ent.Comp.PassSpeed, altitude, index) +
+                     RandomInDisc(BombScatter(altitude));
 
         var kind = ent.Comp.Hardpoints[slot];
         ent.Comp.Hardpoints[slot] = DHAircraftMunition.None;
+        ent.Comp.SelectedHardpoints.Remove(slot);
         Dirty(ent);
-        _bombs.Add(new PendingBomb(new MapCoordinates(target, GroundMapId(ent)), _timing.CurTime + TimeSpan.FromSeconds(fall),
-            kind, nose));
-        Notify(ent, Loc.GetString("dh-aircraft-drop-released", ("slot", slot + 1)));
-        UpdateUi(ent);
+        _bombs.Add(new PendingBomb(new MapCoordinates(target, GroundMapId(ent)),
+            _timing.CurTime + TimeSpan.FromSeconds(BombFall(altitude) + index * SalvoInterval), kind, nose));
     }
 
     private void UpdateBombs(TimeSpan now)
@@ -303,9 +234,11 @@ public sealed partial class DHAircraftSystem
             comp.NextBurst = now + comp.CannonInterval;
             if (!CanBurst(comp))
             {
+                // Снаряды кончились — или пилот снял выбор со всех контейнеров.
                 comp.CannonOn = false;
                 Dirty(ent);
-                Notify(ent, Loc.GetString("dh-aircraft-cannon-empty"), true);
+                var empty = comp.CannonAmmo < comp.RoundsPerBurst;
+                Notify(ent, Loc.GetString(empty ? "dh-aircraft-cannon-empty" : "dh-aircraft-cannon-off"), empty);
             }
             else
             {
@@ -317,12 +250,19 @@ public sealed partial class DHAircraftSystem
             EndPass(ent);
     }
 
-    /// <summary>Хотя бы в одном пушечном контейнере хватает снарядов на очередь.</summary>
+    /// <summary>Контейнер на узле выбран и в нём хватает снарядов на очередь.</summary>
+    private static bool PodReady(DHAircraftComponent comp, int slot)
+    {
+        return comp.Hardpoints[slot] == DHAircraftMunition.CannonPod && comp.SelectedHardpoints.Contains(slot) &&
+               PodAmmo(comp, slot) >= comp.RoundsPerBurst;
+    }
+
+    /// <summary>Хотя бы один выбранный пушечный контейнер готов дать очередь.</summary>
     private static bool CanBurst(DHAircraftComponent comp)
     {
         for (var i = 0; i < comp.Hardpoints.Count; i++)
         {
-            if (comp.Hardpoints[i] == DHAircraftMunition.CannonPod && PodAmmo(comp, i) >= comp.RoundsPerBurst)
+            if (PodReady(comp, i))
                 return true;
         }
 
@@ -330,23 +270,22 @@ public sealed partial class DHAircraftSystem
     }
 
     /// <summary>
-    /// Очередь 30 мм: каждый заряженный контейнер даёт свою очередь впереди по курсу, со смещением в сторону своего крыла
-    /// (узлы 1–2 — левое крыло, 3–4 — правое), с разбросом по высоте.
+    /// Очередь 30 мм: каждый выбранный заряженный контейнер даёт свою очередь впереди по курсу, со смещением в сторону
+    /// своего крыла (узлы 1–2 — левое крыло, 3–4 — правое), с разбросом по высоте.
     /// </summary>
     private void FireBurst(Entity<DHAircraftComponent> ent, Vector2 position, Vector2 direction, MapId map, TimeSpan now)
     {
         var comp = ent.Comp;
-        var right = new Vector2(direction.Y, -direction.X);
         Vector2? lastTarget = null;
 
         for (var i = 0; i < comp.Hardpoints.Count; i++)
         {
-            if (comp.Hardpoints[i] != DHAircraftMunition.CannonPod || PodAmmo(comp, i) < comp.RoundsPerBurst)
+            if (!PodReady(comp, i))
                 continue;
 
             SetPodAmmo(comp, i, PodAmmo(comp, i) - comp.RoundsPerBurst);
-            var side = i < comp.Hardpoints.Count / 2 ? -1f : 1f;
-            var target = position + direction * comp.CannonLead + right * side * 1.5f + RandomInDisc(CannonSpread(comp.Altitude));
+            var target = CannonImpact(position, direction, comp.CannonLead, i, comp.Hardpoints.Count) +
+                         RandomInDisc(CannonSpread(comp.Altitude));
             _explosion.QueueExplosion(new MapCoordinates(target, map), CannonExplosion, 14f, 7f, 7f, null, canCreateVacuum: false);
             lastTarget = target;
         }

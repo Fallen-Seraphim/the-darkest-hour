@@ -53,6 +53,8 @@
     interfaces:
       enum.DHAircraftUiKey.Flight:
         type: DHAircraftBoundUserInterface
+      enum.DHAircraftUiKey.Weapons:
+        type: DHAircraftWeaponsBoundUserInterface
 
 - type: entity
   id: DHAttackAircraftSeat
@@ -317,13 +319,14 @@
   - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
   - type: DHPowerLoaderGrabbable
 
-# --- способности пилота (появляются, когда пристёгиваешься к креслу)
+# --- способности пилота (появляются, когда пристёгиваешься к креслу): только интерфейс полёта и катапультирование;
+# вооружение — в своём интерфейсе (кнопка «Вооружение» в интерфейсе полёта), решение автора 2026-11-13.
 
 - type: entity
   parent: BaseAction
   id: DHActionAircraftFlight
   name: Flight panel
-  description: Open the flight panel — catapult, take-off, speed, autopilot and the tactical map.
+  description: Open the flight panel — catapult, take-off, speed, stick, low pass, flares, autopilot and the weapons console.
   components:
   - type: Action
     raiseOnUser: true # контейнер — кресло; события ловит пилот (DHAircraftPilot)
@@ -335,91 +338,6 @@
     - state: base
   - type: InstantAction
     event: !type:DHAircraftFlightActionEvent
-
-- type: entity
-  parent: BaseAction
-  id: DHActionAircraftControl
-  name: Flight controls (WASD)
-  description: Take or release the stick — while it is on, WASD sets the course of the aircraft in the air.
-  components:
-  - type: Action
-    raiseOnUser: true # контейнер — кресло; события ловит пилот (DHAircraftPilot)
-    itemIconStyle: NoItem
-    useDelay: 0.5
-  - type: Sprite
-    layers:
-    - texture: Interface/VerbIcons/rotate_cw.svg.192dpi.png
-      map: [ "enum.ActionVisuals.Icon" ]
-  - type: InstantAction
-    event: !type:DHAircraftControlActionEvent
-
-- type: entity
-  parent: BaseAction
-  id: DHActionAircraftFlares
-  name: Fire flares
-  description: Throw out infrared decoys — for a few seconds enemy air defence cannot lock on. Fire them before passing over enemy anti-air guns.
-  components:
-  - type: Action
-    raiseOnUser: true # контейнер — кресло; события ловит пилот (DHAircraftPilot)
-    itemIconStyle: NoItem
-    useDelay: 2
-  - type: Sprite
-    sprite: Objects/Misc/flare.rsi
-    layers:
-    - state: flare_burn
-  - type: InstantAction
-    event: !type:DHAircraftFlaresActionEvent
-
-- type: entity
-  parent: BaseAction
-  id: DHActionAircraftCannon
-  name: 30 mm cannon
-  description: Arm or safe the cannon. While armed it fires bursts along the course during a low pass.
-  components:
-  - type: Action
-    raiseOnUser: true # контейнер — кресло; события ловит пилот (DHAircraftPilot)
-    itemIconStyle: NoItem
-    useDelay: 0.5
-  - type: Sprite
-    sprite: _RMC14/Objects/dropship_attachments.rsi
-    layers:
-    - state: 30mm_cannon
-  - type: InstantAction
-    event: !type:DHAircraftCannonActionEvent
-
-- type: entity
-  parent: BaseAction
-  id: DHActionAircraftDrop
-  name: Release bomb
-  description: Drop the next bomb from the hardpoints. Only on a low pass; it falls ahead along the course.
-  components:
-  - type: Action
-    raiseOnUser: true # контейнер — кресло; события ловит пилот (DHAircraftPilot)
-    itemIconStyle: NoItem
-    useDelay: 1
-  - type: Sprite
-    sprite: _RMC14/Objects/dropship_ammo_64.rsi
-    layers:
-    - state: jdam
-  - type: InstantAction
-    event: !type:DHAircraftDropActionEvent
-
-- type: entity
-  parent: BaseAction
-  id: DHActionAircraftFire
-  name: Launch
-  description: Fire the munition on the selected hardpoint — guided ones from the atmosphere at the selected target, free-fall ones on a low pass.
-  components:
-  - type: Action
-    raiseOnUser: true # контейнер — кресло; события ловит пилот (DHAircraftPilot)
-    itemIconStyle: NoItem
-    useDelay: 1
-  - type: Sprite
-    sprite: _RMC14/Objects/dropship_ammo_64.rsi
-    layers:
-    - state: banshee
-  - type: InstantAction
-    event: !type:DHAircraftFireActionEvent
 
 - type: entity
   parent: BaseAction

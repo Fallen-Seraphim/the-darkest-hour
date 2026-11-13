@@ -96,12 +96,11 @@ public sealed partial class DHAircraftSystem : EntitySystem
         SubscribeLocalEvent<DHAircraftSeatComponent, UnstrapAttemptEvent>(OnUnstrapAttempt);
 
         SubscribeLocalEvent<DHAircraftPilotComponent, DHAircraftFlightActionEvent>(OnFlightAction);
-        SubscribeLocalEvent<DHAircraftPilotComponent, DHAircraftControlActionEvent>(OnControlAction);
-        SubscribeLocalEvent<DHAircraftPilotComponent, DHAircraftFlaresActionEvent>(OnFlaresAction);
         SubscribeLocalEvent<DHAircraftPilotComponent, DHAircraftEjectActionEvent>(OnEjectAction);
-        SubscribeLocalEvent<DHAircraftPilotComponent, DHAircraftCannonActionEvent>(OnCannonAction);
-        SubscribeLocalEvent<DHAircraftPilotComponent, DHAircraftDropActionEvent>(OnDropAction);
-        SubscribeLocalEvent<DHAircraftPilotComponent, DHAircraftFireActionEvent>(OnFireAction);
+
+        // Оба окна (полёт и вооружение): местность карты и высота бреющего — без фильтра по ключу.
+        SubscribeLocalEvent<DHAircraftComponent, DHTacticalMapRequestMessage>(OnTerrainRequest);
+        SubscribeLocalEvent<DHAircraftComponent, DHAircraftAltitudeMessage>(OnAltitude);
 
         Subs.BuiEvents<DHAircraftComponent>(DHAircraftUiKey.Flight, subs =>
         {
@@ -110,17 +109,22 @@ public sealed partial class DHAircraftSystem : EntitySystem
             subs.Event<DHAircraftReturnMessage>(OnReturnMessage);
             subs.Event<DHAircraftSpeedMessage>(OnSpeedMessage);
             subs.Event<DHAircraftControlMessage>(OnControlMessage);
-            subs.Event<DHTacticalMapRequestMessage>(OnTerrainRequest);
             subs.Event<DHAircraftPassPointMessage>(OnPassPoint);
             subs.Event<DHAircraftClearPassMessage>(OnClearPass);
             subs.Event<DHAircraftStartPassMessage>(OnStartPass);
-            subs.Event<DHAircraftAltitudeMessage>(OnAltitude);
-            subs.Event<DHAircraftCannonMessage>(OnCannonMessage);
-            subs.Event<DHAircraftDropMessage>(OnDropMessage);
-            subs.Event<DHAircraftSelectHardpointMessage>(OnSelectHardpoint);
-            subs.Event<DHAircraftMapModeMessage>(OnMapMode);
+            subs.Event<DHAircraftFlaresMessage>(OnFlaresMessage);
+            subs.Event<DHAircraftOpenWeaponsMessage>(OnOpenWeapons);
+        });
+
+        // Управление вооружением (решение автора 2026-11-13): подвески, цель, огонь, баллистический вычислитель.
+        Subs.BuiEvents<DHAircraftComponent>(DHAircraftUiKey.Weapons, subs =>
+        {
+            subs.Event<DHAircraftToggleHardpointMessage>(OnToggleHardpoint);
+            subs.Event<DHAircraftSelectAllMessage>(OnSelectAll);
             subs.Event<DHAircraftTargetMessage>(OnTarget);
+            subs.Event<DHAircraftClearTargetMessage>(OnClearTarget);
             subs.Event<DHAircraftFireMessage>(OnFireMessage);
+            subs.Event<DHAircraftCannonMessage>(OnCannonMessage);
         });
 
         SubscribeLocalEvent<DHAircraftLiftComponent, MapInitEvent>(OnLiftMapInit);
@@ -194,7 +198,10 @@ public sealed partial class DHAircraftSystem : EntitySystem
         RemComp<DHAirborneComponent>(pilot); // катапультировался — дальше уязвим, как все
 
         if (ent.Comp.Aircraft is { } aircraft)
+        {
             _ui.CloseUi(aircraft, DHAircraftUiKey.Flight, pilot);
+            _ui.CloseUi(aircraft, DHAircraftUiKey.Weapons, pilot);
+        }
     }
 
     /// <summary>В воздухе и на разгоне из кресла не выйти — только катапультироваться.</summary>
@@ -499,6 +506,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
             munition.Rounds = kind == DHAircraftMunition.CannonPod ? PodAmmo(ent.Comp, slot) : munition.Rounds;
 
         ent.Comp.Hardpoints[slot] = DHAircraftMunition.None;
+        ent.Comp.SelectedHardpoints.Remove(slot);
         SetPodAmmo(ent.Comp, slot, 0);
         if (ent.Comp.CannonOn && ent.Comp.CannonPods == 0)
             ent.Comp.CannonOn = false;
@@ -854,13 +862,14 @@ public sealed partial class DHAircraftSystem : EntitySystem
             UpdateUi((ent.Comp.Aircraft, aircraft));
     }
 
-    private void OnControlAction(Entity<DHAircraftPilotComponent> ent, ref DHAircraftControlActionEvent args)
+    /// <summary>Кнопка «Вооружение» в интерфейсе полёта: открыть (или закрыть) управление вооружением.</summary>
+    private void OnOpenWeapons(Entity<DHAircraftComponent> ent, ref DHAircraftOpenWeaponsMessage args)
     {
-        if (args.Handled || !TryComp<DHAircraftComponent>(ent.Comp.Aircraft, out var aircraft))
+        if (!IsPilot(ent, args.Actor))
             return;
 
-        args.Handled = true;
-        SetControl((ent.Comp.Aircraft, aircraft), !aircraft.Control);
+        _ui.TryToggleUi(ent.Owner, DHAircraftUiKey.Weapons, args.Actor);
+        UpdateUi(ent);
     }
 
     private void OnControlMessage(Entity<DHAircraftComponent> ent, ref DHAircraftControlMessage args)
@@ -995,13 +1004,13 @@ public sealed partial class DHAircraftSystem : EntitySystem
         UpdateUi(ent);
     }
 
-    private void OnFlaresAction(Entity<DHAircraftPilotComponent> ent, ref DHAircraftFlaresActionEvent args)
+    private void OnFlaresMessage(Entity<DHAircraftComponent> ent, ref DHAircraftFlaresMessage args)
     {
-        if (args.Handled || !TryComp<DHAircraftComponent>(ent.Comp.Aircraft, out var aircraft))
+        if (!IsPilot(ent, args.Actor))
             return;
 
-        args.Handled = true;
-        var plane = (ent.Comp.Aircraft, aircraft);
+        var aircraft = ent.Comp;
+        var plane = ent;
         if (aircraft.State is not (DHAircraftState.Airborne or DHAircraftState.Returning or DHAircraftState.Pass))
         {
             Notify(plane, Loc.GetString("dh-aircraft-flares-ground"));
@@ -1021,10 +1030,14 @@ public sealed partial class DHAircraftSystem : EntitySystem
         }
 
         var now = _timing.CurTime;
+        // Не чаще раза в 2 с (как была задержка у способности): двойной клик не тратит две кассеты.
+        if (now < aircraft.FlaresUntil - aircraft.FlareDuration + TimeSpan.FromSeconds(2))
+            return;
+
         aircraft.Flares--;
         aircraft.FlaresUntil = now + aircraft.FlareDuration;
-        Dirty(ent.Comp.Aircraft, aircraft);
-        _audio.PlayPvs(aircraft.FlareSound, ent.Comp.Aircraft);
+        Dirty(ent);
+        _audio.PlayPvs(aircraft.FlareSound, ent);
         Notify(plane, Loc.GetString("dh-aircraft-flares-fired", ("left", aircraft.Flares)));
         UpdateUi(plane);
     }
@@ -1043,7 +1056,9 @@ public sealed partial class DHAircraftSystem : EntitySystem
 
     private void UpdateUi(Entity<DHAircraftComponent> ent)
     {
-        if (!_ui.IsUiOpen(ent.Owner, DHAircraftUiKey.Flight))
+        var flight = _ui.IsUiOpen(ent.Owner, DHAircraftUiKey.Flight);
+        var weapons = _ui.IsUiOpen(ent.Owner, DHAircraftUiKey.Weapons);
+        if (!flight && !weapons)
             return;
 
         var fuel = GetFuel(ent, out var max);
@@ -1081,14 +1096,20 @@ public sealed partial class DHAircraftSystem : EntitySystem
             Hardpoints = new List<DHAircraftMunition>(ent.Comp.Hardpoints),
             HardpointAmmo = new List<int>(ent.Comp.HardpointAmmo),
             Modules = new List<DHAircraftModule>(ent.Comp.Modules),
-            SelectedHardpoint = ent.Comp.SelectedHardpoint,
-            MapMode = ent.Comp.MapMode,
+            SelectedHardpoints = new List<int>(ent.Comp.SelectedHardpoints),
             TargetPoint = ent.Comp.TargetPoint,
             TargetLabel = ent.Comp.TargetLabel,
+            TargetLocked = ent.Comp.TargetEntity != null || ent.Comp.TargetIsMark,
+            TargetInfantry = ent.Comp.TargetIsInfantry,
+            LaunchRange = ent.Comp.LaunchRange,
             Signatures = new List<DHAircraftSignature>(ent.Comp.Signatures),
         };
 
-        _ui.SetUiState(ent.Owner, DHAircraftUiKey.Flight, state);
+        // Оба окна читают одно состояние: каждое берёт своё.
+        if (flight)
+            _ui.SetUiState(ent.Owner, DHAircraftUiKey.Flight, state);
+        if (weapons)
+            _ui.SetUiState(ent.Owner, DHAircraftUiKey.Weapons, state);
     }
 
     private void OnTerrainRequest(Entity<DHAircraftComponent> ent, ref DHTacticalMapRequestMessage args)

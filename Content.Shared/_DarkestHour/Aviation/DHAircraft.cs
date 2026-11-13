@@ -224,9 +224,12 @@ public sealed partial class DHAircraftComponent : Component
     [DataField]
     public TimeSpan LoadTime = TimeSpan.FromSeconds(3);
 
-    /// <summary>Выбранный узел подвески (на дисплее управления вооружением).</summary>
+    /// <summary>
+    /// Выбранные узлы подвески (интерфейс управления вооружением, решение автора 2026-11-13): «Огонь» активирует их все
+    /// сразу — бомбы уходят серией, управляемые — по цели, пушечные контейнеры взводятся и бьют на бреющем.
+    /// </summary>
     [ViewVariables, AutoNetworkedField]
-    public int SelectedHardpoint;
+    public List<int> SelectedHardpoints = new();
 
     /// <summary>Что спавнить, когда боеприпас снимают с узла на палубе.</summary>
     [DataField]
@@ -256,9 +259,6 @@ public sealed partial class DHAircraftComponent : Component
     };
 
     // ---------------------------------------------------------------- удары из атмосферы (этап 3)
-
-    [ViewVariables, AutoNetworkedField]
-    public DHAircraftMapMode MapMode = DHAircraftMapMode.Pass;
 
     /// <summary>Точка цели для пуска из атмосферы (координаты поверхности).</summary>
     [ViewVariables, AutoNetworkedField]
@@ -438,14 +438,6 @@ public sealed partial class DHAircraftModuleComponent : Component
     public int Flares;
 }
 
-/// <summary>Что показывает правый клик по тактической карте: линия захода или цель для пуска из атмосферы.</summary>
-[Serializable, NetSerializable]
-public enum DHAircraftMapMode : byte
-{
-    Pass,
-    Target,
-}
-
 [Serializable, NetSerializable]
 public enum DHAircraftSignatureKind : byte
 {
@@ -497,11 +489,6 @@ public sealed partial class DHAircraftSeatComponent : Component
     public List<EntProtoId> Actions = new()
     {
         "DHActionAircraftFlight",
-        "DHActionAircraftControl",
-        "DHActionAircraftFlares",
-        "DHActionAircraftCannon",
-        "DHActionAircraftDrop",
-        "DHActionAircraftFire",
         "DHActionAircraftEject",
     };
 
@@ -585,22 +572,16 @@ public sealed partial class DHAircraftRepairDoAfterEvent : SimpleDoAfterEvent;
 
 public sealed partial class DHAircraftFlightActionEvent : InstantActionEvent;
 
-public sealed partial class DHAircraftControlActionEvent : InstantActionEvent;
-
-public sealed partial class DHAircraftFlaresActionEvent : InstantActionEvent;
-
 public sealed partial class DHAircraftEjectActionEvent : InstantActionEvent;
-
-public sealed partial class DHAircraftCannonActionEvent : InstantActionEvent;
-
-public sealed partial class DHAircraftDropActionEvent : InstantActionEvent;
-
-public sealed partial class DHAircraftFireActionEvent : InstantActionEvent;
 
 [Serializable, NetSerializable]
 public enum DHAircraftUiKey : byte
 {
+    /// <summary>Интерфейс полёта: катапульта, скорость, ручка, заход, ЛТЦ, посадка.</summary>
     Flight,
+
+    /// <summary>Управление вооружением: подвески, цель, огонь и баллистический вычислитель.</summary>
+    Weapons,
 }
 
 [Serializable, NetSerializable]
@@ -642,10 +623,17 @@ public sealed class DHAircraftBuiState : BoundUserInterfaceState
     public List<DHAircraftMunition> Hardpoints = new();
     public List<int> HardpointAmmo = new();
     public List<DHAircraftModule> Modules = new();
-    public int SelectedHardpoint;
-    public DHAircraftMapMode MapMode;
+    public List<int> SelectedHardpoints = new();
     public Vector2? TargetPoint;
     public string? TargetLabel;
+
+    /// <summary>Цель захвачена (машина по сигнатуре или метка ЛЦУ) — по ней можно пускать ракеты.</summary>
+    public bool TargetLocked;
+
+    /// <summary>Цель — скопление пехоты без метки: ракету не навести.</summary>
+    public bool TargetInfantry;
+
+    public float LaunchRange;
     public List<DHAircraftSignature> Signatures = new();
 }
 
@@ -699,31 +687,41 @@ public sealed class DHAircraftCannonMessage(bool on) : BoundUserInterfaceMessage
     public readonly bool On = on;
 }
 
+/// <summary>Выбрать или снять узел подвески (выбрано может быть сколько угодно).</summary>
 [Serializable, NetSerializable]
-public sealed class DHAircraftDropMessage : BoundUserInterfaceMessage;
-
-[Serializable, NetSerializable]
-public sealed class DHAircraftSelectHardpointMessage(int slot) : BoundUserInterfaceMessage
+public sealed class DHAircraftToggleHardpointMessage(int slot) : BoundUserInterfaceMessage
 {
     public readonly int Slot = slot;
 }
 
+/// <summary>Выбрать все заряженные узлы (true) или снять выбор со всех (false).</summary>
 [Serializable, NetSerializable]
-public sealed class DHAircraftMapModeMessage(DHAircraftMapMode mode) : BoundUserInterfaceMessage
+public sealed class DHAircraftSelectAllMessage(bool select) : BoundUserInterfaceMessage
 {
-    public readonly DHAircraftMapMode Mode = mode;
+    public readonly bool Select = select;
 }
 
-/// <summary>Цель для пуска из атмосферы: правый клик по карте в режиме «Цель».</summary>
+/// <summary>Цель для пуска из атмосферы: правый клик по карте в интерфейсе управления вооружением.</summary>
 [Serializable, NetSerializable]
 public sealed class DHAircraftTargetMessage(Vector2 point) : BoundUserInterfaceMessage
 {
     public readonly Vector2 Point = point;
 }
 
-/// <summary>Пуск управляемого боеприпаса с выбранного узла по выбранной цели.</summary>
+[Serializable, NetSerializable]
+public sealed class DHAircraftClearTargetMessage : BoundUserInterfaceMessage;
+
+/// <summary>Огонь: активировать все выбранные узлы подвески сразу.</summary>
 [Serializable, NetSerializable]
 public sealed class DHAircraftFireMessage : BoundUserInterfaceMessage;
+
+/// <summary>Из интерфейса полёта: открыть управление вооружением.</summary>
+[Serializable, NetSerializable]
+public sealed class DHAircraftOpenWeaponsMessage : BoundUserInterfaceMessage;
+
+/// <summary>Отстрелить ЛТЦ (кнопка интерфейса полёта).</summary>
+[Serializable, NetSerializable]
+public sealed class DHAircraftFlaresMessage : BoundUserInterfaceMessage;
 
 /// <summary>
 /// Самолёт в воздухе, его кресло, фонарь и пилот (ставит и снимает сервер по состоянию самолёта). Взрывы, поджог и
