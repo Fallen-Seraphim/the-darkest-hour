@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Drawn by Claude (Anthropic) for The Darkest Hour; stack layout after spacecash.rsi from RMC-14 (cmss13, CC-BY-SA-3.0)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "urc_1"
+    },
+    {
+      "name": "urc_10"
+    },
+    {
+      "name": "urc_20"
+    },
+    {
+      "name": "urc_50"
+    },
+    {
+      "name": "urc_100"
+    },
+    {
+      "name": "urc_200"
+    },
+    {
+      "name": "urc_500"
+    },
+    {
+      "name": "urc_1000"
+    },
+    {
+      "name": "urc_5000"
+    },
+    {
+      "name": "urc_10000"
+    }
+  ]
+}

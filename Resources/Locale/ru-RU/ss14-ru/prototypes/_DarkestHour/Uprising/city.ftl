@@ -1,5 +1,5 @@
 ent-DHRepublicCredit = республиканские кредиты
-    .desc = Банкноты Соединённой Республики. Единственная валюта, которую принимают автоматы Лост-Энджелса.
+    .desc = Банкноты Соединённой Республики с пометкой URC. Единственная валюта, которую принимают автоматы Лост-Энджелса.
 ent-DHRepublicCredit10 = { ent-DHRepublicCredit }
     .desc = { ent-DHRepublicCredit.desc }
 ent-DHRepublicCredit50 = { ent-DHRepublicCredit }
