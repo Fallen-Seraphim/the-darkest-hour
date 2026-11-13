@@ -15,6 +15,18 @@
   access:
   - DHRepublic
   - DHRepublicCommand
+  # ranks: build_ranks.py
+  ranks:
+    DHRankRepublicColonel:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonCommander
+      time: 360000 # 100 ч
+    DHRankRepublicLieutenantColonel:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonCommander
+      time: 108000 # 30 ч
+    DHRankRepublicMajor: []
+  # /ranks
 
 - type: job
   id: DHGarrisonOfficer
@@ -27,6 +39,14 @@
   access:
   - DHRepublic
   - DHRepublicCommand
+  # ranks: build_ranks.py
+  ranks:
+    DHRankRepublicFirstLieutenant:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonOfficer
+      time: 90000 # 25 ч
+    DHRankRepublicSecondLieutenant: []
+  # /ranks
 
 - type: job
   id: DHGarrisonRifleman
@@ -38,6 +58,18 @@
   supervisors: dh-job-garrison-supervisors
   access:
   - DHRepublic
+  # ranks: build_ranks.py
+  ranks:
+    DHRankRepublicLanceCorporal:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonRifleman
+      time: 180000 # 50 ч
+    DHRankRepublicPrivateFirstClass:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonRifleman
+      time: 36000 # 10 ч
+    DHRankRepublicPrivate: []
+  # /ranks
 
 - type: job
   id: DHGarrisonMachinegunner
@@ -49,6 +81,18 @@
   supervisors: dh-job-garrison-supervisors
   access:
   - DHRepublic
+  # ranks: build_ranks.py
+  ranks:
+    DHRankRepublicLanceCorporal:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonMachinegunner
+      time: 180000 # 50 ч
+    DHRankRepublicPrivateFirstClass:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonMachinegunner
+      time: 36000 # 10 ч
+    DHRankRepublicPrivate: []
+  # /ranks
 
 - type: job
   id: DHGarrisonSniper
@@ -60,6 +104,18 @@
   supervisors: dh-job-garrison-supervisors
   access:
   - DHRepublic
+  # ranks: build_ranks.py
+  ranks:
+    DHRankRepublicLanceCorporal:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonSniper
+      time: 180000 # 50 ч
+    DHRankRepublicPrivateFirstClass:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonSniper
+      time: 36000 # 10 ч
+    DHRankRepublicPrivate: []
+  # /ranks
 
 - type: job
   id: DHGarrisonFlamer
@@ -71,6 +127,18 @@
   supervisors: dh-job-garrison-supervisors
   access:
   - DHRepublic
+  # ranks: build_ranks.py
+  ranks:
+    DHRankRepublicLanceCorporal:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonFlamer
+      time: 180000 # 50 ч
+    DHRankRepublicPrivateFirstClass:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonFlamer
+      time: 36000 # 10 ч
+    DHRankRepublicPrivate: []
+  # /ranks
 
 - type: job
   id: DHGarrisonAAGunner
@@ -82,6 +150,18 @@
   supervisors: dh-job-garrison-supervisors
   access:
   - DHRepublic
+  # ranks: build_ranks.py
+  ranks:
+    DHRankRepublicLanceCorporal:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonAAGunner
+      time: 180000 # 50 ч
+    DHRankRepublicPrivateFirstClass:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonAAGunner
+      time: 36000 # 10 ч
+    DHRankRepublicPrivate: []
+  # /ranks
 
 - type: job
   id: DHGarrisonMedic
@@ -93,6 +173,14 @@
   supervisors: dh-job-garrison-supervisors
   access:
   - DHRepublic
+  # ranks: build_ranks.py
+  ranks:
+    DHRankRepublicCorporal:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonMedic
+      time: 90000 # 25 ч
+    DHRankRepublicPrivateFirstClass: []
+  # /ranks
 
 - type: job
   id: DHGarrisonSapper
@@ -104,6 +192,18 @@
   supervisors: dh-job-garrison-supervisors
   access:
   - DHRepublic
+  # ranks: build_ranks.py
+  ranks:
+    DHRankRepublicLanceCorporal:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonSapper
+      time: 180000 # 50 ч
+    DHRankRepublicPrivateFirstClass:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonSapper
+      time: 36000 # 10 ч
+    DHRankRepublicPrivate: []
+  # /ranks
 
 - type: job
   id: DHCarrierCaptain
@@ -120,6 +220,14 @@
   - NuclearOperative
   - SyndicateAgent
   - DHImperialCommand
+  # ranks: build_ranks.py
+  ranks:
+    DHRankImperialCaptain1:
+    - !type:RoleTimeRequirement
+      role: JobDHCarrierCaptain
+      time: 180000 # 50 ч
+    DHRankImperialCaptain2: []
+  # /ranks
 
 - type: job
   id: DHCarrierPilot
@@ -134,6 +242,14 @@
   access:
   - NuclearOperative
   - SyndicateAgent
+  # ranks: build_ranks.py
+  ranks:
+    DHRankImperialFlagLieutenant:
+    - !type:RoleTimeRequirement
+      role: JobDHCarrierPilot
+      time: 90000 # 25 ч
+    DHRankImperialFleetLieutenant: []
+  # /ranks
 
 # Пилот штурмовика (решение автора 2026-11-12): один на раунд.
 - type: job
@@ -149,6 +265,14 @@
   access:
   - NuclearOperative
   - SyndicateAgent
+  # ranks: build_ranks.py
+  ranks:
+    DHRankImperialFlagLieutenant:
+    - !type:RoleTimeRequirement
+      role: JobDHCarrierAttackPilot
+      time: 90000 # 25 ч
+    DHRankImperialFleetLieutenant: []
+  # /ranks
 
 - type: job
   id: DHCarrierArtillerist
@@ -163,6 +287,18 @@
   access:
   - NuclearOperative
   - SyndicateAgent
+  # ranks: build_ranks.py
+  ranks:
+    DHRankImperialMasterSeaman:
+    - !type:RoleTimeRequirement
+      role: JobDHCarrierArtillerist
+      time: 180000 # 50 ч
+    DHRankImperialSeniorSeaman:
+    - !type:RoleTimeRequirement
+      role: JobDHCarrierArtillerist
+      time: 36000 # 10 ч
+    DHRankImperialSeaman: []
+  # /ranks
 
 - type: job
   id: DHCarrierTechnician
@@ -177,6 +313,18 @@
   access:
   - NuclearOperative
   - SyndicateAgent
+  # ranks: build_ranks.py
+  ranks:
+    DHRankImperialMasterSeaman:
+    - !type:RoleTimeRequirement
+      role: JobDHCarrierTechnician
+      time: 180000 # 50 ч
+    DHRankImperialSeniorSeaman:
+    - !type:RoleTimeRequirement
+      role: JobDHCarrierTechnician
+      time: 36000 # 10 ч
+    DHRankImperialSeaman: []
+  # /ranks
 
 - type: job
   id: DHMarineCommander
@@ -193,6 +341,14 @@
   - NuclearOperative
   - SyndicateAgent
   - DHImperialCommand
+  # ranks: build_ranks.py
+  ranks:
+    DHRankImperialFlagCaptain:
+    - !type:RoleTimeRequirement
+      role: JobDHMarineCommander
+      time: 180000 # 50 ч
+    DHRankImperialCaptain: []
+  # /ranks
 
 - type: job
   id: DHMarineWeaponsSpecialist
@@ -207,6 +363,18 @@
   access:
   - NuclearOperative
   - SyndicateAgent
+  # ranks: build_ranks.py
+  ranks:
+    DHRankImperialJuniorInfantryOfficer:
+    - !type:RoleTimeRequirement
+      role: JobDHMarineWeaponsSpecialist
+      time: 180000 # 50 ч
+    DHRankImperialLanceCorporal:
+    - !type:RoleTimeRequirement
+      role: JobDHMarineWeaponsSpecialist
+      time: 36000 # 10 ч
+    DHRankImperialMarine: []
+  # /ranks
 
 - type: job
   id: DHMarineFieldMedic
@@ -221,6 +389,14 @@
   access:
   - NuclearOperative
   - SyndicateAgent
+  # ranks: build_ranks.py
+  ranks:
+    DHRankImperialJuniorInfantryOfficer:
+    - !type:RoleTimeRequirement
+      role: JobDHMarineFieldMedic
+      time: 90000 # 25 ч
+    DHRankImperialLanceCorporal: []
+  # /ranks
 
 - type: job
   id: DHMarineMachinegunner
@@ -235,6 +411,18 @@
   access:
   - NuclearOperative
   - SyndicateAgent
+  # ranks: build_ranks.py
+  ranks:
+    DHRankImperialJuniorInfantryOfficer:
+    - !type:RoleTimeRequirement
+      role: JobDHMarineMachinegunner
+      time: 180000 # 50 ч
+    DHRankImperialLanceCorporal:
+    - !type:RoleTimeRequirement
+      role: JobDHMarineMachinegunner
+      time: 36000 # 10 ч
+    DHRankImperialMarine: []
+  # /ranks
 
 - type: job
   id: DHMarineRifleman
@@ -249,6 +437,18 @@
   access:
   - NuclearOperative
   - SyndicateAgent
+  # ranks: build_ranks.py
+  ranks:
+    DHRankImperialJuniorInfantryOfficer:
+    - !type:RoleTimeRequirement
+      role: JobDHMarineRifleman
+      time: 180000 # 50 ч
+    DHRankImperialLanceCorporal:
+    - !type:RoleTimeRequirement
+      role: JobDHMarineRifleman
+      time: 36000 # 10 ч
+    DHRankImperialMarine: []
+  # /ranks
 
 # Расчёты, экипажи техники и офицеры поддержки (решение автора 2026-11-05)
 
@@ -264,6 +464,14 @@
   access:
   - DHRepublic
   - DHRepublicCommand
+  # ranks: build_ranks.py
+  ranks:
+    DHRankRepublicCaptain:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonArtilleryOfficer
+      time: 90000 # 25 ч
+    DHRankRepublicFirstLieutenant: []
+  # /ranks
 
 - type: job
   id: DHGarrisonMortarCommander
@@ -275,6 +483,18 @@
   supervisors: dh-job-garrison-supervisors
   access:
   - DHRepublic
+  # ranks: build_ranks.py
+  ranks:
+    DHRankRepublicStaffSergeant:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonMortarCommander
+      time: 252000 # 70 ч
+    DHRankRepublicSergeant:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonMortarCommander
+      time: 90000 # 25 ч
+    DHRankRepublicCorporal: []
+  # /ranks
 
 - type: job
   id: DHGarrisonMortarOperator
@@ -286,6 +506,18 @@
   supervisors: dh-job-garrison-supervisors
   access:
   - DHRepublic
+  # ranks: build_ranks.py
+  ranks:
+    DHRankRepublicLanceCorporal:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonMortarOperator
+      time: 180000 # 50 ч
+    DHRankRepublicPrivateFirstClass:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonMortarOperator
+      time: 36000 # 10 ч
+    DHRankRepublicPrivate: []
+  # /ranks
 
 - type: job
   id: DHGarrisonFieldArtillerist
@@ -297,6 +529,18 @@
   supervisors: dh-job-garrison-supervisors
   access:
   - DHRepublic
+  # ranks: build_ranks.py
+  ranks:
+    DHRankRepublicLanceCorporal:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonFieldArtillerist
+      time: 180000 # 50 ч
+    DHRankRepublicPrivateFirstClass:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonFieldArtillerist
+      time: 36000 # 10 ч
+    DHRankRepublicPrivate: []
+  # /ranks
 
 - type: job
   id: DHGarrisonTankCommander
@@ -308,6 +552,18 @@
   supervisors: dh-job-garrison-supervisors
   access:
   - DHRepublic
+  # ranks: build_ranks.py
+  ranks:
+    DHRankRepublicStaffSergeant:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonTankCommander
+      time: 252000 # 70 ч
+    DHRankRepublicSergeant:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonTankCommander
+      time: 90000 # 25 ч
+    DHRankRepublicCorporal: []
+  # /ranks
 
 - type: job
   id: DHGarrisonTankCrew
@@ -319,6 +575,18 @@
   supervisors: dh-job-garrison-supervisors
   access:
   - DHRepublic
+  # ranks: build_ranks.py
+  ranks:
+    DHRankRepublicLanceCorporal:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonTankCrew
+      time: 180000 # 50 ч
+    DHRankRepublicPrivateFirstClass:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonTankCrew
+      time: 36000 # 10 ч
+    DHRankRepublicPrivate: []
+  # /ranks
 
 - type: job
   id: DHGarrisonAPCCommander
@@ -330,6 +598,18 @@
   supervisors: dh-job-garrison-supervisors
   access:
   - DHRepublic
+  # ranks: build_ranks.py
+  ranks:
+    DHRankRepublicStaffSergeant:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonAPCCommander
+      time: 252000 # 70 ч
+    DHRankRepublicSergeant:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonAPCCommander
+      time: 90000 # 25 ч
+    DHRankRepublicCorporal: []
+  # /ranks
 
 - type: job
   id: DHGarrisonAPCCrew
@@ -341,6 +621,18 @@
   supervisors: dh-job-garrison-supervisors
   access:
   - DHRepublic
+  # ranks: build_ranks.py
+  ranks:
+    DHRankRepublicLanceCorporal:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonAPCCrew
+      time: 180000 # 50 ч
+    DHRankRepublicPrivateFirstClass:
+    - !type:RoleTimeRequirement
+      role: JobDHGarrisonAPCCrew
+      time: 36000 # 10 ч
+    DHRankRepublicPrivate: []
+  # /ranks
 
 - type: job
   id: DHCarrierOperationCommander
@@ -357,6 +649,14 @@
   - NuclearOperative
   - SyndicateAgent
   - DHImperialCommand
+  # ranks: build_ranks.py
+  ranks:
+    DHRankImperialFlagMajor:
+    - !type:RoleTimeRequirement
+      role: JobDHCarrierOperationCommander
+      time: 360000 # 100 ч
+    DHRankImperialMajor: []
+  # /ranks
 
 - type: job
   id: DHCarrierSupportOfficer
@@ -372,6 +672,14 @@
   - NuclearOperative
   - SyndicateAgent
   - DHImperialCommand
+  # ranks: build_ranks.py
+  ranks:
+    DHRankImperialCaptain3:
+    - !type:RoleTimeRequirement
+      role: JobDHCarrierSupportOfficer
+      time: 90000 # 25 ч
+    DHRankImperialFlagLieutenant: []
+  # /ranks
 
 - type: job
   id: DHMarineMortarCommander
@@ -386,6 +694,14 @@
   access:
   - NuclearOperative
   - SyndicateAgent
+  # ranks: build_ranks.py
+  ranks:
+    DHRankImperialCommandor:
+    - !type:RoleTimeRequirement
+      role: JobDHMarineMortarCommander
+      time: 90000 # 25 ч
+    DHRankImperialInfantryOfficer: []
+  # /ranks
 
 - type: job
   id: DHMarineMortarOperator
@@ -400,6 +716,18 @@
   access:
   - NuclearOperative
   - SyndicateAgent
+  # ranks: build_ranks.py
+  ranks:
+    DHRankImperialJuniorInfantryOfficer:
+    - !type:RoleTimeRequirement
+      role: JobDHMarineMortarOperator
+      time: 180000 # 50 ч
+    DHRankImperialLanceCorporal:
+    - !type:RoleTimeRequirement
+      role: JobDHMarineMortarOperator
+      time: 36000 # 10 ч
+    DHRankImperialMarine: []
+  # /ranks
 
 - type: job
   id: DHMarineFieldArtillerist
@@ -414,6 +742,18 @@
   access:
   - NuclearOperative
   - SyndicateAgent
+  # ranks: build_ranks.py
+  ranks:
+    DHRankImperialJuniorInfantryOfficer:
+    - !type:RoleTimeRequirement
+      role: JobDHMarineFieldArtillerist
+      time: 180000 # 50 ч
+    DHRankImperialLanceCorporal:
+    - !type:RoleTimeRequirement
+      role: JobDHMarineFieldArtillerist
+      time: 36000 # 10 ч
+    DHRankImperialMarine: []
+  # /ranks
 
 - type: job
   id: DHMarineTankCommander
@@ -428,6 +768,14 @@
   access:
   - NuclearOperative
   - SyndicateAgent
+  # ranks: build_ranks.py
+  ranks:
+    DHRankImperialCommandor:
+    - !type:RoleTimeRequirement
+      role: JobDHMarineTankCommander
+      time: 90000 # 25 ч
+    DHRankImperialInfantryOfficer: []
+  # /ranks
 
 - type: job
   id: DHMarineTankCrew
@@ -442,6 +790,18 @@
   access:
   - NuclearOperative
   - SyndicateAgent
+  # ranks: build_ranks.py
+  ranks:
+    DHRankImperialJuniorInfantryOfficer:
+    - !type:RoleTimeRequirement
+      role: JobDHMarineTankCrew
+      time: 180000 # 50 ч
+    DHRankImperialLanceCorporal:
+    - !type:RoleTimeRequirement
+      role: JobDHMarineTankCrew
+      time: 36000 # 10 ч
+    DHRankImperialMarine: []
+  # /ranks
 
 - type: job
   id: DHMarineAPCCommander
@@ -456,6 +816,14 @@
   access:
   - NuclearOperative
   - SyndicateAgent
+  # ranks: build_ranks.py
+  ranks:
+    DHRankImperialCommandor:
+    - !type:RoleTimeRequirement
+      role: JobDHMarineAPCCommander
+      time: 90000 # 25 ч
+    DHRankImperialInfantryOfficer: []
+  # /ranks
 
 - type: job
   id: DHMarineAPCCrew
@@ -470,6 +838,18 @@
   access:
   - NuclearOperative
   - SyndicateAgent
+  # ranks: build_ranks.py
+  ranks:
+    DHRankImperialJuniorInfantryOfficer:
+    - !type:RoleTimeRequirement
+      role: JobDHMarineAPCCrew
+      time: 180000 # 50 ч
+    DHRankImperialLanceCorporal:
+    - !type:RoleTimeRequirement
+      role: JobDHMarineAPCCrew
+      time: 36000 # 10 ч
+    DHRankImperialMarine: []
+  # /ranks
 
 # Отделы: в лобби должности сгруппированы по сторонам. Командование каждой стороны — отдельный отдел наверху списка
 # (решение автора 2026-11-13); порядок внутри — веса в Roles/job_weights.yml (командующий операцией — первый).

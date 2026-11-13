@@ -845,6 +845,14 @@
   - DHLAPolice
   - DHLAPoliceCommand
   - DHLAPoliceArmory
+  # ranks: build_ranks.py
+  ranks:
+    DHRankMPLieutenantColonel:
+    - !type:RoleTimeRequirement
+      role: JobDHLAMPChief
+      time: 180000 # 50 ч
+    DHRankMPMajor: []
+  # /ranks
 
 - type: playTimeTracker
   id: JobDHLAMPChief
@@ -890,6 +898,10 @@
   - DHLAPolice
   - DHLAPoliceCommand
   - DHLAPoliceArmory
+  # ranks: build_ranks.py
+  ranks:
+    DHRankMPCaptain: []
+  # /ranks
 
 - type: playTimeTracker
   id: JobDHLAMPDeputyChief
@@ -933,6 +945,14 @@
   supervisors: dh-job-la-military-police-supervisors
   access:
   - DHLAPolice
+  # ranks: build_ranks.py
+  ranks:
+    DHRankMPChiefWarrantOfficer:
+    - !type:RoleTimeRequirement
+      role: JobDHLAMPInvestigator
+      time: 180000 # 50 ч
+    DHRankMPWarrantOfficer: []
+  # /ranks
 
 - type: playTimeTracker
   id: JobDHLAMPInvestigator
@@ -978,6 +998,10 @@
   - DHLAPolice
   - DHLAPoliceCommand
   - DHLAPoliceArmory
+  # ranks: build_ranks.py
+  ranks:
+    DHRankMPStaffSergeant: []
+  # /ranks
 
 - type: playTimeTracker
   id: JobDHLAMPWarden
@@ -1021,6 +1045,14 @@
   supervisors: dh-job-la-military-police-supervisors
   access:
   - DHLAPolice
+  # ranks: build_ranks.py
+  ranks:
+    DHRankMPSergeant:
+    - !type:RoleTimeRequirement
+      role: JobDHLAMPOfficer
+      time: 90000 # 25 ч
+    DHRankMPCorporal: []
+  # /ranks
 
 - type: playTimeTracker
   id: JobDHLAMPOfficer
@@ -1064,6 +1096,10 @@
   supervisors: dh-job-la-military-police-supervisors
   access:
   - DHLAPolice
+  # ranks: build_ranks.py
+  ranks:
+    DHRankMPPrivate: []
+  # /ranks
 
 - type: playTimeTracker
   id: JobDHLAMPCadet
