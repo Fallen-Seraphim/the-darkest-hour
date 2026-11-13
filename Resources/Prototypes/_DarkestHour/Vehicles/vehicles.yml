@@ -184,6 +184,7 @@
       primary: [ "0,0", "0,0", "0,0", "0,0" ]
     exitOffset: 0,2.9
     wreck: DHVehicleWreckRAM45
+    key: APCRepublic # ключ — у командира машины
   - type: DHVehicleHardpoints
     family: RAM45
     slots:
@@ -274,6 +275,7 @@
       turret: [ "0,0", "0,0", "0,0", "0,0" ]
     exitOffset: 0,2.8
     wreck: DHVehicleWreckIM30
+    key: APCEmpire # ключ — у командира машины
   - type: DHVehicleHardpoints
     family: IM30
     slots:
@@ -407,6 +409,7 @@
     turretPivots: [ "0,0.36", "0,-0.16", "-0.16,0.2", "0.16,0.2" ] # юг, север, восток, запад
     exitOffset: 0,2.6
     wreck: DHVehicleWreckTankRepublic
+    key: TankRepublic # ключ — у командира машины
   - type: DHVehicleHardpoints
     family: TankRepublic
     slots:
@@ -469,6 +472,7 @@
     turretPivots: [ "0,0.3", "0,0.25", "-0.03,0.23", "0.03,0.23" ] # юг, север, восток, запад
     exitOffset: 0,2.6
     wreck: DHVehicleWreckTankEmpire
+    key: TankEmpire # ключ — у командира машины
   - type: DHVehicleHardpoints
     family: TankEmpire
     slots:

@@ -43,3 +43,4 @@ dh-vehicle-verb-unlock = Unlock the hatches
 dh-vehicle-locked-now = You lock the hatches. Nobody gets in from outside.
 dh-vehicle-unlocked-now = You unlock the hatches.
 dh-vehicle-periscope-look = You look through the periscope. Step away to stop.
+dh-vehicle-key-required = You need this vehicle's key to start it.

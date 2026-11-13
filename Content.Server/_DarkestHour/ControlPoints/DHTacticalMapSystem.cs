@@ -271,6 +271,9 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
         if (id.Contains("Asphalt") || id.Contains("Road"))
             return DHTacticalTerrain.Road;
 
+        if (id.Contains("Grass"))
+            return DHTacticalTerrain.Grass;
+
         if (surface != null && (id == surface.GroundTile.Id || surface.GroundTiles.Contains(id)) ||
             id.Contains("Sand") || id.Contains("Desert") || id.Contains("Dirt") || id.Contains("Grass"))
         {
