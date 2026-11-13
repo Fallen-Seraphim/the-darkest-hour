@@ -36,7 +36,7 @@ public sealed partial class DHDieselGeneratorComponent : Component
     public SoundSpecifier StartSound = new SoundPathSpecifier("/Audio/Machines/generator-tug-1.ogg");
 
     [ViewVariables]
-    public bool Running;
+    public bool IsRunning;
 }
 
 public sealed partial class DHDieselGeneratorSystem : EntitySystem
@@ -70,7 +70,7 @@ public sealed partial class DHDieselGeneratorSystem : EntitySystem
             return;
 
         args.Handled = true;
-        if (ent.Comp.Running)
+        if (ent.Comp.IsRunning)
         {
             SetRunning(ent, false);
             _popup.PopupEntity(Loc.GetString("dh-diesel-stopped"), ent, args.User);
@@ -94,7 +94,7 @@ public sealed partial class DHDieselGeneratorSystem : EntitySystem
         if (!args.IsInDetailsRange)
             return;
 
-        args.PushMarkup(Loc.GetString(ent.Comp.Running ? "dh-diesel-examine-running" : "dh-diesel-examine-stopped"));
+        args.PushMarkup(Loc.GetString(ent.Comp.IsRunning ? "dh-diesel-examine-running" : "dh-diesel-examine-stopped"));
         args.PushMarkup(Loc.GetString("dh-diesel-examine-fuel", ("fuel", Fuel(ent).Int())));
     }
 
@@ -107,7 +107,7 @@ public sealed partial class DHDieselGeneratorSystem : EntitySystem
 
     private void SetRunning(Entity<DHDieselGeneratorComponent> ent, bool running)
     {
-        ent.Comp.Running = running;
+        ent.Comp.IsRunning = running;
         if (TryComp<PowerSupplierComponent>(ent, out var supplier))
             supplier.MaxSupply = running ? ent.Comp.SupplyRate : 0f;
 
@@ -127,7 +127,7 @@ public sealed partial class DHDieselGeneratorSystem : EntitySystem
         var query = EntityQueryEnumerator<DHDieselGeneratorComponent>();
         while (query.MoveNext(out var uid, out var comp))
         {
-            if (!comp.Running)
+            if (!comp.IsRunning)
                 continue;
 
             var need = FixedPoint2.New(comp.FuelPerSecond * (float) Interval.TotalSeconds);
