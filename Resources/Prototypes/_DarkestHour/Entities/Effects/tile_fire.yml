@@ -32,3 +32,32 @@
           3: { state: dynamic_3 }
           4: { state: dynamic_4 }
   - type: DHTileFire
+
+# Магниевый огонь: белое пламя RMC-14 / CM-SS13 (white_*), яркий холодный свет. Реагент DHMagnesium.
+- type: entity
+  parent: DHTileFire
+  id: DHTileFireMagnesium
+  name: magnesium fire
+  description: Blinding white magnesium flame. Water barely touches it.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Effects/fire.rsi
+    noRot: true
+    drawdepth: WallTops
+    layers:
+    - state: white_4
+      map: [ "enum.DHTileFireLayers.Base" ]
+      shader: unshaded
+  - type: PointLight
+    radius: 5
+    energy: 4
+    color: "#e4ecff"
+    castShadows: false
+  - type: GenericVisualizer
+    visuals:
+      enum.DHTileFireVisuals.Level:
+        enum.DHTileFireLayers.Base:
+          1: { state: white_1 }
+          2: { state: white_2 }
+          3: { state: white_3 }
+          4: { state: white_4 }

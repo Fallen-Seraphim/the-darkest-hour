@@ -45,7 +45,7 @@ public sealed partial class DHAircraftSystem
     private const float IncendiaryBurn = 45f;
 
     private static readonly ProtoId<DHFlammableReagentPrototype> NapalmFuel = "Napalm";
-    private static readonly ProtoId<DHFlammableReagentPrototype> MagnesiumFuel = "Thermite";
+    private static readonly ProtoId<DHFlammableReagentPrototype> MagnesiumFuel = "DHMagnesium";
 
     [Dependency] private DHHeavyGunSystem _heavyGuns = default!;
 
@@ -428,7 +428,7 @@ public sealed partial class DHAircraftSystem
                     var point = target.Position + RandomInDisc(MagnesiumRadius);
                     var coordinates = new MapCoordinates(point, target.MapId);
                     _explosion.QueueExplosion(coordinates, FireExplosion, 30f, 4f, 10f, null, canCreateVacuum: false);
-                    // Очаг магния (термит): горит жарче напалма, отдельными пятнами.
+                    // Очаг магния: свой ослепительно-белый огонь, жарче напалма, вода его почти не берёт.
                     _heavyGuns.Ignite(coordinates, 1.3f, IncendiaryBurn, MagnesiumFuel, 0.85f);
                     foreach (var vehicle in _lookup.GetEntitiesInRange<DHVehicleComponent>(coordinates, 2f))
                     {

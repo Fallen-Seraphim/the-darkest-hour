@@ -50,7 +50,15 @@ public sealed partial class DHFlammableReagentPrototype : IPrototype
     [DataField]
     public float HotspotTemperature = 700f;
 
-    /// <summary>Цвет пламени и света.</summary>
+    /// <summary>Цвет пламени и света (красит серые состояния dynamic_*; белый — не красит).</summary>
     [DataField]
     public Color Color = Color.FromHex("#ee6515");
+
+    /// <summary>Свой огонь (сущность с другим спрайтом и светом) вместо обычного DHTileFire, например магний.</summary>
+    [DataField]
+    public EntProtoId? FireEntity;
+
+    /// <summary>На сколько секунд гасит огонь единица воды/пены. Магний вода почти не берёт.</summary>
+    [DataField]
+    public float ExtinguishPerUnit = 2f;
 }

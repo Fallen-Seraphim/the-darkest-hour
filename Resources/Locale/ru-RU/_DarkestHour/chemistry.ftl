@@ -47,3 +47,6 @@ reagent-desc-dh-urea = Азотное удобрение.
 
 dh-chemistry-toxic-fumes = Из смеси поднимается едкое облако!
 dh-entity-effect-guidebook-toxic-fumes = Часть продукта уходит ядовитым облаком ({$reagent})
+
+reagent-name-dh-magnesium = магний
+reagent-desc-dh-magnesium = Лёгкий серебристый металлический порошок. Горит ослепительно-белым пламенем жарче термита; вода его почти не гасит.

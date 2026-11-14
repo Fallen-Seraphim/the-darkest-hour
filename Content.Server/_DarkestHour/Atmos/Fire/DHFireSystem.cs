@@ -113,19 +113,30 @@ public sealed partial class DHFireSystem : EntitySystem
         }
 
         var end = _timing.CurTime + TimeSpan.FromSeconds(Math.Max(durationSeconds, 0.5f));
+        var fireProto = fuel.FireEntity ?? DefaultFire;
         if (TryGetFire(gridUid, grid, tile, out var existing))
         {
             var comp = existing.Value.Comp;
             if (end > comp.EndTime)
                 comp.EndTime = end;
 
-            if (fuel.Intensity >= comp.Intensity)
-                Apply(existing.Value, fuel);
+            if (fuel.Intensity < comp.Intensity)
+                return existing.Value;
 
-            return existing.Value;
+            // Более сильный реагент со своим огнём (магний) — меняем сам огонь, время горения сохраняем.
+            if (MetaData(existing.Value).EntityPrototype?.ID != fireProto)
+            {
+                end = comp.EndTime;
+                Del(existing.Value);
+            }
+            else
+            {
+                Apply(existing.Value, fuel);
+                return existing.Value;
+            }
         }
 
-        var uid = Spawn(DefaultFire, _map.GridTileToLocal(gridUid, grid, tile));
+        var uid = Spawn(fireProto, _map.GridTileToLocal(gridUid, grid, tile));
         var fire = EnsureComp<DHTileFireComponent>(uid);
         fire.SpawnedAt = _timing.CurTime;
         fire.NextTick = fire.SpawnedAt;
@@ -205,6 +216,7 @@ public sealed partial class DHFireSystem : EntitySystem
         fire.Comp.StructuralDamage = fuel.StructuralDamage;
         fire.Comp.HotspotTemperature = fuel.HotspotTemperature;
         fire.Comp.Color = fuel.Color;
+        fire.Comp.ExtinguishPerUnit = fuel.ExtinguishPerUnit;
         Dirty(fire);
 
         _appearance.SetData(fire, DHTileFireVisuals.Color, fuel.Color);
