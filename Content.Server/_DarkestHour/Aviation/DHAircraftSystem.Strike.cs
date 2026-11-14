@@ -1,7 +1,9 @@
 using System.Linq;
 using System.Numerics;
 using Content.Server._DarkestHour.Assault;
+using Content.Server._DarkestHour.HeavyGuns;
 using Content.Shared._DarkestHour.Assault;
+using Content.Shared._DarkestHour.Atmos.Fire;
 using Content.Shared._DarkestHour.Aviation;
 using static Content.Shared._DarkestHour.Aviation.DHAircraftBallistics;
 using Content.Shared._DarkestHour.HeavyGuns;
@@ -35,6 +37,17 @@ namespace Content.Server._DarkestHour.Aviation;
 public sealed partial class DHAircraftSystem
 {
     private const string FireExplosion = "DHArtilleryFire";
+
+    /// <summary>
+    /// Сколько горит земля после зажигательных бомб, с — как после зажигательного ОБ (DHHeavyGunSystem: 15 + калибр/10,
+    /// не больше 45 с; у каждого тайла ×0.7–1.2). Решение автора 2026-11-14.
+    /// </summary>
+    private const float IncendiaryBurn = 45f;
+
+    private static readonly ProtoId<DHFlammableReagentPrototype> NapalmFuel = "Napalm";
+    private static readonly ProtoId<DHFlammableReagentPrototype> MagnesiumFuel = "Thermite";
+
+    [Dependency] private DHHeavyGunSystem _heavyGuns = default!;
 
     private static readonly ProtoId<DamageTypePrototype> StructuralType = "Structural";
     private static readonly ProtoId<DamageTypePrototype> HeatType = "Heat";
@@ -373,6 +386,11 @@ public sealed partial class DHAircraftSystem
     private void Detonate(DHAircraftMunition kind, MapCoordinates target, Vector2 course, EntityUid? hit)
     {
         var side = new Vector2(-course.Y, course.X);
+
+        // Грунт планеты есть только вокруг живых игроков: без него взрыву нечего ломать и огню негде гореть
+        // (как у тяжёлых орудий — ставим грунт биома в зоне поражения).
+        _heavyGuns.PrepareGround(target, kind == DHAircraftMunition.BombCluster ? 9f : 7f);
+
         switch (kind)
         {
             case DHAircraftMunition.BombHE:
@@ -393,12 +411,12 @@ public sealed partial class DHAircraftSystem
                 break;
 
             case DHAircraftMunition.BombNapalm:
-                // Сплошная полоса огня вдоль курса.
+                // Сплошная полоса огня вдоль курса: вспышка и горящая земля на время зажигательного ОБ.
                 for (var i = -2; i <= 2; i++)
                 {
-                    var point = target.Position + course * (i * 2.5f);
-                    _explosion.QueueExplosion(new MapCoordinates(point, target.MapId), FireExplosion, 90f, 3f, 14f, null,
-                        canCreateVacuum: false);
+                    var point = new MapCoordinates(target.Position + course * (i * NapalmStep), target.MapId);
+                    _explosion.QueueExplosion(point, FireExplosion, 90f, 3f, 14f, null, canCreateVacuum: false);
+                    _heavyGuns.Ignite(point, 1.8f, IncendiaryBurn, NapalmFuel, 0.9f);
                 }
 
                 break;
@@ -407,9 +425,11 @@ public sealed partial class DHAircraftSystem
                 // Химический огонь отдельными очагами; прожигает броню — по технике рядом с очагом напрямую.
                 for (var i = 0; i < 6; i++)
                 {
-                    var point = target.Position + RandomInDisc(5f);
+                    var point = target.Position + RandomInDisc(MagnesiumRadius);
                     var coordinates = new MapCoordinates(point, target.MapId);
                     _explosion.QueueExplosion(coordinates, FireExplosion, 30f, 4f, 10f, null, canCreateVacuum: false);
+                    // Очаг магния (термит): горит жарче напалма, отдельными пятнами.
+                    _heavyGuns.Ignite(coordinates, 1.3f, IncendiaryBurn, MagnesiumFuel, 0.85f);
                     foreach (var vehicle in _lookup.GetEntitiesInRange<DHVehicleComponent>(coordinates, 2f))
                     {
                         _damage.TryChangeDamage(vehicle.Owner,
