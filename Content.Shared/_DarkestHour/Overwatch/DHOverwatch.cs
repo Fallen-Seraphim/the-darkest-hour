@@ -160,6 +160,9 @@ public enum DHTacticalMarkerKind : byte
 
     /// <summary>Контрбатарейная засечка: орудие противника где-то в круге радиусом Radius.</summary>
     CounterBattery,
+
+    /// <summary>Маяк сброса: Империи — включённые свои, Республике — тот, к которому летит груз.</summary>
+    DropBeacon,
 }
 
 [Serializable, NetSerializable]
@@ -184,7 +187,7 @@ public sealed class DHTacticalMarker
     /// <summary>Противник сейчас не виден: отметка «последний раз видели здесь».</summary>
     public bool Stale;
 
-    /// <summary>Противника подсветил ЛЦУ: отметка держится дольше.</summary>
+    /// <summary>Противника подсветил ЛЦУ: отметка держится дольше. У маяка сброса — к нему летит груз.</summary>
     public bool Lased;
 }
 

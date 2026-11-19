@@ -330,6 +330,16 @@ public sealed class DHTacticalMapControl : Control
                 case DHTacticalMarkerKind.Aircraft:
                     DrawAircraft(handle, p, marker);
                     break;
+                case DHTacticalMarkerKind.DropBeacon:
+                    // Маяк сброса: треножник; к нему летит груз — мигающее кольцо.
+                    var beaconColor = FactionColor(marker.Owner);
+                    handle.DrawLine(p + new Vector2(0, -7), p + new Vector2(-5, 5), beaconColor);
+                    handle.DrawLine(p + new Vector2(0, -7), p + new Vector2(5, 5), beaconColor);
+                    handle.DrawLine(p + new Vector2(0, -7), p + new Vector2(0, 5), beaconColor);
+                    if (marker.Lased && DateTime.Now.Millisecond < 500)
+                        handle.DrawCircle(p, 11f, beaconColor, false);
+                    handle.DrawString(_font, p + new Vector2(8, -8), marker.Name, beaconColor);
+                    break;
                 case DHTacticalMarkerKind.CounterBattery:
                     // Засечка: где-то в круге — орудие противника.
                     var batteryColor = FactionColor(marker.Owner);

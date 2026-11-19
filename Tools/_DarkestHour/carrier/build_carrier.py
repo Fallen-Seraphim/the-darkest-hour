@@ -335,6 +335,7 @@ for y in range(ry0 + 2, ry1 - 1, 4):    # осевая разметка
 # штурмовик: лифт в начале ВПП (у брифинговой), катапульта — вдоль ВПП к носу; рядом бак горючего и ЛТЦ
 lcx = (rx0 + rx1) // 2
 put('DHAircraftLift', lcx, ry0 + 3)
+assert put('DHComputerAircraftLift', lcx + 3, ry0 + 7, FACE['W']), 'компьютер лифта штурмовика'   # одна кнопка «Поднять»
 spawn('DHSpawnPointImperialAttackPilot', [(lcx + d, ry0 + 6) for d in (0, -1, 1)], 2)
 put('WeldingFuelTankFull', lcx + 3, ry0 + 3)
 put('Rack', lcx - 3, ry0 + 1)
@@ -349,9 +350,10 @@ for i, munition in enumerate(('DHAircraftBombHE', 'DHAircraftBombHE', 'DHAircraf
                                'DHAircraftBombMagnesium', 'DHAircraftGuidedBomb', 'DHAircraftMissileAT', 'DHAircraftMissileAT',
                                'DHAircraftMissileHE', 'DHAircraftMissileHE')):
     put(munition, lcx + 4 + i // 2, ry0 + 1 + i % 2)
-# техника и десантное снаряжение — у бортов ВПП
-put('DHVehicleDropPalletTankEmpire', rx1 - 1, ry1 - 2)
-put('DHVehicleDropPalletIM30', rx1 - 1, ry1 - 5)
+# техника и десантное снаряжение — у бортов ВПП. Поддоны танка и БТР — в трюме лифта техники 5×5 (план осады п. 4).
+assert rx1 - 4 > lcx + 2, 'лифт техники налезает на ось ВПП'
+put('DHVehicleLift', rx1 - 2, ry1 - 4)
+assert put('DHComputerVehicleLift', rx1, ry1 - 7, FACE['W']), 'компьютер лифта техники'
 put('DHFieldGun75', rx1 - 1, ry1 - 8)
 put('DHCrateFieldGun75', rx1 - 1, ry1 - 9)
 put('DHCrateMortar', rx1 - 1, ry1 - 11)
@@ -364,8 +366,8 @@ put('DHTentImperialMedicalFolded', rx1 - 1, ry1 - 20)
 put('DHCamoNetFolded', rx1 - 1, ry1 - 22, n=2)
 put('DHClothingOuterGhillie', rx1 - 1, ry1 - 23, n=2)
 put('DHFlagEmpire', rx1 - 1, ry1 - 24, n=2)   # водрузить на захваченной позиции
-spawn('DHSpawnPointImperialArmor', [(rx1 - 3, ry1 - 2 - i) for i in range(5)], 4)
-spawn('DHSpawnPointImperialArtillery', [(rx1 - 3, ry1 - 8 - i) for i in range(6)], 4)
+spawn('DHSpawnPointImperialArmor', [(rx1 - 3, ry1 - 8 - i) for i in range(5)], 4)
+spawn('DHSpawnPointImperialArtillery', [(rx1 - 3, ry1 - 14 - i) for i in range(6)], 4)
 
 # --- ПВО (треугольник)
 door('runway', 'pvo', 'AirlockSecurityGlassLocked')
@@ -392,6 +394,9 @@ for dx, dy in ((4, -3), (4, 3), (-3, -3), (-3, 3), (5, 0)):   # погрузчи
 else:
     raise SystemExit('нет места для погрузчика у грузового лифта')
 put('DHComputerSupply', ex + 5, ey + 3, FACE['S'])
+# площадка сброса на маяк 3×3 и её консоль (план осады п. 4)
+put('DHSupplyDropPad', x0 + 3, y0 + 3)
+assert put('DHComputerSupplyDrop', x0 + 6, y0 + 3, FACE['W']), 'консоль сброса грузов'
 put('ChairOfficeDark', ex + 5, ey + 2, FACE['N'])
 for i in range(4):
     put('CrateFilledSpawner', x1 - 1 - i, y1)

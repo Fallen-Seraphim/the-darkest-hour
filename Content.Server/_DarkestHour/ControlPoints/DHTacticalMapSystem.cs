@@ -42,6 +42,7 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private Content.Shared._DarkestHour.Levels.DHZLevelSystem _zLevels = default!;
     [Dependency] private Content.Server._DarkestHour.Recon.DHConcealmentSystem _concealment = default!;
+    [Dependency] private Robust.Shared.Containers.SharedContainerSystem _container = default!;
 
     /// <summary>Сколько видит своя РЛС по поверхности.</summary>
     public const float RadarRange = 60f;
@@ -526,6 +527,36 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
         // Свой штурмовик в воздухе — с курсом (только у Империи).
         if (faction == DHAssaultFaction.Empire)
             AddAircraft(map, levels, markers);
+
+        // Маяки сброса (план осады п. 4): Империи — свои включённые, Республике — тот, к которому летит груз.
+        var dropBeacons = EntityQueryEnumerator<DHDropBeaconComponent, TransformComponent>();
+        while (dropBeacons.MoveNext(out var uid, out var beacon, out var xform))
+        {
+            if (!beacon.Active || !LevelOf(levels, xform.MapUid, out var beaconLevel) ||
+                _container.IsEntityOrParentInContainer(uid))
+            {
+                continue;
+            }
+
+            var incoming = beacon.IncomingUntil is { } until && until > now;
+            if (faction != DHAssaultFaction.Empire && !incoming)
+                continue;
+
+            var beaconPosition = _transform.GetWorldPosition(xform);
+            markers.Add(new DHTacticalMarker
+            {
+                Kind = DHTacticalMarkerKind.DropBeacon,
+                X = beaconPosition.X,
+                Y = beaconPosition.Y,
+                Name = faction != DHAssaultFaction.Empire
+                    ? Loc.GetString("dh-tacmap-drop-incoming")
+                    : Loc.GetString(incoming ? "dh-tacmap-drop-beacon-incoming" : "dh-tacmap-drop-beacon",
+                        ("number", beacon.Number)),
+                Owner = DHAssaultFaction.Empire,
+                Level = beaconLevel,
+                Lased = incoming,
+            });
+        }
 
         // Контрбатарейные засечки стороны.
         foreach (var battery in _concealment.Marks)

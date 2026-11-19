@@ -134,6 +134,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         SubscribeLocalEvent<DHAircraftLiftComponent, ExaminedEvent>(OnLiftExamined);
 
         InitializeManpads();
+        InitializeLiftConsole();
     }
 
     #region Корпус и кресло
