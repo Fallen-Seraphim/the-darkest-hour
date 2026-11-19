@@ -298,6 +298,14 @@ public sealed partial class DHVehicleSystem : EntitySystem
     /// <summary>Снаряды своих орудий не задевают саму машину.</summary>
     private void OnVehiclePreventCollide(Entity<DHVehicleComponent> ent, ref PreventCollideEvent args)
     {
+        // Сидящие на открытой машине (лодке) не упираются в её корпус.
+        if (!args.Cancelled && TryComp<BuckleComponent>(args.OtherEntity, out var rider) &&
+            rider.BuckledTo is { } seat && Transform(seat).ParentUid == ent.Owner)
+        {
+            args.Cancelled = true;
+            return;
+        }
+
         if (args.Cancelled || !TryComp<ProjectileComponent>(args.OtherEntity, out var projectile) ||
             projectile.Weapon is not { } weapon || !TryComp<DHVehicleGunComponent>(weapon, out var gun))
         {

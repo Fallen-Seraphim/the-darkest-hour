@@ -67,6 +67,7 @@ public sealed partial class DHVehicleServerSystem
         var query = EntityQueryEnumerator<DHVehicleComponent, PhysicsComponent>();
         while (query.MoveNext(out var uid, out var dh, out var physics))
         {
+            UpdateNeutralFaction(uid, dh);
             // По клеткам машину двигает DHGridDriveSystem — скорости у тела нет, смотрим на шаг.
             var moving = physics.LinearVelocity.LengthSquared() >= 0.04f ||
                          TryComp<DHGridDriveComponent>(uid, out var drive) && drive.IsMoving;

@@ -83,6 +83,7 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
         InitializeCrew();
         InitializeEngine();
         InitializeDelivery();
+        InitializeBoats();
     }
 
     #region Появление: отсек и орудия
@@ -112,12 +113,14 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
         if (ent.Comp.Hull is { } hullProto && _proto.HasIndex(hullProto))
             ent.Comp.HullEntity = Spawn(hullProto, new EntityCoordinates(ent, Vector2.Zero));
 
-        CreateInterior(ent);
+        CreateOpenSeats(ent);
+        if (ent.Comp.Interior != null)
+            CreateInterior(ent);
     }
 
     private void CreateInterior(Entity<DHVehicleComponent> ent)
     {
-        if (!_proto.TryIndex(ent.Comp.Interior, out var layout))
+        if (ent.Comp.Interior is not { } interiorId || !_proto.TryIndex(interiorId, out var layout))
         {
             Log.Error($"{ToPrettyString(ent)}: no vehicle interior {ent.Comp.Interior}");
             return;
@@ -206,7 +209,7 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
         var interior = EnsureComp<DHVehicleInteriorComponent>(grid.Owner);
         interior.Vehicle = ent;
 
-        ent.Comp.Capacity = capacity;
+        ent.Comp.Capacity = capacity + ent.Comp.SeatEntities.Count;
         ent.Comp.InteriorMap = mapUid;
         ent.Comp.InteriorGrid = grid.Owner;
         ent.Comp.InteriorEntry = layout.EntryPoint ?? new Vector2(layout.Entry.X + 0.5f, layout.Entry.Y + 0.5f);
@@ -422,6 +425,7 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
         var coordinates = xform.Coordinates;
 
         EjectAll(ent, true);
+        EjectRiders(ent);
 
         if (ent.Comp.Wreck is { } wreck)
         {
