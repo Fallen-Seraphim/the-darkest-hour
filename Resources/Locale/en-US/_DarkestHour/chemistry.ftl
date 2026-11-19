@@ -47,3 +47,6 @@ reagent-desc-dh-urea = A nitrogen fertiliser.
 
 dh-chemistry-toxic-fumes = A pungent cloud rises from the mixture!
 dh-entity-effect-guidebook-toxic-fumes = Part of the product escapes as a poisonous cloud ({$reagent})
+
+reagent-name-dh-magnesium = magnesium
+reagent-desc-dh-magnesium = A light silvery metal powder. Burns with a blinding white flame hotter than thermite; water barely puts it out.

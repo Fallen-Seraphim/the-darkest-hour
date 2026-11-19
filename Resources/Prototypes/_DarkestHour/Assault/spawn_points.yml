@@ -243,6 +243,7 @@
     spawn_type: Job
     job_id: DHMarineRifleman
     jobs:
+    - DHMarineSquadLeader
     - DHMarineWeaponsSpecialist
     - DHMarineMachinegunner
   - type: Sprite

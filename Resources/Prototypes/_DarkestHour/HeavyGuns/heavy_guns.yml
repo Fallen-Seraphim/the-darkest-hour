@@ -56,6 +56,11 @@
   parent: DHHeavyGunPartBase
   id: DHHeavyGunBreechBase
   components:
+  # Разрушаемость POI (решение автора 2026-11-19): выходит из строя от урона, чинится сваркой с листами стали.
+  - type: Damageable
+    damageContainer: StructuralInorganic
+  - type: DHPoiObject
+    breakDamage: 400
   - type: Sprite
     sprite: _DarkestHour/Structures/HeavyGuns/breech.rsi
     noRot: false
@@ -661,6 +666,11 @@
   parent: DHHeavyGunPartBase
   id: DHInterceptorBase
   components:
+  # Разрушаемость POI (решение автора 2026-11-19): выходит из строя от урона, чинится сваркой с листами стали.
+  - type: Damageable
+    damageContainer: StructuralInorganic
+  - type: DHPoiObject
+    breakDamage: 300
   - type: Sprite
     sprite: _DarkestHour/Structures/HeavyGuns/interceptors.rsi
     noRot: false
@@ -792,7 +802,7 @@
   parent: BaseItem
   id: DHDropBeacon
   name: paradrop beacon
-  description: A tripod radio beacon of the Imperial Marine Corps. Switched on and set down on the surface, it guides paratroopers jumping from a ship in the atmosphere above to land next to it.
+  description: A tripod radio beacon of the Imperial Marine Corps. Switched on and set down on the surface, it guides paratroopers jumping from a ship in the atmosphere above to land next to it, and the carrier's supply drops come down by it. A switched-on beacon gives off coloured smoke.
   components:
   - type: Sprite
     sprite: _DarkestHour/Objects/Weapons/HeavyGuns/drop_beacon.rsi
@@ -815,3 +825,14 @@
   - type: DHDropBeacon
   - type: StaticPrice
     price: 200
+  # Маяк можно разбить (план осады п. 4): включённый дымит, а к которому летит груз — виден на карте Республики.
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 40
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]

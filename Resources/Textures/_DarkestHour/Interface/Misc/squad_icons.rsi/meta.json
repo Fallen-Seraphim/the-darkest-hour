@@ -1,0 +1,53 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Made for The Darkest Hour (Tools/_DarkestHour/squads/build_icons.py)",
+    "size": {
+        "x": 8,
+        "y": 8
+    },
+    "states": [
+        {
+            "name": "Alpha"
+        },
+        {
+            "name": "AlphaLeader"
+        },
+        {
+            "name": "Bravo"
+        },
+        {
+            "name": "BravoLeader"
+        },
+        {
+            "name": "Charlie"
+        },
+        {
+            "name": "CharlieLeader"
+        },
+        {
+            "name": "Delta"
+        },
+        {
+            "name": "DeltaLeader"
+        },
+        {
+            "name": "Tau"
+        },
+        {
+            "name": "TauLeader"
+        },
+        {
+            "name": "Epsilon"
+        },
+        {
+            "name": "EpsilonLeader"
+        },
+        {
+            "name": "Omega"
+        },
+        {
+            "name": "OmegaLeader"
+        }
+    ]
+}

@@ -2,7 +2,7 @@
 dh-supply-ui-title = Supply console
 dh-supply-ui-elevator = Elevator: { $mode }. Orders waiting on it: { $pending }.
 dh-supply-ui-no-elevator = No cargo elevator nearby.
-dh-supply-ui-refill = Points held: { $points }. Stock is topped up every { $minutes } min while the side holds { $min } or more.
+dh-supply-ui-points = Command points: { $points }. Restocks cost points; points come from holding objectives.
 dh-supply-ui-raise = Raise the elevator
 dh-supply-ui-lower = Lower the elevator
 dh-supply-ui-order = Order
@@ -32,3 +32,74 @@ dh-supply-category-air-defence = Air defence
 dh-supply-category-naval = Naval artillery
 dh-supply-category-anti-orbital = Anti-orbital guns
 dh-supply-category-aviation = Aviation
+
+# Command points and restocks
+dh-supply-ui-restocks = Restock for command points:
+dh-supply-ui-restock = { $category }: { $price } pts
+dh-supply-ui-count-max = { $count } / { $max }
+dh-supply-restock-full = This section is already full.
+dh-supply-restocked = Restocked: { $category }.
+dh-command-points-not-enough = Not enough command points: { $cost } needed.
+
+dh-command-tree-ui-title = Staff computer: command tree
+dh-command-tree-ui-points = Command points: { $points }. Income from objectives: { $income } per minute.
+dh-command-tree-ui-node = { $tier }. { $name }
+dh-command-tree-ui-open = Open: { $cost } pts
+dh-command-tree-ui-opened = opened
+dh-command-tree-ui-unlocks = Adds to supply: { $items }.
+dh-command-tree-ui-requires = Requires: { $nodes }.
+dh-command-tree-requires = Open the previous nodes first.
+dh-command-tree-opened = Opened: { $node }.
+
+dh-command-branch-supply = Supply
+dh-command-branch-fire = Fire support
+dh-command-node-depots = Expanded depots
+dh-command-node-depots-desc = The stock cap of every supply item is one and a half times higher.
+dh-command-node-fast-lift = Fast elevator
+dh-command-node-fast-lift-desc = The cargo elevator rises and lowers twice as fast.
+dh-command-node-mortar-special = Special mortar rounds
+dh-command-node-field-guns = Field guns
+dh-command-node-heavy-ob-shells = Heavy orbital bombardment shells
+dh-command-node-heavy-ao-shells = Heavy anti-orbital shells
+dh-command-node-aircraft-missiles = Attack aircraft missiles
+dh-command-node-aircraft-bombs = Area and magnesium bombs
+dh-command-node-aircraft-precision = Guided bombs and cannon pod
+dh-command-node-manpads = MANPADS
+
+## Supply drops to a beacon and the vehicle elevator
+dh-supply-drop-beacon-name = Beacon { $number }
+dh-supply-drop-sender = Supply drop
+dh-supply-drop-launched = Cargo ({ $count } pcs) dropped to { $beacon }, landing in { $seconds } s.
+dh-supply-drop-landed = Cargo has landed!
+dh-supply-drop-cooldown = The launch pad is still recharging.
+dh-supply-drop-no-beacon = The beacon does not respond: it must be switched on and standing on the surface.
+dh-supply-drop-empty = There is nothing on the drop pad.
+dh-supply-drop-blocked-hangar = The hangar is damaged — no drops until it is repaired.
+dh-supply-drop-ui-title = Supply drop
+dh-supply-drop-ui-pad = ON THE PAD
+dh-supply-drop-ui-pad-empty = The pad is empty.
+dh-supply-drop-ui-beacons = ACTIVE BEACONS
+dh-supply-drop-ui-no-beacons = No active beacons on the surface.
+dh-supply-drop-ui-beacon = { $name } — X { $x }, Y { $y }
+dh-supply-drop-ui-launch = DROP
+dh-supply-drop-ui-no-pad = No drop pad found.
+dh-supply-drop-ui-cooldown = Recharging: { $seconds } s.
+dh-supply-drop-ui-ready = Ready to drop.
+
+dh-vehicle-lift-blocked-hangar = The hangar is damaged — the elevator is down until repaired.
+dh-vehicle-lift-people = There are people on the platform — the elevator does not take people down.
+dh-vehicle-lift-crewed = { $vehicle } still has crew inside — everyone must get out first.
+dh-vehicle-lift-clear = Clear the platform: { $thing }.
+dh-vehicle-lift-ui-title = Vehicle elevator
+dh-vehicle-lift-ui-hold = HOLD
+dh-vehicle-lift-ui-hold-empty = The hold is empty.
+dh-vehicle-lift-ui-platform = ON THE PLATFORM
+dh-vehicle-lift-ui-platform-down = The platform is down.
+dh-vehicle-lift-ui-platform-empty = The platform is empty.
+dh-vehicle-lift-ui-raise = RAISE
+dh-vehicle-lift-ui-lower = LOWER INTO THE HOLD
+dh-vehicle-lift-ui-no-lift = No vehicle elevator found.
+dh-vehicle-lift-ui-mode-lowered = The elevator is down.
+dh-vehicle-lift-ui-mode-raising = The elevator is rising…
+dh-vehicle-lift-ui-mode-raised = The elevator is up.
+dh-vehicle-lift-ui-mode-lowering = The elevator is going down…

@@ -89,6 +89,7 @@
     - state: cargo_closed
       map: [ "base" ]
   - type: DHVehicle
+    mapIcon: Truck
     maxIntegrity: 600
     faction: Republic
     hullHalfSize: 0.8,1
@@ -112,6 +113,7 @@
     - state: base_closed
       map: [ "base" ]
   - type: DHVehicle
+    mapIcon: Truck
     maxIntegrity: 600
     faction: Empire
     hullHalfSize: 0.8,1
@@ -176,6 +178,7 @@
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
   - type: DHVehicle
+    mapIcon: Truck
     maxIntegrity: 800
     faction: Republic
     hullHalfSize: 0.7,1.3
