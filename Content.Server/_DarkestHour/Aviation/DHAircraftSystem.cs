@@ -203,6 +203,15 @@ public sealed partial class DHAircraftSystem : EntitySystem
         {
             _ui.CloseUi(aircraft, DHAircraftUiKey.Flight, pilot);
             _ui.CloseUi(aircraft, DHAircraftUiKey.Weapons, pilot);
+
+            // Вылез на палубе — встаёт рядом с кабиной, а не внутри твёрдого фюзеляжа.
+            if (TryComp<DHAircraftComponent>(aircraft, out var plane) &&
+                plane.State is DHAircraftState.Parked or DHAircraftState.Stowed && Transform(aircraft).GridUid != null)
+            {
+                var (position, rotation) = _transform.GetWorldPositionRotation(aircraft);
+                var side = rotation.RotateVec(new Vector2(0.85f, plane.SeatOffset.Y));
+                _transform.SetWorldPosition(pilot, position + side);
+            }
         }
     }
 
@@ -1340,6 +1349,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         ent.Comp.Progress = 0f;
         _transform.SetCoordinates(ent, new EntityCoordinates(liftXform.ParentUid, ent.Comp.PathStart));
         _transform.SetLocalRotation(ent, liftXform.LocalRotation + Angle.FromDegrees(180));
+        _physics.SetCanCollide(ent, true); // снова на палубе — твёрдый
         ent.Comp.State = DHAircraftState.Landing;
         Dirty(ent);
         SetControl(ent, false);
@@ -1351,6 +1361,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         ent.Comp.Progress = Math.Min(1f, ent.Comp.Progress + frameTime / ent.Comp.LandingRollTime);
         var t = 1f - (1f - ent.Comp.Progress) * (1f - ent.Comp.Progress); // торможение
         _transform.SetLocalPosition(ent, Vector2.Lerp(ent.Comp.PathStart, ent.Comp.PathEnd, t));
+        RunOver(ent);
         if (ent.Comp.Progress < 1f)
             return;
 
