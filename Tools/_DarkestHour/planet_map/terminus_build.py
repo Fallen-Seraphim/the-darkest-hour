@@ -1026,6 +1026,8 @@ class World:
         self.ent('DHVehicleRAM45', (b0 + b1) // 2, y0 + 8, R180, free=True)
         self.ent('DHVehicleTruckRepublic', c0 + 2, y0 + 7, R180, free=True)
         self.ent('DHVehicleTruckRepublic', c1 - 2, y0 + 7, R180, free=True)
+        # сюда пригоняют заказанную технику (хамви, план осады п. 3) — перед воротами третьего бокса
+        self.ent('DHVehicleDeliveryPointRepublic', (c0 + c1) // 2, y1 + 2, R180, free=True)
         self.spawns('DHSpawnPointRepublicArmor', [(a0 + 1, y0 + 3), (a0 + 2, y0 + 3), (b0 + 1, y0 + 3),
                                                   (b0 + 2, y0 + 3)])
         self.reserve(x0, y0, x1, y1 + 3)

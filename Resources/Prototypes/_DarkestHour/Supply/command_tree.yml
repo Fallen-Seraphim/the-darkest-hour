@@ -1,9 +1,19 @@
 # DarkestHour: древо командования «Осады» (план осады п. 3, решения автора 2026-11-19). Узлы открывает командование
 # за очки командования на компьютере штаба (DHComputerCommandTree*); открытый узел даёт позиции каталога снабжения
 # (со стартовым запасом) или улучшает снабжение. Пока здесь только то, что уже есть в игре; новые вещи (хамви, дроны,
-# ПТУР, импланты…) добавляются узлами по мере появления. Код — DHCommandPointsSystem.
+# ПТУР, импланты…) добавляются узлами по мере появления. Хамви — ветка «Техника» (план осады п. 5). Код — DHCommandPointsSystem.
 
 # --- Империя ---
+
+- type: dhSupplyNode
+  id: DHNodeEmpireHumvee
+  faction: Empire
+  branch: dh-command-branch-vehicles
+  name: dh-command-node-humvee
+  description: dh-command-node-humvee-desc
+  tier: 1
+  cost: 150
+  unlocks: [ humvee ]
 
 - type: dhSupplyNode
   id: DHNodeEmpireDepots
@@ -94,6 +104,16 @@
   unlocks: [ aircraft-guided-bombs, aircraft-cannon-pod ]
 
 # --- Республика ---
+
+- type: dhSupplyNode
+  id: DHNodeRepublicHumvee
+  faction: Republic
+  branch: dh-command-branch-vehicles
+  name: dh-command-node-humvee
+  description: dh-command-node-humvee-desc-republic
+  tier: 1
+  cost: 150
+  unlocks: [ humvee ]
 
 - type: dhSupplyNode
   id: DHNodeRepublicDepots

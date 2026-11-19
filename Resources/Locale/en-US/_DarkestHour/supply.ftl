@@ -103,3 +103,9 @@ dh-vehicle-lift-ui-mode-lowered = The elevator is down.
 dh-vehicle-lift-ui-mode-raising = The elevator is rising…
 dh-vehicle-lift-ui-mode-raised = The elevator is up.
 dh-vehicle-lift-ui-mode-lowering = The elevator is going down…
+
+dh-supply-category-vehicles = Vehicles
+dh-command-branch-vehicles = Vehicles
+dh-command-node-humvee = Humvee
+dh-command-node-humvee-desc = A light vehicle with a machine gun turret: driver, gunner and two seats. A humvee drop pallet appears in cargo (up to 2) — then by the vehicle elevator or a drop to a beacon.
+dh-command-node-humvee-desc-republic = A light vehicle with a machine gun turret: driver, gunner and two seats. Order it in cargo (up to 2) — it is driven to the base garage.

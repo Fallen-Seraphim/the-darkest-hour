@@ -103,3 +103,9 @@ dh-vehicle-lift-ui-mode-lowered = Лифт опущен.
 dh-vehicle-lift-ui-mode-raising = Лифт поднимается…
 dh-vehicle-lift-ui-mode-raised = Лифт поднят.
 dh-vehicle-lift-ui-mode-lowering = Лифт опускается…
+
+dh-supply-category-vehicles = Техника
+dh-command-branch-vehicles = Техника
+dh-command-node-humvee = Хамви
+dh-command-node-humvee-desc = Лёгкая машина с пулемётом в турели: водитель, пулемётчик и два места. Поддон с хамви появляется в карго (до 2) — дальше лифтом техники или сбросом на маяк.
+dh-command-node-humvee-desc-republic = Лёгкая машина с пулемётом в турели: водитель, пулемётчик и два места. Заказ в карго (до 2) — машину пригоняют в гараж базы.

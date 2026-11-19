@@ -506,7 +506,8 @@ public sealed partial class DHAircraftSystem
         while (vehicles.MoveNext(out var uid, out var vehicle, out var xform))
         {
             // Под маскировочной сетью стоящая машина сигнатуры не даёт (план осады п. 9).
-            if (vehicle.Faction != DHAssaultFaction.Republic || xform.MapUid != surface ||
+            // Заглушённый двигатель — тоже нет сигнатуры (засада, план осады п. 5).
+            if (vehicle.Faction != DHAssaultFaction.Republic || xform.MapUid != surface || !vehicle.EngineRunning ||
                 HasComp<Content.Shared._DarkestHour.Recon.DHCamoHiddenComponent>(uid))
             {
                 continue;

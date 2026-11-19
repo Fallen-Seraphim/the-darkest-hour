@@ -44,3 +44,11 @@ dh-vehicle-locked-now = Вы запираете люки. Снаружи ник�
 dh-vehicle-unlocked-now = Вы отпираете люки.
 dh-vehicle-periscope-look = Вы смотрите в перископ. Отойдите, чтобы перестать.
 dh-vehicle-key-required = Без ключа машину не завести.
+
+## Отсеки RMC/CMU, двигатель, места, доставка (план осады п. 5)
+dh-vehicle-engine-hint = Двигатель заглушён — заведите его кнопкой «Двигатель».
+dh-vehicle-engine-on = Вы заводите двигатель.
+dh-vehicle-engine-off = Вы глушите двигатель. Машину не видно на РЛС.
+dh-vehicle-full = В { $vehicle } нет свободных мест.
+dh-vehicle-delivery-sender = Автопарк
+dh-vehicle-delivery-arrived = { CAPITALIZE($vehicle) } пригнали в гараж базы.

@@ -472,7 +472,7 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
             var position = _transform.GetWorldPosition(xform);
             var moving = TryComp<DHGridDriveComponent>(uid, out var drive) && drive.IsMoving;
             // Под маскировочной сетью стоящую технику РЛС не берёт (решение автора 2026-11-19).
-            var camo = HasComp<DHCamoHiddenComponent>(uid);
+            var camo = HasComp<DHCamoHiddenComponent>(uid) || !vehicle.EngineRunning; // и заглушённая — РЛС не берёт
             var lit = Lit(lasers, xform.MapUid, position);
             if (!lit && !(!camo && SeenByEyes(eyes, position)) && !(moving && SeenByMotionAt(motionEyes, position)) &&
                 !SeenBySight(sight, uid, xform.MapUid, position, VehicleSightRange - SightRange))

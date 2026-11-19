@@ -16,7 +16,10 @@
   - { category: dh-supply-category-artillery, price: 100 }
   - { category: dh-supply-category-naval, price: 100 }
   - { category: dh-supply-category-misc, price: 20 }
+  - { category: dh-supply-category-vehicles, price: 150 }
   entries:
+  # Хамви — после узла «Хамви» (план осады п. 3): поддон в карго, дальше — лифт техники или сброс на маяк.
+  - { id: humvee, proto: DHVehicleDropPalletHumveeEmpire, category: dh-supply-category-vehicles, initial: 1, refill: 1, max: 2 }
   - { id: mortar-he, proto: DHSupplyCrateMortarHE, category: dh-supply-category-artillery, initial: 3, refill: 2, max: 6 }
   - { id: mortar-frag, proto: DHSupplyCrateMortarFrag, category: dh-supply-category-artillery, initial: 2, refill: 1, max: 4 }
   - { id: mortar-special, proto: DHSupplyCrateMortarSpecial, category: dh-supply-category-artillery, initial: 1, refill: 1, max: 3 }
@@ -62,7 +65,10 @@
   - { category: dh-supply-category-air-defence, price: 60 }
   - { category: dh-supply-category-artillery, price: 100 }
   - { category: dh-supply-category-anti-orbital, price: 100 }
+  - { category: dh-supply-category-vehicles, price: 150 }
   entries:
+  # Хамви — после узла «Хамви»: машину пригоняют в гараж базы (DHVehicleDeliveryPointRepublic).
+  - { id: humvee, proto: DHVehicleDeliveryHumveeRepublic, category: dh-supply-category-vehicles, initial: 1, refill: 1, max: 2 }
   - { id: mortar-he, proto: DHSupplyCrateMortarHE, category: dh-supply-category-artillery, initial: 3, refill: 2, max: 6 }
   - { id: mortar-frag, proto: DHSupplyCrateMortarFrag, category: dh-supply-category-artillery, initial: 2, refill: 1, max: 4 }
   - { id: mortar-special, proto: DHSupplyCrateMortarSpecial, category: dh-supply-category-artillery, initial: 1, refill: 1, max: 3 }

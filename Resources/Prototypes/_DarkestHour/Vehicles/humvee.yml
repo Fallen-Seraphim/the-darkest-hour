@@ -1,0 +1,246 @@
+# DarkestHour: хамви (план осады пп. 3 и 5, решение автора 2026-11-19). Лёгкая колёсная машина обеих сторон:
+# водитель, пулемётчик в турели и два места. Открывается узлом «Хамви» ветки «Техника» в древе командования; после
+# этого её заказывает снабжение: у Империи — поддон в карго авианосца (дальше лифтом техники или сбросом на маяк),
+# у Республики — машину пригоняют в гараж базы. Корпус, отсек и спрайты — RMC-14 (cmss13, CC-BY-SA-3.0).
+
+- type: entity
+  abstract: true
+  parent: DHVehicleBase
+  id: DHVehicleHumveeBase
+  name: humvee
+  description: A light utility vehicle with a machine gun turret on the roof. Fast and agile, but bullets go through its skin.
+  components:
+  - type: DHGridDrive
+    maxSpeed: 5
+    acceleration: 4
+    deceleration: 10
+    maxReverseSpeed: 3
+    reverseAcceleration: 4
+    maxRotationSpeedDegrees: 110
+    rotationAccelerationDegrees: 200
+    rotationDecelerationDegrees: 260
+    alignmentAssistDegrees: 8
+    smashDamage: 120
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.9,-1.4,0.9,1.45"
+        density: 2500
+        mask:
+        - Impassable
+        - LowImpassable
+        layer:
+        - LargeMobLayer
+      runover:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.95,-1.45,0.95,1.5"
+        hard: false
+        mask:
+        - MobLayer
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/humvee.rsi
+    drawdepth: Mobs
+    layers:
+    - state: humvee_base
+      map: [ "base" ]
+    - state: humveeturret_0
+      map: [ "turret" ]
+    - state: wheels_0
+      map: [ "wheels" ]
+      loop: false
+  - type: SpriteMovement
+    movementLayers:
+      wheels:
+        state: wheels_0
+        loop: true
+    noMovementLayers:
+      wheels:
+        state: wheels_0
+        loop: false
+  # Лёгкая броня: пули проходят заметнее, чем у БТР.
+  - type: DHFortified
+    multiplier: 3
+    bulletStructuralMultiplier: 0.3
+    vehicleClass: APC
+    vehicleIntegrity: 600
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 600
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: DHVehicleHardpoints
+    family: Humvee
+    slots:
+      Primary: ""
+      Secondary: ""
+      Support: ""
+      Wheels: wheels
+      PortLeft: ""
+      PortRight: ""
+    starting:
+      Primary: DHHardpointHumveeMG
+      Wheels: DHHardpointHumveeWheels
+
+- type: entity
+  parent: DHVehicleHumveeBase
+  id: DHVehicleHumveeRepublic
+  name: Republic humvee
+  components:
+  - type: DHVehicle
+    mapIcon: Light
+    maxIntegrity: 600
+    faction: Republic
+    hullHalfSize: 0.9,1.45
+    crewZoom: 1.3
+    interior: DHInteriorHumvee
+    hull: DHVehicleHullHumvee
+    turretLayers: [ turret ]
+    exitOffset: 0,2
+    wreck: DHVehicleWreckHumvee
+    wreckExplosion: 15
+
+# Империя — та же машина в чёрном (ТВЕ/ИТМ).
+- type: entity
+  parent: DHVehicleHumveeBase
+  id: DHVehicleHumveeEmpire
+  name: Imperial humvee
+  components:
+  - type: Sprite
+    color: "#6b6b66"
+  - type: DHVehicle
+    mapIcon: Light
+    maxIntegrity: 600
+    faction: Empire
+    hullHalfSize: 0.9,1.45
+    crewZoom: 1.3
+    interior: DHInteriorHumvee
+    hull: DHVehicleHullHumvee
+    turretLayers: [ turret ]
+    exitOffset: 0,2
+    wreck: DHVehicleWreckHumvee
+    wreckExplosion: 15
+
+- type: entity
+  parent: DHVehicleHullBase
+  id: DHVehicleHullHumvee
+  components:
+  - type: Fixtures
+    fixtures:
+      hull:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.9,-1.4,0.9,1.45"
+        density: 1
+        layer:
+        - MidImpassable
+        - HighImpassable
+
+- type: entity
+  parent: DHVehicleWreckBase
+  id: DHVehicleWreckHumvee
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/humvee.rsi
+    drawdepth: Mobs
+    color: "#5a5a5a"
+    layers:
+    - state: humvee_base
+    - state: damaged_frame
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.9,-1.4,0.9,1.45"
+        density: 5000
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+        - BulletImpassable
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointHumveeMG
+  name: humvee machine gun turret
+  description: A heavy machine gun on a ring mount for the humvee roof.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/humvee.rsi
+    state: humveeturret_0
+  - type: DHHardpoint
+    slot: Primary
+    families: [ Humvee ]
+    maxIntegrity: 200
+    integrity: 200
+    damageShare: 0.15
+    gun: DHVehicleGunHMG
+
+- type: entity
+  parent: DHHardpointBase
+  id: DHHardpointHumveeWheels
+  name: humvee wheel set
+  description: Run-flat tyres and suspension for the humvee.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/hardpoints/apc.rsi
+    state: tires
+  - type: DHHardpoint
+    slot: Wheels
+    families: [ Humvee ]
+    maxIntegrity: 250
+    integrity: 250
+    damageShare: 0.15
+    vehicleState: wheels_0
+    damagedVehicleState: wheels_1
+
+# --- заказ ---
+
+- type: entity
+  parent: DHVehicleDropPalletBase
+  id: DHVehicleDropPalletHumveeEmpire
+  name: drop pallet (Imperial humvee)
+  components:
+  - type: DHDropPallet
+    spawn: DHVehicleHumveeEmpire
+
+# Заказ Республики: машину пригоняют в гараж базы (точка DHVehicleDeliveryPointRepublic), а не поднимают лифтом.
+- type: entity
+  id: DHVehicleDeliveryHumveeRepublic
+  name: humvee delivery order
+  description: A humvee is on its way to the base garage.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: false
+  - type: DHVehicleDelivery
+    spawn: DHVehicleHumveeRepublic
+    faction: Republic
+
+- type: entity
+  id: DHVehicleDeliveryPointRepublic
+  name: vehicle delivery point
+  description: Ordered vehicles are driven here.
+  suffix: Republic
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: Markers/cross.rsi
+    state: green
+    visible: false
+  - type: Marker
+  - type: DHVehicleDeliveryPoint
+    faction: Republic

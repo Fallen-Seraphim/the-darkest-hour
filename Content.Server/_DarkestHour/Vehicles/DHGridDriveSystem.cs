@@ -109,7 +109,8 @@ public sealed partial class DHGridDriveSystem : EntitySystem
             TryComp<DHVehicleHardpointsComponent>(uid, out var hardpoints);
             var throttle = 0f;
             var steering = 0f;
-            if (TryComp<VehicleComponent>(uid, out var driven) && driven.Operator != null &&
+            // Заглушённая машина не едет (кнопка «Двигатель», план осады п. 5).
+            if (TryComp<VehicleComponent>(uid, out var driven) && driven.Operator != null && vehicle.EngineRunning &&
                 hardpoints is not { CanDrive: false })
             {
                 var buttons = mover.HeldMoveButtons;
