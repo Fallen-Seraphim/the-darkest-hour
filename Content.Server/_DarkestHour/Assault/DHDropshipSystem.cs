@@ -127,6 +127,7 @@ public sealed partial class DHDropshipHangarComponent : Component
 public sealed partial class DHDropshipSystem : EntitySystem
 {
     [Dependency] private AtmosphereSystem _atmos = default!;
+    [Dependency] private Content.Server._DarkestHour.Carrier.DHCarrierDamageSystem _carrierDamage = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private DHCelestialSystem _celestial = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
@@ -379,6 +380,14 @@ public sealed partial class DHDropshipSystem : EntitySystem
         if (comp.State != DHDropshipState.Docked && comp.State != DHDropshipState.Landed && !hovering)
         {
             _popup.PopupEntity(Loc.GetString("dh-dropship-busy"), ent, args.Actor);
+            return;
+        }
+
+        // Ангар авианосца повреждён: пока пробоину не заварят, из ангара не вылететь (живучесть, п. 19).
+        if (comp.State == DHDropshipState.Docked &&
+            _carrierDamage.Damaged(comp.Carrier, Content.Shared._DarkestHour.Carrier.DHCarrierCompartmentKind.Hangar))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-dropship-hangar-damaged"), ent, args.Actor);
             return;
         }
 
