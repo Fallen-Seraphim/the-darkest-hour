@@ -5,6 +5,9 @@ using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Systems;
 using Content.Shared._DarkestHour.Assault;
+using Content.Shared._DarkestHour.Levels;
+using Content.Shared.Audio;
+using Content.Shared.Movement.Systems;
 using Content.Shared._DarkestHour.Shuttles.Rift;
 using Content.Shared.Atmos.Components;
 using Content.Shared.DoAfter;
@@ -56,21 +59,80 @@ public sealed partial class DHDropshipComponent : Component
     public TimeSpan DepartAt;
 
     [ViewVariables]
-    public TimeSpan ArriveAt;
-
-    [ViewVariables]
     public TimeSpan NextShake;
 
     [DataField]
     public TimeSpan LaunchDelay = TimeSpan.FromSeconds(10);
 
-    /// <summary>Перелёт, когда авианосец на орбите.</summary>
+    /// <summary>Переход с орбиты в атмосферу над полем боя (и обратно).</summary>
     [DataField]
-    public TimeSpan OrbitFlightTime = TimeSpan.FromSeconds(40);
+    public TimeSpan TransitTime = TimeSpan.FromSeconds(14);
 
-    /// <summary>Перелёт, когда авианосец висит в атмосфере.</summary>
+    /// <summary>Скорость полёта над полем боя, тайлов в секунду.</summary>
     [DataField]
-    public TimeSpan AtmosphereFlightTime = TimeSpan.FromSeconds(20);
+    public float CruiseSpeed = 8f;
+
+    /// <summary>Снижение (и подъём) на один уровень.</summary>
+    [DataField]
+    public TimeSpan LevelStep = TimeSpan.FromSeconds(3);
+
+    /// <summary>Высота полёта: на столько уровней выше верхнего этажа (на «Терминусе» — уровень 4).</summary>
+    [DataField]
+    public int CruiseHeight = 3;
+
+    /// <summary>Примерное расстояние точки входа от цели.</summary>
+    public const float EntryDistance = 200f;
+
+    /// <summary>Фаза полёта (при <see cref="DHDropshipState.InFlight"/>).</summary>
+    [ViewVariables]
+    public DHDropshipFlight Flight;
+
+    /// <summary>Переход: на орбиту (к авианосцу или другой земле), а не с неё.</summary>
+    [ViewVariables]
+    public bool TransitOut;
+
+    /// <summary>Конец перехода или следующий шаг по уровням.</summary>
+    [ViewVariables]
+    public TimeSpan NextStep;
+
+    /// <summary>Земля (уровень 0 стопки), над которой летим.</summary>
+    [ViewVariables]
+    public EntityUid? Surface;
+
+    /// <summary>Уровень в стопке поверхности; −1 — не над полем боя (в переходе, в ангаре).</summary>
+    [ViewVariables]
+    public int Level = -1;
+
+    [ViewVariables]
+    public int CruiseLevel;
+
+    /// <summary>Точка курса на уровне воздуха (центр челнока).</summary>
+    [ViewVariables]
+    public Vector2? Waypoint;
+
+    /// <summary>Точка входа, выбранная при взлёте с орбиты.</summary>
+    [ViewVariables]
+    public Vector2? Entry;
+
+    /// <summary>Ручное управление (автопилот выключен).</summary>
+    [ViewVariables]
+    public bool Manual;
+
+    /// <summary>Кто сейчас ведёт челнок с пульта (его кнопки движения переданы пульту).</summary>
+    [ViewVariables]
+    public EntityUid? Pilot;
+
+    [ViewVariables]
+    public EntityUid? PilotConsole;
+
+    [ViewVariables]
+    public int HoverLevel = -1;
+
+    [ViewVariables]
+    public bool HoverLift;
+
+    [ViewVariables]
+    public TimeSpan NextHoverRefresh;
 
     /// <summary>
     /// ЛТЦ (ложные тепловые цели, решение автора 2026-10-30): залп в полёте сбивает наведение ПВО (шахты, автопушки,
@@ -126,6 +188,8 @@ public sealed partial class DHDropshipHangarComponent : Component
 /// </summary>
 public sealed partial class DHDropshipSystem : EntitySystem
 {
+    [Dependency] private Content.Server._DarkestHour.Aviation.DHAircraftSystem _aircraft = default!;
+    [Dependency] private SharedAmbientSoundSystem _ambient = default!;
     [Dependency] private AtmosphereSystem _atmos = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private DHCelestialSystem _celestial = default!;
@@ -134,16 +198,21 @@ public sealed partial class DHDropshipSystem : EntitySystem
     [Dependency] private Content.Server._DarkestHour.HeavyGuns.DHHeavyGunSystem _guns = default!;
     [Dependency] private DHLandingSystem _landing = default!;
     [Dependency] private MapLoaderSystem _loader = default!;
+    [Dependency] private SharedMapSystem _mapSystem = default!;
     [Dependency] private MetaDataSystem _meta = default!;
+    [Dependency] private SharedMoverController _mover = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
+    [Dependency] private SharedPointLightSystem _lights = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private DHRiftSystem _rift = default!;
     [Dependency] private ShuttleSystem _shuttle = default!;
     [Dependency] private ServerStationSystem _station = default!;
+    [Dependency] private ITileDefinitionManager _tileDefs = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private UserInterfaceSystem _ui = default!;
+    [Dependency] private DHZLevelSystem _zLevels = default!;
 
     private static readonly SoundSpecifier LaunchSound = new SoundPathSpecifier("/Audio/Effects/Shuttle/hyperspace_begin.ogg");
     private static readonly SoundSpecifier LandSound = new SoundPathSpecifier("/Audio/Effects/Shuttle/hyperspace_end.ogg");
@@ -164,6 +233,7 @@ public sealed partial class DHDropshipSystem : EntitySystem
     {
         base.Initialize();
 
+        SubscribeLocalEvent<DHDropshipComponent, ComponentShutdown>(OnShipShutdown);
         SubscribeLocalEvent<DHLandingZoneComponent, MapInitEvent>(OnZoneMapInit);
         SubscribeLocalEvent<DHLandingZoneBeaconComponent, UseInHandEvent>(OnBeaconUse);
         SubscribeLocalEvent<DHLandingZoneBeaconComponent, DHLandingZoneDeployDoAfterEvent>(OnBeaconDeployed);
@@ -174,6 +244,8 @@ public sealed partial class DHDropshipSystem : EntitySystem
             subs.Event<DHDropshipFlyMessage>(OnFly);
             subs.Event<DHDropshipAbortMessage>(OnAbort);
             subs.Event<DHDropshipFlaresMessage>(OnFlares);
+            subs.Event<DHDropshipManualMessage>(OnManual);
+            subs.Event<BoundUIClosedEvent>(OnConsoleClosed);
         });
     }
 
@@ -281,6 +353,8 @@ public sealed partial class DHDropshipSystem : EntitySystem
 
         ship.Comp.State = DHDropshipState.Docked;
         ship.Comp.Zone = null;
+        ClearFlight(ship.Comp);
+        ClearHover(ship);
     }
 
     #endregion
@@ -375,8 +449,9 @@ public sealed partial class DHDropshipSystem : EntitySystem
             return;
 
         var comp = ship.Comp;
-        var hovering = comp.State == DHDropshipState.InFlight && comp.Destination == null && !comp.ToHangar;
-        if (comp.State != DHDropshipState.Docked && comp.State != DHDropshipState.Landed && !hovering)
+        // В полёте цель можно сменить в любой момент, кроме перехода орбита — атмосфера.
+        var airborne = comp.State == DHDropshipState.InFlight && comp.Flight != DHDropshipFlight.Transit;
+        if (comp.State != DHDropshipState.Docked && comp.State != DHDropshipState.Landed && !airborne)
         {
             _popup.PopupEntity(Loc.GetString("dh-dropship-busy"), ent, args.Actor);
             return;
@@ -384,7 +459,7 @@ public sealed partial class DHDropshipSystem : EntitySystem
 
         if (args.Zone is { } netZone)
         {
-            if (!TryGetEntity(netZone, out var zone) || !ZoneAvailable(ship, zone.Value, out var reason))
+            if (!TryGetEntity(netZone, out var zone) || !ZoneAvailable(ship, zone.Value, out _))
             {
                 _popup.PopupEntity(Loc.GetString("dh-dropship-zone-unavailable"), ent, args.Actor);
                 return;
@@ -406,12 +481,11 @@ public sealed partial class DHDropshipSystem : EntitySystem
             comp.ToHangar = true;
         }
 
-        if (hovering)
+        if (airborne)
         {
-            // Уже в воздухе: сразу курс на новую цель, перелёт короче.
-            comp.ArriveAt = _timing.CurTime + comp.AtmosphereFlightTime / 2;
-            if (comp.Destination is { } newTarget)
-                _guns.WarnIncomingDropship(newTarget, DHAssaultFaction.Empire, Name(ship));
+            // Уже в воздухе: сразу новый курс (если ведёт пилот — автопилот подхватит, когда его включат).
+            Retarget(ship);
+            WarnTarget(ship);
             Announce(ship, Loc.GetString("dh-dropship-course", ("destination", DestinationName(comp))));
         }
         else
@@ -455,7 +529,9 @@ public sealed partial class DHDropshipSystem : EntitySystem
         comp.Flares--;
 
         // До посадки (или, если висим без курса, на время), с небольшим запасом.
-        var until = comp.Destination != null || comp.ToHangar ? comp.ArriveAt : now + comp.FlareHover;
+        var until = comp.Destination != null || comp.ToHangar
+            ? now + TimeSpan.FromSeconds(EstimateSeconds(ship))
+            : now + comp.FlareHover;
         comp.FlaresUntil = (until > now + comp.FlareHover ? until : now + comp.FlareHover) + TimeSpan.FromSeconds(3);
 
         _audio.PlayGlobal(FlareSound, Filter.Empty().AddInGrid(ship), true);
@@ -465,11 +541,20 @@ public sealed partial class DHDropshipSystem : EntitySystem
     }
 
     /// <summary>С земли видно вспышки ЛТЦ в небе над челноком.</summary>
-    private void SpawnDecoysBelow(EntityUid ship)
+    private void SpawnDecoysBelow(Entity<DHDropshipComponent> ship)
     {
         var xform = Transform(ship);
-        if (!TryComp<DHPlanetAtmosphereMapComponent>(xform.MapUid, out var atmosphere) ||
-            _landing.GetSurface(atmosphere.System, atmosphere.Body) is not { } surface)
+        EntityUid surface;
+        if (ship.Comp.Level > 0 && ship.Comp.Surface is { } below && Exists(below))
+        {
+            surface = below;
+        }
+        else if (TryComp<DHPlanetAtmosphereMapComponent>(xform.MapUid, out var atmosphere) &&
+                 _landing.GetSurface(atmosphere.System, atmosphere.Body) is { } fromSky)
+        {
+            surface = fromSky;
+        }
+        else
         {
             return;
         }
@@ -542,29 +627,36 @@ public sealed partial class DHDropshipSystem : EntitySystem
 
         var now = _timing.CurTime;
         var ships = EntityQueryEnumerator<DHDropshipComponent>();
-        var due = new List<Entity<DHDropshipComponent>>();
+        var departing = new List<Entity<DHDropshipComponent>>();
+        var flying = new List<Entity<DHDropshipComponent>>();
         while (ships.MoveNext(out var uid, out var comp))
         {
-            if (comp.State == DHDropshipState.Departing && now >= comp.DepartAt ||
-                comp.State == DHDropshipState.InFlight && (comp.Destination != null || comp.ToHangar) &&
-                now >= comp.ArriveAt)
-            {
-                due.Add((uid, comp));
-            }
+            if (comp.State == DHDropshipState.Departing && now >= comp.DepartAt)
+                departing.Add((uid, comp));
+            else if (comp.State == DHDropshipState.InFlight)
+                flying.Add((uid, comp));
+            else if (_hover.ContainsKey(uid))
+                ClearHover(uid);
 
             if (comp.State == DHDropshipState.InFlight && now >= comp.NextShake)
             {
                 comp.NextShake = now + TimeSpan.FromSeconds(2);
-                _landing.Shake(uid, 0.3f);
+                _landing.Shake(uid, comp.Flight == DHDropshipFlight.Cruise ? 0.15f : 0.3f);
             }
         }
 
-        foreach (var ship in due)
+        foreach (var ship in departing)
         {
-            if (ship.Comp.State == DHDropshipState.Departing)
-                Launch(ship);
-            else
-                Arrive(ship);
+            Launch(ship);
+        }
+
+        foreach (var ship in flying)
+        {
+            if (TerminatingOrDeleted(ship))
+                continue;
+
+            UpdateFlight(ship, now, frameTime);
+            UpdateHover(ship, now);
         }
 
         if (now < _nextUpdate)
@@ -580,88 +672,6 @@ public sealed partial class DHDropshipSystem : EntitySystem
             if (_ui.IsUiOpen(uid, DHDropshipUiKey.Key) && ShipOf(uid) is { } ship)
                 UpdateUi((uid, console), ship);
         }
-    }
-
-    /// <summary>Взлёт: расстыковка и переход в атмосферу над целью (над ЗП или над местом взлёта — к ангару).</summary>
-    private void Launch(Entity<DHDropshipComponent> ship)
-    {
-        var comp = ship.Comp;
-        EntityUid? surfaceMap = null;
-        Vector2 above;
-        if (!comp.ToHangar && comp.Destination is { } zone && Exists(zone))
-        {
-            surfaceMap = Transform(zone).MapUid;
-            above = _transform.GetWorldPosition(zone);
-        }
-        else
-        {
-            surfaceMap = comp.Zone is { } current && Exists(current) ? Transform(current).MapUid : null;
-            above = _transform.GetWorldPosition(ship);
-        }
-
-        // К ангару из ангара не летаем; к ЗП из ангара — через атмосферу тела этой ЗП.
-        if (surfaceMap == null || !TryComp<DHPlanetSurfaceMapComponent>(surfaceMap, out var surface) ||
-            _landing.EnsureAtmosphere(surface.System, surface.Body) is not { } sky)
-        {
-            comp.State = comp.Zone != null ? DHDropshipState.Landed : DHDropshipState.Docked;
-            Announce(ship, Loc.GetString("dh-dropship-zone-unavailable"));
-            return;
-        }
-
-        var fromOrbit = comp.Carrier is { } carrier && Exists(carrier) &&
-                        !HasComp<DHPlanetAtmosphereMapComponent>(Transform(carrier).MapUid);
-
-        _docking.UndockDocks(ship);
-        _landing.PlaceShuttle(ship, new EntityCoordinates(sky, above));
-        _audio.PlayGlobal(LaunchSound, Filter.Empty().AddInGrid(ship), true);
-
-        comp.State = DHDropshipState.InFlight;
-        comp.Zone = null;
-        comp.ArriveAt = _timing.CurTime + (fromOrbit ? comp.OrbitFlightTime : comp.AtmosphereFlightTime);
-        comp.NextShake = _timing.CurTime;
-        // РЛС противника на карте ЗП замечает челнок на подлёте.
-        if (!comp.ToHangar && comp.Destination is { } target)
-            _guns.WarnIncomingDropship(target, DHAssaultFaction.Empire, Name(ship));
-
-        Announce(ship, Loc.GetString("dh-dropship-launched", ("destination", DestinationName(comp)),
-            ("seconds", (int) (comp.ArriveAt - _timing.CurTime).TotalSeconds)));
-    }
-
-    private void Arrive(Entity<DHDropshipComponent> ship)
-    {
-        var comp = ship.Comp;
-        if (comp.ToHangar)
-        {
-            comp.ToHangar = false;
-            if (comp.Carrier is { } carrier && Exists(carrier))
-            {
-                Dock(ship);
-                _audio.PlayGlobal(LandSound, Filter.Empty().AddInGrid(ship), true);
-                Announce(ship, Loc.GetString("dh-dropship-docked", ("carrier", Name(carrier))));
-            }
-            else
-            {
-                Announce(ship, Loc.GetString("dh-dropship-hangar-lost"));
-            }
-
-            return;
-        }
-
-        if (comp.Destination is not { } zone || !ZoneAvailable(ship, zone, out var reason))
-        {
-            // ЗП пропала или занята — зависаем в воздухе, пилот выбирает другую.
-            comp.Destination = null;
-            Announce(ship, Loc.GetString("dh-dropship-hovering"));
-            return;
-        }
-
-        _landing.PlaceShuttle(ship, Transform(zone).Coordinates);
-        comp.State = DHDropshipState.Landed;
-        comp.Zone = zone;
-        comp.Destination = null;
-        _landing.Shake(ship, 1f);
-        _audio.PlayGlobal(LandSound, Filter.Empty().AddInGrid(ship), true);
-        Announce(ship, Loc.GetString("dh-dropship-landed", ("zone", Name(zone))));
     }
 
     /// <summary>Пристыкованный к авианосцу челнок понемногу пополняет ЛТЦ.</summary>
@@ -755,8 +765,7 @@ public sealed partial class DHDropshipSystem : EntitySystem
         var seconds = comp.State switch
         {
             DHDropshipState.Departing => (int) Math.Ceiling((comp.DepartAt - now).TotalSeconds),
-            DHDropshipState.InFlight when comp.Destination != null || comp.ToHangar =>
-                (int) Math.Ceiling((comp.ArriveAt - now).TotalSeconds),
+            DHDropshipState.InFlight when comp.Destination != null || comp.ToHangar => EstimateSeconds(ship),
             _ => 0,
         };
 
@@ -765,8 +774,27 @@ public sealed partial class DHDropshipSystem : EntitySystem
             ? DestinationName(comp)
             : null;
 
+        // Фаза полёта: без причин зависания (решение автора: пилоту не сообщается, почему не садимся).
+        string? phase = comp.State == DHDropshipState.InFlight
+            ? Loc.GetString(comp.Flight switch
+            {
+                DHDropshipFlight.Transit => "dh-dropship-ui-phase-transit",
+                DHDropshipFlight.Descend => "dh-dropship-ui-phase-descend",
+                DHDropshipFlight.Climb => "dh-dropship-ui-phase-climb",
+                _ when comp.Manual => "dh-dropship-ui-phase-manual",
+                _ when comp.Waypoint == null => "dh-dropship-ui-phase-hover",
+                _ => "dh-dropship-ui-phase-cruise",
+            })
+            : null;
+
         _ui.SetUiState(console.Owner, DHDropshipUiKey.Key, new DHDropshipConsoleState(Name(ship), comp.State, location,
-            destination, Math.Max(0, seconds), destinations, comp.Flares, comp.MaxFlares, now < comp.FlaresUntil));
+            destination, Math.Max(0, seconds), destinations, comp.Flares, comp.MaxFlares, now < comp.FlaresUntil)
+        {
+            Phase = phase,
+            Manual = comp.Manual,
+            ManualAvailable = comp.State == DHDropshipState.InFlight && comp.Flight == DHDropshipFlight.Cruise,
+            Retargetable = comp.State == DHDropshipState.InFlight && comp.Flight != DHDropshipFlight.Transit,
+        });
     }
 
     #endregion

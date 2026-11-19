@@ -12,6 +12,7 @@ public sealed class DHDropshipWindow : DefaultWindow
     public event Action<NetEntity?>? OnFly;
     public event Action? OnAbort;
     public event Action? OnFlares;
+    public event Action<bool>? OnManual;
 
     private static readonly Color Ok = Color.FromHex("#8FD66B");
     private static readonly Color Warn = Color.FromHex("#E8B04A");
@@ -22,6 +23,9 @@ public sealed class DHDropshipWindow : DefaultWindow
     private readonly Label _flight = new();
     private readonly Button _abort = new();
     private readonly Button _flares = new();
+    private readonly Label _phase = new();
+    private readonly Button _manual = new();
+    private bool _manualOn;
     private readonly BoxContainer _destinations = new()
     {
         Orientation = BoxContainer.LayoutOrientation.Vertical,
@@ -44,6 +48,9 @@ public sealed class DHDropshipWindow : DefaultWindow
         root.AddChild(_state);
         root.AddChild(_location);
         root.AddChild(_flight);
+        root.AddChild(_phase);
+        _manual.OnPressed += _ => OnManual?.Invoke(!_manualOn);
+        root.AddChild(_manual);
         _abort.Text = Loc.GetString("dh-dropship-ui-abort");
         _abort.OnPressed += _ => OnAbort?.Invoke();
         root.AddChild(_abort);
@@ -76,6 +83,15 @@ public sealed class DHDropshipWindow : DefaultWindow
             : Loc.GetString("dh-dropship-ui-flight", ("destination", state.Destination), ("seconds", state.SecondsLeft));
         _abort.Visible = state.State == DHDropshipState.Departing;
 
+        _phase.Visible = state.Phase != null;
+        _phase.Text = state.Phase ?? string.Empty;
+        _phase.FontColorOverride = Warn;
+
+        // Ручное управление: WASD ведёт челнок, пока открыт пульт; кнопка возвращает автопилот.
+        _manualOn = state.Manual;
+        _manual.Visible = state.ManualAvailable || state.Manual;
+        _manual.Text = Loc.GetString(state.Manual ? "dh-dropship-ui-autopilot" : "dh-dropship-ui-manual");
+
         // ЛТЦ: в полёте — залп; иначе только запас.
         _flares.Visible = state.MaxFlares > 0;
         _flares.Text = state.FlaresActive
@@ -83,8 +99,9 @@ public sealed class DHDropshipWindow : DefaultWindow
             : Loc.GetString("dh-dropship-ui-flares", ("count", state.Flares), ("max", state.MaxFlares));
         _flares.Disabled = state.State != DHDropshipState.InFlight || state.Flares <= 0 || state.FlaresActive;
 
+        // Цель можно сменить и в полёте (кроме перехода орбита — атмосфера).
         var busy = state.State == DHDropshipState.Departing ||
-                   state.State == DHDropshipState.InFlight && state.Destination != null;
+                   state.State == DHDropshipState.InFlight && !state.Retargetable;
 
         _destinations.RemoveAllChildren();
         foreach (var destination in state.Destinations)

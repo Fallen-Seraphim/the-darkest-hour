@@ -897,9 +897,10 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
                 var dropships = EntityQueryEnumerator<DHDropshipComponent, TransformComponent>();
                 while (dropships.MoveNext(out var ship, out var shipComp, out var shipXform))
                 {
-                    // ЛТЦ сбивают наведение на этот заход.
+                    // ЛТЦ сбивают наведение на этот заход. Челнок бьют и в небе, и над полем боя на уровнях
+                    // воздуха, и на снижении к ЗП.
                     if (shipComp.State != DHDropshipState.InFlight || now < shipComp.FlaresUntil ||
-                        shipXform.MapUid != sky ||
+                        !InAirOver(shipXform.MapUid, defenceGround, sky) ||
                         Vector2.Distance(_transform.GetWorldPosition(shipXform), position) > comp.AirRange)
                     {
                         continue;
@@ -946,6 +947,17 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             if (HasComp<DHAssaultCarrierComponent>(grid))
                 _assault.DamageCarrier(grid, comp.AirDamage);
         }
+    }
+
+    /// <summary>Карта — небо над землёй или уровень над ней (воздух, этаж) той же стопки.</summary>
+    private bool InAirOver(EntityUid? map, EntityUid ground, EntityUid sky)
+    {
+        if (map == sky)
+            return true;
+
+        return map != null && map != ground && _zLevels.TryGetLevel(map, out var level) &&
+               _zLevels.TryGetLevel(ground, out var groundLevel) && level.Stack == groundLevel.Stack &&
+               level.Level > groundLevel.Level;
     }
 
     private void Warn(Strike strike)

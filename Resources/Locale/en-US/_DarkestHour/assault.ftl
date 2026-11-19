@@ -320,3 +320,17 @@ dh-department-imperial-command-description = The command of the Imperial landing
 id-card-access-level-dh-imperial-command = Imperial Operation Command
 dh-chat-radio-imperial-skat = SKAT
 dh-chat-radio-imperial-supply = Imperial Supply
+
+# Dropship autopilot flight over the battlefield
+dh-dropship-descending = Over {$zone}. Descending!
+dh-dropship-hovering-lost = The landing zone is lost: hovering, pick another destination.
+dh-dropship-manual-unavailable = You can take the controls only while flying over the battlefield.
+dh-dropship-manual-on = The pilot has taken the controls.
+dh-dropship-ui-manual = TAKE THE CONTROLS (WASD)
+dh-dropship-ui-autopilot = ENGAGE AUTOPILOT
+dh-dropship-ui-phase-transit = Orbit-to-atmosphere transit.
+dh-dropship-ui-phase-cruise = Flying over the battlefield.
+dh-dropship-ui-phase-descend = Descending.
+dh-dropship-ui-phase-climb = Climbing.
+dh-dropship-ui-phase-hover = Hovering.
+dh-dropship-ui-phase-manual = Manual control.

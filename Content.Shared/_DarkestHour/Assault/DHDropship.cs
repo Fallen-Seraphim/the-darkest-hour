@@ -59,6 +59,25 @@ public enum DHDropshipState : byte
     Landed,
 }
 
+/// <summary>Фаза полёта челнока на автопилоте (решение автора 2026-11-19).</summary>
+[Serializable, NetSerializable]
+public enum DHDropshipFlight : byte
+{
+    None,
+
+    /// <summary>Переход орбита — атмосфера над полем боя (или обратно).</summary>
+    Transit,
+
+    /// <summary>Полёт на уровне воздуха над полем боя: к цели, за город или висим.</summary>
+    Cruise,
+
+    /// <summary>Снижение по уровням над ЗП.</summary>
+    Descend,
+
+    /// <summary>Подъём по уровням до высоты полёта.</summary>
+    Climb,
+}
+
 /// <summary>Направление полёта: ангар (Zone = null) или ЗП.</summary>
 [Serializable, NetSerializable]
 public sealed class DHDropshipDestination(NetEntity? zone, string name, bool available, string note)
@@ -92,6 +111,18 @@ public sealed class DHDropshipConsoleState(
     public readonly string? Destination = destination;
     public readonly int SecondsLeft = secondsLeft;
     public readonly List<DHDropshipDestination> Destinations = destinations;
+
+    /// <summary>Что делает челнок в полёте (переход, полёт, снижение…).</summary>
+    public string? Phase;
+
+    /// <summary>Ручное управление включено.</summary>
+    public bool Manual;
+
+    /// <summary>Можно взять управление: челнок летит на уровне воздуха.</summary>
+    public bool ManualAvailable;
+
+    /// <summary>В полёте можно сменить цель.</summary>
+    public bool Retargetable;
 }
 
 /// <summary>Лететь: в ангар (Zone = null) или на ЗП.</summary>
@@ -104,6 +135,13 @@ public sealed class DHDropshipFlyMessage(NetEntity? zone) : BoundUserInterfaceMe
 /// <summary>Отстрелить ЛТЦ (в полёте): ПВО не наводится на челнок до конца захода.</summary>
 [Serializable, NetSerializable]
 public sealed class DHDropshipFlaresMessage : BoundUserInterfaceMessage;
+
+/// <summary>Взять челнок на себя (WASD) или вернуть автопилоту.</summary>
+[Serializable, NetSerializable]
+public sealed class DHDropshipManualMessage(bool enable) : BoundUserInterfaceMessage
+{
+    public readonly bool Enable = enable;
+}
 
 /// <summary>Отменить взлёт, пока идёт отсчёт.</summary>
 [Serializable, NetSerializable]

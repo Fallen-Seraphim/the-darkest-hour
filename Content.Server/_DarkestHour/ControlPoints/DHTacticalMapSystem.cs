@@ -17,6 +17,7 @@ using Content.Shared.Maps;
 using Content.Shared.Mobs.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Physics.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
@@ -410,6 +411,31 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
                 Name = Name(uid),
                 Owner = vehicle.Faction,
                 Level = level,
+            });
+        }
+
+        // Челноки десанта над полем боя (решение автора 2026-11-19): Империи — свои всегда, Республике — если их видят
+        // РЛС или детекторы. Рисуются на всех уровнях.
+        var dropships = EntityQueryEnumerator<Content.Server._DarkestHour.Assault.DHDropshipComponent, TransformComponent>();
+        while (dropships.MoveNext(out var uid, out var ship, out var xform))
+        {
+            if (ship.State != DHDropshipState.InFlight || !LevelOf(levels, xform.MapUid, out _))
+                continue;
+
+            var position = _transform.GetWorldPosition(xform);
+            if (TryComp<PhysicsComponent>(uid, out var shipPhysics))
+                position += _transform.GetWorldRotation(xform).RotateVec(shipPhysics.LocalCenter);
+
+            if (faction != DHAssaultFaction.Empire && !SeenByEyes(eyes, position))
+                continue;
+
+            markers.Add(new DHTacticalMarker
+            {
+                Kind = DHTacticalMarkerKind.Dropship,
+                X = position.X,
+                Y = position.Y,
+                Name = Name(uid),
+                Owner = DHAssaultFaction.Empire,
             });
         }
 
