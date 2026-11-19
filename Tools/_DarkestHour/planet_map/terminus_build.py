@@ -546,6 +546,9 @@ class World:
         # шоссе А-131: восточный край дамбы → на восток до гор
         self.road_path([(DAM[2], 33), (-80, 34), (-56, h0 + 2), (-40, (h0 + h1) / 2 + 0.5)], width=5, posts=16)
         self.road_h(-40, HW_EAST, h0, h1)
+        # въезд подкреплений Республики с востока (план осады п. 2, 2026-11-19): шоссе пробито через горы к краю карты
+        self.road_h(HW_EAST + 1, X1 - 1, h0, h1)
+        self.ent('DHReinforcementEntryRepublicEast', X1 - 4, h0 + 2, R270, foot=[], free=True)
         # брошенные и сгоревшие машины вдоль шоссе
         for x in range(-30, HW_EAST - 10, 19):
             if self.rng.random() < 0.45:
@@ -566,7 +569,8 @@ class World:
         self.ent('Chair', cx, h1 + 6, R180)
         self.tower(cx + 4, h1 + 4)   # вышка блокпоста
         # конец шоссе — на север к РЛС
-        self.road_v(*NORTH_ROAD_X, h0, RLS[1] + 6)
+        # от перекрёстка (шоссе теперь идёт дальше на восток — столб на проезжей части не ставим)
+        self.road_v(*NORTH_ROAD_X, h1 + 1, RLS[1] + 6)
         # ответвление на юго-восток вдоль озера к космодрому
         self.road_path([(-82, 32), (-60, 16), (-34, 0), (-12, -14), (6, -10), (10, 0), (SPACEPORT[0] + 18, 0)],
                        width=5, posts=18)
@@ -725,7 +729,9 @@ class World:
         x0, y0, x1, y1 = VILLAGE
         self.reserve(x0, y0, x1, y1)
         street_y = (-14, -11)
-        self.road_h(x0 + 1, x1 - 2, *street_y, tile='FloorDirt', posts=14, line=False)
+        self.road_h(X0 + 1, x1 - 2, *street_y, tile='FloorDirt', posts=14, line=False)
+        # въезд подкреплений Республики с запада (план осады п. 2): улица деревни от края карты; грузовик смотрит на восток
+        self.ent('DHReinforcementEntryRepublicWest', X0 + 5, street_y[0] + 1, R90, foot=[], free=True, off=(0.5, 1.0))
         self.road_v(-188, -185, y0 + 2, y1 - 2, tile='FloorDirt', posts=14, line=False)
         # площадь с колодцем и точкой захвата
         self.rect(-196, -20, -176, -6, 'FloorDirt')

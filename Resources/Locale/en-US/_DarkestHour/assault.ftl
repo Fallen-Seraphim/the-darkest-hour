@@ -382,3 +382,11 @@ dh-dropship-ui-atmosphere-enter = CLIMB INTO THE ATMOSPHERE (DROP RUN)
 dh-dropship-ui-atmosphere-leave = RETURN OVER THE BATTLEFIELD
 dh-dropship-ui-release = RELEASE THE CONTROLS
 dh-dropship-ui-phase-atmosphere = Atmosphere layer, drop run. Below us: {$x}, {$y}.
+
+# Reinforcement trucks
+dh-reinforcement-entry-east = east entry
+dh-reinforcement-entry-west = west entry
+dh-reinforcement-entry-unknown = road entry
+dh-reinforcement-truck-sender = Convoy
+dh-reinforcement-truck-announce = A reinforcement truck has arrived ({ $entry }). Expect it at the base.
+dh-reinforcement-truck-boarded = You are in the back of a reinforcement truck ({ $entry }). Take the wheel (in the cab) or wait for a driver, then drive to the base along the highway.
