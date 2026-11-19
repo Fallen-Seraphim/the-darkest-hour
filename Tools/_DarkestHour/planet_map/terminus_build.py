@@ -340,6 +340,34 @@ class World:
         """Фонарь сети АЭС."""
         self.ent('DHLightPostGrid', x, y)
 
+    def tower(self, x, y):
+        """
+        Наблюдательная вышка 3×3 (высота как преимущество, план осады п. 21): на земле — опоры по углам и лестница
+        посередине южной стороны, на +1 — площадка с мешками по краю и люком вниз над лестницей.
+        """
+        cells = [(x + i, y + j) for i in range(3) for j in range(3)]
+        if any(c in self.occ for c in cells):
+            return False
+        for cx, cy in cells:
+            self.tile(cx, cy, 'FloorConcrete')
+        self.ent('DHZLadderUp', x + 1, y)
+        for cx, cy in ((x, y), (x + 2, y), (x, y + 2), (x + 2, y + 2)):
+            self.ent('Girder', cx, cy)
+        for c in cells:
+            self.occ.add(c)
+            self.res.add(c)
+        lv = self.p1
+        for cx, cy in cells:
+            lv.tiles[(cx, cy)] = 'FloorSteel'
+        lv.ents.append(('DHZHatchDown', x + 1, y, 0.0))
+        for i in range(3):
+            lv.ents.append(('DHSandbagBarricade', x + i, y + 2, PI))   # север
+            if i != 1:
+                lv.ents.append(('DHSandbagBarricade', x + i, y, 0.0))  # юг (кроме люка)
+        lv.ents.append(('DHSandbagBarricade', x, y + 1, R270))          # запад
+        lv.ents.append(('DHSandbagBarricade', x + 2, y + 1, R90))       # восток
+        return True
+
     # ---------- рельеф и вода ----------
 
     def coast_y(self, x):
@@ -536,6 +564,7 @@ class World:
                       windows=[(cx - 2, h1 + 6), (cx + 2, h1 + 6)], light_step=3)
         self.ent('TableReinforced', cx, h1 + 7)
         self.ent('Chair', cx, h1 + 6, R180)
+        self.tower(cx + 4, h1 + 4)   # вышка блокпоста
         # конец шоссе — на север к РЛС
         self.road_v(*NORTH_ROAD_X, h0, RLS[1] + 6)
         # ответвление на юго-восток вдоль озера к космодрому
@@ -701,6 +730,7 @@ class World:
         # площадь с колодцем и точкой захвата
         self.rect(-196, -20, -176, -6, 'FloorDirt')
         self.ent('DHControlPointVillage', -186, -18)
+        self.tower(-180, -16)   # водонапорная башня на площади
         for x, y in ((-195, -7), (-177, -7), (-195, -19), (-177, -19)):
             self.ent('FloraTreeLarge', x, y)
         self.ent('RMCBarrelBlue', -183, -9)
@@ -1485,6 +1515,7 @@ class World:
         self.ent('Chair', x1 - 3, y1 - 12, R180)
         self.diesel(x1 - 1, y0 + 2)
         self.ent('DHControlPointAirDefence', x0 + 30, y0 + 4)  # цепочка целей: точка ПВО
+        self.tower(x1 - 5, y1 - 4)   # вышка ПВО
         self.ent('RMCBedBunk' if 'RMCBedBunk' in self.known else 'Bed', x0 + 15, cy + 2)
         self.ent('RMCBedBunk' if 'RMCBedBunk' in self.known else 'Bed', x0 + 15, cy + 4)
         self.ent('ClosetToolFilled', x0 + 15, y0 + 2)
@@ -1505,6 +1536,7 @@ class World:
         self.ent('DHRadarRepublic', x0 + 10, y1 - 8, comps=['    - type: DHControlPointPowered', '      point: npp',
                                                             '      backup: 600', '      requires:', '      - rls'])
         self.ent('DHControlPointRadar', x0 + 20, y0 + 6)  # цепочка целей: точка РЛС и связи
+        self.tower(x1 - 8, y1 - 6)   # вышка у РЛС
         self.ent('DHCommsRelayRepublic', x0 + 24, y1 - 8)
         self.sandbags(x0 + 6, y1 - 13, x0 + 14)
         self.sandbags(x0 + 20, y1 - 13, x0 + 28)
