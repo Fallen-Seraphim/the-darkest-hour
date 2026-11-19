@@ -199,7 +199,8 @@ public sealed class DHTacticalMapControl : Control
 
         foreach (var marker in _state.Markers)
         {
-            if (marker.Level != SelectedLevel && marker.Kind is not (DHTacticalMarkerKind.LandingZone or DHTacticalMarkerKind.Beacon))
+            if (marker.Level != SelectedLevel &&
+                marker.Kind is not (DHTacticalMarkerKind.LandingZone or DHTacticalMarkerKind.Beacon or DHTacticalMarkerKind.Dropship))
                 continue;
 
             var p = ToPixel(new Vector2(marker.X, marker.Y));
@@ -232,6 +233,15 @@ public sealed class DHTacticalMapControl : Control
                     break;
                 case DHTacticalMarkerKind.AirSignature:
                     DrawSignature(handle, p, marker.Name, FactionColor(marker.Owner));
+                    break;
+                case DHTacticalMarkerKind.Dropship:
+                    // Челнок в воздухе: треугольник цвета стороны в кольце, с названием.
+                    var shipColor = FactionColor(marker.Owner);
+                    handle.DrawCircle(p, 9f, shipColor.WithAlpha(0.6f), false);
+                    handle.DrawLine(p + new Vector2(0, -6), p + new Vector2(6, 5), shipColor);
+                    handle.DrawLine(p + new Vector2(6, 5), p + new Vector2(-6, 5), shipColor);
+                    handle.DrawLine(p + new Vector2(-6, 5), p + new Vector2(0, -6), shipColor);
+                    handle.DrawString(_font, p + new Vector2(11, -6), marker.Name, shipColor);
                     break;
                 case DHTacticalMarkerKind.Beacon:
                     // Городской ориентир: флажок и название.
