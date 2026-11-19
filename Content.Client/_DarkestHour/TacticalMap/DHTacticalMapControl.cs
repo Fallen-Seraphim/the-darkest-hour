@@ -3,6 +3,7 @@ using Content.Client._DarkestHour.UI;
 using Content.Shared._DarkestHour.Assault;
 using Content.Shared._DarkestHour.Overwatch;
 using Content.Shared._DarkestHour.Squads;
+using Content.Shared._DarkestHour.Vehicles;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
@@ -81,6 +82,75 @@ public sealed class DHTacticalMapControl : Control
     public void SetState(DHOverwatchState state)
     {
         _state = state;
+    }
+
+    /// <summary>Подсвечен ЛЦУ: ромб цвета метки вокруг отметки.</summary>
+    private static void DrawLased(DrawingHandleScreen handle, Vector2 p, float r)
+    {
+        handle.DrawLine(p + new Vector2(0, -r), p + new Vector2(r, 0), MarkColor);
+        handle.DrawLine(p + new Vector2(r, 0), p + new Vector2(0, r), MarkColor);
+        handle.DrawLine(p + new Vector2(0, r), p + new Vector2(-r, 0), MarkColor);
+        handle.DrawLine(p + new Vector2(-r, 0), p + new Vector2(0, -r), MarkColor);
+    }
+
+    /// <summary>Своя техника: рамка цвета стороны, внутри — знак типа (гусеницы, колёса, лодка).</summary>
+    private void DrawOwnVehicle(DrawingHandleScreen handle, Vector2 p, DHTacticalMarker marker)
+    {
+        var color = FactionColor(marker.Owner);
+        var half = (DHVehicleMapIcon) marker.Icon == DHVehicleMapIcon.Light ? new Vector2(6, 4) : new Vector2(8, 5);
+        var box = new UIBox2(p - half, p + half);
+        handle.DrawRect(box, Color.Black.WithAlpha(0.55f));
+        handle.DrawRect(box, color, false);
+
+        switch ((DHVehicleMapIcon) marker.Icon)
+        {
+            case DHVehicleMapIcon.Tank:
+                // Гусеницы: вытянутый овал; ствол вперёд.
+                handle.DrawLine(p + new Vector2(-5, -2), p + new Vector2(5, -2), color);
+                handle.DrawLine(p + new Vector2(-5, 2), p + new Vector2(5, 2), color);
+                handle.DrawLine(p + new Vector2(-5, -2), p + new Vector2(-6, 0), color);
+                handle.DrawLine(p + new Vector2(-6, 0), p + new Vector2(-5, 2), color);
+                handle.DrawLine(p + new Vector2(5, -2), p + new Vector2(6, 0), color);
+                handle.DrawLine(p + new Vector2(6, 0), p + new Vector2(5, 2), color);
+                handle.DrawLine(p + new Vector2(0, -5), p + new Vector2(0, -9), color);
+                break;
+            case DHVehicleMapIcon.Apc:
+                // БТР: гусеницы/колёса и диагональ пехоты.
+                handle.DrawLine(p + new Vector2(-5, 2), p + new Vector2(5, 2), color);
+                handle.DrawLine(p + new Vector2(-7, -4), p + new Vector2(7, 4), color);
+                break;
+            case DHVehicleMapIcon.Truck:
+            case DHVehicleMapIcon.Light:
+                // Колёсная: две точки-колеса.
+                handle.DrawCircle(p + new Vector2(-3, 1), 1.6f, color);
+                handle.DrawCircle(p + new Vector2(3, 1), 1.6f, color);
+                break;
+            case DHVehicleMapIcon.Boat:
+                handle.DrawLine(p + new Vector2(-5, -1), p + new Vector2(0, 3), color);
+                handle.DrawLine(p + new Vector2(0, 3), p + new Vector2(5, -1), color);
+                break;
+        }
+
+        if (_zoom >= 1.5f)
+            handle.DrawString(_font, p + new Vector2(half.X + 3, -6), marker.Name, color);
+    }
+
+    /// <summary>Свой штурмовик: стрелка по курсу в кольце.</summary>
+    private void DrawAircraft(DrawingHandleScreen handle, Vector2 p, DHTacticalMarker marker)
+    {
+        var color = FactionColor(marker.Owner);
+        // Курс в мировых координатах (Y вверх) → экран (Y вниз).
+        var dir = new Vector2(MathF.Cos(marker.Rotation), -MathF.Sin(marker.Rotation));
+        var side = new Vector2(-dir.Y, dir.X);
+        var nose = p + dir * 9f;
+        var left = p - dir * 6f + side * 6f;
+        var right = p - dir * 6f - side * 6f;
+        handle.DrawCircle(p, 11f, color.WithAlpha(0.5f), false);
+        handle.DrawLine(nose, left, color);
+        handle.DrawLine(left, p - dir * 2f, color);
+        handle.DrawLine(p - dir * 2f, right, color);
+        handle.DrawLine(right, nose, color);
+        handle.DrawString(_font, p + new Vector2(13, -6), marker.Name, color);
     }
 
     private Color FactionColor(DHAssaultFaction? faction)
@@ -204,7 +274,8 @@ public sealed class DHTacticalMapControl : Control
         foreach (var marker in _state.Markers)
         {
             if (marker.Level != SelectedLevel &&
-                marker.Kind is not (DHTacticalMarkerKind.LandingZone or DHTacticalMarkerKind.Beacon or DHTacticalMarkerKind.Dropship))
+                marker.Kind is not (DHTacticalMarkerKind.LandingZone or DHTacticalMarkerKind.Beacon or
+                    DHTacticalMarkerKind.Dropship or DHTacticalMarkerKind.Aircraft or DHTacticalMarkerKind.CounterBattery))
                 continue;
 
             var p = ToPixel(new Vector2(marker.X, marker.Y));
@@ -220,16 +291,54 @@ public sealed class DHTacticalMapControl : Control
                     handle.DrawString(_font, p + new Vector2(7, -6), marker.Name, MarkColor);
                     break;
                 case DHTacticalMarkerKind.Enemy:
-                    handle.DrawCircle(p, 4f, FactionColor(marker.Owner));
-                    handle.DrawCircle(p, 4f, Color.Black, false);
+                    // Сейчас не видно — бледный контур там, где видели последний раз.
+                    if (marker.Stale)
+                    {
+                        handle.DrawCircle(p, 4f, FactionColor(marker.Owner).WithAlpha(0.45f), false);
+                    }
+                    else
+                    {
+                        handle.DrawCircle(p, 4f, FactionColor(marker.Owner));
+                        handle.DrawCircle(p, 4f, Color.Black, false);
+                    }
+
+                    if (marker.Lased)
+                        DrawLased(handle, p, 8f);
                     break;
                 case DHTacticalMarkerKind.EnemyVehicle:
                     // Техника противника: квадрат цвета стороны с подписью.
                     var vehicleColor = FactionColor(marker.Owner);
-                    handle.DrawRect(new UIBox2(p - new Vector2(6, 6), p + new Vector2(6, 6)), vehicleColor);
-                    handle.DrawRect(new UIBox2(p - new Vector2(6, 6), p + new Vector2(6, 6)), Color.Black, false);
+                    if (marker.Stale)
+                    {
+                        vehicleColor = vehicleColor.WithAlpha(0.45f);
+                        handle.DrawRect(new UIBox2(p - new Vector2(6, 6), p + new Vector2(6, 6)), vehicleColor, false);
+                    }
+                    else
+                    {
+                        handle.DrawRect(new UIBox2(p - new Vector2(6, 6), p + new Vector2(6, 6)), vehicleColor);
+                        handle.DrawRect(new UIBox2(p - new Vector2(6, 6), p + new Vector2(6, 6)), Color.Black, false);
+                    }
+
+                    if (marker.Lased)
+                        DrawLased(handle, p, 10f);
                     if (_zoom >= 1.5f)
                         handle.DrawString(_font, p + new Vector2(9, -6), marker.Name, vehicleColor);
+                    break;
+                case DHTacticalMarkerKind.OwnVehicle:
+                    DrawOwnVehicle(handle, p, marker);
+                    break;
+                case DHTacticalMarkerKind.Aircraft:
+                    DrawAircraft(handle, p, marker);
+                    break;
+                case DHTacticalMarkerKind.CounterBattery:
+                    // Засечка: где-то в круге — орудие противника.
+                    var batteryColor = FactionColor(marker.Owner);
+                    handle.DrawCircle(p, marker.Radius * _zoom, batteryColor.WithAlpha(0.15f));
+                    handle.DrawCircle(p, marker.Radius * _zoom, batteryColor, false);
+                    handle.DrawLine(p + new Vector2(-5, -5), p + new Vector2(5, 5), batteryColor);
+                    handle.DrawLine(p + new Vector2(-5, 5), p + new Vector2(5, -5), batteryColor);
+                    handle.DrawString(_font, p + new Vector2(marker.Radius * _zoom * 0.7f + 4f, -6), marker.Name,
+                        batteryColor);
                     break;
                 case DHTacticalMarkerKind.ScanBlip:
                     // Одиночный боец с последнего глобального скана.

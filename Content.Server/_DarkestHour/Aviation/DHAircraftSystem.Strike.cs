@@ -505,8 +505,12 @@ public sealed partial class DHAircraftSystem
         var vehicles = EntityQueryEnumerator<DHVehicleComponent, TransformComponent>();
         while (vehicles.MoveNext(out var uid, out var vehicle, out var xform))
         {
-            if (vehicle.Faction != DHAssaultFaction.Republic || xform.MapUid != surface)
+            // Под маскировочной сетью стоящая машина сигнатуры не даёт (план осады п. 9).
+            if (vehicle.Faction != DHAssaultFaction.Republic || xform.MapUid != surface ||
+                HasComp<Content.Shared._DarkestHour.Recon.DHCamoHiddenComponent>(uid))
+            {
                 continue;
+            }
 
             var proto = MetaData(uid).EntityPrototype?.ID ?? string.Empty;
             var kind = proto.Contains("Truck") ? DHAircraftSignatureKind.Truck : DHAircraftSignatureKind.Armor;

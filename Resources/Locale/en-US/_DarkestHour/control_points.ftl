@@ -36,6 +36,9 @@ dh-tacmap-no-surface = No planet surface data.
 dh-tacmap-reset = Fit
 dh-tacmap-legend = Wheel — zoom, drag — pan. Squares — capture zones, frames — landing zones, crosses — laser marks. Enemies — dots (troops) and squares (vehicles) spotted by your troops, vehicles, radars and detectors; pink — the last global scan, triangles — attack aircraft radar.
 dh-tacmap-laser-mark = Mark { $code }
+dh-tacmap-counter-battery = Counter-battery
+dh-counter-battery-sender = Counter-battery radar
+dh-counter-battery-announce = Enemy fire detected: gun near X { $x }, Y { $y } (± { $radius } m).
 
 cmd-dhcontrolpoint-desc = Sets the owner of a capture zone.
 cmd-dhcontrolpoint-help = Usage: dhcontrolpoint <village|spaceport|construction|npp|dam> <Republic|Empire|none>

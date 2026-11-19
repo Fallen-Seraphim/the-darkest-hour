@@ -151,6 +151,15 @@ public enum DHTacticalMarkerKind : byte
 
     /// <summary>Челнок десанта в воздухе над полем боя (свой — всегда, чужой — если его видят РЛС).</summary>
     Dropship,
+
+    /// <summary>Своя техника: значок по типу (<see cref="DHTacticalMarker.Icon"/>).</summary>
+    OwnVehicle,
+
+    /// <summary>Свой штурмовик в воздухе: курс — <see cref="DHTacticalMarker.Rotation"/>.</summary>
+    Aircraft,
+
+    /// <summary>Контрбатарейная засечка: орудие противника где-то в круге радиусом Radius.</summary>
+    CounterBattery,
 }
 
 [Serializable, NetSerializable]
@@ -165,6 +174,18 @@ public sealed class DHTacticalMarker
 
     /// <summary>Z-уровень отметки (0 — земля).</summary>
     public int Level;
+
+    /// <summary>Значок техники (<see cref="Content.Shared._DarkestHour.Vehicles.DHVehicleMapIcon"/>).</summary>
+    public byte Icon;
+
+    /// <summary>Курс (самолёт), радианы.</summary>
+    public float Rotation;
+
+    /// <summary>Противник сейчас не виден: отметка «последний раз видели здесь».</summary>
+    public bool Stale;
+
+    /// <summary>Противника подсветил ЛЦУ: отметка держится дольше.</summary>
+    public bool Lased;
 }
 
 /// <summary>Запрос местности тактической карты (клиент кэширует её по версии). Map — уровень, null — земля.</summary>

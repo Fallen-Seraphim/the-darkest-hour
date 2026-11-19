@@ -70,6 +70,7 @@ dh-laser-marked = Метка {$code} поставлена в точке ({$x}, {
 dh-laser-sender = Лазерный целеуказатель ({$name})
 dh-laser-announce = Цель отмечена: метка {$code} в точке ({$x}, {$y}).
 dh-laser-lost = Лазер сбит с цели — метка {$code} погасла.
+dh-laser-blocked = Цель закрыта (дым или преграда) — метка {$code} погасла.
 dh-mortar-no-ground = Здесь нет грунта, чтобы установить миномёт.
 dh-mortar-deployed = {CAPITALIZE($user)} устанавливает миномёт.
 dh-mortar-fold-verb = Сложить миномёт

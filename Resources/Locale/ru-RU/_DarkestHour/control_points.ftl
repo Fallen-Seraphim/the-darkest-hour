@@ -36,6 +36,9 @@ dh-tacmap-no-surface = Нет данных о поверхности плане�
 dh-tacmap-reset = Вся карта
 dh-tacmap-legend = Колесо — масштаб, перетаскивание — сдвиг. Квадраты — зоны захвата, рамки — ЗП, крестики — метки ЛЦУ. Противник — кружки (бойцы) и квадраты (техника), замеченные своими бойцами, техникой, РЛС и детекторами; розовое — последний глобальный скан, треугольники — РЛС штурмовика.
 dh-tacmap-laser-mark = Метка { $code }
+dh-tacmap-counter-battery = Засечка
+dh-counter-battery-sender = Контрбатарейная засечка
+dh-counter-battery-announce = Засечён огонь противника: орудие в районе X { $x }, Y { $y } (± { $radius } м).
 
 cmd-dhcontrolpoint-desc = Задаёт владельца зоны захвата.
 cmd-dhcontrolpoint-help = Использование: dhcontrolpoint <village|spaceport|construction|npp|dam> <Republic|Empire|none>
