@@ -201,6 +201,8 @@
         count: 2
       - proto: SmokeGrenade
         count: 2
+      - proto: GrenadeIncendiary # поджигает пол в радиусе (решение автора 2026-11-19)
+        count: 2
       - proto: Binoculars
       - proto: Shovel
       - proto: DHSandbagsEmpty25
@@ -388,6 +390,8 @@
       - proto: ExGrenade
         count: 2
       - proto: SmokeGrenade
+        count: 2
+      - proto: GrenadeIncendiary # поджигает пол в радиусе (решение автора 2026-11-19)
         count: 2
       - proto: Binoculars
       - proto: Shovel
