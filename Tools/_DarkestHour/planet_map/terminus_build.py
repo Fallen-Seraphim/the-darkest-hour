@@ -573,6 +573,10 @@ class World:
                     self.tile(x, y, 'FloorReinforced')
                     if x in (96, 99):
                         self.ent('Railing', x, y, R90 if x == 99 else R270)
+                    # разрушаемость: клетка пролёта (рушится от тяжёлого взрыва, наводится понтоном)
+                    span = 'npp-bridge-1' if y <= -97 else 'npp-bridge-2'
+                    self.ent('DHBridgeTile', x, y, free=True,
+                             comps=['    - type: DHBridgeTile', '      section: %s' % span])
 
     # ---------- дамба ----------
 
@@ -1704,7 +1708,11 @@ class World:
                           windows=[(bx, by0 + 20), (bx + 22, by0 + 20)], window='ReinforcedWindow', lights=None)
             self.wall_line(bx + 1, by0 + 14, bx + 21, by0 + 14, 'WallReinforced', gaps=[(bx + 11, by0 + 14)])
             self.rect(bx + 6, by0 + 2, bx + 16, by0 + 12, 'FloorTechMaint2')
-            self.ent('DHFusionReactor', bx + 11, by0 + 7, foot=[(bx + 10 + i, by0 + 6 + j) for i in range(3) for j in range(3)])
+            # разрушаемость: энергоблок выходит из строя (гаснет сеть АЭС), первая поломка — заражение
+            self.ent('DHFusionReactor', bx + 11, by0 + 7, foot=[(bx + 10 + i, by0 + 6 + j) for i in range(3) for j in range(3)],
+                     comps=['    - type: Damageable', '      damageContainer: StructuralInorganic',
+                            '    - type: DHPoiObject', '      breakDamage: 600', '      point: npp',
+                            '      contamination: DHNppContamination', '      repairStack: Plasteel'])
             self.decal('WarningLine', bx + 9, by0 + 4, '#E0C060C0')
             for tx in (bx + 4, bx + 15):
                 self.ent('DHGasTurbine', tx, by0 + 20, foot=[(tx + i, by0 + 18 + j) for i in range(2) for j in range(5)])

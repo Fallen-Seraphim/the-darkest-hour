@@ -20,6 +20,7 @@ namespace Content.Server._DarkestHour.ControlPoints;
 public sealed partial class DHControlPointSystem : EntitySystem
 {
     [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private Content.Server._DarkestHour.Battlefield.DHBattlefieldSystem _battlefield = default!;
     [Dependency] private Content.Server._DarkestHour.Supply.DHCommandPointsSystem _commandPoints = default!;
     [Dependency] private DHAssaultRuleSystem _assault = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
@@ -211,6 +212,26 @@ public sealed partial class DHControlPointSystem : EntitySystem
     }
 
     /// <summary>
+    /// Чей эффект даёт зона: владелец, если её объекты в строю. Сломанный объект, выключающий зону (энергоблок АЭС),
+    /// гасит её эффект, пока его не починят (разрушаемость POI, решение автора 2026-11-19).
+    /// </summary>
+    private DHAssaultFaction? EffectiveHolder(string pointId)
+    {
+        return _battlefield.PointOutOfAction(pointId) ? null : HolderOf(pointId);
+    }
+
+    /// <summary>Объект зоны сломан или починен: пересчитать всё, что от неё питается.</summary>
+    public void RefreshPoint(string pointId)
+    {
+        var powered = EntityQueryEnumerator<DHControlPointPoweredComponent>();
+        while (powered.MoveNext(out var uid, out var comp))
+        {
+            if (comp.Point == pointId || comp.Requires.Contains(pointId))
+                ApplyPower((uid, comp));
+        }
+    }
+
+    /// <summary>
     /// Пересчитать питание: нужна основная зона (её потеря — переход на резервный дизель, если он есть) и все
     /// <see cref="DHControlPointPoweredComponent.Requires"/> (их потеря — сразу молчит).
     /// </summary>
@@ -218,7 +239,7 @@ public sealed partial class DHControlPointSystem : EntitySystem
     {
         foreach (var required in ent.Comp.Requires)
         {
-            if (HolderOf(required) != ent.Comp.Faction)
+            if (EffectiveHolder(required) != ent.Comp.Faction)
             {
                 ent.Comp.BackupUntil = null;
                 SetPowered(ent, false);
@@ -226,7 +247,7 @@ public sealed partial class DHControlPointSystem : EntitySystem
             }
         }
 
-        var enabled = HolderOf(ent.Comp.Point) == ent.Comp.Faction;
+        var enabled = EffectiveHolder(ent.Comp.Point) == ent.Comp.Faction;
 
         // Сеть пропала — военный объект переходит на резервный дизель (если он есть и ещё не на нём).
         if (!enabled && ent.Comp.Backup > TimeSpan.Zero && !ent.Comp.Disabled)

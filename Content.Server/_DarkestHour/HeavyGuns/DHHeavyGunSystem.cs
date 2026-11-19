@@ -44,6 +44,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
 {
     [Dependency] private Content.Server._DarkestHour.Aviation.DHAircraftSystem _aircraft = default!;
     [Dependency] private Content.Server._DarkestHour.Carrier.DHCarrierDamageSystem _carrierDamage = default!;
+    [Dependency] private Content.Server._DarkestHour.Battlefield.DHBattlefieldSystem _battlefield = default!;
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private DHAssaultRuleSystem _assault = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
@@ -71,6 +72,10 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     /// <summary>Удар с орбиты по крыше: радиус пролома и доля силы, что проходит под одноэтажную крышу.</summary>
     private const float RoofBreakRadius = 2.5f;
     private const float RoofAbsorbScale = 0.35f;
+
+    /// <summary>Миномёт проламывает лёгкую крышу на столько; воронки — от снарядов ОБ этого калибра.</summary>
+    private const float MortarRoofRadius = 1.5f;
+    private const int CraterCaliber = 300;
 
     /// <summary>Прямой урон авианосцу от попадания (остальное — пробоины и пожары, живучесть, п. 19).</summary>
     private const float CarrierDirectDamage = 0.5f;
@@ -306,7 +311,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     private bool Unpowered(EntityUid uid)
     {
         return TryComp<Content.Shared._DarkestHour.ControlPoints.DHControlPointPoweredComponent>(uid, out var powered) &&
-               powered.Disabled;
+               powered.Disabled || _battlefield.IsBroken(uid);
     }
 
     /// <summary>
@@ -673,6 +678,14 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         }
 
         var guns = Guns(ent);
+        // Выведенное из строя орудие не стреляет, пока его не починят (разрушаемость POI).
+        if (guns.Count > 0 && guns.TrueForAll(g => _battlefield.IsBroken(g)))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-heavy-gun-broken"), ent, args.Actor);
+            return;
+        }
+
+        guns.RemoveAll(g => _battlefield.IsBroken(g));
         var selected = new HashSet<EntityUid>();
         foreach (var net in args.Guns)
         {
@@ -1006,23 +1019,30 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             var impact = _zLevels.ImpactPoint(strike.Target, out var level);
             if (strike.Mortar)
             {
+                // Миномёт (разрушаемость, решение автора 2026-11-19): бетонную крышу не берёт, лёгкую — проламывает.
+                var roofFlag = level == 0 && _zLevels.HasRoofFlag(impact);
+                if (strike.Warhead != DHWarhead.Flare && (level > 0 || roofFlag))
+                    _battlefield.RoofStrike(strike.Target, Content.Server._DarkestHour.Battlefield.DHBattlefieldSystem.RoofHit.Light, MortarRoofRadius);
                 Detonate(strike.Warhead, strike.Caliber, impact, 1f, false);
             }
             else if (level > 0)
             {
-                // Удар с орбиты сначала ломает крышу: рвётся на ней и проламывает её.
+                // Удар с орбиты сначала ломает крышу: рвётся на ней и проламывает её, обломки — завалами ниже.
                 Detonate(strike.Warhead, strike.Caliber, impact, 1f, false);
-                _zTransit.BreakRoof(impact, RoofBreakRadius);
+                _battlefield.RoofStrike(strike.Target, Content.Server._DarkestHour.Battlefield.DHBattlefieldSystem.RoofHit.Heavy, RoofBreakRadius);
             }
             else if (_zLevels.HasRoofFlag(impact))
             {
-                // Одноэтажная крыша: её сносит, внутрь доходит малая часть удара.
-                _zTransit.ClearRoofFlags(impact, RoofBreakRadius);
+                // Одноэтажная крыша: её сносит (с завалами), внутрь доходит малая часть удара.
+                _battlefield.RoofStrike(strike.Target, Content.Server._DarkestHour.Battlefield.DHBattlefieldSystem.RoofHit.Heavy, RoofBreakRadius);
                 Detonate(strike.Warhead, strike.Caliber, impact, RoofAbsorbScale, false);
             }
             else
             {
                 Detonate(strike.Warhead, strike.Caliber, impact, 1f, false);
+                // Воронка от тяжёлого снаряда ОБ (от 300 мм).
+                if (strike.Caliber >= CraterCaliber && strike.Warhead != DHWarhead.Flare)
+                    _battlefield.SpawnCrater(impact, strike.Caliber >= 500 ? 2 : 1);
             }
 
             Report(strike, "dh-heavy-gun-report-impact");

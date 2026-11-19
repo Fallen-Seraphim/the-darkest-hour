@@ -45,6 +45,7 @@ namespace Content.Server._DarkestHour.Aviation;
 public sealed partial class DHAircraftSystem : EntitySystem
 {
     [Dependency] private Content.Server._DarkestHour.PowerLoader.DHPowerLoaderSystem _powerLoader = default!;
+    [Dependency] private Content.Server._DarkestHour.Battlefield.DHBattlefieldSystem _battlefield = default!;
     [Dependency] private Content.Server._DarkestHour.Carrier.DHCarrierDamageSystem _carrierDamage = default!;
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private SharedAppearanceSystem _appearance = default!;

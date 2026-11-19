@@ -370,6 +370,20 @@ public sealed partial class DHAircraftSystem
     }
 
     /// <summary>Разрыв боеприпаса в точке; <paramref name="course"/> — курс самолёта (кассеты и напалм ложатся вдоль него).</summary>
+    /// <summary>
+    /// Тяжёлая бомба (разрушаемость, решение автора 2026-11-19): ломает любую крышу с завалами, на открытой земле
+    /// оставляет воронку.
+    /// </summary>
+    private void HeavyImpact(MapCoordinates target)
+    {
+        var impact = _battlefield.RoofStrike(target, Content.Server._DarkestHour.Battlefield.DHBattlefieldSystem.RoofHit.Heavy, 2.5f);
+        if (_zLevels.TryGetLevel(impact.MapId, out var level) && level.Level != 0)
+            return;
+
+        if (!_zLevels.HasRoofFlag(impact))
+            _battlefield.SpawnCrater(impact, 1);
+    }
+
     private void Detonate(DHAircraftMunition kind, MapCoordinates target, Vector2 course, EntityUid? hit)
     {
         var side = new Vector2(-course.Y, course.X);
@@ -377,6 +391,7 @@ public sealed partial class DHAircraftSystem
         {
             case DHAircraftMunition.BombHE:
                 _explosion.QueueExplosion(target, HeavyExplosion, 320f, 10f, 60f, null);
+                HeavyImpact(target);
                 break;
 
             case DHAircraftMunition.BombCluster:
@@ -421,10 +436,13 @@ public sealed partial class DHAircraftSystem
 
             case DHAircraftMunition.GuidedBomb:
                 _explosion.QueueExplosion(target, HeavyExplosion, 360f, 10f, 60f, null);
+                HeavyImpact(target);
                 break;
 
             case DHAircraftMunition.MissileHE:
                 _explosion.QueueExplosion(target, HeavyExplosion, 180f, 8f, 35f, null);
+                // Ракета проламывает лёгкую крышу, бетонную — нет.
+                _battlefield.RoofStrike(target, Content.Server._DarkestHour.Battlefield.DHBattlefieldSystem.RoofHit.Light, 1.5f);
                 break;
 
             case DHAircraftMunition.MissileAT:
