@@ -76,6 +76,9 @@ public enum DHDropshipFlight : byte
 
     /// <summary>Подъём по уровням до высоты полёта.</summary>
     Climb,
+
+    /// <summary>Медленный полёт в слое атмосферы под управлением пилота — заход на выброску десанта.</summary>
+    Atmosphere,
 }
 
 /// <summary>Направление полёта: ангар (Zone = null) или ЗП.</summary>
@@ -123,6 +126,12 @@ public sealed class DHDropshipConsoleState(
 
     /// <summary>В полёте можно сменить цель.</summary>
     public bool Retargetable;
+
+    /// <summary>Челнок в слое атмосферы (заход на выброску).</summary>
+    public bool InAtmosphere;
+
+    /// <summary>Можно подняться в слой атмосферы: челнок летит над полем боя.</summary>
+    public bool AtmosphereAvailable;
 }
 
 /// <summary>Лететь: в ангар (Zone = null) или на ЗП.</summary>
@@ -139,6 +148,13 @@ public sealed class DHDropshipFlaresMessage : BoundUserInterfaceMessage;
 /// <summary>Взять челнок на себя (WASD) или вернуть автопилоту.</summary>
 [Serializable, NetSerializable]
 public sealed class DHDropshipManualMessage(bool enable) : BoundUserInterfaceMessage
+{
+    public readonly bool Enable = enable;
+}
+
+/// <summary>Подняться в слой атмосферы для выброски десанта или вернуться на высоту полёта.</summary>
+[Serializable, NetSerializable]
+public sealed class DHDropshipAtmosphereMessage(bool enable) : BoundUserInterfaceMessage
 {
     public readonly bool Enable = enable;
 }

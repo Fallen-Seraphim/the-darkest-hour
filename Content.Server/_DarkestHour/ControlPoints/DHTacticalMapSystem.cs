@@ -419,7 +419,9 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
         var dropships = EntityQueryEnumerator<Content.Server._DarkestHour.Assault.DHDropshipComponent, TransformComponent>();
         while (dropships.MoveNext(out var uid, out var ship, out var xform))
         {
-            if (ship.State != DHDropshipState.InFlight || !LevelOf(levels, xform.MapUid, out _))
+            // В слое атмосферы (заход на выброску) — над той землёй, над которой идёт.
+            var over = ship.Flight == DHDropshipFlight.Atmosphere ? ship.Surface : xform.MapUid;
+            if (ship.State != DHDropshipState.InFlight || !LevelOf(levels, over, out _))
                 continue;
 
             var position = _transform.GetWorldPosition(xform);

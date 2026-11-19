@@ -72,6 +72,10 @@ public sealed partial class DHDropshipComponent : Component
     [DataField]
     public float CruiseSpeed = 8f;
 
+    /// <summary>Скорость в слое атмосферы под управлением пилота (заход на выброску), тайлов в секунду.</summary>
+    [DataField]
+    public float AtmosphereSpeed = 3f;
+
     /// <summary>Снижение (и подъём) на один уровень.</summary>
     [DataField]
     public TimeSpan LevelStep = TimeSpan.FromSeconds(3);
@@ -245,6 +249,7 @@ public sealed partial class DHDropshipSystem : EntitySystem
             subs.Event<DHDropshipAbortMessage>(OnAbort);
             subs.Event<DHDropshipFlaresMessage>(OnFlares);
             subs.Event<DHDropshipManualMessage>(OnManual);
+            subs.Event<DHDropshipAtmosphereMessage>(OnAtmosphere);
             subs.Event<BoundUIClosedEvent>(OnConsoleClosed);
         });
     }
@@ -641,7 +646,7 @@ public sealed partial class DHDropshipSystem : EntitySystem
             if (comp.State == DHDropshipState.InFlight && now >= comp.NextShake)
             {
                 comp.NextShake = now + TimeSpan.FromSeconds(2);
-                _landing.Shake(uid, comp.Flight == DHDropshipFlight.Cruise ? 0.15f : 0.3f);
+                _landing.Shake(uid, comp.Flight is DHDropshipFlight.Cruise or DHDropshipFlight.Atmosphere ? 0.15f : 0.3f);
             }
         }
 
@@ -787,12 +792,23 @@ public sealed partial class DHDropshipSystem : EntitySystem
             })
             : null;
 
+        // В слое атмосферы земли не видно: пилоту — координаты точки под челноком (сверять с тактической картой).
+        if (comp.State == DHDropshipState.InFlight && comp.Flight == DHDropshipFlight.Atmosphere)
+        {
+            var over = ShipCenter(ship);
+            phase = Loc.GetString("dh-dropship-ui-phase-atmosphere", ("x", (int) MathF.Round(over.X)),
+                ("y", (int) MathF.Round(over.Y)));
+        }
+
         _ui.SetUiState(console.Owner, DHDropshipUiKey.Key, new DHDropshipConsoleState(Name(ship), comp.State, location,
             destination, Math.Max(0, seconds), destinations, comp.Flares, comp.MaxFlares, now < comp.FlaresUntil)
         {
             Phase = phase,
             Manual = comp.Manual,
-            ManualAvailable = comp.State == DHDropshipState.InFlight && comp.Flight == DHDropshipFlight.Cruise,
+            ManualAvailable = comp.State == DHDropshipState.InFlight &&
+                              comp.Flight is DHDropshipFlight.Cruise or DHDropshipFlight.Atmosphere,
+            InAtmosphere = comp.State == DHDropshipState.InFlight && comp.Flight == DHDropshipFlight.Atmosphere,
+            AtmosphereAvailable = comp.State == DHDropshipState.InFlight && comp.Flight == DHDropshipFlight.Cruise,
             Retargetable = comp.State == DHDropshipState.InFlight && comp.Flight != DHDropshipFlight.Transit,
         });
     }

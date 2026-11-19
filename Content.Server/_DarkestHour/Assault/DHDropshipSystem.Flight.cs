@@ -131,6 +131,16 @@ public sealed partial class DHDropshipSystem
     private void Retarget(Entity<DHDropshipComponent> ship)
     {
         var comp = ship.Comp;
+        if (comp.Flight == DHDropshipFlight.Atmosphere)
+        {
+            // Выбрали цель, пока шли в слое атмосферы: обратно на высоту полёта, оттуда — по курсу.
+            if (comp.Destination == null && !comp.ToHangar)
+                return;
+
+            LeaveAtmosphere(ship);
+            return;
+        }
+
         if (comp.Flight == DHDropshipFlight.Descend)
         {
             // Снижались к прежней ЗП — сначала обратно наверх.
@@ -169,7 +179,11 @@ public sealed partial class DHDropshipSystem
                     EndTransit(ship);
                 break;
             case DHDropshipFlight.Cruise:
-                Cruise(ship, frameTime);
+                Cruise(ship, frameTime, comp.CruiseSpeed);
+                break;
+            case DHDropshipFlight.Atmosphere:
+                // Только руками пилота и медленно: заход для выброски десанта.
+                Cruise(ship, frameTime, comp.AtmosphereSpeed);
                 break;
             case DHDropshipFlight.Descend:
                 if (now >= comp.NextStep)
@@ -191,12 +205,12 @@ public sealed partial class DHDropshipSystem
     }
 
     /// <summary>Полёт на уровне воздуха: автопилот к точке курса или ручное управление пилота.</summary>
-    private void Cruise(Entity<DHDropshipComponent> ship, float frameTime)
+    private void Cruise(Entity<DHDropshipComponent> ship, float frameTime, float speed)
     {
         var comp = ship.Comp;
         var position = ShipCenter(ship);
         Vector2? direction = null;
-        var step = comp.CruiseSpeed * frameTime;
+        var step = speed * frameTime;
 
         if (comp.Manual)
         {
@@ -223,7 +237,7 @@ public sealed partial class DHDropshipSystem
                 }
             }
         }
-        else if (comp.Waypoint is { } waypoint)
+        else if (comp.Flight == DHDropshipFlight.Cruise && comp.Waypoint is { } waypoint)
         {
             var toWaypoint = waypoint - position;
             var distance = toWaypoint.Length();
@@ -460,24 +474,92 @@ public sealed partial class DHDropshipSystem
         {
             ReleasePilot(ship);
             comp.Manual = false;
-            Retarget(ship);
+            // В слое атмосферы автопилота нет: отпустили управление — челнок висит.
+            if (comp.Flight != DHDropshipFlight.Atmosphere)
+                Retarget(ship);
             UpdateUi(ent, ship);
             return;
         }
 
-        if (comp.State != DHDropshipState.InFlight || comp.Flight != DHDropshipFlight.Cruise)
+        if (comp.State != DHDropshipState.InFlight ||
+            comp.Flight is not (DHDropshipFlight.Cruise or DHDropshipFlight.Atmosphere))
         {
             _popup.PopupEntity(Loc.GetString("dh-dropship-manual-unavailable"), ent, args.Actor);
             return;
         }
 
-        ReleasePilot(ship);
-        comp.Manual = true;
-        comp.Pilot = args.Actor;
-        comp.PilotConsole = ent.Owner;
-        _mover.SetRelay(args.Actor, ent.Owner);
+        TakeControls(ship, ent.Owner, args.Actor);
         Announce(ship, Loc.GetString("dh-dropship-manual-on"));
         UpdateUi(ent, ship);
+    }
+
+    private void TakeControls(Entity<DHDropshipComponent> ship, EntityUid console, EntityUid pilot)
+    {
+        ReleasePilot(ship);
+        ship.Comp.Manual = true;
+        ship.Comp.Pilot = pilot;
+        ship.Comp.PilotConsole = console;
+        _mover.SetRelay(pilot, console);
+    }
+
+    /// <summary>
+    /// Полёт в слое атмосферы (решение автора 2026-11-19): отдельной кнопкой из полёта над полем боя челнок
+    /// поднимается в атмосферу над той же точкой и идёт медленно, только под управлением пилота. Отсюда, как и
+    /// раньше, выбрасывается десант и грузы на парашютах. Повторное нажатие или выбор цели — обратно на высоту полёта.
+    /// </summary>
+    private void OnAtmosphere(Entity<DHDropshipConsoleComponent> ent, ref DHDropshipAtmosphereMessage args)
+    {
+        if (ShipOf(ent) is not { } ship)
+            return;
+
+        var comp = ship.Comp;
+        if (!args.Enable)
+        {
+            if (comp.Flight == DHDropshipFlight.Atmosphere)
+            {
+                LeaveAtmosphere(ship);
+                Announce(ship, Loc.GetString("dh-dropship-atmosphere-left"));
+            }
+
+            UpdateUi(ent, ship);
+            return;
+        }
+
+        if (comp.State != DHDropshipState.InFlight || comp.Flight != DHDropshipFlight.Cruise ||
+            SkyOf(comp.Surface) is not { } sky)
+        {
+            _popup.PopupEntity(Loc.GetString("dh-dropship-atmosphere-unavailable"), ent, args.Actor);
+            return;
+        }
+
+        _landing.PlaceShuttle(ship, new EntityCoordinates(sky, ShipCenter(ship)));
+        comp.Flight = DHDropshipFlight.Atmosphere;
+        comp.Level = -1;
+        comp.Waypoint = null;
+        // Курс сбрасывается: новая цель выводит обратно из атмосферы.
+        comp.Destination = null;
+        comp.ToHangar = false;
+        _landing.Shake(ship, 0.4f);
+        TakeControls(ship, ent.Owner, args.Actor);
+        Announce(ship, Loc.GetString("dh-dropship-atmosphere-entered"));
+        UpdateUi(ent, ship);
+    }
+
+    /// <summary>Из слоя атмосферы обратно на высоту полёта над той же точкой, дальше — по курсу.</summary>
+    private void LeaveAtmosphere(Entity<DHDropshipComponent> ship)
+    {
+        var comp = ship.Comp;
+        if (comp.Surface is not { } surface || _aircraft.AirLevelMap(surface, comp.CruiseHeight) is not { } air)
+            return;
+
+        ReleasePilot(ship);
+        comp.Manual = false;
+        comp.CruiseLevel = _aircraft.TopFloor(surface, out _) + comp.CruiseHeight;
+        comp.Level = comp.CruiseLevel;
+        comp.Flight = DHDropshipFlight.Cruise;
+        _landing.PlaceShuttle(ship, new EntityCoordinates(air, ShipCenter(ship)));
+        _landing.Shake(ship, 0.4f);
+        Retarget(ship);
     }
 
     private void OnShipShutdown(Entity<DHDropshipComponent> ent, ref ComponentShutdown args)
@@ -661,6 +743,10 @@ public sealed partial class DHDropshipSystem
                     seconds += Vector2.Distance(from, t1) / comp.CruiseSpeed + comp.CruiseHeight * levelStep + levelStep;
                 }
 
+                break;
+            case DHDropshipFlight.Atmosphere:
+                if (target is { } t3)
+                    seconds += Vector2.Distance(ShipCenter(ship), t3) / comp.CruiseSpeed + comp.CruiseLevel * levelStep;
                 break;
             case DHDropshipFlight.Cruise:
                 if (comp.Waypoint is { } waypoint)

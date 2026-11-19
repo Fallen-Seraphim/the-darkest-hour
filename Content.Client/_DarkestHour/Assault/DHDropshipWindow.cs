@@ -13,6 +13,7 @@ public sealed class DHDropshipWindow : DefaultWindow
     public event Action? OnAbort;
     public event Action? OnFlares;
     public event Action<bool>? OnManual;
+    public event Action<bool>? OnAtmosphere;
 
     private static readonly Color Ok = Color.FromHex("#8FD66B");
     private static readonly Color Warn = Color.FromHex("#E8B04A");
@@ -26,6 +27,8 @@ public sealed class DHDropshipWindow : DefaultWindow
     private readonly Label _phase = new();
     private readonly Button _manual = new();
     private bool _manualOn;
+    private readonly Button _atmosphere = new();
+    private bool _inAtmosphere;
     private readonly BoxContainer _destinations = new()
     {
         Orientation = BoxContainer.LayoutOrientation.Vertical,
@@ -51,6 +54,8 @@ public sealed class DHDropshipWindow : DefaultWindow
         root.AddChild(_phase);
         _manual.OnPressed += _ => OnManual?.Invoke(!_manualOn);
         root.AddChild(_manual);
+        _atmosphere.OnPressed += _ => OnAtmosphere?.Invoke(!_inAtmosphere);
+        root.AddChild(_atmosphere);
         _abort.Text = Loc.GetString("dh-dropship-ui-abort");
         _abort.OnPressed += _ => OnAbort?.Invoke();
         root.AddChild(_abort);
@@ -90,7 +95,14 @@ public sealed class DHDropshipWindow : DefaultWindow
         // Ручное управление: WASD ведёт челнок, пока открыт пульт; кнопка возвращает автопилот.
         _manualOn = state.Manual;
         _manual.Visible = state.ManualAvailable || state.Manual;
-        _manual.Text = Loc.GetString(state.Manual ? "dh-dropship-ui-autopilot" : "dh-dropship-ui-manual");
+        _manual.Text = Loc.GetString(!state.Manual ? "dh-dropship-ui-manual"
+            : state.InAtmosphere ? "dh-dropship-ui-release" : "dh-dropship-ui-autopilot");
+
+        // Слой атмосферы: медленный полёт руками пилота для выброски десанта.
+        _inAtmosphere = state.InAtmosphere;
+        _atmosphere.Visible = state.AtmosphereAvailable || state.InAtmosphere;
+        _atmosphere.Text = Loc.GetString(state.InAtmosphere ? "dh-dropship-ui-atmosphere-leave"
+            : "dh-dropship-ui-atmosphere-enter");
 
         // ЛТЦ: в полёте — залп; иначе только запас.
         _flares.Visible = state.MaxFlares > 0;
