@@ -74,29 +74,19 @@ public sealed partial class DHControlPointSystem : EntitySystem
         var powered = EntityQueryEnumerator<DHControlPointPoweredComponent>();
         while (powered.MoveNext(out var uid, out var comp))
         {
-            if (comp.Point != ent.Comp.PointId)
+            if (comp.Point != ent.Comp.PointId && !comp.Requires.Contains(ent.Comp.PointId))
                 continue;
 
             comp.BackupUntil = null;
             comp.Disabled = false;
-            ApplyPower((uid, comp), ent.Comp.Holder);
+            ApplyPower((uid, comp));
         }
     }
 
     private void OnPoweredMapInit(Entity<DHControlPointPoweredComponent> ent, ref MapInitEvent args)
     {
-        // Зона могла появиться раньше или позже — сверяемся со всеми зонами с этим id.
-        var points = EntityQueryEnumerator<DHControlPointComponent>();
-        while (points.MoveNext(out var point))
-        {
-            if (point.PointId == ent.Comp.Point)
-            {
-                ApplyPower(ent, point.Holder);
-                return;
-            }
-        }
-
-        ApplyPower(ent, null);
+        // Зона могла появиться раньше или позже — сверяемся с владельцами зон по id.
+        ApplyPower(ent);
     }
 
     #region Захват
@@ -191,8 +181,8 @@ public sealed partial class DHControlPointSystem : EntitySystem
         var powered = EntityQueryEnumerator<DHControlPointPoweredComponent>();
         while (powered.MoveNext(out var uid, out var comp))
         {
-            if (comp.Point == ent.Comp.PointId)
-                ApplyPower((uid, comp), owner);
+            if (comp.Point == ent.Comp.PointId || comp.Requires.Contains(ent.Comp.PointId))
+                ApplyPower((uid, comp));
         }
     }
 
@@ -207,9 +197,36 @@ public sealed partial class DHControlPointSystem : EntitySystem
         _appearance.SetData(ent, DHControlPointVisuals.Owner, value);
     }
 
-    private void ApplyPower(Entity<DHControlPointPoweredComponent> ent, DHAssaultFaction? owner)
+    /// <summary>Кто держит зону с этим id (null — ничья или такой зоны нет).</summary>
+    public DHAssaultFaction? HolderOf(string pointId)
     {
-        var enabled = owner == ent.Comp.Faction;
+        var query = EntityQueryEnumerator<DHControlPointComponent>();
+        while (query.MoveNext(out _, out var point))
+        {
+            if (point.PointId == pointId)
+                return point.Holder;
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Пересчитать питание: нужна основная зона (её потеря — переход на резервный дизель, если он есть) и все
+    /// <see cref="DHControlPointPoweredComponent.Requires"/> (их потеря — сразу молчит).
+    /// </summary>
+    private void ApplyPower(Entity<DHControlPointPoweredComponent> ent)
+    {
+        foreach (var required in ent.Comp.Requires)
+        {
+            if (HolderOf(required) != ent.Comp.Faction)
+            {
+                ent.Comp.BackupUntil = null;
+                SetPowered(ent, false);
+                return;
+            }
+        }
+
+        var enabled = HolderOf(ent.Comp.Point) == ent.Comp.Faction;
 
         // Сеть пропала — военный объект переходит на резервный дизель (если он есть и ещё не на нём).
         if (!enabled && ent.Comp.Backup > TimeSpan.Zero && !ent.Comp.Disabled)

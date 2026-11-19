@@ -22,6 +22,12 @@ dh-control-point-npp = Power plant
 dh-control-point-npp-desc = The side holding the plant has power for its floodlights and air defences across the area. Gives 5 command points per minute.
 dh-control-point-dam = Dam
 dh-control-point-dam-desc = The only safe crossing over the river. Gives 3 command points per minute.
+dh-control-point-pko = Anti-orbital battery
+dh-control-point-pko-desc = The anti-orbital guns can fire at the carrier only while the Republic holds the battery. Gives 4 command points per minute.
+dh-control-point-pvo = Air defence site
+dh-control-point-pvo-desc = Air defence intercepts strikes, the attack aircraft and dropships only while the Republic holds the site and the power plant. Gives 4 command points per minute.
+dh-control-point-rls = Radar and comms post
+dh-control-point-rls-desc = The radar shows the Republic enemy signatures while it holds the post and the power plant. Losing the post jams the garrison's common channel: only nearby radios hear it. Gives 4 command points per minute.
 
 dh-overwatch-ui-tacmap = Tactical map
 dh-tacmap-title = Tactical map

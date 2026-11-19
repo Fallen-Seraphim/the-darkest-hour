@@ -121,6 +121,52 @@
     pointDescription: dh-control-point-dam-desc
     radius: 14
 
+# --- Цепочка целей (план осады п. 1, решения автора 2026-11-19): военные объекты гарнизона, со старта у Республики.
+# Захват не даёт Империи объект — он просто молчит, пока Республика не отобьёт точку.
+
+- type: entity
+  parent: DHControlPointBase
+  id: DHControlPointAntiOrbital
+  suffix: Anti-orbital battery
+  components:
+  - type: DHControlPoint
+    pointId: pko
+    pointsPerMinute: 4
+    pointName: dh-control-point-pko
+    pointDescription: dh-control-point-pko-desc
+    radius: 16
+    holder: Republic
+
+- type: entity
+  parent: DHControlPointBase
+  id: DHControlPointAirDefence
+  suffix: Air defence site
+  components:
+  - type: DHControlPoint
+    pointId: pvo
+    pointsPerMinute: 4
+    pointName: dh-control-point-pvo
+    pointDescription: dh-control-point-pvo-desc
+    radius: 20
+    holder: Republic
+
+- type: entity
+  parent: DHControlPointBase
+  id: DHControlPointRadar
+  suffix: Radar and comms post
+  components:
+  - type: DHControlPoint
+    pointId: rls
+    pointsPerMinute: 4
+    pointName: dh-control-point-rls
+    pointDescription: dh-control-point-rls-desc
+    radius: 18
+    holder: Republic
+    # Пока точка не у Республики, общий канал гарнизона слышно только вблизи.
+    jamChannels: [ DHRepublic ]
+    jamFaction: Republic
+    jamRange: 15
+
 # --- Ящики снабжения зон ---
 
 - type: entity

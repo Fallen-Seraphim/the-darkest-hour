@@ -48,6 +48,19 @@ public sealed partial class DHControlPointComponent : Component
     [DataField]
     public int CaptureBonus = 40;
 
+    /// <summary>
+    /// Пока точка не у <see cref="JamFaction"/>, её каналы <see cref="JamChannels"/> глушатся: слышно только в
+    /// пределах <see cref="JamRange"/> (РЛС/связь гарнизона — общий канал Республики, решение автора 2026-11-19).
+    /// </summary>
+    [DataField]
+    public List<string> JamChannels = new();
+
+    [DataField]
+    public DHAssaultFaction JamFaction = DHAssaultFaction.Republic;
+
+    [DataField]
+    public float JamRange = 15f;
+
     [DataField]
     public List<EntProtoId> RepublicOutput = new();
 
@@ -77,6 +90,13 @@ public sealed partial class DHControlPointPoweredComponent : Component
     /// </summary>
     [DataField]
     public TimeSpan Backup = TimeSpan.Zero;
+
+    /// <summary>
+    /// Ещё зоны, которые должна держать <see cref="Faction"/> (цепочка целей, решение автора 2026-11-19): ПВО и РЛС
+    /// работают, только пока у Республики и АЭС (с резервом), и сама точка объекта (без резерва).
+    /// </summary>
+    [DataField]
+    public List<string> Requires = new();
 
     /// <summary>Работает от резерва до этого времени (null — не на резерве).</summary>
     [ViewVariables]
