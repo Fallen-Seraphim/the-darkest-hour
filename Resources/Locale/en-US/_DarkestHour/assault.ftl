@@ -323,7 +323,6 @@ id-card-access-level-dh-imperial-command = Imperial Operation Command
 dh-chat-radio-imperial-skat = SKAT
 dh-chat-radio-imperial-supply = Imperial Supply
 
-<<<<<<< HEAD
 ## Job tags on the radio
 dh-job-abbrev-garrison-commander = BC
 dh-job-abbrev-garrison-officer = OFF
@@ -362,7 +361,7 @@ dh-job-abbrev-marine-tank-commander = TC
 dh-job-abbrev-marine-tank-crew = TK
 dh-job-abbrev-marine-apc-commander = APCC
 dh-job-abbrev-marine-apc-crew = APC
-=======
+
 # Dropship autopilot flight over the battlefield
 dh-dropship-descending = Over {$zone}. Descending!
 dh-dropship-hovering-lost = The landing zone is lost: hovering, pick another destination.
@@ -383,4 +382,3 @@ dh-dropship-ui-atmosphere-enter = CLIMB INTO THE ATMOSPHERE (DROP RUN)
 dh-dropship-ui-atmosphere-leave = RETURN OVER THE BATTLEFIELD
 dh-dropship-ui-release = RELEASE THE CONTROLS
 dh-dropship-ui-phase-atmosphere = Atmosphere layer, drop run. Below us: {$x}, {$y}.
->>>>>>> origin/dh/dropship-autopilot
