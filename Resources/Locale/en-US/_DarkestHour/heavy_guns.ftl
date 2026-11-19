@@ -131,3 +131,5 @@ dh-radar-examine-active = The antenna turns steadily: the radar is [color=green]
 dh-radar-examine-broken = The radar is [color=red]silent[/color]. A welder could bring it back.
 dh-radar-sender = Radar post
 dh-radar-incoming-dropship = Enemy dropship ({$ship}) inbound to {$zone}!
+
+dh-heavy-gun-site-lost = The anti-orbital battery is lost: the guns are silent until the site is retaken.

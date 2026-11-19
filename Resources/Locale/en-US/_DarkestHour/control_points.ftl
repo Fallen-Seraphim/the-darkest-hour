@@ -13,15 +13,21 @@ dh-control-point-examine-republic = The area is held by the [color=#7fcf4f]Repub
 dh-control-point-examine-empire = The area is held by the [color=#e8604a]Empire[/color].
 
 dh-control-point-village = Village
-dh-control-point-village-desc = Holding it brings medical supplies every 5 minutes.
+dh-control-point-village-desc = Holding it brings medical supplies every 15 minutes. Gives 2 command points per minute.
 dh-control-point-spaceport = Spaceport
-dh-control-point-spaceport-desc = Holding it brings armour-piercing ammunition every 5 minutes.
+dh-control-point-spaceport-desc = Holding it brings armour-piercing ammunition every 15 minutes. Gives 5 command points per minute.
 dh-control-point-construction = Construction site
-dh-control-point-construction-desc = Holding it brings sandbags and steel rods every 5 minutes.
+dh-control-point-construction-desc = Holding it brings sandbags and steel rods every 15 minutes. Gives 3 command points per minute.
 dh-control-point-npp = Power plant
-dh-control-point-npp-desc = The side holding the plant has power for its floodlights and air defences across the area.
+dh-control-point-npp-desc = The side holding the plant has power for its floodlights and air defences across the area. Gives 5 command points per minute.
 dh-control-point-dam = Dam
-dh-control-point-dam-desc = The only safe crossing over the river.
+dh-control-point-dam-desc = The only safe crossing over the river. Gives 3 command points per minute.
+dh-control-point-pko = Anti-orbital battery
+dh-control-point-pko-desc = The anti-orbital guns can fire at the carrier only while the Republic holds the battery. Gives 4 command points per minute.
+dh-control-point-pvo = Air defence site
+dh-control-point-pvo-desc = Air defence intercepts strikes, the attack aircraft and dropships only while the Republic holds the site and the power plant. Gives 4 command points per minute.
+dh-control-point-rls = Radar and comms post
+dh-control-point-rls-desc = The radar shows the Republic enemy signatures while it holds the post and the power plant. Losing the post jams the garrison's common channel: only nearby radios hear it. Gives 4 command points per minute.
 
 dh-overwatch-ui-tacmap = Tactical map
 dh-tacmap-title = Tactical map

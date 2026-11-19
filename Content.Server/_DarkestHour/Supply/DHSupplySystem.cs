@@ -19,12 +19,14 @@ namespace Content.Server._DarkestHour.Supply;
 
 /// <summary>
 /// Снабжение стороны (см. <see cref="DHSupplyCatalogPrototype"/>): общий на сторону запас ящиков, заказ с компьютера,
-/// подъём заказанного грузовым лифтом и пополнение запаса, пока сторона держит больше двух точек.
+/// подъём заказанного грузовым лифтом. Пополнение раздела покупается за очки командования; позиции, закрытые узлом
+/// древа, появляются (со стартовым запасом), когда командование откроет узел (<see cref="DHCommandPointsSystem"/>).
 /// </summary>
 public sealed partial class DHSupplySystem : EntitySystem
 {
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private DHBankSystem _bank = default!;
+    [Dependency] private DHCommandPointsSystem _points = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private FixtureSystem _fixtures = default!;
@@ -38,9 +40,6 @@ public sealed partial class DHSupplySystem : EntitySystem
     /// <summary>Запас по каталогам: каталог → позиция → сколько осталось.</summary>
     private readonly Dictionary<string, Dictionary<string, int>> _stock = new();
 
-    /// <summary>Когда каталог пополнится в следующий раз.</summary>
-    private readonly Dictionary<string, TimeSpan> _nextRefill = new();
-
     public override void Initialize()
     {
         base.Initialize();
@@ -49,13 +48,13 @@ public sealed partial class DHSupplySystem : EntitySystem
         SubscribeLocalEvent<DHSupplyConsoleComponent, BoundUIOpenedEvent>(OnUiOpened);
         SubscribeLocalEvent<DHSupplyConsoleComponent, DHSupplyOrderMessage>(OnOrder);
         SubscribeLocalEvent<DHSupplyConsoleComponent, DHSupplyToggleElevatorMessage>(OnToggleElevator);
+        SubscribeLocalEvent<DHSupplyConsoleComponent, DHSupplyRestockMessage>(OnRestock);
         SubscribeLocalEvent<DHSupplyElevatorComponent, MapInitEvent>(OnElevatorMapInit);
     }
 
     private void OnRoundRestart(RoundRestartCleanupEvent ev)
     {
         _stock.Clear();
-        _nextRefill.Clear();
     }
 
     #region Запас
@@ -68,50 +67,117 @@ public sealed partial class DHSupplySystem : EntitySystem
         stock = new Dictionary<string, int>();
         foreach (var entry in catalog.Entries)
         {
-            stock[entry.Id] = entry.Initial;
+            // Закрытое древом появляется, когда узел откроют.
+            stock[entry.Id] = Locked(catalog, entry) ? 0 : entry.Initial;
         }
 
         _stock[catalog.ID] = stock;
-        _nextRefill[catalog.ID] = _timing.CurTime + catalog.RefillInterval;
         return stock;
     }
 
-    /// <summary>Сколько точек держит сторона.</summary>
-    public int HeldPoints(DHAssaultFaction faction)
+    /// <summary>Каталог стороны в «Осаде» (не за деньги).</summary>
+    public DHSupplyCatalogPrototype? CatalogOf(DHAssaultFaction faction)
     {
-        var count = 0;
-        var query = EntityQueryEnumerator<DHControlPointComponent>();
-        while (query.MoveNext(out _, out var point))
+        foreach (var catalog in _proto.EnumeratePrototypes<DHSupplyCatalogPrototype>())
         {
-            if (point.Holder == faction)
-                count++;
+            if (catalog.Faction == faction && catalog.Bank == DHBankOrg.None)
+                return catalog;
         }
 
-        return count;
+        return null;
     }
 
-    private void TickRefill(TimeSpan now)
+    private bool Locked(DHSupplyCatalogPrototype catalog, DHSupplyEntry entry)
     {
-        foreach (var (catalogId, next) in new List<KeyValuePair<string, TimeSpan>>(_nextRefill))
+        return catalog.Bank == DHBankOrg.None && _points.EntryLocked(catalog.Faction, entry.Id);
+    }
+
+    /// <summary>Потолок запаса позиции с учётом складов из древа.</summary>
+    private int Max(DHSupplyCatalogPrototype catalog, DHSupplyEntry entry)
+    {
+        var bonus = 0f;
+        foreach (var node in _points.OpenedNodes(catalog.Faction))
         {
-            if (now < next || !_proto.TryIndex<DHSupplyCatalogPrototype>(catalogId, out var catalog) ||
-                catalog.Bank != DHBankOrg.None)
-            {
-                continue;
-            }
-
-            _nextRefill[catalogId] = now + catalog.RefillInterval;
-            if (HeldPoints(catalog.Faction) <= catalog.RefillMinPoints)
-                continue;
-
-            var stock = Stock(catalog);
-            foreach (var entry in catalog.Entries)
-            {
-                stock[entry.Id] = Math.Min(entry.Max, stock.GetValueOrDefault(entry.Id) + entry.Refill);
-            }
-
-            UpdateConsoles(catalogId);
+            bonus += node.MaxBonus;
         }
+
+        return (int) MathF.Ceiling(entry.Max * (1f + bonus));
+    }
+
+    /// <summary>Время подъёма и спуска лифта стороны с учётом древа.</summary>
+    private float ElevatorFactor(DHAssaultFaction faction)
+    {
+        var factor = 1f;
+        foreach (var node in _points.OpenedNodes(faction))
+        {
+            factor *= node.ElevatorTime;
+        }
+
+        return Math.Clamp(factor, 0.1f, 1f);
+    }
+
+    /// <summary>Командование открыло узел: его позиции появляются в каталоге со стартовым запасом.</summary>
+    public void NodeOpened(DHSupplyNodePrototype node)
+    {
+        if (CatalogOf(node.Faction) is not { } catalog)
+            return;
+
+        var stock = Stock(catalog);
+        foreach (var entry in catalog.Entries)
+        {
+            if (node.Unlocks.Contains(entry.Id) && !Locked(catalog, entry))
+                stock[entry.Id] = Math.Max(stock.GetValueOrDefault(entry.Id), entry.Initial);
+        }
+
+        UpdateConsoles(catalog.ID);
+    }
+
+    /// <summary>Пополнение раздела за очки: каждой открытой позиции — её пополнение, не выше потолка.</summary>
+    private void OnRestock(Entity<DHSupplyConsoleComponent> ent, ref DHSupplyRestockMessage args)
+    {
+        if (!_proto.TryIndex(ent.Comp.Catalog, out var catalog) || catalog.Bank != DHBankOrg.None)
+            return;
+
+        var category = args.Category;
+        var restock = catalog.Restocks.Find(r => r.Category.Id == category);
+        if (restock == null)
+            return;
+
+        var stock = Stock(catalog);
+        var anything = false;
+        foreach (var entry in catalog.Entries)
+        {
+            if (entry.Category.Id == category && entry.Refill > 0 && !Locked(catalog, entry) &&
+                stock.GetValueOrDefault(entry.Id) < Max(catalog, entry))
+            {
+                anything = true;
+            }
+        }
+
+        if (!anything)
+        {
+            _popup.PopupEntity(Loc.GetString("dh-supply-restock-full"), ent, args.Actor);
+            return;
+        }
+
+        if (!_points.TrySpend(catalog.Faction, restock.Price))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-command-points-not-enough", ("cost", restock.Price)), ent,
+                args.Actor);
+            return;
+        }
+
+        foreach (var entry in catalog.Entries)
+        {
+            if (entry.Category.Id != category || Locked(catalog, entry))
+                continue;
+
+            stock[entry.Id] = Math.Min(Max(catalog, entry), stock.GetValueOrDefault(entry.Id) + entry.Refill);
+        }
+
+        _popup.PopupEntity(Loc.GetString("dh-supply-restocked", ("category", Loc.GetString(restock.Category))), ent,
+            args.Actor);
+        UpdateConsoles(catalog.ID);
     }
 
     #endregion
@@ -152,7 +218,7 @@ public sealed partial class DHSupplySystem : EntitySystem
         else
         {
             var stock = Stock(catalog);
-            if (stock.GetValueOrDefault(entry.Id) <= 0)
+            if (Locked(catalog, entry) || stock.GetValueOrDefault(entry.Id) <= 0)
             {
                 _popup.PopupEntity(Loc.GetString("dh-supply-out-of-stock"), ent, args.Actor);
                 return;
@@ -175,7 +241,7 @@ public sealed partial class DHSupplySystem : EntitySystem
         switch (elevator.Comp.Mode)
         {
             case DHSupplyElevatorMode.Lowered:
-                StartMove(elevator, DHSupplyElevatorMode.Raising);
+                StartMove(elevator, DHSupplyElevatorMode.Raising, Factor(ent));
                 break;
             case DHSupplyElevatorMode.Raised:
                 // На опускающуюся платформу людей не берём.
@@ -185,13 +251,20 @@ public sealed partial class DHSupplySystem : EntitySystem
                     return;
                 }
 
-                StartMove(elevator, DHSupplyElevatorMode.Lowering);
+                StartMove(elevator, DHSupplyElevatorMode.Lowering, Factor(ent));
                 break;
             default:
                 return;
         }
 
         UpdateUi(ent);
+    }
+
+    private float Factor(Entity<DHSupplyConsoleComponent> console)
+    {
+        return _proto.TryIndex(console.Comp.Catalog, out var catalog) && catalog.Bank == DHBankOrg.None
+            ? ElevatorFactor(catalog.Faction)
+            : 1f;
     }
 
     private Entity<DHSupplyElevatorComponent>? FindElevator(Entity<DHSupplyConsoleComponent> console)
@@ -237,14 +310,22 @@ public sealed partial class DHSupplySystem : EntitySystem
         var rows = new List<DHSupplyStockRow>();
         foreach (var entry in catalog.Entries)
         {
+            // Закрытое древом не показываем.
+            if (Locked(catalog, entry))
+                continue;
+
             rows.Add(new DHSupplyStockRow(entry.Id, entry.Proto, entry.Category, stock.GetValueOrDefault(entry.Id),
-                entry.Price));
+                entry.Price) { Max = Max(catalog, entry) });
         }
 
         var elevator = FindElevator(ent);
         var state = new DHSupplyBuiState(rows, elevator != null,
             elevator?.Comp.Mode ?? DHSupplyElevatorMode.Lowered, elevator?.Comp.Orders.Count ?? 0,
-            HeldPoints(catalog.Faction), catalog.RefillMinPoints, (int) catalog.RefillInterval.TotalMinutes);
+            catalog.Bank == DHBankOrg.None ? _points.Points(catalog.Faction) : 0);
+        foreach (var restock in catalog.Restocks)
+        {
+            state.Restocks.Add(new DHSupplyRestockRow(restock.Category, restock.Price));
+        }
         if (catalog.Bank != DHBankOrg.None)
         {
             var account = _bank.OrgAccount(catalog.Bank);
@@ -265,11 +346,11 @@ public sealed partial class DHSupplySystem : EntitySystem
         SetMode(ent, ent.Comp.Mode);
     }
 
-    private void StartMove(Entity<DHSupplyElevatorComponent> ent, DHSupplyElevatorMode mode)
+    private void StartMove(Entity<DHSupplyElevatorComponent> ent, DHSupplyElevatorMode mode, float factor)
     {
         SetMode(ent, mode);
         var raising = mode == DHSupplyElevatorMode.Raising;
-        ent.Comp.DoneAt = _timing.CurTime + (raising ? ent.Comp.RaiseTime : ent.Comp.LowerTime);
+        ent.Comp.DoneAt = _timing.CurTime + (raising ? ent.Comp.RaiseTime : ent.Comp.LowerTime) * factor;
         _audio.PlayPvs(raising ? ent.Comp.RaisingSound : ent.Comp.LoweringSound, ent);
     }
 
@@ -313,7 +394,6 @@ public sealed partial class DHSupplySystem : EntitySystem
         base.Update(frameTime);
 
         var now = _timing.CurTime;
-        TickRefill(now);
 
         var query = EntityQueryEnumerator<DHSupplyElevatorComponent>();
         while (query.MoveNext(out var uid, out var elevator))
@@ -361,7 +441,7 @@ public sealed partial class DHSupplySystem : EntitySystem
         ent.Comp.Orders.Clear();
     }
 
-    private void UpdateAllConsoles()
+    public void UpdateAllConsoles()
     {
         var query = EntityQueryEnumerator<DHSupplyConsoleComponent>();
         while (query.MoveNext(out var uid, out var console))

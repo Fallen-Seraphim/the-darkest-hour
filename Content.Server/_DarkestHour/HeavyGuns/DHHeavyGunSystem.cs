@@ -296,7 +296,9 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             args.PushMarkup(Loc.GetString("dh-interceptor-examine", ("ammo", ent.Comp.Ammo), ("max", ent.Comp.MaxAmmo)));
     }
 
-    /// <summary>ПВО, запитанная от зоны захвата (АЭС), молчит, пока зона не у своей стороны.</summary>
+    /// <summary>
+    /// ПВО, РЛС и ПКО, запитанные от зон захвата (АЭС и точка самого объекта), молчат, пока зоны не у своей стороны.
+    /// </summary>
     private bool Unpowered(EntityUid uid)
     {
         return TryComp<Content.Shared._DarkestHour.ControlPoints.DHControlPointPoweredComponent>(uid, out var powered) &&
@@ -653,6 +655,13 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
 
     private void OnFire(Entity<DHHeavyGunConsoleComponent> ent, ref DHHeavyGunFireMessage args)
     {
+        // Батарея ПКО молчит, пока её точка не у Республики (цепочка целей, решение автора 2026-11-19).
+        if (Unpowered(ent))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-heavy-gun-site-lost"), ent, args.Actor);
+            return;
+        }
+
         if (!IsSeated(args.Actor, EntityManager))
         {
             _popup.PopupEntity(Loc.GetString("dh-heavy-gun-need-seat"), ent, args.Actor);

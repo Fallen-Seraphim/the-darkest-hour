@@ -444,7 +444,7 @@ door('brief', 'eng', 'AirlockEngineeringLocked', width=2)
 # --- штаб и комнаты командования
 x0, y0, x1, y1 = ibox('hq')
 bridge = ['DHComputerRiftNav', 'DHComputerLanding', 'DHComputerOverwatchEmpire', 'DHComputerSquadsEmpire',
-          'DHComputerOrbitalScan', 'ComputerRadar']
+          'DHComputerOrbitalScan', 'ComputerRadar', 'DHComputerCommandTreeEmpire']  # штаб: древо командования
 for i, proto in enumerate(bridge):
     x = x0 + 1 + i * 2
     put(proto, x, y1, FACE['S'])

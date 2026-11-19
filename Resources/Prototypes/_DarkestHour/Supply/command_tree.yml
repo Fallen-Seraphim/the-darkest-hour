@@ -1,0 +1,201 @@
+# DarkestHour: древо командования «Осады» (план осады п. 3, решения автора 2026-11-19). Узлы открывает командование
+# за очки командования на компьютере штаба (DHComputerCommandTree*); открытый узел даёт позиции каталога снабжения
+# (со стартовым запасом) или улучшает снабжение. Пока здесь только то, что уже есть в игре; новые вещи (хамви, дроны,
+# ПТУР, импланты…) добавляются узлами по мере появления. Код — DHCommandPointsSystem.
+
+# --- Империя ---
+
+- type: dhSupplyNode
+  id: DHNodeEmpireDepots
+  faction: Empire
+  branch: dh-command-branch-supply
+  name: dh-command-node-depots
+  description: dh-command-node-depots-desc
+  tier: 1
+  cost: 120
+  maxBonus: 0.5
+
+- type: dhSupplyNode
+  id: DHNodeEmpireFastLift
+  faction: Empire
+  branch: dh-command-branch-supply
+  name: dh-command-node-fast-lift
+  description: dh-command-node-fast-lift-desc
+  tier: 1
+  cost: 100
+  elevatorTime: 0.5
+
+- type: dhSupplyNode
+  id: DHNodeEmpireMortarSpecial
+  faction: Empire
+  branch: dh-command-branch-fire
+  name: dh-command-node-mortar-special
+  tier: 1
+  cost: 80
+  unlocks: [ mortar-special ]
+
+- type: dhSupplyNode
+  id: DHNodeEmpireFieldGuns
+  faction: Empire
+  branch: dh-command-branch-fire
+  name: dh-command-node-field-guns
+  tier: 2
+  cost: 150
+  requires: [ DHNodeEmpireMortarSpecial ]
+  unlocks: [ field-gun-75 ]
+
+- type: dhSupplyNode
+  id: DHNodeEmpireHeavyShells
+  faction: Empire
+  branch: dh-command-branch-fire
+  name: dh-command-node-heavy-ob-shells
+  tier: 3
+  cost: 250
+  requires: [ DHNodeEmpireFieldGuns ]
+  unlocks: [ shells-570 ]
+
+- type: dhSupplyNode
+  id: DHNodeEmpireAircraftMissiles
+  faction: Empire
+  branch: dh-command-branch-fire
+  name: dh-command-node-aircraft-missiles
+  tier: 1
+  cost: 120
+  unlocks: [ aircraft-missiles-at, aircraft-missiles-he ]
+
+- type: dhSupplyNode
+  id: DHNodeEmpireAircraftBombs
+  faction: Empire
+  branch: dh-command-branch-fire
+  name: dh-command-node-aircraft-bombs
+  tier: 2
+  cost: 150
+  requires: [ DHNodeEmpireAircraftMissiles ]
+  unlocks: [ aircraft-bombs-area, aircraft-bombs-magnesium ]
+
+- type: dhSupplyNode
+  id: DHNodeEmpireAircraftPrecision
+  faction: Empire
+  branch: dh-command-branch-fire
+  name: dh-command-node-aircraft-precision
+  tier: 3
+  cost: 250
+  requires: [ DHNodeEmpireAircraftBombs ]
+  unlocks: [ aircraft-guided-bombs, aircraft-cannon-pod ]
+
+# --- Республика ---
+
+- type: dhSupplyNode
+  id: DHNodeRepublicDepots
+  faction: Republic
+  branch: dh-command-branch-supply
+  name: dh-command-node-depots
+  description: dh-command-node-depots-desc
+  tier: 1
+  cost: 120
+  maxBonus: 0.5
+
+- type: dhSupplyNode
+  id: DHNodeRepublicFastLift
+  faction: Republic
+  branch: dh-command-branch-supply
+  name: dh-command-node-fast-lift
+  description: dh-command-node-fast-lift-desc
+  tier: 1
+  cost: 100
+  elevatorTime: 0.5
+
+- type: dhSupplyNode
+  id: DHNodeRepublicMortarSpecial
+  faction: Republic
+  branch: dh-command-branch-fire
+  name: dh-command-node-mortar-special
+  tier: 1
+  cost: 80
+  unlocks: [ mortar-special ]
+
+- type: dhSupplyNode
+  id: DHNodeRepublicFieldGuns
+  faction: Republic
+  branch: dh-command-branch-fire
+  name: dh-command-node-field-guns
+  tier: 2
+  cost: 150
+  requires: [ DHNodeRepublicMortarSpecial ]
+  unlocks: [ field-gun-90 ]
+
+- type: dhSupplyNode
+  id: DHNodeRepublicHeavyShells
+  faction: Republic
+  branch: dh-command-branch-fire
+  name: dh-command-node-heavy-ao-shells
+  tier: 3
+  cost: 250
+  requires: [ DHNodeRepublicFieldGuns ]
+  unlocks: [ shells-700 ]
+
+- type: dhSupplyNode
+  id: DHNodeRepublicManpads
+  faction: Republic
+  branch: dh-command-branch-fire
+  name: dh-command-node-manpads
+  tier: 1
+  cost: 120
+  unlocks: [ manpads, manpads-missiles ]
+
+# --- Компьютеры штаба ---
+
+- type: entity
+  abstract: true
+  parent: BaseComputer
+  id: DHComputerCommandTreeBase
+  components:
+  - type: ComputerVisuals
+    stateScreen: rdcomp
+    stateKeys: tech_key
+  - type: ActivatableUI
+    key: enum.DHCommandTreeUiKey.Key
+  - type: ActivatableUIRequiresVision
+  - type: ActivatableUIRequiresAccess
+  - type: UserInterface
+    interfaces:
+      enum.DHCommandTreeUiKey.Key:
+        type: DHCommandTreeBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: ApcPowerReceiver
+    needsPower: false
+    powerLoad: 0
+
+- type: entity
+  parent: DHComputerCommandTreeBase
+  id: DHComputerCommandTreeRepublic
+  name: garrison staff computer
+  description: The garrison command spends command points here to develop the base's supply. Only the command can use it.
+  components:
+  - type: DHCommandTreeConsole
+    faction: Republic
+  - type: AccessReader
+    access: [ [ "DHRepublicCommand" ] ]
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#8fd66b"
+
+- type: entity
+  parent: DHComputerCommandTreeBase
+  id: DHComputerCommandTreeEmpire
+  name: operation staff computer
+  description: The Imperial Command spends command points here to develop the landing force's supply. Only the command can use it.
+  components:
+  - type: DHCommandTreeConsole
+    faction: Empire
+  - type: AccessReader
+    access: [ [ "DHImperialCommand" ] ]
+  - type: ComputerVisuals
+    stateScreen: rdcomp
+    stateKeys: syndie_key
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#e8604a"
