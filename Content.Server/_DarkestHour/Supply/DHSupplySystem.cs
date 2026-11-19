@@ -26,6 +26,7 @@ public sealed partial class DHSupplySystem : EntitySystem
 {
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private DHBankSystem _bank = default!;
+    [Dependency] private Content.Server._DarkestHour.Carrier.DHCarrierDamageSystem _carrierDamage = default!;
     [Dependency] private DHCommandPointsSystem _points = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
@@ -237,6 +238,14 @@ public sealed partial class DHSupplySystem : EntitySystem
     {
         if (FindElevator(ent) is not { } elevator)
             return;
+
+        // Ангар авианосца повреждён — лифт стоит, пока пробоину не заварят (живучесть, п. 19).
+        if (_carrierDamage.Damaged(Transform(elevator).GridUid,
+                Content.Shared._DarkestHour.Carrier.DHCarrierCompartmentKind.Hangar))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-supply-hangar-damaged"), ent, args.Actor);
+            return;
+        }
 
         switch (elevator.Comp.Mode)
         {

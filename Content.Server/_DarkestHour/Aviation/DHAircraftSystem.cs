@@ -45,6 +45,7 @@ namespace Content.Server._DarkestHour.Aviation;
 public sealed partial class DHAircraftSystem : EntitySystem
 {
     [Dependency] private Content.Server._DarkestHour.PowerLoader.DHPowerLoaderSystem _powerLoader = default!;
+    [Dependency] private Content.Server._DarkestHour.Carrier.DHCarrierDamageSystem _carrierDamage = default!;
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private AudioSystem _audio = default!;
@@ -951,6 +952,10 @@ public sealed partial class DHAircraftSystem : EntitySystem
             return "dh-aircraft-blocker-damage";
         if (!HasComp<DHPlanetAtmosphereMapComponent>(Transform(ent).MapUid))
             return "dh-aircraft-blocker-orbit";
+        // Ангар и палуба авианосца повреждены: пока пробоину не заварят, не взлететь (живучесть, п. 19).
+        if (_carrierDamage.Damaged(Transform(ent).GridUid,
+                Content.Shared._DarkestHour.Carrier.DHCarrierCompartmentKind.Hangar))
+            return "dh-aircraft-blocker-hangar";
         return null;
     }
 

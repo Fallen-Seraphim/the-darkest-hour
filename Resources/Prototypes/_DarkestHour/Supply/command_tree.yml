@@ -26,6 +26,16 @@
   elevatorTime: 0.5
 
 - type: dhSupplyNode
+  id: DHNodeEmpireRepairKits
+  faction: Empire
+  branch: dh-command-branch-supply
+  name: dh-command-node-repair-kits
+  description: dh-command-node-repair-kits-desc
+  tier: 1
+  cost: 80
+  unlocks: [ carrier-repair ]
+
+- type: dhSupplyNode
   id: DHNodeEmpireMortarSpecial
   faction: Empire
   branch: dh-command-branch-fire

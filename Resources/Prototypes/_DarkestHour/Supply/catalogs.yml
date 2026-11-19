@@ -34,6 +34,7 @@
   - { id: steel, proto: CrateMaterialSteel, category: dh-supply-category-engineering, initial: 2, refill: 1, max: 4 }
   - { id: plasteel, proto: CrateMaterialPlasteel, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 2 }
   - { id: fusion-fuel, proto: DHCrateFusionFuel, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 2 }
+  - { id: carrier-repair, proto: DHCrateCarrierRepair, category: dh-supply-category-engineering, initial: 2, refill: 1, max: 4 }
   - { id: parachutes, proto: DHCrateParachutes, category: dh-supply-category-misc, initial: 1, refill: 1, max: 2 }
   - { id: interceptor-missiles, proto: DHSupplyCrateInterceptorMissiles, category: dh-supply-category-air-defence, initial: 2, refill: 1, max: 4 }
   - { id: shells-300, proto: DHSupplyCrateShells300, category: dh-supply-category-naval, initial: 2, refill: 1, max: 4 }

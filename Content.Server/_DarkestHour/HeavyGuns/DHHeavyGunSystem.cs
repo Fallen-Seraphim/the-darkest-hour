@@ -43,6 +43,7 @@ namespace Content.Server._DarkestHour.HeavyGuns;
 public sealed partial class DHHeavyGunSystem : EntitySystem
 {
     [Dependency] private Content.Server._DarkestHour.Aviation.DHAircraftSystem _aircraft = default!;
+    [Dependency] private Content.Server._DarkestHour.Carrier.DHCarrierDamageSystem _carrierDamage = default!;
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private DHAssaultRuleSystem _assault = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
@@ -70,6 +71,9 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     /// <summary>Удар с орбиты по крыше: радиус пролома и доля силы, что проходит под одноэтажную крышу.</summary>
     private const float RoofBreakRadius = 2.5f;
     private const float RoofAbsorbScale = 0.35f;
+
+    /// <summary>Прямой урон авианосцу от попадания (остальное — пробоины и пожары, живучесть, п. 19).</summary>
+    private const float CarrierDirectDamage = 0.5f;
 
     private static readonly SoundSpecifier FireSound = new SoundPathSpecifier("/Audio/_Mono/Weapons/Guns/Gunshots/cannon.ogg");
     private static readonly SoundSpecifier IncomingSound = new SoundPathSpecifier("/Audio/_DarkestHour/HeavyGuns/gun_orbital_travel.ogg");
@@ -944,16 +948,22 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
                 continue;
 
             var tiles = _map.GetAllTiles(grid, gridComp).ToList();
+            MapCoordinates? hit = null;
             if (tiles.Count > 0)
             {
                 var tile = _random.Pick(tiles);
-                var hit = _map.GridTileToWorld(grid, gridComp, tile.GridIndices);
-                _explosion.QueueExplosion(hit, "Default", comp.Kind == DHInterceptorKind.Missile ? 80f : 30f, 4f, 10f,
-                    null);
+                hit = _map.GridTileToWorld(grid, gridComp, tile.GridIndices);
+                _explosion.QueueExplosion(hit.Value, "Default", comp.Kind == DHInterceptorKind.Missile ? 80f : 30f, 4f,
+                    10f, null);
             }
 
+            // Живучесть авианосца: пробоина в отсеке, прямой урон вдвое меньше (решение автора 2026-11-19).
             if (HasComp<DHAssaultCarrierComponent>(grid))
-                _assault.DamageCarrier(grid, comp.AirDamage);
+            {
+                if (hit is { } point)
+                    _carrierDamage.Hit(grid, point, false);
+                _assault.DamageCarrier(grid, comp.AirDamage * CarrierDirectDamage);
+            }
         }
     }
 
@@ -1042,7 +1052,9 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             DHWarhead.Cluster => 0.8f,
             _ => 1f,
         };
-        _assault.DamageCarrier(grid, damage);
+        // Живучесть авианосца: пробоина (и пожар) в отсеке, куда попали; прямой урон вдвое меньше.
+        _carrierDamage.Hit(grid, target, strike.Warhead == DHWarhead.Incendiary);
+        _assault.DamageCarrier(grid, damage * CarrierDirectDamage);
         Report(strike, "dh-heavy-gun-report-hit");
     }
 
