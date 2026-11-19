@@ -1270,6 +1270,8 @@ class World:
         b.ent('DHComputerOverwatchRepublic', rx0 + 2, ry1 - 1)
         b.ent('DHComputerOverwatchRepublic', rx0 + 4, ry1 - 1)
         b.ent('DHComputerSquadsRepublic', rx0 + 6, ry1 - 1)
+        b.ent('DHComputerCommandTreeRepublic', rx0 + 10, ry1 - 1)  # штаб: древо командования
+        b.ent('ChairOfficeDark', rx0 + 10, ry1 - 2)
         b.ent('ChairOfficeDark', rx0 + 2, ry1 - 2)
         b.ent('ChairOfficeDark', rx0 + 4, ry1 - 2)
         b.ent('ChairOfficeDark', rx0 + 6, ry1 - 2)

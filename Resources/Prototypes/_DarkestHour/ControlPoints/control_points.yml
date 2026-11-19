@@ -61,6 +61,7 @@
   components:
   - type: DHControlPoint
     pointId: village
+    pointsPerMinute: 2 # очки командования за удержание (решение автора 2026-11-19)
     pointName: dh-control-point-village
     pointDescription: dh-control-point-village-desc
     radius: 16
@@ -74,6 +75,7 @@
   components:
   - type: DHControlPoint
     pointId: spaceport
+    pointsPerMinute: 5 # очки командования за удержание (решение автора 2026-11-19)
     pointName: dh-control-point-spaceport
     pointDescription: dh-control-point-spaceport-desc
     radius: 20
@@ -87,6 +89,7 @@
   components:
   - type: DHControlPoint
     pointId: construction
+    pointsPerMinute: 3 # очки командования за удержание (решение автора 2026-11-19)
     pointName: dh-control-point-construction
     pointDescription: dh-control-point-construction-desc
     radius: 14
@@ -100,6 +103,7 @@
   components:
   - type: DHControlPoint
     pointId: npp
+    pointsPerMinute: 5 # очки командования за удержание (решение автора 2026-11-19)
     pointName: dh-control-point-npp
     pointDescription: dh-control-point-npp-desc
     radius: 18
@@ -112,6 +116,7 @@
   components:
   - type: DHControlPoint
     pointId: dam
+    pointsPerMinute: 3 # очки командования за удержание (решение автора 2026-11-19)
     pointName: dh-control-point-dam
     pointDescription: dh-control-point-dam-desc
     radius: 14
