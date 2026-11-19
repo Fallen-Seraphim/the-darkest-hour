@@ -264,7 +264,7 @@
     sections:
     - id: primary
       name: dh-gear-section-primary
-      jobs: [ DHMarineRifleman ]
+      jobs: [ DHMarineRifleman, DHMarineSquadLeader ]
       entries:
       - set: DHImperialSetRiflemanRifle
       - set: DHImperialSetRiflemanSmg
@@ -294,15 +294,15 @@
       entries:
       - proto: DHMagazine842x54ImpS
         count: 2
-        jobs: [ DHMarineRifleman, DHMarineFieldMedic, DHMarineWeaponsSpecialist, DHMarineCommander ]
+        jobs: [ DHMarineRifleman, DHMarineSquadLeader, DHMarineFieldMedic, DHMarineWeaponsSpecialist, DHMarineCommander ]
       - proto: DHMagazine842x54ImpR
         count: 2
-        jobs: [ DHMarineRifleman, DHMarineWeaponsSpecialist ]
+        jobs: [ DHMarineRifleman, DHMarineSquadLeader, DHMarineWeaponsSpecialist ]
       - proto: DHMagazine104x16ImpB
         count: 2
-        jobs: [ DHMarineRifleman, DHMarineFieldMedic ]
+        jobs: [ DHMarineRifleman, DHMarineSquadLeader, DHMarineFieldMedic ]
       - proto: DHAmmoBox14gShot
-        jobs: [ DHMarineRifleman, DHMarineFieldMedic ]
+        jobs: [ DHMarineRifleman, DHMarineSquadLeader, DHMarineFieldMedic ]
       - proto: DHMagazineDrum14gShot
         jobs: [ DHMarineWeaponsSpecialist ]
       - proto: DHMagazineDrum14gSlug
