@@ -1,0 +1,318 @@
+# Противотанковое оружие пехоты (план осады п. 13, решения автора 2026-11-19). Только через карго обеих сторон:
+# трубы — со старта, ПТУР — после узла древа «ПТУР» в ветке «Огонь». Код — DHAntiTankSystem, урон по технике —
+# DHAntiArmor (DHFortifiedSystem).
+#  - Одноразовая труба: взять в обе руки и выстрелить; пустой тубус падает под ноги. Танк в лоб не берёт, в борт и
+#    корму — за 6; БТР за 4; хамви и лодки за 2; грузовик за 1.
+#  - ПТУР: разложить на земле (использовать в руке), сесть за него (как в кресло) — кнопка «Пуск»; ракета летит туда,
+#    куда наводчик держит курсор, пока цел провод (~40 клеток) и наводчик сидит. Танк за 3, БТР за 2, остальное за 1.
+#  - Пуск бьёт реактивной струёй назад (ожог и падение в 2,5 клетки позади) и оставляет облачко дыма; пуск ПТУР
+#    засекает контрбатарейная разведка противника (под маскировочной сетью — со второго).
+# Спрайты: труба — M5A1 из cmss13 через RMC-14, ПТУР и ракета — FOGO-ATGM spartanbobby (cmss13-pve) через CMU
+# (CC-BY-SA-3.0, см. meta.json).
+
+# --- Одноразовая труба
+
+- type: entity
+  parent: [ BaseItem, BaseGunWieldable ]
+  id: DHATTube
+  name: disposable anti-tank launcher
+  description: A single-shot rocket tube. Wield it with both hands and fire; throw the empty tube away. Enough for light vehicles and an APC, useless against a tank's front — aim at its side or rear. Mind the backblast.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/AntiTank/disposable.rsi
+    state: icon
+  - type: Item
+    size: Huge
+    sprite: _DarkestHour/Objects/Weapons/AntiTank/disposable.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Objects/Weapons/AntiTank/disposable.rsi
+    quickEquip: false
+    slots: [ suitStorage ]
+  - type: Gun
+    fireRate: 1
+    projectileSpeed: 14
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/rpgfire.ogg
+  - type: GunRequiresWield
+  - type: BasicEntityAmmoProvider
+    proto: DHRocketATTube
+    capacity: 1
+    count: 1
+  - type: DHDisposableLauncher
+    spent: DHATTubeSpent
+  - type: DHBackblast
+    damage:
+      types:
+        Heat: 15
+  - type: StaticPrice
+    price: 150
+
+- type: entity
+  parent: BaseItem
+  id: DHATTubeSpent
+  name: spent launcher tube
+  description: An empty single-shot rocket tube. Junk.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/AntiTank/disposable.rsi
+    state: icon-folded
+    color: "#9a9a9a"
+  - type: Item
+    size: Large
+    sprite: _DarkestHour/Objects/Weapons/AntiTank/disposable.rsi
+    heldPrefix: folded
+  - type: Tag
+    tags:
+    - Trash
+
+- type: entity
+  parent: BaseBulletTrigger
+  id: DHRocketATTube
+  name: anti-tank rocket
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/AntiTank/atgm_missile.rsi
+    layers:
+    - state: projectile
+  - type: Projectile
+    angle: 180 # ракета нарисована носом вверх, а поворот снаряда 0 — на юг
+    damage:
+      types:
+        Blunt: 40
+        Structural: 150
+  - type: ExplodeOnTrigger
+  - type: Explosive
+    explosionType: Default
+    totalIntensity: 25
+    intensitySlope: 5
+    maxIntensity: 8
+    maxTileBreak: 0
+    canCreateVacuum: false
+  - type: DHAntiArmor
+    hitsToKill:
+      Tank: 6
+      APC: 4
+      Light: 2
+      Truck: 1
+    frontHitsToKill:
+      Tank: 0 # танк в лоб не берёт
+  - type: TimedDespawn
+    lifetime: 2.2 # ~30 клеток
+  - type: PointLight
+    radius: 2.5
+    color: orange
+    energy: 0.6
+
+# --- ПТУР
+
+- type: entity
+  parent: BaseItem
+  id: DHATGMFolded
+  name: ATGM launcher (folded)
+  description: A wire-guided anti-tank missile launcher on a folding tripod. Use it in hand to set it up on the ground facing where you look, then sit behind it and launch; the missile flies where you hold the cursor while the wire holds (about 40 tiles). Takes both hands to carry.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/AntiTank/atgm_mount.rsi
+    state: folded
+  - type: Item
+    size: Ginormous
+    sprite: _DarkestHour/Objects/Weapons/AntiTank/atgm_mount.rsi
+  - type: MultiHandedItem
+  - type: HeldSpeedModifier
+    walkModifier: 0.8
+    sprintModifier: 0.8
+  - type: DHATGMFolded
+    deployed: DHATGMDeployed
+  - type: StaticPrice
+    price: 600
+
+- type: entity
+  id: DHATGMDeployed
+  name: ATGM launcher
+  description: A wire-guided anti-tank missile launcher on a tripod. Sit behind it to take the controls, press "Launch" and keep the cursor on the target until the missile hits. Load it with a missile; fold it with the alternate action when nobody is at the controls.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/AntiTank/atgm_mount.rsi
+    drawdepth: Objects
+    layers:
+    - state: loaded
+      map: [ "enum.DHATGMVisuals.Loaded" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHATGMVisuals.Loaded:
+        enum.DHATGMVisuals.Loaded:
+          True: { state: loaded }
+          False: { state: empty }
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.3,-0.3,0.3,0.3"
+        density: 100
+        hard: false
+  - type: Strap
+    position: Stand
+  - type: DHATGM
+    folded: DHATGMFolded
+    missile: DHMissileATGM
+    missileItem: DHATGMMissile
+  - type: DHBackblast
+    damage:
+      types:
+        Heat: 20
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 250
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  parent: BaseItem
+  id: DHATGMMissile
+  name: ATGM missile
+  description: A sealed launch tube with a wire-guided anti-tank missile. Load it into a deployed ATGM launcher.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/AntiTank/atgm_missile.rsi
+    state: icon
+  - type: Item
+    size: Large
+  - type: DHATGMMissileItem
+  - type: StaticPrice
+    price: 150
+
+- type: entity
+  parent: BaseBulletTrigger
+  id: DHMissileATGM
+  name: ATGM missile
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/AntiTank/atgm_missile.rsi
+    layers:
+    - state: projectile
+  - type: Projectile
+    angle: 180 # нарисована носом вверх
+    damage:
+      types:
+        Blunt: 60
+        Structural: 300
+  - type: ExplodeOnTrigger
+  - type: Explosive
+    explosionType: Default
+    totalIntensity: 40
+    intensitySlope: 5
+    maxIntensity: 10
+    maxTileBreak: 0
+    canCreateVacuum: false
+  - type: DHAntiArmor
+    hitsToKill:
+      Tank: 3
+      APC: 2
+      Light: 1
+      Truck: 1
+  - type: TimedDespawn
+    lifetime: 7 # ~60 клеток; провод — 40
+  - type: PointLight
+    radius: 3
+    color: orange
+    energy: 0.7
+
+- type: entity
+  parent: BaseAction
+  id: DHActionATGMFire
+  name: Launch
+  description: Launch the ATGM missile. It flies where you hold the cursor while the wire holds and you stay at the controls.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 2
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/AntiTank/atgm_missile.rsi
+    layers:
+    - state: icon
+  - type: InstantAction
+    event: !type:DHATGMFireActionEvent
+
+# --- Дым при пуске
+
+- type: entity
+  id: DHAntiTankLaunchSmoke
+  name: launch smoke
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: TriggerOnSpawn
+  - type: SmokeOnTrigger
+    duration: 3
+    spreadAmount: 2
+  - type: DeleteOnTrigger
+
+# --- Ящики снабжения
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateATTubes
+  name: anti-tank launcher crate
+  description: Four disposable anti-tank launchers.
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: StorageFill
+    contents:
+    - id: DHATTube
+      amount: 4
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHCrateATGM
+  name: ATGM crate
+  description: A folded wire-guided anti-tank missile launcher and two missiles for it.
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: StorageFill
+    contents:
+    - id: DHATGMFolded
+      amount: 1
+    - id: DHATGMMissile
+      amount: 2
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateATGMMissiles
+  name: ATGM missile crate
+  description: Four wire-guided anti-tank missiles.
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: StorageFill
+    contents:
+    - id: DHATGMMissile
+      amount: 4

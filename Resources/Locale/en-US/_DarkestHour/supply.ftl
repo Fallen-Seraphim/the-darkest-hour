@@ -65,6 +65,8 @@ dh-command-node-aircraft-missiles = Attack aircraft missiles
 dh-command-node-aircraft-bombs = Area and magnesium bombs
 dh-command-node-aircraft-precision = Guided bombs and cannon pod
 dh-command-node-manpads = MANPADS
+dh-command-node-atgm = ATGM
+dh-command-node-atgm-desc = A wire-guided anti-tank missile launcher: an ATGM crate with two missiles (up to 2) and missile crates appear in cargo.
 
 ## Supply drops to a beacon and the vehicle elevator
 dh-supply-drop-beacon-name = Beacon { $number }

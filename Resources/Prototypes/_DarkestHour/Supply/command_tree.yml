@@ -103,6 +103,17 @@
   requires: [ DHNodeEmpireAircraftBombs ]
   unlocks: [ aircraft-guided-bombs, aircraft-cannon-pod ]
 
+# ПТУР (план осады п. 13): тренога и ракеты в карго.
+- type: dhSupplyNode
+  id: DHNodeEmpireATGM
+  faction: Empire
+  branch: dh-command-branch-fire
+  name: dh-command-node-atgm
+  description: dh-command-node-atgm-desc
+  tier: 1
+  cost: 150
+  unlocks: [ atgm, atgm-missiles ]
+
 # --- Республика ---
 
 - type: dhSupplyNode
@@ -172,6 +183,16 @@
   tier: 1
   cost: 120
   unlocks: [ manpads, manpads-missiles ]
+
+- type: dhSupplyNode
+  id: DHNodeRepublicATGM
+  faction: Republic
+  branch: dh-command-branch-fire
+  name: dh-command-node-atgm
+  description: dh-command-node-atgm-desc
+  tier: 1
+  cost: 150
+  unlocks: [ atgm, atgm-missiles ]
 
 # --- Компьютеры штаба ---
 
