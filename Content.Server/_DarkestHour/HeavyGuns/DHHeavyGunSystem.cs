@@ -1056,7 +1056,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     /// Грунт планеты подгружается только вокруг живых игроков (призраки его не грузят): там, где никого нет, тайлов
     /// ещё нет и взрыву нечего ломать. Перед разрывом ставим грунт биома в зоне поражения (как под базой).
     /// </summary>
-    private void PrepareGround(MapCoordinates target, float radius)
+    public void PrepareGround(MapCoordinates target, float radius)
     {
         if (!_map.TryGetMap(target.MapId, out var map) || !TryComp<BiomeComponent>(map, out var biome) ||
             !TryComp<MapGridComponent>(map, out var grid))
@@ -1068,10 +1068,14 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             new List<(Vector2i Index, Tile Tile)>(), biome, grid);
     }
 
-    /// <summary>Зажигательный: огонь на тайлах вокруг разрыва (своя система огня, горит и без кислорода).</summary>
-    private void Ignite(MapCoordinates center, float radius, float duration)
+    /// <summary>
+    /// Зажигательный: огонь на тайлах вокруг разрыва (своя система огня, горит и без кислорода). Им же поджигают
+    /// землю зажигательные бомбы штурмовика (напалм и магниевая — <paramref name="fuelId"/> Thermite).
+    /// </summary>
+    public void Ignite(MapCoordinates center, float radius, float duration,
+        Robust.Shared.Prototypes.ProtoId<DHFlammableReagentPrototype>? fuelId = null, float chance = 0.8f)
     {
-        if (!_protoManager.TryIndex(IncendiaryFuel, out var fuel))
+        if (!_protoManager.TryIndex(fuelId ?? IncendiaryFuel, out var fuel))
             return;
 
         var r = (int) MathF.Ceiling(radius);
@@ -1079,7 +1083,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         {
             for (var y = -r; y <= r; y++)
             {
-                if (x * x + y * y > radius * radius || !_random.Prob(0.8f))
+                if (x * x + y * y > radius * radius || !_random.Prob(chance))
                     continue;
 
                 var point = new MapCoordinates(center.Position + new Vector2(x, y), center.MapId);
@@ -1143,7 +1147,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     }
 
     /// <summary>Следы взрыва: подпалины на тайлах вокруг.</summary>
-    private void ScorchAt(MapCoordinates center, float radius)
+    public void ScorchAt(MapCoordinates center, float radius)
     {
         var r = (int) MathF.Ceiling(radius);
         for (var x = -r; x <= r; x++)

@@ -17,6 +17,7 @@ using Content.Shared.Maps;
 using Content.Shared.Mobs.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Physics.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
@@ -343,6 +344,8 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
                 eyes.Add((_transform.GetWorldPosition(xform), RadarRange));
         }
 
+        // Детектор движения видит только движущихся (как и на экране у владельца), а не всех в радиусе.
+        var motionEyes = new List<(Vector2 Position, float Range, float MinSpeed)>();
         var detectors = EntityQueryEnumerator<DHMotionDetectorComponent, TransformComponent>();
         while (detectors.MoveNext(out _, out var detector, out var xform))
         {
@@ -352,7 +355,7 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
                 continue;
             }
 
-            eyes.Add((_transform.GetWorldPosition(xform), detector.Range));
+            motionEyes.Add((_transform.GetWorldPosition(xform), detector.Range, detector.MinSpeed));
         }
 
         // Глаза бойцов и экипажей: противник в прямой видимости своих (на том же уровне).
@@ -379,8 +382,11 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
 
             var position = _transform.GetWorldPosition(xform);
             var hidden = HasComp<StealthComponent>(uid) && _stealth.GetVisibility(uid) < SightStealthThreshold;
-            if (!SeenByEyes(eyes, position) && (hidden || !SeenBySight(sight, uid, xform.MapUid, position)))
+            if (!SeenByEyes(eyes, position) && !SeenByMotion(motionEyes, uid, position) &&
+                (hidden || !SeenBySight(sight, uid, xform.MapUid, position)))
+            {
                 continue;
+            }
 
             markers.Add(new DHTacticalMarker
             {
@@ -399,8 +405,12 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
                 continue;
 
             var position = _transform.GetWorldPosition(xform);
-            if (!SeenByEyes(eyes, position) && !SeenBySight(sight, uid, xform.MapUid, position, VehicleSightRange - SightRange))
+            var moving = TryComp<DHGridDriveComponent>(uid, out var drive) && drive.IsMoving;
+            if (!SeenByEyes(eyes, position) && !(moving && SeenByMotionAt(motionEyes, position)) &&
+                !SeenBySight(sight, uid, xform.MapUid, position, VehicleSightRange - SightRange))
+            {
                 continue;
+            }
 
             markers.Add(new DHTacticalMarker
             {
@@ -468,6 +478,34 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
     private static bool SeenByEyes(List<(Vector2 Position, float Range)> eyes, Vector2 position)
     {
         foreach (var (eye, range) in eyes)
+        {
+            if (Vector2.Distance(eye, position) <= range)
+                return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>Детектор движения: в его радиусе и движется.</summary>
+    private bool SeenByMotion(List<(Vector2 Position, float Range, float MinSpeed)> detectors, EntityUid target,
+        Vector2 position)
+    {
+        if (detectors.Count == 0 || !TryComp<PhysicsComponent>(target, out var physics))
+            return false;
+
+        var speed = physics.LinearVelocity.Length();
+        foreach (var (eye, range, minSpeed) in detectors)
+        {
+            if (speed >= minSpeed && Vector2.Distance(eye, position) <= range)
+                return true;
+        }
+
+        return false;
+    }
+
+    private static bool SeenByMotionAt(List<(Vector2 Position, float Range, float MinSpeed)> detectors, Vector2 position)
+    {
+        foreach (var (eye, range, _) in detectors)
         {
             if (Vector2.Distance(eye, position) <= range)
                 return true;
