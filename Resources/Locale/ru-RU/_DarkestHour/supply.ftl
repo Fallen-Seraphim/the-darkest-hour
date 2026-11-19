@@ -2,7 +2,7 @@
 dh-supply-ui-title = Компьютер снабжения
 dh-supply-ui-elevator = Лифт: { $mode }. Заказов на подъём: { $pending }.
 dh-supply-ui-no-elevator = Грузового лифта поблизости нет.
-dh-supply-ui-refill = Удерживается точек: { $points }. Запас пополняется раз в { $minutes } мин, пока у стороны { $min } точки и больше.
+dh-supply-ui-points = Очки командования: { $points }. Пополнение разделов — за очки; копятся за удержание точек.
 dh-supply-ui-raise = Поднять лифт
 dh-supply-ui-lower = Опустить лифт
 dh-supply-ui-order = Заказать
@@ -32,3 +32,36 @@ dh-supply-category-air-defence = ПВО
 dh-supply-category-naval = Корабельная артиллерия
 dh-supply-category-anti-orbital = Орудия ПКО
 dh-supply-category-aviation = Авиация
+
+# Очки командования и пополнение за очки (решение автора 2026-11-19)
+dh-supply-ui-restocks = Пополнение за очки командования:
+dh-supply-ui-restock = { $category }: { $price } оч.
+dh-supply-ui-count-max = { $count } / { $max }
+dh-supply-restock-full = Этот раздел и так заполнен.
+dh-supply-restocked = Пополнен раздел «{ $category }».
+dh-command-points-not-enough = Не хватает очков командования: нужно { $cost }.
+
+dh-command-tree-ui-title = Компьютер штаба: древо командования
+dh-command-tree-ui-points = Очки командования: { $points }. Доход за точки: { $income } в минуту.
+dh-command-tree-ui-node = { $tier }. { $name }
+dh-command-tree-ui-open = Открыть: { $cost } оч.
+dh-command-tree-ui-opened = открыто
+dh-command-tree-ui-unlocks = В снабжении появится: { $items }.
+dh-command-tree-ui-requires = Сначала нужно: { $nodes }.
+dh-command-tree-requires = Сначала откройте предыдущие узлы.
+dh-command-tree-opened = Открыто: { $node }.
+
+dh-command-branch-supply = Снабжение
+dh-command-branch-fire = Огонь
+dh-command-node-depots = Расширенные склады
+dh-command-node-depots-desc = Потолок запаса всех позиций снабжения — в полтора раза выше.
+dh-command-node-fast-lift = Скоростной лифт
+dh-command-node-fast-lift-desc = Грузовой лифт поднимается и опускается вдвое быстрее.
+dh-command-node-mortar-special = Специальные мины
+dh-command-node-field-guns = Полевые орудия
+dh-command-node-heavy-ob-shells = Тяжёлые снаряды ОБ
+dh-command-node-heavy-ao-shells = Тяжёлые снаряды ПКО
+dh-command-node-aircraft-missiles = Ракеты штурмовика
+dh-command-node-aircraft-bombs = Площадные и магниевые бомбы
+dh-command-node-aircraft-precision = Управляемые бомбы и пушечный контейнер
+dh-command-node-manpads = ПЗРК

@@ -20,6 +20,7 @@ namespace Content.Server._DarkestHour.ControlPoints;
 public sealed partial class DHControlPointSystem : EntitySystem
 {
     [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private Content.Server._DarkestHour.Supply.DHCommandPointsSystem _commandPoints = default!;
     [Dependency] private DHAssaultRuleSystem _assault = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
@@ -64,6 +65,10 @@ public sealed partial class DHControlPointSystem : EntitySystem
     {
         ent.Comp.NextOutput = _timing.CurTime + ent.Comp.Interval;
         UpdateAppearance(ent);
+
+        // Точка у стороны с начала раунда: бонуса за её «захват» не будет.
+        if (ent.Comp.Holder is { } holder)
+            _commandPoints.HeldFromStart(ent.Comp, holder);
 
         // Питаемое могло инициализироваться раньше зоны — сверить заново.
         var powered = EntityQueryEnumerator<DHControlPointPoweredComponent>();
@@ -162,6 +167,7 @@ public sealed partial class DHControlPointSystem : EntitySystem
 
         var previous = ent.Comp.Holder;
         SetOwner(ent, fighter.Faction);
+        _commandPoints.Captured(ent.Comp, fighter.Faction);
 
         var name = Loc.GetString(ent.Comp.PointName);
         var sender = Loc.GetString("dh-control-point-sender");

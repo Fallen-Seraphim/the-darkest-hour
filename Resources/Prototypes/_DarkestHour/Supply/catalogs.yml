@@ -1,9 +1,21 @@
-# DarkestHour: каталоги снабжения сторон (решение автора 2026-11-11). Не за деньги: в начале раунда лежит initial,
-# раз в 10 минут добавляется refill (до max), если сторона держит больше двух точек. Код — DHSupplySystem.
+# DarkestHour: каталоги снабжения сторон (решение автора 2026-11-11). Не за деньги: в начале раунда лежит initial.
+# Само не пополняется (решение автора 2026-11-19): пополнение раздела покупается за очки командования (restocks) —
+# каждой позиции раздела добавляется refill, не выше max. Позиции, закрытые узлами древа (command_tree.yml),
+# появляются со стартовым запасом, когда командование откроет узел. Код — DHSupplySystem, DHCommandPointsSystem.
 
 - type: dhSupplyCatalog
   id: DHSupplyEmpire
   faction: Empire
+  startPoints: 150
+  restocks:
+  - { category: dh-supply-category-ammo, price: 30 }
+  - { category: dh-supply-category-medical, price: 30 }
+  - { category: dh-supply-category-engineering, price: 40 }
+  - { category: dh-supply-category-air-defence, price: 60 }
+  - { category: dh-supply-category-aviation, price: 80 }
+  - { category: dh-supply-category-artillery, price: 100 }
+  - { category: dh-supply-category-naval, price: 100 }
+  - { category: dh-supply-category-misc, price: 20 }
   entries:
   - { id: mortar-he, proto: DHSupplyCrateMortarHE, category: dh-supply-category-artillery, initial: 3, refill: 2, max: 6 }
   - { id: mortar-frag, proto: DHSupplyCrateMortarFrag, category: dh-supply-category-artillery, initial: 2, refill: 1, max: 4 }
@@ -39,6 +51,14 @@
 - type: dhSupplyCatalog
   id: DHSupplyRepublic
   faction: Republic
+  startPoints: 100
+  restocks:
+  - { category: dh-supply-category-ammo, price: 30 }
+  - { category: dh-supply-category-medical, price: 30 }
+  - { category: dh-supply-category-engineering, price: 40 }
+  - { category: dh-supply-category-air-defence, price: 60 }
+  - { category: dh-supply-category-artillery, price: 100 }
+  - { category: dh-supply-category-anti-orbital, price: 100 }
   entries:
   - { id: mortar-he, proto: DHSupplyCrateMortarHE, category: dh-supply-category-artillery, initial: 3, refill: 2, max: 6 }
   - { id: mortar-frag, proto: DHSupplyCrateMortarFrag, category: dh-supply-category-artillery, initial: 2, refill: 1, max: 4 }

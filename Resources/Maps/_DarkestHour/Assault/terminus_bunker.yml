@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 11/13/2026 12:00:00
-  entityCount: 2245
+  entityCount: 2247
 maps: []
 grids:
 - 1
@@ -7202,6 +7202,11 @@ entities:
       rot: 3.141592653589793 rad
 - proto: ChairOfficeDark
   entities:
+  - uid: 2247
+    components:
+    - type: Transform
+      parent: 1
+      pos: 184.5,89.5
   - uid: 1392
     components:
     - type: Transform
@@ -11596,4 +11601,11 @@ entities:
     - type: Transform
       parent: 1
       pos: 188.5,72.5
+- proto: DHComputerCommandTreeRepublic
+  entities:
+  - uid: 2246
+    components:
+    - type: Transform
+      parent: 1
+      pos: 184.5,90.5
 ...

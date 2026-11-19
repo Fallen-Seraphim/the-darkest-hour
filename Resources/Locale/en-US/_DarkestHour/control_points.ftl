@@ -13,15 +13,15 @@ dh-control-point-examine-republic = The area is held by the [color=#7fcf4f]Repub
 dh-control-point-examine-empire = The area is held by the [color=#e8604a]Empire[/color].
 
 dh-control-point-village = Village
-dh-control-point-village-desc = Holding it brings medical supplies every 5 minutes.
+dh-control-point-village-desc = Holding it brings medical supplies every 15 minutes. Gives 2 command points per minute.
 dh-control-point-spaceport = Spaceport
-dh-control-point-spaceport-desc = Holding it brings armour-piercing ammunition every 5 minutes.
+dh-control-point-spaceport-desc = Holding it brings armour-piercing ammunition every 15 minutes. Gives 5 command points per minute.
 dh-control-point-construction = Construction site
-dh-control-point-construction-desc = Holding it brings sandbags and steel rods every 5 minutes.
+dh-control-point-construction-desc = Holding it brings sandbags and steel rods every 15 minutes. Gives 3 command points per minute.
 dh-control-point-npp = Power plant
-dh-control-point-npp-desc = The side holding the plant has power for its floodlights and air defences across the area.
+dh-control-point-npp-desc = The side holding the plant has power for its floodlights and air defences across the area. Gives 5 command points per minute.
 dh-control-point-dam = Dam
-dh-control-point-dam-desc = The only safe crossing over the river.
+dh-control-point-dam-desc = The only safe crossing over the river. Gives 3 command points per minute.
 
 dh-overwatch-ui-tacmap = Tactical map
 dh-tacmap-title = Tactical map
