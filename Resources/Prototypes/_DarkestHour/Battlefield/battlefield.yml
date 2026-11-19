@@ -1,0 +1,136 @@
+# DarkestHour: разрушаемость поля боя «Осады» (план осады п. 7, решения автора 2026-11-19). Воронки, завалы, клетки
+# мостов, понтонная секция, заражение АЭС и ОЗК. Код — Content.Server/_DarkestHour/Battlefield/DHBattlefieldSystem*.
+
+# Воронка: как окоп (укрытие, замедление пехоты), но не осыпается от взрывов и не сливается с окопами.
+# Лопатой засыпается, как окоп.
+- type: entity
+  parent: DHTrench
+  id: DHCrater
+  name: shell crater
+  description: A crater left by a heavy shell or bomb. Slows anyone crossing it, and vehicles even more — but lying in it gives decent cover.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/trench.rsi
+    drawdepth: FloorObjects
+    color: "#8a7462"
+  - type: IconSmooth
+    key: dh_crater
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ dh_crater ]
+      base: trench
+  - type: PlacementReplacement
+    key: dh_crater
+  - type: SpeedModifierContacts
+    walkSpeedModifier: 0.8
+    sprintSpeedModifier: 0.8
+  - type: Destructible
+    thresholds: []
+  - type: DHCrater
+
+# Завал после обрушения крыши: препятствие, через него лезут; разбирается лопатой (руками — дольше).
+- type: entity
+  id: DHRubble
+  name: rubble
+  description: Broken roof slabs and beams. Climb over it or clear it with a shovel — someone may be buried underneath.
+  placement:
+    mode: SnapgridCenter
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: Objects/Decoration/Flora/flora_rockssolid.rsi
+    state: rocksolid02
+    color: "#9a9590"
+    drawdepth: Overdoors
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 1000
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+  - type: Climbable
+  - type: DHRubble
+
+# Клетка моста (невидимая): клетки одного пролёта рушатся вместе от тяжёлого взрыва.
+- type: entity
+  id: DHBridgeTile
+  name: bridge span
+  categories: [ HideSpawnMenu, DoNotMap ]
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Damageable
+    damageContainer: StructuralInorganic
+  - type: DHBridgeTile
+    section: default
+
+# Понтонная секция: наводит обрушенный пролёт моста рядом (использовать в руке у края обрушения).
+- type: entity
+  parent: BaseItem
+  id: DHPontoonKit
+  name: pontoon section
+  description: A folded inflatable pontoon with decking. Use it in hand next to a collapsed bridge span to bridge the gap again.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/inflatable_wall.rsi
+    state: item_wall
+    color: "#7a8a5a"
+  - type: Item
+    size: Huge
+  - type: DHPontoonKit
+
+- type: entity
+  parent: CrateEngineering
+  id: DHCratePontoons
+  name: pontoon crate
+  description: Two pontoon sections for sappers.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHPontoonKit
+      amount: 2
+
+# Заражение вокруг разрушенного энергоблока АЭС — до конца раунда.
+- type: entity
+  id: DHNppContamination
+  name: radioactive contamination
+  categories: [ HideSpawnMenu, DoNotMap ]
+  components:
+  - type: Transform
+    anchored: true
+  - type: RadiationSource
+    intensity: 1
+    slope: 0.02
+
+# ОЗК — общевойсковой защитный комплект: костюм и капюшон от радиации, дозиметры, берлинская лазурь.
+- type: entity
+  parent: CrateMedical
+  id: DHCrateOZK
+  name: NBC protective kit crate
+  description: Protective suits and hoods against radiation, dosimeters and Prussian blue.
+  components:
+  - type: StorageFill
+    contents:
+    - id: ClothingOuterSuitRad
+      amount: 4
+    - id: ClothingHeadHatHoodRad
+      amount: 4
+    - id: DHDosimeter
+      amount: 2
+    - id: DHPillCanisterPrussianBlue
+      amount: 2

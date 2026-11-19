@@ -24,16 +24,35 @@
   - type: InteractionOutline
   - type: Physics
     bodyType: Static
+  # Твёрдый корпус по силуэту (решение автора 2026-11-15): фюзеляж, крыло с двигателями на законцовках и стабилизатор.
+  # Люди упираются (MidImpassable), техника — тоже (DHGridDrive считает статичный твёрдый корпус преградой).
+  # Пилот проходит сквозь корпус в кресло — DHAircraftCollisionSystem.
   - type: Fixtures
     fixtures:
-      fix1:
+      fuselage:
         shape:
           !type:PhysShapeAabb
-          bounds: "-2.3,-2.3,2.3,2.3"
-        hard: false
+          bounds: "-0.38,-2.2,0.38,2.2"
         density: 100
         layer:
         - MidImpassable
+        - HighImpassable
+      wing:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-2.45,-0.3,2.45,0.55"
+        density: 100
+        layer:
+        - MidImpassable
+        - HighImpassable
+      tail:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.05,-1.9,1.05,-1.6"
+        density: 100
+        layer:
+        - MidImpassable
+        - HighImpassable
   - type: InputMover
   - type: NoRotateOnMove
   - type: MovementSpeedModifier

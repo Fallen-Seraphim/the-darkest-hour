@@ -35,6 +35,8 @@
   color: "#5fb0ff"
   order: 0
   trackerAlert: DHSquadTrackerAlpha
+  icon: DHSquadIconAlpha
+  leaderIcon: DHSquadIconAlphaLeader
 
 - type: radioChannel
   id: DHSquadBravo
@@ -68,6 +70,8 @@
   color: "#ffb347"
   order: 1
   trackerAlert: DHSquadTrackerBravo
+  icon: DHSquadIconBravo
+  leaderIcon: DHSquadIconBravoLeader
 
 - type: radioChannel
   id: DHSquadCharlie
@@ -101,6 +105,8 @@
   color: "#c77dff"
   order: 2
   trackerAlert: DHSquadTrackerCharlie
+  icon: DHSquadIconCharlie
+  leaderIcon: DHSquadIconCharlieLeader
 
 - type: radioChannel
   id: DHSquadDelta
@@ -134,6 +140,8 @@
   color: "#5fe07a"
   order: 3
   trackerAlert: DHSquadTrackerDelta
+  icon: DHSquadIconDelta
+  leaderIcon: DHSquadIconDeltaLeader
 
 - type: radioChannel
   id: DHSquadTau
@@ -167,6 +175,8 @@
   color: "#e8604a"
   order: 0
   trackerAlert: DHSquadTrackerTau
+  icon: DHSquadIconTau
+  leaderIcon: DHSquadIconTauLeader
 
 - type: radioChannel
   id: DHSquadEpsilon
@@ -200,6 +210,8 @@
   color: "#4ad0e8"
   order: 1
   trackerAlert: DHSquadTrackerEpsilon
+  icon: DHSquadIconEpsilon
+  leaderIcon: DHSquadIconEpsilonLeader
 
 - type: radioChannel
   id: DHSquadOmega
@@ -233,6 +245,8 @@
   color: "#e8c84a"
   order: 2
   trackerAlert: DHSquadTrackerOmega
+  icon: DHSquadIconOmega
+  leaderIcon: DHSquadIconOmegaLeader
 
 # --- Консоли отрядов ---
 
@@ -293,3 +307,20 @@
     radius: 1.5
     energy: 1.6
     color: "#e8604a"
+
+# Распределение пехоты по отрядам на старте раунда (решение автора 2026-11-19). Командование, экипажи, артиллерия,
+# миномётчики, пилоты и техники авианосца — вне отрядов. Опоздавших распределяет командование через консоль.
+
+- type: dhSquadRoster
+  id: Republic
+  faction: Republic
+  leaders: [ DHGarrisonOfficer ]
+  spread: [ DHGarrisonMedic, DHGarrisonMachinegunner, DHGarrisonSniper, DHGarrisonFlamer, DHGarrisonAAGunner, DHGarrisonSapper ]
+  members: [ DHGarrisonRifleman ]
+
+- type: dhSquadRoster
+  id: Empire
+  faction: Empire
+  leaders: [ DHMarineSquadLeader ]
+  spread: [ DHMarineFieldMedic, DHMarineMachinegunner, DHMarineWeaponsSpecialist ]
+  members: [ DHMarineRifleman ]
