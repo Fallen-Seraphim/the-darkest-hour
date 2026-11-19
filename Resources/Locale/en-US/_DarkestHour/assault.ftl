@@ -323,6 +323,7 @@ id-card-access-level-dh-imperial-command = Imperial Operation Command
 dh-chat-radio-imperial-skat = SKAT
 dh-chat-radio-imperial-supply = Imperial Supply
 
+<<<<<<< HEAD
 ## Job tags on the radio
 dh-job-abbrev-garrison-commander = BC
 dh-job-abbrev-garrison-officer = OFF
@@ -361,3 +362,25 @@ dh-job-abbrev-marine-tank-commander = TC
 dh-job-abbrev-marine-tank-crew = TK
 dh-job-abbrev-marine-apc-commander = APCC
 dh-job-abbrev-marine-apc-crew = APC
+=======
+# Dropship autopilot flight over the battlefield
+dh-dropship-descending = Over {$zone}. Descending!
+dh-dropship-hovering-lost = The landing zone is lost: hovering, pick another destination.
+dh-dropship-manual-unavailable = You can take the controls only while flying over the battlefield.
+dh-dropship-manual-on = The pilot has taken the controls.
+dh-dropship-ui-manual = TAKE THE CONTROLS (WASD)
+dh-dropship-ui-autopilot = ENGAGE AUTOPILOT
+dh-dropship-ui-phase-transit = Orbit-to-atmosphere transit.
+dh-dropship-ui-phase-cruise = Flying over the battlefield.
+dh-dropship-ui-phase-descend = Descending.
+dh-dropship-ui-phase-climb = Climbing.
+dh-dropship-ui-phase-hover = Hovering.
+dh-dropship-ui-phase-manual = Manual control.
+dh-dropship-atmosphere-unavailable = You can climb into the atmosphere only while flying over the battlefield.
+dh-dropship-atmosphere-entered = The dropship is in the atmosphere layer: drop run, manual control.
+dh-dropship-atmosphere-left = The dropship is back at cruise height over the battlefield.
+dh-dropship-ui-atmosphere-enter = CLIMB INTO THE ATMOSPHERE (DROP RUN)
+dh-dropship-ui-atmosphere-leave = RETURN OVER THE BATTLEFIELD
+dh-dropship-ui-release = RELEASE THE CONTROLS
+dh-dropship-ui-phase-atmosphere = Atmosphere layer, drop run. Below us: {$x}, {$y}.
+>>>>>>> origin/dh/dropship-autopilot

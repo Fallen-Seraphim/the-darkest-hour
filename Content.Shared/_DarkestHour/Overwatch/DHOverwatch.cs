@@ -148,6 +148,9 @@ public enum DHTacticalMarkerKind : byte
 
     /// <summary>Сигнатура с РЛС своего штурмовика в воздухе.</summary>
     AirSignature,
+
+    /// <summary>Челнок десанта в воздухе над полем боя (свой — всегда, чужой — если его видят РЛС).</summary>
+    Dropship,
 }
 
 [Serializable, NetSerializable]

@@ -425,6 +425,33 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
             });
         }
 
+        // Челноки десанта над полем боя (решение автора 2026-11-19): Империи — свои всегда, Республике — если их видят
+        // РЛС или детекторы. Рисуются на всех уровнях.
+        var dropships = EntityQueryEnumerator<Content.Server._DarkestHour.Assault.DHDropshipComponent, TransformComponent>();
+        while (dropships.MoveNext(out var uid, out var ship, out var xform))
+        {
+            // В слое атмосферы (заход на выброску) — над той землёй, над которой идёт.
+            var over = ship.Flight == DHDropshipFlight.Atmosphere ? ship.Surface : xform.MapUid;
+            if (ship.State != DHDropshipState.InFlight || !LevelOf(levels, over, out _))
+                continue;
+
+            var position = _transform.GetWorldPosition(xform);
+            if (TryComp<PhysicsComponent>(uid, out var shipPhysics))
+                position += _transform.GetWorldRotation(xform).RotateVec(shipPhysics.LocalCenter);
+
+            if (faction != DHAssaultFaction.Empire && !SeenByEyes(eyes, position))
+                continue;
+
+            markers.Add(new DHTacticalMarker
+            {
+                Kind = DHTacticalMarkerKind.Dropship,
+                X = position.X,
+                Y = position.Y,
+                Name = Name(uid),
+                Owner = DHAssaultFaction.Empire,
+            });
+        }
+
         var marks = EntityQueryEnumerator<DHLaserMarkComponent, TransformComponent>();
         while (marks.MoveNext(out _, out var mark, out var xform))
         {

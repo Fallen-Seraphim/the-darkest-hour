@@ -363,3 +363,24 @@ dh-job-abbrev-marine-tank-commander = КТ
 dh-job-abbrev-marine-tank-crew = ЭТ
 dh-job-abbrev-marine-apc-commander = КБТР
 dh-job-abbrev-marine-apc-crew = ЭБТР
+
+# Полёт челнока на автопилоте над полем боя (решение автора 2026-11-19)
+dh-dropship-descending = Над {$zone}. Снижение!
+dh-dropship-hovering-lost = Зона посадки потеряна: зависаем, выберите другое направление.
+dh-dropship-manual-unavailable = Взять управление можно только в полёте над полем боя.
+dh-dropship-manual-on = Пилот взял управление.
+dh-dropship-ui-manual = ВЗЯТЬ УПРАВЛЕНИЕ (WASD)
+dh-dropship-ui-autopilot = ВКЛЮЧИТЬ АВТОПИЛОТ
+dh-dropship-ui-phase-transit = Переход орбита — атмосфера.
+dh-dropship-ui-phase-cruise = Полёт над полем боя.
+dh-dropship-ui-phase-descend = Снижение.
+dh-dropship-ui-phase-climb = Набор высоты.
+dh-dropship-ui-phase-hover = Висим в воздухе.
+dh-dropship-ui-phase-manual = Ручное управление.
+dh-dropship-atmosphere-unavailable = Подняться в атмосферу можно только из полёта над полем боя.
+dh-dropship-atmosphere-entered = Челнок в слое атмосферы: заход на выброску, пилот ведёт вручную.
+dh-dropship-atmosphere-left = Челнок вернулся на высоту полёта над полем боя.
+dh-dropship-ui-atmosphere-enter = ПОДНЯТЬСЯ В АТМОСФЕРУ (ВЫБРОСКА)
+dh-dropship-ui-atmosphere-leave = ВЕРНУТЬСЯ НАД ПОЛЕМ БОЯ
+dh-dropship-ui-release = ОТПУСТИТЬ УПРАВЛЕНИЕ
+dh-dropship-ui-phase-atmosphere = Слой атмосферы, заход на выброску. Под нами: {$x}, {$y}.
