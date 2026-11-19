@@ -782,6 +782,25 @@
     - DHLaserDesignator
     - DHSignalFlareKit
 
+# Командир отряда десанта (решение автора 2026-11-19): снаряжение стрелка, плюс ЛЦУ, бинокль, планшет тактической
+# карты, детектор движения и сигнальные ракеты — как у офицера гарнизона Республики. Основное оружие — из вендомата.
+- type: startingGear
+  parent: DHImperialGearBase
+  id: DHMarineSquadLeaderGear
+  equipment:
+    id: DHDogtagsMarineSquadLeader
+  storage:
+    back:
+    - DHPainkillerAutoinjector
+    - PinpointerSyndicateNuclear
+    - DHMedipenOmnireazin
+    - DHIFAKFilled
+    - DHLaserDesignator
+    - Binoculars
+    - DHOverwatchTabletEmpire
+    - DHMotionDetector
+    - DHSignalFlareKit
+
 - type: startingGear
   parent: DHImperialGearBase
   id: DHMarineMortarCommanderGear
@@ -1001,6 +1020,14 @@
 
 - type: entity
   parent: DHDogtags
+  id: DHDogtagsMarineSquadLeader
+  suffix: Squad Leader
+  components:
+  - type: PresetIdCard
+    job: DHMarineSquadLeader
+
+- type: entity
+  parent: DHDogtags
   id: DHDogtagsMarineMortarCommander
   suffix: Mortar Section Leader
   components:
@@ -1187,7 +1214,8 @@
       DHMarineWeaponsSpecialist: [ 3, 3 ]
       DHMarineFieldMedic: [ 4, 4 ]
       DHMarineMachinegunner: [ 3, 3 ]
-      DHMarineRifleman: [ 14, 14 ]
+      DHMarineSquadLeader: [ 3, 3 ] # командиры отрядов Тау, Эпсилон, Омега (решение автора 2026-11-19)
+      DHMarineRifleman: [ 11, 11 ]
       # Расчёты и экипажи (13)
       DHMarineMortarCommander: [ 1, 1 ]
       DHMarineMortarOperator: [ 4, 4 ]
@@ -1241,9 +1269,9 @@
         availableJobs:
           # Гарнизон Республики (50, решение автора 2026-11-05)
           DHGarrisonCommander: [ 1, 1 ]
-          DHGarrisonOfficer: [ 3, 3 ]
+          DHGarrisonOfficer: [ 4, 4 ] # по офицеру на отряд (решение автора 2026-11-19)
           DHGarrisonArtilleryOfficer: [ 1, 1 ]
-          DHGarrisonRifleman: [ 15, 15 ]
+          DHGarrisonRifleman: [ 14, 14 ]
           DHGarrisonMachinegunner: [ 3, 3 ]
           DHGarrisonSniper: [ 2, 2 ]
           DHGarrisonFlamer: [ 2, 2 ]

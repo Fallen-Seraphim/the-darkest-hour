@@ -2,10 +2,12 @@ using System.Numerics;
 using Content.Client._DarkestHour.UI;
 using Content.Shared._DarkestHour.Assault;
 using Content.Shared._DarkestHour.Overwatch;
+using Content.Shared._DarkestHour.Squads;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
 using Robust.Shared.Input;
+using Robust.Shared.Prototypes;
 
 namespace Content.Client._DarkestHour.TacticalMap;
 
@@ -55,6 +57,7 @@ public sealed class DHTacticalMapControl : Control
     public event Action<Vector2>? OnWorldClick;
 
     private readonly DHTacticalMapSystem _terrain;
+    private readonly IPrototypeManager _proto;
     private readonly Font _font;
 
     private DHOverwatchState? _state;
@@ -69,6 +72,7 @@ public sealed class DHTacticalMapControl : Control
     public DHTacticalMapControl()
     {
         _terrain = IoCManager.Resolve<IEntityManager>().System<DHTacticalMapSystem>();
+        _proto = IoCManager.Resolve<IPrototypeManager>();
         _font = DHFonts.Terminal(IoCManager.Resolve<IResourceCache>(), 10);
         RectClipContent = true;
         MouseFilter = MouseFilterMode.Stop;
@@ -304,9 +308,14 @@ public sealed class DHTacticalMapControl : Control
                 continue;
 
             var p = ToPixel(new Vector2(fighter.X, fighter.Y));
+            // Бойцы отрядов — цветом отряда (решение автора 2026-11-19).
+            var alive = own;
+            if (fighter.Squad != null && _proto.TryIndex<DHSquadPrototype>(fighter.Squad, out var squad))
+                alive = squad.Color;
+
             var color = fighter.Status switch
             {
-                DHOverwatchStatus.Alive => own,
+                DHOverwatchStatus.Alive => alive,
                 DHOverwatchStatus.Critical => ZoneColor,
                 _ => Color.Gray,
             };
@@ -318,7 +327,16 @@ public sealed class DHTacticalMapControl : Control
                 continue;
             }
 
-            handle.DrawCircle(p, 3.5f, color);
+            if (fighter.SquadLeader)
+            {
+                handle.DrawCircle(p, 4.5f, color);
+                handle.DrawCircle(p, 4.5f, Color.White, false);
+            }
+            else
+            {
+                handle.DrawCircle(p, 3.5f, color);
+            }
+
             if (_zoom >= 3f)
                 handle.DrawString(_font, p + new Vector2(6, -6), fighter.Name, color);
         }

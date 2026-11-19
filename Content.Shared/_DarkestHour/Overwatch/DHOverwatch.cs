@@ -75,6 +75,12 @@ public sealed class DHOverwatchEntry
 
     /// <summary>Z-уровень бойца (0 — земля).</summary>
     public int Level;
+
+    /// <summary>Отряд бойца (ID прототипа; null — вне отрядов): на карте — точка цвета отряда.</summary>
+    public string? Squad;
+
+    /// <summary>Командир отряда: на карте точка крупнее и с белой рамкой.</summary>
+    public bool SquadLeader;
 }
 
 /// <summary>Уровень тактической карты: карта уровня и версия её местности.</summary>
