@@ -132,3 +132,5 @@ dh-radar-examine-active = Антенна ровно вращается: РЛС [
 dh-radar-examine-broken = РЛС [color=red]молчит[/color]. Сварка могла бы её вернуть.
 dh-radar-sender = Пост РЛС
 dh-radar-incoming-dropship = Вражеский челнок ({$ship}) заходит на {$zone}!
+
+dh-heavy-gun-site-lost = Батарея ПКО потеряна: орудия молчат, пока точку не отобьют.
