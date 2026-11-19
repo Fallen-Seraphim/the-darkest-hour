@@ -32,6 +32,7 @@ namespace Content.Server._DarkestHour.Vehicles;
 public sealed partial class DHGridDriveSystem : EntitySystem
 {
     [Dependency] private DamageableSystem _damageable = default!;
+    [Dependency] private Content.Server._DarkestHour.Battlefield.DHBattlefieldSystem _battlefield = default!;
     [Dependency] private SharedDoorSystem _door = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
@@ -122,7 +123,10 @@ public sealed partial class DHGridDriveSystem : EntitySystem
                     steering -= 1f;
             }
 
-            UpdateDrive((uid, drive, vehicle), xform, throttle, steering, hardpoints?.SpeedMultiplier ?? 1f, frameTime, now);
+            // Воронки под машиной замедляют её (разрушаемость, решение автора 2026-11-19).
+            var crater = throttle != 0f ? _battlefield.CraterSpeed(uid) : 1f;
+            UpdateDrive((uid, drive, vehicle), xform, throttle, steering, (hardpoints?.SpeedMultiplier ?? 1f) * crater,
+                frameTime, now);
         }
     }
 

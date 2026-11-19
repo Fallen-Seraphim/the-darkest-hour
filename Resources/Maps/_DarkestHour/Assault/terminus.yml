@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 11/12/2026 12:00:00
-  entityCount: 84962
+  entityCount: 84993
 maps:
 - 1
 grids:
@@ -12524,6 +12524,8 @@ entities:
     - type: DHControlPointPowered
       point: npp
       backup: 600
+      requires:
+      - pvo
   - uid: 1051
     components:
     - type: Transform
@@ -12533,6 +12535,8 @@ entities:
     - type: DHControlPointPowered
       point: npp
       backup: 600
+      requires:
+      - pvo
 - proto: DHBackupDiesel
   entities:
   - uid: 1052
@@ -13667,6 +13671,8 @@ entities:
       rot: 3.141592653589793 rad
     - type: ApcPowerReceiver
       powerLoad: 50
+    - type: DHControlPointPowered
+      point: pko
   - uid: 1273
     components:
     - type: Transform
@@ -13675,6 +13681,8 @@ entities:
       rot: 3.141592653589793 rad
     - type: ApcPowerReceiver
       powerLoad: 50
+    - type: DHControlPointPowered
+      point: pko
 - proto: DHComputerOverwatchRepublic
   entities:
   - uid: 1274
@@ -13884,11 +13892,25 @@ entities:
     - type: Transform
       parent: 1
       pos: 155.5,-130.5
+    - type: Damageable
+      damageContainer: StructuralInorganic
+    - type: DHPoiObject
+      breakDamage: 600
+      point: npp
+      contamination: DHNppContamination
+      repairStack: Plasteel
   - uid: 1305
     components:
     - type: Transform
       parent: 1
       pos: 181.5,-130.5
+    - type: Damageable
+      damageContainer: StructuralInorganic
+    - type: DHPoiObject
+      breakDamage: 600
+      point: npp
+      contamination: DHNppContamination
+      repairStack: Plasteel
 - proto: DHGasTurbine
   entities:
   - uid: 1306
@@ -15188,6 +15210,8 @@ entities:
     - type: DHControlPointPowered
       point: npp
       backup: 600
+      requires:
+      - pvo
   - uid: 1547
     components:
     - type: Transform
@@ -15196,6 +15220,8 @@ entities:
     - type: DHControlPointPowered
       point: npp
       backup: 600
+      requires:
+      - pvo
 - proto: DHPowerLineWire
   entities:
   - uid: 1548
@@ -18771,6 +18797,8 @@ entities:
     - type: DHControlPointPowered
       point: npp
       backup: 600
+      requires:
+      - rls
 - proto: DHSandbagBarricade
   entities:
   - uid: 2195
@@ -433825,4 +433853,223 @@ entities:
     - type: Transform
       parent: 1
       pos: -206.5,-59.5
+- proto: DHControlPointAntiOrbital
+  entities:
+  - uid: 84963
+    components:
+    - type: Transform
+      parent: 1
+      pos: -17.5,120.5
+- proto: DHControlPointAirDefence
+  entities:
+  - uid: 84964
+    components:
+    - type: Transform
+      parent: 1
+      pos: 88.5,110.5
+- proto: DHControlPointRadar
+  entities:
+  - uid: 84965
+    components:
+    - type: Transform
+      parent: 1
+      pos: 160.5,118.5
+- proto: DHBridgeTile
+  entities:
+  - uid: 84966
+    components:
+    - type: Transform
+      parent: 1
+      pos: 96.5,-99.5
+    - type: DHBridgeTile
+      section: npp-bridge-1
+  - uid: 84967
+    components:
+    - type: Transform
+      parent: 1
+      pos: 97.5,-99.5
+    - type: DHBridgeTile
+      section: npp-bridge-1
+  - uid: 84968
+    components:
+    - type: Transform
+      parent: 1
+      pos: 98.5,-99.5
+    - type: DHBridgeTile
+      section: npp-bridge-1
+  - uid: 84969
+    components:
+    - type: Transform
+      parent: 1
+      pos: 99.5,-99.5
+    - type: DHBridgeTile
+      section: npp-bridge-1
+  - uid: 84970
+    components:
+    - type: Transform
+      parent: 1
+      pos: 96.5,-98.5
+    - type: DHBridgeTile
+      section: npp-bridge-1
+  - uid: 84971
+    components:
+    - type: Transform
+      parent: 1
+      pos: 97.5,-98.5
+    - type: DHBridgeTile
+      section: npp-bridge-1
+  - uid: 84972
+    components:
+    - type: Transform
+      parent: 1
+      pos: 98.5,-98.5
+    - type: DHBridgeTile
+      section: npp-bridge-1
+  - uid: 84973
+    components:
+    - type: Transform
+      parent: 1
+      pos: 99.5,-98.5
+    - type: DHBridgeTile
+      section: npp-bridge-1
+  - uid: 84974
+    components:
+    - type: Transform
+      parent: 1
+      pos: 96.5,-97.5
+    - type: DHBridgeTile
+      section: npp-bridge-1
+  - uid: 84975
+    components:
+    - type: Transform
+      parent: 1
+      pos: 97.5,-97.5
+    - type: DHBridgeTile
+      section: npp-bridge-1
+  - uid: 84976
+    components:
+    - type: Transform
+      parent: 1
+      pos: 98.5,-97.5
+    - type: DHBridgeTile
+      section: npp-bridge-1
+  - uid: 84977
+    components:
+    - type: Transform
+      parent: 1
+      pos: 99.5,-97.5
+    - type: DHBridgeTile
+      section: npp-bridge-1
+  - uid: 84978
+    components:
+    - type: Transform
+      parent: 1
+      pos: 96.5,-96.5
+    - type: DHBridgeTile
+      section: npp-bridge-1
+  - uid: 84979
+    components:
+    - type: Transform
+      parent: 1
+      pos: 97.5,-96.5
+    - type: DHBridgeTile
+      section: npp-bridge-1
+  - uid: 84980
+    components:
+    - type: Transform
+      parent: 1
+      pos: 98.5,-96.5
+    - type: DHBridgeTile
+      section: npp-bridge-1
+  - uid: 84981
+    components:
+    - type: Transform
+      parent: 1
+      pos: 99.5,-96.5
+    - type: DHBridgeTile
+      section: npp-bridge-1
+  - uid: 84982
+    components:
+    - type: Transform
+      parent: 1
+      pos: 96.5,-95.5
+    - type: DHBridgeTile
+      section: npp-bridge-2
+  - uid: 84983
+    components:
+    - type: Transform
+      parent: 1
+      pos: 97.5,-95.5
+    - type: DHBridgeTile
+      section: npp-bridge-2
+  - uid: 84984
+    components:
+    - type: Transform
+      parent: 1
+      pos: 98.5,-95.5
+    - type: DHBridgeTile
+      section: npp-bridge-2
+  - uid: 84985
+    components:
+    - type: Transform
+      parent: 1
+      pos: 99.5,-95.5
+    - type: DHBridgeTile
+      section: npp-bridge-2
+  - uid: 84986
+    components:
+    - type: Transform
+      parent: 1
+      pos: 96.5,-94.5
+    - type: DHBridgeTile
+      section: npp-bridge-2
+  - uid: 84987
+    components:
+    - type: Transform
+      parent: 1
+      pos: 97.5,-94.5
+    - type: DHBridgeTile
+      section: npp-bridge-2
+  - uid: 84988
+    components:
+    - type: Transform
+      parent: 1
+      pos: 98.5,-94.5
+    - type: DHBridgeTile
+      section: npp-bridge-2
+  - uid: 84989
+    components:
+    - type: Transform
+      parent: 1
+      pos: 99.5,-94.5
+    - type: DHBridgeTile
+      section: npp-bridge-2
+  - uid: 84990
+    components:
+    - type: Transform
+      parent: 1
+      pos: 96.5,-93.5
+    - type: DHBridgeTile
+      section: npp-bridge-2
+  - uid: 84991
+    components:
+    - type: Transform
+      parent: 1
+      pos: 97.5,-93.5
+    - type: DHBridgeTile
+      section: npp-bridge-2
+  - uid: 84992
+    components:
+    - type: Transform
+      parent: 1
+      pos: 98.5,-93.5
+    - type: DHBridgeTile
+      section: npp-bridge-2
+  - uid: 84993
+    components:
+    - type: Transform
+      parent: 1
+      pos: 99.5,-93.5
+    - type: DHBridgeTile
+      section: npp-bridge-2
 ...

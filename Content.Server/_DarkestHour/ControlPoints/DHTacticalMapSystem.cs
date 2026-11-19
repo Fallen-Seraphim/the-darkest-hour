@@ -31,6 +31,7 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
 {
     [Dependency] private ExamineSystemShared _examine = default!;
     [Dependency] private DHLandingSystem _landing = default!;
+    [Dependency] private Content.Server._DarkestHour.HeavyGuns.DHHeavyGunSystem _guns = default!;
     [Dependency] private SharedStealthSystem _stealth = default!;
     [Dependency] private SharedMapSystem _map = default!;
     [Dependency] private MobStateSystem _mobState = default!;
@@ -337,9 +338,10 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
             if (!LevelOf(levels, xform.MapUid, out var level) || radar.Faction != faction)
                 continue;
 
-            markers.Add(Marker(DHTacticalMarkerKind.Radar, xform, Name(uid), faction, radar.Active ? RadarRange : 0f,
+            var working = _guns.RadarWorking(uid, radar);
+            markers.Add(Marker(DHTacticalMarkerKind.Radar, xform, Name(uid), faction, working ? RadarRange : 0f,
                 level));
-            if (radar.Active)
+            if (working)
                 eyes.Add((_transform.GetWorldPosition(xform), RadarRange));
         }
 
