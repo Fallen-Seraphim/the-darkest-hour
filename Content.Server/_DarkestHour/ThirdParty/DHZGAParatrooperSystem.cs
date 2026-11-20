@@ -21,7 +21,8 @@ using Content.Shared.GameTicking;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
-using Content.Shared.Pinpointer;
+using Content.Shared.Alert;
+using Content.Shared._DarkestHour.Levels;
 using Content.Shared.Popups;
 using Content.Shared.Roles;
 using Content.Shared.Roles.Jobs;
@@ -41,7 +42,7 @@ public enum DHZGAMissionState : byte
     Evacuating,
     /// <summary>Эвакуирован — успех.</summary>
     Evacuated,
-    /// <summary>Нарушил кодекс — ЗГА отреклась, дальше сам по себе.</summary>
+    /// <summary>Нарушил меры предосторожности — ЗГА отреклась, дальше сам по себе.</summary>
     Disavowed,
     /// <summary>Погиб.</summary>
     Dead,
@@ -49,7 +50,7 @@ public enum DHZGAMissionState : byte
     Captured,
 }
 
-/// <summary>Ассоциативный десантник: цель, эвакуация, соблюдение кодекса Куратора (план осады п. 28).</summary>
+/// <summary>Ассоциативный десантник: цель, эвакуация, соблюдение мер предосторожности (план осады п. 28).</summary>
 [RegisterComponent]
 public sealed partial class DHZGAParatrooperComponent : Component
 {
@@ -58,7 +59,6 @@ public sealed partial class DHZGAParatrooperComponent : Component
     [ViewVariables] public string TargetJob = string.Empty;
     [ViewVariables] public EntityUid? EvacPoint;
     [ViewVariables] public EntityUid? Mars;
-    [ViewVariables] public EntityUid? Pinpointer;
     [ViewVariables] public EntityUid? StatusAction;
 
     [ViewVariables] public DHZGAMissionState State = DHZGAMissionState.Hunting;
@@ -66,7 +66,7 @@ public sealed partial class DHZGAParatrooperComponent : Component
     [ViewVariables] public TimeSpan? TargetDownAt;
     [ViewVariables] public TimeSpan? CuffedSince;
 
-    /// <summary>Убийства не цели и не напавших (кодекс: не больше <see cref="DHZGAParatrooperSystem.MaxExtraKills"/>).</summary>
+    /// <summary>Убийства не цели и не напавших (меры предосторожности: не больше <see cref="DHZGAParatrooperSystem.MaxExtraKills"/>).</summary>
     [ViewVariables] public int ExtraKills;
 
     /// <summary>Кто сам напал на десантника — их убивать можно.</summary>
@@ -104,10 +104,11 @@ public sealed partial class DHZGAEvacPointComponent : Component;
 /// <summary>
 /// Событие «Ассоциативный десантник» (план осады п. 28, решения автора 2026-11-20): в «Осаде» с вероятностью 35% за
 /// раунд на 30-й минуте открывается набор двух призраков — десантника и ИИ его брони M.A.R.S. 1.5 (набор до 50-й
-/// минуты); админ может открыть набор кнопкой. Десантник прыгает с парашютом в стороне от цели — офицера одной из
-/// сторон на поверхности, — устраняет её и уходит к точке эвакуации. Кодекс Куратора: убивать только цель и тех,
-/// кто напал сам (третье «лишнее» убийство — провал); не попадаться живым (2 минуты в наручниках — провал); 25 минут
-/// на цель и 10 — на эвакуацию. Провал — ЗГА публично отрекается от оперативника.
+/// минуты); админ может открыть набор кнопкой. Десантник высаживается у случайного края карты (суша или мелководье),
+/// трекер в алертах ведёт его к цели — офицеру одной из сторон на поверхности; устранив её, он уходит к точке
+/// эвакуации. Меры предосторожности (решение автора 2026-11-20, игрокам — без цифр): не вмешиваться в бой сторон,
+/// калечить и убивать только цель и сопротивляющихся (лишние жертвы — третья ведёт к провалу); не попадаться живым
+/// (2 минуты в наручниках — провал); 25 минут на цель и 10 — на эвакуацию. Провал — ЗГА публично отрекается.
 /// </summary>
 public sealed class DHZGAParatrooperSystem : EntitySystem
 {
@@ -119,14 +120,14 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
     [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private ChatSystem _chat = default!;
     [Dependency] private IChatManager _chatManager = default!;
-    [Dependency] private SharedHandsSystem _hands = default!;
     [Dependency] private RandomHumanoidSystem _humanoid = default!;
     [Dependency] private SharedJobSystem _jobs = default!;
     [Dependency] private DHLandingSystem _landing = default!;
     [Dependency] private DHMarsSystem _mars = default!;
     [Dependency] private MindSystem _mind = default!;
     [Dependency] private MobStateSystem _mobState = default!;
-    [Dependency] private SharedPinpointerSystem _pinpointer = default!;
+    [Dependency] private AlertsSystem _alerts = default!;
+    [Dependency] private DHZLevelSystem _zLevels = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private DHThirdPartySystem _thirdParty = default!;
@@ -151,7 +152,10 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
     private const string ParatrooperSettings = "DHZGAParatrooper";
     private static readonly EntProtoId MarsProto = "DHMarsCore";
     private static readonly EntProtoId EvacProto = "DHZGAEvacPoint";
-    private static readonly EntProtoId PinpointerProto = "DHZGAPinpointer";
+    private static readonly ProtoId<AlertPrototype> TrackerAlert = "DHZGATargetTracker";
+
+    /// <summary>Ближе этого (клеток) — трекер показывает «рядом».</summary>
+    private const float TrackerDirectRange = 1.5f;
     private static readonly EntProtoId StatusActionProto = "DHActionZGAStatus";
     private static readonly EntProtoId LethalImplantProto = "DHImplantZGALethal";
     private static readonly ProtoId<DamageTypePrototype> PoisonType = "Poison";
@@ -281,7 +285,7 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
         var paratrooperSession = players[ParatrooperRole];
         var marsSession = players[MarsRole];
 
-        if (!TryFindPlanet(out var surface, out var atmosphere) ||
+        if (!TryFindPlanet(out var surface, out _) ||
             !TryPickTarget(surface, out var target, out var targetJob))
         {
             var message = Loc.GetString("dh-zga-no-target");
@@ -293,13 +297,14 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
         _happened = true;
         var targetPosition = _transform.GetWorldPosition(target);
 
-        // Прыжок — в 45–70 клетках от цели; эвакуация — подальше от неё.
-        var drop = _landing.KeepInsideMappedSurface(surface,
-            targetPosition + _random.NextAngle().ToVec() * _random.NextFloat(45f, 70f));
+        // Высадка — у случайного края карты, на суше или мелководье (решение автора 2026-11-20); эвакуация —
+        // подальше от цели.
+        var drop = _landing.RandomEdgePoint(surface) ??
+                   _landing.KeepInsideMappedSurface(surface, targetPosition + _random.NextAngle().ToVec() * 200f);
         var evacPosition = FarPoint(surface, targetPosition);
 
         // Имя — по RandomMetadata в настройках (десантник ЗГА с военной фамилией).
-        var paratrooper = _humanoid.SpawnRandomHumanoid(ParatrooperSettings, new EntityCoordinates(atmosphere, drop),
+        var paratrooper = _humanoid.SpawnRandomHumanoid(ParatrooperSettings, new EntityCoordinates(surface, drop),
             Loc.GetString("dh-zga-role-paratrooper"));
 
         var mars = Spawn(MarsProto, new EntityCoordinates(paratrooper, Vector2.Zero));
@@ -316,12 +321,7 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
         var marsComp = EnsureComp<DHMarsComponent>(mars);
         marsComp.Host = paratrooper;
 
-        // Пинпоинтер наводится на цель, после неё — на эвакуацию.
-        var pinpointer = Spawn(PinpointerProto, Transform(paratrooper).Coordinates);
-        _pinpointer.SetTarget(pinpointer, target);
-        _pinpointer.SetActive(pinpointer, true);
-        _hands.PickupOrDrop(paratrooper, pinpointer);
-        comp.Pinpointer = pinpointer;
+        // Трекер в алертах (как у бойцов отряда на командира) показывает направление на цель.
 
         _actions.AddAction(paratrooper, ref comp.StatusAction, StatusActionProto);
         _actions.AddAction(mars, ref marsComp.StatusAction, StatusActionProto);
@@ -420,14 +420,12 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
     {
         _chatManager.DispatchServerMessage(session, Loc.GetString(mars ? "dh-zga-briefing-mars" : "dh-zga-briefing-paratrooper",
             ("target", comp.TargetName), ("job", comp.TargetJob)));
-        _chatManager.DispatchServerMessage(session, Loc.GetString("dh-zga-codex",
-            ("hunt", (int) HuntTime.TotalMinutes), ("evac", (int) EvacTime.TotalMinutes),
-            ("kills", MaxExtraKills), ("capture", (int) CaptureTime.TotalMinutes)));
+        _chatManager.DispatchServerMessage(session, Loc.GetString("dh-zga-precautions"));
     }
 
     #endregion
 
-    #region Задание и кодекс
+    #region Задание и меры предосторожности
 
     private void UpdateMissions(TimeSpan now)
     {
@@ -435,9 +433,14 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
         while (query.MoveNext(out var uid, out var comp, out var xform))
         {
             if (comp.State is not (DHZGAMissionState.Hunting or DHZGAMissionState.Evacuating))
+            {
+                _alerts.ClearAlert(uid, TrackerAlert);
                 continue;
+            }
 
-            // Кодекс: не попадаться живым.
+            UpdateTracker(uid, comp);
+
+            // Меры предосторожности: не попадаться живым.
             if (TryComp<CuffableComponent>(uid, out var cuffable) && cuffable.CuffedHandCount > 0 && !_mobState.IsDead(uid))
             {
                 comp.CuffedSince ??= now;
@@ -458,8 +461,6 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
                 {
                     comp.State = DHZGAMissionState.Evacuating;
                     comp.TargetDownAt = now;
-                    if (comp.Pinpointer is { } pinpointer && comp.EvacPoint is { } evac)
-                        _pinpointer.SetTarget(pinpointer, evac);
                     Notify((uid, comp), Loc.GetString("dh-zga-target-down", ("evac", (int) EvacTime.TotalMinutes)));
                     continue;
                 }
@@ -483,6 +484,46 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
                 Evacuate((uid, comp));
             }
         }
+    }
+
+    /// <summary>
+    /// Трекер в алертах, как у бойцов отряда на командира (решение автора 2026-11-20): стрелка на цель, после её
+    /// устранения — на точку эвакуации. Другая карта (не та же Z-стопка) — трекер погашен.
+    /// </summary>
+    private void UpdateTracker(EntityUid uid, DHZGAParatrooperComponent comp)
+    {
+        var goal = comp.State == DHZGAMissionState.Hunting ? comp.Target : comp.EvacPoint;
+        short severity = 0;
+        if (goal is { } g && !TerminatingOrDeleted(g) && Locate(uid) is { } self && Locate(g) is { } there &&
+            (self.Map == there.Map || self.Stack != null && self.Stack == there.Stack))
+        {
+            severity = TrackerDirection(there.Position - self.Position);
+        }
+
+        _alerts.ShowAlert(uid, TrackerAlert, severity);
+    }
+
+    private (EntityUid Map, int? Stack, Vector2 Position)? Locate(EntityUid uid)
+    {
+        var xform = Transform(uid);
+        if (xform.MapUid is not { } map)
+            return null;
+
+        int? stack = _zLevels.TryGetLevel(map, out var level) ? level.Stack : null;
+        return (map, stack, _transform.GetWorldPosition(xform));
+    }
+
+    /// <summary>1 — рядом; 2–9 — юг, юго-восток, восток, северо-восток, север, северо-запад, запад, юго-запад.</summary>
+    private static short TrackerDirection(Vector2 delta)
+    {
+        if (delta.Length() <= TrackerDirectRange)
+            return 1;
+
+        var angle = MathF.Atan2(delta.X, -delta.Y);
+        if (angle < 0)
+            angle += MathF.Tau;
+
+        return (short) (2 + (int) MathF.Round(angle / (MathF.PI / 4)) % 8);
     }
 
     private void OnParatrooperDamaged(Entity<DHZGAParatrooperComponent> ent, ref DamageDealtEvent args)
@@ -527,7 +568,7 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
                 continue;
             }
 
-            Notify((uid, comp), Loc.GetString("dh-zga-extra-kill", ("count", comp.ExtraKills), ("max", MaxExtraKills)));
+            Notify((uid, comp), Loc.GetString("dh-zga-extra-kill"));
         }
     }
 
@@ -608,7 +649,7 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
         }
     }
 
-    /// <summary>Нарушение кодекса: ЗГА публично отрекается, дальше — сам по себе.</summary>
+    /// <summary>Нарушение мер предосторожности: ЗГА публично отрекается, дальше — сам по себе.</summary>
     private void Disavow(Entity<DHZGAParatrooperComponent> ent, LocId reason)
     {
         ent.Comp.State = DHZGAMissionState.Disavowed;
@@ -687,7 +728,7 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
             ("state", Loc.GetString($"dh-zga-state-{ent.Comp.State.ToString().ToLowerInvariant()}")),
             ("target", ent.Comp.TargetName), ("job", ent.Comp.TargetJob),
             ("minutes", Math.Max(0, (int) left.TotalMinutes)), ("seconds", Math.Max(0, left.Seconds)),
-            ("kills", ent.Comp.ExtraKills), ("max", MaxExtraKills)));
+            ("kills", ent.Comp.ExtraKills)));
     }
 
     #endregion
