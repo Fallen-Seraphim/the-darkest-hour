@@ -12,6 +12,12 @@
     stateScreen: syndishuttle
     stateKeys: syndie_key
   - type: DHDropshipConsole
+  # Ручное управление в воздухе: кнопки движения пилота передаются пульту (DHDropshipSystem.Flight.cs).
+  - type: InputMover
+  - type: NoRotateOnMove
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 0
+    baseSprintSpeed: 0
   - type: ActivatableUI
     key: enum.DHDropshipUiKey.Key
   - type: UserInterface
@@ -127,7 +133,7 @@
     energy: 4
     color: "#ffb347"
   - type: TimedDespawn
-    lifetime: 10
+    lifetime: 9 # упавшая ЛТЦ горит на земле 8–10 с (решение автора 2026-11-20)
 
 # Стоянка челнока в ангаре авианосца (DHDropshipHangarComponent). Ставится на гриде авианосца в клетку, где должен
 # оказаться центр челнока (для «Мидуэя» — клетка между бортовыми люками), с нужным поворотом; под челноком в полу

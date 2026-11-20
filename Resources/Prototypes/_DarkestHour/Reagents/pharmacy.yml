@@ -496,3 +496,30 @@
         damage:
           types:
             Poison: 1
+
+# ── Иммунодепрессант (план осады п. 29) ─────────────────────────────────────────────────────────────────────
+
+# Цитрасин: вдвое замедляет отторжение имплантов, пока в крови; много — бьёт по почкам (яд).
+- type: reagent
+  id: DHCitrasin
+  name: reagent-name-dh-citrasin
+  group: Medicine
+  desc: reagent-desc-dh-citrasin
+  physicalDesc: reagent-physical-desc-opaque
+  flavor: medicine
+  color: "#d8c46a"
+  dhOverdose: 30
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.05
+      effects:
+      - !type:DHSlowRejection
+        duration: 3
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: DHCitrasin
+          min: 30
+        damage:
+          types:
+            Poison: 0.5

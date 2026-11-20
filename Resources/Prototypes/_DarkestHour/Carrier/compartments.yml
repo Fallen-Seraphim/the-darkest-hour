@@ -1,0 +1,89 @@
+# Сгенерировано Tools/_DarkestHour/carrier/build_carrier.py — не править руками.
+# Отсеки авианосца для живучести (план осады п. 19): клетки грида прямоугольниками left,bottom,right,top.
+
+- type: dhCarrierLayout
+  id: DHCarrierLayoutSovereign
+  compartments:
+  - id: hangar
+    name: dh-carrier-compartment-hangar
+    kind: Hangar
+    boxes:
+    - 0,-52,40,-24
+    - 0,-24,8,-21
+    - 0,-21,7,-10
+    - 0,-10,5,-9
+    - 0,-9,3,-6
+    - 0,-6,4,-5
+    - 0,-5,5,-3
+    - 0,-3,9,-1
+    - 0,-1,40,0
+    - 14,-3,40,-1
+    - 15,-24,40,-21
+    - 16,-21,40,-10
+    - 18,-10,40,-9
+    - 18,-5,40,-3
+    - 19,-6,40,-5
+    - 20,-9,40,-6
+    - 23,-64,40,-52
+  - id: guns
+    name: dh-carrier-compartment-guns
+    kind: Guns
+    boxes:
+    - 0,0,23,2
+    - 0,2,22,7
+    - 0,7,21,11
+    - 0,11,20,15
+    - 0,15,19,20
+    - 0,20,18,24
+    - 0,24,17,29
+    - 0,29,16,31
+  - id: bridge
+    name: dh-carrier-compartment-bridge
+    kind: Bridge
+    boxes:
+    - 40,-100,55,-63
+  - id: engineering
+    name: dh-carrier-compartment-engineering
+    kind: Engineering
+    boxes:
+    - 6,-130,47,-100
+    - 13,-135,40,-130
+  - id: rift
+    name: dh-carrier-compartment-rift
+    kind: None
+    boxes:
+    - 0,31,5,59
+  - id: pvo
+    name: dh-carrier-compartment-pvo
+    kind: None
+    boxes:
+    - 40,-63,55,-62
+    - 40,-62,54,-61
+    - 40,-61,53,-60
+    - 40,-60,52,-59
+    - 40,-59,51,-57
+    - 40,-57,50,-56
+    - 40,-56,49,-55
+    - 40,-55,48,-54
+    - 40,-54,47,-52
+    - 40,-52,46,-51
+    - 40,-51,45,-50
+    - 40,-50,44,-48
+    - 40,-48,43,-47
+    - 40,-47,42,-46
+    - 40,-46,41,-45
+  - id: barracks
+    name: dh-carrier-compartment-barracks
+    kind: None
+    boxes:
+    - 0,-100,23,-52
+  - id: brief
+    name: dh-carrier-compartment-brief
+    kind: None
+    boxes:
+    - 23,-100,40,-64
+  - id: labs
+    name: dh-carrier-compartment-labs
+    kind: None
+    boxes:
+    - 17,-168,36,-135

@@ -1,0 +1,186 @@
+# Событие «Ассоциативный десантник» (план осады п. 28): десантник ЗГА и ИИ его брони M.A.R.S. 1.5.
+# Набор — DHThirdPartySystem, высадка и кодекс — DHZGAParatrooperSystem. Броня ЭМБ-5 — отдельно (п. 28, часть 2);
+# пока — штурмовой скафандр Metall Armed.
+
+- type: radioChannel
+  id: DHZGA
+  name: dh-chat-radio-zga
+  keycode: 'м'
+  frequency: 149.1
+  color: "#7ec8f0"
+  longRange: true
+
+- type: entity
+  parent: [ EncryptionKey, BaseCentcommContraband ]
+  id: DHEncryptionKeyZGA
+  name: Association encryption key
+  description: "A private link between an Association paratrooper and the AI of their armour."
+  components:
+  - type: EncryptionKey
+    channels:
+    - DHZGA
+    defaultChannel: DHZGA
+  - type: Sprite
+    layers:
+    - state: crypt_gray
+    - state: sec_label
+
+- type: entity
+  parent: DHClothingHeadsetAltMetallArmed
+  id: DHClothingHeadsetZGA
+  name: Association over-ear headset
+  description: "A sealed headset of an Association paratrooper: the private channel to the armour AI and nothing else."
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - DHEncryptionKeyZGA
+
+- type: randomHumanoidSettings
+  id: DHZGAParatrooper
+  randomizeName: false
+  components:
+  - type: Loadout
+    prototypes: [ DHZGAParatrooperGear ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-zga-name-format
+  - type: AntagImmune
+
+- type: startingGear
+  id: DHZGAParatrooperGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTSecurity
+    outerClothing: DHClothingOuterHardsuitMetallArmedRifleman
+    back: DHParachute
+    shoes: ClothingShoesBootsCombatFilled
+    mask: ClothingMaskGasERT
+    gloves: ClothingHandsGlovesCombat
+    eyes: ClothingEyesHudMedSec
+    ears: DHClothingHeadsetZGA
+    belt: ClothingBeltMilitaryWebbing
+    pocket1: CombatKnife
+    pocket2: DoubleEmergencyOxygenTankFilled
+  inhand:
+  - DHZGAKitCase
+
+# Выбор оружия ЗГА после приземления (кейс превращается в комплект).
+- type: entity
+  parent: ToolboxThief
+  id: DHZGAKitCase
+  name: Association arsenal case
+  description: "A sealed case of the Association Paratrooper Corps. Open it and choose your weapon; the case turns into the chosen kit."
+  components:
+  - type: DHKitAutoEquip
+  - type: Sprite
+    sprite: Objects/Tools/Toolboxes/toolbox_blue.rsi
+    state: icon
+  - type: ThiefUndeterminedBackpack
+    maxSelectedSets: 1
+    toolName: dh-zga-kit-window-title
+    toolDesc: dh-zga-kit-window-description
+    possibleSets:
+    - DHZGASetTITMG10
+    - DHZGASetTITR15
+    - DHZGASetEAR20
+
+- type: thiefBackpackSet
+  id: DHZGASetTITMG10
+  name: dh-zga-set-titmg10-name
+  description: "dh-zga-set-titmg10-description"
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/tit_mg10.rsi
+    state: base
+  content:
+  - DHWeaponRifleTITMG10
+  - DHMagazine556x45LongFMG
+  - DHMagazine556x45LongFMG
+  - DHMagazine556x45LongFMG
+  - DHMagazine556x45LongURA
+  - DHMagazine556x45LongEXP
+  - ExGrenade
+
+- type: thiefBackpackSet
+  id: DHZGASetTITR15
+  name: dh-zga-set-titr15-name
+  description: "dh-zga-set-titr15-description"
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/tit_r15.rsi
+    state: base
+  content:
+  - DHWeaponRifleTITR15
+  - DHMagazine762x39FMG
+  - DHMagazine762x39FMG
+  - DHMagazine762x39FMG
+  - DHMagazine762x39URA
+  - ExGrenade
+  - ExGrenade
+
+- type: thiefBackpackSet
+  id: DHZGASetEAR20
+  name: dh-zga-set-ear20-name
+  description: "dh-zga-set-ear20-description"
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/ear20.rsi
+    state: base
+  content:
+  - DHWeaponEnergyEAR20
+  - DHKaneCartridgeEAR
+  - DHKaneCartridgeEAR
+  - DHKaneCartridgeEAR
+
+# ИИ брони: бестелесный «голос в броне» — видит глазами десантника, говорит по своему каналу (и вслух из брони).
+- type: entity
+  id: DHMarsCore
+  name: M.A.R.S. 1.5
+  description: "The local combat AI of an EMB-5 armour suit."
+  categories: [ HideSpawnMenu ]
+  save: false
+  components:
+  - type: Eye
+  - type: MindContainer
+  - type: Actions
+  - type: Speech
+  - type: IntrinsicRadioReceiver
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - DHZGA
+  - type: ActiveRadio
+    channels:
+    - DHZGA
+  - type: DHMars
+
+- type: entity
+  id: DHZGAEvacPoint
+  name: Association evacuation point
+  categories: [ HideSpawnMenu ]
+  save: false
+  components:
+  - type: DHZGAEvacPoint
+
+- type: entity
+  parent: PinpointerBase
+  id: DHZGAPinpointer
+  name: Association tracker
+  description: "Points to the target, then to the evacuation point."
+  components:
+  - type: Pinpointer
+    updateTargetName: false
+
+- type: entity
+  parent: BaseAction
+  id: DHActionZGAStatus
+  name: Mission
+  description: "Recall the target, the time left and the Curator's code."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 2
+  - type: Sprite
+    sprite: Objects/Devices/pinpointer.rsi
+    layers:
+    - state: pinpointer
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHZGAStatusActionEvent

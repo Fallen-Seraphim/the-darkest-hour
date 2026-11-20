@@ -62,6 +62,10 @@ public sealed partial class RadioSystem : SharedRadioSystem
         RaiseLocalEvent(messageSource, evt);
 
         var name = evt.VoiceName;
+        // DarkestHour: сокращение должности перед именем — только в рации.
+        var dhName = new Content.Server._DarkestHour.Roles.DHRadioSpeakerNameEvent(name);
+        RaiseLocalEvent(messageSource, ref dhName);
+        name = dhName.Name;
         name = _chat.ChatNameLinks ? $"[textlink=\"{FormattedMessage.EscapeStringParameter(name)}\" entity=\"{GetNetEntity(messageSource)}\" color=\"{channel.Color.ToHex()}\"]" : FormattedMessage.EscapeText(name);
 
         SpeechVerbPrototype speech;

@@ -1,0 +1,346 @@
+# Импланты (план осады п. 29): ставятся операцией «Установка импланта» в голову или торс. Пока в теле —
+# растёт отторжение (DHImplantSystem). Спрайты — Tools/_DarkestHour/implants/build.py.
+
+- type: entity
+  parent: BaseItem
+  id: DHImplantBase
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Specific/Medical/implants.rsi
+  - type: Item
+    size: Tiny
+  - type: StaticPrice
+    price: 400
+
+- type: entity
+  parent: DHImplantBase
+  id: DHImplantBase
+  name: 'basic implant'
+  description: "A service bio-capsule: a base for other implants. Barely noticeable to the body."
+  components:
+  - type: Sprite
+    state: base
+  - type: DHImplant
+    kind: Base
+    part: Torso
+    passiveRate: 0.001
+    activeRate: 0
+
+- type: entity
+  parent: DHImplantBase
+  id: DHImplantPulsar
+  name: '"Pulsar" cardiac stimulator'
+  description: "Restarts a stopped heart once, then needs ten minutes to recharge."
+  components:
+  - type: Sprite
+    state: pulsar
+  - type: DHImplant
+    kind: Pulsar
+    part: Torso
+
+- type: entity
+  parent: DHImplantBase
+  id: DHImplantEcho
+  name: '"Echo" auditory implant'
+  description: "Dampens the concussion of blasts and makes distant gunfire easier to place by ear."
+  components:
+  - type: Sprite
+    state: echo
+  - type: DHImplant
+    kind: Echo
+    part: Head
+
+- type: entity
+  parent: DHImplantBase
+  id: DHImplantScale
+  name: '"Scale" subdermal armor'
+  description: "A mesh under the skin that turns blades, bullets and fragments a little."
+  components:
+  - type: Sprite
+    state: scale
+  - type: DHImplant
+    kind: Scale
+    part: Torso
+
+- type: entity
+  parent: DHImplantBase
+  id: DHImplantSilence
+  name: '"Silence" pain suppressor'
+  description: "Pain and pain shock below the threshold are not felt. You also stop feeling how badly hurt you are."
+  components:
+  - type: Sprite
+    state: silence
+  - type: DHImplant
+    kind: Silence
+    part: Head
+
+- type: entity
+  parent: DHImplantBase
+  id: DHImplantFilter
+  name: '"Filter" lung filter'
+  description: "Filters poisons and fallout out of every breath."
+  components:
+  - type: Sprite
+    state: filter
+  - type: DHImplant
+    kind: Filter
+    part: Torso
+
+- type: entity
+  parent: DHImplantBase
+  id: DHImplantHemostat
+  name: '"Hemostat" clotting implant'
+  description: "Releases clotting agents into the blood: bleeding stops much faster."
+  components:
+  - type: Sprite
+    state: hemostat
+  - type: DHImplant
+    kind: Hemostat
+    part: Torso
+
+# Ящик имплантов (карго, раздел «Медицина», 1 со старта): по одному каждого и Цитрасин.
+- type: entity
+  parent: CrateMedical
+  id: DHCrateImplants
+  name: implants crate
+  description: "Sealed bio-capsules for surgical implantation, and immunosuppressant to keep the body from rejecting them."
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHImplantPulsar
+    - id: DHImplantEcho
+    - id: DHImplantScale
+    - id: DHImplantSilence
+    - id: DHImplantFilter
+    - id: DHImplantHemostat
+    - id: DHOrganEyesFalcon
+    - id: DHImplantTactic
+    - id: DHProstheticViseArmRight
+    - id: DHProstheticSupportLegRight
+    - id: DHPillCanisterCitrasin
+      amount: 2
+
+- type: entity
+  name: pill
+  suffix: Citrasin 10u
+  parent: Pill
+  id: DHPillCitrasin
+  components:
+  - type: Pill
+    pillType: 7
+  - type: Sprite
+    state: pill8
+  - type: Label
+    localizedLabel: reagent-name-dh-citrasin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHCitrasin
+        Quantity: 10
+
+- type: entity
+  name: pill canister
+  parent: PillCanister
+  id: DHPillCanisterCitrasin
+  suffix: Citrasin 10u, 6
+  components:
+  - type: Label
+    localizedLabel: reagent-name-dh-citrasin
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: DHPillCitrasin
+        amount: 6
+
+# --- Сложные импланты (план осады п. 29). ---
+
+# «Сокол»: глаза-имплант, пересаживаются как обычные глаза.
+- type: entity
+  parent: OrganHumanEyes
+  id: DHOrganEyesFalcon
+  name: '"Falcon" ocular implant'
+  description: "A pair of synthetic eyes: magnification like binoculars and night vision."
+  components:
+  - type: Sprite
+    color: "#e8b45a"
+  - type: DHImplant
+    kind: Falcon
+    part: Eyes
+    action: DHActionFalconZoom
+  - type: StaticPrice
+    price: 600
+
+# «Тактик»: нейролинк в голове — наблюдение стороны без планшета, без приказов.
+- type: entity
+  parent: DHImplantBase
+  id: DHImplantTactic
+  name: '"Tactic" neurolink'
+  description: "A neural link to the side's overwatch network: soldiers and the tactical map right in your head. It can't give orders."
+  components:
+  - type: Sprite
+    state: tactic
+  - type: DHImplant
+    kind: Tactic
+    part: Head
+    action: DHActionTactic
+  - type: DHOverwatchConsole
+    canOrder: false
+  - type: UserInterface
+    interfaces:
+      enum.DHOverwatchUiKey.Key:
+        type: DHOverwatchBoundUserInterface
+
+- type: entity
+  parent: DHOrganProstheticArmLeft
+  id: DHOrganViseArmLeft
+  name: '"Vise" cybernetic left arm'
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    color: "#4d5560"
+  - type: VisualOrgan
+    data:
+      color: "#4d5560"
+  - type: DHImplant
+    kind: Vise
+    part: ArmLeft
+
+- type: entity
+  parent: DetachedBody
+  id: DHProstheticViseArmLeft
+  name: '"Vise" cybernetic left arm'
+  description: "A reinforced cybernetic arm: a stronger grip and blow, a steadier hold on heavy weapons. Implant — the body rejects it over time."
+  components:
+  - type: InitialBody
+    organs:
+      ArmLeft: DHOrganViseArmLeft
+      HandLeft: DHOrganProstheticHandLeft
+    relationships:
+      ArmLeft: [ HandLeft ]
+  - type: StaticPrice
+    price: 800
+
+- type: entity
+  parent: DHOrganProstheticLegLeft
+  id: DHOrganSupportLegLeft
+  name: '"Support" cybernetic left leg'
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    color: "#4d5560"
+  - type: VisualOrgan
+    data:
+      color: "#4d5560"
+  - type: DHImplant
+    kind: Support
+    part: LegLeft
+
+- type: entity
+  parent: DetachedBody
+  id: DHProstheticSupportLegLeft
+  name: '"Support" cybernetic left leg'
+  description: "A cybernetic leg on servo-drives: no limping, no fractures, a slightly faster run. Implant — the body rejects it over time."
+  components:
+  - type: InitialBody
+    organs:
+      LegLeft: DHOrganSupportLegLeft
+      FootLeft: DHOrganProstheticFootLeft
+    relationships:
+      LegLeft: [ FootLeft ]
+  - type: StaticPrice
+    price: 800
+
+- type: entity
+  parent: DHOrganProstheticArmRight
+  id: DHOrganViseArmRight
+  name: '"Vise" cybernetic right arm'
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    color: "#4d5560"
+  - type: VisualOrgan
+    data:
+      color: "#4d5560"
+  - type: DHImplant
+    kind: Vise
+    part: ArmRight
+
+- type: entity
+  parent: DetachedBody
+  id: DHProstheticViseArmRight
+  name: '"Vise" cybernetic right arm'
+  description: "A reinforced cybernetic arm: a stronger grip and blow, a steadier hold on heavy weapons. Implant — the body rejects it over time."
+  components:
+  - type: InitialBody
+    organs:
+      ArmRight: DHOrganViseArmRight
+      HandRight: DHOrganProstheticHandRight
+    relationships:
+      ArmRight: [ HandRight ]
+  - type: StaticPrice
+    price: 800
+
+- type: entity
+  parent: DHOrganProstheticLegRight
+  id: DHOrganSupportLegRight
+  name: '"Support" cybernetic right leg'
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    color: "#4d5560"
+  - type: VisualOrgan
+    data:
+      color: "#4d5560"
+  - type: DHImplant
+    kind: Support
+    part: LegRight
+
+- type: entity
+  parent: DetachedBody
+  id: DHProstheticSupportLegRight
+  name: '"Support" cybernetic right leg'
+  description: "A cybernetic leg on servo-drives: no limping, no fractures, a slightly faster run. Implant — the body rejects it over time."
+  components:
+  - type: InitialBody
+    organs:
+      LegRight: DHOrganSupportLegRight
+      FootRight: DHOrganProstheticFootRight
+    relationships:
+      LegRight: [ FootRight ]
+  - type: StaticPrice
+    price: 800
+
+- type: entity
+  parent: BaseAction
+  id: DHActionFalconZoom
+  name: Magnification
+  description: "Falcon implant: zoom in or out, like binoculars. While on, the body rejects the implants faster."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 1
+  - type: Sprite
+    sprite: Objects/Tools/binoculars.rsi
+    layers:
+    - state: icon
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHFalconZoomActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionTactic
+  name: Neurolink
+  description: "Tactic implant: open the overwatch of your side — soldiers and the tactical map. While open, the body rejects the implants faster."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 1
+  - type: Sprite
+    sprite: Interface/Actions/pai-map.rsi
+    layers:
+    - state: icon
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHTacticActionEvent
