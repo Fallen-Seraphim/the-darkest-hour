@@ -57,6 +57,7 @@ public sealed partial class DHJoinMenu : DefaultWindow
 
     private readonly ClientGameTicker _ticker;
     private readonly DHLobbyInfoSystem _info;
+    private readonly Content.Client._DarkestHour.ThirdParty.DHThirdPartyClientSystem _thirdParty;
     private readonly SpriteSystem _sprites;
 
     private readonly Label _mode = new();
@@ -75,6 +76,7 @@ public sealed partial class DHJoinMenu : DefaultWindow
         IoCManager.InjectDependencies(this);
         _ticker = _systems.GetEntitySystem<ClientGameTicker>();
         _info = _systems.GetEntitySystem<DHLobbyInfoSystem>();
+        _thirdParty = _systems.GetEntitySystem<Content.Client._DarkestHour.ThirdParty.DHThirdPartyClientSystem>();
         _sprites = _systems.GetEntitySystem<SpriteSystem>();
 
         Title = Loc.GetString("dh-join-title");
@@ -143,6 +145,7 @@ public sealed partial class DHJoinMenu : DefaultWindow
         _jobRequirements.Updated += Rebuild;
         _ticker.LobbyJobsAvailableUpdated += OnJobsUpdated;
         _info.Updated += UpdateInfo;
+        _thirdParty.Updated += Rebuild;
 
         _selected = PreferredSide();
         Rebuild();
@@ -264,9 +267,15 @@ public sealed partial class DHJoinMenu : DefaultWindow
             _categories.AddChild(CategoryButton(category, note, open, category.Key == _selected));
         }
 
-        // «Другие» — роли призраков для событий (ЧВК LA-V, ассоциативный десантник): оживёт вместе с ними.
-        _categories.AddChild(CategoryButton(new Category("others", "dh-join-category-others", OthersColor, true, null),
-            Loc.GetString("dh-join-no-events"), false, false));
+        // «Другие» — наборы событий третьей стороны (ассоциативный десантник, ЧВК LA-V): открывает окно записи.
+        // Записаться можно только наблюдателем — в окне это написано.
+        var events = _thirdParty.Events.Count;
+        var others = CategoryButton(new Category("others", "dh-join-category-others", OthersColor, events == 0, null),
+            events == 0 ? Loc.GetString("dh-join-no-events") : Loc.GetString("dh-join-events", ("count", events)),
+            events > 0, false);
+        if (events > 0)
+            ((ContainerButton) others).OnPressed += _ => _thirdParty.OpenWindow();
+        _categories.AddChild(others);
 
         BuildJobs(_selected, categories.FirstOrDefault(c => c.Key == _selected),
             _selected != null ? bySide.GetValueOrDefault(_selected) : null);
@@ -460,5 +469,6 @@ public sealed partial class DHJoinMenu : DefaultWindow
         _jobRequirements.Updated -= Rebuild;
         _ticker.LobbyJobsAvailableUpdated -= OnJobsUpdated;
         _info.Updated -= UpdateInfo;
+        _thirdParty.Updated -= Rebuild;
     }
 }
