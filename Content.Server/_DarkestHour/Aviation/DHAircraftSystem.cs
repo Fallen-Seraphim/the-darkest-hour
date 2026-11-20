@@ -45,6 +45,8 @@ namespace Content.Server._DarkestHour.Aviation;
 public sealed partial class DHAircraftSystem : EntitySystem
 {
     [Dependency] private Content.Server._DarkestHour.PowerLoader.DHPowerLoaderSystem _powerLoader = default!;
+    [Dependency] private Content.Server._DarkestHour.Battlefield.DHBattlefieldSystem _battlefield = default!;
+    [Dependency] private Content.Server._DarkestHour.Carrier.DHCarrierDamageSystem _carrierDamage = default!;
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private AudioSystem _audio = default!;
@@ -64,6 +66,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedToolSystem _tool = default!;
     [Dependency] private TransformSystem _transform = default!;
+    [Dependency] private Content.Server._DarkestHour.Assault.DHFlareEffectsServerSystem _flareEffects = default!;
     [Dependency] private UserInterfaceSystem _ui = default!;
 
     private static readonly ProtoId<ToolQualityPrototype> WeldingQuality = "Welding";
@@ -132,6 +135,8 @@ public sealed partial class DHAircraftSystem : EntitySystem
         SubscribeLocalEvent<DHAircraftLiftComponent, ExaminedEvent>(OnLiftExamined);
 
         InitializeManpads();
+        InitializeCockpit();
+        InitializeLiftConsole();
     }
 
     #region Корпус и кресло
@@ -180,8 +185,14 @@ public sealed partial class DHAircraftSystem : EntitySystem
                 ent.Comp.ActionEntities.Add(added);
         }
 
-        if (TryComp<DHAircraftComponent>(aircraft, out var plane) && plane.Control)
-            _mover.SetRelay(pilot, aircraft);
+        if (TryComp<DHAircraftComponent>(aircraft, out var plane))
+        {
+            // Пилот внутри — фонарь закрыт (план осады п. 16).
+            plane.Occupied = true;
+            Dirty(aircraft, plane);
+            if (plane.Control)
+                _mover.SetRelay(pilot, aircraft);
+        }
     }
 
     private void OnUnstrapped(Entity<DHAircraftSeatComponent> ent, ref UnstrappedEvent args)
@@ -201,6 +212,21 @@ public sealed partial class DHAircraftSystem : EntitySystem
         {
             _ui.CloseUi(aircraft, DHAircraftUiKey.Flight, pilot);
             _ui.CloseUi(aircraft, DHAircraftUiKey.Weapons, pilot);
+
+            if (TryComp<DHAircraftComponent>(aircraft, out var occupied))
+            {
+                occupied.Occupied = false;
+                Dirty(aircraft, occupied);
+            }
+
+            // Вылез на палубе — встаёт рядом с кабиной, а не внутри твёрдого фюзеляжа.
+            if (TryComp<DHAircraftComponent>(aircraft, out var plane) &&
+                plane.State is DHAircraftState.Parked or DHAircraftState.Stowed && Transform(aircraft).GridUid != null)
+            {
+                var (position, rotation) = _transform.GetWorldPositionRotation(aircraft);
+                var side = rotation.RotateVec(new Vector2(0.85f, plane.SeatOffset.Y));
+                _transform.SetWorldPosition(pilot, position + side);
+            }
         }
     }
 
@@ -951,6 +977,10 @@ public sealed partial class DHAircraftSystem : EntitySystem
             return "dh-aircraft-blocker-damage";
         if (!HasComp<DHPlanetAtmosphereMapComponent>(Transform(ent).MapUid))
             return "dh-aircraft-blocker-orbit";
+        // Ангар и палуба авианосца повреждены: пока пробоину не заварят, не взлететь (живучесть, п. 19).
+        if (_carrierDamage.Damaged(Transform(ent).GridUid,
+                Content.Shared._DarkestHour.Carrier.DHCarrierCompartmentKind.Hangar))
+            return "dh-aircraft-blocker-hangar";
         return null;
     }
 
@@ -1038,6 +1068,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         aircraft.FlaresUntil = now + aircraft.FlareDuration;
         Dirty(ent);
         _audio.PlayPvs(aircraft.FlareSound, ent);
+        SpawnFlareEffects(ent);
         Notify(plane, Loc.GetString("dh-aircraft-flares-fired", ("left", aircraft.Flares)));
         UpdateUi(plane);
     }
@@ -1050,8 +1081,8 @@ public sealed partial class DHAircraftSystem : EntitySystem
         args.Handled = true;
         if (aircraft.State is DHAircraftState.Airborne or DHAircraftState.Returning or DHAircraftState.Pass)
             Crash((ent.Comp.Aircraft, aircraft), ejected: true);
-        else if (aircraft.State == DHAircraftState.Parked)
-            _buckle.TryUnbuckle(ent.Owner, ent.Owner, popup: false);
+        else
+            StartExit((ent.Comp.Aircraft, aircraft), ent); // на палубе — просто вылезти (по таймеру)
     }
 
     private void UpdateUi(Entity<DHAircraftComponent> ent)
@@ -1334,6 +1365,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         ent.Comp.Progress = 0f;
         _transform.SetCoordinates(ent, new EntityCoordinates(liftXform.ParentUid, ent.Comp.PathStart));
         _transform.SetLocalRotation(ent, liftXform.LocalRotation + Angle.FromDegrees(180));
+        _physics.SetCanCollide(ent, true); // снова на палубе — твёрдый
         ent.Comp.State = DHAircraftState.Landing;
         Dirty(ent);
         SetControl(ent, false);
@@ -1345,6 +1377,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         ent.Comp.Progress = Math.Min(1f, ent.Comp.Progress + frameTime / ent.Comp.LandingRollTime);
         var t = 1f - (1f - ent.Comp.Progress) * (1f - ent.Comp.Progress); // торможение
         _transform.SetLocalPosition(ent, Vector2.Lerp(ent.Comp.PathStart, ent.Comp.PathEnd, t));
+        RunOver(ent);
         if (ent.Comp.Progress < 1f)
             return;
 
@@ -1405,6 +1438,9 @@ public sealed partial class DHAircraftSystem : EntitySystem
     /// <summary>Самолёт потерян: пилот катапультируется (или падает с ним) на поверхность под точкой полёта.</summary>
     private void Crash(Entity<DHAircraftComponent> ent, bool ejected)
     {
+        // Итоги раунда «Осады» (план п. 6): потерянные штурмовики.
+        RaiseLocalEvent(new Content.Server._DarkestHour.Assault.DHAircraftLostEvent(ent));
+
         var xform = Transform(ent);
         var position = _transform.GetWorldPosition(xform);
         var pilot = Pilot(ent.Comp);
@@ -1440,6 +1476,21 @@ public sealed partial class DHAircraftSystem : EntitySystem
             liftComp.Aircraft = null;
 
         QueueDel(ent);
+    }
+
+    /// <summary>
+    /// ЛТЦ видно (план осады п. 8): у самолёта ловушки разлетаются со шлейфом, на поверхности под ним — падают и
+    /// догорают на земле.
+    /// </summary>
+    private void SpawnFlareEffects(Entity<DHAircraftComponent> ent)
+    {
+        var xform = Transform(ent);
+        _flareEffects.AirBurst(_transform.GetMapCoordinates(ent.Owner, xform));
+
+        var surface = ent.Comp.PassSurface is { } passSurface && !TerminatingOrDeleted(passSurface) ? passSurface
+            : SurfaceBelow(xform.MapUid);
+        if (surface is { } map && map != xform.MapUid)
+            _flareEffects.FallBelow(new MapCoordinates(_transform.GetWorldPosition(xform), Transform(map).MapID));
     }
 
     /// <summary>Карта поверхности под слоем атмосферы (уровень земли).</summary>

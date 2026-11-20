@@ -4,7 +4,7 @@
 - type: entity
   id: DHAttackAircraft
   name: Gyrfalcon attack aircraft
-  description: An Imperial atmospheric attack aircraft. Straight wings with engines on the tips, intakes at the wing roots, a built-in 30 mm cannon and four hardpoints. Fuel it from a fuel tank parked alongside, load flares and patch it up with a welder.
+  description: An Imperial atmospheric attack aircraft. Straight wings with engines on the tips, intakes at the wing roots, a built-in 30 mm cannon and four hardpoints. Click it on the deck to climb into the cockpit. Fuel it from a fuel tank parked alongside, load flares and patch it up with a welder.
   placement:
     mode: SnapgridCenter
   components:
@@ -19,21 +19,53 @@
     layers:
     - state: shadow
       offset: "0.25,-0.25"
+    # подвесы на 4 узлах (план осады п. 16) — под корпусом: из-под крыла видна только хвостовая часть
+    - state: hp0_bomb_he
+      map: [ "hp0" ]
+      visible: false
+    - state: hp1_bomb_he
+      map: [ "hp1" ]
+      visible: false
+    - state: hp2_bomb_he
+      map: [ "hp2" ]
+      visible: false
+    - state: hp3_bomb_he
+      map: [ "hp3" ]
+      visible: false
     - state: base
   - type: Clickable
   - type: InteractionOutline
   - type: Physics
     bodyType: Static
+  # Твёрдый корпус по силуэту (решение автора 2026-11-15): фюзеляж, крыло с двигателями на законцовках и стабилизатор.
+  # Люди упираются (MidImpassable), техника — тоже (DHGridDrive считает статичный твёрдый корпус преградой).
+  # Пилот проходит сквозь корпус в кресло — DHAircraftCollisionSystem.
   - type: Fixtures
     fixtures:
-      fix1:
+      fuselage:
         shape:
           !type:PhysShapeAabb
-          bounds: "-2.3,-2.3,2.3,2.3"
-        hard: false
+          bounds: "-0.38,-2.2,0.38,2.2"
         density: 100
         layer:
         - MidImpassable
+        - HighImpassable
+      wing:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-2.45,-0.3,2.45,0.55"
+        density: 100
+        layer:
+        - MidImpassable
+        - HighImpassable
+      tail:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.05,-1.9,1.05,-1.6"
+        density: 100
+        layer:
+        - MidImpassable
+        - HighImpassable
   - type: InputMover
   - type: NoRotateOnMove
   - type: MovementSpeedModifier
@@ -66,13 +98,7 @@
     anchored: false
     noRot: false
     gridTraversal: false
-  - type: Sprite
-    sprite: _DarkestHour/Vehicles/Aircraft/aircraft_seat.rsi
-    state: seat
-    noRot: false
-    drawdepth: Objects
-  - type: Clickable
-  - type: InteractionOutline
+  # Кресло внутри кабины (план осады п. 16): его не видно и по нему не кликают — в кабину залезают кликом по самолёту.
   - type: Physics
     bodyType: Static
   - type: Strap
@@ -92,7 +118,9 @@
     gridTraversal: false
   - type: Sprite
     sprite: _DarkestHour/Vehicles/Aircraft/attack_aircraft.rsi
-    state: canopy
+    layers:
+    - state: canopy_open
+      map: [ "canopy" ]
     noRot: false
     drawdepth: OverMobs
 
@@ -343,7 +371,7 @@
   parent: BaseAction
   id: DHActionAircraftEject
   name: Eject
-  description: In the air — eject over the battlefield (the aircraft is lost). On the deck — just climb out.
+  description: In the air — eject over the battlefield (the aircraft is lost). On the deck — climb out.
   components:
   - type: Action
     raiseOnUser: true # контейнер — кресло; события ловит пилот (DHAircraftPilot)
@@ -355,6 +383,38 @@
       map: [ "enum.ActionVisuals.Icon" ]
   - type: InstantAction
     event: !type:DHAircraftEjectActionEvent
+
+- type: entity
+  id: DHActionAircraftWeapons
+  name: Weapons
+  description: Open the weapons console — hardpoints, target, fire and the cannon.
+  components:
+  - type: Action
+    raiseOnUser: true # контейнер — кресло; события ловит пилот (DHAircraftPilot)
+    itemIconStyle: NoItem
+    useDelay: 0.5
+  - type: Sprite
+    sprite: _RMC14/Objects/dropship_ammo_64.rsi
+    layers:
+    - state: jdam
+  - type: InstantAction
+    event: !type:DHAircraftWeaponsActionEvent
+
+- type: entity
+  id: DHActionAircraftExit
+  name: Climb out
+  description: On the deck — open the canopy and climb out of the cockpit (3 seconds). In the air you can only eject.
+  components:
+  - type: Action
+    raiseOnUser: true # контейнер — кресло; события ловит пилот (DHAircraftPilot)
+    itemIconStyle: NoItem
+    useDelay: 3
+  - type: Sprite
+    layers:
+    - texture: Interface/VerbIcons/unbuckle.svg.192dpi.png
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHAircraftExitActionEvent
 
 # Тень штурмовика на земле во время захода (решение автора 2026-11-13: высота настоящая — сам самолёт на уровне
 # воздуха над полем боя, пехота видит только тень и слышит рёв захода).

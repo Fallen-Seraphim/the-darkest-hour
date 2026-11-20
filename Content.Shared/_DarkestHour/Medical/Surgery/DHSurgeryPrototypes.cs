@@ -56,6 +56,8 @@ public enum DHSurgicalToolKind : byte
     Cautery,
     BoneGel,
     BoneSetter,
+    /// <summary>Микрохирургический пинцет: шов нерва (план осады п. 18).</summary>
+    MicroForceps,
 }
 
 /// <summary>
@@ -87,6 +89,22 @@ public enum DHSurgeryEffect : byte
     GraftSkin,
     /// <summary>Извлечь паразита из тканей (болезни, которые лечатся хирургически).</summary>
     RemoveParasite,
+    /// <summary>Трепанация: удалить внутричерепную гематому при ЧМТ.</summary>
+    Trepanation,
+    /// <summary>Сшить повреждённый нерв конечности.</summary>
+    RepairNerve,
+    /// <summary>Декомпрессия позвоночника: снять травму спинного мозга, если не запущена.</summary>
+    SpinalDecompression,
+    /// <summary>Дренаж грудной клетки: вылечить пневмоторакс.</summary>
+    DrainChest,
+    /// <summary>Трахеостомия: восстановить дыхание при перекрытых дыхательных путях.</summary>
+    Tracheostomy,
+    /// <summary>Пересадить кожу на иссечённый ожог III степени (кожный трансплантат в руке).</summary>
+    GraftBurn,
+    /// <summary>Реконструкция лица и глаз.</summary>
+    ReconstructFace,
+    /// <summary>Извлечь неразорвавшийся боеприпас (может подорваться; сапёр рядом снижает риск).</summary>
+    ExtractUnexploded,
 }
 
 /// <summary>
@@ -103,6 +121,21 @@ public enum DHInjuryKind : byte
     ChroniteSkin,
     /// <summary>Тканевый паразит (болезнь, которая лечится хирургическим извлечением).</summary>
     Parasite,
+    /// <summary>Черепно-мозговая травма (гематома).</summary>
+    BrainInjury,
+    /// <summary>Повреждённый нерв конечности.</summary>
+    Nerve,
+    /// <summary>Травма спинного мозга (ещё не запущенная).</summary>
+    Spinal,
+    Pneumothorax,
+    /// <summary>Перекрытые дыхательные пути.</summary>
+    Airway,
+    /// <summary>Ожог III степени.</summary>
+    DeepBurn,
+    /// <summary>Обезображенное лицо или повреждённые глаза.</summary>
+    Face,
+    /// <summary>Неразорвавшийся боеприпас в части тела.</summary>
+    Unexploded,
 }
 
 /// <summary>
@@ -154,6 +187,10 @@ public sealed partial class DHSurgeryStepPrototype : IPrototype
     /// <summary>Насколько больно без наркоза (0…1): шанс крика и того, что пациент дёрнется и шаг сорвётся.</summary>
     [DataField]
     public float Pain;
+
+    /// <summary>Без наркоза шаг невозможен (тонкая работа — пациент не должен шевелиться).</summary>
+    [DataField]
+    public bool RequiresAnesthesia;
 
     /// <summary>Шаг вскрывает ткани: без маски и перчаток хирурга — риск раневой инфекции.</summary>
     [DataField]

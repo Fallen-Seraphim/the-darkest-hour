@@ -468,7 +468,7 @@ public sealed partial class DHAircraftWeaponsWindow : DefaultWindow
                 // Полоса огня вдоль курса.
                 var a = _map.WorldToPixel(impact - nose * NapalmHalfLength);
                 var b = _map.WorldToPixel(impact + nose * NapalmHalfLength);
-                var across = new Vector2(side.X, -side.Y) * MathF.Max(2f, 1.5f * zoom);
+                var across = new Vector2(side.X, -side.Y) * MathF.Max(2f, 1.8f * zoom);
                 handle.DrawLine(a + across, b + across, color);
                 handle.DrawLine(a - across, b - across, color);
                 handle.DrawLine(a, b, color.WithAlpha(color.A * 0.6f));

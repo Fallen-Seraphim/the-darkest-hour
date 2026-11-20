@@ -257,6 +257,12 @@ public sealed partial class DHSurgerySystem : EntitySystem
             return;
         }
 
+        if (step.RequiresAnesthesia && !IsAnesthetized(patientUid))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-surgery-needs-anesthesia"), patientUid, user, PopupType.MediumCaution);
+            return;
+        }
+
         float speed;
         if (step.Tools.Count == 0)
         {
@@ -330,6 +336,14 @@ public sealed partial class DHSurgerySystem : EntitySystem
         }
         else
         {
+            return;
+        }
+
+        // Тонкая работа (шов нерва, позвоночник) без наркоза невозможна.
+        if (step.RequiresAnesthesia && !IsAnesthetized(ent))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-surgery-needs-anesthesia"), ent, user, PopupType.MediumCaution);
+            UpdateUi(ent, user);
             return;
         }
 
@@ -486,6 +500,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
                 }
                 break;
             case DHSurgeryEffect.GraftSkin:
+            case DHSurgeryEffect.GraftBurn:
                 if (HasComp<DHSkinGraftComponent>(item))
                     return true;
                 break;
@@ -596,6 +611,31 @@ public sealed partial class DHSurgerySystem : EntitySystem
                 return true;
             case DHSurgeryEffect.RepairOrgans:
                 _trauma.RepairOrgans(patient, category);
+                return true;
+            case DHSurgeryEffect.Trepanation:
+                _trauma.Trepanation(patient);
+                return true;
+            case DHSurgeryEffect.RepairNerve:
+                _trauma.RepairNerve(patient, category);
+                return true;
+            case DHSurgeryEffect.SpinalDecompression:
+                _trauma.SpinalDecompression(patient);
+                return true;
+            case DHSurgeryEffect.DrainChest:
+                _trauma.DrainChest(patient);
+                return true;
+            case DHSurgeryEffect.Tracheostomy:
+                _trauma.Tracheostomy(patient);
+                return true;
+            case DHSurgeryEffect.GraftBurn:
+                QueueDel(item);
+                _trauma.TreatDeepBurn(patient, category);
+                return true;
+            case DHSurgeryEffect.ReconstructFace:
+                _trauma.ReconstructFace(patient);
+                return true;
+            case DHSurgeryEffect.ExtractUnexploded:
+                _trauma.ExtractUnexploded(patient, category, user);
                 return true;
             case DHSurgeryEffect.ExciseChronite:
                 _dose.ExciseChronite(patient, ChroniteExcision);
@@ -741,6 +781,14 @@ public sealed partial class DHSurgerySystem : EntitySystem
             DHInjuryKind.InternalBleeding => _trauma.HasInternalBleeding(patient, category),
             DHInjuryKind.Shrapnel => _trauma.HasShrapnel(patient, category),
             DHInjuryKind.OrganDamage => _trauma.HasOrganDamage(patient, category),
+            DHInjuryKind.BrainInjury => _trauma.HasBrainInjury(patient, category),
+            DHInjuryKind.Nerve => _trauma.HasNerveDamage(patient, category),
+            DHInjuryKind.Spinal => _trauma.HasTreatableSpinalInjury(patient, category),
+            DHInjuryKind.Pneumothorax => _trauma.HasPneumothorax(patient, category),
+            DHInjuryKind.Airway => _trauma.HasBlockedAirway(patient, category),
+            DHInjuryKind.DeepBurn => _trauma.HasDeepBurn(patient, category),
+            DHInjuryKind.Face => _trauma.HasFaceInjury(patient, category),
+            DHInjuryKind.Unexploded => _trauma.HasUnexploded(patient, category),
             DHInjuryKind.ChroniteSkin => _dose.CanExciseChronite(patient),
             DHInjuryKind.Parasite => _disease.HasSurgicalParasite(patient),
             _ => true,

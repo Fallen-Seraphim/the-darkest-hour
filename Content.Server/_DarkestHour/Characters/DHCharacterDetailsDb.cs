@@ -15,7 +15,9 @@ public static class DHCharacterDetailsDb
         string? Birthplace,
         string GeneralRecord,
         string MedicalRecord,
-        string CriminalRecord);
+        string CriminalRecord,
+        string? RepublicSquad = null,
+        string? EmpireSquad = null);
 
     public static string Serialize(DHCharacterDetails details)
     {
@@ -27,7 +29,9 @@ public static class DHCharacterDetailsDb
             details.Birthplace?.Id,
             details.GeneralRecord,
             details.MedicalRecord,
-            details.CriminalRecord));
+            details.CriminalRecord,
+            details.RepublicSquad,
+            details.EmpireSquad));
     }
 
     public static DHCharacterDetails Deserialize(string? json)
@@ -49,6 +53,8 @@ public static class DHCharacterDetailsDb
             details.GeneralRecord = dto.GeneralRecord ?? string.Empty;
             details.MedicalRecord = dto.MedicalRecord ?? string.Empty;
             details.CriminalRecord = dto.CriminalRecord ?? string.Empty;
+            details.RepublicSquad = string.IsNullOrEmpty(dto.RepublicSquad) ? null : dto.RepublicSquad;
+            details.EmpireSquad = string.IsNullOrEmpty(dto.EmpireSquad) ? null : dto.EmpireSquad;
         }
         catch (JsonException)
         {

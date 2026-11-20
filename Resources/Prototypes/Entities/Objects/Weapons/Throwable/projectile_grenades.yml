@@ -91,6 +91,10 @@
   - type: ProjectileGrenade
     fillPrototype: PelletClusterIncendiary
     capacity: 30
+  # DarkestHour: как у морпехов RMC — поджигает пол в радиусе (решение автора 2026-11-18).
+  - type: DHFireOnTrigger
+    keysIn:
+    - timer
   - type: TriggerOnUse
   - type: TimerTrigger
     beepSound:

@@ -2,8 +2,9 @@
 
 По замечаниям автора (2026-11-12): без пушки в носу и без мотогондол A-10; двигатели — гондолы на концах крыла,
 у корня крыла по бокам кабины — воздухозаборники как у Су-25; прямое крыло от F9F-5; цвета — воронёная сталь
-с белыми и чёрными полосами и золотой окантовкой (без красного). Фонарь — отдельное состояние «canopy»:
-полупрозрачное стекло с рамой рисуется поверх пилота, а в корпусе — кабина изнутри (кресло, приборная доска, пульты).
+с белыми и чёрными полосами и золотой окантовкой (без красного). Фонарь — отдельные состояния:
+«canopy_open» (откинут, самолёт пуст) и «canopy_closed» (матовый, пилот внутри); в корпусе — кабина изнутри (кресло,
+приборная доска, пульты). Подвесы — «hp{узел}_{тип}» на каждый из 4 узлов из спрайтов боеприпасов RMC-14, видны из-под крыла (план осады п. 16, 2026-11-20).
 Запуск из корня: python3 Tools/_DarkestHour/aviation/aircraft_sprite.py"""
 import json, os
 from PIL import Image, ImageDraw
@@ -131,6 +132,12 @@ def hull():
     d.line([(86, 42), (86, 54)], fill=(60, 62, 66, 255))
     d.point((74, 46), fill=AMBER)
     d.point((86, 48), fill=SCREEN)
+    # катапультное кресло (пилот садится внутрь, отдельной сущности-кресла не видно — план осады п. 16)
+    d.rectangle([77, 44, 83, 57], fill=EDGE)
+    d.rectangle([78, 45, 82, 56], fill=(60, 52, 40, 255))
+    d.rectangle([78, 41, 82, 44], fill=EDGE)
+    d.rectangle([79, 42, 81, 43], fill=(200, 160, 40, 255))
+    d.line([(78, 51), (82, 51)], fill=(30, 30, 30, 255))
     return outline(im)
 
 
@@ -145,6 +152,68 @@ def canopy():
     d.line([(78, 34), (78, 38)], fill=(230, 245, 255, 120))
     d.line([(76, 51), (77, 56)], fill=(230, 245, 255, 90))
     return im
+
+
+def canopy_open():
+    """Фонарь откинут назад (самолёт пуст, план осады п. 16): рама со стеклом сдвинута на гаргрот, кабина открыта."""
+    im = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    dy = 28
+    d.ellipse([72, 30 + dy, 88, 62 + dy], outline=EDGE)
+    d.ellipse([73, 31 + dy, 87, 61 + dy], fill=(52, 78, 104, 170), outline=(70, 75, 82, 255))
+    d.line([(73, 48 + dy), (87, 48 + dy)], fill=(70, 75, 82, 255))
+    d.line([(76, 36 + dy), (77, 44 + dy)], fill=(230, 245, 255, 150))
+    d.line([(78, 34 + dy), (78, 38 + dy)], fill=(230, 245, 255, 120))
+    # кромка кабины без стекла
+    d.ellipse([72, 30, 88, 62], outline=EDGE)
+    return im
+
+
+def canopy_closed():
+    """Фонарь закрыт, стекло матовое (пилот внутри, снаружи не виден)."""
+    im = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    d.ellipse([72, 30, 88, 62], fill=EDGE)
+    d.ellipse([73, 31, 87, 61], fill=(44, 52, 62, 255), outline=(70, 75, 82, 255))
+    d.ellipse([75, 33, 85, 59], fill=(52, 62, 74, 255))
+    d.line([(73, 48), (87, 48)], fill=(70, 75, 82, 255))
+    d.line([(76, 37), (76, 43)], fill=(120, 132, 146, 255))                               # матовый блик
+    d.point((78, 35), fill=(110, 122, 136, 255))
+    return im
+
+
+# --- подвесы под крылом (план осады п. 16, уточнение автора 2026-11-20): те же спрайты боеприпасов, что у предметов
+# (RMC-14, CC-BY-SA-3.0), уменьшенные вдвое и повёрнутые носом вперёд. Слой рисуется ПОД корпусом — из-под крыла видно
+# только хвостовую часть подвеса.
+PYLONS = (32, 56, 104, 128)
+RMC = 'Resources/Textures/_RMC14/Objects/'
+# тип → (rsi, состояние, последняя строка самого боеприпаса — ниже тележка, повернуть носом вверх, низ подвеса по y)
+STORE_SOURCES = {
+    'bomb_he': ('dropship_ammo_64.rsi', 'jdam', 52, True, 106),
+    'bomb_cluster': ('dropship_ammo_64.rsi', 'cluster', 51, True, 106),
+    'bomb_napalm': ('dropship_ammo_64.rsi', 'napalm', 50, True, 106),
+    'bomb_magnesium': ('dropship_ammo_64.rsi', 'jdami', 52, True, 106),
+    'bomb_guided': ('dropship_ammo_64.rsi', 'paveway', 50, True, 104),
+    'missile_at': ('dropship_ammo_64.rsi', 'single', 50, True, 104),
+    'missile_he': ('dropship_ammo_64.rsi', 'banshee', 49, True, 104),
+    'cannon_pod': ('dropship_attachments.rsi', '30mm_cannon', 36, False, 102),
+}
+
+
+def store(kind, x):
+    rsi, state, last_row, rotate, bottom = STORE_SOURCES[kind]
+    src = Image.open(RMC + rsi + '/' + state + '.png').convert('RGBA')
+    src = src.crop((0, 0, src.size[0], last_row + 1))
+    src = src.crop(src.getbbox())
+    if rotate:
+        src = src.rotate(90, expand=True)                                                 # нос (справа) — вперёд, вверх
+    src = src.resize((max(1, src.size[0] // 2), max(1, src.size[1] // 2)), Image.NEAREST)
+    im = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+    im.alpha_composite(src, (x - src.size[0] // 2, bottom - src.size[1]))
+    return im
+
+
+STORES = tuple(STORE_SOURCES)
 
 
 def shadow(h):
@@ -170,12 +239,19 @@ h = hull()
 h.save(OUT + '/base.png')
 shadow(h).save(OUT + '/shadow.png')
 canopy().save(OUT + '/canopy.png')
+canopy_open().save(OUT + '/canopy_open.png')
+canopy_closed().save(OUT + '/canopy_closed.png')
+states = [{'name': 'base'}, {'name': 'shadow'}, {'name': 'canopy'}, {'name': 'canopy_open'}, {'name': 'canopy_closed'}]
+for i, x in enumerate(PYLONS):
+    for kind in STORES:
+        store(kind, x).save(OUT + f'/hp{i}_{kind}.png')
+        states.append({'name': f'hp{i}_{kind}'})
 json.dump({
     'version': 1,
     'license': 'CC-BY-SA-3.0',
-    'copyright': 'Drawn for The Darkest Hour (2026-11-12): Imperial attack aircraft after F9F-5 Panther and Su-25.',
+    'copyright': 'Drawn for The Darkest Hour (2026-11-12, canopy states 2026-11-20): Imperial attack aircraft after F9F-5 Panther and Su-25. Hardpoint stores (hp*) are downscaled dropship_ammo_64 and dropship_attachments sprites taken from cmss13 via RMC-14 (CC-BY-SA-3.0).',
     'size': {'x': S, 'y': S},
-    'states': [{'name': 'base'}, {'name': 'shadow'}, {'name': 'canopy'}],
+    'states': states,
 }, open(OUT + '/meta.json', 'w'), indent=4)
 
 SEAT = 'Resources/Textures/_DarkestHour/Vehicles/Aircraft/aircraft_seat.rsi'

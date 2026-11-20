@@ -1396,20 +1396,20 @@
 - type: entity
   abstract: true
   parent: [ BaseItem, BaseSyndicateContraband ]
-  id: DHMagazineBelt145x114Base
-  name: "IHMG-17 ammunition belt (14.5x114mm)"
+  id: DHMagazineBelt842x54Base
+  name: "IHMG-17 ammunition belt (8.42x54mm Imp)"
   components:
   - type: Tag
     tags:
-    - DHMagazineBelt145x114
+    - DHMagazineBelt842x54
   - type: Item
     size: Normal
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-      - DHCartridge145x114
-    capacity: 50
+      - DHCartridge842x54
+    capacity: 100
   - type: ContainerContainer
     containers:
       ballistic-ammo: !type:Container
@@ -1426,21 +1426,37 @@
     zeroVisible: false
   - type: Appearance
 - type: entity
-  parent: DHMagazineBelt145x114Base
-  id: DHMagazineBelt145x114Empty
+  parent: DHMagazineBelt842x54Base
+  id: DHMagazineBelt842x54Empty
   suffix: Empty
-  description: "50-round magazine."
+  description: "100-round belt."
   components:
   - type: BallisticAmmoProvider
     proto: null
 - type: entity
-  parent: DHMagazineBelt145x114Base
-  id: DHMagazineBelt145x114Std
-  name: "IHMG-17 ammunition belt (14.5x114mm)"
-  description: "50-round magazine. Standard load."
+  parent: DHMagazineBelt842x54Base
+  id: DHMagazineBelt842x54ImpS
+  name: "IHMG-17 ammunition belt (8.42x54mm Imp ImpS)"
+  description: "100-round belt. Imperial standard round with a plasteel tip."
   components:
   - type: BallisticAmmoProvider
-    proto: DHCartridge145x114Std
+    proto: DHCartridge842x54ImpS
+- type: entity
+  parent: DHMagazineBelt842x54Base
+  id: DHMagazineBelt842x54ImpR
+  name: "IHMG-17 ammunition belt (8.42x54mm Imp ImpR)"
+  description: "100-round belt. Imperial cobalt-tipped round against armour and chitin."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge842x54ImpR
+- type: entity
+  parent: DHMagazineBelt842x54Base
+  id: DHMagazineBelt842x54ImpZ
+  name: "IHMG-17 ammunition belt (8.42x54mm Imp ImpZ)"
+  description: "100-round belt. Imperial incendiary round against cover, troops and stores."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge842x54ImpZ
 - type: entity
   abstract: true
   parent: [ BaseItem, BaseSyndicateContraband ]

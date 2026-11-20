@@ -169,6 +169,18 @@ public sealed partial class DHAssaultFactionStationComponent : Component
     public DHAssaultFaction Faction;
 }
 
+/// <summary>
+/// Приветствие при появлении — своё у каждой карты (план осады п. 23, решение автора 2026-11-20). Ставится на станцию
+/// карты в прототипе <c>gameMap</c> (stations → components). Нет на карте — общее приветствие
+/// (<c>dh-assault-briefing-republic/empire</c>). Тексты получают <c>$minutes</c> (до разрыва) и <c>$relief</c> (до эскадры).
+/// </summary>
+[RegisterComponent]
+public sealed partial class DHAssaultMapBriefingComponent : Component
+{
+    [DataField(required: true)]
+    public Dictionary<DHAssaultFaction, LocId> Briefings = new();
+}
+
 /// <summary>Боец «Штурма»: по нему считаются живые силы сторон.</summary>
 [RegisterComponent]
 public sealed partial class DHAssaultFighterComponent : Component

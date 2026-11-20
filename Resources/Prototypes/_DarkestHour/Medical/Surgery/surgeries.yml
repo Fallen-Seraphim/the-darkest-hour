@@ -334,6 +334,102 @@
   steps:
   - DHSurgeryStepRepairOrgans
 
+# Черепно-мозговая травма (план осады п. 18): трепанация — фрезевое отверстие и удаление гематомы. Уже полученное
+# повреждение мозга — ушиванием органов (череп вскрыт пилой).
+- type: dhSurgery
+  id: DHSurgeryTrepanation
+  name: dh-surgery-trepanation
+  description: dh-surgery-trepanation-desc
+  order: 66
+  parts: [ Head ]
+  requires: [ Retracted ]
+  injury: BrainInjury
+  steps:
+  - DHSurgeryStepBurrHole
+  - DHSurgeryStepEvacuateHematoma
+
+# Нервы и спинной мозг (план осады п. 18).
+- type: dhSurgery
+  id: DHSurgeryRepairNerve
+  name: dh-surgery-repair-nerve
+  description: dh-surgery-repair-nerve-desc
+  order: 67
+  parts: [ ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+  requires: [ Retracted ]
+  injury: Nerve
+  steps:
+  - DHSurgeryStepFindNerve
+  - DHSurgeryStepSutureNerve
+
+- type: dhSurgery
+  id: DHSurgerySpinalDecompression
+  name: dh-surgery-spinal-decompression
+  description: dh-surgery-spinal-decompression-desc
+  order: 68
+  parts: [ Torso ]
+  requires: [ BoneOpen ]
+  injury: Spinal
+  steps:
+  - DHSurgeryStepRemoveBoneFragments
+  - DHSurgeryStepStabilizeSpine
+
+# Грудь и дыхательные пути (план осады п. 18).
+- type: dhSurgery
+  id: DHSurgeryChestDrain
+  name: dh-surgery-chest-drain
+  description: dh-surgery-chest-drain-desc
+  order: 69
+  parts: [ Torso ]
+  requires: [ Incised ]
+  injury: Pneumothorax
+  steps:
+  - DHSurgeryStepInsertChestDrain
+
+- type: dhSurgery
+  id: DHSurgeryTracheostomy
+  name: dh-surgery-tracheostomy
+  description: dh-surgery-tracheostomy-desc
+  order: 70
+  parts: [ Head ]
+  injury: Airway
+  steps:
+  - DHSurgeryStepTracheostomy
+
+# Ожоги III степени, лицо и глаза (план осады п. 18).
+- type: dhSurgery
+  id: DHSurgeryBurnGraft
+  name: dh-surgery-burn-graft
+  description: dh-surgery-burn-graft-desc
+  order: 71
+  parts: [ Head, Torso, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+  injury: DeepBurn
+  steps:
+  - DHSurgeryStepExciseBurn
+  - DHSurgeryStepGraftBurn
+
+- type: dhSurgery
+  id: DHSurgeryReconstructFace
+  name: dh-surgery-reconstruct-face
+  description: dh-surgery-reconstruct-face-desc
+  order: 72
+  parts: [ Head ]
+  requires: [ Retracted ]
+  injury: Face
+  steps:
+  - DHSurgeryStepReconstructFace
+
+# Неразорвавшийся боеприпас (план осады п. 18): без сапёра рядом — 25% подрыв, с сапёром — 5%.
+- type: dhSurgery
+  id: DHSurgeryExtractUnexploded
+  name: dh-surgery-extract-unexploded
+  description: dh-surgery-extract-unexploded-desc
+  order: 73
+  parts: [ Head, Torso, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+  requires: [ Retracted ]
+  injury: Unexploded
+  steps:
+  - DHSurgeryStepExtractUnexploded
+
 # --- Хронит: иссечение поражённой кожи и пересадка (стадии 2–3; на последней стадии недоступно). ---
 
 - type: dhSurgery
