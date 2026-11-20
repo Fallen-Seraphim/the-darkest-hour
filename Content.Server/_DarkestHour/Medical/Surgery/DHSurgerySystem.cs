@@ -500,6 +500,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
                 }
                 break;
             case DHSurgeryEffect.GraftSkin:
+            case DHSurgeryEffect.GraftBurn:
                 if (HasComp<DHSkinGraftComponent>(item))
                     return true;
                 break;
@@ -625,6 +626,13 @@ public sealed partial class DHSurgerySystem : EntitySystem
                 return true;
             case DHSurgeryEffect.Tracheostomy:
                 _trauma.Tracheostomy(patient);
+                return true;
+            case DHSurgeryEffect.GraftBurn:
+                QueueDel(item);
+                _trauma.TreatDeepBurn(patient, category);
+                return true;
+            case DHSurgeryEffect.ReconstructFace:
+                _trauma.ReconstructFace(patient);
                 return true;
             case DHSurgeryEffect.ExciseChronite:
                 _dose.ExciseChronite(patient, ChroniteExcision);
@@ -775,6 +783,8 @@ public sealed partial class DHSurgerySystem : EntitySystem
             DHInjuryKind.Spinal => _trauma.HasTreatableSpinalInjury(patient, category),
             DHInjuryKind.Pneumothorax => _trauma.HasPneumothorax(patient, category),
             DHInjuryKind.Airway => _trauma.HasBlockedAirway(patient, category),
+            DHInjuryKind.DeepBurn => _trauma.HasDeepBurn(patient, category),
+            DHInjuryKind.Face => _trauma.HasFaceInjury(patient, category),
             DHInjuryKind.ChroniteSkin => _dose.CanExciseChronite(patient),
             DHInjuryKind.Parasite => _disease.HasSurgicalParasite(patient),
             _ => true,

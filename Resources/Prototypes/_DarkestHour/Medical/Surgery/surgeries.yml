@@ -395,6 +395,29 @@
   steps:
   - DHSurgeryStepTracheostomy
 
+# Ожоги III степени, лицо и глаза (план осады п. 18).
+- type: dhSurgery
+  id: DHSurgeryBurnGraft
+  name: dh-surgery-burn-graft
+  description: dh-surgery-burn-graft-desc
+  order: 71
+  parts: [ Head, Torso, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+  injury: DeepBurn
+  steps:
+  - DHSurgeryStepExciseBurn
+  - DHSurgeryStepGraftBurn
+
+- type: dhSurgery
+  id: DHSurgeryReconstructFace
+  name: dh-surgery-reconstruct-face
+  description: dh-surgery-reconstruct-face-desc
+  order: 72
+  parts: [ Head ]
+  requires: [ Retracted ]
+  injury: Face
+  steps:
+  - DHSurgeryStepReconstructFace
+
 # --- Хронит: иссечение поражённой кожи и пересадка (стадии 2–3; на последней стадии недоступно). ---
 
 - type: dhSurgery

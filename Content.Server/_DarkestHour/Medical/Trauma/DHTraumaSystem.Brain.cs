@@ -176,6 +176,13 @@ public sealed partial class DHTraumaSystem
         ClearSpinal(ent);
         DrainChest(ent);
         ent.Comp.AirwayBlocked = false;
+        ent.Comp.EyesLost = false;
+        if (ent.Comp.Disfigured)
+        {
+            ent.Comp.Disfigured = false;
+            _identity.QueueIdentityUpdate(ent);
+        }
+        UpdateEyes(ent);
         ent.Comp.FireRateModifier = 1f;
         ent.Comp.PainSpike = 0f;
         ent.Comp.ExtraPain = 0f;

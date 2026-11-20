@@ -1,6 +1,7 @@
 using Content.Shared._DarkestHour.Medical.Pharmacology;
 using Content.Shared.Body;
 using Content.Shared.EntityEffects;
+using Content.Shared.IdentityManagement.Components;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Stunnable;
@@ -23,6 +24,14 @@ public sealed partial class DHTraumaSharedSystem : EntitySystem
         SubscribeNetworkEvent<DHSetTargetRequestEvent>(OnSetTargetRequest);
         SubscribeLocalEvent<DHTraumaComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshSpeed);
         SubscribeLocalEvent<DHTraumaComponent, StandUpAttemptEvent>(OnStandUpAttempt);
+        SubscribeLocalEvent<DHTraumaComponent, SeeIdentityAttemptEvent>(OnSeeIdentity);
+    }
+
+    /// <summary>Обезображенное лицо не узнать.</summary>
+    private void OnSeeIdentity(Entity<DHTraumaComponent> ent, ref SeeIdentityAttemptEvent args)
+    {
+        if (ent.Comp.Disfigured)
+            args.Cancel();
     }
 
     /// <summary>Парализованный без экзоскелета не встаёт — только ползёт.</summary>

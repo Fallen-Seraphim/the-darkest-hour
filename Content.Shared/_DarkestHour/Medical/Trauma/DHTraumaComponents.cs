@@ -74,7 +74,11 @@ public sealed partial class DHPartTrauma
     [DataField]
     public bool Nerve;
 
-    public bool HasInjury => Fracture || InternalBleeding > 0f || Shrapnel > 0 || Tourniquet != null || Nerve;
+    /// <summary>Ожог III степени (план осады п. 18): теряет жидкость и болит, пока не иссекут и не пересадят кожу.</summary>
+    [DataField]
+    public bool DeepBurn;
+
+    public bool HasInjury => Fracture || InternalBleeding > 0f || Shrapnel > 0 || Tourniquet != null || Nerve || DeepBurn;
 
     public bool IsEmpty => Brute <= 0.01f && Burn <= 0.01f && !HasInjury;
 }
@@ -219,6 +223,22 @@ public sealed partial class DHTraumaComponent : Component
     /// <summary>Дыхательные пути перекрыты (разбитое лицо или горло, ожог дыхательных путей) — нужна трахеостомия.</summary>
     [DataField]
     public bool AirwayBlocked;
+
+    /// <summary>Лицо обезображено (план осады п. 18): человека не узнать, пока не сделают реконструкцию.</summary>
+    [DataField, AutoNetworkedField]
+    public bool Disfigured;
+
+    /// <summary>Сколько повреждения глаз (минимум для BlindableComponent) сейчас ставят травмы; -1 — не ставят.</summary>
+    [DataField]
+    public int EyeMinApplied = -1;
+
+    /// <summary>Минимум повреждения глаз до травм (врождённая слепота и т. п.) — возвращается после лечения.</summary>
+    [DataField]
+    public int EyeBaseMin;
+
+    /// <summary>Глаза были и их извлекли или вырвали (у кого глаз нет от природы — не слепнет).</summary>
+    [DataField]
+    public bool EyesLost;
 
     /// <summary>Множитель скорострельности оружия в руках (повреждённый нерв руки).</summary>
     [DataField, AutoNetworkedField]

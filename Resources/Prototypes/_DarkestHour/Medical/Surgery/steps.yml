@@ -521,3 +521,55 @@
       Slash: 5
   sound:
     collection: DHSurgeryScalpel
+
+# --- Ожоги III степени, лицо и глаза (план осады п. 18). ---
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepExciseBurn
+  name: dh-surgery-step-excise-burn
+  toolHint: dh-surgery-tool-scalpel
+  tools:
+  - kind: Scalpel
+  - quality: Slicing
+    speed: 0.5
+    success: 0.7
+  duration: 6
+  pain: 0.9
+  invasive: true
+  bleed: 2
+  failDamage:
+    types:
+      Slash: 5
+  sound:
+    collection: DHSurgeryScalpel
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepGraftBurn
+  name: dh-surgery-step-graft-skin
+  toolHint: dh-surgery-tool-skin-graft
+  duration: 5
+  pain: 0.4
+  invasive: true
+  bleed: -1
+  effect: GraftBurn
+  sound:
+    collection: DHSurgeryOrgan
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepReconstructFace
+  name: dh-surgery-step-reconstruct-face
+  toolHint: dh-surgery-tool-microforceps
+  tools:
+  - kind: MicroForceps
+  - kind: Hemostat
+    speed: 0.5
+    success: 0.7
+  duration: 10
+  pain: 0.9
+  invasive: true
+  effect: ReconstructFace
+  failDamage:
+    types:
+      Slash: 4
+  sound:
+    collection: DHSurgeryHemostat
