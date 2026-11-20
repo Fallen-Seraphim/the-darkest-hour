@@ -28,7 +28,7 @@ public sealed partial class DHTraumaSystem
     private const float NerveLegSpeed = 0.8f;
     private const float SpinalSupportedSpeed = 0.7f;
 
-    private static readonly string[] Limbs =
+    private static readonly string[] NerveLimbs =
         { "ArmLeft", "ArmRight", "HandLeft", "HandRight", "LegLeft", "LegRight", "FootLeft", "FootRight" };
 
     #region Травмы
@@ -37,7 +37,7 @@ public sealed partial class DHTraumaSystem
     private void TryNerveDamage(Entity<DHTraumaComponent> ent, string category, DHPartTrauma part, float slash,
         float piercing, bool newFracture)
     {
-        if (part.Nerve || Array.IndexOf(Limbs, category) < 0 || slash + piercing < 12f && !newFracture)
+        if (part.Nerve || Array.IndexOf(NerveLimbs, category) < 0 || slash + piercing < 12f && !newFracture)
             return;
 
         var chance = slash / 80f + piercing / 100f + (newFracture ? 0.15f : 0f);
