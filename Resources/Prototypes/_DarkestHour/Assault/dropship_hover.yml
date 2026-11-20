@@ -1,0 +1,36 @@
+# Тень и струи челнока над полем боя (решение автора 2026-11-19). Перенесено из RussianCM (CMU14,
+# github.com/flex5hybrid/RussianCM, AGPL v3): CMUGunshipTacticalHoverShadow / CMUGunshipTacticalHoverDownwash.
+# Шейдер струи и звук — CC0 (см. attributions.yml). Ставит и двигает DHDropshipSystem.Hover.cs, рисует
+# DHDropshipHoverOverlay; сила (чем ниже, тем сильнее) и скрытие под крышей — DHDropshipHoverEffect.
+
+- type: shader
+  id: DHDropshipHoverExhaust
+  kind: source
+  path: /Textures/_DarkestHour/Shaders/dropship_hover_exhaust.swsl
+
+- type: entity
+  id: DHDropshipHoverShadow
+  name: dropship shadow
+  categories: [ HideSpawnMenu, DoNotMap ]
+  components:
+  - type: DHDropshipHoverShadow
+  - type: DHDropshipHoverEffect
+  - type: AmbientSound
+    range: 24
+    volume: -12
+    sound:
+      path: /Audio/_DarkestHour/Dropship/hover_rocket.ogg
+
+- type: entity
+  id: DHDropshipHoverDownwash
+  name: dropship lift exhaust
+  categories: [ HideSpawnMenu, DoNotMap ]
+  components:
+  - type: DHDropshipHoverDownwash
+  - type: DHDropshipHoverEffect
+  - type: PointLight
+    color: "#49bfff"
+    radius: 4
+    energy: 2.5
+    softness: 1
+    offset: 0,-1.55

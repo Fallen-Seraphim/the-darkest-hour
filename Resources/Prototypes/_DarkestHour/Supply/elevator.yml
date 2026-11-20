@@ -47,7 +47,7 @@
   parent: BaseComputer
   id: DHComputerSupply
   name: supply console
-  description: Orders crates from the side's supply stock and drives the cargo elevator. Nothing costs money; what is in stock is what you get. Stock is topped up while the side holds more than two points.
+  description: Orders crates from the side's supply stock and drives the cargo elevator. Nothing costs money; what is in stock is what you get. Sections are restocked for command points.
   components:
   - type: ComputerVisuals
     stateFrame: frame

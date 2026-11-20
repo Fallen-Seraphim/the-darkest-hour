@@ -44,3 +44,11 @@ dh-vehicle-locked-now = You lock the hatches. Nobody gets in from outside.
 dh-vehicle-unlocked-now = You unlock the hatches.
 dh-vehicle-periscope-look = You look through the periscope. Step away to stop.
 dh-vehicle-key-required = You need this vehicle's key to start it.
+
+## RMC/CMU interiors, engine, seats, delivery
+dh-vehicle-engine-hint = The engine is off — start it with the ENGINE button.
+dh-vehicle-engine-on = You start the engine.
+dh-vehicle-engine-off = You stop the engine. The vehicle is off the radar.
+dh-vehicle-full = There are no free seats in { $vehicle }.
+dh-vehicle-delivery-sender = Motor pool
+dh-vehicle-delivery-arrived = { CAPITALIZE($vehicle) } has been driven to the base garage.

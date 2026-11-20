@@ -13,6 +13,16 @@ namespace Content.Shared._DarkestHour.Vehicles;
 // ванильного VehicleSystem (вождение) и станкового оружия DH (стрельба из башни). Спрайты и облик — RMC-14.
 // Внутри машины — отсек (своя маленькая карта): люк, кресла водителя и стрелков, места десанта.
 
+/// <summary>Значок машины на тактической карте (план осады п. 9).</summary>
+public enum DHVehicleMapIcon : byte
+{
+    Apc,
+    Tank,
+    Truck,
+    Light,
+    Boat,
+}
+
 /// <summary>Боевая машина.</summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class DHVehicleComponent : Component
@@ -69,6 +79,10 @@ public sealed partial class DHVehicleComponent : Component
     [DataField]
     public DHAssaultFaction Faction = DHAssaultFaction.Republic;
 
+    /// <summary>Значок машины на тактической карте своей стороны.</summary>
+    [DataField]
+    public DHVehicleMapIcon MapIcon = DHVehicleMapIcon.Apc;
+
     /// <summary>
     /// Ключ машины (решение автора 2026-11-12): без ключа того же типа при себе (в руках, в карманах, в сумке) пульт
     /// механика-водителя не взять. Ключи выдаются командирам техники (у грузовика LA-V — представителю корпорации).
@@ -92,9 +106,31 @@ public sealed partial class DHVehicleComponent : Component
     [DataField]
     public float CrewZoom = 1.5f;
 
-    /// <summary>Двигатель заведён (за рулём есть водитель; сервер).</summary>
-    [ViewVariables]
+    /// <summary>
+    /// Двигатель заведён (план осады п. 5, решение автора 2026-11-19): заводит и глушит механик-водитель кнопкой
+    /// «Двигатель». Заглушённая машина не едет и не даёт сигнатуры на РЛС; двигатель не глохнет, когда водитель
+    /// встаёт.
+    /// </summary>
+    [DataField, AutoNetworkedField]
     public bool EngineRunning;
+
+    [DataField]
+    public EntProtoId EngineAction = "DHActionVehicleEngine";
+
+    [DataField]
+    public EntProtoId LockAction = "DHActionVehicleLock";
+
+    /// <summary>Мест в машине (кресел в отсеке); когда все заняты, внутрь не залезть (сервер).</summary>
+    [ViewVariables]
+    public int Capacity;
+
+    /// <summary>Сорванная башня, которая отлетает при уничтожении машины.</summary>
+    [DataField]
+    public EntProtoId? TurretWreck;
+
+    /// <summary>Сила взрыва боекомплекта при уничтожении (0 — без взрыва).</summary>
+    [DataField]
+    public float WreckExplosion = 40f;
 
     [ViewVariables]
     public TimeSpan NextEngineSound;
@@ -180,6 +216,10 @@ public sealed partial class DHVehicleStationComponent : Component
     [DataField]
     public bool SmokeControl;
 
+    /// <summary>С поста запирают люки изнутри (водитель и командир).</summary>
+    [DataField]
+    public bool LockControl;
+
     [DataField, AutoNetworkedField]
     public EntityUid? Vehicle;
 
@@ -199,6 +239,12 @@ public sealed partial class DHVehicleStationComponent : Component
 
     [ViewVariables]
     public EntityUid? LightsActionEntity;
+
+    [ViewVariables]
+    public EntityUid? EngineActionEntity;
+
+    [ViewVariables]
+    public EntityUid? LockActionEntity;
 
     /// <summary>Предел отдаления камеры работающего до того, как он сел за пульт (вернуть потом).</summary>
     [ViewVariables]
@@ -298,6 +344,12 @@ public enum DHVehicleVisuals : byte
 
 public sealed partial class DHVehicleSmokeActionEvent : InstantActionEvent;
 
+/// <summary>Кнопка «Двигатель» механика-водителя: завести или заглушить.</summary>
+public sealed partial class DHVehicleEngineActionEvent : InstantActionEvent;
+
+/// <summary>Кнопка «Люки» водителя и командира: запереть или отпереть изнутри.</summary>
+public sealed partial class DHVehicleLockActionEvent : InstantActionEvent;
+
 /// <summary>Клиент стрелка: башня должна смотреть под этим углом к корпусу (за курсором, без выстрела).</summary>
 [Serializable, NetSerializable]
 public sealed class DHVehicleTurretAimEvent : EntityEventArgs
@@ -322,8 +374,15 @@ public sealed partial class DHVehicleInteriorPrototype : IPrototype
     [IdDataField]
     public string ID { get; private set; } = default!;
 
-    /// <summary>Размер с учётом стен.</summary>
-    [DataField(required: true)]
+    /// <summary>
+    /// Готовый отсек — грид из файла карты (отсеки RMC-14 / CMU, план осады п. 5). Тогда <see cref="Size"/>, пол и
+    /// стены не нужны; <see cref="Entities"/> добавляются поверх карты.
+    /// </summary>
+    [DataField]
+    public Robust.Shared.Utility.ResPath? Map;
+
+    /// <summary>Размер с учётом стен (для отсека-коробки).</summary>
+    [DataField]
     public Vector2i Size;
 
     [DataField]
@@ -333,8 +392,12 @@ public sealed partial class DHVehicleInteriorPrototype : IPrototype
     public EntProtoId Wall = "WallPlastitaniumIndestructible";
 
     /// <summary>Клетка, куда попадает вошедший (рядом с люком).</summary>
-    [DataField(required: true)]
+    [DataField]
     public Vector2i Entry;
+
+    /// <summary>Точная точка входа (для отсеков из карты); если задана — вместо <see cref="Entry"/>.</summary>
+    [DataField]
+    public Vector2? EntryPoint;
 
     [DataField]
     public List<DHVehicleInteriorEntity> Entities = new();
@@ -349,8 +412,12 @@ public sealed partial class DHVehicleInteriorEntity
     [DataField(required: true)]
     public EntProtoId Proto;
 
-    [DataField(required: true)]
+    [DataField]
     public Vector2i Pos;
+
+    /// <summary>Точная позиция на гриде (для отсеков из карты); если задана — вместо <see cref="Pos"/>.</summary>
+    [DataField]
+    public Vector2? At;
 
     /// <summary>Поворот в градусах.</summary>
     [DataField]
@@ -367,4 +434,26 @@ public sealed partial class DHVehicleKeyComponent : Component
 {
     [DataField(required: true)]
     public string Key = string.Empty;
+}
+
+/// <summary>
+/// Заказ машины, которую пригоняют своим ходом (план осады п. 3, решение автора 2026-11-19): появившись (например, на
+/// лифте снабжения Республики), заказ ставит машину на точку доставки своей стороны и исчезает.
+/// </summary>
+[RegisterComponent]
+public sealed partial class DHVehicleDeliveryComponent : Component
+{
+    [DataField(required: true)]
+    public EntProtoId Spawn;
+
+    [DataField]
+    public DHAssaultFaction Faction = DHAssaultFaction.Republic;
+}
+
+/// <summary>Куда пригоняют заказанные машины стороны (гараж базы).</summary>
+[RegisterComponent]
+public sealed partial class DHVehicleDeliveryPointComponent : Component
+{
+    [DataField]
+    public DHAssaultFaction Faction = DHAssaultFaction.Republic;
 }

@@ -89,6 +89,7 @@
     - state: cargo_closed
       map: [ "base" ]
   - type: DHVehicle
+    mapIcon: Truck
     maxIntegrity: 600
     faction: Republic
     hullHalfSize: 0.8,1
@@ -112,6 +113,7 @@
     - state: base_closed
       map: [ "base" ]
   - type: DHVehicle
+    mapIcon: Truck
     maxIntegrity: 600
     faction: Empire
     hullHalfSize: 0.8,1
@@ -176,6 +178,7 @@
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
   - type: DHVehicle
+    mapIcon: Truck
     maxIntegrity: 800
     faction: Republic
     hullHalfSize: 0.7,1.3
@@ -281,22 +284,3 @@
     layers:
     - state: armored_truck_trr
 
-# Кузов: кабина водителя спереди, по три места вдоль бортов, у заднего борта — место под ящики, люк сзади.
-- type: dhVehicleInterior
-  id: DHInteriorTruck
-  size: 5,9
-  floor: FloorSteelMono
-  entry: 2,7
-  entities:
-  - { proto: DHVehicleViewport, pos: "2,0", onWall: true }
-  - { proto: DHVehicleConsoleDriver, pos: "1,1", rot: 180 }
-  - { proto: DHVehicleTacticalMap, pos: "3,1" }
-  - { proto: DHVehicleSeatCrew, pos: "1,2" }
-  - { proto: DHVehicleInteriorLight, pos: "2,2" }
-  - { proto: DHVehicleSeatPassenger, pos: "1,3", rot: 90 }
-  - { proto: DHVehicleSeatPassenger, pos: "1,4", rot: 90 }
-  - { proto: DHVehicleSeatPassenger, pos: "1,5", rot: 90 }
-  - { proto: DHVehicleSeatPassenger, pos: "3,3", rot: -90 }
-  - { proto: DHVehicleSeatPassenger, pos: "3,4", rot: -90 }
-  - { proto: DHVehicleSeatPassenger, pos: "3,5", rot: -90 }
-  - { proto: DHVehicleHatch, pos: "2,8" }

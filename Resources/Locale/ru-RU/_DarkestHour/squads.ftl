@@ -32,3 +32,14 @@ dh-squad-leader-replaced = Вы больше не командир отряда:
 dh-squad-examine-leader = Командир отряда [color={$color}]{$squad}[/color].
 dh-alert-squad-tracker-name = Трекер командира отряда
 dh-alert-squad-tracker-desc = Стрелка указывает на командира вашего отряда. Погашен — командир не назначен или вне досягаемости.
+
+## Любимый отряд (вкладки ролей) и распределение на старте
+dh-squad-preference-label = Любимый отряд:
+dh-squad-preference-any = Без разницы
+dh-squad-preference-hint = пехота распределяется по отрядам в начале раунда
+dh-squad-no-leader = В отряде { $squad } нет командира — его назначит командование.
+
+## Звания должности в лобби
+dh-job-ranks-header = Звания:
+dh-job-rank-line = • { $rank }
+dh-job-rank-line-time = • { $rank } — от { $hours } ч на должности
