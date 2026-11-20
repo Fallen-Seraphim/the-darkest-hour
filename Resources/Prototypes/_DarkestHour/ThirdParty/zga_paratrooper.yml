@@ -372,3 +372,35 @@
   save: false
   components:
   - type: DHMotionDetector
+
+# Летальная инъекция (п. 28, PR 4): имплант на основе базового, ставится десантнику при высадке.
+- type: entity
+  parent: DHImplantBasic
+  id: DHImplantZGALethal
+  name: Association lethal implant
+  description: "A basic bio-capsule with a lethal dose. The Curator's code: never be taken alive."
+  components:
+  - type: DHImplant
+    kind: Base
+    part: Torso
+    passiveRate: 0.001
+    activeRate: 0
+    action: DHActionZGALethal
+
+- type: entity
+  parent: BaseAction
+  id: DHActionZGALethal
+  name: Lethal injection
+  description: "Release the lethal dose of the implant. Death is instant: the enemy will not take you alive."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 5
+    checkCanInteract: false
+  - type: Sprite
+    sprite: Objects/Specific/Medical/implanter.rsi
+    layers:
+    - state: implanter1
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHZGALethalActionEvent

@@ -19,7 +19,7 @@ dh-zga-role-mars = M.A.R.S. 1.5 armour AI
 dh-zga-role-mars-desc = The paratrooper's "voice in the armour": sees through their eyes, talks to them on a private channel (:м). Marks targets, scans the area, watches the enemy tactical network, hacks doors, jams radio and drags out a downed wearer.
 dh-zga-name-format = Paratrooper { $part0 }
 dh-zga-no-target = No target on the surface — the Curator called off the drop.
-dh-zga-briefing-paratrooper = [color=#7ec8f0][bold]Curator's orders.[/bold][/color] Target: { $target } ({ $job }). The tracker in your hand leads to the target, then to the evacuation point. Open the weapon case after landing. Private channel with the AI — :м. The "Mission" button recalls the deadlines and rules. Abilities are on the action bar and work only while the wearer has EMB-5 armour on.
+dh-zga-briefing-paratrooper = [color=#7ec8f0][bold]Curator's orders.[/bold][/color] Target: { $target } ({ $job }). The tracker in your hand leads to the target, then to the evacuation point. Open the weapon case after landing. Private channel with the AI — :м. The "Mission" button recalls the deadlines and rules. Abilities are on the action bar and work only while the wearer has EMB-5 armour on. A lethal implant sits in your torso: do not be taken alive.
 dh-zga-briefing-mars = [color=#7ec8f0][bold]M.A.R.S. 1.5 online.[/bold][/color] Host: Association paratrooper. Target: { $target } ({ $job }). You see through their eyes; private channel — :м. The "Mission" button recalls the deadlines and rules.
 dh-zga-codex = [color=#7ec8f0]Curator's code.[/color] The Association wants no open war. 1) Kill only the target and those who attacked you first: the { $kills }rd "extra" kill is a failure. 2) Don't be taken alive: { $capture } min cuffed is a failure. 3) { $hunt } min for the target, then { $evac } min to evacuate. Failure — the Association publicly disavows you.
 dh-zga-target-down = [color=#7ec8f0]Target eliminated.[/color] The tracker leads to the evacuation point — { $evac } min.
@@ -69,3 +69,23 @@ dh-mars-hack-done = M.A.R.S.: door open.
 dh-mars-jam-on = M.A.R.S. jams the radio around you for thirty seconds.
 dh-mars-inject-failed = M.A.R.S.: the auto-medic is not ready or empty.
 dh-mars-carry-conscious = The wearer is conscious and in control of the exoskeleton.
+
+dh-zga-state-captured = failed, the paratrooper is a prisoner
+
+# Capture, lethal injection, round summary (siege plan item 28, PR 4)
+dh-zga-intel-sender = Prisoner interrogation
+dh-zga-intel = Association paratrooper { $name } has been taken alive. Under interrogation: the Association was hunting { $target } ({ $job }). Your side gains { $points } command points.
+dh-zga-lethal-self = You release the lethal dose. The code is kept.
+dh-zga-lethal-others = { $name } twitches and goes limp.
+dh-zga-faction-republic = the Republic
+dh-zga-faction-empire = the Empire
+dh-zga-summary-title = [color=#7ec8f0][bold]Association paratrooper[/bold][/color]
+dh-zga-summary-line = { $name } — target: { $target } ({ $job }).
+dh-zga-summary-outcome = Outcome: { $outcome }. Extra kills: { $kills }.
+dh-zga-summary-captured = Taken prisoner by { $faction }.
+dh-zga-outcome-hunting = the mission was not finished by round end
+dh-zga-outcome-evacuating = target down, evacuation not finished
+dh-zga-outcome-evacuated = [color=#7ec8f0]target down, evacuated[/color]
+dh-zga-outcome-disavowed = [color=red]broke the code, disavowed by the Association[/color]
+dh-zga-outcome-dead = killed
+dh-zga-outcome-captured = [color=red]taken alive[/color]
