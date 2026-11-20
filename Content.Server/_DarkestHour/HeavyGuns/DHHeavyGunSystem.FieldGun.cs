@@ -248,6 +248,7 @@ public sealed partial class DHHeavyGunSystem
         var dirVec = direction.ToWorldVec();
 
         _audio.PlayPvs(FieldGunFireSound, ent, AudioParams.Default.WithMaxDistance(50f).WithVolume(2f));
+        RaiseLocalEvent(new Content.Server._DarkestHour.Recon.DHArtilleryFiredEvent(ent, FactionOf(args.Actor)));
         _hearing.Blast(_transform.GetMapCoordinates(ent), 70f, 8f);
         foreach (var actor in _lookup.GetEntitiesInRange<ActorComponent>(_transform.GetMapCoordinates(ent), 6f))
         {

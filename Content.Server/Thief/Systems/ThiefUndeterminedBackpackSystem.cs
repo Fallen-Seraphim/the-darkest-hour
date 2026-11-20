@@ -43,6 +43,27 @@ public sealed partial class ThiefUndeterminedBackpackSystem : EntitySystem
         if (backpack.Comp.SpawnedStoragePrototype != null)
             spawnedStorage = Spawn(backpack.Comp.SpawnedStoragePrototype, _transform.GetMapCoordinates(backpack.Owner));
 
+        // DH-start: кейс комплекта «Осады» — выбранное сразу надевается (план осады п. 13).
+        if (HasComp<Content.Server._DarkestHour.Vendors.DHKitAutoEquipComponent>(backpack))
+        {
+            var kit = new List<EntityUid>();
+            foreach (var i in backpack.Comp.SelectedSets)
+            {
+                foreach (var item in ProtoMan.Index(backpack.Comp.PossibleSets[i]).Content)
+                {
+                    kit.Add(Spawn(item, _transform.GetMapCoordinates(backpack.Owner)));
+                }
+            }
+
+            _audio.PlayPvs(backpack.Comp.ApproveSound, Transform(backpack.Owner).Coordinates);
+            // Кейс в руке — сначала убрать, чтобы рука освободилась под оружие.
+            QueueDel(backpack);
+            _hands.TryDrop(args.Actor, backpack.Owner, checkActionBlocker: false);
+            EntityManager.System<Content.Server._DarkestHour.Vendors.DHAutoEquipSystem>().EquipAll(args.Actor, kit);
+            return;
+        }
+        // DH-end
+
         foreach (var i in backpack.Comp.SelectedSets)
         {
             var set = ProtoMan.Index(backpack.Comp.PossibleSets[i]);

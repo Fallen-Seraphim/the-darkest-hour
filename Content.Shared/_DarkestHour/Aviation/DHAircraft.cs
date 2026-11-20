@@ -322,6 +322,21 @@ public sealed partial class DHAircraftComponent : Component
     [ViewVariables, AutoNetworkedField]
     public EntityUid? Seat;
 
+    /// <summary>
+    /// Пилот внутри (план осады п. 16, решение автора 2026-11-20 — «как в криокапсулу»): фонарь закрыт и матовый,
+    /// самого пилота снаружи не видно.
+    /// </summary>
+    [ViewVariables, AutoNetworkedField]
+    public bool Occupied;
+
+    /// <summary>Сколько залезать в кабину.</summary>
+    [DataField]
+    public TimeSpan BoardTime = TimeSpan.FromSeconds(3);
+
+    /// <summary>Сколько вылезать из кабины на палубе.</summary>
+    [DataField]
+    public TimeSpan ExitTime = TimeSpan.FromSeconds(3);
+
     /// <summary>Лифт, на котором самолёт базируется (туда же возвращает автопилот).</summary>
     [ViewVariables]
     public EntityUid? Lift;
@@ -489,6 +504,8 @@ public sealed partial class DHAircraftSeatComponent : Component
     public List<EntProtoId> Actions = new()
     {
         "DHActionAircraftFlight",
+        "DHActionAircraftWeapons",
+        "DHActionAircraftExit",
         "DHActionAircraftEject",
     };
 
@@ -573,6 +590,18 @@ public sealed partial class DHAircraftRepairDoAfterEvent : SimpleDoAfterEvent;
 public sealed partial class DHAircraftFlightActionEvent : InstantActionEvent;
 
 public sealed partial class DHAircraftEjectActionEvent : InstantActionEvent;
+
+/// <summary>Способность «Вооружение»: открыть управление вооружением (план осады п. 16).</summary>
+public sealed partial class DHAircraftWeaponsActionEvent : InstantActionEvent;
+
+/// <summary>Способность «Вылезти»: на палубе — выбраться из кабины по таймеру.</summary>
+public sealed partial class DHAircraftExitActionEvent : InstantActionEvent;
+
+[Serializable, NetSerializable]
+public sealed partial class DHAircraftBoardDoAfterEvent : SimpleDoAfterEvent;
+
+[Serializable, NetSerializable]
+public sealed partial class DHAircraftExitDoAfterEvent : SimpleDoAfterEvent;
 
 [Serializable, NetSerializable]
 public enum DHAircraftUiKey : byte

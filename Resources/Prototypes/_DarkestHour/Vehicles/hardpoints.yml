@@ -475,3 +475,37 @@
     - state: flashlight
   - type: InstantAction
     event: !type:DHVehicleLightsActionEvent
+
+# Кнопки экипажа (план осады п. 5, решение автора 2026-11-19): двигатель — у механика-водителя, люки — у водителя и
+# командира.
+- type: entity
+  parent: BaseAction
+  id: DHActionVehicleEngine
+  name: Engine
+  description: Start or stop the engine. A stopped vehicle does not move and gives no radar signature.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 2
+  - type: Sprite
+    sprite: Interface/Actions/actions_mecha.rsi
+    layers:
+    - state: mech_cycle_equip_off
+  - type: InstantAction
+    event: !type:DHVehicleEngineActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionVehicleLock
+  name: Hatches
+  description: Lock or unlock the hatches from the inside — nobody gets in from outside.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 1
+  - type: Sprite
+    sprite: _RMC14/Objects/Misc/vehicle_key.rsi
+    layers:
+    - state: key
+  - type: InstantAction
+    event: !type:DHVehicleLockActionEvent

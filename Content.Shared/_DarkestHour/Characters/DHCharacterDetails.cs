@@ -48,6 +48,17 @@ public sealed partial class DHCharacterDetails
     [DataField]
     public string CriminalRecord = string.Empty;
 
+    /// <summary>
+    /// Любимый отряд Республики (решение автора 2026-11-19, как в RMC): при распределении пехоты на старте раунда боец
+    /// попадает в него, если отряд не перегружен. null — без разницы.
+    /// </summary>
+    [DataField]
+    public string? RepublicSquad;
+
+    /// <summary>Любимый отряд Империи; null — без разницы.</summary>
+    [DataField]
+    public string? EmpireSquad;
+
     public DHCharacterDetails Clone()
     {
         return (DHCharacterDetails) MemberwiseClone();
@@ -57,12 +68,14 @@ public sealed partial class DHCharacterDetails
     {
         return ShortExamine == other.ShortExamine && Height == other.Height && Weight == other.Weight &&
                Build == other.Build && Birthplace == other.Birthplace && GeneralRecord == other.GeneralRecord &&
-               MedicalRecord == other.MedicalRecord && CriminalRecord == other.CriminalRecord;
+               MedicalRecord == other.MedicalRecord && CriminalRecord == other.CriminalRecord &&
+               RepublicSquad == other.RepublicSquad && EmpireSquad == other.EmpireSquad;
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(ShortExamine, Height, Weight, Build, Birthplace, GeneralRecord, MedicalRecord, CriminalRecord);
+        return HashCode.Combine(HashCode.Combine(ShortExamine, Height, Weight, Build, Birthplace, GeneralRecord,
+            MedicalRecord, CriminalRecord), RepublicSquad, EmpireSquad);
     }
 
     /// <summary>Обрезает тексты, зажимает рост/вес, сбрасывает место рождения, невозможное для года рождения.</summary>
@@ -77,11 +90,20 @@ public sealed partial class DHCharacterDetails
         if (!Enum.IsDefined(Build))
             Build = DHBuild.Average;
 
+        RepublicSquad = ValidSquad(proto, RepublicSquad);
+        EmpireSquad = ValidSquad(proto, EmpireSquad);
+
         if (Birthplace is { } place &&
             (!proto.TryIndex(place, out var birthplace) || !birthplace.AvailableIn(DHBirthplaces.BirthYear(age))))
         {
             Birthplace = null;
         }
+    }
+
+    /// <summary>Несуществующий отряд (удалён или опечатка) — «без разницы».</summary>
+    private static string? ValidSquad(IPrototypeManager proto, string? squad)
+    {
+        return squad != null && proto.HasIndex<Content.Shared._DarkestHour.Squads.DHSquadPrototype>(squad) ? squad : null;
     }
 
     private static string Clip(string text, int max)
