@@ -250,6 +250,7 @@ public sealed partial class DHHeavyGunSystem
         _audio.PlayPvs(FieldGunFireSound, ent, AudioParams.Default.WithMaxDistance(50f).WithVolume(2f));
         RaiseLocalEvent(new Content.Server._DarkestHour.Recon.DHArtilleryFiredEvent(ent, FactionOf(args.Actor)));
         _hearing.Blast(_transform.GetMapCoordinates(ent), 70f, 8f);
+        _distant.Cannon(_transform.GetMapCoordinates(ent), 220f); // план осады п. 20
         foreach (var actor in _lookup.GetEntitiesInRange<ActorComponent>(_transform.GetMapCoordinates(ent), 6f))
         {
             _recoil.KickCamera(actor, -dirVec * 0.5f);

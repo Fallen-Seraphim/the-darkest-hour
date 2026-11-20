@@ -56,6 +56,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     [Dependency] private ExplosionSystem _explosion = default!;
     [Dependency] private DHFireSystem _fire = default!;
     [Dependency] private Content.Server._DarkestHour.Hearing.DHHearingSystem _hearing = default!;
+    [Dependency] private Content.Server._DarkestHour.Hearing.DHDistantSoundSystem _distant = default!;
     [Dependency] private DHLandingSystem _landing = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private SharedMapSystem _map = default!;
@@ -778,6 +779,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
 
         var center = _transform.GetMapCoordinates(gun);
         _hearing.Blast(center, 90f, 14f);
+        _distant.Cannon(center, float.PositiveInfinity, 4f, 0.9f); // тяжёлое орудие слышно всей карте (план осады п. 20)
         foreach (var actor in _lookup.GetEntitiesInRange<ActorComponent>(center, 12f))
         {
             var kick = _random.NextAngle().ToVec() * 0.6f;

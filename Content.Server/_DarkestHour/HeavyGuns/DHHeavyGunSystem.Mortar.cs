@@ -461,6 +461,7 @@ public sealed partial class DHHeavyGunSystem
         _audio.PlayPvs(MortarFireSound, ent, AudioParams.Default.WithMaxDistance(40f));
         RaiseLocalEvent(new Content.Server._DarkestHour.Recon.DHArtilleryFiredEvent(ent, FactionOf(args.User)));
         _hearing.Blast(_transform.GetMapCoordinates(ent), 35f, 4f);
+        _distant.Cannon(_transform.GetMapCoordinates(ent), 120f, -6f, 1.3f); // глухой хлопок миномёта (план осады п. 20)
         foreach (var actor in _lookup.GetEntitiesInRange<Robust.Shared.Player.ActorComponent>(
                      _transform.GetMapCoordinates(ent), 4f))
         {

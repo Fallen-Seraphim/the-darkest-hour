@@ -29,6 +29,7 @@ public sealed partial class DHNoiseExposureComponent : Component
 /// </summary>
 public sealed partial class DHHearingSystem : EntitySystem
 {
+    [Dependency] private DHDistantSoundSystem _distant = default!;
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
@@ -102,6 +103,10 @@ public sealed partial class DHHearingSystem : EntitySystem
         var (noise, shake, radius) = TryComp<DHGunNoiseComponent>(ent, out var custom)
             ? (custom.Noise, custom.Shake, custom.ShakeRadius)
             : DefaultNoise(MetaData(ent).EntityPrototype?.ID);
+
+        // Громкое оружие слышно далеко (план осады п. 20): пулемёты, снайперки, ПТР, станковые.
+        if (noise >= 8f || shake > 0f)
+            _distant.Gunshot(ent, _transform.GetMapCoordinates(ent), noise);
 
         // За один тик сервера может выйти несколько выстрелов — шум за каждый.
         var shots = Math.Max(1, args.Ammo.Count);
