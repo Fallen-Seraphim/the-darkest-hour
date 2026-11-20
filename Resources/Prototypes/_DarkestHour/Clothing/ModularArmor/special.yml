@@ -55,7 +55,7 @@
     exactVolume: true
 
 - type: entity
-  parent: [ DHArmorSpecialBase, ClothingBeltStorageBase ]
+  parent: DHArmorSpecialBase
   id: DHArmorSpecialStorage
   name: armour storage pack
   description: "A special system for modular armour: an extra storage pack on the back of the suit. Open it with the special system action."
@@ -65,6 +65,9 @@
     state: icon
   - type: Item
     size: Large
+  # Без этого действие спецсистемы не открывало хранилище, а окно сразу закрывалось (проверка 2026-11-19).
+  - type: DHArmorSpecial
+    kind: Storage
   - type: Storage
     maxItemSize: Normal
     grid:
@@ -89,6 +92,8 @@
     state: flametank
   - type: Item
     size: Large
+  - type: DHArmorSpecial
+    kind: Storage
   - type: Storage
     maxItemSize: Normal
     grid:
@@ -211,7 +216,7 @@
   parent: BaseStructure
   id: DHArmorRack
   name: armour maintenance rack
-  description: A rack with clamps and power tools for fitting and removing heavy modules of modular armour. Heavy modules can only be swapped within a couple of steps of it.
+  description: A rack with clamps and power tools for fitting and removing heavy modules of modular armour. Heavy modules are swapped much faster within a couple of steps of it.
   components:
   - type: Sprite
     sprite: Structures/Storage/SuitStorage/generic.rsi

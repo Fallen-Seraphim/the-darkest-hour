@@ -244,6 +244,12 @@ public sealed partial class DHOverwatchSystem : EntitySystem
             ? job
             : Loc.GetString("dh-overwatch-no-job");
 
+        if (TryComp<Content.Shared._DarkestHour.Squads.DHSquadMemberComponent>(uid, out var member))
+        {
+            entry.Squad = member.Squad.Id;
+            entry.SquadLeader = member.Leader;
+        }
+
         var pos = _transform.GetWorldPosition(xform);
         entry.X = (int) MathF.Round(pos.X);
         entry.Y = (int) MathF.Round(pos.Y);

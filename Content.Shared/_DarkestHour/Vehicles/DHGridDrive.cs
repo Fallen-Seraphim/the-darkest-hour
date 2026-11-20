@@ -62,6 +62,10 @@ public sealed partial class DHGridDriveComponent : Component
     [DataField]
     public float SmashDamage = 300f;
 
+    /// <summary>Плавает (лодка): ходит только там, где под всем корпусом вода — обычная или глубокая.</summary>
+    [DataField]
+    public bool Water;
+
     [DataField]
     public TimeSpan SmashCooldown = TimeSpan.FromSeconds(0.35);
 

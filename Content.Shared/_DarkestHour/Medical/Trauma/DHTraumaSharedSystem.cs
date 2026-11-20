@@ -2,6 +2,8 @@ using Content.Shared._DarkestHour.Medical.Pharmacology;
 using Content.Shared.Body;
 using Content.Shared.EntityEffects;
 using Content.Shared.Movement.Systems;
+using Content.Shared.Popups;
+using Content.Shared.Stunnable;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
@@ -20,6 +22,18 @@ public sealed partial class DHTraumaSharedSystem : EntitySystem
 
         SubscribeNetworkEvent<DHSetTargetRequestEvent>(OnSetTargetRequest);
         SubscribeLocalEvent<DHTraumaComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshSpeed);
+        SubscribeLocalEvent<DHTraumaComponent, StandUpAttemptEvent>(OnStandUpAttempt);
+    }
+
+    /// <summary>Парализованный без экзоскелета не встаёт — только ползёт.</summary>
+    private void OnStandUpAttempt(Entity<DHTraumaComponent> ent, ref StandUpAttemptEvent args)
+    {
+        if (args.Cancelled || ent.Comp.Spinal == DHSpinalInjury.None || ent.Comp.SpinalSupported)
+            return;
+
+        args.Cancelled = true;
+        args.Autostand = false;
+        args.Message = (Loc.GetString("dh-trauma-spinal-stand"), PopupType.SmallCaution);
     }
 
     private void OnSetTargetRequest(DHSetTargetRequestEvent ev, EntitySessionEventArgs args)

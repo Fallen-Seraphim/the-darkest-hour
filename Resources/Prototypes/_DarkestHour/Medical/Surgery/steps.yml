@@ -357,3 +357,167 @@
       Slash: 5
   sound:
     collection: DHSurgeryOrgan
+
+# --- Черепно-мозговая травма (план осады п. 18): трепанация. ---
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepBurrHole
+  name: dh-surgery-step-burr-hole
+  toolHint: dh-surgery-tool-drill
+  tools:
+  - kind: Drill
+  - kind: Saw
+    speed: 0.5
+    success: 0.8
+  - quality: Sawing
+    speed: 0.3
+    success: 0.5
+  duration: 6
+  pain: 1.0
+  invasive: true
+  bleed: 1
+  failDamage:
+    types:
+      Blunt: 6
+      Piercing: 4
+  sound:
+    collection: DHSurgeryBoneSaw
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepEvacuateHematoma
+  name: dh-surgery-step-evacuate-hematoma
+  toolHint: dh-surgery-tool-hemostat
+  tools:
+  - kind: Hemostat
+  - quality: Cutting
+    speed: 0.3
+    success: 0.5
+  duration: 8
+  pain: 0.9
+  invasive: true
+  bleed: 1
+  effect: Trepanation
+  failDamage:
+    types:
+      Piercing: 6
+  sound:
+    collection: DHSurgeryHemostat
+
+# --- Нервы и спинной мозг (план осады п. 18). ---
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepFindNerve
+  name: dh-surgery-step-find-nerve
+  toolHint: dh-surgery-tool-hemostat
+  tools:
+  - kind: Hemostat
+  - kind: MicroForceps
+  - quality: Cutting
+    speed: 0.4
+    success: 0.6
+  duration: 5
+  pain: 0.8
+  invasive: true
+  failDamage:
+    types:
+      Slash: 3
+  sound:
+    collection: DHSurgeryHemostat
+
+# Шов нерва — только микроинструментом и под наркозом.
+- type: dhSurgeryStep
+  id: DHSurgeryStepSutureNerve
+  name: dh-surgery-step-suture-nerve
+  toolHint: dh-surgery-tool-microforceps
+  tools:
+  - kind: MicroForceps
+  duration: 12
+  pain: 1.0
+  requiresAnesthesia: true
+  invasive: true
+  effect: RepairNerve
+  failDamage:
+    types:
+      Slash: 2
+  sound:
+    collection: DHSurgeryHemostat
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepRemoveBoneFragments
+  name: dh-surgery-step-remove-bone-fragments
+  toolHint: dh-surgery-tool-hemostat
+  tools:
+  - kind: Hemostat
+  - kind: MicroForceps
+    speed: 0.8
+  - quality: Cutting
+    speed: 0.3
+    success: 0.5
+  duration: 8
+  pain: 1.0
+  requiresAnesthesia: true
+  invasive: true
+  bleed: 1
+  failDamage:
+    types:
+      Piercing: 6
+  sound:
+    collection: DHSurgeryOrgan
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepStabilizeSpine
+  name: dh-surgery-step-stabilize-spine
+  toolHint: dh-surgery-tool-bonegel
+  tools:
+  - kind: BoneGel
+  duration: 5
+  pain: 0.6
+  requiresAnesthesia: true
+  effect: SpinalDecompression
+  sound:
+    collection: DHSurgeryOrgan
+
+# --- Грудь и дыхательные пути (план осады п. 18). ---
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepInsertChestDrain
+  name: dh-surgery-step-insert-chest-drain
+  toolHint: dh-surgery-tool-hemostat
+  tools:
+  - kind: Hemostat
+  - kind: Retractor
+    speed: 0.7
+  - quality: Prying
+    speed: 0.4
+    success: 0.6
+  duration: 6
+  pain: 0.9
+  invasive: true
+  bleed: 0.5
+  effect: DrainChest
+  failDamage:
+    types:
+      Piercing: 5
+  sound:
+    collection: DHSurgeryHemostat
+
+# Трахеостомия: разрез на горле — делается и на полу (санитар), там дольше и с риском инфекции.
+- type: dhSurgeryStep
+  id: DHSurgeryStepTracheostomy
+  name: dh-surgery-step-tracheostomy
+  toolHint: dh-surgery-tool-scalpel
+  tools:
+  - kind: Scalpel
+  - quality: Slicing
+    speed: 0.7
+    success: 0.8
+  duration: 4
+  pain: 0.8
+  invasive: true
+  bleed: 1
+  effect: Tracheostomy
+  failDamage:
+    types:
+      Slash: 5
+  sound:
+    collection: DHSurgeryScalpel

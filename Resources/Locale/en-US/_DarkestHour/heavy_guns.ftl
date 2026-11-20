@@ -69,6 +69,7 @@ dh-laser-marked = Mark {$code} set at ({$x}, {$y}).
 dh-laser-sender = Laser designator ({$name})
 dh-laser-announce = Target marked: mark {$code} at ({$x}, {$y}).
 dh-laser-lost = The laser slipped off target — mark {$code} is gone.
+dh-laser-blocked = The target is obscured (smoke or cover) — mark {$code} is gone.
 dh-mortar-no-ground = There is no ground here to set up a mortar.
 dh-mortar-deployed = {CAPITALIZE(THE($user))} sets up the mortar.
 dh-mortar-fold-verb = Fold the mortar
@@ -131,3 +132,5 @@ dh-radar-examine-active = The antenna turns steadily: the radar is [color=green]
 dh-radar-examine-broken = The radar is [color=red]silent[/color]. A welder could bring it back.
 dh-radar-sender = Radar post
 dh-radar-incoming-dropship = Enemy dropship ({$ship}) inbound to {$zone}!
+
+dh-heavy-gun-site-lost = The anti-orbital battery is lost: the guns are silent until the site is retaken.
