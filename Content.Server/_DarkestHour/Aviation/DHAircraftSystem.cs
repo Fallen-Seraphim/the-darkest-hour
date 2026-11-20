@@ -135,6 +135,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         SubscribeLocalEvent<DHAircraftLiftComponent, ExaminedEvent>(OnLiftExamined);
 
         InitializeManpads();
+        InitializeCockpit();
         InitializeLiftConsole();
     }
 
@@ -184,8 +185,14 @@ public sealed partial class DHAircraftSystem : EntitySystem
                 ent.Comp.ActionEntities.Add(added);
         }
 
-        if (TryComp<DHAircraftComponent>(aircraft, out var plane) && plane.Control)
-            _mover.SetRelay(pilot, aircraft);
+        if (TryComp<DHAircraftComponent>(aircraft, out var plane))
+        {
+            // Пилот внутри — фонарь закрыт (план осады п. 16).
+            plane.Occupied = true;
+            Dirty(aircraft, plane);
+            if (plane.Control)
+                _mover.SetRelay(pilot, aircraft);
+        }
     }
 
     private void OnUnstrapped(Entity<DHAircraftSeatComponent> ent, ref UnstrappedEvent args)
@@ -205,6 +212,12 @@ public sealed partial class DHAircraftSystem : EntitySystem
         {
             _ui.CloseUi(aircraft, DHAircraftUiKey.Flight, pilot);
             _ui.CloseUi(aircraft, DHAircraftUiKey.Weapons, pilot);
+
+            if (TryComp<DHAircraftComponent>(aircraft, out var occupied))
+            {
+                occupied.Occupied = false;
+                Dirty(aircraft, occupied);
+            }
 
             // Вылез на палубе — встаёт рядом с кабиной, а не внутри твёрдого фюзеляжа.
             if (TryComp<DHAircraftComponent>(aircraft, out var plane) &&
@@ -1068,8 +1081,8 @@ public sealed partial class DHAircraftSystem : EntitySystem
         args.Handled = true;
         if (aircraft.State is DHAircraftState.Airborne or DHAircraftState.Returning or DHAircraftState.Pass)
             Crash((ent.Comp.Aircraft, aircraft), ejected: true);
-        else if (aircraft.State == DHAircraftState.Parked)
-            _buckle.TryUnbuckle(ent.Owner, ent.Owner, popup: false);
+        else
+            StartExit((ent.Comp.Aircraft, aircraft), ent); // на палубе — просто вылезти (по таймеру)
     }
 
     private void UpdateUi(Entity<DHAircraftComponent> ent)

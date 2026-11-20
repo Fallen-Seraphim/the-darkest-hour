@@ -210,3 +210,8 @@ dh-aircraft-lift-console-unpowered = Компьютер обесточен.
 dh-aircraft-lift-console-raising = Лифт поднимает штурмовик на палубу.
 dh-aircraft-lift-console-raised = Лифт уже поднят.
 dh-aircraft-lift-console-moving = Лифт ещё движется.
+
+## Кабина «как криокапсула»
+dh-aircraft-boarding = { CAPITALIZE($user) } забирается в кабину.
+dh-aircraft-exiting = Вы открываете фонарь и выбираетесь из кабины…
+dh-aircraft-cockpit-occupied = Кабина занята.
