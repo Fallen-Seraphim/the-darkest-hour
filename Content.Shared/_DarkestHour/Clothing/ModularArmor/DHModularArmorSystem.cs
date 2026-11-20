@@ -24,7 +24,7 @@ using Robust.Shared.Utility;
 namespace Content.Shared._DarkestHour.Clothing.ModularArmor;
 
 /// <summary>
-/// Модульная броня: слоты модулей, установка и снятие (с задержкой; тяжёлые — у стойки), скорость, спецсистема
+/// Модульная броня: слоты модулей, установка и снятие (с задержкой; тяжёлые без стойки — долго), скорость, спецсистема
 /// (оружие, хранилище; автоаптечка — на сервере), ремонт сваркой. Защита по частям тела — на сервере.
 /// </summary>
 public sealed partial class DHModularArmorSystem : EntitySystem
@@ -164,18 +164,19 @@ public sealed partial class DHModularArmorSystem : EntitySystem
             }
         }
 
-        if (module.Class == DHArmorClass.Heavy && !NearRack(ent, user))
-        {
-            reason = Loc.GetString("dh-armor-module-needs-rack");
-            return false;
-        }
-
         reason = null;
         return true;
     }
 
-    private float SwapTime(Entity<DHModularArmorComponent> ent, DHArmorModuleComponent module)
+    /// <summary>
+    /// Задержка установки/снятия. Тяжёлые модули (решение автора 2026-11-18) ставятся и без стойки, но долго; у стойки
+    /// обслуживания — быстро.
+    /// </summary>
+    private float SwapTime(Entity<DHModularArmorComponent> ent, DHArmorModuleComponent module, EntityUid user)
     {
+        if (module.Class == DHArmorClass.Heavy && !NearRack(ent, user))
+            return ent.Comp.HeavyFieldSwapTime;
+
         return ent.Comp.SwapTime.TryGetValue(module.Class, out var time) ? time : 4f;
     }
 
@@ -194,7 +195,7 @@ public sealed partial class DHModularArmorSystem : EntitySystem
             return;
         }
 
-        var doAfter = new DoAfterArgs(EntityManager, user, SwapTime(ent, module.Comp),
+        var doAfter = new DoAfterArgs(EntityManager, user, SwapTime(ent, module.Comp, user),
             new DHArmorModuleInsertDoAfterEvent(slot), ent, target: ent, used: module)
         {
             BreakOnMove = true,
@@ -258,7 +259,7 @@ public sealed partial class DHModularArmorSystem : EntitySystem
             return;
         }
 
-        var time = comp != null ? SwapTime(ent, comp) : 3f;
+        var time = comp != null ? SwapTime(ent, comp, user) : 3f;
         var doAfter = new DoAfterArgs(EntityManager, user, time, new DHArmorModuleRemoveDoAfterEvent(slot), ent,
             target: ent, used: module)
         {

@@ -42,6 +42,10 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
     [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private SharedMapSystem _map = default!;
+    [Dependency] private Content.Server.Explosion.EntitySystems.ExplosionSystem _explosion = default!;
+    [Dependency] private Content.Server._DarkestHour.Atmos.Fire.DHFireSystem _fire = default!;
+    [Dependency] private Content.Shared.Throwing.ThrowingSystem _throwing = default!;
+    [Dependency] private Robust.Shared.EntitySerialization.Systems.MapLoaderSystem _loader = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private IPrototypeManager _proto = default!;
     [Dependency] private Robust.Shared.Physics.Systems.SharedPhysicsSystem _physics = default!;
@@ -57,6 +61,7 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
     private const string SmokeCharge = "DHVehicleSmokeCharge";
     private static readonly ProtoId<DamageTypePrototype> Blunt = "Blunt";
     private static readonly ProtoId<DamageTypePrototype> Heat = "Heat";
+    private static readonly ProtoId<Content.Shared._DarkestHour.Atmos.Fire.DHFlammableReagentPrototype> WreckFuel = "WeldingFuel";
 
     /// <summary>Кого машина недавно сбила — чтобы не бить каждый тик.</summary>
     private readonly Dictionary<EntityUid, TimeSpan> _runoverCooldown = new();
@@ -76,6 +81,9 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
         InitializeAmmo();
         InitializeHardpoints();
         InitializeCrew();
+        InitializeEngine();
+        InitializeDelivery();
+        InitializeBoats();
     }
 
     #region Появление: отсек и орудия
@@ -105,12 +113,14 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
         if (ent.Comp.Hull is { } hullProto && _proto.HasIndex(hullProto))
             ent.Comp.HullEntity = Spawn(hullProto, new EntityCoordinates(ent, Vector2.Zero));
 
-        CreateInterior(ent);
+        CreateOpenSeats(ent);
+        if (ent.Comp.Interior != null)
+            CreateInterior(ent);
     }
 
     private void CreateInterior(Entity<DHVehicleComponent> ent)
     {
-        if (!_proto.TryIndex(ent.Comp.Interior, out var layout))
+        if (ent.Comp.Interior is not { } interiorId || !_proto.TryIndex(interiorId, out var layout))
         {
             Log.Error($"{ToPrettyString(ent)}: no vehicle interior {ent.Comp.Interior}");
             return;
@@ -132,7 +142,82 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
         light.AmbientLightColor = layout.Light;
         Dirty(mapUid, light);
 
-        var grid = _map.CreateGridEntity(mapId);
+        // Готовый отсек из карты (RMC-14 / CMU) или коробка со стенами по планировке.
+        Entity<MapGridComponent> grid;
+        if (layout.Map is { } path)
+        {
+            if (!_loader.TryLoadGrid(mapId, path, out var loaded))
+            {
+                Log.Error($"{ToPrettyString(ent)}: failed to load vehicle interior {path}");
+                return;
+            }
+
+            grid = loaded.Value;
+        }
+        else
+        {
+            grid = _map.CreateGridEntity(mapId);
+            BuildBox(grid, layout);
+        }
+
+        foreach (var entry in layout.Entities)
+        {
+            // Битый прототип не должен ронять запуск раунда — пропускаем с ошибкой в логе.
+            if (!_proto.HasIndex(entry.Proto))
+            {
+                Log.Error($"Vehicle interior {layout.ID}: unknown prototype {entry.Proto}, skipped");
+                continue;
+            }
+
+            var position = entry.At ?? new Vector2(entry.Pos.X + 0.5f, entry.Pos.Y + 0.5f);
+            var uid = Spawn(entry.Proto, new EntityCoordinates(grid.Owner, position));
+            if (entry.Rot != 0f)
+                _transform.SetLocalRotation(uid, Angle.FromDegrees(entry.Rot));
+        }
+
+        // Привязать к машине всё, что в отсеке: посты и кресла, заряжатель, люки, карту; посчитать места.
+        var capacity = 0;
+        var children = Transform(grid.Owner).ChildEnumerator;
+        while (children.MoveNext(out var uid))
+        {
+            if (HasComp<Content.Shared.Buckle.Components.StrapComponent>(uid))
+                capacity++;
+
+            if (TryComp<DHVehicleStationComponent>(uid, out var station))
+            {
+                station.Vehicle = ent;
+                Dirty(uid, station);
+            }
+
+            if (TryComp<DHVehicleAmmoRackComponent>(uid, out var rack))
+            {
+                rack.Vehicle = ent;
+                Dirty(uid, rack);
+            }
+
+            // Тактическая карта отсека показывает бойцов стороны машины.
+            if (TryComp<DHOverwatchConsoleComponent>(uid, out var overwatch))
+                overwatch.Faction = ent.Comp.Faction;
+
+            if (TryComp<DHVehicleHatchComponent>(uid, out var hatch))
+            {
+                hatch.Vehicle = ent;
+                Dirty(uid, hatch);
+            }
+        }
+
+        var interior = EnsureComp<DHVehicleInteriorComponent>(grid.Owner);
+        interior.Vehicle = ent;
+
+        ent.Comp.Capacity = capacity + ent.Comp.SeatEntities.Count;
+        ent.Comp.InteriorMap = mapUid;
+        ent.Comp.InteriorGrid = grid.Owner;
+        ent.Comp.InteriorEntry = layout.EntryPoint ?? new Vector2(layout.Entry.X + 0.5f, layout.Entry.Y + 0.5f);
+    }
+
+    /// <summary>Отсек-коробка: пол, стены по краю (кроме клеток с люком).</summary>
+    private void BuildBox(Entity<MapGridComponent> grid, DHVehicleInteriorPrototype layout)
+    {
         var floor = new Tile(((ContentTileDefinition) _tileDef[layout.Floor]).TileId);
         var tiles = new List<(Vector2i, Tile)>();
         for (var x = 0; x < layout.Size.X; x++)
@@ -165,48 +250,6 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
             }
         }
 
-        foreach (var entry in layout.Entities)
-        {
-            // Битый прототип не должен ронять запуск раунда — пропускаем с ошибкой в логе.
-            if (!_proto.HasIndex(entry.Proto))
-            {
-                Log.Error($"Vehicle interior {layout.ID}: unknown prototype {entry.Proto}, skipped");
-                continue;
-            }
-
-            var uid = Spawn(entry.Proto, new EntityCoordinates(grid.Owner, entry.Pos.X + 0.5f, entry.Pos.Y + 0.5f));
-            if (entry.Rot != 0f)
-                _transform.SetLocalRotation(uid, Angle.FromDegrees(entry.Rot));
-
-            if (TryComp<DHVehicleStationComponent>(uid, out var station))
-            {
-                station.Vehicle = ent;
-                Dirty(uid, station);
-            }
-
-            if (TryComp<DHVehicleAmmoRackComponent>(uid, out var rack))
-            {
-                rack.Vehicle = ent;
-                Dirty(uid, rack);
-            }
-
-            // Тактическая карта отсека показывает бойцов стороны машины.
-            if (TryComp<DHOverwatchConsoleComponent>(uid, out var overwatch))
-                overwatch.Faction = ent.Comp.Faction;
-
-            if (TryComp<DHVehicleHatchComponent>(uid, out var hatch))
-            {
-                hatch.Vehicle = ent;
-                Dirty(uid, hatch);
-            }
-        }
-
-        var interior = EnsureComp<DHVehicleInteriorComponent>(grid.Owner);
-        interior.Vehicle = ent;
-
-        ent.Comp.InteriorMap = mapUid;
-        ent.Comp.InteriorGrid = grid.Owner;
-        ent.Comp.InteriorEntry = new Vector2(layout.Entry.X + 0.5f, layout.Entry.Y + 0.5f);
     }
 
     private void OnShutdown(Entity<DHVehicleComponent> ent, ref ComponentShutdown args)
@@ -239,6 +282,12 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
             return;
         }
 
+        if (Full(ent))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-vehicle-full", ("vehicle", ent.Owner)), ent, args.User);
+            return;
+        }
+
         _popup.PopupEntity(Loc.GetString("dh-vehicle-entering", ("vehicle", ent.Owner)), ent, args.User);
         _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.EnterTime,
             new DHVehicleEnterDoAfterEvent(), ent, ent)
@@ -249,12 +298,35 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
         });
     }
 
+    /// <summary>Мест нет: людей в отсеке не меньше, чем кресел (план осады п. 17).</summary>
+    private bool Full(Entity<DHVehicleComponent> ent)
+    {
+        if (ent.Comp.Capacity <= 0 || ent.Comp.InteriorMap is not { } map)
+            return false;
+
+        var inside = 0;
+        var mobs = EntityQueryEnumerator<MobStateComponent, TransformComponent>();
+        while (mobs.MoveNext(out _, out _, out var xform))
+        {
+            if (xform.MapUid == map)
+                inside++;
+        }
+
+        return inside >= ent.Comp.Capacity;
+    }
+
     private void OnEnterDoAfter(Entity<DHVehicleComponent> ent, ref DHVehicleEnterDoAfterEvent args)
     {
         if (args.Cancelled || args.Handled || ent.Comp.InteriorGrid is not { } grid)
             return;
 
         args.Handled = true;
+        if (Full(ent))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-vehicle-full", ("vehicle", ent.Owner)), ent, args.User);
+            return;
+        }
+
         MoveWithPulled(args.User, new EntityCoordinates(grid, ent.Comp.InteriorEntry));
     }
 
@@ -340,15 +412,51 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
         }
     }
 
-    /// <summary>Машина уничтожена: экипаж и десант выбрасывает наружу, на месте — остов.</summary>
+    /// <summary>
+    /// Машина уничтожена (план осады п. 17, решение автора 2026-11-19): взрыв боекомплекта, башню срывает и отбрасывает
+    /// отдельным обломком, остов без башни горит. Экипаж и десант выбрасывает наружу с тяжёлыми ранениями (взрыв и
+    /// ожоги), но не обязательно насмерть.
+    /// </summary>
     private void OnDestruction(Entity<DHVehicleComponent> ent, ref DestructionEventArgs args)
     {
+        var xform = Transform(ent);
+        var center = _transform.GetMapCoordinates(ent, xform);
+        var rotation = xform.LocalRotation;
+        var coordinates = xform.Coordinates;
+
         EjectAll(ent, true);
+        EjectRiders(ent);
+
         if (ent.Comp.Wreck is { } wreck)
         {
-            var xform = Transform(ent);
-            var spawned = Spawn(wreck, xform.Coordinates);
-            _transform.SetLocalRotation(spawned, xform.LocalRotation);
+            var spawned = Spawn(wreck, coordinates);
+            _transform.SetLocalRotation(spawned, rotation);
+        }
+
+        // Башня отлетает на 2–4 клетки.
+        if (ent.Comp.TurretWreck is { } turretProto && _proto.HasIndex(turretProto))
+        {
+            var turret = Spawn(turretProto, coordinates);
+            _transform.SetLocalRotation(turret, rotation + ent.Comp.TurretAngle);
+            var direction = _random.NextAngle().ToVec() * _random.NextFloat(2f, 4f);
+            _throwing.TryThrow(turret, direction, 6f, playSound: false);
+        }
+
+        if (ent.Comp.WreckExplosion > 0f)
+            _explosion.QueueExplosion(center, "Default", ent.Comp.WreckExplosion, 6f, 8f, ent, maxTileBreak: 0);
+
+        // Остов горит.
+        if (xform.GridUid is { } grid && TryComp<MapGridComponent>(grid, out var gridComp) &&
+            _proto.TryIndex(WreckFuel, out var fuel))
+        {
+            var tile = _map.TileIndicesFor(grid, gridComp, coordinates);
+            for (var dx = -1; dx <= 1; dx++)
+            {
+                for (var dy = -1; dy <= 1; dy++)
+                {
+                    _fire.SpawnFire(grid, tile + new Vector2i(dx, dy), fuel, _random.NextFloat(25f, 40f));
+                }
+            }
         }
     }
 
@@ -377,8 +485,9 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
             if (!hurt || !HasComp<MobStateComponent>(uid))
                 continue;
 
-            var damage = new DamageSpecifier(_proto.Index(Blunt), 30);
-            damage.DamageDict[Heat] = 20;
+            // Взрыв боекомплекта и пожар: тяжело, но не обязательно насмерть.
+            var damage = new DamageSpecifier(_proto.Index(Blunt), 45);
+            damage.DamageDict[Heat] = 35;
             _damageable.TryChangeDamage(uid, damage, true);
             _stun.TryKnockdown(uid, TimeSpan.FromSeconds(3), true);
         }

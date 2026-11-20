@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Drawn for The Darkest Hour (Tools/_DarkestHour/vehicles/draw_boats.py)",
+  "size": {
+    "x": 128,
+    "y": 128
+  },
+  "states": [
+    {
+      "name": "inflatable"
+    },
+    {
+      "name": "heavy"
+    }
+  ]
+}

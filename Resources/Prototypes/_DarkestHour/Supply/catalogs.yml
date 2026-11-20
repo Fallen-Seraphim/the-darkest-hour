@@ -1,10 +1,25 @@
-# DarkestHour: каталоги снабжения сторон (решение автора 2026-11-11). Не за деньги: в начале раунда лежит initial,
-# раз в 10 минут добавляется refill (до max), если сторона держит больше двух точек. Код — DHSupplySystem.
+# DarkestHour: каталоги снабжения сторон (решение автора 2026-11-11). Не за деньги: в начале раунда лежит initial.
+# Само не пополняется (решение автора 2026-11-19): пополнение раздела покупается за очки командования (restocks) —
+# каждой позиции раздела добавляется refill, не выше max. Позиции, закрытые узлами древа (command_tree.yml),
+# появляются со стартовым запасом, когда командование откроет узел. Код — DHSupplySystem, DHCommandPointsSystem.
 
 - type: dhSupplyCatalog
   id: DHSupplyEmpire
   faction: Empire
+  startPoints: 150
+  restocks:
+  - { category: dh-supply-category-ammo, price: 30 }
+  - { category: dh-supply-category-medical, price: 30 }
+  - { category: dh-supply-category-engineering, price: 40 }
+  - { category: dh-supply-category-air-defence, price: 60 }
+  - { category: dh-supply-category-aviation, price: 80 }
+  - { category: dh-supply-category-artillery, price: 100 }
+  - { category: dh-supply-category-naval, price: 100 }
+  - { category: dh-supply-category-misc, price: 20 }
+  - { category: dh-supply-category-vehicles, price: 150 }
   entries:
+  # Хамви — после узла «Хамви» (план осады п. 3): поддон в карго, дальше — лифт техники или сброс на маяк.
+  - { id: humvee, proto: DHVehicleDropPalletHumveeEmpire, category: dh-supply-category-vehicles, initial: 1, refill: 1, max: 2 }
   - { id: mortar-he, proto: DHSupplyCrateMortarHE, category: dh-supply-category-artillery, initial: 3, refill: 2, max: 6 }
   - { id: mortar-frag, proto: DHSupplyCrateMortarFrag, category: dh-supply-category-artillery, initial: 2, refill: 1, max: 4 }
   - { id: mortar-special, proto: DHSupplyCrateMortarSpecial, category: dh-supply-category-artillery, initial: 1, refill: 1, max: 3 }
@@ -16,12 +31,16 @@
   - { id: ammo-14g, proto: DHSupplyCrateAmmo14g, category: dh-supply-category-ammo, initial: 2, refill: 1, max: 4 }
   - { id: ammo-145, proto: DHSupplyCrateAmmo145, category: dh-supply-category-ammo, initial: 2, refill: 1, max: 4 }
   - { id: medical, proto: DHSupplyCrateMedical, category: dh-supply-category-medical, initial: 3, refill: 2, max: 6 }
+  - { id: ozk, proto: DHCrateOZK, category: dh-supply-category-medical, initial: 1, refill: 1, max: 3 }
   - { id: sandbags, proto: DHSupplyCrateSandbags, category: dh-supply-category-engineering, initial: 2, refill: 1, max: 4 }
   - { id: folding-barricades, proto: DHSupplyCrateFoldingBarricades, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 3 }
   - { id: barbed-wire, proto: DHSupplyCrateBarbedWire, category: dh-supply-category-engineering, initial: 2, refill: 1, max: 4 }
+  - { id: pontoons, proto: DHCratePontoons, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 2 }
+  - { id: boats, proto: DHCrateBoatInflatable, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 2 } # 2 надувные лодки
   - { id: steel, proto: CrateMaterialSteel, category: dh-supply-category-engineering, initial: 2, refill: 1, max: 4 }
   - { id: plasteel, proto: CrateMaterialPlasteel, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 2 }
   - { id: fusion-fuel, proto: DHCrateFusionFuel, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 2 }
+  - { id: carrier-repair, proto: DHCrateCarrierRepair, category: dh-supply-category-engineering, initial: 2, refill: 1, max: 4 }
   - { id: parachutes, proto: DHCrateParachutes, category: dh-supply-category-misc, initial: 1, refill: 1, max: 2 }
   - { id: interceptor-missiles, proto: DHSupplyCrateInterceptorMissiles, category: dh-supply-category-air-defence, initial: 2, refill: 1, max: 4 }
   - { id: shells-300, proto: DHSupplyCrateShells300, category: dh-supply-category-naval, initial: 2, refill: 1, max: 4 }
@@ -39,7 +58,18 @@
 - type: dhSupplyCatalog
   id: DHSupplyRepublic
   faction: Republic
+  startPoints: 100
+  restocks:
+  - { category: dh-supply-category-ammo, price: 30 }
+  - { category: dh-supply-category-medical, price: 30 }
+  - { category: dh-supply-category-engineering, price: 40 }
+  - { category: dh-supply-category-air-defence, price: 60 }
+  - { category: dh-supply-category-artillery, price: 100 }
+  - { category: dh-supply-category-anti-orbital, price: 100 }
+  - { category: dh-supply-category-vehicles, price: 150 }
   entries:
+  # Хамви — после узла «Хамви»: машину пригоняют в гараж базы (DHVehicleDeliveryPointRepublic).
+  - { id: humvee, proto: DHVehicleDeliveryHumveeRepublic, category: dh-supply-category-vehicles, initial: 1, refill: 1, max: 2 }
   - { id: mortar-he, proto: DHSupplyCrateMortarHE, category: dh-supply-category-artillery, initial: 3, refill: 2, max: 6 }
   - { id: mortar-frag, proto: DHSupplyCrateMortarFrag, category: dh-supply-category-artillery, initial: 2, refill: 1, max: 4 }
   - { id: mortar-special, proto: DHSupplyCrateMortarSpecial, category: dh-supply-category-artillery, initial: 1, refill: 1, max: 3 }
@@ -50,9 +80,12 @@
   - { id: ammo-127, proto: DHSupplyCrateAmmo127, category: dh-supply-category-ammo, initial: 2, refill: 1, max: 4 }
   - { id: ammo-9x51, proto: DHSupplyCrateAmmo9x51, category: dh-supply-category-ammo, initial: 2, refill: 1, max: 4 }
   - { id: medical, proto: DHSupplyCrateMedical, category: dh-supply-category-medical, initial: 3, refill: 2, max: 6 }
+  - { id: ozk, proto: DHCrateOZK, category: dh-supply-category-medical, initial: 1, refill: 1, max: 3 }
   - { id: sandbags, proto: DHSupplyCrateSandbags, category: dh-supply-category-engineering, initial: 2, refill: 1, max: 4 }
   - { id: folding-barricades, proto: DHSupplyCrateFoldingBarricades, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 3 }
   - { id: barbed-wire, proto: DHSupplyCrateBarbedWire, category: dh-supply-category-engineering, initial: 2, refill: 1, max: 4 }
+  - { id: pontoons, proto: DHCratePontoons, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 2 }
+  - { id: boats, proto: DHCrateBoatInflatable, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 2 } # 2 надувные лодки
   - { id: steel, proto: CrateMaterialSteel, category: dh-supply-category-engineering, initial: 2, refill: 1, max: 4 }
   - { id: plasteel, proto: CrateMaterialPlasteel, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 2 }
   - { id: fusion-fuel, proto: DHCrateFusionFuel, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 2 }

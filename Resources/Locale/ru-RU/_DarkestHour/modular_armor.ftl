@@ -1,7 +1,6 @@
 ## DarkestHour: модульная броня
 
 dh-armor-module-wrong-faction = Этот модуль не подходит к этому костюму.
-dh-armor-module-needs-rack = Тяжёлые модули ставятся и снимаются только на стойке обслуживания брони.
 dh-armor-module-slot-taken = Это гнездо уже занято.
 dh-armor-module-installed = { CAPITALIZE($module) } встаёт на место.
 dh-armor-module-broken = { CAPITALIZE($module) } разлетается на куски!

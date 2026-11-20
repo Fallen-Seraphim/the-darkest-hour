@@ -12,6 +12,12 @@
     stateScreen: syndishuttle
     stateKeys: syndie_key
   - type: DHDropshipConsole
+  # Ручное управление в воздухе: кнопки движения пилота передаются пульту (DHDropshipSystem.Flight.cs).
+  - type: InputMover
+  - type: NoRotateOnMove
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 0
+    baseSprintSpeed: 0
   - type: ActivatableUI
     key: enum.DHDropshipUiKey.Key
   - type: UserInterface
