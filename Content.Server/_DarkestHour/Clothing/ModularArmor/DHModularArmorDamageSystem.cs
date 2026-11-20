@@ -28,6 +28,7 @@ public sealed partial class DHModularArmorDamageSystem : EntitySystem
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private BloodstreamSystem _bloodstream = default!;
     [Dependency] private DamageableSystem _damageable = default!;
+    [Dependency] private DHInfantryShieldSystem _shield = default!;
     [Dependency] private DHModularArmorSystem _armor = default!;
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
@@ -117,6 +118,16 @@ public sealed partial class DHModularArmorDamageSystem : EntitySystem
 
         var ballistics = args.Ballistics;
         var physical = PhysicalTotal(args.Damage);
+
+        // Пехотный щит ЭМБ-5 гасит пулю раньше брони.
+        if (_shield.TryAbsorbBullet(ent, part, physical, ballistics.PenetrationClass >= level))
+        {
+            args.Damage = new DamageSpecifier();
+            args.Outcome = DHBulletArmorOutcome.Blocked;
+            args.Handled = true;
+            _bulletHandled[ent] = _timing.CurTick;
+            return;
+        }
 
         if (level <= 0)
         {

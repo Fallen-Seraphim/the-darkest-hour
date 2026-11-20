@@ -29,6 +29,12 @@ public enum DHArmorClass : byte
     Light,
     Heavy,
     Composite,
+
+    /// <summary>
+    /// Экспериментальные пластины ЭМБ-5 ассоциативного десантника (план осады п. 28): класс брони как у лёгких, прочность
+    /// выше, вес как у композитных.
+    /// </summary>
+    Experimental,
 }
 
 [Serializable, NetSerializable]
@@ -116,6 +122,7 @@ public sealed partial class DHModularArmorComponent : Component
         [DHArmorClass.Light] = 3f,
         [DHArmorClass.Composite] = 5f,
         [DHArmorClass.Heavy] = 8f,
+        [DHArmorClass.Experimental] = 4f,
     };
 
     /// <summary>Тяжёлый модуль без стойки обслуживания: можно, но долго, секунды.</summary>
@@ -337,7 +344,8 @@ public sealed partial class DHArmorSpecialActionEvent : InstantActionEvent;
 public static class DHModularArmor
 {
     /// <summary>
-    /// Класс брони модуля (решение автора 2026-10-30): без брони — 0, композитный — 1, лёгкий — 2, тяжёлый — 3.
+    /// Класс брони модуля (решение автора 2026-10-30): без брони — 0, композитный — 1, лёгкий и экспериментальный — 2,
+    /// тяжёлый — 3.
     /// Пуля с классом бронепробития не ниже класса брони пробивает (полный урон), иначе — заброневая травма.
     /// </summary>
     public static int Level(DHArmorClass cls)
@@ -346,6 +354,7 @@ public static class DHModularArmor
         {
             DHArmorClass.Composite => 1,
             DHArmorClass.Light => 2,
+            DHArmorClass.Experimental => 2,
             DHArmorClass.Heavy => 3,
             _ => 0,
         };

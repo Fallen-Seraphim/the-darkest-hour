@@ -52,10 +52,9 @@
   id: DHZGAParatrooperGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTSecurity
-    outerClothing: DHClothingOuterHardsuitMetallArmedRifleman
+    outerClothing: DHClothingOuterModularEMB5
     back: DHParachute
     shoes: ClothingShoesBootsCombatFilled
-    mask: ClothingMaskGasERT
     gloves: ClothingHandsGlovesCombat
     eyes: ClothingEyesHudMedSec
     ears: DHClothingHeadsetZGA

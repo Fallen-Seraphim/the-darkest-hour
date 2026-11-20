@@ -17,6 +17,7 @@ dh-armor-module-examine-broken = [color=red]Сломан[/color] — завар�
 dh-armor-class-light = лёгкий
 dh-armor-class-heavy = тяжёлый
 dh-armor-class-composite = композитный
+dh-armor-class-experimental = экспериментальный
 
 dh-armor-automed-status = Автомедик взведён и следит за вашим состоянием.
 dh-armor-automed-injected = Броня вводит вам омниреазин.
@@ -88,3 +89,10 @@ dh-order-received-move = Приказ: двигаться — вы бежите 
 ## Молоты и кувалды (план осады п. 25)
 dh-charge-strike = Удар с разбега!
 dh-can-opening = Вы вскрываете банку ножом…
+
+# Пехотный щит ЭМБ-5
+dh-infantry-shield-down = Щит упал!
+dh-infantry-shield-up = Щит снова поднят.
+dh-infantry-shield-burned = Излучатель щита сгорел!
+dh-infantry-shield-examine = Пехотный щит: [color=#7fdcff]{ $charges }/{ $max }[/color] попаданий, излучатель — { $integrity }%.
+dh-infantry-shield-examine-burned = Излучатель пехотного щита [color=red]сгорел[/color].
