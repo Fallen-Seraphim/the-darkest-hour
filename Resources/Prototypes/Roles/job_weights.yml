@@ -57,3 +57,4 @@
     DHGarrisonCommander: 40
     DHGarrisonOfficer: 30
     DHGarrisonArtilleryOfficer: 25
+    DHMarineSquadLeader: 20 # раздаётся раньше стрелков: командир на каждый отряд

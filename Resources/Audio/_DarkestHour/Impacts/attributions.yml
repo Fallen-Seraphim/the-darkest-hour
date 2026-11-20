@@ -1,0 +1,19 @@
+- files: ["impact_flesh_1.ogg", "impact_flesh_2.ogg", "impact_flesh_3.ogg", "impact_flesh_4.ogg", "bullet_impact1.ogg", "bullet_impact2.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13 via RMC-14"
+  source: "https://github.com/cmss13-devs/cmss13/tree/master/sound/bullets"
+
+- files: ["genhit1.ogg", "genhit2.ogg", "genhit3.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13 via RMC-14"
+  source: "https://github.com/cmss13-devs/cmss13/blob/91cf6ebdfb47c650faf7ac72fdfff8cd6fc636a0/sound/weapons/genhit1.ogg"
+
+- files: ["hit_on_shattered_glass.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13 via RMC-14"
+  source: "https://github.com/cmss13-devs/cmss13/blob/21e6447cc08aea502f671c819fdbcecbb85e6028/sound/effects/hit_on_shattered_glass.ogg"
+
+- files: ["woodhit.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13 via CMU (RussianCM)"
+  source: "https://github.com/cmss13-devs/cmss13/blob/52be8a8ceeb165c6a0becc77ecc3c9a644b88fd2/sound/effects/woodhit.ogg"

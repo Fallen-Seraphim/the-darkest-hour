@@ -43,6 +43,8 @@ namespace Content.Server._DarkestHour.HeavyGuns;
 public sealed partial class DHHeavyGunSystem : EntitySystem
 {
     [Dependency] private Content.Server._DarkestHour.Aviation.DHAircraftSystem _aircraft = default!;
+    [Dependency] private Content.Server._DarkestHour.Carrier.DHCarrierDamageSystem _carrierDamage = default!;
+    [Dependency] private Content.Server._DarkestHour.Battlefield.DHBattlefieldSystem _battlefield = default!;
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private DHAssaultRuleSystem _assault = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
@@ -54,6 +56,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     [Dependency] private ExplosionSystem _explosion = default!;
     [Dependency] private DHFireSystem _fire = default!;
     [Dependency] private Content.Server._DarkestHour.Hearing.DHHearingSystem _hearing = default!;
+    [Dependency] private Content.Server._DarkestHour.Hearing.DHDistantSoundSystem _distant = default!;
     [Dependency] private DHLandingSystem _landing = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private SharedMapSystem _map = default!;
@@ -70,6 +73,13 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     /// <summary>Удар с орбиты по крыше: радиус пролома и доля силы, что проходит под одноэтажную крышу.</summary>
     private const float RoofBreakRadius = 2.5f;
     private const float RoofAbsorbScale = 0.35f;
+
+    /// <summary>Миномёт проламывает лёгкую крышу на столько; воронки — от снарядов ОБ этого калибра.</summary>
+    private const float MortarRoofRadius = 1.5f;
+    private const int CraterCaliber = 300;
+
+    /// <summary>Прямой урон авианосцу от попадания (остальное — пробоины и пожары, живучесть, п. 19).</summary>
+    private const float CarrierDirectDamage = 0.5f;
 
     private static readonly SoundSpecifier FireSound = new SoundPathSpecifier("/Audio/_Mono/Weapons/Guns/Gunshots/cannon.ogg");
     private static readonly SoundSpecifier IncomingSound = new SoundPathSpecifier("/Audio/_DarkestHour/HeavyGuns/gun_orbital_travel.ogg");
@@ -296,11 +306,13 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             args.PushMarkup(Loc.GetString("dh-interceptor-examine", ("ammo", ent.Comp.Ammo), ("max", ent.Comp.MaxAmmo)));
     }
 
-    /// <summary>ПВО, запитанная от зоны захвата (АЭС), молчит, пока зона не у своей стороны.</summary>
+    /// <summary>
+    /// ПВО, РЛС и ПКО, запитанные от зон захвата (АЭС и точка самого объекта), молчат, пока зоны не у своей стороны.
+    /// </summary>
     private bool Unpowered(EntityUid uid)
     {
         return TryComp<Content.Shared._DarkestHour.ControlPoints.DHControlPointPoweredComponent>(uid, out var powered) &&
-               powered.Disabled;
+               powered.Disabled || _battlefield.IsBroken(uid);
     }
 
     /// <summary>
@@ -653,6 +665,13 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
 
     private void OnFire(Entity<DHHeavyGunConsoleComponent> ent, ref DHHeavyGunFireMessage args)
     {
+        // Батарея ПКО молчит, пока её точка не у Республики (цепочка целей, решение автора 2026-11-19).
+        if (Unpowered(ent))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-heavy-gun-site-lost"), ent, args.Actor);
+            return;
+        }
+
         if (!IsSeated(args.Actor, EntityManager))
         {
             _popup.PopupEntity(Loc.GetString("dh-heavy-gun-need-seat"), ent, args.Actor);
@@ -660,6 +679,14 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         }
 
         var guns = Guns(ent);
+        // Выведенное из строя орудие не стреляет, пока его не починят (разрушаемость POI).
+        if (guns.Count > 0 && guns.TrueForAll(g => _battlefield.IsBroken(g)))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-heavy-gun-broken"), ent, args.Actor);
+            return;
+        }
+
+        guns.RemoveAll(g => _battlefield.IsBroken(g));
         var selected = new HashSet<EntityUid>();
         foreach (var net in args.Guns)
         {
@@ -752,6 +779,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
 
         var center = _transform.GetMapCoordinates(gun);
         _hearing.Blast(center, 90f, 14f);
+        _distant.Cannon(center, float.PositiveInfinity, 4f, 0.9f); // тяжёлое орудие слышно всей карте (план осады п. 20)
         foreach (var actor in _lookup.GetEntitiesInRange<ActorComponent>(center, 12f))
         {
             var kick = _random.NextAngle().ToVec() * 0.6f;
@@ -897,9 +925,10 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
                 var dropships = EntityQueryEnumerator<DHDropshipComponent, TransformComponent>();
                 while (dropships.MoveNext(out var ship, out var shipComp, out var shipXform))
                 {
-                    // ЛТЦ сбивают наведение на этот заход.
+                    // ЛТЦ сбивают наведение на этот заход. Челнок бьют и в небе, и над полем боя на уровнях
+                    // воздуха, и на снижении к ЗП.
                     if (shipComp.State != DHDropshipState.InFlight || now < shipComp.FlaresUntil ||
-                        shipXform.MapUid != sky ||
+                        !InAirOver(shipXform.MapUid, defenceGround, sky) ||
                         Vector2.Distance(_transform.GetWorldPosition(shipXform), position) > comp.AirRange)
                     {
                         continue;
@@ -935,17 +964,34 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
                 continue;
 
             var tiles = _map.GetAllTiles(grid, gridComp).ToList();
+            MapCoordinates? hit = null;
             if (tiles.Count > 0)
             {
                 var tile = _random.Pick(tiles);
-                var hit = _map.GridTileToWorld(grid, gridComp, tile.GridIndices);
-                _explosion.QueueExplosion(hit, "Default", comp.Kind == DHInterceptorKind.Missile ? 80f : 30f, 4f, 10f,
-                    null);
+                hit = _map.GridTileToWorld(grid, gridComp, tile.GridIndices);
+                _explosion.QueueExplosion(hit.Value, "Default", comp.Kind == DHInterceptorKind.Missile ? 80f : 30f, 4f,
+                    10f, null);
             }
 
+            // Живучесть авианосца: пробоина в отсеке, прямой урон вдвое меньше (решение автора 2026-11-19).
             if (HasComp<DHAssaultCarrierComponent>(grid))
-                _assault.DamageCarrier(grid, comp.AirDamage);
+            {
+                if (hit is { } point)
+                    _carrierDamage.Hit(grid, point, false);
+                _assault.DamageCarrier(grid, comp.AirDamage * CarrierDirectDamage);
+            }
         }
+    }
+
+    /// <summary>Карта — небо над землёй или уровень над ней (воздух, этаж) той же стопки.</summary>
+    private bool InAirOver(EntityUid? map, EntityUid ground, EntityUid sky)
+    {
+        if (map == sky)
+            return true;
+
+        return map != null && map != ground && _zLevels.TryGetLevel(map, out var level) &&
+               _zLevels.TryGetLevel(ground, out var groundLevel) && level.Stack == groundLevel.Stack &&
+               level.Level > groundLevel.Level;
     }
 
     private void Warn(Strike strike)
@@ -987,23 +1033,30 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             var impact = _zLevels.ImpactPoint(strike.Target, out var level);
             if (strike.Mortar)
             {
+                // Миномёт (разрушаемость, решение автора 2026-11-19): бетонную крышу не берёт, лёгкую — проламывает.
+                var roofFlag = level == 0 && _zLevels.HasRoofFlag(impact);
+                if (strike.Warhead != DHWarhead.Flare && (level > 0 || roofFlag))
+                    _battlefield.RoofStrike(strike.Target, Content.Server._DarkestHour.Battlefield.DHBattlefieldSystem.RoofHit.Light, MortarRoofRadius);
                 Detonate(strike.Warhead, strike.Caliber, impact, 1f, false);
             }
             else if (level > 0)
             {
-                // Удар с орбиты сначала ломает крышу: рвётся на ней и проламывает её.
+                // Удар с орбиты сначала ломает крышу: рвётся на ней и проламывает её, обломки — завалами ниже.
                 Detonate(strike.Warhead, strike.Caliber, impact, 1f, false);
-                _zTransit.BreakRoof(impact, RoofBreakRadius);
+                _battlefield.RoofStrike(strike.Target, Content.Server._DarkestHour.Battlefield.DHBattlefieldSystem.RoofHit.Heavy, RoofBreakRadius);
             }
             else if (_zLevels.HasRoofFlag(impact))
             {
-                // Одноэтажная крыша: её сносит, внутрь доходит малая часть удара.
-                _zTransit.ClearRoofFlags(impact, RoofBreakRadius);
+                // Одноэтажная крыша: её сносит (с завалами), внутрь доходит малая часть удара.
+                _battlefield.RoofStrike(strike.Target, Content.Server._DarkestHour.Battlefield.DHBattlefieldSystem.RoofHit.Heavy, RoofBreakRadius);
                 Detonate(strike.Warhead, strike.Caliber, impact, RoofAbsorbScale, false);
             }
             else
             {
                 Detonate(strike.Warhead, strike.Caliber, impact, 1f, false);
+                // Воронка от тяжёлого снаряда ОБ (от 300 мм).
+                if (strike.Caliber >= CraterCaliber && strike.Warhead != DHWarhead.Flare)
+                    _battlefield.SpawnCrater(impact, strike.Caliber >= 500 ? 2 : 1);
             }
 
             Report(strike, "dh-heavy-gun-report-impact");
@@ -1033,7 +1086,9 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             DHWarhead.Cluster => 0.8f,
             _ => 1f,
         };
-        _assault.DamageCarrier(grid, damage);
+        // Живучесть авианосца: пробоина (и пожар) в отсеке, куда попали; прямой урон вдвое меньше.
+        _carrierDamage.Hit(grid, target, strike.Warhead == DHWarhead.Incendiary);
+        _assault.DamageCarrier(grid, damage * CarrierDirectDamage);
         Report(strike, "dh-heavy-gun-report-hit");
     }
 
@@ -1056,7 +1111,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     /// Грунт планеты подгружается только вокруг живых игроков (призраки его не грузят): там, где никого нет, тайлов
     /// ещё нет и взрыву нечего ломать. Перед разрывом ставим грунт биома в зоне поражения (как под базой).
     /// </summary>
-    private void PrepareGround(MapCoordinates target, float radius)
+    public void PrepareGround(MapCoordinates target, float radius)
     {
         if (!_map.TryGetMap(target.MapId, out var map) || !TryComp<BiomeComponent>(map, out var biome) ||
             !TryComp<MapGridComponent>(map, out var grid))
@@ -1068,10 +1123,14 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             new List<(Vector2i Index, Tile Tile)>(), biome, grid);
     }
 
-    /// <summary>Зажигательный: огонь на тайлах вокруг разрыва (своя система огня, горит и без кислорода).</summary>
-    private void Ignite(MapCoordinates center, float radius, float duration)
+    /// <summary>
+    /// Зажигательный: огонь на тайлах вокруг разрыва (своя система огня, горит и без кислорода). Им же поджигают
+    /// землю зажигательные бомбы штурмовика (напалм и магниевая — <paramref name="fuelId"/> Thermite).
+    /// </summary>
+    public void Ignite(MapCoordinates center, float radius, float duration,
+        Robust.Shared.Prototypes.ProtoId<DHFlammableReagentPrototype>? fuelId = null, float chance = 0.8f)
     {
-        if (!_protoManager.TryIndex(IncendiaryFuel, out var fuel))
+        if (!_protoManager.TryIndex(fuelId ?? IncendiaryFuel, out var fuel))
             return;
 
         var r = (int) MathF.Ceiling(radius);
@@ -1079,7 +1138,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         {
             for (var y = -r; y <= r; y++)
             {
-                if (x * x + y * y > radius * radius || !_random.Prob(0.8f))
+                if (x * x + y * y > radius * radius || !_random.Prob(chance))
                     continue;
 
                 var point = new MapCoordinates(center.Position + new Vector2(x, y), center.MapId);
@@ -1143,7 +1202,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
     }
 
     /// <summary>Следы взрыва: подпалины на тайлах вокруг.</summary>
-    private void ScorchAt(MapCoordinates center, float radius)
+    public void ScorchAt(MapCoordinates center, float radius)
     {
         var r = (int) MathF.Ceiling(radius);
         for (var x = -r; x <= r; x++)

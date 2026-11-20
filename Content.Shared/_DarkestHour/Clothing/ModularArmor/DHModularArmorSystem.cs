@@ -24,12 +24,13 @@ using Robust.Shared.Utility;
 namespace Content.Shared._DarkestHour.Clothing.ModularArmor;
 
 /// <summary>
-/// Модульная броня: слоты модулей, установка и снятие (с задержкой; тяжёлые — у стойки), скорость, спецсистема
+/// Модульная броня: слоты модулей, установка и снятие (с задержкой; тяжёлые без стойки — долго), скорость, спецсистема
 /// (оружие, хранилище; автоаптечка — на сервере), ремонт сваркой. Защита по частям тела — на сервере.
 /// </summary>
 public sealed partial class DHModularArmorSystem : EntitySystem
 {
     [Dependency] private SharedActionsSystem _actions = default!;
+    [Dependency] private Content.Shared._DarkestHour.Squads.DHOrdersSystem _orders = default!;
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
@@ -164,18 +165,19 @@ public sealed partial class DHModularArmorSystem : EntitySystem
             }
         }
 
-        if (module.Class == DHArmorClass.Heavy && !NearRack(ent, user))
-        {
-            reason = Loc.GetString("dh-armor-module-needs-rack");
-            return false;
-        }
-
         reason = null;
         return true;
     }
 
-    private float SwapTime(Entity<DHModularArmorComponent> ent, DHArmorModuleComponent module)
+    /// <summary>
+    /// Задержка установки/снятия. Тяжёлые модули (решение автора 2026-11-18) ставятся и без стойки, но долго; у стойки
+    /// обслуживания — быстро.
+    /// </summary>
+    private float SwapTime(Entity<DHModularArmorComponent> ent, DHArmorModuleComponent module, EntityUid user)
     {
+        if (module.Class == DHArmorClass.Heavy && !NearRack(ent, user))
+            return ent.Comp.HeavyFieldSwapTime;
+
         return ent.Comp.SwapTime.TryGetValue(module.Class, out var time) ? time : 4f;
     }
 
@@ -194,7 +196,7 @@ public sealed partial class DHModularArmorSystem : EntitySystem
             return;
         }
 
-        var doAfter = new DoAfterArgs(EntityManager, user, SwapTime(ent, module.Comp),
+        var doAfter = new DoAfterArgs(EntityManager, user, SwapTime(ent, module.Comp, user),
             new DHArmorModuleInsertDoAfterEvent(slot), ent, target: ent, used: module)
         {
             BreakOnMove = true,
@@ -258,7 +260,7 @@ public sealed partial class DHModularArmorSystem : EntitySystem
             return;
         }
 
-        var time = comp != null ? SwapTime(ent, comp) : 3f;
+        var time = comp != null ? SwapTime(ent, comp, user) : 3f;
         var doAfter = new DoAfterArgs(EntityManager, user, time, new DHArmorModuleRemoveDoAfterEvent(slot), ent,
             target: ent, used: module)
         {
@@ -328,6 +330,10 @@ public sealed partial class DHModularArmorSystem : EntitySystem
         Refresh(ent);
         if (GetWearer(ent) is { } wearer)
             RefreshCovers(ent, wearer);
+
+        // Ком-модуль в слоте спецсистемы надетой брони — приказы носителю (план осады п. 26).
+        if (args.Container.ID == DHModularArmor.ContainerId(DHArmorSlot.Special))
+            _orders.Sync(args.Entity, GetWearer(ent));
     }
 
     private void OnContentsRemoved(Entity<DHModularArmorComponent> ent, ref EntRemovedFromContainerMessage args)
@@ -335,6 +341,8 @@ public sealed partial class DHModularArmorSystem : EntitySystem
         Refresh(ent);
         if (GetWearer(ent) is { } wearer)
             RefreshCovers(ent, wearer);
+
+        _orders.Sync(args.Entity, null);
     }
 
     /// <summary>Модули поменялись: скорость и внешний вид носителя.</summary>
@@ -591,6 +599,9 @@ public sealed partial class DHModularArmorSystem : EntitySystem
             case DHArmorSpecialKind.AutoMed:
                 _popup.PopupClient(Loc.GetString("dh-armor-automed-status"), user, user);
                 break;
+            case DHArmorSpecialKind.Comms:
+                _popup.PopupClient(Loc.GetString("dh-armor-comms-status"), user, user);
+                break;
         }
     }
 
@@ -636,6 +647,8 @@ public sealed partial class DHModularArmorSystem : EntitySystem
     private void OnEquipped(Entity<DHModularArmorComponent> ent, ref ClothingGotEquippedEvent args)
     {
         RefreshCovers(ent, args.Wearer);
+        if (GetModule(ent, DHArmorSlot.Special) is { } module)
+            _orders.Sync(module, GetWearer(ent));
     }
 
     /// <summary>
@@ -711,7 +724,10 @@ public sealed partial class DHModularArmorSystem : EntitySystem
         RemoveCovers(ent);
 
         if (GetModule(ent, DHArmorSlot.Special) is { } module)
+        {
             RetractWeapon(module);
+            _orders.Sync(module, null);
+        }
 
         _movement.RefreshMovementSpeedModifiers(args.Wearer);
     }

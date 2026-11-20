@@ -68,6 +68,18 @@ public sealed partial class DHAdminTab : Control
         callPmc.OnPressed += _ => _console.ExecuteCommand("dhcalllavpmc");
         root.AddChild(callPmc);
 
+        // Событие «Ассоциативный десантник» (план осады п. 28): открыть набор двух призраков сейчас.
+        var callZga = new ConfirmButton
+        {
+            Text = Loc.GetString("dh-admin-tab-call-zga"),
+            ToolTip = Loc.GetString("dh-admin-tab-call-zga-tooltip"),
+            HorizontalAlignment = HAlignment.Left,
+            MinWidth = 260,
+            ModulateSelfOverride = Color.FromHex("#7EC8F0"),
+        };
+        callZga.OnPressed += _ => _console.ExecuteCommand("dhcallzgaparatrooper");
+        root.AddChild(callZga);
+
         AddChild(root);
     }
 }

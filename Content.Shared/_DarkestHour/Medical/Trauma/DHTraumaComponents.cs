@@ -67,7 +67,23 @@ public sealed partial class DHPartTrauma
     [DataField]
     public TimeSpan TourniquetSince;
 
-    public bool HasInjury => Fracture || InternalBleeding > 0f || Shrapnel > 0 || Tourniquet != null;
+    /// <summary>
+    /// Повреждён нерв конечности (план осады п. 18): рука роняет предметы и медленнее стреляет, нога хромает, боль из
+    /// этой части не чувствуется.
+    /// </summary>
+    [DataField]
+    public bool Nerve;
+
+    /// <summary>Ожог III степени (план осады п. 18): теряет жидкость и болит, пока не иссекут и не пересадят кожу.</summary>
+    [DataField]
+    public bool DeepBurn;
+
+    /// <summary>В части тела застрял неразорвавшийся боеприпас (план осады п. 18).</summary>
+    [DataField]
+    public bool Unexploded;
+
+    public bool HasInjury => Fracture || InternalBleeding > 0f || Shrapnel > 0 || Tourniquet != null || Nerve || DeepBurn ||
+                             Unexploded;
 
     public bool IsEmpty => Brute <= 0.01f && Burn <= 0.01f && !HasInjury;
 }
@@ -167,6 +183,81 @@ public sealed partial class DHTraumaComponent : Component
     public TimeSpan NextBloodCough;
 
     /// <summary>
+    /// Черепно-мозговая травма (план осады п. 18): без трепанации мозг повреждается на <see cref="BrainInjuryRate"/>
+    /// в секунду и через ~5 минут отказывает — после смерти такого не реанимировать.
+    /// </summary>
+    [DataField]
+    public bool BrainInjury;
+
+    [DataField]
+    public float BrainInjuryRate = 0.2f;
+
+    /// <summary>Травма спинного мозга (план осады п. 18): паралич ног или полный.</summary>
+    [DataField, AutoNetworkedField]
+    public DHSpinalInjury Spinal;
+
+    [DataField]
+    public TimeSpan SpinalSince;
+
+    /// <summary>Без декомпрессии дольше этого — паралич до конца раунда (помогает только экзоскелет).</summary>
+    [DataField]
+    public TimeSpan SpinalWindow = TimeSpan.FromMinutes(10);
+
+    [DataField]
+    public bool SpinalPermanent;
+
+    /// <summary>Парализованного держит экзоскелет: может стоять и ходить медленнее.</summary>
+    [DataField, AutoNetworkedField]
+    public bool SpinalSupported;
+
+    /// <summary>
+    /// Пневмоторакс (план осады п. 18): 0 — нет, иначе напряжённость 0…1. Растёт, пока грудь не закрыта окклюзионной
+    /// повязкой и не стравлена игла-декомпрессией; чем выше — тем сильнее удушье. Лечится дренажом.
+    /// </summary>
+    [DataField]
+    public float Pneumothorax;
+
+    /// <summary>Рана груди закрыта окклюзионной повязкой — напряжение не растёт.</summary>
+    [DataField]
+    public bool ChestSealed;
+
+    /// <summary>До этого времени напряжение стравлено иглой и не растёт.</summary>
+    [DataField]
+    public TimeSpan DecompressedUntil;
+
+    /// <summary>Дыхательные пути перекрыты (разбитое лицо или горло, ожог дыхательных путей) — нужна трахеостомия.</summary>
+    [DataField]
+    public bool AirwayBlocked;
+
+    /// <summary>Лицо обезображено (план осады п. 18): человека не узнать, пока не сделают реконструкцию.</summary>
+    [DataField, AutoNetworkedField]
+    public bool Disfigured;
+
+    /// <summary>Сколько повреждения глаз (минимум для BlindableComponent) сейчас ставят травмы; -1 — не ставят.</summary>
+    [DataField]
+    public int EyeMinApplied = -1;
+
+    /// <summary>Минимум повреждения глаз до травм (врождённая слепота и т. п.) — возвращается после лечения.</summary>
+    [DataField]
+    public int EyeBaseMin;
+
+    /// <summary>Глаза были и их извлекли или вырвали (у кого глаз нет от природы — не слепнет).</summary>
+    [DataField]
+    public bool EyesLost;
+
+    /// <summary>Множитель урона в ближнем бою (кибер-рука «Тиски»).</summary>
+    [DataField, AutoNetworkedField]
+    public float MeleeModifier = 1f;
+
+    /// <summary>Множитель разброса оружия в руках (кибер-рука «Тиски»).</summary>
+    [DataField, AutoNetworkedField]
+    public float GunSpreadModifier = 1f;
+
+    /// <summary>Множитель скорострельности оружия в руках (повреждённый нерв руки).</summary>
+    [DataField, AutoNetworkedField]
+    public float FireRateModifier = 1f;
+
+    /// <summary>
     /// Готовые строки травм для анализатора здоровья (переломы, кровотечения, осколки, органы, боль).
     /// Сервер обновляет раз в секунду и шлёт клиенту, только если изменились.
     /// </summary>
@@ -254,10 +345,63 @@ public sealed partial class DHFieldDressingComponent : Component
 
     [DataField]
     public DamageSpecifier Heal = new();
+
+    /// <summary>Окклюзионная: закрывает рану груди — пневмоторакс перестаёт нарастать.</summary>
+    [DataField]
+    public bool SealsChest;
 }
+
+/// <summary>
+/// Игла для декомпрессии (план осады п. 18): стравливает напряжённый пневмоторакс в поле. Временная мера — до дренажа.
+/// </summary>
+[RegisterComponent]
+public sealed partial class DHDecompressionNeedleComponent : Component
+{
+    [DataField]
+    public TimeSpan Delay = TimeSpan.FromSeconds(4);
+
+    /// <summary>Шанс промахнуться мимо плевральной полости (урон, без эффекта; игла не расходуется).</summary>
+    [DataField]
+    public float FailChance = 0.15f;
+
+    /// <summary>Сколько напряжение после стравливания не растёт.</summary>
+    [DataField]
+    public TimeSpan Relief = TimeSpan.FromMinutes(3);
+}
+
+[Serializable, NetSerializable]
+public sealed partial class DHNeedleDecompressionDoAfterEvent : Content.Shared.DoAfter.SimpleDoAfterEvent;
 
 [Serializable, NetSerializable]
 public sealed partial class DHTourniquetDoAfterEvent : Content.Shared.DoAfter.SimpleDoAfterEvent;
 
 [Serializable, NetSerializable]
 public sealed partial class DHFieldDressingDoAfterEvent : Content.Shared.DoAfter.SimpleDoAfterEvent;
+
+/// <summary>
+/// Мёртвого сейчас не поднять дефибриллятором и СЛР: сердце отказало или его нет (план осады п. 18). Ставится и
+/// снимается травмами раз в секунду — починили или пересадили сердце, и снова можно.
+/// </summary>
+[RegisterComponent]
+public sealed partial class DHReviveBlockedComponent : Component
+{
+    [DataField]
+    public LocId Reason = "dh-revive-heart-failed";
+}
+
+[Serializable, NetSerializable]
+public enum DHSpinalInjury : byte
+{
+    None,
+    /// <summary>Паралич ног.</summary>
+    Legs,
+    /// <summary>Полный паралич: ноги и руки.</summary>
+    Full,
+}
+
+/// <summary>
+/// Протез или кибернетическая конечность (план осады п. 18, п. 29): не кровит, не ломается, нервов нет. Обычный протез
+/// просто возвращает конечность; «Тиски» и «Опора» дают бонусы ценой отторжения (импланты).
+/// </summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class DHProstheticComponent : Component;
