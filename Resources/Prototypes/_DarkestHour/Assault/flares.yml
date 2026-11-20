@@ -1,0 +1,91 @@
+# Эффекты ЛТЦ (ложных тепловых целей) челноков и штурмовика (план осады п. 8, решения автора 2026-11-20).
+# Ставит DHFlareEffectsServerSystem при отстреле; дымный шлейф и «падение» рисует клиент (DHFlareEffectsSystem).
+#  - В небе (карта, где летит машина: атмосфера или высота пролёта): горящие ловушки разлетаются от корпуса со
+#    шлейфом дыма — их видит пилот и те, кто на авианосце.
+#  - На поверхности под машиной: ловушки падают — яркие точки со шлейфом, видны издалека; упав, ещё 9 с горят и
+#    светят на земле (DHDecoyFlareBurst в dropships.yml).
+
+- type: entity
+  id: DHFlareAir
+  name: decoy flare
+  description: A burning decoy flare streaking away.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/flare.rsi
+    drawdepth: Overlays
+    color: "#ffc860"
+    scale: 1.3,1.3
+    layers:
+    - state: flare_burn
+      shader: unshaded
+  - type: PointLight
+    radius: 3
+    energy: 3
+    color: "#ffb347"
+  - type: Physics
+    bodyType: Dynamic
+    linearDamping: 0
+    angularDamping: 0
+  - type: Fixtures
+    fixtures:
+      flare:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.1
+        density: 1
+        hard: false
+  - type: DHSmokeTrail
+  - type: TimedDespawn
+    lifetime: 2.5
+
+- type: entity
+  id: DHFlareFalling
+  name: decoy flare
+  description: A burning decoy flare falling from the sky.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/flare.rsi
+    drawdepth: Overlays
+    color: "#ffc860"
+    layers:
+    - state: flare_burn
+      shader: unshaded
+  - type: PointLight
+    radius: 4
+    energy: 3
+    color: "#ffb347"
+  - type: Physics
+    bodyType: Dynamic
+    linearDamping: 0.2
+    angularDamping: 0
+  - type: Fixtures
+    fixtures:
+      flare:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.1
+        density: 1
+        hard: false
+  - type: DHFallingFlare
+  - type: DHSmokeTrail
+  - type: TimedDespawn
+    lifetime: 2.5
+  - type: SpawnOnDespawn
+    prototype: DHDecoyFlareBurst
+
+# Облачко дыма шлейфа (клиентская сущность, ставит DHFlareEffectsSystem).
+- type: entity
+  id: DHSmokeTrailPuff
+  name: smoke
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: Effects/chempuff.rsi
+    drawdepth: Overlays
+    color: "#8f8a80aa"
+    layers:
+    - state: chempuff
+  - type: TimedDespawn
+    lifetime: 0.9

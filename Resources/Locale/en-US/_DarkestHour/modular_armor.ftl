@@ -1,7 +1,6 @@
 ## DarkestHour: модульная броня
 
 dh-armor-module-wrong-faction = This module does not fit this suit.
-dh-armor-module-needs-rack = Heavy modules can only be fitted or removed at an armour maintenance rack.
 dh-armor-module-slot-taken = That slot is already taken.
 dh-armor-module-installed = { CAPITALIZE($module) } locks into place.
 dh-armor-module-broken = { CAPITALIZE($module) } shatters!
@@ -73,3 +72,17 @@ dh-exo-class-heavy = heavy
 dh-exo-no-special = A light exoskeleton has no mount for a special system.
 dh-exo-wrong-plate = A { $exo } exoskeleton does not take { $plate } plates.
 dh-exo-examine = [color=lightblue]{ CAPITALIZE($exo) } exoskeleton[/color]: takes { $plates } plates; speed { $speed }, carries { $load }% of your gear, melee strikes (fists and weapons) +{ $melee }% plus { $blunt } blunt.
+
+## Comms module and orders
+dh-armor-comms-status = Comms module online. Give orders with the Hold, Attack and Move buttons.
+dh-order-issued = { CAPITALIZE($user) }: "{ $order }"
+dh-order-shout-hold = Hold position!
+dh-order-shout-attack = Attack!
+dh-order-shout-move = Move, move, move!
+dh-order-received-hold = Order: hold position — you shrug off hits better.
+dh-order-received-attack = Order: attack — you shoot more accurately.
+dh-order-received-move = Order: move — you run faster.
+
+## Hammers
+dh-charge-strike = Running strike!
+dh-can-opening = You cut the tin open with the knife…

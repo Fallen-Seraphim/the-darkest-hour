@@ -1,6 +1,7 @@
 using Content.Shared._DarkestHour.Assault;
 using Content.Shared.Alert;
 using Content.Shared.Radio;
+using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
@@ -41,17 +42,56 @@ public sealed partial class DHSquadPrototype : IPrototype
     /// <summary>Алерт трекера командира отряда (стрелка цвета отряда).</summary>
     [DataField]
     public ProtoId<AlertPrototype>? TrackerAlert;
+
+    /// <summary>Значок отряда в худе (у командира — свой, с латунной рамкой).</summary>
+    [DataField]
+    public ProtoId<Content.Shared.StatusIcon.StatusIconPrototype>? Icon;
+
+    [DataField]
+    public ProtoId<Content.Shared.StatusIcon.StatusIconPrototype>? LeaderIcon;
 }
 
-/// <summary>Боец состоит в отряде.</summary>
-[RegisterComponent]
+/// <summary>
+/// Кто и как распределяется по отрядам стороны на старте раунда (решение автора 2026-11-19, как в RMC): только пехота.
+/// Лидеры (командиры отрядов Империи, офицеры Республики) — по одному на отряд и сразу командиры; бойцы «вразнос»
+/// (медики, пулемётчики, спецы) расходятся по отрядам поровну; остальные — в любимый отряд, если он не больше самого
+/// маленького более чем на <see cref="MaxImbalance"/>.
+/// </summary>
+[Prototype("dhSquadRoster")]
+public sealed partial class DHSquadRosterPrototype : IPrototype
+{
+    [IdDataField]
+    public string ID { get; private set; } = default!;
+
+    [DataField(required: true)]
+    public DHAssaultFaction Faction;
+
+    /// <summary>Должности лидеров отрядов.</summary>
+    [DataField]
+    public List<ProtoId<Content.Shared.Roles.JobPrototype>> Leaders = new();
+
+    /// <summary>Должности, которые расходятся по отрядам поровну.</summary>
+    [DataField]
+    public List<ProtoId<Content.Shared.Roles.JobPrototype>> Spread = new();
+
+    /// <summary>Остальная пехота отрядов.</summary>
+    [DataField]
+    public List<ProtoId<Content.Shared.Roles.JobPrototype>> Members = new();
+
+    /// <summary>Насколько любимый отряд может быть больше самого маленького.</summary>
+    [DataField]
+    public int MaxImbalance = 2;
+}
+
+/// <summary>Боец состоит в отряде. Сетевой: клиент рисует значок отряда в худе и нашивку цвета отряда.</summary>
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
 public sealed partial class DHSquadMemberComponent : Component
 {
-    [DataField]
+    [DataField, AutoNetworkedField]
     public ProtoId<DHSquadPrototype> Squad;
 
     /// <summary>Командир отряда: на него указывает трекер у остальных бойцов отряда.</summary>
-    [DataField]
+    [DataField, AutoNetworkedField]
     public bool Leader;
 }
 

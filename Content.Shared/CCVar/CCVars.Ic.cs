@@ -38,7 +38,7 @@ public sealed partial class CCVars
     ///     Sets the maximum character length of a job on an ID.
     /// </summary>
     public static readonly CVarDef<int> MaxIdJobLength =
-        CVarDef.Create("ic.id_job_length", 30, CVar.SERVER | CVar.REPLICATED);
+        CVarDef.Create("ic.id_job_length", 48, CVar.SERVER | CVar.REPLICATED); // DarkestHour: 30 → 48, длинные русские должности (2026-11-19)
 
     /// <summary>
     ///     Adds a period at the end of a sentence if the sentence ends in a letter.
