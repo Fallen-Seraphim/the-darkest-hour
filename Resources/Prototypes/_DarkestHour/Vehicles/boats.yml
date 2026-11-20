@@ -1,0 +1,225 @@
+# DarkestHour: лодки (план осады п. 10, решения автора 2026-11-19). Открытые, как джип КОФ в CMU: отсека нет, сиденья —
+# прямо в лодке, сидящих видно и в них можно попасть. Ходят только по воде (обычной и глубокой), упираются в берег.
+# Сесть — кликнуть по месту, стоя у воды; сойти — только у берега или на мелководье. Потопили дальше 5 клеток от
+# берега — сидящие тонут, ближе — их выносит на берег с уроном. Механика — DHVehicleServerSystem.Boats, DHBoatSystem.
+#  * надувная: водитель у мотора и 3 бойца, 150 прочности, пули её пробивают, быстрая; складывается у берега (5 с) и
+#    раскладывается у воды. Сложенная — в карго обеих сторон (раздел «Инженерное»);
+#  * тяжёлая: водитель, пулемётчик на носу и 4 бойца, 800 прочности, лёгкая броня как у хамви, медленнее. Две на
+#    «Терминусе» — севернее дамбы и у космодрома, ничьи: своя для той стороны, чей боец сел за руль.
+# Спрайты нарисованы (Tools/_DarkestHour/vehicles/draw_boats.py), нос — вниз.
+
+- type: entity
+  abstract: true
+  parent: DHVehicleBase
+  id: DHBoatBase
+  components:
+  - type: DHGridDrive
+    water: true
+    maxSpeed: 5
+    acceleration: 3
+    deceleration: 6
+    maxReverseSpeed: 2
+    reverseAcceleration: 2
+    maxRotationSpeedDegrees: 100
+    rotationAccelerationDegrees: 160
+    rotationDecelerationDegrees: 220
+    alignmentAssistDegrees: 0
+    smashDamage: 0
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/boats.rsi
+    drawdepth: FloorObjects
+  - type: DHBoat
+
+- type: entity
+  parent: DHBoatBase
+  id: DHBoatInflatable
+  name: inflatable boat
+  description: A rubber assault boat with an outboard motor. Fast, but a burst of fire sinks it. Fold it up on the shore with an alternative action.
+  components:
+  - type: Sprite
+    state: inflatable
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.6,-1.2,0.6,1.2"
+        density: 300
+        mask:
+        - Impassable
+        layer:
+        - LargeMobLayer
+  # Резина: пули проходят полностью.
+  - type: DHFortified
+    multiplier: 1
+    bulletStructuralMultiplier: 1
+    vehicleClass: Light
+    vehicleIntegrity: 150
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/Fluids/splat.ogg
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: DHBoat
+    folded: DHBoatInflatableFolded
+  - type: DHGridDrive
+    water: true
+    maxSpeed: 6
+    acceleration: 4
+    deceleration: 6
+    maxReverseSpeed: 2
+    reverseAcceleration: 2
+    maxRotationSpeedDegrees: 130
+    rotationAccelerationDegrees: 200
+    rotationDecelerationDegrees: 260
+    alignmentAssistDegrees: 0
+    smashDamage: 0
+  - type: DHVehicle
+    mapIcon: Boat
+    neutral: true
+    maxIntegrity: 150
+    hullHalfSize: 0.62,1.22
+    crewZoom: 1.2
+    turretLayers: [ ]
+    exitOffset: 0,1.6
+    wreckExplosion: 0
+    seats:
+    - { proto: DHBoatSeatDriver, offset: "0,0.85" }
+    - { proto: DHBoatSeatPassenger, offset: "-0.3,0.25" }
+    - { proto: DHBoatSeatPassenger, offset: "0.3,0.25" }
+    - { proto: DHBoatSeatPassenger, offset: "0,-0.45" }
+
+- type: entity
+  parent: DHBoatBase
+  id: DHBoatHeavy
+  name: patrol boat
+  description: An armoured river patrol boat with a heavy machine gun on the bow. Slower than a rubber boat, but bullets do not sink it.
+  components:
+  - type: Sprite
+    state: heavy
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.8,-1.8,0.8,1.8"
+        density: 3000
+        mask:
+        - Impassable
+        layer:
+        - LargeMobLayer
+  - type: DHFortified
+    multiplier: 3
+    bulletStructuralMultiplier: 0.3
+    vehicleClass: Light
+    vehicleIntegrity: 800
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 800
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: DHVehicle
+    mapIcon: Boat
+    neutral: true
+    maxIntegrity: 800
+    hullHalfSize: 0.8,1.8
+    crewZoom: 1.3
+    turretLayers: [ ]
+    exitOffset: 0,2.2
+    wreckExplosion: 10
+    weapons:
+      primary: DHVehicleGunHMG
+    seats:
+    - { proto: DHBoatSeatGunner, offset: "0,-0.75" }
+    - { proto: DHBoatSeatDriver, offset: "0,0.25" }
+    - { proto: DHBoatSeatPassenger, offset: "-0.5,0.84" }
+    - { proto: DHBoatSeatPassenger, offset: "0.5,0.84" }
+    - { proto: DHBoatSeatPassenger, offset: "-0.5,-0.34" }
+    - { proto: DHBoatSeatPassenger, offset: "0.5,-0.34" }
+
+# --- места в лодке ---
+
+- type: entity
+  abstract: true
+  parent: DHInteriorSeatBase
+  id: DHBoatSeatBase
+  name: boat seat
+  description: A bench in the boat. Sit down from the shore; get off only by the shore or in shallow water.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Furniture/vehicle_seats.rsi
+    state: base
+    drawdepth: FloorObjects
+    scale: 0.7, 0.7
+
+- type: entity
+  parent: DHBoatSeatBase
+  id: DHBoatSeatPassenger
+  name: boat seat
+
+- type: entity
+  parent: DHBoatSeatBase
+  id: DHBoatSeatDriver
+  name: helm
+  description: The helm of the boat. Sit down to steer; the ENGINE button starts and stops the motor.
+  components:
+  - type: DHVehicleStation
+    role: Driver
+    range: 0.5
+
+- type: entity
+  parent: DHBoatSeatBase
+  id: DHBoatSeatGunner
+  name: bow machine gun
+  description: The bow machine gun of the patrol boat. Sit down to take it; load machine gun ammunition boxes into it.
+  components:
+  - type: DHVehicleStation
+    role: Gunner
+    weapon: primary
+    range: 0.5
+  - type: DHVehicleAmmoRack
+
+# --- сложенная надувная ---
+
+- type: entity
+  parent: BaseItem
+  id: DHBoatInflatableFolded
+  name: folded inflatable boat
+  description: A rolled-up rubber boat with its outboard motor. Use it at the water's edge to inflate it.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/boat_folded.rsi
+    state: icon
+  - type: Item
+    size: Huge
+  - type: MultiHandedItem
+  - type: HeldSpeedModifier
+    walkModifier: 0.7
+    sprintModifier: 0.7
+  - type: DHBoatFolded
+    boat: DHBoatInflatable
+  - type: StaticPrice
+    price: 400
+
+- type: entity
+  parent: CrateEngineering
+  id: DHCrateBoatInflatable
+  name: inflatable boat crate
+  description: Two folded inflatable boats with outboard motors.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHBoatInflatableFolded
+      amount: 2

@@ -21,6 +21,8 @@ public sealed class DHDropshipBoundUserInterface : BoundUserInterface
         _window.OnFly += zone => SendMessage(new DHDropshipFlyMessage(zone));
         _window.OnAbort += () => SendMessage(new DHDropshipAbortMessage());
         _window.OnFlares += () => SendMessage(new DHDropshipFlaresMessage());
+        _window.OnManual += enable => SendMessage(new DHDropshipManualMessage(enable));
+        _window.OnAtmosphere += enable => SendMessage(new DHDropshipAtmosphereMessage(enable));
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)

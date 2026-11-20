@@ -521,6 +521,14 @@
     state: ImperialRifleman
   jobName: dh-job-marine-rifleman-name
   isCrewJob: false
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHMarineSquadLeader
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/job_icons.rsi
+    state: ImperialSquadLeader
+  jobName: dh-job-marine-squad-leader-name
+  isCrewJob: false
 
 - type: jobIcon
   parent: JobIcon

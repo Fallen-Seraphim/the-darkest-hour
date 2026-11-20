@@ -1,0 +1,107 @@
+# Значки отрядов в худе (решение автора 2026-11-19). Спрайты — Tools/_DarkestHour/squads/build_icons.py.
+# Показываются тем, у кого HUD с должностями, слева от значка должности.
+
+- type: statusIcon
+  abstract: true
+  id: DHSquadIconBase
+  priority: 1
+  locationPreference: Left
+  isShaded: true
+
+- type: statusIcon
+  parent: DHSquadIconBase
+  id: DHSquadIconAlpha
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/squad_icons.rsi
+    state: Alpha
+
+- type: statusIcon
+  parent: DHSquadIconBase
+  id: DHSquadIconAlphaLeader
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/squad_icons.rsi
+    state: AlphaLeader
+
+- type: statusIcon
+  parent: DHSquadIconBase
+  id: DHSquadIconBravo
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/squad_icons.rsi
+    state: Bravo
+
+- type: statusIcon
+  parent: DHSquadIconBase
+  id: DHSquadIconBravoLeader
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/squad_icons.rsi
+    state: BravoLeader
+
+- type: statusIcon
+  parent: DHSquadIconBase
+  id: DHSquadIconCharlie
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/squad_icons.rsi
+    state: Charlie
+
+- type: statusIcon
+  parent: DHSquadIconBase
+  id: DHSquadIconCharlieLeader
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/squad_icons.rsi
+    state: CharlieLeader
+
+- type: statusIcon
+  parent: DHSquadIconBase
+  id: DHSquadIconDelta
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/squad_icons.rsi
+    state: Delta
+
+- type: statusIcon
+  parent: DHSquadIconBase
+  id: DHSquadIconDeltaLeader
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/squad_icons.rsi
+    state: DeltaLeader
+
+- type: statusIcon
+  parent: DHSquadIconBase
+  id: DHSquadIconTau
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/squad_icons.rsi
+    state: Tau
+
+- type: statusIcon
+  parent: DHSquadIconBase
+  id: DHSquadIconTauLeader
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/squad_icons.rsi
+    state: TauLeader
+
+- type: statusIcon
+  parent: DHSquadIconBase
+  id: DHSquadIconEpsilon
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/squad_icons.rsi
+    state: Epsilon
+
+- type: statusIcon
+  parent: DHSquadIconBase
+  id: DHSquadIconEpsilonLeader
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/squad_icons.rsi
+    state: EpsilonLeader
+
+- type: statusIcon
+  parent: DHSquadIconBase
+  id: DHSquadIconOmega
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/squad_icons.rsi
+    state: Omega
+
+- type: statusIcon
+  parent: DHSquadIconBase
+  id: DHSquadIconOmegaLeader
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/Misc/squad_icons.rsi
+    state: OmegaLeader
