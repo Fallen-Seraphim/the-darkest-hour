@@ -58,7 +58,6 @@
     - DHOverwatchTabletRepublic
     - DHMotionDetector
     - DHSignalFlareKit
-    - DHArmorSpecialComms # ком-модуль: приказы (план осады п. 26)
 
 - type: startingGear
   parent: DHRepublicGearBase
@@ -409,7 +408,7 @@
     sprite: _DarkestHour/Objects/Weapons/Guns/rar_m11_2.rsi
     state: base
   content:
-  - DHClothingOuterModularRMB1Composite
+  - DHClothingOuterModularRMB1CompositeComms
   - DHWeaponRifleRARM112
   - DHMagazine762x51FMG
   - DHMagazine762x51FMG
@@ -424,7 +423,7 @@
     sprite: _DarkestHour/Objects/Weapons/Guns/raptor_m12_16.rsi
     state: base
   content:
-  - DHClothingOuterModularRMB1Composite
+  - DHClothingOuterModularRMB1CompositeComms
   - DHWeaponSMGRAPTORM1216
   - DHMagazine10x24E
   - DHMagazine10x24E
@@ -810,7 +809,6 @@
     - DHOverwatchTabletEmpire
     - DHMotionDetector
     - DHSignalFlareKit
-    - DHArmorSpecialComms # ком-модуль: приказы (план осады п. 26)
 
 - type: startingGear
   parent: DHImperialGearBase

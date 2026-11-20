@@ -57,3 +57,9 @@ dh-admin-verb-make-imperial-marine = Make the target an Imperial marine of the r
 dh-role-type-imperial-marine = Imperial Marine
 dh-role-subtype-imperial-marine = Imperial Marine
 dh-imperial-ghost-role-rules = You are an [color=#F2C230][bold]Imperial Marine[/bold][/color]. Your squad's intentions are clear: make the station surrender to the First Empire or take it by storm. Work together with the other marines and follow your commander.
+dh-imperial-set-squadleader-rifle-name = Rifle: IR-17
+dh-imperial-set-squadleader-rifle-description = The IR-17 battle rifle with four magazines. IMB-1 on a medium exoskeleton; special system: comms module with orders.
+dh-imperial-set-squadleader-smg-name = SMG: IMG-17L
+dh-imperial-set-squadleader-smg-description = The IMG-17L SMG with five magazines. IMB-1 on a medium exoskeleton; special system: comms module with orders.
+dh-imperial-set-squadleader-shotgun-name = Shotgun: IMPSH-17P
+dh-imperial-set-squadleader-shotgun-description = The IMPSH-17P pump shotgun with three boxes of shells. IMB-1 on a medium exoskeleton; special system: comms module with orders.

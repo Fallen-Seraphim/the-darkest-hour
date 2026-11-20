@@ -99,3 +99,8 @@ ent-DHClothingOuterModularIMB1StandardStorage = { ent-DHClothingOuterExoIMB1Medi
 
 ent-DHClothingOuterModularIMB1StandardTanks = { ent-DHClothingOuterExoIMB1Medium }
     .desc = { ent-DHClothingOuterExoIMB1Medium.desc }
+
+ent-DHClothingOuterModularIMB1StandardComms = { ent-DHClothingOuterExoIMB1Medium }
+    .desc = { ent-DHClothingOuterExoIMB1Medium.desc }
+ent-DHClothingOuterModularIMB1CompositeComms = { ent-DHClothingOuterExoIMB1Medium }
+    .desc = { ent-DHClothingOuterExoIMB1Medium.desc }

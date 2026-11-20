@@ -57,3 +57,9 @@ dh-admin-verb-make-imperial-marine = Сделать цель имперским 
 dh-role-type-imperial-marine = Имперский морпех
 dh-role-subtype-imperial-marine = Имперский морпех
 dh-imperial-ghost-role-rules = Вы — [color=#F2C230][bold]имперский морпех[/bold][/color]. Намерения вашего отряда ясны: заставить станцию сдаться Первой Империи или взять её штурмом. Действуйте вместе с другими морпехами и подчиняйтесь командиру.
+dh-imperial-set-squadleader-rifle-name = Винтовка: IR-17
+dh-imperial-set-squadleader-rifle-description = Боевая винтовка IR-17 с четырьмя магазинами. ИМБ-1 на среднем экзоскелете; особая система: ком-модуль с приказами.
+dh-imperial-set-squadleader-smg-name = ПП: IMG-17L
+dh-imperial-set-squadleader-smg-description = Пистолет-пулемёт IMG-17L с пятью магазинами. ИМБ-1 на среднем экзоскелете; особая система: ком-модуль с приказами.
+dh-imperial-set-squadleader-shotgun-name = Дробовик: IMPSH-17P
+dh-imperial-set-squadleader-shotgun-description = Помповый дробовик IMPSH-17P с тремя коробками патронов. ИМБ-1 на среднем экзоскелете; особая система: ком-модуль с приказами.
