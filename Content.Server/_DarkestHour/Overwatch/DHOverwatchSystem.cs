@@ -98,7 +98,7 @@ public sealed partial class DHOverwatchSystem : EntitySystem
     private void OnOrder(Entity<DHOverwatchConsoleComponent> ent, ref DHOverwatchOrderMessage args)
     {
         var text = args.Text.Trim();
-        if (text.Length == 0)
+        if (text.Length == 0 || !ent.Comp.CanOrder)
             return;
 
         if (text.Length > ent.Comp.MaxOrderLength)
@@ -243,6 +243,12 @@ public sealed partial class DHOverwatchSystem : EntitySystem
         entry.Job = _mind.TryGetMind(uid, out var mindId, out _) && _jobs.MindTryGetJobName(mindId, out var job)
             ? job
             : Loc.GetString("dh-overwatch-no-job");
+
+        if (TryComp<Content.Shared._DarkestHour.Squads.DHSquadMemberComponent>(uid, out var member))
+        {
+            entry.Squad = member.Squad.Id;
+            entry.SquadLeader = member.Leader;
+        }
 
         var pos = _transform.GetWorldPosition(xform);
         entry.X = (int) MathF.Round(pos.X);

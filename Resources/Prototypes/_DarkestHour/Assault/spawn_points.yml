@@ -243,6 +243,7 @@
     spawn_type: Job
     job_id: DHMarineRifleman
     jobs:
+    - DHMarineSquadLeader
     - DHMarineWeaponsSpecialist
     - DHMarineMachinegunner
   - type: Sprite
@@ -299,3 +300,42 @@
     - state: green
     - sprite: _DarkestHour/Interface/Misc/job_icons.rsi
       state: ImperialTankCommander
+
+# --- Республика: въезды подкреплений (план осады п. 2, решения автора 2026-11-19)
+# Кто появляется после начала раунда (зашедшие позже и волна подкреплений) — в кузове грузовика у въезда на краю
+# карты; за руль садится кто-то из бойцов. Метка повёрнута как грузовик (нос — к −Y локально): на «Терминусе» восток
+# смотрит на запад, запад — на восток. Ставит terminus_build.py.
+
+- type: entity
+  abstract: true
+  id: DHReinforcementEntryBase
+  name: reinforcement entry
+  description: Reinforcement trucks arrive here.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: Markers/cross.rsi
+    state: green
+    visible: false
+  - type: Marker
+
+- type: entity
+  parent: DHReinforcementEntryBase
+  id: DHReinforcementEntryRepublicEast
+  suffix: Republic, east
+  components:
+  - type: DHReinforcementEntry
+    name: dh-reinforcement-entry-east
+
+# Западный въезд — через деревню, дамбу, блокпост и стройку: закрыт, пока противник держит дамбу или стройку.
+- type: entity
+  parent: DHReinforcementEntryBase
+  id: DHReinforcementEntryRepublicWest
+  suffix: Republic, west
+  components:
+  - type: DHReinforcementEntry
+    name: dh-reinforcement-entry-west
+    closedBy: [ dam, construction ]

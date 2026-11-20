@@ -17,3 +17,4 @@ tiles-rmc-research = research containment tile
 tiles-rmc-striped = striped tile
 tiles-rmc-tcomms = telecommunications tile
 tiles-rmc-underplating-no-weeds = plating
+tiles-dh-vehicle-interior-floor = vehicle floor

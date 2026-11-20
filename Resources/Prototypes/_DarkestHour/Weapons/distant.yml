@@ -1,0 +1,6 @@
+# Дальние звуки боя (план осады п. 20): глухой выстрел орудия издалека.
+- type: soundCollection
+  id: DHDistantCannon
+  files:
+  - /Audio/_DarkestHour/Distant/cannon_distant1.ogg
+  - /Audio/_DarkestHour/Distant/cannon_distant2.ogg

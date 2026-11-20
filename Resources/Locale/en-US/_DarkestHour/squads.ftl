@@ -32,3 +32,14 @@ dh-squad-leader-replaced = You are no longer the squad leader: another one was a
 dh-squad-examine-leader = Leader of [color={$color}]{$squad}[/color] squad.
 dh-alert-squad-tracker-name = Squad leader tracker
 dh-alert-squad-tracker-desc = The arrow points to your squad leader. Off means no leader is assigned or they are out of range.
+
+## Favourite squad (roles tab) and round-start assignment
+dh-squad-preference-label = Favourite squad:
+dh-squad-preference-any = No preference
+dh-squad-preference-hint = infantry is assigned to squads at round start
+dh-squad-no-leader = Squad { $squad } has no leader — command will appoint one.
+
+## Job ranks in the lobby
+dh-job-ranks-header = Ranks:
+dh-job-rank-line = • { $rank }
+dh-job-rank-line-time = • { $rank } — from { $hours } h on the job

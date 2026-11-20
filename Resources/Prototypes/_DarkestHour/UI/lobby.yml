@@ -1,0 +1,7 @@
+# Лобби «Осады» (план п. 23, решения автора 2026-11-20).
+
+# Шейдер старого монитора поверх всего лобби (DHCrtOverlay).
+- type: shader
+  id: DHCrtLobby
+  kind: source
+  path: /Textures/_DarkestHour/Shaders/crt_lobby.swsl

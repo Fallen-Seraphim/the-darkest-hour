@@ -110,6 +110,7 @@ public sealed partial class DHTrenchRepairDoAfterEvent : SimpleDoAfterEvent;
 /// <summary>Окоп как укрытие (общая логика, чтобы клиент предсказывал так же).</summary>
 public sealed partial class DHTrenchCoverSystem : EntitySystem
 {
+    [Dependency] private Content.Shared._DarkestHour.Levels.DHHeightCoverSystem _height = default!;
     [Dependency] private SharedMapSystem _map = default!;
     [Dependency] private MovementSpeedModifierSystem _speed = default!;
     [Dependency] private IGameTiming _timing = default!;
@@ -211,6 +212,13 @@ public sealed partial class DHTrenchCoverSystem : EntitySystem
         if (args.Cancelled || !TryComp<ProjectileComponent>(args.OtherEntity, out var projectile))
             return;
 
+        // Высота (п. 21): снизу по цели на крыше — только у края, лёжа — никак.
+        if (_height.MissesFromBelow(ent, args.OtherEntity))
+        {
+            args.Cancelled = true;
+            return;
+        }
+
         if (TrenchOf(ent) is not { } trench)
             return;
 
@@ -222,8 +230,13 @@ public sealed partial class DHTrenchCoverSystem : EntitySystem
         }
 
         // Детерминированный бросок по паре сущностей — клиент и сервер решают одинаково.
+        // Сверху (с крыши, этажа) окоп укрывает вдвое хуже.
+        var chance = trench.Comp.BulletMissChance;
+        if (_height.FromAbove(args.OtherEntity))
+            chance *= Content.Shared._DarkestHour.Levels.DHHeightCoverSystem.PlungingTrenchFactor;
+
         var roll = (int) ((uint) (ent.Owner.Id * 7919 + args.OtherEntity.Id * 104729) % 100u);
-        if (roll < (int) (trench.Comp.BulletMissChance * 100f))
+        if (roll < (int) (chance * 100f))
             args.Cancelled = true;
     }
 }

@@ -359,3 +359,16 @@
       amount: 1
   products:
     DHOmnireazin: 3
+
+# Цитрасин — иммунодепрессант против отторжения имплантов (план осады п. 29).
+- type: reaction
+  id: DHCitrasin
+  reactants:
+    Dylovene:
+      amount: 1
+    Ethanol:
+      amount: 1
+    Silicon:
+      amount: 1
+  products:
+    DHCitrasin: 2

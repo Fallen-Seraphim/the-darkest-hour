@@ -72,11 +72,23 @@
   - type: DHFieldDressing
     delay: 3
     part: Torso
+    sealsChest: true # план осады п. 18: пневмоторакс перестаёт нарастать
     internalBleedingFactor: 0.4
     bleedReduction: 5
     heal:
       types:
         Piercing: -6
+
+# Игла для декомпрессии (план осады п. 18): стравить напряжённый пневмоторакс в поле.
+- type: entity
+  parent: DHFieldMedicineBase
+  id: DHDecompressionNeedle
+  name: decompression needle
+  description: A long 14-gauge catheter needle. Pushed between the ribs, it lets the trapped air out of a collapsed chest — buys time until a chest drain.
+  components:
+  - type: Sprite
+    state: decompression_needle
+  - type: DHDecompressionNeedle
 
 - type: entity
   parent: ChemicalMedipen
