@@ -1,0 +1,4 @@
+- files: ["cannon_distant1.ogg", "cannon_distant2.ogg"]
+  license: "MIT"
+  copyright: "RMC-14 contributors"
+  source: "https://github.com/RMC-14/RMC-14/pull/8791"

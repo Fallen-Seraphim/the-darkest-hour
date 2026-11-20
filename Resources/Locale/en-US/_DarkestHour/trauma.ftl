@@ -100,3 +100,17 @@ dh-alert-pain-name = [color=orange]Pain[/color]
 dh-alert-pain-desc = The stronger the pain, the brighter the icon. Pain shock knocks you down, worse than that and you pass out. Painkillers dull it for a while.
 dh-alert-fracture-name = [color=red]Fracture[/color]
 dh-alert-fracture-desc = A broken bone: without a splint it hurts badly and you limp (or drop things). A splint helps, but the bone only heals after surgery.
+
+# Heart, brain, TBI
+dh-trauma-brain-injury-self = A blow to the head! Your vision darkens and your thoughts scatter.
+dh-trauma-brain-confused = Your thoughts tangle, the words won't come together.
+dh-trauma-brain-mute = You can't get a single word out!
+dh-trauma-brain-seizure = {CAPITALIZE(THE($target))} is convulsing!
+dh-trauma-desc-brain-injury = traumatic brain injury — needs trepanation
+dh-trauma-analyzer-revive-heart = [color=#d04040]Revival impossible: heart failure. Repair or transplant the heart, then defibrillate.[/color]
+dh-trauma-analyzer-revive-brain = [color=#d04040]Revival impossible: the brain is irreversibly damaged.[/color]
+dh-surgery-trepanation = Trepanation
+dh-surgery-trepanation-desc = Traumatic brain injury: drill a burr hole and evacuate the hematoma. Without it the brain dies within minutes.
+dh-surgery-step-burr-hole = burr hole in the skull
+dh-surgery-step-evacuate-hematoma = evacuating the hematoma
+dh-surgery-tool-drill = surgical drill or saw

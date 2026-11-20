@@ -100,3 +100,17 @@ dh-alert-pain-name = [color=orange]Боль[/color]
 dh-alert-pain-desc = Чем сильнее боль, тем ярче значок. В болевом шоке валит с ног, сильнее — теряете сознание. Обезболивающее снимет её на время.
 dh-alert-fracture-name = [color=red]Перелом[/color]
 dh-alert-fracture-desc = Сломана кость: без шины — сильная боль и хромота (или роняете вещи). С шиной легче, но кость срастётся только после операции.
+
+# Сердце, мозг, ЧМТ (план осады п. 18)
+dh-trauma-brain-injury-self = Удар по голове! В глазах темнеет, мысли путаются.
+dh-trauma-brain-confused = Мысли путаются, слова не складываются.
+dh-trauma-brain-mute = Вы не можете выговорить ни слова!
+dh-trauma-brain-seizure = {CAPITALIZE(THE($target))} бьётся в судорогах!
+dh-trauma-desc-brain-injury = черепно-мозговая травма — нужна трепанация
+dh-trauma-analyzer-revive-heart = [color=#d04040]Реанимация невозможна: отказ сердца. Ушейте или пересадите сердце, затем дефибриллятор.[/color]
+dh-trauma-analyzer-revive-brain = [color=#d04040]Реанимация невозможна: мозг необратимо повреждён.[/color]
+dh-surgery-trepanation = Трепанация
+dh-surgery-trepanation-desc = Черепно-мозговая травма: просверлить фрезевое отверстие и удалить гематому. Без операции мозг за несколько минут погибнет.
+dh-surgery-step-burr-hole = фрезевое отверстие в черепе
+dh-surgery-step-evacuate-hematoma = удаление гематомы
+dh-surgery-tool-drill = хирургическая дрель или пила

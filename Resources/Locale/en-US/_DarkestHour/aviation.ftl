@@ -200,3 +200,14 @@ dh-aircraft-computer-guided = Guided: { $count }. Target { $distance } of { $ran
 dh-aircraft-computer-guided-no-target = Guided: { $count }. Pick a target with a right click on the map.
 dh-aircraft-drop-salvo = Bombs away: { $count }!
 dh-aircraft-fire-salvo = Launched: { $count }!
+
+dh-aircraft-lift-console-no-lift = No aircraft elevator found.
+dh-aircraft-lift-console-unpowered = The console has no power.
+dh-aircraft-lift-console-raising = The elevator is bringing the aircraft up onto the deck.
+dh-aircraft-lift-console-raised = The elevator is already up.
+dh-aircraft-lift-console-moving = The elevator is still moving.
+
+## Cockpit
+dh-aircraft-boarding = { CAPITALIZE($user) } climbs into the cockpit.
+dh-aircraft-exiting = You open the canopy and climb out of the cockpit…
+dh-aircraft-cockpit-occupied = The cockpit is occupied.

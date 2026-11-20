@@ -13,10 +13,12 @@ public sealed partial class DHSupplyWindow : DefaultWindow
 
     public event Action<string>? OnOrder;
     public event Action? OnToggleElevator;
+    public event Action<string>? OnRestock;
 
     private readonly Label _elevator = new();
     private readonly Label _refill = new();
     private readonly Button _toggle = new() { HorizontalExpand = true };
+    private readonly BoxContainer _restocks = new() { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 2 };
     private readonly BoxContainer _list = new() { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 2 };
 
     public DHSupplyWindow()
@@ -37,6 +39,7 @@ public sealed partial class DHSupplyWindow : DefaultWindow
         root.AddChild(_refill);
         _toggle.OnPressed += _ => OnToggleElevator?.Invoke();
         root.AddChild(_toggle);
+        root.AddChild(_restocks);
 
         var scroll = new ScrollContainer { VerticalExpand = true, HScrollEnabled = false };
         scroll.AddChild(_list);
@@ -53,8 +56,30 @@ public sealed partial class DHSupplyWindow : DefaultWindow
             : Loc.GetString("dh-supply-ui-no-elevator");
         _refill.Text = state.Paid
             ? Loc.GetString("dh-supply-ui-balance", ("account", state.Account), ("balance", state.Balance))
-            : Loc.GetString("dh-supply-ui-refill", ("points", state.Points), ("min", state.RefillMinPoints + 1),
-                ("minutes", state.RefillMinutes));
+            : Loc.GetString("dh-supply-ui-points", ("points", state.Points));
+
+        // Пополнение разделов за очки командования.
+        _restocks.RemoveAllChildren();
+        _restocks.Visible = !state.Paid && state.Restocks.Count > 0;
+        if (_restocks.Visible)
+            _restocks.AddChild(new Label { Text = Loc.GetString("dh-supply-ui-restocks"), FontColorOverride = Color.FromHex("#9fd6a0") });
+
+        var grid = new GridContainer { Columns = 2, HorizontalExpand = true };
+        foreach (var restock in state.Restocks)
+        {
+            var category = restock.Category;
+            var button = new Button
+            {
+                Text = Loc.GetString("dh-supply-ui-restock", ("category", Loc.GetString(category)),
+                    ("price", restock.Price)),
+                HorizontalExpand = true,
+                Disabled = restock.Price > state.Points,
+            };
+            button.OnPressed += _ => OnRestock?.Invoke(category);
+            grid.AddChild(button);
+        }
+
+        _restocks.AddChild(grid);
 
         _toggle.Disabled = !state.HasElevator ||
                            state.Mode is DHSupplyElevatorMode.Raising or DHSupplyElevatorMode.Lowering;
@@ -79,7 +104,7 @@ public sealed partial class DHSupplyWindow : DefaultWindow
             {
                 Text = state.Paid
                     ? Loc.GetString("dh-supply-ui-price", ("price", row.Price))
-                    : Loc.GetString("dh-supply-ui-count", ("count", row.Count)),
+                    : Loc.GetString("dh-supply-ui-count-max", ("count", row.Count), ("max", row.Max)),
                 MinWidth = 70,
             });
 

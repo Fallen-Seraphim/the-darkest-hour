@@ -117,6 +117,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
 
         InitializeFieldMedicine();
         InitializeGore();
+        InitializeBrain();
     }
 
     #region Damage
@@ -136,7 +137,10 @@ public sealed partial class DHTraumaSystem : EntitySystem
 
             // Урон от взрыва, задевшего тело в этот тик: может оторвать конечность или голову.
             if (ent.Comp.ExplosionTick == _timing.CurTick && !TerminatingOrDeleted(ent))
+            {
+                TryBlastBrainInjury(ent, brute);
                 TryExplosionSever(ent, brute);
+            }
         }
 
         Sync(ent);
@@ -229,6 +233,10 @@ public sealed partial class DHTraumaSystem : EntitySystem
         }
 
         ent.Comp.PainSpike = MathF.Min(100f, ent.Comp.PainSpike + brute * 0.8f + burn * 0.6f);
+
+        // Черепно-мозговая травма (план осады п. 18).
+        if (category == "Head")
+            TryBrainInjury(ent, part, brute, blunt, piercing, part.Fracture);
 
         // Обезглавливание: тяжёлый рубящий или дробящий удар по разбитой голове (редко).
         if (category == "Head" && ShouldDecapitate(part, max, slash, blunt) &&
@@ -472,8 +480,9 @@ public sealed partial class DHTraumaSystem : EntitySystem
                 continue;
 
             comp.NextUpdate = now + comp.Interval;
+            UpdateReviveState((uid, comp));
 
-            if (comp.Parts.Count == 0 && comp.Organs.Count == 0 && comp.PainSpike <= 0f && comp.SpeedModifier >= 1f &&
+            if (comp.Parts.Count == 0 && comp.Organs.Count == 0 && !comp.BrainInjury && comp.PainSpike <= 0f && comp.SpeedModifier >= 1f &&
                 comp.ExtraPain <= 0f && comp.PhantomPain <= 0f)
             {
                 comp.Pain = 0f;
@@ -617,6 +626,9 @@ public sealed partial class DHTraumaSystem : EntitySystem
                 AddTourniquetFindings(part, findings);
             }
 
+            if (category == "Head" && comp.BrainInjury)
+                findings.Add(Loc.GetString("dh-trauma-desc-brain-injury"));
+
             if (DHTraumaConstants.OrgansIn.TryGetValue(category, out var inside))
             {
                 foreach (var organ in inside)
@@ -644,6 +656,8 @@ public sealed partial class DHTraumaSystem : EntitySystem
         };
         if (painKey != null)
             lines.Add(Loc.GetString(painKey));
+
+        AddReviveSummary(ent, lines);
 
         if (lines.SequenceEqual(comp.Summary))
             return;
@@ -686,6 +700,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
         comp.Pain = pain + comp.PhantomPain;
 
         var incapacitated = _mobState.IsIncapacitated(ent);
+        TickBrain(ent, incapacitated);
 
         // Переломы ног — замедление; рук — выпадают предметы; черепа — головокружение.
         var speed = 1f;
@@ -852,6 +867,27 @@ public sealed partial class DHTraumaSystem : EntitySystem
         Sync((uid, comp));
     }
 
+    /// <summary>
+    /// Перелом от удара (заброневая травма пули): с хрустом и сообщением. Уже сломанную кость не трогает.
+    /// </summary>
+    public bool TryBreakBoneFromImpact(EntityUid uid, string category)
+    {
+        if (!TryComp<DHTraumaComponent>(uid, out var comp))
+            return false;
+
+        var part = GetPart(comp, category);
+        if (part.Fracture)
+            return false;
+
+        part.Fracture = true;
+        part.Splinted = false;
+        Sync((uid, comp));
+        _audio.PlayPvs(FractureSound, uid);
+        _popup.PopupEntity(Loc.GetString("dh-trauma-fracture-self", ("part", PartName(category))), uid, uid,
+            PopupType.LargeCaution);
+        return true;
+    }
+
     public void FixFracture(EntityUid uid, string category)
     {
         if (TryComp<DHTraumaComponent>(uid, out var comp) && comp.Parts.TryGetValue(category, out var p))
@@ -917,6 +953,9 @@ public sealed partial class DHTraumaSystem : EntitySystem
             if (part.Shrapnel > 0)
                 result.Add(Loc.GetString("dh-trauma-desc-shrapnel", ("count", part.Shrapnel)));
         }
+
+        if (category == "Head" && comp.BrainInjury)
+            result.Add(Loc.GetString("dh-trauma-desc-brain-injury"));
 
         if (DHTraumaConstants.OrgansIn.TryGetValue(category, out var inside))
         {

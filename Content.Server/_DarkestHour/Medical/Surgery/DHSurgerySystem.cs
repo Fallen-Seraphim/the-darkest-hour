@@ -597,6 +597,9 @@ public sealed partial class DHSurgerySystem : EntitySystem
             case DHSurgeryEffect.RepairOrgans:
                 _trauma.RepairOrgans(patient, category);
                 return true;
+            case DHSurgeryEffect.Trepanation:
+                _trauma.Trepanation(patient);
+                return true;
             case DHSurgeryEffect.ExciseChronite:
                 _dose.ExciseChronite(patient, ChroniteExcision);
                 return true;
@@ -741,6 +744,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
             DHInjuryKind.InternalBleeding => _trauma.HasInternalBleeding(patient, category),
             DHInjuryKind.Shrapnel => _trauma.HasShrapnel(patient, category),
             DHInjuryKind.OrganDamage => _trauma.HasOrganDamage(patient, category),
+            DHInjuryKind.BrainInjury => _trauma.HasBrainInjury(patient, category),
             DHInjuryKind.ChroniteSkin => _dose.CanExciseChronite(patient),
             DHInjuryKind.Parasite => _disease.HasSurgicalParasite(patient),
             _ => true,
