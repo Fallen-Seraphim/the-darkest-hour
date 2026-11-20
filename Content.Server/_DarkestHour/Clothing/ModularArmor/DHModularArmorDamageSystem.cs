@@ -121,16 +121,19 @@ public sealed partial class DHModularArmorDamageSystem : EntitySystem
         if (level <= 0)
         {
             args.Damage = args.Damage * ballistics.UnarmoredMultiplier;
+            args.Outcome = DHBulletArmorOutcome.Unarmored;
         }
         else if (ballistics.PenetrationClass >= level)
         {
             args.Damage = args.Damage * ballistics.ArmoredMultiplier;
+            args.Outcome = DHBulletArmorOutcome.Penetrated;
             Wear(ent, module, physical * DHModularArmor.PenetratedWear);
         }
         else
         {
             // Заброневая травма: малая доля урона ушибом, а от крупного калибра — ещё и перелом под пластиной.
             args.Damage = ConvertPhysical(args.Damage, DHModularArmor.BlockedFraction, toBlunt: true);
+            args.Outcome = DHBulletArmorOutcome.Blocked;
             Wear(ent, module, physical * DHModularArmor.BlockedWear);
             if (_random.Prob(DHModularArmor.BlockedFractureChance(physical)))
                 _trauma.TryBreakBoneFromImpact(ent, part);
