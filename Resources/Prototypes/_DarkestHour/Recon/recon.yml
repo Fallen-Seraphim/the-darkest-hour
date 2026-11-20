@@ -76,16 +76,19 @@
   - type: DHGhillie
 
 - type: entity
+  parent: BaseAction
   id: DHActionGhillie
   name: Camouflage
   description: Hold still for three seconds to vanish in your ghillie cloak. Moving, shooting or taking a hit reveals you. Press again to come out of hiding.
   components:
   - type: Action
-    icon:
-      sprite: _DarkestHour/Clothing/Neck/ghillie.rsi
-      state: icon
     itemIconStyle: NoItem
     useDelay: 1
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/Neck/ghillie.rsi
+    layers:
+    - state: icon
+      map: [ "enum.ActionVisuals.Icon" ]
   - type: InstantAction
     event: !type:DHGhillieActionEvent
 
