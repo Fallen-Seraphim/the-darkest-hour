@@ -16,10 +16,10 @@ dh-zga-event-desc = A veteran of the Association Paratrooper Corps and the AI of
 dh-zga-role-paratrooper = Association paratrooper
 dh-zga-role-paratrooper-desc = Parachute drop, Association weapon of choice. Eliminate the target and reach the evacuation point within the Curator's code.
 dh-zga-role-mars = M.A.R.S. 1.5 armour AI
-dh-zga-role-mars-desc = The paratrooper's "voice in the armour": sees through their eyes, talks to them on a private channel (:м). AI abilities come in later updates.
+dh-zga-role-mars-desc = The paratrooper's "voice in the armour": sees through their eyes, talks to them on a private channel (:м). Marks targets, scans the area, watches the enemy tactical network, hacks doors, jams radio and drags out a downed wearer.
 dh-zga-name-format = Paratrooper { $part0 }
 dh-zga-no-target = No target on the surface — the Curator called off the drop.
-dh-zga-briefing-paratrooper = [color=#7ec8f0][bold]Curator's orders.[/bold][/color] Target: { $target } ({ $job }). The tracker in your hand leads to the target, then to the evacuation point. Open the weapon case after landing. Private channel with the AI — :м. The "Mission" button recalls the deadlines and rules.
+dh-zga-briefing-paratrooper = [color=#7ec8f0][bold]Curator's orders.[/bold][/color] Target: { $target } ({ $job }). The tracker in your hand leads to the target, then to the evacuation point. Open the weapon case after landing. Private channel with the AI — :м. The "Mission" button recalls the deadlines and rules. Abilities are on the action bar and work only while the wearer has EMB-5 armour on.
 dh-zga-briefing-mars = [color=#7ec8f0][bold]M.A.R.S. 1.5 online.[/bold][/color] Host: Association paratrooper. Target: { $target } ({ $job }). You see through their eyes; private channel — :м. The "Mission" button recalls the deadlines and rules.
 dh-zga-codex = [color=#7ec8f0]Curator's code.[/color] The Association wants no open war. 1) Kill only the target and those who attacked you first: the { $kills }rd "extra" kill is a failure. 2) Don't be taken alive: { $capture } min cuffed is a failure. 3) { $hunt } min for the target, then { $evac } min to evacuate. Failure — the Association publicly disavows you.
 dh-zga-target-down = [color=#7ec8f0]Target eliminated.[/color] The tracker leads to the evacuation point — { $evac } min.
@@ -55,3 +55,17 @@ cmd-dhcallzgaparatrooper-help = Usage: dhcallzgaparatrooper
 dh-admin-tab-call-zga = Association paratrooper
 dh-admin-tab-call-zga-tooltip = Open recruitment for two ghosts (paratrooper and armour AI) for 15 minutes. The drop happens once both sign up.
 dh-chat-radio-zga = Association
+
+# M.A.R.S. abilities
+dh-mars-offline = M.A.R.S.: the armour is off — AI offline.
+dh-mars-online = M.A.R.S.: the armour is back on — AI online.
+dh-mars-marked = M.A.R.S. marked a target: { $target }.
+dh-mars-scan-heard = *a sharp electronic ping*
+dh-mars-scan-done = M.A.R.S.: scan complete, { $count } contacts. The ping was heard around you!
+dh-mars-hack-too-far = The door is too far from the wearer.
+dh-mars-hack-start = M.A.R.S. is hacking the door...
+dh-mars-hack-failed = M.A.R.S.: hack interrupted.
+dh-mars-hack-done = M.A.R.S.: door open.
+dh-mars-jam-on = M.A.R.S. jams the radio around you for thirty seconds.
+dh-mars-inject-failed = M.A.R.S.: the auto-medic is not ready or empty.
+dh-mars-carry-conscious = The wearer is conscious and in control of the exoskeleton.

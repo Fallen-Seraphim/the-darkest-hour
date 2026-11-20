@@ -148,6 +148,15 @@
   - type: ActiveRadio
     channels:
     - DHZGA
+  - type: ContentEye
+    maxZoom: 2.0, 2.0
+  # Тактическая сеть стороны цели (сторону выставляет DHMarsSystem): только смотреть.
+  - type: DHOverwatchConsole
+    canOrder: false
+  - type: UserInterface
+    interfaces:
+      enum.DHOverwatchUiKey.Key:
+        type: DHOverwatchBoundUserInterface
   - type: DHMars
 
 - type: entity
@@ -183,3 +192,183 @@
       map: [ "enum.ActionVisuals.Icon" ]
   - type: InstantAction
     event: !type:DHZGAStatusActionEvent
+
+# --- Способности M.A.R.S. 1.5 (DHMarsSystem): работают, только пока на десантнике ЭМБ-5.
+
+- type: entity
+  parent: BaseAction
+  id: DHActionMarsMark
+  name: Mark target
+  description: "Put a red marker over a target: you and the paratrooper see it for a minute, and the paratrooper shoots tighter while it holds."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 5
+    checkCanInteract: false
+    checkConsciousness: false
+  - type: Sprite
+    sprite: Interface/Actions/actions_borg.rsi
+    layers:
+    - state: xenoborg-eye-module
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: TargetAction
+    checkCanAccess: false
+    range: 30
+  - type: EntityTargetAction
+    canTargetSelf: false
+    whitelist:
+      components:
+      - MobState
+    event: !type:DHMarsMarkActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionMarsScan
+  name: Active scan
+  description: "Mark every living thing within twelve tiles for a few seconds. The scanner ping is loud and gives the paratrooper away."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 45
+    checkCanInteract: false
+    checkConsciousness: false
+  - type: Sprite
+    sprite: Interface/Actions/actions_ai.rsi
+    layers:
+    - state: mass_scanner
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHMarsScanActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionMarsTacMap
+  name: Tactical network
+  description: "Tap into the tactical network of the target's side: its fighters and tactical map. Watch only."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 2
+    checkCanInteract: false
+    checkConsciousness: false
+  - type: Sprite
+    sprite: Interface/Actions/pai-map.rsi
+    layers:
+    - state: icon
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHMarsTacMapActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionMarsMotion
+  name: Motion detector
+  description: "Toggle the suit motion detector."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 1
+    checkCanInteract: false
+    checkConsciousness: false
+  - type: Sprite
+    sprite: _RMC14/Objects/Tools/motion_detector.rsi
+    layers:
+    - state: detector
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHMarsMotionActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionMarsHack
+  name: Hack door
+  description: "Hack a door next to the paratrooper: six seconds, then the bolts drop and the door opens."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 15
+    checkCanInteract: false
+    checkConsciousness: false
+  - type: Sprite
+    sprite: Interface/Actions/actions_ai.rsi
+    layers:
+    - state: unbolt_door
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: TargetAction
+    checkCanAccess: false
+    range: 3
+  - type: EntityTargetAction
+    canTargetSelf: false
+    whitelist:
+      components:
+      - Door
+    event: !type:DHMarsHackActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionMarsJam
+  name: Jam radio
+  description: "Jam all radio within nine tiles of the paratrooper for thirty seconds. The Association channel stays clear."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 120
+    checkCanInteract: false
+    checkConsciousness: false
+  - type: Sprite
+    sprite: Interface/Actions/actions_borg.rsi
+    layers:
+    - state: xenoborg-jammer-module
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHMarsJamActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionMarsInject
+  name: Emergency injection
+  description: "Make the auto-medic inject the paratrooper now, without waiting for heavy wounds."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 10
+    checkCanInteract: false
+    checkConsciousness: false
+  - type: Sprite
+    sprite: Interface/Actions/actions_borg.rsi
+    layers:
+    - state: xenoborg-hypo-module
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHMarsInjectActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionMarsCarry
+  name: Emergency withdrawal
+  description: "While the paratrooper is unconscious, walk the exoskeleton up to eight tiles toward a point."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 120
+    checkCanInteract: false
+    checkConsciousness: false
+  - type: Sprite
+    sprite: Interface/Actions/actions_mecha.rsi
+    layers:
+    - state: mech_thrusters_on
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: TargetAction
+    checkCanAccess: false
+    range: 9
+  - type: WorldTargetAction
+    event: !type:DHMarsCarryActionEvent
+
+# Детектор движения брони: дочерняя сущность M.A.R.S. (родитель — игрок, как у ручного детектора).
+- type: entity
+  id: DHMarsMotionDetector
+  name: M.A.R.S. motion detector
+  categories: [ HideSpawnMenu ]
+  save: false
+  components:
+  - type: DHMotionDetector
