@@ -6,6 +6,7 @@
 - type: job
   id: DHGarrisonCommander
   name: dh-job-garrison-commander-name
+  dhAbbreviation: dh-job-abbrev-garrison-commander
   description: dh-job-garrison-commander-desc
   playTimeTracker: JobDHGarrisonCommander
   startingGear: DHGarrisonCommanderGear
@@ -31,6 +32,7 @@
 - type: job
   id: DHGarrisonOfficer
   name: dh-job-garrison-officer-name
+  dhAbbreviation: dh-job-abbrev-garrison-officer
   description: dh-job-garrison-officer-desc
   playTimeTracker: JobDHGarrisonOfficer
   startingGear: DHGarrisonOfficerGear
@@ -51,6 +53,7 @@
 - type: job
   id: DHGarrisonRifleman
   name: dh-job-garrison-rifleman-name
+  dhAbbreviation: dh-job-abbrev-garrison-rifleman
   description: dh-job-garrison-rifleman-desc
   playTimeTracker: JobDHGarrisonRifleman
   startingGear: DHGarrisonRiflemanGear
@@ -74,6 +77,7 @@
 - type: job
   id: DHGarrisonMachinegunner
   name: dh-job-garrison-machinegunner-name
+  dhAbbreviation: dh-job-abbrev-garrison-machinegunner
   description: dh-job-garrison-machinegunner-desc
   playTimeTracker: JobDHGarrisonMachinegunner
   startingGear: DHGarrisonMachinegunnerGear
@@ -97,6 +101,7 @@
 - type: job
   id: DHGarrisonSniper
   name: dh-job-garrison-sniper-name
+  dhAbbreviation: dh-job-abbrev-garrison-sniper
   description: dh-job-garrison-sniper-desc
   playTimeTracker: JobDHGarrisonSniper
   startingGear: DHGarrisonSniperGear
@@ -120,6 +125,7 @@
 - type: job
   id: DHGarrisonFlamer
   name: dh-job-garrison-flamer-name
+  dhAbbreviation: dh-job-abbrev-garrison-flamer
   description: dh-job-garrison-flamer-desc
   playTimeTracker: JobDHGarrisonFlamer
   startingGear: DHGarrisonFlamerGear
@@ -143,6 +149,7 @@
 - type: job
   id: DHGarrisonAAGunner
   name: dh-job-garrison-aa-gunner-name
+  dhAbbreviation: dh-job-abbrev-garrison-aa-gunner
   description: dh-job-garrison-aa-gunner-desc
   playTimeTracker: JobDHGarrisonAAGunner
   startingGear: DHGarrisonAAGunnerGear
@@ -166,6 +173,7 @@
 - type: job
   id: DHGarrisonMedic
   name: dh-job-garrison-medic-name
+  dhAbbreviation: dh-job-abbrev-garrison-medic
   description: dh-job-garrison-medic-desc
   playTimeTracker: JobDHGarrisonMedic
   startingGear: DHGarrisonMedicGear
@@ -185,6 +193,7 @@
 - type: job
   id: DHGarrisonSapper
   name: dh-job-garrison-sapper-name
+  dhAbbreviation: dh-job-abbrev-garrison-sapper
   description: dh-job-garrison-sapper-desc
   playTimeTracker: JobDHGarrisonSapper
   startingGear: DHGarrisonSapperGear
@@ -208,6 +217,7 @@
 - type: job
   id: DHCarrierCaptain
   name: dh-job-carrier-captain-name
+  dhAbbreviation: dh-job-abbrev-carrier-captain
   description: dh-job-carrier-captain-desc
   playTimeTracker: JobDHCarrierCaptain
   startingGear: DHCarrierCaptainGear
@@ -232,6 +242,7 @@
 - type: job
   id: DHCarrierPilot
   name: dh-job-carrier-pilot-name
+  dhAbbreviation: dh-job-abbrev-carrier-pilot
   description: dh-job-carrier-pilot-desc
   playTimeTracker: JobDHCarrierPilot
   startingGear: DHCarrierPilotGear
@@ -255,6 +266,7 @@
 - type: job
   id: DHCarrierAttackPilot
   name: dh-job-carrier-attack-pilot-name
+  dhAbbreviation: dh-job-abbrev-carrier-attack-pilot
   description: dh-job-carrier-attack-pilot-desc
   playTimeTracker: JobDHCarrierAttackPilot
   startingGear: DHCarrierAttackPilotGear
@@ -277,6 +289,7 @@
 - type: job
   id: DHCarrierArtillerist
   name: dh-job-carrier-artillerist-name
+  dhAbbreviation: dh-job-abbrev-carrier-artillerist
   description: dh-job-carrier-artillerist-desc
   playTimeTracker: JobDHCarrierArtillerist
   startingGear: DHCarrierArtilleristGear
@@ -303,6 +316,7 @@
 - type: job
   id: DHCarrierTechnician
   name: dh-job-carrier-technician-name
+  dhAbbreviation: dh-job-abbrev-carrier-technician
   description: dh-job-carrier-technician-desc
   playTimeTracker: JobDHCarrierTechnician
   startingGear: DHCarrierTechnicianGear
@@ -329,6 +343,7 @@
 - type: job
   id: DHMarineCommander
   name: dh-job-marine-commander-name
+  dhAbbreviation: dh-job-abbrev-marine-commander
   description: dh-job-marine-commander-desc
   playTimeTracker: JobDHMarineCommander
   startingGear: DHImperialCommanderGear
@@ -353,6 +368,7 @@
 - type: job
   id: DHMarineWeaponsSpecialist
   name: dh-job-marine-weapons-specialist-name
+  dhAbbreviation: dh-job-abbrev-marine-weapons-specialist
   description: dh-job-marine-weapons-specialist-desc
   playTimeTracker: JobDHMarineWeaponsSpecialist
   startingGear: DHImperialWeaponsSpecialistGear
@@ -379,6 +395,7 @@
 - type: job
   id: DHMarineFieldMedic
   name: dh-job-marine-field-medic-name
+  dhAbbreviation: dh-job-abbrev-marine-field-medic
   description: dh-job-marine-field-medic-desc
   playTimeTracker: JobDHMarineFieldMedic
   startingGear: DHImperialFieldMedicGear
@@ -401,6 +418,7 @@
 - type: job
   id: DHMarineMachinegunner
   name: dh-job-marine-machinegunner-name
+  dhAbbreviation: dh-job-abbrev-marine-machinegunner
   description: dh-job-marine-machinegunner-desc
   playTimeTracker: JobDHMarineMachinegunner
   startingGear: DHImperialMachinegunnerGear
@@ -427,6 +445,7 @@
 - type: job
   id: DHMarineRifleman
   name: dh-job-marine-rifleman-name
+  dhAbbreviation: dh-job-abbrev-marine-rifleman
   description: dh-job-marine-rifleman-desc
   playTimeTracker: JobDHMarineRifleman
   startingGear: DHImperialRiflemanGear
@@ -450,11 +469,36 @@
     DHRankImperialMarine: []
   # /ranks
 
+# Командир отряда десанта (решение автора 2026-11-19): по одному на отряд, на старте раунда — лидер своего отряда.
+- type: job
+  id: DHMarineSquadLeader
+  name: dh-job-marine-squad-leader-name
+  dhAbbreviation: dh-job-abbrev-marine-squad-leader
+  description: dh-job-marine-squad-leader-desc
+  playTimeTracker: JobDHMarineSquadLeader
+  startingGear: DHMarineSquadLeaderGear
+  icon: JobIconDHMarineSquadLeader
+  supervisors: dh-job-empire-supervisors
+  accessGroups:
+  - AllAccess
+  access:
+  - NuclearOperative
+  - SyndicateAgent
+  # ranks: build_ranks.py
+  ranks:
+    DHRankImperialInfantryOfficer:
+    - !type:RoleTimeRequirement
+      role: JobDHMarineSquadLeader
+      time: 90000 # 25 ч
+    DHRankImperialJuniorInfantryOfficer: []
+  # /ranks
+
 # Расчёты, экипажи техники и офицеры поддержки (решение автора 2026-11-05)
 
 - type: job
   id: DHGarrisonArtilleryOfficer
   name: dh-job-garrison-artillery-officer-name
+  dhAbbreviation: dh-job-abbrev-garrison-artillery-officer
   description: dh-job-garrison-artillery-officer-desc
   playTimeTracker: JobDHGarrisonArtilleryOfficer
   startingGear: DHGarrisonArtilleryOfficerGear
@@ -476,6 +520,7 @@
 - type: job
   id: DHGarrisonMortarCommander
   name: dh-job-garrison-mortar-commander-name
+  dhAbbreviation: dh-job-abbrev-garrison-mortar-commander
   description: dh-job-garrison-mortar-commander-desc
   playTimeTracker: JobDHGarrisonMortarCommander
   startingGear: DHGarrisonMortarCommanderGear
@@ -499,6 +544,7 @@
 - type: job
   id: DHGarrisonMortarOperator
   name: dh-job-garrison-mortar-operator-name
+  dhAbbreviation: dh-job-abbrev-garrison-mortar-operator
   description: dh-job-garrison-mortar-operator-desc
   playTimeTracker: JobDHGarrisonMortarOperator
   startingGear: DHGarrisonMortarOperatorGear
@@ -522,6 +568,7 @@
 - type: job
   id: DHGarrisonFieldArtillerist
   name: dh-job-garrison-field-artillerist-name
+  dhAbbreviation: dh-job-abbrev-garrison-field-artillerist
   description: dh-job-garrison-field-artillerist-desc
   playTimeTracker: JobDHGarrisonFieldArtillerist
   startingGear: DHGarrisonFieldArtilleristGear
@@ -545,6 +592,7 @@
 - type: job
   id: DHGarrisonTankCommander
   name: dh-job-garrison-tank-commander-name
+  dhAbbreviation: dh-job-abbrev-garrison-tank-commander
   description: dh-job-garrison-tank-commander-desc
   playTimeTracker: JobDHGarrisonTankCommander
   startingGear: DHGarrisonTankCommanderGear
@@ -568,6 +616,7 @@
 - type: job
   id: DHGarrisonTankCrew
   name: dh-job-garrison-tank-crew-name
+  dhAbbreviation: dh-job-abbrev-garrison-tank-crew
   description: dh-job-garrison-tank-crew-desc
   playTimeTracker: JobDHGarrisonTankCrew
   startingGear: DHGarrisonTankCrewGear
@@ -591,6 +640,7 @@
 - type: job
   id: DHGarrisonAPCCommander
   name: dh-job-garrison-apc-commander-name
+  dhAbbreviation: dh-job-abbrev-garrison-apc-commander
   description: dh-job-garrison-apc-commander-desc
   playTimeTracker: JobDHGarrisonAPCCommander
   startingGear: DHGarrisonAPCCommanderGear
@@ -614,6 +664,7 @@
 - type: job
   id: DHGarrisonAPCCrew
   name: dh-job-garrison-apc-crew-name
+  dhAbbreviation: dh-job-abbrev-garrison-apc-crew
   description: dh-job-garrison-apc-crew-desc
   playTimeTracker: JobDHGarrisonAPCCrew
   startingGear: DHGarrisonAPCCrewGear
@@ -637,6 +688,7 @@
 - type: job
   id: DHCarrierOperationCommander
   name: dh-job-carrier-operation-commander-name
+  dhAbbreviation: dh-job-abbrev-carrier-operation-commander
   description: dh-job-carrier-operation-commander-desc
   playTimeTracker: JobDHCarrierOperationCommander
   startingGear: DHCarrierOperationCommanderGear
@@ -661,6 +713,7 @@
 - type: job
   id: DHCarrierSupportOfficer
   name: dh-job-carrier-support-officer-name
+  dhAbbreviation: dh-job-abbrev-carrier-support-officer
   description: dh-job-carrier-support-officer-desc
   playTimeTracker: JobDHCarrierSupportOfficer
   startingGear: DHCarrierSupportOfficerGear
@@ -684,6 +737,7 @@
 - type: job
   id: DHMarineMortarCommander
   name: dh-job-marine-mortar-commander-name
+  dhAbbreviation: dh-job-abbrev-marine-mortar-commander
   description: dh-job-marine-mortar-commander-desc
   playTimeTracker: JobDHMarineMortarCommander
   startingGear: DHMarineMortarCommanderGear
@@ -706,6 +760,7 @@
 - type: job
   id: DHMarineMortarOperator
   name: dh-job-marine-mortar-operator-name
+  dhAbbreviation: dh-job-abbrev-marine-mortar-operator
   description: dh-job-marine-mortar-operator-desc
   playTimeTracker: JobDHMarineMortarOperator
   startingGear: DHMarineMortarOperatorGear
@@ -732,6 +787,7 @@
 - type: job
   id: DHMarineFieldArtillerist
   name: dh-job-marine-field-artillerist-name
+  dhAbbreviation: dh-job-abbrev-marine-field-artillerist
   description: dh-job-marine-field-artillerist-desc
   playTimeTracker: JobDHMarineFieldArtillerist
   startingGear: DHMarineFieldArtilleristGear
@@ -758,6 +814,7 @@
 - type: job
   id: DHMarineTankCommander
   name: dh-job-marine-tank-commander-name
+  dhAbbreviation: dh-job-abbrev-marine-tank-commander
   description: dh-job-marine-tank-commander-desc
   playTimeTracker: JobDHMarineTankCommander
   startingGear: DHMarineTankCommanderGear
@@ -780,6 +837,7 @@
 - type: job
   id: DHMarineTankCrew
   name: dh-job-marine-tank-crew-name
+  dhAbbreviation: dh-job-abbrev-marine-tank-crew
   description: dh-job-marine-tank-crew-desc
   playTimeTracker: JobDHMarineTankCrew
   startingGear: DHMarineTankCrewGear
@@ -806,6 +864,7 @@
 - type: job
   id: DHMarineAPCCommander
   name: dh-job-marine-apc-commander-name
+  dhAbbreviation: dh-job-abbrev-marine-apc-commander
   description: dh-job-marine-apc-commander-desc
   playTimeTracker: JobDHMarineAPCCommander
   startingGear: DHMarineAPCCommanderGear
@@ -828,6 +887,7 @@
 - type: job
   id: DHMarineAPCCrew
   name: dh-job-marine-apc-crew-name
+  dhAbbreviation: dh-job-abbrev-marine-apc-crew
   description: dh-job-marine-apc-crew-desc
   playTimeTracker: JobDHMarineAPCCrew
   startingGear: DHMarineAPCCrewGear
@@ -948,6 +1008,7 @@
   dhComponents: # эмоция боевого клича своей стороны
   - type: DHImperialWarcry
   roles:
+  - DHMarineSquadLeader
   - DHMarineWeaponsSpecialist
   - DHMarineFieldMedic
   - DHMarineMachinegunner
@@ -1016,6 +1077,9 @@
 
 - type: playTimeTracker
   id: JobDHMarineRifleman
+
+- type: playTimeTracker
+  id: JobDHMarineSquadLeader
 
 - type: playTimeTracker
   id: JobDHGarrisonArtilleryOfficer

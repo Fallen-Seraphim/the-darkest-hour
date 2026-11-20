@@ -1,0 +1,120 @@
+# Звуки попаданий пуль по материалам и по броне, брызги крови (план осады п. 15, решения автора 2026-11-20).
+# Механика — DHImpactSystem. Звуки — cmss13 через RMC-14 и CMU (CC-BY-SA-3.0), рикошеты — SS14.
+
+- type: soundCollection
+  id: DHImpactFlesh
+  files:
+  - /Audio/_DarkestHour/Impacts/impact_flesh_1.ogg
+  - /Audio/_DarkestHour/Impacts/impact_flesh_2.ogg
+  - /Audio/_DarkestHour/Impacts/impact_flesh_3.ogg
+  - /Audio/_DarkestHour/Impacts/impact_flesh_4.ogg
+
+# Броня не пробита: пуля звенит о пластину.
+- type: soundCollection
+  id: DHImpactArmor
+  files:
+  - /Audio/Weapons/Guns/Hits/ric1.ogg
+  - /Audio/Weapons/Guns/Hits/ric2.ogg
+  - /Audio/Weapons/Guns/Hits/ric3.ogg
+  - /Audio/Weapons/Guns/Hits/ric4.ogg
+  - /Audio/Weapons/Guns/Hits/ric5.ogg
+
+- type: soundCollection
+  id: DHImpactMetal
+  files:
+  - /Audio/_RMC14/Structures/metalhit.ogg
+  - /Audio/_DarkestHour/Impacts/genhit1.ogg
+  - /Audio/_DarkestHour/Impacts/genhit2.ogg
+  - /Audio/_DarkestHour/Impacts/genhit3.ogg
+
+- type: soundCollection
+  id: DHImpactConcrete
+  files:
+  - /Audio/_DarkestHour/Impacts/bullet_impact1.ogg
+  - /Audio/_DarkestHour/Impacts/bullet_impact2.ogg
+
+- type: soundCollection
+  id: DHImpactWood
+  files:
+  - /Audio/_DarkestHour/Impacts/woodhit.ogg
+
+- type: soundCollection
+  id: DHImpactGlass
+  files:
+  - /Audio/_DarkestHour/Impacts/hit_on_shattered_glass.ogg
+
+# Брызги крови на полу (белые спрайты CMU, красятся в цвет крови; смываются как обычные пятна).
+- type: decal
+  id: DHBloodSplatter1
+  tags: [ "dh-blood" ]
+  showMenu: false
+  defaultCleanable: true
+  defaultCustomColor: true
+  sprite:
+    sprite: _DarkestHour/Effects/blood_splatter.rsi
+    state: splatter1
+
+- type: decal
+  id: DHBloodSplatter2
+  tags: [ "dh-blood" ]
+  showMenu: false
+  defaultCleanable: true
+  defaultCustomColor: true
+  sprite:
+    sprite: _DarkestHour/Effects/blood_splatter.rsi
+    state: splatter2
+
+- type: decal
+  id: DHBloodSplatter3
+  tags: [ "dh-blood" ]
+  showMenu: false
+  defaultCleanable: true
+  defaultCustomColor: true
+  sprite:
+    sprite: _DarkestHour/Effects/blood_splatter.rsi
+    state: splatter3
+
+- type: decal
+  id: DHBloodSplatter4
+  tags: [ "dh-blood" ]
+  showMenu: false
+  defaultCleanable: true
+  defaultCustomColor: true
+  sprite:
+    sprite: _DarkestHour/Effects/blood_splatter.rsi
+    state: splatter4
+
+- type: decal
+  id: DHBloodSplatter5
+  tags: [ "dh-blood" ]
+  showMenu: false
+  defaultCleanable: true
+  defaultCustomColor: true
+  sprite:
+    sprite: _DarkestHour/Effects/blood_splatter.rsi
+    state: splatter5
+
+- type: decal
+  id: DHBloodSplatter6
+  tags: [ "dh-blood" ]
+  showMenu: false
+  defaultCleanable: true
+  defaultCustomColor: true
+  sprite:
+    sprite: _DarkestHour/Effects/blood_splatter.rsi
+    state: splatter6
+
+# Облачко брызг на человеке при попадании (по направлению пули), красится в цвет крови.
+- type: entity
+  id: DHBloodImpactEffect
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    noRot: false
+  - type: Sprite
+    sprite: _DarkestHour/Effects/blood_impact.rsi
+    state: cmubloodsplatter1
+    drawdepth: Effects
+    noRot: false
+  - type: TimedDespawn
+    lifetime: 0.4

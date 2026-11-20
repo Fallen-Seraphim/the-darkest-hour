@@ -121,6 +121,8 @@
     - SawAdvanced
     - DHIFAKFilled
     - DHFieldSurgeryKitFilled
+    - DHDecompressionNeedle
+    - DHDecompressionNeedle
 
 - type: startingGear
   parent: DHRepublicGearBase

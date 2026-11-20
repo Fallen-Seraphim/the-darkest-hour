@@ -58,6 +58,7 @@ public sealed partial class HumanoidProfileEditor
             mode.Tabs.AddChild(scroll);
             mode.Tabs.SetTabTitle(mode.Tabs.ChildCount - 1, Loc.GetString(sideKey));
             mode.Sides[sideKey] = list;
+            DHAddSquadSelector(list, sideKey);
         }
 
         return list;
@@ -220,7 +221,7 @@ public sealed partial class HumanoidProfileEditor
             if (!_jobCategories.TryGetValue(department.ID, out var category))
             {
                 var sideList = DHSideList(department);
-                var firstCategory = sideList.ChildCount == 0;
+                var firstCategory = !_jobCategories.Values.Any(c => c.Parent == sideList);
                 category = new BoxContainer
                 {
                     Orientation = LayoutOrientation.Vertical,
@@ -282,7 +283,7 @@ public sealed partial class HumanoidProfileEditor
                 };
                 var jobIcon = _prototypeManager.Index(job.Icon);
                 icon.Texture = _sprite.Frame0(jobIcon.Icon);
-                selector.Setup(items, job.LocalizedName, 200, job.LocalizedDescription, icon, job.Guides);
+                selector.Setup(items, job.LocalizedName, 200, DHJobDescription(job), icon, job.Guides);
 
                 if (!_requirements.IsAllowed(job, (HumanoidCharacterProfile?)_preferencesManager.Preferences?.SelectedCharacter, out var reason))
                 {

@@ -60,3 +60,16 @@
   - type: DHSplint
   - type: StaticPrice
     price: 10
+
+# Микрохирургический пинцет: шов нерва (план осады п. 18). Спрайт — зажим, тонированный.
+- type: entity
+  parent: Hemostat
+  id: DHMicroForceps
+  name: microsurgical forceps
+  description: Fine forceps for suturing nerves and small vessels. Useless without a steady hand and an anesthetized patient.
+  components:
+  - type: DHSurgicalTool
+    kind: MicroForceps
+  - type: Sprite
+    state: hemostat
+    color: "#a9c6e8"

@@ -1,0 +1,68 @@
+# Ком-модуль связи и приказы (план осады п. 26, решение автора 2026-11-20 — как в RMC). Механика — DHOrdersSystem.
+
+- type: entity
+  parent: DHArmorSpecialBase
+  id: DHArmorSpecialComms
+  name: armour comms module
+  description: "A special system for modular armour: a squad comms set with a loudhailer. Lets the wearer give orders — hold position, attack, move — to their own troops within 7 metres for 10 seconds. The orders share an 80-second cooldown."
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/communication.rsi
+    state: old-radio
+  - type: DHArmorSpecial
+    kind: Comms
+  - type: DHOrdersModule
+
+- type: entity
+  abstract: true
+  parent: BaseAction
+  id: DHActionOrderBase
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 1
+
+- type: entity
+  parent: DHActionOrderBase
+  id: DHActionOrderHold
+  name: "Order: hold position"
+  description: Your troops within 7 metres take less damage for 10 seconds.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Interface/Actions/orders.rsi
+    layers:
+    - state: hold
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHOrderActionEvent
+      order: Hold
+
+- type: entity
+  parent: DHActionOrderBase
+  id: DHActionOrderAttack
+  name: "Order: attack"
+  description: Your troops within 7 metres shoot more accurately for 10 seconds.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Interface/Actions/orders.rsi
+    layers:
+    - state: attack
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHOrderActionEvent
+      order: Attack
+
+- type: entity
+  parent: DHActionOrderBase
+  id: DHActionOrderMove
+  name: "Order: move"
+  description: Your troops within 7 metres run faster for 10 seconds.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Interface/Actions/orders.rsi
+    layers:
+    - state: move
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHOrderActionEvent
+      order: Move

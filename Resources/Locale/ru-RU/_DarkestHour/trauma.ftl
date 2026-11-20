@@ -100,3 +100,70 @@ dh-alert-pain-name = [color=orange]Боль[/color]
 dh-alert-pain-desc = Чем сильнее боль, тем ярче значок. В болевом шоке валит с ног, сильнее — теряете сознание. Обезболивающее снимет её на время.
 dh-alert-fracture-name = [color=red]Перелом[/color]
 dh-alert-fracture-desc = Сломана кость: без шины — сильная боль и хромота (или роняете вещи). С шиной легче, но кость срастётся только после операции.
+
+# Сердце, мозг, ЧМТ (план осады п. 18)
+dh-trauma-brain-injury-self = Удар по голове! В глазах темнеет, мысли путаются.
+dh-trauma-brain-confused = Мысли путаются, слова не складываются.
+dh-trauma-brain-mute = Вы не можете выговорить ни слова!
+dh-trauma-brain-seizure = {CAPITALIZE(THE($target))} бьётся в судорогах!
+dh-trauma-desc-brain-injury = черепно-мозговая травма — нужна трепанация
+dh-trauma-analyzer-revive-heart = [color=#d04040]Реанимация невозможна: отказ сердца. Ушейте или пересадите сердце, затем дефибриллятор.[/color]
+dh-trauma-analyzer-revive-brain = [color=#d04040]Реанимация невозможна: мозг необратимо повреждён.[/color]
+dh-surgery-trepanation = Трепанация
+dh-surgery-trepanation-desc = Черепно-мозговая травма: просверлить фрезевое отверстие и удалить гематому. Без операции мозг за несколько минут погибнет.
+dh-surgery-step-burr-hole = фрезевое отверстие в черепе
+dh-surgery-step-evacuate-hematoma = удаление гематомы
+dh-surgery-tool-drill = хирургическая дрель или пила
+
+# Нервы и спинной мозг (план осады п. 18)
+dh-trauma-nerve-self = {CAPITALIZE($part)} немеет — вы её почти не чувствуете!
+dh-trauma-nerve-drop = Онемевшие пальцы разжимаются сами.
+dh-trauma-desc-nerve = повреждён нерв
+dh-trauma-spinal-legs-self = Удар в спину! Вы не чувствуете ног!
+dh-trauma-spinal-full-self = Хруст в шее — тело больше не слушается!
+dh-trauma-spinal-stand = Ноги не слушаются — встать не получается.
+dh-trauma-spinal-permanent = Ноги так и не вернулись. Теперь — только экзоскелет.
+dh-trauma-desc-spinal-legs = травма спинного мозга: паралич ног
+dh-trauma-desc-spinal-full = травма спинного мозга: полный паралич
+dh-trauma-desc-spinal-treatable = {" "}— нужна декомпрессия позвоночника
+dh-trauma-desc-spinal-permanent = {" "}— необратимо, ходить можно только в экзоскелете
+dh-surgery-repair-nerve = Шов нерва
+dh-surgery-repair-nerve-desc = Найти концы повреждённого нерва и сшить их микроинструментом. Только под наркозом.
+dh-surgery-spinal-decompression = Декомпрессия позвоночника
+dh-surgery-spinal-decompression-desc = Убрать отломки, давящие на спинной мозг, и закрепить позвонки. Только под наркозом и в первые 10 минут после травмы.
+dh-surgery-step-find-nerve = выделение концов нерва
+dh-surgery-step-suture-nerve = шов нерва
+dh-surgery-step-remove-bone-fragments = удаление костных отломков
+dh-surgery-step-stabilize-spine = фиксация позвонков
+dh-surgery-tool-microforceps = микрохирургический пинцет
+dh-surgery-needs-anesthesia = Без наркоза эту работу не сделать — пациент должен быть без сознания.
+
+# Грудь и дыхательные пути (план осады п. 18)
+dh-trauma-pneumothorax-self = В груди что-то лопнуло — дышать всё тяжелее!
+dh-trauma-pneumothorax-breath = Не хватает воздуха, в груди колет.
+dh-trauma-airway-self = Горло залито кровью — вы не можете вдохнуть!
+dh-trauma-airway-choke = Вы задыхаетесь!
+dh-trauma-desc-pneumothorax = пневмоторакс (напряжение {$percent}%)
+dh-trauma-desc-chest-sealed = рана закрыта окклюзионной повязкой
+dh-trauma-desc-airway = дыхательные пути перекрыты — нужна трахеостомия
+dh-needle-nothing = Пневмоторакса нет — колоть незачем.
+dh-needle-done = {CAPITALIZE(THE($user))} вводит иглу между рёбер {THE($target)} — со свистом выходит воздух.
+dh-needle-miss = {CAPITALIZE(THE($user))} промахивается иглой мимо плевры {THE($target)}!
+dh-surgery-chest-drain = Дренаж грудной клетки
+dh-surgery-chest-drain-desc = Пневмоторакс: ввести дренажную трубку между рёбер и выпустить воздух. Лечит окончательно.
+dh-surgery-step-insert-chest-drain = установка дренажа
+dh-surgery-tracheostomy = Трахеостомия
+dh-surgery-tracheostomy-desc = Дыхательные пути перекрыты: вскрыть трахею ниже повреждения. Делается и на полу — дольше и с риском инфекции.
+dh-surgery-step-tracheostomy = разрез трахеи
+
+# Ожоги, лицо и глаза (план осады п. 18)
+dh-trauma-deep-burn-self = {CAPITALIZE($part)} обуглена — кожа слезает лоскутами!
+dh-trauma-disfigured-self = Лицо разбито — вас теперь не узнать.
+dh-trauma-desc-deep-burn = ожог III степени — нужна пересадка кожи
+dh-trauma-desc-disfigured = лицо обезображено
+dh-surgery-burn-graft = Пересадка кожи на ожог
+dh-surgery-burn-graft-desc = Ожог III степени: иссечь омертвевшую кожу и пересадить кожный трансплантат.
+dh-surgery-step-excise-burn = иссечение ожога
+dh-surgery-reconstruct-face = Реконструкция лица и глаз
+dh-surgery-reconstruct-face-desc = Восстановить обезображенное лицо и повреждённые глаза. Без глаз — сначала пересадка глаз.
+dh-surgery-step-reconstruct-face = восстановление тканей лица и глаз
