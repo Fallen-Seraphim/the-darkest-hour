@@ -119,6 +119,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
         InitializeGore();
         InitializeBrain();
         InitializeBreathing();
+        InitializeProsthetics();
     }
 
     #region Damage
@@ -193,6 +194,10 @@ public sealed partial class DHTraumaSystem : EntitySystem
         if (category != "Torso" && category != "Head")
             TransferFromLimb(ent, organs, brute, overflow);
 
+        // Протез: удар отдаётся в тело, но сам не кровит, не ломается и не болит (план осады п. 18).
+        if (IsProsthetic(organs, category))
+            return;
+
         var blunt = Get(delta, "Blunt");
         var slash = Get(delta, "Slash");
         var piercing = Get(delta, "Piercing");
@@ -245,6 +250,11 @@ public sealed partial class DHTraumaSystem : EntitySystem
         TryChestInjury(ent, category, piercing, blunt, part.Fracture && !fracturedBefore);
         TryDeepBurn(ent, category, part, burn);
         TryFaceInjury(ent, category, part, brute, burn);
+
+        // Неразорвавшийся боеприпас: застрять от взрыва или сдетонировать от удара (план осады п. 18).
+        var explosion = ent.Comp.ExplosionTick == _timing.CurTick;
+        if (!TryJoltUnexploded(ent, category, part, blunt, explosion))
+            TryUnexploded(ent, category, part, brute, explosion);
         TryAirwayInjury(ent, category, part, brute, burn, blunt, slash);
 
         // Обезглавливание: тяжёлый рубящий или дробящий удар по разбитой голове (редко).
@@ -639,6 +649,8 @@ public sealed partial class DHTraumaSystem : EntitySystem
                     findings.Add(Loc.GetString("dh-trauma-desc-nerve"));
                 if (part.DeepBurn)
                     findings.Add(Loc.GetString("dh-trauma-desc-deep-burn"));
+                if (part.Unexploded)
+                    findings.Add(Loc.GetString("dh-trauma-desc-unexploded"));
                 AddTourniquetFindings(part, findings);
             }
 
@@ -767,6 +779,8 @@ public sealed partial class DHTraumaSystem : EntitySystem
                 continue;
 
             pain += DeepBurnPainOf(part);
+            if (part.Unexploded)
+                pain += UnexplodedPain;
 
             var max = MaxOf(comp, category);
             pain += MathF.Min(part.Brute * 0.5f + part.Burn * 0.7f, max);
@@ -998,6 +1012,8 @@ public sealed partial class DHTraumaSystem : EntitySystem
             result.Add(Loc.GetString("dh-trauma-desc-nerve"));
         if (part?.DeepBurn == true)
             result.Add(Loc.GetString("dh-trauma-desc-deep-burn"));
+        if (part?.Unexploded == true)
+            result.Add(Loc.GetString("dh-trauma-desc-unexploded"));
         if (category == "Torso" && comp.Spinal != DHSpinalInjury.None)
             result.Add(SpinalFinding(comp));
         AddBreathingFindings(comp, category, result);
@@ -1093,6 +1109,8 @@ public sealed partial class DHTraumaSystem : EntitySystem
 
             if (part.Shrapnel > 0)
                 args.PushMarkup(Loc.GetString("dh-trauma-examine-shrapnel", ("target", ent.Owner), ("part", partName)));
+            if (part.Unexploded)
+                args.PushMarkup(Loc.GetString("dh-trauma-examine-unexploded", ("target", ent.Owner), ("part", partName)));
         }
 
         ExamineTourniquets(ent, args);

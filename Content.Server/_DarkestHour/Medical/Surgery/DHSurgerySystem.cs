@@ -634,6 +634,9 @@ public sealed partial class DHSurgerySystem : EntitySystem
             case DHSurgeryEffect.ReconstructFace:
                 _trauma.ReconstructFace(patient);
                 return true;
+            case DHSurgeryEffect.ExtractUnexploded:
+                _trauma.ExtractUnexploded(patient, category, user);
+                return true;
             case DHSurgeryEffect.ExciseChronite:
                 _dose.ExciseChronite(patient, ChroniteExcision);
                 return true;
@@ -785,6 +788,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
             DHInjuryKind.Airway => _trauma.HasBlockedAirway(patient, category),
             DHInjuryKind.DeepBurn => _trauma.HasDeepBurn(patient, category),
             DHInjuryKind.Face => _trauma.HasFaceInjury(patient, category),
+            DHInjuryKind.Unexploded => _trauma.HasUnexploded(patient, category),
             DHInjuryKind.ChroniteSkin => _dose.CanExciseChronite(patient),
             DHInjuryKind.Parasite => _disease.HasSurgicalParasite(patient),
             _ => true,

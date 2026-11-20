@@ -573,3 +573,26 @@
       Slash: 4
   sound:
     collection: DHSurgeryHemostat
+
+# --- Неразорвавшийся боеприпас (план осады п. 18): извлечь, не задев взрыватель. ---
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepExtractUnexploded
+  name: dh-surgery-step-extract-unexploded
+  toolHint: dh-surgery-tool-hemostat
+  tools:
+  - kind: Hemostat
+  - kind: MicroForceps
+  - quality: Cutting
+    speed: 0.4
+    success: 0.6
+  duration: 10
+  pain: 0.8
+  invasive: true
+  bleed: 1
+  effect: ExtractUnexploded
+  failDamage:
+    types:
+      Slash: 4
+  sound:
+    collection: DHSurgeryOrgan

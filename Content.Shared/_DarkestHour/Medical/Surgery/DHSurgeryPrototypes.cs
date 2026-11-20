@@ -103,6 +103,8 @@ public enum DHSurgeryEffect : byte
     GraftBurn,
     /// <summary>Реконструкция лица и глаз.</summary>
     ReconstructFace,
+    /// <summary>Извлечь неразорвавшийся боеприпас (может подорваться; сапёр рядом снижает риск).</summary>
+    ExtractUnexploded,
 }
 
 /// <summary>
@@ -132,6 +134,8 @@ public enum DHInjuryKind : byte
     DeepBurn,
     /// <summary>Обезображенное лицо или повреждённые глаза.</summary>
     Face,
+    /// <summary>Неразорвавшийся боеприпас в части тела.</summary>
+    Unexploded,
 }
 
 /// <summary>

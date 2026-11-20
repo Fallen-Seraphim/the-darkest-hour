@@ -167,3 +167,13 @@ dh-surgery-step-excise-burn = burn excision
 dh-surgery-reconstruct-face = Face and eye reconstruction
 dh-surgery-reconstruct-face-desc = Restore a disfigured face and damaged eyes. Missing eyes need a transplant first.
 dh-surgery-step-reconstruct-face = restoring face and eye tissue
+
+# Unexploded ordnance
+dh-trauma-unexploded-self = Something lodged in your {$part} — and didn't go off. Don't move!
+dh-trauma-unexploded-detonate = The ordnance lodged in {THE($target)} explodes!
+dh-trauma-unexploded-extracted = {CAPITALIZE(THE($user))} carefully extracts the unexploded ordnance from {THE($target)}.
+dh-trauma-desc-unexploded = UNEXPLODED ORDNANCE — don't jolt, extract with a sapper
+dh-trauma-examine-unexploded = [color=red]Unexploded ordnance is sticking out of {THE($target)}'s {$part}![/color]
+dh-surgery-extract-unexploded = Unexploded ordnance extraction
+dh-surgery-extract-unexploded-desc = Carefully remove lodged ordnance. It may detonate: one in four without a sapper nearby, rarely with one.
+dh-surgery-step-extract-unexploded = extracting the ordnance
