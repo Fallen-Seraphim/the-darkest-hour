@@ -100,3 +100,40 @@ dh-alert-pain-name = [color=orange]Pain[/color]
 dh-alert-pain-desc = The stronger the pain, the brighter the icon. Pain shock knocks you down, worse than that and you pass out. Painkillers dull it for a while.
 dh-alert-fracture-name = [color=red]Fracture[/color]
 dh-alert-fracture-desc = A broken bone: without a splint it hurts badly and you limp (or drop things). A splint helps, but the bone only heals after surgery.
+
+# Heart, brain, TBI
+dh-trauma-brain-injury-self = A blow to the head! Your vision darkens and your thoughts scatter.
+dh-trauma-brain-confused = Your thoughts tangle, the words won't come together.
+dh-trauma-brain-mute = You can't get a single word out!
+dh-trauma-brain-seizure = {CAPITALIZE(THE($target))} is convulsing!
+dh-trauma-desc-brain-injury = traumatic brain injury — needs trepanation
+dh-trauma-analyzer-revive-heart = [color=#d04040]Revival impossible: heart failure. Repair or transplant the heart, then defibrillate.[/color]
+dh-trauma-analyzer-revive-brain = [color=#d04040]Revival impossible: the brain is irreversibly damaged.[/color]
+dh-surgery-trepanation = Trepanation
+dh-surgery-trepanation-desc = Traumatic brain injury: drill a burr hole and evacuate the hematoma. Without it the brain dies within minutes.
+dh-surgery-step-burr-hole = burr hole in the skull
+dh-surgery-step-evacuate-hematoma = evacuating the hematoma
+dh-surgery-tool-drill = surgical drill or saw
+
+# Nerves and spinal cord
+dh-trauma-nerve-self = Your {$part} goes numb — you can barely feel it!
+dh-trauma-nerve-drop = Your numb fingers let go on their own.
+dh-trauma-desc-nerve = nerve damage
+dh-trauma-spinal-legs-self = A blow to the back! You can't feel your legs!
+dh-trauma-spinal-full-self = A crunch in your neck — your body won't obey!
+dh-trauma-spinal-stand = Your legs won't respond — you can't get up.
+dh-trauma-spinal-permanent = Your legs never came back. Only an exoskeleton now.
+dh-trauma-desc-spinal-legs = spinal cord injury: legs paralyzed
+dh-trauma-desc-spinal-full = spinal cord injury: full paralysis
+dh-trauma-desc-spinal-treatable = {" "}— needs spinal decompression
+dh-trauma-desc-spinal-permanent = {" "}— irreversible, can only walk in an exoskeleton
+dh-surgery-repair-nerve = Nerve repair
+dh-surgery-repair-nerve-desc = Find the ends of the damaged nerve and suture them with a micro instrument. Anesthesia only.
+dh-surgery-spinal-decompression = Spinal decompression
+dh-surgery-spinal-decompression-desc = Remove bone fragments pressing on the spinal cord and fix the vertebrae. Anesthesia only, within 10 minutes of the injury.
+dh-surgery-step-find-nerve = exposing the nerve ends
+dh-surgery-step-suture-nerve = nerve suture
+dh-surgery-step-remove-bone-fragments = removing bone fragments
+dh-surgery-step-stabilize-spine = fixing the vertebrae
+dh-surgery-tool-microforceps = microsurgical forceps
+dh-surgery-needs-anesthesia = This can't be done without anesthesia — the patient must be unconscious.

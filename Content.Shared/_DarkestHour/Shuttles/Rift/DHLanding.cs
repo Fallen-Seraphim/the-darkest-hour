@@ -58,6 +58,17 @@ public sealed partial class DHDropBeaconComponent : Component
     /// <summary>Парашютисты, выпрыгнувшие не дальше этого (по горизонтали), летят к маяку, м.</summary>
     [DataField]
     public float Range = 80f;
+
+    /// <summary>Номер маяка для консоли сброса грузов (выдаётся при первом включении).</summary>
+    [ViewVariables]
+    public int Number;
+
+    /// <summary>К маяку летит груз до этого времени (Республика видит маяк на тактической карте).</summary>
+    [ViewVariables]
+    public TimeSpan? IncomingUntil;
+
+    [ViewVariables]
+    public TimeSpan NextSmoke;
 }
 
 [Serializable, NetSerializable]

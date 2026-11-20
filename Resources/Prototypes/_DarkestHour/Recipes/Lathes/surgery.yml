@@ -97,3 +97,8 @@
   - DHVirologyComputerCircuitboard
   - DHAutoclaveMachineCircuitboard
   - DHFumeHoodMachineCircuitboard
+
+- type: latheRecipe
+  parent: BaseSurgicalRecipe
+  id: DHMicroForceps
+  result: DHMicroForceps

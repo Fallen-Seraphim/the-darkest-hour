@@ -18,6 +18,7 @@ public sealed partial class DHGearVendorSystem : SharedDHGearVendorSystem
 {
     [Dependency] private AudioSystem _audio = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
+    [Dependency] private DHAutoEquipSystem _autoEquip = default!;
     [Dependency] private SharedJobSystem _jobs = default!;
     [Dependency] private SharedMindSystem _mind = default!;
     [Dependency] private IPrototypeManager _proto = default!;
@@ -45,6 +46,22 @@ public sealed partial class DHGearVendorSystem : SharedDHGearVendorSystem
                     ent.Comp.Stock[(s, e)] = section.Entries[e].Stock;
             }
         }
+    }
+
+    /// <summary>Вернуть запас всех позиций к начальному (каргоавтоматы, план осады п. 27).</summary>
+    public void Restock(Entity<DHGearVendorComponent> ent)
+    {
+        for (var s = 0; s < ent.Comp.Sections.Count; s++)
+        {
+            var section = ent.Comp.Sections[s];
+            for (var e = 0; e < section.Entries.Count; e++)
+            {
+                if (section.Entries[e].Stock >= 0)
+                    ent.Comp.Stock[(s, e)] = Math.Max(ent.Comp.Stock.GetValueOrDefault((s, e)), section.Entries[e].Stock);
+            }
+        }
+
+        UpdateUi(ent);
     }
 
     private void OnOpened(Entity<DHGearVendorComponent> ent, ref BoundUIOpenedEvent args)
@@ -111,12 +128,15 @@ public sealed partial class DHGearVendorSystem : SharedDHGearVendorSystem
 
         AddTaken(user, comp, section);
 
+        // Комплект надевается сразу (план осады п. 13): броня — на себя, оружие — в слот, остальное — в руки.
         var coords = Transform(user).Coordinates;
+        var spawned = new List<EntityUid>();
         foreach (var item in items)
         {
-            var spawned = Spawn(item, coords);
-            _hands.PickupOrDrop(user, spawned, checkActionBlocker: false);
+            spawned.Add(Spawn(item, coords));
         }
+
+        _autoEquip.EquipAll(user, spawned);
 
         _audio.PlayPvs(comp.VendSound, ent);
 

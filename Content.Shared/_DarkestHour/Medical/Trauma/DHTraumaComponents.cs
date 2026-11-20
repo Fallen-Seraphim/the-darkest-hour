@@ -67,7 +67,14 @@ public sealed partial class DHPartTrauma
     [DataField]
     public TimeSpan TourniquetSince;
 
-    public bool HasInjury => Fracture || InternalBleeding > 0f || Shrapnel > 0 || Tourniquet != null;
+    /// <summary>
+    /// Повреждён нерв конечности (план осады п. 18): рука роняет предметы и медленнее стреляет, нога хромает, боль из
+    /// этой части не чувствуется.
+    /// </summary>
+    [DataField]
+    public bool Nerve;
+
+    public bool HasInjury => Fracture || InternalBleeding > 0f || Shrapnel > 0 || Tourniquet != null || Nerve;
 
     public bool IsEmpty => Brute <= 0.01f && Burn <= 0.01f && !HasInjury;
 }
@@ -167,6 +174,38 @@ public sealed partial class DHTraumaComponent : Component
     public TimeSpan NextBloodCough;
 
     /// <summary>
+    /// Черепно-мозговая травма (план осады п. 18): без трепанации мозг повреждается на <see cref="BrainInjuryRate"/>
+    /// в секунду и через ~5 минут отказывает — после смерти такого не реанимировать.
+    /// </summary>
+    [DataField]
+    public bool BrainInjury;
+
+    [DataField]
+    public float BrainInjuryRate = 0.2f;
+
+    /// <summary>Травма спинного мозга (план осады п. 18): паралич ног или полный.</summary>
+    [DataField, AutoNetworkedField]
+    public DHSpinalInjury Spinal;
+
+    [DataField]
+    public TimeSpan SpinalSince;
+
+    /// <summary>Без декомпрессии дольше этого — паралич до конца раунда (помогает только экзоскелет).</summary>
+    [DataField]
+    public TimeSpan SpinalWindow = TimeSpan.FromMinutes(10);
+
+    [DataField]
+    public bool SpinalPermanent;
+
+    /// <summary>Парализованного держит экзоскелет: может стоять и ходить медленнее.</summary>
+    [DataField, AutoNetworkedField]
+    public bool SpinalSupported;
+
+    /// <summary>Множитель скорострельности оружия в руках (повреждённый нерв руки).</summary>
+    [DataField, AutoNetworkedField]
+    public float FireRateModifier = 1f;
+
+    /// <summary>
     /// Готовые строки травм для анализатора здоровья (переломы, кровотечения, осколки, органы, боль).
     /// Сервер обновляет раз в секунду и шлёт клиенту, только если изменились.
     /// </summary>
@@ -261,3 +300,24 @@ public sealed partial class DHTourniquetDoAfterEvent : Content.Shared.DoAfter.Si
 
 [Serializable, NetSerializable]
 public sealed partial class DHFieldDressingDoAfterEvent : Content.Shared.DoAfter.SimpleDoAfterEvent;
+
+/// <summary>
+/// Мёртвого сейчас не поднять дефибриллятором и СЛР: сердце отказало или его нет (план осады п. 18). Ставится и
+/// снимается травмами раз в секунду — починили или пересадили сердце, и снова можно.
+/// </summary>
+[RegisterComponent]
+public sealed partial class DHReviveBlockedComponent : Component
+{
+    [DataField]
+    public LocId Reason = "dh-revive-heart-failed";
+}
+
+[Serializable, NetSerializable]
+public enum DHSpinalInjury : byte
+{
+    None,
+    /// <summary>Паралич ног.</summary>
+    Legs,
+    /// <summary>Полный паралич: ноги и руки.</summary>
+    Full,
+}

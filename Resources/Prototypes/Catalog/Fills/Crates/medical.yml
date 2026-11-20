@@ -68,6 +68,7 @@
         - id: ClothingMaskSterile
         - id: DHBoneGel # DarkestHour: хирургия
         - id: DHBoneSetter
+        - id: DHMicroForceps # DarkestHour: шов нерва
         - id: DHSurgicalDrapes
         - id: ClothingHandsGlovesLatex
         - id: DHSplint # DarkestHour: травмы

@@ -13,3 +13,5 @@ dh-machine-tubes-pulled = {CAPITALIZE($target)}: трубки аппарата �
 
 guide-entry-dh-resuscitation = Реанимация и стационар
 guide-entry-dh-chemistry-chains = Цепочки синтеза
+dh-revive-brain-damaged = Мозг необратимо повреждён. Реанимация бесполезна.
+dh-revive-heart-failed = Сердце не отвечает на разряд: сначала ушейте или пересадите его.
