@@ -90,6 +90,7 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
         SubscribeLocalEvent<RoundStartingEvent>(OnRoundStarting, after: new[] { typeof(DHRiftSystem) });
         SubscribeLocalEvent<PlayerSpawnCompleteEvent>(OnPlayerSpawned);
         SubscribeLocalEvent<DHAssaultFighterComponent, MobStateChangedEvent>(OnFighterMobState);
+        InitializeStats();
     }
 
     #region Старт
@@ -216,6 +217,8 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
 
     private void OnFighterMobState(Entity<DHAssaultFighterComponent> ent, ref MobStateChangedEvent args)
     {
+        RecordMobState(ent, args); // итоги раунда: потери, убийства, спасения
+
         if (args.NewMobState != MobState.Dead ||
             !_mind.TryGetMind(ent.Owner, out _, out var mind) ||
             !_player.TryGetSessionById(mind.UserId, out var session))
@@ -476,6 +479,7 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
             ("republic", rule.Comp.Tickets.GetValueOrDefault(DHAssaultFaction.Republic)),
             ("empire", rule.Comp.Tickets.GetValueOrDefault(DHAssaultFaction.Empire))));
         args.AddLine("");
+        AppendStats(rule.Comp, ref args);
     }
 
     #endregion
