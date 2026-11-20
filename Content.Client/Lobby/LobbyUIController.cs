@@ -132,6 +132,8 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
     public void OnStateEntered(LobbyState state)
     {
         PreviewPanel?.SetLoaded(_preferencesManager.ServerDataLoaded);
+        if (PreviewPanel != null)
+            PreviewPanel.OnCycle += DHCycleCharacter; // DarkestHour: стрелки в личном деле
         ReloadCharacterSetup();
     }
 
@@ -173,11 +175,13 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
         {
             PreviewPanel.ProfilePreviewSpriteView.ClearPreview();
             PreviewPanel.SetSummaryText(string.Empty);
+            DHFillPersonnelFile(null); // DarkestHour
             return;
         }
 
         PreviewPanel.ProfilePreviewSpriteView.LoadPreview(humanoid);
         PreviewPanel.SetSummaryText(humanoid.Summary);
+        DHFillPersonnelFile(humanoid); // DarkestHour: личное дело
     }
 
     private void RefreshProfileEditor()

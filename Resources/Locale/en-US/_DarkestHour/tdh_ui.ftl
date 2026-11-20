@@ -1,6 +1,7 @@
 dh-lobby-background-night-title = Lost Angels at night
 dh-lobby-background-rain-title = Lost Angels in the rain
 dh-lobby-background-artist = The Darkest Hour
+dh-lobby-background-terminus-title = Terminus, tactical map
 
 # TDH HUD
 dh-hud-theme-terminal = TDH: terminal

@@ -42,6 +42,9 @@ public enum DHArmorSpecialKind : byte
 
     /// <summary>Дополнительное хранилище (в т.ч. для баков огнемёта): открывается действием.</summary>
     Storage,
+
+    /// <summary>Ком-модуль связи: приказы своим вокруг (план осады п. 26, <c>DHOrdersModule</c>).</summary>
+    Comms,
 }
 
 [Serializable, NetSerializable]
@@ -114,6 +117,10 @@ public sealed partial class DHModularArmorComponent : Component
         [DHArmorClass.Composite] = 5f,
         [DHArmorClass.Heavy] = 8f,
     };
+
+    /// <summary>Тяжёлый модуль без стойки обслуживания: можно, но долго, секунды.</summary>
+    [DataField]
+    public float HeavyFieldSwapTime = 20f;
 
     /// <summary>Модули, которые ставятся при создании корпуса (наборы подклассов).</summary>
     [DataField]
@@ -344,8 +351,22 @@ public static class DHModularArmor
         };
     }
 
-    /// <summary>Доля урона, проходящая через непробитую броню (тупым уроном).</summary>
-    public const float BlockedFraction = 0.15f;
+    /// <summary>
+    /// Доля урона пули, проходящая через непробитую броню — тупым уроном, ушибом (решение автора 2026-11-18: 5%).
+    /// </summary>
+    public const float BlockedFraction = 0.05f;
+
+    /// <summary>Износ модуля, когда броня удержала пулю, — доля урона пули.</summary>
+    public const float BlockedWear = 0.85f;
+
+    /// <summary>
+    /// Перелом под непробитой бронёй (решение автора 2026-11-18): шанс по калибру — по физическому урону пули.
+    /// Пистолет (~20) — почти никогда, винтовка (30–45) — изредка, крупный калибр (60+) — заметно.
+    /// </summary>
+    public static float BlockedFractureChance(float bulletDamage)
+    {
+        return Math.Clamp((bulletDamage - 25f) / 150f, 0f, 0.5f);
+    }
 
     /// <summary>Доля физического урона не от пуль (холодное оружие, взрывы), проходящая через броню.</summary>
     public const float NonBulletFraction = 0.5f;

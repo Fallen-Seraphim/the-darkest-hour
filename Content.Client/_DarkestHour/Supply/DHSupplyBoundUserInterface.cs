@@ -18,6 +18,7 @@ public sealed class DHSupplyBoundUserInterface : BoundUserInterface
         _window = this.CreateWindow<DHSupplyWindow>();
         _window.OnOrder += id => SendMessage(new DHSupplyOrderMessage(id));
         _window.OnToggleElevator += () => SendMessage(new DHSupplyToggleElevatorMessage());
+        _window.OnRestock += category => SendMessage(new DHSupplyRestockMessage(category));
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)

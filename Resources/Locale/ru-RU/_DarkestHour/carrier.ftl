@@ -17,3 +17,4 @@ tiles-rmc-research = плитка изоляционной лаборатори�
 tiles-rmc-striped = плитка с разметкой
 tiles-rmc-tcomms = плитка узла связи
 tiles-rmc-underplating-no-weeds = обшивка
+tiles-dh-vehicle-interior-floor = пол отсека

@@ -852,6 +852,27 @@ public sealed partial class DHTraumaSystem : EntitySystem
         Sync((uid, comp));
     }
 
+    /// <summary>
+    /// Перелом от удара (заброневая травма пули): с хрустом и сообщением. Уже сломанную кость не трогает.
+    /// </summary>
+    public bool TryBreakBoneFromImpact(EntityUid uid, string category)
+    {
+        if (!TryComp<DHTraumaComponent>(uid, out var comp))
+            return false;
+
+        var part = GetPart(comp, category);
+        if (part.Fracture)
+            return false;
+
+        part.Fracture = true;
+        part.Splinted = false;
+        Sync((uid, comp));
+        _audio.PlayPvs(FractureSound, uid);
+        _popup.PopupEntity(Loc.GetString("dh-trauma-fracture-self", ("part", PartName(category))), uid, uid,
+            PopupType.LargeCaution);
+        return true;
+    }
+
     public void FixFracture(EntityUid uid, string category)
     {
         if (TryComp<DHTraumaComponent>(uid, out var comp) && comp.Parts.TryGetValue(category, out var p))

@@ -26,6 +26,7 @@
     size: Large
   - type: StaticPrice
     price: 80
+  - type: DHChargeStrike # удар с разбега и шанс уронить (план осады п. 25)
 
 - type: entity
   parent: BaseItem
@@ -56,6 +57,7 @@
       collection: MetalThud
   - type: StaticPrice
     price: 250
+  - type: DHChargeStrike # удар с разбега и шанс уронить (план осады п. 25)
 
 - type: entity
   parent: [ BaseItem, BaseKnife ]

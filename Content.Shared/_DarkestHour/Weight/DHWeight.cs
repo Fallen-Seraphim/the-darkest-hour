@@ -1,4 +1,5 @@
 using Content.Shared._DarkestHour.Clothing.ModularArmor;
+using Content.Shared.Access.Components;
 using Content.Shared.Clothing.Components;
 using Content.Shared.Examine;
 using Content.Shared.Hands.EntitySystems;
@@ -6,7 +7,11 @@ using Content.Shared.Inventory;
 using Content.Shared.Inventory.VirtualItem;
 using Content.Shared.Item;
 using Content.Shared.Movement.Systems;
+using Content.Shared.Paper;
+using Content.Shared.PDA;
+using Content.Shared.Radio.Components;
 using Content.Shared.Storage;
+using Content.Shared.Weapons.Ranged.Components;
 using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
 
@@ -130,7 +135,32 @@ public sealed partial class DHWeightSystem : EntitySystem
         if (!_itemQuery.TryComp(uid, out var item))
             return 0f;
 
+        if (LightItemWeight(uid) is { } light)
+            return light;
+
         return SizeWeights.TryGetValue(item.Size.Id, out var bySize) ? bySize : 1f;
+    }
+
+    /// <summary>
+    /// Мелочь, которая по размеру в инвентаре весила бы слишком много (решение автора 2026-11-18: гарнитура с ключами
+    /// не может весить 3 кг). Реальный вес, кг; null — считать по размеру.
+    /// </summary>
+    private float? LightItemWeight(EntityUid uid)
+    {
+        if (HasComp<EncryptionKeyComponent>(uid))
+            return 0.005f; // чип ключа шифрования
+        if (HasComp<IdCardComponent>(uid))
+            return 0.02f; // ID-карта, жетоны
+        if (HasComp<PaperComponent>(uid))
+            return 0.005f; // лист, документ
+        if (HasComp<CartridgeAmmoComponent>(uid))
+            return 0.02f; // патрон
+        if (HasComp<PdaComponent>(uid))
+            return 0.25f;
+        if (HasComp<EncryptionKeyHolderComponent>(uid))
+            return 0.15f; // гарнитура (ключи считаются отдельно)
+
+        return null;
     }
 
     /// <summary>Вес содержимого предмета (всех его контейнеров), кг, без поправок на разгрузку.</summary>
