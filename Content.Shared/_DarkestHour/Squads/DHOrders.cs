@@ -195,6 +195,14 @@ public sealed partial class DHOrdersSystem : EntitySystem
     private void OnGunRefresh(Entity<GunComponent> ent, ref GunRefreshModifiersEvent args)
     {
         var holder = Transform(ent).ParentUid;
+
+        // Повреждённый нерв руки — стреляет медленнее (план осады п. 18).
+        if (TryComp<Content.Shared._DarkestHour.Medical.Trauma.DHTraumaComponent>(holder, out var trauma) &&
+            trauma.FireRateModifier < 1f)
+        {
+            args.FireRate *= trauma.FireRateModifier;
+        }
+
         if (!TryComp<DHOrderedComponent>(holder, out var ordered) || !Active(ordered, DHOrderType.Attack))
             return;
 

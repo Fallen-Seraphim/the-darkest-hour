@@ -348,6 +348,31 @@
   - DHSurgeryStepBurrHole
   - DHSurgeryStepEvacuateHematoma
 
+# Нервы и спинной мозг (план осады п. 18).
+- type: dhSurgery
+  id: DHSurgeryRepairNerve
+  name: dh-surgery-repair-nerve
+  description: dh-surgery-repair-nerve-desc
+  order: 67
+  parts: [ ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+  requires: [ Retracted ]
+  injury: Nerve
+  steps:
+  - DHSurgeryStepFindNerve
+  - DHSurgeryStepSutureNerve
+
+- type: dhSurgery
+  id: DHSurgerySpinalDecompression
+  name: dh-surgery-spinal-decompression
+  description: dh-surgery-spinal-decompression-desc
+  order: 68
+  parts: [ Torso ]
+  requires: [ BoneOpen ]
+  injury: Spinal
+  steps:
+  - DHSurgeryStepRemoveBoneFragments
+  - DHSurgeryStepStabilizeSpine
+
 # --- Хронит: иссечение поражённой кожи и пересадка (стадии 2–3; на последней стадии недоступно). ---
 
 - type: dhSurgery

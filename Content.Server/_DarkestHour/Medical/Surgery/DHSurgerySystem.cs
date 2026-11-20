@@ -257,6 +257,12 @@ public sealed partial class DHSurgerySystem : EntitySystem
             return;
         }
 
+        if (step.RequiresAnesthesia && !IsAnesthetized(patientUid))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-surgery-needs-anesthesia"), patientUid, user, PopupType.MediumCaution);
+            return;
+        }
+
         float speed;
         if (step.Tools.Count == 0)
         {
@@ -330,6 +336,14 @@ public sealed partial class DHSurgerySystem : EntitySystem
         }
         else
         {
+            return;
+        }
+
+        // Тонкая работа (шов нерва, позвоночник) без наркоза невозможна.
+        if (step.RequiresAnesthesia && !IsAnesthetized(ent))
+        {
+            _popup.PopupEntity(Loc.GetString("dh-surgery-needs-anesthesia"), ent, user, PopupType.MediumCaution);
+            UpdateUi(ent, user);
             return;
         }
 
@@ -600,6 +614,12 @@ public sealed partial class DHSurgerySystem : EntitySystem
             case DHSurgeryEffect.Trepanation:
                 _trauma.Trepanation(patient);
                 return true;
+            case DHSurgeryEffect.RepairNerve:
+                _trauma.RepairNerve(patient, category);
+                return true;
+            case DHSurgeryEffect.SpinalDecompression:
+                _trauma.SpinalDecompression(patient);
+                return true;
             case DHSurgeryEffect.ExciseChronite:
                 _dose.ExciseChronite(patient, ChroniteExcision);
                 return true;
@@ -745,6 +765,8 @@ public sealed partial class DHSurgerySystem : EntitySystem
             DHInjuryKind.Shrapnel => _trauma.HasShrapnel(patient, category),
             DHInjuryKind.OrganDamage => _trauma.HasOrganDamage(patient, category),
             DHInjuryKind.BrainInjury => _trauma.HasBrainInjury(patient, category),
+            DHInjuryKind.Nerve => _trauma.HasNerveDamage(patient, category),
+            DHInjuryKind.Spinal => _trauma.HasTreatableSpinalInjury(patient, category),
             DHInjuryKind.ChroniteSkin => _dose.CanExciseChronite(patient),
             DHInjuryKind.Parasite => _disease.HasSurgicalParasite(patient),
             _ => true,

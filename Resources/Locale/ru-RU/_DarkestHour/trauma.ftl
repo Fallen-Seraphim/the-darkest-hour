@@ -114,3 +114,26 @@ dh-surgery-trepanation-desc = Черепно-мозговая травма: пр
 dh-surgery-step-burr-hole = фрезевое отверстие в черепе
 dh-surgery-step-evacuate-hematoma = удаление гематомы
 dh-surgery-tool-drill = хирургическая дрель или пила
+
+# Нервы и спинной мозг (план осады п. 18)
+dh-trauma-nerve-self = {CAPITALIZE($part)} немеет — вы её почти не чувствуете!
+dh-trauma-nerve-drop = Онемевшие пальцы разжимаются сами.
+dh-trauma-desc-nerve = повреждён нерв
+dh-trauma-spinal-legs-self = Удар в спину! Вы не чувствуете ног!
+dh-trauma-spinal-full-self = Хруст в шее — тело больше не слушается!
+dh-trauma-spinal-stand = Ноги не слушаются — встать не получается.
+dh-trauma-spinal-permanent = Ноги так и не вернулись. Теперь — только экзоскелет.
+dh-trauma-desc-spinal-legs = травма спинного мозга: паралич ног
+dh-trauma-desc-spinal-full = травма спинного мозга: полный паралич
+dh-trauma-desc-spinal-treatable = {" "}— нужна декомпрессия позвоночника
+dh-trauma-desc-spinal-permanent = {" "}— необратимо, ходить можно только в экзоскелете
+dh-surgery-repair-nerve = Шов нерва
+dh-surgery-repair-nerve-desc = Найти концы повреждённого нерва и сшить их микроинструментом. Только под наркозом.
+dh-surgery-spinal-decompression = Декомпрессия позвоночника
+dh-surgery-spinal-decompression-desc = Убрать отломки, давящие на спинной мозг, и закрепить позвонки. Только под наркозом и в первые 10 минут после травмы.
+dh-surgery-step-find-nerve = выделение концов нерва
+dh-surgery-step-suture-nerve = шов нерва
+dh-surgery-step-remove-bone-fragments = удаление костных отломков
+dh-surgery-step-stabilize-spine = фиксация позвонков
+dh-surgery-tool-microforceps = микрохирургический пинцет
+dh-surgery-needs-anesthesia = Без наркоза эту работу не сделать — пациент должен быть без сознания.
