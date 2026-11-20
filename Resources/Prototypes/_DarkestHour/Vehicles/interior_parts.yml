@@ -1,0 +1,285 @@
+# DarkestHour: рабочие части отсеков RMC-14 / CMU (план осады п. 5, решение автора 2026-11-19). Кресла — посты:
+# сел в кресло водителя, стрелка или командира — сразу управляешь (как в RMC), встал — управление отпущено. Водителю
+# дают кнопки «Двигатель», «Люки», гудок и фары, командиру — «Люки» и дымовую завесу. Кресел в отсеке столько,
+# сколько мест в машине: когда все заняты, внутрь не залезть. Спрайты — RMC-14 (CC-BY-SA-3.0, cmss13).
+# Отсеки и детали — Tools/_DarkestHour/vehicles/port_interiors.py.
+
+- type: entity
+  abstract: true
+  id: DHInteriorSeatBase
+  name: troop seat
+  description: A sturdy seat with a brace that lowers over your body.
+  categories: [ HideSpawnMenu ]
+  placement:
+    mode: PlaceFree
+  components:
+  - type: Transform
+    anchored: false
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.2
+        density: 100
+        mask:
+        - TableMask
+  - type: Sprite
+    sprite: _RMC14/Structures/Furniture/vehicle_seats.rsi
+    state: base
+    noRot: true
+  - type: Strap
+    position: Stand
+    buckleOffset: "0,-0.05"
+  - type: DHVehicleSeat
+
+- type: entity
+  parent: DHInteriorSeatBase
+  id: DHInteriorSeatPassenger
+  name: troop seat
+
+- type: entity
+  parent: DHInteriorSeatBase
+  id: DHInteriorSeatPassengerComfy
+  name: passenger seat
+  components:
+  - type: Sprite
+    state: chair
+
+- type: entity
+  parent: DHInteriorSeatBase
+  id: DHInteriorSeatDriver
+  name: driver's seat
+  description: The driver's seat with the levers, pedals and periscopes. Sit down to drive; the ENGINE button starts and stops the engine.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/Interiors/general.rsi
+    state: armor_chair
+  - type: DHVehicleStation
+    role: Driver
+    lockControl: true
+    range: 0.5
+
+- type: entity
+  parent: DHInteriorSeatDriver
+  id: DHInteriorSeatDriverComfy
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Furniture/vehicle_seats.rsi
+    state: chair
+
+- type: entity
+  parent: DHInteriorSeatBase
+  id: DHInteriorSeatGunner
+  name: gunner's seat
+  description: The main gun's sight and controls. Sit down to take the gun; in combat mode you fire it and lay the turret where you aim.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/Interiors/general.rsi
+    state: armor_chair
+  - type: DHVehicleStation
+    role: Gunner
+    weapon: primary
+    range: 0.5
+
+- type: entity
+  parent: DHInteriorSeatBase
+  id: DHInteriorSeatCommander
+  name: commander's seat
+  description: The commander's periscope with the machine gun, the smoke dischargers and the hatch locks. Sit down to take them.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/Interiors/general.rsi
+    state: armor_chair
+  - type: DHVehicleStation
+    role: Gunner
+    weapon: secondary
+    smokeControl: true
+    lockControl: true
+    range: 0.5
+
+- type: entity
+  parent: DHInteriorSeatBase
+  id: DHInteriorSeatPortLeft
+  name: firing port seat
+  description: A seat at the firing port on the left side. Sit down to take the port weapon; it only fires to its side.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/Interiors/general.rsi
+    state: armor_chair
+  - type: DHVehicleStation
+    role: Gunner
+    weapon: port_left
+    range: 0.5
+
+- type: entity
+  parent: DHInteriorSeatPortLeft
+  id: DHInteriorSeatPortRight
+  description: A seat at the firing port on the right side. Sit down to take the port weapon; it only fires to its side.
+  components:
+  - type: DHVehicleStation
+    role: Gunner
+    weapon: port_right
+    range: 0.5
+
+# Невидимая стена RMC (не пускает пули и людей туда, где нарисован борт).
+- type: entity
+  id: DHInteriorInvisibleWall
+  name: hull
+  categories: [ HideSpawnMenu ]
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+  - type: Tag
+    tags:
+    - HideContextMenu
+
+# Сорванные башни — отлетают при уничтожении машины (план осады п. 17).
+- type: entity
+  abstract: true
+  parent: BaseStructureDynamic
+  id: DHVehicleTurretWreckBase
+  name: torn-off turret
+  description: The turret blown off a destroyed vehicle. Still smoking.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: Mobs
+    noRot: false
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.6
+        density: 2000
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  parent: DHVehicleTurretWreckBase
+  id: DHVehicleTurretWreckTankRepublic
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/spptank.rsi
+    state: damaged_turret
+    color: "#7a7a7a"
+
+- type: entity
+  parent: DHVehicleTurretWreckBase
+  id: DHVehicleTurretWreckTankEmpire
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Vehicles/wytank.rsi
+    state: damaged_turret
+    color: "#7a7a7a"
+
+- type: entity
+  parent: DHVehicleTurretWreckBase
+  id: DHVehicleTurretWreckIM30
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Vehicles/apc_wolfpack.rsi
+    state: tank_turret_1
+    color: "#6a6a6a"
+
+# Тактическая карта на месте радиостанции RMC: сквозь неё проходят (в тесном отсеке она стоит в проходе).
+- type: entity
+  parent: DHVehicleTacticalMap
+  id: DHInteriorTacticalMap
+  components:
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.35,-0.35,0.35,0.35"
+        density: 100
+        hard: false
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+
+# ------------------------------------------------------------------ отсеки RMC-14 / CMU (план осады п. 5)
+# Карты — Resources/Maps/_DarkestHour/Vehicles/Interiors (port_interiors.py). Нос отсека — на восток. Поверх карты:
+# кресло командира, ящики боеприпасов, у грузовика — кузов уже в карте.
+
+- type: dhVehicleInterior
+  id: DHInteriorTank
+  map: /Maps/_DarkestHour/Vehicles/Interiors/tank.yml
+  entryPoint: 0.5,-1.6
+  light: "#b8b0a0"
+  entities:
+  - { proto: DHInteriorSeatCommander, at: "1.5,-2.6", rot: 90 }
+  - { proto: DHVehicleAmmoTankShell, at: "0.5,-2.0" }
+  - { proto: DHVehicleAmmoTankShell, at: "0.6,-2.1" }
+  - { proto: DHVehicleAmmoMG, at: "0.4,-1.9" }
+
+- type: dhVehicleInterior
+  id: DHInteriorAPC
+  map: /Maps/_DarkestHour/Vehicles/Interiors/apc.yml
+  entryPoint: 1.5,1.5
+  light: "#b8b0a0"
+  entities:
+  - { proto: DHInteriorSeatCommander, at: "2.5,0.5", rot: 90 }
+  - { proto: DHVehicleAmmoAutocannon, at: "-1.5,0.5" }
+  - { proto: DHVehicleAmmoMG, at: "-0.5,0.5" }
+
+- type: dhVehicleInterior
+  id: DHInteriorIM30
+  map: /Maps/_DarkestHour/Vehicles/Interiors/apc.yml
+  entryPoint: 1.5,1.5
+  light: "#b8b0a0"
+  entities:
+  - { proto: DHInteriorSeatCommander, at: "2.5,0.5", rot: 90 }
+  - { proto: DHVehicleAmmoIM30Shell, at: "-1.5,0.5" }
+  - { proto: DHVehicleAmmoIM30Shell, at: "-1.4,0.4" }
+  - { proto: DHVehicleAmmoMG, at: "-0.5,0.5" }
+
+- type: dhVehicleInterior
+  id: DHInteriorHumvee
+  map: /Maps/_DarkestHour/Vehicles/Interiors/humvee.yml
+  entryPoint: 2.0,-1.7
+  light: "#b8b0a0"
+  entities:
+  - { proto: DHVehicleAmmoMG, at: "2.0,-1.6" }
+
+- type: dhVehicleInterior
+  id: DHInteriorTruck
+  map: /Maps/_DarkestHour/Vehicles/Interiors/truck.yml
+  entryPoint: -2.5,-1.5
+  light: "#b8b0a0"

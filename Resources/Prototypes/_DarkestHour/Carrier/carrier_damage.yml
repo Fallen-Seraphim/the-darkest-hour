@@ -1,0 +1,106 @@
+# DarkestHour: живучесть авианосца (план осады п. 19, решения автора 2026-11-19). Пробоины от попаданий ПКО и ПВО,
+# аварийные посты в отсеках, схема повреждений, ящик ремкомплекта в карго (узел древа). Отсеки — compartments.yml
+# (генерирует build_carrier.py). Код — DHCarrierDamageSystem.
+
+- type: entity
+  id: DHCarrierBreach
+  name: hull breach
+  description: A torn hole in the deck plating, venting air. Weld it shut with a steel sheet in hand.
+  placement:
+    mode: SnapgridCenter
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _RMC14/Decals/scorch.rsi
+    drawdepth: FloorObjects
+    layers:
+    - state: scorch1
+    - state: scorch_small2
+      color: "#ff8a3a"
+      shader: unshaded
+  - type: Clickable
+  - type: InteractionOutline
+  - type: PointLight
+    color: "#ff7a2a"
+    radius: 2.5
+    energy: 1.5
+  - type: DHCarrierBreach
+
+- type: entity
+  parent: DHCarrierBreach
+  id: DHCarrierBreachReactor
+  name: reactor coolant breach
+  description: A breach in the reactor shielding. It is leaking radiation. Weld it shut with a steel sheet in hand.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: PointLight
+    color: "#7aff5a"
+    radius: 3
+    energy: 1.8
+  - type: RadiationSource
+    intensity: 2
+    slope: 0.3
+
+- type: entity
+  parent: ClosetEmergency
+  id: DHCarrierEmergencyPost
+  name: damage control locker
+  description: An emergency post of the ship's damage control party. Fire extinguishers, a welder, steel sheets and a basic space suit.
+  components:
+  - type: StorageFill
+    contents:
+    - id: FireExtinguisher
+      amount: 2
+    - id: Welder
+    - id: SheetSteel10
+    - id: ClothingOuterHardsuitEVA
+    - id: ClothingHeadHelmetEVA
+    - id: OxygenTankFilled
+    - id: ClothingMaskBreath
+
+- type: entity
+  parent: CrateEngineering
+  id: DHCrateCarrierRepair
+  name: damage control crate
+  description: Spares to refill the ship's damage control lockers.
+  components:
+  - type: StorageFill
+    contents:
+    - id: FireExtinguisher
+      amount: 2
+    - id: Welder
+    - id: SheetSteel10
+      amount: 2
+    - id: ClothingOuterHardsuitEVA
+    - id: ClothingHeadHelmetEVA
+    - id: OxygenTankFilled
+    - id: ClothingMaskBreath
+
+- type: entity
+  parent: BaseComputer
+  id: DHComputerCarrierDamage
+  name: damage control computer
+  description: "The ship's compartment status board: breaches, fires and hull integrity."
+  components:
+  - type: ComputerVisuals
+    stateScreen: alert-2
+    stateKeys: atmos_key
+  - type: DHCarrierDamageConsole
+  - type: ActivatableUI
+    key: enum.DHCarrierDamageUiKey.Key
+  - type: ActivatableUIRequiresVision
+  - type: UserInterface
+    interfaces:
+      enum.DHCarrierDamageUiKey.Key:
+        type: DHCarrierDamageBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: ApcPowerReceiver
+    needsPower: false
+    powerLoad: 0
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#e8604a"
