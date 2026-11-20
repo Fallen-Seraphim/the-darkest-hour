@@ -456,3 +456,12 @@ dh-medal-republic-valor = For Valor
 dh-medal-republic-valor-desc = For personal bravery in battle, saving comrades and bold action.
 dh-medal-republic-wound = Wound Badge
 dh-medal-republic-wound-desc = For those who shed blood for the Republic.
+
+## Sniper ghillie cloak
+dh-ghillie-preparing = You freeze and settle into your ghillie cloak…
+dh-ghillie-hidden = You are hidden. Do not move.
+dh-ghillie-already-hidden = You are already hidden.
+dh-ghillie-revealed-self = You come out of hiding.
+dh-ghillie-revealed-move = You moved — your camouflage is broken!
+dh-ghillie-revealed-shot = Your shot gave away your position!
+dh-ghillie-revealed-hit = You were hit — your camouflage is broken!

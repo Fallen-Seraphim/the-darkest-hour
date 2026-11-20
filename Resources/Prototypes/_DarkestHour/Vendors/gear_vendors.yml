@@ -313,7 +313,11 @@
         jobs: [ DHMarineWeaponsSpecialist ]
       - proto: DHMagazineDrum842x54ImpS
         jobs: [ DHMarineMachinegunner ]
-      - proto: DHMagazineBelt145x114Std
+      - proto: DHMagazineBelt842x54ImpS
+        jobs: [ DHMarineMachinegunner ]
+      - proto: DHMagazineBelt842x54ImpR
+        jobs: [ DHMarineMachinegunner ]
+      - proto: DHMagazineBelt842x54ImpZ
         jobs: [ DHMarineMachinegunner ]
 
 - type: entity
