@@ -203,6 +203,14 @@ public sealed partial class DHOrdersSystem : EntitySystem
             args.FireRate *= trauma.FireRateModifier;
         }
 
+        // Кибер-рука «Тиски» держит оружие твёрже (план осады п. 29).
+        if (trauma != null && trauma.GunSpreadModifier < 1f)
+        {
+            args.MinAngle *= trauma.GunSpreadModifier;
+            args.MaxAngle *= trauma.GunSpreadModifier;
+            args.AngleIncrease *= trauma.GunSpreadModifier;
+        }
+
         if (!TryComp<DHOrderedComponent>(holder, out var ordered) || !Active(ordered, DHOrderType.Attack))
             return;
 

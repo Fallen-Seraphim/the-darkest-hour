@@ -245,6 +245,14 @@ public sealed partial class DHTraumaComponent : Component
     [DataField]
     public bool EyesLost;
 
+    /// <summary>Множитель урона в ближнем бою (кибер-рука «Тиски»).</summary>
+    [DataField, AutoNetworkedField]
+    public float MeleeModifier = 1f;
+
+    /// <summary>Множитель разброса оружия в руках (кибер-рука «Тиски»).</summary>
+    [DataField, AutoNetworkedField]
+    public float GunSpreadModifier = 1f;
+
     /// <summary>Множитель скорострельности оружия в руках (повреждённый нерв руки).</summary>
     [DataField, AutoNetworkedField]
     public float FireRateModifier = 1f;
