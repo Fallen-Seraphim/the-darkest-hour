@@ -62,6 +62,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private DHVitalOrgansSystem _vital = default!;
+    [Dependency] private Content.Server._DarkestHour.Medical.Implants.DHImplantSystem _implants = default!;
 
     [Dependency] private EntityQuery<OrganComponent> _organQuery = default!;
 
@@ -691,6 +692,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
             lines.Add(Loc.GetString(painKey));
 
         AddReviveSummary(ent, lines);
+        _implants.AddSummary(ent, lines);
 
         if (lines.SequenceEqual(comp.Summary))
             return;
@@ -720,6 +722,9 @@ public sealed partial class DHTraumaSystem : EntitySystem
         if (now < comp.BleedingSlowedUntil)
             bloodLoss *= 0.25f;
 
+        // Имплант «Гемостат» (план осады п. 29).
+        bloodLoss *= _implants.BleedFactor(ent, bloodLoss > 0f);
+
         if (bloodLoss > 0f)
             _bloodstream.TryModifyBloodLevel(ent.Owner, FixedPoint2.New(-bloodLoss));
 
@@ -727,6 +732,8 @@ public sealed partial class DHTraumaSystem : EntitySystem
         comp.PainSpike = MathF.Max(0f, comp.PainSpike - 8f);
         comp.ExtraPain = MathF.Max(0f, comp.ExtraPain - comp.ExtraPainDecay * (float) comp.Interval.TotalSeconds);
         var pain = CalculatePain(comp) + TourniquetPain(comp, now) + comp.ExtraPain;
+        // Имплант «Тишина»: боль до порога не чувствуется (план осады п. 29).
+        pain = MathF.Max(0f, pain - _implants.PainSuppression(ent, pain));
         if (now < comp.PainSuppressionUntil)
             pain = MathF.Max(0f, pain - comp.PainSuppression);
         // Фантомная боль (омниреазин) обезболиванию не поддаётся.

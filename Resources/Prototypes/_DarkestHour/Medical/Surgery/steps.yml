@@ -596,3 +596,37 @@
       Slash: 4
   sound:
     collection: DHSurgeryOrgan
+
+# --- Импланты (план осады п. 29). ---
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepInsertImplant
+  name: dh-surgery-step-insert-implant
+  toolHint: dh-surgery-tool-implant
+  duration: 6
+  pain: 0.6
+  invasive: true
+  effect: InstallImplant
+  sound:
+    collection: DHSurgeryOrgan
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepRemoveImplant
+  name: dh-surgery-step-remove-implant
+  toolHint: dh-surgery-tool-hemostat
+  tools:
+  - kind: Hemostat
+  - kind: MicroForceps
+  - quality: Cutting
+    speed: 0.4
+    success: 0.6
+  duration: 6
+  pain: 0.7
+  invasive: true
+  bleed: 1
+  effect: RemoveImplant
+  failDamage:
+    types:
+      Slash: 3
+  sound:
+    collection: DHSurgeryHemostat

@@ -105,6 +105,10 @@ public enum DHSurgeryEffect : byte
     ReconstructFace,
     /// <summary>Извлечь неразорвавшийся боеприпас (может подорваться; сапёр рядом снижает риск).</summary>
     ExtractUnexploded,
+    /// <summary>Поставить имплант из руки хирурга (план осады п. 29).</summary>
+    InstallImplant,
+    /// <summary>Извлечь имплант из части тела.</summary>
+    RemoveImplant,
 }
 
 /// <summary>
@@ -136,6 +140,8 @@ public enum DHInjuryKind : byte
     Face,
     /// <summary>Неразорвавшийся боеприпас в части тела.</summary>
     Unexploded,
+    /// <summary>В части тела стоит имплант.</summary>
+    Implant,
 }
 
 /// <summary>

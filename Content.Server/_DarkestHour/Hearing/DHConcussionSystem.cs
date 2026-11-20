@@ -20,6 +20,7 @@ public readonly record struct DHExplosionSpawnedEvent(MapCoordinates Epicenter, 
 /// </summary>
 public sealed partial class DHConcussionSystem : EntitySystem
 {
+    [Dependency] private Content.Server._DarkestHour.Medical.Implants.DHImplantSystem _implants = default!;
     [Dependency] private DHHearingSystem _hearing = default!;
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
@@ -115,7 +116,8 @@ public sealed partial class DHConcussionSystem : EntitySystem
     /// <summary>Множители силы для слуха и глаз от гарнитуры (ухо) и шлема (голова с бронёй).</summary>
     private (float Hearing, float Vision) Protection(EntityUid uid)
     {
-        var hearing = 1f;
+        // Имплант «Эхо» (план осады п. 29).
+        var hearing = _implants.HearingFactor(uid);
         var vision = 1f;
 
         if (_inventory.TryGetSlotEntity(uid, "ears", out var ears))
