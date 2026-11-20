@@ -17,3 +17,6 @@ dh-gear-section-armor = Спецсистема брони
 dh-gear-section-plates = Запасная бронепластина
 dh-gear-section-equipment = Полевое снаряжение
 dh-gear-section-medical = Медикаменты
+dh-gear-section-grenades = Гранаты
+dh-gear-section-food = Консервы
+dh-gear-section-misc = Мелочи

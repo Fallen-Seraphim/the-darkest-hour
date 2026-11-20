@@ -1057,6 +1057,9 @@ class World:
             self.ent('ShelfMetal', x1 - 1, y)
         for i, crate in enumerate(['CrateFoodMRE', 'CrateFoodMRE', 'DHSupplyCrateSandbags', 'DHSupplyCrateBarbedWire']):
             self.ent(crate, x0 + 12 + i, y0 + 2)
+        # каргоавтоматы (план осады п. 27): боеприпасы и мелочи
+        assert self.ent('DHCargoVendorRepublicAmmo', x0 + 16, y0 + 2), 'каргоавтомат боеприпасов'
+        assert self.ent('DHCargoVendorRepublicSupplies', x0 + 17, y0 + 2), 'каргоавтомат мелочей'
         self.ent('SignCargo', x0 + 13, y1, free=True)
         self.wire_room(x0, y0, x1, y1, (x1 - 4, y1), 'N')
 

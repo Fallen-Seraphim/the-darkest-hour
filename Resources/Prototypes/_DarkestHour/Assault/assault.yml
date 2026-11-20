@@ -58,6 +58,7 @@
     - DHOverwatchTabletRepublic
     - DHMotionDetector
     - DHSignalFlareKit
+    - DHArmorSpecialComms # ком-модуль: приказы (план осады п. 26)
 
 - type: startingGear
   parent: DHRepublicGearBase
@@ -809,6 +810,7 @@
     - DHOverwatchTabletEmpire
     - DHMotionDetector
     - DHSignalFlareKit
+    - DHArmorSpecialComms # ком-модуль: приказы (план осады п. 26)
 
 - type: startingGear
   parent: DHImperialGearBase

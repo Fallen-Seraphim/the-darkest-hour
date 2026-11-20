@@ -30,6 +30,7 @@ namespace Content.Shared._DarkestHour.Clothing.ModularArmor;
 public sealed partial class DHModularArmorSystem : EntitySystem
 {
     [Dependency] private SharedActionsSystem _actions = default!;
+    [Dependency] private Content.Shared._DarkestHour.Squads.DHOrdersSystem _orders = default!;
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
@@ -329,6 +330,10 @@ public sealed partial class DHModularArmorSystem : EntitySystem
         Refresh(ent);
         if (GetWearer(ent) is { } wearer)
             RefreshCovers(ent, wearer);
+
+        // Ком-модуль в слоте спецсистемы надетой брони — приказы носителю (план осады п. 26).
+        if (args.Container.ID == DHModularArmor.ContainerId(DHArmorSlot.Special))
+            _orders.Sync(args.Entity, GetWearer(ent));
     }
 
     private void OnContentsRemoved(Entity<DHModularArmorComponent> ent, ref EntRemovedFromContainerMessage args)
@@ -336,6 +341,8 @@ public sealed partial class DHModularArmorSystem : EntitySystem
         Refresh(ent);
         if (GetWearer(ent) is { } wearer)
             RefreshCovers(ent, wearer);
+
+        _orders.Sync(args.Entity, null);
     }
 
     /// <summary>Модули поменялись: скорость и внешний вид носителя.</summary>
@@ -592,6 +599,9 @@ public sealed partial class DHModularArmorSystem : EntitySystem
             case DHArmorSpecialKind.AutoMed:
                 _popup.PopupClient(Loc.GetString("dh-armor-automed-status"), user, user);
                 break;
+            case DHArmorSpecialKind.Comms:
+                _popup.PopupClient(Loc.GetString("dh-armor-comms-status"), user, user);
+                break;
         }
     }
 
@@ -637,6 +647,8 @@ public sealed partial class DHModularArmorSystem : EntitySystem
     private void OnEquipped(Entity<DHModularArmorComponent> ent, ref ClothingGotEquippedEvent args)
     {
         RefreshCovers(ent, args.Wearer);
+        if (GetModule(ent, DHArmorSlot.Special) is { } module)
+            _orders.Sync(module, GetWearer(ent));
     }
 
     /// <summary>
@@ -712,7 +724,10 @@ public sealed partial class DHModularArmorSystem : EntitySystem
         RemoveCovers(ent);
 
         if (GetModule(ent, DHArmorSlot.Special) is { } module)
+        {
             RetractWeapon(module);
+            _orders.Sync(module, null);
+        }
 
         _movement.RefreshMovementSpeedModifiers(args.Wearer);
     }
