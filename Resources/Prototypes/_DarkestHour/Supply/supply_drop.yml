@@ -1,0 +1,141 @@
+# DarkestHour: сброс грузов на маяк и лифты авианосца (план осады п. 4, решения автора 2026-11-19), по образцу RMC
+# SupplyDrop и Elevators. Механика — DHSupplyDropSystem, DHVehicleLiftSystem, DHAircraftSystem.LiftConsole.
+# Спрайт лифта и площадки, звуки — cmss13 через RMC-14 (CC-BY-SA-3.0); компьютеры — настольные DH.
+
+# --- Площадка и консоль сброса грузов ---
+
+- type: entity
+  id: DHSupplyDropPad
+  name: supply drop pad
+  description: A launch pad for supply drops. Whatever stands on it — crates, drop pallets, guns — is sent by the drop console to a switched-on beacon on the surface.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: Sprite
+    sprite: _RMC14/Effects/elevator.rsi
+    state: supply_elevator_raised
+    drawdepth: LowFloors
+    scale: 0.6, 0.6
+    color: "#ffd27a"
+  - type: DHSupplyDropPad
+
+- type: entity
+  parent: BaseComputer
+  id: DHComputerSupplyDrop
+  name: supply drop console
+  description: Sends everything standing on the drop pad to a switched-on drop beacon on the surface. The cargo comes down by parachute about 20 seconds later; the launcher then recharges for 2 minutes.
+  components:
+  - type: ComputerVisuals
+    stateScreen: supply
+    stateKeys: tech_key
+  - type: DHSupplyDropConsole
+  - type: ActivatableUI
+    key: enum.DHSupplyDropUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHSupplyDropUiKey.Key:
+        type: DHSupplyDropBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+
+# --- Дым включённого маяка ---
+
+- type: entity
+  id: DHDropBeaconSmoke
+  name: beacon smoke
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: false
+  - type: Sprite
+    sprite: _RMC14/Effects/smoke.rsi
+    state: smoke2
+    drawdepth: Effects
+    scale: 0.5, 0.5
+    color: "#c47cffbb"
+  - type: TimedDespawn
+    lifetime: 6
+  - type: Tag
+    tags:
+    - HideContextMenu
+  - type: DHDropBeaconSmoke
+
+# --- Лифт техники и его компьютер ---
+
+- type: entity
+  id: DHVehicleLift
+  name: vehicle elevator
+  description: The vehicle elevator from the carrier's hold. Brings up drop pallets and vehicles stored below, and takes down what stands on it.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: Sprite
+    sprite: _RMC14/Effects/elevator.rsi
+    drawdepth: LowFloors
+    layers:
+    - state: supply_elevator_lowered
+      map: [ "enum.DHSupplyElevatorLayers.Base" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHSupplyElevatorVisuals.Mode:
+        enum.DHSupplyElevatorLayers.Base:
+          Lowered: { state: supply_elevator_lowered }
+          Raising: { state: supply_elevator_raising }
+          Raised: { state: supply_elevator_raised }
+          Lowering: { state: supply_elevator_lowering }
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      pit:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-2.45,-2.45,2.45,2.45"
+        density: 1000
+        hard: true
+        layer:
+        - MidImpassable
+        - LowImpassable
+  - type: DHVehicleLift
+    starting:
+    - DHVehicleDropPalletTankEmpire
+    - DHVehicleDropPalletIM30
+
+- type: entity
+  parent: BaseComputer
+  id: DHComputerVehicleLift
+  name: vehicle elevator console
+  description: Drives the vehicle elevator. Lists what is stored in the hold — bring up any of it, or take down what stands on the platform.
+  components:
+  - type: ComputerVisuals
+    stateScreen: request
+    stateKeys: generic_keys
+  - type: DHVehicleLiftConsole
+  - type: ActivatableUI
+    key: enum.DHVehicleLiftUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DHVehicleLiftUiKey.Key:
+        type: DHVehicleLiftBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+
+# --- Компьютер лифта штурмовика: одна кнопка «Поднять» ---
+
+- type: entity
+  parent: BaseComputer
+  id: DHComputerAircraftLift
+  name: attack aircraft elevator console
+  description: One button — RAISE. Brings the attack aircraft up from the hangar onto the deck at the head of the runway.
+  components:
+  - type: ComputerVisuals
+    stateScreen: shuttle
+    stateKeys: generic_keys
+  - type: DHAircraftLiftConsole

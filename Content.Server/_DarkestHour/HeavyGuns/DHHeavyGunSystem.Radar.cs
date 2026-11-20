@@ -46,15 +46,24 @@ public sealed partial class DHHeavyGunSystem
         args.PushMarkup(Loc.GetString(ent.Comp.Active ? "dh-radar-examine-active" : "dh-radar-examine-broken"));
     }
 
+    /// <summary>
+    /// РЛС работает: цела и запитана (на «Терминусе» — пока Республика держит АЭС (с резервом) и точку РЛС/связи,
+    /// цепочка целей, решение автора 2026-11-19).
+    /// </summary>
+    public bool RadarWorking(EntityUid uid, DHRadarComponent radar)
+    {
+        return radar.Active && !Unpowered(uid);
+    }
+
     /// <summary>Есть ли живая РЛС своей стороны на том же гриде (корабль) или той же карте (поверхность).</summary>
     public bool RadarCovers(EntityUid uid)
     {
         var xform = Transform(uid);
         var side = FactionOf(uid);
         var query = EntityQueryEnumerator<DHRadarComponent, TransformComponent>();
-        while (query.MoveNext(out _, out var radar, out var radarXform))
+        while (query.MoveNext(out var radarUid, out var radar, out var radarXform))
         {
-            if (!radar.Active || !SameSide(side, radar.Faction))
+            if (!RadarWorking(radarUid, radar) || !SameSide(side, radar.Faction))
                 continue;
 
             if (xform.GridUid != null && radarXform.GridUid == xform.GridUid || radarXform.MapUid == xform.MapUid)
@@ -79,9 +88,9 @@ public sealed partial class DHHeavyGunSystem
         var map = Transform(zone).MapUid;
         var warned = new HashSet<DHAssaultFaction>();
         var query = EntityQueryEnumerator<DHRadarComponent, TransformComponent>();
-        while (query.MoveNext(out _, out var radar, out var xform))
+        while (query.MoveNext(out var radarUid, out var radar, out var xform))
         {
-            if (!radar.Active || radar.Faction == attacker || xform.MapUid != map || !warned.Add(radar.Faction))
+            if (!RadarWorking(radarUid, radar) || radar.Faction == attacker || xform.MapUid != map || !warned.Add(radar.Faction))
                 continue;
 
             _assault.AnnounceToFaction(radar.Faction, Loc.GetString("dh-radar-sender"),

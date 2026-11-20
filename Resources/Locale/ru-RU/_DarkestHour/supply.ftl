@@ -2,7 +2,7 @@
 dh-supply-ui-title = Компьютер снабжения
 dh-supply-ui-elevator = Лифт: { $mode }. Заказов на подъём: { $pending }.
 dh-supply-ui-no-elevator = Грузового лифта поблизости нет.
-dh-supply-ui-refill = Удерживается точек: { $points }. Запас пополняется раз в { $minutes } мин, пока у стороны { $min } точки и больше.
+dh-supply-ui-points = Очки командования: { $points }. Пополнение разделов — за очки; копятся за удержание точек.
 dh-supply-ui-raise = Поднять лифт
 dh-supply-ui-lower = Опустить лифт
 dh-supply-ui-order = Заказать
@@ -32,3 +32,80 @@ dh-supply-category-air-defence = ПВО
 dh-supply-category-naval = Корабельная артиллерия
 dh-supply-category-anti-orbital = Орудия ПКО
 dh-supply-category-aviation = Авиация
+
+# Очки командования и пополнение за очки (решение автора 2026-11-19)
+dh-supply-ui-restocks = Пополнение за очки командования:
+dh-supply-ui-restock = { $category }: { $price } оч.
+dh-supply-ui-count-max = { $count } / { $max }
+dh-supply-restock-full = Этот раздел и так заполнен.
+dh-supply-restocked = Пополнен раздел «{ $category }».
+dh-command-points-not-enough = Не хватает очков командования: нужно { $cost }.
+
+dh-command-tree-ui-title = Компьютер штаба: древо командования
+dh-command-tree-ui-points = Очки командования: { $points }. Доход за точки: { $income } в минуту.
+dh-command-tree-ui-node = { $tier }. { $name }
+dh-command-tree-ui-open = Открыть: { $cost } оч.
+dh-command-tree-ui-opened = открыто
+dh-command-tree-ui-unlocks = В снабжении появится: { $items }.
+dh-command-tree-ui-requires = Сначала нужно: { $nodes }.
+dh-command-tree-requires = Сначала откройте предыдущие узлы.
+dh-command-tree-opened = Открыто: { $node }.
+
+dh-command-branch-supply = Снабжение
+dh-command-branch-fire = Огонь
+dh-command-node-depots = Расширенные склады
+dh-command-node-depots-desc = Потолок запаса всех позиций снабжения — в полтора раза выше.
+dh-command-node-fast-lift = Скоростной лифт
+dh-command-node-fast-lift-desc = Грузовой лифт поднимается и опускается вдвое быстрее.
+dh-command-node-mortar-special = Специальные мины
+dh-command-node-field-guns = Полевые орудия
+dh-command-node-heavy-ob-shells = Тяжёлые снаряды ОБ
+dh-command-node-heavy-ao-shells = Тяжёлые снаряды ПКО
+dh-command-node-aircraft-missiles = Ракеты штурмовика
+dh-command-node-aircraft-bombs = Площадные и магниевые бомбы
+dh-command-node-aircraft-precision = Управляемые бомбы и пушечный контейнер
+dh-command-node-manpads = ПЗРК
+
+## Сброс грузов на маяк и лифт техники (план осады п. 4)
+dh-supply-drop-beacon-name = Маяк { $number }
+dh-supply-drop-sender = Сброс грузов
+dh-supply-drop-launched = Груз ({ $count } ед.) сброшен на { $beacon }, приземление через { $seconds } с.
+dh-supply-drop-landed = Груз приземлился!
+dh-supply-drop-cooldown = Пусковая площадка ещё перезаряжается.
+dh-supply-drop-no-beacon = Маяк не отвечает: он должен быть включён и стоять на поверхности.
+dh-supply-drop-empty = На площадке сброса нечего отправлять.
+dh-supply-drop-blocked-hangar = Ангар повреждён — сброс невозможен до ремонта.
+dh-supply-drop-ui-title = Сброс грузов
+dh-supply-drop-ui-pad = НА ПЛОЩАДКЕ
+dh-supply-drop-ui-pad-empty = Площадка пуста.
+dh-supply-drop-ui-beacons = ВКЛЮЧЁННЫЕ МАЯКИ
+dh-supply-drop-ui-no-beacons = Нет включённых маяков на поверхности.
+dh-supply-drop-ui-beacon = { $name } — X { $x }, Y { $y }
+dh-supply-drop-ui-launch = СБРОСИТЬ
+dh-supply-drop-ui-no-pad = Площадка сброса не найдена.
+dh-supply-drop-ui-cooldown = Перезарядка: { $seconds } с.
+dh-supply-drop-ui-ready = Готово к сбросу.
+
+dh-vehicle-lift-blocked-hangar = Ангар повреждён — лифт не работает до ремонта.
+dh-vehicle-lift-people = На платформе люди — лифт людей вниз не возит.
+dh-vehicle-lift-crewed = В { $vehicle } экипаж — сначала все должны выйти.
+dh-vehicle-lift-clear = Уберите с платформы: { $thing }.
+dh-vehicle-lift-ui-title = Лифт техники
+dh-vehicle-lift-ui-hold = ТРЮМ
+dh-vehicle-lift-ui-hold-empty = Трюм пуст.
+dh-vehicle-lift-ui-platform = НА ПЛАТФОРМЕ
+dh-vehicle-lift-ui-platform-down = Платформа внизу.
+dh-vehicle-lift-ui-platform-empty = Платформа пуста.
+dh-vehicle-lift-ui-raise = ПОДНЯТЬ
+dh-vehicle-lift-ui-lower = ОПУСТИТЬ В ТРЮМ
+dh-vehicle-lift-ui-no-lift = Лифт техники не найден.
+dh-vehicle-lift-ui-mode-lowered = Лифт опущен.
+dh-vehicle-lift-ui-mode-raising = Лифт поднимается…
+dh-vehicle-lift-ui-mode-raised = Лифт поднят.
+dh-vehicle-lift-ui-mode-lowering = Лифт опускается…
+
+dh-supply-category-vehicles = Техника
+dh-command-branch-vehicles = Техника
+dh-command-node-humvee = Хамви
+dh-command-node-humvee-desc = Лёгкая машина с пулемётом в турели: водитель, пулемётчик и два места. Поддон с хамви появляется в карго (до 2) — дальше лифтом техники или сбросом на маяк.
+dh-command-node-humvee-desc-republic = Лёгкая машина с пулемётом в турели: водитель, пулемётчик и два места. Заказ в карго (до 2) — машину пригоняют в гараж базы.

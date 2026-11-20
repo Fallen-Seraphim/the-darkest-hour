@@ -275,6 +275,7 @@
       turret: [ "0,0", "0,0", "0,0", "0,0" ]
     exitOffset: 0,2.8
     wreck: DHVehicleWreckIM30
+    turretWreck: DHVehicleTurretWreckIM30
     key: APCEmpire # ключ — у командира машины
   - type: DHVehicleHardpoints
     family: IM30
@@ -401,6 +402,7 @@
         state: wheels_0
         loop: false
   - type: DHVehicle
+    mapIcon: Tank
     maxIntegrity: 3000
     faction: Republic
     hullHalfSize: 1.4,1.95
@@ -411,6 +413,7 @@
     turretPivots: [ "0,0.36", "0,-0.16", "-0.16,0.2", "0.16,0.2" ] # юг, север, восток, запад
     exitOffset: 0,2.6
     wreck: DHVehicleWreckTankRepublic
+    turretWreck: DHVehicleTurretWreckTankRepublic
     key: TankRepublic # ключ — у командира машины
   - type: DHVehicleHardpoints
     family: TankRepublic
@@ -464,6 +467,7 @@
         state: wheels_0
         loop: false
   - type: DHVehicle
+    mapIcon: Tank
     maxIntegrity: 3000
     faction: Empire
     hullHalfSize: 1.4,1.95
@@ -474,6 +478,7 @@
     turretPivots: [ "0,0.3", "0,0.25", "-0.03,0.23", "0.03,0.23" ] # юг, север, восток, запад
     exitOffset: 0,2.6
     wreck: DHVehicleWreckTankEmpire
+    turretWreck: DHVehicleTurretWreckTankEmpire
     key: TankEmpire # ключ — у командира машины
   - type: DHVehicleHardpoints
     family: TankEmpire
@@ -606,7 +611,6 @@
     layers:
     - state: apc_base_wolfpack
     - state: damaged_frame
-    - state: tank_turret_1
 
 - type: entity
   parent: DHVehicleWreckBase
@@ -619,7 +623,6 @@
     layers:
     - state: tank_base
     - state: damaged_frame
-    - state: damaged_turret
 
 - type: entity
   parent: DHVehicleWreckBase
@@ -1078,99 +1081,7 @@
         - WallLayer
   - type: DHVehicleHatch
 
-- type: dhVehicleInterior
-  id: DHInteriorAPC
-  size: 7,11
-  floor: FloorSteelMono
-  entry: 3,8
-  entities:
-  - { proto: DHVehicleViewport, pos: "2,0", onWall: true }
-  - { proto: DHVehicleViewport, pos: "4,0", onWall: true }
-  - { proto: DHVehicleAmmoRack, pos: "1,1" }
-  - { proto: DHVehicleConsoleDriver, pos: "2,1", rot: 180 }
-  - { proto: DHVehicleConsoleGunner, pos: "3,1", rot: 180 }
-  - { proto: DHVehicleConsoleCommander, pos: "4,1", rot: 180 }
-  - { proto: DHVehicleAmmoRack, pos: "5,1" }
-  - { proto: DHVehicleSeatCrew, pos: "2,2" }
-  - { proto: DHVehicleSeatCrew, pos: "3,2" }
-  - { proto: DHVehicleSeatCrew, pos: "4,2" }
-  - { proto: DHVehicleAmmoAutocannon, pos: "1,2" }
-  - { proto: DHVehicleAmmoMG, pos: "5,2" }
-  - { proto: DHVehicleInteriorLight, pos: "3,3" }
-  - { proto: DHVehicleConsolePortRight, pos: "0,5", onWall: true }
-  - { proto: DHVehicleConsolePortLeft, pos: "6,5", onWall: true }
-  - { proto: DHVehicleSeatPassenger, pos: "1,4", rot: 90 }
-  - { proto: DHVehicleSeatPassenger, pos: "1,5", rot: 90 }
-  - { proto: DHVehicleSeatPassenger, pos: "1,6", rot: 90 }
-  - { proto: DHVehicleSeatPassenger, pos: "1,7", rot: 90 }
-  - { proto: DHVehicleTacticalMap, pos: "3,5" }
-  - { proto: DHVehicleViewport, pos: "0,7", onWall: true }
-  - { proto: DHVehicleViewport, pos: "6,7", onWall: true }
-  - { proto: DHVehicleSeatPassenger, pos: "5,4", rot: -90 }
-  - { proto: DHVehicleSeatPassenger, pos: "5,5", rot: -90 }
-  - { proto: DHVehicleSeatPassenger, pos: "5,6", rot: -90 }
-  - { proto: DHVehicleSeatPassenger, pos: "5,7", rot: -90 }
-  - { proto: DHVehicleInteriorLight, pos: "3,7" }
-  - { proto: DHVehicleHatch, pos: "3,10" }
-
-# Отсек IM-30 — как у БТР, но вместо короба автопушки два ящика снарядов пушки.
-- type: dhVehicleInterior
-  id: DHInteriorIM30
-  size: 7,11
-  floor: FloorSteelMono
-  entry: 3,8
-  entities:
-  - { proto: DHVehicleViewport, pos: "2,0", onWall: true }
-  - { proto: DHVehicleViewport, pos: "4,0", onWall: true }
-  - { proto: DHVehicleAmmoRack, pos: "1,1" }
-  - { proto: DHVehicleConsoleDriver, pos: "2,1", rot: 180 }
-  - { proto: DHVehicleConsoleGunner, pos: "3,1", rot: 180 }
-  - { proto: DHVehicleConsoleCommander, pos: "4,1", rot: 180 }
-  - { proto: DHVehicleAmmoRack, pos: "5,1" }
-  - { proto: DHVehicleSeatCrew, pos: "2,2" }
-  - { proto: DHVehicleSeatCrew, pos: "3,2" }
-  - { proto: DHVehicleSeatCrew, pos: "4,2" }
-  - { proto: DHVehicleAmmoIM30Shell, pos: "1,2" }
-  - { proto: DHVehicleAmmoIM30Shell, pos: "1,2" }
-  - { proto: DHVehicleAmmoMG, pos: "5,2" }
-  - { proto: DHVehicleInteriorLight, pos: "3,3" }
-  - { proto: DHVehicleConsolePortRight, pos: "0,5", onWall: true }
-  - { proto: DHVehicleConsolePortLeft, pos: "6,5", onWall: true }
-  - { proto: DHVehicleSeatPassenger, pos: "1,4", rot: 90 }
-  - { proto: DHVehicleSeatPassenger, pos: "1,5", rot: 90 }
-  - { proto: DHVehicleSeatPassenger, pos: "1,6", rot: 90 }
-  - { proto: DHVehicleSeatPassenger, pos: "1,7", rot: 90 }
-  - { proto: DHVehicleTacticalMap, pos: "3,5" }
-  - { proto: DHVehicleViewport, pos: "0,7", onWall: true }
-  - { proto: DHVehicleViewport, pos: "6,7", onWall: true }
-  - { proto: DHVehicleSeatPassenger, pos: "5,4", rot: -90 }
-  - { proto: DHVehicleSeatPassenger, pos: "5,5", rot: -90 }
-  - { proto: DHVehicleSeatPassenger, pos: "5,6", rot: -90 }
-  - { proto: DHVehicleSeatPassenger, pos: "5,7", rot: -90 }
-  - { proto: DHVehicleInteriorLight, pos: "3,7" }
-  - { proto: DHVehicleHatch, pos: "3,10" }
-
-- type: dhVehicleInterior
-  id: DHInteriorTank
-  size: 5,6
-  floor: FloorSteelMono
-  entry: 2,4
-  entities:
-  - { proto: DHVehicleViewport, pos: "2,0", onWall: true }
-  - { proto: DHVehicleConsoleGunner, pos: "1,1", rot: 180 }
-  - { proto: DHVehicleConsoleDriver, pos: "2,1", rot: 180 }
-  - { proto: DHVehicleConsoleCommander, pos: "3,1", rot: 180 }
-  - { proto: DHVehicleSeatCrew, pos: "1,2" }
-  - { proto: DHVehicleSeatCrew, pos: "2,2" }
-  - { proto: DHVehicleSeatCrew, pos: "3,2" }
-  - { proto: DHVehicleAmmoRack, pos: "1,3" }
-  - { proto: DHVehicleInteriorLight, pos: "2,3" }
-  - { proto: DHVehicleTacticalMap, pos: "3,3" }
-  - { proto: DHVehicleSeatPassenger, pos: "1,4", rot: 90 }
-  - { proto: DHVehicleAmmoTankShell, pos: "3,4" }
-  - { proto: DHVehicleAmmoTankShell, pos: "3,4" }
-  - { proto: DHVehicleAmmoMG, pos: "3,4" }
-  - { proto: DHVehicleHatch, pos: "2,5" }
+# Отсеки техники — готовые RMC-14 / CMU, см. interior_parts.yml (план осады п. 5).
 
 # ------------------------------------------------------------------ ящики боеприпасов техники
 # Орудия сами не перезаряжаются: ящик кладут в механизм заряжания в отсеке (3 с). Запасные ящики лежат в отсеке.

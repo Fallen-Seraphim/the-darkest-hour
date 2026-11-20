@@ -64,7 +64,7 @@
   parent: BaseItem
   id: DHCamoNetFolded
   name: folded camouflage net
-  description: A rolled-up camouflage net. Use it in hand to spread it over your spot — a gun, a mortar or a squad under it is hidden from orbital scans.
+  description: A rolled-up camouflage net. Use it in hand to spread it over your spot — a vehicle, gun or mortar under it is hidden from orbital scans, radar and pilots while it stands still.
   components:
   - type: Sprite
     sprite: _DarkestHour/Structures/camo_net_folded.rsi
@@ -77,7 +77,7 @@
 - type: entity
   id: DHCamoNet
   name: camouflage net
-  description: A camouflage net stretched over a position. Hides what is under it from orbital scans. Fold it up with an alternative action.
+  description: A camouflage net stretched over a position. Vehicles and guns standing under it are hidden from orbital scans, radar and pilots above; fire from under it is only detected from the second shot. Moving or firing reveals them for ~20 seconds. Fold it up with an alternative action.
   placement:
     mode: SnapgridCenter
   components:
