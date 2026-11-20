@@ -15,8 +15,14 @@ dh-assault-outcome-sender = Боевое донесение
 
 ## Брифинги
 
-dh-assault-briefing-republic = 2318 год, идёт Соларная война. Вы служите в гарнизоне военной базы «Терминус» на REP-27-7 — в ненаселённой системе, где Соединённая Республика хранит экспериментальный образец, способный изменить будущее энергетики. Дальние сенсоры засекли в соседней системе имперский десантный авианосец; примерно через {$minutes} мин. он сможет открыть разрыв. Ближайшая эскадра с контингентом КРА уже идёт к вам на помощь и будет здесь примерно через {$relief} мин. Продержитесь до её подхода: окапывайтесь, занимайте позиции ПВО и не отдайте образец из хранилища штаба. Если авианосец будет сбит — нам не избежать нападения Империи. Слава Соединённой Республике!
-dh-assault-briefing-empire = 2318 год. Вы служите на борту имперского десантного авианосца IC-3 «Суверен». Имперские морпехи отправлены на задание вглубь пространства Республики: в ненаселённой системе REP-27, на военной базе «Терминус» на REP-27-7, Республика прячет экспериментальный образец, способный изменить будущее энергетики. Примерно через {$minutes} мин. разрывной генератор будет готов: прыгайте в REP-27, спускайтесь на планету, штурмуйте базу и доставьте образец на борт, затем покиньте систему. По данным разведки, республиканская эскадра подойдёт примерно через {$relief} мин. — к этому времени вас здесь быть не должно. Берегите авианосец — это ваш единственный путь домой. Слава Первой Империи! За Императора!
+dh-assault-briefing-republic = Вы — гарнизон Соединённой Республики.
+    Задача: не отдать экспериментальный образец. Имперский авианосец откроет разрыв примерно через {$minutes} мин. — окапывайтесь и занимайте позиции ПВО.
+    Эскадра республиканского флота подойдёт примерно через {$relief} мин. — продержитесь до её подхода.
+    Подробнее о войне и сторонах — в гайдбуке, раздел «Лор».
+dh-assault-briefing-empire = Вы — имперская морская пехота на борту десантного авианосца IC-3 «Суверен».
+    Задача: высадиться, взять базу Республики и доставить экспериментальный образец на борт. Разрыв откроется примерно через {$minutes} мин.
+    Эскадра республиканского флота подойдёт примерно через {$relief} мин. — к этому времени нас здесь быть не должно. Берегите авианосец — это единственный путь домой.
+    Подробнее о войне и сторонах — в гайдбуке, раздел «Лор».
 dh-assault-reinforced = Вы возвращаетесь в бой со следующей волной подкреплений. Подкреплений у вашей стороны осталось: {$tickets}.
 dh-assault-next-wave = Вы пали. Следующая волна подкреплений прибудет через {$minutes} мин. {$seconds} с (у вашей стороны осталось {$tickets}).
 dh-assault-no-reinforcements = Вы пали. Подкреплений у вашей стороны больше нет.
@@ -98,6 +104,8 @@ dh-job-marine-machinegunner-name = Пулемётчик десанта
 dh-job-marine-machinegunner-desc = Подавляйте обороняющихся; выберите комплект перед прыжком.
 dh-job-marine-rifleman-name = Стрелок десанта
 dh-job-marine-rifleman-desc = Костяк имперского десанта; выберите комплект перед прыжком.
+dh-job-marine-squad-leader-name = Командир отряда
+dh-job-marine-squad-leader-desc = Ведёт один из трёх отрядов десанта — Тау, Эпсилон или Омега. Отмечает цели, вызывает огонь и держит отряд вместе.
 dh-job-garrison-artillery-officer-name = Артиллерийский офицер
 dh-job-garrison-artillery-officer-desc = Руководите огневой поддержкой гарнизона: миномёты, пехотные пушки и батарея ПКО. Находите цели и вызывайте огонь.
 dh-job-garrison-mortar-commander-name = Командир миномётного расчёта
@@ -322,3 +330,141 @@ dh-department-imperial-command-description = Командование импер
 id-card-access-level-dh-imperial-command = Командование имперской операции
 dh-chat-radio-imperial-skat = СКАТ
 dh-chat-radio-imperial-supply = Имперские поставки
+
+## Сокращения должностей в рации (решение автора 2026-11-19)
+dh-job-abbrev-garrison-commander = КБ
+dh-job-abbrev-garrison-officer = ОФ
+dh-job-abbrev-garrison-artillery-officer = АО
+dh-job-abbrev-garrison-rifleman = СТР
+dh-job-abbrev-garrison-machinegunner = ПУЛ
+dh-job-abbrev-garrison-sniper = СНП
+dh-job-abbrev-garrison-flamer = ОГН
+dh-job-abbrev-garrison-aa-gunner = ЗЕН
+dh-job-abbrev-garrison-medic = МЕД
+dh-job-abbrev-garrison-sapper = САП
+dh-job-abbrev-garrison-mortar-commander = КМР
+dh-job-abbrev-garrison-mortar-operator = ОМ
+dh-job-abbrev-garrison-field-artillerist = АРТ
+dh-job-abbrev-garrison-tank-commander = КТ
+dh-job-abbrev-garrison-tank-crew = ЭТ
+dh-job-abbrev-garrison-apc-commander = КБТР
+dh-job-abbrev-garrison-apc-crew = ЭБТР
+dh-job-abbrev-carrier-operation-commander = КО
+dh-job-abbrev-carrier-captain = КА
+dh-job-abbrev-carrier-support-officer = ОВП
+dh-job-abbrev-marine-commander = КД
+dh-job-abbrev-marine-squad-leader = КОТ
+dh-job-abbrev-marine-weapons-specialist = СВ
+dh-job-abbrev-marine-field-medic = МЕД
+dh-job-abbrev-marine-machinegunner = ПУЛ
+dh-job-abbrev-marine-rifleman = СТР
+dh-job-abbrev-carrier-pilot = ПИЛ
+dh-job-abbrev-carrier-attack-pilot = ПШ
+dh-job-abbrev-carrier-artillerist = АРТ
+dh-job-abbrev-carrier-technician = ТЕХ
+dh-job-abbrev-marine-mortar-commander = КМР
+dh-job-abbrev-marine-mortar-operator = ОМ
+dh-job-abbrev-marine-field-artillerist = АРТ
+dh-job-abbrev-marine-tank-commander = КТ
+dh-job-abbrev-marine-tank-crew = ЭТ
+dh-job-abbrev-marine-apc-commander = КБТР
+dh-job-abbrev-marine-apc-crew = ЭБТР
+
+# Полёт челнока на автопилоте над полем боя (решение автора 2026-11-19)
+dh-dropship-descending = Над {$zone}. Снижение!
+dh-dropship-hovering-lost = Зона посадки потеряна: зависаем, выберите другое направление.
+dh-dropship-manual-unavailable = Взять управление можно только в полёте над полем боя.
+dh-dropship-manual-on = Пилот взял управление.
+dh-dropship-ui-manual = ВЗЯТЬ УПРАВЛЕНИЕ (WASD)
+dh-dropship-ui-autopilot = ВКЛЮЧИТЬ АВТОПИЛОТ
+dh-dropship-ui-phase-transit = Переход орбита — атмосфера.
+dh-dropship-ui-phase-cruise = Полёт над полем боя.
+dh-dropship-ui-phase-descend = Снижение.
+dh-dropship-ui-phase-climb = Набор высоты.
+dh-dropship-ui-phase-hover = Висим в воздухе.
+dh-dropship-ui-phase-manual = Ручное управление.
+dh-dropship-atmosphere-unavailable = Подняться в атмосферу можно только из полёта над полем боя.
+dh-dropship-atmosphere-entered = Челнок в слое атмосферы: заход на выброску, пилот ведёт вручную.
+dh-dropship-atmosphere-left = Челнок вернулся на высоту полёта над полем боя.
+dh-dropship-ui-atmosphere-enter = ПОДНЯТЬСЯ В АТМОСФЕРУ (ВЫБРОСКА)
+dh-dropship-ui-atmosphere-leave = ВЕРНУТЬСЯ НАД ПОЛЕМ БОЯ
+dh-dropship-ui-release = ОТПУСТИТЬ УПРАВЛЕНИЕ
+dh-dropship-ui-phase-atmosphere = Слой атмосферы, заход на выброску. Под нами: {$x}, {$y}.
+
+# Подкрепления на грузовиках (план осады п. 2)
+dh-reinforcement-entry-east = восточный въезд
+dh-reinforcement-entry-west = западный въезд
+dh-reinforcement-entry-unknown = въезд
+dh-reinforcement-truck-sender = Автоколонна
+dh-reinforcement-truck-announce = Грузовик с подкреплением прибыл ({ $entry }). Ждите на базе.
+dh-reinforcement-truck-boarded = Вы в кузове грузовика с подкреплением ({ $entry }). Сядьте за руль (кабина) или дождитесь водителя и езжайте на базу по шоссе.
+
+# Приветствие карты «Терминус» (план осады п. 23, решение автора 2026-11-20): своё у каждой карты, задаётся на станции
+# карты (DHAssaultMapBriefing). Коротко: кто ты, где ты, задача и сроки; лор — в гайдбуке.
+dh-assault-briefing-terminus-republic = Вы — гарнизон военной базы «Терминус» на REP-27-7.
+    Задача: не отдать экспериментальный образец из хранилища бункера. Имперский авианосец откроет разрыв примерно через {$minutes} мин. — окапывайтесь и занимайте позиции ПВО.
+    Эскадра республиканского флота подойдёт примерно через {$relief} мин. — продержитесь до её подхода.
+    Подкрепления приходят грузовиками по шоссе. Подробнее о войне и сторонах — в гайдбуке, раздел «Лор».
+dh-assault-briefing-terminus-empire = Вы — имперская морская пехота на борту десантного авианосца IC-3 «Суверен».
+    Задача: высадиться на REP-27-7, взять военную базу «Терминус» и доставить экспериментальный образец из её бункера на борт.
+    Разрыв откроется примерно через {$minutes} мин. Эскадра республиканского флота подойдёт примерно через {$relief} мин. — к этому времени нас здесь быть не должно.
+    Берегите авианосец — это единственный путь домой. Подробнее о войне и сторонах — в гайдбуке, раздел «Лор».
+
+# Итоги раунда (план осады п. 6)
+dh-assault-stats-republic = Республика
+dh-assault-stats-empire = Империя
+dh-assault-stats-none = — нет —
+dh-assault-stats-nobody = —
+dh-assault-stats-captures-header = [bold]Хронология захвата точек[/bold]
+dh-assault-stats-capture = { $time } — [color={ $color }]{ $side }[/color]: «{ $point }»
+dh-assault-stats-capture-from = { $time } — [color={ $color }]{ $side }[/color]: «{ $point }» (отбита у стороны «{ $from }»)
+dh-assault-stats-losses = [bold]Потери:[/bold] Республика — { $republic }, Империя — { $empire }.
+dh-assault-stats-downed = [bold]Сбито:[/bold] штурмовиков Империи — { $aircraft }; авианосец — { $carrier }.
+dh-assault-stats-carrier-down = сбит
+dh-assault-stats-carrier-intact = уцелел
+dh-assault-stats-best-header = [bold]Лучшие бойцы[/bold]
+dh-assault-stats-best-side = [color={ $color }]{ $side }[/color]: больше всех убил — { $killer }; больше всех спас — { $medic }; больше всех захватов — { $captor }.
+dh-assault-stats-best-entry = { $name } ({ $count })
+dh-assault-stats-medals-header = [bold]Награды[/bold]
+dh-assault-stats-medal = [color={ $color }]«{ $medal }»[/color] — { $recipient }. Вручил { $giver }: «{ $citation }»
+
+# Наградной лист
+dh-medal-ui-title = Наградной лист
+dh-medal-ui-remaining = Можно вручить наград: { $count }
+dh-medal-ui-recipient = Кого наградить
+dh-medal-ui-candidate = { $name } — { $job }
+dh-medal-ui-candidate-dead = { $name } — { $job } (посмертно)
+dh-medal-ui-medal = Награда
+dh-medal-ui-citation = Формулировка
+dh-medal-ui-award = Наградить
+dh-medal-none-left = Наградной лист исчерпан.
+dh-medal-wrong-side = Это наградной лист другой стороны.
+dh-medal-no-citation = Напишите формулировку награды.
+dh-medal-sender = Командование
+dh-medal-announce = { $giver } награждает { $recipient } — «{ $medal }»: «{ $citation }»
+
+dh-medal-imperial-cross = Имперский крест
+dh-medal-imperial-cross-desc = Высшая боевая награда Первой Империи — за подвиг, решивший исход боя.
+dh-medal-imperial-assault = За штурм
+dh-medal-imperial-assault-desc = Тем, кто первым врывается на позиции противника и берёт укрепления.
+dh-medal-imperial-loyalty = За верность Императору
+dh-medal-imperial-loyalty-desc = За стойкость и исполнение долга до конца.
+dh-medal-imperial-wound = Знак ранения
+dh-medal-imperial-wound-desc = Тем, кто пролил кровь за Империю.
+dh-medal-republic-star = Звезда Республики
+dh-medal-republic-star-desc = Высшая боевая награда Соединённой Республики — за исключительную храбрость.
+dh-medal-republic-defense = За оборону
+dh-medal-republic-defense-desc = За удержание позиций под огнём противника.
+dh-medal-republic-valor = За отвагу
+dh-medal-republic-valor-desc = За личную храбрость в бою, спасение товарищей и смелые действия.
+dh-medal-republic-wound = Знак ранения
+dh-medal-republic-wound-desc = Тем, кто пролил кровь за Республику.
+
+## Маскхалат снайпера
+dh-ghillie-preparing = Вы замираете и прячетесь в маскхалате…
+dh-ghillie-hidden = Вы скрыты. Не двигайтесь.
+dh-ghillie-already-hidden = Вы уже скрыты.
+dh-ghillie-revealed-self = Вы выходите из маскировки.
+dh-ghillie-revealed-move = Вы двинулись — маскировка сбита!
+dh-ghillie-revealed-shot = Выстрел выдал вашу позицию!
+dh-ghillie-revealed-hit = Вас ранили — маскировка сбита!

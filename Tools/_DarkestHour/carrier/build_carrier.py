@@ -15,6 +15,7 @@
 Карта целиком перезаписывается (Resources/Maps/_DarkestHour/Shuttles/imperial_carrier.yml)."""
 import base64
 import json
+import os
 import math
 import struct
 from collections import deque
@@ -334,6 +335,7 @@ for y in range(ry0 + 2, ry1 - 1, 4):    # осевая разметка
 # штурмовик: лифт в начале ВПП (у брифинговой), катапульта — вдоль ВПП к носу; рядом бак горючего и ЛТЦ
 lcx = (rx0 + rx1) // 2
 put('DHAircraftLift', lcx, ry0 + 3)
+assert put('DHComputerAircraftLift', lcx + 3, ry0 + 7, FACE['W']), 'компьютер лифта штурмовика'   # одна кнопка «Поднять»
 spawn('DHSpawnPointImperialAttackPilot', [(lcx + d, ry0 + 6) for d in (0, -1, 1)], 2)
 put('WeldingFuelTankFull', lcx + 3, ry0 + 3)
 put('Rack', lcx - 3, ry0 + 1)
@@ -348,9 +350,10 @@ for i, munition in enumerate(('DHAircraftBombHE', 'DHAircraftBombHE', 'DHAircraf
                                'DHAircraftBombMagnesium', 'DHAircraftGuidedBomb', 'DHAircraftMissileAT', 'DHAircraftMissileAT',
                                'DHAircraftMissileHE', 'DHAircraftMissileHE')):
     put(munition, lcx + 4 + i // 2, ry0 + 1 + i % 2)
-# техника и десантное снаряжение — у бортов ВПП
-put('DHVehicleDropPalletTankEmpire', rx1 - 1, ry1 - 2)
-put('DHVehicleDropPalletIM30', rx1 - 1, ry1 - 5)
+# техника и десантное снаряжение — у бортов ВПП. Поддоны танка и БТР — в трюме лифта техники 5×5 (план осады п. 4).
+assert rx1 - 4 > lcx + 2, 'лифт техники налезает на ось ВПП'
+put('DHVehicleLift', rx1 - 2, ry1 - 4)
+assert put('DHComputerVehicleLift', rx1, ry1 - 7, FACE['W']), 'компьютер лифта техники'
 put('DHFieldGun75', rx1 - 1, ry1 - 8)
 put('DHCrateFieldGun75', rx1 - 1, ry1 - 9)
 put('DHCrateMortar', rx1 - 1, ry1 - 11)
@@ -363,8 +366,8 @@ put('DHTentImperialMedicalFolded', rx1 - 1, ry1 - 20)
 put('DHCamoNetFolded', rx1 - 1, ry1 - 22, n=2)
 put('DHClothingOuterGhillie', rx1 - 1, ry1 - 23, n=2)
 put('DHFlagEmpire', rx1 - 1, ry1 - 24, n=2)   # водрузить на захваченной позиции
-spawn('DHSpawnPointImperialArmor', [(rx1 - 3, ry1 - 2 - i) for i in range(5)], 4)
-spawn('DHSpawnPointImperialArtillery', [(rx1 - 3, ry1 - 8 - i) for i in range(6)], 4)
+spawn('DHSpawnPointImperialArmor', [(rx1 - 3, ry1 - 8 - i) for i in range(5)], 4)
+spawn('DHSpawnPointImperialArtillery', [(rx1 - 3, ry1 - 14 - i) for i in range(6)], 4)
 
 # --- ПВО (треугольник)
 door('runway', 'pvo', 'AirlockSecurityGlassLocked')
@@ -391,6 +394,9 @@ for dx, dy in ((4, -3), (4, 3), (-3, -3), (-3, 3), (5, 0)):   # погрузчи
 else:
     raise SystemExit('нет места для погрузчика у грузового лифта')
 put('DHComputerSupply', ex + 5, ey + 3, FACE['S'])
+# площадка сброса на маяк 3×3 и её консоль (план осады п. 4)
+put('DHSupplyDropPad', x0 + 3, y0 + 3)
+assert put('DHComputerSupplyDrop', x0 + 6, y0 + 3, FACE['W']), 'консоль сброса грузов'
 put('ChairOfficeDark', ex + 5, ey + 2, FACE['N'])
 for i in range(4):
     put('CrateFilledSpawner', x1 - 1 - i, y1)
@@ -444,7 +450,7 @@ door('brief', 'eng', 'AirlockEngineeringLocked', width=2)
 # --- штаб и комнаты командования
 x0, y0, x1, y1 = ibox('hq')
 bridge = ['DHComputerRiftNav', 'DHComputerLanding', 'DHComputerOverwatchEmpire', 'DHComputerSquadsEmpire',
-          'DHComputerOrbitalScan', 'ComputerRadar']
+          'DHComputerOrbitalScan', 'ComputerRadar', 'DHComputerCommandTreeEmpire']  # штаб: древо командования
 for i, proto in enumerate(bridge):
     x = x0 + 1 + i * 2
     put(proto, x, y1, FACE['S'])
@@ -617,6 +623,92 @@ for room, wall, inner in APCS:
     CABLE['CableMV'].update(bfs(SUBS[0], wall, ship))
 CABLE['CableMV'].update(bfs(SUBS[0], SUBS[1], ship))
 
+
+# --- отсеки для живучести авианосца (план осады п. 19, решения автора 2026-11-19): прямоугольники клеток каждого
+# отсека — в прототип dhCarrierLayout; в каждом отсеке — аварийный пост; схема повреждений на мостике и в инженерном.
+COMPARTMENTS = [  # id, ключ названия, вид, помещения
+    ('hangar', 'dh-carrier-compartment-hangar', 'Hangar', ['zone', 'runway', 'cargo']),
+    ('guns', 'dh-carrier-compartment-guns', 'Guns', ['art']),
+    ('bridge', 'dh-carrier-compartment-bridge', 'Bridge', ['hq', 'hqhall', 'cmd1', 'cmd2', 'cmd3', 'cmd4']),
+    ('engineering', 'dh-carrier-compartment-engineering', 'Engineering', ['eng', 'engL', 'engR']),
+    ('rift', 'dh-carrier-compartment-rift', 'None', ['rift']),
+    ('pvo', 'dh-carrier-compartment-pvo', 'None', ['pvo']),
+    ('barracks', 'dh-carrier-compartment-barracks', 'None', ['barracks']),
+    ('brief', 'dh-carrier-compartment-brief', 'None', ['brief']),
+    ('labs', 'dh-carrier-compartment-labs', 'None', ['labs', 'or1', 'or2', 'chem', 'morgue']),
+]
+
+
+def rects(cells):
+    """Клетки → прямоугольники: отрезки по строкам, одинаковые отрезки соседних строк сливаются."""
+    rows = {}
+    for x, y in cells:
+        rows.setdefault(y, []).append(x)
+    runs = {}
+    for y, xs in rows.items():
+        xs.sort()
+        start = prev = xs[0]
+        for x in xs[1:] + [None]:
+            if x is not None and x == prev + 1:
+                prev = x
+                continue
+            runs.setdefault((start, prev), []).append(y)
+            if x is not None:
+                start = prev = x
+    out = []
+    for (x0, x1), ys in runs.items():
+        ys.sort()
+        y0 = prev = ys[0]
+        for y in ys[1:] + [None]:
+            if y is not None and y == prev + 1:
+                prev = y
+                continue
+            out.append((x0, y0, x1 + 1, prev + 1))
+            if y is not None:
+                y0 = prev = y
+    return sorted(out)
+
+
+occupied = {(e[1], e[2]) for e in E} | set(W)
+doors = {(e[1], e[2]) for e in E if 'Airlock' in e[0] or 'Door' in e[0]}
+
+
+def wall_spot(rooms):
+    """Свободная клетка у стены, не у двери (для аварийного поста или консоли)."""
+    cells = sorted(p for r in rooms for p in INNER.get(r, ()) if p not in HOLE)
+    for x, y in cells:
+        if (x, y) in occupied:
+            continue
+        near = [(x + dx, y + dy) for dx, dy in N4]
+        if any(n in doors for n in near) or not any(n in W for n in near):
+            continue
+        occupied.add((x, y))
+        return x, y
+    return None
+
+
+layout = ['# Сгенерировано Tools/_DarkestHour/carrier/build_carrier.py — не править руками.',
+          '# Отсеки авианосца для живучести (план осады п. 19): клетки грида прямоугольниками left,bottom,right,top.',
+          '', '- type: dhCarrierLayout', '  id: DHCarrierLayoutSovereign', '  compartments:']
+for cid, name, kind, rooms in COMPARTMENTS:
+    cells = {p for p, r in REGION.items() if r in rooms and p not in HOLE}
+    layout += ['  - id: %s' % cid, '    name: %s' % name, '    kind: %s' % kind, '    boxes:']
+    layout += ['    - %d,%d,%d,%d' % b for b in rects(cells)]
+    spot = wall_spot(rooms)
+    if spot:
+        put('DHCarrierEmergencyPost', spot[0], spot[1], force=True)
+os.makedirs('Resources/Prototypes/_DarkestHour/Carrier', exist_ok=True)
+open('Resources/Prototypes/_DarkestHour/Carrier/compartments.yml', 'w', encoding='utf-8').write('\n'.join(layout) + '\n')
+
+# схема повреждений: на мостике (у правой стены, рядом с мониторингом экипажа) и в инженерном отсеке
+x0, y0, x1, y1 = ibox('hq')
+put('DHComputerCarrierDamage', x1, y0 + 7, FACE['W'], force=True)
+put('ChairOfficeDark', x1 - 1, y0 + 7, FACE['E'], force=True)
+occupied.update({(x1, y0 + 7), (x1 - 1, y0 + 7)})
+spot = wall_spot(['eng'])
+if spot:
+    put('DHComputerCarrierDamage', spot[0], spot[1], force=True)
+
 print('помещений', len(INNER), 'ЛКП', len(APCS), 'точек появления', spawns)
 
 # =============================================================== запись
@@ -724,6 +816,8 @@ w('    - type: GasTileOverlay')
 w('    - type: RadiationGridResistance')
 w('    - type: NavMap')
 w('    - type: ExplosionAirtightGrid')
+w('    - type: DHCarrierCompartments')
+w('      layout: DHCarrierLayoutSovereign')
 by_proto = {}
 for proto, x, y, rot in ents:
     by_proto.setdefault(proto, []).append((x, y, rot))

@@ -204,3 +204,9 @@ dh-aircraft-computer-guided = Управляемые: { $count }. До цели 
 dh-aircraft-computer-guided-no-target = Управляемые: { $count }. Выберите цель правым кликом по карте.
 dh-aircraft-drop-salvo = Бомбы пошли: { $count }!
 dh-aircraft-fire-salvo = Пуск: { $count }!
+
+dh-aircraft-lift-console-no-lift = Лифт штурмовика не найден.
+dh-aircraft-lift-console-unpowered = Компьютер обесточен.
+dh-aircraft-lift-console-raising = Лифт поднимает штурмовик на палубу.
+dh-aircraft-lift-console-raised = Лифт уже поднят.
+dh-aircraft-lift-console-moving = Лифт ещё движется.
