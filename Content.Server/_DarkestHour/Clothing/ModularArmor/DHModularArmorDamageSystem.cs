@@ -14,6 +14,7 @@ using Content.Shared.Popups;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
 namespace Content.Server._DarkestHour.Clothing.ModularArmor;
@@ -30,6 +31,7 @@ public sealed partial class DHModularArmorDamageSystem : EntitySystem
     [Dependency] private DHModularArmorSystem _armor = default!;
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private IRobustRandom _random = default!;
     [Dependency] private SharedSolutionContainerSystem _solutions = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private DHTraumaSystem _trauma = default!;
@@ -127,8 +129,11 @@ public sealed partial class DHModularArmorDamageSystem : EntitySystem
         }
         else
         {
+            // Заброневая травма: малая доля урона ушибом, а от крупного калибра — ещё и перелом под пластиной.
             args.Damage = ConvertPhysical(args.Damage, DHModularArmor.BlockedFraction, toBlunt: true);
-            Wear(ent, module, physical * (1f - DHModularArmor.BlockedFraction));
+            Wear(ent, module, physical * DHModularArmor.BlockedWear);
+            if (_random.Prob(DHModularArmor.BlockedFractureChance(physical)))
+                _trauma.TryBreakBoneFromImpact(ent, part);
         }
 
         args.Handled = true;

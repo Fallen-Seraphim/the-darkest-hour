@@ -166,6 +166,7 @@ public sealed partial class DHTentFoldDoAfterEvent : SimpleDoAfterEvent;
 /// </summary>
 public sealed partial class DHBarricadeCoverSystem : EntitySystem
 {
+    [Dependency] private Content.Shared._DarkestHour.Levels.DHHeightCoverSystem _height = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
 
     public override void Initialize()
@@ -197,6 +198,13 @@ public sealed partial class DHBarricadeCoverSystem : EntitySystem
 
         // Открытые складные ворота лежат — не укрывают.
         if (TryComp<DoorComponent>(ent, out var door) && door.State != DoorState.Closed)
+        {
+            args.Cancelled = true;
+            return;
+        }
+
+        // Огонь сверху (с крыши, этажа) идёт над баррикадой (высота, п. 21).
+        if (_height.FromAbove(args.OtherEntity))
         {
             args.Cancelled = true;
             return;

@@ -75,6 +75,12 @@ public sealed class DHOverwatchEntry
 
     /// <summary>Z-уровень бойца (0 — земля).</summary>
     public int Level;
+
+    /// <summary>Отряд бойца (ID прототипа; null — вне отрядов): на карте — точка цвета отряда.</summary>
+    public string? Squad;
+
+    /// <summary>Командир отряда: на карте точка крупнее и с белой рамкой.</summary>
+    public bool SquadLeader;
 }
 
 /// <summary>Уровень тактической карты: карта уровня и версия её местности.</summary>
@@ -142,6 +148,21 @@ public enum DHTacticalMarkerKind : byte
 
     /// <summary>Сигнатура с РЛС своего штурмовика в воздухе.</summary>
     AirSignature,
+
+    /// <summary>Челнок десанта в воздухе над полем боя (свой — всегда, чужой — если его видят РЛС).</summary>
+    Dropship,
+
+    /// <summary>Своя техника: значок по типу (<see cref="DHTacticalMarker.Icon"/>).</summary>
+    OwnVehicle,
+
+    /// <summary>Свой штурмовик в воздухе: курс — <see cref="DHTacticalMarker.Rotation"/>.</summary>
+    Aircraft,
+
+    /// <summary>Контрбатарейная засечка: орудие противника где-то в круге радиусом Radius.</summary>
+    CounterBattery,
+
+    /// <summary>Маяк сброса: Империи — включённые свои, Республике — тот, к которому летит груз.</summary>
+    DropBeacon,
 }
 
 [Serializable, NetSerializable]
@@ -156,6 +177,18 @@ public sealed class DHTacticalMarker
 
     /// <summary>Z-уровень отметки (0 — земля).</summary>
     public int Level;
+
+    /// <summary>Значок техники (<see cref="Content.Shared._DarkestHour.Vehicles.DHVehicleMapIcon"/>).</summary>
+    public byte Icon;
+
+    /// <summary>Курс (самолёт), радианы.</summary>
+    public float Rotation;
+
+    /// <summary>Противник сейчас не виден: отметка «последний раз видели здесь».</summary>
+    public bool Stale;
+
+    /// <summary>Противника подсветил ЛЦУ: отметка держится дольше. У маяка сброса — к нему летит груз.</summary>
+    public bool Lased;
 }
 
 /// <summary>Запрос местности тактической карты (клиент кэширует её по версии). Map — уровень, null — земля.</summary>

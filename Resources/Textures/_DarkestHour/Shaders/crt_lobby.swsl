@@ -1,0 +1,35 @@
+// Шейдер «старого монитора» поверх всего лобби (план осады п. 23, решение автора 2026-11-20).
+// Строки развёртки и зерно — по crt_scanlines.swsl из CMU14 (RussianCM, github.com/flex5hybrid/RussianCM);
+// DH: медленно бегущая сверху вниз светлая полоса и лёгкое затемнение к краям. Рисуется прямоугольником поверх
+// интерфейса: картинку под ним не трогает (без захвата экрана), только затемняет и подсвечивает.
+light_mode unshaded;
+
+uniform highp float height;      // высота в пикселях
+uniform highp float pitch;       // шаг строк развёртки, пикселей
+uniform highp float strength;    // общая сила 0..1
+uniform highp float grain;
+uniform highp float bandPeriod;  // секунд на проход полосы
+uniform highp vec3 phosphor;
+
+void fragment() {
+    highp float row = UV.y * height;
+    highp float wave = 0.5 - 0.5 * cos(row / max(pitch, 2.0) * 6.2831853);
+    highp float scan = wave * wave * 0.16 * strength;
+
+    // Зерно — со ступенчатой частотой кадров, как у сигнала.
+    highp float frame = floor(TIME * 24.0);
+    highp float signal = zRandom(FRAGCOORD.xy * SCREEN_PIXEL_SIZE + vec2(frame * 0.013, 0.0)).x;
+    highp float noise = (signal - 0.5) * grain * 0.02 * strength;
+
+    // Бегущая полоса: мягкий подъём яркости шириной ~8% экрана.
+    highp float band = fract(TIME / max(bandPeriod, 0.5)) * 1.3 - 0.15;
+    highp float d = (UV.y - band) / 0.08;
+    highp float roll = exp(-d * d) * 0.05 * strength;
+
+    // Виньетка: края чуть темнее.
+    highp vec2 c = UV * 2.0 - 1.0;
+    highp float vig = smoothstep(0.55, 1.45, length(c)) * 0.35 * strength;
+
+    highp float light = max(noise, 0.0) + roll;
+    COLOR = vec4(phosphor * light, clamp(scan + vig + abs(noise) + roll, 0.0, 0.5));
+}

@@ -1,0 +1,102 @@
+# Награды командиров «Осады» (план п. 6, решение автора 2026-11-20). Наградной лист — у командира базы (Республика),
+# командующего операцией и капитана авианосца (Империя): выбрать бойца своей стороны, медаль и формулировку; не больше
+# трёх наград с листа за раунд. Награда объявляется стороне и попадает в итоги раунда. Код — DHMedalSystem.
+
+- type: entity
+  parent: BaseItem
+  id: DHMedalTabletBase
+  abstract: true
+  name: award sheet
+  description: A commander's award sheet. Pick a soldier of your side, a decoration and write the citation — the award is announced to your side and goes into the after-action report. Up to three awards per sheet.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/clipboard.rsi
+    layers:
+    - state: clipboard
+    - state: clipboard_paper
+    - state: clipboard_pen
+  - type: Item
+    size: Small
+  - type: ActivatableUI
+    key: enum.DHMedalTabletUiKey.Key
+    inHandsOnly: true
+  - type: UserInterface
+    interfaces:
+      enum.DHMedalTabletUiKey.Key:
+        type: DHMedalTabletBoundUserInterface
+
+- type: entity
+  parent: DHMedalTabletBase
+  id: DHMedalTabletEmpire
+  suffix: Empire
+  components:
+  - type: DHMedalTablet
+    faction: Empire
+
+- type: entity
+  parent: DHMedalTabletBase
+  id: DHMedalTabletRepublic
+  suffix: Republic
+  components:
+  - type: DHMedalTablet
+    faction: Republic
+
+# --- Медали Империи
+
+- type: dhMedal
+  id: DHMedalImperialCross
+  name: dh-medal-imperial-cross
+  description: dh-medal-imperial-cross-desc
+  faction: Empire
+  order: 0
+
+- type: dhMedal
+  id: DHMedalImperialAssault
+  name: dh-medal-imperial-assault
+  description: dh-medal-imperial-assault-desc
+  faction: Empire
+  order: 1
+
+- type: dhMedal
+  id: DHMedalImperialLoyalty
+  name: dh-medal-imperial-loyalty
+  description: dh-medal-imperial-loyalty-desc
+  faction: Empire
+  order: 2
+
+- type: dhMedal
+  id: DHMedalImperialWound
+  name: dh-medal-imperial-wound
+  description: dh-medal-imperial-wound-desc
+  faction: Empire
+  order: 3
+
+# --- Медали Республики
+
+- type: dhMedal
+  id: DHMedalRepublicStar
+  name: dh-medal-republic-star
+  description: dh-medal-republic-star-desc
+  faction: Republic
+  order: 0
+
+- type: dhMedal
+  id: DHMedalRepublicDefense
+  name: dh-medal-republic-defense
+  description: dh-medal-republic-defense-desc
+  faction: Republic
+  order: 1
+
+- type: dhMedal
+  id: DHMedalRepublicValor
+  name: dh-medal-republic-valor
+  description: dh-medal-republic-valor-desc
+  faction: Republic
+  order: 2
+
+- type: dhMedal
+  id: DHMedalRepublicWound
+  name: dh-medal-republic-wound
+  description: dh-medal-republic-wound-desc
+  faction: Republic
+  order: 3
