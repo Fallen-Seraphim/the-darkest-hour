@@ -495,3 +495,16 @@
   plantMetabolism:
   - !type:PlantAdjustNutrition
     amount: 1.5
+
+# Магний (решение автора 2026-11-14): металлический порошок, горит своим белым огнём (dhFlammableReagent DHMagnesium,
+# DHTileFireMagnesium), вода его почти не гасит. Им начинена магниевая бомба штурмовика.
+- type: reagent
+  id: DHMagnesium
+  name: reagent-name-dh-magnesium
+  group: Elements
+  desc: reagent-desc-dh-magnesium
+  physicalDesc: reagent-physical-desc-metallic
+  flavor: metallic
+  color: "#c8ccd2"
+  boilingPoint: 1091
+  meltingPoint: 650

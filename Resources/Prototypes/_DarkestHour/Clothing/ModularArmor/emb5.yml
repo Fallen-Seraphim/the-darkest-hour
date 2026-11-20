@@ -1,0 +1,348 @@
+# DarkestHour: ЭМБ-5 — экспериментальная модульная броня ассоциативного десантника ЗГА (план осады п. 28).
+# Средний экзоскелет со встроенным в грудь пехотным щитом (DHInfantryShield), экспериментальные пластины (класс брони 2,
+# прочность выше лёгких, вес композитных) и шлем в духе Max Tac. Спрайты — Tools/_DarkestHour/modular_armor/exo_sprites.py --emb5.
+
+- type: entity
+  parent: ClothingOuterHardsuitBase
+  id: DHClothingOuterExoEMB5
+  name: EMB-5 experimental exoskeleton
+  description: "A white Association exoskeleton over a dark pressure suit. Takes only experimental plates and carries them with ease: the wearer moves a little faster than unarmoured. An infantry shield emitter is built into the chest: the field stops five bullets, then drops and comes back after half a minute without hits."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/emb5_exo.rsi
+    state: icon
+  - type: Clothing
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/emb5_exo.rsi
+  - type: Item
+    size: Huge
+    shape:
+    - 0,0,3,3
+  - type: DHWeight
+    weight: 12
+  - type: PressureProtection
+    highPressureMultiplier: 0.1
+    lowPressureMultiplier: 1000
+  - type: ExplosionResistance
+    damageCoefficient: 0.75
+  - type: Armor
+    modifiers:
+      coefficients:
+        Radiation: 0.5
+        Caustic: 0.5
+  - type: ClothingSpeedModifier
+    walkModifier: 1
+    sprintModifier: 1
+  - type: HeldSpeedModifier
+  - type: ToggleableClothing
+    slot: head
+    verbText: toggle-clothing-verb-helmet
+    action: ActionToggleSuitPiece
+    clothingPrototype: DHClothingHeadHelmetEMB5
+  - type: DHExoskeleton
+    class: Medium
+    plates: [ Experimental ]
+    speed: 1.05
+    loadFactor: 0.7
+    meleeMultiplier: 1.6
+    meleeBluntBonus: 6
+    special: true
+  - type: DHModularArmor
+    faction: emb5
+    covers:
+      ArmLeft: DHArmorCoverEMB5ArmLeft
+      ArmRight: DHArmorCoverEMB5ArmRight
+      LegLeft: DHArmorCoverEMB5LegLeft
+      LegRight: DHArmorCoverEMB5LegRight
+  - type: DHInfantryShield
+  - type: ContainerContainer
+    containers:
+      toggleable-clothing: !type:ContainerSlot {}
+      dh_armor_torso: !type:ContainerSlot {}
+      dh_armor_armleft: !type:ContainerSlot {}
+      dh_armor_armright: !type:ContainerSlot {}
+      dh_armor_legleft: !type:ContainerSlot {}
+      dh_armor_legright: !type:ContainerSlot {}
+      dh_armor_special: !type:ContainerSlot {}
+  - type: GroupExamine
+  - type: Tag
+    tags:
+    - Hardsuit
+  - type: StaticPrice
+    price: 9000
+
+- type: entity
+  parent: ClothingHeadHardsuitBase
+  id: DHClothingHeadHelmetEMB5
+  name: EMB-5 helmet
+  description: "A smooth closed helmet of the Association Paratrooper Corps: a narrow dark visor with a blue light strip and an integrated filter. Seals the suit."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/Head/ModularArmor/emb5_helmet.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Clothing/Head/ModularArmor/emb5_helmet.rsi
+  - type: PressureProtection
+    highPressureMultiplier: 0.1
+    lowPressureMultiplier: 1000
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 1
+        Slash: 1
+        Piercing: 1
+        Heat: 1
+        Radiation: 1
+  - type: DHPartArmor
+    parts: [ Head ]
+    armorClass: 2
+  - type: DHIntegratedMask
+  - type: SlotBlock
+    slots: [ MASK ]
+
+- type: entity
+  parent: BaseItem
+  id: DHArmorCoverEMB5ArmLeft
+  name: EMB-5 left arm module
+  description: "A plate of the worn EMB-5 exoskeleton. It comes off together with the exoskeleton or when the plate is taken out; examine for its protection."
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/emb5_experimental.rsi
+    state: icon_arm_left
+  - type: Item
+    size: Normal
+  - type: DHWeight
+    weight: 0
+  - type: Clothing
+    slots: [ ARMS ]
+    clothingVisuals:
+      armLeft: []
+  - type: Unremoveable
+    deleteOnDrop: true
+  - type: DHArmorLimbCover
+
+- type: entity
+  parent: BaseItem
+  id: DHArmorCoverEMB5ArmRight
+  name: EMB-5 right arm module
+  description: "A plate of the worn EMB-5 exoskeleton. It comes off together with the exoskeleton or when the plate is taken out; examine for its protection."
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/emb5_experimental.rsi
+    state: icon_arm_right
+  - type: Item
+    size: Normal
+  - type: DHWeight
+    weight: 0
+  - type: Clothing
+    slots: [ ARMS ]
+    clothingVisuals:
+      armRight: []
+  - type: Unremoveable
+    deleteOnDrop: true
+  - type: DHArmorLimbCover
+
+- type: entity
+  parent: BaseItem
+  id: DHArmorCoverEMB5LegLeft
+  name: EMB-5 left leg module
+  description: "A plate of the worn EMB-5 exoskeleton. It comes off together with the exoskeleton or when the plate is taken out; examine for its protection."
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/emb5_experimental.rsi
+    state: icon_leg_left
+  - type: Item
+    size: Normal
+  - type: DHWeight
+    weight: 0
+  - type: Clothing
+    slots: [ LEGS ]
+    clothingVisuals:
+      legLeft: []
+  - type: Unremoveable
+    deleteOnDrop: true
+  - type: DHArmorLimbCover
+
+- type: entity
+  parent: BaseItem
+  id: DHArmorCoverEMB5LegRight
+  name: EMB-5 right leg module
+  description: "A plate of the worn EMB-5 exoskeleton. It comes off together with the exoskeleton or when the plate is taken out; examine for its protection."
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/emb5_experimental.rsi
+    state: icon_leg_right
+  - type: Item
+    size: Normal
+  - type: DHWeight
+    weight: 0
+  - type: Clothing
+    slots: [ LEGS ]
+    clothingVisuals:
+      legRight: []
+  - type: Unremoveable
+    deleteOnDrop: true
+  - type: DHArmorLimbCover
+
+- type: entity
+  parent: BaseItem
+  id: DHArmorModuleEMB5Torso
+  name: EMB-5 experimental torso plate
+  description: "An experimental Association armour plate, protection class 2: stops ordinary rounds and holds far longer than a light plate at the weight of a composite one. Fits only EMB-5 exoskeletons; can be swapped in the field."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/emb5_experimental.rsi
+    state: icon_torso
+  - type: Item
+    size: Normal
+  - type: DHWeight
+    weight: 5.0
+  - type: DHArmorModule
+    slot: Torso
+    class: Experimental
+    faction: emb5
+    maxIntegrity: 330
+    integrity: 330
+    equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/emb5_experimental.rsi
+    equippedState: torso
+  - type: StaticPrice
+    price: 1100
+
+- type: entity
+  parent: BaseItem
+  id: DHArmorModuleEMB5ArmLeft
+  name: EMB-5 experimental left arm plate
+  description: "An experimental Association armour plate, protection class 2: stops ordinary rounds and holds far longer than a light plate at the weight of a composite one. Fits only EMB-5 exoskeletons; can be swapped in the field."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/emb5_experimental.rsi
+    state: icon_arm_left
+  - type: Item
+    size: Normal
+  - type: DHWeight
+    weight: 2.5
+  - type: DHArmorModule
+    slot: ArmLeft
+    class: Experimental
+    faction: emb5
+    maxIntegrity: 220
+    integrity: 220
+    equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/emb5_experimental.rsi
+    equippedState: arm_left
+  - type: StaticPrice
+    price: 800
+
+- type: entity
+  parent: BaseItem
+  id: DHArmorModuleEMB5ArmRight
+  name: EMB-5 experimental right arm plate
+  description: "An experimental Association armour plate, protection class 2: stops ordinary rounds and holds far longer than a light plate at the weight of a composite one. Fits only EMB-5 exoskeletons; can be swapped in the field."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/emb5_experimental.rsi
+    state: icon_arm_right
+  - type: Item
+    size: Normal
+  - type: DHWeight
+    weight: 2.5
+  - type: DHArmorModule
+    slot: ArmRight
+    class: Experimental
+    faction: emb5
+    maxIntegrity: 220
+    integrity: 220
+    equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/emb5_experimental.rsi
+    equippedState: arm_right
+  - type: StaticPrice
+    price: 800
+
+- type: entity
+  parent: BaseItem
+  id: DHArmorModuleEMB5LegLeft
+  name: EMB-5 experimental left leg plate
+  description: "An experimental Association armour plate, protection class 2: stops ordinary rounds and holds far longer than a light plate at the weight of a composite one. Fits only EMB-5 exoskeletons; can be swapped in the field."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/emb5_experimental.rsi
+    state: icon_leg_left
+  - type: Item
+    size: Normal
+  - type: DHWeight
+    weight: 2.5
+  - type: DHArmorModule
+    slot: LegLeft
+    class: Experimental
+    faction: emb5
+    maxIntegrity: 220
+    integrity: 220
+    equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/emb5_experimental.rsi
+    equippedState: leg_left
+  - type: StaticPrice
+    price: 800
+
+- type: entity
+  parent: BaseItem
+  id: DHArmorModuleEMB5LegRight
+  name: EMB-5 experimental right leg plate
+  description: "An experimental Association armour plate, protection class 2: stops ordinary rounds and holds far longer than a light plate at the weight of a composite one. Fits only EMB-5 exoskeletons; can be swapped in the field."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/ModularArmor/emb5_experimental.rsi
+    state: icon_leg_right
+  - type: Item
+    size: Normal
+  - type: DHWeight
+    weight: 2.5
+  - type: DHArmorModule
+    slot: LegRight
+    class: Experimental
+    faction: emb5
+    maxIntegrity: 220
+    integrity: 220
+    equippedRsi: _DarkestHour/Clothing/OuterClothing/ModularArmor/emb5_experimental.rsi
+    equippedState: leg_right
+  - type: StaticPrice
+    price: 800
+
+# Полный комплект десантника: экспериментальные пластины, автоаптечка в слоте спецсистемы.
+- type: entity
+  parent: DHClothingOuterExoEMB5
+  id: DHClothingOuterModularEMB5
+  suffix: Full
+  components:
+  - type: DHModularArmor
+    faction: emb5
+    covers:
+      ArmLeft: DHArmorCoverEMB5ArmLeft
+      ArmRight: DHArmorCoverEMB5ArmRight
+      LegLeft: DHArmorCoverEMB5LegLeft
+      LegRight: DHArmorCoverEMB5LegRight
+    startingModules:
+      Torso: DHArmorModuleEMB5Torso
+      ArmLeft: DHArmorModuleEMB5ArmLeft
+      ArmRight: DHArmorModuleEMB5ArmRight
+      LegLeft: DHArmorModuleEMB5LegLeft
+      LegRight: DHArmorModuleEMB5LegRight
+      Special: DHArmorSpecialAutoMed
+
+# Поле пехотного щита на носителе (свечение и свет рисует клиент по состоянию).
+- type: entity
+  id: DHInfantryShieldField
+  name: infantry shield field
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Effects/infantry_shield.rsi
+    state: field
+    noRot: true
+    drawdepth: Effects
+    shader: unshaded
+    color: "#4fb8ff30"
+  - type: PointLight
+    radius: 1.6
+    energy: 0.5
+    color: "#4fb8ff"
+    netsync: false
+  - type: DHInfantryShieldField

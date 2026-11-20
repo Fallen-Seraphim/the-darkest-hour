@@ -30,3 +30,5 @@ reagent-name-dh-dexamethasone = dexamethasone
 reagent-desc-dh-dexamethasone = A steroid against swelling and inflammation: moderately treats burns, chemical burns and allergies.
 reagent-name-dh-prussianblue = Prussian blue
 reagent-desc-dh-prussianblue = Binds radioactive isotopes and flushes out radiation.
+reagent-name-dh-citrasin = citrasin
+reagent-desc-dh-citrasin = An immunosuppressant: halves the rate of implant rejection. Hard on the kidneys in large doses.

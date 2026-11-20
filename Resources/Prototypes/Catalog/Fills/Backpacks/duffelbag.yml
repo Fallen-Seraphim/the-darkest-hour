@@ -16,6 +16,7 @@
         - id: Scalpel
         - id: DHBoneGel # DarkestHour: хирургия
         - id: DHBoneSetter
+        - id: DHMicroForceps # DarkestHour: шов нерва
 
 - type: entity
   parent: ClothingBackpackDuffelSyndicateMedicalBundle
@@ -36,6 +37,7 @@
         - id: ClothingHandsGlovesNitrile
         - id: DHBoneGel # DarkestHour: хирургия
         - id: DHBoneSetter
+        - id: DHMicroForceps # DarkestHour: шов нерва
         - id: EmergencyRollerBedSpawnFolded
 
 - type: entity

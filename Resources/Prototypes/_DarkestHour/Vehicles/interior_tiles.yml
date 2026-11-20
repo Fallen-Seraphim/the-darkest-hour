@@ -1,0 +1,119 @@
+# DarkestHour: плитка отсеков техники из RMC-14 (через RussianCM; CC-BY-SA-3.0, cmss13). Генерирует
+# Tools/_DarkestHour/vehicles/port_interiors.py — не править руками.
+
+- type: tile
+  abstract: true
+  parent: CMTileBase
+  id: DHFloorVehicleInteriorBase
+  name: tiles-dh-vehicle-interior-floor
+  deconstructTools: []
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: DHFloorVehicleInteriorVoid
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/void.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor0_9
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_0_9.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor1_1_3
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_1_1_3.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor1_5
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_1_5.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor1_6
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_1_6.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor1_11
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_1_11.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor1_12
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_1_12.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor1_13
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_1_13.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor1_14
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_1_14.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor3_1_1
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_3_1_1.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor3_3
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_3_3.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor3_4
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_3_4.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor3_5
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_3_5.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor3_6
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_3_6.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor3_7
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_3_7.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor3_8
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_3_8.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor3_8_1
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_3_8_1.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor3_9
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_3_9.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor3_9_1
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_3_9_1.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor3_11
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_3_11.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor3_12
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_3_12.png
+
+- type: tile
+  parent: DHFloorVehicleInteriorBase
+  id: RMCFloorVehicleInteriorFloor3_13
+  sprite: /Textures/_RMC14/Tiles/vehicle_interior/floor_3_13.png

@@ -1,0 +1,427 @@
+# Событие «Ассоциативный десантник» (план осады п. 28): десантник ЗГА и ИИ его брони M.A.R.S. 1.5.
+# Набор — DHThirdPartySystem, высадка и меры предосторожности — DHZGAParatrooperSystem. Броня ЭМБ-5 — отдельно (п. 28, часть 2);
+# пока — штурмовой скафандр Metall Armed.
+
+- type: radioChannel
+  id: DHZGA
+  name: dh-chat-radio-zga
+  keycode: 'м'
+  frequency: 149.1
+  color: "#7ec8f0"
+  longRange: true
+
+- type: entity
+  parent: [ EncryptionKey, BaseCentcommContraband ]
+  id: DHEncryptionKeyZGA
+  name: Association encryption key
+  description: "A private link between an Association paratrooper and the AI of their armour."
+  components:
+  - type: EncryptionKey
+    channels:
+    - DHZGA
+    defaultChannel: DHZGA
+  - type: Sprite
+    layers:
+    - state: crypt_gray
+    - state: sec_label
+
+- type: entity
+  parent: DHClothingHeadsetAltMetallArmed
+  id: DHClothingHeadsetZGA
+  name: Association over-ear headset
+  description: "A sealed headset of an Association paratrooper: the private channel to the armour AI and nothing else."
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - DHEncryptionKeyZGA
+
+- type: randomHumanoidSettings
+  id: DHZGAParatrooper
+  randomizeName: false
+  components:
+  - type: Loadout
+    prototypes: [ DHZGAParatrooperGear ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-zga-name-format
+  - type: AntagImmune
+
+- type: startingGear
+  id: DHZGAParatrooperGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTSecurity
+    outerClothing: DHClothingOuterModularEMB5
+    back: ClothingBackpackERTSecurity
+    shoes: ClothingShoesBootsCombatFilled
+    gloves: ClothingHandsGlovesCombat
+    eyes: ClothingEyesHudMedSec
+    ears: DHClothingHeadsetZGA
+    belt: ClothingBeltMilitaryWebbing
+    pocket1: CombatKnife
+    pocket2: DoubleEmergencyOxygenTankFilled
+  inhand:
+  - DHZGAKitCase
+
+# Выбор оружия ЗГА после приземления (кейс превращается в комплект).
+- type: entity
+  parent: ToolboxThief
+  id: DHZGAKitCase
+  name: Association arsenal case
+  description: "A sealed case of the Association Paratrooper Corps. Open it and choose your weapon; the case turns into the chosen kit."
+  components:
+  - type: DHKitAutoEquip
+  - type: Sprite
+    sprite: Objects/Tools/Toolboxes/toolbox_blue.rsi
+    state: icon
+  - type: ThiefUndeterminedBackpack
+    maxSelectedSets: 1
+    toolName: dh-zga-kit-window-title
+    toolDesc: dh-zga-kit-window-description
+    possibleSets:
+    - DHZGASetTITMG10
+    - DHZGASetTITR15
+    - DHZGASetEAR20
+
+- type: thiefBackpackSet
+  id: DHZGASetTITMG10
+  name: dh-zga-set-titmg10-name
+  description: "dh-zga-set-titmg10-description"
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/tit_mg10.rsi
+    state: base
+  content:
+  - DHWeaponRifleTITMG10
+  - DHMagazine556x45LongFMG
+  - DHMagazine556x45LongFMG
+  - DHMagazine556x45LongFMG
+  - DHMagazine556x45LongURA
+  - DHMagazine556x45LongEXP
+  - ExGrenade
+
+- type: thiefBackpackSet
+  id: DHZGASetTITR15
+  name: dh-zga-set-titr15-name
+  description: "dh-zga-set-titr15-description"
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/tit_r15.rsi
+    state: base
+  content:
+  - DHWeaponRifleTITR15
+  - DHMagazine762x39FMG
+  - DHMagazine762x39FMG
+  - DHMagazine762x39FMG
+  - DHMagazine762x39URA
+  - ExGrenade
+  - ExGrenade
+
+- type: thiefBackpackSet
+  id: DHZGASetEAR20
+  name: dh-zga-set-ear20-name
+  description: "dh-zga-set-ear20-description"
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/ear20.rsi
+    state: base
+  content:
+  - DHWeaponEnergyEAR20
+  - DHKaneCartridgeEAR
+  - DHKaneCartridgeEAR
+  - DHKaneCartridgeEAR
+
+# ИИ брони: бестелесный «голос в броне» — видит глазами десантника, говорит по своему каналу (и вслух из брони).
+- type: entity
+  id: DHMarsCore
+  name: M.A.R.S. 1.5
+  description: "The local combat AI of an EMB-5 armour suit."
+  categories: [ HideSpawnMenu ]
+  save: false
+  components:
+  - type: Eye
+  - type: MindContainer
+  - type: Actions
+  - type: Speech
+  - type: IntrinsicRadioReceiver
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - DHZGA
+  - type: ActiveRadio
+    channels:
+    - DHZGA
+  - type: ContentEye
+    maxZoom: 2.0, 2.0
+  # Тактическая сеть стороны цели (сторону выставляет DHMarsSystem): только смотреть.
+  - type: DHOverwatchConsole
+    canOrder: false
+  - type: UserInterface
+    interfaces:
+      enum.DHOverwatchUiKey.Key:
+        type: DHOverwatchBoundUserInterface
+  - type: DHMars
+
+- type: entity
+  id: DHZGAEvacPoint
+  name: Association evacuation point
+  categories: [ HideSpawnMenu ]
+  save: false
+  components:
+  - type: DHZGAEvacPoint
+
+- type: entity
+  parent: BaseAction
+  id: DHActionZGAStatus
+  name: Mission
+  description: "Recall the target, the time left and the precautions."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 2
+  - type: Sprite
+    sprite: Objects/Devices/pinpointer.rsi
+    layers:
+    - state: pinpointer
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHZGAStatusActionEvent
+
+# --- Способности M.A.R.S. 1.5 (DHMarsSystem): работают, только пока на десантнике ЭМБ-5.
+
+- type: entity
+  parent: BaseAction
+  id: DHActionMarsMark
+  name: Mark target
+  description: "Put a red marker over a target: you and the paratrooper see it for a minute, and the paratrooper shoots tighter while it holds."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 5
+    checkCanInteract: false
+    checkConsciousness: false
+  - type: Sprite
+    sprite: Interface/Actions/actions_borg.rsi
+    layers:
+    - state: xenoborg-eye-module
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: TargetAction
+    checkCanAccess: false
+    range: 30
+  - type: EntityTargetAction
+    canTargetSelf: false
+    whitelist:
+      components:
+      - MobState
+    event: !type:DHMarsMarkActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionMarsScan
+  name: Active scan
+  description: "Mark every living thing within twelve tiles for a few seconds. The scanner ping is loud and gives the paratrooper away."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 45
+    checkCanInteract: false
+    checkConsciousness: false
+  - type: Sprite
+    sprite: Interface/Actions/actions_ai.rsi
+    layers:
+    - state: mass_scanner
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHMarsScanActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionMarsTacMap
+  name: Tactical network
+  description: "Tap into the tactical network of the target's side: its fighters and tactical map. Watch only."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 2
+    checkCanInteract: false
+    checkConsciousness: false
+  - type: Sprite
+    sprite: Interface/Actions/pai-map.rsi
+    layers:
+    - state: icon
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHMarsTacMapActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionMarsMotion
+  name: Motion detector
+  description: "Toggle the suit motion detector."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 1
+    checkCanInteract: false
+    checkConsciousness: false
+  - type: Sprite
+    sprite: _RMC14/Objects/Tools/motion_detector.rsi
+    layers:
+    - state: detector
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHMarsMotionActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionMarsHack
+  name: Hack door
+  description: "Hack a door next to the paratrooper: six seconds, then the bolts drop and the door opens."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 15
+    checkCanInteract: false
+    checkConsciousness: false
+  - type: Sprite
+    sprite: Interface/Actions/actions_ai.rsi
+    layers:
+    - state: unbolt_door
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: TargetAction
+    checkCanAccess: false
+    range: 3
+  - type: EntityTargetAction
+    canTargetSelf: false
+    whitelist:
+      components:
+      - Door
+    event: !type:DHMarsHackActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionMarsJam
+  name: Jam radio
+  description: "Jam all radio within nine tiles of the paratrooper for thirty seconds. The Association channel stays clear."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 120
+    checkCanInteract: false
+    checkConsciousness: false
+  - type: Sprite
+    sprite: Interface/Actions/actions_borg.rsi
+    layers:
+    - state: xenoborg-jammer-module
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHMarsJamActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionMarsInject
+  name: Emergency injection
+  description: "Make the auto-medic inject the paratrooper now, without waiting for heavy wounds."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 10
+    checkCanInteract: false
+    checkConsciousness: false
+  - type: Sprite
+    sprite: Interface/Actions/actions_borg.rsi
+    layers:
+    - state: xenoborg-hypo-module
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHMarsInjectActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionMarsCarry
+  name: Emergency withdrawal
+  description: "While the paratrooper is unconscious, walk the exoskeleton up to eight tiles toward a point."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 120
+    checkCanInteract: false
+    checkConsciousness: false
+  - type: Sprite
+    sprite: Interface/Actions/actions_mecha.rsi
+    layers:
+    - state: mech_thrusters_on
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: TargetAction
+    checkCanAccess: false
+    range: 9
+  - type: WorldTargetAction
+    event: !type:DHMarsCarryActionEvent
+
+# Детектор движения брони: дочерняя сущность M.A.R.S. (родитель — игрок, как у ручного детектора).
+- type: entity
+  id: DHMarsMotionDetector
+  name: M.A.R.S. motion detector
+  categories: [ HideSpawnMenu ]
+  save: false
+  components:
+  - type: DHMotionDetector
+
+# Летальная инъекция (п. 28, PR 4): имплант на основе базового, ставится десантнику при высадке.
+- type: entity
+  parent: DHImplantBasic
+  id: DHImplantZGALethal
+  name: Association lethal implant
+  description: "A basic bio-capsule with a lethal dose. Precautions: never be taken alive."
+  components:
+  - type: DHImplant
+    kind: Base
+    part: Torso
+    passiveRate: 0.001
+    activeRate: 0
+    action: DHActionZGALethal
+
+- type: entity
+  parent: BaseAction
+  id: DHActionZGALethal
+  name: Lethal injection
+  description: "Release the lethal dose of the implant. Death is instant: the enemy will not take you alive."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 5
+    checkCanInteract: false
+  - type: Sprite
+    sprite: Objects/Specific/Medical/implanter.rsi
+    layers:
+    - state: implanter1
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHZGALethalActionEvent
+
+# Трекер десантника на цель (как трекер командира отряда): 0 — нет цели на этой карте, 1 — рядом, 2–9 — направление.
+- type: alert
+  id: DHZGATargetTracker
+  category: DHSquadTracker
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackoff
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-direct_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-south_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-southeast_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-east_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-northeast_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-north_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-northwest_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-west_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-southwest_dsl
+  name: dh-alert-zga-tracker-name
+  description: dh-alert-zga-tracker-desc
+  minSeverity: 0
+  maxSeverity: 9

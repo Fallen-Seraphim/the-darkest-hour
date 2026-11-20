@@ -136,6 +136,7 @@ ICONS = [
     ('ImperialMedic', 'imperial', 'staff', 'cross'),
     ('ImperialMachinegunner', 'imperial', 'staff', 'belt'),
     ('ImperialRifleman', 'imperial', 'staff', 'rifle'),
+    ('ImperialSquadLeader', 'imperial', 'lead', 'chevron2'),
     ('RepublicCommander', 'republic', 'head', 'star'),
     ('RepublicSniper', 'republic', 'lead', 'crosshair'),
     ('RepublicMachinegunner', 'republic', 'staff', 'belt'),

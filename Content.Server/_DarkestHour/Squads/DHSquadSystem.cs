@@ -46,6 +46,8 @@ public sealed partial class DHSquadSystem : EntitySystem
         });
 
         SubscribeLocalEvent<DHSquadMemberComponent, ExaminedEvent>(OnMemberExamined);
+
+        InitializeAuto();
     }
 
     private IEnumerable<DHSquadPrototype> Squads(Content.Shared._DarkestHour.Assault.DHAssaultFaction faction)
@@ -132,10 +134,12 @@ public sealed partial class DHSquadSystem : EntitySystem
                 continue;
 
             other.Leader = false;
+            Dirty(uid, other);
             _popup.PopupEntity(Loc.GetString("dh-squad-leader-replaced"), uid, uid, PopupType.Medium);
         }
 
         ent.Comp.Leader = true;
+        Dirty(ent);
         ClearTracker(ent); // командир сам себя не отслеживает
         if (_proto.TryIndex(ent.Comp.Squad, out var squad))
             _popup.PopupEntity(Loc.GetString("dh-squad-leader-you", ("squad", Loc.GetString(squad.Name))), ent, ent,
@@ -157,6 +161,7 @@ public sealed partial class DHSquadSystem : EntitySystem
                 member.Leader = false; // в новый отряд — рядовым
 
             member.Squad = squad.ID;
+            Dirty(fighter, member);
         }
 
         if (!_inventory.TryGetSlotEntity(fighter, "ears", out var headset) ||

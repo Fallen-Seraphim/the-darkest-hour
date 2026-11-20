@@ -79,6 +79,12 @@ public sealed partial class DHCommsSystem : EntitySystem
         if (args.Cancelled)
             return;
 
+        if (Jammed(args.Channel.ID, args.RadioSource, args.RadioReceiver))
+        {
+            args.Cancelled = true;
+            return;
+        }
+
         // Канал под ретранслятором (хоть один ретранслятор его знает) работает только в зонах живых ретрансляторов:
         // и отправитель, и получатель должны быть в покрытой зоне.
         var governed = false;
@@ -102,6 +108,26 @@ public sealed partial class DHCommsSystem : EntitySystem
         {
             args.Cancelled = true;
         }
+    }
+
+    /// <summary>
+    /// Глушение (цепочка целей, решение автора 2026-11-19): пока точка РЛС/связи не у Республики, её общий канал
+    /// слышно только вблизи — отправитель и получатель на одной карте не дальше <c>JamRange</c>.
+    /// </summary>
+    private bool Jammed(string channel, EntityUid source, EntityUid receiver)
+    {
+        var points = EntityQueryEnumerator<Content.Shared._DarkestHour.ControlPoints.DHControlPointComponent>();
+        while (points.MoveNext(out var point))
+        {
+            if (!point.JamChannels.Contains(channel) || point.Holder == point.JamFaction)
+                continue;
+
+            var from = _transform.GetMapCoordinates(source);
+            var to = _transform.GetMapCoordinates(receiver);
+            return from.MapId != to.MapId || (from.Position - to.Position).Length() > point.JamRange;
+        }
+
+        return false;
     }
 
     /// <summary>Переносной ретранслятор работает, только развёрнутый и закреплённый.</summary>

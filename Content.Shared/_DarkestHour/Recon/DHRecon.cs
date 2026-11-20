@@ -1,5 +1,6 @@
 using System.Numerics;
 using Content.Shared.DoAfter;
+using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
@@ -66,6 +67,13 @@ public sealed partial class DHCamoNetComponent : Component
     [DataField]
     public EntProtoId Folded = "DHCamoNetFolded";
 }
+
+/// <summary>
+/// Техника или орудие стоят под маскировочной сетью (план осады п. 9, решение автора 2026-11-19): не дают сигнатур на
+/// РЛС штурмовика и РЛС Республики, пилоту сверху не видны. Снимается, пока цель едет или недавно стреляла.
+/// </summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class DHCamoHiddenComponent : Component;
 
 /// <summary>Свёрнутая сеть: растягивается в руке над собой.</summary>
 [RegisterComponent]
