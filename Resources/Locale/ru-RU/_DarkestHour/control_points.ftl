@@ -13,15 +13,21 @@ dh-control-point-examine-republic = Район удерживает [color=#7fcf
 dh-control-point-examine-empire = Район удерживает [color=#e8604a]Империя[/color].
 
 dh-control-point-village = Деревня
-dh-control-point-village-desc = Удерживающая сторона раз в 5 минут получает медикаменты.
+dh-control-point-village-desc = Удерживающая сторона раз в 15 минут получает медикаменты. Даёт 2 оч. командования в минуту.
 dh-control-point-spaceport = Космодром
-dh-control-point-spaceport-desc = Удерживающая сторона раз в 5 минут получает бронебойные боеприпасы.
+dh-control-point-spaceport-desc = Удерживающая сторона раз в 15 минут получает бронебойные боеприпасы. Даёт 5 оч. командования в минуту.
 dh-control-point-construction = Стройка
-dh-control-point-construction-desc = Удерживающая сторона раз в 5 минут получает мешки с песком и стальные стержни.
+dh-control-point-construction-desc = Удерживающая сторона раз в 15 минут получает мешки с песком и стальные стержни. Даёт 3 оч. командования в минуту.
 dh-control-point-npp = АЭС
-dh-control-point-npp-desc = У стороны, удерживающей станцию, работают прожекторы и ПВО по всему району.
+dh-control-point-npp-desc = У стороны, удерживающей станцию, работают прожекторы, ПВО и РЛС по всему району. Даёт 5 оч. командования в минуту.
 dh-control-point-dam = Дамба
-dh-control-point-dam-desc = Единственная безопасная переправа через реку.
+dh-control-point-dam-desc = Единственная безопасная переправа через реку. Даёт 3 оч. командования в минуту.
+dh-control-point-pko = Батарея ПКО
+dh-control-point-pko-desc = Орудия ПКО бьют по авианосцу, только пока батарея у Республики. Даёт 4 оч. командования в минуту.
+dh-control-point-pvo = Позиция ПВО
+dh-control-point-pvo-desc = ПВО сбивает удары, штурмовик и челноки, только пока позиция и АЭС у Республики. Даёт 4 оч. командования в минуту.
+dh-control-point-rls = РЛС и связь
+dh-control-point-rls-desc = РЛС даёт Республике сигнатуры противника, пока пост и АЭС у Республики. Потеря поста глушит общий канал гарнизона: слышно только вблизи. Даёт 4 оч. командования в минуту.
 
 dh-overwatch-ui-tacmap = Тактическая карта
 dh-tacmap-title = Тактическая карта
@@ -30,6 +36,9 @@ dh-tacmap-no-surface = Нет данных о поверхности плане�
 dh-tacmap-reset = Вся карта
 dh-tacmap-legend = Колесо — масштаб, перетаскивание — сдвиг. Квадраты — зоны захвата, рамки — ЗП, крестики — метки ЛЦУ. Противник — кружки (бойцы) и квадраты (техника), замеченные своими бойцами, техникой, РЛС и детекторами; розовое — последний глобальный скан, треугольники — РЛС штурмовика.
 dh-tacmap-laser-mark = Метка { $code }
+dh-tacmap-counter-battery = Засечка
+dh-counter-battery-sender = Контрбатарейная засечка
+dh-counter-battery-announce = Засечён огонь противника: орудие в районе X { $x }, Y { $y } (± { $radius } м).
 
 cmd-dhcontrolpoint-desc = Задаёт владельца зоны захвата.
 cmd-dhcontrolpoint-help = Использование: dhcontrolpoint <village|spaceport|construction|npp|dam> <Republic|Empire|none>

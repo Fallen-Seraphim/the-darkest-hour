@@ -479,9 +479,10 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
 
     /// <summary>
     /// Попадание ПКО по гриду: если это авианосец «Штурма» — урон прочности; на нуле — падение на планету.
-    /// <paramref name="grid"/> null — первый авианосец активного «Штурма».
+    /// <paramref name="grid"/> null — первый авианосец активного «Штурма». <paramref name="announce"/> false — без
+    /// объявления (медленный урон от пробоин и пожаров, живучесть авианосца).
     /// </summary>
-    public bool DamageCarrier(EntityUid? grid, float amount)
+    public bool DamageCarrier(EntityUid? grid, float amount, bool announce = true)
     {
         foreach (var rule in ActiveRules())
         {
@@ -497,7 +498,7 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
             comp.Hull = MathF.Max(0f, comp.Hull - amount);
             if (comp.Hull <= 0f)
                 Down(rule.Comp, (carrier, comp));
-            else
+            else if (announce)
                 Announce(DHAssaultFaction.Empire, Loc.GetString("dh-assault-carrier-damaged", ("hull", (int) MathF.Ceiling(comp.Hull))));
 
             return true;

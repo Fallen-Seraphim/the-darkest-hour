@@ -56,6 +56,11 @@
   parent: DHHeavyGunPartBase
   id: DHHeavyGunBreechBase
   components:
+  # Разрушаемость POI (решение автора 2026-11-19): выходит из строя от урона, чинится сваркой с листами стали.
+  - type: Damageable
+    damageContainer: StructuralInorganic
+  - type: DHPoiObject
+    breakDamage: 400
   - type: Sprite
     sprite: _DarkestHour/Structures/HeavyGuns/breech.rsi
     noRot: false
@@ -661,6 +666,11 @@
   parent: DHHeavyGunPartBase
   id: DHInterceptorBase
   components:
+  # Разрушаемость POI (решение автора 2026-11-19): выходит из строя от урона, чинится сваркой с листами стали.
+  - type: Damageable
+    damageContainer: StructuralInorganic
+  - type: DHPoiObject
+    breakDamage: 300
   - type: Sprite
     sprite: _DarkestHour/Structures/HeavyGuns/interceptors.rsi
     noRot: false

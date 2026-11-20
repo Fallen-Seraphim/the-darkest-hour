@@ -45,6 +45,8 @@ namespace Content.Server._DarkestHour.Aviation;
 public sealed partial class DHAircraftSystem : EntitySystem
 {
     [Dependency] private Content.Server._DarkestHour.PowerLoader.DHPowerLoaderSystem _powerLoader = default!;
+    [Dependency] private Content.Server._DarkestHour.Battlefield.DHBattlefieldSystem _battlefield = default!;
+    [Dependency] private Content.Server._DarkestHour.Carrier.DHCarrierDamageSystem _carrierDamage = default!;
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private AudioSystem _audio = default!;
@@ -201,6 +203,15 @@ public sealed partial class DHAircraftSystem : EntitySystem
         {
             _ui.CloseUi(aircraft, DHAircraftUiKey.Flight, pilot);
             _ui.CloseUi(aircraft, DHAircraftUiKey.Weapons, pilot);
+
+            // Вылез на палубе — встаёт рядом с кабиной, а не внутри твёрдого фюзеляжа.
+            if (TryComp<DHAircraftComponent>(aircraft, out var plane) &&
+                plane.State is DHAircraftState.Parked or DHAircraftState.Stowed && Transform(aircraft).GridUid != null)
+            {
+                var (position, rotation) = _transform.GetWorldPositionRotation(aircraft);
+                var side = rotation.RotateVec(new Vector2(0.85f, plane.SeatOffset.Y));
+                _transform.SetWorldPosition(pilot, position + side);
+            }
         }
     }
 
@@ -951,6 +962,10 @@ public sealed partial class DHAircraftSystem : EntitySystem
             return "dh-aircraft-blocker-damage";
         if (!HasComp<DHPlanetAtmosphereMapComponent>(Transform(ent).MapUid))
             return "dh-aircraft-blocker-orbit";
+        // Ангар и палуба авианосца повреждены: пока пробоину не заварят, не взлететь (живучесть, п. 19).
+        if (_carrierDamage.Damaged(Transform(ent).GridUid,
+                Content.Shared._DarkestHour.Carrier.DHCarrierCompartmentKind.Hangar))
+            return "dh-aircraft-blocker-hangar";
         return null;
     }
 
@@ -1334,6 +1349,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         ent.Comp.Progress = 0f;
         _transform.SetCoordinates(ent, new EntityCoordinates(liftXform.ParentUid, ent.Comp.PathStart));
         _transform.SetLocalRotation(ent, liftXform.LocalRotation + Angle.FromDegrees(180));
+        _physics.SetCanCollide(ent, true); // снова на палубе — твёрдый
         ent.Comp.State = DHAircraftState.Landing;
         Dirty(ent);
         SetControl(ent, false);
@@ -1345,6 +1361,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         ent.Comp.Progress = Math.Min(1f, ent.Comp.Progress + frameTime / ent.Comp.LandingRollTime);
         var t = 1f - (1f - ent.Comp.Progress) * (1f - ent.Comp.Progress); // торможение
         _transform.SetLocalPosition(ent, Vector2.Lerp(ent.Comp.PathStart, ent.Comp.PathEnd, t));
+        RunOver(ent);
         if (ent.Comp.Progress < 1f)
             return;
 

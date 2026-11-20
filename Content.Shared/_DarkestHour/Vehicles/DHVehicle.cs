@@ -13,6 +13,16 @@ namespace Content.Shared._DarkestHour.Vehicles;
 // ванильного VehicleSystem (вождение) и станкового оружия DH (стрельба из башни). Спрайты и облик — RMC-14.
 // Внутри машины — отсек (своя маленькая карта): люк, кресла водителя и стрелков, места десанта.
 
+/// <summary>Значок машины на тактической карте (план осады п. 9).</summary>
+public enum DHVehicleMapIcon : byte
+{
+    Apc,
+    Tank,
+    Truck,
+    Light,
+    Boat,
+}
+
 /// <summary>Боевая машина.</summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class DHVehicleComponent : Component
@@ -68,6 +78,10 @@ public sealed partial class DHVehicleComponent : Component
     /// <summary>Сторона машины: тактическая карта в отсеке показывает её бойцов.</summary>
     [DataField]
     public DHAssaultFaction Faction = DHAssaultFaction.Republic;
+
+    /// <summary>Значок машины на тактической карте своей стороны.</summary>
+    [DataField]
+    public DHVehicleMapIcon MapIcon = DHVehicleMapIcon.Apc;
 
     /// <summary>
     /// Ключ машины (решение автора 2026-11-12): без ключа того же типа при себе (в руках, в карманах, в сумке) пульт

@@ -401,6 +401,7 @@
         state: wheels_0
         loop: false
   - type: DHVehicle
+    mapIcon: Tank
     maxIntegrity: 3000
     faction: Republic
     hullHalfSize: 1.4,1.95
@@ -464,6 +465,7 @@
         state: wheels_0
         loop: false
   - type: DHVehicle
+    mapIcon: Tank
     maxIntegrity: 3000
     faction: Empire
     hullHalfSize: 1.4,1.95

@@ -340,6 +340,34 @@ class World:
         """Фонарь сети АЭС."""
         self.ent('DHLightPostGrid', x, y)
 
+    def tower(self, x, y):
+        """
+        Наблюдательная вышка 3×3 (высота как преимущество, план осады п. 21): на земле — опоры по углам и лестница
+        посередине южной стороны, на +1 — площадка с мешками по краю и люком вниз над лестницей.
+        """
+        cells = [(x + i, y + j) for i in range(3) for j in range(3)]
+        if any(c in self.occ for c in cells):
+            return False
+        for cx, cy in cells:
+            self.tile(cx, cy, 'FloorConcrete')
+        self.ent('DHZLadderUp', x + 1, y)
+        for cx, cy in ((x, y), (x + 2, y), (x, y + 2), (x + 2, y + 2)):
+            self.ent('Girder', cx, cy)
+        for c in cells:
+            self.occ.add(c)
+            self.res.add(c)
+        lv = self.p1
+        for cx, cy in cells:
+            lv.tiles[(cx, cy)] = 'FloorSteel'
+        lv.ents.append(('DHZHatchDown', x + 1, y, 0.0))
+        for i in range(3):
+            lv.ents.append(('DHSandbagBarricade', x + i, y + 2, PI))   # север
+            if i != 1:
+                lv.ents.append(('DHSandbagBarricade', x + i, y, 0.0))  # юг (кроме люка)
+        lv.ents.append(('DHSandbagBarricade', x, y + 1, R270))          # запад
+        lv.ents.append(('DHSandbagBarricade', x + 2, y + 1, R90))       # восток
+        return True
+
     # ---------- рельеф и вода ----------
 
     def coast_y(self, x):
@@ -536,6 +564,7 @@ class World:
                       windows=[(cx - 2, h1 + 6), (cx + 2, h1 + 6)], light_step=3)
         self.ent('TableReinforced', cx, h1 + 7)
         self.ent('Chair', cx, h1 + 6, R180)
+        self.tower(cx + 4, h1 + 4)   # вышка блокпоста
         # конец шоссе — на север к РЛС
         self.road_v(*NORTH_ROAD_X, h0, RLS[1] + 6)
         # ответвление на юго-восток вдоль озера к космодрому
@@ -573,6 +602,10 @@ class World:
                     self.tile(x, y, 'FloorReinforced')
                     if x in (96, 99):
                         self.ent('Railing', x, y, R90 if x == 99 else R270)
+                    # разрушаемость: клетка пролёта (рушится от тяжёлого взрыва, наводится понтоном)
+                    span = 'npp-bridge-1' if y <= -97 else 'npp-bridge-2'
+                    self.ent('DHBridgeTile', x, y, free=True,
+                             comps=['    - type: DHBridgeTile', '      section: %s' % span])
 
     # ---------- дамба ----------
 
@@ -697,6 +730,7 @@ class World:
         # площадь с колодцем и точкой захвата
         self.rect(-196, -20, -176, -6, 'FloorDirt')
         self.ent('DHControlPointVillage', -186, -18)
+        self.tower(-180, -16)   # водонапорная башня на площади
         for x, y in ((-195, -7), (-177, -7), (-195, -19), (-177, -19)):
             self.ent('FloraTreeLarge', x, y)
         self.ent('RMCBarrelBlue', -183, -9)
@@ -1270,6 +1304,8 @@ class World:
         b.ent('DHComputerOverwatchRepublic', rx0 + 2, ry1 - 1)
         b.ent('DHComputerOverwatchRepublic', rx0 + 4, ry1 - 1)
         b.ent('DHComputerSquadsRepublic', rx0 + 6, ry1 - 1)
+        b.ent('DHComputerCommandTreeRepublic', rx0 + 10, ry1 - 1)  # штаб: древо командования
+        b.ent('ChairOfficeDark', rx0 + 10, ry1 - 2)
         b.ent('ChairOfficeDark', rx0 + 2, ry1 - 2)
         b.ent('ChairOfficeDark', rx0 + 4, ry1 - 2)
         b.ent('ChairOfficeDark', rx0 + 6, ry1 - 2)
@@ -1383,7 +1419,8 @@ class World:
         self.ent('DHHeavyGunBarrel700', cx1 + 6, gy, R90)
         self.ent('DHHeavyGunBreech700', cx1 + 7, gy, R90)
         self.ent('Chair', cx1 + 14, gy)
-        self.ent('DHComputerAntiOrbital', cx1 + 14, gy - 1, R180, comps=['    - type: ApcPowerReceiver', '      powerLoad: 50'])
+        self.ent('DHComputerAntiOrbital', cx1 + 14, gy - 1, R180, comps=['    - type: ApcPowerReceiver', '      powerLoad: 50',
+                                                                                     '    - type: DHControlPointPowered', '      point: pko'])
         for i, s in enumerate(['HighExplosive', 'HighExplosive', 'ArmorPiercing', 'Incendiary', 'Cluster']):
             self.ent('DHHeavyShell700' + s, cx1 + 9 + i, y1 - 1)
         self.ent('AlwaysPoweredlightRed', cx1 + 2, gy, R90, free=True)
@@ -1392,7 +1429,8 @@ class World:
         self.ent('DHHeavyGunBarrel400', cx1 + 6, gy, R90)
         self.ent('DHHeavyGunBreech400', cx1 + 7, gy, R90)
         self.ent('Chair', cx1 + 13, gy)
-        self.ent('DHComputerAntiOrbital', cx1 + 13, gy - 1, R180, comps=['    - type: ApcPowerReceiver', '      powerLoad: 50'])
+        self.ent('DHComputerAntiOrbital', cx1 + 13, gy - 1, R180, comps=['    - type: ApcPowerReceiver', '      powerLoad: 50',
+                                                                                     '    - type: DHControlPointPowered', '      point: pko'])
         for i, s in enumerate(['HighExplosive', 'HighExplosive', 'ArmorPiercing', 'Incendiary', 'Cluster']):
             self.ent('DHHeavyShell400' + s, cx1 + 9 + i, y0 + 19)
         # склад снарядов и мастерская (юг)
@@ -1419,6 +1457,7 @@ class World:
         self.ent('LockerFreezer', x0 + 4, y0 + 16)
         self.diesel(x0 + 1, y0 + 2)
         self.ent('WeldingFuelTankFull', x0 + 3, y0 + 2)
+        self.ent('DHControlPointAntiOrbital', x0 + 2, y0 + 22)  # цепочка целей: точка батареи ПКО
         # свет (с резервом)
         for (lx0, ly0, lx1, ly1) in ((cx0 + 1, y0 + 1, cx1 - 1, y1 - 1), (cx1 + 1, y0 + 1, x1 - 1, y0 + 11),
                                      (cx1 + 1, y0 + 13, x1 - 1, y0 + 19), (cx1 + 1, y0 + 21, x1 - 1, y1 - 1),
@@ -1454,11 +1493,11 @@ class World:
         self.rect(x0 + 14, y1 - 9, x1, y1, 'FloorConcrete')
         for y in (y0 + 4, y0 + 12):
             self.ent('DHMissileSilo', x0 + 4, y, comps=['    - type: DHControlPointPowered', '      point: npp',
-                                                        '      backup: 600'])
+                                                        '      backup: 600', '      requires:', '      - pvo'])
             self.decal('WarningLine', x0 + 3, y - 2, '#E0C060C0')
         for x in (x0 + 20, x0 + 30):
             self.ent('DHAutocannonTwin30', x, y1 - 4, R90, comps=['    - type: DHControlPointPowered', '      point: npp',
-                                                                  '      backup: 600'])
+                                                                  '      backup: 600', '      requires:', '      - pvo'])
             self.sandbags(x - 2, y1 - 7, x + 2)
         self.sandbags(x0, y1, x0 + 12)
         # склад перехватчиков и снарядов, пост
@@ -1475,6 +1514,8 @@ class World:
         self.ent('TableReinforced', x1 - 3, y1 - 11)
         self.ent('Chair', x1 - 3, y1 - 12, R180)
         self.diesel(x1 - 1, y0 + 2)
+        self.ent('DHControlPointAirDefence', x0 + 30, y0 + 4)  # цепочка целей: точка ПВО
+        self.tower(x1 - 5, y1 - 4)   # вышка ПВО
         self.ent('RMCBedBunk' if 'RMCBedBunk' in self.known else 'Bed', x0 + 15, cy + 2)
         self.ent('RMCBedBunk' if 'RMCBedBunk' in self.known else 'Bed', x0 + 15, cy + 4)
         self.ent('ClosetToolFilled', x0 + 15, y0 + 2)
@@ -1493,7 +1534,9 @@ class World:
         self.road_h(x1 + 1, NORTH_ROAD_X[0] - 1, y0 + 6, y0 + 8, tile='FloorDirt', posts=0, line=False)
         # антенны и РЛС
         self.ent('DHRadarRepublic', x0 + 10, y1 - 8, comps=['    - type: DHControlPointPowered', '      point: npp',
-                                                            '      backup: 600'])
+                                                            '      backup: 600', '      requires:', '      - rls'])
+        self.ent('DHControlPointRadar', x0 + 20, y0 + 6)  # цепочка целей: точка РЛС и связи
+        self.tower(x1 - 8, y1 - 6)   # вышка у РЛС
         self.ent('DHCommsRelayRepublic', x0 + 24, y1 - 8)
         self.sandbags(x0 + 6, y1 - 13, x0 + 14)
         self.sandbags(x0 + 20, y1 - 13, x0 + 28)
@@ -1697,7 +1740,11 @@ class World:
                           windows=[(bx, by0 + 20), (bx + 22, by0 + 20)], window='ReinforcedWindow', lights=None)
             self.wall_line(bx + 1, by0 + 14, bx + 21, by0 + 14, 'WallReinforced', gaps=[(bx + 11, by0 + 14)])
             self.rect(bx + 6, by0 + 2, bx + 16, by0 + 12, 'FloorTechMaint2')
-            self.ent('DHFusionReactor', bx + 11, by0 + 7, foot=[(bx + 10 + i, by0 + 6 + j) for i in range(3) for j in range(3)])
+            # разрушаемость: энергоблок выходит из строя (гаснет сеть АЭС), первая поломка — заражение
+            self.ent('DHFusionReactor', bx + 11, by0 + 7, foot=[(bx + 10 + i, by0 + 6 + j) for i in range(3) for j in range(3)],
+                     comps=['    - type: Damageable', '      damageContainer: StructuralInorganic',
+                            '    - type: DHPoiObject', '      breakDamage: 600', '      point: npp',
+                            '      contamination: DHNppContamination', '      repairStack: Plasteel'])
             self.decal('WarningLine', bx + 9, by0 + 4, '#E0C060C0')
             for tx in (bx + 4, bx + 15):
                 self.ent('DHGasTurbine', tx, by0 + 20, foot=[(tx + i, by0 + 18 + j) for i in range(2) for j in range(5)])
