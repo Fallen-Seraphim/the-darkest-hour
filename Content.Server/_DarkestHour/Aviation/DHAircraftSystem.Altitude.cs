@@ -43,6 +43,12 @@ public sealed partial class DHAircraftSystem
     /// </summary>
     private EntityUid? AirMap(EntityUid surface, DHAircraftAltitude altitude)
     {
+        return AirLevelMap(surface, 1 + (int) altitude);
+    }
+
+    /// <summary>Верхний этаж (не воздух) стопки уровней поверхности; 0 — этажей нет. Заводит стопку, если её не было.</summary>
+    public int TopFloor(EntityUid surface, out int stack)
+    {
         if (!_zLevels.TryGetLevel(surface, out var ground))
         {
             ground = EnsureComp<DHZLevelComponent>(surface);
@@ -51,6 +57,7 @@ public sealed partial class DHAircraftSystem
             Dirty(surface, ground);
         }
 
+        stack = ground.Stack;
         var top = 0;
         foreach (var (map, level) in _zLevels.Levels(ground.Stack))
         {
@@ -58,11 +65,21 @@ public sealed partial class DHAircraftSystem
                 top = Math.Max(top, level);
         }
 
-        var target = top + 1 + (int) altitude;
+        return top;
+    }
+
+    /// <summary>
+    /// Уровень воздуха на <paramref name="height"/> (1–3) уровней выше верхнего этажа поверхности (самолёты на бреющем,
+    /// челноки десанта на подлёте и снижении). Создаётся при первом обращении. null — выше предела уровней.
+    /// </summary>
+    public EntityUid? AirLevelMap(EntityUid surface, int height)
+    {
+        var top = TopFloor(surface, out var stack);
+        var target = top + height;
         if (target > DHZLevelComponent.MaxLevel)
             return null;
 
-        if (_zLevels.LevelMap(ground.Stack, target) is { } existing)
+        if (_zLevels.LevelMap(stack, target) is { } existing)
             return HasComp<DHZAirLevelComponent>(existing) ? existing : null;
 
         if (_zTransit.CreateEmptyLevel(surface, target, out _) is not { } air)

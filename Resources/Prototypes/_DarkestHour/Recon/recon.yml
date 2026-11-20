@@ -58,13 +58,44 @@
     sprite: _RMC14/Objects/Clothing/OuterClothing/Armor/ghillie/desert.rsi
   - type: DHCamoCloak
 
+# --- Маскхалат снайпера (план осады п. 13): на шее поверх брони, способность «Маскировка», как в RMC ---
+
+- type: entity
+  parent: ClothingNeckBase
+  id: DHClothingNeckGhillie
+  name: sniper ghillie cloak
+  description: A shaggy cloak of netting and burlap, worn over armour. Use "Camouflage" and hold still for three seconds to all but vanish — even from the enemy's tactical map. Moving, shooting or getting hit gives you away, and it takes 20 seconds to settle in again.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/Neck/ghillie.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Clothing/Neck/ghillie.rsi
+  - type: Item
+    size: Normal
+    sprite: _DarkestHour/Clothing/Neck/ghillie.rsi
+  - type: DHGhillie
+
+- type: entity
+  id: DHActionGhillie
+  name: Camouflage
+  description: Hold still for three seconds to vanish in your ghillie cloak. Moving, shooting or taking a hit reveals you. Press again to come out of hiding.
+  components:
+  - type: Action
+    icon:
+      sprite: _DarkestHour/Clothing/Neck/ghillie.rsi
+      state: icon
+    itemIconStyle: NoItem
+    useDelay: 1
+  - type: InstantAction
+    event: !type:DHGhillieActionEvent
+
 # --- Маскировочная сеть ---
 
 - type: entity
   parent: BaseItem
   id: DHCamoNetFolded
   name: folded camouflage net
-  description: A rolled-up camouflage net. Use it in hand to spread it over your spot — a gun, a mortar or a squad under it is hidden from orbital scans.
+  description: A rolled-up camouflage net. Use it in hand to spread it over your spot — a vehicle, gun or mortar under it is hidden from orbital scans, radar and pilots while it stands still.
   components:
   - type: Sprite
     sprite: _DarkestHour/Structures/camo_net_folded.rsi
@@ -77,7 +108,7 @@
 - type: entity
   id: DHCamoNet
   name: camouflage net
-  description: A camouflage net stretched over a position. Hides what is under it from orbital scans. Fold it up with an alternative action.
+  description: A camouflage net stretched over a position. Vehicles and guns standing under it are hidden from orbital scans, radar and pilots above; fire from under it is only detected from the second shot. Moving or firing reveals them for ~20 seconds. Fold it up with an alternative action.
   placement:
     mode: SnapgridCenter
   components:

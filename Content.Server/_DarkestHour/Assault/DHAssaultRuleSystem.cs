@@ -90,6 +90,7 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
         SubscribeLocalEvent<RoundStartingEvent>(OnRoundStarting, after: new[] { typeof(DHRiftSystem) });
         SubscribeLocalEvent<PlayerSpawnCompleteEvent>(OnPlayerSpawned);
         SubscribeLocalEvent<DHAssaultFighterComponent, MobStateChangedEvent>(OnFighterMobState);
+        InitializeStats();
     }
 
     #region Старт
@@ -195,16 +196,29 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
             var minutes = Math.Max(0, (int) Math.Ceiling((rule.Comp.PrepEnd - Timing.CurTime).TotalMinutes));
             // Эскадра Республики приходит к концу раунда (лимит времени — малая победа Республики).
             var relief = Math.Max(0, (int) Math.Ceiling((rule.Comp.RoundLimit - Timing.CurTime).TotalMinutes));
-            var briefing = faction == DHAssaultFaction.Republic
-                ? Loc.GetString("dh-assault-briefing-republic", ("minutes", minutes), ("relief", relief))
-                : Loc.GetString("dh-assault-briefing-empire", ("minutes", minutes), ("relief", relief));
+            var briefing = Loc.GetString(BriefingKey(faction), ("minutes", minutes), ("relief", relief));
             _antag.SendBriefing(ev.Player, briefing, FactionColor(faction),
                 rule.Comp.BriefingSound.GetValueOrDefault(faction));
         }
     }
 
+    /// <summary>Приветствие карты (план п. 23), иначе общее.</summary>
+    private string BriefingKey(DHAssaultFaction faction)
+    {
+        var maps = EntityQueryEnumerator<DHAssaultMapBriefingComponent>();
+        while (maps.MoveNext(out var map))
+        {
+            if (map.Briefings.TryGetValue(faction, out var key))
+                return key;
+        }
+
+        return faction == DHAssaultFaction.Republic ? "dh-assault-briefing-republic" : "dh-assault-briefing-empire";
+    }
+
     private void OnFighterMobState(Entity<DHAssaultFighterComponent> ent, ref MobStateChangedEvent args)
     {
+        RecordMobState(ent, args); // итоги раунда: потери, убийства, спасения
+
         if (args.NewMobState != MobState.Dead ||
             !_mind.TryGetMind(ent.Owner, out _, out var mind) ||
             !_player.TryGetSessionById(mind.UserId, out var session))
@@ -465,6 +479,7 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
             ("republic", rule.Comp.Tickets.GetValueOrDefault(DHAssaultFaction.Republic)),
             ("empire", rule.Comp.Tickets.GetValueOrDefault(DHAssaultFaction.Empire))));
         args.AddLine("");
+        AppendStats(rule.Comp, ref args);
     }
 
     #endregion
@@ -479,9 +494,10 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
 
     /// <summary>
     /// Попадание ПКО по гриду: если это авианосец «Штурма» — урон прочности; на нуле — падение на планету.
-    /// <paramref name="grid"/> null — первый авианосец активного «Штурма».
+    /// <paramref name="grid"/> null — первый авианосец активного «Штурма». <paramref name="announce"/> false — без
+    /// объявления (медленный урон от пробоин и пожаров, живучесть авианосца).
     /// </summary>
-    public bool DamageCarrier(EntityUid? grid, float amount)
+    public bool DamageCarrier(EntityUid? grid, float amount, bool announce = true)
     {
         foreach (var rule in ActiveRules())
         {
@@ -497,7 +513,7 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
             comp.Hull = MathF.Max(0f, comp.Hull - amount);
             if (comp.Hull <= 0f)
                 Down(rule.Comp, (carrier, comp));
-            else
+            else if (announce)
                 Announce(DHAssaultFaction.Empire, Loc.GetString("dh-assault-carrier-damaged", ("hull", (int) MathF.Ceiling(comp.Hull))));
 
             return true;

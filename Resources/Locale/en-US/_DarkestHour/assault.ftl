@@ -15,8 +15,14 @@ dh-assault-outcome-sender = Battle report
 
 ## Брифинги
 
-dh-assault-briefing-republic = The year is 2318 and the Solar War is raging. You serve in the garrison of Terminus Military Base on REP-27-7, in an uninhabited system where the United Republic keeps an experimental sample that could change the future of energy. Long-range sensors have picked up an Imperial landing carrier in the neighbouring system; it can tear a rift in about {$minutes} min. The nearest squadron with a Republican Army Corps contingent is already on its way and will arrive in about {$relief} min. Hold out until it gets here: dig in, man the anti-air positions and do not give up the sample in the headquarters vault. If the carrier is shot down, there is no escaping an Imperial attack. Glory to the United Republic!
-dh-assault-briefing-empire = The year is 2318. You serve aboard the Imperial landing carrier IC-3 Sovereign. The Imperial Marines are sent deep into Republic space: in the uninhabited REP-27 system, at Terminus Military Base on REP-27-7, the Republic is hiding an experimental sample that could change the future of energy. The rift generator will be ready in about {$minutes} min: jump to REP-27, descend to the planet, storm the base, bring the sample aboard and leave the system. Intelligence says a Republic squadron will arrive in about {$relief} min — you must be gone by then. Guard the carrier: it is your only way home. Glory to the First Empire! For the Emperor!
+dh-assault-briefing-republic = You are the garrison of the United Republic.
+    Objective: do not give up the experimental sample. The Imperial carrier will tear a rift in about {$minutes} min — dig in and man the anti-air positions.
+    A Republic Navy squadron will arrive in about {$relief} min — hold out until it gets here.
+    More about the war and the sides is in the guidebook, "Lore" section.
+dh-assault-briefing-empire = You are the Imperial Marines aboard the landing carrier IC-3 Sovereign.
+    Objective: land, take the Republic base and bring the experimental sample aboard. The rift opens in about {$minutes} min.
+    A Republic Navy squadron will arrive in about {$relief} min — we must be gone by then. Guard the carrier: it is your only way home.
+    More about the war and the sides is in the guidebook, "Lore" section.
 dh-assault-reinforced = You return to the battle with the next wave of reinforcements. Reinforcements left for your side: {$tickets}.
 dh-assault-next-wave = You have fallen. The next wave of reinforcements arrives in {$minutes} min {$seconds} s ({$tickets} left for your side).
 dh-assault-no-reinforcements = You have fallen. Your side has no more reinforcements.
@@ -97,6 +103,8 @@ dh-job-marine-machinegunner-name = Marine Machinegunner
 dh-job-marine-machinegunner-desc = Suppress the defenders; choose your kit before the jump.
 dh-job-marine-rifleman-name = Marine Rifleman
 dh-job-marine-rifleman-desc = The backbone of the Imperial landing force; choose your kit before the jump.
+dh-job-marine-squad-leader-name = Squad Leader
+dh-job-marine-squad-leader-desc = Leads one of the three landing squads: Tau, Epsilon or Omega. Marks targets, calls fire and keeps the squad together.
 dh-job-garrison-artillery-officer-name = Artillery Officer
 dh-job-garrison-artillery-officer-desc = Run the garrison's fire support: mortars, infantry guns and the anti-orbital battery. Spot targets and call the fire.
 dh-job-garrison-mortar-commander-name = Mortar Section Leader
@@ -320,3 +328,140 @@ dh-department-imperial-command-description = The command of the Imperial landing
 id-card-access-level-dh-imperial-command = Imperial Operation Command
 dh-chat-radio-imperial-skat = SKAT
 dh-chat-radio-imperial-supply = Imperial Supply
+
+## Job tags on the radio
+dh-job-abbrev-garrison-commander = BC
+dh-job-abbrev-garrison-officer = OFF
+dh-job-abbrev-garrison-artillery-officer = AO
+dh-job-abbrev-garrison-rifleman = RFL
+dh-job-abbrev-garrison-machinegunner = MG
+dh-job-abbrev-garrison-sniper = SNP
+dh-job-abbrev-garrison-flamer = FLM
+dh-job-abbrev-garrison-aa-gunner = AA
+dh-job-abbrev-garrison-medic = MED
+dh-job-abbrev-garrison-sapper = SAP
+dh-job-abbrev-garrison-mortar-commander = MSL
+dh-job-abbrev-garrison-mortar-operator = MOR
+dh-job-abbrev-garrison-field-artillerist = ART
+dh-job-abbrev-garrison-tank-commander = TC
+dh-job-abbrev-garrison-tank-crew = TK
+dh-job-abbrev-garrison-apc-commander = APCC
+dh-job-abbrev-garrison-apc-crew = APC
+dh-job-abbrev-carrier-operation-commander = OC
+dh-job-abbrev-carrier-captain = CPT
+dh-job-abbrev-carrier-support-officer = FSO
+dh-job-abbrev-marine-commander = LFC
+dh-job-abbrev-marine-squad-leader = SL
+dh-job-abbrev-marine-weapons-specialist = WS
+dh-job-abbrev-marine-field-medic = MED
+dh-job-abbrev-marine-machinegunner = MG
+dh-job-abbrev-marine-rifleman = RFL
+dh-job-abbrev-carrier-pilot = PLT
+dh-job-abbrev-carrier-attack-pilot = AP
+dh-job-abbrev-carrier-artillerist = ART
+dh-job-abbrev-carrier-technician = TEC
+dh-job-abbrev-marine-mortar-commander = MSL
+dh-job-abbrev-marine-mortar-operator = MOR
+dh-job-abbrev-marine-field-artillerist = ART
+dh-job-abbrev-marine-tank-commander = TC
+dh-job-abbrev-marine-tank-crew = TK
+dh-job-abbrev-marine-apc-commander = APCC
+dh-job-abbrev-marine-apc-crew = APC
+
+# Dropship autopilot flight over the battlefield
+dh-dropship-descending = Over {$zone}. Descending!
+dh-dropship-hovering-lost = The landing zone is lost: hovering, pick another destination.
+dh-dropship-manual-unavailable = You can take the controls only while flying over the battlefield.
+dh-dropship-manual-on = The pilot has taken the controls.
+dh-dropship-ui-manual = TAKE THE CONTROLS (WASD)
+dh-dropship-ui-autopilot = ENGAGE AUTOPILOT
+dh-dropship-ui-phase-transit = Orbit-to-atmosphere transit.
+dh-dropship-ui-phase-cruise = Flying over the battlefield.
+dh-dropship-ui-phase-descend = Descending.
+dh-dropship-ui-phase-climb = Climbing.
+dh-dropship-ui-phase-hover = Hovering.
+dh-dropship-ui-phase-manual = Manual control.
+dh-dropship-atmosphere-unavailable = You can climb into the atmosphere only while flying over the battlefield.
+dh-dropship-atmosphere-entered = The dropship is in the atmosphere layer: drop run, manual control.
+dh-dropship-atmosphere-left = The dropship is back at cruise height over the battlefield.
+dh-dropship-ui-atmosphere-enter = CLIMB INTO THE ATMOSPHERE (DROP RUN)
+dh-dropship-ui-atmosphere-leave = RETURN OVER THE BATTLEFIELD
+dh-dropship-ui-release = RELEASE THE CONTROLS
+dh-dropship-ui-phase-atmosphere = Atmosphere layer, drop run. Below us: {$x}, {$y}.
+
+# Reinforcement trucks
+dh-reinforcement-entry-east = east entry
+dh-reinforcement-entry-west = west entry
+dh-reinforcement-entry-unknown = road entry
+dh-reinforcement-truck-sender = Convoy
+dh-reinforcement-truck-announce = A reinforcement truck has arrived ({ $entry }). Expect it at the base.
+dh-reinforcement-truck-boarded = You are in the back of a reinforcement truck ({ $entry }). Take the wheel (in the cab) or wait for a driver, then drive to the base along the highway.
+
+# Terminus map greeting (siege plan item 23)
+dh-assault-briefing-terminus-republic = You are the garrison of Terminus Military Base on REP-27-7.
+    Objective: do not give up the experimental sample in the bunker vault. The Imperial carrier will tear a rift in about {$minutes} min — dig in and man the anti-air positions.
+    A Republic Navy squadron will arrive in about {$relief} min — hold out until it gets here.
+    Reinforcements come by truck along the highway. More about the war and the sides is in the guidebook, "Lore" section.
+dh-assault-briefing-terminus-empire = You are the Imperial Marines aboard the landing carrier IC-3 Sovereign.
+    Objective: land on REP-27-7, take Terminus Military Base and bring the experimental sample from its bunker aboard.
+    The rift opens in about {$minutes} min. A Republic Navy squadron will arrive in about {$relief} min — we must be gone by then.
+    Guard the carrier: it is your only way home. More about the war and the sides is in the guidebook, "Lore" section.
+
+# Round summary
+dh-assault-stats-republic = Republic
+dh-assault-stats-empire = Empire
+dh-assault-stats-none = — none —
+dh-assault-stats-nobody = —
+dh-assault-stats-captures-header = [bold]Capture timeline[/bold]
+dh-assault-stats-capture = { $time } — [color={ $color }]{ $side }[/color]: "{ $point }"
+dh-assault-stats-capture-from = { $time } — [color={ $color }]{ $side }[/color]: "{ $point }" (taken from { $from })
+dh-assault-stats-losses = [bold]Losses:[/bold] Republic — { $republic }, Empire — { $empire }.
+dh-assault-stats-downed = [bold]Shot down:[/bold] Imperial attack aircraft — { $aircraft }; carrier — { $carrier }.
+dh-assault-stats-carrier-down = shot down
+dh-assault-stats-carrier-intact = intact
+dh-assault-stats-best-header = [bold]Best soldiers[/bold]
+dh-assault-stats-best-side = [color={ $color }]{ $side }[/color]: most kills — { $killer }; most saves — { $medic }; most captures — { $captor }.
+dh-assault-stats-best-entry = { $name } ({ $count })
+dh-assault-stats-medals-header = [bold]Awards[/bold]
+dh-assault-stats-medal = [color={ $color }]"{ $medal }"[/color] — { $recipient }. Awarded by { $giver }: "{ $citation }"
+
+# Award sheet
+dh-medal-ui-title = Award sheet
+dh-medal-ui-remaining = Awards left: { $count }
+dh-medal-ui-recipient = Recipient
+dh-medal-ui-candidate = { $name } — { $job }
+dh-medal-ui-candidate-dead = { $name } — { $job } (posthumous)
+dh-medal-ui-medal = Decoration
+dh-medal-ui-citation = Citation
+dh-medal-ui-award = Award
+dh-medal-none-left = The award sheet is used up.
+dh-medal-wrong-side = This award sheet belongs to the other side.
+dh-medal-no-citation = Write the citation.
+dh-medal-sender = Command
+dh-medal-announce = { $giver } awards { $recipient } the "{ $medal }": "{ $citation }"
+
+dh-medal-imperial-cross = Imperial Cross
+dh-medal-imperial-cross-desc = The First Empire's highest combat decoration — for a deed that decided the battle.
+dh-medal-imperial-assault = For the Assault
+dh-medal-imperial-assault-desc = For being first into enemy positions and taking fortifications.
+dh-medal-imperial-loyalty = For Loyalty to the Emperor
+dh-medal-imperial-loyalty-desc = For steadfastness and doing one's duty to the end.
+dh-medal-imperial-wound = Wound Badge
+dh-medal-imperial-wound-desc = For those who shed blood for the Empire.
+dh-medal-republic-star = Star of the Republic
+dh-medal-republic-star-desc = The United Republic's highest combat decoration — for exceptional bravery.
+dh-medal-republic-defense = For Defense
+dh-medal-republic-defense-desc = For holding positions under enemy fire.
+dh-medal-republic-valor = For Valor
+dh-medal-republic-valor-desc = For personal bravery in battle, saving comrades and bold action.
+dh-medal-republic-wound = Wound Badge
+dh-medal-republic-wound-desc = For those who shed blood for the Republic.
+
+## Sniper ghillie cloak
+dh-ghillie-preparing = You freeze and settle into your ghillie cloak…
+dh-ghillie-hidden = You are hidden. Do not move.
+dh-ghillie-already-hidden = You are already hidden.
+dh-ghillie-revealed-self = You come out of hiding.
+dh-ghillie-revealed-move = You moved — your camouflage is broken!
+dh-ghillie-revealed-shot = Your shot gave away your position!
+dh-ghillie-revealed-hit = You were hit — your camouflage is broken!

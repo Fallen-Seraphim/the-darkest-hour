@@ -390,6 +390,7 @@
   name: Imperial weapons kit selector
   description: A sealed requisition case of the Imperial Marine Corps. Open it and choose your loadout; the case turns into the chosen gear.
   components:
+  - type: DHKitAutoEquip
   - type: Sprite
     sprite: _DarkestHour/Objects/Tools/Toolboxes/toolbox_syn.rsi
     state: icon
@@ -454,6 +455,7 @@
   name: Imperial medic kit selector
   description: A sealed requisition case of the Imperial Marine Corps. Open it and choose your loadout; the case turns into the chosen gear.
   components:
+  - type: DHKitAutoEquip
   - type: Sprite
     sprite: _DarkestHour/Objects/Tools/Toolboxes/toolbox_syn.rsi
     state: icon
@@ -501,6 +503,7 @@
   name: Imperial machinegunner kit selector
   description: A sealed requisition case of the Imperial Marine Corps. Open it and choose your loadout; the case turns into the chosen gear.
   components:
+  - type: DHKitAutoEquip
   - type: Sprite
     sprite: _DarkestHour/Objects/Tools/Toolboxes/toolbox_syn.rsi
     state: icon
@@ -538,9 +541,9 @@
   - DHClothingShoesMagArmoredHeavyImperial
   - DHClothingHandsGlovesHeavyImperial
   - DHWeaponHMGIHMG17
-  - DHMagazineBelt145x114Std
-  - DHMagazineBelt145x114Std
-  - DHMagazineBelt145x114Std
+  - DHMagazineBelt842x54ImpS
+  - DHMagazineBelt842x54ImpS
+  - DHMagazineBelt842x54ImpR
 
 - type: entity
   parent: ToolboxThief
@@ -548,6 +551,7 @@
   name: Imperial rifleman kit selector
   description: A sealed requisition case of the Imperial Marine Corps. Open it and choose your loadout; the case turns into the chosen gear.
   components:
+  - type: DHKitAutoEquip
   - type: Sprite
     sprite: _DarkestHour/Objects/Tools/Toolboxes/toolbox_syn.rsi
     state: icon
