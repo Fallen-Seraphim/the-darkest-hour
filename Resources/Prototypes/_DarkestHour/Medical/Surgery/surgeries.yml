@@ -373,6 +373,28 @@
   - DHSurgeryStepRemoveBoneFragments
   - DHSurgeryStepStabilizeSpine
 
+# Грудь и дыхательные пути (план осады п. 18).
+- type: dhSurgery
+  id: DHSurgeryChestDrain
+  name: dh-surgery-chest-drain
+  description: dh-surgery-chest-drain-desc
+  order: 69
+  parts: [ Torso ]
+  requires: [ Incised ]
+  injury: Pneumothorax
+  steps:
+  - DHSurgeryStepInsertChestDrain
+
+- type: dhSurgery
+  id: DHSurgeryTracheostomy
+  name: dh-surgery-tracheostomy
+  description: dh-surgery-tracheostomy-desc
+  order: 70
+  parts: [ Head ]
+  injury: Airway
+  steps:
+  - DHSurgeryStepTracheostomy
+
 # --- Хронит: иссечение поражённой кожи и пересадка (стадии 2–3; на последней стадии недоступно). ---
 
 - type: dhSurgery

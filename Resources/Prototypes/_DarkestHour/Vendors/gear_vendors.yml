@@ -246,6 +246,8 @@
         count: 2
       - proto: DHSplint
         count: 3
+      - proto: DHDecompressionNeedle
+        count: 3
       - proto: DHFieldSurgeryKitFilled
 
 # --- Империя (десантный авианосец) ---
@@ -446,5 +448,7 @@
       - proto: DHIFAKFilled
         count: 2
       - proto: DHSplint
+        count: 3
+      - proto: DHDecompressionNeedle
         count: 3
       - proto: DHFieldSurgeryKitFilled

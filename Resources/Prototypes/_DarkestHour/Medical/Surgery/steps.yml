@@ -476,3 +476,48 @@
   effect: SpinalDecompression
   sound:
     collection: DHSurgeryOrgan
+
+# --- Грудь и дыхательные пути (план осады п. 18). ---
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepInsertChestDrain
+  name: dh-surgery-step-insert-chest-drain
+  toolHint: dh-surgery-tool-hemostat
+  tools:
+  - kind: Hemostat
+  - kind: Retractor
+    speed: 0.7
+  - quality: Prying
+    speed: 0.4
+    success: 0.6
+  duration: 6
+  pain: 0.9
+  invasive: true
+  bleed: 0.5
+  effect: DrainChest
+  failDamage:
+    types:
+      Piercing: 5
+  sound:
+    collection: DHSurgeryHemostat
+
+# Трахеостомия: разрез на горле — делается и на полу (санитар), там дольше и с риском инфекции.
+- type: dhSurgeryStep
+  id: DHSurgeryStepTracheostomy
+  name: dh-surgery-step-tracheostomy
+  toolHint: dh-surgery-tool-scalpel
+  tools:
+  - kind: Scalpel
+  - quality: Slicing
+    speed: 0.7
+    success: 0.8
+  duration: 4
+  pain: 0.8
+  invasive: true
+  bleed: 1
+  effect: Tracheostomy
+  failDamage:
+    types:
+      Slash: 5
+  sound:
+    collection: DHSurgeryScalpel

@@ -137,3 +137,21 @@ dh-surgery-step-remove-bone-fragments = удаление костных отло
 dh-surgery-step-stabilize-spine = фиксация позвонков
 dh-surgery-tool-microforceps = микрохирургический пинцет
 dh-surgery-needs-anesthesia = Без наркоза эту работу не сделать — пациент должен быть без сознания.
+
+# Грудь и дыхательные пути (план осады п. 18)
+dh-trauma-pneumothorax-self = В груди что-то лопнуло — дышать всё тяжелее!
+dh-trauma-pneumothorax-breath = Не хватает воздуха, в груди колет.
+dh-trauma-airway-self = Горло залито кровью — вы не можете вдохнуть!
+dh-trauma-airway-choke = Вы задыхаетесь!
+dh-trauma-desc-pneumothorax = пневмоторакс (напряжение {$percent}%)
+dh-trauma-desc-chest-sealed = рана закрыта окклюзионной повязкой
+dh-trauma-desc-airway = дыхательные пути перекрыты — нужна трахеостомия
+dh-needle-nothing = Пневмоторакса нет — колоть незачем.
+dh-needle-done = {CAPITALIZE(THE($user))} вводит иглу между рёбер {THE($target)} — со свистом выходит воздух.
+dh-needle-miss = {CAPITALIZE(THE($user))} промахивается иглой мимо плевры {THE($target)}!
+dh-surgery-chest-drain = Дренаж грудной клетки
+dh-surgery-chest-drain-desc = Пневмоторакс: ввести дренажную трубку между рёбер и выпустить воздух. Лечит окончательно.
+dh-surgery-step-insert-chest-drain = установка дренажа
+dh-surgery-tracheostomy = Трахеостомия
+dh-surgery-tracheostomy-desc = Дыхательные пути перекрыты: вскрыть трахею ниже повреждения. Делается и на полу — дольше и с риском инфекции.
+dh-surgery-step-tracheostomy = разрез трахеи

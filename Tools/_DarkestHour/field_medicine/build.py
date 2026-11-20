@@ -1,5 +1,5 @@
 """Sprites of the field medicine of the Assault mode: a combat tourniquet, a rubber tourniquet, a hemostatic dressing,
-an occlusive chest seal, the soldier's first aid kit (IFAK) and the field surgical kit.
+an occlusive chest seal, a decompression needle, the soldier's first aid kit (IFAK) and the field surgical kit.
 
 Run from the repository root:  python3 Tools/_DarkestHour/field_medicine/build.py"""
 import json
@@ -21,6 +21,8 @@ OLIVE_D = (60, 68, 40, 255)
 WHITE = (226, 228, 222, 255)
 SILVER = (168, 172, 176, 255)
 BLUE = (60, 110, 170, 255)
+ORANGE = (214, 120, 36, 255)
+ORANGE_L = (240, 162, 80, 255)
 
 
 def r(d, box, fill, outline=OUTLINE):
@@ -81,6 +83,21 @@ def chest_seal():
     return packet((70, 74, 80, 255), mark)
 
 
+def decompression_needle():
+    """14G decompression needle with an orange hub and a protective cap, lying diagonally."""
+    img = Image.new('RGBA', (32, 32))
+    d = ImageDraw.Draw(img)
+    d.line((8, 24, 17, 15), OUTLINE, 4)                # hub outline
+    d.line((8, 24, 17, 15), ORANGE, 2)                 # hub
+    d.line((9, 22, 15, 16), ORANGE_L, 1)
+    d.line((17, 15, 26, 6), OUTLINE, 3)                # catheter + needle
+    d.line((17, 15, 26, 6), SILVER, 1)
+    d.point((26, 6), WHITE)
+    d.line((5, 27, 8, 24), OUTLINE, 4)                 # flash chamber cap
+    d.line((5, 27, 8, 24), WHITE, 2)
+    return img
+
+
 def ifak():
     img = Image.new('RGBA', (32, 32))
     d = ImageDraw.Draw(img)
@@ -127,6 +144,7 @@ def main():
         ('tourniquet_rubber', tourniquet_rubber()),
         ('hemostatic', hemostatic()),
         ('chest_seal', chest_seal()),
+        ('decompression_needle', decompression_needle()),
         ('ifak', ifak()),
         ('surgery_kit', surgery_kit()),
     ]
