@@ -1,0 +1,20 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Drawn for The Darkest Hour (2026-11-20): squad order icons.",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "hold"
+        },
+        {
+            "name": "attack"
+        },
+        {
+            "name": "move"
+        }
+    ]
+}

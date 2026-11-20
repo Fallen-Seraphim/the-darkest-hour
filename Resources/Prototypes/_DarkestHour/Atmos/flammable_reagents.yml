@@ -46,3 +46,18 @@
   burnsBlockers: true
   hotspotTemperature: 2500
   color: "#fff1c4"
+
+# Магний (решение автора 2026-11-14): горит ослепительно-белым своим огнём (DHTileFireMagnesium), жарче термита,
+# прожигает постройки; вода и пена его почти не берут. Им начинена магниевая бомба штурмовика.
+- type: dhFlammableReagent
+  id: DHMagnesium
+  intensity: 12
+  duration: 30
+  puddleDurationPerUnit: 1.5
+  range: 3
+  fireStacks: 3
+  structuralDamage: 15
+  hotspotTemperature: 3000
+  color: "#f4f7ff"
+  fireEntity: DHTileFireMagnesium
+  extinguishPerUnit: 0.3

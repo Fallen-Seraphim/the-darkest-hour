@@ -36,6 +36,13 @@ public sealed partial class DHExoskeletonSystem : EntitySystem
 
     private void OnGetMeleeDamage(Entity<MeleeWeaponComponent> ent, ref GetMeleeDamageEvent args)
     {
+        // Кибер-рука «Тиски» (план осады п. 29).
+        if (TryComp<Content.Shared._DarkestHour.Medical.Trauma.DHTraumaComponent>(args.User, out var trauma) &&
+            MathF.Abs(trauma.MeleeModifier - 1f) >= 0.001f)
+        {
+            args.Damage *= trauma.MeleeModifier;
+        }
+
         if (GetWorn(args.User) is not { } exo)
             return;
 

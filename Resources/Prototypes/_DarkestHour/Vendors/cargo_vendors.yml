@@ -1,0 +1,243 @@
+# Каргоавтоматы «Осады» (план осады п. 27, решение автора 2026-11-20): бесплатно, но запас общий и ограничен;
+# пополняются вместе с разделом карго, который снабжение пополняет за очки (DHCargoVendor): «Модификации и
+# боеприпасы» — с разделом «Боеприпасы», «Мелочи» — с разделом «Прочее». Механика выдачи — DHGearVendorSystem.
+
+- type: entity
+  parent: DHGearVendorBase
+  id: DHCargoVendorRepublicAmmo
+  name: RAC munitions vendor
+  description: "Republican Army Corps supply vendor: weapon attachments, spare ammunition and a few grenades. Free, but stock is shared and limited; it is restocked together with the ammunition section of the supply catalogue."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Machines/VendingMachines/ColMarTech/attachments.rsi
+    state: base
+  - type: AccessReader
+    access: [["DHRepublic"]]
+  - type: DHGearVendor
+    group: RepublicCargo
+    sections:
+    - id: attachments
+      name: dh-gear-section-attachments
+      choices: 0
+      entries:
+      - proto: DHAttachmentSuppressor
+        stock: 2
+      - proto: DHAttachmentFlashHider
+        stock: 2
+      - proto: DHAttachmentCompensator
+        stock: 2
+      - proto: DHAttachmentVerticalGrip
+        stock: 2
+      - proto: DHAttachmentAngledGrip
+        stock: 2
+      - proto: DHAttachmentBipod
+        stock: 2
+      - proto: DHAttachmentOpticHolo
+        stock: 2
+      - proto: DHAttachmentOptic2x
+        stock: 2
+      - proto: DHAttachmentOptic4x
+        stock: 2
+      - proto: DHAttachmentLaser
+        stock: 2
+      - proto: DHAttachmentLight
+        stock: 2
+    - id: ammo
+      name: dh-gear-section-ammo
+      choices: 0
+      entries:
+      - proto: DHMagazine556x45FMG
+        stock: 6
+      - proto: DHMagazine762x51FMG
+        stock: 6
+      - proto: DHMagazine10x24E
+        stock: 6
+      - proto: DHMagazine10x51FMG
+        stock: 6
+      - proto: DHMagazineBox556x45FMG
+        stock: 6
+      - proto: DHMagazineBelt762x51FMG
+        stock: 6
+    - id: grenades
+      name: dh-gear-section-grenades
+      choices: 0
+      entries:
+      - proto: ExGrenade
+        stock: 3
+      - proto: SmokeGrenade
+        stock: 3
+      - proto: GrenadeIncendiary
+        stock: 3
+  - type: DHCargoVendor
+    faction: Republic
+    category: dh-supply-category-ammo
+
+- type: entity
+  parent: DHGearVendorBase
+  id: DHCargoVendorRepublicSupplies
+  name: RAC supplies vendor
+  description: "Republican Army Corps supply vendor: tinned food, shovels, sandbags, wire, lanterns and other odds and ends. Free, but stock is shared and limited; it is restocked together with the miscellaneous section of the supply catalogue."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Machines/VendingMachines/ColMarTech/prep.rsi
+    state: base
+  - type: AccessReader
+    access: [["DHRepublic"]]
+  - type: DHGearVendor
+    group: RepublicCargo
+    sections:
+    - id: food
+      name: dh-gear-section-food
+      choices: 0
+      entries:
+      - proto: DHFoodTinStew
+        stock: 8
+      - proto: DHFoodTinBeans
+        stock: 8
+      - proto: DHFoodTinFish
+        stock: 8
+      - proto: DHFoodTinPorridge
+        stock: 8
+      - proto: DHFoodTinPeaches
+        stock: 8
+    - id: misc
+      name: dh-gear-section-misc
+      choices: 0
+      entries:
+      - proto: Shovel
+        stock: 4
+      - proto: DHSandbagsEmpty25
+        stock: 4
+      - proto: DHBarbedWire10
+        stock: 4
+      - proto: FlashlightLantern
+        stock: 4
+      - proto: DHSignalFlareKit
+        stock: 4
+      - proto: Handcuffs
+        stock: 4
+      - proto: CombatKnife
+        stock: 4
+  - type: DHCargoVendor
+    faction: Republic
+    category: dh-supply-category-misc
+
+- type: entity
+  parent: DHGearVendorBase
+  id: DHCargoVendorEmpireAmmo
+  name: IMC munitions vendor
+  description: "Imperial Marine Corps supply vendor: weapon attachments, spare ammunition and a few grenades. Free, but stock is shared and limited; it is restocked together with the ammunition section of the supply catalogue."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Machines/VendingMachines/ColMarTech/attachments.rsi
+    state: base
+  - type: AccessReader
+    access: [["NuclearOperative"]]
+  - type: DHGearVendor
+    group: EmpireCargo
+    sections:
+    - id: attachments
+      name: dh-gear-section-attachments
+      choices: 0
+      entries:
+      - proto: DHAttachmentSuppressor
+        stock: 2
+      - proto: DHAttachmentFlashHider
+        stock: 2
+      - proto: DHAttachmentCompensator
+        stock: 2
+      - proto: DHAttachmentVerticalGrip
+        stock: 2
+      - proto: DHAttachmentAngledGrip
+        stock: 2
+      - proto: DHAttachmentBipod
+        stock: 2
+      - proto: DHAttachmentOpticHolo
+        stock: 2
+      - proto: DHAttachmentOptic2x
+        stock: 2
+      - proto: DHAttachmentOptic4x
+        stock: 2
+      - proto: DHAttachmentLaser
+        stock: 2
+      - proto: DHAttachmentLight
+        stock: 2
+    - id: ammo
+      name: dh-gear-section-ammo
+      choices: 0
+      entries:
+      - proto: DHMagazine842x54ImpS
+        stock: 6
+      - proto: DHMagazine842x54ImpR
+        stock: 6
+      - proto: DHMagazine104x16ImpB
+        stock: 6
+      - proto: DHAmmoBox14gShot
+        stock: 6
+      - proto: DHMagazineDrum842x54ImpS
+        stock: 6
+      - proto: DHMagazineBelt842x54ImpS
+        stock: 6
+    - id: grenades
+      name: dh-gear-section-grenades
+      choices: 0
+      entries:
+      - proto: ExGrenade
+        stock: 3
+      - proto: SmokeGrenade
+        stock: 3
+      - proto: GrenadeIncendiary
+        stock: 3
+  - type: DHCargoVendor
+    faction: Empire
+    category: dh-supply-category-ammo
+
+- type: entity
+  parent: DHGearVendorBase
+  id: DHCargoVendorEmpireSupplies
+  name: IMC supplies vendor
+  description: "Imperial Marine Corps supply vendor: tinned food, shovels, sandbags, wire, lanterns and other odds and ends. Free, but stock is shared and limited; it is restocked together with the miscellaneous section of the supply catalogue."
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Machines/VendingMachines/ColMarTech/prep.rsi
+    state: base
+  - type: AccessReader
+    access: [["NuclearOperative"]]
+  - type: DHGearVendor
+    group: EmpireCargo
+    sections:
+    - id: food
+      name: dh-gear-section-food
+      choices: 0
+      entries:
+      - proto: DHFoodTinStew
+        stock: 8
+      - proto: DHFoodTinBeans
+        stock: 8
+      - proto: DHFoodTinFish
+        stock: 8
+      - proto: DHFoodTinPorridge
+        stock: 8
+      - proto: DHFoodTinPeaches
+        stock: 8
+    - id: misc
+      name: dh-gear-section-misc
+      choices: 0
+      entries:
+      - proto: Shovel
+        stock: 4
+      - proto: DHSandbagsEmpty25
+        stock: 4
+      - proto: DHBarbedWire10
+        stock: 4
+      - proto: FlashlightLantern
+        stock: 4
+      - proto: DHSignalFlareKit
+        stock: 4
+      - proto: Handcuffs
+        stock: 4
+      - proto: CombatKnife
+        stock: 4
+  - type: DHCargoVendor
+    faction: Empire
+    category: dh-supply-category-misc

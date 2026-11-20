@@ -1,7 +1,10 @@
 using Content.Shared._DarkestHour.Medical.Pharmacology;
 using Content.Shared.Body;
 using Content.Shared.EntityEffects;
+using Content.Shared.IdentityManagement.Components;
 using Content.Shared.Movement.Systems;
+using Content.Shared.Popups;
+using Content.Shared.Stunnable;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
@@ -20,6 +23,26 @@ public sealed partial class DHTraumaSharedSystem : EntitySystem
 
         SubscribeNetworkEvent<DHSetTargetRequestEvent>(OnSetTargetRequest);
         SubscribeLocalEvent<DHTraumaComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshSpeed);
+        SubscribeLocalEvent<DHTraumaComponent, StandUpAttemptEvent>(OnStandUpAttempt);
+        SubscribeLocalEvent<DHTraumaComponent, SeeIdentityAttemptEvent>(OnSeeIdentity);
+    }
+
+    /// <summary>Обезображенное лицо не узнать.</summary>
+    private void OnSeeIdentity(Entity<DHTraumaComponent> ent, ref SeeIdentityAttemptEvent args)
+    {
+        if (ent.Comp.Disfigured)
+            args.Cancel();
+    }
+
+    /// <summary>Парализованный без экзоскелета не встаёт — только ползёт.</summary>
+    private void OnStandUpAttempt(Entity<DHTraumaComponent> ent, ref StandUpAttemptEvent args)
+    {
+        if (args.Cancelled || ent.Comp.Spinal == DHSpinalInjury.None || ent.Comp.SpinalSupported)
+            return;
+
+        args.Cancelled = true;
+        args.Autostand = false;
+        args.Message = (Loc.GetString("dh-trauma-spinal-stand"), PopupType.SmallCaution);
     }
 
     private void OnSetTargetRequest(DHSetTargetRequestEvent ev, EntitySessionEventArgs args)
@@ -45,7 +68,7 @@ public sealed partial class DHTraumaSharedSystem : EntitySystem
 
     private void OnRefreshSpeed(Entity<DHTraumaComponent> ent, ref RefreshMovementSpeedModifiersEvent args)
     {
-        if (ent.Comp.SpeedModifier < 1f)
+        if (MathF.Abs(ent.Comp.SpeedModifier - 1f) > 0.001f)
             args.ModifySpeed(ent.Comp.SpeedModifier, ent.Comp.SpeedModifier);
     }
 }

@@ -30,7 +30,7 @@ public sealed partial class DHLandingSystem
     private readonly Dictionary<EntityUid, Box2> _surfaceBounds = new();
 
     /// <summary>Точка приземления внутри района операции (для нарисованных вручную карт).</summary>
-    private Vector2 KeepInsideMappedSurface(EntityUid surface, Vector2 target)
+    public Vector2 KeepInsideMappedSurface(EntityUid surface, Vector2 target)
     {
         if (!HasComp<DHMappedSurfaceComponent>(surface) || !TryComp<MapGridComponent>(surface, out var grid))
             return target;
@@ -93,8 +93,46 @@ public sealed partial class DHLandingSystem
         return any ? box : grid.LocalAABB;
     }
 
+    /// <summary>
+    /// Случайная точка у случайного края района операции — на суше или мелководье (не в стене, не в скале и не в
+    /// глубокой воде). Для высадки ассоциативного десантника (план осады п. 28, решение автора 2026-11-20).
+    /// </summary>
+    public Vector2? RandomEdgePoint(EntityUid surface)
+    {
+        if (!TryComp<MapGridComponent>(surface, out var grid))
+            return null;
+
+        if (!_surfaceBounds.TryGetValue(surface, out var bounds))
+        {
+            bounds = SurfaceTileBounds(surface, grid);
+            _surfaceBounds[surface] = bounds;
+        }
+
+        var inner = new Box2(bounds.Left + EdgeMargin, bounds.Bottom + EdgeMargin,
+            bounds.Right - EdgeMargin, bounds.Top - EdgeMargin);
+        if (inner.Width <= 0f || inner.Height <= 0f)
+            return null;
+
+        for (var attempt = 0; attempt < 12; attempt++)
+        {
+            var point = _random.Next(4) switch
+            {
+                0 => new Vector2(inner.Left, _random.NextFloat(inner.Bottom, inner.Top)),
+                1 => new Vector2(inner.Right, _random.NextFloat(inner.Bottom, inner.Top)),
+                2 => new Vector2(_random.NextFloat(inner.Left, inner.Right), inner.Bottom),
+                _ => new Vector2(_random.NextFloat(inner.Left, inner.Right), inner.Top),
+            };
+
+            if (FindFreeLanding(surface, grid, point, inner, allowShallow: true) is { } found)
+                return found;
+        }
+
+        return null;
+    }
+
     /// <summary>Ближайшая к точке свободная клетка (по расширяющимся кольцам) внутри района.</summary>
-    private Vector2? FindFreeLanding(EntityUid surface, MapGridComponent grid, Vector2 point, Box2 inner)
+    private Vector2? FindFreeLanding(EntityUid surface, MapGridComponent grid, Vector2 point, Box2 inner,
+        bool allowShallow = false)
     {
         var center = new Vector2i((int) MathF.Floor(point.X), (int) MathF.Floor(point.Y));
         for (var radius = 0; radius <= FreeTileSearch; radius++)
@@ -107,7 +145,7 @@ public sealed partial class DHLandingSystem
                         continue;
 
                     var candidate = new Vector2(center.X + dx + 0.5f, center.Y + dy + 0.5f);
-                    if (inner.Contains(candidate) && IsFreeLanding(surface, grid, candidate))
+                    if (inner.Contains(candidate) && IsFreeLanding(surface, grid, candidate, allowShallow))
                         return candidate;
                 }
             }
@@ -116,15 +154,19 @@ public sealed partial class DHLandingSystem
         return null;
     }
 
-    /// <summary>Есть грунт, клетка не занята стеной/скалой и не вода.</summary>
-    private bool IsFreeLanding(EntityUid surface, MapGridComponent grid, Vector2 position)
+    /// <summary>Есть грунт, клетка не занята стеной/скалой и не вода (с <paramref name="allowShallow"/> — мелководье можно).</summary>
+    private bool IsFreeLanding(EntityUid surface, MapGridComponent grid, Vector2 position, bool allowShallow = false)
     {
         var indices = _map.WorldToTile(surface, grid, position);
         if (!_map.TryGetTileRef(surface, grid, indices, out var tile) || tile.Tile.IsEmpty)
             return false;
 
-        if (_turf.IsTileBlocked(surface, indices, CollisionGroup.Impassable, grid))
+        // Глубокая вода — как стол (MidImpassable): человек не пройдёт.
+        if (_turf.IsTileBlocked(surface, indices, CollisionGroup.Impassable | CollisionGroup.MidImpassable, grid))
             return false;
+
+        if (allowShallow)
+            return true;
 
         foreach (var uid in _lookup.GetLocalEntitiesIntersecting(surface, indices, 0f, LookupFlags.Static | LookupFlags.Sundries, grid))
         {

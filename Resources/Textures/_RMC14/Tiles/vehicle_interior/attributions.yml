@@ -1,0 +1,4 @@
+- files: ["*.png"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Vehicle interior floors from cmss13 (https://github.com/cmss13-devs/cmss13), via RMC-14 and RussianCM (https://github.com/flex5hybrid/RussianCM). void.png — RMC-14 Tiles/floors."
+  source: "https://github.com/flex5hybrid/RussianCM/tree/master/Resources/Textures/Tiles/vehicle_interior"

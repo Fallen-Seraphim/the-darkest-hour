@@ -14,6 +14,7 @@ using Content.Shared.Popups;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
 namespace Content.Server._DarkestHour.Clothing.ModularArmor;
@@ -27,9 +28,11 @@ public sealed partial class DHModularArmorDamageSystem : EntitySystem
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private BloodstreamSystem _bloodstream = default!;
     [Dependency] private DamageableSystem _damageable = default!;
+    [Dependency] private DHInfantryShieldSystem _shield = default!;
     [Dependency] private DHModularArmorSystem _armor = default!;
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private IRobustRandom _random = default!;
     [Dependency] private SharedSolutionContainerSystem _solutions = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private DHTraumaSystem _trauma = default!;
@@ -116,19 +119,35 @@ public sealed partial class DHModularArmorDamageSystem : EntitySystem
         var ballistics = args.Ballistics;
         var physical = PhysicalTotal(args.Damage);
 
+        // Пехотный щит ЭМБ-5 гасит пулю раньше брони.
+        if (_shield.TryAbsorbBullet(ent, part, physical, ballistics.PenetrationClass >= level))
+        {
+            args.Damage = new DamageSpecifier();
+            args.Outcome = DHBulletArmorOutcome.Blocked;
+            args.Handled = true;
+            _bulletHandled[ent] = _timing.CurTick;
+            return;
+        }
+
         if (level <= 0)
         {
             args.Damage = args.Damage * ballistics.UnarmoredMultiplier;
+            args.Outcome = DHBulletArmorOutcome.Unarmored;
         }
         else if (ballistics.PenetrationClass >= level)
         {
             args.Damage = args.Damage * ballistics.ArmoredMultiplier;
+            args.Outcome = DHBulletArmorOutcome.Penetrated;
             Wear(ent, module, physical * DHModularArmor.PenetratedWear);
         }
         else
         {
+            // Заброневая травма: малая доля урона ушибом, а от крупного калибра — ещё и перелом под пластиной.
             args.Damage = ConvertPhysical(args.Damage, DHModularArmor.BlockedFraction, toBlunt: true);
-            Wear(ent, module, physical * (1f - DHModularArmor.BlockedFraction));
+            args.Outcome = DHBulletArmorOutcome.Blocked;
+            Wear(ent, module, physical * DHModularArmor.BlockedWear);
+            if (_random.Prob(DHModularArmor.BlockedFractureChance(physical)))
+                _trauma.TryBreakBoneFromImpact(ent, part);
         }
 
         args.Handled = true;
@@ -266,21 +285,31 @@ public sealed partial class DHModularArmorDamageSystem : EntitySystem
                 continue;
             }
 
-            if (!_solutions.TryGetSolution(module, special.Solution, out var solutionEnt, out var solution) ||
-                solution.Volume <= 0)
-            {
-                continue;
-            }
-
-            var dose = _solutions.SplitSolution(solutionEnt.Value, FixedPoint2.New(special.Dose));
-            if (!_bloodstream.TryAddToBloodstream(wearer, dose))
-                continue;
-
-            special.NextUse = now + special.Cooldown;
-            Dirty(module, special);
-            _audio.PlayPvs(InjectSound, wearer);
-            _popup.PopupEntity(Loc.GetString("dh-armor-automed-injected"), wearer, wearer, PopupType.Medium);
+            TryInjectAutoMed((module, special), wearer);
         }
+    }
+
+    /// <summary>Автоаптечка вводит дозу носителю (порог ранений проверяет вызывающий; перезарядка — здесь).</summary>
+    public bool TryInjectAutoMed(Entity<DHArmorSpecialComponent> module, EntityUid wearer)
+    {
+        var special = module.Comp;
+        var now = _timing.CurTime;
+        if (special.Kind != DHArmorSpecialKind.AutoMed || now < special.NextUse ||
+            !_solutions.TryGetSolution(module.Owner, special.Solution, out var solutionEnt, out var solution) ||
+            solution.Volume <= 0)
+        {
+            return false;
+        }
+
+        var dose = _solutions.SplitSolution(solutionEnt.Value, FixedPoint2.New(special.Dose));
+        if (!_bloodstream.TryAddToBloodstream(wearer, dose))
+            return false;
+
+        special.NextUse = now + special.Cooldown;
+        Dirty(module);
+        _audio.PlayPvs(InjectSound, wearer);
+        _popup.PopupEntity(Loc.GetString("dh-armor-automed-injected"), wearer, wearer, PopupType.Medium);
+        return true;
     }
 
     private bool TryGetSuitOf(EntityUid module, out EntityUid suit)

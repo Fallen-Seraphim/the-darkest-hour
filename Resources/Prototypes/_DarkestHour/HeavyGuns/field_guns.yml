@@ -240,6 +240,7 @@
     hitsToKill: # 75 и 90 мм: танк — 5 попаданий, БТР — 3
       Tank: 5
       APC: 3
+      Light: 3
   - type: DHBallistics
     penetrationClass: 3
   - type: Projectile

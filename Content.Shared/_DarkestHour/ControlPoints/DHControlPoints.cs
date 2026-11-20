@@ -36,8 +36,30 @@ public sealed partial class DHControlPointComponent : Component
     [DataField]
     public TimeSpan CaptureTime = TimeSpan.FromSeconds(15);
 
+    /// <summary>Как часто терминал выдаёт ящик удерживающей стороне (решение автора 2026-11-19: раз в 15 мин).</summary>
     [DataField]
-    public TimeSpan Interval = TimeSpan.FromMinutes(5);
+    public TimeSpan Interval = TimeSpan.FromMinutes(15);
+
+    /// <summary>Очков командования в минуту, пока точку держат (у точек разная ценность).</summary>
+    [DataField]
+    public int PointsPerMinute = 3;
+
+    /// <summary>Очки за первый захват точки стороной за раунд (повторный захват той же точки бонуса не даёт).</summary>
+    [DataField]
+    public int CaptureBonus = 40;
+
+    /// <summary>
+    /// Пока точка не у <see cref="JamFaction"/>, её каналы <see cref="JamChannels"/> глушатся: слышно только в
+    /// пределах <see cref="JamRange"/> (РЛС/связь гарнизона — общий канал Республики, решение автора 2026-11-19).
+    /// </summary>
+    [DataField]
+    public List<string> JamChannels = new();
+
+    [DataField]
+    public DHAssaultFaction JamFaction = DHAssaultFaction.Republic;
+
+    [DataField]
+    public float JamRange = 15f;
 
     [DataField]
     public List<EntProtoId> RepublicOutput = new();
@@ -68,6 +90,13 @@ public sealed partial class DHControlPointPoweredComponent : Component
     /// </summary>
     [DataField]
     public TimeSpan Backup = TimeSpan.Zero;
+
+    /// <summary>
+    /// Ещё зоны, которые должна держать <see cref="Faction"/> (цепочка целей, решение автора 2026-11-19): ПВО и РЛС
+    /// работают, только пока у Республики и АЭС (с резервом), и сама точка объекта (без резерва).
+    /// </summary>
+    [DataField]
+    public List<string> Requires = new();
 
     /// <summary>Работает от резерва до этого времени (null — не на резерве).</summary>
     [ViewVariables]

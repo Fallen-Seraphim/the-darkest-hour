@@ -79,6 +79,8 @@ JOBS['DHGarrisonCommander'] = [(R + 'Colonel', 100), (R + 'LieutenantColonel', 3
 for job in ('DHMarineRifleman', 'DHMarineMachinegunner', 'DHMarineWeaponsSpecialist', 'DHMarineMortarOperator',
             'DHMarineFieldArtillerist', 'DHMarineTankCrew', 'DHMarineAPCCrew'):
     JOBS[job] = [(I + 'JuniorInfantryOfficer', 50), (I + 'LanceCorporal', 10), (I + 'Marine', 0)]
+# Командир отряда (решение автора 2026-11-19): «сержанты» — младший пехотный офицер → пехотный офицер.
+JOBS['DHMarineSquadLeader'] = [(I + 'InfantryOfficer', 25), (I + 'JuniorInfantryOfficer', 0)]
 JOBS['DHMarineFieldMedic'] = [(I + 'JuniorInfantryOfficer', 25), (I + 'LanceCorporal', 0)]
 for job in ('DHMarineMortarCommander', 'DHMarineTankCommander', 'DHMarineAPCCommander'):
     JOBS[job] = [(I + 'Commandor', 25), (I + 'InfantryOfficer', 0)]

@@ -30,3 +30,5 @@ reagent-name-dh-dexamethasone = дексаметазон
 reagent-desc-dh-dexamethasone = Гормон против отёка и воспаления: умеренно лечит ожоги, химические ожоги и аллергию.
 reagent-name-dh-prussianblue = берлинская лазурь
 reagent-desc-dh-prussianblue = Связывает радиоактивные изотопы и выводит облучение.
+reagent-name-dh-citrasin = цитрасин
+reagent-desc-dh-citrasin = Иммунодепрессант: вдвое замедляет отторжение имплантов. В больших дозах бьёт по почкам.

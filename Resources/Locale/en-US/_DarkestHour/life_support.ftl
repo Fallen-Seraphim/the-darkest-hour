@@ -13,3 +13,5 @@ dh-machine-tubes-pulled = The machine's tubes are pulled out of {THE($target)}!
 
 guide-entry-dh-resuscitation = Resuscitation and the ward
 guide-entry-dh-chemistry-chains = Synthesis chains
+dh-revive-brain-damaged = The brain is irreversibly damaged. Revival is pointless.
+dh-revive-heart-failed = The heart doesn't respond to the shock: repair or transplant it first.

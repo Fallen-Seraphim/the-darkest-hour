@@ -29,6 +29,12 @@ public enum DHArmorClass : byte
     Light,
     Heavy,
     Composite,
+
+    /// <summary>
+    /// Экспериментальные пластины ЭМБ-5 ассоциативного десантника (план осады п. 28): класс брони как у лёгких, прочность
+    /// выше, вес как у композитных.
+    /// </summary>
+    Experimental,
 }
 
 [Serializable, NetSerializable]
@@ -42,6 +48,9 @@ public enum DHArmorSpecialKind : byte
 
     /// <summary>Дополнительное хранилище (в т.ч. для баков огнемёта): открывается действием.</summary>
     Storage,
+
+    /// <summary>Ком-модуль связи: приказы своим вокруг (план осады п. 26, <c>DHOrdersModule</c>).</summary>
+    Comms,
 }
 
 [Serializable, NetSerializable]
@@ -113,7 +122,12 @@ public sealed partial class DHModularArmorComponent : Component
         [DHArmorClass.Light] = 3f,
         [DHArmorClass.Composite] = 5f,
         [DHArmorClass.Heavy] = 8f,
+        [DHArmorClass.Experimental] = 4f,
     };
+
+    /// <summary>Тяжёлый модуль без стойки обслуживания: можно, но долго, секунды.</summary>
+    [DataField]
+    public float HeavyFieldSwapTime = 20f;
 
     /// <summary>Модули, которые ставятся при создании корпуса (наборы подклассов).</summary>
     [DataField]
@@ -330,7 +344,8 @@ public sealed partial class DHArmorSpecialActionEvent : InstantActionEvent;
 public static class DHModularArmor
 {
     /// <summary>
-    /// Класс брони модуля (решение автора 2026-10-30): без брони — 0, композитный — 1, лёгкий — 2, тяжёлый — 3.
+    /// Класс брони модуля (решение автора 2026-10-30): без брони — 0, композитный — 1, лёгкий и экспериментальный — 2,
+    /// тяжёлый — 3.
     /// Пуля с классом бронепробития не ниже класса брони пробивает (полный урон), иначе — заброневая травма.
     /// </summary>
     public static int Level(DHArmorClass cls)
@@ -339,13 +354,28 @@ public static class DHModularArmor
         {
             DHArmorClass.Composite => 1,
             DHArmorClass.Light => 2,
+            DHArmorClass.Experimental => 2,
             DHArmorClass.Heavy => 3,
             _ => 0,
         };
     }
 
-    /// <summary>Доля урона, проходящая через непробитую броню (тупым уроном).</summary>
-    public const float BlockedFraction = 0.15f;
+    /// <summary>
+    /// Доля урона пули, проходящая через непробитую броню — тупым уроном, ушибом (решение автора 2026-11-18: 5%).
+    /// </summary>
+    public const float BlockedFraction = 0.05f;
+
+    /// <summary>Износ модуля, когда броня удержала пулю, — доля урона пули.</summary>
+    public const float BlockedWear = 0.85f;
+
+    /// <summary>
+    /// Перелом под непробитой бронёй (решение автора 2026-11-18): шанс по калибру — по физическому урону пули.
+    /// Пистолет (~20) — почти никогда, винтовка (30–45) — изредка, крупный калибр (60+) — заметно.
+    /// </summary>
+    public static float BlockedFractureChance(float bulletDamage)
+    {
+        return Math.Clamp((bulletDamage - 25f) / 150f, 0f, 0.5f);
+    }
 
     /// <summary>Доля физического урона не от пуль (холодное оружие, взрывы), проходящая через броню.</summary>
     public const float NonBulletFraction = 0.5f;

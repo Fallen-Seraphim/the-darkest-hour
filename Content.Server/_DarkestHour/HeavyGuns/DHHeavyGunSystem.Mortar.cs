@@ -41,6 +41,9 @@ public sealed partial class DHHeavyGunSystem
     private const float LaserMoveTolerance = 0.6f;
     private const string FlareProto = "DHMortarFlare";
 
+    private static readonly TimeSpan LaserSightInterval = TimeSpan.FromSeconds(0.5);
+    private TimeSpan _nextLaserSight;
+
     private void InitializeMortar()
     {
         SubscribeLocalEvent<DHLaserDesignatorComponent, AfterInteractEvent>(OnDesignatorAfterInteract);
@@ -160,6 +163,12 @@ public sealed partial class DHHeavyGunSystem
     /// </summary>
     private void UpdateLaserMarks()
     {
+        // Прямую видимость до метки (дым, план осады п. 9) проверяем не каждый кадр.
+        var now = _timing.CurTime;
+        var checkSight = now >= _nextLaserSight;
+        if (checkSight)
+            _nextLaserSight = now + LaserSightInterval;
+
         var query = EntityQueryEnumerator<DHLaserMarkComponent>();
         while (query.MoveNext(out var uid, out var mark))
         {
@@ -171,6 +180,16 @@ public sealed partial class DHHeavyGunSystem
                        _mobState.IsAlive(user) &&
                        position.MapId == mark.UserPosition.MapId &&
                        (position.Position - mark.UserPosition.Position).Length() <= LaserMoveTolerance;
+
+            // Дым или что-то ещё закрыло цель — лазер сорван.
+            var blocked = false;
+            if (held && checkSight && TryComp<DHLaserDesignatorComponent>(designator, out var sightComp) &&
+                !_examine.InRangeUnOccluded(user, _transform.GetMapCoordinates(uid), sightComp.Range + 1f))
+            {
+                held = false;
+                blocked = true;
+            }
+
             if (held)
                 continue;
 
@@ -178,7 +197,10 @@ public sealed partial class DHHeavyGunSystem
                 designatorComp.Mark = null;
 
             if (Exists(user))
-                _popup.PopupEntity(Loc.GetString("dh-laser-lost", ("code", mark.Code)), user, user, PopupType.SmallCaution);
+            {
+                _popup.PopupEntity(Loc.GetString(blocked ? "dh-laser-blocked" : "dh-laser-lost", ("code", mark.Code)),
+                    user, user, PopupType.SmallCaution);
+            }
 
             QueueDel(uid);
         }
@@ -437,7 +459,9 @@ public sealed partial class DHHeavyGunSystem
         QueueDel(shell);
         ent.Comp.NextShot = _timing.CurTime + ent.Comp.ReloadTime;
         _audio.PlayPvs(MortarFireSound, ent, AudioParams.Default.WithMaxDistance(40f));
+        RaiseLocalEvent(new Content.Server._DarkestHour.Recon.DHArtilleryFiredEvent(ent, FactionOf(args.User)));
         _hearing.Blast(_transform.GetMapCoordinates(ent), 35f, 4f);
+        _distant.Cannon(_transform.GetMapCoordinates(ent), 120f, -6f, 1.3f); // глухой хлопок миномёта (план осады п. 20)
         foreach (var actor in _lookup.GetEntitiesInRange<Robust.Shared.Player.ActorComponent>(
                      _transform.GetMapCoordinates(ent), 4f))
         {
