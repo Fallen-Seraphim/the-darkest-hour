@@ -82,9 +82,19 @@ public sealed partial class ProjectileSystem : SharedProjectileSystem
             component.ProjectileSpent = true;
         }
 
+        // DH-start: звук попадания по материалу и по броне, кровь (план осады п. 15) — DHImpactSystem.
+        var dhImpact = new Content.Server._DarkestHour.Weapons.DHProjectileImpactEvent(target, damage, args.OurBody.LinearVelocity);
         if (!Deleted(target))
+            RaiseLocalEvent(uid, ref dhImpact);
+        // DH-end
+
+        if (!Deleted(target) && !dhImpact.Handled)
         {
             _guns.PlayImpactSound(target, damage, component.SoundHit, component.ForceSound);
+        }
+
+        if (!Deleted(target))
+        {
 
             if (!args.OurBody.LinearVelocity.IsLengthZero())
                 _sharedCameraRecoil.KickCamera(target, args.OurBody.LinearVelocity.Normalized());

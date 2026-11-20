@@ -1,0 +1,240 @@
+# Протезы конечностей (план осады п. 18): серо-стальные конечности из спрайта человеческих частей.
+# Приживляются обычной операцией «приживление конечности»; не кровят, не ломаются, нервов нет.
+
+- type: entity
+  parent: OrganBaseArmLeft
+  id: DHOrganProstheticArmLeft
+  name: prosthetic left arm
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: Mobs/Species/Human/parts.rsi
+    state: l_arm
+    color: "#7d848c"
+  - type: VisualOrgan
+    data:
+      sprite: Mobs/Species/Human/parts.rsi
+      state: l_arm
+      color: "#7d848c"
+  - type: VisualOrganMarkings
+    markingData:
+      group: None
+  - type: DHProsthetic
+
+- type: entity
+  parent: OrganBaseHandLeft
+  id: DHOrganProstheticHandLeft
+  name: prosthetic left hand
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: Mobs/Species/Human/parts.rsi
+    state: l_hand
+    color: "#7d848c"
+  - type: VisualOrgan
+    data:
+      sprite: Mobs/Species/Human/parts.rsi
+      state: l_hand
+      color: "#7d848c"
+  - type: VisualOrganMarkings
+    markingData:
+      group: None
+  - type: DHProsthetic
+
+- type: entity
+  parent: OrganBaseArmRight
+  id: DHOrganProstheticArmRight
+  name: prosthetic right arm
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: Mobs/Species/Human/parts.rsi
+    state: r_arm
+    color: "#7d848c"
+  - type: VisualOrgan
+    data:
+      sprite: Mobs/Species/Human/parts.rsi
+      state: r_arm
+      color: "#7d848c"
+  - type: VisualOrganMarkings
+    markingData:
+      group: None
+  - type: DHProsthetic
+
+- type: entity
+  parent: OrganBaseHandRight
+  id: DHOrganProstheticHandRight
+  name: prosthetic right hand
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: Mobs/Species/Human/parts.rsi
+    state: r_hand
+    color: "#7d848c"
+  - type: VisualOrgan
+    data:
+      sprite: Mobs/Species/Human/parts.rsi
+      state: r_hand
+      color: "#7d848c"
+  - type: VisualOrganMarkings
+    markingData:
+      group: None
+  - type: DHProsthetic
+
+- type: entity
+  parent: OrganBaseLegLeft
+  id: DHOrganProstheticLegLeft
+  name: prosthetic left leg
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: Mobs/Species/Human/parts.rsi
+    state: l_leg
+    color: "#7d848c"
+  - type: VisualOrgan
+    data:
+      sprite: Mobs/Species/Human/parts.rsi
+      state: l_leg
+      color: "#7d848c"
+  - type: VisualOrganMarkings
+    markingData:
+      group: None
+  - type: DHProsthetic
+
+- type: entity
+  parent: OrganBaseFootLeft
+  id: DHOrganProstheticFootLeft
+  name: prosthetic left foot
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: Mobs/Species/Human/parts.rsi
+    state: l_foot
+    color: "#7d848c"
+  - type: VisualOrgan
+    data:
+      sprite: Mobs/Species/Human/parts.rsi
+      state: l_foot
+      color: "#7d848c"
+  - type: VisualOrganMarkings
+    markingData:
+      group: None
+  - type: DHProsthetic
+
+- type: entity
+  parent: OrganBaseLegRight
+  id: DHOrganProstheticLegRight
+  name: prosthetic right leg
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: Mobs/Species/Human/parts.rsi
+    state: r_leg
+    color: "#7d848c"
+  - type: VisualOrgan
+    data:
+      sprite: Mobs/Species/Human/parts.rsi
+      state: r_leg
+      color: "#7d848c"
+  - type: VisualOrganMarkings
+    markingData:
+      group: None
+  - type: DHProsthetic
+
+- type: entity
+  parent: OrganBaseFootRight
+  id: DHOrganProstheticFootRight
+  name: prosthetic right foot
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: Mobs/Species/Human/parts.rsi
+    state: r_foot
+    color: "#7d848c"
+  - type: VisualOrgan
+    data:
+      sprite: Mobs/Species/Human/parts.rsi
+      state: r_foot
+      color: "#7d848c"
+  - type: VisualOrganMarkings
+    markingData:
+      group: None
+  - type: DHProsthetic
+
+- type: entity
+  parent: DetachedBody
+  id: DHProstheticArmLeft
+  name: prosthetic left arm
+  description: A steel-and-polymer limb on a standard socket. Attached like any severed limb — it doesn't bleed, break or hurt.
+  save: true
+  components:
+  - type: InitialBody
+    organs:
+      ArmLeft: DHOrganProstheticArmLeft
+      HandLeft: DHOrganProstheticHandLeft
+    relationships:
+      ArmLeft: [ HandLeft ]
+  - type: StaticPrice
+    price: 150
+
+- type: entity
+  parent: DetachedBody
+  id: DHProstheticArmRight
+  name: prosthetic right arm
+  description: A steel-and-polymer limb on a standard socket. Attached like any severed limb — it doesn't bleed, break or hurt.
+  save: true
+  components:
+  - type: InitialBody
+    organs:
+      ArmRight: DHOrganProstheticArmRight
+      HandRight: DHOrganProstheticHandRight
+    relationships:
+      ArmRight: [ HandRight ]
+  - type: StaticPrice
+    price: 150
+
+- type: entity
+  parent: DetachedBody
+  id: DHProstheticLegLeft
+  name: prosthetic left leg
+  description: A steel-and-polymer limb on a standard socket. Attached like any severed limb — it doesn't bleed, break or hurt.
+  save: true
+  components:
+  - type: InitialBody
+    organs:
+      LegLeft: DHOrganProstheticLegLeft
+      FootLeft: DHOrganProstheticFootLeft
+    relationships:
+      LegLeft: [ FootLeft ]
+  - type: StaticPrice
+    price: 150
+
+- type: entity
+  parent: DetachedBody
+  id: DHProstheticLegRight
+  name: prosthetic right leg
+  description: A steel-and-polymer limb on a standard socket. Attached like any severed limb — it doesn't bleed, break or hurt.
+  save: true
+  components:
+  - type: InitialBody
+    organs:
+      LegRight: DHOrganProstheticLegRight
+      FootRight: DHOrganProstheticFootRight
+    relationships:
+      LegRight: [ FootRight ]
+  - type: StaticPrice
+    price: 150
+
+# Ящик протезов: по паре рук и ног (карго, раздел «Медицина»).
+- type: entity
+  parent: CrateMedical
+  id: DHCrateProsthetics
+  name: prosthetics crate
+  description: Two prosthetic arms and two prosthetic legs, left and right.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHProstheticArmLeft
+    - id: DHProstheticArmRight
+    - id: DHProstheticLegLeft
+    - id: DHProstheticLegRight

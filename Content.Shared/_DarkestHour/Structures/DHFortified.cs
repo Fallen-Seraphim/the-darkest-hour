@@ -1,8 +1,10 @@
+using System.Numerics;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Projectiles;
 using Robust.Shared.GameStates;
+using Robust.Shared.Physics.Components;
 using Robust.Shared.Prototypes;
 
 namespace Content.Shared._DarkestHour.Structures;
@@ -51,11 +53,24 @@ public sealed partial class DHAntiArmorComponent : Component
     /// </summary>
     [DataField]
     public Dictionary<string, int> HitsToKill = new();
+
+    /// <summary>
+    /// Попадание в лоб (снаряд летит навстречу носу машины, ±<see cref="FrontHalfAngle"/>): своё число попаданий по
+    /// классу; 0 — в лоб не берёт (остаётся только ослабленный урон по постройкам, как от пули). Нет класса в
+    /// словаре — как с любой стороны (план осады п. 13: труба не берёт танк в лоб).
+    /// </summary>
+    [DataField]
+    public Dictionary<string, int> FrontHitsToKill = new();
+
+    [DataField]
+    public float FrontHalfAngle = 50f;
 }
 
 public sealed partial class DHFortifiedSystem : EntitySystem
 {
     private static readonly ProtoId<DamageTypePrototype> Structural = "Structural";
+
+    [Dependency] private SharedTransformSystem _transform = default!;
 
     private EntityQuery<DHFortifiedComponent> _fortifiedQuery;
 
@@ -96,6 +111,22 @@ public sealed partial class DHFortifiedSystem : EntitySystem
             fortified.VehicleIntegrity > 0 &&
             antiArmor.HitsToKill.TryGetValue(vehicleClass, out var hits) && hits > 0)
         {
+            if (antiArmor.FrontHitsToKill.TryGetValue(vehicleClass, out var front) && FromFront(ent, args.Target,
+                    antiArmor.FrontHalfAngle))
+            {
+                if (front <= 0)
+                {
+                    // В лоб не берёт: как пуля по броне.
+                    if (args.Damage.DamageDict.TryGetValue(Structural, out var glancing) && glancing > 0)
+                        remaining.DamageDict[Structural] = glancing * fortified.BulletStructuralMultiplier;
+
+                    args.Damage = remaining;
+                    return;
+                }
+
+                hits = front;
+            }
+
             // С небольшим запасом, чтобы округление не оставило технике лишнее попадание.
             remaining.DamageDict[Structural] = MathF.Ceiling(fortified.VehicleIntegrity / hits) + 1f;
             args.Damage = remaining;
@@ -107,5 +138,17 @@ public sealed partial class DHFortifiedSystem : EntitySystem
             remaining.DamageDict[Structural] = structural * multiplier;
 
         args.Damage = remaining;
+    }
+
+    /// <summary>Снаряд летит навстречу носу машины (нос — локальный юг, как у всей техники).</summary>
+    private bool FromFront(EntityUid projectile, EntityUid target, float halfAngle)
+    {
+        if (!TryComp<PhysicsComponent>(projectile, out var physics) || physics.LinearVelocity.LengthSquared() < 0.01f)
+            return false;
+
+        var flight = Vector2.Normalize(physics.LinearVelocity);
+        var nose = _transform.GetWorldRotation(target).ToWorldVec();
+        // Навстречу: угол между полётом и обратным носом не больше halfAngle.
+        return Vector2.Dot(flight, -nose) >= MathF.Cos(MathHelper.DegreesToRadians(halfAngle));
     }
 }

@@ -43,6 +43,7 @@ public sealed partial class DHVehicleSystem : EntitySystem
 
         SubscribeLocalEvent<DHVehicleStationComponent, InteractHandEvent>(OnStationInteract);
         SubscribeLocalEvent<DHVehicleStationComponent, ComponentShutdown>(OnStationShutdown);
+        SubscribeLocalEvent<DHVehicleStationComponent, StrappedEvent>(OnStationStrapped);
         SubscribeLocalEvent<DHVehicleCrewComponent, UnbuckledEvent>(OnCrewUnbuckled);
         SubscribeLocalEvent<DHVehicleCrewComponent, MobStateChangedEvent>(OnCrewMobState);
         SubscribeLocalEvent<DHVehicleComponent, PreventCollideEvent>(OnVehiclePreventCollide);
@@ -56,12 +57,23 @@ public sealed partial class DHVehicleSystem : EntitySystem
 
     private void OnStationInteract(Entity<DHVehicleStationComponent> ent, ref InteractHandEvent args)
     {
-        if (args.Handled)
+        // Пост-кресло (отсеки RMC/CMU): управление берут, просто сев в него.
+        if (args.Handled || HasComp<StrapComponent>(ent))
             return;
 
         args.Handled = true;
         if (_net.IsServer)
             ToggleStation(ent, args.User);
+    }
+
+    /// <summary>
+    /// Сел в кресло водителя, стрелка или командира — сразу управляешь (план осады п. 5, решение автора 2026-11-19);
+    /// встал — управление отпущено (<see cref="OnCrewUnbuckled"/>).
+    /// </summary>
+    private void OnStationStrapped(Entity<DHVehicleStationComponent> ent, ref StrappedEvent args)
+    {
+        if (_net.IsServer && ent.Comp.User != args.Buckle.Owner)
+            ToggleStation(ent, args.Buckle.Owner);
     }
 
     /// <summary>Сесть за пульт (если сидишь в кресле рядом) или отпустить его.</summary>
@@ -161,12 +173,19 @@ public sealed partial class DHVehicleSystem : EntitySystem
         if (ent.Comp.SmokeControl && vehicleComp.Smoke)
             _actions.AddAction(user, ref ent.Comp.SmokeActionEntity, vehicleComp.SmokeAction, vehicle);
 
-        // Механик-водитель: гудок и фары.
+        // Механик-водитель: двигатель, гудок и фары.
         if (ent.Comp.Role == DHVehicleSeatRole.Driver)
         {
+            _actions.AddAction(user, ref ent.Comp.EngineActionEntity, vehicleComp.EngineAction, vehicle);
             _actions.AddAction(user, ref ent.Comp.HornActionEntity, vehicleComp.HornAction, vehicle);
             _actions.AddAction(user, ref ent.Comp.LightsActionEntity, vehicleComp.LightsAction, vehicle);
+            if (!vehicleComp.EngineRunning)
+                _popup.PopupEntity(Loc.GetString("dh-vehicle-engine-hint"), ent, user);
         }
+
+        // Водитель и командир запирают люки изнутри.
+        if (ent.Comp.LockControl)
+            _actions.AddAction(user, ref ent.Comp.LockActionEntity, vehicleComp.LockAction, vehicle);
 
         _popup.PopupEntity(Loc.GetString("dh-vehicle-station-taken", ("station", ent.Owner)), ent, user);
     }
@@ -214,12 +233,20 @@ public sealed partial class DHVehicleSystem : EntitySystem
 
             if (ent.Comp.LightsActionEntity is { } lights)
                 _actions.RemoveAction(user, lights);
+
+            if (ent.Comp.EngineActionEntity is { } engine)
+                _actions.RemoveAction(user, engine);
+
+            if (ent.Comp.LockActionEntity is { } lockAction)
+                _actions.RemoveAction(user, lockAction);
         }
 
         ent.Comp.PreviousMaxZoom = null;
         ent.Comp.SmokeActionEntity = null;
         ent.Comp.HornActionEntity = null;
         ent.Comp.LightsActionEntity = null;
+        ent.Comp.EngineActionEntity = null;
+        ent.Comp.LockActionEntity = null;
     }
 
     private void ReleaseCrew(EntityUid user)
@@ -271,6 +298,14 @@ public sealed partial class DHVehicleSystem : EntitySystem
     /// <summary>Снаряды своих орудий не задевают саму машину.</summary>
     private void OnVehiclePreventCollide(Entity<DHVehicleComponent> ent, ref PreventCollideEvent args)
     {
+        // Сидящие на открытой машине (лодке) не упираются в её корпус.
+        if (!args.Cancelled && TryComp<BuckleComponent>(args.OtherEntity, out var rider) &&
+            rider.BuckledTo is { } seat && Transform(seat).ParentUid == ent.Owner)
+        {
+            args.Cancelled = true;
+            return;
+        }
+
         if (args.Cancelled || !TryComp<ProjectileComponent>(args.OtherEntity, out var projectile) ||
             projectile.Weapon is not { } weapon || !TryComp<DHVehicleGunComponent>(weapon, out var gun))
         {
