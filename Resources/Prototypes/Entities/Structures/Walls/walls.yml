@@ -11,6 +11,7 @@
   components:
   - type: DHFortified # DarkestHour: прочность ×5, пули не ломают, артиллерия — да
   - type: DHBullethole # DarkestHour: следы от пуль (RMC-14)
+  - type: DHWallBlood # DarkestHour: брызги крови от пуль навылет (план осады п. 15)
   - type: Appearance
   - type: Anchorable
     flags:

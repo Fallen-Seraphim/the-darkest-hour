@@ -127,7 +127,7 @@
   parent: CrateGenericSteel
   id: DHSupplyCrateAmmo145
   name: 14.5×114 ammunition crate
-  description: Two boxes of 14.5×114 heavy machine gun ammunition.
+  description: Two boxes of 14.5×114 ammunition for the IMP-17 pistol.
   components:
   - type: Icon
     sprite: Structures/Storage/Crates/weapon.rsi
@@ -139,6 +139,25 @@
     contents:
     - id: DHAmmoBox145x114Std
       amount: 2
+
+- type: entity
+  parent: CrateGenericSteel
+  id: DHSupplyCrateAmmoIHMG
+  name: IHMG-17 belt crate
+  description: Four 100-round 8.42×54 belts for the IHMG-17 — two standard, one cobalt-tipped, one incendiary.
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/weapon.rsi
+  - type: DHParadroppable
+    requiredParachutes: 1
+  - type: StorageFill
+    contents:
+    - id: DHMagazineBelt842x54ImpS
+      amount: 2
+    - id: DHMagazineBelt842x54ImpR
+    - id: DHMagazineBelt842x54ImpZ
 
 - type: entity
   parent: CrateGenericSteel

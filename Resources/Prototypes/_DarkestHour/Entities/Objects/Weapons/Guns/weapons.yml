@@ -39,7 +39,7 @@
     minAngle: 4
     maxAngle: 40
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/rifle2.ogg
+      path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_m16.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/sf_rifle_cock.ogg
@@ -260,7 +260,7 @@
     minAngle: 2
     maxAngle: 30
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/batrifle.ogg
+      path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_ar10.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/batrifle_cock.ogg
@@ -486,7 +486,7 @@
     maxAngle: 30
     shotsPerBurst: 3
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/rifle2.ogg
+      path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_ssg45_1.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/sf_rifle_cock.ogg
@@ -706,7 +706,7 @@
     minAngle: 8
     maxAngle: 50
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/lmg.ogg
+      path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_type88.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/lmg_cock.ogg
@@ -921,7 +921,7 @@
     minAngle: 8
     maxAngle: 50
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/lmg.ogg
+      path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_m60.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/lmg_cock.ogg
@@ -1137,7 +1137,7 @@
     minAngle: 4
     maxAngle: 40
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/smg.ogg
+      path: /Audio/_RMC14/Weapons/Guns/Gunshots/pdw90_shot.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/smg_cock.ogg
@@ -1343,7 +1343,7 @@
     minAngle: 1
     maxAngle: 30
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/sniper.ogg
+      path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_vulture_fire.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/sf_rifle_cock.ogg
@@ -1556,7 +1556,7 @@
     minAngle: 1
     maxAngle: 25
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/sniper.ogg
+      path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_sniper.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/sf_rifle_cock.ogg
@@ -1780,7 +1780,7 @@
     minAngle: 1
     maxAngle: 25
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/sniper.ogg
+      path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_m4spr.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/sf_rifle_cock.ogg
@@ -2004,7 +2004,7 @@
     minAngle: 2
     maxAngle: 26
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/smg.ogg
+      path: /Audio/_RMC14/Weapons/Guns/Gunshots/smg_light.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/smg_cock.ogg
@@ -2211,7 +2211,7 @@
     minAngle: 3
     maxAngle: 34
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/batrifle.ogg
+      path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_mar40.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/batrifle_cock.ogg
@@ -2412,7 +2412,7 @@
     minAngle: 4
     maxAngle: 38
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/smg.ogg
+      path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_type64.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/smg_cock.ogg
@@ -2598,7 +2598,7 @@
     minAngle: 7
     maxAngle: 46
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/lmg.ogg
+      path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_ak4047.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/lmg_cock.ogg
@@ -2807,7 +2807,7 @@
     minAngle: 4
     maxAngle: 40
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/mateba.ogg
+      path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_DE50.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/hpistol_cock.ogg
@@ -2973,7 +2973,7 @@
     minAngle: 8
     maxAngle: 30
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/shotgun.ogg
+      path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_shotgun_xm51.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/shotgun_close.ogg
@@ -3097,7 +3097,7 @@
     availableModes:
     - SemiAuto
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/shotgun.ogg
+      path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_shotgun_heavy.ogg
   - type: BallisticAmmoProvider
     whitelist:
       tags:

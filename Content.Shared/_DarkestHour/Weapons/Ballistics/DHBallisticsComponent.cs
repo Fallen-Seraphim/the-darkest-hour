@@ -41,6 +41,19 @@ public sealed partial class DHBallisticsComponent : Component
     /// </summary>
     [DataField]
     public float ArmoredThreshold = 0.9f;
+
+    /// <summary>Чем кончилось последнее попадание по броне (для звука и крови, план осады п. 15). Только сервер.</summary>
+    [ViewVariables]
+    public DHBulletArmorOutcome LastOutcome;
+}
+
+/// <summary>Пуля и модульная броня: не было брони, пробила, не пробила.</summary>
+public enum DHBulletArmorOutcome : byte
+{
+    None,
+    Unarmored,
+    Penetrated,
+    Blocked,
 }
 
 /// <summary>
@@ -57,6 +70,9 @@ public struct DHBulletHitEvent
     public DamageSpecifier Damage;
     public bool Handled;
 
+    /// <summary>Итог по броне — выставляет обработчик модульной брони.</summary>
+    public DHBulletArmorOutcome Outcome;
+
     public DHBulletHitEvent(EntityUid bullet, DHBallisticsComponent ballistics, DamageSpecifier damage, EntityUid? shooter)
     {
         Bullet = bullet;
@@ -64,5 +80,6 @@ public struct DHBulletHitEvent
         Damage = damage;
         Shooter = shooter;
         Handled = false;
+        Outcome = DHBulletArmorOutcome.None;
     }
 }

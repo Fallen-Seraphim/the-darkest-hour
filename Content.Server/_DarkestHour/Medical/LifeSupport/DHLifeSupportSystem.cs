@@ -240,9 +240,10 @@ public sealed partial class DHLifeSupportSystem : EntitySystem
     }
 
     /// <summary>Сердце запускается (как от дефибриллятора, но без разряда): только в окне клинической смерти.</summary>
-    private bool TryRestartHeart(EntityUid target, EntityUid user)
+    public bool TryRestartHeart(EntityUid target, EntityUid user)
     {
-        if (_rotting.IsRotten(target) || HasComp<UnrevivableComponent>(target) ||
+        // Отказавшее или отсутствующее сердце массажем не запустить (план осады п. 18).
+        if (_rotting.IsRotten(target) || HasComp<UnrevivableComponent>(target) || HasComp<DHReviveBlockedComponent>(target) ||
             !TryComp<MobStateComponent>(target, out var mobState) ||
             !_thresholds.TryGetThresholdForState(target, MobState.Dead, out var threshold) ||
             _damageable.GetTotalDamage(target) >= threshold)
