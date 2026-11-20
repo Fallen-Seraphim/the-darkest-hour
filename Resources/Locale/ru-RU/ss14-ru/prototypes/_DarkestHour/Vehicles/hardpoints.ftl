@@ -50,3 +50,7 @@ ent-DHActionVehicleHorn = Гудок
     .desc = Подать звуковой сигнал.
 ent-DHActionVehicleLights = Фары
     .desc = Включить или выключить фары.
+ent-DHActionVehicleEngine = Двигатель
+    .desc = Завести или заглушить двигатель. Заглушённая машина не едет и не видна на РЛС.
+ent-DHActionVehicleLock = Люки
+    .desc = Запереть или отпереть люки изнутри — снаружи никто не войдёт.

@@ -46,12 +46,12 @@ namespace Content.Client.Lobby
 
             Lobby = (LobbyGui) _userInterfaceManager.ActiveScreen;
 
-            var chatController = _userInterfaceManager.GetUIController<ChatUIController>();
             _gameTicker = _entityManager.System<ClientGameTicker>();
             _contentAudioSystem = _entityManager.System<ContentAudioSystem>();
             _contentAudioSystem.LobbySoundtrackChanged += UpdateLobbySoundtrackInfo;
 
-            chatController.SetMainChat(true);
+            // DarkestHour: в лобби «Осады» чата нет (план п. 23, решение автора 2026-11-20).
+            // chatController.SetMainChat(true);
 
             _voteManager.SetPopupContainer(Lobby.VoteContainer);
             LayoutContainer.SetAnchorPreset(Lobby, LayoutContainer.LayoutPreset.Wide);
@@ -79,8 +79,7 @@ namespace Content.Client.Lobby
 
         protected override void Shutdown()
         {
-            var chatController = _userInterfaceManager.GetUIController<ChatUIController>();
-            chatController.SetMainChat(false);
+            // chatController.SetMainChat(false); // DarkestHour: чата в лобби нет
             _gameTicker.InfoBlobUpdated -= UpdateLobbyUi;
             _gameTicker.LobbyStatusUpdated -= LobbyStatusUpdated;
             _gameTicker.LobbyLateJoinStatusUpdated -= LobbyLateJoinStatusUpdated;
@@ -114,7 +113,9 @@ namespace Content.Client.Lobby
                 return;
             }
 
-            new LateJoinGui().OpenCentered();
+            // DarkestHour: «Присоединиться» открывает меню входа «Осады» вместо старого позднего присоединения
+            // (план п. 23, решение автора 2026-11-20).
+            new Content.Client._DarkestHour.Lobby.DHJoinMenu().OpenCentered();
         }
 
         private void OnReadyToggled(BaseButton.ButtonToggledEventArgs args)

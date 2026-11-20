@@ -9,7 +9,8 @@ namespace Content.Shared._DarkestHour.Supply;
 
 // Снабжение стороны, как карго-лифт RMC/CMU (решение автора 2026-11-11), но без денег: в каталоге стороны лежит
 // n-ное количество ящиков (миномётные мины, боеприпасы и т. д.), их заказывают с компьютера, и лифт поднимает их из
-// трюма. Запас пополняется раз в интервал, если сторона держит больше двух точек (POI).
+// трюма. Само запас не пополняется (решение автора 2026-11-19): пополнение раздела покупается за очки командования
+// (DHCommandPoints.cs), а продвинутые позиции открывает древо командования.
 
 /// <summary>Каталог снабжения стороны.</summary>
 [Prototype("dhSupplyCatalog")]
@@ -31,13 +32,13 @@ public sealed partial class DHSupplyCatalogPrototype : IPrototype
     [DataField(required: true)]
     public List<DHSupplyEntry> Entries = new();
 
-    /// <summary>Как часто пополняется запас (если сторона держит больше <see cref="RefillMinPoints"/> точек).</summary>
+    /// <summary>Очки командования стороны в начале раунда.</summary>
     [DataField]
-    public TimeSpan RefillInterval = TimeSpan.FromMinutes(10);
+    public int StartPoints;
 
-    /// <summary>Пополнение — только если точек у стороны больше этого числа.</summary>
+    /// <summary>Что можно пополнить за очки командования: раздел и цена.</summary>
     [DataField]
-    public int RefillMinPoints = 2;
+    public List<DHSupplyRestock> Restocks = new();
 }
 
 [DataDefinition]
@@ -58,7 +59,7 @@ public sealed partial class DHSupplyEntry
     [DataField]
     public int Initial = 1;
 
-    /// <summary>Сколько добавляется при пополнении.</summary>
+    /// <summary>Сколько добавляется при покупке пополнения раздела.</summary>
     [DataField]
     public int Refill = 1;
 
@@ -154,6 +155,9 @@ public sealed class DHSupplyStockRow
     public int Count;
     public int Price;
 
+    /// <summary>Потолок запаса (с учётом складов из древа).</summary>
+    public int Max;
+
     public DHSupplyStockRow(string id, string proto, string category, int count, int price = 0)
     {
         Id = id;
@@ -171,9 +175,12 @@ public sealed class DHSupplyBuiState : BoundUserInterfaceState
     public bool HasElevator;
     public DHSupplyElevatorMode Mode;
     public int Pending;
+
+    /// <summary>Очки командования стороны.</summary>
     public int Points;
-    public int RefillMinPoints;
-    public int RefillMinutes;
+
+    /// <summary>Пополнения разделов за очки.</summary>
+    public List<DHSupplyRestockRow> Restocks = new();
 
     /// <summary>Каталог за деньги: показывается баланс счёта, а не запас.</summary>
     public bool Paid;
@@ -181,15 +188,13 @@ public sealed class DHSupplyBuiState : BoundUserInterfaceState
     public int Balance;
 
     public DHSupplyBuiState(List<DHSupplyStockRow> rows, bool hasElevator, DHSupplyElevatorMode mode, int pending,
-        int points, int refillMinPoints, int refillMinutes)
+        int points)
     {
         Rows = rows;
         HasElevator = hasElevator;
         Mode = mode;
         Pending = pending;
         Points = points;
-        RefillMinPoints = refillMinPoints;
-        RefillMinutes = refillMinutes;
     }
 }
 

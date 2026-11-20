@@ -26,4 +26,15 @@ public sealed class DHCVars
     /// <summary>Надписи окон — моноширинным шрифтом (общий стиль TDH).</summary>
     public static readonly CVarDef<bool> UiMonoWindows =
         CVarDef.Create("dh.ui_mono_windows", true, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    /// <summary>
+    /// Голосования за режим и карту запускаются сами при входе в лобби (план осады п. 23, решение автора 2026-11-18),
+    /// если есть из чего выбирать (больше одного режима в голосовании / больше одной подходящей карты).
+    /// </summary>
+    public static readonly CVarDef<bool> LobbyAutoVote =
+        CVarDef.Create("dh.lobby_auto_vote", true, CVar.SERVERONLY);
+
+    /// <summary>Через сколько секунд после открытия лобби запускать эти голосования (чтобы игроки успели зайти).</summary>
+    public static readonly CVarDef<float> LobbyAutoVoteDelay =
+        CVarDef.Create("dh.lobby_auto_vote_delay", 20f, CVar.SERVERONLY);
 }

@@ -1,0 +1,196 @@
+# Консервы «Осады» (план осады п. 27, решение автора 2026-11-20): общий набор, открываются ножом (DHCannedFood).
+# Банки — ванильные SS14 (рыба и каша — перекраска, Tools/_DarkestHour/food/tins.py).
+
+- type: entity
+  parent: FoodTinBase
+  id: DHFoodTinStew
+  name: tinned stew
+  description: A tin of field-ration stewed meat. Open it with a knife.
+  components:
+  - type: Item
+    storedOffset: 0,-3
+  - type: Sprite
+    sprite: Objects/Consumable/Food/Tins/meat.rsi
+  - type: Solution
+    solution:
+      maxVol: 50
+      reagents:
+      - ReagentId: Nutriment
+        Quantity: 40
+      - ReagentId: TableSalt
+        Quantity: 5
+  - type: FlavorProfile
+    flavors:
+    - meaty
+    - salty
+  - type: Edible
+    trash:
+    - DHFoodTinStewTrash
+  - type: DHCannedFood
+  - type: Tag
+    tags:
+    - Meat
+
+- type: entity
+  parent: FoodTinBaseTrash
+  id: DHFoodTinStewTrash
+  name: tinned stew
+  components:
+  - type: Item
+    storedOffset: 0,-3
+  - type: Sprite
+    sprite: Objects/Consumable/Food/Tins/meat.rsi
+
+- type: entity
+  parent: FoodTinBase
+  id: DHFoodTinBeans
+  name: tinned beans
+  description: A tin of beans in tomato sauce. Open it with a knife.
+  components:
+  - type: Item
+    storedOffset: 0,-3
+  - type: Sprite
+    sprite: Objects/Consumable/Food/Tins/beans.rsi
+  - type: Solution
+    solution:
+      maxVol: 50
+      reagents:
+      - ReagentId: Nutriment
+        Quantity: 35
+      - ReagentId: TableSalt
+        Quantity: 5
+  - type: FlavorProfile
+    flavors:
+    - savory
+    - salty
+  - type: Edible
+    trash:
+    - DHFoodTinBeansTrash
+  - type: DHCannedFood
+
+- type: entity
+  parent: FoodTinBaseTrash
+  id: DHFoodTinBeansTrash
+  name: tinned beans
+  components:
+  - type: Item
+    storedOffset: 0,-3
+  - type: Sprite
+    sprite: Objects/Consumable/Food/Tins/beans.rsi
+
+- type: entity
+  parent: FoodTinBase
+  id: DHFoodTinFish
+  name: tinned fish
+  description: A tin of fish in oil. Open it with a knife.
+  components:
+  - type: Item
+    storedOffset: 0,-3
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Consumable/Food/Tins/fish.rsi
+  - type: Solution
+    solution:
+      maxVol: 50
+      reagents:
+      - ReagentId: Nutriment
+        Quantity: 35
+      - ReagentId: TableSalt
+        Quantity: 5
+  - type: FlavorProfile
+    flavors:
+    - fishy
+    - salty
+  - type: Edible
+    trash:
+    - DHFoodTinFishTrash
+  - type: DHCannedFood
+  - type: Tag
+    tags:
+    - Meat
+
+- type: entity
+  parent: FoodTinBaseTrash
+  id: DHFoodTinFishTrash
+  name: tinned fish
+  components:
+  - type: Item
+    storedOffset: 0,-3
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Consumable/Food/Tins/fish.rsi
+
+- type: entity
+  parent: FoodTinBase
+  id: DHFoodTinPorridge
+  name: tinned porridge
+  description: A tin of buckwheat porridge with meat. Open it with a knife.
+  components:
+  - type: Item
+    storedOffset: 0,-3
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Consumable/Food/Tins/porridge.rsi
+  - type: Solution
+    solution:
+      maxVol: 50
+      reagents:
+      - ReagentId: Nutriment
+        Quantity: 40
+      - ReagentId: TableSalt
+        Quantity: 5
+  - type: FlavorProfile
+    flavors:
+    - savory
+  - type: Edible
+    trash:
+    - DHFoodTinPorridgeTrash
+  - type: DHCannedFood
+
+- type: entity
+  parent: FoodTinBaseTrash
+  id: DHFoodTinPorridgeTrash
+  name: tinned porridge
+  components:
+  - type: Item
+    storedOffset: 0,-3
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Consumable/Food/Tins/porridge.rsi
+
+- type: entity
+  parent: FoodTinBase
+  id: DHFoodTinPeaches
+  name: tinned peaches
+  description: A tin of peaches in syrup. Open it with a knife.
+  components:
+  - type: Item
+    storedOffset: 0,-3
+  - type: Sprite
+    sprite: Objects/Consumable/Food/Tins/peaches.rsi
+  - type: Solution
+    solution:
+      maxVol: 50
+      reagents:
+      - ReagentId: Nutriment
+        Quantity: 25
+      - ReagentId: Sugar
+        Quantity: 10
+      - ReagentId: Water
+        Quantity: 10
+  - type: FlavorProfile
+    flavors:
+    - sweet
+  - type: Edible
+    trash:
+    - DHFoodTinPeachesTrash
+  - type: DHCannedFood
+  - type: Tag
+    tags:
+    - Fruit
+
+- type: entity
+  parent: FoodTinBaseTrash
+  id: DHFoodTinPeachesTrash
+  name: tinned peaches
+  components:
+  - type: Item
+    storedOffset: 0,-3
+  - type: Sprite
+    sprite: Objects/Consumable/Food/Tins/peaches.rsi

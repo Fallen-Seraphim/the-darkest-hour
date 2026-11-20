@@ -123,14 +123,14 @@
         priority: 2
         whitelist:
           tags:
-          - DHMagazineBelt145x114
+          - DHMagazineBelt842x54
         whitelistFailPopup: gun-magazine-whitelist-fail
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
   - type: DHOverheat
     maxHeat: 40
-    heatPerShot: 1.5
+    heatPerShot: 1
     cooldownRate: 4
     overheatLockout: 4
     damage:
@@ -213,7 +213,7 @@
   parent: [ DHBaseWeaponMount, BaseSyndicateContraband ]
   id: DHWeaponHMGIHMG17
   name: IHMG-17
-  description: An Imperial heavy machine gun in 14.5x114mm with a finned barrel and a big muzzle brake. Takes 50-round belts. Tears through armour, cover and light walls, but overheats fast. Deploy it in front of you and stand behind it to fire.
+  description: An Imperial mounted machine gun on the IR-17's 8.42x54mm round, with a finned barrel and a big muzzle brake. Takes 100-round belts — standard, cobalt-tipped against armour and incendiary. Deploy it in front of you and stand behind it to fire.
   components:
   - type: Sprite
     sprite: _DarkestHour/Objects/Weapons/Guns/Emplacements/ihmg_17.rsi
