@@ -15,8 +15,14 @@ dh-assault-outcome-sender = Battle report
 
 ## Брифинги
 
-dh-assault-briefing-republic = The year is 2318 and the Solar War is raging. You serve in the garrison of Terminus Military Base on REP-27-7, in an uninhabited system where the United Republic keeps an experimental sample that could change the future of energy. Long-range sensors have picked up an Imperial landing carrier in the neighbouring system; it can tear a rift in about {$minutes} min. The nearest squadron with a Republican Army Corps contingent is already on its way and will arrive in about {$relief} min. Hold out until it gets here: dig in, man the anti-air positions and do not give up the sample in the headquarters vault. If the carrier is shot down, there is no escaping an Imperial attack. Glory to the United Republic!
-dh-assault-briefing-empire = The year is 2318. You serve aboard the Imperial landing carrier IC-3 Sovereign. The Imperial Marines are sent deep into Republic space: in the uninhabited REP-27 system, at Terminus Military Base on REP-27-7, the Republic is hiding an experimental sample that could change the future of energy. The rift generator will be ready in about {$minutes} min: jump to REP-27, descend to the planet, storm the base, bring the sample aboard and leave the system. Intelligence says a Republic squadron will arrive in about {$relief} min — you must be gone by then. Guard the carrier: it is your only way home. Glory to the First Empire! For the Emperor!
+dh-assault-briefing-republic = You are the garrison of the United Republic.
+    Objective: do not give up the experimental sample. The Imperial carrier will tear a rift in about {$minutes} min — dig in and man the anti-air positions.
+    A Republic Navy squadron will arrive in about {$relief} min — hold out until it gets here.
+    More about the war and the sides is in the guidebook, "Lore" section.
+dh-assault-briefing-empire = You are the Imperial Marines aboard the landing carrier IC-3 Sovereign.
+    Objective: land, take the Republic base and bring the experimental sample aboard. The rift opens in about {$minutes} min.
+    A Republic Navy squadron will arrive in about {$relief} min — we must be gone by then. Guard the carrier: it is your only way home.
+    More about the war and the sides is in the guidebook, "Lore" section.
 dh-assault-reinforced = You return to the battle with the next wave of reinforcements. Reinforcements left for your side: {$tickets}.
 dh-assault-next-wave = You have fallen. The next wave of reinforcements arrives in {$minutes} min {$seconds} s ({$tickets} left for your side).
 dh-assault-no-reinforcements = You have fallen. Your side has no more reinforcements.
@@ -390,3 +396,13 @@ dh-reinforcement-entry-unknown = road entry
 dh-reinforcement-truck-sender = Convoy
 dh-reinforcement-truck-announce = A reinforcement truck has arrived ({ $entry }). Expect it at the base.
 dh-reinforcement-truck-boarded = You are in the back of a reinforcement truck ({ $entry }). Take the wheel (in the cab) or wait for a driver, then drive to the base along the highway.
+
+# Terminus map greeting (siege plan item 23)
+dh-assault-briefing-terminus-republic = You are the garrison of Terminus Military Base on REP-27-7.
+    Objective: do not give up the experimental sample in the bunker vault. The Imperial carrier will tear a rift in about {$minutes} min — dig in and man the anti-air positions.
+    A Republic Navy squadron will arrive in about {$relief} min — hold out until it gets here.
+    Reinforcements come by truck along the highway. More about the war and the sides is in the guidebook, "Lore" section.
+dh-assault-briefing-terminus-empire = You are the Imperial Marines aboard the landing carrier IC-3 Sovereign.
+    Objective: land on REP-27-7, take Terminus Military Base and bring the experimental sample from its bunker aboard.
+    The rift opens in about {$minutes} min. A Republic Navy squadron will arrive in about {$relief} min — we must be gone by then.
+    Guard the carrier: it is your only way home. More about the war and the sides is in the guidebook, "Lore" section.
