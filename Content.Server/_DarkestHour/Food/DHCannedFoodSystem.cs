@@ -20,7 +20,7 @@ public sealed partial class DHCannedFoodComponent : Component
     public TimeSpan OpenTime = TimeSpan.FromSeconds(2);
 }
 
-public sealed class DHCannedFoodSystem : EntitySystem
+public sealed partial class DHCannedFoodSystem : EntitySystem
 {
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private OpenableSystem _openable = default!;
