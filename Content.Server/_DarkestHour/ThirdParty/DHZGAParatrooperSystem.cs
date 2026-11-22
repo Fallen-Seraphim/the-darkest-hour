@@ -101,7 +101,7 @@ public sealed partial class DHZGAEvacPointComponent : Component;
 /// кто напал сам (третье «лишнее» убийство — провал); не попадаться живым (2 минуты в наручниках — провал); 25 минут
 /// на цель и 10 — на эвакуацию. Провал — ЗГА публично отрекается от оперативника.
 /// </summary>
-public sealed class DHZGAParatrooperSystem : EntitySystem
+public sealed partial class DHZGAParatrooperSystem : EntitySystem
 {
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private ChatSystem _chat = default!;

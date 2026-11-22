@@ -9,7 +9,7 @@ namespace Content.Client._DarkestHour.Clothing;
 /// Поле пехотного щита ЭМБ-5 (план осады п. 28): поднятое — всегда слабо мерцает голубым, при попадании вспыхивает;
 /// упало — гаснет; излучатель сгорел — короткая красная вспышка и тишина.
 /// </summary>
-public sealed class DHInfantryShieldVisualsSystem : EntitySystem
+public sealed partial class DHInfantryShieldVisualsSystem : EntitySystem
 {
     [Dependency] private SharedPointLightSystem _lights = default!;
     [Dependency] private IRobustRandom _random = default!;

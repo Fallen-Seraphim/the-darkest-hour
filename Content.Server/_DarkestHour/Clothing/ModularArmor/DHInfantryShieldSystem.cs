@@ -16,7 +16,7 @@ namespace Content.Server._DarkestHour.Clothing.ModularArmor;
 /// падает после пяти попаданий и поднимается через 30 секунд без попаданий; пока лежит — пули в грудь бьют по
 /// излучателю, и тот может сгореть насовсем.
 /// </summary>
-public sealed class DHInfantryShieldSystem : EntitySystem
+public sealed partial class DHInfantryShieldSystem : EntitySystem
 {
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private InventorySystem _inventory = default!;
