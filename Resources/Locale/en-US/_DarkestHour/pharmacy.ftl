@@ -32,3 +32,7 @@ reagent-name-dh-prussianblue = Prussian blue
 reagent-desc-dh-prussianblue = Binds radioactive isotopes and flushes out radiation.
 reagent-name-dh-citrasin = citrasin
 reagent-desc-dh-citrasin = An immunosuppressant: halves the rate of implant rejection. Hard on the kidneys in large doses.
+
+# Таблетки после разрывного прыжка
+dh-pill-label-prussian-blue = Prussian blue 5u
+dh-pill-label-rift-jump = take one after a rift jump
