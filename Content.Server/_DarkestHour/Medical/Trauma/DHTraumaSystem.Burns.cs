@@ -4,6 +4,7 @@ using Content.Shared.Eye.Blinding.Systems;
 using Content.Shared.FixedPoint;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Popups;
+using Robust.Shared.Random;
 
 namespace Content.Server._DarkestHour.Medical.Trauma;
 

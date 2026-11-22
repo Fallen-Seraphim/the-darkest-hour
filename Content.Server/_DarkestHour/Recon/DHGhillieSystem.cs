@@ -90,7 +90,6 @@ public sealed partial class DHGhillieSystem : EntitySystem
         }
 
         var stealth = AddComp<StealthComponent>(user);
-        stealth.ExamineThreshold = 0.5f;
         _stealth.SetVisibility(user, ent.Comp.Visibility, stealth);
 
         var hidden = AddComp<DHGhillieHiddenComponent>(user);

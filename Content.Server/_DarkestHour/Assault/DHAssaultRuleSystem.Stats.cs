@@ -176,7 +176,7 @@ public sealed partial class DHAssaultRuleSystem
         args.AddLine("");
     }
 
-    private static string Best(List<DHAssaultFighterRecord> side, Func<DHAssaultFighterRecord, int> score)
+    private string Best(List<DHAssaultFighterRecord> side, Func<DHAssaultFighterRecord, int> score)
     {
         var best = side.OrderByDescending(score).FirstOrDefault();
         return best == null || score(best) <= 0
@@ -184,7 +184,7 @@ public sealed partial class DHAssaultRuleSystem
             : Loc.GetString("dh-assault-stats-best-entry", ("name", best.Name), ("count", score(best)));
     }
 
-    private static string SideName(DHAssaultFaction faction)
+    private string SideName(DHAssaultFaction faction)
     {
         return Loc.GetString(faction == DHAssaultFaction.Republic ? "dh-assault-stats-republic" : "dh-assault-stats-empire");
     }

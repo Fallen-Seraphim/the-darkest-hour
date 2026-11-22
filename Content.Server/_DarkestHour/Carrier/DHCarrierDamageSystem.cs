@@ -234,7 +234,7 @@ public sealed partial class DHCarrierDamageSystem : EntitySystem
             return;
 
         args.Handled = true;
-        if (SteelInHands(args.User) is not { } steel || !_stack.TryUse(steel, 1))
+        if (SteelInHands(args.User) is not { } steel || !_stack.TryUse(new Entity<StackComponent?>(steel.Owner, steel.Comp), 1))
         {
             _popup.PopupEntity(Loc.GetString("dh-carrier-breach-need-steel"), ent, args.User);
             return;
