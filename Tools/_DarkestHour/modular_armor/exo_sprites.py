@@ -731,5 +731,163 @@ def main():
     sheet.save(os.path.join(HERE, 'preview.png'))
 
 
+
+# ----------------------------------------------------------------------------------------------------------------
+# ЭМБ-5 ассоциативного десантника (план осады п. 28, указание автора 2026-11-20): по образцу текущей модульной брони
+# и Max Tac из «Киберпанка» — пластины в основном белые, с голубыми вставками; комбинезон тёмно-синий; шлем — гладкий
+# закрытый, с узким тёмным визором и голубой подсветкой. Пластины — по форме композитных (лёгкие).
+# Запуск:  python3 Tools/_DarkestHour/modular_armor/exo_sprites.py --emb5   (пишет только emb5_*.rsi и щит)
+
+EMB5 = dict(
+    name='EMB-5',
+    plate=[hexc(c) for c in ('#5d6d82', '#a9b8c9', '#cfdbe7', '#eef3f8', '#ffffff')],
+    accent=hexc('#3fb8ff'),
+    suit=[hexc(c) for c in ('#0d121a', '#18202d', '#222d3f', '#2d3a50')],
+    lens=hexc('#46d0ff'),
+    rubber=[hexc(c) for c in ('#141922', '#2a3342', '#3e4a5e', '#5a687e')],
+)
+EMB5_BLUE = hexc('#2f8fe0')
+EMB5_GLOW = hexc('#7fdcff')
+
+
+def emb5_inserts(layer):
+    """Голубые вставки: поперёк каждой пластины (по её средней строке, без контура) — голубая полоса; у крупных
+    пластин посередине ещё и светящаяся. Остальное остаётся белым."""
+    px = layer.load()
+    w, h = layer.size
+    seen = set()
+    for fy in range(0, h, 32):
+        for fx in range(0, w, 32):
+            for y0 in range(fy, fy + 32):
+                for x0 in range(fx, fx + 32):
+                    if (x0, y0) in seen or not px[x0, y0][3]:
+                        continue
+                    blob, stack = [], [(x0, y0)]
+                    seen.add((x0, y0))
+                    while stack:
+                        x, y = stack.pop()
+                        blob.append((x, y))
+                        for nx, ny in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
+                            if fx <= nx < fx + 32 and fy <= ny < fy + 32 and (nx, ny) not in seen and px[nx, ny][3]:
+                                seen.add((nx, ny))
+                                stack.append((nx, ny))
+                    ys = [y for _, y in blob]
+                    xs = [x for x, _ in blob]
+                    if max(ys) - min(ys) < 2 or max(xs) - min(xs) < 2:
+                        continue
+                    mid = (min(ys) + max(ys) + 1) // 2
+                    big = len(blob) >= 30
+                    cells = set(blob)
+                    for x, y in blob:
+                        inner = all(c in cells for c in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)))
+                        if y == mid and inner:
+                            px[x, y] = EMB5_BLUE
+                    if big:
+                        cx = (min(xs) + max(xs)) // 2
+                        for y in range(min(ys) + 1, mid):
+                            if (cx, y) in cells:
+                                px[cx, y] = EMB5_GLOW
+    return layer
+
+
+def emb5_frame(view):
+    """Рама ЭМБ-5: как средняя, но вместо оранжевых огней и жёлтой маркировки — голубые."""
+    img = exo_frame('medium', EMB5, view)
+    px = img.load()
+    for y in range(32):
+        for x in range(32):
+            if px[x, y] in (HAZARD, GLOW):
+                px[x, y] = EMB5['accent']
+    return img
+
+
+def emb5_helmet(view):
+    """Закрытый гладкий шлем в духе Max Tac: белый купол, узкий тёмный визор с голубой полосой, голубые грани."""
+    cv = Canvas()
+    pal = EMB5['plate']
+    if view in ('south', 'north'):
+        dome = [(1, 12, 18), (2, 11, 19)] + rows(3, 8, 10, 20) + [(9, 11, 19), (10, 12, 18)]
+        plate(cv, dome, pal)
+        if view == 'north':
+            cv.rect(13, 8, 17, 8, EMB5_BLUE)
+            cv.rect(15, 2, 15, 7, EMB5_BLUE)
+            return cv.image()
+        cv.rect(11, 5, 19, 6, METAL[0])              # визор
+        cv.rect(12, 5, 18, 5, EMB5['lens'])
+        cv.put(12, 6, EMB5_GLOW)
+        cv.put(18, 6, EMB5_GLOW)
+        cv.rect(14, 8, 16, 9, METAL[1])              # фильтр под визором
+        cv.put(15, 9, EMB5_BLUE)
+        cv.put(10, 4, EMB5_BLUE)
+        cv.put(20, 4, EMB5_BLUE)
+    else:
+        dome = [(1, 12, 18), (2, 11, 19)] + rows(3, 8, 10, 21) + [(9, 11, 20), (10, 12, 19)]
+        plate(cv, dome, pal, light='right')
+        cv.rect(17, 5, 21, 6, METAL[0])
+        cv.rect(18, 5, 21, 5, EMB5['lens'])
+        cv.put(17, 6, EMB5_GLOW)
+        cv.rect(19, 8, 20, 9, METAL[1])
+        cv.rect(12, 4, 12, 8, EMB5_BLUE)
+    return cv.image()
+
+
+def shield_field():
+    """Поле пехотного щита: светлый овал вокруг фигуры (цвет и мерцание задаёт код)."""
+    img = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    d.ellipse((5, 1, 26, 31), outline=(255, 255, 255, 200), width=1)
+    d.ellipse((6, 2, 25, 30), fill=(255, 255, 255, 46))
+    d.ellipse((7, 3, 24, 29), outline=(255, 255, 255, 90), width=1)
+    return img
+
+
+def main_emb5():
+    f = EMB5
+    layers = part_layers('light', f)
+    states = {}
+    for part in PARTS:
+        layer = emb5_inserts(layers[part])
+        layers[part] = layer
+        states[part] = (layer, 4)
+        states['icon_' + part] = (icon_from(layer, only=None if part != 'torso' else 0,
+                                            prefer_side=part.startswith('arm')), 1)
+    write_rsi(os.path.join(OUT_OUTER, 'emb5_experimental.rsi'), states)
+
+    frame = four(emb5_frame('south'), emb5_frame('north'), emb5_frame('east'), mirror(emb5_frame('east')))
+    write_rsi(os.path.join(OUT_OUTER, 'emb5_exo.rsi'),
+              {'icon': (icon_from(frame, only=0), 1), 'equipped-OUTERCLOTHING': (frame, 4)})
+
+    helm = four(emb5_helmet('south'), emb5_helmet('north'), emb5_helmet('east'), mirror(emb5_helmet('east')))
+    # визор светится: голубые пиксели визора — ещё и в неосвещаемый слой
+    glow = Image.new('RGBA', (64, 64), (0, 0, 0, 0))
+    hp, gp = helm.load(), glow.load()
+    for y in range(64):
+        for x in range(64):
+            if hp[x, y] in (EMB5['lens'], EMB5_GLOW):
+                gp[x, y] = hp[x, y]
+    write_rsi(os.path.join(OUT_HEAD, 'emb5_helmet.rsi'),
+              {'icon': (icon_from(helm, only=2), 1), 'icon-unshaded': (EMPTY, 1),
+               'equipped-head': (helm, 4), 'equipped-head-unshaded': (glow, 4)})
+
+    write_rsi(os.path.join(TEX, '_DarkestHour/Effects/infantry_shield.rsi'), {'field': (shield_field(), 1)})
+
+    # превью: рама и полный комплект
+    full = frame.copy()
+    for part in PARTS:
+        full.alpha_composite(layers[part])
+    full.alpha_composite(helm)
+    Z = 6
+    sheet = Image.new('RGBA', (4 * 32 * Z, 2 * 32 * Z), (52, 54, 60, 255))
+    for r, img in enumerate((frame, full)):
+        frs = [img.crop((x, y, x + 32, y + 32)) for (x, y) in ((0, 0), (32, 0), (0, 32), (32, 32))]
+        for i, fr in enumerate(frs):
+            sheet.alpha_composite(fr.resize((32 * Z, 32 * Z), Image.NEAREST), (i * 32 * Z, r * 32 * Z))
+    sheet.save(os.environ.get('EMB5_PREVIEW', os.path.join(HERE, 'preview_emb5.png')))
+
+
 if __name__ == '__main__':
-    main()
+    import sys
+    if '--emb5' in sys.argv:
+        main_emb5()
+    else:
+        main()

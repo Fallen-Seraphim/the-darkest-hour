@@ -17,6 +17,7 @@ dh-armor-module-examine-broken = [color=red]Broken[/color] — weld it to repair
 dh-armor-class-light = light
 dh-armor-class-heavy = heavy
 dh-armor-class-composite = composite
+dh-armor-class-experimental = experimental
 
 dh-armor-automed-status = The auto-medic is armed and watches your vitals.
 dh-armor-automed-injected = Your armour injects you with omnireazine.
@@ -86,3 +87,10 @@ dh-order-received-move = Order: move — you run faster.
 ## Hammers
 dh-charge-strike = Running strike!
 dh-can-opening = You cut the tin open with the knife…
+
+# EMB-5 infantry shield
+dh-infantry-shield-down = Your shield is down!
+dh-infantry-shield-up = Your shield is back up.
+dh-infantry-shield-burned = The shield emitter burns out!
+dh-infantry-shield-examine = Infantry shield: [color=#7fdcff]{ $charges }/{ $max }[/color] hits left, emitter at { $integrity }%.
+dh-infantry-shield-examine-burned = The infantry shield emitter has [color=red]burned out[/color].
