@@ -9,7 +9,7 @@ namespace Content.Client._DarkestHour.Recon;
 /// Маскировочная сеть сверху (план осады п. 9, решение автора 2026-11-19): кто смотрит с уровня воздуха (пилот на
 /// бреющем, челнок над полем боя), не видит стоящую под сетью технику и орудия — только саму сеть.
 /// </summary>
-public sealed class DHCamoHiddenVisualsSystem : EntitySystem
+public sealed partial class DHCamoHiddenVisualsSystem : EntitySystem
 {
     [Dependency] private IPlayerManager _player = default!;
     [Dependency] private SpriteSystem _sprite = default!;

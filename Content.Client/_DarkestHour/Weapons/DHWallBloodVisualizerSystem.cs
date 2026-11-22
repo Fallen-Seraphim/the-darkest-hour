@@ -8,7 +8,7 @@ namespace Content.Client._DarkestHour.Weapons;
 /// Брызги крови поверх стены, двери, шлюза (план осады п. 15): до трёх слоёв из белых спрайтов CMU, перекрашенных в цвет
 /// крови. Эффект брызг при попадании тоже красится в цвет крови.
 /// </summary>
-public sealed class DHWallBloodVisualizerSystem : EntitySystem
+public sealed partial class DHWallBloodVisualizerSystem : EntitySystem
 {
     [Dependency] private SpriteSystem _sprite = default!;
 
