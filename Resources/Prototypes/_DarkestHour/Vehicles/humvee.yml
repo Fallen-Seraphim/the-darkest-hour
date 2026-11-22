@@ -64,7 +64,7 @@
   - type: DHFortified
     multiplier: 3
     bulletStructuralMultiplier: 0.3
-    vehicleClass: APC
+    vehicleClass: Light # лёгкая техника (хамви, лодки): своя строка в DHAntiArmor.hitsToKill
     vehicleIntegrity: 600
   - type: Destructible
     thresholds:

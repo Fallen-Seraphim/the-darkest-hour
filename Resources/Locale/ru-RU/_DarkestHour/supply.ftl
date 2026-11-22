@@ -65,6 +65,8 @@ dh-command-node-aircraft-missiles = Ракеты штурмовика
 dh-command-node-aircraft-bombs = Площадные и магниевые бомбы
 dh-command-node-aircraft-precision = Управляемые бомбы и пушечный контейнер
 dh-command-node-manpads = ПЗРК
+dh-command-node-atgm = ПТУР
+dh-command-node-atgm-desc = Противотанковый ракетный комплекс с управлением по проводу: в карго — ящик ПТУР с двумя ракетами (до 2) и ящики ракет.
 
 ## Сброс грузов на маяк и лифт техники (план осады п. 4)
 dh-supply-drop-beacon-name = Маяк { $number }

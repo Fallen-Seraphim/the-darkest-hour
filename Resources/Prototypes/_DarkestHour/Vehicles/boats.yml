@@ -53,7 +53,7 @@
   - type: DHFortified
     multiplier: 1
     bulletStructuralMultiplier: 1
-    vehicleClass: APC
+    vehicleClass: Light
     vehicleIntegrity: 150
   - type: Destructible
     thresholds:
@@ -117,7 +117,7 @@
   - type: DHFortified
     multiplier: 3
     bulletStructuralMultiplier: 0.3
-    vehicleClass: APC
+    vehicleClass: Light
     vehicleIntegrity: 800
   - type: Destructible
     thresholds:
