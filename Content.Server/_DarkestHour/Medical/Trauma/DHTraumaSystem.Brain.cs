@@ -173,6 +173,8 @@ public sealed partial class DHTraumaSystem
         ent.Comp.Parts.Clear();
         ent.Comp.Organs.Clear();
         ent.Comp.BrainInjury = false;
+        ClearSpinal(ent);
+        ent.Comp.FireRateModifier = 1f;
         ent.Comp.PainSpike = 0f;
         ent.Comp.ExtraPain = 0f;
         RemComp<DHReviveBlockedComponent>(ent);

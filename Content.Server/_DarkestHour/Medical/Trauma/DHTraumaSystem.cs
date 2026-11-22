@@ -198,6 +198,8 @@ public sealed partial class DHTraumaSystem : EntitySystem
         var max = MaxOf(ent.Comp, category);
         var partName = PartName(category);
 
+        var fracturedBefore = part.Fracture;
+
         // Перелом: от тупых ударов, пуль и уже сильно избитой части.
         if (!part.Fracture && brute >= 8f)
         {
@@ -234,9 +236,11 @@ public sealed partial class DHTraumaSystem : EntitySystem
 
         ent.Comp.PainSpike = MathF.Min(100f, ent.Comp.PainSpike + brute * 0.8f + burn * 0.6f);
 
-        // Черепно-мозговая травма (план осады п. 18).
+        // Черепно-мозговая травма, нервы, спинной мозг (план осады п. 18).
         if (category == "Head")
             TryBrainInjury(ent, part, brute, blunt, piercing, part.Fracture);
+        TryNerveDamage(ent, category, part, slash, piercing, part.Fracture && !fracturedBefore);
+        TrySpinalInjury(ent, category, brute, blunt, piercing, ent.Comp.ExplosionTick == _timing.CurTick);
 
         // Обезглавливание: тяжёлый рубящий или дробящий удар по разбитой голове (редко).
         if (category == "Head" && ShouldDecapitate(part, max, slash, blunt) &&
@@ -482,7 +486,8 @@ public sealed partial class DHTraumaSystem : EntitySystem
             comp.NextUpdate = now + comp.Interval;
             UpdateReviveState((uid, comp));
 
-            if (comp.Parts.Count == 0 && comp.Organs.Count == 0 && !comp.BrainInjury && comp.PainSpike <= 0f && comp.SpeedModifier >= 1f &&
+            if (comp.Parts.Count == 0 && comp.Organs.Count == 0 && !comp.BrainInjury && comp.Spinal == DHSpinalInjury.None &&
+                comp.FireRateModifier >= 1f && comp.PainSpike <= 0f && comp.SpeedModifier >= 1f &&
                 comp.ExtraPain <= 0f && comp.PhantomPain <= 0f)
             {
                 comp.Pain = 0f;
@@ -623,11 +628,15 @@ public sealed partial class DHTraumaSystem : EntitySystem
                     findings.Add(Loc.GetString("dh-trauma-desc-internal-bleeding"));
                 if (part.Shrapnel > 0)
                     findings.Add(Loc.GetString("dh-trauma-desc-shrapnel", ("count", part.Shrapnel)));
+                if (part.Nerve)
+                    findings.Add(Loc.GetString("dh-trauma-desc-nerve"));
                 AddTourniquetFindings(part, findings);
             }
 
             if (category == "Head" && comp.BrainInjury)
                 findings.Add(Loc.GetString("dh-trauma-desc-brain-injury"));
+            if (category == "Torso" && comp.Spinal != DHSpinalInjury.None)
+                findings.Add(SpinalFinding(comp));
 
             if (DHTraumaConstants.OrgansIn.TryGetValue(category, out var inside))
             {
@@ -701,11 +710,13 @@ public sealed partial class DHTraumaSystem : EntitySystem
 
         var incapacitated = _mobState.IsIncapacitated(ent);
         TickBrain(ent, incapacitated);
+        TickNerves(ent, incapacitated);
 
-        // Переломы ног — замедление; рук — выпадают предметы; черепа — головокружение.
+        // Переломы и нервы ног — замедление; рук — выпадают предметы; черепа — головокружение.
         var speed = 1f;
         speed *= SideSpeed(comp, "LegLeft", "FootLeft");
         speed *= SideSpeed(comp, "LegRight", "FootRight");
+        TickSpinal(ent, now, ref speed);
 
         if (!incapacitated)
         {
@@ -737,6 +748,10 @@ public sealed partial class DHTraumaSystem : EntitySystem
         var pain = comp.PainSpike;
         foreach (var (category, part) in comp.Parts)
         {
+            // Нерв повреждён — боль из этой части не доходит (можно незаметно истечь кровью).
+            if (part.Nerve)
+                continue;
+
             var max = MaxOf(comp, category);
             pain += MathF.Min(part.Brute * 0.5f + part.Burn * 0.7f, max);
             if (part.Fracture)
@@ -759,8 +774,13 @@ public sealed partial class DHTraumaSystem : EntitySystem
         var worst = 1f;
         foreach (var category in new[] { leg, foot })
         {
-            if (comp.Parts.TryGetValue(category, out var part) && part.Fracture)
+            if (!comp.Parts.TryGetValue(category, out var part))
+                continue;
+
+            if (part.Fracture)
                 worst = MathF.Min(worst, part.Splinted ? 0.85f : 0.6f);
+            if (part.Nerve)
+                worst = MathF.Min(worst, NerveLegSpeed);
         }
 
         return worst;
@@ -956,6 +976,10 @@ public sealed partial class DHTraumaSystem : EntitySystem
 
         if (category == "Head" && comp.BrainInjury)
             result.Add(Loc.GetString("dh-trauma-desc-brain-injury"));
+        if (part?.Nerve == true)
+            result.Add(Loc.GetString("dh-trauma-desc-nerve"));
+        if (category == "Torso" && comp.Spinal != DHSpinalInjury.None)
+            result.Add(SpinalFinding(comp));
 
         if (DHTraumaConstants.OrgansIn.TryGetValue(category, out var inside))
         {

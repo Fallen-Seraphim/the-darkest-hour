@@ -56,6 +56,8 @@ public enum DHSurgicalToolKind : byte
     Cautery,
     BoneGel,
     BoneSetter,
+    /// <summary>Микрохирургический пинцет: шов нерва (план осады п. 18).</summary>
+    MicroForceps,
 }
 
 /// <summary>
@@ -89,6 +91,10 @@ public enum DHSurgeryEffect : byte
     RemoveParasite,
     /// <summary>Трепанация: удалить внутричерепную гематому при ЧМТ.</summary>
     Trepanation,
+    /// <summary>Сшить повреждённый нерв конечности.</summary>
+    RepairNerve,
+    /// <summary>Декомпрессия позвоночника: снять травму спинного мозга, если не запущена.</summary>
+    SpinalDecompression,
 }
 
 /// <summary>
@@ -107,6 +113,10 @@ public enum DHInjuryKind : byte
     Parasite,
     /// <summary>Черепно-мозговая травма (гематома).</summary>
     BrainInjury,
+    /// <summary>Повреждённый нерв конечности.</summary>
+    Nerve,
+    /// <summary>Травма спинного мозга (ещё не запущенная).</summary>
+    Spinal,
 }
 
 /// <summary>
@@ -158,6 +168,10 @@ public sealed partial class DHSurgeryStepPrototype : IPrototype
     /// <summary>Насколько больно без наркоза (0…1): шанс крика и того, что пациент дёрнется и шаг сорвётся.</summary>
     [DataField]
     public float Pain;
+
+    /// <summary>Без наркоза шаг невозможен (тонкая работа — пациент не должен шевелиться).</summary>
+    [DataField]
+    public bool RequiresAnesthesia;
 
     /// <summary>Шаг вскрывает ткани: без маски и перчаток хирурга — риск раневой инфекции.</summary>
     [DataField]
