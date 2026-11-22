@@ -30,7 +30,7 @@ public sealed partial class DHLandingSystem
     private readonly Dictionary<EntityUid, Box2> _surfaceBounds = new();
 
     /// <summary>Точка приземления внутри района операции (для нарисованных вручную карт).</summary>
-    private Vector2 KeepInsideMappedSurface(EntityUid surface, Vector2 target)
+    public Vector2 KeepInsideMappedSurface(EntityUid surface, Vector2 target)
     {
         if (!HasComp<DHMappedSurfaceComponent>(surface) || !TryComp<MapGridComponent>(surface, out var grid))
             return target;
