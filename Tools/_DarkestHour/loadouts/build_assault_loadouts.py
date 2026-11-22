@@ -108,6 +108,8 @@ GROUPS = [
     ('DHLoadoutKnife', 'Knife', 'Нож', 1, KNIVES),
     ('DHLoadoutRepublicCommand', 'Command', 'Командирское', 2, REP_CMD),
     ('DHLoadoutImperialCommand', 'Command', 'Командирское', 2, EMP_CMD),
+    # Обязательная (minLimit 1): банка берлинской лазури — лечит облучение от разрывного прыжка (решение автора 2026-11-13).
+    ('DHLoadoutRiftJump', 'Rift jump', 'Разрывной прыжок', 1, ['DHPillCanisterRiftJump'], 1),
 ]
 
 REPUBLIC = ['DHGarrisonCommander', 'DHGarrisonOfficer', 'DHGarrisonArtilleryOfficer', 'DHGarrisonRifleman',
@@ -156,7 +158,7 @@ def main():
     # лоадауты: по одному на предмет (всё — в рюкзак)
     L = [head, '# Лоадауты «Осады»: личные вещи в рюкзак. Должности — roleLoadout Job<id>.\n']
     items = []
-    for _, _, _, _, lst in GROUPS:
+    for _, _, _, _, lst, *_ in GROUPS:
         for it in lst:
             if it not in items:
                 items.append(it)
@@ -171,9 +173,10 @@ def main():
     for it in items:
         L.append(f'\n- type: loadout\n  id: {loadout_id(it)}\n  storage:\n    back:\n    - {it}\n')
     en_ftl, ru_ftl = [], []
-    for gid, en, ru_n, mx, lst in GROUPS:
+    for gid, en, ru_n, mx, lst, *rest in GROUPS:
+        mn = rest[0] if rest else 0
         key = 'dh-loadout-group-' + gid[len('DHLoadout'):].lower()
-        L.append(f'\n- type: loadoutGroup\n  id: {gid}\n  name: {key}\n  minLimit: 0\n  maxLimit: {mx}\n  loadouts:\n')
+        L.append(f'\n- type: loadoutGroup\n  id: {gid}\n  name: {key}\n  minLimit: {mn}\n  maxLimit: {mx}\n  loadouts:\n')
         L += [f'  - {loadout_id(it)}\n' for it in lst]
         en_ftl.append(f'{key} = {en}')
         ru_ftl.append(f'{key} = {ru_n}')
@@ -183,6 +186,8 @@ def main():
                       'DHLoadoutFlasks', 'DHLoadoutPersonal', 'DHLoadoutKnife']
             if job in COMMAND:
                 groups.append(f'DHLoadout{side}Command')
+            if side == 'Imperial':
+                groups.append('DHLoadoutRiftJump')
             L.append(f'\n- type: roleLoadout\n  id: Job{job}\n  dhAfterStartingGear: true\n  groups:\n')
             L += [f'  - {g}\n' for g in groups]
     open(f'{R}/Prototypes/_DarkestHour/Loadouts/assault_loadouts.yml', 'w', encoding='utf-8').write(''.join(L))

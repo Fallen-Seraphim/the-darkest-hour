@@ -32,3 +32,7 @@ reagent-name-dh-prussianblue = берлинская лазурь
 reagent-desc-dh-prussianblue = Связывает радиоактивные изотопы и выводит облучение.
 reagent-name-dh-citrasin = цитрасин
 reagent-desc-dh-citrasin = Иммунодепрессант: вдвое замедляет отторжение имплантов. В больших дозах бьёт по почкам.
+
+# Таблетки после разрывного прыжка
+dh-pill-label-prussian-blue = берлинская лазурь 5 ед
+dh-pill-label-rift-jump = принять после разрывного прыжка
