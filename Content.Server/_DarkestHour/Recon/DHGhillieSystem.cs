@@ -18,7 +18,7 @@ namespace Content.Server._DarkestHour.Recon;
 /// после чего носитель почти невидим. Шаг, выстрел, ранение, снятие халата или повторное нажатие раскрывают; после
 /// этого — перезарядка.
 /// </summary>
-public sealed class DHGhillieSystem : EntitySystem
+public sealed partial class DHGhillieSystem : EntitySystem
 {
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;

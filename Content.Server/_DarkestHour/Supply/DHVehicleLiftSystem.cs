@@ -200,7 +200,7 @@ public sealed partial class DHVehicleLiftSystem : EntitySystem
             return;
         }
 
-        if (!TryGetEntity(args.Entity, out var cargo) || !lift.Comp.Stored.Contains(cargo.Value))
+        if (!TryGetEntity(args.Cargo, out var cargo) || !lift.Comp.Stored.Contains(cargo.Value))
             return;
 
         lift.Comp.Stored.Remove(cargo.Value);
