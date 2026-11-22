@@ -10,3 +10,4 @@ dh-loadout-group-personal = Личные вещи
 dh-loadout-group-knife = Нож
 dh-loadout-group-republiccommand = Командирское
 dh-loadout-group-imperialcommand = Командирское
+dh-loadout-group-riftjump = Разрывной прыжок
