@@ -620,6 +620,12 @@ public sealed partial class DHSurgerySystem : EntitySystem
             case DHSurgeryEffect.SpinalDecompression:
                 _trauma.SpinalDecompression(patient);
                 return true;
+            case DHSurgeryEffect.DrainChest:
+                _trauma.DrainChest(patient);
+                return true;
+            case DHSurgeryEffect.Tracheostomy:
+                _trauma.Tracheostomy(patient);
+                return true;
             case DHSurgeryEffect.ExciseChronite:
                 _dose.ExciseChronite(patient, ChroniteExcision);
                 return true;
@@ -767,6 +773,8 @@ public sealed partial class DHSurgerySystem : EntitySystem
             DHInjuryKind.BrainInjury => _trauma.HasBrainInjury(patient, category),
             DHInjuryKind.Nerve => _trauma.HasNerveDamage(patient, category),
             DHInjuryKind.Spinal => _trauma.HasTreatableSpinalInjury(patient, category),
+            DHInjuryKind.Pneumothorax => _trauma.HasPneumothorax(patient, category),
+            DHInjuryKind.Airway => _trauma.HasBlockedAirway(patient, category),
             DHInjuryKind.ChroniteSkin => _dose.CanExciseChronite(patient),
             DHInjuryKind.Parasite => _disease.HasSurgicalParasite(patient),
             _ => true,

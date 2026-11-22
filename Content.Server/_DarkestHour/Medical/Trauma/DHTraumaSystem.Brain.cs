@@ -174,6 +174,8 @@ public sealed partial class DHTraumaSystem
         ent.Comp.Organs.Clear();
         ent.Comp.BrainInjury = false;
         ClearSpinal(ent);
+        DrainChest(ent);
+        ent.Comp.AirwayBlocked = false;
         ent.Comp.FireRateModifier = 1f;
         ent.Comp.PainSpike = 0f;
         ent.Comp.ExtraPain = 0f;

@@ -95,6 +95,10 @@ public enum DHSurgeryEffect : byte
     RepairNerve,
     /// <summary>Декомпрессия позвоночника: снять травму спинного мозга, если не запущена.</summary>
     SpinalDecompression,
+    /// <summary>Дренаж грудной клетки: вылечить пневмоторакс.</summary>
+    DrainChest,
+    /// <summary>Трахеостомия: восстановить дыхание при перекрытых дыхательных путях.</summary>
+    Tracheostomy,
 }
 
 /// <summary>
@@ -117,6 +121,9 @@ public enum DHInjuryKind : byte
     Nerve,
     /// <summary>Травма спинного мозга (ещё не запущенная).</summary>
     Spinal,
+    Pneumothorax,
+    /// <summary>Перекрытые дыхательные пути.</summary>
+    Airway,
 }
 
 /// <summary>

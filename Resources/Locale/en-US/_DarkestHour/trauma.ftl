@@ -137,3 +137,21 @@ dh-surgery-step-remove-bone-fragments = removing bone fragments
 dh-surgery-step-stabilize-spine = fixing the vertebrae
 dh-surgery-tool-microforceps = microsurgical forceps
 dh-surgery-needs-anesthesia = This can't be done without anesthesia — the patient must be unconscious.
+
+# Chest and airway
+dh-trauma-pneumothorax-self = Something burst in your chest — breathing gets harder!
+dh-trauma-pneumothorax-breath = You can't get enough air, your chest stings.
+dh-trauma-airway-self = Your throat is full of blood — you can't breathe in!
+dh-trauma-airway-choke = You're choking!
+dh-trauma-desc-pneumothorax = pneumothorax (tension {$percent}%)
+dh-trauma-desc-chest-sealed = wound closed with an occlusive seal
+dh-trauma-desc-airway = airway blocked — needs a tracheostomy
+dh-needle-nothing = There's no pneumothorax — no need for the needle.
+dh-needle-done = {CAPITALIZE(THE($user))} pushes the needle between {THE($target)}'s ribs — air hisses out.
+dh-needle-miss = {CAPITALIZE(THE($user))} misses the pleura of {THE($target)} with the needle!
+dh-surgery-chest-drain = Chest drain
+dh-surgery-chest-drain-desc = Pneumothorax: insert a drain tube between the ribs and let the air out. A definitive fix.
+dh-surgery-step-insert-chest-drain = inserting the drain
+dh-surgery-tracheostomy = Tracheostomy
+dh-surgery-tracheostomy-desc = Airway blocked: open the trachea below the injury. Can be done on the floor — slower and with infection risk.
+dh-surgery-step-tracheostomy = tracheal incision

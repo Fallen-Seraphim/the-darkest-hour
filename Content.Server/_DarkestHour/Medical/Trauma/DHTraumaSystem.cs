@@ -118,6 +118,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
         InitializeFieldMedicine();
         InitializeGore();
         InitializeBrain();
+        InitializeBreathing();
     }
 
     #region Damage
@@ -241,6 +242,8 @@ public sealed partial class DHTraumaSystem : EntitySystem
             TryBrainInjury(ent, part, brute, blunt, piercing, part.Fracture);
         TryNerveDamage(ent, category, part, slash, piercing, part.Fracture && !fracturedBefore);
         TrySpinalInjury(ent, category, brute, blunt, piercing, ent.Comp.ExplosionTick == _timing.CurTick);
+        TryChestInjury(ent, category, piercing, blunt, part.Fracture && !fracturedBefore);
+        TryAirwayInjury(ent, category, part, brute, burn, blunt, slash);
 
         // Обезглавливание: тяжёлый рубящий или дробящий удар по разбитой голове (редко).
         if (category == "Head" && ShouldDecapitate(part, max, slash, blunt) &&
@@ -487,7 +490,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
             UpdateReviveState((uid, comp));
 
             if (comp.Parts.Count == 0 && comp.Organs.Count == 0 && !comp.BrainInjury && comp.Spinal == DHSpinalInjury.None &&
-                comp.FireRateModifier >= 1f && comp.PainSpike <= 0f && comp.SpeedModifier >= 1f &&
+                comp.FireRateModifier >= 1f && comp.Pneumothorax <= 0f && !comp.AirwayBlocked && comp.PainSpike <= 0f && comp.SpeedModifier >= 1f &&
                 comp.ExtraPain <= 0f && comp.PhantomPain <= 0f)
             {
                 comp.Pain = 0f;
@@ -637,6 +640,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
                 findings.Add(Loc.GetString("dh-trauma-desc-brain-injury"));
             if (category == "Torso" && comp.Spinal != DHSpinalInjury.None)
                 findings.Add(SpinalFinding(comp));
+            AddBreathingFindings(comp, category, findings);
 
             if (DHTraumaConstants.OrgansIn.TryGetValue(category, out var inside))
             {
@@ -711,6 +715,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
         var incapacitated = _mobState.IsIncapacitated(ent);
         TickBrain(ent, incapacitated);
         TickNerves(ent, incapacitated);
+        TickBreathing(ent, now, incapacitated);
 
         // Переломы и нервы ног — замедление; рук — выпадают предметы; черепа — головокружение.
         var speed = 1f;
@@ -980,6 +985,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
             result.Add(Loc.GetString("dh-trauma-desc-nerve"));
         if (category == "Torso" && comp.Spinal != DHSpinalInjury.None)
             result.Add(SpinalFinding(comp));
+        AddBreathingFindings(comp, category, result);
 
         if (DHTraumaConstants.OrgansIn.TryGetValue(category, out var inside))
         {

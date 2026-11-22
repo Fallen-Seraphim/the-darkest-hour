@@ -201,6 +201,25 @@ public sealed partial class DHTraumaComponent : Component
     [DataField, AutoNetworkedField]
     public bool SpinalSupported;
 
+    /// <summary>
+    /// Пневмоторакс (план осады п. 18): 0 — нет, иначе напряжённость 0…1. Растёт, пока грудь не закрыта окклюзионной
+    /// повязкой и не стравлена игла-декомпрессией; чем выше — тем сильнее удушье. Лечится дренажом.
+    /// </summary>
+    [DataField]
+    public float Pneumothorax;
+
+    /// <summary>Рана груди закрыта окклюзионной повязкой — напряжение не растёт.</summary>
+    [DataField]
+    public bool ChestSealed;
+
+    /// <summary>До этого времени напряжение стравлено иглой и не растёт.</summary>
+    [DataField]
+    public TimeSpan DecompressedUntil;
+
+    /// <summary>Дыхательные пути перекрыты (разбитое лицо или горло, ожог дыхательных путей) — нужна трахеостомия.</summary>
+    [DataField]
+    public bool AirwayBlocked;
+
     /// <summary>Множитель скорострельности оружия в руках (повреждённый нерв руки).</summary>
     [DataField, AutoNetworkedField]
     public float FireRateModifier = 1f;
@@ -293,7 +312,32 @@ public sealed partial class DHFieldDressingComponent : Component
 
     [DataField]
     public DamageSpecifier Heal = new();
+
+    /// <summary>Окклюзионная: закрывает рану груди — пневмоторакс перестаёт нарастать.</summary>
+    [DataField]
+    public bool SealsChest;
 }
+
+/// <summary>
+/// Игла для декомпрессии (план осады п. 18): стравливает напряжённый пневмоторакс в поле. Временная мера — до дренажа.
+/// </summary>
+[RegisterComponent]
+public sealed partial class DHDecompressionNeedleComponent : Component
+{
+    [DataField]
+    public TimeSpan Delay = TimeSpan.FromSeconds(4);
+
+    /// <summary>Шанс промахнуться мимо плевральной полости (урон, без эффекта; игла не расходуется).</summary>
+    [DataField]
+    public float FailChance = 0.15f;
+
+    /// <summary>Сколько напряжение после стравливания не растёт.</summary>
+    [DataField]
+    public TimeSpan Relief = TimeSpan.FromMinutes(3);
+}
+
+[Serializable, NetSerializable]
+public sealed partial class DHNeedleDecompressionDoAfterEvent : Content.Shared.DoAfter.SimpleDoAfterEvent;
 
 [Serializable, NetSerializable]
 public sealed partial class DHTourniquetDoAfterEvent : Content.Shared.DoAfter.SimpleDoAfterEvent;

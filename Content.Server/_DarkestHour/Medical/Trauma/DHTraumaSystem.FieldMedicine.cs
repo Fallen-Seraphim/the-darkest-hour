@@ -243,6 +243,9 @@ public sealed partial class DHTraumaSystem
         if (ent.Comp.Parts.TryGetValue(dressing.Part, out var part) && part.InternalBleeding > 0f)
             part.InternalBleeding *= dressing.InternalBleedingFactor;
 
+        if (dressing.SealsChest)
+            SealChest(ent);
+
         _bloodstream.TryModifyBleedAmount(ent.Owner, -dressing.BleedReduction);
         if (!dressing.Heal.Empty)
             _damageable.TryChangeDamage(ent.Owner, dressing.Heal, true, origin: args.User);
