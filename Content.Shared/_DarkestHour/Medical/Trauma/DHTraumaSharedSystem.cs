@@ -68,7 +68,7 @@ public sealed partial class DHTraumaSharedSystem : EntitySystem
 
     private void OnRefreshSpeed(Entity<DHTraumaComponent> ent, ref RefreshMovementSpeedModifiersEvent args)
     {
-        if (ent.Comp.SpeedModifier < 1f)
+        if (MathF.Abs(ent.Comp.SpeedModifier - 1f) > 0.001f)
             args.ModifySpeed(ent.Comp.SpeedModifier, ent.Comp.SpeedModifier);
     }
 }

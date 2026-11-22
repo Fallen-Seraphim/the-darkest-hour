@@ -72,7 +72,32 @@ public sealed partial class DHImplantComponent : Component
     /// <summary>Работал в последнюю секунду (растёт ActiveRate).</summary>
     [ViewVariables]
     public bool Active;
+
+    /// <summary>Включён (приближение «Сокола»).</summary>
+    [ViewVariables]
+    public bool Toggled;
+
+    /// <summary>Способность импланта у носителя («Сокол» — приближение, «Тактик» — нейролинк).</summary>
+    [DataField]
+    public EntProtoId? Action;
+
+    [ViewVariables]
+    public EntityUid? ActionEntity;
+
+    /// <summary>Ночное зрение выдано этим имплантом (снять вместе с ним).</summary>
+    [ViewVariables]
+    public bool GrantedNightVision;
+
+    /// <summary>У кого сейчас стоит.</summary>
+    [ViewVariables]
+    public EntityUid? Host;
 }
+
+/// <summary>«Сокол»: приближение.</summary>
+public sealed partial class DHFalconZoomActionEvent : Content.Shared.Actions.InstantActionEvent;
+
+/// <summary>«Тактик»: открыть нейролинк (тактическая карта и бойцы стороны).</summary>
+public sealed partial class DHTacticActionEvent : Content.Shared.Actions.InstantActionEvent;
 
 /// <summary>Тело с имплантами: отторжение, агония.</summary>
 [RegisterComponent]

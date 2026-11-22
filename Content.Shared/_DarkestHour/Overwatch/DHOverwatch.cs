@@ -21,6 +21,10 @@ public sealed partial class DHOverwatchConsoleComponent : Component
     [DataField]
     public int MaxOrderLength = 200;
 
+    /// <summary>Можно ли отдавать приказы (нейролинк «Тактик» — только смотреть).</summary>
+    [DataField]
+    public bool CanOrder = true;
+
     /// <summary>Цвет приказов вместо цвета стороны (военпол «Восстания» — синий при стороне Республики).</summary>
     [DataField]
     public Color? OrderColor;

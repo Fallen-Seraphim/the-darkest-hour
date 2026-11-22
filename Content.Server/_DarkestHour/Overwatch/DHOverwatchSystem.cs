@@ -98,7 +98,7 @@ public sealed partial class DHOverwatchSystem : EntitySystem
     private void OnOrder(Entity<DHOverwatchConsoleComponent> ent, ref DHOverwatchOrderMessage args)
     {
         var text = args.Text.Trim();
-        if (text.Length == 0)
+        if (text.Length == 0 || !ent.Comp.CanOrder)
             return;
 
         if (text.Length > ent.Comp.MaxOrderLength)

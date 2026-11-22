@@ -505,7 +505,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
             UpdateReviveState((uid, comp));
 
             if (comp.Parts.Count == 0 && comp.Organs.Count == 0 && !comp.BrainInjury && comp.Spinal == DHSpinalInjury.None &&
-                comp.FireRateModifier >= 1f && comp.Pneumothorax <= 0f && !comp.AirwayBlocked && comp.EyeMinApplied < 0 && !comp.EyesLost && comp.PainSpike <= 0f && comp.SpeedModifier >= 1f &&
+                comp.FireRateModifier >= 1f && comp.Pneumothorax <= 0f && !comp.AirwayBlocked && comp.EyeMinApplied < 0 && !comp.EyesLost && comp.PainSpike <= 0f && MathF.Abs(comp.SpeedModifier - 1f) < 0.01f &&
                 comp.ExtraPain <= 0f && comp.PhantomPain <= 0f)
             {
                 comp.Pain = 0f;
@@ -750,6 +750,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
         speed *= SideSpeed(comp, "LegLeft", "FootLeft");
         speed *= SideSpeed(comp, "LegRight", "FootRight");
         TickSpinal(ent, now, ref speed);
+        speed *= _implants.SpeedBonus(ent, comp.Spinal == DHSpinalInjury.None);
 
         if (!incapacitated)
         {

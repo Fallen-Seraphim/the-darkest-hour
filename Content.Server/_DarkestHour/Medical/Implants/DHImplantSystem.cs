@@ -2,6 +2,7 @@ using System.Linq;
 using Content.Server._DarkestHour.Medical.LifeSupport;
 using Content.Shared._DarkestHour.Medical.Implants;
 using Content.Shared._DarkestHour.Medical.LifeSupport;
+using Content.Shared.Body;
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Systems;
 using Content.Shared.Damage;
@@ -35,7 +36,7 @@ namespace Content.Server._DarkestHour.Medical.Implants;
 /// <item>«Эхо» — контузия от взрывов слабее (<see cref="HearingFactor"/>), дальние звуки громче.</item>
 /// </list>
 /// </summary>
-public sealed class DHImplantSystem : EntitySystem
+public sealed partial class DHImplantSystem : EntitySystem
 {
     [Dependency] private BloodstreamSystem _bloodstream = default!;
     [Dependency] private SharedContainerSystem _container = default!;
@@ -75,6 +76,8 @@ public sealed class DHImplantSystem : EntitySystem
         SubscribeLocalEvent<MobStateChangedEvent>(OnMobStateChanged);
         SubscribeLocalEvent<DHImplantedComponent, DamageModifyEvent>(OnDamageModify);
         SubscribeLocalEvent<DHImplantedComponent, RejuvenateEvent>(OnRejuvenate);
+
+        InitializeAdvanced();
     }
 
     private void OnRejuvenate(Entity<DHImplantedComponent> ent, ref RejuvenateEvent args)
@@ -92,7 +95,26 @@ public sealed class DHImplantSystem : EntitySystem
         return _container.EnsureContainer<Container>(patient, DHImplantedComponent.ContainerId);
     }
 
+    /// <summary>Все импланты тела: поставленные операцией и органы-импланты («Сокол», «Тиски», «Опора»).</summary>
     public IEnumerable<Entity<DHImplantComponent>> Implants(EntityUid patient)
+    {
+        foreach (var implant in ContainerImplants(patient))
+        {
+            yield return implant;
+        }
+
+        if (!_container.TryGetContainer(patient, BodyComponent.ContainerID, out var body))
+            yield break;
+
+        foreach (var uid in body.ContainedEntities)
+        {
+            if (TryComp<DHImplantComponent>(uid, out var implant))
+                yield return (uid, implant);
+        }
+    }
+
+    /// <summary>Импланты, поставленные операцией «Установка импланта».</summary>
+    private IEnumerable<Entity<DHImplantComponent>> ContainerImplants(EntityUid patient)
     {
         if (!_container.TryGetContainer(patient, DHImplantedComponent.ContainerId, out var container))
             yield break;
@@ -148,20 +170,26 @@ public sealed class DHImplantSystem : EntitySystem
         if (!HasComp<DHImplantComponent>(item))
             return false;
 
-        return _container.Insert(item, GetContainer(patient), force: true);
+        if (!_container.Insert(item, GetContainer(patient), force: true))
+            return false;
+
+        Attach(item, patient);
+        return true;
     }
 
-    public bool HasImplantsIn(EntityUid patient, string category) => Implants(patient).Any(i => i.Comp.Part.Id == category);
+    public bool HasImplantsIn(EntityUid patient, string category) =>
+        ContainerImplants(patient).Any(i => i.Comp.Part.Id == category);
 
     /// <summary>Извлечь первый имплант из части тела хирургу в руку. Отторжение остаётся.</summary>
     public bool Remove(EntityUid patient, string category, EntityUid surgeon)
     {
-        foreach (var implant in Implants(patient).ToList())
+        foreach (var implant in ContainerImplants(patient).ToList())
         {
             if (implant.Comp.Part.Id != category)
                 continue;
 
             implant.Comp.Active = false;
+            Detach(implant);
             _container.Remove(implant.Owner, _container.GetContainer(patient, DHImplantedComponent.ContainerId));
             _hands.PickupOrDrop(surgeon, implant);
             return true;
@@ -281,6 +309,7 @@ public sealed class DHImplantSystem : EntitySystem
                 continue;
 
             TickHemostat(uid);
+            TickAdvanced(uid);
             TickRejection((uid, comp), now);
         }
     }
