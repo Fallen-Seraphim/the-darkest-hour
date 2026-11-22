@@ -1265,6 +1265,11 @@
       components:
       - type: StationNameSetup
         mapNameTemplate: "Terminus Military Base"
+      # Приветствие при появлении — своё у карты (план осады п. 23, решение автора 2026-11-20).
+      - type: DHAssaultMapBriefing
+        briefings:
+          Republic: dh-assault-briefing-terminus-republic
+          Empire: dh-assault-briefing-terminus-empire
       - type: StationJobs
         availableJobs:
           # Гарнизон Республики (50, решение автора 2026-11-05)
