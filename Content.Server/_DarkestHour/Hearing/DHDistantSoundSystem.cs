@@ -18,6 +18,7 @@ namespace Content.Server._DarkestHour.Hearing;
 public sealed class DHDistantSoundSystem : EntitySystem
 {
     [Dependency] private AudioSystem _audio = default!;
+    [Dependency] private Content.Server._DarkestHour.Medical.Implants.DHImplantSystem _implants = default!;
     [Dependency] private SharedMapSystem _map = default!;
     [Dependency] private ISharedPlayerManager _players = default!;
     [Dependency] private IGameTiming _timing = default!;
@@ -114,7 +115,9 @@ public sealed class DHDistantSoundSystem : EntitySystem
             var span = float.IsFinite(max) ? max - near : 300f;
             var k = Math.Clamp((distance - near) / MathF.Max(span, 1f), 0f, 1f);
             var delay = MathF.Min(distance / SoundSpeed, MaxDelay);
-            _pending.Add(new Pending(now + TimeSpan.FromSeconds(delay), session, sound, origin, volume - Falloff * k, pitch));
+            // Имплант «Эхо» — дальние звуки слышны чётче (план осады п. 29).
+            var echo = _implants.HasImplant(listener, Content.Shared._DarkestHour.Medical.Implants.DHImplantKind.Echo) ? 4f : 0f;
+            _pending.Add(new Pending(now + TimeSpan.FromSeconds(delay), session, sound, origin, volume - Falloff * k + echo, pitch));
         }
     }
 

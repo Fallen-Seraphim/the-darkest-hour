@@ -430,6 +430,28 @@
   steps:
   - DHSurgeryStepExtractUnexploded
 
+# Импланты (план осады п. 29): поставить из руки или извлечь. Отторжение от извлечения не проходит.
+- type: dhSurgery
+  id: DHSurgeryInsertImplant
+  name: dh-surgery-insert-implant
+  description: dh-surgery-insert-implant-desc
+  order: 74
+  parts: [ Head, Torso ]
+  requires: [ Retracted ]
+  steps:
+  - DHSurgeryStepInsertImplant
+
+- type: dhSurgery
+  id: DHSurgeryRemoveImplant
+  name: dh-surgery-remove-implant
+  description: dh-surgery-remove-implant-desc
+  order: 75
+  parts: [ Head, Torso ]
+  requires: [ Retracted ]
+  injury: Implant
+  steps:
+  - DHSurgeryStepRemoveImplant
+
 # --- Хронит: иссечение поражённой кожи и пересадка (стадии 2–3; на последней стадии недоступно). ---
 
 - type: dhSurgery

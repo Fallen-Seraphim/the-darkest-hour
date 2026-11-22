@@ -38,6 +38,7 @@
   - { id: medical, proto: DHSupplyCrateMedical, category: dh-supply-category-medical, initial: 3, refill: 2, max: 6 }
   - { id: ozk, proto: DHCrateOZK, category: dh-supply-category-medical, initial: 1, refill: 1, max: 3 }
   - { id: prosthetics, proto: DHCrateProsthetics, category: dh-supply-category-medical, initial: 1, refill: 1, max: 2 } # протезы
+  - { id: implants, proto: DHCrateImplants, category: dh-supply-category-medical, initial: 1, refill: 1, max: 1 } # импланты (п. 29)
   - { id: sandbags, proto: DHSupplyCrateSandbags, category: dh-supply-category-engineering, initial: 2, refill: 1, max: 4 }
   - { id: folding-barricades, proto: DHSupplyCrateFoldingBarricades, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 3 }
   - { id: barbed-wire, proto: DHSupplyCrateBarbedWire, category: dh-supply-category-engineering, initial: 2, refill: 1, max: 4 }
@@ -92,6 +93,7 @@
   - { id: medical, proto: DHSupplyCrateMedical, category: dh-supply-category-medical, initial: 3, refill: 2, max: 6 }
   - { id: ozk, proto: DHCrateOZK, category: dh-supply-category-medical, initial: 1, refill: 1, max: 3 }
   - { id: prosthetics, proto: DHCrateProsthetics, category: dh-supply-category-medical, initial: 1, refill: 1, max: 2 } # протезы
+  - { id: implants, proto: DHCrateImplants, category: dh-supply-category-medical, initial: 1, refill: 1, max: 1 } # импланты (п. 29)
   - { id: sandbags, proto: DHSupplyCrateSandbags, category: dh-supply-category-engineering, initial: 2, refill: 1, max: 4 }
   - { id: folding-barricades, proto: DHSupplyCrateFoldingBarricades, category: dh-supply-category-engineering, initial: 1, refill: 1, max: 3 }
   - { id: barbed-wire, proto: DHSupplyCrateBarbedWire, category: dh-supply-category-engineering, initial: 2, refill: 1, max: 4 }
