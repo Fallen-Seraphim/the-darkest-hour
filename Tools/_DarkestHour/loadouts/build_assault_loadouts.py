@@ -118,7 +118,7 @@ REPUBLIC = ['DHGarrisonCommander', 'DHGarrisonOfficer', 'DHGarrisonArtilleryOffi
             'DHGarrisonTankCommander', 'DHGarrisonTankCrew', 'DHGarrisonAPCCommander', 'DHGarrisonAPCCrew']
 EMPIRE = ['DHCarrierOperationCommander', 'DHCarrierCaptain', 'DHMarineCommander', 'DHCarrierSupportOfficer',
           'DHCarrierPilot', 'DHCarrierAttackPilot', 'DHCarrierArtillerist', 'DHCarrierTechnician',
-          'DHMarineWeaponsSpecialist', 'DHMarineFieldMedic', 'DHMarineMachinegunner', 'DHMarineRifleman',
+          'DHMarineWeaponsSpecialist', 'DHMarineFieldMedic', 'DHMarineMachinegunner', 'DHMarineRifleman', 'DHMarineSquadLeader',
           'DHMarineMortarCommander', 'DHMarineMortarOperator', 'DHMarineFieldArtillerist', 'DHMarineTankCommander',
           'DHMarineTankCrew', 'DHMarineAPCCommander', 'DHMarineAPCCrew']
 COMMAND = {'DHGarrisonCommander', 'DHGarrisonOfficer', 'DHGarrisonArtilleryOfficer', 'DHCarrierOperationCommander',

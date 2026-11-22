@@ -1,7 +1,6 @@
 ## DarkestHour: модульная броня
 
 dh-armor-module-wrong-faction = This module does not fit this suit.
-dh-armor-module-needs-rack = Heavy modules can only be fitted or removed at an armour maintenance rack.
 dh-armor-module-slot-taken = That slot is already taken.
 dh-armor-module-installed = { CAPITALIZE($module) } locks into place.
 dh-armor-module-broken = { CAPITALIZE($module) } shatters!

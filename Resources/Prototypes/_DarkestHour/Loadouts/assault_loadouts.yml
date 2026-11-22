@@ -920,6 +920,18 @@
   - DHLoadoutRiftJump
 
 - type: roleLoadout
+  id: JobDHMarineSquadLeader
+  dhAfterStartingGear: true
+  groups:
+  - DHLoadoutImperialHead
+  - DHLoadoutEyewear
+  - DHLoadoutImperialMask
+  - DHLoadoutSmokables
+  - DHLoadoutFlasks
+  - DHLoadoutPersonal
+  - DHLoadoutKnife
+
+- type: roleLoadout
   id: JobDHMarineMortarCommander
   dhAfterStartingGear: true
   groups:
