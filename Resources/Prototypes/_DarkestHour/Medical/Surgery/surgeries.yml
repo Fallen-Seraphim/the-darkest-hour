@@ -334,6 +334,20 @@
   steps:
   - DHSurgeryStepRepairOrgans
 
+# Черепно-мозговая травма (план осады п. 18): трепанация — фрезевое отверстие и удаление гематомы. Уже полученное
+# повреждение мозга — ушиванием органов (череп вскрыт пилой).
+- type: dhSurgery
+  id: DHSurgeryTrepanation
+  name: dh-surgery-trepanation
+  description: dh-surgery-trepanation-desc
+  order: 66
+  parts: [ Head ]
+  requires: [ Retracted ]
+  injury: BrainInjury
+  steps:
+  - DHSurgeryStepBurrHole
+  - DHSurgeryStepEvacuateHematoma
+
 # --- Хронит: иссечение поражённой кожи и пересадка (стадии 2–3; на последней стадии недоступно). ---
 
 - type: dhSurgery

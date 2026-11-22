@@ -357,3 +357,48 @@
       Slash: 5
   sound:
     collection: DHSurgeryOrgan
+
+# --- Черепно-мозговая травма (план осады п. 18): трепанация. ---
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepBurrHole
+  name: dh-surgery-step-burr-hole
+  toolHint: dh-surgery-tool-drill
+  tools:
+  - kind: Drill
+  - kind: Saw
+    speed: 0.5
+    success: 0.8
+  - quality: Sawing
+    speed: 0.3
+    success: 0.5
+  duration: 6
+  pain: 1.0
+  invasive: true
+  bleed: 1
+  failDamage:
+    types:
+      Blunt: 6
+      Piercing: 4
+  sound:
+    collection: DHSurgeryBoneSaw
+
+- type: dhSurgeryStep
+  id: DHSurgeryStepEvacuateHematoma
+  name: dh-surgery-step-evacuate-hematoma
+  toolHint: dh-surgery-tool-hemostat
+  tools:
+  - kind: Hemostat
+  - quality: Cutting
+    speed: 0.3
+    success: 0.5
+  duration: 8
+  pain: 0.9
+  invasive: true
+  bleed: 1
+  effect: Trepanation
+  failDamage:
+    types:
+      Piercing: 6
+  sound:
+    collection: DHSurgeryHemostat

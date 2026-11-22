@@ -167,6 +167,16 @@ public sealed partial class DHTraumaComponent : Component
     public TimeSpan NextBloodCough;
 
     /// <summary>
+    /// Черепно-мозговая травма (план осады п. 18): без трепанации мозг повреждается на <see cref="BrainInjuryRate"/>
+    /// в секунду и через ~5 минут отказывает — после смерти такого не реанимировать.
+    /// </summary>
+    [DataField]
+    public bool BrainInjury;
+
+    [DataField]
+    public float BrainInjuryRate = 0.2f;
+
+    /// <summary>
     /// Готовые строки травм для анализатора здоровья (переломы, кровотечения, осколки, органы, боль).
     /// Сервер обновляет раз в секунду и шлёт клиенту, только если изменились.
     /// </summary>
@@ -261,3 +271,14 @@ public sealed partial class DHTourniquetDoAfterEvent : Content.Shared.DoAfter.Si
 
 [Serializable, NetSerializable]
 public sealed partial class DHFieldDressingDoAfterEvent : Content.Shared.DoAfter.SimpleDoAfterEvent;
+
+/// <summary>
+/// Мёртвого сейчас не поднять дефибриллятором и СЛР: сердце отказало или его нет (план осады п. 18). Ставится и
+/// снимается травмами раз в секунду — починили или пересадили сердце, и снова можно.
+/// </summary>
+[RegisterComponent]
+public sealed partial class DHReviveBlockedComponent : Component
+{
+    [DataField]
+    public LocId Reason = "dh-revive-heart-failed";
+}

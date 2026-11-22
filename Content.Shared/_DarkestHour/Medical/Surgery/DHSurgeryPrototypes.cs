@@ -87,6 +87,8 @@ public enum DHSurgeryEffect : byte
     GraftSkin,
     /// <summary>Извлечь паразита из тканей (болезни, которые лечатся хирургически).</summary>
     RemoveParasite,
+    /// <summary>Трепанация: удалить внутричерепную гематому при ЧМТ.</summary>
+    Trepanation,
 }
 
 /// <summary>
@@ -103,6 +105,8 @@ public enum DHInjuryKind : byte
     ChroniteSkin,
     /// <summary>Тканевый паразит (болезнь, которая лечится хирургическим извлечением).</summary>
     Parasite,
+    /// <summary>Черепно-мозговая травма (гематома).</summary>
+    BrainInjury,
 }
 
 /// <summary>
