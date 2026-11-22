@@ -173,11 +173,12 @@ public sealed class DHVehicleLiftState : BoundUserInterfaceState
 [Serializable, NetSerializable]
 public sealed class DHVehicleLiftRaiseMessage : BoundUserInterfaceMessage
 {
-    public NetEntity Entity;
+    /// <summary>Что поднять (не путать с <see cref="BoundUserInterfaceMessage.Entity"/> — это консоль).</summary>
+    public NetEntity Cargo;
 
-    public DHVehicleLiftRaiseMessage(NetEntity entity)
+    public DHVehicleLiftRaiseMessage(NetEntity cargo)
     {
-        Entity = entity;
+        Cargo = cargo;
     }
 }
 

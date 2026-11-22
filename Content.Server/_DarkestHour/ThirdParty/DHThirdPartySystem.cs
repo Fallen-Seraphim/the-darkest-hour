@@ -18,7 +18,7 @@ namespace Content.Server._DarkestHour.ThirdParty;
 /// каждую роль есть хотя бы один записавшийся — выбираются участники (каждый на одну роль, случайно из записавшихся)
 /// и вызывается обработчик события. Не набралось к сроку — набор закрывается без события.
 /// </summary>
-public sealed class DHThirdPartySystem : EntitySystem
+public sealed partial class DHThirdPartySystem : EntitySystem
 {
     [Dependency] private IChatManager _chat = default!;
     [Dependency] private GameTicker _ticker = default!;
