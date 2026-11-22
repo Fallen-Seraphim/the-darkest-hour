@@ -129,6 +129,7 @@
   id: DHGarrisonSniperGear
   equipment:
     id: DHDogtagsGarrisonSniper
+    neck: DHClothingNeckGhillie
   storage:
     back:
     - DHPainkillerAutoinjector
@@ -173,6 +174,7 @@
   name: Republic rifleman kit selector
   description: A sealed requisition case of the Republican Army Corps. Open it and choose your loadout; the case turns into the chosen gear.
   components:
+  - type: DHKitAutoEquip
   - type: Sprite
     sprite: Objects/Tools/Toolboxes/toolbox_green.rsi
     state: icon
@@ -239,6 +241,7 @@
   name: Republic machinegunner kit selector
   description: A sealed requisition case of the Republican Army Corps. Open it and choose your loadout; the case turns into the chosen gear.
   components:
+  - type: DHKitAutoEquip
   - type: Sprite
     sprite: Objects/Tools/Toolboxes/toolbox_green.rsi
     state: icon
@@ -286,6 +289,7 @@
   name: Republic sniper kit selector
   description: A sealed requisition case of the Republican Army Corps. Open it and choose your loadout; the case turns into the chosen gear.
   components:
+  - type: DHKitAutoEquip
   - type: Sprite
     sprite: Objects/Tools/Toolboxes/toolbox_green.rsi
     state: icon
@@ -336,6 +340,7 @@
   name: Republic medic kit selector
   description: A sealed requisition case of the Republican Army Corps. Open it and choose your loadout; the case turns into the chosen gear.
   components:
+  - type: DHKitAutoEquip
   - type: Sprite
     sprite: Objects/Tools/Toolboxes/toolbox_green.rsi
     state: icon
@@ -383,6 +388,7 @@
   name: Republic officer kit selector
   description: A sealed requisition case of the Republican Army Corps. Open it and choose your loadout; the case turns into the chosen gear.
   components:
+  - type: DHKitAutoEquip
   - type: Sprite
     sprite: Objects/Tools/Toolboxes/toolbox_green.rsi
     state: icon

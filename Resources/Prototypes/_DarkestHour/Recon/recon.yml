@@ -58,6 +58,40 @@
     sprite: _RMC14/Objects/Clothing/OuterClothing/Armor/ghillie/desert.rsi
   - type: DHCamoCloak
 
+# --- Маскхалат снайпера (план осады п. 13): на шее поверх брони, способность «Маскировка», как в RMC ---
+
+- type: entity
+  parent: ClothingNeckBase
+  id: DHClothingNeckGhillie
+  name: sniper ghillie cloak
+  description: A shaggy cloak of netting and burlap, worn over armour. Use "Camouflage" and hold still for three seconds to all but vanish — even from the enemy's tactical map. Moving, shooting or getting hit gives you away, and it takes 20 seconds to settle in again.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/Neck/ghillie.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Clothing/Neck/ghillie.rsi
+  - type: Item
+    size: Normal
+    sprite: _DarkestHour/Clothing/Neck/ghillie.rsi
+  - type: DHGhillie
+
+- type: entity
+  parent: BaseAction
+  id: DHActionGhillie
+  name: Camouflage
+  description: Hold still for three seconds to vanish in your ghillie cloak. Moving, shooting or taking a hit reveals you. Press again to come out of hiding.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 1
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/Neck/ghillie.rsi
+    layers:
+    - state: icon
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHGhillieActionEvent
+
 # --- Маскировочная сеть ---
 
 - type: entity

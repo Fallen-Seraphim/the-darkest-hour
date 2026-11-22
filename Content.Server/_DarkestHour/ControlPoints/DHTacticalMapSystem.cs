@@ -443,6 +443,11 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
             var position = _transform.GetWorldPosition(xform);
             var hidden = HasComp<StealthComponent>(uid) && _stealth.GetVisibility(uid) < SightStealthThreshold;
             var lit = Lit(lasers, xform.MapUid, position);
+
+            // Снайпер, скрытый маскхалатом, не виден ни глазам, ни РЛС, ни детекторам — только под ЛЦУ.
+            if (!lit && HasComp<DHGhillieHiddenComponent>(uid))
+                continue;
+
             if (!lit && !SeenByEyes(eyes, position) && !SeenByMotion(motionEyes, uid, position) &&
                 (hidden || !SeenBySight(sight, uid, xform.MapUid, position)))
             {

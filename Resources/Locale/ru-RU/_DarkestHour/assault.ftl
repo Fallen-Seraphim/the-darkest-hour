@@ -459,3 +459,12 @@ dh-medal-republic-valor = За отвагу
 dh-medal-republic-valor-desc = За личную храбрость в бою, спасение товарищей и смелые действия.
 dh-medal-republic-wound = Знак ранения
 dh-medal-republic-wound-desc = Тем, кто пролил кровь за Республику.
+
+## Маскхалат снайпера
+dh-ghillie-preparing = Вы замираете и прячетесь в маскхалате…
+dh-ghillie-hidden = Вы скрыты. Не двигайтесь.
+dh-ghillie-already-hidden = Вы уже скрыты.
+dh-ghillie-revealed-self = Вы выходите из маскировки.
+dh-ghillie-revealed-move = Вы двинулись — маскировка сбита!
+dh-ghillie-revealed-shot = Выстрел выдал вашу позицию!
+dh-ghillie-revealed-hit = Вас ранили — маскировка сбита!
