@@ -25,7 +25,7 @@ public sealed class DHSupplyCategoryRestockedEvent(DHAssaultFaction faction, str
     public readonly string Category = category;
 }
 
-public sealed class DHCargoVendorSystem : EntitySystem
+public sealed partial class DHCargoVendorSystem : EntitySystem
 {
     [Dependency] private DHGearVendorSystem _vendor = default!;
 

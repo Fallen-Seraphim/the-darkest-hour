@@ -12,7 +12,7 @@ namespace Content.Server._DarkestHour.Squads;
 /// Приказы ком-модуля (план осады п. 26): отдавший приказ и свои живые бойцы в радиусе получают его на
 /// <see cref="DHOrdersModuleComponent.Duration"/>; все три приказа уходят на общую перезарядку.
 /// </summary>
-public sealed class DHOrdersServerSystem : EntitySystem
+public sealed partial class DHOrdersServerSystem : EntitySystem
 {
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private AudioSystem _audio = default!;

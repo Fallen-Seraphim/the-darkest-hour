@@ -56,7 +56,7 @@ public sealed partial class DHChargeStrikeComponent : Component
     public float RunDistance;
 }
 
-public sealed class DHChargeStrikeSystem : EntitySystem
+public sealed partial class DHChargeStrikeSystem : EntitySystem
 {
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
