@@ -15,7 +15,7 @@ namespace Content.Server._DarkestHour.Hearing;
 /// расстоянием и с направлением (звук ставится со стороны источника). Совсем крупные разрывы (ОБ) слышны всей карте
 /// вместе с её этажами и подземельем.
 /// </summary>
-public sealed class DHDistantSoundSystem : EntitySystem
+public sealed partial class DHDistantSoundSystem : EntitySystem
 {
     [Dependency] private AudioSystem _audio = default!;
     [Dependency] private Content.Server._DarkestHour.Medical.Implants.DHImplantSystem _implants = default!;
