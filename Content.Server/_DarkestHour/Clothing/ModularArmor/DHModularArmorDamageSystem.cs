@@ -285,21 +285,31 @@ public sealed partial class DHModularArmorDamageSystem : EntitySystem
                 continue;
             }
 
-            if (!_solutions.TryGetSolution(module, special.Solution, out var solutionEnt, out var solution) ||
-                solution.Volume <= 0)
-            {
-                continue;
-            }
-
-            var dose = _solutions.SplitSolution(solutionEnt.Value, FixedPoint2.New(special.Dose));
-            if (!_bloodstream.TryAddToBloodstream(wearer, dose))
-                continue;
-
-            special.NextUse = now + special.Cooldown;
-            Dirty(module, special);
-            _audio.PlayPvs(InjectSound, wearer);
-            _popup.PopupEntity(Loc.GetString("dh-armor-automed-injected"), wearer, wearer, PopupType.Medium);
+            TryInjectAutoMed((module, special), wearer);
         }
+    }
+
+    /// <summary>Автоаптечка вводит дозу носителю (порог ранений проверяет вызывающий; перезарядка — здесь).</summary>
+    public bool TryInjectAutoMed(Entity<DHArmorSpecialComponent> module, EntityUid wearer)
+    {
+        var special = module.Comp;
+        var now = _timing.CurTime;
+        if (special.Kind != DHArmorSpecialKind.AutoMed || now < special.NextUse ||
+            !_solutions.TryGetSolution(module.Owner, special.Solution, out var solutionEnt, out var solution) ||
+            solution.Volume <= 0)
+        {
+            return false;
+        }
+
+        var dose = _solutions.SplitSolution(solutionEnt.Value, FixedPoint2.New(special.Dose));
+        if (!_bloodstream.TryAddToBloodstream(wearer, dose))
+            return false;
+
+        special.NextUse = now + special.Cooldown;
+        Dirty(module);
+        _audio.PlayPvs(InjectSound, wearer);
+        _popup.PopupEntity(Loc.GetString("dh-armor-automed-injected"), wearer, wearer, PopupType.Medium);
+        return true;
     }
 
     private bool TryGetSuitOf(EntityUid module, out EntityUid suit)

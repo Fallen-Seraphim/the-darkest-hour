@@ -71,6 +71,22 @@ public sealed partial class DHMarsComponent : Component
 {
     [ViewVariables] public EntityUid? Host;
     [ViewVariables] public EntityUid? StatusAction;
+
+    /// <summary>Способности (DHMarsSystem).</summary>
+    [ViewVariables] public List<EntityUid> Actions = new();
+
+    /// <summary>Детектор движения брони (дочерняя сущность M.A.R.S.).</summary>
+    [ViewVariables] public EntityUid? Detector;
+
+    /// <summary>Броня надета — ИИ работает.</summary>
+    [ViewVariables] public bool Online = true;
+
+    [ViewVariables] public EntityUid? Marked;
+    [ViewVariables] public TimeSpan JamUntil;
+    [ViewVariables] public EntityUid? HackTarget;
+    [ViewVariables] public TimeSpan HackDone;
+    [ViewVariables] public System.Numerics.Vector2? CarryTo;
+    [ViewVariables] public TimeSpan CarryUntil;
 }
 
 /// <summary>Точка эвакуации десантника (невидимая метка, на неё указывает пинпоинтер).</summary>
@@ -94,6 +110,7 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
     [Dependency] private RandomHumanoidSystem _humanoid = default!;
     [Dependency] private SharedJobSystem _jobs = default!;
     [Dependency] private DHLandingSystem _landing = default!;
+    [Dependency] private DHMarsSystem _mars = default!;
     [Dependency] private MindSystem _mind = default!;
     [Dependency] private MobStateSystem _mobState = default!;
     [Dependency] private SharedPinpointerSystem _pinpointer = default!;
@@ -275,6 +292,7 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
 
         _actions.AddAction(paratrooper, ref comp.StatusAction, StatusActionProto);
         _actions.AddAction(mars, ref marsComp.StatusAction, StatusActionProto);
+        _mars.Setup((mars, marsComp), paratrooper, target);
 
         if (_mind.TryGetMind(paratrooperSession, out var paratrooperMind, out _))
             _mind.TransferTo(paratrooperMind, paratrooper, ghostCheckOverride: true);

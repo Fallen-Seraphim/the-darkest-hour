@@ -211,6 +211,15 @@ public sealed partial class DHOrdersSystem : EntitySystem
             args.AngleIncrease *= trauma.GunSpreadModifier;
         }
 
+        // Наведение M.A.R.S. по метке цели (план осады п. 28).
+        if (HasComp<Content.Shared._DarkestHour.ThirdParty.DHMarsAimComponent>(holder))
+        {
+            var aim = Content.Shared._DarkestHour.ThirdParty.DHMarsAimComponent.SpreadModifier;
+            args.MinAngle *= aim;
+            args.MaxAngle *= aim;
+            args.AngleIncrease *= aim;
+        }
+
         if (!TryComp<DHOrderedComponent>(holder, out var ordered) || !Active(ordered, DHOrderType.Attack))
             return;
 
