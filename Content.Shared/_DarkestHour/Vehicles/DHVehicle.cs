@@ -27,9 +27,21 @@ public enum DHVehicleMapIcon : byte
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class DHVehicleComponent : Component
 {
-    /// <summary>Отсек машины.</summary>
-    [DataField(required: true)]
-    public ProtoId<DHVehicleInteriorPrototype> Interior;
+    /// <summary>Отсек машины; нет — машина открытая (лодки, как джип КОФ в CMU): сиденья прямо на ней.</summary>
+    [DataField]
+    public ProtoId<DHVehicleInteriorPrototype>? Interior;
+
+    /// <summary>Сиденья открытой машины — прямо на корпусе (смещение в системе координат машины; нос — на юг).</summary>
+    [DataField]
+    public List<DHVehicleOpenSeat> Seats = new();
+
+    /// <summary>Сиденья открытой машины (сервер).</summary>
+    [ViewVariables]
+    public List<EntityUid> SeatEntities = new();
+
+    /// <summary>Ничья машина (тяжёлые лодки, план осады п. 10): своя для той стороны, чей боец сел за руль.</summary>
+    [DataField]
+    public bool Neutral;
 
     /// <summary>Оружие: id места (его же указывает кресло стрелка) → прототип орудия.</summary>
     [DataField]
@@ -457,3 +469,57 @@ public sealed partial class DHVehicleDeliveryPointComponent : Component
     [DataField]
     public DHAssaultFaction Faction = DHAssaultFaction.Republic;
 }
+
+[DataDefinition]
+public sealed partial class DHVehicleOpenSeat
+{
+    [DataField(required: true)]
+    public EntProtoId Proto;
+
+    [DataField(required: true)]
+    public Vector2 Offset;
+
+    /// <summary>Поворот сиденья относительно корпуса, градусы.</summary>
+    [DataField]
+    public float Rot;
+}
+
+/// <summary>
+/// Лодка (план осады п. 10, решения автора 2026-11-19): ходит только по воде (обычной и глубокой), сесть и сойти —
+/// у берега или на мелководье. Потопили вдали от берега (дальше <see cref="DrownRange"/>) — сидящие тонут.
+/// </summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class DHBoatComponent : Component
+{
+    /// <summary>Сложенная лодка (у надувной); null — не складывается.</summary>
+    [DataField]
+    public EntProtoId? Folded;
+
+    [DataField]
+    public TimeSpan FoldTime = TimeSpan.FromSeconds(5);
+
+    /// <summary>Как далеко от борта искать берег, чтобы сойти.</summary>
+    [DataField]
+    public float ShoreRange = 2f;
+
+    /// <summary>Дальше этого от берега при гибели лодки сидящие тонут.</summary>
+    [DataField]
+    public float DrownRange = 5f;
+}
+
+/// <summary>Сложенная надувная лодка: раскладывается у воды.</summary>
+[RegisterComponent]
+public sealed partial class DHBoatFoldedComponent : Component
+{
+    [DataField(required: true)]
+    public EntProtoId Boat;
+
+    [DataField]
+    public TimeSpan DeployTime = TimeSpan.FromSeconds(5);
+}
+
+[Serializable, NetSerializable]
+public sealed partial class DHBoatFoldDoAfterEvent : SimpleDoAfterEvent;
+
+[Serializable, NetSerializable]
+public sealed partial class DHBoatDeployDoAfterEvent : SimpleDoAfterEvent;

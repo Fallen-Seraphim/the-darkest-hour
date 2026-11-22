@@ -1874,6 +1874,27 @@ class World:
             for x in (X0, X1):
                 self.ents.append((EDGE, x + 0.5, y + 0.5, 0.0, None, None))
 
+    def boats(self):
+        """Тяжёлые лодки (план осады п. 10, решение автора 2026-11-19): ничьи, одна на реке севернее дамбы, другая на
+        озере у космодрома. Ставятся на воду так, чтобы под всем корпусом (3×5 клеток) была вода; клетки не занимают."""
+        def place(proto, tx, ty, radius=14):
+            best = None
+            for x in range(tx - radius, tx + radius + 1):
+                for y in range(ty - radius, ty + radius + 1):
+                    cells = [(x + i, y + j) for i in (-1, 0, 1) for j in (-2, -1, 0, 1, 2)]
+                    if all(c in self.water and c not in self.occ and self.inside(*c) and
+                           self.tiles.get(c) in (DIRT, SAND) for c in cells):
+                        d = (x - tx) ** 2 + (y - ty) ** 2
+                        if best is None or d < best[0]:
+                            best = (d, x, y)
+            assert best, 'нет воды под лодку ' + proto
+            self.ent(proto, best[1], best[2], 0.0, foot=[], free=True)
+            print('Лодка', proto, best[1], best[2])
+
+        cx = self.river_n_x(DAM[3] + 10)
+        place('DHBoatHeavy', int(round(cx)), DAM[3] + 10)
+        place('DHBoatHeavy', SPACEPORT[0] - 16, (SPACEPORT[1] + SPACEPORT[3]) // 2 - 20)
+
     def place_water(self):
         n = 0
         for (x, y), deep in self.water.items():
@@ -2166,6 +2187,7 @@ def main():
     w.npp()
     w.power()
     w.ground()
+    w.boats()
     w.place_water()
     w.nature()
     w.edge()

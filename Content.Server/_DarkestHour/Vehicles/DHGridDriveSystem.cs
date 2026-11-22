@@ -41,6 +41,7 @@ public sealed partial class DHGridDriveSystem : EntitySystem
     [Dependency] private TagSystem _tag = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private Content.Shared._DarkestHour.Vehicles.DHBoatSystem _boat = default!;
 
     private static readonly ProtoId<TagPrototype> WallTag = "Wall";
     private static readonly ProtoId<DamageTypePrototype> Blunt = "Blunt";
@@ -372,6 +373,10 @@ public sealed partial class DHGridDriveSystem : EntitySystem
             if (!TryComp<PhysicsComponent>(other, out var physics) || !physics.CanCollide || !physics.Hard)
                 continue;
 
+            // Лодке вода не мешает (план осады п. 10).
+            if (drive.Water && HasComp<Content.Shared._DarkestHour.Fluids.DHWaterSourceComponent>(other))
+                continue;
+
             var position = _transform.GetWorldPosition(other);
             if (HasComp<DHVehicleComponent>(other))
             {
@@ -402,6 +407,10 @@ public sealed partial class DHGridDriveSystem : EntitySystem
 
             _blockers.Add((other, position));
         }
+
+        // Лодка — только по воде: под всем корпусом вода, иначе упирается в берег.
+        if (drive.Water && !_boat.OnWater(map, center, rotation, vehicle.HullHalfSize))
+            _blockers.Add((EntityUid.Invalid, center));
 
         return _blockers.Count;
     }
