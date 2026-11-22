@@ -1,4 +1,4 @@
-ent-DHPillPrussianBlue = таблетка
+ent-DHPillPrussianBlue5 = таблетка
     .desc = Таблетка берлинской лазури: связывает радиоактивные изотопы и выводит облучение.
     .suffix = Берлинская лазурь 5 ед
 ent-DHPillCanisterRiftJump = баночка для таблеток
