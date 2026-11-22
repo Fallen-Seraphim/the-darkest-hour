@@ -40,6 +40,10 @@
   - DHBoneGel # DarkestHour: хирургия
   - DHBoneSetter # DarkestHour: хирургия
   - DHMicroForceps # DarkestHour: шов нерва
+  - DHProstheticArmLeft # DarkestHour: протезы
+  - DHProstheticArmRight
+  - DHProstheticLegLeft
+  - DHProstheticLegRight
   - DHSurgicalDrapes # DarkestHour: хирургия
   - DHAutopsyScanner # DarkestHour: следствие (вскрытие)
 

@@ -102,3 +102,36 @@
   parent: BaseSurgicalRecipe
   id: DHMicroForceps
   result: DHMicroForceps
+
+# Протезы конечностей (план осады п. 18).
+- type: latheRecipe
+  id: DHProstheticArmLeft
+  result: DHProstheticArmLeft
+  completetime: 8
+  materials:
+    Steel: 600
+    Plastic: 300
+
+- type: latheRecipe
+  id: DHProstheticArmRight
+  result: DHProstheticArmRight
+  completetime: 8
+  materials:
+    Steel: 600
+    Plastic: 300
+
+- type: latheRecipe
+  id: DHProstheticLegLeft
+  result: DHProstheticLegLeft
+  completetime: 8
+  materials:
+    Steel: 800
+    Plastic: 300
+
+- type: latheRecipe
+  id: DHProstheticLegRight
+  result: DHProstheticLegRight
+  completetime: 8
+  materials:
+    Steel: 800
+    Plastic: 300

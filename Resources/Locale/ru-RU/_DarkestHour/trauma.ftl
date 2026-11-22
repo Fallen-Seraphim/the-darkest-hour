@@ -167,3 +167,13 @@ dh-surgery-step-excise-burn = иссечение ожога
 dh-surgery-reconstruct-face = Реконструкция лица и глаз
 dh-surgery-reconstruct-face-desc = Восстановить обезображенное лицо и повреждённые глаза. Без глаз — сначала пересадка глаз.
 dh-surgery-step-reconstruct-face = восстановление тканей лица и глаз
+
+# Неразорвавшиеся боеприпасы (план осады п. 18)
+dh-trauma-unexploded-self = Что-то засело в теле ({$part}) — и не взорвалось. Не двигайтесь!
+dh-trauma-unexploded-detonate = Застрявший в {THE($target)} боеприпас взрывается!
+dh-trauma-unexploded-extracted = {CAPITALIZE(THE($user))} осторожно извлекает неразорвавшийся боеприпас из {THE($target)}.
+dh-trauma-desc-unexploded = НЕРАЗОРВАВШИЙСЯ БОЕПРИПАС — не трясти, извлекать с сапёром
+dh-trauma-examine-unexploded = [color=red]Из части тела «{$part}» у {THE($target)} торчит неразорвавшийся боеприпас![/color]
+dh-surgery-extract-unexploded = Извлечение неразорвавшегося боеприпаса
+dh-surgery-extract-unexploded-desc = Осторожно вынуть застрявший боеприпас. Может сдетонировать: без сапёра рядом — каждый четвёртый раз, с сапёром — редко.
+dh-surgery-step-extract-unexploded = извлечение боеприпаса

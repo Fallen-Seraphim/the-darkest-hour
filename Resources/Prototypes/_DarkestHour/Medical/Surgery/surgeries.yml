@@ -418,6 +418,18 @@
   steps:
   - DHSurgeryStepReconstructFace
 
+# Неразорвавшийся боеприпас (план осады п. 18): без сапёра рядом — 25% подрыв, с сапёром — 5%.
+- type: dhSurgery
+  id: DHSurgeryExtractUnexploded
+  name: dh-surgery-extract-unexploded
+  description: dh-surgery-extract-unexploded-desc
+  order: 73
+  parts: [ Head, Torso, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+  requires: [ Retracted ]
+  injury: Unexploded
+  steps:
+  - DHSurgeryStepExtractUnexploded
+
 # --- Хронит: иссечение поражённой кожи и пересадка (стадии 2–3; на последней стадии недоступно). ---
 
 - type: dhSurgery

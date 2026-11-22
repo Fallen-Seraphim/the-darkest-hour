@@ -78,7 +78,12 @@ public sealed partial class DHPartTrauma
     [DataField]
     public bool DeepBurn;
 
-    public bool HasInjury => Fracture || InternalBleeding > 0f || Shrapnel > 0 || Tourniquet != null || Nerve || DeepBurn;
+    /// <summary>В части тела застрял неразорвавшийся боеприпас (план осады п. 18).</summary>
+    [DataField]
+    public bool Unexploded;
+
+    public bool HasInjury => Fracture || InternalBleeding > 0f || Shrapnel > 0 || Tourniquet != null || Nerve || DeepBurn ||
+                             Unexploded;
 
     public bool IsEmpty => Brute <= 0.01f && Burn <= 0.01f && !HasInjury;
 }
@@ -385,3 +390,10 @@ public enum DHSpinalInjury : byte
     /// <summary>Полный паралич: ноги и руки.</summary>
     Full,
 }
+
+/// <summary>
+/// Протез или кибернетическая конечность (план осады п. 18, п. 29): не кровит, не ломается, нервов нет. Обычный протез
+/// просто возвращает конечность; «Тиски» и «Опора» дают бонусы ценой отторжения (импланты).
+/// </summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class DHProstheticComponent : Component;
