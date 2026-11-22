@@ -110,7 +110,7 @@ public sealed partial class DHZGAEvacPointComponent : Component;
 /// калечить и убивать только цель и сопротивляющихся (лишние жертвы — третья ведёт к провалу); не попадаться живым
 /// (2 минуты в наручниках — провал); 25 минут на цель и 10 — на эвакуацию. Провал — ЗГА публично отрекается.
 /// </summary>
-public sealed class DHZGAParatrooperSystem : EntitySystem
+public sealed partial class DHZGAParatrooperSystem : EntitySystem
 {
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private DHAssaultRuleSystem _assault = default!;
