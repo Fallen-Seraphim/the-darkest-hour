@@ -30,3 +30,7 @@ reagent-name-dh-dexamethasone = dexamethasone
 reagent-desc-dh-dexamethasone = A steroid against swelling and inflammation: moderately treats burns, chemical burns and allergies.
 reagent-name-dh-prussianblue = Prussian blue
 reagent-desc-dh-prussianblue = Binds radioactive isotopes and flushes out radiation.
+
+# Таблетки после разрывного прыжка
+dh-pill-label-prussian-blue = Prussian blue 5u
+dh-pill-label-rift-jump = take one after a rift jump
