@@ -1,5 +1,6 @@
 using Content.Shared._DarkestHour.ThirdParty;
 using Content.Shared.Ghost;
+using Content.Shared.Ghost.Components;
 using Robust.Client.Player;
 
 namespace Content.Client._DarkestHour.ThirdParty;

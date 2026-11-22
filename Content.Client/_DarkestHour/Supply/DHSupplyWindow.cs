@@ -67,15 +67,15 @@ public sealed partial class DHSupplyWindow : DefaultWindow
         var grid = new GridContainer { Columns = 2, HorizontalExpand = true };
         foreach (var restock in state.Restocks)
         {
-            var category = restock.Category;
+            var restockCategory = restock.Category;
             var button = new Button
             {
-                Text = Loc.GetString("dh-supply-ui-restock", ("category", Loc.GetString(category)),
+                Text = Loc.GetString("dh-supply-ui-restock", ("category", Loc.GetString(restockCategory)),
                     ("price", restock.Price)),
                 HorizontalExpand = true,
                 Disabled = restock.Price > state.Points,
             };
-            button.OnPressed += _ => OnRestock?.Invoke(category);
+            button.OnPressed += _ => OnRestock?.Invoke(restockCategory);
             grid.AddChild(button);
         }
 
