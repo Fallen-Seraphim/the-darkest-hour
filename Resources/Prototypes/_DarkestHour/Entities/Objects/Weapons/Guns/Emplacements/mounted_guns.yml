@@ -66,7 +66,7 @@
   - type: Gun
     fireRate: 10
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/lmg.ogg
+      path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_m60.ogg # RSPMG-10-54 (план осады п. 15)
     soundEmpty:
       path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg
   - type: ItemSlots
@@ -108,9 +108,9 @@
     maxAngle: 14
     angleIncrease: 1
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/batrifle.ogg
+      path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_type88.ogg # IHMG-17 (план осады п. 15)
       params:
-        pitch: 0.75
+        pitch: 0.85
         volume: 3
     soundEmpty:
       path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg
