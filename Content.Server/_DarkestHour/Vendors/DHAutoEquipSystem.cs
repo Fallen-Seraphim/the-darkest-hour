@@ -16,7 +16,7 @@ public sealed partial class DHKitAutoEquipComponent : Component
 /// старая вещь падает под ноги. Остальное — в свободный подходящий слот (оружие — на спину или в слот брони),
 /// иначе в руки или под ноги.
 /// </summary>
-public sealed class DHAutoEquipSystem : EntitySystem
+public sealed partial class DHAutoEquipSystem : EntitySystem
 {
     [Dependency] private SharedHandsSystem _hands = default!;
     [Dependency] private InventorySystem _inventory = default!;

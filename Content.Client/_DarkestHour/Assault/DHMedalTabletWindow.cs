@@ -10,7 +10,7 @@ namespace Content.Client._DarkestHour.Assault;
 /// <summary>
 /// Наградной лист: боец своей стороны, медаль, формулировка, «Наградить». Сколько наград осталось — вверху.
 /// </summary>
-public sealed class DHMedalTabletWindow : DefaultWindow
+public sealed partial class DHMedalTabletWindow : DefaultWindow
 {
     [Dependency] private IPrototypeManager _proto = default!;
 
