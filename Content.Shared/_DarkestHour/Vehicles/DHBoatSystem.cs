@@ -85,6 +85,19 @@ public sealed partial class DHBoatSystem : EntitySystem
         return kind;
     }
 
+    /// <summary>Точки корпуса в долях половины размера: центр, углы, середины носа и кормы.</summary>
+    /// <remarks>Массив, а не stackalloc: песочница клиента не пропускает непроверяемый IL.</remarks>
+    private static readonly Vector2[] HullPoints =
+    {
+        Vector2.Zero,
+        new(-1f, -1f),
+        new(1f, -1f),
+        new(-1f, 1f),
+        new(1f, 1f),
+        new(0f, -1f),
+        new(0f, 1f),
+    };
+
     /// <summary>Под всем корпусом (центр и углы) — вода.</summary>
     public bool OnWater(MapId map, Vector2 center, Angle rotation, Vector2 halfSize)
     {
@@ -92,20 +105,9 @@ public sealed partial class DHBoatSystem : EntitySystem
             return false;
 
         var shrink = halfSize - new Vector2(0.2f, 0.2f);
-        Span<Vector2> points = stackalloc Vector2[]
+        foreach (var offset in HullPoints)
         {
-            Vector2.Zero,
-            new(-shrink.X, -shrink.Y),
-            new(shrink.X, -shrink.Y),
-            new(-shrink.X, shrink.Y),
-            new(shrink.X, shrink.Y),
-            new(0f, -shrink.Y),
-            new(0f, shrink.Y),
-        };
-
-        foreach (var point in points)
-        {
-            var world = center + rotation.RotateVec(point);
+            var world = center + rotation.RotateVec(offset * shrink);
             var tile = _map.WorldToTile(grid, gridComp, world);
             if (WaterAt(grid, gridComp, tile) == WaterKind.None)
                 return false;

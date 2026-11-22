@@ -5,7 +5,7 @@
 - type: radioChannel
   id: DHZGA
   name: dh-chat-radio-zga
-  keycode: 'м'
+  keycode: 'г' # 'м' занят медицинским каналом
   frequency: 149.1
   color: "#7ec8f0"
   longRange: true
