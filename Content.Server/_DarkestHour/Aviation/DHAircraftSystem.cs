@@ -66,6 +66,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedToolSystem _tool = default!;
     [Dependency] private TransformSystem _transform = default!;
+    [Dependency] private Content.Server._DarkestHour.Assault.DHFlareEffectsServerSystem _flareEffects = default!;
     [Dependency] private UserInterfaceSystem _ui = default!;
 
     private static readonly ProtoId<ToolQualityPrototype> WeldingQuality = "Welding";
@@ -1054,6 +1055,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
         aircraft.FlaresUntil = now + aircraft.FlareDuration;
         Dirty(ent);
         _audio.PlayPvs(aircraft.FlareSound, ent);
+        SpawnFlareEffects(ent);
         Notify(plane, Loc.GetString("dh-aircraft-flares-fired", ("left", aircraft.Flares)));
         UpdateUi(plane);
     }
@@ -1423,6 +1425,9 @@ public sealed partial class DHAircraftSystem : EntitySystem
     /// <summary>Самолёт потерян: пилот катапультируется (или падает с ним) на поверхность под точкой полёта.</summary>
     private void Crash(Entity<DHAircraftComponent> ent, bool ejected)
     {
+        // Итоги раунда «Осады» (план п. 6): потерянные штурмовики.
+        RaiseLocalEvent(new Content.Server._DarkestHour.Assault.DHAircraftLostEvent(ent));
+
         var xform = Transform(ent);
         var position = _transform.GetWorldPosition(xform);
         var pilot = Pilot(ent.Comp);
@@ -1458,6 +1463,21 @@ public sealed partial class DHAircraftSystem : EntitySystem
             liftComp.Aircraft = null;
 
         QueueDel(ent);
+    }
+
+    /// <summary>
+    /// ЛТЦ видно (план осады п. 8): у самолёта ловушки разлетаются со шлейфом, на поверхности под ним — падают и
+    /// догорают на земле.
+    /// </summary>
+    private void SpawnFlareEffects(Entity<DHAircraftComponent> ent)
+    {
+        var xform = Transform(ent);
+        _flareEffects.AirBurst(_transform.GetMapCoordinates(ent.Owner, xform));
+
+        var surface = ent.Comp.PassSurface is { } passSurface && !TerminatingOrDeleted(passSurface) ? passSurface
+            : SurfaceBelow(xform.MapUid);
+        if (surface is { } map && map != xform.MapUid)
+            _flareEffects.FallBelow(new MapCoordinates(_transform.GetWorldPosition(xform), Transform(map).MapID));
     }
 
     /// <summary>Карта поверхности под слоем атмосферы (уровень земли).</summary>

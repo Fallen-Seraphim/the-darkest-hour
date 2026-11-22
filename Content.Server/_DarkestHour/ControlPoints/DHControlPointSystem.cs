@@ -161,6 +161,8 @@ public sealed partial class DHControlPointSystem : EntitySystem
         _commandPoints.Captured(ent.Comp, fighter.Faction);
 
         var name = Loc.GetString(ent.Comp.PointName);
+        // Итоги раунда (план п. 6): хронология и захват — тому, кто захватывал, и своим в зоне точки.
+        _assault.RecordCapture(name, fighter.Faction, previous, CapturersOf(ent, fighter.Faction, args.User));
         var sender = Loc.GetString("dh-control-point-sender");
         _assault.AnnounceToFaction(fighter.Faction, sender,
             Loc.GetString("dh-control-point-captured-ours", ("point", name)), CaptureSound);
@@ -169,6 +171,20 @@ public sealed partial class DHControlPointSystem : EntitySystem
         _assault.AnnounceToFaction(enemy, sender,
             Loc.GetString(previous == enemy ? "dh-control-point-lost" : "dh-control-point-captured-enemy",
                 ("point", name)), CaptureSound);
+    }
+
+    /// <summary>Кто участвовал в захвате: захватывавший и бойцы его стороны в зоне точки.</summary>
+    private List<EntityUid> CapturersOf(Entity<DHControlPointComponent> ent, DHAssaultFaction faction, EntityUid user)
+    {
+        var result = new List<EntityUid> { user };
+        foreach (var fighter in _lookup.GetEntitiesInRange<DHAssaultFighterComponent>(Transform(ent).Coordinates,
+                     ent.Comp.Radius))
+        {
+            if (fighter.Owner != user && fighter.Comp.Faction == faction)
+                result.Add(fighter.Owner);
+        }
+
+        return result;
     }
 
     /// <summary>Сменить владельца зоны (захват, админ, правило).</summary>

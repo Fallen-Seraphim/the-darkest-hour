@@ -196,6 +196,7 @@ public sealed partial class DHDropshipSystem : EntitySystem
     [Dependency] private SharedAmbientSoundSystem _ambient = default!;
     [Dependency] private AtmosphereSystem _atmos = default!;
     [Dependency] private Content.Server._DarkestHour.Carrier.DHCarrierDamageSystem _carrierDamage = default!;
+    [Dependency] private DHFlareEffectsServerSystem _flareEffects = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private DHCelestialSystem _celestial = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
@@ -226,7 +227,6 @@ public sealed partial class DHDropshipSystem : EntitySystem
 
     private static readonly SoundSpecifier FlareSound = new SoundPathSpecifier("/Audio/Weapons/Guns/Gunshots/flaregun.ogg");
 
-    private const string DecoyProto = "DHDecoyFlareBurst";
 
     private static readonly TimeSpan UpdateInterval = TimeSpan.FromSeconds(1);
 
@@ -554,10 +554,14 @@ public sealed partial class DHDropshipSystem : EntitySystem
         UpdateUi(ent, ship);
     }
 
-    /// <summary>С земли видно вспышки ЛТЦ в небе над челноком.</summary>
+    /// <summary>
+    /// ЛТЦ видно (план осады п. 8): в небе у челнока ловушки разлетаются со шлейфом, на поверхности под ним — падают
+    /// и догорают на земле.
+    /// </summary>
     private void SpawnDecoysBelow(Entity<DHDropshipComponent> ship)
     {
         var xform = Transform(ship);
+        _flareEffects.AirBurst(_transform.GetMapCoordinates(ship.Owner, xform));
         EntityUid surface;
         if (ship.Comp.Level > 0 && ship.Comp.Surface is { } below && Exists(below))
         {
@@ -574,12 +578,7 @@ public sealed partial class DHDropshipSystem : EntitySystem
         }
 
         var center = _transform.GetWorldPosition(xform);
-        var mapId = Transform(surface).MapID;
-        for (var i = 0; i < 6; i++)
-        {
-            var offset = new Vector2(_random.NextFloat(-7f, 7f), _random.NextFloat(-7f, 7f));
-            Spawn(DecoyProto, new MapCoordinates(center + offset, mapId));
-        }
+        _flareEffects.FallBelow(new MapCoordinates(center, Transform(surface).MapID));
     }
 
     private string DestinationName(DHDropshipComponent comp)

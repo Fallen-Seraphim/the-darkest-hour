@@ -406,3 +406,53 @@ dh-assault-briefing-terminus-empire = You are the Imperial Marines aboard the la
     Objective: land on REP-27-7, take Terminus Military Base and bring the experimental sample from its bunker aboard.
     The rift opens in about {$minutes} min. A Republic Navy squadron will arrive in about {$relief} min — we must be gone by then.
     Guard the carrier: it is your only way home. More about the war and the sides is in the guidebook, "Lore" section.
+
+# Round summary
+dh-assault-stats-republic = Republic
+dh-assault-stats-empire = Empire
+dh-assault-stats-none = — none —
+dh-assault-stats-nobody = —
+dh-assault-stats-captures-header = [bold]Capture timeline[/bold]
+dh-assault-stats-capture = { $time } — [color={ $color }]{ $side }[/color]: "{ $point }"
+dh-assault-stats-capture-from = { $time } — [color={ $color }]{ $side }[/color]: "{ $point }" (taken from { $from })
+dh-assault-stats-losses = [bold]Losses:[/bold] Republic — { $republic }, Empire — { $empire }.
+dh-assault-stats-downed = [bold]Shot down:[/bold] Imperial attack aircraft — { $aircraft }; carrier — { $carrier }.
+dh-assault-stats-carrier-down = shot down
+dh-assault-stats-carrier-intact = intact
+dh-assault-stats-best-header = [bold]Best soldiers[/bold]
+dh-assault-stats-best-side = [color={ $color }]{ $side }[/color]: most kills — { $killer }; most saves — { $medic }; most captures — { $captor }.
+dh-assault-stats-best-entry = { $name } ({ $count })
+dh-assault-stats-medals-header = [bold]Awards[/bold]
+dh-assault-stats-medal = [color={ $color }]"{ $medal }"[/color] — { $recipient }. Awarded by { $giver }: "{ $citation }"
+
+# Award sheet
+dh-medal-ui-title = Award sheet
+dh-medal-ui-remaining = Awards left: { $count }
+dh-medal-ui-recipient = Recipient
+dh-medal-ui-candidate = { $name } — { $job }
+dh-medal-ui-candidate-dead = { $name } — { $job } (posthumous)
+dh-medal-ui-medal = Decoration
+dh-medal-ui-citation = Citation
+dh-medal-ui-award = Award
+dh-medal-none-left = The award sheet is used up.
+dh-medal-wrong-side = This award sheet belongs to the other side.
+dh-medal-no-citation = Write the citation.
+dh-medal-sender = Command
+dh-medal-announce = { $giver } awards { $recipient } the "{ $medal }": "{ $citation }"
+
+dh-medal-imperial-cross = Imperial Cross
+dh-medal-imperial-cross-desc = The First Empire's highest combat decoration — for a deed that decided the battle.
+dh-medal-imperial-assault = For the Assault
+dh-medal-imperial-assault-desc = For being first into enemy positions and taking fortifications.
+dh-medal-imperial-loyalty = For Loyalty to the Emperor
+dh-medal-imperial-loyalty-desc = For steadfastness and doing one's duty to the end.
+dh-medal-imperial-wound = Wound Badge
+dh-medal-imperial-wound-desc = For those who shed blood for the Empire.
+dh-medal-republic-star = Star of the Republic
+dh-medal-republic-star-desc = The United Republic's highest combat decoration — for exceptional bravery.
+dh-medal-republic-defense = For Defense
+dh-medal-republic-defense-desc = For holding positions under enemy fire.
+dh-medal-republic-valor = For Valor
+dh-medal-republic-valor-desc = For personal bravery in battle, saving comrades and bold action.
+dh-medal-republic-wound = Wound Badge
+dh-medal-republic-wound-desc = For those who shed blood for the Republic.

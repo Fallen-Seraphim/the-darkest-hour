@@ -409,3 +409,53 @@ dh-assault-briefing-terminus-empire = Вы — имперская морская
     Задача: высадиться на REP-27-7, взять военную базу «Терминус» и доставить экспериментальный образец из её бункера на борт.
     Разрыв откроется примерно через {$minutes} мин. Эскадра республиканского флота подойдёт примерно через {$relief} мин. — к этому времени нас здесь быть не должно.
     Берегите авианосец — это единственный путь домой. Подробнее о войне и сторонах — в гайдбуке, раздел «Лор».
+
+# Итоги раунда (план осады п. 6)
+dh-assault-stats-republic = Республика
+dh-assault-stats-empire = Империя
+dh-assault-stats-none = — нет —
+dh-assault-stats-nobody = —
+dh-assault-stats-captures-header = [bold]Хронология захвата точек[/bold]
+dh-assault-stats-capture = { $time } — [color={ $color }]{ $side }[/color]: «{ $point }»
+dh-assault-stats-capture-from = { $time } — [color={ $color }]{ $side }[/color]: «{ $point }» (отбита у стороны «{ $from }»)
+dh-assault-stats-losses = [bold]Потери:[/bold] Республика — { $republic }, Империя — { $empire }.
+dh-assault-stats-downed = [bold]Сбито:[/bold] штурмовиков Империи — { $aircraft }; авианосец — { $carrier }.
+dh-assault-stats-carrier-down = сбит
+dh-assault-stats-carrier-intact = уцелел
+dh-assault-stats-best-header = [bold]Лучшие бойцы[/bold]
+dh-assault-stats-best-side = [color={ $color }]{ $side }[/color]: больше всех убил — { $killer }; больше всех спас — { $medic }; больше всех захватов — { $captor }.
+dh-assault-stats-best-entry = { $name } ({ $count })
+dh-assault-stats-medals-header = [bold]Награды[/bold]
+dh-assault-stats-medal = [color={ $color }]«{ $medal }»[/color] — { $recipient }. Вручил { $giver }: «{ $citation }»
+
+# Наградной лист
+dh-medal-ui-title = Наградной лист
+dh-medal-ui-remaining = Можно вручить наград: { $count }
+dh-medal-ui-recipient = Кого наградить
+dh-medal-ui-candidate = { $name } — { $job }
+dh-medal-ui-candidate-dead = { $name } — { $job } (посмертно)
+dh-medal-ui-medal = Награда
+dh-medal-ui-citation = Формулировка
+dh-medal-ui-award = Наградить
+dh-medal-none-left = Наградной лист исчерпан.
+dh-medal-wrong-side = Это наградной лист другой стороны.
+dh-medal-no-citation = Напишите формулировку награды.
+dh-medal-sender = Командование
+dh-medal-announce = { $giver } награждает { $recipient } — «{ $medal }»: «{ $citation }»
+
+dh-medal-imperial-cross = Имперский крест
+dh-medal-imperial-cross-desc = Высшая боевая награда Первой Империи — за подвиг, решивший исход боя.
+dh-medal-imperial-assault = За штурм
+dh-medal-imperial-assault-desc = Тем, кто первым врывается на позиции противника и берёт укрепления.
+dh-medal-imperial-loyalty = За верность Императору
+dh-medal-imperial-loyalty-desc = За стойкость и исполнение долга до конца.
+dh-medal-imperial-wound = Знак ранения
+dh-medal-imperial-wound-desc = Тем, кто пролил кровь за Империю.
+dh-medal-republic-star = Звезда Республики
+dh-medal-republic-star-desc = Высшая боевая награда Соединённой Республики — за исключительную храбрость.
+dh-medal-republic-defense = За оборону
+dh-medal-republic-defense-desc = За удержание позиций под огнём противника.
+dh-medal-republic-valor = За отвагу
+dh-medal-republic-valor-desc = За личную храбрость в бою, спасение товарищей и смелые действия.
+dh-medal-republic-wound = Знак ранения
+dh-medal-republic-wound-desc = Тем, кто пролил кровь за Республику.

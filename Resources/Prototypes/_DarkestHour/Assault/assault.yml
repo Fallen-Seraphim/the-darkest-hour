@@ -40,6 +40,7 @@
     - DHLaserDesignator
     - DHOverwatchTabletRepublic
     - DHSignalFlareKit
+    - DHMedalTabletRepublic # наградной лист (итоги раунда, план осады п. 6)
 
 - type: startingGear
   parent: DHRepublicGearBase
@@ -548,6 +549,7 @@
     - Binoculars
     - DHIFAKFilled
     - DHOverwatchTabletEmpire
+    - DHMedalTabletEmpire # наградной лист (итоги раунда, план осады п. 6)
 
 - type: startingGear
   parent: DHCarrierCrewGearBase
@@ -760,6 +762,7 @@
     - DHMagazine145x114Std
     - Binoculars
     - DHOverwatchTabletEmpire
+    - DHMedalTabletEmpire # наградной лист (итоги раунда, план осады п. 6)
 
 - type: startingGear
   parent: DHCarrierCommandGearBase
