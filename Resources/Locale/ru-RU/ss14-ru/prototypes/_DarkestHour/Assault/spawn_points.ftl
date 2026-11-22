@@ -33,3 +33,12 @@ ent-DHSpawnPointImperialMedic = точка появления: полевой м
 ent-DHSpawnPointImperialArtillery = точка появления: расчёты десанта
 
 ent-DHSpawnPointImperialArmor = точка появления: экипажи десанта
+
+ent-DHReinforcementEntryBase = въезд подкреплений
+    .desc = Здесь появляются грузовики с подкреплением.
+ent-DHReinforcementEntryRepublicEast = { ent-DHReinforcementEntryBase }
+    .suffix = Республика, восток
+    .desc = { ent-DHReinforcementEntryBase.desc }
+ent-DHReinforcementEntryRepublicWest = { ent-DHReinforcementEntryBase }
+    .suffix = Республика, запад
+    .desc = { ent-DHReinforcementEntryBase.desc }

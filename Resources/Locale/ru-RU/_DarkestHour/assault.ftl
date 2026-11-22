@@ -384,3 +384,11 @@ dh-dropship-ui-atmosphere-enter = ПОДНЯТЬСЯ В АТМОСФЕРУ (ВЫ
 dh-dropship-ui-atmosphere-leave = ВЕРНУТЬСЯ НАД ПОЛЕМ БОЯ
 dh-dropship-ui-release = ОТПУСТИТЬ УПРАВЛЕНИЕ
 dh-dropship-ui-phase-atmosphere = Слой атмосферы, заход на выброску. Под нами: {$x}, {$y}.
+
+# Подкрепления на грузовиках (план осады п. 2)
+dh-reinforcement-entry-east = восточный въезд
+dh-reinforcement-entry-west = западный въезд
+dh-reinforcement-entry-unknown = въезд
+dh-reinforcement-truck-sender = Автоколонна
+dh-reinforcement-truck-announce = Грузовик с подкреплением прибыл ({ $entry }). Ждите на базе.
+dh-reinforcement-truck-boarded = Вы в кузове грузовика с подкреплением ({ $entry }). Сядьте за руль (кабина) или дождитесь водителя и езжайте на базу по шоссе.

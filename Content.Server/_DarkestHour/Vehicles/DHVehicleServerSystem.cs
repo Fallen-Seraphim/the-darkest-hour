@@ -301,8 +301,17 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
     /// <summary>Мест нет: людей в отсеке не меньше, чем кресел (план осады п. 17).</summary>
     private bool Full(Entity<DHVehicleComponent> ent)
     {
-        if (ent.Comp.Capacity <= 0 || ent.Comp.InteriorMap is not { } map)
+        if (ent.Comp.Capacity <= 0 || ent.Comp.InteriorMap == null)
             return false;
+
+        return Occupants(ent) >= ent.Comp.Capacity;
+    }
+
+    /// <summary>Сколько людей (живых и мёртвых) сейчас в отсеке машины.</summary>
+    public int Occupants(Entity<DHVehicleComponent> ent)
+    {
+        if (ent.Comp.InteriorMap is not { } map)
+            return 0;
 
         var inside = 0;
         var mobs = EntityQueryEnumerator<MobStateComponent, TransformComponent>();
@@ -312,7 +321,7 @@ public sealed partial class DHVehicleServerSystem : EntitySystem
                 inside++;
         }
 
-        return inside >= ent.Comp.Capacity;
+        return inside;
     }
 
     private void OnEnterDoAfter(Entity<DHVehicleComponent> ent, ref DHVehicleEnterDoAfterEvent args)
