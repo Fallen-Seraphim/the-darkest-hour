@@ -43,7 +43,7 @@ public struct DHProjectileImpactEvent(EntityUid target, DamageSpecifier? damage,
 /// <item>по предмету и постройке — звук материала: бетон, металл, дерево, стекло.</item>
 /// </list>
 /// </summary>
-public sealed class DHImpactSystem : EntitySystem
+public sealed partial class DHImpactSystem : EntitySystem
 {
     [Dependency] private AudioSystem _audio = default!;
     [Dependency] private DecalSystem _decals = default!;

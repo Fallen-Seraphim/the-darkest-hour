@@ -8,7 +8,7 @@ namespace Content.Client._DarkestHour.ThirdParty;
 /// Наборы событий третьей стороны (план осады пп. 11 и 28): хранит открытые наборы от сервера; когда открывается
 /// новый — показывает наблюдателю окно записи (<see cref="DHThirdPartyWindow"/>).
 /// </summary>
-public sealed class DHThirdPartyClientSystem : EntitySystem
+public sealed partial class DHThirdPartyClientSystem : EntitySystem
 {
     [Dependency] private IPlayerManager _player = default!;
 

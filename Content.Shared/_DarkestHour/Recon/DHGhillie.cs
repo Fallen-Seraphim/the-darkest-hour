@@ -59,7 +59,7 @@ public sealed partial class DHGhillieActionEvent : InstantActionEvent;
 public sealed partial class DHGhillieDoAfterEvent : SimpleDoAfterEvent;
 
 /// <summary>Выдача способности маскхалата (общая часть, чтобы клиент видел кнопку сразу).</summary>
-public sealed class DHGhillieActionsSystem : EntitySystem
+public sealed partial class DHGhillieActionsSystem : EntitySystem
 {
     [Dependency] private SharedActionsSystem _actions = default!;
 
