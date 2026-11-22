@@ -403,6 +403,9 @@ for i in range(4):
 put('Rack', x1, y0)
 put('Rack', x1 - 1, y0)
 put('LockerEvacRepairFilled', x1, y0 + 3)
+# каргоавтоматы (план осады п. 27): боеприпасы и мелочи — у правой стены карго
+for proto in ('DHCargoVendorEmpireAmmo', 'DHCargoVendorEmpireSupplies'):
+    assert any(put(proto, x1, y) for y in range(y0 + 4, y1)), proto
 door('cargo', 'zone', 'AirlockCargoGlassLocked', width=3)
 door('cargo', 'runway', 'AirlockCargoGlassLocked', width=2)
 

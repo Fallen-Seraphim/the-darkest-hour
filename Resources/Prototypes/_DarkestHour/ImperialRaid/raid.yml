@@ -280,7 +280,7 @@
     ears: DHClothingHeadsetAltImperialCommand
     id: DHDogtagsImperialCommander
     neck: SyndicateWhistle
-    outerClothing: DHClothingOuterModularIMB1Composite
+    outerClothing: DHClothingOuterModularIMB1CompositeComms # ком-модуль сразу в броне (план осады п. 26)
     suitstorage: DHWeaponPistolIMP17
   storage:
     back:
@@ -735,3 +735,49 @@
   name: dh-role-type-imperial-marine
   color: '#F2C230'
   symbol: "⚔"
+
+# Командир отряда (план осады п. 26): те же комплекты, что у стрелка, но броня с ком-модулем.
+- type: thiefBackpackSet
+  id: DHImperialSetSquadLeaderRifle
+  name: dh-imperial-set-squadleader-rifle-name
+  description: dh-imperial-set-squadleader-rifle-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/ir17.rsi
+    state: base
+  content:
+  - DHClothingOuterModularIMB1StandardComms
+  - DHWeaponRifleIR17
+  - DHMagazine842x54ImpS
+  - DHMagazine842x54ImpS
+  - DHMagazine842x54ImpS
+  - DHMagazine842x54ImpS
+
+- type: thiefBackpackSet
+  id: DHImperialSetSquadLeaderSmg
+  name: dh-imperial-set-squadleader-smg-name
+  description: dh-imperial-set-squadleader-smg-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/img17l.rsi
+    state: base
+  content:
+  - DHClothingOuterModularIMB1StandardComms
+  - DHWeaponSMGIMG17L
+  - DHMagazine104x16ImpB
+  - DHMagazine104x16ImpB
+  - DHMagazine104x16ImpB
+  - DHMagazine104x16ImpB
+  - DHMagazine104x16ImpB
+
+- type: thiefBackpackSet
+  id: DHImperialSetSquadLeaderShotgun
+  name: dh-imperial-set-squadleader-shotgun-name
+  description: dh-imperial-set-squadleader-shotgun-description
+  sprite:
+    sprite: _DarkestHour/Objects/Weapons/Guns/impsh17p.rsi
+    state: base
+  content:
+  - DHClothingOuterModularIMB1StandardComms
+  - DHWeaponShotgunIMPSH17P
+  - DHAmmoBox14gShot
+  - DHAmmoBox14gShot
+  - DHAmmoBox14gSlug

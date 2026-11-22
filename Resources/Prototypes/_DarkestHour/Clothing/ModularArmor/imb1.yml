@@ -933,3 +933,45 @@
       LegLeft: DHArmorModuleIMB1HeavyLegLeft
       LegRight: DHArmorModuleIMB1HeavyLegRight
       Special: DHArmorSpecialAutoMed
+
+# Командирская броня (план осады п. 26, решение автора 2026-11-20): средний экзоскелет, ком-модуль уже стоит в спецсистеме.
+- type: entity
+  parent: DHClothingOuterExoIMB1Medium
+  id: DHClothingOuterModularIMB1StandardComms
+  suffix: StandardComms
+  components:
+  - type: DHModularArmor
+    faction: imb1
+    covers:
+      ArmLeft: DHArmorCoverIMB1ArmLeft
+      ArmRight: DHArmorCoverIMB1ArmRight
+      LegLeft: DHArmorCoverIMB1LegLeft
+      LegRight: DHArmorCoverIMB1LegRight
+    startingModules:
+      Torso: DHArmorModuleIMB1CompositeTorso
+      ArmLeft: DHArmorModuleIMB1LightArmLeft
+      ArmRight: DHArmorModuleIMB1LightArmRight
+      LegLeft: DHArmorModuleIMB1LightLegLeft
+      LegRight: DHArmorModuleIMB1LightLegRight
+      Special: DHArmorSpecialComms
+
+# Командирская броня (план осады п. 26, решение автора 2026-11-20): средний экзоскелет, ком-модуль уже стоит в спецсистеме.
+- type: entity
+  parent: DHClothingOuterExoIMB1Medium
+  id: DHClothingOuterModularIMB1CompositeComms
+  suffix: CompositeComms
+  components:
+  - type: DHModularArmor
+    faction: imb1
+    covers:
+      ArmLeft: DHArmorCoverIMB1ArmLeft
+      ArmRight: DHArmorCoverIMB1ArmRight
+      LegLeft: DHArmorCoverIMB1LegLeft
+      LegRight: DHArmorCoverIMB1LegRight
+    startingModules:
+      Torso: DHArmorModuleIMB1CompositeTorso
+      ArmLeft: DHArmorModuleIMB1CompositeArmLeft
+      ArmRight: DHArmorModuleIMB1CompositeArmRight
+      LegLeft: DHArmorModuleIMB1CompositeLegLeft
+      LegRight: DHArmorModuleIMB1CompositeLegRight
+      Special: DHArmorSpecialComms

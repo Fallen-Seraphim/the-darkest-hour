@@ -93,3 +93,6 @@ ent-DHClothingOuterModularRMB1StandardAutoMed = { ent-DHClothingOuterExoRMB1Medi
 
 ent-DHClothingOuterModularRMB1StandardStorage = { ent-DHClothingOuterExoRMB1Medium }
     .desc = { ent-DHClothingOuterExoRMB1Medium.desc }
+
+ent-DHClothingOuterModularRMB1CompositeComms = { ent-DHClothingOuterExoRMB1Medium }
+    .desc = { ent-DHClothingOuterExoRMB1Medium.desc }

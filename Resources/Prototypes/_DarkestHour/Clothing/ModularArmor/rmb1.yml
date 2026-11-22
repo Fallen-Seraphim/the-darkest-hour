@@ -894,3 +894,24 @@
       LegLeft: DHArmorModuleRMB1HeavyLegLeft
       LegRight: DHArmorModuleRMB1HeavyLegRight
       Special: DHArmorSpecialTankStorage
+
+# Командирская броня (план осады п. 26, решение автора 2026-11-20): средний экзоскелет, ком-модуль уже стоит в спецсистеме.
+- type: entity
+  parent: DHClothingOuterExoRMB1Medium
+  id: DHClothingOuterModularRMB1CompositeComms
+  suffix: CompositeComms
+  components:
+  - type: DHModularArmor
+    faction: rmb1
+    covers:
+      ArmLeft: DHArmorCoverRMB1ArmLeft
+      ArmRight: DHArmorCoverRMB1ArmRight
+      LegLeft: DHArmorCoverRMB1LegLeft
+      LegRight: DHArmorCoverRMB1LegRight
+    startingModules:
+      Torso: DHArmorModuleRMB1CompositeTorso
+      ArmLeft: DHArmorModuleRMB1CompositeArmLeft
+      ArmRight: DHArmorModuleRMB1CompositeArmRight
+      LegLeft: DHArmorModuleRMB1CompositeLegLeft
+      LegRight: DHArmorModuleRMB1CompositeLegRight
+      Special: DHArmorSpecialComms

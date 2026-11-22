@@ -48,6 +48,22 @@ public sealed partial class DHGearVendorSystem : SharedDHGearVendorSystem
         }
     }
 
+    /// <summary>Вернуть запас всех позиций к начальному (каргоавтоматы, план осады п. 27).</summary>
+    public void Restock(Entity<DHGearVendorComponent> ent)
+    {
+        for (var s = 0; s < ent.Comp.Sections.Count; s++)
+        {
+            var section = ent.Comp.Sections[s];
+            for (var e = 0; e < section.Entries.Count; e++)
+            {
+                if (section.Entries[e].Stock >= 0)
+                    ent.Comp.Stock[(s, e)] = Math.Max(ent.Comp.Stock.GetValueOrDefault((s, e)), section.Entries[e].Stock);
+            }
+        }
+
+        UpdateUi(ent);
+    }
+
     private void OnOpened(Entity<DHGearVendorComponent> ent, ref BoundUIOpenedEvent args)
     {
         UpdateUi(ent);

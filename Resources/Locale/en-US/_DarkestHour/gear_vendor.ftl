@@ -17,3 +17,6 @@ dh-gear-section-armor = Armour special system
 dh-gear-section-plates = Spare armour plate
 dh-gear-section-equipment = Field equipment
 dh-gear-section-medical = Medical supplies
+dh-gear-section-grenades = Grenades
+dh-gear-section-food = Tinned food
+dh-gear-section-misc = Odds and ends

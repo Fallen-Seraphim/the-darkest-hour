@@ -179,6 +179,9 @@ public sealed partial class DHSupplySystem : EntitySystem
         _popup.PopupEntity(Loc.GetString("dh-supply-restocked", ("category", Loc.GetString(restock.Category))), ent,
             args.Actor);
         UpdateConsoles(catalog.ID);
+
+        // Каргоавтоматы стороны пополняются вместе с разделом (план осады п. 27).
+        RaiseLocalEvent(new Content.Server._DarkestHour.Vendors.DHSupplyCategoryRestockedEvent(catalog.Faction, category));
     }
 
     #endregion

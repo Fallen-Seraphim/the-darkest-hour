@@ -266,11 +266,18 @@
     sections:
     - id: primary
       name: dh-gear-section-primary
-      jobs: [ DHMarineRifleman, DHMarineSquadLeader ]
+      jobs: [ DHMarineRifleman ]
       entries:
       - set: DHImperialSetRiflemanRifle
       - set: DHImperialSetRiflemanSmg
       - set: DHImperialSetRiflemanShotgun
+    - id: primary
+      name: dh-gear-section-primary
+      jobs: [ DHMarineSquadLeader ]
+      entries:
+      - set: DHImperialSetSquadLeaderRifle
+      - set: DHImperialSetSquadLeaderSmg
+      - set: DHImperialSetSquadLeaderShotgun
     - id: primary
       name: dh-gear-section-primary
       jobs: [ DHMarineMachinegunner ]

@@ -42,6 +42,9 @@ public enum DHArmorSpecialKind : byte
 
     /// <summary>Дополнительное хранилище (в т.ч. для баков огнемёта): открывается действием.</summary>
     Storage,
+
+    /// <summary>Ком-модуль связи: приказы своим вокруг (план осады п. 26, <c>DHOrdersModule</c>).</summary>
+    Comms,
 }
 
 [Serializable, NetSerializable]
