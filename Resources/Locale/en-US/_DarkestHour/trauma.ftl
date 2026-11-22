@@ -155,3 +155,15 @@ dh-surgery-step-insert-chest-drain = inserting the drain
 dh-surgery-tracheostomy = Tracheostomy
 dh-surgery-tracheostomy-desc = Airway blocked: open the trachea below the injury. Can be done on the floor — slower and with infection risk.
 dh-surgery-step-tracheostomy = tracheal incision
+
+# Burns, face and eyes
+dh-trauma-deep-burn-self = Your {$part} is charred — the skin peels off in strips!
+dh-trauma-disfigured-self = Your face is smashed — nobody will recognize you now.
+dh-trauma-desc-deep-burn = third-degree burn — needs a skin graft
+dh-trauma-desc-disfigured = face disfigured
+dh-surgery-burn-graft = Burn skin graft
+dh-surgery-burn-graft-desc = Third-degree burn: excise the dead skin and apply a skin graft.
+dh-surgery-step-excise-burn = burn excision
+dh-surgery-reconstruct-face = Face and eye reconstruction
+dh-surgery-reconstruct-face-desc = Restore a disfigured face and damaged eyes. Missing eyes need a transplant first.
+dh-surgery-step-reconstruct-face = restoring face and eye tissue

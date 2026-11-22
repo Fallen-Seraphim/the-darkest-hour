@@ -243,6 +243,8 @@ public sealed partial class DHTraumaSystem : EntitySystem
         TryNerveDamage(ent, category, part, slash, piercing, part.Fracture && !fracturedBefore);
         TrySpinalInjury(ent, category, brute, blunt, piercing, ent.Comp.ExplosionTick == _timing.CurTick);
         TryChestInjury(ent, category, piercing, blunt, part.Fracture && !fracturedBefore);
+        TryDeepBurn(ent, category, part, burn);
+        TryFaceInjury(ent, category, part, brute, burn);
         TryAirwayInjury(ent, category, part, brute, burn, blunt, slash);
 
         // Обезглавливание: тяжёлый рубящий или дробящий удар по разбитой голове (редко).
@@ -468,6 +470,8 @@ public sealed partial class DHTraumaSystem : EntitySystem
 
         // Вместе с органом или конечностью уходят и их повреждения; новый (пересаженный) орган — целый.
         ent.Comp.Organs.Remove(category);
+        if (category == "Eyes")
+            ent.Comp.EyesLost = true;
         ent.Comp.Parts.Remove(category);
     }
 
@@ -490,7 +494,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
             UpdateReviveState((uid, comp));
 
             if (comp.Parts.Count == 0 && comp.Organs.Count == 0 && !comp.BrainInjury && comp.Spinal == DHSpinalInjury.None &&
-                comp.FireRateModifier >= 1f && comp.Pneumothorax <= 0f && !comp.AirwayBlocked && comp.PainSpike <= 0f && comp.SpeedModifier >= 1f &&
+                comp.FireRateModifier >= 1f && comp.Pneumothorax <= 0f && !comp.AirwayBlocked && comp.EyeMinApplied < 0 && !comp.EyesLost && comp.PainSpike <= 0f && comp.SpeedModifier >= 1f &&
                 comp.ExtraPain <= 0f && comp.PhantomPain <= 0f)
             {
                 comp.Pain = 0f;
@@ -633,11 +637,15 @@ public sealed partial class DHTraumaSystem : EntitySystem
                     findings.Add(Loc.GetString("dh-trauma-desc-shrapnel", ("count", part.Shrapnel)));
                 if (part.Nerve)
                     findings.Add(Loc.GetString("dh-trauma-desc-nerve"));
+                if (part.DeepBurn)
+                    findings.Add(Loc.GetString("dh-trauma-desc-deep-burn"));
                 AddTourniquetFindings(part, findings);
             }
 
             if (category == "Head" && comp.BrainInjury)
                 findings.Add(Loc.GetString("dh-trauma-desc-brain-injury"));
+            if (category == "Head" && comp.Disfigured)
+                findings.Add(Loc.GetString("dh-trauma-desc-disfigured"));
             if (category == "Torso" && comp.Spinal != DHSpinalInjury.None)
                 findings.Add(SpinalFinding(comp));
             AddBreathingFindings(comp, category, findings);
@@ -716,6 +724,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
         TickBrain(ent, incapacitated);
         TickNerves(ent, incapacitated);
         TickBreathing(ent, now, incapacitated);
+        TickBurns(ent);
 
         // Переломы и нервы ног — замедление; рук — выпадают предметы; черепа — головокружение.
         var speed = 1f;
@@ -756,6 +765,8 @@ public sealed partial class DHTraumaSystem : EntitySystem
             // Нерв повреждён — боль из этой части не доходит (можно незаметно истечь кровью).
             if (part.Nerve)
                 continue;
+
+            pain += DeepBurnPainOf(part);
 
             var max = MaxOf(comp, category);
             pain += MathF.Min(part.Brute * 0.5f + part.Burn * 0.7f, max);
@@ -981,8 +992,12 @@ public sealed partial class DHTraumaSystem : EntitySystem
 
         if (category == "Head" && comp.BrainInjury)
             result.Add(Loc.GetString("dh-trauma-desc-brain-injury"));
+        if (category == "Head" && comp.Disfigured)
+            result.Add(Loc.GetString("dh-trauma-desc-disfigured"));
         if (part?.Nerve == true)
             result.Add(Loc.GetString("dh-trauma-desc-nerve"));
+        if (part?.DeepBurn == true)
+            result.Add(Loc.GetString("dh-trauma-desc-deep-burn"));
         if (category == "Torso" && comp.Spinal != DHSpinalInjury.None)
             result.Add(SpinalFinding(comp));
         AddBreathingFindings(comp, category, result);

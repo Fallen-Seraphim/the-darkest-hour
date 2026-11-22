@@ -99,6 +99,10 @@ public enum DHSurgeryEffect : byte
     DrainChest,
     /// <summary>Трахеостомия: восстановить дыхание при перекрытых дыхательных путях.</summary>
     Tracheostomy,
+    /// <summary>Пересадить кожу на иссечённый ожог III степени (кожный трансплантат в руке).</summary>
+    GraftBurn,
+    /// <summary>Реконструкция лица и глаз.</summary>
+    ReconstructFace,
 }
 
 /// <summary>
@@ -124,6 +128,10 @@ public enum DHInjuryKind : byte
     Pneumothorax,
     /// <summary>Перекрытые дыхательные пути.</summary>
     Airway,
+    /// <summary>Ожог III степени.</summary>
+    DeepBurn,
+    /// <summary>Обезображенное лицо или повреждённые глаза.</summary>
+    Face,
 }
 
 /// <summary>

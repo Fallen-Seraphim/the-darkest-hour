@@ -155,3 +155,15 @@ dh-surgery-step-insert-chest-drain = установка дренажа
 dh-surgery-tracheostomy = Трахеостомия
 dh-surgery-tracheostomy-desc = Дыхательные пути перекрыты: вскрыть трахею ниже повреждения. Делается и на полу — дольше и с риском инфекции.
 dh-surgery-step-tracheostomy = разрез трахеи
+
+# Ожоги, лицо и глаза (план осады п. 18)
+dh-trauma-deep-burn-self = {CAPITALIZE($part)} обуглена — кожа слезает лоскутами!
+dh-trauma-disfigured-self = Лицо разбито — вас теперь не узнать.
+dh-trauma-desc-deep-burn = ожог III степени — нужна пересадка кожи
+dh-trauma-desc-disfigured = лицо обезображено
+dh-surgery-burn-graft = Пересадка кожи на ожог
+dh-surgery-burn-graft-desc = Ожог III степени: иссечь омертвевшую кожу и пересадить кожный трансплантат.
+dh-surgery-step-excise-burn = иссечение ожога
+dh-surgery-reconstruct-face = Реконструкция лица и глаз
+dh-surgery-reconstruct-face-desc = Восстановить обезображенное лицо и повреждённые глаза. Без глаз — сначала пересадка глаз.
+dh-surgery-step-reconstruct-face = восстановление тканей лица и глаз
