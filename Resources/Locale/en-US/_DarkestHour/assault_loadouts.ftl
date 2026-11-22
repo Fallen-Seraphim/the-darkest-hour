@@ -10,3 +10,4 @@ dh-loadout-group-personal = Personal items
 dh-loadout-group-knife = Knife
 dh-loadout-group-republiccommand = Command
 dh-loadout-group-imperialcommand = Command
+dh-loadout-group-riftjump = Rift jump

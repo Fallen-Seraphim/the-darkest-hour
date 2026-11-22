@@ -1,0 +1,38 @@
+# Таблетки после разрывного прыжка (решение автора 2026-11-13). Хронитовая вспышка прыжка даёт всем на авианосце
+# около 17 урона «Radiation», и он копится в дозе (DHDoseSystem). Одна таблетка берлинской лазури (5 ед.,
+# 0.25 ед./с ≈ 20 с) выводит примерно 20 дозы и лечит столько же урона — ровно на один прыжок; передозировка с 30 ед.
+# Банка с двумя таблетками — обязательный лоадаут всех должностей Империи (build_assault_loadouts.py).
+
+- type: entity
+  parent: Pill
+  id: DHPillPrussianBlue
+  name: pill
+  description: A Prussian blue pill. Binds radioactive isotopes and flushes out the dose.
+  suffix: Prussian blue 5u
+  components:
+  - type: Pill
+    pillType: 3
+  - type: Sprite
+    state: pill4
+  - type: Label
+    localizedLabel: dh-pill-label-prussian-blue
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: DHPrussianBlue
+        Quantity: 5
+
+- type: entity
+  parent: PillCanister
+  id: DHPillCanisterRiftJump
+  name: pill canister
+  description: Two Prussian blue pills. The chronite flash of a rift jump irradiates everyone aboard — take one after every jump.
+  suffix: Prussian blue 5u, 2 — after rift jump
+  components:
+  - type: Label
+    localizedLabel: dh-pill-label-rift-jump
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: DHPillPrussianBlue
+        amount: 2
