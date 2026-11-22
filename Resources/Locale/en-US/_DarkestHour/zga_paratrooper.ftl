@@ -16,11 +16,11 @@ dh-zga-event-desc = A veteran of the Association Paratrooper Corps and the AI of
 dh-zga-role-paratrooper = Association paratrooper
 dh-zga-role-paratrooper-desc = Landing at the map edge, Association weapon of choice. Eliminate the target and reach the evacuation point while keeping the precautions.
 dh-zga-role-mars = M.A.R.S. 1.5 armour AI
-dh-zga-role-mars-desc = The paratrooper's "voice in the armour": sees through their eyes, talks to them on a private channel (:м). Marks targets, scans the area, watches the enemy tactical network, hacks doors, jams radio and drags out a downed wearer.
+dh-zga-role-mars-desc = The paratrooper's "voice in the armour": sees through their eyes, talks to them on a private channel (:г). Marks targets, scans the area, watches the enemy tactical network, hacks doors, jams radio and drags out a downed wearer.
 dh-zga-name-format = Paratrooper { $part0 }
 dh-zga-no-target = No target on the surface — the landing is called off.
-dh-zga-briefing-paratrooper = [color=#7ec8f0][bold]Mission.[/bold][/color] Target: { $target } ({ $job }). The tracker (an arrow among your status icons) leads to the target, then to the evacuation point. The weapon case is in your hand. Private channel with the AI — :м. The "Mission" button recalls the deadlines and precautions. AI abilities work only while you wear EMB-5 armour. A lethal implant sits in your torso: do not be taken alive.
-dh-zga-briefing-mars = [color=#7ec8f0][bold]M.A.R.S. 1.5 online.[/bold][/color] Host: Association paratrooper. Target: { $target } ({ $job }). You see through their eyes; private channel — :м. The "Mission" button recalls the deadlines and rules.
+dh-zga-briefing-paratrooper = [color=#7ec8f0][bold]Mission.[/bold][/color] Target: { $target } ({ $job }). The tracker (an arrow among your status icons) leads to the target, then to the evacuation point. The weapon case is in your hand. Private channel with the AI — :г. The "Mission" button recalls the deadlines and precautions. AI abilities work only while you wear EMB-5 armour. A lethal implant sits in your torso: do not be taken alive.
+dh-zga-briefing-mars = [color=#7ec8f0][bold]M.A.R.S. 1.5 online.[/bold][/color] Host: Association paratrooper. Target: { $target } ({ $job }). You see through their eyes; private channel — :г. The "Mission" button recalls the deadlines and rules.
 dh-zga-target-down = [color=#7ec8f0]Target eliminated.[/color] The tracker leads to the evacuation point — { $evac } min.
 dh-zga-extra-kill = [color=#d0a040]A needless casualty. You are breaking the precautions — stay out of the fight.[/color]
 dh-zga-violation-captured = taken alive

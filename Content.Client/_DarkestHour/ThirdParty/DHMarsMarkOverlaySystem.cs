@@ -43,6 +43,9 @@ public sealed partial class DHMarsMarkOverlay : Overlay
 
     private readonly SharedTransformSystem _transform;
 
+    // Массив, а не stackalloc: песочница клиента не пропускает непроверяемый IL.
+    private readonly Vector2[] _tri = new Vector2[3];
+
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
 
     public DHMarsMarkOverlay()
@@ -60,7 +63,6 @@ public sealed partial class DHMarsMarkOverlay : Overlay
         var now = _timing.CurTime;
         var handle = args.WorldHandle;
         var pulse = 0.75f + 0.25f * MathF.Sin((float) now.TotalSeconds * 6f);
-        Span<Vector2> tri = stackalloc Vector2[3];
 
         var query = _entities.EntityQueryEnumerator<DHMarsMarkComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var mark, out var xform))
@@ -70,12 +72,12 @@ public sealed partial class DHMarsMarkOverlay : Overlay
 
             var pos = _transform.GetWorldPosition(xform) + new Vector2(0f, 0.85f);
             var size = mark.Scan ? 0.18f : 0.26f;
-            tri[0] = pos + new Vector2(-size, size);
-            tri[1] = pos + new Vector2(size, size);
-            tri[2] = pos + new Vector2(0f, -size * 0.6f);
+            _tri[0] = pos + new Vector2(-size, size);
+            _tri[1] = pos + new Vector2(size, size);
+            _tri[2] = pos + new Vector2(0f, -size * 0.6f);
 
             var color = (mark.Scan ? ScanColor : MarkColor).WithAlpha(pulse);
-            handle.DrawPrimitives(DrawPrimitiveTopology.TriangleList, tri, color);
+            handle.DrawPrimitives(DrawPrimitiveTopology.TriangleList, _tri, color);
         }
     }
 }
