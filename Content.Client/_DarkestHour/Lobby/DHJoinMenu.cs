@@ -3,6 +3,7 @@ using System.Numerics;
 using Content.Client.GameTicking;
 using Content.Client.Lobby;
 using Content.Client.Lobby.UI;
+using Content.Client.Message;
 using Content.Client.Players.PlayTimeTracking;
 using Content.Shared.Preferences;
 using Content.Shared.Roles;
@@ -110,13 +111,10 @@ public sealed partial class DHJoinMenu : DefaultWindow
         };
         left.AddChild(_categories);
         left.AddChild(new Control { VerticalExpand = true });
-        left.AddChild(new Label
-        {
-            Text = Loc.GetString("dh-join-others-note"),
-            FontColorOverride = Dim,
-            Autowrap = true,
-            MaxWidth = 330,
-        });
+        // Label не переносит строки — длинная подсказка в RichTextLabel.
+        var note = new RichTextLabel { MaxWidth = 330 };
+        note.SetMessage(Loc.GetString("dh-join-others-note"), defaultColor: Dim);
+        left.AddChild(note);
 
         var right = new BoxContainer
         {
@@ -441,7 +439,7 @@ public sealed partial class DHJoinMenu : DefaultWindow
             VerticalAlignment = VAlignment.Center,
         };
 
-        if (!allowed && !reason.IsEmpty)
+        if (!allowed && reason is { IsEmpty: false })
         {
             var tooltip = new Tooltip();
             tooltip.SetMessage(reason);
