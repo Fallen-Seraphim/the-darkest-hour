@@ -801,8 +801,28 @@ def emb5_frame(view):
     return img
 
 
+EMB5_EYE = [hexc(c) for c in ('#1f9e6a', '#4dffb0', '#c8ffe8')]
+
+
+def emb5_lens(cv, x, y):
+    """Линза 2×2: блик сверху слева, тень снизу справа."""
+    cv.put(x, y, EMB5_EYE[2])
+    cv.put(x + 1, y, EMB5_EYE[1])
+    cv.put(x, y + 1, EMB5_EYE[1])
+    cv.put(x + 1, y + 1, EMB5_EYE[0])
+
+
+def emb5_cluster(cv, x0, mirrored=False):
+    """Блок из трёх светящихся линз треугольником (указание автора 2026-11-20): две у края, одна ближе к центру."""
+    cv.rect(x0, 3, x0 + 4, 9, METAL[0])
+    outer, inner = (x0 + 3, x0 + 1) if mirrored else (x0, x0 + 2)
+    emb5_lens(cv, outer, 4)
+    emb5_lens(cv, inner, 5)
+    emb5_lens(cv, outer, 7)
+
+
 def emb5_helmet(view):
-    """Закрытый гладкий шлем в духе Max Tac: белый купол, узкий тёмный визор с голубой полосой, голубые грани."""
+    """Закрытый гладкий шлем в духе Max Tac: белый купол, вместо визора — два блока по три зелёные линзы."""
     cv = Canvas()
     pal = EMB5['plate']
     if view in ('south', 'north'):
@@ -812,21 +832,13 @@ def emb5_helmet(view):
             cv.rect(13, 8, 17, 8, EMB5_BLUE)
             cv.rect(15, 2, 15, 7, EMB5_BLUE)
             return cv.image()
-        cv.rect(11, 5, 19, 6, METAL[0])              # визор
-        cv.rect(12, 5, 18, 5, EMB5['lens'])
-        cv.put(12, 6, EMB5_GLOW)
-        cv.put(18, 6, EMB5_GLOW)
-        cv.rect(14, 8, 16, 9, METAL[1])              # фильтр под визором
-        cv.put(15, 9, EMB5_BLUE)
-        cv.put(10, 4, EMB5_BLUE)
-        cv.put(20, 4, EMB5_BLUE)
+        emb5_cluster(cv, 10)                         # левый блок линз
+        emb5_cluster(cv, 16, mirrored=True)          # правый — зеркально
+        cv.put(15, 9, EMB5_BLUE)                     # фильтр под переносицей
     else:
         dome = [(1, 12, 18), (2, 11, 19)] + rows(3, 8, 10, 21) + [(9, 11, 20), (10, 12, 19)]
         plate(cv, dome, pal, light='right')
-        cv.rect(17, 5, 21, 6, METAL[0])
-        cv.rect(18, 5, 21, 5, EMB5['lens'])
-        cv.put(17, 6, EMB5_GLOW)
-        cv.rect(19, 8, 20, 9, METAL[1])
+        emb5_cluster(cv, 17, mirrored=True)          # ближний блок линз, наружные линзы — к лицу
         cv.rect(12, 4, 12, 8, EMB5_BLUE)
     return cv.image()
 
@@ -863,7 +875,7 @@ def main_emb5():
     hp, gp = helm.load(), glow.load()
     for y in range(64):
         for x in range(64):
-            if hp[x, y] in (EMB5['lens'], EMB5_GLOW):
+            if hp[x, y] in (EMB5['lens'], EMB5_GLOW, *EMB5_EYE):
                 gp[x, y] = hp[x, y]
     write_rsi(os.path.join(OUT_HEAD, 'emb5_helmet.rsi'),
               {'icon': (icon_from(helm, only=2), 1), 'icon-unshaded': (EMPTY, 1),
