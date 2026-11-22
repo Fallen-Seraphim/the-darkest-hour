@@ -35,7 +35,7 @@ namespace Content.Server._DarkestHour.Medical.Implants;
 /// <item>«Эхо» — контузия от взрывов слабее (<see cref="HearingFactor"/>), дальние звуки громче.</item>
 /// </list>
 /// </summary>
-public sealed class DHImplantSystem : EntitySystem
+public sealed partial class DHImplantSystem : EntitySystem
 {
     [Dependency] private BloodstreamSystem _bloodstream = default!;
     [Dependency] private SharedContainerSystem _container = default!;
