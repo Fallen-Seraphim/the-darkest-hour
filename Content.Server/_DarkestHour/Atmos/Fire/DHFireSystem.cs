@@ -124,7 +124,7 @@ public sealed partial class DHFireSystem : EntitySystem
                 return existing.Value;
 
             // Более сильный реагент со своим огнём (магний) — меняем сам огонь, время горения сохраняем.
-            if (MetaData(existing.Value).EntityPrototype?.ID != fireProto)
+            if (MetaData(existing.Value).EntityPrototype?.ID != fireProto.Id)
             {
                 end = comp.EndTime;
                 Del(existing.Value);

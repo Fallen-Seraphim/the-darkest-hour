@@ -6,6 +6,7 @@ using Content.Shared.Popups;
 using Content.Shared.Stunnable;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Systems;
+using Robust.Shared.Random;
 
 namespace Content.Server._DarkestHour.Medical.Trauma;
 

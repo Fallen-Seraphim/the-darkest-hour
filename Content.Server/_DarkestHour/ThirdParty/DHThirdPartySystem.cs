@@ -4,6 +4,7 @@ using Content.Server.GameTicking;
 using Content.Shared._DarkestHour.ThirdParty;
 using Content.Shared.GameTicking;
 using Content.Shared.Ghost;
+using Content.Shared.Ghost.Components;
 using Robust.Server.Player;
 using Robust.Shared.Enums;
 using Robust.Shared.Network;
