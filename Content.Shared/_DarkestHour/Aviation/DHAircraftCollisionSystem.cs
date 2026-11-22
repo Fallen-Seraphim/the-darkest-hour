@@ -13,6 +13,13 @@ public sealed partial class DHAircraftCollisionSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<DHAircraftComponent, PreventCollideEvent>(OnPreventCollide);
+        SubscribeLocalEvent<DHAircraftPilotComponent, PreventCollideEvent>(OnPilotPreventCollide);
+    }
+
+    /// <summary>Пилот внутри закрытой кабины (план осады п. 16): ни пули, ни люди его не задевают.</summary>
+    private void OnPilotPreventCollide(Entity<DHAircraftPilotComponent> ent, ref PreventCollideEvent args)
+    {
+        args.Cancelled = true;
     }
 
     private void OnPreventCollide(Entity<DHAircraftComponent> ent, ref PreventCollideEvent args)

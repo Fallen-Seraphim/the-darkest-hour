@@ -1,7 +1,7 @@
 {
     "version": 1,
     "license": "CC-BY-SA-3.0",
-    "copyright": "Drawn for The Darkest Hour (2026-11-12): Imperial attack aircraft after F9F-5 Panther and Su-25.",
+    "copyright": "Drawn for The Darkest Hour (2026-11-12, canopy states 2026-11-20): Imperial attack aircraft after F9F-5 Panther and Su-25. Hardpoint stores (hp*) are downscaled dropship_ammo_64 and dropship_attachments sprites taken from cmss13 via RMC-14 (CC-BY-SA-3.0).",
     "size": {
         "x": 160,
         "y": 160
@@ -15,6 +15,108 @@
         },
         {
             "name": "canopy"
+        },
+        {
+            "name": "canopy_open"
+        },
+        {
+            "name": "canopy_closed"
+        },
+        {
+            "name": "hp0_bomb_he"
+        },
+        {
+            "name": "hp0_bomb_cluster"
+        },
+        {
+            "name": "hp0_bomb_napalm"
+        },
+        {
+            "name": "hp0_bomb_magnesium"
+        },
+        {
+            "name": "hp0_bomb_guided"
+        },
+        {
+            "name": "hp0_missile_at"
+        },
+        {
+            "name": "hp0_missile_he"
+        },
+        {
+            "name": "hp0_cannon_pod"
+        },
+        {
+            "name": "hp1_bomb_he"
+        },
+        {
+            "name": "hp1_bomb_cluster"
+        },
+        {
+            "name": "hp1_bomb_napalm"
+        },
+        {
+            "name": "hp1_bomb_magnesium"
+        },
+        {
+            "name": "hp1_bomb_guided"
+        },
+        {
+            "name": "hp1_missile_at"
+        },
+        {
+            "name": "hp1_missile_he"
+        },
+        {
+            "name": "hp1_cannon_pod"
+        },
+        {
+            "name": "hp2_bomb_he"
+        },
+        {
+            "name": "hp2_bomb_cluster"
+        },
+        {
+            "name": "hp2_bomb_napalm"
+        },
+        {
+            "name": "hp2_bomb_magnesium"
+        },
+        {
+            "name": "hp2_bomb_guided"
+        },
+        {
+            "name": "hp2_missile_at"
+        },
+        {
+            "name": "hp2_missile_he"
+        },
+        {
+            "name": "hp2_cannon_pod"
+        },
+        {
+            "name": "hp3_bomb_he"
+        },
+        {
+            "name": "hp3_bomb_cluster"
+        },
+        {
+            "name": "hp3_bomb_napalm"
+        },
+        {
+            "name": "hp3_bomb_magnesium"
+        },
+        {
+            "name": "hp3_bomb_guided"
+        },
+        {
+            "name": "hp3_missile_at"
+        },
+        {
+            "name": "hp3_missile_he"
+        },
+        {
+            "name": "hp3_cannon_pod"
         }
     ]
 }
