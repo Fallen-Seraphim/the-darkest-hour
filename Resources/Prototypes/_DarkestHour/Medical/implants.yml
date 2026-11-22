@@ -15,7 +15,7 @@
 
 - type: entity
   parent: DHImplantBase
-  id: DHImplantBase
+  id: DHImplantBasic
   name: 'basic implant'
   description: "A service bio-capsule: a base for other implants. Barely noticeable to the body."
   components:

@@ -53,3 +53,6 @@ public sealed class DHThirdPartyInterestEvent : EntityEventArgs
 
 /// <summary>Способность «Задание»: напомнить цель, сроки и правила кодекса.</summary>
 public sealed partial class DHZGAStatusActionEvent : InstantActionEvent;
+
+/// <summary>Летальная инъекция десантника (имплант на основе базового): не попасть в плен живым.</summary>
+public sealed partial class DHZGALethalActionEvent : InstantActionEvent;

@@ -1,6 +1,8 @@
 using System.Linq;
 using System.Numerics;
 using Content.Server._DarkestHour.Assault;
+using Content.Server._DarkestHour.Medical.Implants;
+using Content.Server._DarkestHour.Supply;
 using Content.Server._DarkestHour.Shuttles.Rift;
 using Content.Server.Chat.Managers;
 using Content.Server.Chat.Systems;
@@ -9,7 +11,11 @@ using Content.Server.Humanoid.Systems;
 using Content.Server.Mind;
 using Content.Shared._DarkestHour.ThirdParty;
 using Content.Shared.Actions;
+using Content.Shared._DarkestHour.Assault;
+using Content.Shared._DarkestHour.Medical.Implants;
 using Content.Shared.Cuffs.Components;
+using Content.Shared.Damage;
+using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
 using Content.Shared.GameTicking;
 using Content.Shared.Hands.EntitySystems;
@@ -39,6 +45,8 @@ public enum DHZGAMissionState : byte
     Disavowed,
     /// <summary>Погиб.</summary>
     Dead,
+    /// <summary>Взят в плен живым — сторона получила сведения и очки, ЗГА отреклась.</summary>
+    Captured,
 }
 
 /// <summary>Ассоциативный десантник: цель, эвакуация, соблюдение кодекса Куратора (план осады п. 28).</summary>
@@ -104,6 +112,11 @@ public sealed partial class DHZGAEvacPointComponent : Component;
 public sealed class DHZGAParatrooperSystem : EntitySystem
 {
     [Dependency] private SharedActionsSystem _actions = default!;
+    [Dependency] private DHAssaultRuleSystem _assault = default!;
+    [Dependency] private DHCommandPointsSystem _commandPoints = default!;
+    [Dependency] private DamageableSystem _damageable = default!;
+    [Dependency] private DHImplantSystem _implants = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private ChatSystem _chat = default!;
     [Dependency] private IChatManager _chatManager = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
@@ -140,6 +153,14 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
     private static readonly EntProtoId EvacProto = "DHZGAEvacPoint";
     private static readonly EntProtoId PinpointerProto = "DHZGAPinpointer";
     private static readonly EntProtoId StatusActionProto = "DHActionZGAStatus";
+    private static readonly EntProtoId LethalImplantProto = "DHImplantZGALethal";
+    private static readonly ProtoId<DamageTypePrototype> PoisonType = "Poison";
+
+    /// <summary>Очки командования стороне, взявшей десантника живым (решение по умолчанию: 60 — полстартового бюджета).</summary>
+    public const float CapturePoints = 60f;
+
+    /// <summary>Кто рядом с пленным, тот и взял его (клетки).</summary>
+    private const float CaptureRadius = 4f;
 
     /// <summary>Цели — командование сторон; нет никого на поверхности — командиры отрядов.</summary>
     private static readonly ProtoId<JobPrototype>[] CommandJobs =
@@ -160,6 +181,13 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
     /// <summary>Итог для сводки раунда.</summary>
     public DHZGAMissionState? Outcome { get; private set; }
 
+    // Для сводки раунда (тело к концу раунда может уже исчезнуть).
+    private string? _summaryName;
+    private string _summaryTarget = string.Empty;
+    private string _summaryJob = string.Empty;
+    private int _summaryKills;
+    private DHAssaultFaction? _capturedBy;
+
     private TimeSpan _nextUpdate;
 
     public override void Initialize()
@@ -171,6 +199,8 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
         SubscribeLocalEvent<DHZGAParatrooperComponent, DamageDealtEvent>(OnParatrooperDamaged);
         SubscribeLocalEvent<DHZGAParatrooperComponent, DHZGAStatusActionEvent>(OnParatrooperStatus);
         SubscribeLocalEvent<DHMarsComponent, DHZGAStatusActionEvent>(OnMarsStatus);
+        SubscribeLocalEvent<DHImplantComponent, DHZGALethalActionEvent>(OnLethal);
+        SubscribeLocalEvent<RoundEndTextAppendEvent>(OnRoundEndText);
     }
 
     private void OnRoundRestart(RoundRestartCleanupEvent ev)
@@ -179,6 +209,9 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
         _scheduled = null;
         _happened = false;
         Outcome = null;
+        _summaryName = null;
+        _summaryKills = 0;
+        _capturedBy = null;
     }
 
     #region Расписание и набор
@@ -294,6 +327,15 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
         _actions.AddAction(mars, ref marsComp.StatusAction, StatusActionProto);
         _mars.Setup((mars, marsComp), paratrooper, target);
 
+        // Летальная инъекция — имплант в торсе (на основе базового).
+        _implants.Install(paratrooper, Spawn(LethalImplantProto, Transform(paratrooper).Coordinates));
+
+        _summaryName = Name(paratrooper);
+        _summaryTarget = comp.TargetName;
+        _summaryJob = comp.TargetJob;
+        _summaryKills = 0;
+        _capturedBy = null;
+
         if (_mind.TryGetMind(paratrooperSession, out var paratrooperMind, out _))
             _mind.TransferTo(paratrooperMind, paratrooper, ghostCheckOverride: true);
         if (_mind.TryGetMind(marsSession, out var marsMind, out _))
@@ -401,7 +443,7 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
                 comp.CuffedSince ??= now;
                 if (now - comp.CuffedSince >= CaptureTime)
                 {
-                    Disavow((uid, comp), "dh-zga-violation-captured");
+                    Capture((uid, comp));
                     continue;
                 }
             }
@@ -478,6 +520,7 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
             }
 
             comp.ExtraKills++;
+            _summaryKills = comp.ExtraKills;
             if (comp.ExtraKills >= MaxExtraKills)
             {
                 Disavow((uid, comp), "dh-zga-violation-kills");
@@ -485,6 +528,83 @@ public sealed class DHZGAParatrooperSystem : EntitySystem
             }
 
             Notify((uid, comp), Loc.GetString("dh-zga-extra-kill", ("count", comp.ExtraKills), ("max", MaxExtraKills)));
+        }
+    }
+
+    /// <summary>
+    /// Пленён живым (2 минуты в наручниках): ЗГА отрекается, а сторона тех, кто рядом, получает сведения о задании и
+    /// очки командования.
+    /// </summary>
+    private void Capture(Entity<DHZGAParatrooperComponent> ent)
+    {
+        Disavow(ent, "dh-zga-violation-captured");
+        ent.Comp.State = DHZGAMissionState.Captured;
+        Outcome = DHZGAMissionState.Captured;
+
+        if (CaptorFaction(ent) is not { } faction)
+            return;
+
+        _capturedBy = faction;
+        _commandPoints.Add(faction, CapturePoints);
+        _assault.AnnounceToFaction(faction, Loc.GetString("dh-zga-intel-sender"),
+            Loc.GetString("dh-zga-intel", ("name", Name(ent)), ("target", ent.Comp.TargetName),
+                ("job", ent.Comp.TargetJob), ("points", (int) CapturePoints)),
+            color: ZgaColor, onScreen: true);
+    }
+
+    /// <summary>Сторона ближайшего живого бойца рядом с пленным.</summary>
+    private DHAssaultFaction? CaptorFaction(EntityUid captive)
+    {
+        var center = _transform.GetMapCoordinates(captive);
+        DHAssaultFaction? best = null;
+        var bestDistance = float.MaxValue;
+        foreach (var fighter in _lookup.GetEntitiesInRange<DHAssaultFighterComponent>(center, CaptureRadius))
+        {
+            if (fighter.Owner == captive || !_mobState.IsAlive(fighter))
+                continue;
+
+            var distance = (_transform.GetMapCoordinates(fighter).Position - center.Position).Length();
+            if (distance >= bestDistance)
+                continue;
+
+            best = fighter.Comp.Faction;
+            bestDistance = distance;
+        }
+
+        return best;
+    }
+
+    /// <summary>Летальная инъекция: десантник умирает сразу — живым его не взять.</summary>
+    private void OnLethal(Entity<DHImplantComponent> ent, ref DHZGALethalActionEvent args)
+    {
+        if (args.Handled || ent.Comp.Host is not { } host || _mobState.IsDead(host))
+            return;
+
+        args.Handled = true;
+        _popup.PopupEntity(Loc.GetString("dh-zga-lethal-others", ("name", Name(host))), host,
+            Robust.Shared.Player.Filter.PvsExcept(host), true, PopupType.MediumCaution);
+        _popup.PopupEntity(Loc.GetString("dh-zga-lethal-self"), host, host, PopupType.LargeCaution);
+        _damageable.TryChangeDamage(host, new DamageSpecifier { DamageDict = { [PoisonType] = 500 } },
+            ignoreResistances: true, origin: host);
+    }
+
+    private void OnRoundEndText(ref RoundEndTextAppendEvent args)
+    {
+        if (_summaryName == null)
+            return;
+
+        var outcome = Outcome ?? DHZGAMissionState.Hunting;
+        args.AddLine(string.Empty);
+        args.AddLine(Loc.GetString("dh-zga-summary-title"));
+        args.AddLine(Loc.GetString("dh-zga-summary-line", ("name", _summaryName), ("target", _summaryTarget),
+            ("job", _summaryJob)));
+        args.AddLine(Loc.GetString("dh-zga-summary-outcome",
+            ("outcome", Loc.GetString($"dh-zga-outcome-{outcome.ToString().ToLowerInvariant()}")),
+            ("kills", _summaryKills)));
+        if (_capturedBy is { } faction)
+        {
+            args.AddLine(Loc.GetString("dh-zga-summary-captured",
+                ("faction", Loc.GetString($"dh-zga-faction-{faction.ToString().ToLowerInvariant()}"))));
         }
     }
 
