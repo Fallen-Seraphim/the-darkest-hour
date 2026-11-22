@@ -1,5 +1,5 @@
 # Событие «Ассоциативный десантник» (план осады п. 28): десантник ЗГА и ИИ его брони M.A.R.S. 1.5.
-# Набор — DHThirdPartySystem, высадка и кодекс — DHZGAParatrooperSystem. Броня ЭМБ-5 — отдельно (п. 28, часть 2);
+# Набор — DHThirdPartySystem, высадка и меры предосторожности — DHZGAParatrooperSystem. Броня ЭМБ-5 — отдельно (п. 28, часть 2);
 # пока — штурмовой скафандр Metall Armed.
 
 - type: radioChannel
@@ -53,7 +53,7 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTSecurity
     outerClothing: DHClothingOuterModularEMB5
-    back: DHParachute
+    back: ClothingBackpackERTSecurity
     shoes: ClothingShoesBootsCombatFilled
     gloves: ClothingHandsGlovesCombat
     eyes: ClothingEyesHudMedSec
@@ -168,19 +168,10 @@
   - type: DHZGAEvacPoint
 
 - type: entity
-  parent: PinpointerBase
-  id: DHZGAPinpointer
-  name: Association tracker
-  description: "Points to the target, then to the evacuation point."
-  components:
-  - type: Pinpointer
-    updateTargetName: false
-
-- type: entity
   parent: BaseAction
   id: DHActionZGAStatus
   name: Mission
-  description: "Recall the target, the time left and the Curator's code."
+  description: "Recall the target, the time left and the precautions."
   components:
   - type: Action
     itemIconStyle: NoItem
@@ -378,7 +369,7 @@
   parent: DHImplantBasic
   id: DHImplantZGALethal
   name: Association lethal implant
-  description: "A basic bio-capsule with a lethal dose. The Curator's code: never be taken alive."
+  description: "A basic bio-capsule with a lethal dose. Precautions: never be taken alive."
   components:
   - type: DHImplant
     kind: Base
@@ -404,3 +395,33 @@
       map: [ "enum.ActionVisuals.Icon" ]
   - type: InstantAction
     event: !type:DHZGALethalActionEvent
+
+# Трекер десантника на цель (как трекер командира отряда): 0 — нет цели на этой карте, 1 — рядом, 2–9 — направление.
+- type: alert
+  id: DHZGATargetTracker
+  category: DHSquadTracker
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackoff
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-direct_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-south_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-southeast_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-east_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-northeast_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-north_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-northwest_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-west_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-southwest_dsl
+  name: dh-alert-zga-tracker-name
+  description: dh-alert-zga-tracker-desc
+  minSeverity: 0
+  maxSeverity: 9
