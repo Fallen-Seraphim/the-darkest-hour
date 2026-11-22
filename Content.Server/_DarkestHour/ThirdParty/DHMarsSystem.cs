@@ -36,7 +36,7 @@ namespace Content.Server._DarkestHour.ThirdParty;
 /// автоаптечку и, пока десантник без сознания, ненадолго уводит экзоскелет. Снята броня — ИИ отключён: ни способностей,
 /// ни голоса.
 /// </summary>
-public sealed class DHMarsSystem : EntitySystem
+public sealed partial class DHMarsSystem : EntitySystem
 {
     [Dependency] private Content.Shared.Actions.SharedActionsSystem _actions = default!;
     [Dependency] private DHModularArmorDamageSystem _armorDamage = default!;

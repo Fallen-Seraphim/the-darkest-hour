@@ -12,7 +12,7 @@ namespace Content.Client._DarkestHour.ThirdParty;
 /// Метки M.A.R.S. (план осады п. 28): красный треугольник над целью и жёлтые над найденными сканом. Видят только
 /// десантник и его ИИ.
 /// </summary>
-public sealed class DHMarsMarkOverlaySystem : EntitySystem
+public sealed partial class DHMarsMarkOverlaySystem : EntitySystem
 {
     [Dependency] private IOverlayManager _overlays = default!;
 
@@ -32,7 +32,7 @@ public sealed class DHMarsMarkOverlaySystem : EntitySystem
     }
 }
 
-public sealed class DHMarsMarkOverlay : Overlay
+public sealed partial class DHMarsMarkOverlay : Overlay
 {
     [Dependency] private IEntityManager _entities = default!;
     [Dependency] private IPlayerManager _player = default!;
