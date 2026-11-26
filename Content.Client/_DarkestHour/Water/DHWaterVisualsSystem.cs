@@ -210,7 +210,7 @@ public sealed partial class DHWaterVisualsSystem : EntitySystem
         var depth = ent.Comp.TargetDepth;
         var state = ent.Comp.Immersed ? "bubbles" :
             depth <= 2 ? "coast_shallow" : depth <= 4 ? "coast_deep" : depth <= 8 ? "shallow" : depth <= 12 ? "intermediate" : "deep";
-        if (!ent.Comp.Immersed && size == 32 && _standing.IsDown(ent))
+        if (!ent.Comp.Immersed && size == 32 && _standing.IsDown(ent.Owner))
             state = $"human_resting_{(depth <= 4 ? "coast" : "deep")}_{(sprite.Rotation.Theta > 0 ? "w" : "e")}";
         var rsi = _resources.GetResource<RSIResource>(new ResPath($"/Textures/_RMC14/Effects/Water/splash{size}.rsi")).RSI;
         if (_timing.CurTime < ent.Comp.MovingUntil && rsi.TryGetState(state + "_moving", out _))
