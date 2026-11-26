@@ -134,6 +134,7 @@ dh-aircraft-fire-intercepted = Боеприпас перехвачен ПВО!
 
 # подвесные пушки и спецотсеки
 dh-aircraft-munition-cannonpod = [30 мм]
+dh-aircraft-munition-droptank = [ПТБ]
 dh-aircraft-cannon-no-pod = На узлах нет пушечного контейнера 30 мм.
 dh-aircraft-munition-unloaded = Снято с узла { $slot }.
 dh-aircraft-verb-unload = Снять с узла { $slot }: { $munition }
@@ -180,6 +181,7 @@ dh-aircraft-weapons-clear-target = Сбросить цель
 dh-aircraft-weapons-fire-button = ОГОНЬ
 dh-aircraft-weapons-pylon = { $slot } · { $munition }
 dh-aircraft-weapons-pylon-pod = { $slot } · пушечный контейнер 30 мм — { $rounds } сн.
+dh-aircraft-weapons-pylon-tank = { $slot } · ПТБ — { $fuel } ед. топлива
 dh-aircraft-weapons-hint-select = Выберите подвески для огня.
 dh-aircraft-munition-name-none = пусто
 dh-aircraft-munition-name-bombhe = фугасная бомба
@@ -190,6 +192,7 @@ dh-aircraft-munition-name-guidedbomb = управляемая бомба
 dh-aircraft-munition-name-missileat = ПТУР
 dh-aircraft-munition-name-missilehe = ракета ОФ
 dh-aircraft-munition-name-cannonpod = пушечный контейнер 30 мм
+dh-aircraft-munition-name-droptank = подвесной топливный бак
 dh-aircraft-computer-nothing = Ничего не выбрано.
 dh-aircraft-computer-bombs = Бомбы: { $count }. Падение { $fall } с, упреждение { $lead } кл., рассеивание ±{ $scatter }, шаг серии { $step }.
 dh-aircraft-computer-bombs-plan = Не на бреющем: показано, куда лягут при сбросе в начале линии захода; бледная полоса — вдоль всего захода.
@@ -203,6 +206,7 @@ dh-aircraft-computer-guided = Управляемые: { $count }. До цели 
     }.
 dh-aircraft-computer-guided-no-target = Управляемые: { $count }. Выберите цель правым кликом по карте.
 dh-aircraft-drop-salvo = Бомбы пошли: { $count }!
+dh-aircraft-drop-tank-jettisoned = ПТБ сброшены: { $count }.
 dh-aircraft-fire-salvo = Пуск: { $count }!
 
 dh-aircraft-lift-console-no-lift = Лифт штурмовика не найден.

@@ -243,7 +243,16 @@ public sealed partial class DHAircraftComponent : Component
         { DHAircraftMunition.MissileAT, "DHAircraftMissileAT" },
         { DHAircraftMunition.MissileHE, "DHAircraftMissileHE" },
         { DHAircraftMunition.CannonPod, "DHAircraftCannonPod" },
+        { DHAircraftMunition.DropTank, "DHAircraftDropTank" },
     };
+
+    /// <summary>Сколько топлива в полном ПТБ.</summary>
+    [DataField]
+    public int DropTankCapacity = 150;
+
+    /// <summary>Дробная часть топлива, сожжённого из ПТБ (в узлах хранится целым).</summary>
+    [ViewVariables]
+    public float DropTankBurnDebt;
 
     // ---------------------------------------------------------------- спецотсеки (РЛС, ЛТЦ)
 
@@ -426,6 +435,12 @@ public enum DHAircraftMunition : byte
 
     /// <summary>Пушечный контейнер 30 мм: свои снаряды, бьёт по курсу на бреющем; контейнеров может быть несколько.</summary>
     CannonPod,
+
+    /// <summary>
+    /// Подвесной топливный бак (решение автора 2026-11-26): своё топливо (в <see cref="DHAircraftComponent.HardpointAmmo"/>),
+    /// двигатель сначала берёт из ПТБ; «Огонь» по узлу — сбросить бак.
+    /// </summary>
+    DropTank,
 }
 
 /// <summary>Спецсистема в отсеке фюзеляжа.</summary>

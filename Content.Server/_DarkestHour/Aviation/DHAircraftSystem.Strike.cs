@@ -229,12 +229,27 @@ public sealed partial class DHAircraftSystem
 
         var dropped = 0;
         var launched = 0;
+        var jettisoned = 0;
         var pods = false;
         var problems = new HashSet<string>();
 
         foreach (var slot in slots)
         {
             var kind = comp.Hardpoints[slot];
+            // ПТБ: «Огонь» — сбросить бак (решение автора 2026-11-26), на палубе не сбрасывается.
+            if (kind == DHAircraftMunition.DropTank)
+            {
+                if (comp.State == DHAircraftState.Parked)
+                    continue;
+
+                comp.Hardpoints[slot] = DHAircraftMunition.None;
+                comp.SelectedHardpoints.Remove(slot);
+                SetPodAmmo(comp, slot, 0);
+                Dirty(ent);
+                jettisoned++;
+                continue;
+            }
+
             if (IsFreeFall(kind))
             {
                 if (comp.State != DHAircraftState.Pass)
@@ -262,6 +277,8 @@ public sealed partial class DHAircraftSystem
         if (pods && !comp.CannonOn)
             SetCannon(ent, true);
 
+        if (jettisoned > 0)
+            Notify(ent, Loc.GetString("dh-aircraft-drop-tank-jettisoned", ("count", jettisoned)));
         if (dropped > 0)
             Notify(ent, Loc.GetString("dh-aircraft-drop-salvo", ("count", dropped)));
         if (launched > 0)
@@ -272,7 +289,7 @@ public sealed partial class DHAircraftSystem
 
         foreach (var problem in problems)
         {
-            Notify(ent, problem, dropped + launched == 0 && !pods);
+            Notify(ent, problem, dropped + launched + jettisoned == 0 && !pods);
         }
 
         UpdateUi(ent);

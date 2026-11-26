@@ -345,6 +345,8 @@ put('Rack', lcx - 4, ry0 + 1)
 put('DHAircraftCannonAmmo', lcx - 4, ry0 + 1, n=2, force=True)
 put('DHAircraftCannonPod', lcx - 5, ry0 + 1)    # пушечные контейнеры 30 мм — вешаются на узлы подвески
 put('DHAircraftCannonPod', lcx - 5, ry0 + 2)
+put('DHAircraftDropTank', lcx - 6, ry0 + 1)    # ПТБ (решение автора 2026-11-26)
+put('DHAircraftDropTank', lcx - 6, ry0 + 2)
 assert put('DHPowerLoader', lcx - 6, ry0 + 3), 'погрузчик у лифта штурмовика'
 for i, munition in enumerate(('DHAircraftBombHE', 'DHAircraftBombHE', 'DHAircraftBombCluster', 'DHAircraftBombNapalm',
                                'DHAircraftBombMagnesium', 'DHAircraftGuidedBomb', 'DHAircraftMissileAT', 'DHAircraftMissileAT',

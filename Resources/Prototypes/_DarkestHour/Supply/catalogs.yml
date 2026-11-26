@@ -60,6 +60,7 @@
   - { id: aircraft-missiles-he, proto: DHSupplyCrateAircraftMissilesHE, category: dh-supply-category-aviation, initial: 1, refill: 1, max: 3 }
   - { id: aircraft-cannon-ammo, proto: DHSupplyCrateAircraftCannonAmmo, category: dh-supply-category-aviation, initial: 2, refill: 1, max: 4 }
   - { id: aircraft-cannon-pod, proto: DHSupplyCrateAircraftCannonPod, category: dh-supply-category-aviation, initial: 1, refill: 0, max: 1 }
+  - { id: aircraft-drop-tanks, proto: DHSupplyCrateAircraftDropTanks, category: dh-supply-category-aviation, initial: 1, refill: 1, max: 2 } # ПТБ (2026-11-26)
   - { id: aircraft-flares, proto: DHSupplyCrateAircraftFlares, category: dh-supply-category-aviation, initial: 2, refill: 1, max: 4 }
 
 - type: dhSupplyCatalog

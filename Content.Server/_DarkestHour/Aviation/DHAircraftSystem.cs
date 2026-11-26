@@ -278,11 +278,63 @@ public sealed partial class DHAircraftSystem : EntitySystem
             return 0f;
 
         max = solution.MaxVolume.Float();
-        return solution.GetTotalPrototypeQuantity(ent.Comp.FuelReagent).Float();
+        var fuel = solution.GetTotalPrototypeQuantity(ent.Comp.FuelReagent).Float();
+        // ПТБ на узлах подвески — тоже топливо.
+        for (var i = 0; i < ent.Comp.Hardpoints.Count; i++)
+        {
+            if (ent.Comp.Hardpoints[i] != DHAircraftMunition.DropTank)
+                continue;
+
+            max += ent.Comp.DropTankCapacity;
+            fuel += PodAmmo(ent.Comp, i);
+        }
+
+        return fuel;
+    }
+
+    /// <summary>Сжечь из ПТБ (сначала из них); false — в подвесных баках пусто.</summary>
+    private bool BurnDropTanks(Entity<DHAircraftComponent> ent, float amount)
+    {
+        var comp = ent.Comp;
+        var any = false;
+        for (var i = 0; i < comp.Hardpoints.Count; i++)
+        {
+            if (comp.Hardpoints[i] == DHAircraftMunition.DropTank && PodAmmo(comp, i) > 0)
+                any = true;
+        }
+
+        if (!any)
+            return false;
+
+        comp.DropTankBurnDebt += amount;
+        while (comp.DropTankBurnDebt >= 1f)
+        {
+            var slot = -1;
+            for (var i = 0; i < comp.Hardpoints.Count; i++)
+            {
+                if (comp.Hardpoints[i] == DHAircraftMunition.DropTank && PodAmmo(comp, i) > 0)
+                {
+                    slot = i;
+                    break;
+                }
+            }
+
+            if (slot < 0)
+                break;
+
+            comp.DropTankBurnDebt -= 1f;
+            SetPodAmmo(comp, slot, PodAmmo(comp, slot) - 1);
+            Dirty(ent);
+        }
+
+        return true;
     }
 
     private bool BurnFuel(Entity<DHAircraftComponent> ent, float amount)
     {
+        if (BurnDropTanks(ent, amount))
+            return true;
+
         if (!_solutions.TryGetSolution(ent.Owner, ent.Comp.FuelSolution, out var soln, out var solution))
             return false;
 
@@ -501,7 +553,12 @@ public sealed partial class DHAircraftSystem : EntitySystem
 
         args.Handled = true;
         ent.Comp.Hardpoints[slot] = munition.Kind;
-        SetPodAmmo(ent.Comp, slot, munition.Kind == DHAircraftMunition.CannonPod ? Math.Min(ent.Comp.PodCapacity, munition.Rounds) : 0);
+        SetPodAmmo(ent.Comp, slot, munition.Kind switch
+        {
+            DHAircraftMunition.CannonPod => Math.Min(ent.Comp.PodCapacity, munition.Rounds),
+            DHAircraftMunition.DropTank => Math.Min(ent.Comp.DropTankCapacity, munition.Rounds),
+            _ => 0,
+        });
         Dirty(ent);
         QueueDel(used);
         _popup.PopupEntity(Loc.GetString("dh-aircraft-munition-loaded", ("slot", slot + 1)), ent, args.User);
@@ -529,7 +586,9 @@ public sealed partial class DHAircraftSystem : EntitySystem
         }
 
         if (TryComp<DHAircraftMunitionComponent>(item, out var munition))
-            munition.Rounds = kind == DHAircraftMunition.CannonPod ? PodAmmo(ent.Comp, slot) : munition.Rounds;
+            munition.Rounds = kind is DHAircraftMunition.CannonPod or DHAircraftMunition.DropTank
+                ? PodAmmo(ent.Comp, slot)
+                : munition.Rounds;
 
         ent.Comp.Hardpoints[slot] = DHAircraftMunition.None;
         ent.Comp.SelectedHardpoints.Remove(slot);
@@ -641,7 +700,14 @@ public sealed partial class DHAircraftSystem : EntitySystem
             return;
 
         var space = targetSolution.AvailableVolume;
-        if (space <= FixedPoint2.Zero)
+        var tankSpace = 0;
+        for (var i = 0; i < ent.Comp.Hardpoints.Count; i++)
+        {
+            if (ent.Comp.Hardpoints[i] == DHAircraftMunition.DropTank)
+                tankSpace += ent.Comp.DropTankCapacity - PodAmmo(ent.Comp, i);
+        }
+
+        if (space <= FixedPoint2.Zero && tankSpace <= 0)
         {
             _popup.PopupEntity(Loc.GetString("dh-aircraft-refuel-full"), ent, user);
             return;
@@ -659,9 +725,25 @@ public sealed partial class DHAircraftSystem : EntitySystem
             if (available <= FixedPoint2.Zero)
                 continue;
 
-            var amount = FixedPoint2.Min(available, space);
+            var amount = FixedPoint2.Min(available, space + tankSpace);
             _solutions.RemoveReagent(source.Value, ent.Comp.FuelReagent, amount);
-            _solutions.TryAddReagent(target.Value, ent.Comp.FuelReagent, amount, out _);
+            var toMain = FixedPoint2.Min(amount, space);
+            if (toMain > FixedPoint2.Zero)
+                _solutions.TryAddReagent(target.Value, ent.Comp.FuelReagent, toMain, out _);
+
+            // Остаток — в ПТБ на узлах подвески.
+            var rest = (int) (amount - toMain).Float();
+            for (var i = 0; i < ent.Comp.Hardpoints.Count && rest > 0; i++)
+            {
+                if (ent.Comp.Hardpoints[i] != DHAircraftMunition.DropTank)
+                    continue;
+
+                var add = Math.Min(rest, ent.Comp.DropTankCapacity - PodAmmo(ent.Comp, i));
+                SetPodAmmo(ent.Comp, i, PodAmmo(ent.Comp, i) + add);
+                rest -= add;
+            }
+
+            Dirty(ent);
             _popup.PopupEntity(Loc.GetString("dh-aircraft-refueled", ("amount", (int) amount.Float())), ent, user);
             return;
         }

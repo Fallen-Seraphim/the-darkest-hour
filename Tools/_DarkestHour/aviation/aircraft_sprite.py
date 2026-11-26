@@ -197,12 +197,14 @@ STORE_SOURCES = {
     'missile_at': ('dropship_ammo_64.rsi', 'single', 50, True, 104),
     'missile_he': ('dropship_ammo_64.rsi', 'banshee', 49, True, 104),
     'cannon_pod': ('dropship_attachments.rsi', '30mm_cannon', 36, False, 102),
+    # ПТБ (решение автора 2026-11-26) — свой рисунок (Tools/_DarkestHour/aviation/drop_tank.py)
+    'drop_tank': ('Resources/Textures/_DarkestHour/Objects/Aviation/drop_tank.rsi', 'icon', 54, True, 106),
 }
 
 
 def store(kind, x):
     rsi, state, last_row, rotate, bottom = STORE_SOURCES[kind]
-    src = Image.open(RMC + rsi + '/' + state + '.png').convert('RGBA')
+    src = Image.open((rsi if rsi.startswith('Resources/') else RMC + rsi) + '/' + state + '.png').convert('RGBA')
     src = src.crop((0, 0, src.size[0], last_row + 1))
     src = src.crop(src.getbbox())
     if rotate:
@@ -249,7 +251,7 @@ for i, x in enumerate(PYLONS):
 json.dump({
     'version': 1,
     'license': 'CC-BY-SA-3.0',
-    'copyright': 'Drawn for The Darkest Hour (2026-11-12, canopy states 2026-11-20): Imperial attack aircraft after F9F-5 Panther and Su-25. Hardpoint stores (hp*) are downscaled dropship_ammo_64 and dropship_attachments sprites taken from cmss13 via RMC-14 (CC-BY-SA-3.0).',
+    'copyright': 'Drawn for The Darkest Hour (2026-11-12, canopy states 2026-11-20): Imperial attack aircraft after F9F-5 Panther and Su-25. Hardpoint stores (hp*) are downscaled dropship_ammo_64 and dropship_attachments sprites taken from cmss13 via RMC-14 (CC-BY-SA-3.0); the drop tank is drawn for The Darkest Hour.',
     'size': {'x': S, 'y': S},
     'states': states,
 }, open(OUT + '/meta.json', 'w'), indent=4)

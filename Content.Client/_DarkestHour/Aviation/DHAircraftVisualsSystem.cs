@@ -76,6 +76,7 @@ public sealed partial class DHAircraftVisualsSystem : EntitySystem
             DHAircraftMunition.MissileAT => "missile_at",
             DHAircraftMunition.MissileHE => "missile_he",
             DHAircraftMunition.CannonPod => "cannon_pod",
+            DHAircraftMunition.DropTank => "drop_tank",
             _ => null,
         };
     }

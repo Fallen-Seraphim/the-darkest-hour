@@ -109,3 +109,7 @@ ent-DHVehicleAmmoAutocannon = короб снарядов автопушки
     .desc = Шестьдесят 30-мм бронебойных снарядов к автопушке БТР. Заложите в механизм заряжания машины.
 ent-DHVehicleAmmoMG = короб ленты пулемёта техники
     .desc = Лента на 200 патронов к пулемёту машины. Заложите в механизм заряжания машины.
+ent-DHVehicleDropPalletTankRepublic = поддон сброса (танк Республики)
+    .desc = { ent-DHVehicleDropPalletIM30.desc }
+ent-DHVehicleDropPalletRAM45 = поддон сброса (БТР RAM-45)
+    .desc = { ent-DHVehicleDropPalletIM30.desc }
