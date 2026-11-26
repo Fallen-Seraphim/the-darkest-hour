@@ -1,0 +1,56 @@
+# Навыки (план осады п. 12, решения автора 2026-11-26), по образцу RMC-14. Уровни: 0 — не обучен, 1 — базовая
+# подготовка, 2 — специалист, 3 — мастер. delayMultipliers — длительность действий по уровням 0–3.
+# Без навыка нельзя: пилотировать (штурмовик, челноки), водить и наводить танк и БТР, оперировать (и импланты),
+# стрелять из ОБ, ПКО, полевых орудий и миномёта. Остальное — медленнее.
+
+- type: dhSkill
+  id: DHSkillMedical
+  name: dh-skill-medical
+  description: dh-skill-medical-desc
+  delayMultipliers: [ 1.5, 1, 0.75, 0.5 ]
+
+- type: dhSkill
+  id: DHSkillSurgery
+  name: dh-skill-surgery
+  description: dh-skill-surgery-desc
+  delayMultipliers: [ 1.5, 1.25, 1, 0.75 ]
+
+- type: dhSkill
+  id: DHSkillEngineering
+  name: dh-skill-engineering
+  description: dh-skill-engineering-desc
+  delayMultipliers: [ 1.5, 1, 0.75, 0.5 ]
+
+- type: dhSkill
+  id: DHSkillDemolitions
+  name: dh-skill-demolitions
+  description: dh-skill-demolitions-desc
+  delayMultipliers: [ 1.5, 1, 0.75, 0.5 ]
+
+- type: dhSkill
+  id: DHSkillHeavyWeapons
+  name: dh-skill-heavy-weapons
+  description: dh-skill-heavy-weapons-desc
+  delayMultipliers: [ 1.5, 1, 0.75, 0.6 ]
+
+- type: dhSkill
+  id: DHSkillVehicles
+  name: dh-skill-vehicles
+  description: dh-skill-vehicles-desc
+
+- type: dhSkill
+  id: DHSkillPiloting
+  name: dh-skill-piloting
+  description: dh-skill-piloting-desc
+
+- type: dhSkill
+  id: DHSkillArtillery
+  name: dh-skill-artillery
+  description: dh-skill-artillery-desc
+  delayMultipliers: [ 1.5, 1, 0.8, 0.6 ]
+
+- type: dhSkill
+  id: DHSkillCommand
+  name: dh-skill-command
+  description: dh-skill-command-desc
+  delayMultipliers: [ 2, 1, 0.85, 0.7 ]

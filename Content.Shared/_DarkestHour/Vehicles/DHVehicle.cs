@@ -111,6 +111,13 @@ public sealed partial class DHVehicleComponent : Component
     [DataField]
     public bool SideView;
 
+    /// <summary>
+    /// Уровень навыка «Бронетехника», без которого не сесть за пульт водителя, наводчика и командира (план осады п. 12):
+    /// танки и БТР — 1, лёгкая техника — 0 (любой).
+    /// </summary>
+    [DataField]
+    public int CrewSkillLevel;
+
     /// <summary>Половина размеров корпуса (как у хитбокса): снаряды вылетают за его край, а не внутри него.</summary>
     [DataField]
     public Vector2 HullHalfSize = new(1.2f, 1.9f);

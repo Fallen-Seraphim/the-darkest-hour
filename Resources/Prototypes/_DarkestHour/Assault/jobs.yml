@@ -9,6 +9,17 @@
   dhAbbreviation: dh-job-abbrev-garrison-commander
   description: dh-job-garrison-commander-desc
   playTimeTracker: JobDHGarrisonCommander
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillDemolitions: 1
+        DHSkillHeavyWeapons: 1
+        DHSkillArtillery: 1
+        DHSkillCommand: 3
   startingGear: DHGarrisonCommanderGear
   icon: JobIconDHGarrisonCommander
   supervisors: dh-job-garrison-supervisors
@@ -35,6 +46,16 @@
   dhAbbreviation: dh-job-abbrev-garrison-officer
   description: dh-job-garrison-officer-desc
   playTimeTracker: JobDHGarrisonOfficer
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillDemolitions: 1
+        DHSkillHeavyWeapons: 1
+        DHSkillCommand: 2
   startingGear: DHGarrisonOfficerGear
   icon: JobIconDHRepublicOfficer
   supervisors: dh-job-garrison-supervisors
@@ -56,6 +77,13 @@
   dhAbbreviation: dh-job-abbrev-garrison-rifleman
   description: dh-job-garrison-rifleman-desc
   playTimeTracker: JobDHGarrisonRifleman
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
   startingGear: DHGarrisonRiflemanGear
   icon: JobIconDHGarrisonRifleman
   supervisors: dh-job-garrison-supervisors
@@ -80,6 +108,14 @@
   dhAbbreviation: dh-job-abbrev-garrison-machinegunner
   description: dh-job-garrison-machinegunner-desc
   playTimeTracker: JobDHGarrisonMachinegunner
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillHeavyWeapons: 2
   startingGear: DHGarrisonMachinegunnerGear
   icon: JobIconDHGarrisonMachinegunner
   supervisors: dh-job-garrison-supervisors
@@ -104,6 +140,14 @@
   dhAbbreviation: dh-job-abbrev-garrison-sniper
   description: dh-job-garrison-sniper-desc
   playTimeTracker: JobDHGarrisonSniper
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillHeavyWeapons: 1
   startingGear: DHGarrisonSniperGear
   icon: JobIconDHGarrisonSniper
   supervisors: dh-job-garrison-supervisors
@@ -128,6 +172,14 @@
   dhAbbreviation: dh-job-abbrev-garrison-flamer
   description: dh-job-garrison-flamer-desc
   playTimeTracker: JobDHGarrisonFlamer
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillHeavyWeapons: 2
   startingGear: DHGarrisonFlamerGear
   icon: JobIconDHGarrisonFlamer
   supervisors: dh-job-garrison-supervisors
@@ -152,6 +204,14 @@
   dhAbbreviation: dh-job-abbrev-garrison-aa-gunner
   description: dh-job-garrison-aa-gunner-desc
   playTimeTracker: JobDHGarrisonAAGunner
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillHeavyWeapons: 2
   startingGear: DHGarrisonAAGunnerGear
   icon: JobIconDHRepublicAAGunner
   supervisors: dh-job-garrison-supervisors
@@ -176,6 +236,14 @@
   dhAbbreviation: dh-job-abbrev-garrison-medic
   description: dh-job-garrison-medic-desc
   playTimeTracker: JobDHGarrisonMedic
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 3
+        DHSkillSurgery: 2
+        DHSkillEngineering: 1
   startingGear: DHGarrisonMedicGear
   icon: JobIconDHGarrisonMedic
   supervisors: dh-job-garrison-supervisors
@@ -196,6 +264,15 @@
   dhAbbreviation: dh-job-abbrev-garrison-sapper
   description: dh-job-garrison-sapper-desc
   playTimeTracker: JobDHGarrisonSapper
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 2
+        DHSkillDemolitions: 3
+        DHSkillHeavyWeapons: 1
   startingGear: DHGarrisonSapperGear
   icon: JobIconDHRepublicSapper
   supervisors: dh-job-garrison-supervisors
@@ -220,6 +297,14 @@
   dhAbbreviation: dh-job-abbrev-carrier-captain
   description: dh-job-carrier-captain-desc
   playTimeTracker: JobDHCarrierCaptain
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillCommand: 3
   startingGear: DHCarrierCaptainGear
   icon: JobIconDHImperialCaptain
   supervisors: dh-job-empire-supervisors
@@ -245,6 +330,14 @@
   dhAbbreviation: dh-job-abbrev-carrier-pilot
   description: dh-job-carrier-pilot-desc
   playTimeTracker: JobDHCarrierPilot
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillPiloting: 3
   startingGear: DHCarrierPilotGear
   icon: JobIconDHImperialPilot
   supervisors: dh-job-empire-supervisors
@@ -269,6 +362,14 @@
   dhAbbreviation: dh-job-abbrev-carrier-attack-pilot
   description: dh-job-carrier-attack-pilot-desc
   playTimeTracker: JobDHCarrierAttackPilot
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillPiloting: 3
   startingGear: DHCarrierAttackPilotGear
   icon: JobIconDHImperialPilot
   supervisors: dh-job-empire-supervisors
@@ -292,6 +393,14 @@
   dhAbbreviation: dh-job-abbrev-carrier-artillerist
   description: dh-job-carrier-artillerist-desc
   playTimeTracker: JobDHCarrierArtillerist
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillArtillery: 3
   startingGear: DHCarrierArtilleristGear
   icon: JobIconDHImperialArtillerist
   supervisors: dh-job-empire-supervisors
@@ -319,6 +428,14 @@
   dhAbbreviation: dh-job-abbrev-carrier-technician
   description: dh-job-carrier-technician-desc
   playTimeTracker: JobDHCarrierTechnician
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 3
+        DHSkillDemolitions: 1
   startingGear: DHCarrierTechnicianGear
   icon: JobIconDHImperialTechnician
   supervisors: dh-job-empire-supervisors
@@ -346,6 +463,16 @@
   dhAbbreviation: dh-job-abbrev-marine-commander
   description: dh-job-marine-commander-desc
   playTimeTracker: JobDHMarineCommander
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillDemolitions: 1
+        DHSkillHeavyWeapons: 1
+        DHSkillCommand: 3
   startingGear: DHImperialCommanderGear
   icon: JobIconDHMarineCommander
   supervisors: dh-job-empire-supervisors
@@ -371,6 +498,15 @@
   dhAbbreviation: dh-job-abbrev-marine-weapons-specialist
   description: dh-job-marine-weapons-specialist-desc
   playTimeTracker: JobDHMarineWeaponsSpecialist
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 2
+        DHSkillDemolitions: 3
+        DHSkillHeavyWeapons: 3
   startingGear: DHImperialWeaponsSpecialistGear
   icon: JobIconDHMarineWeapons
   supervisors: dh-job-empire-supervisors
@@ -398,6 +534,14 @@
   dhAbbreviation: dh-job-abbrev-marine-field-medic
   description: dh-job-marine-field-medic-desc
   playTimeTracker: JobDHMarineFieldMedic
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 3
+        DHSkillSurgery: 2
+        DHSkillEngineering: 1
   startingGear: DHImperialFieldMedicGear
   icon: JobIconDHMarineMedic
   supervisors: dh-job-empire-supervisors
@@ -421,6 +565,14 @@
   dhAbbreviation: dh-job-abbrev-marine-machinegunner
   description: dh-job-marine-machinegunner-desc
   playTimeTracker: JobDHMarineMachinegunner
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillHeavyWeapons: 2
   startingGear: DHImperialMachinegunnerGear
   icon: JobIconDHMarineMachinegunner
   supervisors: dh-job-empire-supervisors
@@ -448,6 +600,13 @@
   dhAbbreviation: dh-job-abbrev-marine-rifleman
   description: dh-job-marine-rifleman-desc
   playTimeTracker: JobDHMarineRifleman
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
   startingGear: DHImperialRiflemanGear
   icon: JobIconDHMarineRifleman
   supervisors: dh-job-empire-supervisors
@@ -476,6 +635,16 @@
   dhAbbreviation: dh-job-abbrev-marine-squad-leader
   description: dh-job-marine-squad-leader-desc
   playTimeTracker: JobDHMarineSquadLeader
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillDemolitions: 1
+        DHSkillHeavyWeapons: 1
+        DHSkillCommand: 2
   startingGear: DHMarineSquadLeaderGear
   icon: JobIconDHMarineSquadLeader
   supervisors: dh-job-empire-supervisors
@@ -501,6 +670,15 @@
   dhAbbreviation: dh-job-abbrev-garrison-artillery-officer
   description: dh-job-garrison-artillery-officer-desc
   playTimeTracker: JobDHGarrisonArtilleryOfficer
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillArtillery: 3
+        DHSkillCommand: 2
   startingGear: DHGarrisonArtilleryOfficerGear
   icon: JobIconDHGarrisonArtilleryOfficer
   supervisors: dh-job-garrison-supervisors
@@ -523,6 +701,15 @@
   dhAbbreviation: dh-job-abbrev-garrison-mortar-commander
   description: dh-job-garrison-mortar-commander-desc
   playTimeTracker: JobDHGarrisonMortarCommander
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillArtillery: 3
+        DHSkillCommand: 1
   startingGear: DHGarrisonMortarCommanderGear
   icon: JobIconDHGarrisonMortarCommander
   supervisors: dh-job-garrison-supervisors
@@ -547,6 +734,14 @@
   dhAbbreviation: dh-job-abbrev-garrison-mortar-operator
   description: dh-job-garrison-mortar-operator-desc
   playTimeTracker: JobDHGarrisonMortarOperator
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillArtillery: 2
   startingGear: DHGarrisonMortarOperatorGear
   icon: JobIconDHGarrisonMortarOperator
   supervisors: dh-job-garrison-supervisors
@@ -571,6 +766,14 @@
   dhAbbreviation: dh-job-abbrev-garrison-field-artillerist
   description: dh-job-garrison-field-artillerist-desc
   playTimeTracker: JobDHGarrisonFieldArtillerist
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillArtillery: 2
   startingGear: DHGarrisonFieldArtilleristGear
   icon: JobIconDHGarrisonFieldArtillerist
   supervisors: dh-job-garrison-supervisors
@@ -595,6 +798,15 @@
   dhAbbreviation: dh-job-abbrev-garrison-tank-commander
   description: dh-job-garrison-tank-commander-desc
   playTimeTracker: JobDHGarrisonTankCommander
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 2
+        DHSkillVehicles: 3
+        DHSkillCommand: 1
   startingGear: DHGarrisonTankCommanderGear
   icon: JobIconDHGarrisonTankCommander
   supervisors: dh-job-garrison-supervisors
@@ -619,6 +831,14 @@
   dhAbbreviation: dh-job-abbrev-garrison-tank-crew
   description: dh-job-garrison-tank-crew-desc
   playTimeTracker: JobDHGarrisonTankCrew
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 2
+        DHSkillVehicles: 2
   startingGear: DHGarrisonTankCrewGear
   icon: JobIconDHGarrisonTankCrew
   supervisors: dh-job-garrison-supervisors
@@ -643,6 +863,15 @@
   dhAbbreviation: dh-job-abbrev-garrison-apc-commander
   description: dh-job-garrison-apc-commander-desc
   playTimeTracker: JobDHGarrisonAPCCommander
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 2
+        DHSkillVehicles: 3
+        DHSkillCommand: 1
   startingGear: DHGarrisonAPCCommanderGear
   icon: JobIconDHGarrisonAPCCommander
   supervisors: dh-job-garrison-supervisors
@@ -667,6 +896,14 @@
   dhAbbreviation: dh-job-abbrev-garrison-apc-crew
   description: dh-job-garrison-apc-crew-desc
   playTimeTracker: JobDHGarrisonAPCCrew
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 2
+        DHSkillVehicles: 2
   startingGear: DHGarrisonAPCCrewGear
   icon: JobIconDHGarrisonAPCCrew
   supervisors: dh-job-garrison-supervisors
@@ -691,6 +928,17 @@
   dhAbbreviation: dh-job-abbrev-carrier-operation-commander
   description: dh-job-carrier-operation-commander-desc
   playTimeTracker: JobDHCarrierOperationCommander
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillDemolitions: 1
+        DHSkillHeavyWeapons: 1
+        DHSkillArtillery: 1
+        DHSkillCommand: 3
   startingGear: DHCarrierOperationCommanderGear
   icon: JobIconDHCarrierOperationCommander
   supervisors: dh-job-empire-supervisors
@@ -716,6 +964,15 @@
   dhAbbreviation: dh-job-abbrev-carrier-support-officer
   description: dh-job-carrier-support-officer-desc
   playTimeTracker: JobDHCarrierSupportOfficer
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillArtillery: 2
+        DHSkillCommand: 2
   startingGear: DHCarrierSupportOfficerGear
   icon: JobIconDHCarrierSupportOfficer
   supervisors: dh-job-empire-supervisors
@@ -740,6 +997,15 @@
   dhAbbreviation: dh-job-abbrev-marine-mortar-commander
   description: dh-job-marine-mortar-commander-desc
   playTimeTracker: JobDHMarineMortarCommander
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillArtillery: 3
+        DHSkillCommand: 1
   startingGear: DHMarineMortarCommanderGear
   icon: JobIconDHMarineMortarCommander
   supervisors: dh-job-empire-supervisors
@@ -763,6 +1029,14 @@
   dhAbbreviation: dh-job-abbrev-marine-mortar-operator
   description: dh-job-marine-mortar-operator-desc
   playTimeTracker: JobDHMarineMortarOperator
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillArtillery: 2
   startingGear: DHMarineMortarOperatorGear
   icon: JobIconDHMarineMortarOperator
   supervisors: dh-job-empire-supervisors
@@ -790,6 +1064,14 @@
   dhAbbreviation: dh-job-abbrev-marine-field-artillerist
   description: dh-job-marine-field-artillerist-desc
   playTimeTracker: JobDHMarineFieldArtillerist
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 1
+        DHSkillArtillery: 2
   startingGear: DHMarineFieldArtilleristGear
   icon: JobIconDHMarineFieldArtillerist
   supervisors: dh-job-empire-supervisors
@@ -817,6 +1099,15 @@
   dhAbbreviation: dh-job-abbrev-marine-tank-commander
   description: dh-job-marine-tank-commander-desc
   playTimeTracker: JobDHMarineTankCommander
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 2
+        DHSkillVehicles: 3
+        DHSkillCommand: 1
   startingGear: DHMarineTankCommanderGear
   icon: JobIconDHMarineTankCommander
   supervisors: dh-job-empire-supervisors
@@ -840,6 +1131,14 @@
   dhAbbreviation: dh-job-abbrev-marine-tank-crew
   description: dh-job-marine-tank-crew-desc
   playTimeTracker: JobDHMarineTankCrew
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 2
+        DHSkillVehicles: 2
   startingGear: DHMarineTankCrewGear
   icon: JobIconDHMarineTankCrew
   supervisors: dh-job-empire-supervisors
@@ -867,6 +1166,15 @@
   dhAbbreviation: dh-job-abbrev-marine-apc-commander
   description: dh-job-marine-apc-commander-desc
   playTimeTracker: JobDHMarineAPCCommander
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 2
+        DHSkillVehicles: 3
+        DHSkillCommand: 1
   startingGear: DHMarineAPCCommanderGear
   icon: JobIconDHMarineAPCCommander
   supervisors: dh-job-empire-supervisors
@@ -890,6 +1198,14 @@
   dhAbbreviation: dh-job-abbrev-marine-apc-crew
   description: dh-job-marine-apc-crew-desc
   playTimeTracker: JobDHMarineAPCCrew
+  special: # навыки должности (план осады п. 12)
+  - !type:AddComponentSpecial
+    components:
+    - type: DHSkills
+      skills:
+        DHSkillMedical: 1
+        DHSkillEngineering: 2
+        DHSkillVehicles: 2
   startingGear: DHMarineAPCCrewGear
   icon: JobIconDHMarineAPCCrew
   supervisors: dh-job-empire-supervisors

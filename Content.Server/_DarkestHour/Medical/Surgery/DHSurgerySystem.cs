@@ -8,6 +8,7 @@ using Content.Server._DarkestHour.Medical.Trauma;
 using Content.Shared._DarkestHour.Medical.Disease;
 using Content.Server.Chat.Systems;
 using Content.Shared._DarkestHour.Medical.Surgery;
+using Content.Shared._DarkestHour.Skills;
 using Content.Shared._DarkestHour.Medical.Trauma;
 using Content.Shared.Bed.Sleep;
 using Content.Shared.Body;
@@ -43,6 +44,9 @@ namespace Content.Server._DarkestHour.Medical.Surgery;
 /// </summary>
 public sealed partial class DHSurgerySystem : EntitySystem
 {
+    private static readonly ProtoId<DHSkillPrototype> SurgerySkill = "DHSkillSurgery";
+
+    [Dependency] private DHSkillsSystem _skills = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private BloodstreamSystem _bloodstream = default!;
     [Dependency] private ChatSystem _chat = default!;
@@ -264,6 +268,13 @@ public sealed partial class DHSurgerySystem : EntitySystem
             return;
         }
 
+        // Операции (и импланты) — только обученным (навык «Хирургия», план осады п. 12).
+        if (!_skills.HasSkill(user, SurgerySkill, 1))
+        {
+            _skills.PopupMissing(user, SurgerySkill, 1);
+            return;
+        }
+
         float speed;
         if (step.Tools.Count == 0)
         {
@@ -284,6 +295,7 @@ public sealed partial class DHSurgerySystem : EntitySystem
 
         var (surfaceMultiplier, _) = GetSurface(patientUid);
         var delay = TimeSpan.FromSeconds(step.Duration * surfaceMultiplier / MathF.Max(0.1f, speed));
+        delay = _skills.ScaleDelay(user, SurgerySkill, delay); // мастер оперирует быстрее
 
         var ev = new DHSurgeryStepDoAfterEvent(category, surgery.ID, stepIndex);
         var args = new DoAfterArgs(EntityManager, user, delay, ev, patientUid, target: patientUid, used: item)
