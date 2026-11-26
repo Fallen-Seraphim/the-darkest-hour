@@ -14,5 +14,13 @@
     "_RMC14/Objects/Clothing/Head/Hats/ASO/cap_peaked_aso.rsi": "imperial_officer",
     "_RMC14/Objects/Clothing/Head/TSE/tsepa_cap_peaked_rank_3.rsi": "imperial_officer",
     "_RMC14/Objects/Clothing/Head/TSE/tsepa_cap_peaked.rsi": "imperial_officer",
-    "_RMC14/Objects/Clothing/Head/TSE/tsepa_beret.rsi": "imperial_field"
+    "_RMC14/Objects/Clothing/Head/TSE/tsepa_beret.rsi": "imperial_field",
+    "Clothing/OuterClothing/Vests/hazard.rsi|yellow": {
+        "scheme": "deck_yellow",
+        "out": "Clothing/OuterClothing/Vests/deck_yellow.rsi"
+    },
+    "Clothing/OuterClothing/Vests/hazard.rsi|orange": {
+        "scheme": "deck_orange",
+        "out": "Clothing/OuterClothing/Vests/deck_orange.rsi"
+    }
 }

@@ -45,6 +45,7 @@ WARM_WHITE = (238, 232, 218)
 # (чёрная броня — у преторианцев, позже). Охра — канты, знаки, береты; оранжевый — метки, кресты, сигнальное.
 IMP_OCHRE = ramp('4a3210', '7a561c', 'a87a2a', 'cf9c3a', 'e8bb55', 'f7d887')
 IMP_ORANGE = ramp('5a200a', '8e3510', 'c24f16', 'e86a1e', 'f58e45', 'ffb878')
+IMP_YELLOW = ramp('5a4308', '8f6c0c', 'c89a14', 'eec21f', 'ffd94a', 'fff09a')
 IMP_BLACK = ramp('0b0b0d', '141417', '1d1d21', '27272c', '323238', '3e3e46')
 
 
@@ -91,6 +92,10 @@ NEUTRAL_ACCENT = {
 # снаряжение: тёмно-бурые ремни и лямки -> чёрные (правило с потолком яркости), остальное — как полевая одежда
 SCHEMES['imperial_gear'] = [(5, 45, 0.3, IMP_BLACK, 0.0, 0.4)] + SCHEMES['imperial_field']
 # офицеры: красные канты и кокарды -> охра (золото), сине-серое сукно -> белое, остальное как у полевой
+# Палубная команда авианосца (решение автора 2026-11-26): цвет жилета — работа. Оранжевое светоотражающего жилета
+# -> жёлтый (техники) или оранжевый (артиллеристы, вооружение).
+SCHEMES['deck_yellow'] = [(345, 50, 0.3, IMP_YELLOW, 0.2)]
+SCHEMES['deck_orange'] = [(345, 50, 0.3, IMP_ORANGE, 0.15)]
 SCHEMES['imperial_officer'] = [(345, 22, 0.45, IMP_OCHRE, 0.3), (175, 260, 0.12, IVORY, 0.45)] + SCHEMES['imperial_field']
 
 
@@ -168,8 +173,14 @@ def load_dh_targets():
 def build(only_dh=False):
     targets = load_dh_targets() if only_dh else {**load_targets(), **load_dh_targets()}
     for rsi, scheme in targets.items():
+        # цель: "путь.rsi": "схема" или "путь.rsi|вариант": {"scheme": ..., "out": "путь в _DarkestHour"}
+        out = rsi
+        if isinstance(scheme, dict):
+            out = scheme['out']
+            scheme = scheme['scheme']
+            rsi = rsi.split('|')[0]
         src = os.path.join(SRC, rsi)
-        dst = os.path.join(DST, rsi)
+        dst = os.path.join(DST, out)
         if os.path.exists(dst):
             shutil.rmtree(dst)
         os.makedirs(dst)
