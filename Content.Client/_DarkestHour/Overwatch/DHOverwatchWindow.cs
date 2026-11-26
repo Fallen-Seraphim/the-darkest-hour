@@ -9,6 +9,7 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
 using Robust.Shared.Graphics;
+using Robust.Shared.Utility;
 
 namespace Content.Client._DarkestHour.Overwatch;
 
@@ -30,6 +31,9 @@ public sealed class DHOverwatchWindow : DefaultWindow
     private readonly FixedEye _defaultEye = new();
 
     private readonly Label _summary = new() { HorizontalExpand = true };
+
+    /// <summary>Планшет LA-V: задание и ход операции.</summary>
+    private readonly RichTextLabel _status = new() { HorizontalExpand = true, Visible = false };
     private readonly CheckBox _hideDead = new() { Text = "" };
     private readonly BoxContainer _list = new()
     {
@@ -108,6 +112,7 @@ public sealed class DHOverwatchWindow : DefaultWindow
             Rebuild();
         };
         left.AddChild(_squad);
+        left.AddChild(_status);
         left.AddChild(_summary);
         left.AddChild(_hideDead);
         var scroll = new ScrollContainer { VerticalExpand = true, HScrollEnabled = false };
@@ -268,6 +273,10 @@ public sealed class DHOverwatchWindow : DefaultWindow
                 default: dead++; break;
             }
         }
+
+        _status.Visible = _state.Status != null;
+        if (_state.Status != null)
+            _status.SetMessage(FormattedMessage.FromMarkupPermissive(_state.Status));
 
         _summary.Text = Loc.GetString("dh-overwatch-ui-summary",
             ("faction", Loc.GetString(_state.LAV ? "dh-overwatch-faction-lav"

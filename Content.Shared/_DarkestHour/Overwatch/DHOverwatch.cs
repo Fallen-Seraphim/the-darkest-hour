@@ -132,6 +132,9 @@ public sealed class DHOverwatchState : BoundUserInterfaceState
     /// <summary>Планшет LA-V: бойцы — отряд ЧВК.</summary>
     public bool LAV;
 
+    /// <summary>Планшет LA-V: задание отряда и как идёт операция (решение автора 2026-11-26).</summary>
+    public string? Status;
+
     public DHOverwatchState(DHAssaultFaction faction, List<DHOverwatchEntry> fighters,
         Dictionary<NetEntity, NetEntity> watching, NetEntity? tacticalMap, int terrainVersion,
         List<DHTacticalMarker> markers)

@@ -29,6 +29,7 @@ public sealed partial class DHOverwatchSystem : EntitySystem
 {
     [Dependency] private DHAssaultRuleSystem _assault = default!;
     [Dependency] private DHTacticalMapSystem _tacmap = default!;
+    [Dependency] private Content.Server._DarkestHour.ThirdParty.DHLAVSystem _lav = default!;
     [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private SharedJobSystem _jobs = default!;
     [Dependency] private SharedMindSystem _mind = default!;
@@ -300,6 +301,7 @@ public sealed partial class DHOverwatchSystem : EntitySystem
         {
             FactionOrders = ent.Comp.FactionOrders && !ent.Comp.LAV,
             LAV = ent.Comp.LAV,
+            Status = ent.Comp.LAV ? _lav.StatusText() : null,
         };
 
         if (!ent.Comp.LAV)

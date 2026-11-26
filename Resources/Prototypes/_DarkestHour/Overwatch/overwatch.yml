@@ -170,7 +170,7 @@
   parent: DHOverwatchTabletBase
   id: DHOverwatchTabletLAV
   name: LA-V command tablet
-  description: A corporate tablet linked to the body cameras of the LA-V squad. Orders typed here appear before the eyes of every contractor.
+  description: A corporate tablet linked to the body cameras of the LA-V squad. Shows the contract and how the operation goes; orders typed here appear before the eyes of every contractor.
   components:
   - type: Sprite
     layers:
