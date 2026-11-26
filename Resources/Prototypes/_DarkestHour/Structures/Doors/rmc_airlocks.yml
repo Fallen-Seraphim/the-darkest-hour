@@ -1,0 +1,569 @@
+# Шлюзы RMC-14 (спрайты cmss13, звуки RMC) для Терминуса и бункера: доступ, болты и провода — от наших шлюзов.
+# Спрайты: Tools/_DarkestHour/reskin/rmc_airlocks.py. Направление 0 — дверь в стене запад-восток,
+# поворот 90° — в стене север-юг (генератор карт ставит поворот сам).
+
+- type: entity
+  parent: Airlock
+  id: DHAirlockRMCColony
+  suffix: RMC, Colony
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Doors/Airlocks/RMC/hybrisa_door.rsi
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+    - state: closed_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseUnlit"]
+      visible: true
+    - state: welded
+      map: ["enum.WeldableLayers.BaseWelded"]
+    - state: bolted_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseBolted"]
+    - state: emergency_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
+    - state: panel_open
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+    - state: electrified_ai
+      sprite: Interface/Misc/ai_hud.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.HUD"]
+    - state: electrified
+      sprite: Effects/electricity.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.Sparks"]
+    - state: sparks
+      shader: unshaded
+      visible: false
+      map: ["enum.DoorVisualLayers.BaseEmagging"]
+  - type: Icon
+    sprite: _DarkestHour/Structures/Doors/Airlocks/RMC/hybrisa_door.rsi
+    state: closed
+  - type: Door
+    crushDamage:
+      types:
+        Blunt: 15
+    openSound:
+      path: /Audio/_RMC14/Machines/airlock.ogg
+    closeSound:
+      path: /Audio/_RMC14/Machines/airlock.ogg
+    denySound:
+      path: /Audio/_RMC14/Machines/buzz_two.ogg
+  - type: Paintable
+    group: null
+
+- type: entity
+  parent: AirlockGlass
+  id: DHAirlockRMCColonyGlass
+  suffix: RMC, Colony
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Doors/Airlocks/RMC/hybrisa_door_glass.rsi
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+    - state: closed_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseUnlit"]
+      visible: true
+    - state: welded
+      map: ["enum.WeldableLayers.BaseWelded"]
+    - state: bolted_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseBolted"]
+    - state: emergency_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
+    - state: panel_open
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+    - state: electrified_ai
+      sprite: Interface/Misc/ai_hud.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.HUD"]
+    - state: electrified
+      sprite: Effects/electricity.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.Sparks"]
+    - state: sparks
+      shader: unshaded
+      visible: false
+      map: ["enum.DoorVisualLayers.BaseEmagging"]
+  - type: Icon
+    sprite: _DarkestHour/Structures/Doors/Airlocks/RMC/hybrisa_door_glass.rsi
+    state: closed
+  - type: Door
+    crushDamage:
+      types:
+        Blunt: 15
+    openSound:
+      path: /Audio/_RMC14/Machines/airlock.ogg
+    closeSound:
+      path: /Audio/_RMC14/Machines/airlock.ogg
+    denySound:
+      path: /Audio/_RMC14/Machines/buzz_two.ogg
+    occludes: false
+  - type: Paintable
+    group: null
+
+- type: entity
+  parent: AirlockEngineering
+  id: DHAirlockRMCEngineering
+  suffix: RMC, Engineering
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Doors/Airlocks/RMC/engi_door.rsi
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+    - state: closed_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseUnlit"]
+      visible: true
+    - state: welded
+      map: ["enum.WeldableLayers.BaseWelded"]
+    - state: bolted_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseBolted"]
+    - state: emergency_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
+    - state: panel_open
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+    - state: electrified_ai
+      sprite: Interface/Misc/ai_hud.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.HUD"]
+    - state: electrified
+      sprite: Effects/electricity.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.Sparks"]
+    - state: sparks
+      shader: unshaded
+      visible: false
+      map: ["enum.DoorVisualLayers.BaseEmagging"]
+  - type: Icon
+    sprite: _DarkestHour/Structures/Doors/Airlocks/RMC/engi_door.rsi
+    state: closed
+  - type: Door
+    crushDamage:
+      types:
+        Blunt: 15
+    openSound:
+      path: /Audio/_RMC14/Machines/airlock.ogg
+    closeSound:
+      path: /Audio/_RMC14/Machines/airlock.ogg
+    denySound:
+      path: /Audio/_RMC14/Machines/buzz_two.ogg
+  - type: Paintable
+    group: null
+
+- type: entity
+  parent: AirlockEngineeringGlass
+  id: DHAirlockRMCEngineeringGlass
+  suffix: RMC, Engineering
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Doors/Airlocks/RMC/engi_door_glass.rsi
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+    - state: closed_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseUnlit"]
+      visible: true
+    - state: welded
+      map: ["enum.WeldableLayers.BaseWelded"]
+    - state: bolted_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseBolted"]
+    - state: emergency_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
+    - state: panel_open
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+    - state: electrified_ai
+      sprite: Interface/Misc/ai_hud.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.HUD"]
+    - state: electrified
+      sprite: Effects/electricity.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.Sparks"]
+    - state: sparks
+      shader: unshaded
+      visible: false
+      map: ["enum.DoorVisualLayers.BaseEmagging"]
+  - type: Icon
+    sprite: _DarkestHour/Structures/Doors/Airlocks/RMC/engi_door_glass.rsi
+    state: closed
+  - type: Door
+    crushDamage:
+      types:
+        Blunt: 15
+    openSound:
+      path: /Audio/_RMC14/Machines/airlock.ogg
+    closeSound:
+      path: /Audio/_RMC14/Machines/airlock.ogg
+    denySound:
+      path: /Audio/_RMC14/Machines/buzz_two.ogg
+    occludes: false
+  - type: Paintable
+    group: null
+
+- type: entity
+  parent: AirlockCargoGlass
+  id: DHAirlockRMCCargoGlass
+  suffix: RMC, Cargo
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Doors/Airlocks/RMC/personal_door_glass.rsi
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+    - state: closed_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseUnlit"]
+      visible: true
+    - state: welded
+      map: ["enum.WeldableLayers.BaseWelded"]
+    - state: bolted_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseBolted"]
+    - state: emergency_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
+    - state: panel_open
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+    - state: electrified_ai
+      sprite: Interface/Misc/ai_hud.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.HUD"]
+    - state: electrified
+      sprite: Effects/electricity.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.Sparks"]
+    - state: sparks
+      shader: unshaded
+      visible: false
+      map: ["enum.DoorVisualLayers.BaseEmagging"]
+  - type: Icon
+    sprite: _DarkestHour/Structures/Doors/Airlocks/RMC/personal_door_glass.rsi
+    state: closed
+  - type: Door
+    crushDamage:
+      types:
+        Blunt: 15
+    openSound:
+      path: /Audio/_RMC14/Machines/airlock.ogg
+    closeSound:
+      path: /Audio/_RMC14/Machines/airlock.ogg
+    denySound:
+      path: /Audio/_RMC14/Machines/buzz_two.ogg
+    occludes: false
+  - type: Paintable
+    group: null
+
+- type: entity
+  parent: AirlockSecurity
+  id: DHAirlockRMCSecurity
+  suffix: RMC, Security
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Doors/Airlocks/RMC/sec_door.rsi
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+    - state: closed_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseUnlit"]
+      visible: true
+    - state: welded
+      map: ["enum.WeldableLayers.BaseWelded"]
+    - state: bolted_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseBolted"]
+    - state: emergency_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
+    - state: panel_open
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+    - state: electrified_ai
+      sprite: Interface/Misc/ai_hud.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.HUD"]
+    - state: electrified
+      sprite: Effects/electricity.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.Sparks"]
+    - state: sparks
+      shader: unshaded
+      visible: false
+      map: ["enum.DoorVisualLayers.BaseEmagging"]
+  - type: Icon
+    sprite: _DarkestHour/Structures/Doors/Airlocks/RMC/sec_door.rsi
+    state: closed
+  - type: Door
+    crushDamage:
+      types:
+        Blunt: 15
+    openSound:
+      path: /Audio/_RMC14/Machines/airlock.ogg
+    closeSound:
+      path: /Audio/_RMC14/Machines/airlock.ogg
+    denySound:
+      path: /Audio/_RMC14/Machines/buzz_two.ogg
+  - type: Paintable
+    group: null
+
+- type: entity
+  parent: AirlockSecurityGlass
+  id: DHAirlockRMCSecurityGlass
+  suffix: RMC, Security
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Doors/Airlocks/RMC/sec_door_glass.rsi
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+    - state: closed_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseUnlit"]
+      visible: true
+    - state: welded
+      map: ["enum.WeldableLayers.BaseWelded"]
+    - state: bolted_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseBolted"]
+    - state: emergency_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
+    - state: panel_open
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+    - state: electrified_ai
+      sprite: Interface/Misc/ai_hud.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.HUD"]
+    - state: electrified
+      sprite: Effects/electricity.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.Sparks"]
+    - state: sparks
+      shader: unshaded
+      visible: false
+      map: ["enum.DoorVisualLayers.BaseEmagging"]
+  - type: Icon
+    sprite: _DarkestHour/Structures/Doors/Airlocks/RMC/sec_door_glass.rsi
+    state: closed
+  - type: Door
+    crushDamage:
+      types:
+        Blunt: 15
+    openSound:
+      path: /Audio/_RMC14/Machines/airlock.ogg
+    closeSound:
+      path: /Audio/_RMC14/Machines/airlock.ogg
+    denySound:
+      path: /Audio/_RMC14/Machines/buzz_two.ogg
+    occludes: false
+  - type: Paintable
+    group: null
+
+- type: entity
+  parent: DHAirlockRepublic
+  id: DHAirlockRMCRepublic
+  suffix: RMC, Republic
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Doors/Airlocks/RMC/almayer_door_black.rsi
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+    - state: closed_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseUnlit"]
+      visible: true
+    - state: welded
+      map: ["enum.WeldableLayers.BaseWelded"]
+    - state: bolted_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseBolted"]
+    - state: emergency_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
+    - state: panel_open
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+    - state: electrified_ai
+      sprite: Interface/Misc/ai_hud.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.HUD"]
+    - state: electrified
+      sprite: Effects/electricity.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.Sparks"]
+    - state: sparks
+      shader: unshaded
+      visible: false
+      map: ["enum.DoorVisualLayers.BaseEmagging"]
+  - type: Icon
+    sprite: _DarkestHour/Structures/Doors/Airlocks/RMC/almayer_door_black.rsi
+    state: closed
+  - type: Door
+    crushDamage:
+      types:
+        Blunt: 15
+    openSound:
+      path: /Audio/_RMC14/Machines/airlock.ogg
+    closeSound:
+      path: /Audio/_RMC14/Machines/airlock.ogg
+    denySound:
+      path: /Audio/_RMC14/Machines/buzz_two.ogg
+  - type: Paintable
+    group: null
+
+- type: entity
+  parent: DHAirlockRepublicGlass
+  id: DHAirlockRMCRepublicGlass
+  suffix: RMC, Republic
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Doors/Airlocks/RMC/almayer_door_black_glass.rsi
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+    - state: closed_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseUnlit"]
+      visible: true
+    - state: welded
+      map: ["enum.WeldableLayers.BaseWelded"]
+    - state: bolted_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseBolted"]
+    - state: emergency_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
+    - state: panel_open
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+    - state: electrified_ai
+      sprite: Interface/Misc/ai_hud.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.HUD"]
+    - state: electrified
+      sprite: Effects/electricity.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.Sparks"]
+    - state: sparks
+      shader: unshaded
+      visible: false
+      map: ["enum.DoorVisualLayers.BaseEmagging"]
+  - type: Icon
+    sprite: _DarkestHour/Structures/Doors/Airlocks/RMC/almayer_door_black_glass.rsi
+    state: closed
+  - type: Door
+    crushDamage:
+      types:
+        Blunt: 15
+    openSound:
+      path: /Audio/_RMC14/Machines/airlock.ogg
+    closeSound:
+      path: /Audio/_RMC14/Machines/airlock.ogg
+    denySound:
+      path: /Audio/_RMC14/Machines/buzz_two.ogg
+    occludes: false
+  - type: Paintable
+    group: null
+
+- type: entity
+  parent: DHAirlockRMCRepublic
+  id: DHAirlockRMCRepublicLocked
+  suffix: RMC, Republic, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DHDoorElectronicsRepublic ]
+
+- type: entity
+  parent: DHAirlockRMCRepublicGlass
+  id: DHAirlockRMCRepublicGlassLocked
+  suffix: RMC, Republic, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DHDoorElectronicsRepublic ]
+
+- type: entity
+  parent: DHAirlockRMCRepublic
+  id: DHAirlockRMCRepublicCommandLocked
+  suffix: RMC, Republic Command, Locked
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Structures/Doors/Airlocks/RMC/com_door.rsi
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+    - state: closed_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseUnlit"]
+      visible: true
+    - state: welded
+      map: ["enum.WeldableLayers.BaseWelded"]
+    - state: bolted_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseBolted"]
+    - state: emergency_unlit
+      shader: unshaded
+      map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
+    - state: panel_open
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+    - state: electrified_ai
+      sprite: Interface/Misc/ai_hud.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.HUD"]
+    - state: electrified
+      sprite: Effects/electricity.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.Sparks"]
+    - state: sparks
+      shader: unshaded
+      visible: false
+      map: ["enum.DoorVisualLayers.BaseEmagging"]
+  - type: Icon
+    sprite: _DarkestHour/Structures/Doors/Airlocks/RMC/com_door.rsi
+    state: closed
+  - type: Door
+    crushDamage:
+      types:
+        Blunt: 15
+    openSound:
+      path: /Audio/_RMC14/Machines/airlock.ogg
+    closeSound:
+      path: /Audio/_RMC14/Machines/airlock.ogg
+    denySound:
+      path: /Audio/_RMC14/Machines/buzz_two.ogg
+  - type: Paintable
+    group: null
+  - type: ContainerFill
+    containers:
+      board: [ DHDoorElectronicsRepublicCommand ]

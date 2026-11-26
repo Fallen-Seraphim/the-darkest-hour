@@ -2014,6 +2014,46 @@ def decal_grid(decals):
     return lines
 
 
+# Окна и шлюзы RMC-14 (план п. 24): ванильные сущности генератора заменяются при записи карт. Шлюзы RMC
+# направленные: в стене север-юг дверь поворачивается на 90° (спрайт «вид сбоку»).
+RMC_REMAP = {
+    'Window': 'RMCWindowHybrisa',
+    'ReinforcedWindow': 'RMCWindowHybrisaReinforced',
+    'Airlock': 'DHAirlockRMCColony',
+    'AirlockGlass': 'DHAirlockRMCColonyGlass',
+    'AirlockEngineering': 'DHAirlockRMCEngineering',
+    'AirlockEngineeringGlass': 'DHAirlockRMCEngineeringGlass',
+    'AirlockCargoGlass': 'DHAirlockRMCCargoGlass',
+    'AirlockSecurity': 'DHAirlockRMCSecurity',
+    'AirlockSecurityGlass': 'DHAirlockRMCSecurityGlass',
+    'DHAirlockRepublic': 'DHAirlockRMCRepublic',
+    'DHAirlockRepublicGlass': 'DHAirlockRMCRepublicGlass',
+    'DHAirlockRepublicLocked': 'DHAirlockRMCRepublicLocked',
+    'DHAirlockRepublicGlassLocked': 'DHAirlockRMCRepublicGlassLocked',
+    'DHAirlockRepublicCommandLocked': 'DHAirlockRMCRepublicCommandLocked',
+}
+
+
+def _solid(proto):
+    return 'Wall' in proto or 'Window' in proto or 'Airlock' in proto or proto.startswith('Grille')
+
+
+def rmc_ents(ents):
+    """Подменяет окна/шлюзы на RMC и поворачивает шлюзы в стенах север-юг. ents — кортежи (proto, x, y, rot, ...)."""
+    solid = {(math.floor(e[1]), math.floor(e[2])) for e in ents if _solid(e[0])}
+    out = []
+    for e in ents:
+        proto = RMC_REMAP.get(e[0], e[0])
+        rot = e[3]
+        if proto.startswith('DHAirlockRMC'):
+            x, y = math.floor(e[1]), math.floor(e[2])
+            ns = (x, y - 1) in solid and (x, y + 1) in solid
+            ew = (x - 1, y) in solid and (x + 1, y) in solid
+            rot = R90 if ns and not ew else 0.0
+        out.append((proto, e[1], e[2], rot) + tuple(e[4:]))
+    return out
+
+
 def write_surface(w, path):
     TILE_IDS.clear()
     tile_id('Space')
@@ -2047,7 +2087,7 @@ def write_surface(w, path):
     L += ['    - type: BecomesStation', '      id: Terminus']
 
     groups = {}
-    for proto, x, y, rot, name, comps in w.ents:
+    for proto, x, y, rot, name, comps in rmc_ents(w.ents):
         groups.setdefault(proto, []).append(('gen', x, y, rot, name, comps))
     uid = 2
     for proto in sorted(groups):
@@ -2089,7 +2129,7 @@ def write_level(lv, path, name):
           '      chunkCollection:', '        version: 2', '        nodes: []', '    - type: SpreaderGrid']
     L += roof_data(lv.roof)
     groups = {}
-    for proto, x, y, rot in lv.ents:
+    for proto, x, y, rot in rmc_ents(lv.ents):
         if (x, y) in lv.tiles or proto == 'DHZStairShaft' or proto == 'DHZStairwell':
             groups.setdefault(proto, []).append((x, y, rot))
     uid = 2
@@ -2128,7 +2168,7 @@ def write_bunker(b, path):
           '      chunkCollection:', '        version: 2', '        nodes: []', '    - type: SpreaderGrid']
     L += roof_data(set(b.tiles))
     groups = {}
-    for proto, x, y, rot, name, comps in b.ents:
+    for proto, x, y, rot, name, comps in rmc_ents(b.ents):
         groups.setdefault(proto, []).append((x, y, rot, name, comps))
     uid = 2
     for proto in sorted(groups):
