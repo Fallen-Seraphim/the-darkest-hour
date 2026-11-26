@@ -1,5 +1,5 @@
 # Флаги сторон (решение автора 2026-11-13), по образцу флагов стран CMU/RMC: «использовать» в руке — водрузить на
-# своей клетке, альт-действие у воткнутого — снять. Спрайты — Tools/_DarkestHour/flags/build_flags.py; те же
+# своей клетке, альт-действие у воткнутого — снять (чужой — дольше). В «Осаде» флагами берут точки (DHControlPointSystem). Спрайты — Tools/_DarkestHour/flags/build_flags.py; те же
 # полотнища висят на терминалах зон захвата.
 
 - type: entity
@@ -15,6 +15,21 @@
     size: Large
   - type: Appearance
   - type: DHPlantableFlag
+  # Чужой флаг в зоне захвата можно сломать огнём и взрывами (решение автора 2026-11-26).
+  - type: Damageable
+    damageContainer: Inorganic
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 80
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
   - type: GenericVisualizer
     visuals:
       enum.DHPlantableFlagVisuals.Planted:
@@ -32,6 +47,8 @@
     sprite: _DarkestHour/Objects/Flags/republic_flag.rsi
   - type: Item
     sprite: _DarkestHour/Objects/Flags/republic_flag.rsi
+  - type: DHPlantableFlag
+    faction: Republic
 
 - type: entity
   parent: DHFlagBase
@@ -43,6 +60,8 @@
     sprite: _DarkestHour/Objects/Flags/empire_flag.rsi
   - type: Item
     sprite: _DarkestHour/Objects/Flags/empire_flag.rsi
+  - type: DHPlantableFlag
+    faction: Empire
 
 - type: entity
   parent: DHFlagBase
@@ -54,6 +73,21 @@
     sprite: _DarkestHour/Objects/Flags/front_flag.rsi
   - type: Item
     sprite: _DarkestHour/Objects/Flags/front_flag.rsi
+
+# Флаг ЧВК LA-V (решение автора 2026-11-26): для обеих сторон «Осады» чужой — пока стоит в зоне, точка заглушена
+# (не захватить, нет очков и эффектов); задание «удержать» засчитано, если к концу операции он стоит в цели.
+- type: entity
+  parent: DHFlagBase
+  id: DHFlagLAV
+  name: LA-V corporate flag
+  description: A purple flag with white stripes and the letters LAV. Where it stands, the corporation has staked its claim.
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Flags/lav_flag.rsi
+  - type: Item
+    sprite: _DarkestHour/Objects/Flags/lav_flag.rsi
+  - type: DHPlantableFlag
+    thirdParty: true
 
 # Уже водружённые флаги — для карт (штаб авианосца, комендатура, логова ОФСК). Снимаются альт-действием.
 - type: entity

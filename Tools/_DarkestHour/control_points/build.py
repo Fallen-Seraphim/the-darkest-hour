@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""DarkestHour: терминал зоны захвата (Resources/Textures/_DarkestHour/Structures/control_point.rsi).
+"""DarkestHour: флагшток зоны захвата (Resources/Textures/_DarkestHour/Structures/control_point.rsi).
 
-Мачта с флагом над полевым терминалом, 32×64: состояния base (терминал и мачта), flag_neutral, flag_republic,
-flag_empire, flag_front (флаг развевается — 4 кадра), screen (огонёк экрана). Рисуется процедурно. CC-BY-SA-3.0.
+Мачта на тумбе, 32×64: состояния base, flag_neutral, flag_republic, flag_empire, flag_front, flag_lav (флаг
+развевается — 4 кадра), screen (не используется). Рисуется процедурно. CC-BY-SA-3.0.
 Флаги сторон — те же, что у переносных флагов (Tools/_DarkestHour/flags/build_flags.py, решение автора 2026-11-13).
 """
 import json
@@ -28,17 +28,17 @@ MAST_X = 8
 
 
 def base():
+    """Флагшток зоны (решение автора 2026-11-26: захват флагами, терминалов больше нет): мачта на бетонной тумбе."""
     img = Image.new('RGBA', (W, H))
     d = ImageDraw.Draw(img)
-    # мачта — у левого края терминала, полотнище вправо
-    d.rectangle([MAST_X, 4, MAST_X + 1, 45], fill=POLE)
+    # мачта, полотнище вправо
+    d.rectangle([MAST_X, 4, MAST_X + 1, 57], fill=POLE)
+    d.line([MAST_X + 1, 5, MAST_X + 1, 57], fill=METAL)
     d.point((MAST_X, 3), fill=LIGHT)
     d.point((MAST_X + 1, 3), fill=LIGHT)
-    # терминал
-    d.rectangle([8, 44, 23, 58], fill=METAL, outline=DARK)
-    d.rectangle([10, 46, 21, 52], fill=DARK)
-    d.rectangle([9, 58, 22, 61], fill=DARK)
-    d.line([10, 55, 21, 55], fill=LIGHT)
+    # тумба
+    d.rectangle([MAST_X - 4, 56, MAST_X + 5, 61], fill=METAL, outline=DARK)
+    d.line([MAST_X - 3, 57, MAST_X + 4, 57], fill=LIGHT)
     return img
 
 
@@ -68,7 +68,7 @@ def main():
     base().save(os.path.join(OUT, 'base.png'))
     states.append({'name': 'base'})
 
-    for kind in ('neutral', 'republic', 'empire', 'front'):
+    for kind in ('neutral', 'republic', 'empire', 'front', 'lav'):
         sheet([flag(kind, f) for f in range(4)]).save(os.path.join(OUT, f'flag_{kind}.png'))
         states.append({'name': f'flag_{kind}', 'delays': [[0.5, 0.5, 0.5, 0.5]]})
 

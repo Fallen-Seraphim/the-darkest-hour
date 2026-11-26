@@ -118,6 +118,8 @@
         stock: 4
       - proto: CombatKnife
         stock: 4
+      - proto: DHFlagRepublic # захват точек флагами (решение автора 2026-11-26)
+        stock: 4
   - type: DHCargoVendor
     faction: Republic
     category: dh-supply-category-misc
@@ -237,6 +239,8 @@
       - proto: Handcuffs
         stock: 4
       - proto: CombatKnife
+        stock: 4
+      - proto: DHFlagEmpire # захват точек флагами (решение автора 2026-11-26)
         stock: 4
   - type: DHCargoVendor
     faction: Empire

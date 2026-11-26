@@ -1,23 +1,25 @@
 dh-control-point-sender = Оперативный штаб
-dh-control-point-not-fighter = Терминал могут занять только бойцы воюющих сторон.
-dh-control-point-already-ours = Район уже под нашим контролем.
-dh-control-point-contested = Район оспаривается: сначала выбейте противника.
-dh-control-point-capturing = Берём под контроль: { $point }...
 dh-control-point-captured-ours = Мы заняли район: { $point }.
 dh-control-point-captured-enemy = Противник занял район: { $point }.
 dh-control-point-lost = Мы потеряли район: { $point }!
-dh-control-point-supply = Снабжение доставлено: { $point }.
-dh-control-point-examine-name = Терминал захвата: [bold]{ $point }[/bold].
+dh-control-point-examine-name = Флагшток зоны: [bold]{ $point }[/bold].
 dh-control-point-examine-neutral = Район никем не контролируется.
 dh-control-point-examine-republic = Район удерживает [color=#7fcf4f]Республика[/color].
 dh-control-point-examine-empire = Район удерживает [color=#e8604a]Империя[/color].
+dh-control-point-flag-raised = Противник водружает флаг: { $point }! Через { $seconds } с район перейдёт к нему — снимите или уничтожьте флаг.
+dh-control-point-jammed = Над районом «{ $point }» поднят флаг ЧВК LA-V: пока он стоит, район не работает и не даёт очков.
+dh-control-point-examine-jammed = В зоне стоит флаг [color=#8A6AD0]ЧВК LA-V[/color]: район заглушён — не захватить, очков и эффектов нет.
+dh-control-point-examine-contested = В зоне флаги обеих сторон: район оспаривается, очков никому.
+dh-control-point-examine-capturing-republic = [color=#7fcf4f]Республика[/color] водружает флаг: район перейдёт через { $seconds } с.
+dh-control-point-examine-capturing-empire = [color=#e8604a]Империя[/color] водружает флаг: район перейдёт через { $seconds } с.
+dh-control-point-examine-how = Захват: воткните флаг своей стороны в пределах { $radius } клеток от флагштока; если 30 с в зоне нет чужих флагов, район ваш. Чужой флаг снимается (8 с) или ломается.
 
 dh-control-point-village = Деревня
-dh-control-point-village-desc = Удерживающая сторона раз в 15 минут получает медикаменты. Даёт 2 оч. командования в минуту.
+dh-control-point-village-desc = Даёт 2 оч. командования в минуту.
 dh-control-point-spaceport = Космодром
-dh-control-point-spaceport-desc = Удерживающая сторона раз в 15 минут получает бронебойные боеприпасы. Даёт 5 оч. командования в минуту.
+dh-control-point-spaceport-desc = Даёт 5 оч. командования в минуту.
 dh-control-point-construction = Стройка
-dh-control-point-construction-desc = Удерживающая сторона раз в 15 минут получает мешки с песком и стальные стержни. Даёт 3 оч. командования в минуту.
+dh-control-point-construction-desc = Даёт 3 оч. командования в минуту.
 dh-control-point-npp = АЭС
 dh-control-point-npp-desc = У стороны, удерживающей станцию, работают прожекторы, ПВО и РЛС по всему району. Даёт 5 оч. командования в минуту.
 dh-control-point-dam = Дамба

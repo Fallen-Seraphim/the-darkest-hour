@@ -1,7 +1,7 @@
 using Content.Server._DarkestHour.Assault;
 using Content.Shared._DarkestHour.Assault;
 using Content.Shared._DarkestHour.ControlPoints;
-using Content.Shared.DoAfter;
+using Content.Shared._DarkestHour.Flags;
 using Content.Shared.Examine;
 using Content.Shared.Interaction;
 using Content.Shared.Mobs.Systems;
@@ -15,7 +15,7 @@ using Robust.Shared.Timing;
 namespace Content.Server._DarkestHour.ControlPoints;
 
 /// <summary>
-/// Зоны захвата: захват удержанием у терминала, выдача ящиков удерживающей стороне, питание света и ПВО от зоны (АЭС).
+/// Зоны захвата: захват флагами (решение автора 2026-11-26), питание света и ПВО от зоны (АЭС). Поставок с точек нет.
 /// </summary>
 public sealed partial class DHControlPointSystem : EntitySystem
 {
@@ -23,7 +23,6 @@ public sealed partial class DHControlPointSystem : EntitySystem
     [Dependency] private Content.Server._DarkestHour.Battlefield.DHBattlefieldSystem _battlefield = default!;
     [Dependency] private Content.Server._DarkestHour.Supply.DHCommandPointsSystem _commandPoints = default!;
     [Dependency] private DHAssaultRuleSystem _assault = default!;
-    [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private MobStateSystem _mobState = default!;
     [Dependency] private SharedPointLightSystem _light = default!;
@@ -42,9 +41,8 @@ public sealed partial class DHControlPointSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<DHControlPointComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<DHControlPointComponent, InteractHandEvent>(OnInteractHand);
-        SubscribeLocalEvent<DHControlPointComponent, DHControlPointCaptureDoAfterEvent>(OnCaptured);
         SubscribeLocalEvent<DHControlPointComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<DHPlantableFlagComponent, DHFlagRemoveDelayEvent>(OnFlagRemoveDelay);
         SubscribeLocalEvent<DHControlPointPoweredComponent, MapInitEvent>(OnPoweredMapInit);
         SubscribeLocalEvent<DHControlPointPoweredComponent, ExaminedEvent>(OnPoweredExamined);
     }
@@ -64,7 +62,6 @@ public sealed partial class DHControlPointSystem : EntitySystem
 
     private void OnMapInit(Entity<DHControlPointComponent> ent, ref MapInitEvent args)
     {
-        ent.Comp.NextOutput = _timing.CurTime + ent.Comp.Interval;
         UpdateAppearance(ent);
 
         // Точка у стороны с начала раунда: бонуса за её «захват» не будет.
@@ -92,95 +89,128 @@ public sealed partial class DHControlPointSystem : EntitySystem
 
     #region Захват
 
-    private void OnInteractHand(Entity<DHControlPointComponent> ent, ref InteractHandEvent args)
+    /// <summary>Чужой флаг снимать дольше своего.</summary>
+    private void OnFlagRemoveDelay(Entity<DHPlantableFlagComponent> ent, ref DHFlagRemoveDelayEvent args)
     {
-        if (args.Handled)
-            return;
-
-        args.Handled = true;
-        var user = args.User;
-        if (!TryComp<DHAssaultFighterComponent>(user, out var fighter))
-        {
-            _popup.PopupEntity(Loc.GetString("dh-control-point-not-fighter"), ent, user);
-            return;
-        }
-
-        if (ent.Comp.Holder == fighter.Faction)
-        {
-            _popup.PopupEntity(Loc.GetString("dh-control-point-already-ours"), ent, user);
-            return;
-        }
-
-        if (Contested(ent, fighter.Faction))
-        {
-            _popup.PopupEntity(Loc.GetString("dh-control-point-contested"), ent, user, PopupType.MediumCaution);
-            return;
-        }
-
-        _popup.PopupEntity(Loc.GetString("dh-control-point-capturing", ("point", Loc.GetString(ent.Comp.PointName))),
-            ent, user);
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, ent.Comp.CaptureTime,
-            new DHControlPointCaptureDoAfterEvent(), ent, ent)
-        {
-            BreakOnMove = true,
-            BreakOnDamage = true,
-            DistanceThreshold = 2f,
-        });
+        var own = ent.Comp.Faction is { } faction && TryComp<DHAssaultFighterComponent>(args.User, out var fighter) &&
+                  fighter.Faction == faction ||
+                  ent.Comp.ThirdParty && HasComp<Content.Server._DarkestHour.ThirdParty.DHLAVMemberComponent>(args.User);
+        if (!own)
+            args.Delay = ent.Comp.EnemyRemoveDelay;
     }
 
-    /// <summary>В зоне живой боец другой стороны.</summary>
-    private bool Contested(Entity<DHControlPointComponent> ent, DHAssaultFaction capturer)
+    /// <summary>Воткнутые флаги в зоне точки: стороны «Осады» и флаг третьей стороны.</summary>
+    public (bool Republic, bool Empire, bool ThirdParty) FlagsIn(EntityUid point, float radius)
     {
-        var coordinates = Transform(ent).Coordinates;
-        foreach (var other in _lookup.GetEntitiesInRange<DHAssaultFighterComponent>(coordinates, ent.Comp.Radius))
+        var republic = false;
+        var empire = false;
+        var third = false;
+        foreach (var flag in _lookup.GetEntitiesInRange<DHPlantableFlagComponent>(Transform(point).Coordinates, radius))
         {
-            if (other.Comp.Faction != capturer && _mobState.IsAlive(other))
-                return true;
+            if (!Transform(flag).Anchored)
+                continue;
+
+            if (flag.Comp.ThirdParty)
+                third = true;
+            else if (flag.Comp.Faction == DHAssaultFaction.Republic)
+                republic = true;
+            else if (flag.Comp.Faction == DHAssaultFaction.Empire)
+                empire = true;
         }
 
-        return false;
+        return (republic, empire, third);
     }
 
-    private void OnCaptured(Entity<DHControlPointComponent> ent, ref DHControlPointCaptureDoAfterEvent args)
+    /// <summary>
+    /// Захват флагами: свой флаг в зоне без чужих <see cref="DHControlPointComponent.CaptureTime"/> — точка переходит;
+    /// флаги обеих сторон — оспорена (очков никому); флаг LA-V — заглушена (нет очков и эффектов).
+    /// </summary>
+    private void UpdateCapture(Entity<DHControlPointComponent> ent, TimeSpan now)
     {
-        if (args.Cancelled || args.Handled)
-            return;
-
-        args.Handled = true;
-        if (!TryComp<DHAssaultFighterComponent>(args.User, out var fighter) || ent.Comp.Holder == fighter.Faction)
-            return;
-
-        if (Contested(ent, fighter.Faction))
+        var (republic, empire, third) = FlagsIn(ent, ent.Comp.Radius);
+        var contested = republic && empire && !third;
+        if (ent.Comp.Jammed != third || ent.Comp.Contested != contested)
         {
-            _popup.PopupEntity(Loc.GetString("dh-control-point-contested"), ent, args.User, PopupType.MediumCaution);
+            var wasJammed = ent.Comp.Jammed;
+            ent.Comp.Jammed = third;
+            ent.Comp.Contested = contested;
+            Dirty(ent);
+            UpdateAppearance(ent);
+            RefreshPoint(ent.Comp.PointId);
+
+            if (third && !wasJammed)
+                AnnounceJam(ent);
+        }
+
+        DHAssaultFaction? capturer = null;
+        if (!third && republic != empire)
+            capturer = republic ? DHAssaultFaction.Republic : DHAssaultFaction.Empire;
+
+        if (capturer == null || capturer == ent.Comp.Holder)
+        {
+            ent.Comp.Capturing = null;
             return;
         }
 
+        if (ent.Comp.Capturing != capturer)
+        {
+            ent.Comp.Capturing = capturer;
+            ent.Comp.CaptureStart = now;
+
+            // Хозяину точки — тревога: противник водружает флаг.
+            if (ent.Comp.Holder is { } holder)
+            {
+                _assault.AnnounceToFaction(holder, Loc.GetString("dh-control-point-sender"),
+                    Loc.GetString("dh-control-point-flag-raised", ("point", Loc.GetString(ent.Comp.PointName)),
+                        ("seconds", (int) ent.Comp.CaptureTime.TotalSeconds)), CaptureSound);
+            }
+
+            return;
+        }
+
+        if (now - ent.Comp.CaptureStart < ent.Comp.CaptureTime)
+            return;
+
+        ent.Comp.Capturing = null;
+        Capture(ent, capturer.Value);
+    }
+
+    private void AnnounceJam(Entity<DHControlPointComponent> ent)
+    {
+        var text = Loc.GetString("dh-control-point-jammed", ("point", Loc.GetString(ent.Comp.PointName)));
+        foreach (var faction in new[] { DHAssaultFaction.Republic, DHAssaultFaction.Empire })
+        {
+            _assault.AnnounceToFaction(faction, Loc.GetString("dh-control-point-sender"), text, CaptureSound);
+        }
+    }
+
+    private void Capture(Entity<DHControlPointComponent> ent, DHAssaultFaction faction)
+    {
         var previous = ent.Comp.Holder;
-        SetOwner(ent, fighter.Faction);
-        _commandPoints.Captured(ent.Comp, fighter.Faction);
+        SetOwner(ent, faction);
+        _commandPoints.Captured(ent.Comp, faction);
 
         var name = Loc.GetString(ent.Comp.PointName);
-        // Итоги раунда (план п. 6): хронология и захват — тому, кто захватывал, и своим в зоне точки.
-        _assault.RecordCapture(name, fighter.Faction, previous, CapturersOf(ent, fighter.Faction, args.User));
+        // Итоги раунда (план п. 6): хронология и захват — бойцам стороны в зоне точки.
+        _assault.RecordCapture(name, faction, previous, CapturersOf(ent, faction));
         var sender = Loc.GetString("dh-control-point-sender");
-        _assault.AnnounceToFaction(fighter.Faction, sender,
+        _assault.AnnounceToFaction(faction, sender,
             Loc.GetString("dh-control-point-captured-ours", ("point", name)), CaptureSound);
 
-        var enemy = fighter.Faction == DHAssaultFaction.Republic ? DHAssaultFaction.Empire : DHAssaultFaction.Republic;
+        var enemy = faction == DHAssaultFaction.Republic ? DHAssaultFaction.Empire : DHAssaultFaction.Republic;
         _assault.AnnounceToFaction(enemy, sender,
             Loc.GetString(previous == enemy ? "dh-control-point-lost" : "dh-control-point-captured-enemy",
                 ("point", name)), CaptureSound);
     }
 
-    /// <summary>Кто участвовал в захвате: захватывавший и бойцы его стороны в зоне точки.</summary>
-    private List<EntityUid> CapturersOf(Entity<DHControlPointComponent> ent, DHAssaultFaction faction, EntityUid user)
+    /// <summary>Кто участвовал в захвате: живые бойцы стороны в зоне точки.</summary>
+    private List<EntityUid> CapturersOf(Entity<DHControlPointComponent> ent, DHAssaultFaction faction)
     {
-        var result = new List<EntityUid> { user };
+        var result = new List<EntityUid>();
         foreach (var fighter in _lookup.GetEntitiesInRange<DHAssaultFighterComponent>(Transform(ent).Coordinates,
                      ent.Comp.Radius))
         {
-            if (fighter.Owner != user && fighter.Comp.Faction == faction)
+            if (fighter.Comp.Faction == faction && _mobState.IsAlive(fighter))
                 result.Add(fighter.Owner);
         }
 
@@ -191,7 +221,7 @@ public sealed partial class DHControlPointSystem : EntitySystem
     public void SetOwner(Entity<DHControlPointComponent> ent, DHAssaultFaction? owner)
     {
         ent.Comp.Holder = owner;
-        ent.Comp.NextOutput = _timing.CurTime + ent.Comp.Interval;
+        ent.Comp.Capturing = null;
         Dirty(ent);
         UpdateAppearance(ent);
 
@@ -205,7 +235,7 @@ public sealed partial class DHControlPointSystem : EntitySystem
 
     private void UpdateAppearance(Entity<DHControlPointComponent> ent)
     {
-        var value = ent.Comp.Holder switch
+        var value = ent.Comp.Jammed ? 3 : ent.Comp.Holder switch
         {
             DHAssaultFaction.Republic => 1,
             DHAssaultFaction.Empire => 2,
@@ -229,11 +259,24 @@ public sealed partial class DHControlPointSystem : EntitySystem
 
     /// <summary>
     /// Чей эффект даёт зона: владелец, если её объекты в строю. Сломанный объект, выключающий зону (энергоблок АЭС),
-    /// гасит её эффект, пока его не починят (разрушаемость POI, решение автора 2026-11-19).
+    /// гасит её эффект, пока его не починят (разрушаемость POI, решение автора 2026-11-19). Флаг LA-V в зоне глушит
+    /// эффект (решение автора 2026-11-26).
     /// </summary>
     private DHAssaultFaction? EffectiveHolder(string pointId)
     {
-        return _battlefield.PointOutOfAction(pointId) ? null : HolderOf(pointId);
+        return _battlefield.PointOutOfAction(pointId) || Jammed(pointId) ? null : HolderOf(pointId);
+    }
+
+    private bool Jammed(string pointId)
+    {
+        var query = EntityQueryEnumerator<DHControlPointComponent>();
+        while (query.MoveNext(out _, out var point))
+        {
+            if (point.PointId == pointId)
+                return point.Jammed;
+        }
+
+        return false;
     }
 
     /// <summary>Объект зоны сломан или починен: пересчитать всё, что от неё питается.</summary>
@@ -301,6 +344,20 @@ public sealed partial class DHControlPointSystem : EntitySystem
             _ => "dh-control-point-examine-neutral",
         }));
 
+        if (ent.Comp.Jammed)
+            args.PushMarkup(Loc.GetString("dh-control-point-examine-jammed"));
+        else if (ent.Comp.Contested)
+            args.PushMarkup(Loc.GetString("dh-control-point-examine-contested"));
+        else if (ent.Comp.Capturing is { } capturing)
+        {
+            var left = Math.Max(0, (int) Math.Ceiling((ent.Comp.CaptureTime - (_timing.CurTime - ent.Comp.CaptureStart)).TotalSeconds));
+            args.PushMarkup(Loc.GetString(capturing == DHAssaultFaction.Republic
+                ? "dh-control-point-examine-capturing-republic"
+                : "dh-control-point-examine-capturing-empire", ("seconds", left)));
+        }
+
+        args.PushMarkup(Loc.GetString("dh-control-point-examine-how", ("radius", (int) ent.Comp.Radius)));
+
         if (ent.Comp.PointDescription is { } desc)
             args.PushMarkup(Loc.GetString(desc));
     }
@@ -326,26 +383,10 @@ public sealed partial class DHControlPointSystem : EntitySystem
             }
         }
 
-        var query = EntityQueryEnumerator<DHControlPointComponent, TransformComponent>();
-        while (query.MoveNext(out var uid, out var point, out var xform))
+        var query = EntityQueryEnumerator<DHControlPointComponent>();
+        while (query.MoveNext(out var uid, out var point))
         {
-            if (point.Holder is not { } owner || now < point.NextOutput)
-                continue;
-
-            point.NextOutput = now + point.Interval;
-            var output = owner == DHAssaultFaction.Republic ? point.RepublicOutput : point.EmpireOutput;
-            if (output.Count == 0)
-                continue;
-
-            // Ящики — на клетку южнее терминала.
-            var coordinates = xform.Coordinates.Offset(new System.Numerics.Vector2(0f, -1f));
-            foreach (var proto in output)
-            {
-                Spawn(proto, coordinates);
-            }
-
-            _assault.AnnounceToFaction(owner, Loc.GetString("dh-control-point-sender"),
-                Loc.GetString("dh-control-point-supply", ("point", Loc.GetString(point.PointName))));
+            UpdateCapture((uid, point), now);
         }
     }
 }

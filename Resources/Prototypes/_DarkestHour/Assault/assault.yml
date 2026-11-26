@@ -58,6 +58,8 @@
     - DHOverwatchTabletRepublic
     - DHMotionDetector
     - DHSignalFlareKit
+  inhand: # флаг для захвата точек (решение автора 2026-11-26)
+  - DHFlagRepublic
 
 - type: startingGear
   parent: DHRepublicGearBase
@@ -812,6 +814,8 @@
     - DHOverwatchTabletEmpire
     - DHMotionDetector
     - DHSignalFlareKit
+  inhand: # флаг для захвата точек (решение автора 2026-11-26)
+  - DHFlagEmpire
 
 - type: startingGear
   parent: DHImperialGearBase
