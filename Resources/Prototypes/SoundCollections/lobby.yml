@@ -1,7 +1,12 @@
-# DarkestHour: своя музыка лобби (решение автора 2026-10-30), ванильные треки вырезаны.
+# DarkestHour: музыка лобби — треки RMC-14 (решение автора 2026-11-26; наши прежние треки и ванильные вырезаны).
+# Лицензии — Resources/Audio/_RMC14/Lobby/attributions.yml (CC-BY-SA-3.0/4.0, CC-BY-4.0, CC0 с сэмплом CC-BY-4.0).
 - type: soundCollection
   id: LobbyMusic
   files:
-    - /Audio/_DarkestHour/Lobby/a_new_dawn.ogg
-    - /Audio/_DarkestHour/Lobby/fire_and_blood.ogg
-    - /Audio/_DarkestHour/Lobby/hell_march.ogg
+    - /Audio/_RMC14/Lobby/Dire_Situation.ogg
+    - /Audio/_RMC14/Lobby/Dropzone.ogg
+    - /Audio/_RMC14/Lobby/Super_Nova_In_The_Catacombs.ogg
+    - /Audio/_RMC14/Lobby/Time_Is_Running_Out.ogg
+    - /Audio/_RMC14/Lobby/enemy_is_unknown.ogg
+    - /Audio/_RMC14/Lobby/shadowinthesilvernebula.ogg
+    - /Audio/_RMC14/Lobby/the_fallen_queen.ogg

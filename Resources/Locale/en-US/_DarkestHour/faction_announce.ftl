@@ -8,3 +8,9 @@ dh-faction-announce-ready = Ready to transmit (up to {$max} characters).
 dh-faction-announce-denied = Access denied: command clearance required.
 dh-faction-announce-sender-republic = Garrison command ({$name})
 dh-faction-announce-sender-empire = Operation command ({$name})
+
+# Command arrival (author's decision 2026-11-26).
+dh-command-arrival-sender-empire = Carrier watch officer
+dh-command-arrival-sender-republic = Garrison duty officer
+dh-command-arrival-empire = Attention! On deck — { $job } { $name }.
+dh-command-arrival-republic = Attention! In quarters — { $job } { $name }.
