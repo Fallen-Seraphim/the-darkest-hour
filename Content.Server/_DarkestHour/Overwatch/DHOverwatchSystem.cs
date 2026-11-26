@@ -21,7 +21,9 @@ namespace Content.Server._DarkestHour.Overwatch;
 
 /// <summary>
 /// Консоль наблюдения «Штурма»: бойцы своей стороны с состоянием и координатами, вид глазами бойца
-/// (подписка зрителя на его глаз — работает и между картами: с авианосца видно десант на поверхности), приказы стороне.
+/// (подписка зрителя на его глаз — работает и между картами: с авианосца видно десант на поверхности), приказы.
+/// По отрядам (решение автора 2026-11-26, как в RMC/CMU): приказ уходит выбранному отряду (или бойцам вне отрядов),
+/// всей стороне — только с командной консоли. Планшет командира LA-V — то же для отряда ЧВК.
 /// </summary>
 public sealed partial class DHOverwatchSystem : EntitySystem
 {
@@ -36,6 +38,7 @@ public sealed partial class DHOverwatchSystem : EntitySystem
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private UserInterfaceSystem _ui = default!;
     [Dependency] private ViewSubscriberSystem _view = default!;
+    [Dependency] private Robust.Shared.Prototypes.IPrototypeManager _proto = default!;
 
     private static readonly SoundSpecifier OrderSound = new SoundPathSpecifier("/Audio/Misc/notice2.ogg");
     private static readonly TimeSpan RefreshInterval = TimeSpan.FromSeconds(1);
@@ -83,8 +86,7 @@ public sealed partial class DHOverwatchSystem : EntitySystem
 
         if (args.Target is { } netTarget &&
             TryGetEntity(netTarget, out var target) &&
-            TryComp<DHAssaultFighterComponent>(target, out var fighter) &&
-            fighter.Faction == ent.Comp.Faction &&
+            Watchable(ent, target.Value) &&
             target != viewer &&
             TryComp<ActorComponent>(viewer, out var actor))
         {
@@ -112,10 +114,89 @@ public sealed partial class DHOverwatchSystem : EntitySystem
             return;
         }
 
-        ent.Comp.NextOrder = now + ent.Comp.OrderCooldown;
         var senderKey = ent.Comp.OrderSender is { } key ? key.Id : "dh-overwatch-order-sender";
         var sender = Loc.GetString(senderKey, ("name", Name(args.Actor)));
-        _assault.AnnounceToFaction(ent.Comp.Faction, sender, text, OrderSound, ent.Comp.OrderColor, onScreen: true);
+
+        // Отряд ЧВК LA-V: всем бойцам отряда.
+        if (ent.Comp.LAV)
+        {
+            ent.Comp.NextOrder = now + ent.Comp.OrderCooldown;
+            var lav = new List<ICommonSession>();
+            var members = EntityQueryEnumerator<Content.Server._DarkestHour.ThirdParty.DHLAVMemberComponent, ActorComponent>();
+            while (members.MoveNext(out _, out _, out var actor))
+            {
+                lav.Add(actor.PlayerSession);
+            }
+
+            _assault.AnnounceTo(lav, sender, text, OrderSound, LAVColor, onScreen: true);
+            return;
+        }
+
+        // Всей стороне — только с командной консоли.
+        if (args.Squad == null)
+        {
+            if (!ent.Comp.FactionOrders)
+            {
+                _popup.PopupEntity(Loc.GetString("dh-overwatch-order-no-faction"), ent, args.Actor);
+                return;
+            }
+
+            ent.Comp.NextOrder = now + ent.Comp.OrderCooldown;
+            _assault.AnnounceToFaction(ent.Comp.Faction, sender, text, OrderSound, ent.Comp.OrderColor, onScreen: true);
+            return;
+        }
+
+        // Отряду или бойцам вне отрядов.
+        string squadName;
+        Color squadColor;
+        if (args.Squad == DHOverwatchOrderMessage.NoSquad)
+        {
+            squadName = Loc.GetString("dh-overwatch-squad-none");
+            squadColor = ent.Comp.OrderColor ?? Color.White;
+        }
+        else if (_proto.TryIndex<Content.Shared._DarkestHour.Squads.DHSquadPrototype>(args.Squad, out var squad) &&
+                 squad.Faction == ent.Comp.Faction)
+        {
+            squadName = Loc.GetString(squad.Name);
+            squadColor = squad.Color;
+        }
+        else
+        {
+            return;
+        }
+
+        ent.Comp.NextOrder = now + ent.Comp.OrderCooldown;
+        var sessions = new List<ICommonSession>();
+        var fighters = EntityQueryEnumerator<DHAssaultFighterComponent, ActorComponent>();
+        while (fighters.MoveNext(out var uid, out var fighter, out var actor))
+        {
+            if (fighter.Faction != ent.Comp.Faction)
+                continue;
+
+            var memberSquad = TryComp<Content.Shared._DarkestHour.Squads.DHSquadMemberComponent>(uid, out var member)
+                ? member.Squad.Id
+                : DHOverwatchOrderMessage.NoSquad;
+            if (memberSquad == args.Squad)
+                sessions.Add(actor.PlayerSession);
+        }
+
+        // Отправителю — копия, чтобы видел, что ушло.
+        if (TryComp<ActorComponent>(args.Actor, out var self) && !sessions.Contains(self.PlayerSession))
+            sessions.Add(self.PlayerSession);
+
+        _assault.AnnounceTo(sessions, Loc.GetString("dh-overwatch-order-sender-squad", ("sender", sender),
+            ("squad", squadName)), text, OrderSound, squadColor, onScreen: true);
+    }
+
+    private static readonly Color LAVColor = Color.FromHex("#8A6AD0");
+
+    /// <summary>Кого можно смотреть с этой консоли: бойцов её стороны или отряда LA-V.</summary>
+    private bool Watchable(Entity<DHOverwatchConsoleComponent> ent, EntityUid target)
+    {
+        if (ent.Comp.LAV)
+            return HasComp<Content.Server._DarkestHour.ThirdParty.DHLAVMemberComponent>(target);
+
+        return TryComp<DHAssaultFighterComponent>(target, out var fighter) && fighter.Faction == ent.Comp.Faction;
     }
 
     private void OnTacticalMapRequest(Entity<DHOverwatchConsoleComponent> ent, ref DHTacticalMapRequestMessage args)
@@ -174,10 +255,10 @@ public sealed partial class DHOverwatchSystem : EntitySystem
         var fighters = new List<DHOverwatchEntry>();
         var surface = _tacmap.GetSurfaceMap();
         var levels = surface is { } surfaceMap ? _tacmap.Levels(surfaceMap) : new List<(EntityUid Map, int Level)>();
-        var query = EntityQueryEnumerator<DHAssaultFighterComponent, MobStateComponent, TransformComponent>();
-        while (query.MoveNext(out var uid, out var fighter, out var mobState, out var xform))
+        var query = EntityQueryEnumerator<MobStateComponent, TransformComponent>();
+        while (query.MoveNext(out var uid, out var mobState, out var xform))
         {
-            if (fighter.Faction != ent.Comp.Faction)
+            if (!Watchable(ent, uid))
                 continue;
 
             var entry = Entry(uid, mobState, xform);
@@ -206,9 +287,34 @@ public sealed partial class DHOverwatchSystem : EntitySystem
         }
 
         var markers = surface is { } map ? _tacmap.Markers(ent.Comp.Faction, map) : new List<DHTacticalMarker>();
+
+        // LA-V: только общеизвестное — зоны захвата, ЗП, ориентиры.
+        if (ent.Comp.LAV)
+        {
+            markers.RemoveAll(m => m.Kind is not (DHTacticalMarkerKind.ControlPoint or DHTacticalMarkerKind.LandingZone
+                or DHTacticalMarkerKind.Beacon));
+        }
         var version = surface is { } terrainMap ? _tacmap.TerrainVersion(terrainMap) : 0;
 
-        var state = new DHOverwatchState(ent.Comp.Faction, fighters, watching, GetNetEntity(surface), version, markers);
+        var state = new DHOverwatchState(ent.Comp.Faction, fighters, watching, GetNetEntity(surface), version, markers)
+        {
+            FactionOrders = ent.Comp.FactionOrders && !ent.Comp.LAV,
+            LAV = ent.Comp.LAV,
+        };
+
+        if (!ent.Comp.LAV)
+        {
+            foreach (var squad in _proto.EnumeratePrototypes<Content.Shared._DarkestHour.Squads.DHSquadPrototype>())
+            {
+                if (squad.Faction != ent.Comp.Faction)
+                    continue;
+
+                state.Squads.Add(new DHOverwatchSquad { Id = squad.ID, Name = Loc.GetString(squad.Name), Color = squad.Color });
+            }
+
+            state.Squads.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.CurrentCulture));
+        }
+
         if (levels.Count > 1)
         {
             foreach (var (levelMap, level) in levels)

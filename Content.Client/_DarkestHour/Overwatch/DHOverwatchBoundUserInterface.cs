@@ -35,7 +35,14 @@ public sealed partial class DHOverwatchBoundUserInterface : BoundUserInterface
 
         _window = this.CreateWindow<DHOverwatchWindow>();
         _window.OnWatch += target => SendMessage(new DHOverwatchWatchMessage(target));
-        _window.OnOrder += text => SendMessage(new DHOverwatchOrderMessage(text));
+        _window.OnOrder += (text, squad) => SendMessage(new DHOverwatchOrderMessage(text, squad));
+
+        // Планшет командира отряда открывается на его отряде.
+        if (_player.LocalEntity is { } local &&
+            EntMan.TryGetComponent<Content.Shared._DarkestHour.Squads.DHSquadMemberComponent>(local, out var member))
+        {
+            _window.DefaultSquad = member.Squad.Id;
+        }
         _window.OnTacticalMap += OpenTacticalMap;
     }
 

@@ -12,7 +12,7 @@ dh-overwatch-ui-no-signal = Выберите бойца, чтобы смотре
 dh-overwatch-ui-connecting = Подключение к нашлемной камере...
 dh-overwatch-ui-disconnect = Отключиться
 dh-overwatch-ui-order = Приказ:
-dh-overwatch-ui-order-placeholder = Приказ всей стороне
+dh-overwatch-ui-order-placeholder = Приказ выбранному отряду
 dh-overwatch-ui-order-send = Отправить
 dh-overwatch-status-alive = {$health}%
 dh-overwatch-status-critical = РАНЕН
@@ -22,3 +22,11 @@ dh-overwatch-location-air = в воздухе
 dh-overwatch-location-field = в поле
 dh-overwatch-order-sender = Наблюдение ({$name})
 dh-overwatch-order-cooldown = Канал занят, подождите {$seconds} с.
+
+# Приказы по отрядам (решение автора 2026-11-26): на компьютере выбирают отряд, приказ получает только он.
+dh-overwatch-squad-all = Вся сторона
+dh-overwatch-squad-none = Вне отрядов
+dh-overwatch-order-no-faction = Приказ всей стороне — только с командного компьютера или планшета.
+dh-overwatch-order-sender-squad = {$sender} → {$squad}
+dh-overwatch-faction-lav = Отряд LA-V
+dh-overwatch-order-sender-lav = Командир LA-V ({$name})

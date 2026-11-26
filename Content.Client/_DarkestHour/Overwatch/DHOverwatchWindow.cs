@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Client._DarkestHour.UI;
 using System.Numerics;
 using Content.Client.Viewport;
@@ -12,13 +13,13 @@ using Robust.Shared.Graphics;
 namespace Content.Client._DarkestHour.Overwatch;
 
 /// <summary>
-/// Консоль наблюдения: слева — бойцы стороны (состояние, здоровье, где находятся), справа — вид глазами выбранного,
-/// снизу — приказ всей стороне.
+/// Консоль наблюдения: сверху — выбор отряда (как в RMC/CMU), слева — его бойцы (состояние, здоровье, где находятся),
+/// справа — вид глазами выбранного, снизу — приказ выбранному отряду или всей стороне (только командная консоль).
 /// </summary>
 public sealed class DHOverwatchWindow : DefaultWindow
 {
     public event Action<NetEntity?>? OnWatch;
-    public event Action<string>? OnOrder;
+    public event Action<string, string?>? OnOrder;
     public event Action? OnTacticalMap;
 
     private static readonly Color Ok = Color.FromHex("#8FD66B");
@@ -54,6 +55,13 @@ public sealed class DHOverwatchWindow : DefaultWindow
     };
 
     private readonly LineEdit _order = new() { HorizontalExpand = true };
+
+    /// <summary>Выбор отряда: «Вся сторона» (null), отряды, «Вне отрядов» (<see cref="DHOverwatchOrderMessage.NoSquad"/>).</summary>
+    private readonly OptionButton _squad = new() { MinWidth = 180 };
+    private readonly List<string?> _squadIds = new();
+    private string _squadKey = string.Empty;
+    private string? _selectedSquad;
+    private bool _squadChosen;
 
     private DHOverwatchState? _state;
     private NetEntity? _watching;
@@ -92,6 +100,14 @@ public sealed class DHOverwatchWindow : DefaultWindow
             SeparationOverride = 4,
             MinWidth = 360,
         };
+        _squad.OnItemSelected += args =>
+        {
+            _squad.SelectId(args.Id);
+            _selectedSquad = args.Id < _squadIds.Count ? _squadIds[args.Id] : null;
+            _squadChosen = true;
+            Rebuild();
+        };
+        left.AddChild(_squad);
         left.AddChild(_summary);
         left.AddChild(_hideDead);
         var scroll = new ScrollContainer { VerticalExpand = true, HScrollEnabled = false };
@@ -149,14 +165,18 @@ public sealed class DHOverwatchWindow : DefaultWindow
         if (text.Length == 0)
             return;
 
-        OnOrder?.Invoke(text);
+        OnOrder?.Invoke(text, _selectedSquad);
         _order.Text = string.Empty;
     }
+
+    /// <summary>Отряд по умолчанию (свой отряд командира, открывшего планшет).</summary>
+    public string? DefaultSquad;
 
     public void UpdateState(DHOverwatchState state, NetEntity? watching, IEye? eye)
     {
         _state = state;
         _watching = watching;
+        UpdateSquads(state);
         Rebuild();
 
         DHOverwatchEntry? entry = null;
@@ -178,6 +198,57 @@ public sealed class DHOverwatchWindow : DefaultWindow
             : Loc.GetString("dh-overwatch-ui-view", ("name", entry.Name), ("job", entry.Job));
     }
 
+    private void UpdateSquads(DHOverwatchState state)
+    {
+        _squad.Visible = !state.LAV;
+        if (state.LAV)
+        {
+            _selectedSquad = null;
+            return;
+        }
+
+        var key = string.Join(",", state.Squads.Select(q => q.Id)) + "|" + state.FactionOrders;
+        if (key == _squadKey)
+            return;
+
+        _squadKey = key;
+        _squad.Clear();
+        _squadIds.Clear();
+        if (state.FactionOrders)
+        {
+            _squad.AddItem(Loc.GetString("dh-overwatch-squad-all"), _squadIds.Count);
+            _squadIds.Add(null);
+        }
+
+        foreach (var squad in state.Squads)
+        {
+            _squad.AddItem(squad.Name, _squadIds.Count);
+            _squadIds.Add(squad.Id);
+        }
+
+        _squad.AddItem(Loc.GetString("dh-overwatch-squad-none"), _squadIds.Count);
+        _squadIds.Add(DHOverwatchOrderMessage.NoSquad);
+
+        // Командная консоль — вся сторона; планшет командира отряда — его отряд.
+        if (!_squadChosen || !_squadIds.Contains(_selectedSquad))
+        {
+            _selectedSquad = DefaultSquad != null && _squadIds.Contains(DefaultSquad) && !state.FactionOrders
+                ? DefaultSquad
+                : _squadIds[0];
+        }
+
+        _squad.SelectId(_squadIds.IndexOf(_selectedSquad));
+    }
+
+    /// <summary>Боец в выбранном отряде (вся сторона и LA-V — все).</summary>
+    private bool InSelection(DHOverwatchEntry fighter)
+    {
+        if (_state == null || _state.LAV || _selectedSquad == null)
+            return true;
+
+        return (fighter.Squad ?? DHOverwatchOrderMessage.NoSquad) == _selectedSquad;
+    }
+
     private void Rebuild()
     {
         _list.RemoveAllChildren();
@@ -187,6 +258,9 @@ public sealed class DHOverwatchWindow : DefaultWindow
         int alive = 0, crit = 0, dead = 0;
         foreach (var fighter in _state.Fighters)
         {
+            if (!InSelection(fighter))
+                continue;
+
             switch (fighter.Status)
             {
                 case DHOverwatchStatus.Alive: alive++; break;
@@ -196,12 +270,12 @@ public sealed class DHOverwatchWindow : DefaultWindow
         }
 
         _summary.Text = Loc.GetString("dh-overwatch-ui-summary",
-            ("faction", Loc.GetString(_state.Faction == DHAssaultFaction.Republic
-                ? "dh-overwatch-faction-republic"
+            ("faction", Loc.GetString(_state.LAV ? "dh-overwatch-faction-lav"
+                : _state.Faction == DHAssaultFaction.Republic ? "dh-overwatch-faction-republic"
                 : "dh-overwatch-faction-empire")),
             ("alive", alive), ("crit", crit), ("dead", dead));
 
-        if (_state.Fighters.Count == 0)
+        if (alive + crit + dead == 0)
         {
             _list.AddChild(new Label { Text = Loc.GetString("dh-overwatch-ui-empty"), FontColorOverride = Dim });
             return;
@@ -209,7 +283,7 @@ public sealed class DHOverwatchWindow : DefaultWindow
 
         foreach (var fighter in _state.Fighters)
         {
-            if (_hideDead.Pressed && fighter.Status == DHOverwatchStatus.Dead)
+            if (!InSelection(fighter) || _hideDead.Pressed && fighter.Status == DHOverwatchStatus.Dead)
                 continue;
 
             _list.AddChild(Row(fighter));

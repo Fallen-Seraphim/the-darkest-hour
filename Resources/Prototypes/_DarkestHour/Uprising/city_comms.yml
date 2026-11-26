@@ -50,3 +50,4 @@
     faction: Republic
     orderColor: "#5B8AD6"
     orderSender: dh-overwatch-order-sender-police
+    factionOrders: true

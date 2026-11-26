@@ -464,7 +464,7 @@ for i, proto in enumerate(bridge):
     x = x0 + 1 + i * 2
     put(proto, x, y1, FACE['S'])
     put('ChairOfficeDark', x, y1 - 1, FACE['N'])
-put('ComputerComms', x0, y0 + 4, FACE['E'])
+put('DHComputerAnnounceEmpire', x0, y0 + 4, FACE['E'])  # объявления только своей стороне
 put('ChairOfficeDark', x0 + 1, y0 + 4, FACE['W'])
 put('ComputerCrewMonitoring', x1, y0 + 4, FACE['W'])
 put('ChairOfficeDark', x1 - 1, y0 + 4, FACE['E'])
