@@ -1,5 +1,5 @@
 # Звуки попаданий пуль по материалам и по броне, брызги крови (план осады п. 15, решения автора 2026-11-20).
-# Механика — DHImpactSystem. Звуки — cmss13 через RMC-14 и CMU (CC-BY-SA-3.0), рикошеты — SS14.
+# Механика — DHImpactSystem. Звуки — cmss13 через RMC-14 и CMU (CC-BY-SA-3.0); металл и броня — звуки от автора (RMC-14).
 
 - type: soundCollection
   id: DHImpactFlesh
@@ -8,24 +8,22 @@
   - /Audio/_DarkestHour/Impacts/impact_flesh_2.ogg
   - /Audio/_DarkestHour/Impacts/impact_flesh_3.ogg
   - /Audio/_DarkestHour/Impacts/impact_flesh_4.ogg
+  - /Audio/_DarkestHour/Impacts/impact_flesh_5.ogg # пробитие (звук от автора, 2026-11-26)
 
-# Броня не пробита: пуля звенит о пластину.
+# Броня не пробита: пуля бьёт о пластину. Металл, броня и металлические стены — одни звуки (от автора, 2026-11-26).
 - type: soundCollection
   id: DHImpactArmor
   files:
-  - /Audio/Weapons/Guns/Hits/ric1.ogg
-  - /Audio/Weapons/Guns/Hits/ric2.ogg
-  - /Audio/Weapons/Guns/Hits/ric3.ogg
-  - /Audio/Weapons/Guns/Hits/ric4.ogg
-  - /Audio/Weapons/Guns/Hits/ric5.ogg
+  - /Audio/_DarkestHour/Impacts/impact_metal_bullet.ogg
+  - /Audio/_DarkestHour/Impacts/impact_metal_thud.ogg
+  - /Audio/_DarkestHour/Impacts/impact_metal_strike.ogg
 
 - type: soundCollection
   id: DHImpactMetal
   files:
-  - /Audio/_RMC14/Structures/metalhit.ogg
-  - /Audio/_DarkestHour/Impacts/genhit1.ogg
-  - /Audio/_DarkestHour/Impacts/genhit2.ogg
-  - /Audio/_DarkestHour/Impacts/genhit3.ogg
+  - /Audio/_DarkestHour/Impacts/impact_metal_bullet.ogg
+  - /Audio/_DarkestHour/Impacts/impact_metal_thud.ogg
+  - /Audio/_DarkestHour/Impacts/impact_metal_strike.ogg
 
 - type: soundCollection
   id: DHImpactConcrete
