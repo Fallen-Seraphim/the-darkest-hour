@@ -1,0 +1,25 @@
+# Звуки стрельбы корпоративного оружия LA-V: корпоративные стволы cmss13 через RuCM (CMU и RMC-14).
+# LAVR-55 — импульсная винтовка M41A, LAVSMG-23 — M10, LAVMG-14 — смарт-ган; LAVR-61 (gun_ml66a) и LAVR-90
+# (gun_sniper_heavy) — одиночные звуки прямо в прототипах. Атрибуция — в папках звуков.
+
+- type: soundCollection
+  id: DHGunshotLAVR55
+  files:
+  - /Audio/_CMU14/Weapons/m41/gun_m41a_1f.ogg
+  - /Audio/_CMU14/Weapons/m41/gun_m41a_2f.ogg
+  - /Audio/_CMU14/Weapons/m41/gun_m41a_3f.ogg
+  - /Audio/_CMU14/Weapons/m41/gun_m41a_4f.ogg
+
+- type: soundCollection
+  id: DHGunshotLAVSMG23
+  files:
+  - /Audio/_RMC14/Weapons/Guns/Gunshots/gun_m10_auto_pistol.ogg
+  - /Audio/_RMC14/Weapons/Guns/Gunshots/gun_m10_auto_pistol2.ogg
+
+- type: soundCollection
+  id: DHGunshotLAVMG14
+  files:
+  - /Audio/_CMU14/Weapons/smartgun/gun_smartgun1.ogg
+  - /Audio/_CMU14/Weapons/smartgun/gun_smartgun2.ogg
+  - /Audio/_CMU14/Weapons/smartgun/gun_smartgun3.ogg
+  - /Audio/_CMU14/Weapons/smartgun/gun_smartgun4.ogg
