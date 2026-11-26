@@ -77,6 +77,8 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
     public static readonly Color ImperialYellow = Color.FromHex("#F2C230");
     private static readonly SoundSpecifier AlarmSound = new SoundPathSpecifier("/Audio/Announcements/war.ogg");
     private static readonly SoundSpecifier AnnounceSound = new SoundPathSpecifier("/Audio/Announcements/announce.ogg");
+    private static readonly SoundSpecifier CarrierArrivalSound =
+        new SoundPathSpecifier("/Audio/_DarkestHour/Announcements/carrier_arrival.ogg");
 
     private static readonly TimeSpan CheckInterval = TimeSpan.FromSeconds(1);
     private static readonly TimeSpan CrashDelay = TimeSpan.FromSeconds(20);
@@ -378,8 +380,9 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
             if (!component.Arrived && system == component.TargetSystem.Id)
             {
                 component.Arrived = true;
-                Announce(DHAssaultFaction.Republic, "dh-assault-carrier-arrived", AlarmSound);
-                Announce(DHAssaultFaction.Empire, "dh-assault-carrier-arrived-empire");
+                // Звук прибытия авианосца в систему — обеим сторонам (решение автора 2026-11-26).
+                Announce(DHAssaultFaction.Republic, "dh-assault-carrier-arrived", CarrierArrivalSound);
+                Announce(DHAssaultFaction.Empire, "dh-assault-carrier-arrived-empire", CarrierArrivalSound);
             }
 
             // Авианосец ушёл из системы базы — итог по образцу и гарнизону.
