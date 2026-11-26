@@ -51,6 +51,8 @@
       visible: false
     - state: humveeturret_0
       map: [ "turret" ]
+    - state: humveecannon_0 # пулемёт в турели — виден, пока стоит модуль (решение автора 2026-11-26)
+      map: [ "turretGun" ]
     - state: wheels_0
       map: [ "wheels" ]
       loop: false
@@ -92,6 +94,8 @@
       Wheels: wheels
       PortLeft: ""
       PortRight: ""
+    extraLayers:
+      Primary: [ turretGun ]
     starting:
       Primary: DHHardpointHumveeMG
       Wheels: DHHardpointHumveeWheels
@@ -109,7 +113,8 @@
     crewZoom: 1.3
     interior: DHInteriorHumvee
     hull: DHVehicleHullHumvee
-    turretLayers: [ turret ]
+    turretLayers: [ turret, turretGun ]
+    uprightSideFrames: true # боковые кадры cmss13 нарисованы в перспективе — не доворачиваем
     exitOffset: 0,2
     wreck: DHVehicleWreckHumvee
     wreckExplosion: 15
@@ -130,7 +135,8 @@
     crewZoom: 1.3
     interior: DHInteriorHumvee
     hull: DHVehicleHullHumvee
-    turretLayers: [ turret ]
+    turretLayers: [ turret, turretGun ]
+    uprightSideFrames: true # боковые кадры cmss13 нарисованы в перспективе — не доворачиваем
     exitOffset: 0,2
     wreck: DHVehicleWreckHumvee
     wreckExplosion: 15
@@ -189,6 +195,10 @@
     families: [ Humvee ]
     vehicleState: humveeturret_0
     damagedVehicleState: humveeturret_1
+    extraVehicleStates:
+      turretGun: humveecannon_0
+    damagedExtraVehicleStates:
+      turretGun: humveecannon_1
     maxIntegrity: 200
     integrity: 200
     damageShare: 0.15
