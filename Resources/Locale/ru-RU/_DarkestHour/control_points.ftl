@@ -54,3 +54,5 @@ dh-tacmap-level = Уровень:
 dh-tacmap-level-ground = Земля
 dh-control-point-powered-backup = [color=#E0B050]Работает от резервного дизеля: осталось около {$minutes} мин.[/color]
 dh-control-point-powered-off = [color=#A05050]Нет питания: сеть АЭС потеряна.[/color]
+dh-control-point-powered-off-broken = [color=#A05050]Нет питания: объект зоны выведен из строя — нужен ремонт.[/color]
+dh-control-point-powered-off-jammed = [color=#A05050]Нет питания: в зоне стоит флаг ЧВК LA-V.[/color]

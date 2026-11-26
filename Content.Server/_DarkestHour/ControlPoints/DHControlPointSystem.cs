@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Server._DarkestHour.Assault;
 using Content.Shared._DarkestHour.Assault;
 using Content.Shared._DarkestHour.ControlPoints;
@@ -35,6 +36,10 @@ public sealed partial class DHControlPointSystem : EntitySystem
     private static readonly TimeSpan UpdateInterval = TimeSpan.FromSeconds(1);
 
     private TimeSpan _nextUpdate;
+    private TimeSpan _nextResync;
+
+    /// <summary>Как часто сверять питание с владельцами зон (на случай рассинхрона при загрузке карты).</summary>
+    private static readonly TimeSpan ResyncInterval = TimeSpan.FromSeconds(5);
 
     public override void Initialize()
     {
@@ -56,7 +61,12 @@ public sealed partial class DHControlPointSystem : EntitySystem
         }
         else if (ent.Comp.Disabled)
         {
-            args.PushMarkup(Loc.GetString("dh-control-point-powered-off"));
+            // Причина: объект зоны сломан, зона заглушена флагом LA-V или потеряна.
+            var point = ent.Comp.Requires.FirstOrDefault(r => EffectiveHolder(r) != ent.Comp.Faction) ?? ent.Comp.Point;
+            var key = _battlefield.PointOutOfAction(point) ? "dh-control-point-powered-off-broken"
+                : Jammed(point) ? "dh-control-point-powered-off-jammed"
+                : "dh-control-point-powered-off";
+            args.PushMarkup(Loc.GetString(key));
         }
     }
 
@@ -77,6 +87,7 @@ public sealed partial class DHControlPointSystem : EntitySystem
 
             comp.BackupUntil = null;
             comp.Disabled = false;
+            comp.Applied = false;
             ApplyPower((uid, comp));
         }
     }
@@ -321,6 +332,10 @@ public sealed partial class DHControlPointSystem : EntitySystem
 
     private void SetPowered(Entity<DHControlPointPoweredComponent> ent, bool enabled)
     {
+        if (ent.Comp.Applied && ent.Comp.Disabled == !enabled)
+            return;
+
+        ent.Comp.Applied = true;
         ent.Comp.Disabled = !enabled;
 
         // Питаемое от сети — отключаем питание; без проводки (фонари «всегда включены») — гасим свет.
@@ -371,6 +386,18 @@ public sealed partial class DHControlPointSystem : EntitySystem
             return;
 
         _nextUpdate = now + UpdateInterval;
+
+        // Сверка: питаемое могло выставиться раньше, чем зона (порядок загрузки карты) — ввод АЭС на базе
+        // показывал «сеть АЭС потеряна» при АЭС у Республики (2026-11-26). Раз в 5 с пересчитываем всё.
+        if (now >= _nextResync)
+        {
+            _nextResync = now + ResyncInterval;
+            var all = EntityQueryEnumerator<DHControlPointPoweredComponent>();
+            while (all.MoveNext(out var puid, out var pcomp))
+            {
+                ApplyPower((puid, pcomp));
+            }
+        }
 
         // Резерв кончился — гаснет.
         var backups = EntityQueryEnumerator<DHControlPointPoweredComponent>();
