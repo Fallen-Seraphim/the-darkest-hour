@@ -54,3 +54,5 @@ dh-tacmap-level = Level:
 dh-tacmap-level-ground = Ground
 dh-control-point-powered-backup = [color=#E0B050]Running on the backup diesel: about {$minutes} min left.[/color]
 dh-control-point-powered-off = [color=#A05050]No power: the plant grid is lost.[/color]
+dh-control-point-powered-off-broken = [color=#A05050]No power: the area's installation is out of action — it needs repairs.[/color]
+dh-control-point-powered-off-jammed = [color=#A05050]No power: the LA-V PMC flag stands in the area.[/color]

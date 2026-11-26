@@ -111,6 +111,10 @@ public sealed partial class DHControlPointPoweredComponent : Component
 
     [ViewVariables]
     public bool Disabled;
+
+    /// <summary>Питание уже выставлялось (дальше трогаем только при смене состояния).</summary>
+    [ViewVariables]
+    public bool Applied;
 }
 
 [Serializable, NetSerializable]
