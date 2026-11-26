@@ -22,3 +22,8 @@
   license: "CC-BY-SA-3.0"
   copyright: "Provided by The Darkest Hour author as RMC-14 sounds (2026-11-26); converted to mono and peak-normalised. Original authorship and licence to be confirmed."
   source: "https://github.com/RMC-14/RMC-14"
+
+- files: ["shell-hit-armor.ogg"]
+  license: "Custom"
+  copyright: "\"442\", provided by the project owner for heavy shell hits on vehicles (2026-11-26); converted to mono OGG. Licence to be confirmed."
+  source: "https://github.com/Fallen-Seraphim/the-darkest-hour"
