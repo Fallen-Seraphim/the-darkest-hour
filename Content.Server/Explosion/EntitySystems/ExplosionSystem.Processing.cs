@@ -516,6 +516,10 @@ public sealed partial class ExplosionSystem
         if (_tileDefinitionManager[tileRef.Tile.TypeId] is not ContentTileDefinition tileDef || tileDef.Indestructible)
             return;
 
+        // DarkestHour: пол поверхности планеты и нижних уровней не ломается (ExplosionSystem.DH.cs).
+        if (DHTileProtected(tileRef))
+            return;
+
         if (!CanCreateVacuum)
             canCreateVacuum = false;
         else if (tileDef.MapAtmosphere)
