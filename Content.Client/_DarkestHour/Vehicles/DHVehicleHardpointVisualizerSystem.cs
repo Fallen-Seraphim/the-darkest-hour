@@ -30,5 +30,24 @@ public sealed partial class DHVehicleHardpointVisualizerSystem : VisualizerSyste
             SpriteSystem.LayerSetVisible((uid, sprite), index, true);
             SpriteSystem.LayerSetRsiState((uid, sprite), index, state);
         }
+
+        // Дополнительные слои мест (пулемёт в турели хамви и т. п.): «слой=состояние;…».
+        foreach (var slot in component.ExtraLayers.Keys)
+        {
+            if (!AppearanceSystem.TryGetData<string>(uid, DHHardpoints.ExtraVisual(slot), out var data, args.Component))
+                continue;
+
+            foreach (var part in data.Split(';', StringSplitOptions.RemoveEmptyEntries))
+            {
+                var split = part.IndexOf('=');
+                if (split <= 0 || !SpriteSystem.LayerMapTryGet((uid, sprite), part[..split], out var index, false))
+                    continue;
+
+                var state = part[(split + 1)..];
+                SpriteSystem.LayerSetVisible((uid, sprite), index, state.Length > 0);
+                if (state.Length > 0)
+                    SpriteSystem.LayerSetRsiState((uid, sprite), index, state);
+            }
+        }
     }
 }
