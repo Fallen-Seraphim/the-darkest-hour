@@ -2,6 +2,7 @@ using Content.Server.Atmos.EntitySystems;
 using Content.Shared._DarkestHour.Aviation;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
+using Robust.Shared.Player;
 
 namespace Content.Server._DarkestHour.Aviation;
 
@@ -39,6 +40,8 @@ public sealed partial class DHAircraftSystem
                 SetAirborne(seat, airborne);
             if (comp.Canopy is { } canopy)
                 SetAirborne(canopy, airborne);
+
+            UpdateCockpitAudio(comp, airborne ? Pilot(comp) : null);
         }
 
         var pilots = EntityQueryEnumerator<DHAircraftPilotComponent>();
@@ -46,6 +49,24 @@ public sealed partial class DHAircraftSystem
         {
             SetAirborne(uid, TryComp<DHAircraftComponent>(pilot.Aircraft, out var plane) && IsAirborne(plane));
         }
+    }
+
+    /// <summary>Гул в кабине: играет пилоту, пока самолёт в воздухе; сел, вылез или сменился игрок — выключается.</summary>
+    private void UpdateCockpitAudio(DHAircraftComponent comp, EntityUid? pilot)
+    {
+        ICommonSession? listener = null;
+        if (pilot is { } p && TryComp<ActorComponent>(p, out var actor))
+            listener = actor.PlayerSession;
+
+        if (listener == comp.CockpitListener && (listener == null || comp.CockpitAudio is { } playing && Exists(playing)))
+            return;
+
+        comp.CockpitAudio = _audio.Stop(comp.CockpitAudio);
+        comp.CockpitListener = listener;
+        if (listener == null)
+            return;
+
+        comp.CockpitAudio = _audio.PlayGlobal(comp.CockpitSound, Filter.SinglePlayer(listener), false)?.Entity;
     }
 
     private void SetAirborne(EntityUid uid, bool airborne)
