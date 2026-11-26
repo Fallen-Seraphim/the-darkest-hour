@@ -1,15 +1,16 @@
-dh-third-party-window-title = Events — recruitment
-dh-third-party-none = No recruitment is open right now.
+dh-third-party-heading = Events
 dh-third-party-time-left = Recruitment closes in { $minutes } min { $seconds } s.
-dh-third-party-role = { $name } — signed up: { $count }
-dh-third-party-join = Sign up
+dh-third-party-roles = Roster: { $roles }
+dh-third-party-count = Interested: { $count } (need { $required }, slots { $slots })
+dh-third-party-join = Interested
 dh-third-party-leave = Withdraw
-dh-third-party-opened = [color=#7ec8f0]Recruitment open for the event "{ $name }".[/color] Sign-up window — command dhevents (or Join → Others). You can sign up while observing.
+dh-third-party-join-tooltip = One button for the whole event. Once enough sign up, roles are handed out at random among the interested — command roles first.
+dh-third-party-opened = [color=#7ec8f0]Recruitment open for the event "{ $name }".[/color] Sign up in the Ghost Roles window ("Interested" button). You can sign up while observing.
 dh-join-events = { $count ->
     [one] { $count } recruitment — for observers
    *[other] { $count } recruitments — for observers
 }
-cmd-dhevents-desc = Opens the third-party event sign-up window.
+cmd-dhevents-desc = Opens the Ghost Roles window with third-party event recruitment.
 cmd-dhevents-help = Usage: dhevents
 dh-zga-event-name = Association paratrooper
 dh-zga-event-desc = A veteran of the Association Paratrooper Corps and the AI of their armour land on Terminus to eliminate one of the commanders. Both players are needed: the event starts once both roles are filled.

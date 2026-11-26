@@ -1,0 +1,326 @@
+# Событие «ЧВК LA-V» в «Осаде» (план осады п. 11, решения автора 2026-11-26): отряд из 10 призраков — командир,
+# заместитель, боевой техник, снайпер-разведчик, медик и пять бойцов. Снаряжение фиксированное по ролям, на основе
+# снаряжения ЧВК «Восстания» (Uprising/pmc.yml). Компонент DHLAVPmc здесь не ставится — он включает логику «Восстания».
+# Набор и высадка — DHLAVSystem.
+
+# ---------------------------------------------------------------- персонажи
+
+- type: randomHumanoidSettings
+  id: DHLAVSquadCommander
+  randomizeName: false
+  components:
+  - type: Loadout
+    prototypes: [ DHLAVSquadCommanderGear ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-lav-name-format-commander
+  - type: AntagImmune
+
+- type: randomHumanoidSettings
+  id: DHLAVSquadDeputy
+  randomizeName: false
+  components:
+  - type: Loadout
+    prototypes: [ DHLAVSquadDeputyGear ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-lav-name-format-deputy
+  - type: AntagImmune
+
+- type: randomHumanoidSettings
+  id: DHLAVSquadTechnician
+  randomizeName: false
+  components:
+  - type: Loadout
+    prototypes: [ DHLAVSquadTechnicianGear ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-lav-name-format-technician
+  - type: AntagImmune
+
+- type: randomHumanoidSettings
+  id: DHLAVSquadSniper
+  randomizeName: false
+  components:
+  - type: Loadout
+    prototypes: [ DHLAVSquadSniperGear ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-lav-name-format-sniper
+  - type: AntagImmune
+
+- type: randomHumanoidSettings
+  id: DHLAVSquadMedic
+  randomizeName: false
+  components:
+  - type: Loadout
+    prototypes: [ DHLAVSquadMedicGear ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-lav-name-format-medic
+  - type: AntagImmune
+
+- type: randomHumanoidSettings
+  id: DHLAVSquadOperative
+  randomizeName: false
+  components:
+  - type: Loadout
+    prototypes: [ DHLAVSquadOperativeGear ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryLast
+    nameFormat: dh-lav-name-format-operative
+  - type: AntagImmune
+
+# ---------------------------------------------------------------- снаряжение
+
+# Командир — LAVR-55 (в «Восстании» у командира LAVR-61).
+- type: startingGear
+  parent: DHLAVPmcCommanderGear
+  id: DHLAVSquadCommanderGear
+  equipment:
+    id: DHLAVDogtagsCommander
+    suitstorage: DHWeaponRifleLAVR55
+  storage:
+    back:
+    - DHMagazineLAVR55LS
+    - DHMagazineLAVR55LS
+    - DHMagazineLAVR55LAP
+    - DHMagazineLAVR55LAP
+    - DHMagazineLAVR55LHP
+    - DHAttachmentKitRifle
+    - DHMagazine10x24ShortE
+    - Binoculars
+    - DHIFAKFilled
+    - Handcuffs
+    - Handcuffs
+
+- type: startingGear
+  parent: DHLAVPmcGearBase
+  id: DHLAVSquadDeputyGear
+  equipment:
+    id: DHLAVDogtagsDeputy
+    jumpsuit: DHLAVPmcClothingUniformCommander
+    outerClothing: DHLAVPmcClothingOuterArmorHeavy
+    head: DHLAVPmcClothingHeadHelmet
+    eyes: DHLAVPmcClothingEyesVisor
+    back: DHLAVPmcClothingBackpack
+    belt: DHLAVPmcClothingBeltWebbing
+    suitstorage: DHWeaponRifleLAVR55
+  storage:
+    back:
+    - DHMagazineLAVR55LS
+    - DHMagazineLAVR55LS
+    - DHMagazineLAVR55LS
+    - DHMagazineLAVR55LAP
+    - DHMagazineLAVR55LAP
+    - DHAttachmentKitRifle
+    - Binoculars
+    - DHIFAKFilled
+    - Handcuffs
+
+# Снайпер-разведчик, медик и бойцы — снаряжение «Восстания» как есть, но с жетонами вместо пропуска LA-V.
+- type: startingGear
+  parent: DHLAVPmcSpecialistGear
+  id: DHLAVSquadSniperGear
+  equipment:
+    id: DHLAVDogtagsSniper
+
+- type: startingGear
+  parent: DHLAVPmcMedicGear
+  id: DHLAVSquadMedicGear
+  equipment:
+    id: DHLAVDogtagsMedic
+
+- type: startingGear
+  parent: DHLAVPmcRiflemanGear
+  id: DHLAVSquadOperativeGear
+  equipment:
+    id: DHLAVDogtagsOperative
+
+# Боевой техник: пулемёт LAVMG-14 и инженерия — сварка, инструменты, мешки и проволока для обороны объекта.
+- type: startingGear
+  parent: DHLAVPmcGearBase
+  id: DHLAVSquadTechnicianGear
+  equipment:
+    id: DHLAVDogtagsTechnician
+    jumpsuit: DHLAVPmcClothingUniform
+    outerClothing: DHLAVPmcClothingOuterArmorHeavy
+    head: DHLAVPmcClothingHeadHelmetHeavy
+    eyes: DHLAVPmcClothingEyesVisor
+    back: DHLAVPmcClothingBackpackCommando
+    belt: ClothingBeltUtilityEngineering
+    suitstorage: DHWeaponLMGLAVMG14
+  storage:
+    back:
+    - DHMagazineLAVMG14LS
+    - DHMagazineLAVMG14LAP
+    - DHMagazineLAVMG14LHP
+    - WelderIndustrial
+    - Shovel
+    - DHSandbagsEmpty25
+    - DHBarbedWire10
+    - DHIFAKFilled
+
+# ---------------------------------------------------------------- должности (иконки и удостоверения)
+
+# Жетоны отряда (как у бойцов сторон, DHDogtags): должность и доступ LA-V, имя — при появлении (DHLAVSystem).
+- type: entity
+  parent: DHDogtags
+  id: DHLAVDogtags
+  name: LA-V PMC dog tags
+  description: Dog tags of an LA-V private military contractor. The contract number and squad position are stamped on them.
+  suffix: LA-V PMC
+  components:
+  - type: PresetIdCard
+    job: DHLAVPmcRifleman
+
+- type: entity
+  parent: DHLAVDogtags
+  id: DHLAVDogtagsCommander
+  suffix: LA-V PMC commander
+  components:
+  - type: PresetIdCard
+    job: DHLAVPmcCommander
+
+- type: entity
+  parent: DHLAVDogtags
+  id: DHLAVDogtagsDeputy
+  suffix: LA-V PMC deputy
+  components:
+  - type: PresetIdCard
+    job: DHLAVPmcDeputy
+
+- type: entity
+  parent: DHLAVDogtags
+  id: DHLAVDogtagsTechnician
+  suffix: LA-V PMC technician
+  components:
+  - type: PresetIdCard
+    job: DHLAVPmcTechnician
+
+- type: entity
+  parent: DHLAVDogtags
+  id: DHLAVDogtagsSniper
+  suffix: LA-V PMC scout sniper
+  components:
+  - type: PresetIdCard
+    job: DHLAVPmcSpecialist
+
+- type: entity
+  parent: DHLAVDogtags
+  id: DHLAVDogtagsMedic
+  suffix: LA-V PMC medic
+  components:
+  - type: PresetIdCard
+    job: DHLAVPmcMedic
+
+- type: entity
+  parent: DHLAVDogtags
+  id: DHLAVDogtagsOperative
+  suffix: LA-V PMC operative
+  components:
+  - type: PresetIdCard
+    job: DHLAVPmcRifleman
+
+- type: job
+  id: DHLAVPmcDeputy
+  name: dh-job-lav-pmc-deputy-name
+  description: dh-job-lav-pmc-deputy-desc
+  playTimeTracker: JobDHLAVPmcDeputy
+  setPreference: false
+  startingGear: DHLAVSquadDeputyGear
+  icon: JobIconDHLAVPmcDeputy
+  supervisors: dh-job-lav-pmc-supervisors-squad
+  access:
+  - DHLAVanguard
+  - DHLAVanguardOffice
+
+- type: job
+  id: DHLAVPmcTechnician
+  name: dh-job-lav-pmc-technician-name
+  description: dh-job-lav-pmc-technician-desc
+  playTimeTracker: JobDHLAVPmcTechnician
+  setPreference: false
+  startingGear: DHLAVSquadTechnicianGear
+  icon: JobIconDHLAVPmcTechnician
+  supervisors: dh-job-lav-pmc-supervisors-squad
+  access:
+  - DHLAVanguard
+  - DHLAVanguardOffice
+
+- type: playTimeTracker
+  id: JobDHLAVPmcDeputy
+
+- type: playTimeTracker
+  id: JobDHLAVPmcTechnician
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAVPmcDeputy
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/uprising_job_icons.rsi
+    state: lav_pmc_deputy
+  jobName: dh-job-lav-pmc-deputy-name
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDHLAVPmcTechnician
+  icon:
+    sprite: /Textures/_DarkestHour/Interface/uprising_job_icons.rsi
+    state: lav_pmc_technician
+  jobName: dh-job-lav-pmc-technician-name
+
+# ---------------------------------------------------------------- интерфейс
+
+- type: entity
+  parent: BaseAction
+  id: DHActionLAVStatus
+  name: Contract
+  description: "Recall the objective of the operation and what counts as success."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 2
+  - type: Sprite
+    sprite: Objects/Devices/pinpointer.rsi
+    layers:
+    - state: pinpointer
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHLAVStatusActionEvent
+
+# Трекер на объект задания: 0 — объект не на этой карте, 1 — рядом, 2–9 — направление.
+- type: alert
+  id: DHLAVTargetTracker
+  category: DHSquadTracker
+  icons:
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackoff
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-direct_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-south_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-southeast_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-east_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-northeast_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-north_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-northwest_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-west_dsl
+  - sprite: /Textures/_DarkestHour/Interface/Alerts/squad_tracker.rsi
+    state: trackon-southwest_dsl
+  name: dh-alert-lav-tracker-name
+  description: dh-alert-lav-tracker-desc
+  minSeverity: 0
+  maxSeverity: 9

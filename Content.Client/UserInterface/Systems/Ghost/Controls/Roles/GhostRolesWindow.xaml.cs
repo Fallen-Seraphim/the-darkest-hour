@@ -21,11 +21,12 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles
         public GhostRolesWindow()
         {
             RobustXamlLoader.Load(this);
+            DHInit(); // DarkestHour
         }
 
         public void ClearEntries()
         {
-            NoRolesMessage.Visible = true;
+            NoRolesMessage.Visible = !DHHasEvents; // DarkestHour
             EntryContainer.RemoveAllChildren();
             _collapsibleBoxes.Clear();
         }

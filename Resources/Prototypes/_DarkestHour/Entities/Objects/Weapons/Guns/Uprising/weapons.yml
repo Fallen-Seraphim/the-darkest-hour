@@ -2168,7 +2168,7 @@
     minAngle: 3
     maxAngle: 36
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/rifle2.ogg
+      collection: DHGunshotLAVR55
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/sf_rifle_cock.ogg
@@ -2390,7 +2390,7 @@
     minAngle: 2
     maxAngle: 30
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/batrifle.ogg
+      path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_ml66a.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/batrifle_cock.ogg
@@ -2623,7 +2623,7 @@
     minAngle: 4
     maxAngle: 38
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/smg.ogg
+      collection: DHGunshotLAVSMG23
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/smg_cock.ogg
@@ -2828,7 +2828,7 @@
     minAngle: 1
     maxAngle: 22
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/sniper.ogg
+      path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_sniper_heavy.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/sf_rifle_cock.ogg

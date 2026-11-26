@@ -77,3 +77,23 @@
   license: "CC-BY-SA-3.0"
   copyright: "Taken from cmss13"
   source: "https://github.com/cmss13-devs/cmss13/blob/7cb618c69b75873f3ce893022fe08d1233b3152d/sound/weapons/gun_vulture_fire.ogg"
+
+- files: [ "gun_sniper_heavy.ogg" ]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13"
+  source: "https://github.com/cmss13-devs/cmss13/blob/8086109b2dbf8d1d98aec106a07d86b65fe63e1b/sound/weapons/sniper_heavy.ogg"
+
+- files: ["gun_ml66a.ogg"]
+  license: "CC-BY-4.0"
+  copyright: "Taken and modified from soundsnap/freesound, Pixabay usage terms at https://pixabay.com/service/terms/"
+  source: "https://pixabay.com/sound-effects/battle-rifle-42734/" #, https://freesound.org/people/NoahBangs/sounds/607320/
+
+- files: ["gun_m10_auto_pistol.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13"
+  source: "https://github.com/cmss13-devs/cmss13/blob/44751f0cc11332a5ba4f05ef91b2d72a0b08082b/sound/weapons/gun_m10_auto_pistol.ogg"
+
+- files: ["gun_m10_auto_pistol2.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13"
+  source: "https://github.com/cmss13-devs/cmss13/blob/44751f0cc11332a5ba4f05ef91b2d72a0b08082b/sound/weapons/gun_m10_auto_pistol2.ogg"

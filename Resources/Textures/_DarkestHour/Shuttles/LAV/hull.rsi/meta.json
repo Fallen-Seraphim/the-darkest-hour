@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from cmss13 at https://github.com/cmss13-devs/cmss13/blob/53b8f7f634ef16422e463bd75eeaa16dccab25ab/icons/turf/dropship3.dmi; used for the LA-V shuttle of The Darkest Hour (Tools/_DarkestHour/lav/make_shuttle.py)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "18"
+    },
+    {
+      "name": "19"
+    },
+    {
+      "name": "47"
+    },
+    {
+      "name": "48"
+    },
+    {
+      "name": "62"
+    },
+    {
+      "name": "64"
+    },
+    {
+      "name": "67"
+    },
+    {
+      "name": "69"
+    },
+    {
+      "name": "72"
+    },
+    {
+      "name": "73"
+    },
+    {
+      "name": "75"
+    },
+    {
+      "name": "76"
+    },
+    {
+      "name": "83"
+    },
+    {
+      "name": "95"
+    },
+    {
+      "name": "97"
+    },
+    {
+      "name": "99"
+    },
+    {
+      "name": "100"
+    },
+    {
+      "name": "102"
+    },
+    {
+      "name": "wy_leftengine"
+    },
+    {
+      "name": "wy_rightengine"
+    },
+    {
+      "name": "zwing1"
+    },
+    {
+      "name": "zwing3"
+    },
+    {
+      "name": "zwing4"
+    },
+    {
+      "name": "zwing5"
+    },
+    {
+      "name": "zwing7"
+    },
+    {
+      "name": "zwing8"
+    }
+  ]
+}

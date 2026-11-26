@@ -80,6 +80,18 @@ public sealed partial class DHAdminTab : Control
         callZga.OnPressed += _ => _console.ExecuteCommand("dhcallzgaparatrooper");
         root.AddChild(callZga);
 
+        // Событие «ЧВК LA-V» в «Осаде» (план осады п. 11): открыть набор отряда из призраков сейчас.
+        var callLavSquad = new ConfirmButton
+        {
+            Text = Loc.GetString("dh-admin-tab-call-lav-squad"),
+            ToolTip = Loc.GetString("dh-admin-tab-call-lav-squad-tooltip"),
+            HorizontalAlignment = HAlignment.Left,
+            MinWidth = 260,
+            ModulateSelfOverride = Color.FromHex("#8A6AD0"),
+        };
+        callLavSquad.OnPressed += _ => _console.ExecuteCommand("dhcalllavsquad");
+        root.AddChild(callLavSquad);
+
         AddChild(root);
     }
 }

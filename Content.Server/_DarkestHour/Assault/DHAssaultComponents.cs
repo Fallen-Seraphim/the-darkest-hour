@@ -144,6 +144,10 @@ public sealed partial class DHAssaultRuleComponent : Component
     [DataField]
     public bool SampleExtracted;
 
+    /// <summary>Образец вывезли ЧВК LA-V на своём шаттле (план п. 11) — провал для обеих сторон.</summary>
+    [DataField]
+    public bool SampleStolen;
+
     /// <summary>Авианосец сбит: когда закончится поисковая операция.</summary>
     [DataField]
     public TimeSpan? SearchEnd;

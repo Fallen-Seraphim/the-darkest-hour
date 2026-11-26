@@ -444,6 +444,19 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
         }
     }
 
+    /// <summary>Образец вывезли ЧВК LA-V (план п. 11): Империя его уже не получит, Республика не сохранила.</summary>
+    public void MarkSampleStolen()
+    {
+        var query = QueryActiveRules();
+        while (query.MoveNext(out _, out var rule, out _, out _))
+        {
+            rule.SampleStolen = true;
+        }
+
+        _chat.DispatchGlobalAnnouncement(Loc.GetString("dh-assault-sample-stolen"), Loc.GetString("dh-assault-outcome-sender"),
+            true, null, Color.FromHex("#8A6AD0"));
+    }
+
     private void Finish(DHAssaultRuleComponent rule, DHAssaultOutcome outcome)
     {
         if (rule.Outcome != DHAssaultOutcome.None && outcome != DHAssaultOutcome.RepublicMajor)
@@ -474,7 +487,8 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
         base.AppendRoundEndText(rule, ref args);
 
         args.AddLine(Loc.GetString(OutcomeText(rule.Comp.Outcome)));
-        args.AddLine(Loc.GetString(rule.Comp.SampleExtracted ? "dh-assault-end-sample-taken" : "dh-assault-end-sample-kept"));
+        args.AddLine(Loc.GetString(rule.Comp.SampleStolen ? "dh-assault-end-sample-stolen"
+            : rule.Comp.SampleExtracted ? "dh-assault-end-sample-taken" : "dh-assault-end-sample-kept"));
         args.AddLine(Loc.GetString("dh-assault-end-tickets",
             ("republic", rule.Comp.Tickets.GetValueOrDefault(DHAssaultFaction.Republic)),
             ("empire", rule.Comp.Tickets.GetValueOrDefault(DHAssaultFaction.Empire))));

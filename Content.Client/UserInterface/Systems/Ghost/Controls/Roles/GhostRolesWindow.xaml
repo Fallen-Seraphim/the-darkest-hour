@@ -7,10 +7,17 @@
            VerticalAlignment="Top" />
     <ScrollContainer VerticalExpand="True"
                      HScrollEnabled="False">
-        <BoxContainer Orientation="Vertical"
-                      Name="EntryContainer"
-                      VerticalExpand="True">
-            <!-- Ghost role entries are added here by code -->
+        <BoxContainer Orientation="Vertical" VerticalExpand="True">
+            <!-- DarkestHour: наборы событий третьей стороны (GhostRolesWindow.DH.cs) -->
+            <BoxContainer Orientation="Vertical"
+                          Name="DHEventContainer"
+                          Visible="False"
+                          Margin="0 0 0 8" />
+            <BoxContainer Orientation="Vertical"
+                          Name="EntryContainer"
+                          VerticalExpand="True">
+                <!-- Ghost role entries are added here by code -->
+            </BoxContainer>
         </BoxContainer>
     </ScrollContainer>
 </DefaultWindow>
