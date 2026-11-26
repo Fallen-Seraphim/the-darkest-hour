@@ -26,7 +26,7 @@ public sealed partial class DHFactionAnnouncerComponent : Component
     public int MaxLength = 500;
 
     [DataField]
-    public SoundSpecifier Sound = new SoundPathSpecifier("/Audio/Misc/notice1.ogg");
+    public SoundSpecifier Sound = new SoundPathSpecifier("/Audio/_DarkestHour/Announcements/command_report.ogg"); // решение автора 2026-11-26
 
     [ViewVariables]
     public TimeSpan NextAnnounce;
