@@ -53,3 +53,8 @@
   license: CC0-1.0
   copyright: "Fire Explosion by Iwan 'qubodup' Gabovitch, from EOD Broll package by Seaman Kelly Meyer / AFN Okinawa (18 November 2020). CMU edits: mono, pitch/duration, filtering and fades. Public HQ preview used."
   source: https://freesound.org/people/qubodup/sounds/855898/
+
+- files: [cockpit-ambience.ogg]
+  license: Custom
+  copyright: "\"jet-ship-exterior\", provided by the project owner (added at their request 2026-11-26); licence to be confirmed. Converted from MP3 to OGG."
+  source: https://github.com/Fallen-Seraphim/the-darkest-hour
