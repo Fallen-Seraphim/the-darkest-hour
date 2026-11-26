@@ -126,7 +126,7 @@ def rspmg():
     return 'rspmg_10_54', pal, dict(S=(s, s_ammo, s_heat), N=(n, n_ammo, n_heat), E=(e, e_ammo, e_heat)), f
 
 
-# ================================================================== IHMG-17 (Empire, DShK look, PDV colours)
+# ================================================================== IHMG-17 (Empire, DShK look, imperial colours)
 def ihmg():
     pal = 'emp'
     # ---- east
@@ -136,6 +136,10 @@ def ihmg():
     e.bevel(6, 9, 14, 10, 'abcd')                                             # white feed cover
     e.hline(6, 14, 13, 'x')                                                   # yellow stripe
     e.dot(13, 12, 'G')                                                        # green emitter
+    e.dot(6, 11, '4').dot(14, 11, '4').dot(6, 14, '4').dot(14, 14, '4')       # screws
+    e.hline(7, 10, 12, '0').dot(11, 12, 'v')                                  # cocking slot and handle
+    e.dot(5, 13, 'O')                                                         # safety mark
+    e.hline(16, 27, 11, '4')                                                  # lit top of the barrel
     e.hline(16, 27, 12, '3').hline(16, 27, 13, '2')                           # barrel
     for x in range(16, 25, 2):                                                # cooling fins
         e.vline(x, 10, 15, '2').dot(x, 10, '3')
@@ -157,6 +161,7 @@ def ihmg():
     n.dot(15, 2, '2')
     n.bevel(12, 10, 19, 16, '1234', left=True, right=True)
     n.bevel(13, 10, 18, 11, 'abcd').hline(13, 18, 14, 'x').dot(15, 13, 'G')
+    n.dot(12, 12, '4').dot(19, 12, '4').dot(17, 13, 'O')
     n.dot(12, 17, '1').dot(19, 17, '1').hline(13, 18, 18, '1')
     tripod_front(n, 15, 16, rear_up=False, heavy=True)
     n_ammo = Art().bevel(6, 11, 11, 16, '1234', left=True, right=True).hline(7, 10, 12, 'x')
@@ -166,6 +171,7 @@ def ihmg():
     s.hline(13, 18, 5, '1').dot(12, 5, '2').dot(19, 5, '2')
     s.bevel(12, 6, 19, 11, '1234', left=True, right=True)
     s.bevel(13, 6, 18, 7, 'abcd').hline(13, 18, 10, 'x').dot(16, 9, 'G')
+    s.dot(12, 8, '4').dot(19, 8, '4').dot(14, 9, 'O')
     s.vline(15, 12, 20, '3').vline(16, 12, 20, '2')
     for y in range(13, 20, 2):
         s.hline(13, 18, y, '2')
@@ -179,6 +185,7 @@ def ihmg():
     f.vline(3, 12, 15, '1').dot(2, 12, '2').dot(2, 15, '2')
     f.bevel(4, 11, 14, 15, '1234', left=True, right=True)
     f.bevel(5, 10, 13, 11, 'abcd').hline(5, 13, 13, 'x')
+    f.dot(5, 12, '4').dot(13, 12, '4').dot(5, 14, 'O').hline(15, 26, 11, '4')
     f.hline(15, 26, 12, '3').hline(15, 26, 13, '2')
     for x in range(15, 24, 2):
         f.vline(x, 11, 14, '2')

@@ -237,25 +237,32 @@
     kind: AntiOrbital
     faction: Republic
     alwaysVisible: true
+  # DarkestHour: ПКО в стиле орудий ОБ — орбитальная пушка RMC в цветах Республики (Tools/_DarkestHour/heavy_guns/pko_skin.py)
   - type: Sprite
-    sprite: _DarkestHour/Structures/HeavyGuns/railway_400_breech.rsi
+    sprite: _DarkestHour/Structures/HeavyGuns/pko.rsi
+    noRot: true
+    offset: -1,-0.8 # рисунок 4×2,4 клетки: казённик — у его восточного края, ствол на запад
+    drawdepth: Overdoors
     layers:
-    - state: icon
+    - state: obc_unloaded
       map: [ "base" ]
-    - state: assembled
+    - sprite: _DarkestHour/Structures/HeavyGuns/breech.rsi
+      state: assembled
       map: [ "assembled" ]
-      shader: unshaded
+      color: "#ffffff00"
       visible: false
-    - state: loaded
+    - sprite: _DarkestHour/Structures/HeavyGuns/breech.rsi
+      state: loaded
       map: [ "loaded" ]
-      shader: unshaded
+      color: "#ffffff00"
       visible: false
+  - type: DHHeavyGunAnimation
   - type: Fixtures
     fixtures:
       fix1:
         shape:
           !type:PhysShapeAabb
-          bounds: "-1.45,-3.45,1.45,0.45" # тележки, люлька и площадка позади казённика
+          bounds: "-1.15,-0.95,1.15,2.95" # повёрнуто стволом на запад: 4×2,3 клетки
         density: 500
         mask:
         - MachineMask
@@ -279,21 +286,10 @@
   name: RAO-400 anti-orbital gun barrel
   description: The barrel of a 400 mm gun. Set it on the tile in front of a breech of the same calibre, facing the same way.
   components:
+  # Ствол нарисован в орудии на казённике.
   - type: Sprite
     sprite: _DarkestHour/Structures/HeavyGuns/railway_400_barrel.rsi
-  - type: Fixtures
-    fixtures:
-      fix1:
-        shape:
-          !type:PhysShapeAabb
-          bounds: "-1.45,-0.45,1.45,0.45" # передние концы тележек; ствол дальше — над головой
-        density: 500
-        mask:
-        - MachineMask
-        layer:
-        - MidImpassable
-        - LowImpassable
-        - BulletImpassable
+    visible: false
   - type: DHHeavyGunBarrel
     caliber: 400
 
@@ -307,25 +303,32 @@
     kind: AntiOrbital
     faction: Republic
     alwaysVisible: true
+  # DarkestHour: ПКО в стиле орудий ОБ — орбитальная пушка RMC в цветах Республики (Tools/_DarkestHour/heavy_guns/pko_skin.py)
   - type: Sprite
-    sprite: _DarkestHour/Structures/HeavyGuns/railway_700_breech.rsi
+    sprite: _DarkestHour/Structures/HeavyGuns/pko.rsi
+    noRot: true
+    offset: -1,-0.8 # рисунок 4×2,4 клетки: казённик — у его восточного края, ствол на запад
+    drawdepth: Overdoors
     layers:
-    - state: icon
+    - state: obc_unloaded
       map: [ "base" ]
-    - state: assembled
+    - sprite: _DarkestHour/Structures/HeavyGuns/breech.rsi
+      state: assembled
       map: [ "assembled" ]
-      shader: unshaded
+      color: "#ffffff00"
       visible: false
-    - state: loaded
+    - sprite: _DarkestHour/Structures/HeavyGuns/breech.rsi
+      state: loaded
       map: [ "loaded" ]
-      shader: unshaded
+      color: "#ffffff00"
       visible: false
+  - type: DHHeavyGunAnimation
   - type: Fixtures
     fixtures:
       fix1:
         shape:
           !type:PhysShapeAabb
-          bounds: "-1.95,-4.45,1.95,0.45" # тележки, люлька и площадка позади казённика
+          bounds: "-1.15,-0.95,1.15,2.95" # повёрнуто стволом на запад: 4×2,3 клетки
         density: 500
         mask:
         - MachineMask
@@ -349,21 +352,10 @@
   name: RAO-700 heavy anti-orbital gun barrel
   description: The barrel of a 700 mm gun. Set it on the tile in front of a breech of the same calibre, facing the same way.
   components:
+  # Ствол нарисован в орудии на казённике.
   - type: Sprite
     sprite: _DarkestHour/Structures/HeavyGuns/railway_700_barrel.rsi
-  - type: Fixtures
-    fixtures:
-      fix1:
-        shape:
-          !type:PhysShapeAabb
-          bounds: "-1.95,-0.45,1.95,0.45" # передние концы тележек; ствол дальше — над головой
-        density: 500
-        mask:
-        - MachineMask
-        layer:
-        - MidImpassable
-        - LowImpassable
-        - BulletImpassable
+    visible: false
   - type: DHHeavyGunBarrel
     caliber: 700
 
