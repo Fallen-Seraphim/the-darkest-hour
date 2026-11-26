@@ -204,3 +204,18 @@
   - /Audio/_DarkestHour/Voice/Warcry/Imperial/melissa_warcry_1.ogg
   - /Audio/_DarkestHour/Voice/Warcry/Imperial/melissa_warcry_2.ogg
   - /Audio/_DarkestHour/Voice/Warcry/Imperial/melissa_warcry_3.ogg
+
+# Крик при броске взведённой гранаты (DHGrenadeShoutSystem), голоса cmss13 через RMC-14 — решение автора 2026-11-26.
+- type: soundCollection
+  id: DHGrenadeThrowMale
+  files:
+  - /Audio/_RMC14/Voice/Human/human_male_grenadethrow_1.ogg
+  - /Audio/_RMC14/Voice/Human/human_male_grenadethrow_2.ogg
+  - /Audio/_RMC14/Voice/Human/human_male_grenadethrow_3.ogg
+
+- type: soundCollection
+  id: DHGrenadeThrowFemale
+  files:
+  - /Audio/_RMC14/Voice/Human/human_female_grenadethrow_1.ogg
+  - /Audio/_RMC14/Voice/Human/human_female_grenadethrow_2.ogg
+  - /Audio/_RMC14/Voice/Human/human_female_grenadethrow_3.ogg

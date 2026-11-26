@@ -41,7 +41,7 @@ public sealed partial class DHOverwatchSystem : EntitySystem
     [Dependency] private ViewSubscriberSystem _view = default!;
     [Dependency] private Robust.Shared.Prototypes.IPrototypeManager _proto = default!;
 
-    private static readonly SoundSpecifier OrderSound = new SoundPathSpecifier("/Audio/Misc/notice2.ogg");
+    private static readonly SoundSpecifier OrderSound = new SoundPathSpecifier("/Audio/_DarkestHour/Announcements/overwatch_order.ogg"); // решение автора 2026-11-26
     private static readonly TimeSpan RefreshInterval = TimeSpan.FromSeconds(1);
 
     private TimeSpan _nextRefresh;

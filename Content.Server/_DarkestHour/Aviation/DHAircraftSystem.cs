@@ -161,6 +161,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
 
     private void OnAircraftShutdown(Entity<DHAircraftComponent> ent, ref ComponentShutdown args)
     {
+        ent.Comp.CockpitAudio = _audio.Stop(ent.Comp.CockpitAudio); // гул кабины не должен пережить самолёт
         if (ent.Comp.Seat is { } seat && !TerminatingOrDeleted(seat))
             QueueDel(seat);
         if (ent.Comp.Canopy is { } canopy && !TerminatingOrDeleted(canopy))

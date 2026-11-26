@@ -4,6 +4,7 @@ using Content.Shared.Actions;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.DoAfter;
 using Robust.Shared.Audio;
+using Robust.Shared.Player;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
@@ -159,6 +160,18 @@ public sealed partial class DHAircraftComponent : Component
 
     [DataField]
     public SoundSpecifier PassHighSound = new SoundPathSpecifier("/Audio/_DarkestHour/Aviation/jet-pass-high.ogg");
+
+    /// <summary>Фоновый гул в кабине, пока самолёт в воздухе (решение автора 2026-11-26); слышит только пилот.</summary>
+    [DataField]
+    public SoundSpecifier CockpitSound = new SoundPathSpecifier("/Audio/_DarkestHour/Aviation/cockpit-ambience.ogg",
+        AudioParams.Default.WithLoop(true).WithVolume(-4f));
+
+    /// <summary>Сервер: играющий гул кабины и кто его слышит.</summary>
+    [ViewVariables]
+    public EntityUid? CockpitAudio;
+
+    [ViewVariables]
+    public ICommonSession? CockpitListener;
 
     // ---------------------------------------------------------------- пушка 30 мм (подвесные контейнеры)
 
