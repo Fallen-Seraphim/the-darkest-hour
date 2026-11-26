@@ -196,6 +196,7 @@
   id: DHFieldShellFlightBase
   categories: [ HideSpawnMenu ]
   components:
+  - type: DHVehicleShellHit # звук попадания по технике (решение автора 2026-11-26)
   - type: Sprite
     sprite: _DarkestHour/Objects/Weapons/FieldGuns/shells.rsi
     layers:

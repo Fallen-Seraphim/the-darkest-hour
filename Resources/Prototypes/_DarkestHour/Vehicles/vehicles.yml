@@ -906,6 +906,7 @@
   name: tank shell
   categories: [ HideSpawnMenu ]
   components:
+  - type: DHVehicleShellHit # звук попадания по технике (решение автора 2026-11-26)
   - type: DHAntiArmor
     hitsToKill: # танк — 4 попадания, БТР — 3 (хамви и лодки — как БТР, класс Light с этапа ПТ-оружия)
       Tank: 4
@@ -918,6 +919,7 @@
   name: IM-30 gun shell
   categories: [ HideSpawnMenu ]
   components:
+  - type: DHVehicleShellHit # звук попадания по технике (решение автора 2026-11-26)
   - type: Projectile
     damage:
       types:
