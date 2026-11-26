@@ -350,10 +350,14 @@ for i, munition in enumerate(('DHAircraftBombHE', 'DHAircraftBombHE', 'DHAircraf
                                'DHAircraftBombMagnesium', 'DHAircraftGuidedBomb', 'DHAircraftMissileAT', 'DHAircraftMissileAT',
                                'DHAircraftMissileHE', 'DHAircraftMissileHE')):
     put(munition, lcx + 4 + i // 2, ry0 + 1 + i % 2)
-# техника и десантное снаряжение — у бортов ВПП. Поддоны танка и БТР — в трюме лифта техники 5×5 (план осады п. 4).
+# техника и десантное снаряжение — у бортов ВПП. Поддоны танка и БТР — в трюмах тяжёлого и лёгкого лифтов 5×5 (п. 4).
 assert rx1 - 4 > lcx + 2, 'лифт техники налезает на ось ВПП'
 put('DHVehicleLift', rx1 - 2, ry1 - 4)
 assert put('DHComputerVehicleLift', rx1, ry1 - 7, FACE['W']), 'компьютер лифта техники'
+# лёгкий лифт (БТР, заказанные хамви) — у другого борта ВПП (решение автора 2026-11-26)
+assert rx0 + 4 < lcx - 2, 'лёгкий лифт техники налезает на ось ВПП'
+put('DHVehicleLiftLight', rx0 + 2, ry1 - 4)
+assert put('DHComputerVehicleLift', rx0, ry1 - 7, FACE['E']), 'компьютер лёгкого лифта техники'
 put('DHFieldGun75', rx1 - 1, ry1 - 8)
 put('DHCrateFieldGun75', rx1 - 1, ry1 - 9)
 put('DHCrateMortar', rx1 - 1, ry1 - 11)

@@ -48,9 +48,16 @@ public sealed partial class DHBattlefieldSystem
 
     #region Воронки
 
+    /// <summary>Воронки от ОБ и тяжёлых бомб (п. 7) — выключены решением автора 2026-11-26.</summary>
+    public static readonly bool CratersEnabled = false;
+
     /// <summary>Воронка радиусом <paramref name="radius"/> клеток на земле (не на воде, не в стене, не в окопе).</summary>
     public void SpawnCrater(MapCoordinates center, int radius)
     {
+        // Решение автора 2026-11-26: воронки от взрывов убраны. Код оставлен выключенным — вернуть, сняв флаг.
+        if (!CratersEnabled)
+            return;
+
         if (_zLevels.TryGetLevel(center.MapId, out var level) && level.Level != 0)
             return;
 

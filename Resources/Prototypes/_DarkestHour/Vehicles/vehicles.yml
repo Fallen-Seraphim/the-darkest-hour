@@ -37,8 +37,10 @@
     acceleration: 1.5
     friction: 2
     frictionNoInput: 4
-    baseWalkSpeed: 3
-    baseSprintSpeed: 4.5
+    # DarkestHour: машину двигает только DHGridDriveSystem; с ненулевой базой она ехала физикой и с заглушённым
+    # двигателем (баг 2026-11-26)
+    baseWalkSpeed: 0
+    baseSprintSpeed: 0
   - type: GravityAffected
   - type: Damageable
   - type: Injurable
@@ -328,8 +330,10 @@
     acceleration: 1
     friction: 2
     frictionNoInput: 4
-    baseWalkSpeed: 2
-    baseSprintSpeed: 3.2
+    # DarkestHour: машину двигает только DHGridDriveSystem; с ненулевой базой она ехала физикой и с заглушённым
+    # двигателем (баг 2026-11-26)
+    baseWalkSpeed: 0
+    baseSprintSpeed: 0
   - type: Fixtures
     fixtures:
       fix1:
@@ -669,6 +673,23 @@
   components:
   - type: DHDropPallet
     spawn: DHVehicleTankEmpire
+
+# Республика: машины в трюме лифтов гаража базы (решение автора 2026-11-26) — поднимаются только машиной.
+- type: entity
+  parent: DHVehicleDropPalletBase
+  id: DHVehicleDropPalletTankRepublic
+  name: drop pallet (Republican tank)
+  components:
+  - type: DHDropPallet
+    spawn: DHVehicleTankRepublic
+
+- type: entity
+  parent: DHVehicleDropPalletBase
+  id: DHVehicleDropPalletRAM45
+  name: drop pallet (RAM-45 APC)
+  components:
+  - type: DHDropPallet
+    spawn: DHVehicleRAM45
 
 # ------------------------------------------------------------------ орудия (сидят в машине, стрелок — в отсеке)
 

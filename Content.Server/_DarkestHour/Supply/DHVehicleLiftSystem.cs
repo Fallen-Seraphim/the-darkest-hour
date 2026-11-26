@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Numerics;
 using Content.Server._DarkestHour.Carrier;
+using Content.Shared._DarkestHour.Assault;
 using Content.Shared._DarkestHour.Carrier;
 using Content.Shared._DarkestHour.HeavyGuns;
 using Content.Shared._DarkestHour.Paradrop;
@@ -12,13 +13,15 @@ using Content.Shared.Popups;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Timing;
 
 namespace Content.Server._DarkestHour.Supply;
 
 /// <summary>
-/// Лифт техники авианосца (план осады п. 4, решение автора 2026-11-19): платформа 5×5 у ВПП. В трюме — поддоны
+/// Лифт техники (план осады п. 4, решения автора 2026-11-19 и 2026-11-26): платформа 5×5, у каждой стороны тяжёлый
+/// (танк) и лёгкий (БТР, заказанные хамви); поддон сброса поднимается либо поддоном, либо распакованной машиной. В трюме — поддоны
 /// сброса (со старта — танк и БТР) и опущенная туда техника; компьютер поднимает выбранное и опускает то, что стоит на
 /// поднятой платформе (поддоны, машины без экипажа, орудия). Пока ангар повреждён (п. 19), лифт стоит.
 /// </summary>
@@ -31,6 +34,7 @@ public sealed partial class DHVehicleLiftSystem : EntitySystem
     [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private IPrototypeManager _prototypes = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private UserInterfaceSystem _ui = default!;
@@ -128,6 +132,37 @@ public sealed partial class DHVehicleLiftSystem : EntitySystem
         return string.Empty;
     }
 
+    /// <summary>Название в трюме: у поддона — машина, которая в нём.</summary>
+    private string StoredName(EntityUid uid)
+    {
+        if (TryComp<DHDropPalletComponent>(uid, out var pallet) &&
+            _prototypes.TryIndex(pallet.Spawn, out var proto))
+            return proto.Name;
+
+        return Name(uid);
+    }
+
+    /// <summary>Лифт стороны нужного типа (для заказанной техники).</summary>
+    public Entity<DHVehicleLiftComponent>? FindLift(DHAssaultFaction faction, DHVehicleLiftKind kind)
+    {
+        var query = EntityQueryEnumerator<DHVehicleLiftComponent>();
+        while (query.MoveNext(out var uid, out var lift))
+        {
+            if (lift.Faction == faction && lift.Kind == kind)
+                return (uid, lift);
+        }
+
+        return null;
+    }
+
+    /// <summary>Положить в трюм (сущность уходит с карты).</summary>
+    public void Store(Entity<DHVehicleLiftComponent> lift, EntityUid thing)
+    {
+        _transform.DetachEntity(thing, Transform(thing));
+        lift.Comp.Stored.Add(thing);
+        UpdateAllConsoles();
+    }
+
     #endregion
 
     #region Компьютер
@@ -166,10 +201,17 @@ public sealed partial class DHVehicleLiftSystem : EntitySystem
         {
             state.HasLift = true;
             state.Mode = lift.Comp.Mode;
+            state.Kind = lift.Comp.Kind;
+            state.AllowPallet = lift.Comp.AllowPallet;
             state.Blocked = Blocked(lift);
             state.Stored = lift.Comp.Stored
                 .Where(uid => Exists(uid))
-                .Select(uid => new DHVehicleLiftRow { Entity = GetNetEntity(uid), Name = Name(uid) })
+                .Select(uid => new DHVehicleLiftRow
+                {
+                    Entity = GetNetEntity(uid),
+                    Name = StoredName(uid),
+                    Pallet = HasComp<DHDropPalletComponent>(uid),
+                })
                 .ToList();
 
             if (lift.Comp.Mode == DHSupplyElevatorMode.Raised)
@@ -203,8 +245,14 @@ public sealed partial class DHVehicleLiftSystem : EntitySystem
         if (!TryGetEntity(args.Cargo, out var cargo) || !lift.Comp.Stored.Contains(cargo.Value))
             return;
 
+        // Поддон поднимается либо поддоном (дальше — сброс на маяк), либо уже распакованной машиной.
+        var pallet = HasComp<DHDropPalletComponent>(cargo.Value);
+        if (args.AsPallet && (!pallet || !lift.Comp.AllowPallet))
+            return;
+
         lift.Comp.Stored.Remove(cargo.Value);
         lift.Comp.Cargo = cargo;
+        lift.Comp.UnpackCargo = pallet && !args.AsPallet;
         lift.Comp.DoneAt = _timing.CurTime + lift.Comp.RaiseTime;
         SetMode(lift, DHSupplyElevatorMode.Raising);
         _audio.PlayPvs(lift.Comp.RaisingSound, lift);
@@ -271,11 +319,22 @@ public sealed partial class DHVehicleLiftSystem : EntitySystem
                 if (lift.Cargo is { } cargo && Exists(cargo))
                 {
                     var xform = Transform(uid);
-                    _transform.SetCoordinates(cargo, new EntityCoordinates(xform.ParentUid, xform.LocalPosition));
-                    _transform.SetLocalRotation(cargo, xform.LocalRotation);
+                    var coordinates = new EntityCoordinates(xform.ParentUid, xform.LocalPosition);
+                    if (lift.UnpackCargo && TryComp<DHDropPalletComponent>(cargo, out var pallet))
+                    {
+                        var vehicle = Spawn(pallet.Spawn, coordinates);
+                        _transform.SetLocalRotation(vehicle, xform.LocalRotation);
+                        Del(cargo);
+                    }
+                    else
+                    {
+                        _transform.SetCoordinates(cargo, coordinates);
+                        _transform.SetLocalRotation(cargo, xform.LocalRotation);
+                    }
                 }
 
                 lift.Cargo = null;
+                lift.UnpackCargo = false;
             }
             else if (lift.Mode == DHSupplyElevatorMode.Lowering)
             {

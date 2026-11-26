@@ -80,7 +80,7 @@
   - type: DHVehicleHardpoints
     family: Humvee
     slots:
-      Primary: ""
+      Primary: turret # DarkestHour: турель на крыше пропадает без пулемёта, у сломанного — повреждённая
       Secondary: ""
       Support: ""
       Wheels: wheels
@@ -176,11 +176,13 @@
   description: A heavy machine gun on a ring mount for the humvee roof.
   components:
   - type: Sprite
-    sprite: _RMC14/Structures/Vehicles/humvee.rsi
-    state: humveeturret_0
+    sprite: _RMC14/Structures/Vehicles/hardpoints/tank.rsi # DarkestHour: значок модуля 32×32, а не турель машины 96×96
+    state: m56_cupola
   - type: DHHardpoint
     slot: Primary
     families: [ Humvee ]
+    vehicleState: humveeturret_0
+    damagedVehicleState: humveeturret_1
     maxIntegrity: 200
     integrity: 200
     damageShare: 0.15
@@ -214,18 +216,41 @@
   - type: DHDropPallet
     spawn: DHVehicleHumveeEmpire
 
-# Заказ Республики: машину пригоняют в гараж базы (точка DHVehicleDeliveryPointRepublic), а не поднимают лифтом.
+- type: entity
+  parent: DHVehicleDropPalletBase
+  id: DHVehicleDropPalletHumveeRepublic
+  name: drop pallet (Republican humvee)
+  components:
+  - type: DHDropPallet
+    spawn: DHVehicleHumveeRepublic
+
+# Заказ хамви (решение автора 2026-11-26): машина приходит в трюм лёгкого лифта техники своей стороны; без лифта —
+# на точку доставки (гараж базы).
 - type: entity
   id: DHVehicleDeliveryHumveeRepublic
   name: humvee delivery order
-  description: A humvee is on its way to the base garage.
+  description: A humvee is on its way to the light vehicle elevator.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
     anchored: false
   - type: DHVehicleDelivery
-    spawn: DHVehicleHumveeRepublic
+    spawn: DHVehicleDropPalletHumveeRepublic
     faction: Republic
+    lift: Light
+
+- type: entity
+  id: DHVehicleDeliveryHumveeEmpire
+  name: humvee delivery order
+  description: A humvee is on its way to the light vehicle elevator.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: false
+  - type: DHVehicleDelivery
+    spawn: DHVehicleDropPalletHumveeEmpire
+    faction: Empire
+    lift: Light
 
 - type: entity
   id: DHVehicleDeliveryPointRepublic

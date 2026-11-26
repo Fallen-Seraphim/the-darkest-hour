@@ -18,7 +18,7 @@ public sealed class DHVehicleLiftBoundUserInterface : BoundUserInterface
         base.Open();
 
         _window = this.CreateWindow<DHVehicleLiftWindow>();
-        _window.OnRaise += entity => SendMessage(new DHVehicleLiftRaiseMessage(entity));
+        _window.OnRaise += (entity, asPallet) => SendMessage(new DHVehicleLiftRaiseMessage(entity, asPallet));
         _window.OnLower += () => SendMessage(new DHVehicleLiftLowerMessage());
     }
 

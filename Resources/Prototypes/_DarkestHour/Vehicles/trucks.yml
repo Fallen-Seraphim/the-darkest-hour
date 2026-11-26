@@ -36,8 +36,10 @@
     acceleration: 2
     friction: 2
     frictionNoInput: 4
-    baseWalkSpeed: 4
-    baseSprintSpeed: 6
+    # DarkestHour: машину двигает только DHGridDriveSystem; с ненулевой базой она ехала физикой и с заглушённым
+    # двигателем (баг 2026-11-26)
+    baseWalkSpeed: 0
+    baseSprintSpeed: 0
   # Лёгкая броня: пули берут, но слабо (урон по постройкам ×0.3), обычный урон ÷2; бронебойные и взрывы — полностью.
   - type: DHFortified
     multiplier: 2

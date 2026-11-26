@@ -1,3 +1,4 @@
+using Content.Shared._DarkestHour.Supply;
 using System.Numerics;
 using Content.Shared._DarkestHour.Assault;
 using Content.Shared.Actions;
@@ -460,6 +461,11 @@ public sealed partial class DHVehicleDeliveryComponent : Component
 
     [DataField]
     public DHAssaultFaction Faction = DHAssaultFaction.Republic;
+
+    /// <summary>Поставить заказ в трюм лифта техники этого типа своей стороны (решение автора 2026-11-26);
+    /// нет такого лифта — на точку доставки.</summary>
+    [DataField]
+    public DHVehicleLiftKind? Lift;
 }
 
 /// <summary>Куда пригоняют заказанные машины стороны (гараж базы).</summary>

@@ -40,19 +40,19 @@
                         ToolTip="{Loc 'dh-lobby-file-next'}" VerticalAlignment="Center" />
             </BoxContainer>
             <Label Name="SlotLabel" FontColorOverride="#9C7A45" HorizontalAlignment="Center" />
-            <GridContainer Name="Fields" Columns="2" HSeparationOverride="16" VSeparationOverride="6">
+            <GridContainer Name="Fields" Columns="2" HorizontalExpand="True" HSeparationOverride="16" VSeparationOverride="6">
                 <Label Text="{Loc 'dh-lobby-file-name'}" FontColorOverride="#9C7A45" MinWidth="180" />
-                <Label Name="NameValue" FontColorOverride="#F0C470" ClipText="True" />
+                <Label Name="NameValue" FontColorOverride="#F0C470" ClipText="True" HorizontalExpand="True" />
                 <Label Text="{Loc 'dh-lobby-file-age'}" FontColorOverride="#9C7A45" />
                 <Label Name="AgeValue" FontColorOverride="#E3A440" />
                 <Label Text="{Loc 'dh-lobby-file-birthplace'}" FontColorOverride="#9C7A45" />
-                <Label Name="BirthplaceValue" FontColorOverride="#E3A440" ClipText="True" />
+                <Label Name="BirthplaceValue" FontColorOverride="#E3A440" ClipText="True" HorizontalExpand="True" />
                 <Label Text="{Loc 'dh-lobby-file-empire'}" FontColorOverride="#9C7A45" />
-                <Label Name="EmpireValue" FontColorOverride="#F2C230" ClipText="True" />
+                <Label Name="EmpireValue" FontColorOverride="#F2C230" ClipText="True" HorizontalExpand="True" />
                 <Label Text="{Loc 'dh-lobby-file-republic'}" FontColorOverride="#9C7A45" />
-                <Label Name="RepublicValue" FontColorOverride="#7FAE46" ClipText="True" />
+                <Label Name="RepublicValue" FontColorOverride="#7FAE46" ClipText="True" HorizontalExpand="True" />
                 <Label Text="{Loc 'dh-lobby-file-squads'}" FontColorOverride="#9C7A45" />
-                <Label Name="SquadsValue" FontColorOverride="#E3A440" ClipText="True" />
+                <Label Name="SquadsValue" FontColorOverride="#E3A440" ClipText="True" HorizontalExpand="True" />
                 <Label Text="{Loc 'dh-lobby-file-playtime'}" FontColorOverride="#9C7A45" />
                 <Label Name="PlaytimeValue" FontColorOverride="#E3A440" />
             </GridContainer>
