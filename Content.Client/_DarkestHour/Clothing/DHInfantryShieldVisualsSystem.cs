@@ -1,26 +1,54 @@
+using Content.Client.Graphics;
+using Content.Client.Viewport;
 using Content.Shared._DarkestHour.Clothing.ModularArmor;
 using Robust.Client.GameObjects;
+using Robust.Client.Graphics;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
 namespace Content.Client._DarkestHour.Clothing;
 
 /// <summary>
-/// Поле пехотного щита ЭМБ-5 (план осады п. 28): поднятое — всегда слабо мерцает голубым, при попадании вспыхивает;
-/// упало — гаснет; излучатель сгорел — короткая красная вспышка и тишина.
+/// Пехотный щит ЭМБ-5 (план осады п. 28) — как старый щит Monolith (решение автора 2026-11-26): голубой контур по
+/// силуэту носителя (шейдер обводки поверх спрайта) и пульсирующий свет. Поднят — контур слабо мерцает, при
+/// попадании вспыхивает; упал — гаснет; излучатель сгорел — контур мигает красным и пропадает.
 /// </summary>
 public sealed partial class DHInfantryShieldVisualsSystem : EntitySystem
 {
+    [Dependency] private IEyeManager _eye = default!;
     [Dependency] private SharedPointLightSystem _lights = default!;
+    [Dependency] private IPrototypeManager _prototypes = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private SpriteSystem _sprite = default!;
     [Dependency] private IGameTiming _timing = default!;
 
-    private static readonly Color Blue = Color.FromHex("#4fb8ff");
-    private static readonly Color Red = Color.FromHex("#ff3a30");
+    private const string PostShaderId = "dh-infantry-shield";
+    private static readonly ProtoId<ShaderPrototype> ShaderProto = "DHInfantryShieldOutline";
+
+    private static readonly Color Blue = Color.FromHex("#00AAFF");
+    private static readonly Color HitBlue = Color.FromHex("#8FE0FF");
+    private static readonly Color Red = Color.FromHex("#FF3A30");
 
     private const float HitFlash = 0.35f;
     private const float BreakFlash = 0.9f;
+
+    /// <summary>Носитель → его экземпляр шейдера (у каждого свой цвет и прозрачность).</summary>
+    private readonly Dictionary<EntityUid, ShaderInstance> _shaders = new();
+    private readonly HashSet<EntityUid> _seen = new();
+    private readonly List<EntityUid> _stale = new();
+
+    public override void Shutdown()
+    {
+        base.Shutdown();
+        foreach (var (wearer, shader) in _shaders)
+        {
+            RemoveOutline(wearer);
+            shader.Dispose();
+        }
+
+        _shaders.Clear();
+    }
 
     public override void FrameUpdate(float frameTime)
     {
@@ -28,10 +56,12 @@ public sealed partial class DHInfantryShieldVisualsSystem : EntitySystem
 
         var now = _timing.CurTime;
         var t = (float) now.TotalSeconds;
-        var query = EntityQueryEnumerator<DHInfantryShieldFieldComponent, SpriteComponent>();
-        while (query.MoveNext(out var uid, out var field, out var sprite))
+        var width = (float) _eye.MainViewport.GetRenderScale();
+        _seen.Clear();
+
+        var query = EntityQueryEnumerator<DHInfantryShieldFieldComponent, TransformComponent>();
+        while (query.MoveNext(out var uid, out var field, out var xform))
         {
-            TryComp<PointLightComponent>(uid, out var light);
             var color = Blue;
             float alpha;
             float energy;
@@ -40,13 +70,14 @@ public sealed partial class DHInfantryShieldVisualsSystem : EntitySystem
             {
                 case DHInfantryShieldState.Up:
                     var sinceHit = (float) (now - field.LastHit).TotalSeconds;
-                    // постоянное слабое мерцание с редкими «провалами»
-                    alpha = 0.16f + 0.06f * MathF.Sin(t * 7f) + (_random.Prob(0.04f) ? -0.1f : 0f);
-                    energy = 0.5f + 0.15f * MathF.Sin(t * 7f);
+                    // ровный контур с лёгким мерцанием и редкими «провалами», как у энергощита
+                    alpha = 0.7f + 0.1f * MathF.Sin(t * 7f) - (_random.Prob(0.03f) ? 0.35f : 0f);
+                    energy = 0.6f + 0.2f * MathF.Sin(t * 3f);
                     if (sinceHit < HitFlash)
                     {
                         var k = 1f - sinceHit / HitFlash;
-                        alpha += 0.55f * k;
+                        color = Color.InterpolateBetween(Blue, HitBlue, k);
+                        alpha += 0.3f * k;
                         energy += 1.5f * k;
                     }
                     break;
@@ -55,7 +86,7 @@ public sealed partial class DHInfantryShieldVisualsSystem : EntitySystem
                     if (sinceBreak < BreakFlash)
                     {
                         color = Red;
-                        alpha = (int) (sinceBreak * 10f) % 2 == 0 ? 0.6f : 0.15f;
+                        alpha = (int) (sinceBreak * 10f) % 2 == 0 ? 0.95f : 0.3f;
                         energy = 1.2f;
                     }
                     else
@@ -71,10 +102,14 @@ public sealed partial class DHInfantryShieldVisualsSystem : EntitySystem
             }
 
             alpha = Math.Clamp(alpha, 0f, 1f);
-            _sprite.SetVisible((uid, sprite), alpha > 0f);
-            _sprite.SetColor((uid, sprite), color.WithAlpha(alpha));
+            var wearer = xform.ParentUid;
+            if (alpha > 0f && wearer.IsValid())
+            {
+                _seen.Add(wearer);
+                SetOutline(wearer, color.WithAlpha(alpha), width);
+            }
 
-            if (light == null)
+            if (!TryComp<PointLightComponent>(uid, out var light))
                 continue;
 
             _lights.SetEnabled(uid, energy > 0f, light);
@@ -84,5 +119,52 @@ public sealed partial class DHInfantryShieldVisualsSystem : EntitySystem
                 _lights.SetEnergy(uid, energy, light);
             }
         }
+
+        // Щит упал, сгорел или броню сняли — убрать контур.
+        foreach (var wearer in _shaders.Keys)
+        {
+            if (!_seen.Contains(wearer))
+                _stale.Add(wearer);
+        }
+
+        foreach (var wearer in _stale)
+        {
+            RemoveOutline(wearer);
+            _shaders.Remove(wearer, out var shader);
+            shader?.Dispose();
+        }
+
+        _stale.Clear();
+    }
+
+    private void SetOutline(EntityUid wearer, Color color, float width)
+    {
+        if (!TryComp<SpriteComponent>(wearer, out var sprite))
+            return;
+
+        if (!_shaders.TryGetValue(wearer, out var shader))
+        {
+            shader = _prototypes.Index(ShaderProto).InstanceUnique();
+            shader.SetParameter("outline_fullbright", true);
+            _shaders[wearer] = shader;
+        }
+
+        shader.SetParameter("outline_color", color);
+        shader.SetParameter("outline_width", width);
+
+        if (!_sprite.HasPostShader((wearer, sprite), PostShaderId))
+        {
+            _sprite.SetPostShader((wearer, sprite), new SpriteComponent.PostShaderArgs(PostShaderId, shader)
+            {
+                After = ContentPostShaderIds.AfterBaseEffects,
+                Before = ContentPostShaderIds.BeforeOutlines,
+            });
+        }
+    }
+
+    private void RemoveOutline(EntityUid wearer)
+    {
+        if (!TerminatingOrDeleted(wearer) && TryComp<SpriteComponent>(wearer, out var sprite))
+            _sprite.RemovePostShader((wearer, sprite), PostShaderId);
     }
 }
