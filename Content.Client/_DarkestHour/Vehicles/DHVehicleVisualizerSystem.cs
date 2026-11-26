@@ -46,8 +46,12 @@ public sealed partial class DHVehicleVisualizerSystem : EntitySystem
             }
 
             // Кадр корпуса — по сектору (с учётом поворота камеры); остаток угла даёт сам поворот сущности.
-            var hullDir = GetRenderAlignedCardinalDir(_transform.GetWorldRotation(uid) + eyeRotation);
+            var facing = _transform.GetWorldRotation(uid) + eyeRotation;
+            var hullDir = GetRenderAlignedCardinalDir(facing);
             var hullAngle = hullDir.ToAngle();
+            // Перспективный боковой кадр (хамви) не доворачиваем: стоит ровно, весь угол — у башни.
+            var upright = vehicle.UprightSideFrames && hullDir is Direction.East or Direction.West;
+            var hullRotation = upright ? facing : hullAngle;
 
             sprite.EnableDirectionOverride = true;
             sprite.DirectionOverride = hullDir;
@@ -76,14 +80,15 @@ public sealed partial class DHVehicleVisualizerSystem : EntitySystem
                     continue;
                 }
 
-                _sprite.LayerSetRotation((uid, sprite), i, -hullAngle);
+                _sprite.LayerSetRotation((uid, sprite), i, -hullRotation);
             }
 
             if (_turretIndices.Count == 0)
                 continue;
 
             // Куда смотрит башня в кадре корпуса, ближайшее из четырёх направлений и остаток.
-            var turretAngle = hullAngle + vehicle.TurretAngle;
+            // Ровно стоящий боковой кадр (hullRotation = facing) не показывает остаток угла корпуса — башня добирает его сама.
+            var turretAngle = hullRotation + vehicle.TurretAngle;
             var turretDir = turretAngle.GetCardinalDir();
             var residual = (turretAngle - turretDir.ToAngle()).Reduced();
             if (residual.Theta > Math.PI)
@@ -107,10 +112,10 @@ public sealed partial class DHVehicleVisualizerSystem : EntitySystem
 
                 // Поворот слоя идёт вокруг центра спрайта: ось башни из кадра слоя уводим на место оси в кадре корпуса.
                 // Смещение слоя поворачивается вместе с сущностью, поэтому из кадра корпуса переводим его в её оси.
-                var offset = (-hullAngle).RotateVec(hullPivot - residual.RotateVec(turretPivot));
+                var offset = (-hullRotation).RotateVec(hullPivot - residual.RotateVec(turretPivot));
 
                 _sprite.LayerSetDirOffset((uid, sprite), index, dirOffset);
-                _sprite.LayerSetRotation((uid, sprite), index, residual - hullAngle);
+                _sprite.LayerSetRotation((uid, sprite), index, residual - hullRotation);
                 _sprite.LayerSetOffset((uid, sprite), index, offset);
             }
         }
