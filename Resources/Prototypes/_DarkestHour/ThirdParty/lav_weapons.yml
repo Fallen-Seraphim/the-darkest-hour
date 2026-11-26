@@ -206,7 +206,7 @@
     minAngle: 6
     maxAngle: 44
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/lmg.ogg
+      collection: DHGunshotLAVMG14
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/lmg_cock.ogg
