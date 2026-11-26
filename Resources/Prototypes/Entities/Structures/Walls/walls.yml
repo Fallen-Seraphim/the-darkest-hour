@@ -413,9 +413,9 @@
   name: reinforced wall
   components:
   - type: Sprite
-    sprite: Structures/Walls/solid.rsi
+    sprite: _DarkestHour/Structures/Walls/solid.rsi # DarkestHour: стены RMC-14 (Tools/_DarkestHour/reskin/walls.py)
   - type: Icon
-    sprite: Structures/Walls/solid.rsi
+    sprite: _DarkestHour/Structures/Walls/solid.rsi # DarkestHour: стены RMC-14 (Tools/_DarkestHour/reskin/walls.py)
     state: rgeneric
   - type: Construction
     graph: Girder
@@ -435,7 +435,7 @@
   - type: IconSmooth
     key: walls
     states:
-    - !type:CornerSpriteSmoothing
+    - !type:DHLegacyCornerSpriteSmoothing # DarkestHour: раскладка спрайтов RMC
       mask: [ walls, windows, grilles, marble, doors ]
       base: reinf_over
   - type: Appearance
@@ -473,9 +473,9 @@
   suffix: rusted
   components:
   - type: Sprite
-    sprite: Structures/Walls/solid-rust.rsi
+    sprite: _DarkestHour/Structures/Walls/solid-rust.rsi # DarkestHour: стены RMC-14 (Tools/_DarkestHour/reskin/walls.py)
   - type: Icon
-    sprite: Structures/Walls/solid-rust.rsi
+    sprite: _DarkestHour/Structures/Walls/solid-rust.rsi # DarkestHour: стены RMC-14 (Tools/_DarkestHour/reskin/walls.py)
     state: rgeneric
   - type: Construction
     graph: Girder
@@ -483,7 +483,7 @@
   - type: IconSmooth
     key: walls
     states:
-    - !type:CornerSpriteSmoothing
+    - !type:DHLegacyCornerSpriteSmoothing # DarkestHour: раскладка спрайтов RMC
       mask: [ walls, windows, grilles, marble, doors ]
       base: reinf_over
     # Rusted walls should be made weaker through a damage mod status effect.
@@ -711,13 +711,13 @@
   name: solid wall
   components:
   - type: Sprite
-    sprite: Structures/Walls/solid.rsi
+    sprite: _DarkestHour/Structures/Walls/solid.rsi # DarkestHour: стены RMC-14 (Tools/_DarkestHour/reskin/walls.py)
   - type: WallReplacementMarker
   - type: Construction
     graph: Girder
     node: wall
   - type: Icon
-    sprite: Structures/Walls/solid.rsi
+    sprite: _DarkestHour/Structures/Walls/solid.rsi # DarkestHour: стены RMC-14 (Tools/_DarkestHour/reskin/walls.py)
   - type: RCDDeconstructable
     cost: 6
     delay: 8
@@ -738,7 +738,7 @@
   - type: IconSmooth
     key: walls
     states:
-    - !type:CornerSpriteSmoothing
+    - !type:DHLegacyCornerSpriteSmoothing # DarkestHour: раскладка спрайтов RMC
       mask: [ walls, windows, grilles, marble, doors ]
       base: solid
 
@@ -767,9 +767,9 @@
   suffix: rusted
   components:
   - type: Sprite
-    sprite: Structures/Walls/solid-rust.rsi
+    sprite: _DarkestHour/Structures/Walls/solid-rust.rsi # DarkestHour: стены RMC-14 (Tools/_DarkestHour/reskin/walls.py)
   - type: Icon
-    sprite: Structures/Walls/solid-rust.rsi
+    sprite: _DarkestHour/Structures/Walls/solid-rust.rsi # DarkestHour: стены RMC-14 (Tools/_DarkestHour/reskin/walls.py)
     state: full
   - type: Construction
     graph: Girder
@@ -777,7 +777,7 @@
   - type: IconSmooth
     key: walls
     states:
-    - !type:CornerSpriteSmoothing
+    - !type:DHLegacyCornerSpriteSmoothing # DarkestHour: раскладка спрайтов RMC
       mask: [ walls, windows, grilles, marble, doors ]
       base: solid
   # Rusted walls should be made weaker through a damage mod status effect.

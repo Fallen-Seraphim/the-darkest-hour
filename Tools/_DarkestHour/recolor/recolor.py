@@ -41,6 +41,13 @@ IVORY = ramp('4a4741', '6f6b64', '938f88', 'b7b3ab', 'd8d4cc', 'f3f1ea')
 
 WARM_WHITE = (238, 232, 218)
 
+# Империя (решение автора 2026-11-26): жёлто-охро-оранжево-бело-чёрная гамма; пехота и командование — белые
+# (чёрная броня — у преторианцев, позже). Охра — канты, знаки, береты; оранжевый — метки, кресты, сигнальное.
+IMP_OCHRE = ramp('4a3210', '7a561c', 'a87a2a', 'cf9c3a', 'e8bb55', 'f7d887')
+IMP_ORANGE = ramp('5a200a', '8e3510', 'c24f16', 'e86a1e', 'f58e45', 'ffb878')
+IMP_YELLOW = ramp('5a4308', '8f6c0c', 'c89a14', 'eec21f', 'ffd94a', 'fff09a')
+IMP_BLACK = ramp('0b0b0d', '141417', '1d1d21', '27272c', '323238', '3e3e46')
+
 
 def hue_in(h, lo, hi):
     h *= 360
@@ -63,7 +70,33 @@ SCHEMES = {
     'supply': [(15, 45, 0.2, TAN, 0.1), (45, 62, 0.35, BRASS), (255, 335, 0.2, STEEL, 0.15)],
     # Imperial Marine Corps (former syndicate gear): blood red -> imperial white, black stays, gold stays
     'imperial': [(330, 25, 0.3, IVORY, 0.2), (260, 330, 0.3, IVORY, 0.2)],
+    # Империя, полевая одежда RMC (RCM/Royal/TSE): хаки и бурое -> белое, зелень и синь -> охра/оранж,
+    # красные знаки -> оранжевый; чёрное и тёмно-серое остаётся
+    'imperial_field': [(345, 22, 0.45, IMP_ORANGE, 0.15), (10, 55, 0.15, IVORY, 0.45), (60, 175, 0.2, IMP_OCHRE, 0.25),
+                       (175, 260, 0.2, IMP_ORANGE, 0.2)],
 }
+
+# Схемы, где серые тоже перекрашиваются: (минимальная яркость, максимальная, ramp, lift). Нужны, чтобы серо-бурое
+# снаряжение и чёрные кители стали белыми, а самые тёмные контуры остались чёрными.
+GREY_SCHEMES = {
+    # разгрузки, рюкзаки, ремни: серо-бежевое -> белое
+    'imperial_gear': (0.12, 1.01, IVORY, 0.3),
+    # офицерские шинели и фуражки: чёрное сукно -> белое, контур остаётся
+    'imperial_officer': (0.05, 1.01, IVORY, 0.45),
+}
+# Чисто-серые детали (пуговицы, галун, знаки) -> охра: (минимальная яркость, ramp, lift)
+NEUTRAL_ACCENT = {
+    'imperial_officer': (0.4, IMP_OCHRE, 0.35),
+}
+
+# снаряжение: тёмно-бурые ремни и лямки -> чёрные (правило с потолком яркости), остальное — как полевая одежда
+SCHEMES['imperial_gear'] = [(5, 45, 0.3, IMP_BLACK, 0.0, 0.4)] + SCHEMES['imperial_field']
+# офицеры: красные канты и кокарды -> охра (золото), сине-серое сукно -> белое, остальное как у полевой
+# Палубная команда авианосца (решение автора 2026-11-26): цвет жилета — работа. Оранжевое светоотражающего жилета
+# -> жёлтый (техники) или оранжевый (артиллеристы, вооружение).
+SCHEMES['deck_yellow'] = [(345, 50, 0.3, IMP_YELLOW, 0.2)]
+SCHEMES['deck_orange'] = [(345, 50, 0.3, IMP_ORANGE, 0.15)]
+SCHEMES['imperial_officer'] = [(345, 22, 0.45, IMP_OCHRE, 0.3), (175, 260, 0.12, IVORY, 0.45)] + SCHEMES['imperial_field']
 
 
 def lum(c):
@@ -86,11 +119,20 @@ def recolor_px(c, scheme):
     for rule in SCHEMES[scheme]:
         lo, hi, smin, rmp = rule[:4]
         lift = rule[4] if len(rule) > 4 else 0.0
-        if s >= smin and v > 0.08 and hue_in(h, lo, hi):
+        vmax = rule[5] if len(rule) > 5 else 1.01
+        if s >= smin and 0.08 < v < vmax and hue_in(h, lo, hi):
             # stretch brightness a little so the darkest parts stay dark and highlights stay light;
             # `lift` brightens dark source colours (vanilla security red is darker than khaki should be)
             y = lum(c)
             return from_ramp(rmp, (y - 0.05) / 0.85 * (1 - lift) + lift)
+    if s < 0.04 and scheme in NEUTRAL_ACCENT and v >= NEUTRAL_ACCENT[scheme][0]:
+        _, rmp, lift = NEUTRAL_ACCENT[scheme]
+        return from_ramp(rmp, (lum(c) - 0.05) / 0.85 * (1 - lift) + lift)
+    if s < 0.22 and scheme in GREY_SCHEMES:
+        lo, hi, rmp, lift = GREY_SCHEMES[scheme]
+        if lo <= v < hi:
+            y = (v - lo) / max(0.01, 1 - lo)
+            return from_ramp(rmp, y * (1 - lift) + lift)
     if s < 0.16 and v > 0.55:
         # whites and light greys: warm them up
         k = (v - 0.55) / 0.45 * 0.6
@@ -122,11 +164,23 @@ def load_targets():
         return json.load(f)
 
 
-def build():
-    targets = load_targets()
+def load_dh_targets():
+    """Цели для прототипов _DarkestHour: apply.py их не переписывает, пути в прототипах стоят вручную."""
+    with open(os.path.join(os.path.dirname(__file__), 'targets_dh.json'), encoding='utf-8') as f:
+        return json.load(f)
+
+
+def build(only_dh=False):
+    targets = load_dh_targets() if only_dh else {**load_targets(), **load_dh_targets()}
     for rsi, scheme in targets.items():
+        # цель: "путь.rsi": "схема" или "путь.rsi|вариант": {"scheme": ..., "out": "путь в _DarkestHour"}
+        out = rsi
+        if isinstance(scheme, dict):
+            out = scheme['out']
+            scheme = scheme['scheme']
+            rsi = rsi.split('|')[0]
         src = os.path.join(SRC, rsi)
-        dst = os.path.join(DST, rsi)
+        dst = os.path.join(DST, out)
         if os.path.exists(dst):
             shutil.rmtree(dst)
         os.makedirs(dst)
@@ -144,4 +198,6 @@ def build():
 
 
 if __name__ == '__main__':
-    build()
+    import sys
+    # --dh: только цели targets_dh.json (остальные PNG не пересобираются байт-в-байт иначе)
+    build(only_dh='--dh' in sys.argv)

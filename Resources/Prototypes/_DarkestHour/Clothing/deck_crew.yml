@@ -1,0 +1,25 @@
+# Палубная команда авианосца Империи (решение автора 2026-11-26): как на настоящих авианосцах, цвет жилета —
+# работа. Жёлтый — техники (обслуживание, лифты, ремонт), оранжевый — артиллеристы (вооружение, снаряды ОБ).
+# Спрайты — светоотражающий жилет, перекрашенный Tools/_DarkestHour/recolor (targets_dh.json).
+
+- type: entity
+  parent: ClothingOuterVestHazard
+  id: DHImperialClothingOuterVestDeckYellow
+  name: yellow deck jersey
+  description: "A yellow high-visibility jersey of an Imperial carrier deck technician: maintenance, lifts and repairs."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/Vests/deck_yellow.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Clothing/OuterClothing/Vests/deck_yellow.rsi
+
+- type: entity
+  parent: ClothingOuterVestHazard
+  id: DHImperialClothingOuterVestDeckOrange
+  name: orange deck jersey
+  description: "An orange high-visibility jersey of an Imperial carrier ordnance crewman: munitions and the orbital guns."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Clothing/OuterClothing/Vests/deck_orange.rsi
+  - type: Clothing
+    sprite: _DarkestHour/Clothing/OuterClothing/Vests/deck_orange.rsi

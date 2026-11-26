@@ -544,9 +544,9 @@
     ears: DHClothingHeadsetAltImperialCommand
     id: DHDogtagsImperialCommander
     neck: SyndicateWhistle
-    jumpsuit: ClothingUniformJumpsuitSyndieFormal
-    outerClothing: ClothingOuterCoatSyndieCap
-    head: ClothingHeadHatSyndieMAA
+    jumpsuit: DHImperialClothingUniformCommand
+    outerClothing: DHImperialClothingOuterGreatcoatCommand
+    head: DHImperialClothingHeadCapPeaked
   storage:
     back:
     - DHPainkillerAutoinjector
@@ -572,6 +572,8 @@
 - type: startingGear
   parent: DHCarrierCrewGearBase
   id: DHCarrierArtilleristGear
+  equipment:
+    outerClothing: DHImperialClothingOuterVestDeckOrange
   storage:
     back:
     - DHPainkillerAutoinjector
@@ -584,6 +586,7 @@
   parent: DHCarrierCrewGearBase
   id: DHCarrierTechnicianGear
   equipment:
+    outerClothing: DHImperialClothingOuterVestDeckYellow
     ears: DHClothingHeadsetAltImperialSupply
     belt: ClothingBeltUtilityEngineering
   storage:
@@ -755,8 +758,8 @@
   equipment:
     id: DHDogtagsCarrierOperationCommander
     ears: DHClothingHeadsetAltImperialCommand
-    jumpsuit: ClothingUniformJumpsuitSyndieFormal
-    outerClothing: ClothingOuterCoatSyndieCap
+    jumpsuit: DHImperialClothingUniformCommand
+    outerClothing: DHImperialClothingOuterGreatcoatCommand
     head: DHImperialClothingHeadCapOperationCommander
     neck: SyndicateWhistle
   storage:
