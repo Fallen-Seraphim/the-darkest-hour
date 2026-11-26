@@ -24,8 +24,8 @@ public sealed partial class DHInfantryShieldSystem : EntitySystem
     [Dependency] private IGameTiming _timing = default!;
 
     private static readonly SoundSpecifier HitSound = new SoundPathSpecifier("/Audio/Weapons/Guns/Hits/energy_meat1.ogg");
-    private static readonly SoundSpecifier DownSound = new SoundPathSpecifier("/Audio/Machines/button.ogg");
-    private static readonly SoundSpecifier UpSound = new SoundPathSpecifier("/Audio/Machines/high_tech_confirm.ogg");
+    private static readonly SoundSpecifier DownSound = new SoundPathSpecifier("/Audio/_DarkestHour/Effects/shield-down.ogg"); // звуки автора 2026-11-26
+    private static readonly SoundSpecifier UpSound = new SoundPathSpecifier("/Audio/_DarkestHour/Effects/shield-up.ogg");
     private static readonly SoundSpecifier BurnSound = new SoundPathSpecifier("/Audio/Effects/sparks4.ogg");
 
     private TimeSpan _nextUpdate;
@@ -158,6 +158,7 @@ public sealed partial class DHInfantryShieldSystem : EntitySystem
             {
                 comp.Burned = true;
                 _audio.PlayPvs(BurnSound, wearer);
+                _audio.PlayPvs(DownSound, wearer);
                 _popup.PopupEntity(Loc.GetString("dh-infantry-shield-burned"), wearer, wearer, PopupType.LargeCaution);
                 SetFieldState(shield, DHInfantryShieldState.Broken);
             }
