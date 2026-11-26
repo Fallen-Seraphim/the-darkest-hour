@@ -26,3 +26,8 @@ dh-skill-level-3 = master
 dh-skill-required = Requires the "{ $skill }" skill: { $level }.
 dh-skill-examine-header = [color=#c8b070]Your skills:[/color]
 dh-skill-examine-line = — { $skill }: { $level } ({ $value }/3)
+
+dh-skill-pamphlet-useless = This pamphlet will not teach you anything.
+dh-skill-pamphlet-used = You have already read one pamphlet — a second will not stick.
+dh-skill-pamphlet-known = There is nothing here you do not already know.
+dh-skill-pamphlet-learned = You take in the pamphlet: "{ $skill }" — { $level }.

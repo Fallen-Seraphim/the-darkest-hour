@@ -26,3 +26,8 @@ dh-skill-level-3 = мастер
 dh-skill-required = Нужен навык «{ $skill }»: { $level }.
 dh-skill-examine-header = [color=#c8b070]Ваши навыки:[/color]
 dh-skill-examine-line = — { $skill }: { $level } ({ $value }/3)
+
+dh-skill-pamphlet-useless = Вам эта брошюра ничего не даст.
+dh-skill-pamphlet-used = Вы уже прочли одну брошюру — вторая в голове не уложится.
+dh-skill-pamphlet-known = Здесь нет ничего, чего вы не знаете.
+dh-skill-pamphlet-learned = Вы усвоили брошюру: «{ $skill }» — { $level }.
