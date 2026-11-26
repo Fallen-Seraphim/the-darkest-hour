@@ -714,16 +714,24 @@ public sealed partial class DHLAVSystem : EntitySystem
     private void OnStatus(Entity<DHLAVMemberComponent> ent, ref DHLAVStatusActionEvent args)
     {
         args.Handled = true;
-        if (!TryComp<ActorComponent>(args.Performer, out var actor))
+        if (!TryComp<ActorComponent>(args.Performer, out var actor) || StatusText() is not { } status)
             return;
+
+        _chatManager.DispatchServerMessage(actor.PlayerSession, status);
+    }
+
+    /// <summary>Задание, где шаттл и как идёт операция; пусто — события нет. Для «Задания» и планшета командира.</summary>
+    public string? StatusText()
+    {
+        if (Outcome == null)
+            return null;
 
         var task = Loc.GetString(_kind == DHLAVTargetKind.Sample ? "dh-lav-task-sample" : "dh-lav-task-hold",
             ("target", _targetName), ("radius", (int) TargetRadius()));
         if (_kind == DHLAVTargetKind.Hold && Outcome == DHLAVOutcome.Active)
             task += " " + Loc.GetString(Holding() ? "dh-lav-flag-standing" : "dh-lav-flag-missing");
         var state = Loc.GetString($"dh-lav-outcome-{(Outcome ?? DHLAVOutcome.Active).ToString().ToLowerInvariant()}");
-        _chatManager.DispatchServerMessage(actor.PlayerSession, Loc.GetString("dh-lav-status",
-            ("task", task), ("zone", _zoneName), ("state", state)));
+        return Loc.GetString("dh-lav-status", ("task", task), ("zone", _zoneName), ("state", state));
     }
 
     #endregion

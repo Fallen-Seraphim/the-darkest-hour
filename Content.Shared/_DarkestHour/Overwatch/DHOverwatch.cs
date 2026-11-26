@@ -6,7 +6,8 @@ namespace Content.Shared._DarkestHour.Overwatch;
 
 /// <summary>
 /// Консоль наблюдения («оверватч», по образцу RMC-14): список бойцов своей стороны, их состояние и положение,
-/// вид глазами выбранного бойца и приказы по всей стороне.
+/// вид глазами выбранного бойца и приказы. С 2026-11-26 — по отрядам, как в RMC/CMU: на консоли выбирают отряд,
+/// видят его бойцов, приказ уходит только ему; всей стороне — только с командных консолей и планшетов.
 /// </summary>
 [RegisterComponent]
 public sealed partial class DHOverwatchConsoleComponent : Component
@@ -24,6 +25,15 @@ public sealed partial class DHOverwatchConsoleComponent : Component
     /// <summary>Можно ли отдавать приказы (нейролинк «Тактик» — только смотреть).</summary>
     [DataField]
     public bool CanOrder = true;
+
+    /// <summary>Приказы всей стороне (командование: компьютеры наблюдения, планшеты командира базы и штаба операции).
+    /// Иначе — только отряду.</summary>
+    [DataField]
+    public bool FactionOrders;
+
+    /// <summary>Планшет командира отряда ЧВК LA-V: бойцы и приказы — отряд LA-V, а не сторона.</summary>
+    [DataField]
+    public bool LAV;
 
     /// <summary>Цвет приказов вместо цвета стороны (военпол «Восстания» — синий при стороне Республики).</summary>
     [DataField]
@@ -112,6 +122,18 @@ public sealed class DHOverwatchState : BoundUserInterfaceState
 
     /// <summary>Z-уровни карты (по возрастанию; один — уровней нет).</summary>
     public List<DHTacticalLevel> Levels = new();
+
+    /// <summary>Отряды стороны для выбора на консоли.</summary>
+    public List<DHOverwatchSquad> Squads = new();
+
+    /// <summary>С консоли можно приказывать всей стороне.</summary>
+    public bool FactionOrders;
+
+    /// <summary>Планшет LA-V: бойцы — отряд ЧВК.</summary>
+    public bool LAV;
+
+    /// <summary>Планшет LA-V: задание отряда и как идёт операция (решение автора 2026-11-26).</summary>
+    public string? Status;
 
     public DHOverwatchState(DHAssaultFaction faction, List<DHOverwatchEntry> fighters,
         Dictionary<NetEntity, NetEntity> watching, NetEntity? tacticalMap, int terrainVersion,
@@ -233,15 +255,30 @@ public sealed class DHOverwatchWatchMessage : BoundUserInterfaceMessage
     }
 }
 
-/// <summary>Приказ всем бойцам стороны.</summary>
+/// <summary>Отряд стороны на консоли наблюдения.</summary>
+[Serializable, NetSerializable]
+public sealed class DHOverwatchSquad
+{
+    public string Id = string.Empty;
+    public string Name = string.Empty;
+    public Color Color = Color.White;
+}
+
+/// <summary>
+/// Приказ: <see cref="Squad"/> — ID отряда, <see cref="NoSquad"/> — бойцам вне отрядов, null — всей стороне.
+/// </summary>
 [Serializable, NetSerializable]
 public sealed class DHOverwatchOrderMessage : BoundUserInterfaceMessage
 {
-    public string Text;
+    public const string NoSquad = "";
 
-    public DHOverwatchOrderMessage(string text)
+    public string Text;
+    public string? Squad;
+
+    public DHOverwatchOrderMessage(string text, string? squad = null)
     {
         Text = text;
+        Squad = squad;
     }
 }
 

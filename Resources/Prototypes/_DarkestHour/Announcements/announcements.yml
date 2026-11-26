@@ -1,0 +1,144 @@
+# Объявления стороны (решение автора 2026-11-26): компьютер в штабе и планшет командира. Объявление слышит только своя
+# сторона — в чат её цветом, со звуком и крупно наверху экрана. Заменяют ванильную консоль связи (ComputerComms), чьи
+# объявления слышали все, включая противника. Механика — DHFactionAnnouncerSystem.
+
+- type: entity
+  abstract: true
+  id: DHFactionAnnouncerBase
+  components:
+  - type: ActivatableUI
+    key: enum.DHFactionAnnouncerUiKey.Key
+  - type: ActivatableUIRequiresVision
+  - type: UserInterface
+    interfaces:
+      enum.DHFactionAnnouncerUiKey.Key:
+        type: DHFactionAnnouncerBoundUserInterface
+
+- type: entity
+  parent: [ BaseComputer, DHFactionAnnouncerBase ]
+  id: DHComputerAnnounceRepublic
+  name: garrison announcement computer
+  description: Broadcasts announcements of the garrison command to every soldier of the Republic — and only to them.
+  components:
+  - type: ComputerVisuals
+    stateScreen: comm
+    stateKeys: generic_keys
+  - type: DHFactionAnnouncer
+    faction: Republic
+    sender: dh-faction-announce-sender-republic
+  - type: AccessReader
+    access: [ [ "DHRepublicCommand" ] ]
+  - type: UserInterface
+    interfaces:
+      enum.DHFactionAnnouncerUiKey.Key:
+        type: DHFactionAnnouncerBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: Computer
+    board: DHComputerAnnounceRepublicCircuitboard
+  - type: ApcPowerReceiver
+    needsPower: false
+    powerLoad: 0
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#8fd66b"
+
+- type: entity
+  parent: [ BaseComputer, DHFactionAnnouncerBase ]
+  id: DHComputerAnnounceEmpire
+  name: operation announcement computer
+  description: Broadcasts announcements of the operation command to every Imperial marine and crewman — and only to them.
+  components:
+  - type: ComputerVisuals
+    stateScreen: comm
+    stateKeys: syndie_key
+  - type: DHFactionAnnouncer
+    faction: Empire
+    sender: dh-faction-announce-sender-empire
+  - type: AccessReader
+    access: [ [ "DHImperialCommand" ] ]
+  - type: UserInterface
+    interfaces:
+      enum.DHFactionAnnouncerUiKey.Key:
+        type: DHFactionAnnouncerBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: Computer
+    board: DHComputerAnnounceEmpireCircuitboard
+  - type: ApcPowerReceiver
+    needsPower: false
+    powerLoad: 0
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#e8b04a"
+
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: DHComputerAnnounceRepublicCircuitboard
+  name: garrison announcement computer board
+  description: A computer printed circuit board for a garrison announcement computer.
+  components:
+  - type: Sprite
+    state: cpu_command
+  - type: ComputerBoard
+    prototype: DHComputerAnnounceRepublic
+
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: DHComputerAnnounceEmpireCircuitboard
+  name: operation announcement computer board
+  description: A computer printed circuit board for an operation announcement computer.
+  components:
+  - type: Sprite
+    state: cpu_command
+  - type: ComputerBoard
+    prototype: DHComputerAnnounceEmpire
+
+# --- Планшеты командира ---
+
+- type: entity
+  abstract: true
+  parent: [ BaseItem, DHFactionAnnouncerBase ]
+  id: DHAnnounceTabletBase
+  components:
+  - type: Item
+    size: Small
+    sprite: Objects/Devices/tablets.rsi
+  - type: ActivatableUI
+    key: enum.DHFactionAnnouncerUiKey.Key
+    inHandsOnly: true
+  - type: Sprite
+    sprite: Objects/Devices/tablets.rsi
+
+- type: entity
+  parent: DHAnnounceTabletBase
+  id: DHAnnounceTabletRepublic
+  name: garrison announcement tablet
+  description: The base commander's tablet for announcements to the whole garrison. Only the Republic hears them.
+  components:
+  - type: Sprite
+    layers:
+    - state: tablet
+    - state: generic
+      shader: unshaded
+      color: "#8FD66B"
+  - type: DHFactionAnnouncer
+    faction: Republic
+    sender: dh-faction-announce-sender-republic
+
+- type: entity
+  parent: DHAnnounceTabletBase
+  id: DHAnnounceTabletEmpire
+  name: operation announcement tablet
+  description: The operation commander's tablet for announcements to the whole landing force. Only the Empire hears them.
+  components:
+  - type: Sprite
+    layers:
+    - state: tablet
+    - state: syndie
+      shader: unshaded
+  - type: DHFactionAnnouncer
+    faction: Empire
+    sender: dh-faction-announce-sender-empire

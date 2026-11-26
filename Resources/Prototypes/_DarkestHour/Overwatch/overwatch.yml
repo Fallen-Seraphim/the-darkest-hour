@@ -1,4 +1,5 @@
-# Наблюдение («оверватч», по образцу RMC-14): бойцы своей стороны, вид их глазами и приказы стороне.
+# Наблюдение («оверватч», по образцу RMC-14): бойцы своей стороны, вид их глазами и приказы — по отрядам (выбор
+# отряда на консоли, решение автора 2026-11-26); всей стороне — с компьютеров наблюдения и командных планшетов.
 # Механика — DHOverwatchSystem. Работает между картами: с авианосца видно десант на поверхности.
 
 - type: entity
@@ -19,7 +20,7 @@
   parent: [ BaseComputer, DHOverwatchBase ]
   id: DHComputerOverwatchRepublic
   name: garrison overwatch computer
-  description: Shows every soldier of the garrison, their condition and position, and the view from their helmet cameras. Orders typed here reach the whole garrison.
+  description: Shows every soldier of the garrison, their condition and position, and the view from their helmet cameras. Pick a squad to see its soldiers and order it, or order the whole garrison.
   components:
   - type: DHScanTarget # глобальный скан: база Республики (КП; виден всегда, в бункере — не на поверхности)
     kind: Base
@@ -30,6 +31,7 @@
     stateKeys: tech_key
   - type: DHOverwatchConsole
     faction: Republic
+    factionOrders: true
   - type: UserInterface
     interfaces:
       enum.DHOverwatchUiKey.Key:
@@ -50,13 +52,14 @@
   parent: [ BaseComputer, DHOverwatchBase ]
   id: DHComputerOverwatchEmpire
   name: landing overwatch computer
-  description: Shows every Imperial marine and crewman, their condition and position, and the view from their helmet cameras, even on the surface below. Orders typed here reach the whole landing force.
+  description: Shows every Imperial marine and crewman, their condition and position, and the view from their helmet cameras, even on the surface below. Pick a squad to see its marines and order it, or order the whole landing force.
   components:
   - type: ComputerVisuals
     stateScreen: cameras
     stateKeys: syndie_key
   - type: DHOverwatchConsole
     faction: Empire
+    factionOrders: true
   - type: UserInterface
     interfaces:
       enum.DHOverwatchUiKey.Key:
@@ -119,7 +122,7 @@
   parent: DHOverwatchTabletBase
   id: DHOverwatchTabletRepublic
   name: garrison command tablet
-  description: A field tablet linked to the helmet cameras of the garrison. Orders typed here reach every soldier of the base.
+  description: A field tablet linked to the helmet cameras of the garrison. Orders typed here reach the chosen squad.
   components:
   - type: DHOverwatchConsole
     faction: Republic
@@ -128,7 +131,7 @@
   parent: DHOverwatchTabletBase
   id: DHOverwatchTabletEmpire
   name: landing command tablet
-  description: A field tablet linked to the helmet cameras of the landing force. Orders typed here reach every marine and crewman.
+  description: A field tablet linked to the helmet cameras of the landing force. Orders typed here reach the chosen squad.
   components:
   - type: Item
     sprite: Objects/Devices/tablets.rsi
@@ -139,3 +142,42 @@
       shader: unshaded
   - type: DHOverwatchConsole
     faction: Empire
+
+# Командные планшеты: приказы и всей стороне (командир базы, командующий операцией, капитан авианосца).
+- type: entity
+  parent: DHOverwatchTabletRepublic
+  id: DHOverwatchTabletRepublicCommand
+  name: garrison commander's tablet
+  description: The base commander's field tablet linked to the helmet cameras of the whole garrison. Orders typed here reach the chosen squad or every soldier of the base.
+  components:
+  - type: DHOverwatchConsole
+    faction: Republic
+    factionOrders: true
+
+- type: entity
+  parent: DHOverwatchTabletEmpire
+  id: DHOverwatchTabletEmpireCommand
+  name: operation command tablet
+  description: The operation command's field tablet linked to the helmet cameras of the whole landing force. Orders typed here reach the chosen squad or every marine and crewman.
+  components:
+  - type: DHOverwatchConsole
+    faction: Empire
+    factionOrders: true
+
+# Командный планшет ЧВК LA-V (решение автора 2026-11-26): у командира отряда — бойцы LA-V, вид их глазами, тактическая
+# карта (только общеизвестное: зоны, ЗП, ориентиры) и приказы отряду крупно на экран.
+- type: entity
+  parent: DHOverwatchTabletBase
+  id: DHOverwatchTabletLAV
+  name: LA-V command tablet
+  description: A corporate tablet linked to the body cameras of the LA-V squad. Shows the contract and how the operation goes; orders typed here appear before the eyes of every contractor.
+  components:
+  - type: Sprite
+    layers:
+    - state: tablet
+    - state: generic
+      shader: unshaded
+      color: "#B08CFF"
+  - type: DHOverwatchConsole
+    lav: true
+    orderSender: dh-overwatch-order-sender-lav

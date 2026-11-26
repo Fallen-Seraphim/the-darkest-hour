@@ -738,13 +738,20 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
             }
         }
 
+        AnnounceTo(sessions, sender, text, sound, color ?? FactionColor(faction), onScreen);
+    }
+
+    /// <summary>Объявление выбранным игрокам: в чат цветом, звук и (при onScreen) крупно наверху экрана.</summary>
+    public void AnnounceTo(IEnumerable<ICommonSession> players, string sender, string text, SoundSpecifier? sound,
+        Color announceColor, bool onScreen = false)
+    {
+        var sessions = new HashSet<ICommonSession>(players);
         if (sessions.Count == 0)
             return;
 
         var filter = Filter.Empty().AddPlayers(sessions);
         var wrapped = Loc.GetString("chat-manager-sender-announcement-wrap-message",
             ("sender", FormattedMessage.EscapeText(sender)), ("message", FormattedMessage.EscapeText(text)));
-        var announceColor = color ?? FactionColor(faction);
         _chatManager.ChatMessageToManyFiltered(filter, ChatChannel.Radio, text, wrapped, EntityUid.Invalid, false, true,
             announceColor);
         _audio.PlayGlobal(sound ?? AnnounceSound, filter, true, AudioParams.Default.WithVolume(-2f));

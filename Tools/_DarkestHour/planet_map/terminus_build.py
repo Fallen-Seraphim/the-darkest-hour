@@ -1562,7 +1562,7 @@ class World:
                       window='ReinforcedWindow', lights=LIGHT_MIL, light_step=6)
         self.wall_line(bx0 + 12, by0 + 1, bx0 + 12, by1 - 1, 'WallReinforced', gaps=[(bx0 + 12, by0 + 4)])
         self.ent('DHAirlockRepublicGlassLocked', bx0 + 12, by0 + 4)
-        for i, p in enumerate(('DHComputerOverwatchRepublic', 'ComputerRadar', 'ComputerComms')):
+        for i, p in enumerate(('DHComputerOverwatchRepublic', 'ComputerRadar', 'DHComputerAnnounceRepublic')):
             self.grid(p, bx0 + 14 + i * 3, by1 - 1, backup=True)
             self.ent('ChairOfficeDark', bx0 + 14 + i * 3, by1 - 2)
         self.ent('DHFieldPhoneRepublic', bx1 - 1, by0 + 1)

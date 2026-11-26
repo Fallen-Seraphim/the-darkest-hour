@@ -12,7 +12,7 @@ dh-overwatch-ui-no-signal = Select a soldier to see through their helmet camera.
 dh-overwatch-ui-connecting = Connecting to the helmet camera...
 dh-overwatch-ui-disconnect = Disconnect
 dh-overwatch-ui-order = Order:
-dh-overwatch-ui-order-placeholder = Type an order for the whole side
+dh-overwatch-ui-order-placeholder = Order to the selected squad
 dh-overwatch-ui-order-send = Send
 dh-overwatch-status-alive = {$health}%
 dh-overwatch-status-critical = WOUNDED
@@ -22,3 +22,11 @@ dh-overwatch-location-air = in the air
 dh-overwatch-location-field = in the field
 dh-overwatch-order-sender = Overwatch ({$name})
 dh-overwatch-order-cooldown = The channel is busy, wait {$seconds} s.
+
+# Squad orders (author's decision 2026-11-26): pick a squad on the computer, only that squad gets the order.
+dh-overwatch-squad-all = Whole side
+dh-overwatch-squad-none = Unassigned
+dh-overwatch-order-no-faction = Orders to the whole side only from a command computer or tablet.
+dh-overwatch-order-sender-squad = {$sender} → {$squad}
+dh-overwatch-faction-lav = LA-V squad
+dh-overwatch-order-sender-lav = LA-V commander ({$name})
