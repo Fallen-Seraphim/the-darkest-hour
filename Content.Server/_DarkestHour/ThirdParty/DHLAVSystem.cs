@@ -89,6 +89,8 @@ public sealed partial class DHLAVSystem : EntitySystem
     [Dependency] private ChatSystem _chat = default!;
     [Dependency] private IChatManager _chatManager = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private Content.Shared.Access.Systems.SharedIdCardSystem _idCard = default!;
+    [Dependency] private Content.Shared.Inventory.InventorySystem _inventory = default!;
     [Dependency] private RandomHumanoidSystem _humanoid = default!;
     [Dependency] private DHLandingSystem _landing = default!;
     [Dependency] private MapLoaderSystem _loader = default!;
@@ -311,6 +313,10 @@ public sealed partial class DHLAVSystem : EntitySystem
             member.Role = role;
             _actions.AddAction(mob, ref member.StatusAction, StatusActionProto);
             _speechColor.SetColor(mob, Content.Shared._DarkestHour.Chat.DHSpeechColors.Vanguard);
+
+            // Жетоны: имя бойца (должность и доступ — из PresetIdCard).
+            if (_inventory.TryGetSlotEntity(mob, "id", out var tags))
+                _idCard.TryChangeFullName(tags.Value, Name(mob));
 
             if (_mind.TryGetMind(session, out var mind, out _))
                 _mind.TransferTo(mind, mob, ghostCheckOverride: true);

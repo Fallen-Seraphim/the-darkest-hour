@@ -150,6 +150,9 @@ def main():
                 if not skip:
                     res.append(ln)
             b = '\n'.join(res)
+            # Наклейки пола — логотипы Weyland-Yutani (RMCDecalWeYaTile*): у нас их нет, и шаттл не их.
+            b = re.sub(r'(    - type: DecalGrid\n      chunkCollection:\n        version: 2\n        nodes:)\n(?:        .*\n)*',
+                       r'\1 []\n', b)
             b = re.sub(r'name: .*', 'name: LA-V «Vanguard Runner»', b, count=1)
             out.append(b)
             count += 1

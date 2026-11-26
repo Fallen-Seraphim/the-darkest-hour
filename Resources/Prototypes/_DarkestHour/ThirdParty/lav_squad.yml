@@ -46,7 +46,7 @@
   randomizeName: false
   components:
   - type: Loadout
-    prototypes: [ DHLAVPmcSpecialistGear ]
+    prototypes: [ DHLAVSquadSniperGear ]
   - type: RandomMetadata
     nameSegments:
     - NamesMilitaryLast
@@ -58,7 +58,7 @@
   randomizeName: false
   components:
   - type: Loadout
-    prototypes: [ DHLAVPmcMedicGear ]
+    prototypes: [ DHLAVSquadMedicGear ]
   - type: RandomMetadata
     nameSegments:
     - NamesMilitaryLast
@@ -70,7 +70,7 @@
   randomizeName: false
   components:
   - type: Loadout
-    prototypes: [ DHLAVPmcRiflemanGear ]
+    prototypes: [ DHLAVSquadOperativeGear ]
   - type: RandomMetadata
     nameSegments:
     - NamesMilitaryLast
@@ -84,6 +84,7 @@
   parent: DHLAVPmcCommanderGear
   id: DHLAVSquadCommanderGear
   equipment:
+    id: DHLAVDogtagsCommander
     suitstorage: DHWeaponRifleLAVR55
   storage:
     back:
@@ -103,7 +104,7 @@
   parent: DHLAVPmcGearBase
   id: DHLAVSquadDeputyGear
   equipment:
-    id: DHLAIDCardVPmcDeputy
+    id: DHLAVDogtagsDeputy
     jumpsuit: DHLAVPmcClothingUniformCommander
     outerClothing: DHLAVPmcClothingOuterArmorHeavy
     head: DHLAVPmcClothingHeadHelmet
@@ -123,12 +124,31 @@
     - DHIFAKFilled
     - Handcuffs
 
+# Снайпер-разведчик, медик и бойцы — снаряжение «Восстания» как есть, но с жетонами вместо пропуска LA-V.
+- type: startingGear
+  parent: DHLAVPmcSpecialistGear
+  id: DHLAVSquadSniperGear
+  equipment:
+    id: DHLAVDogtagsSniper
+
+- type: startingGear
+  parent: DHLAVPmcMedicGear
+  id: DHLAVSquadMedicGear
+  equipment:
+    id: DHLAVDogtagsMedic
+
+- type: startingGear
+  parent: DHLAVPmcRiflemanGear
+  id: DHLAVSquadOperativeGear
+  equipment:
+    id: DHLAVDogtagsOperative
+
 # Боевой техник: пулемёт LAVMG-14 и инженерия — сварка, инструменты, мешки и проволока для обороны объекта.
 - type: startingGear
   parent: DHLAVPmcGearBase
   id: DHLAVSquadTechnicianGear
   equipment:
-    id: DHLAIDCardVPmcTechnician
+    id: DHLAVDogtagsTechnician
     jumpsuit: DHLAVPmcClothingUniform
     outerClothing: DHLAVPmcClothingOuterArmorHeavy
     head: DHLAVPmcClothingHeadHelmetHeavy
@@ -149,21 +169,64 @@
 
 # ---------------------------------------------------------------- должности (иконки и удостоверения)
 
+# Жетоны отряда (как у бойцов сторон, DHDogtags): должность и доступ LA-V, имя — при появлении (DHLAVSystem).
 - type: entity
-  parent: DHLAIDCardVPmc
-  id: DHLAIDCardVPmcDeputy
+  parent: DHDogtags
+  id: DHLAVDogtags
+  name: LA-V PMC dog tags
+  description: Dog tags of an LA-V private military contractor. The contract number and squad position are stamped on them.
+  suffix: LA-V PMC
+  components:
+  - type: PresetIdCard
+    job: DHLAVPmcRifleman
+
+- type: entity
+  parent: DHLAVDogtags
+  id: DHLAVDogtagsCommander
+  suffix: LA-V PMC commander
+  components:
+  - type: PresetIdCard
+    job: DHLAVPmcCommander
+
+- type: entity
+  parent: DHLAVDogtags
+  id: DHLAVDogtagsDeputy
   suffix: LA-V PMC deputy
   components:
   - type: PresetIdCard
     job: DHLAVPmcDeputy
 
 - type: entity
-  parent: DHLAIDCardVPmc
-  id: DHLAIDCardVPmcTechnician
+  parent: DHLAVDogtags
+  id: DHLAVDogtagsTechnician
   suffix: LA-V PMC technician
   components:
   - type: PresetIdCard
     job: DHLAVPmcTechnician
+
+- type: entity
+  parent: DHLAVDogtags
+  id: DHLAVDogtagsSniper
+  suffix: LA-V PMC scout sniper
+  components:
+  - type: PresetIdCard
+    job: DHLAVPmcSpecialist
+
+- type: entity
+  parent: DHLAVDogtags
+  id: DHLAVDogtagsMedic
+  suffix: LA-V PMC medic
+  components:
+  - type: PresetIdCard
+    job: DHLAVPmcMedic
+
+- type: entity
+  parent: DHLAVDogtags
+  id: DHLAVDogtagsOperative
+  suffix: LA-V PMC operative
+  components:
+  - type: PresetIdCard
+    job: DHLAVPmcRifleman
 
 - type: job
   id: DHLAVPmcDeputy
