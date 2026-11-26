@@ -53,9 +53,9 @@
   description: An Imperial Marine Corps webbing vest with soft armour panels. Class 1 protection for the torso only.
   components:
   - type: Sprite
-    sprite: _RMC14/Objects/Clothing/OuterClothing/Royal/light.rsi # DarkestHour: RMC-вид (2026-11-05)
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/OuterClothing/Royal/light.rsi # DarkestHour: RMC-вид (2026-11-05)
   - type: Clothing
-    sprite: _RMC14/Objects/Clothing/OuterClothing/Royal/light.rsi # DarkestHour: RMC-вид (2026-11-05)
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/OuterClothing/Royal/light.rsi # DarkestHour: RMC-вид (2026-11-05)
   - type: DHPartArmor
     parts: [ Torso ]
     armorClass: 1
@@ -67,9 +67,9 @@
   description: An Imperial Marine Corps vest with ceramic plates. Class 2 protection for the torso only.
   components:
   - type: Sprite
-    sprite: _RMC14/Objects/Clothing/OuterClothing/Royal/padded.rsi # DarkestHour: RMC-вид (2026-11-05)
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/OuterClothing/Royal/padded.rsi # DarkestHour: RMC-вид (2026-11-05)
   - type: Clothing
-    sprite: _RMC14/Objects/Clothing/OuterClothing/Royal/padded.rsi # DarkestHour: RMC-вид (2026-11-05)
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/OuterClothing/Royal/padded.rsi # DarkestHour: RMC-вид (2026-11-05)
   - type: DHPartArmor
     parts: [ Torso ]
     armorClass: 2
