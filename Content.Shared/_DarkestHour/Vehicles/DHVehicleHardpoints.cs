@@ -51,6 +51,17 @@ public sealed partial class DHHardpointComponent : Component
     [DataField]
     public string? DamagedVehicleState;
 
+    /// <summary>
+    /// Дополнительные слои машины с этим модулем: слой (map) → состояние (целый модуль). Например, пулемёт в турели хамви
+    /// поверх кольца турели. Слои должны быть перечислены в <see cref="DHVehicleHardpointsComponent.ExtraLayers"/>.
+    /// </summary>
+    [DataField]
+    public Dictionary<string, string> ExtraVehicleStates = new();
+
+    /// <summary>То же для разбитого модуля; нет слоя — берётся целое состояние.</summary>
+    [DataField]
+    public Dictionary<string, string> DamagedExtraVehicleStates = new();
+
     /// <summary>Орудие модуля: появляется на машине, пока модуль стоит.</summary>
     [DataField]
     public EntProtoId? Gun;
@@ -90,6 +101,10 @@ public sealed partial class DHVehicleHardpointsComponent : Component
     [DataField(required: true)]
     public Dictionary<DHHardpointSlot, string> Slots = new();
 
+    /// <summary>Дополнительные слои спрайта у места модуля: видны, только пока модуль стоит (состояние — у модуля).</summary>
+    [DataField]
+    public Dictionary<DHHardpointSlot, List<string>> ExtraLayers = new();
+
     /// <summary>Модули с завода.</summary>
     [DataField]
     public Dictionary<DHHardpointSlot, EntProtoId> Starting = new();
@@ -112,6 +127,19 @@ public sealed partial class DHVehicleHardpointsComponent : Component
 /// <summary>Состояние слоя модуля на машине: ключ — <see cref="DHHardpointSlot"/>, значение — строка (пусто — скрыт).</summary>
 [Serializable, NetSerializable]
 public enum DHHardpointVisuals : byte
+{
+    Primary,
+    Secondary,
+    Support,
+    Armor,
+    Wheels,
+    PortLeft,
+    PortRight,
+}
+
+/// <summary>Дополнительные слои места модуля: строка «слой=состояние;…» (пустое состояние — слой скрыт).</summary>
+[Serializable, NetSerializable]
+public enum DHHardpointExtraVisuals : byte
 {
     Primary,
     Secondary,
@@ -208,6 +236,11 @@ public static class DHHardpoints
     public static DHHardpointVisuals Visual(DHHardpointSlot slot)
     {
         return (DHHardpointVisuals) (byte) slot;
+    }
+
+    public static DHHardpointExtraVisuals ExtraVisual(DHHardpointSlot slot)
+    {
+        return (DHHardpointExtraVisuals) (byte) slot;
     }
 
     public static string Container(DHHardpointSlot slot)
