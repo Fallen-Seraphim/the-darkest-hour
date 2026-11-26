@@ -2828,7 +2828,7 @@
     minAngle: 1
     maxAngle: 22
     soundGunshot:
-      path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_sniper_heavy.ogg
+      path: /Audio/_DarkestHour/Weapons/Gunshots/lavr90.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/sf_rifle_cock.ogg

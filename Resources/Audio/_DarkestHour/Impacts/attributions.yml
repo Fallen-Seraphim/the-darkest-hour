@@ -17,3 +17,8 @@
   license: "CC-BY-SA-3.0"
   copyright: "Taken from cmss13 via CMU (RussianCM)"
   source: "https://github.com/cmss13-devs/cmss13/blob/52be8a8ceeb165c6a0becc77ecc3c9a644b88fd2/sound/effects/woodhit.ogg"
+
+- files: ["impact_metal_bullet.ogg", "impact_metal_thud.ogg", "impact_metal_strike.ogg", "impact_flesh_5.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Provided by The Darkest Hour author as RMC-14 sounds (2026-11-26); converted to mono and peak-normalised. Original authorship and licence to be confirmed."
+  source: "https://github.com/RMC-14/RMC-14"
