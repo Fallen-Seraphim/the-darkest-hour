@@ -41,6 +41,11 @@ def main():
             im.alpha_composite(tint(Image.open(io.BytesIO(git(rucm, f'{SRC}/{color}.png'))).convert('RGBA')))
         im.save(os.path.join(OUT, name + '.png'))
         out_states.append(states[name])
+    # Затвор открыт (GunSystem.ChamberMagazine ставит слою Base «bolt-open», когда патронник пуст) и иконка —
+    # у смарт-гана RMC их нет, берём тот же рисунок, что и base.
+    for extra in ('bolt-open', 'icon'):
+        Image.open(os.path.join(OUT, 'base.png')).save(os.path.join(OUT, extra + '.png'))
+        out_states.append({'name': extra})
     meta['states'] = out_states
     meta['copyright'] += '; recoloured for the LA-V LAVMG-14 by The Darkest Hour (Tools/_DarkestHour/lav/lavmg_sprite.py)'
     with open(os.path.join(OUT, 'meta.json'), 'w') as f:
