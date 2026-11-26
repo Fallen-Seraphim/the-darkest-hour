@@ -1,7 +1,7 @@
 {
     "version": 1,
     "license": "CC-BY-SA-3.0",
-    "copyright": "Drawn for The Darkest Hour (2026-11-12, canopy states 2026-11-20): Imperial attack aircraft after F9F-5 Panther and Su-25. Hardpoint stores (hp*) are downscaled dropship_ammo_64 and dropship_attachments sprites taken from cmss13 via RMC-14 (CC-BY-SA-3.0).",
+    "copyright": "Drawn for The Darkest Hour (2026-11-12, canopy states 2026-11-20): Imperial attack aircraft after F9F-5 Panther and Su-25. Hardpoint stores (hp*) are downscaled dropship_ammo_64 and dropship_attachments sprites taken from cmss13 via RMC-14 (CC-BY-SA-3.0); the drop tank is drawn for The Darkest Hour.",
     "size": {
         "x": 160,
         "y": 160
@@ -47,6 +47,9 @@
             "name": "hp0_cannon_pod"
         },
         {
+            "name": "hp0_drop_tank"
+        },
+        {
             "name": "hp1_bomb_he"
         },
         {
@@ -69,6 +72,9 @@
         },
         {
             "name": "hp1_cannon_pod"
+        },
+        {
+            "name": "hp1_drop_tank"
         },
         {
             "name": "hp2_bomb_he"
@@ -95,6 +101,9 @@
             "name": "hp2_cannon_pod"
         },
         {
+            "name": "hp2_drop_tank"
+        },
+        {
             "name": "hp3_bomb_he"
         },
         {
@@ -117,6 +126,9 @@
         },
         {
             "name": "hp3_cannon_pod"
+        },
+        {
+            "name": "hp3_drop_tank"
         }
     ]
 }

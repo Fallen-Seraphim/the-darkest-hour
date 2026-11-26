@@ -32,3 +32,5 @@ ent-DHSupplyCrateAircraftCannonPod = ящик с пушечным контейн
     .desc = Запасной заряженный пушечный контейнер 30 мм для штурмовика.
 ent-DHSupplyCrateAircraftFlares = ящик кассет ЛТЦ
     .desc = Четыре кассеты ложных тепловых целей для штурмовика.
+ent-DHSupplyCrateAircraftDropTanks = ящик ПТБ штурмовика
+    .desc = Два полных подвесных топливных бака для штурмовика.

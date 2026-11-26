@@ -271,6 +271,21 @@
 
 - type: entity
   parent: CrateGenericSteel
+  id: DHSupplyCrateAircraftDropTanks
+  name: aircraft drop tank crate
+  description: "Two full drop tanks for the attack aircraft."
+  components:
+  - type: Icon
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/syndicate.rsi
+  - type: StorageFill
+    contents:
+    - id: DHAircraftDropTank
+      amount: 2
+
+- type: entity
+  parent: CrateGenericSteel
   id: DHSupplyCrateAircraftFlares
   name: aircraft flare crate
   description: "Four flare cassettes for the attack aircraft."

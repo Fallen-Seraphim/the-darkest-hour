@@ -207,19 +207,20 @@
   name: carrier comms antenna
   description: Carries the Imperial radio nets aboard the carrier. If it falls silent, the carrier's radio goes dead. The troops below need a portable relay set up on the ground. Can be welded back into working order.
   components:
+  # Решение автора 2026-11-26: мачта как у антенны GOVFOR в RuCM (cmss13 comm_tower через RMC-14).
   - type: Sprite
-    sprite: _RMC14/Structures/communications_tower_dish.rsi
+    sprite: _RMC14/Structures/communications_tower_alt.rsi
     offset: 0,1
     drawdepth: Overdoors
     layers:
-    - state: comm_tower
+    - state: comm_tower_off
       map: [ "tower" ]
   - type: GenericVisualizer
     visuals:
       enum.DHCommsRelayVisuals.Active:
         tower:
-          True: { state: comm_tower }
-          False: { state: comm_tower_broken }
+          True: { state: comm_tower_off }
+          False: { state: comm_tower_destroyed }
   - type: DHCommsRelay
     channels:
     - Syndicate
@@ -238,9 +239,10 @@
   name: portable comms relay (packed)
   description: A packed Imperial field relay. Use it in hand to set it up where you stand — the landing force radio works only where a relay stands. Heavy; carry it with both hands.
   components:
+  # Решение автора 2026-11-26: сложенный — ранцевая станция AN/PRC-117G из RuCM (AU14, CC-BY-SA-3.0).
   - type: Sprite
-    sprite: Objects/Devices/communication.rsi
-    state: old-radio-nukeop
+    sprite: _CMU14/Objects/Radio/anprc117g.rsi
+    state: base_w
   - type: Item
     size: Huge
     sprite: Objects/Devices/communication.rsi

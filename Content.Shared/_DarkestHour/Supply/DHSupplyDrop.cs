@@ -1,3 +1,4 @@
+using Content.Shared._DarkestHour.Assault;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
@@ -131,6 +132,29 @@ public sealed partial class DHVehicleLiftComponent : Component
 
     [DataField]
     public string PitFixture = "pit";
+
+    /// <summary>Чей лифт: сюда приходит заказанная техника этой стороны (решение автора 2026-11-26).</summary>
+    [DataField]
+    public DHAssaultFaction Faction = DHAssaultFaction.Empire;
+
+    /// <summary>Тяжёлый (танк) или лёгкий (БТР, заказанные хамви).</summary>
+    [DataField]
+    public DHVehicleLiftKind Kind = DHVehicleLiftKind.Heavy;
+
+    /// <summary>Можно ли поднять поддон сброса как поддон (у Республики сбрасывать некуда — только машиной).</summary>
+    [DataField]
+    public bool AllowPallet = true;
+
+    /// <summary>Поднимаемый поддон распаковать в машину на платформе.</summary>
+    [ViewVariables]
+    public bool UnpackCargo;
+}
+
+[Serializable, NetSerializable]
+public enum DHVehicleLiftKind : byte
+{
+    Heavy,
+    Light,
 }
 
 /// <summary>Компьютер лифта техники.</summary>
@@ -152,6 +176,9 @@ public sealed class DHVehicleLiftRow
 {
     public NetEntity Entity;
     public string Name = string.Empty;
+
+    /// <summary>В трюме поддон сброса: поднять его можно машиной (распаковать) или поддоном — одно из двух.</summary>
+    public bool Pallet;
 }
 
 [Serializable, NetSerializable]
@@ -159,6 +186,8 @@ public sealed class DHVehicleLiftState : BoundUserInterfaceState
 {
     public bool HasLift;
     public DHSupplyElevatorMode Mode;
+    public DHVehicleLiftKind Kind;
+    public bool AllowPallet;
 
     /// <summary>Трюм.</summary>
     public List<DHVehicleLiftRow> Stored = new();
@@ -176,9 +205,13 @@ public sealed class DHVehicleLiftRaiseMessage : BoundUserInterfaceMessage
     /// <summary>Что поднять (не путать с <see cref="BoundUserInterfaceMessage.Entity"/> — это консоль).</summary>
     public NetEntity Cargo;
 
-    public DHVehicleLiftRaiseMessage(NetEntity cargo)
+    /// <summary>Поднять поддон сброса как есть (иначе — распаковать в машину).</summary>
+    public bool AsPallet;
+
+    public DHVehicleLiftRaiseMessage(NetEntity cargo, bool asPallet)
     {
         Cargo = cargo;
+        AsPallet = asPallet;
     }
 }
 

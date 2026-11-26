@@ -1,0 +1,56 @@
+# Из RMC-14 (через RussianCM): волны вокруг вошедшего в воду, брызги, шейдер погружения и звуки вброд (cmss13#12918,
+# CC-BY-SA-3.0). Решение автора 2026-11-26: эффекты входа в воду как в RuCM. Механика — DHWaterSubmersionSystem,
+# DHWaterVisualsSystem.
+
+- type: entity
+  id: RMCWaterWake
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: Effects
+    noRot: true
+    sprite: _RMC14/Effects/Water/splash32.rsi
+    state: shallow
+
+- type: entity
+  id: RMCWaterImpact
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: Effects
+    noRot: true
+    sprite: _RMC14/Effects/Water/impact.rsi
+    state: splash
+    loop: false
+  - type: TimedDespawn
+    lifetime: 2
+
+- type: shader
+  id: RMCWaterSubmersion
+  kind: source
+  path: /Textures/_RMC14/Effects/Water/submersion.swsl
+
+- type: soundCollection
+  id: RMCWaterShallowWading
+  files:
+  - /Audio/_RMC14/Effects/Water/shallowwading1.ogg
+  - /Audio/_RMC14/Effects/Water/shallowwading2.ogg
+  - /Audio/_RMC14/Effects/Water/shallowwading3.ogg
+  - /Audio/_RMC14/Effects/Water/shallowwading4.ogg
+  - /Audio/_RMC14/Effects/Water/shallowwading5.ogg
+  - /Audio/_RMC14/Effects/Water/shallowwading6.ogg
+
+- type: soundCollection
+  id: RMCWaterWading
+  files:
+  - /Audio/_RMC14/Effects/Water/wading1.ogg
+  - /Audio/_RMC14/Effects/Water/wading2.ogg
+  - /Audio/_RMC14/Effects/Water/wading3.ogg
+
+- type: soundCollection
+  id: RMCWaterDeepWading
+  files:
+  - /Audio/_RMC14/Effects/Water/deepwading1.ogg
+  - /Audio/_RMC14/Effects/Water/deepwading2.ogg
+  - /Audio/_RMC14/Effects/Water/deepwading3.ogg
+  - /Audio/_RMC14/Effects/Water/deepwading4.ogg

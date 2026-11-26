@@ -184,6 +184,9 @@ public sealed partial class DHAircraftWeaponsWindow : DefaultWindow
             _pylons[i].Text = munition == DHAircraftMunition.CannonPod
                 ? Loc.GetString("dh-aircraft-weapons-pylon-pod", ("slot", i + 1),
                     ("rounds", i < state.HardpointAmmo.Count ? state.HardpointAmmo[i] : 0))
+                : munition == DHAircraftMunition.DropTank
+                ? Loc.GetString("dh-aircraft-weapons-pylon-tank", ("slot", i + 1),
+                    ("fuel", i < state.HardpointAmmo.Count ? state.HardpointAmmo[i] : 0))
                 : Loc.GetString("dh-aircraft-weapons-pylon", ("slot", i + 1),
                     ("munition", Loc.GetString("dh-aircraft-munition-name-" + munition.ToString().ToLowerInvariant())));
             _pylons[i].Disabled = munition == DHAircraftMunition.None;

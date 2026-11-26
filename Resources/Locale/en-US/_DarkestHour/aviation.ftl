@@ -130,6 +130,7 @@ dh-aircraft-fire-intercepted = The munition was shot down by air defence!
 
 # cannon pods and special bays
 dh-aircraft-munition-cannonpod = [30mm]
+dh-aircraft-munition-droptank = [TANK]
 dh-aircraft-cannon-no-pod = There is no 30 mm cannon pod on the hardpoints.
 dh-aircraft-munition-unloaded = Removed from hardpoint { $slot }.
 dh-aircraft-verb-unload = Remove from hardpoint { $slot }: { $munition }
@@ -176,6 +177,7 @@ dh-aircraft-weapons-clear-target = Clear target
 dh-aircraft-weapons-fire-button = FIRE
 dh-aircraft-weapons-pylon = { $slot } · { $munition }
 dh-aircraft-weapons-pylon-pod = { $slot } · 30 mm cannon pod — { $rounds } rds
+dh-aircraft-weapons-pylon-tank = { $slot } · drop tank — { $fuel } u of fuel
 dh-aircraft-weapons-hint-select = Select hardpoints to fire.
 dh-aircraft-munition-name-none = empty
 dh-aircraft-munition-name-bombhe = HE bomb
@@ -186,6 +188,7 @@ dh-aircraft-munition-name-guidedbomb = guided bomb
 dh-aircraft-munition-name-missileat = AT missile
 dh-aircraft-munition-name-missilehe = HE missile
 dh-aircraft-munition-name-cannonpod = 30 mm cannon pod
+dh-aircraft-munition-name-droptank = drop tank
 dh-aircraft-computer-nothing = Nothing selected.
 dh-aircraft-computer-bombs = Bombs: { $count }. Fall { $fall } s, lead { $lead } tiles, scatter ±{ $scatter }, stick spacing { $step }.
 dh-aircraft-computer-bombs-plan = Not on a pass: shown where they fall if released at the start of the pass line; the faint strip is the whole pass.
@@ -199,6 +202,7 @@ dh-aircraft-computer-guided = Guided: { $count }. Target { $distance } of { $ran
     }.
 dh-aircraft-computer-guided-no-target = Guided: { $count }. Pick a target with a right click on the map.
 dh-aircraft-drop-salvo = Bombs away: { $count }!
+dh-aircraft-drop-tank-jettisoned = Drop tanks jettisoned: { $count }.
 dh-aircraft-fire-salvo = Launched: { $count }!
 
 dh-aircraft-lift-console-no-lift = No aircraft elevator found.

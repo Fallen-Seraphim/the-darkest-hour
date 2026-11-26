@@ -9,7 +9,7 @@ namespace Content.Client._DarkestHour.Supply;
 /// <summary>Компьютер лифта техники: положение лифта, трюм с кнопками «Поднять» и платформа с кнопкой «Опустить».</summary>
 public sealed class DHVehicleLiftWindow : DefaultWindow
 {
-    public event Action<NetEntity>? OnRaise;
+    public event Action<NetEntity, bool>? OnRaise;
     public event Action? OnLower;
 
     private static readonly Color Ok = Color.FromHex("#8FD66B");
@@ -54,9 +54,10 @@ public sealed class DHVehicleLiftWindow : DefaultWindow
         var working = state.HasLift && state.Blocked.Length == 0;
         _status.Text = !state.HasLift
             ? Loc.GetString("dh-vehicle-lift-ui-no-lift")
-            : state.Blocked.Length > 0
-                ? state.Blocked
-                : Loc.GetString("dh-vehicle-lift-ui-mode-" + state.Mode.ToString().ToLowerInvariant());
+            : (Loc.GetString("dh-vehicle-lift-ui-kind-" + state.Kind.ToString().ToLowerInvariant()) + " — " +
+               (state.Blocked.Length > 0
+                   ? state.Blocked
+                   : Loc.GetString("dh-vehicle-lift-ui-mode-" + state.Mode.ToString().ToLowerInvariant())));
         _status.FontColorOverride = working ? Ok : Warn;
 
         _stored.RemoveAllChildren();
@@ -69,14 +70,27 @@ public sealed class DHVehicleLiftWindow : DefaultWindow
         {
             var line = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 8 };
             line.AddChild(new Label { Text = row.Name, HorizontalExpand = true });
+            var canRaise = working && state.Mode == DHSupplyElevatorMode.Lowered;
+            var entity = row.Entity;
+            // Поддон сброса: машиной на платформу или поддоном для сброса на маяк — одно из двух.
             var button = new Button
             {
-                Text = Loc.GetString("dh-vehicle-lift-ui-raise"),
-                Disabled = !working || state.Mode != DHSupplyElevatorMode.Lowered,
+                Text = Loc.GetString(row.Pallet ? "dh-vehicle-lift-ui-raise-vehicle" : "dh-vehicle-lift-ui-raise"),
+                Disabled = !canRaise,
             };
-            var entity = row.Entity;
-            button.OnPressed += _ => OnRaise?.Invoke(entity);
+            button.OnPressed += _ => OnRaise?.Invoke(entity, false);
             line.AddChild(button);
+            if (row.Pallet && state.AllowPallet)
+            {
+                var pallet = new Button
+                {
+                    Text = Loc.GetString("dh-vehicle-lift-ui-raise-pallet"),
+                    ToolTip = Loc.GetString("dh-vehicle-lift-ui-raise-pallet-tooltip"),
+                    Disabled = !canRaise,
+                };
+                pallet.OnPressed += _ => OnRaise?.Invoke(entity, true);
+                line.AddChild(pallet);
+            }
             _stored.AddChild(line);
         }
 

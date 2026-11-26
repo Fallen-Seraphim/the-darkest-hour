@@ -1,5 +1,8 @@
 using Content.Server._DarkestHour.Assault;
+using Content.Server._DarkestHour.Supply;
+using Content.Shared._DarkestHour.Paradrop;
 using Content.Shared._DarkestHour.Vehicles;
+using Robust.Shared.Map;
 
 namespace Content.Server._DarkestHour.Vehicles;
 
@@ -10,6 +13,7 @@ namespace Content.Server._DarkestHour.Vehicles;
 public sealed partial class DHVehicleServerSystem
 {
     [Dependency] private DHAssaultRuleSystem _assault = default!;
+    [Dependency] private DHVehicleLiftSystem _vehicleLift = default!;
 
     private void InitializeDelivery()
     {
@@ -18,6 +22,21 @@ public sealed partial class DHVehicleServerSystem
 
     private void OnDeliveryMapInit(Entity<DHVehicleDeliveryComponent> ent, ref MapInitEvent args)
     {
+        // Заказ — в трюм лифта техники своей стороны (решение автора 2026-11-26).
+        if (ent.Comp.Lift is { } kind && _vehicleLift.FindLift(ent.Comp.Faction, kind) is { } lift)
+        {
+            var stored = Spawn(ent.Comp.Spawn, MapCoordinates.Nullspace);
+            var name = TryComp<DHDropPalletComponent>(stored, out var pallet) &&
+                       _proto.TryIndex(pallet.Spawn, out var vehicleProto)
+                ? vehicleProto.Name
+                : Name(stored);
+            _vehicleLift.Store(lift, stored);
+            _assault.AnnounceToFaction(ent.Comp.Faction, Loc.GetString("dh-vehicle-delivery-sender"),
+                Loc.GetString("dh-vehicle-delivery-lift", ("vehicle", name)));
+            QueueDel(ent);
+            return;
+        }
+
         var coordinates = Transform(ent).Coordinates;
         var rotation = Angle.Zero;
         var points = EntityQueryEnumerator<DHVehicleDeliveryPointComponent, TransformComponent>();

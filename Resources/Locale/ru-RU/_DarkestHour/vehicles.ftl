@@ -52,6 +52,7 @@ dh-vehicle-engine-off = Вы глушите двигатель. Машину н�
 dh-vehicle-full = В { $vehicle } нет свободных мест.
 dh-vehicle-delivery-sender = Автопарк
 dh-vehicle-delivery-arrived = { CAPITALIZE($vehicle) } пригнали в гараж базы.
+dh-vehicle-delivery-lift = { CAPITALIZE($vehicle) } — в трюме лёгкого лифта техники.
 
 ## Лодки (план осады п. 10)
 dh-boat-no-shore = Вокруг глубокая вода — сначала причальте к берегу или мелководью.

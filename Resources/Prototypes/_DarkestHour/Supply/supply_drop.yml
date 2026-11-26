@@ -29,7 +29,7 @@
   description: Sends everything standing on the drop pad to a switched-on drop beacon on the surface. The cargo comes down by parachute about 20 seconds later; the launcher then recharges for 2 minutes.
   components:
   - type: ComputerVisuals
-    stateScreen: supply
+    stateScreen: request # DarkestHour: в desktop_computers.rsi нет «supply»
     stateKeys: tech_key
   - type: DHSupplyDropConsole
   - type: ActivatableUI
@@ -67,7 +67,7 @@
 
 - type: entity
   id: DHVehicleLift
-  name: vehicle elevator
+  name: heavy vehicle elevator
   description: The vehicle elevator from the carrier's hold. Brings up drop pallets and vehicles stored below, and takes down what stands on it.
   placement:
     mode: SnapgridCenter
@@ -104,9 +104,49 @@
         - MidImpassable
         - LowImpassable
   - type: DHVehicleLift
+    faction: Empire
+    kind: Heavy
     starting:
     - DHVehicleDropPalletTankEmpire
+
+# Решение автора 2026-11-26: у каждой стороны два лифта — тяжёлый (танк) и лёгкий (БТР; сюда же приходят заказанные
+# хамви). Поддон в трюме поднимается машиной или поддоном (для сброса на маяк) — одно из двух.
+- type: entity
+  parent: DHVehicleLift
+  id: DHVehicleLiftLight
+  name: light vehicle elevator
+  components:
+  - type: DHVehicleLift
+    faction: Empire
+    kind: Light
+    starting:
     - DHVehicleDropPalletIM30
+
+- type: entity
+  parent: DHVehicleLift
+  id: DHVehicleLiftRepublicHeavy
+  name: heavy vehicle elevator
+  description: The vehicle elevator of the base garage. Brings up vehicles from the underground park and takes down what stands on it.
+  suffix: Republic
+  components:
+  - type: DHVehicleLift
+    faction: Republic
+    kind: Heavy
+    allowPallet: false
+    starting:
+    - DHVehicleDropPalletTankRepublic
+
+- type: entity
+  parent: DHVehicleLiftRepublicHeavy
+  id: DHVehicleLiftRepublicLight
+  name: light vehicle elevator
+  components:
+  - type: DHVehicleLift
+    faction: Republic
+    kind: Light
+    allowPallet: false
+    starting:
+    - DHVehicleDropPalletRAM45
 
 - type: entity
   parent: BaseComputer

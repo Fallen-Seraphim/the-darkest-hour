@@ -1026,10 +1026,13 @@ class World:
             self.reserve(bx0, y1 + 1, bx1, y1 + 1)
             self.ent('ClosetToolFilled', bx0, y0 + 1)
             self.ent('WeldingFuelTankFull', bx1, y0 + 1)
-        # техника Республики стоит носом к воротам (север)
+        # танк и БТР Республики — в трюмах тяжёлого и лёгкого лифтов техники в первых двух боксах (решение автора
+        # 2026-11-26); сюда же, в лёгкий, приходят заказанные хамви. Грузовики стоят в третьем боксе носом к воротам.
         (a0, a1), (b0, b1), (c0, c1) = bays
-        self.ent('DHVehicleTankRepublic', (a0 + a1) // 2, y0 + 8, R180, free=True)
-        self.ent('DHVehicleRAM45', (b0 + b1) // 2, y0 + 8, R180, free=True)
+        self.ent('DHVehicleLiftRepublicHeavy', (a0 + a1) // 2, y0 + 8, R180, free=True)
+        self.ent('DHComputerVehicleLift', a1, y0 + 6, R270)
+        self.ent('DHVehicleLiftRepublicLight', (b0 + b1) // 2, y0 + 8, R180, free=True)
+        self.ent('DHComputerVehicleLift', b1, y0 + 6, R270)
         self.ent('DHVehicleTruckRepublic', c0 + 2, y0 + 7, R180, free=True)
         self.ent('DHVehicleTruckRepublic', c1 - 2, y0 + 7, R180, free=True)
         # сюда пригоняют заказанную технику (хамви, план осады п. 3) — перед воротами третьего бокса

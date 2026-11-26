@@ -8,6 +8,7 @@ public static class ContentPostShaderIds
     public const string InteractionOutline = "interaction-outline";
     public const string TargetOutline = "target-outline";
     public const string DragDropOutline = "drag-drop-outline";
+    public const string WaterSubmersion = "water-submersion"; // DarkestHour: погружение в воду (RMC-14)
 
     public static readonly string[] BeforeOutlines =
     {

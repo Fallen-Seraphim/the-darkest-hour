@@ -25,7 +25,7 @@
       index: 0
 
 # --- Вода ---
-# Своя вода без раствора и регенерации (на карте её тысячи клеток), сглаживается вместе с обычной. Набрать воды —
+# Своя вода без раствора и регенерации (на карте её тысячи клеток). Набрать воды —
 # ёмкостью по клетке (DHWaterSource, запас бесконечный); на воде не горит огонь; горящий, зайдя в воду, гаснет.
 
 - type: entity
@@ -40,22 +40,19 @@
   - type: Transform
     anchored: true
   - type: Clickable
+  # Решение автора 2026-11-26: вода как в RuCM — тайлы моря cmss13 (через RMC-14), погружение в воду и волны вокруг
+  # (DHWaterDepth, DHWaterVisualsSystem), шаги вброд.
   - type: Sprite
-    sprite: Tiles/TileEntities/liquid-water.rsi
+    sprite: _RMC14/Tiles/planet/water.rsi
+    state: seashallow
     drawdepth: BelowFloor
-  - type: IconSmooth
-    key: water
-    states:
-    - !type:CornerSpriteSmoothing
-      mask: [ water, walls ]
-      base: water
   - type: Physics
     bodyType: Static
   - type: FootstepModifier
     footstepSoundCollection:
-      collection: FootstepWater
-      params:
-        volume: 8
+      collection: RMCWaterShallowWading
+  - type: DHWaterDepth
+    depth: 8
   - type: PlacementReplacement
     key: tileOverlay
   - type: DHWaterSource
@@ -83,13 +80,15 @@
     sprintSpeedModifier: 0.5
   - type: DHTacticalTerrain
     kind: Water
-  # Горящий боец, зайдя в воду, гаснет (как в ванильной воде).
+  # Горящий боец, зайдя в воду, гаснет (как в ванильной воде); вода смывает кровь с одежды и снаряжения (решение
+  # автора 2026-11-26).
   - type: StepTrigger
     requiredTriggeredSpeed: 0
     intersectRatio: 0.1
   - type: TileEntityEffect
     effects:
     - !type:Extinguish
+    - !type:DHWashEquipment
 
 - type: entity
   parent: DHWaterBase
@@ -98,7 +97,12 @@
   description: Too deep and cold to cross on foot. Bullets fly over it just fine.
   components:
   - type: Sprite
-    color: "#6f8fb4"
+    state: seadeep
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: RMCWaterDeepWading
+  - type: DHWaterDepth
+    depth: 18
   - type: Fixtures
     fixtures:
       # Как стол: люди не проходят, пули и брошенные вещи пролетают.

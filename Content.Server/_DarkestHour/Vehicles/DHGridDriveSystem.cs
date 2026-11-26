@@ -357,7 +357,7 @@ public sealed partial class DHGridDriveSystem : EntitySystem
         _blockers.Clear();
         foreach (var other in _lookup.GetEntitiesIntersecting(map, box, LookupFlags.Dynamic | LookupFlags.Static))
         {
-            if (other == uid || other == vehicle.HullEntity || Transform(other).ParentUid == uid ||
+            if (other == uid || other == vehicle.HullEntity || OnBoard(uid, other) ||
                 HasComp<ItemComponent>(other) || HasComp<MapGridComponent>(other))
             {
                 continue;
@@ -413,6 +413,24 @@ public sealed partial class DHGridDriveSystem : EntitySystem
             _blockers.Add((EntityUid.Invalid, center));
 
         return _blockers.Count;
+    }
+
+    /// <summary>
+    /// Часть машины или едет на ней: дети корпуса и их дети — сидящие на открытых местах лодки пристёгнуты к сиденью,
+    /// а сиденье — к лодке (баг 2026-11-26: лодка «давила» и выталкивала своего же рулевого и не ехала).
+    /// </summary>
+    private bool OnBoard(EntityUid vehicle, EntityUid other)
+    {
+        var parent = Transform(other).ParentUid;
+        for (var depth = 0; depth < 3 && parent.IsValid(); depth++)
+        {
+            if (parent == vehicle)
+                return true;
+
+            parent = Transform(parent).ParentUid;
+        }
+
+        return false;
     }
 
     /// <summary>Вытолкнуть из-под корпуса вбок; на скорости ещё и сбить с ног и ударить.</summary>

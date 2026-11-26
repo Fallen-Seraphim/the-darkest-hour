@@ -313,6 +313,26 @@
   - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
   - type: DHPowerLoaderGrabbable
 
+# Подвесной топливный бак (решение автора 2026-11-26): вешается на узел подвески, двигатель сначала берёт топливо из
+# него; заправляется вместе с самолётом из бака горючего; «Огонь» по узлу в полёте — сбросить. Рисунок —
+# Tools/_DarkestHour/aviation/drop_tank.py.
+- type: entity
+  parent: BaseItem
+  id: DHAircraftDropTank
+  name: aircraft drop tank
+  description: "A 150-unit external fuel tank for a wing hardpoint of the attack aircraft. Comes full; the engine drinks from it first. Select its hardpoint and fire to jettison it in flight."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Aviation/drop_tank.rsi
+    state: icon
+  - type: Item
+    size: Huge
+  - type: DHAircraftMunition
+    kind: DropTank
+    rounds: 150
+  - type: DHPowerLoaderOnly # руками не поднять — только погрузчиком
+  - type: DHPowerLoaderGrabbable
+
 # Модули спецотсеков фюзеляжа (два отсека). Ставятся и снимаются на палубе.
 - type: entity
   parent: BaseItem
