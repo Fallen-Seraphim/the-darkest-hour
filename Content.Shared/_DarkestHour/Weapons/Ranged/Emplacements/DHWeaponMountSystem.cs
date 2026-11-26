@@ -38,6 +38,7 @@ namespace Content.Shared._DarkestHour.Weapons.Ranged.Emplacements;
 /// </summary>
 public sealed partial class DHWeaponMountSystem : EntitySystem
 {
+    [Dependency] private Content.Shared._DarkestHour.Skills.DHSkillsSystem _skills = default!; // навык «Тяжёлое оружие» (план осады п. 12)
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
@@ -139,7 +140,7 @@ public sealed partial class DHWeaponMountSystem : EntitySystem
         if (!CanDeploy(ent, args.User, out _, out _, popup: true))
             return;
 
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.DeployDelay,
+        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, _skills.ScaleDelay(args.User, "DHSkillHeavyWeapons", ent.Comp.DeployDelay),
             new DHMountDeployDoAfterEvent(), ent, ent, ent)
         {
             NeedHand = true,
@@ -217,7 +218,7 @@ public sealed partial class DHWeaponMountSystem : EntitySystem
             return;
         }
 
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, ent.Comp.NestDeployDelay,
+        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, _skills.ScaleDelay(user, "DHSkillHeavyWeapons", ent.Comp.NestDeployDelay),
             new DHMountNestDoAfterEvent(), ent, ent, ent)
         {
             NeedHand = true,
@@ -312,7 +313,7 @@ public sealed partial class DHWeaponMountSystem : EntitySystem
             return;
         }
 
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, ent.Comp.UndeployDelay,
+        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, _skills.ScaleDelay(user, "DHSkillHeavyWeapons", ent.Comp.UndeployDelay),
             new DHMountUndeployDoAfterEvent(), ent, ent)
         {
             NeedHand = true,

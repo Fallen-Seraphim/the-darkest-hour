@@ -141,7 +141,7 @@ public sealed partial class DHTraumaSystem
             return;
         }
 
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.Delay,
+        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, _skills.ScaleDelay(args.User, MedicalSkill, ent.Comp.Delay),
             new DHNeedleDecompressionDoAfterEvent(), target, target: target, used: ent)
         {
             BreakOnMove = true,

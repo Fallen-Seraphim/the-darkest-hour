@@ -22,6 +22,8 @@ namespace Content.Shared.Medical.Healing;
 public sealed partial class HealingSystem : EntitySystem
 {
     [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private Content.Shared._DarkestHour.Skills.DHSkillsSystem _dhSkills = default!; // DarkestHour
+    private static readonly Robust.Shared.Prototypes.ProtoId<Content.Shared._DarkestHour.Skills.DHSkillPrototype> DHMedicalSkill = "DHSkillMedical";
     [Dependency] private ISharedAdminLogManager _adminLogger = default!;
     [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private BloodstreamSystem _bloodstreamSystem = default!;
@@ -124,7 +126,7 @@ public sealed partial class HealingSystem : EntitySystem
 
         // Update our self heal delay so it shortens as we heal more damage.
         if (args.User == target.Owner)
-            args.Args.Delay = healing.Delay * GetScaledHealingPenalty(target.Owner, healing.SelfHealPenaltyMultiplier);
+            args.Args.Delay = _dhSkills.ScaleDelay(args.User, DHMedicalSkill, healing.Delay * GetScaledHealingPenalty(target.Owner, healing.SelfHealPenaltyMultiplier)); // DarkestHour: навык «Медицина»
     }
 
     private bool HasDamage(Entity<HealingComponent> healing, Entity<DamageableComponent> target)
@@ -217,6 +219,7 @@ public sealed partial class HealingSystem : EntitySystem
         var delay = isNotSelf
             ? healing.Comp.Delay
             : healing.Comp.Delay * GetScaledHealingPenalty(target, healing.Comp.SelfHealPenaltyMultiplier);
+        delay = _dhSkills.ScaleDelay(user, DHMedicalSkill, delay); // DarkestHour: навык «Медицина» (план осады п. 12)
 
         var doAfterEventArgs =
             new DoAfterArgs(EntityManager, user, delay, new HealingDoAfterEvent(), target, target: target, used: healing)

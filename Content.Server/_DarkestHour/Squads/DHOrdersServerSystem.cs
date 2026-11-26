@@ -14,6 +14,7 @@ namespace Content.Server._DarkestHour.Squads;
 /// </summary>
 public sealed partial class DHOrdersServerSystem : EntitySystem
 {
+    [Dependency] private Content.Shared._DarkestHour.Skills.DHSkillsSystem _skills = default!;
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private AudioSystem _audio = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
@@ -55,9 +56,11 @@ public sealed partial class DHOrdersServerSystem : EntitySystem
                 ally, PopupType.Medium);
         }
 
+        // Навык «Командование» (план осады п. 12): необученный отдаёт приказы вдвое реже, мастер — чаще.
+        var cooldown = _skills.ScaleDelay(user, "DHSkillCommand", ent.Comp.Cooldown);
         foreach (var action in ent.Comp.ActionEntities)
         {
-            _actions.SetCooldown(action, ent.Comp.Cooldown);
+            _actions.SetCooldown(action, cooldown);
         }
     }
 }
