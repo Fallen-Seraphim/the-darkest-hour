@@ -56,7 +56,7 @@ public enum DHInfantryShieldState : byte
     Broken,
 }
 
-/// <summary>Видимое поле щита на носителе: клиент рисует мерцание, вспышку попадания и красную вспышку поломки.</summary>
+/// <summary>Поле щита на носителе: по его состоянию клиент рисует контур по силуэту, вспышку попадания и красную вспышку поломки.</summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class DHInfantryShieldFieldComponent : Component
 {

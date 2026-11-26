@@ -327,22 +327,27 @@
       LegRight: DHArmorModuleEMB5LegRight
       Special: DHArmorSpecialAutoMed
 
-# Поле пехотного щита на носителе (свечение и свет рисует клиент по состоянию).
+# Поле пехотного щита на носителе: состояние и свет. Сам щит клиент рисует голубым контуром по силуэту носителя
+# (шейдер DHInfantryShieldOutline, как старый щит Monolith — решение автора 2026-11-26).
 - type: entity
   id: DHInfantryShieldField
   name: infantry shield field
   categories: [ HideSpawnMenu ]
   components:
-  - type: Sprite
-    sprite: _DarkestHour/Effects/infantry_shield.rsi
-    state: field
-    noRot: true
-    drawdepth: Effects
-    shader: unshaded
-    color: "#4fb8ff30"
   - type: PointLight
-    radius: 1.6
-    energy: 0.5
-    color: "#4fb8ff"
+    radius: 1.4
+    energy: 0.6
+    color: "#00AAFF"
     netsync: false
   - type: DHInfantryShieldField
+
+# Контур пехотного щита: обводка по силуэту, цвет и толщину выставляет DHInfantryShieldVisualsSystem.
+- type: shader
+  id: DHInfantryShieldOutline
+  kind: source
+  path: "/Textures/Shaders/outline.swsl"
+  params:
+    outline_color: "#00AAFFCF"
+    light_boost: 3
+    light_gamma: 1.25
+    light_whitepoint: 48

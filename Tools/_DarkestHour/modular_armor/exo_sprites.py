@@ -736,7 +736,7 @@ def main():
 # ЭМБ-5 ассоциативного десантника (план осады п. 28, указание автора 2026-11-20): по образцу текущей модульной брони
 # и Max Tac из «Киберпанка» — пластины в основном белые, с голубыми вставками; комбинезон тёмно-синий; шлем — гладкий
 # закрытый, с узким тёмным визором и голубой подсветкой. Пластины — по форме композитных (лёгкие).
-# Запуск:  python3 Tools/_DarkestHour/modular_armor/exo_sprites.py --emb5   (пишет только emb5_*.rsi и щит)
+# Запуск:  python3 Tools/_DarkestHour/modular_armor/exo_sprites.py --emb5   (пишет только emb5_*.rsi)
 
 EMB5 = dict(
     name='EMB-5',
@@ -843,16 +843,6 @@ def emb5_helmet(view):
     return cv.image()
 
 
-def shield_field():
-    """Поле пехотного щита: светлый овал вокруг фигуры (цвет и мерцание задаёт код)."""
-    img = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
-    d = ImageDraw.Draw(img)
-    d.ellipse((5, 1, 26, 31), outline=(255, 255, 255, 200), width=1)
-    d.ellipse((6, 2, 25, 30), fill=(255, 255, 255, 46))
-    d.ellipse((7, 3, 24, 29), outline=(255, 255, 255, 90), width=1)
-    return img
-
-
 def main_emb5():
     f = EMB5
     layers = part_layers('light', f)
@@ -880,8 +870,6 @@ def main_emb5():
     write_rsi(os.path.join(OUT_HEAD, 'emb5_helmet.rsi'),
               {'icon': (icon_from(helm, only=2), 1), 'icon-unshaded': (EMPTY, 1),
                'equipped-head': (helm, 4), 'equipped-head-unshaded': (glow, 4)})
-
-    write_rsi(os.path.join(TEX, '_DarkestHour/Effects/infantry_shield.rsi'), {'field': (shield_field(), 1)})
 
     # превью: рама и полный комплект
     full = frame.copy()
