@@ -345,10 +345,9 @@ public sealed partial class DHVehicleServerSystem
         args.Damage *= 1f - absorbed / total;
 
         if (armor.Comp.Broken)
-        {
             _popup.PopupEntity(Loc.GetString("dh-hardpoint-broken", ("module", armor.Owner)), ent, PopupType.MediumCaution);
-            RefreshHardpoints(ent);
-        }
+
+        RefreshHardpoints(ent); // и повреждения брони на спрайте
     }
 
     /// <summary>
@@ -433,6 +432,10 @@ public sealed partial class DHVehicleServerSystem
 
             if (!string.IsNullOrEmpty(layer))
                 _appearance.SetData(ent, DHHardpoints.Visual(slot), state);
+
+            // Повреждения модуля на спрайте (DHVehicleDamageVisuals).
+            var integrity = module is { } dm && dm.Comp.MaxIntegrity > 0f ? dm.Comp.Integrity / dm.Comp.MaxIntegrity : 1f;
+            _appearance.SetData(ent, DHVehicleDamage.Visual(slot), DHVehicleDamage.Quantize(integrity));
         }
 
         // Без места под колёса (старые машины) — ездит как раньше.

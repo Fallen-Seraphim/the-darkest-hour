@@ -155,10 +155,19 @@
     layers:
     - state: sppapc_base
       map: [ "base" ]
+    - state: damaged_frame
+      map: [ "damagedFrame" ]
+      visible: false
     - state: apc_turret_0
       map: [ "turret" ]
+    - state: damaged_turret
+      map: [ "damagedTurret" ]
+      visible: false
     - state: apc_autocannon_0
       map: [ "primary" ]
+    - state: damaged_hdpt_primary
+      map: [ "damagedPrimary" ]
+      visible: false
     - state: wheels_0
       map: [ "wheels" ]
       loop: false
@@ -178,15 +187,22 @@
     hullHalfSize: 1.4,2.3
     interior: DHInteriorAPC
     hull: DHVehicleHullRAM45
-    turretLayers: [ turret, primary ]
+    turretLayers: [ turret, primary, damagedTurret, damagedPrimary ]
     # Ось башни на корпусе — смещения башни SPP APC из RMC (пиксели / 32); кадры башни и пушки выровнены по оси.
     turretPivots: [ "0,0.1875", "0,0.125", "-0.03125,0.875", "-0.03125,0.875" ] # юг, север, восток, запад
     turretLayerPivots:
       turret: [ "0,0", "0,0", "0,0", "0,0" ]
       primary: [ "0,0", "0,0", "0,0", "0,0" ]
+      damagedTurret: [ "0,0", "0,0", "0,0", "0,0" ]
+      damagedPrimary: [ "0,0", "0,0", "0,0", "0,0" ]
     exitOffset: 0,2.9
     wreck: DHVehicleWreckRAM45
     key: APCRepublic # ключ — у командира машины
+  # Повреждения на спрайте, как в RMC-14 (решение автора 2026-11-26).
+  - type: DHVehicleDamageVisuals
+    hull: [ damagedFrame, damagedTurret ]
+    hardpoints:
+      Primary: damagedPrimary
   - type: DHVehicleHardpoints
     family: RAM45
     slots:
@@ -244,8 +260,14 @@
     layers:
     - state: apc_base_wolfpack
       map: [ "base" ]
+    - state: damaged_frame
+      map: [ "damagedFrame" ]
+      visible: false
     - state: flare_launcher_0
       map: [ "support" ]
+    - state: damaged_hdpt_support
+      map: [ "damagedSupport" ]
+      visible: false
     - state: tank_turret_0
       map: [ "turret" ]
     - state: ltb_cannon_0
@@ -279,6 +301,11 @@
     wreck: DHVehicleWreckIM30
     turretWreck: DHVehicleTurretWreckIM30
     key: APCEmpire # ключ — у командира машины
+  # Повреждения на спрайте, как в RMC-14 (решение автора 2026-11-26).
+  - type: DHVehicleDamageVisuals
+    hull: [ damagedFrame ]
+    hardpoints:
+      Support: damagedSupport
   - type: DHVehicleHardpoints
     family: IM30
     slots:
@@ -382,16 +409,31 @@
     layers:
     - state: tank_base
       map: [ "base" ]
+    - state: damaged_frame
+      map: [ "damagedFrame" ]
+      visible: false
     - state: reactive_armor_0
       map: [ "armor" ]
+    - state: damaged_hardpt_armor
+      map: [ "damagedArmor" ]
+      visible: false
     - state: tank_turret_0
       map: [ "turret" ]
+    - state: damaged_turret
+      map: [ "damagedTurret" ]
+      visible: false
     - state: p17702_0
       map: [ "primary" ]
     - state: t60p3m_0
       map: [ "secondary" ]
+    - state: damaged_hardpt_secondary
+      map: [ "damagedSecondary" ]
+      visible: false
     - state: slauncher_0
       map: [ "support" ]
+    - state: damaged_hardpt_support
+      map: [ "damagedSupport" ]
+      visible: false
     - state: wheels_0
       map: [ "wheels" ]
       loop: false
@@ -413,12 +455,19 @@
     crewZoom: 1.75
     interior: DHInteriorTank
     hull: DHVehicleHullTank
-    turretLayers: [ turret, primary, secondary ]
+    turretLayers: [ turret, primary, secondary, damagedTurret, damagedPrimary, damagedSecondary ]
     turretPivots: [ "0,0.36", "0,-0.16", "-0.16,0.2", "0.16,0.2" ] # юг, север, восток, запад
     exitOffset: 0,2.6
     wreck: DHVehicleWreckTankRepublic
     turretWreck: DHVehicleTurretWreckTankRepublic
     key: TankRepublic # ключ — у командира машины
+  # Повреждения на спрайте, как в RMC-14 (решение автора 2026-11-26).
+  - type: DHVehicleDamageVisuals
+    hull: [ damagedFrame, damagedTurret ]
+    hardpoints:
+      Armor: damagedArmor
+      Secondary: damagedSecondary
+      Support: damagedSupport
   - type: DHVehicleHardpoints
     family: TankRepublic
     slots:
@@ -447,16 +496,34 @@
     layers:
     - state: tank_base
       map: [ "base" ]
+    - state: damaged_frame
+      map: [ "damagedFrame" ]
+      visible: false
     - state: ballistic_armor_0
       map: [ "armor" ]
+    - state: damaged_hardpt_armor
+      map: [ "damagedArmor" ]
+      visible: false
     - state: tank_turret_0
       map: [ "turret" ]
+    - state: damaged_turret
+      map: [ "damagedTurret" ]
+      visible: false
     - state: ltb_cannon_0
       map: [ "primary" ]
+    - state: damaged_hardpt_primary
+      map: [ "damagedPrimary" ]
+      visible: false
     - state: m56cupola_0
       map: [ "secondary" ]
+    - state: damaged_hardpt_secondary
+      map: [ "damagedSecondary" ]
+      visible: false
     - state: slauncher_0
       map: [ "support" ]
+    - state: damaged_hardpt_support
+      map: [ "damagedSupport" ]
+      visible: false
     - state: wheels_0
       map: [ "wheels" ]
       loop: false
@@ -478,12 +545,20 @@
     crewZoom: 1.75
     interior: DHInteriorTank
     hull: DHVehicleHullTank
-    turretLayers: [ turret, primary, secondary ]
+    turretLayers: [ turret, primary, secondary, damagedTurret, damagedPrimary, damagedSecondary ]
     turretPivots: [ "0,0.3", "0,0.25", "-0.03,0.23", "0.03,0.23" ] # юг, север, восток, запад
     exitOffset: 0,2.6
     wreck: DHVehicleWreckTankEmpire
     turretWreck: DHVehicleTurretWreckTankEmpire
     key: TankEmpire # ключ — у командира машины
+  # Повреждения на спрайте, как в RMC-14 (решение автора 2026-11-26).
+  - type: DHVehicleDamageVisuals
+    hull: [ damagedFrame, damagedTurret ]
+    hardpoints:
+      Armor: damagedArmor
+      Primary: damagedPrimary
+      Secondary: damagedSecondary
+      Support: damagedSupport
   - type: DHVehicleHardpoints
     family: TankEmpire
     slots:
