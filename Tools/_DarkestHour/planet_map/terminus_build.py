@@ -1908,13 +1908,54 @@ class World:
         place('DHBoatHeavy', SPACEPORT[0] - 16, (SPACEPORT[1] + SPACEPORT[3]) // 2 - 20)
 
     def place_water(self):
-        n = 0
+        placed = {}
         for (x, y), deep in self.water.items():
             if not self.inside(x, y) or (x, y) in self.occ or self.tiles.get((x, y)) not in (DIRT, SAND):
                 continue
-            self.ents.append(('DHWaterDeep' if deep else 'DHWaterShallow', x + 0.5, y + 0.5, 0.0, None, None))
-            n += 1
-        print('Воды:', n)
+            placed[(x, y)] = deep
+        kinds = {}
+        for (x, y), deep in placed.items():
+            proto, rot = ('DHWaterDeep', 0.0) if deep else self.shore_kind(placed, x, y)
+            kinds[proto] = kinds.get(proto, 0) + 1
+            self.ents.append((proto, x + 0.5, y + 0.5, rot, None, None))
+        print('Воды:', len(placed), 'берег:', sum(v for k, v in kinds.items() if k not in ('DHWaterShallow', 'DHWaterDeep')))
+
+    # Сторона → поворот спрайта: исходный кадр смотрит «сушей» на юг (угол 0), против часовой — восток (+90°).
+    SIDE_ROT = {(0, -1): 0.0, (1, 0): PI / 2, (0, 1): PI, (-1, 0): -PI / 2}
+    # Угол → поворот: исходный кадр — угол на юго-западе.
+    CORNER_ROT = {(-1, -1): 0.0, (1, -1): PI / 2, (1, 1): PI, (-1, 1): -PI / 2}
+
+    def shore_kind(self, placed, x, y):
+        """Мелководье у берега и у глубины (решение автора 2026-11-26): кромка с волнами (desert_water cmss13 через
+        RuCM, перекрашена под наше море). Суша прозрачна — под кромкой видна земля клетки. Сначала берег, потом глубина.
+        Узкие места (суша с двух противоположных сторон и т. п.) — обычное мелководье."""
+        def land(c):
+            return c not in placed and self.inside(*c)
+
+        def deep(c):
+            return placed.get(c) is True
+
+        for test, straight, inner, outer in (
+                (land, 'DHWaterShore{}', 'DHWaterShoreInner', 'DHWaterShoreOuter{}'),
+                (deep, 'DHWaterDeepEdge', 'DHWaterDeepInner', 'DHWaterDeepOuter')):
+            sides = [d for d in self.SIDE_ROT if test((x + d[0], y + d[1]))]
+            variant = (x * 73856093 ^ y * 19349663) & 0xFFFF
+            if len(sides) == 1:
+                return straight.format(1 + variant % 3), self.SIDE_ROT[sides[0]]
+            if len(sides) == 2:
+                (ax, ay), (bx, by) = sides
+                if ax + bx != 0 or ay + by != 0:  # смежные стороны — внутренний угол
+                    corner = (ax + bx, ay + by)
+                    return inner, self.CORNER_ROT[corner]
+                return 'DHWaterShallow', 0.0
+            if len(sides) > 2:
+                return 'DHWaterShallow', 0.0
+            corners = [c for c in self.CORNER_ROT if test((x + c[0], y + c[1]))]
+            if len(corners) == 1:
+                return outer.format(1 + variant % 2), self.CORNER_ROT[corners[0]]
+            if corners:
+                return 'DHWaterShallow', 0.0
+        return 'DHWaterShallow', 0.0
 
     # ---------- климат ----------
 

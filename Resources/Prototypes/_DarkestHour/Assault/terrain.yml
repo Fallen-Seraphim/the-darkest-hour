@@ -117,6 +117,92 @@
   - type: DHTacticalTerrain
     kind: DeepWater
 
+# --- Кромки мелководья (решение автора 2026-11-26) ---
+# Мелководье у берега — с волнами и пеной, суша на спрайте прозрачна, и под кромкой видна земля клетки; у глубокой
+# воды — плавный переход. Спрайты desert_water cmss13 (через RMC-14 / RuCM), перекрашенные под наше море. Исходный кадр
+# смотрит сушей (глубиной) на юг или в юго-западный угол; генератор карты поворачивает сущность.
+
+- type: entity
+  abstract: true
+  parent: DHWaterShallow
+  id: DHWaterShoreBase
+  suffix: shore
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Tiles/shore.rsi
+    state: shore1
+  - type: DHWaterDepth
+    depth: 4
+
+- type: entity
+  parent: DHWaterShoreBase
+  id: DHWaterShore1
+  components:
+  - type: Sprite
+    state: shore1
+
+- type: entity
+  parent: DHWaterShoreBase
+  id: DHWaterShore2
+  components:
+  - type: Sprite
+    state: shore2
+
+- type: entity
+  parent: DHWaterShoreBase
+  id: DHWaterShore3
+  components:
+  - type: Sprite
+    state: shore3
+
+- type: entity
+  parent: DHWaterShoreBase
+  id: DHWaterShoreInner
+  components:
+  - type: Sprite
+    state: shore_inner
+
+- type: entity
+  parent: DHWaterShoreBase
+  id: DHWaterShoreOuter1
+  components:
+  - type: Sprite
+    state: shore_outer1
+
+- type: entity
+  parent: DHWaterShoreBase
+  id: DHWaterShoreOuter2
+  components:
+  - type: Sprite
+    state: shore_outer2
+
+- type: entity
+  parent: DHWaterShoreBase
+  id: DHWaterDeepEdge
+  components:
+  - type: Sprite
+    state: deep_edge
+  - type: DHWaterDepth
+    depth: 8
+
+- type: entity
+  parent: DHWaterShoreBase
+  id: DHWaterDeepInner
+  components:
+  - type: Sprite
+    state: deep_inner
+  - type: DHWaterDepth
+    depth: 8
+
+- type: entity
+  parent: DHWaterShoreBase
+  id: DHWaterDeepOuter
+  components:
+  - type: Sprite
+    state: deep_outer
+  - type: DHWaterDepth
+    depth: 8
+
 # --- ЛЭП и подстанция (декор) ---
 
 - type: entity
