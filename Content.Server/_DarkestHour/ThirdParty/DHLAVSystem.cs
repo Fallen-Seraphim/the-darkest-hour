@@ -9,6 +9,7 @@ using Content.Server.Humanoid.Systems;
 using Content.Server.Mind;
 using Content.Shared._DarkestHour.Assault;
 using Content.Shared._DarkestHour.ControlPoints;
+using Content.Shared._DarkestHour.Flags;
 using Content.Shared._DarkestHour.Levels;
 using Content.Shared._DarkestHour.ThirdParty;
 using Content.Shared.Actions;
@@ -99,6 +100,7 @@ public sealed partial class DHLAVSystem : EntitySystem
     [Dependency] private MetaDataSystem _meta = default!;
     [Dependency] private MindSystem _mind = default!;
     [Dependency] private MobStateSystem _mobState = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private DHRiftSystem _rift = default!;
@@ -362,7 +364,7 @@ public sealed partial class DHLAVSystem : EntitySystem
                 ("role", Loc.GetString($"dh-lav-role-{role}"))));
 
             _antag.SendBriefing(session, Loc.GetString(BriefingKey(role), ("target", _targetName),
-                ("minutes", (int) AutoLandTime.TotalMinutes)), LavColor, null);
+                ("minutes", (int) AutoLandTime.TotalMinutes), ("radius", (int) TargetRadius())), LavColor, null);
         }
     }
 
@@ -716,7 +718,9 @@ public sealed partial class DHLAVSystem : EntitySystem
             return;
 
         var task = Loc.GetString(_kind == DHLAVTargetKind.Sample ? "dh-lav-task-sample" : "dh-lav-task-hold",
-            ("target", _targetName));
+            ("target", _targetName), ("radius", (int) TargetRadius()));
+        if (_kind == DHLAVTargetKind.Hold && Outcome == DHLAVOutcome.Active)
+            task += " " + Loc.GetString(Holding() ? "dh-lav-flag-standing" : "dh-lav-flag-missing");
         var state = Loc.GetString($"dh-lav-outcome-{(Outcome ?? DHLAVOutcome.Active).ToString().ToLowerInvariant()}");
         _chatManager.DispatchServerMessage(actor.PlayerSession, Loc.GetString("dh-lav-status",
             ("task", task), ("zone", _zoneName), ("state", state)));
@@ -838,24 +842,41 @@ public sealed partial class DHLAVSystem : EntitySystem
 
     #region Итоги
 
-    /// <summary>Удержание: к концу операции у объекта есть живой боец LA-V.</summary>
+    /// <summary>
+    /// Удержание (решение автора 2026-11-26 — флагами): к концу операции в зоне объекта стоит флаг LA-V и нет флагов
+    /// сторон «Осады».
+    /// </summary>
     private bool Holding()
     {
         if (TargetLocation() is not { } there)
             return false;
 
-        var radius = MathF.Max(_targetRadius, 4f);
-        var query = EntityQueryEnumerator<DHLAVMemberComponent>();
-        while (query.MoveNext(out var uid, out _))
+        var (republic, empire, lav) = FlagsAround(new MapCoordinates(there.Position, Transform(there.Map).MapID),
+            TargetRadius());
+        return lav && !republic && !empire;
+    }
+
+    private float TargetRadius() => MathF.Max(_targetRadius, 4f);
+
+    private (bool Republic, bool Empire, bool LAV) FlagsAround(MapCoordinates center, float radius)
+    {
+        var republic = false;
+        var empire = false;
+        var lav = false;
+        foreach (var flag in _lookup.GetEntitiesInRange<DHPlantableFlagComponent>(center, radius))
         {
-            if (!_mobState.IsAlive(uid) || Locate(uid) is not { } self || self.Map != there.Map)
+            if (!Transform(flag).Anchored)
                 continue;
 
-            if (Vector2.Distance(self.Position, there.Position) <= radius)
-                return true;
+            if (flag.Comp.ThirdParty)
+                lav = true;
+            else if (flag.Comp.Faction == DHAssaultFaction.Republic)
+                republic = true;
+            else if (flag.Comp.Faction == DHAssaultFaction.Empire)
+                empire = true;
         }
 
-        return false;
+        return (republic, empire, lav);
     }
 
     private void OnRoundEndText(ref RoundEndTextAppendEvent args)
@@ -872,7 +893,7 @@ public sealed partial class DHLAVSystem : EntitySystem
         args.AddLine(string.Empty);
         args.AddLine(Loc.GetString("dh-lav-summary-title"));
         args.AddLine(Loc.GetString(_kind == DHLAVTargetKind.Sample ? "dh-lav-task-sample" : "dh-lav-task-hold",
-            ("target", _targetName)));
+            ("target", _targetName), ("radius", (int) TargetRadius())));
         args.AddLine(Loc.GetString("dh-lav-summary-outcome",
             ("outcome", Loc.GetString($"dh-lav-outcome-{outcome.ToString().ToLowerInvariant()}")),
             ("evacuated", _evacuated)));

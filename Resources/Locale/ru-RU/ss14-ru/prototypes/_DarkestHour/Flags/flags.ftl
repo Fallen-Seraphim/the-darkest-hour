@@ -15,6 +15,9 @@ ent-DHFlagEmpirePlanted = { ent-DHFlagEmpire }
     .desc = { ent-DHFlagEmpire.desc }
     .suffix = Водружён
 
+ent-DHFlagLAV = корпоративный флаг LA-V
+    .desc = Фиолетовый флаг с белыми полосами и буквами LAV. Где он стоит, корпорация застолбила своё.
+
 ent-DHFlagFrontPlanted = { ent-DHFlagFront }
     .desc = { ent-DHFlagFront.desc }
     .suffix = Водружён

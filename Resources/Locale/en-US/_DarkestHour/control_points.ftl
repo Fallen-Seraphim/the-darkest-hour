@@ -1,23 +1,25 @@
 dh-control-point-sender = Operations
-dh-control-point-not-fighter = Only soldiers of the warring sides can take this terminal.
-dh-control-point-already-ours = This area is already under our control.
-dh-control-point-contested = The area is contested: clear out the enemy first.
-dh-control-point-capturing = Taking control of { $point }...
 dh-control-point-captured-ours = We have taken { $point }.
 dh-control-point-captured-enemy = The enemy has taken { $point }.
 dh-control-point-lost = We have lost { $point }!
-dh-control-point-supply = Supplies have arrived at { $point }.
-dh-control-point-examine-name = Capture terminal: [bold]{ $point }[/bold].
+dh-control-point-examine-name = Capture area flagpole: [bold]{ $point }[/bold].
 dh-control-point-examine-neutral = Nobody controls the area.
 dh-control-point-examine-republic = The area is held by the [color=#7fcf4f]Republic[/color].
 dh-control-point-examine-empire = The area is held by the [color=#e8604a]Empire[/color].
+dh-control-point-flag-raised = The enemy is raising a flag at { $point }! The area falls to them in { $seconds } s — take the flag down or destroy it.
+dh-control-point-jammed = The LA-V PMC flag has been raised over { $point }: while it stands, the area is out of action and gives no points.
+dh-control-point-examine-jammed = The [color=#8A6AD0]LA-V PMC[/color] flag stands in the area: it is jammed — it cannot be taken and gives no points or effects.
+dh-control-point-examine-contested = Flags of both sides stand in the area: it is contested, no points to anyone.
+dh-control-point-examine-capturing-republic = The [color=#7fcf4f]Republic[/color] is raising its flag: the area falls in { $seconds } s.
+dh-control-point-examine-capturing-empire = The [color=#e8604a]Empire[/color] is raising its flag: the area falls in { $seconds } s.
+dh-control-point-examine-how = Capture: plant your side's flag within { $radius } tiles of the flagpole; if no enemy flag stands in the area for 30 s, it is yours. An enemy flag can be taken down (8 s) or destroyed.
 
 dh-control-point-village = Village
-dh-control-point-village-desc = Holding it brings medical supplies every 15 minutes. Gives 2 command points per minute.
+dh-control-point-village-desc = Gives 2 command points per minute.
 dh-control-point-spaceport = Spaceport
-dh-control-point-spaceport-desc = Holding it brings armour-piercing ammunition every 15 minutes. Gives 5 command points per minute.
+dh-control-point-spaceport-desc = Gives 5 command points per minute.
 dh-control-point-construction = Construction site
-dh-control-point-construction-desc = Holding it brings sandbags and steel rods every 15 minutes. Gives 3 command points per minute.
+dh-control-point-construction-desc = Gives 3 command points per minute.
 dh-control-point-npp = Power plant
 dh-control-point-npp-desc = The side holding the plant has power for its floodlights and air defences across the area. Gives 5 command points per minute.
 dh-control-point-dam = Dam

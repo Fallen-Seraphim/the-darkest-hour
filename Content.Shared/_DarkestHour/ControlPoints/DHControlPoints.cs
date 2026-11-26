@@ -1,17 +1,17 @@
 using Content.Shared._DarkestHour.Assault;
-using Content.Shared.DoAfter;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared._DarkestHour.ControlPoints;
 
-// Зоны захвата «Штурма» (решение автора 2026-10-29/30): терминал захвата в каждой локации карты планеты. Захват —
-// взаимодействие с терминалом (удержание, нельзя, если в зоне живой противник). Удерживающая сторона раз в
-// Interval получает ящик у терминала (деревня — медикаменты, космодром — продвинутые боеприпасы, стройка — мешки и
-// стержни); АЭС питает свет и ПВО своей стороны (DHControlPointPoweredComponent), дамба — переправа без ресурса.
+// Зоны захвата «Осады»: флагшток в каждой локации карты планеты. Захват флагами (решение автора 2026-11-26): флаг
+// стороны воткнут в зоне, чужих флагов нет <see cref="DHControlPointComponent.CaptureTime"/> — точка переходит к этой
+// стороне; живые враги рядом не мешают — захват срывают, снимая или ломая флаг. Стоят флаги обеих сторон — точка у
+// прежнего хозяина, очков никому. Флаг ЧВК LA-V глушит точку: не захватить, нет очков и эффектов. Поставок с точек
+// больше нет. АЭС питает свет и ПВО своей стороны (DHControlPointPoweredComponent), дамба — переправа без ресурса.
 
-/// <summary>Терминал зоны захвата.</summary>
+/// <summary>Флагшток зоны захвата.</summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class DHControlPointComponent : Component
 {
@@ -29,16 +29,31 @@ public sealed partial class DHControlPointComponent : Component
     [DataField, AutoNetworkedField]
     public DHAssaultFaction? Holder;
 
-    /// <summary>Радиус зоны: противник в нём не даёт захватить; рисуется на тактической карте.</summary>
+    /// <summary>Радиус зоны: флаги в нём берут точку; рисуется на тактической карте.</summary>
     [DataField]
     public float Radius = 14f;
 
+    /// <summary>Сколько свой флаг должен простоять в зоне без чужих, чтобы точка перешла (решение автора 2026-11-26).</summary>
     [DataField]
-    public TimeSpan CaptureTime = TimeSpan.FromSeconds(15);
+    public TimeSpan CaptureTime = TimeSpan.FromSeconds(30);
 
-    /// <summary>Как часто терминал выдаёт ящик удерживающей стороне (решение автора 2026-11-19: раз в 15 мин).</summary>
-    [DataField]
-    public TimeSpan Interval = TimeSpan.FromMinutes(15);
+    /// <summary>В зоне флаги обеих сторон: точка у прежнего хозяина, очков никому.</summary>
+    [DataField, AutoNetworkedField]
+    public bool Contested;
+
+    /// <summary>В зоне флаг ЧВК LA-V: точка не захватывается, очков и эффектов нет.</summary>
+    [DataField, AutoNetworkedField]
+    public bool Jammed;
+
+    /// <summary>Чей флаг сейчас берёт точку и с какого времени.</summary>
+    [ViewVariables]
+    public DHAssaultFaction? Capturing;
+
+    [ViewVariables]
+    public TimeSpan CaptureStart;
+
+    /// <summary>Очков и эффектов нет (оспорена или заглушена).</summary>
+    public bool Paused => Contested || Jammed;
 
     /// <summary>Очков командования в минуту, пока точку держат (у точек разная ценность).</summary>
     [DataField]
@@ -61,14 +76,6 @@ public sealed partial class DHControlPointComponent : Component
     [DataField]
     public float JamRange = 15f;
 
-    [DataField]
-    public List<EntProtoId> RepublicOutput = new();
-
-    [DataField]
-    public List<EntProtoId> EmpireOutput = new();
-
-    [ViewVariables]
-    public TimeSpan NextOutput;
 }
 
 /// <summary>
@@ -109,12 +116,10 @@ public sealed partial class DHControlPointPoweredComponent : Component
 [Serializable, NetSerializable]
 public enum DHControlPointVisuals : byte
 {
-    /// <summary>int: 0 — ничья, 1 — Республика, 2 — Империя.</summary>
+    /// <summary>int: 0 — ничья, 1 — Республика, 2 — Империя, 3 — заглушена флагом LA-V.</summary>
     Owner,
 }
 
-[Serializable, NetSerializable]
-public sealed partial class DHControlPointCaptureDoAfterEvent : SimpleDoAfterEvent;
 
 /// <summary>Метка местности для тактической карты (вода, глубокая вода).</summary>
 [RegisterComponent]

@@ -99,6 +99,8 @@
     - DHIFAKFilled
     - Handcuffs
     - Handcuffs
+  inhand: # флаги LA-V для удержания объекта (решение автора 2026-11-26)
+  - DHFlagLAV
 
 - type: startingGear
   parent: DHLAVPmcGearBase
@@ -123,6 +125,8 @@
     - Binoculars
     - DHIFAKFilled
     - Handcuffs
+  inhand: # флаги LA-V для удержания объекта (решение автора 2026-11-26)
+  - DHFlagLAV
 
 # Снайпер-разведчик, медик и бойцы — снаряжение «Восстания» как есть, но с жетонами вместо пропуска LA-V.
 - type: startingGear
@@ -166,6 +170,9 @@
     - DHSandbagsEmpty25
     - DHBarbedWire10
     - DHIFAKFilled
+  inhand: # флаги LA-V для удержания объекта (решение автора 2026-11-26)
+  - DHFlagLAV
+  - DHFlagLAV
 
 # ---------------------------------------------------------------- должности (иконки и удостоверения)
 

@@ -92,16 +92,20 @@ public sealed partial class DHPlantableFlagSystem : EntitySystem
 
     private void OnGetVerbs(Entity<DHPlantableFlagComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
-        if (!args.CanAccess || !args.CanInteract || args.Hands == null || !Transform(ent).Anchored)
+        // Только сервер: время снятия зависит от стороны игрока (чужой флаг — дольше), а она известна серверу.
+        // Серверные действия приходят в контекстное меню клиента сами.
+        if (_net.IsClient || !args.CanAccess || !args.CanInteract || args.Hands == null || !Transform(ent).Anchored)
             return;
 
         var user = args.User;
+        var delay = new DHFlagRemoveDelayEvent(user, ent.Comp.RemoveDelay);
+        RaiseLocalEvent(ent, ref delay);
         args.Verbs.Add(new AlternativeVerb
         {
             Text = Loc.GetString("dh-flag-remove-verb"),
             Act = () =>
             {
-                var doAfter = new DoAfterArgs(EntityManager, user, ent.Comp.RemoveDelay,
+                var doAfter = new DoAfterArgs(EntityManager, user, delay.Delay,
                     new DHRemoveFlagDoAfterEvent(), ent, ent)
                 {
                     BreakOnMove = true,
@@ -109,7 +113,7 @@ public sealed partial class DHPlantableFlagSystem : EntitySystem
                 };
 
                 if (_doAfter.TryStartDoAfter(doAfter))
-                    _audio.PlayPredicted(ent.Comp.LowerStartSound, ent, user);
+                    _audio.PlayPvs(ent.Comp.LowerStartSound, ent);
             },
         });
     }

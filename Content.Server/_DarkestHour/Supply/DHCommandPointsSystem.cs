@@ -98,7 +98,7 @@ public sealed partial class DHCommandPointsSystem : EntitySystem
         var query = EntityQueryEnumerator<DHControlPointComponent>();
         while (query.MoveNext(out _, out var point))
         {
-            if (point.Holder == faction)
+            if (point.Holder == faction && !point.Paused)
                 income += point.PointsPerMinute;
         }
 
@@ -135,7 +135,8 @@ public sealed partial class DHCommandPointsSystem : EntitySystem
         var query = EntityQueryEnumerator<DHControlPointComponent>();
         while (query.MoveNext(out _, out var point))
         {
-            if (point.Holder is not { } holder || point.PointsPerMinute <= 0)
+            // Оспоренная (флаги обеих сторон) или заглушенная флагом LA-V точка очков не даёт.
+            if (point.Holder is not { } holder || point.PointsPerMinute <= 0 || point.Paused)
                 continue;
 
             Add(holder, point.PointsPerMinute * minutes);
