@@ -616,6 +616,29 @@
   name: IFL-17 incinerator
   description: An Imperial Marine Corps incinerator with a high-pressure pump and a long nozzle. Throws burning fuel twice as far as a civilian unit. Alt-click to light the pilot flame.
   components:
+  # DarkestHour: имперская расцветка (Tools/_DarkestHour/weapons/imperial_flamer.py)
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Guns/Flamers/ifl17.rsi
+    layers:
+    - state: base
+      map: [ "enum.GunVisualLayers.Base" ]
+    - state: mag-0
+      map: [ "enum.GunVisualLayers.Mag" ]
+    - state: lit
+      map: [ "enum.DHFlamerVisuals.Ignited" ]
+      visible: false
+      shader: unshaded
+  - type: Item
+    sprite: _DarkestHour/Objects/Weapons/Guns/Flamers/ifl17.rsi
+    size: Huge
+    shape:
+    - 0,0,3,1
+  - type: Clothing
+    sprite: _DarkestHour/Objects/Weapons/Guns/Flamers/ifl17.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
   - type: DHFlamer
     maxRange: 9
     igniteSound:

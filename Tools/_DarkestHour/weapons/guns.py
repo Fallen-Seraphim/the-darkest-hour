@@ -395,10 +395,12 @@ for f in (rar_m11_1, rar_m11_2, rar_m11_3, ramg_m14_1, ramg_m14_2, raptor_m12_16
     add(f())
 
 
-# ================================================================== Empire (PDV look: black steel, white polymer, yellow)
+# ================================================================== Empire (PDV look: black steel, white polymer, ochre)
+# v3 (2026-11-26): same silhouettes and attachment points, more detail — panel seams, screws, rubber pads,
+# ochre bands and orange markings (imperial palette: yellow / ochre / orange / white / black).
 EM = '1234'      # black steel
 WH = 'abcd'      # white polymer
-YE = 'uvxy'      # yellow
+YE = 'uvxy'      # ochre
 
 
 def emp_stock(a, x, y, w=11, h=9, hole=True):
@@ -409,31 +411,63 @@ def emp_stock(a, x, y, w=11, h=9, hole=True):
         a.poly([(x + 3, y + 3), (x + w - 3, y + 3), (x + w - 3, y + 4), (x + 4, y + 6), (x + 3, y + 6)], ' ')
         for k in [k for k, c in a.px.items() if c == ' ']:
             del a.px[k]
-    a.vline(x, y, y + h, '1').vline(x + 1, y + 1, y + h - 1, 'a')
-    a.dot(x + w - 1, y + 1, 'x').dot(x + w, y + 2, 'x')          # yellow marking
+        a.hline(x + 3, x + w - 3, y + 2, 'b')                       # shadow over the cut-out
+        a.vline(x + 2, y + 3, y + 6, 'b')
+    a.vline(x, y, y + h, 'z').vline(x + 1, y + 1, y + h - 1, '1')   # rubber butt pad
+    a.dot(x + 1, y + 2, '3').dot(x + 1, y + h - 2, '3')
+    a.hline(x + w - 4, x + w - 2, y, 'x').hline(x + w - 4, x + w - 2, y + 1, 'v')   # ochre band
+    a.dot(x + w, y + 4, '1').dot(x + w - 1, y + 5, 'b')                              # hinge pin
     return a
+
+
+def emp_seams(a, xs, y0, y1, c='1'):
+    for x in xs:
+        a.vline(x, y0, y1, c)
+    return a
+
+
+def emp_screws(a, pts, c='4'):
+    for x, y in pts:
+        a.dot(x, y, c)
+    return a
+
+
+def emp_mag(x, y, w, h, curve=0):
+    """Black magazine with an ochre index band and a lit base plate."""
+    m = box_mag(x, y, w, h, curve=curve)
+    m.hline(x + 1, x + w - 1, y + 2, 'v').hline(x + 1, x + w - 1, y + 3, 'u')
+    m.hline(x + curve, x + w + curve, y + h, '2').dot(x + w + curve, y + h, '3')
+    return m
 
 
 def ir17():
     """IR-17 - 8.42x54 ImpS battle rifle. White skeleton stock, black angular receiver,
-    long slotted white handguard with a yellow band, integrated slotted compensator, green emitters."""
+    long slotted white handguard with an ochre band, integrated slotted compensator, green emitters."""
     a = Art()
     emp_stock(a, 1, 9)
     a.shade_poly([(12, 8), (27, 8), (29, 10), (29, 15), (12, 15)], EM)
-    a.rail(14, 27, 7, '0', '2')
-    a.hline(13, 28, 13, '0')
-    a.hline(18, 23, 10, '0').hline(18, 23, 11, '2')
-    a.dot(14, 10, 'R').dot(15, 10, 'r')
+    a.rail(14, 27, 7, '0', '3')
+    a.hline(13, 28, 13, '0').hline(13, 28, 14, '1')
+    a.rect(13, 9, 16, 12, '1').hline(13, 16, 9, '2')                 # side plate with status LEDs
+    a.dot(14, 10, 'R').dot(15, 10, 'r').dot(14, 11, 'G').dot(15, 11, 'g')
+    a.hline(18, 23, 10, '0').hline(18, 23, 11, '2').hline(18, 23, 9, '4')   # ejection port
+    emp_seams(a, (17, 25), 9, 12)
+    a.hline(26, 28, 11, 'v').hline(26, 28, 12, 'u')                 # ochre receiver mark
+    emp_screws(a, [(13, 14), (24, 14), (28, 10)])
+    a.dot(16, 14, 'O')                                               # selector
     a.bevel(29, 9, 37, 14, WH)
-    for x in (30, 33):
-        a.hline(x, x + 1, 11, '2').hline(x, x + 1, 12, '1')
-    a.rect(36, 9, 37, 14, 'x').vline(37, 10, 13, 'v')
+    for x in (30, 32, 34):
+        a.vline(x, 11, 12, '1').dot(x, 13, 'b')                      # cooling slots
+    a.hline(29, 35, 14, 'a')
+    a.rect(36, 9, 37, 14, 'x').vline(37, 10, 13, 'v').dot(36, 9, 'y')
     a.bevel(38, 10, 42, 13, EM, right=True)
-    a.vline(40, 10, 11, '0').vline(42, 10, 11, '0')
+    a.vline(40, 10, 11, '0').vline(42, 10, 11, '0').dot(39, 10, '4')
     a.dot(14, 6, 'G').dot(36, 8, '2').dot(36, 7, 'G')
     grip(a, 13, 15, h=6, w=4, slant=2, r=WH)
+    a.pattern(12, 15, 17, 'b.').pattern(12, 15, 19, 'b.')
+    a.hline(11, 14, 21, 'z')
     guard(a, 16, 20, 18, 15, c='1')
-    mag = box_mag(21, 15, 3, 8, curve=2)
+    mag = emp_mag(21, 15, 3, 8, curve=2)
     bolt = Art().hline(18, 23, 10, '0').hline(18, 23, 11, '0').dot(19, 11, 'Y').dot(20, 11, 'Y')
     return Gun('ir17', 'emp', 'rifle', a, mag, bolt, muzzle=(43, 11), rail=(14, 27, 6), under=(32, 15))
 
@@ -443,68 +477,89 @@ def img17l():
     a = Art()
     emp_stock(a, 6, 9, w=8, h=7)
     a.shade_poly([(14, 8), (29, 8), (31, 10), (31, 15), (14, 15)], EM)
-    a.rail(16, 28, 7, '0', '2')
-    a.hline(20, 24, 10, '0').hline(20, 24, 11, '2')
-    a.dot(16, 10, 'R')
-    a.hline(15, 30, 13, '0')
+    a.rail(16, 28, 7, '0', '3')
+    a.hline(20, 24, 10, '0').hline(20, 24, 11, '2').hline(20, 24, 9, '4')
+    a.rect(15, 9, 18, 11, '1').dot(16, 10, 'R').dot(17, 10, 'G')
+    a.hline(15, 30, 13, '0').hline(15, 30, 14, '1')
+    emp_seams(a, (19, 26), 9, 12)
+    a.hline(27, 30, 11, 'v').hline(27, 30, 12, 'u')
+    emp_screws(a, [(15, 14), (25, 14), (30, 10)])
+    a.dot(18, 14, 'O')
     a.bevel(31, 10, 36, 14, WH)
-    a.hline(32, 35, 12, 'b').dot(36, 10, 'x').dot(36, 11, 'x')
+    a.hline(32, 35, 12, 'b').dot(33, 13, 'b').dot(35, 13, 'b')
+    a.vline(36, 10, 14, 'x').dot(36, 10, 'y').dot(36, 14, 'u')
     a.bevel(37, 11, 38, 12, EM)
     a.bevel(39, 10, 41, 13, EM, right=True)
-    a.dot(40, 11, '0').dot(40, 12, '0')
+    a.dot(40, 11, '0').dot(40, 12, '0').dot(39, 10, '4')
     a.dot(16, 6, 'G').dot(35, 9, 'G')
     grip(a, 15, 16, h=5, w=4, slant=2, r=WH)
+    a.pattern(14, 17, 18, 'b.').pattern(14, 17, 20, 'b.')
+    a.hline(13, 16, 21, 'z')
     guard(a, 18, 21, 18, 16)
-    mag = box_mag(22, 16, 3, 9, curve=0)
+    mag = emp_mag(22, 16, 3, 9, curve=0)
     bolt = Art().hline(20, 24, 10, '0').hline(20, 24, 11, '0').dot(21, 11, 'Y')
     return Gun('img17l', 'emp', 'smg', a, mag, bolt, muzzle=(42, 11), rail=(16, 28, 6), under=(33, 15))
 
 
 def img17t():
-    """IMG-17T - 8.42x54 ImpS light machine gun. IR-17 family: heavier receiver with yellow handle,
+    """IMG-17T - 8.42x54 ImpS light machine gun. IR-17 family: heavier receiver with an ochre carry handle,
     long white handguard, bipod, 45-round drum."""
     a = Art()
     emp_stock(a, 0, 9)
     a.shade_poly([(11, 7), (28, 7), (30, 9), (30, 16), (11, 16)], EM)
-    a.hline(15, 24, 4, 'x').hline(15, 24, 5, 'v').vline(15, 5, 6, '2').vline(24, 5, 6, '2')
-    a.hline(12, 29, 14, '0')
-    a.hline(17, 23, 10, '0').hline(17, 23, 11, '2')
-    a.dot(13, 9, 'R').dot(14, 9, 'r')
+    a.hline(15, 24, 4, 'y').hline(15, 24, 5, 'v').vline(15, 5, 6, '2').vline(24, 5, 6, '2')   # carry handle
+    a.dot(16, 4, 'x').dot(23, 4, 'x')
+    a.hline(12, 29, 14, '0').hline(12, 29, 15, '1')
+    a.rect(12, 8, 15, 11, '1').hline(12, 15, 8, '2')
+    a.dot(13, 9, 'R').dot(14, 9, 'r').dot(13, 10, 'G').dot(14, 10, 'g')
+    a.hline(17, 23, 10, '0').hline(17, 23, 11, '2').hline(17, 23, 9, '4')
+    emp_seams(a, (16, 25), 8, 12)
+    a.hline(26, 29, 11, 'v').hline(26, 29, 12, 'u')
+    emp_screws(a, [(12, 15), (24, 15), (29, 9), (19, 13)])
+    a.dot(15, 15, 'O')
     a.bevel(30, 9, 42, 14, WH)
     for x in range(32, 41, 2):
-        a.vline(x, 11, 12, '2')
-    a.rect(41, 9, 42, 14, 'x')
+        a.vline(x, 11, 12, '1').dot(x, 13, 'b')
+    a.hline(30, 40, 14, 'a')
+    a.rect(41, 9, 42, 14, 'x').vline(42, 10, 13, 'v').dot(41, 9, 'y')
     a.bevel(43, 11, 44, 12, EM)
     a.bevel(45, 10, 47, 13, EM, right=True)
-    a.dot(46, 11, '0').dot(46, 12, '0')
+    a.dot(46, 11, '0').dot(46, 12, '0').dot(45, 10, '4')
     a.dot(13, 6, 'G').dot(41, 8, 'G')
     # folded bipod
-    a.hline(33, 41, 15, '1').dot(41, 16, '1')
+    a.hline(33, 41, 15, '1').hline(34, 40, 16, '2').dot(41, 16, '1').dot(33, 16, '3')
     grip(a, 12, 17, h=5, w=4, slant=2, r=WH)
+    a.pattern(11, 14, 19, 'b.').pattern(11, 14, 21, 'b.')
+    a.hline(10, 13, 22, 'z')
     guard(a, 15, 18, 19, 17)
     mag = drum(23, 20, 4)
-    mag.dot(23, 20, 'x').dot(23, 16, '1').dot(22, 16, '1').dot(24, 16, '1')
+    mag.dot(23, 20, 'x').dot(22, 20, 'v').dot(24, 20, 'v').dot(23, 19, 'v').dot(23, 21, 'u')
+    mag.dot(23, 16, '1').dot(22, 16, '1').dot(24, 16, '1').dot(20, 18, '4')
     bolt = Art().hline(17, 23, 10, '0').hline(17, 23, 11, '0').dot(18, 11, 'Y').dot(19, 11, 'Y').dot(20, 11, 'Y')
     return Gun('img17t', 'emp', 'lmg', a, mag, bolt, muzzle=(48, 11), rail=(15, 24, 3), under=(36, 16))
 
 
 def imp17():
-    """IMP-17 - 14.5x114 modular pistol. Huge angular black slide with a yellow stripe, white grip,
+    """IMP-17 - 14.5x114 modular pistol. Huge angular black slide with an ochre stripe, white grip,
     slotted compensator, green emitter."""
     a = Art()
     a.shade_poly([(14, 9), (32, 9), (33, 10), (33, 14), (14, 14)], EM)          # slide
-    a.hline(15, 32, 12, 'x').hline(15, 32, 13, 'v')
+    a.hline(15, 32, 12, 'x').hline(15, 32, 13, 'v').dot(15, 12, 'y')
     a.vline(17, 10, 11, '0').vline(19, 10, 11, '0').vline(21, 10, 11, '0')    # cocking serrations
-    a.hline(25, 28, 10, '0')                                                   # ejection port
+    a.dot(18, 10, '4').dot(20, 10, '4')
+    a.hline(25, 28, 10, '0').hline(25, 28, 11, '2')                           # ejection port
+    a.vline(30, 10, 11, '1').dot(31, 10, '4')
     a.dot(15, 8, 'G').dot(31, 8, '2')
     a.bevel(34, 10, 37, 13, EM, right=True)                                    # compensator
-    a.vline(35, 10, 11, '0')
+    a.vline(35, 10, 11, '0').dot(36, 10, '4').dot(37, 12, '0')
     a.bevel(16, 15, 30, 16, EM)                                                # frame + rail
     a.pattern(22, 30, 16, '0.')
+    a.dot(17, 15, 'O').dot(28, 15, '4')
     a.shade_poly([(15, 15), (21, 15), (19, 23), (14, 23), (13, 22)], WH)       # grip
-    a.pattern(14, 18, 19, 'b.').pattern(14, 18, 21, 'b.')
+    a.pattern(14, 18, 18, 'b.').pattern(15, 19, 19, '.b').pattern(14, 18, 20, 'b.').pattern(14, 18, 21, '.b')
+    a.vline(20, 16, 18, 'a')
     guard(a, 20, 24, 18, 16)
-    mag = Art().bevel(13, 23, 19, 24, '0123').dot(13, 23, '2')
+    mag = Art().bevel(13, 23, 19, 24, '0123').dot(13, 23, '2').hline(15, 17, 24, 'v')
     bolt = Art().erase(14, 9, 16, 14)
     bolt.bevel(11, 9, 13, 14, EM).hline(11, 13, 12, 'x').hline(11, 13, 13, 'v')
     bolt.hline(25, 28, 10, '0').dot(26, 10, 'Y')
@@ -519,41 +574,61 @@ def imsh17():
     emp_stock(a, 1, 9)
     a.shade_poly([(12, 9), (30, 9), (30, 16), (12, 16)], EM)
     a.shade_poly([(14, 9), (16, 6), (36, 6), (39, 8), (39, 10), (14, 10)], WH)  # top shroud
-    a.hline(17, 35, 8, 'b').pattern(18, 34, 8, 'b.')
-    a.rect(33, 7, 35, 8, 'x')
+    a.hline(17, 35, 8, 'b').pattern(18, 34, 8, 'a.')
+    a.hline(16, 37, 9, 'a')
+    a.rect(33, 7, 35, 8, 'x').dot(35, 7, 'y')
     a.dot(37, 6, 'G')
     a.hline(13, 29, 15, '0')
-    a.dot(14, 12, 'R')
+    a.rect(13, 11, 16, 13, '1').dot(14, 12, 'R').dot(15, 12, 'G')
+    emp_seams(a, (18, 26), 11, 14)
+    a.hline(20, 24, 12, '0').hline(20, 24, 11, '4')                            # loading port
+    a.hline(27, 29, 13, 'v').hline(27, 29, 14, 'u')
+    emp_screws(a, [(13, 15), (25, 15), (29, 11)])
+    a.dot(17, 15, 'O')
     a.bevel(30, 11, 43, 13, EM)
+    a.dot(31, 11, '4').vline(36, 11, 12, '1').vline(40, 11, 12, '1')
     a.bevel(30, 14, 39, 15, EM)                                                 # under tube
+    a.rect(33, 14, 35, 15, 'v').dot(33, 14, 'x')
     a.bevel(44, 10, 45, 14, EM, right=True)
+    a.dot(44, 12, '0').dot(45, 10, '4')
     grip(a, 13, 16, h=5, w=4, slant=2, r=WH)
+    a.pattern(12, 15, 18, 'b.').pattern(12, 15, 20, 'b.')
+    a.hline(11, 14, 21, 'z')
     guard(a, 16, 19, 18, 16)
     mag = drum(24, 20, 4)
-    mag.dot(24, 20, 'x').hline(22, 26, 16, '1')
+    mag.dot(24, 20, 'x').dot(23, 20, 'v').dot(25, 20, 'v').dot(24, 19, 'v').dot(24, 21, 'u')
+    mag.hline(22, 26, 16, '1').dot(21, 18, '4')
     bolt = Art().hline(19, 25, 12, '0').hline(19, 25, 13, '0').dot(21, 13, 'r').dot(22, 13, 'r')
     return Gun('imsh17', 'emp', 'rifle', a, mag, bolt, muzzle=(46, 11), rail=(18, 33, 5), under=None)
 
 
 def impsh17p():
-    """IMPSH-17P - 14 gauge pump shotgun. Long and slim, white skeleton stock, yellow pump, choke."""
+    """IMPSH-17P - 14 gauge pump shotgun. Long and slim, white skeleton stock, ochre pump, choke."""
     a = Art()
     emp_stock(a, 1, 9)
     a.shade_poly([(12, 9), (24, 9), (25, 10), (25, 15), (12, 15)], EM)
-    a.rail(14, 24, 8, '0', '2')
-    a.hline(16, 21, 11, '0')
-    a.dot(13, 11, 'R')
+    a.rail(14, 24, 8, '0', '3')
+    a.hline(16, 21, 11, '0').hline(16, 21, 10, '4')
+    a.rect(13, 10, 14, 12, '1').dot(13, 11, 'R')
     a.hline(13, 24, 14, '0')
+    emp_seams(a, (15, 22), 10, 13)
+    emp_screws(a, [(13, 14), (23, 13), (24, 10)])
+    a.dot(16, 14, 'O')
     a.bevel(25, 10, 43, 11, EM)                                                 # barrel
+    a.dot(26, 10, '4').dot(38, 10, '4')
     a.bevel(25, 12, 40, 13, EM)                                                 # magazine tube
+    a.dot(40, 12, '3')
     a.bevel(28, 12, 35, 14, YE, left=True, right=True)                         # pump
-    a.pattern(29, 34, 14, 'u.')
+    a.pattern(29, 34, 14, 'u.').pattern(29, 34, 13, '.u')
     a.bevel(44, 9, 46, 12, EM, right=True)                                      # choke
-    a.dot(45, 10, '0')
+    a.dot(45, 10, '0').dot(45, 11, '0').dot(44, 9, '4')
     a.dot(42, 9, 'G')
     grip(a, 13, 15, h=6, w=4, slant=2, r=WH)
+    a.pattern(12, 15, 17, 'b.').pattern(12, 15, 19, 'b.')
+    a.hline(11, 14, 21, 'z')
     guard(a, 16, 20, 18, 15)
     bolt = Art().erase(28, 12, 35, 14).bevel(25, 12, 32, 14, YE, left=True, right=True).bevel(33, 12, 40, 13, EM)
+    bolt.pattern(26, 31, 14, 'u.')
     bolt.hline(16, 21, 11, '0').dot(17, 11, 'r').dot(18, 11, 'r')
     return Gun('impsh17p', 'emp', 'rifle', a, None, bolt, muzzle=(47, 10), rail=(14, 24, 7), under=None)
 
