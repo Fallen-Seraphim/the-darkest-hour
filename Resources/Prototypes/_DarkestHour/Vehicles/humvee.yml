@@ -46,6 +46,9 @@
     layers:
     - state: humvee_base
       map: [ "base" ]
+    - state: damaged_frame
+      map: [ "damagedFrame" ]
+      visible: false
     - state: humveeturret_0
       map: [ "turret" ]
     - state: wheels_0
@@ -77,6 +80,9 @@
           collection: MetalBreak
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
+  # Повреждения на спрайте, как в RMC-14 (решение автора 2026-11-26).
+  - type: DHVehicleDamageVisuals
+    hull: [ damagedFrame ]
   - type: DHVehicleHardpoints
     family: Humvee
     slots:
