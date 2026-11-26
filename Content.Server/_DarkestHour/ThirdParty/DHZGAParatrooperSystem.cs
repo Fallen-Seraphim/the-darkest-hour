@@ -240,7 +240,8 @@ public sealed partial class DHZGAParatrooperSystem : EntitySystem
                 _scheduled = OpenAt;
         }
 
-        if (_scheduled is { } at && now >= at && !_happened && !_thirdParty.IsOpen(EventId))
+        if (_scheduled is { } at && now >= at && !_happened && !_thirdParty.IsOpen(EventId) &&
+            _thirdParty.Happened == null)
         {
             _scheduled = null;
             OpenRecruitment(CloseAt);
@@ -252,7 +253,7 @@ public sealed partial class DHZGAParatrooperSystem : EntitySystem
     /// <summary>Открыть набор (по расписанию или админом).</summary>
     public bool OpenRecruitment(TimeSpan deadline, bool admin = false)
     {
-        if (_happened || _thirdParty.IsOpen(EventId))
+        if (_happened || _thirdParty.IsOpen(EventId) || _thirdParty.Happened is { } other && other != EventId)
             return false;
 
         if (admin)
@@ -293,6 +294,10 @@ public sealed partial class DHZGAParatrooperSystem : EntitySystem
             _chatManager.DispatchServerMessage(marsSession, message);
             return;
         }
+
+        // Одно событие третьей стороны за раунд (решение автора 2026-11-26).
+        if (!_thirdParty.Claim(EventId))
+            return;
 
         _happened = true;
         var targetPosition = _transform.GetWorldPosition(target);

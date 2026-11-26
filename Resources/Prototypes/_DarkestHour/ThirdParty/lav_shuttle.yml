@@ -1,0 +1,196 @@
+# Шаттл ЧВК LA-V (план осады п. 11, решение автора 2026-11-26): PMC-шаттл RMC-14/CMU — корпус We-Yu-LWI «Runner»
+# из cmss13 (CC-BY-SA-3.0). Детали корпуса и плитка — lav_shuttle_parts.yml (Tools/_DarkestHour/lav/make_shuttle.py),
+# здесь — основы, люки, кресла, пульт эвакуации и метки появления отряда. Полёт свой: шаттл садится на свободную ЗП
+# сразу при высадке, улетает с пульта (DHLAVSystem).
+
+- type: entity
+  abstract: true
+  parent: CMBaseWallInvincible
+  id: DHLAVHullBase
+  name: hull
+  description: Plating of an LA-V «Vanguard Runner» corporate shuttle.
+  suffix: LA-V
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Shuttles/LAV/hull.rsi
+  - type: Icon
+    sprite: _DarkestHour/Shuttles/LAV/hull.rsi
+
+- type: entity
+  abstract: true
+  parent: DHLAVHullBase
+  id: DHLAVEngineBase
+  name: shuttle engine
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Shuttles/LAV/engines.rsi
+  - type: Icon
+    sprite: _DarkestHour/Shuttles/LAV/engines.rsi
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHLAVEngineBase
+  id: DHLAVEngineLeft
+  components:
+  - type: Sprite
+    state: left_engine_01
+  - type: Icon
+    state: left_engine_01
+
+- type: entity
+  parent: DHLAVEngineBase
+  id: DHLAVEngineRight
+  components:
+  - type: Sprite
+    state: right_engine_01
+  - type: Icon
+    state: right_engine_01
+
+# Люки: обычные шлюзы (как у «Мидуэя»), спрайты PMC-шаттла RMC-14 (TadJohnson00, CC-BY-SA-3.0).
+- type: entity
+  parent: DHMidwayDoorBase
+  id: DHLAVHatch
+  name: LA-V crew hatch
+  suffix: LA-V
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Shuttles/LAV/hatch.rsi
+    snapCardinals: false
+    layers:
+    - state: door_closed
+      map: [ "enum.DoorVisualLayers.Base" ]
+    - state: unlit
+      visible: false
+      map: [ "enum.DoorVisualLayers.BaseUnlit" ]
+    - state: welded
+      visible: false
+      map: [ "enum.WeldableLayers.BaseWelded" ]
+    - state: door_locked
+      shader: unshaded
+      visible: false
+      map: [ "enum.DoorVisualLayers.BaseBolted" ]
+    - state: door_spark
+      shader: unshaded
+      visible: false
+      map: [ "enum.DoorVisualLayers.BaseEmergencyAccess" ]
+    - state: panel_open
+      visible: false
+      map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+
+- type: entity
+  parent: DHLAVHatch
+  id: DHLAVCargoDoor
+  name: LA-V cargo door
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Shuttles/LAV/cargo_door.rsi
+    layers:
+    - state: door_closed
+      map: [ "enum.DoorVisualLayers.Base" ]
+    - state: unlit
+      visible: false
+      map: [ "enum.DoorVisualLayers.BaseUnlit" ]
+    - state: unlit
+      visible: false
+      map: [ "enum.WeldableLayers.BaseWelded" ]
+    - state: door_locked
+      shader: unshaded
+      visible: false
+      map: [ "enum.DoorVisualLayers.BaseBolted" ]
+    - state: door_spark
+      shader: unshaded
+      visible: false
+      map: [ "enum.DoorVisualLayers.BaseEmergencyAccess" ]
+    - state: panel_open
+      visible: false
+      map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+  # Грузовая дверь шириной в три клетки (как кормовые двери челноков RMC).
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.49,-1.49,0.49,1.49"
+        density: 100
+        mask:
+        - FullTileMask
+        layer:
+        - AirlockLayer
+  - type: Occluder
+    boundingBox: "-0.5,-1.5,0.5,1.5"
+
+- type: entity
+  parent: DHMidwaySeatBase
+  id: DHLAVSeat
+  name: passenger seat
+  suffix: LA-V
+  placement:
+    mode: PlaceFree
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/Furniture/vehicle_seats.rsi
+    layers:
+    - state: base
+      map: [ "seat" ]
+  - type: GenericVisualizer
+    visuals:
+      enum.StrapVisuals.State:
+        seat:
+          True: { state: buckled }
+          False: { state: base }
+
+- type: entity
+  parent: DHLAVSeat
+  id: DHLAVSeatPilot
+  name: pilot's chair
+  components:
+  - type: Sprite
+    layers:
+    - state: pilot_chair
+      map: [ "seat" ]
+  - type: GenericVisualizer
+    visuals:
+      enum.StrapVisuals.State:
+        seat:
+          True: { state: pilot_chair }
+          False: { state: pilot_chair }
+
+# Пульт эвакуации: «Взлететь» уводит шаттл со всеми на борту (DHLAVSystem); образец на борту — LA-V его вывезли.
+- type: entity
+  parent: DHMidwayMachineBase
+  id: DHLAVShuttleConsole
+  name: LA-V flight console
+  description: The autopilot of the LA-V shuttle. It flew you here and it will take you home — with whatever is aboard.
+  suffix: LA-V
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/controls.rsi
+    offset: "-0.03125,0.1875"
+    layers:
+    - state: console
+  - type: DHLAVShuttleConsole
+
+- type: entity
+  abstract: true
+  parent: MarkerBase
+  id: DHLAVSpawnBase
+  suffix: LA-V
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+  - type: DHLAVSpawnPoint
+
+- type: entity
+  parent: DHLAVSpawnBase
+  id: DHLAVSpawnLeader
+  name: LA-V commander spawn
+  components:
+  - type: DHLAVSpawnPoint
+    leader: true
+
+- type: entity
+  parent: DHLAVSpawnBase
+  id: DHLAVSpawnMember
+  name: LA-V operative spawn

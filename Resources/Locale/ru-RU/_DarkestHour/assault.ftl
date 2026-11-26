@@ -53,6 +53,8 @@ dh-assault-outcome-republic-major = Крупная победа Республи
 dh-assault-outcome-none = Бой за военную базу «Терминус» закончился без результата.
 dh-assault-end-sample-taken = Экспериментальный образец вывезен Империей.
 dh-assault-end-sample-kept = Экспериментальный образец остался на REP-27-7.
+dh-assault-end-sample-stolen = Экспериментальный образец похитила ЧВК LA-V — он не достался ни одной из сторон.
+dh-assault-sample-stolen = Экспериментальный образец вывезен с планеты шаттлом ЧВК LA-V. Корпорация забрала то, за что воевали обе стороны.
 dh-assault-end-tickets = Подкреплений осталось: Республика {$republic}, Империя {$empire}.
 
 ## Отделы и должности

@@ -32,6 +32,12 @@
       "name": "lav_pmc_rifleman"
     },
     {
+      "name": "lav_pmc_deputy"
+    },
+    {
+      "name": "lav_pmc_technician"
+    },
+    {
       "name": "front_leader"
     },
     {

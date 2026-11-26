@@ -1,0 +1,305 @@
+# Сгенерировано Tools/_DarkestHour/lav/make_shuttle.py — детали корпуса и плитка шаттла LA-V (We-Yu-LWI
+# «Runner» из cmss13 через RMC-14, CC-BY-SA-3.0). Не править руками.
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullFront100
+  name: hull front
+  components:
+  - type: Sprite
+    state: "100"
+  - type: Icon
+    state: "100"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullFront102
+  name: hull front
+  components:
+  - type: Sprite
+    state: "102"
+  - type: Icon
+    state: "102"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullTailzwing1
+  name: hull tail
+  components:
+  - type: Sprite
+    state: "zwing1"
+  - type: Icon
+    state: "zwing1"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullTailzwing3
+  name: hull tail
+  components:
+  - type: Sprite
+    state: "zwing3"
+  - type: Icon
+    state: "zwing3"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullTailzwing4
+  name: hull tail
+  components:
+  - type: Sprite
+    state: "zwing4"
+  - type: Icon
+    state: "zwing4"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullTailzwing5
+  name: hull tail
+  components:
+  - type: Sprite
+    state: "zwing5"
+  - type: Icon
+    state: "zwing5"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullTailzwing7
+  name: hull tail
+  components:
+  - type: Sprite
+    state: "zwing7"
+  - type: Icon
+    state: "zwing7"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullTailzwing8
+  name: hull tail
+  components:
+  - type: Sprite
+    state: "zwing8"
+  - type: Icon
+    state: "zwing8"
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullWallStandard18
+  components:
+  - type: Sprite
+    state: "18"
+  - type: Icon
+    state: "18"
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullWallStandard19
+  components:
+  - type: Sprite
+    state: "19"
+  - type: Icon
+    state: "19"
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullWallStandard47
+  components:
+  - type: Sprite
+    state: "47"
+  - type: Icon
+    state: "47"
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullWallStandard48
+  components:
+  - type: Sprite
+    state: "48"
+  - type: Icon
+    state: "48"
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullWallStandard62
+  components:
+  - type: Sprite
+    state: "62"
+  - type: Icon
+    state: "62"
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullWallStandard64
+  components:
+  - type: Sprite
+    state: "64"
+  - type: Icon
+    state: "64"
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullWallStandard67
+  components:
+  - type: Sprite
+    state: "67"
+  - type: Icon
+    state: "67"
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullWallStandard69
+  components:
+  - type: Sprite
+    state: "69"
+  - type: Icon
+    state: "69"
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullWallStandard72
+  components:
+  - type: Sprite
+    state: "72"
+  - type: Icon
+    state: "72"
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullWallStandard73
+  components:
+  - type: Sprite
+    state: "73"
+  - type: Icon
+    state: "73"
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullWallStandard75
+  components:
+  - type: Sprite
+    state: "75"
+  - type: Icon
+    state: "75"
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullWallStandard76
+  components:
+  - type: Sprite
+    state: "76"
+  - type: Icon
+    state: "76"
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullWallStandard83
+  components:
+  - type: Sprite
+    state: "83"
+  - type: Icon
+    state: "83"
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullWallStandard95
+  components:
+  - type: Sprite
+    state: "95"
+  - type: Icon
+    state: "95"
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullWallStandard99
+  components:
+  - type: Sprite
+    state: "99"
+  - type: Icon
+    state: "99"
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullWallStandardwyleftengine
+  components:
+  - type: Sprite
+    state: "wy_leftengine"
+  - type: Icon
+    state: "wy_leftengine"
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullWallStandardwyrightengine
+  components:
+  - type: Sprite
+    state: "wy_rightengine"
+  - type: Icon
+    state: "wy_rightengine"
+
+- type: entity
+  parent: DHLAVHullBase
+  id: DHLAVHullWindow97
+  name: hull window
+  components:
+  - type: Sprite
+    state: "97"
+  - type: Icon
+    state: "97"
+  - type: Occluder
+    enabled: false
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHLAVTileRasputin2
+  name: tiles-dh-lav-floor
+  sprite: /Textures/_DarkestHour/Shuttles/LAV/tiles/rasputin2.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHLAVTileRasputin3
+  name: tiles-dh-lav-floor
+  sprite: /Textures/_DarkestHour/Shuttles/LAV/tiles/rasputin3.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHLAVTileRasputin5
+  name: tiles-dh-lav-floor
+  sprite: /Textures/_DarkestHour/Shuttles/LAV/tiles/rasputin5.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHLAVTileRasputin11
+  name: tiles-dh-lav-floor
+  sprite: /Textures/_DarkestHour/Shuttles/LAV/tiles/rasputin11.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHLAVTileRasputin14
+  name: tiles-dh-lav-floor
+  sprite: /Textures/_DarkestHour/Shuttles/LAV/tiles/rasputin14.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHLAVTileRasputin15
+  name: tiles-dh-lav-floor
+  sprite: /Textures/_DarkestHour/Shuttles/LAV/tiles/rasputin15.png
+
+- type: tile
+  parent: DHMidwayTileBase
+  id: DHLAVTileSpiralplate
+  name: tiles-dh-lav-floor
+  sprite: /Textures/_DarkestHour/Shuttles/LAV/tiles/spiralplate.png

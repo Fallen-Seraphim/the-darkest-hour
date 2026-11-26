@@ -1,0 +1,9 @@
+- files: ["rasputin2.png", "rasputin3.png", "rasputin5.png", "rasputin11.png", "rasputin14.png", "rasputin15.png"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13 at https://github.com/cmss13-devs/cmss13/blob/71d46ee8057d19b12e1495419cb299d2fedef6cc/icons/turf/shuttle.dmi, via RMC-14 / RuCM"
+  source: "https://github.com/flex5hybrid/russiancm/tree/master/Resources/Textures/_RMC14/Tiles/shuttle"
+
+- files: ["spiralplate.png"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from cmss13 at https://github.com/cmss13-devs/cmss13/blob/6b4eeea257437bd337dc64f006f2cf4411cfe0a7/icons/turf/floors/corsat.dmi, via RMC-14 / RuCM"
+  source: "https://github.com/flex5hybrid/russiancm/tree/master/Resources/Textures/_RMC14/Tiles/corsat"

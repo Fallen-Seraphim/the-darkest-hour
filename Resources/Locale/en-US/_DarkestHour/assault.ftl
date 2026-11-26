@@ -52,6 +52,8 @@ dh-assault-outcome-republic-major = Major Republican victory: the Imperial carri
 dh-assault-outcome-none = The battle for Terminus Military Base ended without a result.
 dh-assault-end-sample-taken = The experimental sample was carried off by the Empire.
 dh-assault-end-sample-kept = The experimental sample remained on REP-27-7.
+dh-assault-end-sample-stolen = The experimental sample was stolen by the LA-V PMC — neither side got it.
+dh-assault-sample-stolen = The experimental sample has left the planet aboard an LA-V PMC shuttle. The corporation took what both sides were fighting for.
 dh-assault-end-tickets = Reinforcements left: Republic {$republic}, Empire {$empire}.
 
 ## Отделы и должности

@@ -1,0 +1,240 @@
+# LAVMG-14 (решение автора 2026-11-26): ручной пулемёт боевого техника ЧВК LA-V под корпоративный 10×33 мм, коробчатый
+# магазин на 100 патронов трёх видов, как у остального оружия LA-V: LS — стандартный, LAP — бронебойный,
+# LHP — экспансивный. Спрайт — корпоративный смарт-ган «M56T» RMC-14 (cmss13), окрашенный в фиолетовый LA-V
+# (Tools/_DarkestHour/lav/lavmg_sprite.py).
+
+- type: Tag
+  id: DHCartridge10x33
+
+- type: Tag
+  id: DHMagazineLAVMG14
+
+- type: entity
+  parent: BaseBullet
+  id: DHBullet10x33LS
+  name: "bullet (10x33mm LS)"
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 36
+  - type: DHBallistics
+    penetrationClass: 1
+    armorPenetration: 0.25
+    unarmoredMultiplier: 1.0
+    armoredMultiplier: 1.0
+
+- type: entity
+  parent: BaseBullet
+  id: DHBullet10x33LAP
+  name: "bullet (10x33mm LAP)"
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 29.5
+  - type: DHBallistics
+    penetrationClass: 2
+    armorPenetration: 0.5
+    unarmoredMultiplier: 1.0
+    armoredMultiplier: 1.0
+
+- type: entity
+  parent: BaseBullet
+  id: DHBullet10x33LHP
+  name: "bullet (10x33mm LHP)"
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 45
+  - type: DHBallistics
+    penetrationClass: 0
+    armorPenetration: 0.0
+    unarmoredMultiplier: 1.35
+    armoredMultiplier: 0.6
+
+- type: entity
+  abstract: true
+  parent: [ BaseCartridge, BaseSecurityContraband ]
+  id: DHBaseCartridge10x33
+  name: "cartridge (10x33mm)"
+  components:
+  - type: Tag
+    tags:
+    - Cartridge
+    - DHCartridge10x33
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Casings/rifle_ammo_casing.rsi
+    layers:
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+
+- type: entity
+  parent: DHBaseCartridge10x33
+  id: DHCartridge10x33LS
+  name: "cartridge (10x33mm LS)"
+  description: "LA-V standard: a short, heavy bonded bullet for the squad machine gun."
+  components:
+  - type: CartridgeAmmo
+    proto: DHBullet10x33LS
+
+- type: entity
+  parent: DHBaseCartridge10x33
+  id: DHCartridge10x33LAP
+  name: "cartridge (10x33mm LAP)"
+  description: "LA-V armour-piercing: a tungsten core against armour and cover."
+  components:
+  - type: CartridgeAmmo
+    proto: DHBullet10x33LAP
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      map: ["enum.AmmoVisualLayers.Tip"]
+      color: "#2b2b2b"
+
+- type: entity
+  parent: DHBaseCartridge10x33
+  id: DHCartridge10x33LHP
+  name: "cartridge (10x33mm LHP)"
+  description: "LA-V hollow point: devastating against unarmoured targets, poor against armour."
+  components:
+  - type: CartridgeAmmo
+    proto: DHBullet10x33LHP
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      map: ["enum.AmmoVisualLayers.Tip"]
+      color: "#c94040"
+
+- type: entity
+  abstract: true
+  parent: [ BaseItem, BaseSecurityContraband ]
+  id: DHMagazineLAVMG14Base
+  name: "LAVMG-14 box magazine (10x33mm)"
+  components:
+  - type: Tag
+    tags:
+    - DHMagazineLAVMG14
+  - type: Item
+    size: Normal
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - DHCartridge10x33
+    capacity: 100
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/7.62x39mm/pk_box.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    color: "#9c8acb" # фиолетовый LA-V
+  - type: Appearance
+
+- type: entity
+  parent: DHMagazineLAVMG14Base
+  id: DHMagazineLAVMG14LS
+  name: "LAVMG-14 box magazine (10x33mm LS)"
+  description: "100 rounds. LA-V standard."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge10x33LS
+
+- type: entity
+  parent: DHMagazineLAVMG14Base
+  id: DHMagazineLAVMG14LAP
+  name: "LAVMG-14 box magazine (10x33mm LAP)"
+  description: "100 rounds. LA-V armour-piercing."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge10x33LAP
+
+- type: entity
+  parent: DHMagazineLAVMG14Base
+  id: DHMagazineLAVMG14LHP
+  name: "LAVMG-14 box magazine (10x33mm LHP)"
+  description: "100 rounds. LA-V hollow point."
+  components:
+  - type: BallisticAmmoProvider
+    proto: DHCartridge10x33LHP
+
+- type: entity
+  name: "LAVMG-14"
+  parent: [ DHBaseWeaponRifle, BaseGunWieldable, BaseSecurityContraband ]
+  id: DHWeaponLMGLAVMG14
+  description: "The squad machine gun of LA-V's private military contractors: a corporate design on the short, heavy 10x33mm round, fed from a 100-round box. Heavy, but the combat technician carries it on a sling."
+  components:
+  - type: Sprite
+    sprite: _DarkestHour/Objects/Weapons/Guns/lavmg14.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Item
+    size: Huge
+    sprite: _DarkestHour/Objects/Weapons/Guns/lavmg14.rsi
+    shape:
+    - 0,0,4,1
+  - type: Clothing
+    sprite: _DarkestHour/Objects/Weapons/Guns/lavmg14.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: GunWieldBonus
+    minAngle: -5
+    maxAngle: -34
+  - type: Gun
+    fireRate: 9
+    selectedMode: FullAuto
+    availableModes:
+    - FullAuto
+    minAngle: 6
+    maxAngle: 44
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/lmg.ogg
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/lmg_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: "Magazine"
+        startingItem: DHMagazineLAVMG14LS
+        insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/batrifle_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - DHMagazineLAVMG14
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: "Chamber"
+        startingItem: DHCartridge10x33LS
+        priority: 1
+        whitelist:
+          tags:
+          - DHCartridge10x33
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
