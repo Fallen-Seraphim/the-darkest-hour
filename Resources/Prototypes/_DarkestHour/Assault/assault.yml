@@ -572,6 +572,8 @@
 - type: startingGear
   parent: DHCarrierCrewGearBase
   id: DHCarrierArtilleristGear
+  equipment:
+    outerClothing: DHImperialClothingOuterVestDeckOrange
   storage:
     back:
     - DHPainkillerAutoinjector
@@ -584,6 +586,7 @@
   parent: DHCarrierCrewGearBase
   id: DHCarrierTechnicianGear
   equipment:
+    outerClothing: DHImperialClothingOuterVestDeckYellow
     ears: DHClothingHeadsetAltImperialSupply
     belt: ClothingBeltUtilityEngineering
   storage:
