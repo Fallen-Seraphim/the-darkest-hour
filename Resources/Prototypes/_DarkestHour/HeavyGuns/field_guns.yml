@@ -42,6 +42,9 @@
         acts: [ "Destruction" ]
   - type: ActivatableUI
     key: enum.DHFieldGunUiKey.Key
+  - type: DHRequiresSkill # навык «Артиллерия» (план осады п. 12)
+    skills:
+      DHSkillArtillery: 1
   - type: UserInterface
     interfaces:
       enum.DHFieldGunUiKey.Key:

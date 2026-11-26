@@ -19,6 +19,9 @@ using Robust.Shared.Map;
 using Robust.Shared.Network;
 using Robust.Shared.Physics.Events;
 
+using Content.Shared._DarkestHour.Skills;
+using Robust.Shared.Prototypes;
+
 namespace Content.Shared._DarkestHour.Vehicles;
 
 /// <summary>
@@ -27,6 +30,9 @@ namespace Content.Shared._DarkestHour.Vehicles;
 /// </summary>
 public sealed partial class DHVehicleSystem : EntitySystem
 {
+    private static readonly ProtoId<DHSkillPrototype> VehicleSkill = "DHSkillVehicles";
+
+    [Dependency] private DHSkillsSystem _skills = default!;
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private SharedContentEyeSystem _contentEye = default!;
     [Dependency] private Content.Shared.Damage.Systems.DamageableSystem _damageable = default!;
@@ -95,6 +101,15 @@ public sealed partial class DHVehicleSystem : EntitySystem
             !_transform.InRange(Transform(seat).Coordinates, Transform(ent).Coordinates, ent.Comp.Range))
         {
             _popup.PopupEntity(Loc.GetString("dh-vehicle-station-sit"), ent, user);
+            return;
+        }
+
+        // Танк и БТР — только экипажам (навык «Бронетехника», план осады п. 12).
+        if (ent.Comp.Role != DHVehicleSeatRole.Passenger && ent.Comp.Vehicle is { } crewed &&
+            TryComp<DHVehicleComponent>(crewed, out var crewedComp) && crewedComp.CrewSkillLevel > 0 &&
+            !_skills.HasSkill(user, VehicleSkill, crewedComp.CrewSkillLevel))
+        {
+            _skills.PopupMissing(user, VehicleSkill, crewedComp.CrewSkillLevel);
             return;
         }
 

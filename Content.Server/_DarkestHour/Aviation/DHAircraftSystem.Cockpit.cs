@@ -1,4 +1,6 @@
 using Content.Shared._DarkestHour.Aviation;
+using Content.Shared._DarkestHour.Skills;
+using Robust.Shared.Prototypes;
 using Content.Shared.Buckle.Components;
 using Content.Shared.DoAfter;
 using Content.Shared.Hands.Components;
@@ -16,6 +18,10 @@ namespace Content.Server._DarkestHour.Aviation;
 /// </summary>
 public sealed partial class DHAircraftSystem
 {
+    private static readonly ProtoId<DHSkillPrototype> PilotingSkill = "DHSkillPiloting";
+
+    [Dependency] private DHSkillsSystem _skills = default!;
+
     private void InitializeCockpit()
     {
         SubscribeLocalEvent<DHAircraftComponent, InteractHandEvent>(OnAircraftInteractHand);
@@ -42,6 +48,13 @@ public sealed partial class DHAircraftSystem
         args.Handled = true;
         if (!OnDeck(ent.Comp, ent))
             return;
+
+        // Штурмовик — только пилотам (навык «Пилотирование», план осады п. 12).
+        if (!_skills.HasSkill(args.User, PilotingSkill, 1))
+        {
+            _skills.PopupMissing(args.User, PilotingSkill, 1);
+            return;
+        }
 
         if (Pilot(ent.Comp) != null || !HasComp<StrapComponent>(seat))
         {

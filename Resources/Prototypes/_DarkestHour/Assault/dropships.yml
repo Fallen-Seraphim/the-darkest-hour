@@ -20,6 +20,9 @@
     baseSprintSpeed: 0
   - type: ActivatableUI
     key: enum.DHDropshipUiKey.Key
+  - type: DHRequiresSkill # навык «Пилотирование» (план осады п. 12)
+    skills:
+      DHSkillPiloting: 1
   - type: UserInterface
     interfaces:
       enum.DHDropshipUiKey.Key:

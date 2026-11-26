@@ -584,6 +584,9 @@
     role: Artillery
   - type: ActivatableUI
     key: enum.DHHeavyGunUiKey.Key
+  - type: DHRequiresSkill # навык «Артиллерия» (план осады п. 12)
+    skills:
+      DHSkillArtillery: 1
   - type: UserInterface
     interfaces:
       enum.DHHeavyGunUiKey.Key:
@@ -613,6 +616,9 @@
     role: AntiOrbital
   - type: ActivatableUI
     key: enum.DHHeavyGunUiKey.Key
+  - type: DHRequiresSkill # навык «Артиллерия» (план осады п. 12)
+    skills:
+      DHSkillArtillery: 1
   - type: UserInterface
     interfaces:
       enum.DHHeavyGunUiKey.Key:
