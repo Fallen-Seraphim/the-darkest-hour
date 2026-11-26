@@ -56,7 +56,7 @@ ent-DHClothingHeadBeretBlack = чёрный берет
     .desc = Простой чёрный берет.
 
 ent-DHImperialClothingHeadCapPeaked = фуражка имперского офицера
-    .desc = Чёрная фуражка имперского офицера.
+    .desc = Белая фуражка имперского офицера.
 
 ent-DHClothingEyesAviators = очки-авиаторы
     .desc = Тонированные очки в тонкой металлической оправе.

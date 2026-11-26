@@ -544,9 +544,9 @@
     ears: DHClothingHeadsetAltImperialCommand
     id: DHDogtagsImperialCommander
     neck: SyndicateWhistle
-    jumpsuit: ClothingUniformJumpsuitSyndieFormal
-    outerClothing: ClothingOuterCoatSyndieCap
-    head: ClothingHeadHatSyndieMAA
+    jumpsuit: DHImperialClothingUniformCommand
+    outerClothing: DHImperialClothingOuterGreatcoatCommand
+    head: DHImperialClothingHeadCapPeaked
   storage:
     back:
     - DHPainkillerAutoinjector
@@ -755,8 +755,8 @@
   equipment:
     id: DHDogtagsCarrierOperationCommander
     ears: DHClothingHeadsetAltImperialCommand
-    jumpsuit: ClothingUniformJumpsuitSyndieFormal
-    outerClothing: ClothingOuterCoatSyndieCap
+    jumpsuit: DHImperialClothingUniformCommand
+    outerClothing: DHImperialClothingOuterGreatcoatCommand
     head: DHImperialClothingHeadCapOperationCommander
     neck: SyndicateWhistle
   storage:

@@ -132,9 +132,9 @@
   description: "Combat fatigues of the Imperial Marines."
   components:
   - type: Sprite
-    sprite: _RMC14/Objects/Clothing/Uniforms/TSE/RCM/standard.rsi
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/Uniforms/TSE/RCM/standard.rsi
   - type: Clothing
-    sprite: _RMC14/Objects/Clothing/Uniforms/TSE/RCM/standard.rsi
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/Uniforms/TSE/RCM/standard.rsi
 
 - type: entity
   parent: ClothingUniformBase
@@ -143,9 +143,9 @@
   description: "Fatigues of an Imperial Marines team leader."
   components:
   - type: Sprite
-    sprite: _RMC14/Objects/Clothing/Uniforms/TSE/RCM/team_lead.rsi
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/Uniforms/TSE/RCM/team_lead.rsi
   - type: Clothing
-    sprite: _RMC14/Objects/Clothing/Uniforms/TSE/RCM/team_lead.rsi
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/Uniforms/TSE/RCM/team_lead.rsi
 
 - type: entity
   parent: ClothingHeadBase
@@ -154,9 +154,9 @@
   description: "A field cap of the Imperial Marines. No protection."
   components:
   - type: Sprite
-    sprite: _RMC14/Objects/Clothing/Head/Royal/cap.rsi
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/Head/Royal/cap.rsi
   - type: Clothing
-    sprite: _RMC14/Objects/Clothing/Head/Royal/cap.rsi
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/Head/Royal/cap.rsi
 
 - type: entity
   parent: ClothingHeadBase
@@ -165,9 +165,9 @@
   description: "The beret of the Imperial Marines. No protection."
   components:
   - type: Sprite
-    sprite: _RMC14/Objects/Clothing/Head/Royal/beret.rsi
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/Head/Royal/beret.rsi
   - type: Clothing
-    sprite: _RMC14/Objects/Clothing/Head/Royal/beret.rsi
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/Head/Royal/beret.rsi
 
 - type: entity
   parent: ClothingHandsGlovesCombat
@@ -194,10 +194,10 @@
   description: "A field pack of the Imperial Marines."
   components:
   - type: Sprite
-    sprite: _RMC14/Objects/Clothing/Back/Backpacks/RCM/medium.rsi
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/Back/Backpacks/RCM/medium.rsi
     state: icon
   - type: Clothing
-    sprite: _RMC14/Objects/Clothing/Back/Backpacks/RCM/medium.rsi
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/Back/Backpacks/RCM/medium.rsi
 
 - type: entity
   parent: ClothingBackpackDuffelSyndicate
@@ -206,10 +206,10 @@
   description: "A field pack of the Imperial Marines medics."
   components:
   - type: Sprite
-    sprite: _RMC14/Objects/Clothing/Back/Backpacks/RCM/medic.rsi
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/Back/Backpacks/RCM/medic.rsi
     state: icon
   - type: Clothing
-    sprite: _RMC14/Objects/Clothing/Back/Backpacks/RCM/medic.rsi
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/Back/Backpacks/RCM/medic.rsi
 
 - type: entity
   parent: ClothingBeltMilitaryWebbing
@@ -218,10 +218,10 @@
   description: "Webbing of the Imperial Marines."
   components:
   - type: Sprite
-    sprite: _RMC14/Objects/Clothing/Belt/rcm_general.rsi
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/Belt/rcm_general.rsi
     state: icon
   - type: Clothing
-    sprite: _RMC14/Objects/Clothing/Belt/rcm_general.rsi
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/Belt/rcm_general.rsi
 
 - type: entity
   parent: ClothingBeltMilitaryWebbingMedFilled
@@ -230,7 +230,7 @@
   description: "A medic's belt of the Imperial Marines."
   components:
   - type: Sprite
-    sprite: _RMC14/Objects/Clothing/Belt/rcm_medical.rsi
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/Belt/rcm_medical.rsi
     state: icon
   - type: Clothing
-    sprite: _RMC14/Objects/Clothing/Belt/rcm_medical.rsi
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/Belt/rcm_medical.rsi

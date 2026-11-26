@@ -195,9 +195,9 @@
   description: A beret of the Imperial guard regiments.
   components:
   - type: Sprite
-    sprite: _RMC14/Objects/Clothing/Head/TSE/tsepa_beret.rsi
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/Head/TSE/tsepa_beret.rsi
   - type: Clothing
-    sprite: _RMC14/Objects/Clothing/Head/TSE/tsepa_beret.rsi
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/Head/TSE/tsepa_beret.rsi
 
 - type: entity
   parent: ClothingHeadBase
@@ -214,12 +214,12 @@
   parent: ClothingHeadBase
   id: DHImperialClothingHeadCapPeaked
   name: Imperial officer peaked cap
-  description: A black peaked cap of an Imperial officer.
+  description: A white peaked cap of an Imperial officer.
   components:
   - type: Sprite
-    sprite: _RMC14/Objects/Clothing/Head/TSE/tsepa_cap_peaked.rsi
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/Head/TSE/tsepa_cap_peaked.rsi
   - type: Clothing
-    sprite: _RMC14/Objects/Clothing/Head/TSE/tsepa_cap_peaked.rsi
+    sprite: _DarkestHour/_RMC14/Objects/Clothing/Head/TSE/tsepa_cap_peaked.rsi
 
 - type: entity
   parent: ClothingEyesBase
