@@ -433,6 +433,24 @@ public sealed partial class DHVehicleServerSystem
             if (!string.IsNullOrEmpty(layer))
                 _appearance.SetData(ent, DHHardpoints.Visual(slot), state);
 
+            if (ent.Comp.ExtraLayers.TryGetValue(slot, out var extraLayers))
+            {
+                var parts = new List<string>();
+                foreach (var extra in extraLayers)
+                {
+                    var extraState = string.Empty;
+                    if (module is { } em)
+                    {
+                        if (!em.Comp.Broken || !em.Comp.DamagedExtraVehicleStates.TryGetValue(extra, out extraState))
+                            extraState = em.Comp.ExtraVehicleStates.GetValueOrDefault(extra, string.Empty);
+                    }
+
+                    parts.Add(extra + "=" + extraState);
+                }
+
+                _appearance.SetData(ent, DHHardpoints.ExtraVisual(slot), string.Join(";", parts));
+            }
+
             // Повреждения модуля на спрайте (DHVehicleDamageVisuals).
             var integrity = module is { } dm && dm.Comp.MaxIntegrity > 0f ? dm.Comp.Integrity / dm.Comp.MaxIntegrity : 1f;
             _appearance.SetData(ent, DHVehicleDamage.Visual(slot), DHVehicleDamage.Quantize(integrity));

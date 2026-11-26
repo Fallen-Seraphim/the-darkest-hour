@@ -111,6 +111,13 @@ public sealed partial class DHVehicleComponent : Component
     [DataField]
     public bool SideView;
 
+    /// <summary>
+    /// Боковые кадры (восток, запад) нарисованы в перспективе, а не сверху (хамви cmss13): их не доворачиваем на
+    /// остаток угла — машина в боковом кадре всегда стоит ровно, башня наводится по своему настоящему углу.
+    /// </summary>
+    [DataField]
+    public bool UprightSideFrames;
+
     /// <summary>Половина размеров корпуса (как у хитбокса): снаряды вылетают за его край, а не внутри него.</summary>
     [DataField]
     public Vector2 HullHalfSize = new(1.2f, 1.9f);
