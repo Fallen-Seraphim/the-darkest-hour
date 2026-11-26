@@ -41,6 +41,10 @@ namespace Content.Server._DarkestHour.Medical.Trauma;
 /// </summary>
 public sealed partial class DHTraumaSystem : EntitySystem
 {
+    // Навык «Медицина» (план осады п. 12): жгут, шина, игла, повязки — быстрее у обученных.
+    private static readonly ProtoId<Content.Shared._DarkestHour.Skills.DHSkillPrototype> MedicalSkill = "DHSkillMedical";
+
+    [Dependency] private Content.Shared._DarkestHour.Skills.DHSkillsSystem _skills = default!;
     [Dependency] private AlertsSystem _alerts = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private BloodstreamSystem _bloodstream = default!;
@@ -1059,7 +1063,7 @@ public sealed partial class DHTraumaSystem : EntitySystem
             return;
         }
 
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.Delay, new DHSplintDoAfterEvent(),
+        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, _skills.ScaleDelay(args.User, MedicalSkill, ent.Comp.Delay), new DHSplintDoAfterEvent(),
             target, target: target, used: ent)
         {
             BreakOnMove = true,

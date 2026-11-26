@@ -12,6 +12,15 @@ namespace Content.Shared.Sticky.Systems;
 public sealed partial class StickySystem : EntitySystem
 {
     [Dependency] private EntityWhitelistSystem _whitelist = default!;
+    [Dependency] private Content.Shared._DarkestHour.Skills.DHSkillsSystem _dhSkills = default!; // DarkestHour
+
+    /// <summary>DarkestHour: заряд взрывчатки ставят и снимают по навыку «Сапёрное дело» (план осады п. 12).</summary>
+    private TimeSpan DHDemolitionsDelay(EntityUid sticky, EntityUid user, TimeSpan delay)
+    {
+        return HasComp<Content.Shared.Explosion.Components.ExplosiveComponent>(sticky)
+            ? _dhSkills.ScaleDelay(user, "DHSkillDemolitions", delay)
+            : delay;
+    }
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
@@ -91,7 +100,7 @@ public sealed partial class StickySystem : EntitySystem
         }
 
         // start sticking object to target
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, comp.StickDelay, new StickyDoAfterEvent(), uid, target: target, used: uid)
+        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, DHDemolitionsDelay(uid, user, comp.StickDelay), new StickyDoAfterEvent(), uid, target: target, used: uid)
         {
             BreakOnMove = true,
             NeedHand = true,
@@ -141,7 +150,7 @@ public sealed partial class StickySystem : EntitySystem
         }
 
         // start unsticking object
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, comp.UnstickDelay, new StickyDoAfterEvent(), uid, target: stuckTo)
+        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, DHDemolitionsDelay(uid, user, comp.UnstickDelay), new StickyDoAfterEvent(), uid, target: stuckTo)
         {
             BreakOnMove = true,
             NeedHand = true,

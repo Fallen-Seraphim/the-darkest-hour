@@ -92,7 +92,7 @@ public sealed partial class DHTraumaSystem
             return;
         }
 
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.Delay, new DHTourniquetDoAfterEvent(),
+        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, _skills.ScaleDelay(args.User, MedicalSkill, ent.Comp.Delay), new DHTourniquetDoAfterEvent(),
             target, target: target, used: ent)
         {
             BreakOnMove = true,
@@ -223,7 +223,7 @@ public sealed partial class DHTraumaSystem
             return;
 
         args.Handled = true;
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.Delay,
+        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, _skills.ScaleDelay(args.User, MedicalSkill, ent.Comp.Delay),
             new DHFieldDressingDoAfterEvent(), target, target: target, used: ent)
         {
             BreakOnMove = true,

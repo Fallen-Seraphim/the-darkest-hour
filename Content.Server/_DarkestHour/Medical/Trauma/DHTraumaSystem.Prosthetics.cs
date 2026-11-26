@@ -141,11 +141,17 @@ public sealed partial class DHTraumaSystem
         return false;
     }
 
+    /// <summary>Сапёр — навык «Сапёрное дело» от специалиста (план осады п. 12); без наборов навыков — по должности.</summary>
     private bool IsSapper(EntityUid uid)
     {
+        if (_skills.Restricted(uid))
+            return _skills.HasSkill(uid, DemolitionsSkill, 2);
+
         return _mind.TryGetMind(uid, out var mindId, out _) &&
                _jobs.MindTryGetJobId(mindId, out var job) && job is { } id && Sappers.Contains(id);
     }
+
+    private static readonly ProtoId<Content.Shared._DarkestHour.Skills.DHSkillPrototype> DemolitionsSkill = "DHSkillDemolitions";
 
     #endregion
 }

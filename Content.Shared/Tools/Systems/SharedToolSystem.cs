@@ -21,6 +21,11 @@ namespace Content.Shared.Tools.Systems;
 public abstract partial class SharedToolSystem : EntitySystem
 {
     [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private Content.Shared._DarkestHour.Skills.DHSkillsSystem _dhSkills = default!; // DarkestHour
+
+    // DarkestHour: инженерные качества инструментов (копать лопатой — не инженерия).
+    private static readonly HashSet<string> DHEngineeringQualities = new() { "Welding", "Anchoring", "Prying", "Screwing", "Cutting", "Pulsing" };
+    private static readonly ProtoId<Content.Shared._DarkestHour.Skills.DHSkillPrototype> DHEngineeringSkill = "DHSkillEngineering";
     [Dependency] protected ISharedAdminLogManager AdminLogger = default!;
     [Dependency] private ITileDefinitionManager _tileDefManager = default!;
     [Dependency] private SharedAudioSystem _audioSystem = default!;
@@ -165,6 +170,16 @@ public abstract partial class SharedToolSystem : EntitySystem
         }
         else
             examineText = Loc.GetString("tool-component-doafter-examine", ("quality", qualitiesText));
+
+        // DarkestHour: инженерные инструменты — по навыку «Инженерия» (план осады п. 12).
+        foreach (var quality in toolQualitiesNeeded)
+        {
+            if (!DHEngineeringQualities.Contains(quality.Id))
+                continue;
+
+            delay = _dhSkills.ScaleDelay(user, DHEngineeringSkill, delay);
+            break;
+        }
 
         var toolEvent = new ToolDoAfterEvent(fuel, doAfterEv, GetNetEntity(target));
         var doAfterArgs = new DoAfterArgs(EntityManager, user, delay / toolComponent.SpeedModifier, toolEvent, tool, target: target, used: tool)

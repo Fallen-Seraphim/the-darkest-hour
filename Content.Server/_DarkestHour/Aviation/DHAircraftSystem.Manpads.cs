@@ -90,7 +90,7 @@ public sealed partial class DHAircraftSystem
             return;
         }
 
-        var started = _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, ent.Comp.LockTime,
+        var started = _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, _skills.ScaleDelay(user, "DHSkillHeavyWeapons", ent.Comp.LockTime),
             new DHManpadsLockDoAfterEvent(), ent.Owner, used: ent.Owner)
         {
             BreakOnMove = true,
@@ -187,7 +187,7 @@ public sealed partial class DHAircraftSystem
             return;
         }
 
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.ReloadTime,
+        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, _skills.ScaleDelay(args.User, "DHSkillHeavyWeapons", ent.Comp.ReloadTime),
             new DHManpadsReloadDoAfterEvent(), ent.Owner, ent.Owner, args.Used)
         {
             BreakOnMove = true,
