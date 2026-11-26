@@ -54,3 +54,90 @@
   name: dh-skill-command
   description: dh-skill-command-desc
   delayMultipliers: [ 2, 1, 0.85, 0.7 ]
+
+# --- Брошюры (решение автора 2026-11-26), как в RMC-14: прочитать в руке — навык +1, не выше «специалиста» (2);
+# одна брошюра на бойца за раунд. Навыков-запретов (пилотирование, бронетехника, хирургия, артиллерия) в брошюрах нет.
+
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: DHSkillPamphletBase
+  name: instructional pamphlet
+  description: A pamphlet used to quickly impart vital knowledge. One is enough to remember; two would be a blur.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Misc/pamphlets.rsi
+    state: pamphlet_written
+  - type: Item
+    size: Tiny
+
+- type: entity
+  parent: DHSkillPamphletBase
+  id: DHSkillPamphletMedical
+  name: field medicine pamphlet
+  components:
+  - type: Sprite
+    state: pamphlet_medical
+  - type: DHSkillPamphlet
+    skill: DHSkillMedical
+
+- type: entity
+  parent: DHSkillPamphletBase
+  id: DHSkillPamphletEngineering
+  name: field engineering pamphlet
+  components:
+  - type: Sprite
+    state: pamphlet_engineering
+  - type: DHSkillPamphlet
+    skill: DHSkillEngineering
+
+- type: entity
+  parent: DHSkillPamphletBase
+  id: DHSkillPamphletDemolitions
+  name: demolitions pamphlet
+  components:
+  - type: Sprite
+    state: pamphlet_construction
+  - type: DHSkillPamphlet
+    skill: DHSkillDemolitions
+
+- type: entity
+  parent: DHSkillPamphletBase
+  id: DHSkillPamphletHeavyWeapons
+  name: heavy weapons pamphlet
+  components:
+  - type: Sprite
+    state: pamphlet_machinegunner
+  - type: DHSkillPamphlet
+    skill: DHSkillHeavyWeapons
+
+- type: entity
+  parent: DHSkillPamphletBase
+  id: DHSkillPamphletCommand
+  name: small unit leadership pamphlet
+  components:
+  - type: Sprite
+    state: pamphlet_jtac
+  - type: DHSkillPamphlet
+    skill: DHSkillCommand
+    maxLevel: 1
+
+# Ящик брошюр (карго обеих сторон, раздел «Прочее»): по две каждой.
+- type: entity
+  parent: CrateGenericSteel
+  id: DHCrateSkillPamphlets
+  name: training pamphlets crate
+  description: Instructional pamphlets for the troops — medicine, engineering, demolitions, heavy weapons, leadership.
+  components:
+  - type: StorageFill
+    contents:
+    - id: DHSkillPamphletMedical
+      amount: 2
+    - id: DHSkillPamphletEngineering
+      amount: 2
+    - id: DHSkillPamphletDemolitions
+      amount: 2
+    - id: DHSkillPamphletHeavyWeapons
+      amount: 2
+    - id: DHSkillPamphletCommand
+      amount: 2

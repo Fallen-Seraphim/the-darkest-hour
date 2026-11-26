@@ -62,6 +62,7 @@
   - { id: aircraft-cannon-pod, proto: DHSupplyCrateAircraftCannonPod, category: dh-supply-category-aviation, initial: 1, refill: 0, max: 1 }
   - { id: aircraft-drop-tanks, proto: DHSupplyCrateAircraftDropTanks, category: dh-supply-category-aviation, initial: 1, refill: 1, max: 2 } # ПТБ (2026-11-26)
   - { id: aircraft-flares, proto: DHSupplyCrateAircraftFlares, category: dh-supply-category-aviation, initial: 2, refill: 1, max: 4 }
+  - { id: pamphlets, proto: DHCrateSkillPamphlets, category: dh-supply-category-misc, initial: 1, refill: 1, max: 2 } # брошюры навыков (п. 12)
 
 - type: dhSupplyCatalog
   id: DHSupplyRepublic
@@ -109,3 +110,4 @@
   - { id: manpads-missiles, proto: DHSupplyCrateManpadsMissiles, category: dh-supply-category-air-defence, initial: 1, refill: 1, max: 3 }
   - { id: shells-400, proto: DHSupplyCrateShells400, category: dh-supply-category-anti-orbital, initial: 2, refill: 1, max: 4 }
   - { id: shells-700, proto: DHSupplyCrateShells700, category: dh-supply-category-anti-orbital, initial: 1, refill: 1, max: 3 }
+  - { id: pamphlets, proto: DHCrateSkillPamphlets, category: dh-supply-category-misc, initial: 1, refill: 1, max: 2 } # брошюры навыков (п. 12)

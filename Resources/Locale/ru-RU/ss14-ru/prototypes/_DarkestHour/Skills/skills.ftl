@@ -1,0 +1,14 @@
+ent-DHSkillPamphletBase = учебная брошюра
+    .desc = Брошюра, чтобы быстро усвоить самое важное. Одну запомнить можно, две смешаются в голове.
+ent-DHSkillPamphletMedical = брошюра «Полевая медицина»
+    .desc = { ent-DHSkillPamphletBase.desc }
+ent-DHSkillPamphletEngineering = брошюра «Полевая инженерия»
+    .desc = { ent-DHSkillPamphletBase.desc }
+ent-DHSkillPamphletDemolitions = брошюра «Подрывное дело»
+    .desc = { ent-DHSkillPamphletBase.desc }
+ent-DHSkillPamphletHeavyWeapons = брошюра «Тяжёлое оружие»
+    .desc = { ent-DHSkillPamphletBase.desc }
+ent-DHSkillPamphletCommand = брошюра «Командование малым подразделением»
+    .desc = { ent-DHSkillPamphletBase.desc }
+ent-DHCrateSkillPamphlets = ящик учебных брошюр
+    .desc = Учебные брошюры для бойцов: медицина, инженерия, подрывное дело, тяжёлое оружие, командование.

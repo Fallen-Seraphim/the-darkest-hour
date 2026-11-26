@@ -50,6 +50,27 @@ public sealed partial class DHRequiresSkillComponent : Component
     public Dictionary<ProtoId<DHSkillPrototype>, int> Skills = new();
 }
 
+/// <summary>Брошюра (как в RMC-14): прочитать — навык +1, не выше <see cref="MaxLevel"/>; одна брошюра на бойца.</summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class DHSkillPamphletComponent : Component
+{
+    [DataField(required: true)]
+    public ProtoId<DHSkillPrototype> Skill;
+
+    [DataField]
+    public int MaxLevel = 2;
+
+    [DataField]
+    public TimeSpan ReadTime = TimeSpan.FromSeconds(6);
+}
+
+/// <summary>Боец уже прочитал брошюру в этом раунде.</summary>
+[RegisterComponent]
+public sealed partial class DHUsedSkillPamphletComponent : Component;
+
+[Serializable, Robust.Shared.Serialization.NetSerializable]
+public sealed partial class DHSkillPamphletDoAfterEvent : Content.Shared.DoAfter.SimpleDoAfterEvent;
+
 public sealed partial class DHSkillsSystem : EntitySystem
 {
     [Dependency] private IPrototypeManager _proto = default!;
@@ -109,6 +130,13 @@ public sealed partial class DHSkillsSystem : EntitySystem
             return _proto.TryIndex(skill, out var proto) ? proto.MaxLevel : 3;
 
         return comp.Skills.GetValueOrDefault(skill);
+    }
+
+    /// <summary>Поставить уровень навыка (брошюры, админы).</summary>
+    public void SetLevel(Entity<DHSkillsComponent> ent, ProtoId<DHSkillPrototype> skill, int level)
+    {
+        ent.Comp.Skills[skill] = Math.Clamp(level, 0, 3);
+        Dirty(ent);
     }
 
     public bool HasSkill(EntityUid uid, ProtoId<DHSkillPrototype> skill, int level)
