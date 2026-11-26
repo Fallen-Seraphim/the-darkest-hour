@@ -76,7 +76,7 @@ def render_map(w, scale):
         ix, iy = x - T.X0, T.Y1 - y
         if proto == 'DHWaterDeep':
             px[ix, iy] = WATER_DEEP
-        elif proto == 'DHWaterShallow':
+        elif proto.startswith('DHWater'):  # мелководье, в том числе кромки у берега и у глубины
             px[ix, iy] = WATER_SHALLOW
         elif proto.startswith('WallRock'):
             px[ix, iy] = ROCK

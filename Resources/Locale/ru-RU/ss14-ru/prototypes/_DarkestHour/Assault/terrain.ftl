@@ -30,3 +30,43 @@ ent-DHBunkerWallLight = лампа
     .suffix = сеть АЭС, резерв
 ent-DHBackupDiesel = резервный дизель-генератор
     .desc = Держит пост ещё около десяти минут после потери сети АЭС.
+
+ent-DHWaterShoreBase = { ent-DHWaterShallow }
+    .desc = { ent-DHWaterShallow.desc }
+    .suffix = берег
+
+ent-DHWaterShore1 = { ent-DHWaterShallow }
+    .desc = { ent-DHWaterShallow.desc }
+    .suffix = берег
+
+ent-DHWaterShore2 = { ent-DHWaterShallow }
+    .desc = { ent-DHWaterShallow.desc }
+    .suffix = берег
+
+ent-DHWaterShore3 = { ent-DHWaterShallow }
+    .desc = { ent-DHWaterShallow.desc }
+    .suffix = берег
+
+ent-DHWaterShoreInner = { ent-DHWaterShallow }
+    .desc = { ent-DHWaterShallow.desc }
+    .suffix = берег
+
+ent-DHWaterShoreOuter1 = { ent-DHWaterShallow }
+    .desc = { ent-DHWaterShallow.desc }
+    .suffix = берег
+
+ent-DHWaterShoreOuter2 = { ent-DHWaterShallow }
+    .desc = { ent-DHWaterShallow.desc }
+    .suffix = берег
+
+ent-DHWaterDeepEdge = { ent-DHWaterShallow }
+    .desc = { ent-DHWaterShallow.desc }
+    .suffix = берег
+
+ent-DHWaterDeepInner = { ent-DHWaterShallow }
+    .desc = { ent-DHWaterShallow.desc }
+    .suffix = берег
+
+ent-DHWaterDeepOuter = { ent-DHWaterShallow }
+    .desc = { ent-DHWaterShallow.desc }
+    .suffix = берег
