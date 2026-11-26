@@ -1,23 +1,23 @@
+using Content.Client.UserInterface.Systems.Ghost;
 using Content.Shared._DarkestHour.ThirdParty;
-using Content.Shared.Ghost;
-using Content.Shared.Ghost.Components;
-using Robust.Client.Player;
+using Robust.Client.UserInterface;
+using Robust.Shared.Console;
 
 namespace Content.Client._DarkestHour.ThirdParty;
 
 /// <summary>
-/// Наборы событий третьей стороны (план осады пп. 11 и 28): хранит открытые наборы от сервера; когда открывается
-/// новый — показывает наблюдателю окно записи (<see cref="DHThirdPartyWindow"/>).
+/// Наборы событий третьей стороны (план осады пп. 11 и 28): хранит открытые наборы от сервера. Запись — в окне
+/// «Роли призраков», одна кнопка «Интересоваться» на событие (решение автора 2026-11-26, как в RuCM); число событий
+/// прибавляется к счётчику ролей на кнопке призрака.
 /// </summary>
 public sealed partial class DHThirdPartyClientSystem : EntitySystem
 {
-    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private IConsoleHost _console = default!;
+    [Dependency] private IUserInterfaceManager _ui = default!;
 
     public IReadOnlyList<DHThirdPartyEventInfo> Events { get; private set; } = Array.Empty<DHThirdPartyEventInfo>();
 
     public event Action? Updated;
-
-    private DHThirdPartyWindow? _window;
 
     public override void Initialize()
     {
@@ -25,47 +25,26 @@ public sealed partial class DHThirdPartyClientSystem : EntitySystem
         SubscribeNetworkEvent<DHThirdPartyStateEvent>(OnState);
     }
 
-    public override void Shutdown()
-    {
-        base.Shutdown();
-        _window?.Close();
-    }
-
     private void OnState(DHThirdPartyStateEvent ev)
     {
         Events = ev.Events;
         Updated?.Invoke();
-
-        if (Events.Count == 0)
-        {
-            _window?.Close();
-            return;
-        }
-
-        if (ev.Opened && _player.LocalEntity is { } local && HasComp<GhostComponent>(local))
-            OpenWindow();
+        _ui.GetUIController<GhostUIController>().UpdateGui();
     }
 
+    /// <summary>Открыть окно «Роли призраков».</summary>
     public void OpenWindow()
     {
-        if (_window is { IsOpen: true })
-        {
-            _window.MoveToFront();
-            return;
-        }
-
-        _window = new DHThirdPartyWindow(this);
-        _window.OnClose += () => _window = null;
-        _window.OpenCentered();
+        _console.RemoteExecuteCommand(null, "ghostroles");
     }
 
-    public void SetInterest(string eventId, string roleId, bool interested)
+    public void SetInterest(string eventId, bool interested)
     {
-        RaiseNetworkEvent(new DHThirdPartyInterestEvent { EventId = eventId, RoleId = roleId, Interested = interested });
+        RaiseNetworkEvent(new DHThirdPartyInterestEvent { EventId = eventId, Interested = interested });
     }
 }
 
-/// <summary>Открыть окно записи на события третьей стороны.</summary>
+/// <summary>Открыть окно «Роли призраков» с наборами на события.</summary>
 public sealed partial class DHEventsCommand : Robust.Shared.Console.LocalizedEntityCommands
 {
     [Dependency] private DHThirdPartyClientSystem _thirdParty = default!;

@@ -20,6 +20,7 @@ using Content.Shared.Interaction;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
+using Content.Shared.Verbs;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.EntitySerialization.Systems;
@@ -121,6 +122,14 @@ public sealed partial class DHLAVSystem : EntitySystem
     private static readonly ResPath ShuttlePath = new("/Maps/_DarkestHour/Shuttles/lav_shuttle.yml");
     private static readonly ProtoId<AlertPrototype> TrackerAlert = "DHLAVTargetTracker";
     private static readonly EntProtoId StatusActionProto = "DHActionLAVStatus";
+    /// <summary>Сколько шаттл ждёт в атмосфере выбора ЗП, прежде чем сесть сам.</summary>
+    private static readonly TimeSpan AutoLandTime = TimeSpan.FromMinutes(5);
+
+    /// <summary>Снижение от команды до посадки.</summary>
+    private static readonly TimeSpan DescentTime = TimeSpan.FromSeconds(10);
+
+    private static readonly VerbCategory LandCategory = new("dh-lav-verb-land", null);
+
     private static readonly SoundSpecifier LandSound = new SoundPathSpecifier("/Audio/Effects/Shuttle/hyperspace_end.ogg");
     private static readonly SoundSpecifier LaunchSound = new SoundPathSpecifier("/Audio/Effects/Shuttle/hyperspace_begin.ogg");
     private static readonly Color LavColor = Color.FromHex("#8A6AD0");
@@ -150,6 +159,19 @@ public sealed partial class DHLAVSystem : EntitySystem
     private TimeSpan _nextUpdate;
 
     private EntityUid? _shuttle;
+    private EntityUid? _surface;
+
+    /// <summary>Шаттл ещё в атмосфере (до посадки).</summary>
+    private bool _inAtmosphere;
+
+    /// <summary>Снижение начато: когда и куда садимся.</summary>
+    private TimeSpan? _landAt;
+    private EntityUid? _landZone;
+
+    /// <summary>Не выбрали ЗП — автопилот садится сам.</summary>
+    private TimeSpan _autoLandAt;
+    private bool _autoLandWarned;
+
     private DHLAVTargetKind _kind;
     private EntityUid? _target;
     private Vector2 _targetPosition;
@@ -170,6 +192,7 @@ public sealed partial class DHLAVSystem : EntitySystem
         SubscribeLocalEvent<DHLAVMemberComponent, DHLAVStatusActionEvent>(OnStatus);
         SubscribeLocalEvent<DHLAVShuttleConsoleComponent, ActivateInWorldEvent>(OnConsoleActivate);
         SubscribeLocalEvent<DHLAVShuttleConsoleComponent, DHLAVEvacDoAfterEvent>(OnEvacDoAfter);
+        SubscribeLocalEvent<DHLAVShuttleConsoleComponent, GetVerbsEvent<Verb>>(OnConsoleVerbs);
         SubscribeLocalEvent<RoundEndTextAppendEvent>(OnRoundEndText);
     }
 
@@ -179,6 +202,10 @@ public sealed partial class DHLAVSystem : EntitySystem
         _scheduled = null;
         _happened = false;
         _shuttle = null;
+        _surface = null;
+        _inAtmosphere = false;
+        _landAt = null;
+        _landZone = null;
         _target = null;
         _targetMap = null;
         Outcome = null;
@@ -217,7 +244,10 @@ public sealed partial class DHLAVSystem : EntitySystem
         }
 
         if (Outcome == DHLAVOutcome.Active)
+        {
             UpdateSquad();
+            UpdateLanding(now);
+        }
     }
 
     public bool OpenRecruitment(TimeSpan deadline, int min = MinSquad)
@@ -248,13 +278,13 @@ public sealed partial class DHLAVSystem : EntitySystem
 
     private void Start(List<(string Role, ICommonSession Session)> squad)
     {
-        if (!TryFindSurface(out var surface) || !TryPickTarget(surface))
+        if (!TryFindSurface(out var surface, out var atmosphere) || !TryPickTarget(surface))
         {
             Fail(squad, "dh-lav-no-target");
             return;
         }
 
-        if (!TryLandShuttle(surface, out var shuttle))
+        if (!TryDeployShuttle(surface, atmosphere, out var shuttle))
         {
             Fail(squad, "dh-lav-no-zone");
             return;
@@ -268,6 +298,13 @@ public sealed partial class DHLAVSystem : EntitySystem
 
         _happened = true;
         _shuttle = shuttle;
+        _surface = surface;
+        _inAtmosphere = true;
+        _landAt = null;
+        _landZone = null;
+        _autoLandAt = _ticker.RoundDuration() + AutoLandTime;
+        _autoLandWarned = false;
+        _zoneName = Loc.GetString("dh-lav-zone-atmosphere");
         Outcome = DHLAVOutcome.Active;
         _summaryNames.Clear();
         _evacuated = 0;
@@ -325,13 +362,8 @@ public sealed partial class DHLAVSystem : EntitySystem
                 ("role", Loc.GetString($"dh-lav-role-{role}"))));
 
             _antag.SendBriefing(session, Loc.GetString(BriefingKey(role), ("target", _targetName),
-                ("zone", _zoneName)), LavColor, null);
+                ("minutes", (int) AutoLandTime.TotalMinutes)), LavColor, null);
         }
-
-        _landing.Shake(shuttle, 1f);
-        _audio.PlayPvs(LandSound, shuttle);
-        _chat.DispatchGlobalAnnouncement(Loc.GetString("dh-lav-landed-announcement", ("zone", _zoneName)),
-            Loc.GetString("dh-lav-announcement-sender"), true, null, LavColor);
     }
 
     private string BriefingKey(string role)
@@ -349,16 +381,21 @@ public sealed partial class DHLAVSystem : EntitySystem
         }
     }
 
-    private bool TryFindSurface(out EntityUid surface)
+    private bool TryFindSurface(out EntityUid surface, out EntityUid atmosphere)
     {
         surface = default;
+        atmosphere = default;
         var bases = EntityQueryEnumerator<DHPlanetBaseComponent>();
         while (bases.MoveNext(out _, out var planetBase))
         {
-            if (_landing.GetSurface(planetBase.System, planetBase.Body) is not { } s)
+            if (_landing.GetSurface(planetBase.System, planetBase.Body) is not { } s ||
+                _landing.EnsureAtmosphere(planetBase.System, planetBase.Body) is not { } a)
+            {
                 continue;
+            }
 
             surface = s;
+            atmosphere = a;
             return true;
         }
 
@@ -417,8 +454,11 @@ public sealed partial class DHLAVSystem : EntitySystem
                level.Stack == surfaceLevel.Stack;
     }
 
-    /// <summary>Шаттл грузится на временную карту и садится на случайную свободную ЗП (нет — у края карты).</summary>
-    private bool TryLandShuttle(EntityUid surface, out EntityUid shuttle)
+    /// <summary>
+    /// Шаттл грузится на временную карту и выходит в слой атмосферы над районом операции — над случайной ЗП
+    /// (решение автора 2026-11-26: отряд готовится, посадку выбирают на пульте).
+    /// </summary>
+    private bool TryDeployShuttle(EntityUid surface, EntityUid atmosphere, out EntityUid shuttle)
     {
         shuttle = default;
         var tempMap = _map.CreateMap(out var tempId);
@@ -429,30 +469,26 @@ public sealed partial class DHLAVSystem : EntitySystem
             return false;
         }
 
-        var zones = new List<(string Name, Vector2 Position)>();
-        var query = EntityQueryEnumerator<DHLandingZoneComponent, TransformComponent>();
-        while (query.MoveNext(out var uid, out var zone, out var xform))
+        // Над ЗП, а если там тесно (авианосец в атмосфере) — в стороне.
+        var points = FreeZones(grid.Value, surface).Select(z => z.Position).ToList();
+        _random.Shuffle(points);
+        if (points.Count == 0 && _landing.RandomEdgePoint(surface) is { } edge)
+            points.Add(edge);
+        Vector2? position = null;
+        foreach (var point in points)
         {
-            if (xform.MapUid != surface || zone.Temporary || !_rift.ExitFree(grid.Value, xform.Coordinates))
-                continue;
+            for (var attempt = 0; attempt < 6 && position == null; attempt++)
+            {
+                var candidate = point + (attempt == 0 ? Vector2.Zero : _random.NextAngle().ToVec() * 60f * attempt);
+                if (_rift.ExitFree(grid.Value, new EntityCoordinates(atmosphere, candidate)))
+                    position = candidate;
+            }
 
-            zones.Add((Name(uid), _transform.GetWorldPosition(xform)));
+            if (position != null)
+                break;
         }
 
-        Vector2 position;
-        if (zones.Count > 0)
-        {
-            var zone = _random.Pick(zones);
-            position = zone.Position;
-            _zoneName = zone.Name;
-        }
-        else if (_landing.RandomEdgePoint(surface) is { } edge &&
-                 _rift.ExitFree(grid.Value, new EntityCoordinates(surface, edge)))
-        {
-            position = edge;
-            _zoneName = Loc.GetString("dh-lav-zone-edge");
-        }
-        else
+        if (position == null)
         {
             QueueDel(tempMap);
             return false;
@@ -460,10 +496,146 @@ public sealed partial class DHLAVSystem : EntitySystem
 
         shuttle = grid.Value;
         _meta.SetEntityName(shuttle, Loc.GetString("dh-lav-shuttle-name"));
-        _landing.PlaceShuttle(shuttle, new EntityCoordinates(surface, position));
+        _landing.PlaceShuttle(shuttle, new EntityCoordinates(atmosphere, position.Value));
         QueueDel(tempMap);
         return true;
     }
+
+    /// <summary>Свободные ЗП на поверхности для этого шаттла.</summary>
+    private List<(EntityUid Zone, string Name, Vector2 Position)> FreeZones(EntityUid shuttle, EntityUid surface)
+    {
+        var zones = new List<(EntityUid, string, Vector2)>();
+        var query = EntityQueryEnumerator<DHLandingZoneComponent, TransformComponent>();
+        while (query.MoveNext(out var uid, out var zone, out var xform))
+        {
+            if (xform.MapUid != surface || zone.Temporary || !_rift.ExitFree(shuttle, xform.Coordinates))
+                continue;
+
+            zones.Add((uid, Name(uid), _transform.GetWorldPosition(xform)));
+        }
+
+        return zones;
+    }
+
+    #region Посадка
+
+    private void OnConsoleVerbs(Entity<DHLAVShuttleConsoleComponent> ent, ref GetVerbsEvent<Verb> args)
+    {
+        if (!args.CanAccess || !args.CanInteract || !HasComp<DHLAVMemberComponent>(args.User) ||
+            !_inAtmosphere || _landAt != null || Outcome != DHLAVOutcome.Active ||
+            Transform(ent).GridUid is not { } shuttle || shuttle != _shuttle || _surface is not { } surface)
+        {
+            return;
+        }
+
+        var user = args.User;
+        var priority = 0;
+        foreach (var (zone, name, _) in FreeZones(shuttle, surface))
+        {
+            var target = zone;
+            args.Verbs.Add(new Verb
+            {
+                Text = name,
+                Category = LandCategory,
+                Priority = priority--,
+                Act = () => BeginLanding(target, user),
+            });
+        }
+    }
+
+    private void BeginLanding(EntityUid? zone, EntityUid? user)
+    {
+        if (!_inAtmosphere || _landAt != null || _shuttle is not { } shuttle)
+            return;
+
+        _landZone = zone;
+        _landAt = _ticker.RoundDuration() + DescentTime;
+        var name = zone is { } z && Exists(z) ? Name(z) : Loc.GetString("dh-lav-zone-edge");
+        NotifySquad(Loc.GetString("dh-lav-descent", ("zone", name), ("seconds", (int) DescentTime.TotalSeconds)));
+        _landing.Shake(shuttle, 0.4f);
+        if (user != null)
+            Log.Info($"LA-V: {ToPrettyString(user.Value)} started the descent to {name}");
+    }
+
+    private void UpdateLanding(TimeSpan now)
+    {
+        if (!_inAtmosphere || _shuttle is not { } shuttle || _surface is not { } surface)
+            return;
+
+        if (_landAt is { } at)
+        {
+            if (now >= at)
+                Land(shuttle, surface);
+            else if ((int) (at - now).TotalSeconds % 3 == 0)
+                _landing.Shake(shuttle, 0.4f);
+            return;
+        }
+
+        if (!_autoLandWarned && now >= _autoLandAt - TimeSpan.FromMinutes(1))
+        {
+            _autoLandWarned = true;
+            NotifySquad(Loc.GetString("dh-lav-autoland-warning"));
+        }
+
+        if (now < _autoLandAt)
+            return;
+
+        var zones = FreeZones(shuttle, surface);
+        BeginLanding(zones.Count > 0 ? _random.Pick(zones).Zone : null, null);
+    }
+
+    /// <summary>Посадка: на выбранную ЗП, занята — на другую свободную, нет свободных — у края карты.</summary>
+    private void Land(EntityUid shuttle, EntityUid surface)
+    {
+        _landAt = null;
+        Vector2? position = null;
+        if (_landZone is { } zone && Exists(zone) && _rift.ExitFree(shuttle, Transform(zone).Coordinates))
+        {
+            position = _transform.GetWorldPosition(zone);
+            _zoneName = Name(zone);
+        }
+        else if (FreeZones(shuttle, surface) is { Count: > 0 } zones)
+        {
+            var pick = _random.Pick(zones);
+            position = pick.Position;
+            _zoneName = pick.Name;
+        }
+        else if (_landing.RandomEdgePoint(surface) is { } edge &&
+                 _rift.ExitFree(shuttle, new EntityCoordinates(surface, edge)))
+        {
+            position = edge;
+            _zoneName = Loc.GetString("dh-lav-zone-edge");
+        }
+
+        if (position == null)
+        {
+            // Некуда — ждём и пробуем снова.
+            _autoLandAt = _ticker.RoundDuration() + TimeSpan.FromSeconds(30);
+            NotifySquad(Loc.GetString("dh-lav-descent-blocked"));
+            return;
+        }
+
+        _inAtmosphere = false;
+        _landing.PlaceShuttle(shuttle, new EntityCoordinates(surface, position.Value));
+        _landing.Shake(shuttle, 1f);
+        _audio.PlayPvs(LandSound, shuttle);
+        NotifySquad(Loc.GetString("dh-lav-landed", ("zone", _zoneName)));
+        _chat.DispatchGlobalAnnouncement(Loc.GetString("dh-lav-landed-announcement", ("zone", _zoneName)),
+            Loc.GetString("dh-lav-announcement-sender"), true, null, LavColor);
+    }
+
+    /// <summary>Сообщение всем бойцам отряда.</summary>
+    private void NotifySquad(string message)
+    {
+        var query = EntityQueryEnumerator<DHLAVMemberComponent, ActorComponent>();
+        while (query.MoveNext(out var uid, out _, out var actor))
+        {
+            _chatManager.DispatchServerMessage(actor.PlayerSession, message);
+            _popup.PopupEntity(message, uid, uid, PopupType.Medium);
+        }
+    }
+
+    #endregion
 
     #endregion
 
@@ -572,6 +744,14 @@ public sealed partial class DHLAVSystem : EntitySystem
             return;
         }
 
+        // В атмосфере пульт сажает шаттл: выбор ЗП — в контекстном меню.
+        if (_inAtmosphere)
+        {
+            _popup.PopupEntity(Loc.GetString(_landAt != null ? "dh-lav-console-descending" : "dh-lav-console-choose-zone"),
+                ent, args.User);
+            return;
+        }
+
         _popup.PopupEntity(Loc.GetString("dh-lav-console-start"), ent, PopupType.LargeCaution);
         _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.EvacTime,
             new DHLAVEvacDoAfterEvent(), ent, target: ent)
@@ -583,7 +763,7 @@ public sealed partial class DHLAVSystem : EntitySystem
 
     private void OnEvacDoAfter(Entity<DHLAVShuttleConsoleComponent> ent, ref DHLAVEvacDoAfterEvent args)
     {
-        if (args.Cancelled || args.Handled || Outcome != DHLAVOutcome.Active)
+        if (args.Cancelled || args.Handled || Outcome != DHLAVOutcome.Active || _inAtmosphere)
             return;
 
         args.Handled = true;

@@ -1,6 +1,6 @@
 # "LA-V PMC" event in Siege (siege plan item 11): a PMC squad on its own shuttle.
 dh-lav-event-name = LA-V PMC
-dh-lav-event-desc = A squad of the LA-V private military company lands on the planet in its own shuttle on a corporate contract. Only the squad knows the objective. Deploys once at least six sign up; roles nobody takes stay empty.
+dh-lav-event-desc = A squad of the LA-V private military company arrives in its own shuttle on a corporate contract. Only the squad knows the objective. Deploys once at least six are interested; roles are handed out at random, command roles first.
 
 dh-lav-role-commander = Squad commander
 dh-lav-role-commander-desc = Leads the operation and knows the objective. LAVR-55, light armour.
@@ -30,10 +30,10 @@ dh-lav-zone-edge = the edge of the operation area
 dh-lav-no-target = LA-V operation cancelled: there is no suitable objective on the planet.
 dh-lav-no-zone = LA-V operation cancelled: the shuttle has nowhere to land.
 
-dh-lav-briefing-hold = [color=#8A6AD0][bold]LA-V PMC.[/bold][/color] The shuttle has landed: { $zone }. Corporate contract — seize and hold until the end of the operation: [bold]{ $target }[/bold]. Neither side is your ally. Only the squad knows the objective. The tracker in the corner of the screen points to the objective.
-dh-lav-briefing-sample = [color=#8A6AD0][bold]LA-V PMC.[/bold][/color] The shuttle has landed: { $zone }. Corporate contract — take [bold]{ $target }[/bold] and fly it out on our shuttle (console in the cockpit). Neither side is your ally. Only the squad knows the objective. The tracker in the corner of the screen points to the target.
-dh-lav-briefing-commander-hold = [color=#8A6AD0][bold]LA-V PMC.[/bold][/color] The shuttle has landed: { $zone }. Corporate contract — seize and hold until the end of the operation: [bold]{ $target }[/bold]. Neither side is your ally. Only the squad knows the objective. The tracker in the corner of the screen points to the objective. You are the commander: lead the squad. The objective counts if a living LA-V operative is at it when the operation ends. Leaving on the shuttle early fails the contract.
-dh-lav-briefing-commander-sample = [color=#8A6AD0][bold]LA-V PMC.[/bold][/color] The shuttle has landed: { $zone }. Corporate contract — take [bold]{ $target }[/bold] and fly it out on our shuttle (console in the cockpit). Neither side is your ally. Only the squad knows the objective. The tracker in the corner of the screen points to the target. You are the commander: lead the squad. The sample counts once the shuttle leaves with it aboard.
+dh-lav-briefing-hold = [color=#8A6AD0][bold]LA-V PMC.[/bold][/color] The shuttle is in the atmosphere above the operation area — get ready. Land from the autopilot console in the cockpit (right-click → "Land" → LZ); if you do not choose within { $minutes } min, the autopilot lands on its own. Corporate contract — seize and hold until the end of the operation: [bold]{ $target }[/bold]. Neither side is your ally. Only the squad knows the objective. The tracker in the corner of the screen points to the objective.
+dh-lav-briefing-sample = [color=#8A6AD0][bold]LA-V PMC.[/bold][/color] The shuttle is in the atmosphere above the operation area — get ready. Land from the autopilot console in the cockpit (right-click → "Land" → LZ); if you do not choose within { $minutes } min, the autopilot lands on its own. Corporate contract — take [bold]{ $target }[/bold] and fly it out on our shuttle (same console). Neither side is your ally. Only the squad knows the objective. The tracker in the corner of the screen points to the target.
+dh-lav-briefing-commander-hold = [color=#8A6AD0][bold]LA-V PMC.[/bold][/color] The shuttle is in the atmosphere above the operation area — get ready. Land from the autopilot console in the cockpit (right-click → "Land" → LZ); if you do not choose within { $minutes } min, the autopilot lands on its own. Corporate contract — seize and hold until the end of the operation: [bold]{ $target }[/bold]. Neither side is your ally. Only the squad knows the objective. The tracker in the corner of the screen points to the objective. You are the commander: lead the squad. The objective counts if a living LA-V operative is at it when the operation ends. Leaving on the shuttle early fails the contract.
+dh-lav-briefing-commander-sample = [color=#8A6AD0][bold]LA-V PMC.[/bold][/color] The shuttle is in the atmosphere above the operation area — get ready. Land from the autopilot console in the cockpit (right-click → "Land" → LZ); if you do not choose within { $minutes } min, the autopilot lands on its own. Corporate contract — take [bold]{ $target }[/bold] and fly it out on our shuttle (same console). Neither side is your ally. Only the squad knows the objective. The tracker in the corner of the screen points to the target. You are the commander: lead the squad. The sample counts once the shuttle leaves with it aboard.
 
 dh-lav-task-hold = Objective: hold until the end of the operation — { $target }.
 dh-lav-task-sample = Objective: fly out on the shuttle — { $target }.
@@ -46,6 +46,14 @@ dh-lav-outcome-withdrew = the squad left without completing the contract
 dh-lav-outcome-failed = contract failed
 dh-lav-outcome-wiped = squad wiped out
 
+dh-lav-zone-atmosphere = in the atmosphere, waiting to land
+dh-lav-verb-land = Land
+dh-lav-console-choose-zone = Autopilot standing by: choose an LZ — right-click the console → "Land".
+dh-lav-console-descending = Descent in progress.
+dh-lav-descent = Autopilot: descending to { $zone }, touchdown in { $seconds } s. Strap in!
+dh-lav-descent-blocked = Autopilot: no free LZ, holding and retrying.
+dh-lav-autoland-warning = Autopilot: landing on a free LZ in one minute unless you choose one.
+dh-lav-landed = The shuttle has landed: { $zone }.
 dh-lav-announcement-sender = Signals intelligence
 dh-lav-landed-announcement = Radar has picked up an unidentified shuttle landing: { $zone }. Markings — LA-V private military company.
 dh-lav-departed-announcement = The LA-V PMC shuttle has lifted off and left the operation area.

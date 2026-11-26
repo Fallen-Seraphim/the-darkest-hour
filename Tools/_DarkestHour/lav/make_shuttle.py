@@ -154,6 +154,8 @@ def main():
             b = re.sub(r'(    - type: DecalGrid\n      chunkCollection:\n        version: 2\n        nodes:)\n(?:        .*\n)*',
                        r'\1 []\n', b)
             b = re.sub(r'name: .*', 'name: LA-V «Vanguard Runner»', b, count=1)
+            # Своя тяжесть: шаттл выходит в слой атмосферы, где тяготения нет (как у челноков).
+            b = re.sub(r'(    - type: Gravity\n)(?:      .*\n)*', r'\1      enabled: True\n      inherent: True\n', b)
             out.append(b)
             count += 1
             continue

@@ -1,17 +1,18 @@
 # Наборы событий третьей стороны (план осады пп. 11 и 28)
-dh-third-party-window-title = События — набор участников
-dh-third-party-none = Сейчас открытых наборов нет.
+dh-third-party-heading = События
 dh-third-party-time-left = Набор закроется через { $minutes } мин { $seconds } с.
-dh-third-party-role = { $name } — записались: { $count }
-dh-third-party-join = Записаться
+dh-third-party-roles = Состав: { $roles }
+dh-third-party-count = Интересуются: { $count } (нужно { $required }, мест { $slots })
+dh-third-party-join = Интересоваться
 dh-third-party-leave = Отказаться
-dh-third-party-opened = [color=#7ec8f0]Открыт набор на событие «{ $name }».[/color] Окно записи — команда dhevents (или «Присоединиться» → «Другие»). Записываться можно, пока вы наблюдатель.
+dh-third-party-join-tooltip = Одна кнопка на всё событие. Когда наберётся достаточно, роли раздадутся интересующимся случайно — сначала командные.
+dh-third-party-opened = [color=#7ec8f0]Открыт набор на событие «{ $name }».[/color] Запись — в окне «Роли призраков» (кнопка «Интересоваться»). Записываться можно, пока вы наблюдатель.
 dh-join-events = { $count ->
     [one] { $count } набор — для наблюдателей
     [few] { $count } набора — для наблюдателей
    *[other] { $count } наборов — для наблюдателей
 }
-cmd-dhevents-desc = Открывает окно записи на события третьей стороны.
+cmd-dhevents-desc = Открывает окно «Роли призраков» с наборами на события третьей стороны.
 cmd-dhevents-help = Использование: dhevents
 
 # Ассоциативный десантник (план осады п. 28)

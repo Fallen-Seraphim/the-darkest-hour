@@ -14,10 +14,11 @@ using Robust.Shared.Random;
 namespace Content.Server._DarkestHour.ThirdParty;
 
 /// <summary>
-/// Набор участников событий третьей стороны из призраков «по интересу» (план осады пп. 11 и 28, как в CMU): событие
-/// открывает набор со своими ролями и сроком; наблюдатели записываются на роли (окно приходит им само). Как только на
-/// каждую роль есть хотя бы один записавшийся — выбираются участники (каждый на одну роль, случайно из записавшихся)
-/// и вызывается обработчик события. Не набралось к сроку — набор закрывается без события.
+/// Набор участников событий третьей стороны из призраков «по интересу» (план осады пп. 11 и 28, как в RuCM): событие
+/// открывает набор со своими ролями и сроком; наблюдатели в окне «Роли призраков» нажимают одну кнопку
+/// «Интересоваться» на всё событие (решение автора 2026-11-26). Записалось достаточно — роли раздаются записавшимся
+/// случайно (по порядку ролей: сначала командные) и вызывается обработчик события. Не набралось к сроку — набор
+/// закрывается без события.
 /// </summary>
 public sealed partial class DHThirdPartySystem : EntitySystem
 {
@@ -42,8 +43,8 @@ public sealed partial class DHThirdPartySystem : EntitySystem
 
         /// <summary>
         /// Отряд (LA-V, решение автора 2026-11-26): мест на роль — <see cref="Slots"/> (по умолчанию 1), событие стартует,
-        /// когда всего записалось не меньше <see cref="MinTotal"/>, роли без желающих остаются пустыми. Без
-        /// <see cref="MinTotal"/> — как раньше: на каждую роль по одному.
+        /// когда записалось не меньше <see cref="MinTotal"/>; места раздаются по порядку ролей, незанятыми остаются
+        /// последние. Без <see cref="MinTotal"/> нужно по одному на каждое место.
         /// </summary>
         public Dictionary<string, int>? Slots;
         public int? MinTotal;
@@ -60,7 +61,23 @@ public sealed partial class DHThirdPartySystem : EntitySystem
         /// <summary>Участники отряда (для <see cref="MinTotal"/>): роль и игрок.</summary>
         public Action<List<(string Role, ICommonSession Session)>>? OnReadySquad;
 
-        public readonly Dictionary<string, HashSet<NetUserId>> Interested = new();
+        public readonly HashSet<NetUserId> Interested = new();
+
+        /// <summary>Места по порядку ролей: роль повторяется столько раз, сколько у неё мест.</summary>
+        public IEnumerable<string> Seats()
+        {
+            foreach (var role in Roles)
+            {
+                var slots = Slots?.GetValueOrDefault(role.Id, 1) ?? 1;
+                for (var i = 0; i < slots; i++)
+                {
+                    yield return role.Id;
+                }
+            }
+        }
+
+        /// <summary>Сколько нужно, чтобы событие началось.</summary>
+        public int Required => MinTotal ?? Seats().Count();
     }
 
     private readonly Dictionary<string, Recruitment> _open = new();
@@ -104,15 +121,10 @@ public sealed partial class DHThirdPartySystem : EntitySystem
 
     public void Open(Recruitment recruitment)
     {
-        foreach (var role in recruitment.Roles)
-        {
-            recruitment.Interested[role.Id] = new HashSet<NetUserId>();
-        }
-
         _open[recruitment.Id] = recruitment;
         Broadcast(true);
 
-        // Наблюдателям — сообщение в чат (окно открывается само; закрыли — команда dhevents).
+        // Наблюдателям — сообщение в чат (запись — в окне «Роли призраков»).
         var message = Loc.GetString("dh-third-party-opened", ("name", Loc.GetString(recruitment.Name)));
         foreach (var session in _players.Sessions)
         {
@@ -138,24 +150,17 @@ public sealed partial class DHThirdPartySystem : EntitySystem
 
     private void OnInterest(DHThirdPartyInterestEvent ev, EntitySessionEventArgs args)
     {
-        if (!_open.TryGetValue(ev.EventId, out var recruitment) ||
-            !recruitment.Interested.TryGetValue(ev.RoleId, out var interested))
-        {
+        if (!_open.TryGetValue(ev.EventId, out var recruitment))
             return;
-        }
 
         // Записываются только наблюдатели (призраки).
         if (ev.Interested && !IsObserver(args.SenderSession))
             return;
 
-        // Одна роль на игрока в одном наборе.
-        foreach (var set in recruitment.Interested.Values)
-        {
-            set.Remove(args.SenderSession.UserId);
-        }
-
         if (ev.Interested)
-            interested.Add(args.SenderSession.UserId);
+            recruitment.Interested.Add(args.SenderSession.UserId);
+        else
+            recruitment.Interested.Remove(args.SenderSession.UserId);
 
         if (!TryStart(recruitment))
             Broadcast(false);
@@ -167,55 +172,22 @@ public sealed partial class DHThirdPartySystem : EntitySystem
                HasComp<GhostComponent>(entity);
     }
 
-    /// <summary>На каждую роль есть кого взять — набираем (сначала роли, где выбор меньше).</summary>
-    private bool TryStart(Recruitment recruitment, bool force = false)
+    /// <summary>Записавшиеся, которые всё ещё наблюдатели, вразнобой.</summary>
+    private List<NetUserId> Candidates(Recruitment recruitment)
     {
-        if (recruitment.MinTotal is { } min)
-            return TryStartSquad(recruitment, min, force);
-
-        var picked = new Dictionary<string, ICommonSession>();
-        var used = new HashSet<NetUserId>();
-        foreach (var (role, set) in recruitment.Interested.OrderBy(p => p.Value.Count))
-        {
-            var candidates = set
-                .Where(user => !used.Contains(user) && _players.TryGetSessionById(user, out var s) && IsObserver(s))
-                .ToList();
-            if (candidates.Count == 0)
-                return false;
-
-            var user = _random.Pick(candidates);
-            used.Add(user);
-            picked[role] = _players.GetSessionById(user);
-        }
-
-        _open.Remove(recruitment.Id);
-        Broadcast(false);
-        recruitment.OnReady?.Invoke(picked);
-        return true;
+        var candidates = recruitment.Interested
+            .Where(user => _players.TryGetSessionById(user, out var s) && IsObserver(s))
+            .ToList();
+        _random.Shuffle(candidates);
+        return candidates;
     }
 
-    /// <summary>Отряд: по ролям — до числа мест, всего не меньше <paramref name="min"/>.</summary>
-    private bool TryStartSquad(Recruitment recruitment, int min, bool force)
+    /// <summary>Записалось достаточно — раздаём места по порядку ролей случайным записавшимся.</summary>
+    private bool TryStart(Recruitment recruitment, bool force = false)
     {
-        var total = 0;
-        var used = new HashSet<NetUserId>();
-        var picked = new List<(string Role, ICommonSession Session)>();
-        foreach (var (role, set) in recruitment.Interested.OrderBy(p => p.Value.Count))
-        {
-            var slots = recruitment.Slots?.GetValueOrDefault(role, 1) ?? 1;
-            total += slots;
-            var candidates = set
-                .Where(user => !used.Contains(user) && _players.TryGetSessionById(user, out var s) && IsObserver(s))
-                .ToList();
-            _random.Shuffle(candidates);
-            foreach (var user in candidates.Take(slots))
-            {
-                used.Add(user);
-                picked.Add((role, _players.GetSessionById(user)));
-            }
-        }
-
-        if (picked.Count < min)
+        var candidates = Candidates(recruitment);
+        var seats = recruitment.Seats().ToList();
+        if (candidates.Count < recruitment.Required)
         {
             recruitment.MinReachedAt = null;
             return false;
@@ -223,16 +195,32 @@ public sealed partial class DHThirdPartySystem : EntitySystem
 
         // Минимум есть, но места ещё остались — даём дозаписаться.
         var now = _ticker.RoundDuration();
-        if (!force && picked.Count < total && recruitment.Gather > TimeSpan.Zero)
+        if (!force && candidates.Count < seats.Count && recruitment.Gather > TimeSpan.Zero)
         {
             recruitment.MinReachedAt ??= now;
             if (now - recruitment.MinReachedAt < recruitment.Gather)
                 return false;
         }
 
+        var picked = seats.Zip(candidates, (role, user) => (Role: role, Session: _players.GetSessionById(user))).ToList();
+
         _open.Remove(recruitment.Id);
+
+        // Взятые в одно событие больше не ждут другого.
+        foreach (var other in _open.Values)
+        {
+            foreach (var (_, session) in picked)
+            {
+                other.Interested.Remove(session.UserId);
+            }
+        }
+
         Broadcast(false);
-        recruitment.OnReadySquad?.Invoke(picked);
+        if (recruitment.OnReadySquad != null)
+            recruitment.OnReadySquad(picked);
+        else
+            recruitment.OnReady?.Invoke(picked.ToDictionary(p => p.Role, p => p.Session));
+
         return true;
     }
 
@@ -289,17 +277,18 @@ public sealed partial class DHThirdPartySystem : EntitySystem
                 SecondsLeft = Math.Max(0, (int) (recruitment.Deadline - now).TotalSeconds),
             };
 
+            info.Interested = recruitment.Interested.Count;
+            info.Required = recruitment.Required;
+            info.Slots = recruitment.Seats().Count();
+            info.Mine = recruitment.Interested.Contains(session.UserId);
             foreach (var role in recruitment.Roles)
             {
-                var set = recruitment.Interested[role.Id];
                 var slots = recruitment.Slots?.GetValueOrDefault(role.Id, 1) ?? 1;
                 info.Roles.Add(new DHThirdPartyRoleInfo
                 {
                     Id = role.Id,
                     Name = slots > 1 ? $"{Loc.GetString(role.Name)} ×{slots}" : Loc.GetString(role.Name),
                     Description = Loc.GetString(role.Description),
-                    Interested = set.Count,
-                    Mine = set.Contains(session.UserId),
                 });
             }
 

@@ -65,7 +65,11 @@ public sealed partial class GhostUIController : UIController, IOnSystemChanged<G
         }
 
         Gui.Visible = _system?.IsGhost ?? false;
-        Gui.Update(_system?.AvailableGhostRoleCount, _system?.Player?.CanReturnToBody);
+        // DarkestHour: наборы событий третьей стороны — тоже в «Ролях призраков».
+        var roles = _system?.AvailableGhostRoleCount;
+        if (roles != null)
+            roles += IoCManager.Resolve<IEntityManager>().System<Content.Client._DarkestHour.ThirdParty.DHThirdPartyClientSystem>().Events.Count;
+        Gui.Update(roles, _system?.Player?.CanReturnToBody);
     }
 
     private void OnPlayerRemoved(GhostComponent component)
