@@ -169,7 +169,7 @@
   parent: BaseItem
   id: DHAttachmentLaser
   name: laser sight
-  description: "A rail-mounted laser sight. Tighter shots from the hip."
+  description: "A rail-mounted laser sight. Tighter shots from the hip; while the gun is shouldered, a red beam shows where it points and turns green on a target."
   components:
   - type: Sprite
     sprite: _DarkestHour/Objects/Weapons/Guns/Attachments/attachments.rsi
@@ -177,6 +177,11 @@
   - type: Item
     size: Small
   - type: ESGunAttachment
+  # Луч, как на Monolith (LaserPointer из Goobstation): пока оружие в двух руках — красный луч до препятствия
+  # (15 клеток), на цели — зелёный; видят все (решение автора 2026-11-27).
+  - type: ESGunComponentAttachment
+    component:
+    - type: LaserPointer
   - type: Tag
     tags:
     - DHAttachmentAccessory
