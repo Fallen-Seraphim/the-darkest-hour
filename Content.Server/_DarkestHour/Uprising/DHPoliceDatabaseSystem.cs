@@ -173,7 +173,7 @@ public sealed partial class DHPoliceDatabaseSystem : EntitySystem
         if (places.Count == 0)
             return Loc.GetString("dh-passport-place-lost-angels");
 
-        return Loc.GetString(places[_random.Next(places.Count)].Name);
+        return DHBirthplaces.Title(places[_random.Next(places.Count)], year);
     }
 
     /// <summary>Задание «проверить базу»: подбросить фальшивки, у каждой — одна явная несостыковка.</summary>

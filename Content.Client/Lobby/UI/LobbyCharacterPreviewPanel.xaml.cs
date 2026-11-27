@@ -83,7 +83,7 @@ public sealed partial class LobbyCharacterPreviewPanel : Control
         AgeValue.Text = profile.Age.ToString();
         BirthplaceValue.Text = profile.DHDetails.Birthplace is { } birthplace &&
                                _proto.TryIndex(birthplace, out var place)
-            ? Loc.GetString(place.Name)
+            ? DHBirthplaces.Title(place, DHBirthplaces.BirthYear(profile.Age))
             : Loc.GetString("dh-lobby-file-unknown");
         EmpireValue.Text = BestJob(profile, EmpireSide);
         RepublicValue.Text = BestJob(profile, RepublicSide);

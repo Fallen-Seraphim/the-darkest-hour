@@ -203,7 +203,7 @@ public sealed partial class DHCitySystem : EntitySystem
             description.Details.Birthplace is { } chosen &&
             _proto.TryIndex(chosen, out var chosenPlace))
         {
-            return Loc.GetString(chosenPlace.Name);
+            return DHBirthplaces.Title(chosenPlace, birthYear);
         }
 
         if (_random.Prob(0.5f))
@@ -218,7 +218,7 @@ public sealed partial class DHCitySystem : EntitySystem
 
         return places.Count == 0
             ? Loc.GetString(LocalBirthPlace)
-            : Loc.GetString(places[_random.Next(places.Count)].Name);
+            : DHBirthplaces.Title(places[_random.Next(places.Count)], birthYear);
     }
 
     private void Fill(Entity<DHPassportComponent> passport, string name,
