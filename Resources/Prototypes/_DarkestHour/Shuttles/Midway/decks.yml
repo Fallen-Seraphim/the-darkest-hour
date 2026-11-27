@@ -134,6 +134,8 @@
   parent: DHMidwayRampLoweredBase
   id: DHMidwayRampLowered4
   components:
+  - type: DHDropshipRampSegment
+    stage: 2 # ряд от петель: опускается по рядам (2026-11-27)
   - type: Sprite
     layers:
     - state: ramp-4-low
@@ -144,6 +146,8 @@
   parent: DHMidwayRampLoweredBase
   id: DHMidwayRampLowered5
   components:
+  - type: DHDropshipRampSegment
+    stage: 2 # ряд от петель: опускается по рядам (2026-11-27)
   - type: Sprite
     layers:
     - state: ramp-5-low
@@ -154,6 +158,8 @@
   parent: DHMidwayRampLoweredBase
   id: DHMidwayRampLowered6
   components:
+  - type: DHDropshipRampSegment
+    stage: 2 # ряд от петель: опускается по рядам (2026-11-27)
   - type: Sprite
     layers:
     - state: ramp-6-low
@@ -164,6 +170,8 @@
   parent: DHMidwayRampLoweredBase
   id: DHMidwayRampLowered7
   components:
+  - type: DHDropshipRampSegment
+    stage: 1 # ряд от петель: опускается по рядам (2026-11-27)
   - type: Sprite
     layers:
     - state: ramp-7-low
@@ -174,6 +182,8 @@
   parent: DHMidwayRampLoweredBase
   id: DHMidwayRampLowered8
   components:
+  - type: DHDropshipRampSegment
+    stage: 1 # ряд от петель: опускается по рядам (2026-11-27)
   - type: Sprite
     layers:
     - state: ramp-8-low
@@ -184,6 +194,8 @@
   parent: DHMidwayRampLoweredBase
   id: DHMidwayRampLowered9
   components:
+  - type: DHDropshipRampSegment
+    stage: 1 # ряд от петель: опускается по рядам (2026-11-27)
   - type: Sprite
     layers:
     - state: ramp-9-low
@@ -194,6 +206,8 @@
   parent: DHMidwayRampLoweredBase
   id: DHMidwayRampLowered10
   components:
+  - type: DHDropshipRampSegment
+    stage: 0 # ряд от петель: опускается по рядам (2026-11-27)
   - type: Sprite
     layers:
     - state: ramp-10-low
@@ -204,6 +218,8 @@
   parent: DHMidwayRampLoweredBase
   id: DHMidwayRampLowered11
   components:
+  - type: DHDropshipRampSegment
+    stage: 0 # ряд от петель: опускается по рядам (2026-11-27)
   - type: Sprite
     layers:
     - state: ramp-11-low
@@ -214,6 +230,8 @@
   parent: DHMidwayRampLoweredBase
   id: DHMidwayRampLowered12
   components:
+  - type: DHDropshipRampSegment
+    stage: 0 # ряд от петель: опускается по рядам (2026-11-27)
   - type: Sprite
     layers:
     - state: ramp-12-low

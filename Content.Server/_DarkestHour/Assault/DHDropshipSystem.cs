@@ -176,6 +176,17 @@ public sealed partial class DHDropshipComponent : Component
     [ViewVariables]
     public bool RampLowered;
 
+    /// <summary>Сколько рядов рампы опущено (0 — поднята).</summary>
+    [ViewVariables]
+    public int RampStage;
+
+    /// <summary>Рампа движется: к опусканию (true) или подъёму (false); null — стоит.</summary>
+    [ViewVariables]
+    public bool? RampMoving;
+
+    [ViewVariables]
+    public TimeSpan RampNextStep;
+
     /// <summary>Временная ЗП, созданная посадкой вне площадок: при взлёте убирается.</summary>
     [ViewVariables]
     public EntityUid? FieldZone;
@@ -404,8 +415,8 @@ public sealed partial class DHDropshipSystem : EntitySystem
             _shuttle.TryFTLDock(ship, shuttle, carrier);
         }
 
-        if (ship.Comp.RampLowered)
-            SetRamp(ship, false, null);
+        if (ship.Comp.RampLowered || ship.Comp.RampStage > 0)
+            SetRamp(ship, false, null, true);
 
         ship.Comp.State = DHDropshipState.Docked;
         ship.Comp.Zone = null;
@@ -556,8 +567,8 @@ public sealed partial class DHDropshipSystem : EntitySystem
         else
         {
             // Рампа поднимается сама; с неподготовленной площадки прогрев двигателей дольше.
-            if (comp.RampLowered)
-                SetRamp(ship, false, null);
+            if (comp.RampLowered || comp.RampStage > 0)
+                SetRamp(ship, false, null, true);
 
             var delay = comp.State == DHDropshipState.Landed && comp.FieldZone != null && comp.Zone == comp.FieldZone
                 ? comp.LaunchDelay * comp.FieldTakeoffFactor
@@ -730,6 +741,7 @@ public sealed partial class DHDropshipSystem : EntitySystem
             UpdateHover(ship, now);
         }
 
+        UpdateRampMotion(now);
         UpdateRamps(now);
 
         if (now < _nextUpdate)

@@ -33,6 +33,9 @@ public sealed partial class DHDropshipSystem
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private DHZTransitSystem _zTransit = default!;
+    [Dependency] private Content.Shared.Damage.DamageableSystem _damageable = default!;
+    [Dependency] private Content.Shared.Stunnable.SharedStunSystem _stun = default!;
+    [Dependency] private Content.Shared.Throwing.ThrowingSystem _throwing = default!;
 
     private static readonly SoundSpecifier RampSound = new SoundPathSpecifier("/Audio/_CMU14/Dropships/Mohawk/omaha_ramp.ogg");
     private static readonly SoundSpecifier GearSound = new SoundPathSpecifier("/Audio/_CMU14/Dropships/Mohawk/nightcustard_motor_whirring.ogg");
@@ -78,6 +81,14 @@ public sealed partial class DHDropshipSystem
         }
 
         _meta.SetEntityName(grid.Value, $"{shipName} — {Name(grid.Value)}");
+        // Ярус едет за кабиной телепортом: без физики и столкновений, иначе поверхность или корпус авианосца под ним
+        // расталкивают и разворачивают его (рассинхрон яруса с кабиной).
+        if (TryComp<PhysicsComponent>(grid.Value, out var body))
+        {
+            _physics.SetBodyType(grid.Value, Robust.Shared.Physics.BodyType.Static, body: body);
+            _physics.SetCanCollide(grid.Value, false, body: body);
+        }
+
         return grid.Value.Owner;
     }
 
@@ -262,7 +273,18 @@ public sealed partial class DHDropshipSystem
         return null;
     }
 
-    public void SetRamp(Entity<DHDropshipComponent> ship, bool lower, EntityUid? user)
+    /// <summary>Рядов у рампы «Мидуэя» (от петель к краю).</summary>
+    private const int RampStages = 3;
+
+    /// <summary>Шаг рампы: ряд за рядом, как в RuCM.</summary>
+    private static readonly TimeSpan RampStepDelay = TimeSpan.FromSeconds(0.7);
+
+    /// <summary>
+    /// Опустить или поднять рампу (решение автора 2026-11-27 — «реальное опускание, как в RuCM»): рампа идёт ряд за
+    /// рядом, со звуком; опускаясь, бьёт и сбивает тех, кто стоит под ней. Переходы между ярусами — только когда
+    /// опущена целиком. <paramref name="force"/> — сразу (взлёт, стыковка).
+    /// </summary>
+    public void SetRamp(Entity<DHDropshipComponent> ship, bool lower, EntityUid? user, bool force = false)
     {
         var comp = ship.Comp;
         if (lower && (comp.State is not (DHDropshipState.Landed or DHDropshipState.Docked) || !UndersideDeployed(comp)))
@@ -272,10 +294,55 @@ public sealed partial class DHDropshipSystem
             return;
         }
 
-        if (comp.RampLowered == lower)
+        if (force)
+        {
+            comp.RampMoving = null;
+            ApplyRampStage(ship, lower ? RampStages : 0);
+            comp.RampLowered = lower;
+            return;
+        }
+
+        if (comp.RampMoving == lower || comp.RampMoving == null && comp.RampLowered == lower)
             return;
 
-        comp.RampLowered = lower;
+        // Поднимается — по рампе больше не ходят между ярусами.
+        comp.RampLowered = false;
+        comp.RampMoving = lower;
+        comp.RampNextStep = _timing.CurTime;
+        _audio.PlayPvs(RampSound, ship);
+        if (comp.Underside is { } underside && Exists(underside) && Transform(underside).MapUid != DeckStorage())
+            _audio.PlayPvs(RampSound, underside);
+
+        Announce(ship, Loc.GetString(lower ? "dh-dropship-ramp-lowering" : "dh-dropship-ramp-raising"));
+    }
+
+    /// <summary>Шаги движущихся рамп.</summary>
+    private void UpdateRampMotion(TimeSpan now)
+    {
+        var ships = EntityQueryEnumerator<DHDropshipComponent>();
+        while (ships.MoveNext(out var uid, out var comp))
+        {
+            if (comp.RampMoving is not { } lower || now < comp.RampNextStep)
+                continue;
+
+            comp.RampNextStep = now + RampStepDelay;
+            var stage = Math.Clamp(comp.RampStage + (lower ? 1 : -1), 0, RampStages);
+            ApplyRampStage((uid, comp), stage);
+            if (stage != (lower ? RampStages : 0))
+                continue;
+
+            comp.RampMoving = null;
+            comp.RampLowered = lower;
+            Announce((uid, comp), Loc.GetString(lower ? "dh-dropship-ramp-lowered" : "dh-dropship-ramp-raised"));
+        }
+    }
+
+    /// <summary>Показать ряды рампы до <paramref name="stage"/>; переборки — с первого ряда.</summary>
+    private void ApplyRampStage(Entity<DHDropshipComponent> ship, int stage)
+    {
+        var comp = ship.Comp;
+        var previous = comp.RampStage;
+        comp.RampStage = stage;
         foreach (var grid in new[] { (EntityUid?) ship.Owner, comp.Underside })
         {
             if (grid is not { } g || !Exists(g))
@@ -287,17 +354,30 @@ public sealed partial class DHDropshipSystem
                 if (!TryComp<DHDropshipRampSegmentComponent>(child, out var segment))
                     continue;
 
-                _appearance.SetData(child, DHDropshipRampVisuals.Lowered, lower);
+                var shown = segment.Stage < stage;
+                _appearance.SetData(child, DHDropshipRampVisuals.Lowered, shown);
                 if (segment.Solid && TryComp<PhysicsComponent>(child, out var physics))
-                    _physics.SetCanCollide(child, lower, body: physics);
+                    _physics.SetCanCollide(child, shown, body: physics);
+
+                // Опускающийся ряд бьёт стоящих под ним: удар, сбивает с ног, отбрасывает.
+                if (shown && segment.Stage >= previous && !segment.Solid && g == comp.Underside)
+                    CrushUnderRamp(ship, child);
             }
         }
+    }
 
-        _audio.PlayPvs(RampSound, ship);
-        if (comp.Underside is { } underside && Exists(underside) && Transform(underside).MapUid != DeckStorage())
-            _audio.PlayPvs(RampSound, underside);
-
-        Announce(ship, Loc.GetString(lower ? "dh-dropship-ramp-lowered" : "dh-dropship-ramp-raised"));
+    private void CrushUnderRamp(EntityUid ship, EntityUid segment)
+    {
+        var coords = _transform.GetMapCoordinates(segment);
+        foreach (var victim in _lookup.GetEntitiesInRange<MobStateComponent>(coords, 0.45f))
+        {
+            _damageable.TryChangeDamage(victim.Owner,
+                new Content.Shared.Damage.DamageSpecifier { DamageDict = { ["Blunt"] = 40 } }, origin: ship);
+            _stun.TryKnockdown(victim.Owner, TimeSpan.FromSeconds(5), true);
+            var angle = _random.NextFloat() * MathF.Tau;
+            _throwing.TryThrow(victim.Owner, new Vector2(MathF.Cos(angle), MathF.Sin(angle)) * 3f, 3f, playSound: false);
+            _popup.PopupEntity(Loc.GetString("dh-dropship-ramp-crush"), victim.Owner, victim.Owner, PopupType.MediumCaution);
+        }
     }
 
     /// <summary>Переходы по краям опущенной рампы: из кабины к корме — вниз, с нижнего яруса к носу — наверх.</summary>
