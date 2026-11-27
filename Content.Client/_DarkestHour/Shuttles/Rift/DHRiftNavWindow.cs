@@ -146,9 +146,9 @@ public sealed partial class DHRiftNavWindow : DefaultWindow
         }
 
         _target.Text = nearest.Length > 0
-            ? Loc.GetString("dh-rift-nav-target", ("x", MathF.Round(target.X / 1000f, 1)), ("y", MathF.Round(target.Y / 1000f, 1)),
+            ? Loc.GetString("dh-rift-nav-target", ("x", (target.X / 1000f).ToString("0.0")), ("y", (target.Y / 1000f).ToString("0.0")),
                 ("body", nearest), ("distance", DHCelestial.FormatDistance(nearestDistance)))
-            : Loc.GetString("dh-rift-nav-target-empty", ("x", MathF.Round(target.X / 1000f, 1)), ("y", MathF.Round(target.Y / 1000f, 1)));
+            : Loc.GetString("dh-rift-nav-target-empty", ("x", (target.X / 1000f).ToString("0.0")), ("y", (target.Y / 1000f).ToString("0.0")));
 
         _jump.Text = Loc.GetString(_state?.Rift == true ? "dh-rift-nav-jump-rift" : "dh-rift-nav-jump");
         _jump.Disabled = _state is not { CanJump: true };

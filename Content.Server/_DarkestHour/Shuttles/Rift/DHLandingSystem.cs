@@ -211,7 +211,7 @@ public sealed partial class DHLandingSystem : EntitySystem
 
     private void UpdateUi(Entity<DHLandingConsoleComponent> ent)
     {
-        var shuttle = Transform(ent).GridUid;
+        var shuttle = _rift.ShipOf(ent);
         var map = shuttle != null ? Transform(shuttle.Value).MapUid : null;
         var bodies = new List<DHLandingBodyEntry>();
         var grids = new List<DHRiftNavGrid>();
@@ -355,7 +355,7 @@ public sealed partial class DHLandingSystem : EntitySystem
 
     private void OnDescend(Entity<DHLandingConsoleComponent> ent, ref DHLandingDescendMessage args)
     {
-        var shuttle = Transform(ent).GridUid;
+        var shuttle = _rift.ShipOf(ent);
         if (!CanFly(shuttle, out var status))
         {
             _popup.PopupEntity(status, ent, PopupType.MediumCaution);
@@ -407,7 +407,7 @@ public sealed partial class DHLandingSystem : EntitySystem
 
     private void OnAscend(Entity<DHLandingConsoleComponent> ent, ref DHLandingAscendMessage args)
     {
-        var shuttle = Transform(ent).GridUid;
+        var shuttle = _rift.ShipOf(ent);
         if (!CanFly(shuttle, out var status))
         {
             _popup.PopupEntity(status, ent, PopupType.MediumCaution);
@@ -475,7 +475,7 @@ public sealed partial class DHLandingSystem : EntitySystem
     /// <summary>Из атмосферы — посадка на поверхность под кораблём.</summary>
     private void OnLand(Entity<DHLandingConsoleComponent> ent, ref DHLandingLandMessage args)
     {
-        var shuttle = Transform(ent).GridUid;
+        var shuttle = _rift.ShipOf(ent);
         if (!CanFly(shuttle, out var status))
         {
             _popup.PopupEntity(status, ent, PopupType.MediumCaution);

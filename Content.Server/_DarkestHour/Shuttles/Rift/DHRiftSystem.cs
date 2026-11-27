@@ -1,3 +1,4 @@
+using Content.Server._DarkestHour.Carrier;
 using Content.Server._DarkestHour.Medical.Radiation;
 using Content.Server.Lightning;
 using Content.Server.Power.EntitySystems;
@@ -33,6 +34,7 @@ namespace Content.Server._DarkestHour.Shuttles.Rift;
 /// </summary>
 public sealed partial class DHRiftSystem : EntitySystem
 {
+    [Dependency] private DHCarrierDecksSystem _carrierDecks = default!;
     [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private DHDoseSystem _dose = default!;
     [Dependency] private LightningSystem _lightning = default!;
@@ -143,7 +145,15 @@ public sealed partial class DHRiftSystem : EntitySystem
         _popup.PopupEntity(Loc.GetString("dh-rift-charging"), ev.Console, PopupType.Medium);
     }
 
-    /// <summary>Генератор и подходящий накопитель на корабле; иначе — причина отказа.</summary>
+    /// <summary>
+    /// Корабль, которым управляет консоль: грид консоли, а у авианосца с уровнями — его корпус (нижняя палуба),
+    /// даже если консоль на мостике в надстройке. Прыгает корпус, уровни следуют за ним сами.
+    /// </summary>
+    public EntityUid? ShipOf(EntityUid console)
+    {
+        return Transform(console).GridUid is { } grid ? _carrierDecks.HullOf(grid) : null;
+    }
+
     private List<Entity<MapGridComponent>> _exitGrids = new();
 
     /// <summary>
@@ -173,6 +183,7 @@ public sealed partial class DHRiftSystem : EntitySystem
         return true;
     }
 
+    /// <summary>Генератор и подходящий накопитель на корабле (у авианосца — на любом его уровне); иначе — причина отказа.</summary>
     public bool TryGetRiftGear(EntityUid shuttle, out EntityUid generator, out EntityUid accumulator, out string reason)
     {
         generator = EntityUid.Invalid;
@@ -182,7 +193,7 @@ public sealed partial class DHRiftSystem : EntitySystem
         var generators = EntityQueryEnumerator<DHRiftGeneratorComponent, TransformComponent>();
         while (generators.MoveNext(out var uid, out var comp, out var xform))
         {
-            if (xform.GridUid != shuttle || !xform.Anchored)
+            if (!_carrierDecks.OnCarrier(xform.GridUid, shuttle) || !xform.Anchored)
                 continue;
 
             generator = uid;
@@ -216,7 +227,7 @@ public sealed partial class DHRiftSystem : EntitySystem
         var accumulators = EntityQueryEnumerator<DHRiftAccumulatorComponent, TransformComponent>();
         while (accumulators.MoveNext(out var uid, out var comp, out var xform))
         {
-            if (xform.GridUid != shuttle || !xform.Anchored)
+            if (!_carrierDecks.OnCarrier(xform.GridUid, shuttle) || !xform.Anchored)
                 continue;
 
             if (best == null || comp.MaxMass > best.MaxMass)
@@ -314,7 +325,7 @@ public sealed partial class DHRiftSystem : EntitySystem
         var query = EntityQueryEnumerator<MobStateComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out _, out var xform))
         {
-            if (xform.GridUid != shuttle)
+            if (!_carrierDecks.OnCarrier(xform.GridUid, shuttle))
                 continue;
 
             _damageable.TryChangeDamage(uid, radiation);

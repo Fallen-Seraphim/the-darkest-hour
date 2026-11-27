@@ -124,7 +124,7 @@ public sealed partial class DHRiftNavSystem : EntitySystem
 
     private void UpdateUi(Entity<DHRiftNavConsoleComponent> ent)
     {
-        var shuttle = Transform(ent).GridUid;
+        var shuttle = _rift.ShipOf(ent);
         var shuttleMap = shuttle != null ? Transform(shuttle.Value).MapUid : null;
         var current = CurrentSystem(shuttleMap);
         var viewed = ent.Comp.ViewedSystem ?? current ?? string.Empty;
@@ -221,7 +221,7 @@ public sealed partial class DHRiftNavSystem : EntitySystem
 
     private void OnJump(Entity<DHRiftNavConsoleComponent> ent, ref DHRiftNavJumpMessage args)
     {
-        var shuttle = Transform(ent).GridUid;
+        var shuttle = _rift.ShipOf(ent);
         if (shuttle == null || !TryComp<ShuttleComponent>(shuttle, out var shuttleComp) || !shuttleComp.Enabled)
             return;
 
