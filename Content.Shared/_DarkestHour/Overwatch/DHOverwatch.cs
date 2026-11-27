@@ -267,6 +267,10 @@ public sealed class DHOverwatchSquad
 /// <summary>
 /// Приказ: <see cref="Squad"/> — ID отряда, <see cref="NoSquad"/> — бойцам вне отрядов, null — всей стороне.
 /// </summary>
+/// <summary>Командный планшет с объявлениями: открыть окно объявлений стороне.</summary>
+[Serializable, NetSerializable]
+public sealed class DHOverwatchOpenAnnouncerMessage : BoundUserInterfaceMessage;
+
 [Serializable, NetSerializable]
 public sealed class DHOverwatchOrderMessage : BoundUserInterfaceMessage
 {

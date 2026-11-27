@@ -60,3 +60,4 @@ dh-control-point-terminal = Нефтяной терминал
 dh-control-point-terminal-desc = Даёт 3 оч. командования в минуту.
 dh-control-point-factory = Завод
 dh-control-point-factory-desc = Даёт 3 оч. командования в минуту.
+dh-overwatch-ui-announce = Объявление

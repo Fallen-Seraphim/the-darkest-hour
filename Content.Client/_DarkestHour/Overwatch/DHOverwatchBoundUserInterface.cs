@@ -44,6 +44,13 @@ public sealed partial class DHOverwatchBoundUserInterface : BoundUserInterface
             _window.DefaultSquad = member.Squad.Id;
         }
         _window.OnTacticalMap += OpenTacticalMap;
+
+        // Командный планшет командующего — он же планшет объявлений.
+        if (EntMan.HasComponent<Content.Shared._DarkestHour.Announcements.DHFactionAnnouncerComponent>(Owner))
+        {
+            _window.AnnounceButton.Visible = true;
+            _window.OnAnnounce += () => SendMessage(new DHOverwatchOpenAnnouncerMessage());
+        }
     }
 
     private void OpenTacticalMap()

@@ -60,3 +60,4 @@ dh-control-point-terminal = Oil terminal
 dh-control-point-terminal-desc = Gives 3 command points per minute.
 dh-control-point-factory = Factory
 dh-control-point-factory-desc = Gives 3 command points per minute.
+dh-overwatch-ui-announce = Announcement
