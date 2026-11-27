@@ -18,6 +18,9 @@ public sealed class LaserPointerOverlay : Overlay
 
     private readonly ShaderInstance _unshadedShader;
 
+    // DarkestHour: анализатор RA0033 запрещает строковый литерал в Index.
+    private static readonly ProtoId<ShaderPrototype> UnshadedShader = "unshaded";
+
     public LaserPointerOverlay(IEntityManager entManager, IPrototypeManager prototype)
     {
         ZIndex = (int) DrawDepth.Effects;
@@ -26,7 +29,7 @@ public sealed class LaserPointerOverlay : Overlay
 
         _transform = entManager.System<TransformSystem>();
 
-        _unshadedShader = prototype.Index<ShaderPrototype>("unshaded").Instance();
+        _unshadedShader = prototype.Index(UnshadedShader).Instance();
     }
 
     protected override void Draw(in OverlayDrawArgs args)
