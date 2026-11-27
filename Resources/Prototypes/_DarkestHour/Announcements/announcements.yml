@@ -105,12 +105,13 @@
   components:
   - type: Item
     size: Small
-    sprite: Objects/Devices/tablets.rsi
+    sprite: _RMC14/Objects/Devices/command_tablet.rsi
   - type: ActivatableUI
     key: enum.DHFactionAnnouncerUiKey.Key
     inHandsOnly: true
   - type: Sprite
-    sprite: Objects/Devices/tablets.rsi
+    sprite: _RMC14/Objects/Devices/command_tablet.rsi
+    state: cotablet
 
 - type: entity
   parent: DHAnnounceTabletBase
@@ -118,12 +119,6 @@
   name: garrison announcement tablet
   description: The base commander's tablet for announcements to the whole garrison. Only the Republic hears them.
   components:
-  - type: Sprite
-    layers:
-    - state: tablet
-    - state: generic
-      shader: unshaded
-      color: "#8FD66B"
   - type: DHFactionAnnouncer
     faction: Republic
     sender: dh-faction-announce-sender-republic
@@ -134,11 +129,6 @@
   name: operation announcement tablet
   description: The operation commander's tablet for announcements to the whole landing force. Only the Empire hears them.
   components:
-  - type: Sprite
-    layers:
-    - state: tablet
-    - state: syndie
-      shader: unshaded
   - type: DHFactionAnnouncer
     faction: Empire
     sender: dh-faction-announce-sender-empire

@@ -56,10 +56,20 @@ public sealed partial class DHOverwatchSystem : EntitySystem
             subs.Event<BoundUIClosedEvent>(OnClosed);
             subs.Event<DHOverwatchWatchMessage>(OnWatch);
             subs.Event<DHOverwatchOrderMessage>(OnOrder);
+            subs.Event<DHOverwatchOpenAnnouncerMessage>(OnOpenAnnouncer);
             subs.Event<DHTacticalMapRequestMessage>(OnTacticalMapRequest);
         });
 
         SubscribeLocalEvent<DHOverwatchConsoleComponent, ComponentShutdown>(OnShutdown);
+    }
+
+    /// <summary>Командный планшет командующего — он же планшет объявлений: кнопка в окне открывает объявления.</summary>
+    private void OnOpenAnnouncer(Entity<DHOverwatchConsoleComponent> ent, ref DHOverwatchOpenAnnouncerMessage args)
+    {
+        if (!HasComp<Content.Shared._DarkestHour.Announcements.DHFactionAnnouncerComponent>(ent))
+            return;
+
+        _ui.OpenUi(ent.Owner, Content.Shared._DarkestHour.Announcements.DHFactionAnnouncerUiKey.Key, args.Actor);
     }
 
     private void OnOpened(Entity<DHOverwatchConsoleComponent> ent, ref BoundUIOpenedEvent args)

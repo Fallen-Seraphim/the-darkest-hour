@@ -107,16 +107,14 @@
   components:
   - type: Item
     size: Small
-    sprite: Objects/Devices/tablets.rsi
+    sprite: _RMC14/Objects/Devices/command_tablet.rsi
   - type: ActivatableUI
     key: enum.DHOverwatchUiKey.Key
     inHandsOnly: true
+  # Командный планшет RMC-14 (решение автора 2026-11-27: спрайт для всех планшетов).
   - type: Sprite
-    sprite: Objects/Devices/tablets.rsi
-    layers:
-    - state: tablet
-    - state: generic
-      shader: unshaded
+    sprite: _RMC14/Objects/Devices/command_tablet.rsi
+    state: cotablet
 
 - type: entity
   parent: DHOverwatchTabletBase
@@ -133,13 +131,6 @@
   name: landing command tablet
   description: A field tablet linked to the helmet cameras of the landing force. Orders typed here reach the chosen squad.
   components:
-  - type: Item
-    sprite: Objects/Devices/tablets.rsi
-  - type: Sprite
-    layers:
-    - state: tablet
-    - state: syndie
-      shader: unshaded
   - type: DHOverwatchConsole
     faction: Empire
 
@@ -164,6 +155,40 @@
     faction: Empire
     factionOrders: true
 
+# Командный планшет командующего (решение автора 2026-11-27): командный планшет и планшет объявлений в одном —
+# кнопка «Объявление» в окне планшета открывает объявления всей стороне. У командира базы и командующего операцией.
+- type: entity
+  parent: DHOverwatchTabletRepublicCommand
+  id: DHCommandTabletRepublic
+  name: garrison commander's tablet
+  description: The base commander's field tablet linked to the helmet cameras of the whole garrison. Orders typed here reach the chosen squad or every soldier of the base; announcements go to the whole garrison.
+  components:
+  - type: UserInterface
+    interfaces:
+      enum.DHOverwatchUiKey.Key:
+        type: DHOverwatchBoundUserInterface
+      enum.DHFactionAnnouncerUiKey.Key:
+        type: DHFactionAnnouncerBoundUserInterface
+  - type: DHFactionAnnouncer
+    faction: Republic
+    sender: dh-faction-announce-sender-republic
+
+- type: entity
+  parent: DHOverwatchTabletEmpireCommand
+  id: DHCommandTabletEmpire
+  name: operation commander's tablet
+  description: The operation commander's field tablet linked to the helmet cameras of the whole landing force. Orders typed here reach the chosen squad or every marine and crewman; announcements go to the whole landing force.
+  components:
+  - type: UserInterface
+    interfaces:
+      enum.DHOverwatchUiKey.Key:
+        type: DHOverwatchBoundUserInterface
+      enum.DHFactionAnnouncerUiKey.Key:
+        type: DHFactionAnnouncerBoundUserInterface
+  - type: DHFactionAnnouncer
+    faction: Empire
+    sender: dh-faction-announce-sender-empire
+
 # Командный планшет ЧВК LA-V (решение автора 2026-11-26): у командира отряда — бойцы LA-V, вид их глазами, тактическая
 # карта (только общеизвестное: зоны, ЗП, ориентиры) и приказы отряду крупно на экран.
 - type: entity
@@ -172,12 +197,6 @@
   name: LA-V command tablet
   description: A corporate tablet linked to the body cameras of the LA-V squad. Shows the contract and how the operation goes; orders typed here appear before the eyes of every contractor.
   components:
-  - type: Sprite
-    layers:
-    - state: tablet
-    - state: generic
-      shader: unshaded
-      color: "#B08CFF"
   - type: DHOverwatchConsole
     lav: true
     orderSender: dh-overwatch-order-sender-lav

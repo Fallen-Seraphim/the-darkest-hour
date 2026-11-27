@@ -22,6 +22,10 @@ public sealed class DHOverwatchWindow : DefaultWindow
     public event Action<NetEntity?>? OnWatch;
     public event Action<string, string?>? OnOrder;
     public event Action? OnTacticalMap;
+    public event Action? OnAnnounce;
+
+    /// <summary>Кнопка «Объявление» (командный планшет командующего).</summary>
+    public readonly Button AnnounceButton = new() { Visible = false };
 
     private static readonly Color Ok = Color.FromHex("#8FD66B");
     private static readonly Color Warn = Color.FromHex("#E8B04A");
@@ -132,6 +136,9 @@ public sealed class DHOverwatchWindow : DefaultWindow
         var tacmap = new Button { Text = Loc.GetString("dh-overwatch-ui-tacmap") };
         tacmap.OnPressed += _ => OnTacticalMap?.Invoke();
         viewHeader.AddChild(tacmap);
+        AnnounceButton.Text = Loc.GetString("dh-overwatch-ui-announce");
+        AnnounceButton.OnPressed += _ => OnAnnounce?.Invoke();
+        viewHeader.AddChild(AnnounceButton);
         var disconnect = new Button { Text = Loc.GetString("dh-overwatch-ui-disconnect") };
         disconnect.OnPressed += _ => OnWatch?.Invoke(null);
         viewHeader.AddChild(disconnect);

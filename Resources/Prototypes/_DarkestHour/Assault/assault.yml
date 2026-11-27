@@ -38,8 +38,7 @@
     - DHMagazine10x24ShortE
     - Binoculars
     - DHLaserDesignator
-    - DHOverwatchTabletRepublicCommand
-    - DHAnnounceTabletRepublic # объявления стороне (решение автора 2026-11-26)
+    - DHCommandTabletRepublic # командный планшет с объявлениями (решение автора 2026-11-27)
     - DHSignalFlareKit
     - DHMedalTabletRepublic # наградной лист (итоги раунда, план осады п. 6)
 
@@ -773,8 +772,7 @@
     - DHMagazine145x114Std
     - DHMagazine145x114Std
     - Binoculars
-    - DHOverwatchTabletEmpireCommand
-    - DHAnnounceTabletEmpire # объявления стороне (решение автора 2026-11-26)
+    - DHCommandTabletEmpire # командный планшет с объявлениями (решение автора 2026-11-27)
     - DHMedalTabletEmpire # наградной лист (итоги раунда, план осады п. 6)
 
 - type: startingGear
