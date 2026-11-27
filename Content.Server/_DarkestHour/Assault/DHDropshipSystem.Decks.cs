@@ -333,7 +333,7 @@ public sealed partial class DHDropshipSystem
 
             comp.RampMoving = null;
             comp.RampLowered = lower;
-            Announce((uid, comp), Loc.GetString(lower ? "dh-dropship-ramp-lowered" : "dh-dropship-ramp-raised"));
+            Announce(uid, Loc.GetString(lower ? "dh-dropship-ramp-lowered" : "dh-dropship-ramp-raised"));
         }
     }
 
