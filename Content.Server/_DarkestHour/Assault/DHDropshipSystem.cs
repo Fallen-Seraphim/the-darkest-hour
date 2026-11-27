@@ -716,6 +716,8 @@ public sealed partial class DHDropshipSystem : EntitySystem
             }
         }
 
+        FollowHangars();
+
         foreach (var ship in departing)
         {
             Launch(ship);
@@ -768,6 +770,52 @@ public sealed partial class DHDropshipSystem : EntitySystem
     }
 
     /// <summary>
+    /// Челнок в ангаре — как ещё один уровень авианосца: каждый тик стоит точно на маркере стоянки, куда бы
+    /// авианосец ни унесли прыжок, разрыв или спуск (и вместе с ним проходит через разрыв, а не догоняет потом).
+    /// </summary>
+    private void FollowHangars()
+    {
+        var moved = new List<(Entity<DHDropshipComponent> Ship, EntityUid Map, Vector2 Origin, Angle Rotation)>();
+        var query = EntityQueryEnumerator<DHDropshipComponent, TransformComponent>();
+        while (query.MoveNext(out var uid, out var comp, out var xform))
+        {
+            if (comp.State is not (DHDropshipState.Docked or DHDropshipState.Departing) ||
+                comp.Hangar is not { } hangarUid || !TryComp<DHDropshipHangarComponent>(hangarUid, out var hangar) ||
+                Transform(hangarUid).MapUid is not { } map)
+            {
+                continue;
+            }
+
+            var (origin, rotation) = HangarPlacement((hangarUid, hangar));
+            if (xform.MapUid == map)
+            {
+                var (position, current) = _transform.GetWorldPositionRotation(xform);
+                if ((position - origin).LengthSquared() <= 0.0001f && current.EqualsApprox(rotation, 0.0001))
+                    continue;
+            }
+
+            moved.Add(((uid, comp), map, origin, rotation));
+        }
+
+        foreach (var (ship, map, origin, rotation) in moved)
+        {
+            var xform = Transform(ship);
+            if (xform.MapUid == map)
+                _transform.SetWorldPositionRotation(ship, origin, rotation, xform);
+            else
+                _transform.SetCoordinates(ship, xform, new EntityCoordinates(map, origin), rotation);
+
+            if (TryComp<PhysicsComponent>(ship, out var physics))
+            {
+                _physics.SetLinearVelocity(ship, Vector2.Zero, body: physics);
+                _physics.SetAngularVelocity(ship, 0f, body: physics);
+            }
+
+            SyncDecks(ship);
+        }
+    }
+
+    /// <summary>
     /// Пристыкованные челноки следуют за авианосцем: прыжок и спуск в атмосферу переносят только сам авианосец
     /// (стыковка рвётся) — челноки стыкуются заново, как только он на месте.
     /// </summary>
@@ -777,8 +825,12 @@ public sealed partial class DHDropshipSystem : EntitySystem
         var lost = new List<Entity<DHDropshipComponent>>();
         while (ships.MoveNext(out var uid, out var comp, out var xform))
         {
-            if (comp.State != DHDropshipState.Docked || comp.Carrier is not { } carrier || !Exists(carrier))
+            // В ангаре челнок каждый тик стоит на своём маркере (FollowHangars).
+            if (comp.State != DHDropshipState.Docked || comp.Carrier is not { } carrier || !Exists(carrier) ||
+                comp.Hangar != null && Exists(comp.Hangar))
+            {
                 continue;
+            }
 
             if (TryComp<FTLComponent>(carrier, out var ftl) &&
                 ftl.State is FTLState.Starting or FTLState.Travelling or FTLState.Arriving)
