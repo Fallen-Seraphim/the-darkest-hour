@@ -145,7 +145,7 @@ public sealed partial class DHRiftSystem
         var mobs = EntityQueryEnumerator<MobStateComponent, ActorComponent, TransformComponent>();
         while (mobs.MoveNext(out _, out _, out var actor, out var xform))
         {
-            if (xform.GridUid == shuttle)
+            if (_carrierDecks.OnCarrier(xform.GridUid, shuttle))
                 filter.AddPlayer(actor.PlayerSession);
         }
 
