@@ -867,10 +867,10 @@ class Map3(tb.World):
         put('ПВО', 'PVO', (40, 24))
         put('РЛС', 'RLS', (40, 34))
         tb.NORTH_ROAD_X = (tb.RLS[2] + 1, tb.RLS[2] + 4)
-        tb.World.pko(self)
-        tb.World.pvo(self)
-        tb.World.rls(self)
-        for attr in ('PKO', 'PVO', 'RLS'):
+        # ПКО, ПВО и РЛС — на горе, на уровне +1 (решение автора 2026-11-27); под ними — скала, подъём — лестницы
+        # у подножия, где выходят дороги и ущелья.
+        for attr, fn, site in (('PKO', tb.World.pko, 'ПКО'), ('PVO', tb.World.pvo, 'ПВО'), ('RLS', tb.World.rls, 'РЛС')):
+            self.raised(fn, getattr(tb, attr), self.site_xy(site))
             self.plateau(getattr(tb, attr))
         x0, y0, x1, y1 = self.site_xy('блокпост')
         hy = gy(HW_V[1])
@@ -907,7 +907,7 @@ class Map3(tb.World):
             outer = [d for d in rot if (x + d[0], y + d[1]) not in ring and not (x0 <= x + d[0] <= x1 and y0 <= y + d[1] <= y1)]
             if outer and (x + y) % 2 == 0:
                 self.lv_ent(1, 'DHSandbagBarricade', x, y, rot[outer[0]])
-        placed = 0
+        placed = 2      # объект сам на +1 — отдельные лестницы на кольцо не нужны
         for (lx, ly) in ((x0 + 1, y1 - 1), (x1 - 1, y1 - 1), (x0 + 1, y0 + 1), (x1 - 1, y0 + 1)):
             if placed >= 2 or (lx, ly) in self.occ:
                 continue
@@ -923,6 +923,72 @@ class Map3(tb.World):
                 self.lv_tile(1, nx, y, 'FloorSteel')
             self.ladder(lx, ly, 0, 1)
             placed += 1
+
+    def raised(self, fn, box, outer):
+        """Собрать объект старым кодом v2 во временном мире и поставить его на +1 (его вышки — на +2); под площадкой на
+        уровне 0 — скальный массив; две лестницы с земли у края площадки."""
+        w = tb.World(self.known)
+        w.missing = self.missing
+        w.rng = random.Random(sum(map(ord, fn.__name__)))
+        fn(w)
+        up, top = self.levels[1], self.levels[2]
+        up.tiles.update(w.tiles)
+        up.roof.update(w.roof)
+        up.ents.extend((e[0], e[1], e[2], e[3], e[4] if len(e) > 4 else None, e[5] if len(e) > 5 else None)
+                       for e in w.ents)
+        top.tiles.update(w.p1.tiles)
+        top.roof.update(w.p1.roof)
+        top.ents.extend(w.p1.ents)
+        bx0, by0, bx1, by1 = box
+        x0, y0, x1, y1 = (min(outer[0], bx0), min(outer[1], by0), max(outer[2], bx1), max(outer[3], by1))
+        cells = [(x, y) for x in range(x0, x1 + 1) for y in range(y0, y1 + 1)]
+        # под объектом и всей его площадкой — скала, а на +1 вся площадка — грунт вершины
+        for c in cells:
+            up.tiles.setdefault(c, 'FloorDesert')
+        for c in cells:
+            self.tiles[c] = ROCK_TILE
+            self.rock_cells.add(c)
+            self.res.add(c)
+            self.occ.add(c)
+        hw, hh = (x1 - x0 + 1) / 2, (y1 - y0 + 1) / 2
+        self.ents.append(('DHRockMass', x0 + hw, y0 + hh, 0.0, None,
+                          ['    - type: Fixtures', '      fixtures:', '        fix1:', '          shape:',
+                           '            !type:PhysShapeAabb', f'            bounds: "{-hw},{-hh},{hw},{hh}"',
+                           '          mask:', '          - FullTileMask', '          layer:', '          - WallLayer',
+                           '          density: 1000',
+                           '    - type: Occluder', '      polygon:', f'      - "{-hw},{-hh}"', f'      - "{hw},{-hh}"',
+                           f'      - "{hw},{hh}"', f'      - "{-hw},{hh}"']))
+        # подъём: свободные клетки у края площадки (дорога, ущелье), ближе к южной середине
+        cx = (x0 + x1) / 2
+        around = [(x, y0 - 1) for x in range(x0, x1 + 1)] + [(x, y1 + 1) for x in range(x0, x1 + 1)] + \
+                 [(x0 - 1, y) for y in range(y0, y1 + 1)] + [(x1 + 1, y) for y in range(y0, y1 + 1)]
+        free = [c for c in around if not self.is_rock(*c) and c not in self.water and c not in self.occ and
+                self.inside(*c)]
+        free.sort(key=lambda c: (c[0] - cx) ** 2 + (c[1] - y0) ** 2)
+        chosen = []
+        for c in free:
+            if all(abs(c[0] - o[0]) + abs(c[1] - o[1]) >= 10 for o in chosen):
+                chosen.append(c)
+            if len(chosen) == 2:
+                break
+        if not chosen:
+            print('нет подъёма к', fn.__name__)
+        for (lx, ly) in chosen:
+            self.lv_tile(1, lx, ly, 'FloorSteel')
+            ix = min(max(lx, bx0), bx1)
+            iy = min(max(ly, by0), by1)
+            # дорожка по площадке от лестницы до объекта
+            for x in range(min(lx, ix), max(lx, ix) + 1):
+                up.tiles[(x, ly if y0 <= ly <= y1 else iy)] = up.tiles.get((x, ly), 'FloorDirt')
+            for y in range(min(ly, iy), max(ly, iy) + 1):
+                up.tiles[(ix if x0 <= ix <= x1 else lx, y)] = up.tiles.get((ix, y), 'FloorDirt')
+            # проход в ограде/стене объекта на +1 напротив лестницы
+            up.ents[:] = [e for e in up.ents if not ((math.floor(e[1]), math.floor(e[2])) == (ix, iy) and
+                                                      ('Fence' in e[0] or 'Wall' in e[0] or 'Barbed' in e[0] or
+                                                       'Sandbag' in e[0]))]
+            up.tiles.setdefault((ix, iy), 'FloorSteel')
+            self.ladder(lx, ly, 0, 1)
+            self.ent('DHSandbagBarricade', lx + (1 if lx < cx else -1), ly, free=True)
 
     def village_houses(self):
         """Деревня крупнее (решение автора: чердаки и вторые этажи): к прежней деревне — двухэтажные дома вокруг."""

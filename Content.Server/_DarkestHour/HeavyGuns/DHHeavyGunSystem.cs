@@ -505,7 +505,12 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         systemMap = default;
         origin = default;
 
-        if (!TryComp<DHPlanetSurfaceMapComponent>(Transform(console).MapUid, out var surface) ||
+        // Пульт на верхнем Z-уровне (ПКО на горе, большой Терминус) — поверхность под ним.
+        var consoleMap = Transform(console).MapUid;
+        if (consoleMap is { } cm && _zLevels.TryGetLevel(cm, out var consoleLevel))
+            consoleMap = _zLevels.LevelMap(consoleLevel.Stack, 0) ?? cm;
+
+        if (!TryComp<DHPlanetSurfaceMapComponent>(consoleMap, out var surface) ||
             _celestial.GetSystemMap(surface.System) is not { } map ||
             !_celestial.TryGetSystem(map, out system, out origin))
         {
