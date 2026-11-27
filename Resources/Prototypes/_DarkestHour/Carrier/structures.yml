@@ -87,3 +87,16 @@
   components:
   - type: Sprite
     visible: false
+
+# Фидер палубы (2026-11-27): питание верхних уровней авианосца — шины от реакторов нижней палубы (полётная палуба и
+# надстройка — отдельные гриды, кабелем с нижней палубой не соединяются).
+- type: entity
+  parent: BaseGenerator
+  id: DHCarrierDeckPowerFeed
+  name: deck power feed
+  description: Bus bars bringing power up from the reactors on the lower deck.
+  components:
+  - type: PowerSupplier
+    supplyRate: 3000000
+    supplyRampRate: 1000000
+    supplyRampTolerance: 1000000

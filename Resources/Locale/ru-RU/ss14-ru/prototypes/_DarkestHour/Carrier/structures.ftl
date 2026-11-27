@@ -10,3 +10,5 @@ ent-DHFusionReactorShip = { ent-DHFusionReactorFueled }
     .desc = { ent-DHFusionReactorFueled.desc }
 ent-DHHangarAirSeal = воздушная завеса ангара
     .desc = Силовая завеса по краю отсека челнока: воздух палубы держит, а людей пропускает.
+ent-DHCarrierDeckPowerFeed = фидер палубы
+    .desc = Шины, по которым питание поднимается от реакторов нижней палубы.

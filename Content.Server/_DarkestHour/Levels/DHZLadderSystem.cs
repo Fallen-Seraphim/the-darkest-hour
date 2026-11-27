@@ -28,11 +28,20 @@ public sealed partial class DHZLadderSystem : EntitySystem
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private DHZLevelSystem _z = default!;
     [Dependency] private DHZTransitSystem _zTransit = default!;
+    [Dependency] private Robust.Shared.Timing.IGameTiming _timing = default!;
 
     private static readonly SoundSpecifier ClimbSound = new SoundCollectionSpecifier("FootstepCatwalk");
 
     /// <summary>Насколько точно лестница на соседнем уровне должна стоять над/под этой.</summary>
     private const float MatchRange = 0.6f;
+
+    /// <summary>
+    /// Лестницы на кораблях (авианосец, челнок) переезжают между картами вместе с гридом — их спрайты изредка
+    /// пересчитываются по соседям.
+    /// </summary>
+    private static readonly TimeSpan RefreshInterval = TimeSpan.FromSeconds(10);
+
+    private TimeSpan _nextRefresh;
 
     public override void Initialize()
     {
@@ -44,6 +53,27 @@ public sealed partial class DHZLadderSystem : EntitySystem
         SubscribeLocalEvent<DHZLadderComponent, GetVerbsEvent<AlternativeVerb>>(OnVerbs);
         SubscribeLocalEvent<DHZLadderComponent, DHZLadderDoAfterEvent>(OnDoAfter);
         SubscribeLocalEvent<DHZLadderComponent, ExaminedEvent>(OnExamined);
+    }
+
+    public override void Update(float frameTime)
+    {
+        base.Update(frameTime);
+
+        var now = _timing.CurTime;
+        if (now < _nextRefresh)
+            return;
+
+        _nextRefresh = now + RefreshInterval;
+        var query = EntityQueryEnumerator<DHZLadderComponent, TransformComponent>();
+        while (query.MoveNext(out var uid, out _, out var xform))
+        {
+            // Только на подвижных гридах (у корабля есть физика); лестницы городов и бункеров не меняются.
+            if (xform.GridUid is { } grid && grid != xform.MapUid && HasComp<Content.Shared.Shuttles.Components.ShuttleComponent>(grid) ||
+                xform.GridUid is { } deck && HasComp<Content.Server._DarkestHour.Carrier.DHCarrierDeckComponent>(deck))
+            {
+                UpdateVisuals(uid);
+            }
+        }
     }
 
     #region Соединения

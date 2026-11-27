@@ -40,6 +40,7 @@ public sealed partial class DHCarrierDamageSystem : EntitySystem
 {
     [Dependency] private DHAssaultRuleSystem _assault = default!;
     [Dependency] private AtmosphereSystem _atmos = default!;
+    [Dependency] private DHCarrierDecksSystem _decks = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private DHFireSystem _fire = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
@@ -114,19 +115,58 @@ public sealed partial class DHCarrierDamageSystem : EntitySystem
         return compartment.Boxes.Any(b => b.Contains(local));
     }
 
-    /// <summary>Отсек такого вида на корабле сейчас повреждён (есть незалатанная пробоина).</summary>
+    /// <summary>
+    /// Отсек такого вида на корабле сейчас повреждён (есть незалатанная пробоина). С 2026-11-27 корабль — несколько
+    /// гридов по уровням: смотрятся все уровни авианосца, к которому относится грид.
+    /// </summary>
     public bool Damaged(EntityUid? grid, DHCarrierCompartmentKind kind)
     {
-        if (grid == null || Layout(grid.Value) is not { } layout)
+        if (grid == null)
             return false;
 
-        foreach (var compartment in layout.Compartments)
+        foreach (var part in _decks.Group(grid.Value))
         {
-            if (compartment.Kind == kind && _disabled.ContainsKey((grid.Value, compartment.Id)))
-                return true;
+            if (Layout(part) is not { } layout)
+                continue;
+
+            foreach (var compartment in layout.Compartments)
+            {
+                if (compartment.Kind == kind && _disabled.ContainsKey((part, compartment.Id)))
+                    return true;
+            }
         }
 
         return false;
+    }
+
+    /// <summary>Куда пришлось попадание по авианосцу: случайный уровень, вероятность — по числу клеток.</summary>
+    public EntityUid PickHitGrid(EntityUid hull)
+    {
+        var parts = new List<(EntityUid Grid, int Tiles)>();
+        var total = 0;
+        foreach (var part in _decks.Group(hull))
+        {
+            if (!TryComp<MapGridComponent>(part, out var gridComp))
+                continue;
+
+            var count = _map.GetAllTiles(part, gridComp).Count();
+            parts.Add((part, count));
+            total += count;
+        }
+
+        if (total <= 0)
+            return hull;
+
+        var roll = _random.Next(total);
+        foreach (var (part, count) in parts)
+        {
+            if (roll < count)
+                return part;
+
+            roll -= count;
+        }
+
+        return hull;
     }
 
     #endregion
@@ -369,7 +409,7 @@ public sealed partial class DHCarrierDamageSystem : EntitySystem
 
         foreach (var (grid, amount) in drain)
         {
-            _assault.DamageCarrier(grid, amount, announce: false);
+            _assault.DamageCarrier(_decks.HullOf(grid), amount, announce: false);
         }
 
         UpdateConsoles();
@@ -393,38 +433,45 @@ public sealed partial class DHCarrierDamageSystem : EntitySystem
 
     private void UpdateConsole(Entity<DHCarrierDamageConsoleComponent> ent)
     {
-        if (!_ui.IsUiOpen(ent.Owner, DHCarrierDamageUiKey.Key) || Transform(ent).GridUid is not { } grid ||
-            Layout(grid) is not { } layout)
-        {
+        if (!_ui.IsUiOpen(ent.Owner, DHCarrierDamageUiKey.Key) || Transform(ent).GridUid is not { } consoleGrid)
             return;
-        }
 
-        var breaches = new Dictionary<string, int>();
-        var query = EntityQueryEnumerator<DHCarrierBreachComponent>();
-        while (query.MoveNext(out _, out var breach))
-        {
-            if (breach.Grid == grid)
-                breaches[breach.Compartment] = breaches.GetValueOrDefault(breach.Compartment) + 1;
-        }
-
-        var fires = new Dictionary<string, int>();
-        var fireQuery = EntityQueryEnumerator<DHTileFireComponent, TransformComponent>();
-        while (fireQuery.MoveNext(out _, out _, out var xform))
-        {
-            if (xform.GridUid == grid && CompartmentAt(layout, xform.LocalPosition) is { } compartment)
-                fires[compartment.Id] = fires.GetValueOrDefault(compartment.Id) + 1;
-        }
-
+        // Схема — по всем уровням авианосца.
         var rows = new List<DHCarrierCompartmentRow>();
-        foreach (var compartment in layout.Compartments)
+        foreach (var grid in _decks.Group(consoleGrid))
         {
-            rows.Add(new DHCarrierCompartmentRow(compartment.Name, compartment.Kind,
-                breaches.GetValueOrDefault(compartment.Id), fires.GetValueOrDefault(compartment.Id)));
+            if (Layout(grid) is not { } layout)
+                continue;
+
+            var breaches = new Dictionary<string, int>();
+            var query = EntityQueryEnumerator<DHCarrierBreachComponent>();
+            while (query.MoveNext(out _, out var breach))
+            {
+                if (breach.Grid == grid)
+                    breaches[breach.Compartment] = breaches.GetValueOrDefault(breach.Compartment) + 1;
+            }
+
+            var fires = new Dictionary<string, int>();
+            var fireQuery = EntityQueryEnumerator<DHTileFireComponent, TransformComponent>();
+            while (fireQuery.MoveNext(out _, out _, out var xform))
+            {
+                if (xform.GridUid == grid && CompartmentAt(layout, xform.LocalPosition) is { } compartment)
+                    fires[compartment.Id] = fires.GetValueOrDefault(compartment.Id) + 1;
+            }
+
+            foreach (var compartment in layout.Compartments)
+            {
+                rows.Add(new DHCarrierCompartmentRow(compartment.Name, compartment.Kind,
+                    breaches.GetValueOrDefault(compartment.Id), fires.GetValueOrDefault(compartment.Id)));
+            }
         }
+
+        if (rows.Count == 0)
+            return;
 
         var hull = 0f;
         var maxHull = 100f;
-        if (TryComp<DHAssaultCarrierComponent>(grid, out var carrier))
+        if (TryComp<DHAssaultCarrierComponent>(_decks.HullOf(consoleGrid), out var carrier))
         {
             hull = carrier.Hull;
             maxHull = carrier.MaxHull;

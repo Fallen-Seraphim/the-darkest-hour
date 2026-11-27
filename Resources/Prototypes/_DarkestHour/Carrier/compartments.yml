@@ -1,5 +1,6 @@
 # Сгенерировано Tools/_DarkestHour/carrier/build_carrier.py — не править руками.
 # Отсеки авианосца для живучести (план осады п. 19): клетки грида прямоугольниками left,bottom,right,top.
+# Свой набор на каждом уровне (2026-11-27): 0 — нижняя палуба, 1 — полётная, 2 — надстройка.
 
 - type: dhCarrierLayout
   id: DHCarrierLayoutSovereign
@@ -8,22 +9,7 @@
     name: dh-carrier-compartment-hangar
     kind: Hangar
     boxes:
-    - 0,-52,40,-24
-    - 0,-24,8,-21
-    - 0,-21,7,-10
-    - 0,-10,5,-9
-    - 0,-9,3,-6
-    - 0,-6,4,-5
-    - 0,-5,5,-3
-    - 0,-3,9,-1
-    - 0,-1,40,0
-    - 14,-3,40,-1
-    - 15,-24,40,-21
-    - 16,-21,40,-10
-    - 18,-10,40,-9
-    - 18,-5,40,-3
-    - 19,-6,40,-5
-    - 20,-9,40,-6
+    - 0,-52,40,0
     - 23,-64,40,-52
   - id: guns
     name: dh-carrier-compartment-guns
@@ -37,11 +23,6 @@
     - 0,20,18,24
     - 0,24,17,29
     - 0,29,16,31
-  - id: bridge
-    name: dh-carrier-compartment-bridge
-    kind: Bridge
-    boxes:
-    - 40,-100,55,-63
   - id: engineering
     name: dh-carrier-compartment-engineering
     kind: Engineering
@@ -53,6 +34,70 @@
     kind: None
     boxes:
     - 0,31,5,59
+  - id: magazine
+    name: dh-carrier-compartment-magazine
+    kind: None
+    boxes:
+    - 40,-63,55,-62
+    - 40,-62,54,-61
+    - 40,-61,53,-60
+    - 40,-60,52,-59
+    - 40,-59,51,-57
+    - 40,-57,50,-56
+    - 40,-56,49,-55
+    - 40,-55,48,-54
+    - 40,-54,47,-52
+    - 40,-52,46,-51
+    - 40,-51,45,-50
+    - 40,-50,44,-48
+    - 40,-48,43,-47
+    - 40,-47,42,-46
+    - 40,-46,41,-45
+  - id: cabins
+    name: dh-carrier-compartment-cabins
+    kind: None
+    boxes:
+    - 40,-100,55,-63
+  - id: barracks
+    name: dh-carrier-compartment-barracks
+    kind: None
+    boxes:
+    - 0,-100,23,-52
+  - id: brief
+    name: dh-carrier-compartment-brief
+    kind: None
+    boxes:
+    - 23,-100,40,-64
+  - id: labs
+    name: dh-carrier-compartment-labs
+    kind: None
+    boxes:
+    - 17,-168,36,-135
+
+- type: dhCarrierLayout
+  id: DHCarrierLayoutSovereignDeck
+  compartments:
+  - id: deck
+    name: dh-carrier-compartment-deck
+    kind: Hangar
+    boxes:
+    - 0,-26,40,-25
+    - 0,-25,8,-22
+    - 0,-22,7,-11
+    - 0,-11,5,-10
+    - 0,-10,3,-7
+    - 0,-7,4,-6
+    - 0,-6,5,-4
+    - 0,-4,9,-2
+    - 0,-2,40,0
+    - 14,-4,40,-2
+    - 15,-25,40,-22
+    - 16,-22,40,-11
+    - 18,-11,40,-10
+    - 18,-6,40,-4
+    - 19,-7,40,-6
+    - 20,-10,40,-7
+    - 23,-64,40,-26
   - id: pvo
     name: dh-carrier-compartment-pvo
     kind: None
@@ -72,18 +117,17 @@
     - 40,-48,43,-47
     - 40,-47,42,-46
     - 40,-46,41,-45
-  - id: barracks
-    name: dh-carrier-compartment-barracks
+  - id: island
+    name: dh-carrier-compartment-island
     kind: None
     boxes:
-    - 0,-100,23,-52
-  - id: brief
-    name: dh-carrier-compartment-brief
-    kind: None
+    - 40,-100,55,-63
+
+- type: dhCarrierLayout
+  id: DHCarrierLayoutSovereignIsland
+  compartments:
+  - id: bridge
+    name: dh-carrier-compartment-bridge
+    kind: Bridge
     boxes:
-    - 23,-100,40,-64
-  - id: labs
-    name: dh-carrier-compartment-labs
-    kind: None
-    boxes:
-    - 17,-168,36,-135
+    - 40,-100,55,-63

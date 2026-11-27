@@ -47,6 +47,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
     [Dependency] private Content.Server._DarkestHour.PowerLoader.DHPowerLoaderSystem _powerLoader = default!;
     [Dependency] private Content.Server._DarkestHour.Battlefield.DHBattlefieldSystem _battlefield = default!;
     [Dependency] private Content.Server._DarkestHour.Carrier.DHCarrierDamageSystem _carrierDamage = default!;
+    [Dependency] private Content.Server._DarkestHour.Carrier.DHCarrierDecksSystem _carrierDecks = default!;
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private AudioSystem _audio = default!;
@@ -1312,8 +1313,9 @@ public sealed partial class DHAircraftSystem : EntitySystem
         if (ent.Comp.Progress < 1f)
             return;
 
-        // Конец ВПП: самолёт уходит с палубы в слой атмосферы над полем боя.
-        if (xform.MapUid is not { } map)
+        // Конец ВПП: самолёт уходит с палубы в слой атмосферы над полем боя (с полётной палубы — на карту самого
+        // авианосца, а не на карту уровня над ним).
+        if (_carrierDecks.BaseMap(xform.MapUid) is not { } map)
             return;
 
         var (position, rotation) = _transform.GetWorldPositionRotation(xform);
@@ -1428,7 +1430,7 @@ public sealed partial class DHAircraftSystem : EntitySystem
             return null;
 
         var liftXform = Transform(lift);
-        if (liftXform.MapUid != Transform(ent).MapUid)
+        if (_carrierDecks.BaseMap(liftXform.MapUid) != Transform(ent).MapUid)
             return null;
 
         var (position, rotation) = _transform.GetWorldPositionRotation(liftXform);

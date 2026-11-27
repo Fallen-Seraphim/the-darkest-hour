@@ -59,6 +59,7 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
     [Dependency] private ChatSystem _chat = default!;
     [Dependency] private IChatManager _chatManager = default!;
     [Dependency] private DHDropshipSystem _dropships = default!;
+    [Dependency] private Content.Server._DarkestHour.Carrier.DHCarrierDecksSystem _carrierDecks = default!;
     [Dependency] private ExplosionSystem _explosion = default!;
     [Dependency] private DHLandingSystem _landing = default!;
     [Dependency] private MapLoaderSystem _loader = default!;
@@ -167,6 +168,8 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
         // Авианосец не садится: на поверхность ходят челноки, пристыкованные к нему.
         EnsureComp<DHNoSurfaceLandingComponent>(grid.Value);
         var dropshipNames = rule.Comp.DropshipNames.Select(n => Loc.GetString(n)).ToList();
+        // Верхние уровни авианосца — полётная палуба и надстройка (2026-11-27); маркер стоянки челнока — на палубе.
+        _carrierDecks.LoadDecks(grid.Value, rule.Comp.CarrierPath, rule.Comp.CarrierStationUid);
         _dropships.SpawnDropships(grid.Value, rule.Comp.CarrierStationUid, rule.Comp.DropshipPath, dropshipNames);
 
         // Фаза подготовки: разрывной генератор заблокирован до её конца.
@@ -671,7 +674,7 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
         var query = EntityQueryEnumerator<DHExperimentalSampleComponent, TransformComponent>();
         while (query.MoveNext(out _, out _, out var xform))
         {
-            if (xform.GridUid == carrier)
+            if (_carrierDecks.OnCarrier(xform.GridUid, carrier))
                 return true;
         }
 
