@@ -963,12 +963,15 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             if (!_random.Prob(comp.AirChance * RadarFactor(uid)))
                 continue;
 
-            var tiles = _map.GetAllTiles(grid, gridComp).ToList();
+            // По авианосцу попадание приходится на любой его уровень (нижняя, полётная палуба, надстройка).
+            var hitGrid = HasComp<DHAssaultCarrierComponent>(grid) ? _carrierDamage.PickHitGrid(grid) : grid;
+            var hitGridComp = TryComp<MapGridComponent>(hitGrid, out var picked) ? picked : gridComp;
+            var tiles = _map.GetAllTiles(hitGrid, hitGridComp).ToList();
             MapCoordinates? hit = null;
             if (tiles.Count > 0)
             {
                 var tile = _random.Pick(tiles);
-                hit = _map.GridTileToWorld(grid, gridComp, tile.GridIndices);
+                hit = _map.GridTileToWorld(hitGrid, hitGridComp, tile.GridIndices);
                 _explosion.QueueExplosion(hit.Value, "Default", comp.Kind == DHInterceptorKind.Missile ? 80f : 30f, 4f,
                     10f, null);
             }
@@ -977,7 +980,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             if (HasComp<DHAssaultCarrierComponent>(grid))
             {
                 if (hit is { } point)
-                    _carrierDamage.Hit(grid, point, false);
+                    _carrierDamage.Hit(hitGrid, point, false);
                 _assault.DamageCarrier(grid, comp.AirDamage * CarrierDirectDamage);
             }
         }
@@ -1071,12 +1074,14 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             return;
         }
 
-        var tiles = _map.GetAllTiles(grid, gridComp).ToList();
+        var hitGrid = _carrierDamage.PickHitGrid(grid);
+        var hitGridComp = TryComp<MapGridComponent>(hitGrid, out var picked) ? picked : gridComp;
+        var tiles = _map.GetAllTiles(hitGrid, hitGridComp).ToList();
         if (tiles.Count == 0)
             return;
 
         var tile = _random.Pick(tiles);
-        var target = _map.GridTileToWorld(grid, gridComp, tile.GridIndices);
+        var target = _map.GridTileToWorld(hitGrid, hitGridComp, tile.GridIndices);
         Detonate(strike.Warhead, strike.Caliber, target, 0.6f, true);
 
         var damage = strike.HullDamage * strike.Warhead switch
@@ -1087,7 +1092,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             _ => 1f,
         };
         // Живучесть авианосца: пробоина (и пожар) в отсеке, куда попали; прямой урон вдвое меньше.
-        _carrierDamage.Hit(grid, target, strike.Warhead == DHWarhead.Incendiary);
+        _carrierDamage.Hit(hitGrid, target, strike.Warhead == DHWarhead.Incendiary);
         _assault.DamageCarrier(grid, damage * CarrierDirectDamage);
         Report(strike, "dh-heavy-gun-report-hit");
     }

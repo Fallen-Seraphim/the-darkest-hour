@@ -256,6 +256,7 @@ public sealed partial class DHDropshipSystem : EntitySystem
     [Dependency] private UserInterfaceSystem _ui = default!;
     [Dependency] private DHZLevelSystem _zLevels = default!;
     [Dependency] private DHDropshipInputSystem _dropshipInput = default!;
+    [Dependency] private Content.Server._DarkestHour.Carrier.DHCarrierDecksSystem _carrierDecks = default!;
 
     private static readonly SoundSpecifier LaunchSound = new SoundPathSpecifier("/Audio/Effects/Shuttle/hyperspace_begin.ogg");
     private static readonly SoundSpecifier LandSound = new SoundPathSpecifier("/Audio/Effects/Shuttle/hyperspace_end.ogg");
@@ -310,7 +311,8 @@ public sealed partial class DHDropshipSystem : EntitySystem
         var query = EntityQueryEnumerator<DHDropshipHangarComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var hangar, out var hangarXform))
         {
-            if (hangarXform.GridUid == carrier)
+            // Маркер стоянки — на любом уровне авианосца (с 2026-11-27 — на полётной палубе).
+            if (_carrierDecks.OnCarrier(hangarXform.GridUid, carrier))
                 hangars.Add((uid, hangar));
         }
 
@@ -321,7 +323,7 @@ public sealed partial class DHDropshipSystem : EntitySystem
             {
                 var hangar = hangars[i];
                 var (origin, rotation) = HangarPlacement(hangar);
-                if (!_loader.TryLoadGrid(xform.MapID, hangar.Comp.Map, out var grid, offset: origin, rot: rotation))
+                if (!_loader.TryLoadGrid(Transform(hangar).MapID, hangar.Comp.Map, out var grid, offset: origin, rot: rotation))
                 {
                     Log.Error($"Failed to load dropship {hangar.Comp.Map}");
                     continue;
@@ -332,6 +334,7 @@ public sealed partial class DHDropshipSystem : EntitySystem
                 var setup = SetupDropship(grid.Value, carrier, station, name);
                 setup.Hangar = hangar.Owner;
                 LoadDecks((grid.Value.Owner, setup), hangar.Comp.Map);
+                SyncDecks((grid.Value.Owner, setup));
             }
 
             return;
@@ -381,8 +384,8 @@ public sealed partial class DHDropshipSystem : EntitySystem
 
         if (ship.Comp.Hangar is { } hangarUid && TryComp<DHDropshipHangarComponent>(hangarUid, out var hangar))
         {
-            // В ангар челнок ставится точно на своё место, без стыковки.
-            if (Transform(carrier).MapUid is not { } map)
+            // В ангар челнок ставится точно на своё место, без стыковки (на карте уровня, где маркер).
+            if (Transform(hangarUid).MapUid is not { } map)
                 return;
 
             var (origin, rotation) = HangarPlacement((hangarUid, hangar));
@@ -401,9 +404,11 @@ public sealed partial class DHDropshipSystem : EntitySystem
             _shuttle.TryFTLDock(ship, shuttle, carrier);
         }
 
+        if (ship.Comp.RampLowered)
+            SetRamp(ship, false, null);
+
         ship.Comp.State = DHDropshipState.Docked;
         ship.Comp.Zone = null;
-        ship.Comp.RampLowered = false;
         ClearFlight(ship.Comp);
         ClearHover(ship);
         SyncDecks(ship);
@@ -781,7 +786,8 @@ public sealed partial class DHDropshipSystem : EntitySystem
                 continue;
             }
 
-            if (xform.MapUid != Transform(carrier).MapUid)
+            var home = comp.Hangar is { } hangar && Exists(hangar) ? Transform(hangar).MapUid : Transform(carrier).MapUid;
+            if (xform.MapUid != home)
                 lost.Add((uid, comp));
         }
 
@@ -873,7 +879,8 @@ public sealed partial class DHDropshipSystem : EntitySystem
             InAtmosphere = comp.State == DHDropshipState.InFlight && comp.Flight == DHDropshipFlight.Atmosphere,
             AtmosphereAvailable = comp.State == DHDropshipState.InFlight && comp.Flight == DHDropshipFlight.Cruise,
             Retargetable = comp.State == DHDropshipState.InFlight && comp.Flight != DHDropshipFlight.Transit,
-            RampAvailable = comp.State == DHDropshipState.Landed && comp.Underside != null,
+            RampAvailable = comp.State is DHDropshipState.Landed or DHDropshipState.Docked && comp.Underside != null &&
+                            UndersideDeployed(comp),
             RampLowered = comp.RampLowered,
             ManualLevels = comp.Manual && comp.State == DHDropshipState.InFlight && comp.Flight == DHDropshipFlight.Cruise,
             Level = comp.Level,

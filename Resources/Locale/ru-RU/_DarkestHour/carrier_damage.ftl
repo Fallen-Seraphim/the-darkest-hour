@@ -6,7 +6,7 @@ dh-carrier-damage-repaired = { $compartment }: пробоины заварены
 dh-carrier-breach-need-steel = Нужен лист стали в другой руке, чтобы заварить пробоину.
 dh-carrier-breach-sealed = Пробоина заварена.
 
-dh-carrier-compartment-hangar = Ангар и палуба
+dh-carrier-compartment-hangar = Ангар и карго
 dh-carrier-compartment-guns = Орудийные палубы ОБ
 dh-carrier-compartment-bridge = Мостик и штаб
 dh-carrier-compartment-engineering = Энергетика и реактор
@@ -28,3 +28,7 @@ dh-supply-hangar-damaged = Ангар повреждён: лифт не рабо
 dh-aircraft-blocker-hangar = Палуба повреждена: взлёт невозможен, пока пробоину не заварят.
 dh-command-node-repair-kits = Аварийные ремкомплекты
 dh-command-node-repair-kits-desc = В снабжении появляется ящик для аварийных постов: огнетушители, сварка, листы стали, скафандр.
+dh-carrier-compartment-magazine = Погреб ПВО
+dh-carrier-compartment-cabins = Каюты командования
+dh-carrier-compartment-deck = Полётная палуба
+dh-carrier-compartment-island = Основание надстройки

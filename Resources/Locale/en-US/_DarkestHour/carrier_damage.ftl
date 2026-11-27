@@ -6,7 +6,7 @@ dh-carrier-damage-repaired = { $compartment }: breaches sealed, the compartment 
 dh-carrier-breach-need-steel = You need a steel sheet in your other hand to weld the breach.
 dh-carrier-breach-sealed = The breach is sealed.
 
-dh-carrier-compartment-hangar = Hangar and flight deck
+dh-carrier-compartment-hangar = Hangar and cargo
 dh-carrier-compartment-guns = Bombardment gun decks
 dh-carrier-compartment-bridge = Bridge and staff
 dh-carrier-compartment-engineering = Power and reactor
@@ -28,3 +28,7 @@ dh-supply-hangar-damaged = The hangar is damaged: the elevator is down until the
 dh-aircraft-blocker-hangar = The flight deck is damaged: no takeoff until the breach is sealed.
 dh-command-node-repair-kits = Damage control kits
 dh-command-node-repair-kits-desc = Adds a crate for the damage control lockers to supply: extinguishers, a welder, steel sheets, a space suit.
+dh-carrier-compartment-magazine = Air defence magazine
+dh-carrier-compartment-cabins = Command quarters
+dh-carrier-compartment-deck = Flight deck
+dh-carrier-compartment-island = Island base

@@ -109,11 +109,21 @@ public sealed partial class DHDropshipSystem
         var overField = comp.Surface is { } surface && Exists(surface) && comp.Level >= 0 &&
                         xform.MapUid == LevelMap(surface, comp.Level);
 
-        EntityUid? roofMap = overField ? LevelMap(comp.Surface!.Value, comp.Level + 1) : null;
-        EntityUid? groundMap = overField && comp.Level == LandedLevel &&
-                               comp.State is DHDropshipState.Landed or DHDropshipState.Departing
-            ? LevelMap(comp.Surface!.Value, 0)
-            : null;
+        EntityUid? roofMap = null;
+        EntityUid? groundMap = null;
+        if (overField)
+        {
+            roofMap = LevelMap(comp.Surface!.Value, comp.Level + 1);
+            if (comp.Level == LandedLevel && comp.State is DHDropshipState.Landed or DHDropshipState.Departing)
+                groundMap = LevelMap(comp.Surface!.Value, 0);
+        }
+        else if (comp.Hangar != null && comp.State is DHDropshipState.Docked or DHDropshipState.Departing &&
+                 _zLevels.TryGetLevel(xform.MapUid, out var level))
+        {
+            // В ангаре авианосца (2026-11-27): кабина — в вырезе полётной палубы, нижний ярус — на полу ангара.
+            roofMap = _zLevels.LevelMap(level.Stack, level.Level + 1);
+            groundMap = _zLevels.LevelMap(level.Stack, level.Level - 1);
+        }
 
         if (comp.Roof is { } roof && Exists(roof))
             PlaceDeck(ship, roof, roofMap, position, rotation, false);
@@ -165,6 +175,7 @@ public sealed partial class DHDropshipSystem
     private void Evict(Entity<DHDropshipComponent> ship, EntityUid deck, bool underside)
     {
         var loose = new List<EntityUid>();
+        var deckMap = Transform(deck).MapID;
         var children = Transform(deck).ChildEnumerator;
         while (children.MoveNext(out var child))
         {
@@ -186,9 +197,9 @@ public sealed partial class DHDropshipSystem
         {
             if (underside)
             {
+                // Остаётся там, где стоял нижний ярус: на земле или на полу ангара.
                 var at = _transform.GetMapCoordinates(uid);
-                if (ship.Comp.Surface is { } ground && Exists(ground))
-                    _transform.SetMapCoordinates(uid, new MapCoordinates(at.Position, Transform(ground).MapID));
+                _transform.SetMapCoordinates(uid, new MapCoordinates(at.Position, deckMap));
             }
             else if (cabinSpot is { } spot)
             {
@@ -254,7 +265,7 @@ public sealed partial class DHDropshipSystem
     public void SetRamp(Entity<DHDropshipComponent> ship, bool lower, EntityUid? user)
     {
         var comp = ship.Comp;
-        if (lower && comp.State != DHDropshipState.Landed)
+        if (lower && (comp.State is not (DHDropshipState.Landed or DHDropshipState.Docked) || !UndersideDeployed(comp)))
         {
             if (user != null)
                 _popup.PopupEntity(Loc.GetString("dh-dropship-ramp-not-landed"), user.Value, user.Value);
@@ -355,6 +366,13 @@ public sealed partial class DHDropshipSystem
                 moves.Add((mob, new MapCoordinates(_transform.GetWorldPosition(mob), other)));
             }
         }
+    }
+
+    /// <summary>Нижний ярус стоит под кабиной (на земле или на полу ангара), а не убран.</summary>
+    private bool UndersideDeployed(DHDropshipComponent comp)
+    {
+        return comp.Underside is { } underside && Exists(underside) && Transform(underside).MapUid is { } map &&
+               map != DeckStorage();
     }
 
     #endregion
