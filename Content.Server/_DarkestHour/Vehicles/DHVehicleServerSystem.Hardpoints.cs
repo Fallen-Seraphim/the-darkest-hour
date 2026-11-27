@@ -16,6 +16,7 @@ using Content.Shared.Weapons.Ranged.Components;
 using Robust.Shared.Containers;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
 namespace Content.Server._DarkestHour.Vehicles;
