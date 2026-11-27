@@ -979,6 +979,175 @@ class Map3(tb.World):
         for x in range(X0 + 2, X1, 12):
             self.post(x, Y1 - 1)
 
+    # ================================================================== юг и запад
+
+    def transplant(self, fn, dx, dy):
+        """Собрать объект старым кодом генератора v2 во временном мире и перенести со сдвигом (dx, dy)."""
+        w = tb.World(self.known)
+        w.missing = self.missing
+        w.rng = random.Random(hash(fn.__name__) & 0xFFFF)
+        fn(w)
+        for (x, y), t in w.tiles.items():
+            if not self.inside(x + dx, y + dy):
+                continue
+            self.tiles[(x + dx, y + dy)] = t
+            self.water.pop((x + dx, y + dy), None)
+        for c in w.res | w.occ:
+            self.res.add((c[0] + dx, c[1] + dy))
+        for c in w.occ:
+            self.occ.add((c[0] + dx, c[1] + dy))
+        for c in w.roof:
+            self.roof.add((c[0] + dx, c[1] + dy))
+        for e in w.ents:
+            self.ents.append((e[0], e[1] + dx, e[2] + dy) + tuple(e[3:]))
+        for did, x, y, col, ang in w.decals:
+            self.decals.append((did, x + dx, y + dy, col, ang))
+        for (x, y), t in w.p1.tiles.items():
+            self.levels[1].tiles[(x + dx, y + dy)] = t
+        for (x, y) in w.p1.roof:
+            self.levels[1].roof.add((x + dx, y + dy))
+        for e in w.p1.ents:
+            self.levels[1].ents.append((e[0], e[1] + dx, e[2] + dy) + tuple(e[3:]))
+        return w
+
+    def village3(self):
+        """Деревня (точка захвата, 0/1): прежняя деревня v2 — дома, площадь с водонапорной башней, фельдшерский пункт."""
+        X0, Y0, X1, Y1 = self.site_xy('деревня')
+        self.transplant(tb.World.village, X0 + 10 - tb.VILLAGE[0], Y0 + 20 - tb.VILLAGE[1])
+
+    def spaceport3(self):
+        """Космодром (точка захвата, −1…2): прежний космодром v2 с ЗП-3 и терминалом, подковой вокруг — ангары, на −1 —
+        подземный топливный склад с тоннелем, диспетчерская башня до +2."""
+        X0, Y0, X1, Y1 = self.site_xy('космодром')
+        old = tb.SPACEPORT
+        dx, dy = X0 + 40 - old[0], Y0 + 20 - old[1]
+        tb.ZP3 = tb.ZP3
+        self.transplant(tb.World.spaceport, dx, dy)
+        zx, zy = tb.ZP3[0] + dx, tb.ZP3[1] + dy
+        # подкова ангаров вокруг ЗП-3
+        for k in range(9):
+            a = math.radians(200 + k * 20)
+            hx, hy = zx + int(round(62 * math.cos(a))), zy + int(round(48 * math.sin(a)))
+            if not (X0 + 2 < hx - 6 and hx + 6 < X1 - 2 and Y0 + 2 < hy - 5 and hy + 5 < Y1 - 2):
+                continue
+            if any((x, y) in self.occ for x in range(hx - 6, hx + 7) for y in range(hy - 5, hy + 6)):
+                continue
+            self.building(hx - 6, hy - 5, hx + 6, hy + 5, 'WallSolid', 'FloorSteelDirty',
+                          doors=[(hx, hy + (5 if hy < zy else -5), 'AirlockCargoGlass')])
+            self.scatter(['CrateGenericSteel', 'RMCBarrelBlack', 'RMCBarrelYellow'], hx - 5, hy - 4, hx + 5, hy + 4, 5)
+        # подземный топливный склад (−1) с двумя спусками
+        fx0, fy0 = X1 - 40, Y0 + 6
+        self.lv_building(-1, fx0, fy0, fx0 + 30, fy0 + 16, 'WallReinforced', 'Plating', lights='Poweredlight')
+        for x in range(fx0 + 3, fx0 + 28, 4):
+            self.lv_ent(-1, 'RMCFiltrationMachineSoloTankWaste', x, fy0 + 12)
+            self.lv_ent(-1, 'RMCBarrelYellow', x, fy0 + 4)
+        self.ladder(fx0 + 2, fy0 + 2, -1, 0)
+        self.ladder(fx0 + 28, fy0 + 14, -1, 0)
+        # диспетчерская башня 7×7 до +2
+        tx0, ty0 = X1 - 22, Y1 - 18
+        self.building(tx0, ty0, tx0 + 7, ty0 + 7, 'WallReinforced', 'FloorDark', doors=[(tx0 + 3, ty0, 'AirlockGlass')])
+        self.ladder(tx0 + 2, ty0 + 5, 0, 2)
+        for z in (1, 2):
+            self.lv_building(z, tx0, ty0, tx0 + 7, ty0 + 7, 'WallReinforced', 'FloorDark',
+                             windows=[(tx0 + i, ty0 + 7) for i in range(1, 7)] + [(tx0 + 7, ty0 + i) for i in range(1, 7)])
+        for i, p in enumerate(['ComputerRadar', 'ComputerBroken', 'ComputerRadar']):
+            self.lv_ent(2, p, tx0 + 6, ty0 + 2 + i * 2)
+        self.reserve(X0, Y0, X1, Y1)
+
+    def factory(self):
+        """Завод (точка захвата, металлургический, решения автора 2026-11-27): три плавильные печи, цеха, краны, ж/д тупик,
+        проходная; −1 и −2 — подземные цеха и коллекторы, +1 — мостки над цехами."""
+        X0, Y0, X1, Y1 = self.site_xy('завод')
+        self.rect(X0, Y0, X1, Y1, 'FloorConcrete')
+        self.fence_rect(X0 - 1, Y0 - 1, X1 + 1, Y1 + 1, gates=[(X1 + 1, gy(655) + i) for i in range(-2, 3)] +
+                        [(X0 - 1, gy(690) + i) for i in range(-2, 3)])
+        wall = 'WallSolidRust' if 'WallSolidRust' in self.known else 'WallSolid'
+        # плавильный цех с тремя печами (север, запад)
+        sx0, sy0, sx1, sy1 = X0 + 6, Y1 - 50, X0 + 40, Y1 - 6
+        self.building(sx0, sy0, sx1, sy1, wall, 'FloorSteelDirty',
+                      doors=[(sx1, sy0 + 8, 'AirlockCargoGlass'), (sx1, sy1 - 8, 'AirlockCargoGlass')])
+        for k in range(3):
+            fy = sy0 + 8 + k * 14
+            for x in range(sx0 + 4, sx0 + 13):
+                for y in range(fy - 4, fy + 5):
+                    if math.hypot(x - (sx0 + 8), y - fy) >= 4.2 and math.hypot(x - (sx0 + 8), y - fy) < 5:
+                        self.ent('WallReinforced', x, y)
+            self.ent('RMCBarrelFire', sx0 + 8, fy)
+            self.decal('burnt' + str(1 + k), sx0 + 8, fy - 1)
+        # прокатный цех и склад (север, восток)
+        rx0 = X0 + 60
+        self.building(rx0, Y1 - 30, X1 - 30, Y1 - 6, wall, 'FloorSteelDirty',
+                      doors=[(rx0, Y1 - 18, 'AirlockCargoGlass'), ((rx0 + X1 - 30) // 2, Y1 - 30, 'AirlockCargoGlass')])
+        for x in range(rx0 + 4, X1 - 34, 6):
+            self.ent('MachineFrame', x, Y1 - 18)
+        self.building(X1 - 22, Y1 - 30, X1 - 6, Y1 - 6, wall, 'FloorSteelDirty', doors=[(X1 - 14, Y1 - 30, 'AirlockCargoGlass')])
+        self.scatter(['CrateGenericSteel', 'RMCBarrelBrown', 'RMCBarrelBlack'], X1 - 21, Y1 - 29, X1 - 7, Y1 - 7, 14)
+        # мостки и краны над цехами (+1)
+        for y in (sy0 + 15, sy0 + 29):
+            for x in range(sx0, X1 - 6):
+                self.lv_tile(1, x, y, 'FloorSteel')
+                self.lv_tile(1, x, y + 1, 'FloorSteel')
+        self.ladder(sx1 + 2, sy0 + 15, 0, 1)
+        self.ladder(X1 - 8, sy0 + 29, 0, 1)
+        # южная часть: корпуса (на эскизе — прямоугольники), проходная, ж/д тупик
+        for i, bx in enumerate((X0 + 8, X0 + 50, X0 + 80, X0 + 110)):
+            w2 = 30 if i == 0 else 16
+            self.building(bx, Y0 + 6, bx + w2, Y0 + 50, wall, 'FloorSteel',
+                          doors=[(bx + w2 // 2, Y0 + 50, 'Airlock'), (bx + w2 // 2, Y0 + 6, 'Airlock')])
+            self.scatter(['MachineFrame', 'CrateGenericSteel', 'Girder'], bx + 1, Y0 + 7, bx + w2 - 1, Y0 + 49, 8)
+        for x in range(X0, X1 + 1):
+            self.decal('RMCDecalRoadTiremark' + str(1 + x % 8), x, Y0 + 55, '#5A5048FF')
+        self.building(X1 - 14, gy(655) - 6, X1 - 2, gy(655) + 6, 'WallSolid', 'FloorSteel',
+                      doors=[(X1 - 2, gy(655), 'AirlockGlass'), (X1 - 14, gy(655), 'AirlockGlass')])
+        self.ent('DHControlPointFactory', (X0 + X1) // 2, Y0 + 58, free=True)
+        # подземные цеха и коллекторы
+        cx, cy = (X0 + X1) // 2, Y0 + 30
+        self.lv_building(-1, cx - 30, cy - 14, cx + 30, cy + 14, 'WallReinforced', 'Plating', lights='Poweredlight')
+        for x in range(cx - 26, cx + 27, 8):
+            self.lv_ent(-1, 'MachineFrame', x, cy)
+        self.lv_building(-2, cx - 50, cy - 3, cx + 50, cy + 3, 'WallReinforced', 'FloorDirt', lights='Poweredlight')
+        self.ladder(cx - 28, cy - 12, -1, 0)
+        self.ladder(cx + 28, cy + 1, -2, -1)
+        self.ladder(cx - 48, cy, -2, -1)
+        self.lv_building(-1, cx - 52, cy - 3, cx - 44, cy + 3, 'WallReinforced', 'Plating', lights=None)
+        self.ladder(cx - 50, cy - 1, -1, 0)
+        for x in range(X0 + 4, X1, 14):
+            self.post(x, Y0 + 2)
+        self.reserve(X0 - 2, Y0 - 2, X1 + 2, Y1 + 2)
+
+    def zp1(self):
+        x0, y0, x1, y1 = self.site_xy('ЗП-1')
+        self.lz((x0 + x1) // 2, (y0 + y1) // 2, 'ЗП-1 Поля', clear=10)
+
+
+    # ================================================================== привязка систем
+
+    def wiring(self):
+        """Въезды грузовиков Республики (концы Н-14: запад закрыт, пока Империя держит дамбу или деревню), метка
+        телепорта призраков у павильона спуска, тяжёлые лодки на озере и реке."""
+        hy = gy((HW_V[0] + HW_V[1]) // 2)
+        self.ent('DHReinforcementEntryRepublicWest', tb.X0 + 4, hy, tb.R90, foot=[], free=True, off=(0.5, 1.0))
+        self.ent('DHReinforcementEntryRepublicEast', tb.X1 - 4, hy, tb.R270, foot=[], free=True)
+        self.ent('DHWarpPointTerminus', (tb.BLOCKHOUSE[0] + tb.BLOCKHOUSE[2]) // 2, tb.BLOCKHOUSE[1] - 2, free=True)
+
+        def boat(tu, tv, radius=16):
+            tx, ty = gx(tu), gy(tv)
+            best = None
+            for x in range(tx - radius, tx + radius + 1):
+                for y in range(ty - radius, ty + radius + 1):
+                    cells = [(x + i, y + j) for i in (-1, 0, 1) for j in (-2, -1, 0, 1, 2)]
+                    if all(c in self.water and c not in self.occ for c in cells):
+                        d = (x - tx) ** 2 + (y - ty) ** 2
+                        if best is None or d < best[0]:
+                            best = (d, x, y)
+            if best:
+                self.ent('DHBoatHeavy', best[1], best[2], 0.0, foot=[], free=True)
+            else:
+                print('нет воды под лодку у', tu, tv)
+        boat(221, 200)          # река севернее дамбы
+        boat(250, 306)          # озеро у дамбы
+        boat(330, 590)          # озеро у завода
+
 
 FOREST = ['FloraTreeConifer', 'FloraTreeConifer', 'FloraTree', 'FloraTreeLarge', 'FloraTreeStumpConifer',
           'RMCBushJungle1', 'RMCBushJungle2']
@@ -1166,6 +1335,11 @@ def main():
         m.military()
         m.gorodok()
         m.npp3()
+        m.village3()
+        m.spaceport3()
+        m.factory()
+        m.zp1()
+        m.wiring()
         m.place_water()
         m.edge()
         if m.missing:

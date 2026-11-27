@@ -1186,12 +1186,16 @@
   - type: DHPlanetBase
     system: DHSystemREP27
     body: P7
-    underground: /Maps/_DarkestHour/Assault/terminus_bunker.yml
-    # Шахтёрский городок: вторые этажи бараков (решение автора 2026-11-12).
+    # Большой Терминус 640×768 (план автора 2026-11-27, claude/terminus-v3.md): −1 — бункер базы, трюм танкера, штольня,
+    # подвалы АЭС, топливный склад космодрома, цеха завода; −2 — хранилище образца и коллекторы завода; +1 — этажи,
+    # мостик танкера, эстакада терминала, вышки; +2 — диспетчерская космодрома и труба АЭС.
+    underground: /Maps/_DarkestHour/Assault/terminus3_m1.yml
     levels:
-      1: /Maps/_DarkestHour/Assault/terminus_p1.yml
+      -2: /Maps/_DarkestHour/Assault/terminus3_m2.yml
+      1: /Maps/_DarkestHour/Assault/terminus3_p1.yml
+      2: /Maps/_DarkestHour/Assault/terminus3_p2.yml
     # Поверхность — один грид карты, без биома. Собирается генератором
-    # Tools/_DarkestHour/planet_map/terminus_build.py (план автора 2026-11-12); база — из снимка terminus_base.snapshot.
+    # Tools/_DarkestHour/planet_map/terminus3_build.py.
     mapped: true
     groundTile: FloorAsteroidSand
     groundTiles:
@@ -1275,7 +1279,7 @@
 - type: gameMap
   id: DHTerminus
   mapName: Terminus Military Base
-  mapPath: /Maps/_DarkestHour/Assault/terminus.yml
+  mapPath: /Maps/_DarkestHour/Assault/terminus3.yml
   minPlayers: 0
   stations:
     Terminus:
