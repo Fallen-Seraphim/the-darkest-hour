@@ -81,7 +81,8 @@ BRIDGES = [('завод — космодром', 340, 650, 396, 660)]
 SITES = {
     'танкер': (140, 36, 322, 62),
     'нефтяной терминал': (330, 20, 426, 166),
-    'место падения': (80, 170, 140, 232),
+    'место падения': (60, 166, 146, 236),
+    'терминал-пирс-танкер': (306, 62, 312, 98),
     'дамба': DAM,
     'деревня': (6, 378, 96, 490),
     'база': (505, 178, 628, 262),
@@ -325,6 +326,45 @@ class Terrain:
         print(f'Деревья {trees}, высокая трава {grass}, край {edge}; всего рельефа ≈ {total}')
 
 
+def load_shuttle(path):
+    """Тайлы и сущности грида-шаттла из карты (координаты клеток грида)."""
+    import base64
+    import struct
+    import yaml
+
+    class L(yaml.CSafeLoader):
+        pass
+    L.add_multi_constructor('!', lambda loader, suffix, node: None)
+    d = yaml.load(open(path, encoding='utf-8'), Loader=L)
+    tm = d['tilemap']
+    grid = [e for p in d['entities'] for e in p['entities'] if e['uid'] == 1][0]
+    tiles = {}
+    for c in grid['components']:
+        if c['type'] == 'MapGrid':
+            for ch in c['chunks'].values():
+                cx, cy = map(int, ch['ind'].split(','))
+                b = base64.b64decode(ch['tiles'])
+                n = len(b) // 256
+                for i in range(256):
+                    t = struct.unpack_from('<i', b, i * n)[0]
+                    if t:
+                        tiles[(cx * 16 + i % 16, cy * 16 + i // 16)] = tm[t]
+    ents = []
+    for p in d['entities']:
+        if not p['proto']:
+            continue
+        for e in p['entities']:
+            tr = [c for c in e.get('components', []) if c['type'] == 'Transform']
+            if not tr or 'pos' not in tr[0] or tr[0].get('parent') != 1:
+                continue
+            x, y = map(float, tr[0]['pos'].split(','))
+            rot = 0.0
+            if 'rot' in tr[0]:
+                rot = float(str(tr[0]['rot']).split()[0])
+            ents.append((p['proto'], x, y, rot))
+    return tiles, ents
+
+
 def rectangles(cells):
     """Жадно режет множество клеток на прямоугольники (строки слева направо, вниз пока полная ширина)."""
     left = set(cells)
@@ -367,6 +407,63 @@ class Map3(tb.World):
         super().__init__(known)
         self.rng = random.Random(20261127)
         self.temperate_cells = set()
+        # Z-уровни (решения автора 2026-11-27): −2, −1 — подземные, +1, +2 — этажи, площадки, крыши.
+        self.levels = {-2: tb.Level(), -1: tb.Level(), 1: self.p1, 2: tb.Level()}
+
+    # ---------- уровни ----------
+
+    def lv_tile(self, z, x, y, name):
+        self.levels[z].tiles[(x, y)] = name
+
+    def lv_rect(self, z, x0, y0, x1, y1, name):
+        for x in range(min(x0, x1), max(x0, x1) + 1):
+            for y in range(min(y0, y1), max(y0, y1) + 1):
+                self.levels[z].tiles[(x, y)] = name
+
+    def lv_ent(self, z, proto, x, y, rot=0.0, name=None, comps=None):
+        if proto not in self.known:
+            self.missing.add(proto)
+            return
+        self.levels[z].ents.append((proto, x + 0.5, y + 0.5, rot, name, comps))
+
+    def lv_building(self, z, x0, y0, x1, y1, wall, floor, doors=(), windows=(), window='ReinforcedWindow',
+                    door='Airlock', lights='AlwaysPoweredWallLight'):
+        self.lv_rect(z, x0, y0, x1, y1, floor)
+        doors = {d[:2]: (d[2] if len(d) > 2 else door) for d in doors}
+        windows = set(windows)
+        for x in range(x0, x1 + 1):
+            for y in range(y0, y1 + 1):
+                if x not in (x0, x1) and y not in (y0, y1):
+                    continue
+                if (x, y) in doors:
+                    self.lv_ent(z, doors[(x, y)], x, y)
+                elif (x, y) in windows:
+                    self.lv_ent(z, window, x, y)
+                else:
+                    self.lv_ent(z, wall, x, y)
+        if lights and x1 - x0 >= 2:
+            for x in range(x0 + 2, x1, 7):
+                self.lv_ent(z, lights, x, y1 - 1, tb.LIGHT_ROT['N'])
+
+    def ladder(self, x, y, z0, z1):
+        """Универсальная лестница с уровня z0 на z1 (на каждом уровне — в той же клетке)."""
+        for z in range(min(z0, z1), max(z0, z1) + 1):
+            if z == 0:
+                self.ent('DHZLadder', x, y, free=True)
+            else:
+                self.lv_ent(z, 'DHZLadder', x, y)
+
+    def railing_edges(self, cells, z=0):
+        """Перила по внешнему краю площадки (пирс, гребень, палуба): сторона → поворот."""
+        rot = {(0, -1): 0.0, (0, 1): tb.PI, (-1, 0): tb.R270, (1, 0): tb.R90}
+        cells = set(cells)
+        for (x, y) in cells:
+            for d, r in rot.items():
+                if (x + d[0], y + d[1]) not in cells:
+                    if z == 0:
+                        self.ent('Railing', x, y, r, free=True)
+                    else:
+                        self.lv_ent(z, 'Railing', x, y, r)
 
     def load_terrain(self, t):
         for (u, v), tile in t.tiles.items():
@@ -424,6 +521,267 @@ class Map3(tb.World):
         rects.append(cur)
         return rects
 
+    # ================================================================== север
+
+    def tanker(self):
+        """Танкер (решения автора 2026-11-27): −1 трюм (танки, насосная, машинное), 0 палуба с надстройкой на корме,
+        +1 мостик; ЗП-2 на палубе у носа (кабина «Мидуэя» встаёт на уровне 1). Вокруг — мелководье."""
+        u0, v0, u1, v1 = SITES['танкер']
+        x0, x1, y0, y1 = gx(u0), gx(u1), gy(v1), gy(v0)
+        cy = (y0 + y1) // 2
+        half = (y1 - y0) / 2
+        hull = set()
+        for x in range(x0, x1 + 1):
+            nose = x - (x1 - 12)
+            for y in range(y0, y1 + 1):
+                if nose > 0 and abs(y - cy) > half - nose * 0.9:
+                    continue
+                hull.add((x, y))
+        edge = {c for c in hull if any((c[0] + i, c[1] + j) not in hull for i in (-1, 0, 1) for j in (-1, 0, 1))}
+        wall = 'WallReinforcedRust'
+        gang_x = gx(SITES['терминал-пирс-танкер'][0]) + 3   # трап с пирса в южный борт
+        for c in hull:
+            self.water.pop(c, None)
+            self.tile(*c, 'FloorSteelDirty')
+            self.lv_tile(-1, *c, 'Plating')
+        for c in edge:
+            if c[1] == y0 and gang_x - 1 <= c[0] <= gang_x + 1:
+                self.ent('AirlockGlass', *c)
+                self.lv_ent(-1, wall, *c)
+                continue
+            self.ent(wall, *c)
+            self.lv_ent(-1, wall, *c)
+        # --- трюм (−1): поперечные переборки, танки, насосная, машинное
+        holds = list(range(x0 + 22, x1 - 14, 26))
+        for bx in holds:
+            for y in range(y0 + 1, y1):
+                if abs(y - cy) <= 1:
+                    self.lv_ent(-1, 'AirlockEngineering' if y == cy else wall, bx, y)
+                else:
+                    self.lv_ent(-1, wall, bx, y)
+        for i, bx in enumerate(holds[:-1]):
+            for tx in range(bx + 4, holds[i + 1] - 2, 5):
+                for ty in (cy - 5, cy + 5):
+                    self.lv_ent(-1, 'RMCFiltrationMachineSoloTankEmpty', tx, ty)
+            for tx in range(bx + 2, holds[i + 1] - 1, 3):
+                self.lv_ent(-1, 'RMCBarrelBlack' if tx % 2 else 'RMCBarrelYellow', tx, cy + 8)
+        for x in range(x0 + 2, holds[0] - 1, 4):
+            self.lv_ent(-1, 'MachineFrame', x, cy + 3)
+            self.lv_ent(-1, 'MachineFrame', x, cy - 3)
+        self.lv_ent(-1, 'ComputerBroken', x0 + 3, cy)
+        for x in range(x0 + 3, x1 - 12, 9):
+            self.lv_ent(-1, 'AlwaysPoweredWallLight', x, y1 - 1, tb.LIGHT_ROT['N'])
+            self.lv_ent(-1, 'AlwaysPoweredWallLight', x, y0 + 1, tb.LIGHT_ROT['S'])
+        # --- палуба (0): надстройка на корме, люки танков, трубопровод
+        sx0, sx1 = x0 + 1, x0 + 18
+        self.building(sx0, y0 + 1, sx1, y1 - 1, wall, 'FloorDark',
+                      doors=[(sx1, cy, 'AirlockGlass'), (sx1, cy + 5, 'AirlockGlass'), (sx1, cy - 5, 'AirlockGlass')],
+                      windows=[(sx0 + 4, y1 - 1), (sx0 + 9, y1 - 1), (sx0 + 4, y0 + 1), (sx0 + 9, y0 + 1)],
+                      window='ReinforcedWindow', lights='AlwaysPoweredWallLight')
+        self.wall_line(sx0 + 1, cy - 2, sx1 - 1, cy - 2, wall, gaps=[(sx0 + 8, cy - 2)])
+        self.ent('AirlockGlass', sx0 + 8, cy - 2)
+        for y in range(y0 + 3, cy - 3, 2):
+            self.ent('RMCBedBunk' if 'RMCBedBunk' in self.known else 'Bed', sx0 + 1, y)
+            self.ent('RMCBedBunk' if 'RMCBedBunk' in self.known else 'Bed', sx0 + 5, y)
+        self.ent('TableReinforced', sx0 + 10, cy + 3)
+        self.ent('TableReinforced', sx0 + 11, cy + 3)
+        self.ent('LockerFreezer', sx0 + 1, y1 - 3)
+        self.ent('ClosetEmergencyFilledRandom', sx0 + 15, y0 + 3)
+        self.ladder(sx0 + 3, cy + 2, -1, 1)        # с мостика — в машинное
+        for bx in holds[:-1]:
+            hx = bx + 13
+            self.ladder(hx, cy, -1, 0)
+            self.decal('WarnBox', hx, cy, '#FFFFFFFF')
+        for x in range(sx1 + 3, x1 - 30, 6):
+            self.ent('RMCFiltrationMachineSoloTankEmpty', x, cy + 4)
+            self.ent('RMCFiltrationMachineSoloTankEmpty', x, cy - 4)
+        for x in range(sx1 + 1, x1 - 10):
+            if x % 3 == 0:
+                self.decal('RMCDecalOilFloor' + str(1 + x % 7), x, cy + 1, '#FFFFFFC0')
+        self.lz(x1 - 24, cy, 'ЗП-2 Танкер', clear=7)
+        # --- мостик (+1) над надстройкой
+        self.lv_building(1, sx0, y0 + 1, sx1, y1 - 1, wall, 'FloorDark',
+                         windows=[(sx1, y) for y in range(y0 + 3, y1 - 2, 2)] + [(x, y1 - 1) for x in range(sx0 + 3, sx1, 3)])
+        for i, proto in enumerate(['ComputerBroken', 'ComputerRadar', 'ComputerBroken', 'ComputerRadar']):
+            self.lv_ent(1, proto, sx1 - 2, cy - 3 + i * 2)
+            self.lv_ent(1, 'ChairOfficeDark', sx1 - 3, cy - 3 + i * 2)
+        self.lv_ent(1, 'TableReinforced', sx0 + 4, cy)
+
+    def terminal(self):
+        """Нефтяной терминал (точка захвата вместе с танкером, решение автора 2026-11-27): два пирса, три резервуара с
+        эстакадой на уровне +1, диспетчерская в 2 этажа (флагшток у входа), насосная, склады, забор."""
+        u0, v0, u1, v1 = SITES['нефтяной терминал']
+        x0, x1 = gx(u0), gx(u1)
+        shore = gy(97)            # кромка суши у терминала
+        top = gy(v1)              # южный край площадки
+        # пирс к танкеру и длинный пирс
+        pu0, pv0, pu1, pv1 = SITES['терминал-пирс-танкер']
+        piers = [(gx(pu0), gx(pu1), gy(SITES['танкер'][3]) - 1, shore + 2), (x0 + 42, x0 + 47, gy(28), shore + 2)]
+        for (px0, px1, py_top, py_bot) in piers:
+            cells = []
+            for x in range(px0, px1 + 1):
+                for y in range(py_bot, py_top + 1):
+                    self.water.pop((x, y), None)
+                    self.tile(x, y, 'FloorWood')
+                    cells.append((x, y))
+            for y in range(py_bot + 3, py_top, 8):
+                self.ent('AlwaysPoweredWallLight', px1, y, tb.LIGHT_ROT['E'], free=True)
+            for y in range(py_bot, py_top, 3):
+                self.decal('RMCDecalOilFloor' + str(1 + y % 7), (px0 + px1) // 2, y, '#FFFFFF90')
+        lx0, lx1 = x0 + 36, x0 + 54            # Т-образная голова длинного пирса
+        for x in range(lx0, lx1 + 1):
+            for y in range(gy(28) - 4, gy(28) + 1):
+                self.water.pop((x, y), None)
+                self.tile(x, y, 'FloorWood')
+        for x in range(lx0 + 2, lx1, 5):
+            self.ent('RMCBarrelYellow', x, gy(28))
+        # площадка
+        self.rect(x0, top, x1, shore + 1, 'FloorConcrete')
+        self.fence_rect(x0 - 1, top - 1, x1 + 1, shore - 1,
+                        gates=[(gx(384) + i, top - 1) for i in range(-2, 3)], skip=[(x, shore - 1) for x in range(x0, x1 + 1)])
+        # три резервуара с запада, на +1 — их крыши и эстакада вдоль
+        cxs = x0 + 12
+        for i, cyy in enumerate((shore - 14, shore - 32, shore - 50)):
+            r = 7
+            for x in range(cxs - r, cxs + r + 1):
+                for y in range(cyy - r, cyy + r + 1):
+                    d = math.hypot(x - cxs, y - cyy)
+                    if d <= r + 0.3:
+                        self.tile(x, y, 'FloorSteelDirty')
+                        self.lv_tile(1, x, y, 'FloorSteelDirty')
+                        self.roof.add((x, y))
+                        if d >= r - 0.7:
+                            self.ent('WallReinforcedRust', x, y)
+                        else:
+                            self.res.add((x, y))
+                            self.occ.add((x, y))
+            self.decal('RMCDecalOilBase', cxs, cyy, '#FFFFFFC0')
+        ew = cxs + 9
+        for y in range(shore - 58, shore - 5):
+            self.lv_tile(1, ew, y, 'FloorSteel')
+            self.lv_tile(1, ew - 1, y, 'FloorSteel')
+        for cyy in (shore - 14, shore - 32, shore - 50):
+            for x in range(cxs + 6, ew):
+                self.lv_tile(1, x, cyy, 'FloorSteel')
+        self.ladder(ew, shore - 6, 0, 1)
+        self.ladder(ew, shore - 57, 0, 1)
+        for y in range(shore - 58, shore - 5):
+            self.lv_ent(1, 'Railing', ew, y, tb.R90)
+        # диспетчерская (2 этажа): флагшток у входа
+        dx0, dy0, dx1, dy1 = x0 + 30, shore - 24, x0 + 52, shore - 8
+        self.building(dx0, dy0, dx1, dy1, 'WallSolid', 'FloorSteel',
+                      doors=[((dx0 + dx1) // 2, dy0, 'AirlockGlass'), (dx1, dy1 - 4, 'AirlockGlass')],
+                      windows=[(x, dy1) for x in range(dx0 + 2, dx1 - 1, 3)] + [(dx0, y) for y in range(dy0 + 3, dy1 - 1, 3)],
+                      window='Window')
+        self.wall_line(dx0 + 1, dy0 + 8, dx1 - 1, dy0 + 8, 'WallSolid', gaps=[(dx0 + 6, dy0 + 8)])
+        self.ent('Airlock', dx0 + 6, dy0 + 8)
+        for i, p in enumerate(['ComputerPowerMonitoring', 'ComputerAlert', 'ComputerBroken']):
+            self.grid(p, dx0 + 4 + i * 3, dy1 - 1)
+            self.ent('ChairOfficeLight', dx0 + 4 + i * 3, dy1 - 2)
+        self.ent('ClosetToolFilled', dx1 - 1, dy0 + 1)
+        self.ladder(dx1 - 2, dy0 + 10, 0, 1)
+        self.lv_building(1, dx0, dy0, dx1, dy1, 'WallSolid', 'FloorSteel',
+                         windows=[(x, dy0) for x in range(dx0 + 2, dx1 - 1, 3)] + [(x, dy1) for x in range(dx0 + 2, dx1 - 1, 3)],
+                         window='Window')
+        self.lv_ent(1, 'TableReinforced', dx0 + 4, dy0 + 4)
+        self.lv_ent(1, 'TableReinforced', dx0 + 5, dy0 + 4)
+        self.ent('DHControlPointTerminal', (dx0 + dx1) // 2, dy0 - 3, free=True)
+        # насосная и склады
+        self.building(x0 + 58, shore - 20, x0 + 70, shore - 8, 'WallSolid', 'FloorTechMaint2',
+                      doors=[(x0 + 58, shore - 14, 'AirlockEngineering')])
+        for y in range(shore - 18, shore - 9, 3):
+            self.ent('MachineFrame', x0 + 66, y)
+        for wx0, wy0, wx1, wy1 in ((x0 + 74, top + 4, x0 + 84, shore - 30), (x0 + 86, top + 4, x0 + 94, shore - 40)):
+            self.building(wx0, wy0, wx1, wy1, 'WallSolid', 'FloorSteelDirty',
+                          doors=[((wx0 + wx1) // 2, wy0, 'AirlockCargoGlass'), ((wx0 + wx1) // 2, wy1, 'AirlockCargoGlass')])
+            self.scatter(['CrateGenericSteel', 'RMCBarrelBlack', 'RMCBarrelYellow', 'RMCBarrelRed'],
+                         wx0 + 1, wy0 + 1, wx1 - 1, wy1 - 1, (wx1 - wx0) * (wy1 - wy0) // 18)
+        self.scatter(['RMCBarrelRed', 'RMCBarrelYellow', 'RMCBarrelBlack', 'RMCBarrelBrown'],
+                     x0 + 24, top + 2, x0 + 70, shore - 28, 24)
+        for x in range(x0 + 2, x1, 14):
+            self.post(x, shore - 2)
+            self.post(x, top + 1)
+
+    def dam(self):
+        """Дамба (точка захвата): гребень с шоссе Н-14, турбинный зал со стороны реки (север), пульт, водосброс."""
+        u0, v0, u1, v1 = DAM
+        x0, x1, y0, y1 = gx(u0), gx(u1), gy(v1), gy(v0)
+        cells = [(x, y) for x in range(x0, x1 + 1) for y in range(y0, y1 + 1)]
+        self.railing_edges(cells)
+        for x in range(x0 + 6, x1 - 4, 10):
+            self.ent('RMCPropTurbine', x, y1 + 3, foot=[(x, y1 + 2), (x, y1 + 3), (x, y1 + 4)])
+        hx0, hx1 = x0 + 4, x1 - 4
+        self.building(hx0, y1 + 1, hx1, y1 + 8, 'WallReinforced', 'FloorSteel',
+                      doors=[((hx0 + hx1) // 2, y1 + 1, 'AirlockEngineeringGlass')],
+                      windows=[(x, y1 + 8) for x in range(hx0 + 3, hx1 - 2, 6)], window='ReinforcedWindow')
+        for x in range(hx0 + 3, hx1 - 2, 8):
+            self.ent('MachineFrame', x, y1 + 5)
+        self.grid('ComputerPowerMonitoring', hx0 + 2, y1 + 7)
+        self.grid('ComputerAlert', hx0 + 4, y1 + 7)
+        self.ent('ChairOfficeDark', hx0 + 3, y1 + 6)
+        self.ent('DHControlPointDam', (x0 + x1) // 2, y0 + 1, free=True)
+        for x in range(x0 + 3, x1, 10):
+            self.post(x, y0)
+        self.reserve(x0 - 3, y0 - 3, x1 + 3, y1 + 10)
+
+    def crash_site(self):
+        """Место падения (решения автора 2026-11-27): разбитый республиканский транспорт — шаттл «Deadend» разломан на
+        две части, борозда с выжженной травой позади, несколько ящиков снабжения. Не точка захвата."""
+        tiles, ents = load_shuttle(os.path.join(tb.ROOT, 'Resources/Maps/_DarkestHour/Shuttles/republic_deadend.yml'))
+        xs = [c[0] for c in tiles]
+        ys = [c[1] for c in tiles]
+        mx, my = (min(xs) + max(xs)) // 2, (min(ys) + max(ys)) // 2
+        u0, v0, u1, v1 = SITES['место падения']
+        ox, oy = gx((u0 + u1) // 2) - mx, gy((v0 + v1) // 2) - my
+        cut = mx                                            # разлом поперёк корпуса
+        shift = (5, -3)                                     # задняя часть отлетела
+        rng = random.Random(77)
+
+        def place(x, y):
+            return (x + ox + (shift[0] if x < cut else 0), y + oy + (shift[1] if x < cut else 0))
+
+        for (x, y), t in tiles.items():
+            if x == cut or x == cut - 1:
+                continue                                    # линия разлома
+            if t in ('Lattice', 'Space'):
+                continue
+            c = place(x, y)
+            self.tile(*c, t if rng.random() > 0.15 else 'Plating')
+            self.roof.add(c)
+        skip = ('Cable', 'GasPipe', 'GasVent', 'GasPort', 'GasPassive', 'APC', 'SMES', 'Substation', 'Generator',
+                'Vending', 'Poweredlight', 'DHSpawner', 'DHMagazine', 'Weapon', 'DHFlamer', 'AtmosDevice',
+                'Canister', 'Gravity', 'RCD', 'Stimpack', 'Handheld', 'Food', 'Drink', 'Box', 'Wrench', 'Spawn')
+        for proto, x, y, rot in ents:
+            tx, ty = math.floor(x), math.floor(y)
+            if tx in (cut, cut - 1) or any(k in proto for k in skip):
+                continue
+            if proto.startswith('Computer'):
+                proto = 'ComputerBroken'
+            if ('Wall' in proto or 'Window' in proto or 'Grille' in proto) and rng.random() < 0.22:
+                continue                                    # пробоины
+            c = place(tx, ty)
+            self.ent(proto, c[0], c[1], rot, free=True)
+        # ящики снабжения в обломках и рядом
+        for i, crate in enumerate(['DHSupplyCrateMedical', 'DHSupplyCrateBarbedWire', 'CrateFoodMRE',
+                                   'DHCrateSecurityAmmo556x45']):
+            self.ent(crate, gx(u0) + 6 + i * 3, gy(v1) + 3, free=True)
+        # борозда с востока (шёл на запад) и гарь
+        fx0 = gx((u0 + u1) // 2) + (max(xs) - mx) + 2
+        for x in range(fx0, fx0 + 46):
+            w = 3 if x < fx0 + 30 else 2
+            for y in range(gy((v0 + v1) // 2) - w, gy((v0 + v1) // 2) + w + 1):
+                self.tile(x, y, 'FloorPlanetDirt')
+                self.res.add((x, y))
+                if rng.random() < 0.3:
+                    self.decal('burnt' + str(rng.randint(1, 4)), x, y, '#FFFFFFFF')
+        for _ in range(60):
+            x = gx(u0) + rng.randint(-6, u1 - u0 + 6)
+            y = gy(v1) + rng.randint(-6, v1 - v0 + 6)
+            self.decal('burnt' + str(rng.randint(1, 4)), x, y, '#FFFFFFC0')
+        for _ in range(5):
+            self.ent('RMCBarrelFire', gx(u0) + rng.randint(0, u1 - u0), gy(v1) + rng.randint(0, v1 - v0))
+        self.reserve(gx(u0) - 4, gy(v1) - 4, gx(u1) + 4, gy(v0) + 4)
+
 
 FOREST = ['FloraTreeConifer', 'FloraTreeConifer', 'FloraTree', 'FloraTreeLarge', 'FloraTreeStumpConifer',
           'RMCBushJungle1', 'RMCBushJungle2']
@@ -432,7 +790,7 @@ DESERT_FLORA = ['RMCGrassDesert', 'RMCGrassDesertHeavy', 'RMCBoulderLarge', 'RMC
 
 COLORS = {
     SAND: (214, 190, 140), DESERT: (226, 200, 150), GRASS: (96, 140, 70), GRASS2: (110, 152, 80),
-    DIRT: (128, 104, 74), ASPHALT: (70, 70, 74), 'FloorDirt': (150, 120, 84), 'FloorConcrete': (150, 150, 150),
+    DIRT: (128, 104, 74), ASPHALT: (70, 70, 74), DEEP_TILE: (24, 52, 96), ROCK_TILE: (70, 60, 52), 'FloorDirt': (150, 120, 84), 'FloorConcrete': (150, 150, 150),
 }
 
 
@@ -483,9 +841,106 @@ def preview(t, path, scale=2):
     print('превью:', path, img.size)
 
 
+LEVEL_FILES = {-2: ('terminus3_m2.yml', 'Terminus −2'), -1: ('terminus3_m1.yml', 'Terminus −1'),
+               1: ('terminus3_p1.yml', 'Terminus +1'), 2: ('terminus3_p2.yml', 'Terminus +2')}
+
+
+def write_level(lv, path, name, underground):
+    """Грид Z-уровня: свои тайлы и сущности (с компонентами). Под землёй крыша везде, наверху — по lv.roof."""
+    tb.TILE_IDS.clear()
+    tb.tile_id('Space')
+    ch = tb.encode_chunks(lv.tiles)
+    L = ['meta:', '  format: 7', '  category: Grid', '  engineVersion: 293.0.1', '  forkId: ""', '  forkVersion: ""',
+         '  time: 11/27/2026 12:00:00', '  entityCount: ENTITY_COUNT', 'maps: []', 'grids:', '- 1', 'orphans:', '- 1',
+         'nullspace: []', 'tilemap:']
+    for tname, idx in sorted(tb.TILE_IDS.items(), key=lambda kv: kv[1]):
+        L.append(f'  {idx}: {tname}')
+    L += ['entities:', '- proto: ""', '  entities:', '  - uid: 1', '    components:', '    - type: MetaData',
+          f'      name: {name}', '    - type: Transform', '      parent: invalid', '    - type: MapGrid',
+          '      canSplit: False', '      chunks:']
+    for cx, cy, data in ch:
+        L += [f'        {cx},{cy}:', f'          ind: {cx},{cy}', f'          tiles: {data}', '          version: 7']
+    L += ['    - type: Broadphase', '    - type: Physics', '      bodyStatus: InAir', '      angularDamping: 0.05',
+          '      linearDamping: 0.05', '      fixedRotation: False', '      bodyType: Dynamic', '    - type: Fixtures',
+          '      fixtures: {}', '    - type: OccluderTree', '    - type: GridPathfinding', '    - type: DecalGrid',
+          '      chunkCollection:', '        version: 2', '        nodes: []', '    - type: SpreaderGrid']
+    L += tb.roof_data(set(lv.tiles) if underground else lv.roof)
+    groups = {}
+    for e in tb.rmc_ents(lv.ents):
+        proto, x, y, rot = e[:4]
+        name, comps = (e[4], e[5]) if len(e) > 5 else (None, None)
+        if (math.floor(x), math.floor(y)) in lv.tiles:
+            groups.setdefault(proto, []).append((x, y, rot, name, comps))
+    uid = 2
+    for proto in sorted(groups):
+        L += [f'- proto: {proto}', '  entities:']
+        for x, y, rot, name, comps in groups[proto]:
+            L += [f'  - uid: {uid}', '    components:']
+            uid += 1
+            if name:
+                L += ['    - type: MetaData', f'      name: {name}']
+            L += ['    - type: Transform', '      parent: 1', f'      pos: {tb.fmt(x)},{tb.fmt(y)}']
+            if rot:
+                L.append(f'      rot: {rot!r} rad')
+            L += comps or []
+    L.append('...')
+    open(path, 'w', encoding='utf-8', newline='\n').write('\n'.join(L).replace('ENTITY_COUNT', str(uid - 1)) + '\n')
+    print(f'{os.path.relpath(path, tb.ROOT)}: тайлов {len(lv.tiles)}, сущностей {uid - 1}')
+    return set(groups), set(tb.TILE_IDS)
+
+
+def map_preview(m, path, z=0, box=None, scale=2):
+    """Превью собранного уровня: тайлы цветом, стены тёмным, двери зелёным, прочие сущности точкой."""
+    from PIL import Image
+    if z == 0:
+        tiles, ents = m.tiles, m.ents
+    else:
+        tiles, ents = m.levels[z].tiles, m.levels[z].ents
+    x0, y0, x1, y1 = box or (tb.X0, tb.Y0, tb.X1, tb.Y1)
+    img = Image.new('RGB', ((x1 - x0 + 1) * scale, (y1 - y0 + 1) * scale), (10, 10, 14))
+    px = img.load()
+
+    def put(x, y, col, full=True):
+        if not (x0 <= x <= x1 and y0 <= y <= y1):
+            return
+        bx, by = (x - x0) * scale, (y1 - y) * scale
+        for i in range(scale):
+            for j in range(scale):
+                if full or (i == scale // 2 and j == scale // 2):
+                    px[bx + i, by + j] = col
+
+    for (x, y), t in tiles.items():
+        put(x, y, COLORS.get(t, (120, 120, 128) if 'Floor' in t or 'Plating' in t else (200, 0, 200)))
+    water = getattr(m, 'water', {}) if z == 0 else {}
+    for (x, y), deep in water.items():
+        put(x, y, (40, 80, 140) if deep else (80, 140, 190))
+    for e in ents:
+        proto, x, y = e[0], math.floor(e[1]), math.floor(e[2])
+        if proto in ('DHRockMass',):
+            continue
+        if 'Wall' in proto or 'Rock' in proto and 'Wall' in proto or proto.startswith('DHWorldEdge'):
+            put(x, y, (40, 40, 44))
+        elif 'Airlock' in proto or 'Gate' in proto:
+            put(x, y, (60, 200, 90))
+        elif 'Window' in proto:
+            put(x, y, (110, 170, 220))
+        elif 'Ladder' in proto:
+            put(x, y, (255, 230, 0))
+        elif 'ControlPoint' in proto or 'LandingZone' in proto:
+            put(x, y, (255, 40, 40))
+        elif proto.startswith('DHWater') or proto.startswith('Flora') or 'Grass' in proto or 'Bush' in proto:
+            continue
+        else:
+            put(x, y, (230, 110, 60), full=False)
+    img.save(path)
+    print('превью:', path, img.size)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--preview', help='PNG превью каркаса')
+    ap.add_argument('--map-preview', help='префикс PNG превью собранной карты по уровням (с --write)')
+    ap.add_argument('--box', help='u0,v0,u1,v1 — участок для --map-preview')
     ap.add_argument('--write', action='store_true',
                     help='записать Resources/Maps/_DarkestHour/Assault/terminus3*.yml (пока не подключены к игре)')
     args = ap.parse_args()
@@ -506,11 +961,26 @@ def main():
         tb.KNOWN_TILES.update(tiles)
         m = Map3(known)
         m.load_terrain(t)
+        m.tanker()
+        m.terminal()
+        m.dam()
+        m.crash_site()
         m.place_water()
         m.edge()
         if m.missing:
             print('НЕТ ПРОТОТИПОВ (пропущены):', sorted(m.missing))
         protos, used = tb.write_surface(m, os.path.join(tb.OUT, 'terminus3.yml'))
+        for z, (fname, title) in LEVEL_FILES.items():
+            pz, tz = write_level(m.levels[z], os.path.join(tb.OUT, fname), title, z < 0)
+            protos |= pz
+            used |= tz
+        if args.map_preview:
+            box = None
+            if args.box:
+                bu0, bv0, bu1, bv1 = map(int, args.box.split(','))
+                box = (gx(bu0), gy(bv1), gx(bu1), gy(bv0))
+            for z in (-2, -1, 0, 1, 2):
+                map_preview(m, f'{args.map_preview}_{z}.png', z, box)
         bad = sorted(p for p in protos if p not in known)
         badt = sorted(x for x in used if x not in tiles and x != 'Space')
         if bad or badt:

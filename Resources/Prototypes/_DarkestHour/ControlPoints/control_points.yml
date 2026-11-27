@@ -156,3 +156,28 @@
     jamChannels: [ DHRepublic ]
     jamFaction: Republic
     jamRange: 15
+
+# Большой Терминус (решения автора 2026-11-27): нефтяной терминал с танкером и завод (вместо стройки).
+- type: entity
+  parent: DHControlPointBase
+  id: DHControlPointTerminal
+  suffix: Oil terminal
+  components:
+  - type: DHControlPoint
+    pointId: terminal
+    pointsPerMinute: 3
+    pointName: dh-control-point-terminal
+    pointDescription: dh-control-point-terminal-desc
+    radius: 18
+
+- type: entity
+  parent: DHControlPointBase
+  id: DHControlPointFactory
+  suffix: Factory
+  components:
+  - type: DHControlPoint
+    pointId: factory
+    pointsPerMinute: 3
+    pointName: dh-control-point-factory
+    pointDescription: dh-control-point-factory-desc
+    radius: 18
