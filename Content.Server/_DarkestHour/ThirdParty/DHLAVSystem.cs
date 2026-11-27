@@ -5,6 +5,7 @@ using Content.Server._DarkestHour.Shuttles.Rift;
 using Content.Server.Chat.Managers;
 using Content.Server.Chat.Systems;
 using Content.Server.GameTicking;
+using Content.Server.Ghost.Roles.Components;
 using Content.Server.Humanoid.Systems;
 using Content.Server.Mind;
 using Content.Shared._DarkestHour.Assault;
@@ -18,6 +19,7 @@ using Content.Shared.Antag;
 using Content.Shared.DoAfter;
 using Content.Shared.GameTicking;
 using Content.Shared.Interaction;
+using Content.Shared.Mind.Components;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
@@ -71,6 +73,9 @@ public sealed partial class DHLAVMemberComponent : Component
 {
     [ViewVariables] public string Role = string.Empty;
     [ViewVariables] public EntityUid? StatusAction;
+
+    /// <summary>Инструктаж уже выдан (у гост-ролей из админ-вызова — при вселении).</summary>
+    [ViewVariables] public bool Briefed;
 }
 
 /// <summary>
@@ -192,6 +197,7 @@ public sealed partial class DHLAVSystem : EntitySystem
 
         SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
         SubscribeLocalEvent<DHLAVMemberComponent, DHLAVStatusActionEvent>(OnStatus);
+        SubscribeLocalEvent<DHLAVMemberComponent, MindAddedMessage>(OnMemberMindAdded);
         SubscribeLocalEvent<DHLAVShuttleConsoleComponent, ActivateInWorldEvent>(OnConsoleActivate);
         SubscribeLocalEvent<DHLAVShuttleConsoleComponent, DHLAVEvacDoAfterEvent>(OnEvacDoAfter);
         SubscribeLocalEvent<DHLAVShuttleConsoleComponent, GetVerbsEvent<Verb>>(OnConsoleVerbs);
@@ -274,28 +280,66 @@ public sealed partial class DHLAVSystem : EntitySystem
 
     public bool AdminOpen(int min) => OpenRecruitment(_ticker.RoundDuration() + TimeSpan.FromMinutes(15), min);
 
+    /// <summary>
+    /// Админ (для тестов): высадить отряд сразу, без набора — тела на борту становятся гост-ролями. Правило «одно
+    /// событие третьей стороны за раунд» не мешает: если другое уже было, отряд всё равно высаживается.
+    /// </summary>
+    public bool AdminSpawn(int count, out string error)
+    {
+        error = string.Empty;
+        if (_happened)
+        {
+            error = Loc.GetString("dh-lav-admin-busy");
+            return false;
+        }
+
+        if (_thirdParty.IsOpen(EventId))
+            _thirdParty.Close(EventId);
+
+        var squad = SquadRoles.SelectMany(r => Enumerable.Repeat(r.Id, r.Slots))
+            .Take(Math.Clamp(count, 1, SquadRoles.Sum(r => r.Slots)))
+            .Select(role => (role, (ICommonSession?) null))
+            .ToList();
+
+        return Deploy(squad, true, out error);
+    }
+
     #endregion
 
     #region Высадка
 
     private void Start(List<(string Role, ICommonSession Session)> squad)
     {
+        if (!Deploy(squad.Select(m => (m.Role, (ICommonSession?) m.Session)).ToList(), false, out var error) &&
+            error != string.Empty)
+        {
+            foreach (var (_, session) in squad)
+            {
+                _chatManager.DispatchServerMessage(session, error);
+            }
+        }
+    }
+
+    /// <summary>Высадка отряда. Сессия null — тело остаётся гост-ролью (админ-вызов без набора).</summary>
+    private bool Deploy(List<(string Role, ICommonSession? Session)> squad, bool force, out string error)
+    {
+        error = string.Empty;
         if (!TryFindSurface(out var surface, out var atmosphere) || !TryPickTarget(surface))
         {
-            Fail(squad, "dh-lav-no-target");
-            return;
+            error = Loc.GetString("dh-lav-no-target");
+            return false;
         }
 
         if (!TryDeployShuttle(surface, atmosphere, out var shuttle))
         {
-            Fail(squad, "dh-lav-no-zone");
-            return;
+            error = Loc.GetString("dh-lav-no-zone");
+            return false;
         }
 
-        if (!_thirdParty.Claim(EventId))
+        if (!_thirdParty.Claim(EventId) && !force)
         {
             QueueDel(shuttle);
-            return;
+            return false;
         }
 
         _happened = true;
@@ -357,30 +401,49 @@ public sealed partial class DHLAVSystem : EntitySystem
             if (_inventory.TryGetSlotEntity(mob, "id", out var tags))
                 _idCard.TryChangeFullName(tags.Value, Name(mob));
 
-            if (_mind.TryGetMind(session, out var mind, out _))
-                _mind.TransferTo(mind, mob, ghostCheckOverride: true);
-
             _summaryNames.Add(Loc.GetString("dh-lav-summary-member", ("name", Name(mob)),
                 ("role", Loc.GetString($"dh-lav-role-{role}"))));
 
-            _antag.SendBriefing(session, Loc.GetString(BriefingKey(role), ("target", _targetName),
-                ("minutes", (int) AutoLandTime.TotalMinutes), ("radius", (int) TargetRadius())), LavColor, null);
+            if (session == null)
+            {
+                // Гост-роль: инструктаж — при вселении (OnMemberMindAdded).
+                var ghostRole = EnsureComp<GhostRoleComponent>(mob);
+                EnsureComp<GhostTakeoverAvailableComponent>(mob);
+                ghostRole.RoleName = Loc.GetString($"dh-lav-role-{role}");
+                ghostRole.RoleDescription = Loc.GetString($"dh-lav-role-{role}-desc");
+                ghostRole.RoleRules = Loc.GetString("dh-lav-ghost-rules");
+                continue;
+            }
+
+            member.Briefed = true;
+            if (_mind.TryGetMind(session, out var mind, out _))
+                _mind.TransferTo(mind, mob, ghostCheckOverride: true);
+
+            _antag.SendBriefing(session, Briefing(role), LavColor, null);
         }
+
+        return true;
+    }
+
+    private string Briefing(string role)
+    {
+        return Loc.GetString(BriefingKey(role), ("target", _targetName),
+            ("minutes", (int) AutoLandTime.TotalMinutes), ("radius", (int) TargetRadius()));
+    }
+
+    private void OnMemberMindAdded(Entity<DHLAVMemberComponent> ent, ref MindAddedMessage args)
+    {
+        if (ent.Comp.Briefed)
+            return;
+
+        ent.Comp.Briefed = true;
+        _antag.SendBriefing(ent.Owner, Briefing(ent.Comp.Role), LavColor, null);
     }
 
     private string BriefingKey(string role)
     {
         var kind = _kind == DHLAVTargetKind.Sample ? "sample" : "hold";
         return role == "commander" ? $"dh-lav-briefing-commander-{kind}" : $"dh-lav-briefing-{kind}";
-    }
-
-    private void Fail(List<(string Role, ICommonSession Session)> squad, LocId reason)
-    {
-        var message = Loc.GetString(reason);
-        foreach (var (_, session) in squad)
-        {
-            _chatManager.DispatchServerMessage(session, message);
-        }
     }
 
     private bool TryFindSurface(out EntityUid surface, out EntityUid atmosphere)
@@ -935,5 +998,32 @@ public sealed partial class DHCallLAVCommand : Robust.Shared.Console.LocalizedEn
             shell.WriteLine(Loc.GetString("dh-lav-admin-opened", ("min", min)));
         else
             shell.WriteError(Loc.GetString("dh-lav-admin-busy"));
+    }
+}
+
+/// <summary>
+/// Админ (для тестов): высадить отряд LA-V сразу, без набора — бойцы на борту гост-ролями. Необязательный аргумент —
+/// число бойцов (по старшинству ролей, по умолчанию весь отряд).
+/// </summary>
+[Content.Server.Administration.AdminCommand(Content.Shared.Administration.AdminFlags.Admin)]
+public sealed partial class DHSpawnLAVCommand : Robust.Shared.Console.LocalizedEntityCommands
+{
+    [Dependency] private DHLAVSystem _lav = default!;
+
+    public override string Command => "dhspawnlavsquad";
+
+    public override void Execute(Robust.Shared.Console.IConsoleShell shell, string argStr, string[] args)
+    {
+        var count = int.MaxValue;
+        if (args.Length > 0 && !int.TryParse(args[0], out count))
+        {
+            shell.WriteError(Loc.GetString("cmd-dhspawnlavsquad-help"));
+            return;
+        }
+
+        if (_lav.AdminSpawn(count, out var error))
+            shell.WriteLine(Loc.GetString("dh-lav-admin-spawned"));
+        else
+            shell.WriteError(error == string.Empty ? Loc.GetString("dh-lav-admin-busy") : error);
     }
 }

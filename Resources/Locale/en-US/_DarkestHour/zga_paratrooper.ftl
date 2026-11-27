@@ -93,3 +93,7 @@ dh-zga-outcome-captured = [color=red]taken alive[/color]
 dh-zga-precautions = [color=#7ec8f0]Precautions.[/color] The Association wants no open war. Do not interfere in the fight between the two sides. Maim and kill only the target and those who resist you — no needless casualties. Never be taken alive. Break this and the Association will publicly disavow you.
 dh-alert-zga-tracker-name = Target tracker
 dh-alert-zga-tracker-desc = Direction to the target; once it is down, to the evacuation point.
+dh-zga-admin-spawned = Paratrooper deployed without recruitment: he and M.A.R.S. are available as ghost roles.
+dh-zga-ghost-rules = You are a ZGA Association paratrooper or his armor AI. Complete the mission and follow the precautions. Regular server rules apply.
+cmd-dhspawnzgaparatrooper-desc = Deploys the Association paratrooper right away without recruitment — he and M.A.R.S. become ghost roles (for testing).
+cmd-dhspawnzgaparatrooper-help = Usage: dhspawnzgaparatrooper
