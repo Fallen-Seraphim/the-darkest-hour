@@ -92,6 +92,14 @@ public sealed partial class DHCarrierDecksSystem : EntitySystem
                 continue;
             }
 
+            // Уровень едет за корпусом телепортом каждый тик: физику не считаем и ни с чем не сталкиваем — иначе
+            // перекрывающиеся гриды (челнок в вырезе палубы, корпус под ним) расталкивают и крутят его.
+            if (TryComp<PhysicsComponent>(grid.Value, out var body))
+            {
+                _physics.SetBodyType(grid.Value, Robust.Shared.Physics.BodyType.Static, body: body);
+                _physics.SetCanCollide(grid.Value, false, body: body);
+            }
+
             var deck = EnsureComp<DHCarrierDeckComponent>(grid.Value);
             deck.Hull = hull;
             deck.Level = level;

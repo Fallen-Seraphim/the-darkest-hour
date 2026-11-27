@@ -18,6 +18,12 @@ public sealed partial class DHDropshipRampSegmentComponent : Component
     /// <summary>При опущенной рампе ещё и непроходима (переборки по бокам рампы).</summary>
     [DataField]
     public bool Solid;
+
+    /// <summary>
+    /// Ряд рампы от петель (0) к краю: рампа опускается и поднимается по рядам, как в RuCM (решение автора 2026-11-27).
+    /// </summary>
+    [DataField]
+    public int Stage;
 }
 
 /// <summary>
