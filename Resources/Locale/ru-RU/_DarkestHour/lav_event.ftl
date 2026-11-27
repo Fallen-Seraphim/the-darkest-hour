@@ -86,3 +86,7 @@ dh-job-lav-pmc-technician-name = боевой техник ЧВК LA-V
 dh-job-lav-pmc-technician-desc = Держите объект пулемётом и укрепляйте его.
 
 tiles-dh-lav-floor = палуба шаттла LA-V
+dh-lav-admin-spawned = Отряд LA-V высажен без набора: бойцы на борту доступны как гост-роли.
+dh-lav-ghost-rules = Вы — боец ЧВК LA-V. Выполняйте задание отряда, слушайтесь командира. Обычные правила сервера в силе.
+cmd-dhspawnlavsquad-desc = Сразу высаживает отряд «ЧВК LA-V» без набора — бойцы становятся гост-ролями (для тестов).
+cmd-dhspawnlavsquad-help = Использование: dhspawnlavsquad [число бойцов, по умолчанию весь отряд]

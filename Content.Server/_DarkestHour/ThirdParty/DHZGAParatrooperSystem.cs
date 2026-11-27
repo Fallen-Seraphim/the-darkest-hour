@@ -7,6 +7,7 @@ using Content.Server._DarkestHour.Shuttles.Rift;
 using Content.Server.Chat.Managers;
 using Content.Server.Chat.Systems;
 using Content.Server.GameTicking;
+using Content.Server.Ghost.Roles.Components;
 using Content.Server.Humanoid.Systems;
 using Content.Server.Mind;
 using Content.Shared._DarkestHour.ThirdParty;
@@ -19,6 +20,7 @@ using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
 using Content.Shared.GameTicking;
 using Content.Shared.Hands.EntitySystems;
+using Content.Shared.Mind.Components;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Alert;
@@ -97,6 +99,13 @@ public sealed partial class DHMarsComponent : Component
     [ViewVariables] public TimeSpan CarryUntil;
 }
 
+/// <summary>Тело из админ-вызова без набора ждёт гост-роль: инструктаж — при вселении.</summary>
+[RegisterComponent]
+public sealed partial class DHZGAPendingBriefingComponent : Component
+{
+    [ViewVariables] public bool Mars;
+}
+
 /// <summary>Точка эвакуации десантника (невидимая метка, на неё указывает пинпоинтер).</summary>
 [RegisterComponent]
 public sealed partial class DHZGAEvacPointComponent : Component;
@@ -126,6 +135,7 @@ public sealed partial class DHZGAParatrooperSystem : EntitySystem
     [Dependency] private DHMarsSystem _mars = default!;
     [Dependency] private MindSystem _mind = default!;
     [Dependency] private MobStateSystem _mobState = default!;
+    [Dependency] private ISharedPlayerManager _players = default!;
     [Dependency] private AlertsSystem _alerts = default!;
     [Dependency] private DHZLevelSystem _zLevels = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
@@ -204,6 +214,7 @@ public sealed partial class DHZGAParatrooperSystem : EntitySystem
         SubscribeLocalEvent<DHZGAParatrooperComponent, DHZGAStatusActionEvent>(OnParatrooperStatus);
         SubscribeLocalEvent<DHMarsComponent, DHZGAStatusActionEvent>(OnMarsStatus);
         SubscribeLocalEvent<DHImplantComponent, DHZGALethalActionEvent>(OnLethal);
+        SubscribeLocalEvent<DHZGAPendingBriefingComponent, MindAddedMessage>(OnPendingMindAdded);
         SubscribeLocalEvent<RoundEndTextAppendEvent>(OnRoundEndText);
     }
 
@@ -277,6 +288,25 @@ public sealed partial class DHZGAParatrooperSystem : EntitySystem
 
     public bool AdminOpen() => OpenRecruitment(TimeSpan.Zero, admin: true);
 
+    /// <summary>
+    /// Админ (для тестов): высадить десантника сразу, без набора — он и M.A.R.S. становятся гост-ролями. Правило
+    /// «одно событие третьей стороны за раунд» не мешает.
+    /// </summary>
+    public bool AdminSpawn(out string error)
+    {
+        error = string.Empty;
+        if (_happened)
+        {
+            error = Loc.GetString("dh-zga-admin-busy");
+            return false;
+        }
+
+        if (_thirdParty.IsOpen(EventId))
+            _thirdParty.Close(EventId);
+
+        return Deploy(null, null, true, out error);
+    }
+
     #endregion
 
     #region Высадка
@@ -286,18 +316,27 @@ public sealed partial class DHZGAParatrooperSystem : EntitySystem
         var paratrooperSession = players[ParatrooperRole];
         var marsSession = players[MarsRole];
 
+        if (!Deploy(paratrooperSession, marsSession, false, out var error) && error != string.Empty)
+        {
+            _chatManager.DispatchServerMessage(paratrooperSession, error);
+            _chatManager.DispatchServerMessage(marsSession, error);
+        }
+    }
+
+    /// <summary>Высадка. Сессия null — тело остаётся гост-ролью (админ-вызов без набора).</summary>
+    private bool Deploy(ICommonSession? paratrooperSession, ICommonSession? marsSession, bool force, out string error)
+    {
+        error = string.Empty;
         if (!TryFindPlanet(out var surface, out _) ||
             !TryPickTarget(surface, out var target, out var targetJob))
         {
-            var message = Loc.GetString("dh-zga-no-target");
-            _chatManager.DispatchServerMessage(paratrooperSession, message);
-            _chatManager.DispatchServerMessage(marsSession, message);
-            return;
+            error = Loc.GetString("dh-zga-no-target");
+            return false;
         }
 
-        // Одно событие третьей стороны за раунд (решение автора 2026-11-26).
-        if (!_thirdParty.Claim(EventId))
-            return;
+        // Одно событие третьей стороны за раунд (решение автора 2026-11-26); админ-высадка — в обход.
+        if (!_thirdParty.Claim(EventId) && !force)
+            return false;
 
         _happened = true;
         var targetPosition = _transform.GetWorldPosition(target);
@@ -341,13 +380,47 @@ public sealed partial class DHZGAParatrooperSystem : EntitySystem
         _summaryKills = 0;
         _capturedBy = null;
 
-        if (_mind.TryGetMind(paratrooperSession, out var paratrooperMind, out _))
-            _mind.TransferTo(paratrooperMind, paratrooper, ghostCheckOverride: true);
-        if (_mind.TryGetMind(marsSession, out var marsMind, out _))
-            _mind.TransferTo(marsMind, mars, ghostCheckOverride: true);
+        Embody(paratrooperSession, paratrooper, comp, false);
+        Embody(marsSession, mars, comp, true);
+        return true;
+    }
 
-        Briefing(paratrooperSession, comp, mars: false);
-        Briefing(marsSession, comp, mars: true);
+    /// <summary>Вселить игрока, а без игрока — выставить тело гост-ролью.</summary>
+    private void Embody(ICommonSession? session, EntityUid body, DHZGAParatrooperComponent comp, bool mars)
+    {
+        var role = mars ? "dh-zga-role-mars" : "dh-zga-role-paratrooper";
+        if (session == null)
+        {
+            EnsureComp<DHZGAPendingBriefingComponent>(body).Mars = mars;
+            var ghostRole = EnsureComp<GhostRoleComponent>(body);
+            EnsureComp<GhostTakeoverAvailableComponent>(body);
+            // M.A.R.S. — ИИ в броне: не давать ему ходить самому.
+            ghostRole.MakeSentient = false;
+            ghostRole.RoleName = Loc.GetString(role);
+            ghostRole.RoleDescription = Loc.GetString($"{role}-desc");
+            ghostRole.RoleRules = Loc.GetString("dh-zga-ghost-rules");
+            return;
+        }
+
+        if (_mind.TryGetMind(session, out var mind, out _))
+            _mind.TransferTo(mind, body, ghostCheckOverride: true);
+
+        Briefing(session, comp, mars);
+    }
+
+    private void OnPendingMindAdded(Entity<DHZGAPendingBriefingComponent> ent, ref MindAddedMessage args)
+    {
+        var mars = ent.Comp.Mars;
+        RemCompDeferred<DHZGAPendingBriefingComponent>(ent);
+
+        var host = mars ? CompOrNull<DHMarsComponent>(ent)?.Host : ent.Owner;
+        if (host is not { } hostUid || !TryComp<DHZGAParatrooperComponent>(hostUid, out var comp) ||
+            !_players.TryGetSessionById(args.Mind.Comp.UserId, out var session))
+        {
+            return;
+        }
+
+        Briefing(session, comp, mars);
     }
 
     private bool TryFindPlanet(out EntityUid surface, out EntityUid atmosphere)
@@ -753,5 +826,22 @@ public sealed partial class DHCallZGAParatrooperCommand : Robust.Shared.Console.
             shell.WriteLine(Loc.GetString("dh-zga-admin-opened"));
         else
             shell.WriteError(Loc.GetString("dh-zga-admin-busy"));
+    }
+}
+
+/// <summary>Админ (для тестов): высадить ассоциативного десантника сразу, без набора — он и M.A.R.S. гост-ролями.</summary>
+[Content.Server.Administration.AdminCommand(Content.Shared.Administration.AdminFlags.Admin)]
+public sealed partial class DHSpawnZGAParatrooperCommand : Robust.Shared.Console.LocalizedEntityCommands
+{
+    [Dependency] private DHZGAParatrooperSystem _zga = default!;
+
+    public override string Command => "dhspawnzgaparatrooper";
+
+    public override void Execute(Robust.Shared.Console.IConsoleShell shell, string argStr, string[] args)
+    {
+        if (_zga.AdminSpawn(out var error))
+            shell.WriteLine(Loc.GetString("dh-zga-admin-spawned"));
+        else
+            shell.WriteError(error == string.Empty ? Loc.GetString("dh-zga-admin-busy") : error);
     }
 }

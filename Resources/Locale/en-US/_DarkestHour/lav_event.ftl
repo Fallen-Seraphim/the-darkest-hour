@@ -86,3 +86,7 @@ dh-job-lav-pmc-technician-name = LA-V PMC combat technician
 dh-job-lav-pmc-technician-desc = Hold the objective with the machine gun and fortify it.
 
 tiles-dh-lav-floor = LA-V shuttle deck
+dh-lav-admin-spawned = LA-V squad deployed without recruitment: the operatives aboard are available as ghost roles.
+dh-lav-ghost-rules = You are an LA-V PMC operative. Complete the squad's task and follow your commander. Regular server rules apply.
+cmd-dhspawnlavsquad-desc = Deploys the "LA-V PMC" squad right away without recruitment — operatives become ghost roles (for testing).
+cmd-dhspawnlavsquad-help = Usage: dhspawnlavsquad [operatives, default the whole squad]
