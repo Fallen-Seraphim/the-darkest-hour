@@ -7,6 +7,7 @@ using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Content.Shared.Shuttles.Components;
+using Robust.Server.Physics;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
@@ -67,6 +68,7 @@ public sealed partial class DHCarrierDecksSystem : EntitySystem
     {
         base.Initialize();
         SubscribeLocalEvent<Content.Shared.GameTicking.RoundRestartCleanupEvent>(_ => _created.Clear());
+        SubscribeLocalEvent<DHCarrierDeckComponent, GridSplitEvent>(OnDeckSplit);
     }
 
     #region Загрузка
@@ -108,6 +110,25 @@ public sealed partial class DHCarrierDecksSystem : EntitySystem
     }
 
     #endregion
+
+    /// <summary>Уровень всё же разделился (до <see cref="Pin"/>): куски — тоже уровни авианосца, едут за ним.</summary>
+    private void OnDeckSplit(Entity<DHCarrierDeckComponent> ent, ref GridSplitEvent args)
+    {
+        if (!TryComp<DHCarrierDecksComponent>(ent.Comp.Hull, out var decks))
+            return;
+
+        foreach (var piece in args.NewGrids)
+        {
+            if (piece == ent.Owner || !Exists(piece))
+                continue;
+
+            Pin(piece);
+            var deck = EnsureComp<DHCarrierDeckComponent>(piece);
+            deck.Hull = ent.Comp.Hull;
+            deck.Level = ent.Comp.Level;
+            decks.Decks.Add((piece, ent.Comp.Level));
+        }
+    }
 
     #region Вслед за авианосцем
 
@@ -229,6 +250,12 @@ public sealed partial class DHCarrierDecksSystem : EntitySystem
     {
         if (TryComp<ShuttleComponent>(grid, out var shuttle))
             shuttle.Enabled = false;
+
+        // Крыши из нескольких несвязанных кусков (крыша над нижней палубой — нос и корма, ярусы челнока — стойки
+        // шасси): при первом же изменении тайлов движок отщеплял кусок в новый грид — динамический, никому не
+        // принадлежащий; он уплывал и крутился поверх палубы. Уровни не делятся.
+        if (TryComp<MapGridComponent>(grid, out var mapGrid))
+            mapGrid.CanSplit = false;
 
         if (!TryComp<PhysicsComponent>(grid, out var body))
             return;
