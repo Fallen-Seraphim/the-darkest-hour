@@ -27,6 +27,7 @@ import base64
 import json
 import os
 import math
+import re
 import struct
 from collections import deque
 
@@ -1041,3 +1042,103 @@ def write(level, path, name, carrier):
 write(0, OUT, 'IC-3 Sovereign', True)
 write(1, OUT_DECK, 'IC-3 Sovereign — flight deck', False)
 write(2, OUT_ISLAND, 'IC-3 Sovereign — island', False)
+
+# ================================================================ крыша над всем кораблём (решение автора 2026-11-27)
+# Крыша — отдельные гриды без своего воздуха (в космосе — вакуум, нужен скафандр): над нижней палубой там, где нет
+# полётной (уровень 1), над полётной палубой — кроме ВПП (проём для штурмовика), выреза под «Мидуэй» (там его крыша)
+# и надстройки (уровень 2), над надстройкой — уровень 3. Люк с мостика на крышу надстройки, люк из казарм на крышу
+# нижней палубы; с крыши надстройки на крышу палубы — спрыгнуть.
+ROOF_TILE, ROOF_EDGE = 'RMCFloorPlatingNoBuild', 'RMCFloorPlatingAlt'
+foot0 = set(DECKS[0]['T'])
+foot1 = set(DECKS[1]['T']) | HOLE
+foot2 = set(DECKS[2]['T'])
+runway = {p for p, r in DECKS[1]['REGION'].items() if r == 'runway'}
+
+
+def midway_roof():
+    """Клетки ходовой крыши «Мидуэя» (над вырезом стоит его крыша — своя крыша авианосца там не нужна)."""
+    out = set()
+    text = open('Resources/Maps/_DarkestHour/Shuttles/midway_roof.yml', encoding='utf-8').read()
+    for ind, data in re.findall(r'ind: (-?\d+,-?\d+)\n\s+tiles: (\S+)', text):
+        cx, cy = map(int, ind.split(','))
+        raw = base64.b64decode(data)
+        step = len(raw) // 256
+        for i in range(256):
+            if struct.unpack_from('<i', raw, i * step)[0]:
+                out.add((MID[0] + cx * 16 + i % 16, MID[1] + cy * 16 + i // 16))
+    return out
+
+
+ROOFS = {
+    1: foot0 - foot1,
+    2: foot1 - runway - HOLE - midway_roof() - foot2,
+    3: foot2,
+}
+ROOF_ENTS = {1: [], 2: [], 3: []}
+
+
+def roof_hatch(level, deck_level, room, near):
+    """Люк на крышу: лестница в помещении уровня ниже и над ней — на крыше."""
+    d = DECKS[deck_level]
+    cells = [p for p in d['INNER'].get(room, ()) if p in ROOFS[level] and free_on(deck_level, p)
+             and not near_door(deck_level, p)]
+    if not cells:
+        raise SystemExit('нет места для люка на крышу: ' + room)
+    p = min(cells, key=lambda c: (abs(c[0] - near[0]) + abs(c[1] - near[1]), c))
+    d['E'].append(('DHZLadder', p[0], p[1], None))
+    ROOF_ENTS[level].append(('DHZLadder', p[0], p[1], None))
+
+
+b = DECKS[2]['INNER']['bridge']
+roof_hatch(3, 2, 'bridge', (min(x for x, _ in b), min(y for _, y in b)))
+k = DECKS[0]['INNER']['barracks']
+roof_hatch(1, 0, 'barracks', (min(x for x, _ in k), max(y for _, y in k)))
+# люки поставлены после записи уровней 0 и 2 — перезаписать их
+write(0, OUT, 'IC-3 Sovereign', True)
+write(2, OUT_ISLAND, 'IC-3 Sovereign — island', False)
+
+
+def write_roof(level, path):
+    cells = ROOFS[level]
+    tiles = {}
+    for (x, y) in cells:
+        edge = any((x + dx, y + dy) not in cells for dx, dy in N8)
+        tiles[(x, y)] = ROOF_EDGE if edge else ROOF_TILE
+    tile_ids = ['Space'] + sorted(set(tiles.values()))
+    tid = {n: i for i, n in enumerate(tile_ids)}
+    by = {}
+    for (x, y), tname in tiles.items():
+        by.setdefault((x // 16, y // 16), {})[(x % 16, y % 16)] = tid[tname]
+    L = ['meta:', '  format: 7', '  category: Grid', '  engineVersion: 289.0.0', '  forkId: ""', '  forkVersion: ""',
+         '  time: 11/27/2026 08:00:00', '  entityCount: ENTITY_COUNT', 'maps: []', 'grids:', '- 1', 'orphans:', '- 1',
+         'nullspace: []', 'tilemap:']
+    L += ['  %d: %s' % (i, n) for i, n in enumerate(tile_ids)]
+    L += ['entities:', '- proto: ""', '  entities:', '  - uid: 1', '    components:', '    - type: MetaData',
+          '      name: IC-3 Sovereign — roof %d' % level, '    - type: Transform', '      parent: invalid',
+          '    - type: MapGrid', '      chunks:']
+    for (cx, cy), c in sorted(by.items()):
+        data = bytearray()
+        for i in range(256):
+            data += struct.pack('<iBBB', c.get((i % 16, i // 16), 0), 0, 0, 0)
+        L += ['        %d,%d:' % (cx, cy), '          ind: %d,%d' % (cx, cy),
+              '          tiles: %s' % base64.b64encode(bytes(data)).decode(), '          version: 7']
+    L += ['    - type: Broadphase', '    - type: Physics', '      fixedRotation: False', '      bodyType: Dynamic',
+          '      bodyStatus: InAir', '    - type: Fixtures', '      fixtures: {}', '    - type: OccluderTree',
+          '    - type: GridPathfinding', '    - type: Gravity', '      enabled: True', '      inherent: True']
+    by_proto = {}
+    for proto, x, y, rot in ROOF_ENTS[level]:
+        by_proto.setdefault(proto, []).append((x, y))
+    uid = 2
+    for proto in sorted(by_proto):
+        L += ['- proto: %s' % proto, '  entities:']
+        for x, y in by_proto[proto]:
+            L += ['  - uid: %d' % uid, '    components:', '    - type: Transform',
+                  '      pos: %s,%s' % (x + 0.5, y + 0.5), '      parent: 1']
+            uid += 1
+    L.append('...')
+    open(path, 'w', encoding='utf-8').write('\n'.join(L).replace('ENTITY_COUNT', str(uid - 1)) + '\n')
+    print(path, 'tiles', len(tiles))
+
+
+for level in (1, 2, 3):
+    write_roof(level, 'Resources/Maps/_DarkestHour/Shuttles/imperial_carrier_roof%d.yml' % level)

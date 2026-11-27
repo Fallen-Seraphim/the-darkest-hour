@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 11/12/2026 08:00:00
-  entityCount: 270
+  entityCount: 271
 maps: []
 grids:
 - 1
@@ -1519,61 +1519,66 @@ entities:
     - type: Transform
       pos: 44.5,-66.5
       parent: 1
+  - uid: 261
+    components:
+    - type: Transform
+      pos: 42.5,-98.5
+      parent: 1
 - proto: Poweredlight
   entities:
-  - uid: 261
+  - uid: 262
     components:
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 43.5,-98.5
       parent: 1
-  - uid: 262
+  - uid: 263
     components:
     - type: Transform
       pos: 43.5,-64.5
       parent: 1
-  - uid: 263
+  - uid: 264
     components:
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 48.5,-98.5
       parent: 1
-  - uid: 264
+  - uid: 265
     components:
     - type: Transform
       pos: 48.5,-64.5
       parent: 1
-  - uid: 265
+  - uid: 266
     components:
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 53.5,-98.5
       parent: 1
-  - uid: 266
+  - uid: 267
     components:
     - type: Transform
       pos: 53.5,-64.5
       parent: 1
 - proto: SubstationBasic
   entities:
-  - uid: 267
+  - uid: 268
     components:
     - type: Transform
       pos: 45.5,-98.5
       parent: 1
 - proto: TableReinforced
   entities:
-  - uid: 268
+  - uid: 269
     components:
     - type: Transform
       pos: 46.5,-96.5
       parent: 1
-  - uid: 269
+  - uid: 270
     components:
     - type: Transform
       pos: 47.5,-96.5
       parent: 1
-  - uid: 270
+  - uid: 271
     components:
     - type: Transform
       pos: 48.5,-96.5

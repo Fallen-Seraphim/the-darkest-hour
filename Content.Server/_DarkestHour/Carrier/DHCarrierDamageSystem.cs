@@ -146,7 +146,8 @@ public sealed partial class DHCarrierDamageSystem : EntitySystem
         var total = 0;
         foreach (var part in _decks.Group(hull))
         {
-            if (!TryComp<MapGridComponent>(part, out var gridComp))
+            // Крыша (без отсеков) не в счёт: попадания идут в палубы с отсеками.
+            if (!HasComp<DHCarrierCompartmentsComponent>(part) || !TryComp<MapGridComponent>(part, out var gridComp))
                 continue;
 
             var count = _map.GetAllTiles(part, gridComp).Count();

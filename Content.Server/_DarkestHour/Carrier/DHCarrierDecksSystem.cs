@@ -49,7 +49,14 @@ public sealed partial class DHCarrierDecksSystem : EntitySystem
     [Dependency] private DHZLevelSystem _z = default!;
     [Dependency] private DHZTransitSystem _zTransit = default!;
 
-    private static readonly (string Suffix, int Level)[] DeckFiles = { ("_deck", 1), ("_island", 2) };
+    /// <summary>
+    /// Уровни авианосца: полётная палуба, надстройка и крыша над всем кораблём (решение автора 2026-11-27) — над
+    /// нижней палубой, над полётной (кроме ВПП и выреза под челнок) и над надстройкой. У крыши своего воздуха нет.
+    /// </summary>
+    private static readonly (string Suffix, int Level)[] DeckFiles =
+    {
+        ("_deck", 1), ("_island", 2), ("_roof1", 1), ("_roof2", 2), ("_roof3", 3),
+    };
 
     /// <summary>Карты уровней, созданные под авианосец: карта уровня 0 → карты над ней.</summary>
     private readonly Dictionary<EntityUid, List<EntityUid>> _created = new();
