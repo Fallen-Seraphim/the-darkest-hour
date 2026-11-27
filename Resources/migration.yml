@@ -1361,3 +1361,19 @@ WeaponEnergyTurretSecurityControlPanel: null
 # DarkestHour: пакеты крови RMC вместо стопок ванильных (переливание через капельницу или из рук)
 Bloodpack: DHBloodPackFull
 Bloodpack1: DHBloodPackFull
+
+# DarkestHour: универсальная лестница вместо маршей и проёмов (решение автора 2026-11-27)
+DHZStairs: null
+DHZStairsDark: null
+DHZStairsWood: null
+DHZStairStep: null
+DHZStairStepLeft: null
+DHZStairStepRight: null
+DHZStairShaft: null
+DHZStairsTop: DHZLadder
+DHZStairsTopLeft: DHZLadder
+DHZStairsTopRight: DHZLadder
+DHZStairwell: DHZLadder
+DHZLadderUp: DHZLadder
+DHZHatchDown: DHZLadder
+DHZRoofHatch: DHZLadder

@@ -1,14 +1,15 @@
-using System.Numerics;
 using Content.Shared.Actions;
+using Content.Shared.DoAfter;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared._DarkestHour.Levels;
 
 // Z-уровни: у SS14 одна карта — один слой, поэтому этаж — отдельная карта с теми же координатами, что у земли.
 // Карты одного места (земля, этажи, подвалы) — одна «стопка» (Stack). Уровень 0 — земля, +1..+8 — этажи и крыши
-// (крыша 7-этажного дома — +8), −1..−3 — подземелье (канализация, бункеры). Переходы — лестничные пролёты,
-// лестницы, люки и лифты: ведут в ту же точку XY на соседнем уровне.
+// (крыша 7-этажного дома — +8), −1..−3 — подземелье (канализация, бункеры). Переходы — универсальные лестницы,
+// люки и лифты: ведут в ту же точку XY на соседнем уровне.
 
 /// <summary>Карта — уровень стопки Z-уровней.</summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
@@ -33,23 +34,57 @@ public sealed partial class DHZLevelComponent : Component
 public sealed partial class DHZAirLevelComponent : Component;
 
 /// <summary>
-/// Лестничный пролёт: шагнул на ступени по направлению пролёта (куда он повёрнут) — оказался на соседнем уровне,
-/// на клетку дальше. Нижний пролёт смотрит вверх по лестнице (Up), верхний проём — вниз.
+/// Универсальная лестница (решение автора 2026-11-27, вместо лестничных маршей и проёмов; спрайты RMC-14 через RuCM):
+/// ставится на каждом уровне в одной точке. Лестница ведёт туда, где в той же точке на соседнем уровне стоит другая
+/// такая же: вверх, вниз или в обе стороны. Клик — подняться (если выше ничего — спуститься), в альтернативных
+/// действиях — подняться, спуститься, посмотреть вверх или вниз. Спрайт выбирается сам по соединениям.
 /// </summary>
 [RegisterComponent]
-public sealed partial class DHZStairsComponent : Component
+public sealed partial class DHZLadderComponent : Component
 {
     [DataField]
-    public bool Up = true;
+    public TimeSpan Delay = TimeSpan.FromSeconds(2);
+}
 
-    /// <summary>На сколько клеток дальше пролёта выходишь.</summary>
+[Serializable, NetSerializable]
+public enum DHZLadderVisuals : byte
+{
+    Connections,
+}
+
+[Serializable, NetSerializable]
+public enum DHZLadderConnections : byte
+{
+    None,
+    Up,
+    Down,
+    Both,
+}
+
+[Serializable, NetSerializable]
+public sealed partial class DHZLadderDoAfterEvent : DoAfterEvent
+{
+    /// <summary>+1 — подняться, −1 — спуститься.</summary>
     [DataField]
-    public float Exit = 1f;
+    public int Step;
+
+    private DHZLadderDoAfterEvent()
+    {
+    }
+
+    public DHZLadderDoAfterEvent(int step)
+    {
+        Step = step;
+    }
+
+    public override DoAfterEvent Clone() => this;
 }
 
 /// <summary>
-/// Боец, который умеет смотреть на соседние уровни (кнопки «Посмотреть вверх/вниз»): у лестницы, люка, проёма,
-/// с края крыши или под открытым небом. С прицелом x8 — на 3 уровня, x16 — на все.
+/// Боец, который умеет смотреть на соседние уровни (кнопки «Посмотреть вверх/вниз», как в Monolith — переключатель,
+/// решение автора 2026-11-27): вверх — под открытым небом или у лестницы и шахты лифта, вниз — у края, лестницы,
+/// люка или шахты. Взгляд идёт следом за бойцом, пока условие держится; повторное нажатие — перестать смотреть
+/// (с прицелом x8 в двух руках — сначала глубже, на 3 уровня, x16 — на все).
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class DHZViewerComponent : Component
@@ -74,9 +109,6 @@ public sealed partial class DHZViewerComponent : Component
     [ViewVariables, AutoNetworkedField]
     public int ViewLevel;
 
-    /// <summary>Откуда смотрит: отошёл дальше — взгляд сбрасывается.</summary>
-    [ViewVariables]
-    public Vector2 Anchor;
 }
 
 /// <summary>Прицел (обвес или встроенный): на сколько уровней видно с края, когда оружие в двух руках.</summary>

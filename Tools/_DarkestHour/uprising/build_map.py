@@ -167,24 +167,14 @@ def L(z):
 # ------------------------------------------------------------------ общие узлы зданий
 
 STAIR_CELLS = {}
-SHAFT_CELLS = {}   # z -> клетки проёма над маршем: без пола, чтобы сквозь них было видно лестницу внизу
+SHAFT_CELLS = {}   # z -> клетки проёма без пола (после замены маршей лестницами — пусто)
 
 
 def stairwell(levels, sx, sy, w=2, l=3):
-    """Лестница (ступени RMC-14): два марша шириной w и длиной l рядом — sx..sx+2w−1, ступени sy..sy+l−1, площадки
-    sy−1 и sy+l. С уровня z марш вверх в своей половине (по чётности z, смотрит на север), последняя ступень поднимает
-    на z+1; там над маршем — шахта и спуск над последней ступенью (смотрит на юг)."""
-    for i, z in enumerate(levels[:-1]):
-        x0 = sx + (z % 2) * w
-        up = levels[i + 1]
-        for k in range(w):
-            piece = 'Left' if k == 0 else 'Right' if k == w - 1 else ''
-            for r in range(l):
-                top = r == l - 1
-                L(z).put(('DHZStairsTop' if top else 'DHZStairStep') + piece, x0 + k, sy + r, ROT_N)
-                L(up).put('DHZStairwell' if top else 'DHZStairShaft', x0 + k, sy + r, ROT_S)
-                if not top:
-                    SHAFT_CELLS.setdefault(up, set()).add((x0 + k, sy + r))
+    """Лестничная клетка: универсальная лестница (решение автора 2026-11-27, вместо маршей RMC-14) — одна точка на всех
+    уровнях клетки (sx, sy+1); клетка sx..sx+2w−1 × sy−1..sy+l очищается от стен и мебели, как раньше."""
+    for z in levels:
+        L(z).put('DHZLadder', sx, sy + 1)
     for z in levels:
         lv = L(z)
         for x in range(sx, sx + 2 * w):
@@ -902,8 +892,8 @@ def panels():
         b.put('CrateGenericSteel', x1 - 2, y0 + 2)
         b.put(LIGHT_DIM, (x0 + x1) // 2, y1 - 1, ROT_N)
         hx, hy = PANEL_HATCHES[idx]
-        b.put('DHZHatchDown', hx, hy)
-        L(-2).put('DHZLadderUp', hx, hy)
+        b.put('DHZLadder', hx, hy)
+        L(-2).put('DHZLadder', hx, hy)
     # тесный двор между панельками
     L(0).floor(-46, -57, -6, -53, T_DIRT)
     for x in range(-44, -6, 6):
@@ -942,8 +932,8 @@ def warehouse():
     # грузовой лифт LA-V (5×5) и компьютер склада: покупка за деньги корпорации (решение автора 2026-11-12)
     g.put('DHSupplyElevator', x0 + 20, y0 + 5)
     g.put('DHComputerSupplyLAV', x0 + 16, y0 + 7, ROT_E)
-    L(-1).put('DHZHatchDown', 13, -55)
-    L(-2).put('DHZLadderUp', 13, -55)
+    L(-1).put('DHZLadder', 13, -55)
+    L(-2).put('DHZLadder', 13, -55)
     # гаражи-склады восточнее, впритык
     sx0, sy0, sx1, sy1 = SHED
     exterior(g, sx0, sy0, sx1, sy1, W_STORE, T_CONCRETE, None)
@@ -982,11 +972,11 @@ def sewers():
     manholes = [(-30, 3), (20, 3), (-20, -31), (30, -31), (1, 15), (-44, -14), (43, -14)]
     for x, y in manholes:
         L(0).put('DHZManhole', x, y)
-        lv.put('DHZLadderUp', x, y)
+        lv.put('DHZLadder', x, y)
     # спуски в тоннели −2
     for x, y in [(0, 7), (45, 3), (-44, -27)]:
-        lv.put('DHZHatchDown', x, y)
-        L(-2).put('DHZLadderUp', x, y)
+        lv.put('DHZLadder', x, y)
+        L(-2).put('DHZLadder', x, y)
 
 
 def tunnels():
@@ -1023,8 +1013,8 @@ def tunnels():
     lv.put('DHLAAirlockMetroLocked', -38, 10)
     # спуски в катакомбы −3
     for x, y in [(-30, -50), (28, -52), (11, 11)]:
-        lv.put('DHZHatchDown', x, y)
-        L(-3).put('DHZLadderUp', x, y)
+        lv.put('DHZLadder', x, y)
+        L(-3).put('DHZLadder', x, y)
 
 
 def catacombs():
@@ -1054,14 +1044,13 @@ def catacombs():
         lv.put('RMCBedBunkBlue', cx + 4, cy + 3)
     lv.put(LIGHT_DIM, 12, 21, ROT_N)
     # скрытые проходы наверх: в парковку «Ворот» (−2) и в техэтаж метро
-    lv.put('DHZLadderUp', -2, 31)
-    L(-2).put('DHZHatchDown', -2, 31)
-    lv.put('DHZLadderUp', -40, 18)
-    L(-2).put('DHZHatchDown', -40, 18)
+    lv.put('DHZLadder', -2, 31)
+    L(-2).put('DHZLadder', -2, 31)
+    lv.put('DHZLadder', -40, 18)
+    L(-2).put('DHZLadder', -40, 18)
 
 
-KEEP = {'DHZStairs', 'DHZStairwell', 'DHZStairShaft', 'DHZStairStep', 'DHZStairStepLeft', 'DHZStairStepRight',
-        'DHZStairsTop', 'DHZStairsTopLeft', 'DHZStairsTopRight', 'DHZLiftPlatform', 'DHZLiftPanel'}
+KEEP = {'DHZLadder', 'DHZManhole', 'DHZLiftPlatform', 'DHZLiftPanel'}
 
 
 def clean_passages():
@@ -1116,7 +1105,7 @@ def entities(lv):
     """Сущности уровня: стены (на месте окон — окна) + остальное; сущности не на полу отбрасываются."""
     ents = [(p, x, y, None) for (x, y), p in lv.walls.items()]
     ents += lv.ents
-    return [e for e in ents if (e[1], e[2]) in lv.tiles or e[0] == 'DHZStairShaft']
+    return [e for e in ents if (e[1], e[2]) in lv.tiles]
 
 
 GRID_COMPONENTS = """    - type: Broadphase

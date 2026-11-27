@@ -29,9 +29,9 @@ using Robust.Shared.Timing;
 namespace Content.Server._DarkestHour.Levels;
 
 /// <summary>
-/// Z-уровни на сервере: лестничные пролёты (шагнул по ступеням — уже этажом выше/ниже), падение с края (нет пола —
-/// летишь до первого пола внизу, урон за каждый этаж), взгляд на соседние уровни (кнопки «Посмотреть вверх/вниз»:
-/// камера на том уровне в той же точке) и пролом крыши ударом с орбиты.
+/// Z-уровни на сервере: падение с края (нет пола — летишь до первого пола внизу, урон за каждый этаж), взгляд на
+/// соседние уровни (кнопки «Посмотреть вверх/вниз»: камера на том уровне, которая идёт следом за бойцом) и пролом
+/// крыши ударом с орбиты. Переходы — лестницы (<see cref="DHZLadderSystem"/>), люки и лифты.
 /// </summary>
 public sealed partial class DHZTransitSystem : EntitySystem
 {
@@ -57,7 +57,6 @@ public sealed partial class DHZTransitSystem : EntitySystem
     private const string CameraProto = "DHZLevelCamera";
     private static readonly ProtoId<DamageTypePrototype> Blunt = "Blunt";
     private static readonly string[] FallParts = { "LegLeft", "LegRight", "FootLeft", "FootRight" };
-    private static readonly SoundSpecifier StairsSound = new SoundCollectionSpecifier("FootstepCatwalk");
     private static readonly SoundSpecifier FallSound = new SoundPathSpecifier("/Audio/Effects/hit_kick.ogg");
 
     /// <summary>Урон за каждый пролетевший этаж.</summary>
@@ -66,21 +65,10 @@ public sealed partial class DHZTransitSystem : EntitySystem
     /// <summary>Насколько близко к лестнице/люку/проёму надо стоять, чтобы посмотреть через него.</summary>
     private const float PassageLookRange = 1.6f;
 
-    /// <summary>Отошёл от места, откуда смотрел, дальше этого — взгляд сбрасывается.</summary>
-    private const float LookLeaveRange = 1.25f;
-
-    private static readonly TimeSpan StairsInterval = TimeSpan.FromSeconds(0.1);
     private static readonly TimeSpan FallInterval = TimeSpan.FromSeconds(0.2);
     private static readonly TimeSpan ViewInterval = TimeSpan.FromSeconds(0.25);
-    private static readonly TimeSpan StairsCooldown = TimeSpan.FromSeconds(0.7);
-
-    /// <summary>Как близко центр идущего к центру пролёта (0,45 от края его тела, как было).</summary>
-    private const float StairsReach = 0.8f;
-
-    private TimeSpan _nextStairs;
     private TimeSpan _nextFall;
     private TimeSpan _nextView;
-    private readonly Dictionary<EntityUid, TimeSpan> _stairsCooldown = new();
 
     public override void Initialize()
     {
@@ -103,11 +91,7 @@ public sealed partial class DHZTransitSystem : EntitySystem
         base.Update(frameTime);
 
         var now = _timing.CurTime;
-        if (now >= _nextStairs)
-        {
-            _nextStairs = now + StairsInterval;
-            UpdateStairs(now);
-        }
+        FollowViewers();
 
         if (now >= _nextFall)
         {
@@ -138,86 +122,6 @@ public sealed partial class DHZTransitSystem : EntitySystem
     public bool CanStand(MapCoordinates coords)
     {
         return _z.TryGetLevel(coords.MapId, out var level) && level.Level == 0 || _z.HasFloor(coords);
-    }
-
-    #endregion
-
-    #region Лестничные пролёты
-
-    /// <summary>
-    /// Лестницы: перебираются не все пролёты (на карте их сотни), а живые на Z-уровнях, которые идут, — и пролёт
-    /// под каждым ищется рядом с ним (оптимизация, решение автора 2026-11-06).
-    /// </summary>
-    private void UpdateStairs(TimeSpan now)
-    {
-        var moves = new List<(EntityUid Uid, MapCoordinates To, EntityUid Stairs)>();
-        var query = EntityQueryEnumerator<MobStateComponent, PhysicsComponent, TransformComponent>();
-        while (query.MoveNext(out var mob, out var mobState, out var physics, out var mobXform))
-        {
-            // Дёшево отсеять: стоит на месте, не на Z-уровне, без сознания, недавно шагнул.
-            if (physics.LinearVelocity.LengthSquared() < 0.04f || !_z.TryGetLevel(mobXform.MapUid, out var level) ||
-                _mobState.IsIncapacitated(mob, mobState) ||
-                _stairsCooldown.TryGetValue(mob, out var until) && now < until)
-            {
-                continue;
-            }
-
-            var mobCoords = _transform.GetMapCoordinates(mobXform);
-            Entity<DHZStairsComponent>? best = null;
-            var bestDistance = float.MaxValue;
-            foreach (var stairs in _lookup.GetEntitiesInRange<DHZStairsComponent>(mobCoords, StairsReach,
-                         LookupFlags.Static | LookupFlags.Sundries | LookupFlags.Approximate))
-            {
-                var distance = Vector2.Distance(_transform.GetWorldPosition(stairs), mobCoords.Position);
-                if (distance < bestDistance)
-                {
-                    best = stairs;
-                    bestDistance = distance;
-                }
-            }
-
-            if (best is not { } found)
-                continue;
-
-            var xform = Transform(found);
-            var facing = _transform.GetWorldRotation(xform).ToWorldVec();
-
-            // По ступеням идут вдоль пролёта; поперёк — просто стоишь на площадке.
-            if (Vector2.Dot(physics.LinearVelocity, facing) < 0.2f)
-                continue;
-
-            var targetLevel = level.Level + (found.Comp.Up ? 1 : -1);
-            if (_z.LevelMap(level.Stack, targetLevel) is not { } targetMap)
-                continue;
-
-            var destination = new MapCoordinates(_transform.GetWorldPosition(xform) + facing * found.Comp.Exit,
-                Transform(targetMap).MapID);
-            moves.Add((mob, destination, found.Owner));
-        }
-
-        foreach (var (uid, to, stairs) in moves)
-        {
-            _stairsCooldown[uid] = now + StairsCooldown;
-            if (!CanStand(to))
-            {
-                _popup.PopupEntity(Loc.GetString("dh-zlevel-stairs-blocked"), uid, uid);
-                continue;
-            }
-
-            _audio.PlayPvs(StairsSound, stairs);
-            MoveTo(uid, to);
-            _audio.PlayPvs(StairsSound, uid);
-        }
-
-        // Старые записи — прочь.
-        if (_stairsCooldown.Count > 64)
-        {
-            foreach (var (uid, until) in new Dictionary<EntityUid, TimeSpan>(_stairsCooldown))
-            {
-                if (now >= until)
-                    _stairsCooldown.Remove(uid);
-            }
-        }
     }
 
     #endregion
@@ -344,8 +248,12 @@ public sealed partial class DHZTransitSystem : EntitySystem
         Look(ent, -1);
     }
 
-    /// <summary>Шаг взгляда на уровень выше (+1) или ниже (−1); обратно к своему уровню — перестаёшь смотреть.</summary>
-    private void Look(Entity<DHZViewerComponent> ent, int step)
+    /// <summary>
+    /// Кнопка «Посмотреть вверх» (+1) или «вниз» (−1), как в Monolith — переключатель: не смотришь — смотришь на
+    /// соседний уровень; смотришь в ту же сторону — глубже, если позволяет прицел, иначе перестаёшь; смотришь в другую
+    /// сторону — шаг обратно (до своего уровня — перестаёшь).
+    /// </summary>
+    public void Look(Entity<DHZViewerComponent> ent, int step)
     {
         var mapCoords = _transform.GetMapCoordinates(ent);
         if (!_z.TryGetLevel(mapCoords.MapId, out var own))
@@ -354,7 +262,8 @@ public sealed partial class DHZTransitSystem : EntitySystem
             return;
         }
 
-        var current = ent.Comp.Camera != null ? ent.Comp.ViewLevel : own.Level;
+        var viewing = ent.Comp.Camera != null;
+        var current = viewing ? ent.Comp.ViewLevel : own.Level;
         var next = current + step;
         if (next == own.Level)
         {
@@ -362,18 +271,33 @@ public sealed partial class DHZTransitSystem : EntitySystem
             return;
         }
 
+        // Уже смотришь в эту сторону: глубже, только если хватает прицела, иначе — переключатель выключается.
+        var further = viewing && Math.Sign(current - own.Level) == step;
+        var depth = Math.Abs(next - own.Level);
+        var up = next > own.Level;
+
         if (next < DHZLevelComponent.MinLevel || next > DHZLevelComponent.MaxLevel ||
             _z.LevelMap(own.Stack, next) is not { } targetMap)
         {
+            if (further)
+            {
+                StopViewing(ent, true);
+                return;
+            }
+
             _popup.PopupEntity(Loc.GetString(step > 0 ? "dh-zlevel-look-nothing-up" : "dh-zlevel-look-nothing-down"),
                 ent, ent);
             return;
         }
 
-        var depth = Math.Abs(next - own.Level);
-        var up = next > own.Level;
         if (!CanLook(ent, mapCoords, own, up, depth, out var reason))
         {
+            if (further)
+            {
+                StopViewing(ent, true);
+                return;
+            }
+
             _popup.PopupEntity(Loc.GetString(reason), ent, ent);
             return;
         }
@@ -406,7 +330,7 @@ public sealed partial class DHZTransitSystem : EntitySystem
         foreach (var uid in _lookup.GetEntitiesInRange(at, PassageLookRange, LookupFlags.Static | LookupFlags.Sundries))
         {
             if (TryComp<DHLadderComponent>(uid, out var ladder) && ladder.Down != up ||
-                TryComp<DHZStairsComponent>(uid, out var stairs) && stairs.Up == up ||
+                HasComp<DHZLadderComponent>(uid) ||
                 HasComp<DHLiftComponent>(uid))
             {
                 return true;
@@ -446,7 +370,6 @@ public sealed partial class DHZTransitSystem : EntitySystem
 
         ent.Comp.Camera = camera;
         ent.Comp.ViewLevel = level;
-        ent.Comp.Anchor = position;
         Dirty(ent);
 
         _eye.SetTarget(ent, camera);
@@ -483,6 +406,22 @@ public sealed partial class DHZTransitSystem : EntitySystem
             _popup.PopupEntity(Loc.GetString("dh-zlevel-look-stop"), ent, ent);
     }
 
+    /// <summary>Камера взгляда каждый тик стоит над/под бойцом: смотреть вверх или вниз можно на ходу.</summary>
+    private void FollowViewers()
+    {
+        var query = EntityQueryEnumerator<DHZViewerComponent, TransformComponent>();
+        while (query.MoveNext(out _, out var viewer, out var xform))
+        {
+            if (viewer.Camera is not { } camera || TerminatingOrDeleted(camera))
+                continue;
+
+            var cameraXform = Transform(camera);
+            var position = _transform.GetWorldPosition(xform);
+            if ((_transform.GetWorldPosition(cameraXform) - position).LengthSquared() > 0.0001f)
+                _transform.SetWorldPosition(camera, position);
+        }
+    }
+
     private void UpdateViewers()
     {
         var stop = new List<Entity<DHZViewerComponent>>();
@@ -492,11 +431,12 @@ public sealed partial class DHZTransitSystem : EntitySystem
             if (viewer.Camera == null)
                 continue;
 
-            // Отошёл, ушёл на другой уровень, опустил прицел — взгляд сбрасывается.
+            // Ушёл на другой уровень, зашёл под крышу (вверх) или отошёл от края (вниз), опустил прицел —
+            // взгляд сбрасывается. Ходить, глядя вверх или вниз, можно (как в Monolith).
             if (!_z.TryGetLevel(xform.MapUid, out var own) || own.Level == viewer.ViewLevel ||
                 _z.LevelMap(own.Stack, viewer.ViewLevel) != Transform(viewer.Camera.Value).MapUid ||
-                Vector2.Distance(_transform.GetWorldPosition(xform), viewer.Anchor) > LookLeaveRange ||
-                Math.Abs(viewer.ViewLevel - own.Level) > Math.Max(1, _z.SightDepth(uid)))
+                !CanLook(uid, _transform.GetMapCoordinates(xform), own, viewer.ViewLevel > own.Level,
+                    Math.Abs(viewer.ViewLevel - own.Level), out _))
             {
                 stop.Add((uid, viewer));
             }

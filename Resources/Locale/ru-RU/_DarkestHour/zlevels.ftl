@@ -5,7 +5,6 @@ dh-zlevel-name-up = уровень +{ $level }
 dh-zlevel-name-down = уровень -{ $level }
 dh-zlevel-map-up = Уровень +{ $level }
 dh-zlevel-map-down = Подземный уровень -{ $level }
-dh-zlevel-stairs-blocked = Проход перекрыт.
 dh-zlevel-fell = Вы падаете { $levels ->
     [one] на этаж вниз!
     [few] на { $levels } этажа вниз!
@@ -55,3 +54,8 @@ dh-lift-ui-ready = Выберите этаж.
 dh-lift-ui-here = { $level } (вы здесь)
 dh-lift-ui-send = Отправить
 dh-lift-ui-call = Вызвать
+
+dh-zladder-verb-up = Подняться
+dh-zladder-verb-down = Спуститься
+dh-zladder-verb-look-up = Посмотреть вверх
+dh-zladder-verb-look-down = Посмотреть вниз
