@@ -394,8 +394,7 @@ public sealed partial class DHZGAParatrooperSystem : EntitySystem
             EnsureComp<DHZGAPendingBriefingComponent>(body).Mars = mars;
             var ghostRole = EnsureComp<GhostRoleComponent>(body);
             EnsureComp<GhostTakeoverAvailableComponent>(body);
-            // M.A.R.S. — ИИ в броне: не давать ему ходить самому.
-            ghostRole.MakeSentient = false;
+            // M.A.R.S. сам не ходит: у гост-роли по умолчанию AllowMovement = false.
             ghostRole.RoleName = Loc.GetString(role);
             ghostRole.RoleDescription = Loc.GetString($"{role}-desc");
             ghostRole.RoleRules = Loc.GetString("dh-zga-ghost-rules");
