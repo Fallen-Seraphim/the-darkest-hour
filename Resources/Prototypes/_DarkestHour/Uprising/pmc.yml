@@ -610,7 +610,7 @@
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-lav-pmc-commander
 
 - type: entity
@@ -640,7 +640,7 @@
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-lav-pmc-medic
 
 - type: entity
@@ -670,7 +670,7 @@
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-lav-pmc-specialist
 
 - type: entity
@@ -700,5 +700,5 @@
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-lav-pmc-rifleman

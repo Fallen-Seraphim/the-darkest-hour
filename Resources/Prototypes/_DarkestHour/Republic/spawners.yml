@@ -30,7 +30,7 @@
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-republic-commander
 
 - type: entity
@@ -63,7 +63,7 @@
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-republic-sniper
 
 - type: entity
@@ -96,7 +96,7 @@
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-republic-machinegunner
 
 - type: entity
@@ -129,7 +129,7 @@
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-republic-rifleman
 
 - type: entity
@@ -162,7 +162,7 @@
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-republic-medic
 
 - type: entity
@@ -195,7 +195,7 @@
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-republic-flamer
 
 # Усиленный отряд зачистки (код «Деаденд»): те же должности, свои правила, усиленное снаряжение командира и автоматчиков.
@@ -231,7 +231,7 @@
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-republic-commander
 
 - type: entity
@@ -265,7 +265,7 @@
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-republic-sniper
 
 - type: entity
@@ -299,7 +299,7 @@
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-republic-machinegunner
 
 - type: entity
@@ -333,7 +333,7 @@
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-republic-rifleman
 
 - type: entity
@@ -367,7 +367,7 @@
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-republic-medic
 
 - type: entity
@@ -401,5 +401,5 @@
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-republic-flamer

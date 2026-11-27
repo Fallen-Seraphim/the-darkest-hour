@@ -44,7 +44,7 @@
     prototypes: [ DHZGAParatrooperGear ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-zga-name-format
   - type: AntagImmune
 

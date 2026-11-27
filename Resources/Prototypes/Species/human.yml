@@ -5,3 +5,7 @@
   prototype: MobHuman
   dollPrototype: AppearanceHuman
   skinColoration: HumanToned
+  # DarkestHour: имена вселенной TDH (Tools/_DarkestHour/names/build_names.py).
+  maleFirstNames: DHNamesMale
+  femaleFirstNames: DHNamesFemale
+  lastNames: DHNamesLast

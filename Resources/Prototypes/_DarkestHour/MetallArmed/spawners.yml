@@ -27,7 +27,7 @@
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-metall-armed-commander
 
 - type: entity
@@ -57,7 +57,7 @@
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-metall-armed-weapons
 
 - type: entity
@@ -87,7 +87,7 @@
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-metall-armed-medic
 
 - type: entity
@@ -117,5 +117,5 @@
     roleLoadout: [ RoleSurvivalMilitaryDouble ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-metall-armed-rifleman
