@@ -64,7 +64,7 @@ ROADS = {
     'к деревне': [(124, 288), (100, 310), (76, 340), (60, 378)],
     'к терминалу': [(384, 168), (372, 210), (352, 250), (340, 286)],
     'Н-14 (ветка)': [(338, 288), (380, 306), (420, 338), (446, 372), (452, 418)],
-    'к базе': [(562, 286), (562, 262)],
+    'к базе': [(546, 286), (546, 262)],
     'к городку': [(430, 350), (470, 356), (500, 356)],
     'АЭС — брод — космодром': [(452, 520), (480, 540), (500, 560), (502, 600)],
     'завод — мост — космодром': [(292, 655), (340, 655), (396, 655), (420, 655)],
@@ -88,7 +88,7 @@ SITES = {
     'база': (505, 178, 628, 262),
     'ПВО': (514, 50, 560, 84),
     'ПКО': (446, 64, 490, 98),
-    'РЛС': (588, 128, 630, 166),
+    'РЛС': (584, 126, 630, 166),
     'блокпост': (398, 278, 424, 296),
     'городок': (456, 300, 628, 414),
     'АЭС': (372, 424, 506, 530),
@@ -782,6 +782,203 @@ class Map3(tb.World):
             self.ent('RMCBarrelFire', gx(u0) + rng.randint(0, u1 - u0), gy(v1) + rng.randint(0, v1 - v0))
         self.reserve(gx(u0) - 4, gy(v1) - 4, gx(u1) + 4, gy(v0) + 4)
 
+    # ================================================================== восток
+
+    def site_xy(self, name):
+        u0, v0, u1, v1 = SITES[name]
+        return gx(u0), gy(v1), gx(u1), gy(v0)
+
+    def base3(self):
+        """Военная база (решения автора 2026-11-27): тот же состав, что был (комендатура и штаб, арсенал, гараж с двумя
+        лифтами техники, карго, энергоблок, павильон спуска; под ней бункер −1 со штабом, казармами и медблоком),
+        новая планировка: блок прежней базы в южной половине, на севере — казармы и полевой госпиталь, вокруг всего —
+        бетонная стена с КПП на юге (с Н-14) и востоке и вышками по углам; −2 — хранилище образца."""
+        X0, Y0, X1, Y1 = self.site_xy('база')
+        # прежний блок базы (80×43) — сдвиг старых констант генератора v2
+        dx, dy = X0 + 14 - tb.BASE[0], Y0 + 6 - tb.BASE[1]
+        for name in ('BASE', 'CARGO', 'HANGARS', 'POWER', 'KOMEND', 'ARSENAL', 'BLOCKHOUSE', 'BUNKER'):
+            r = getattr(tb, name)
+            setattr(tb, name, (r[0] + dx, r[1] + dy, r[2] + dx, r[3] + dy))
+        tb.BASE_ROAD_X = (tb.BASE_ROAD_X[0] + dx, tb.BASE_ROAD_X[1] + dx)
+        tb.BASE_ROAD_Y = (tb.BASE_ROAD_Y[0] + dy, tb.BASE_ROAD_Y[1] + dy)
+        tb.BUNKER_CORRIDOR = (tb.BUNKER_CORRIDOR[0] + dy, tb.BUNKER_CORRIDOR[1] + dy)
+        tb.World.base(self)
+        # бункер −1 — уровень −1; образец — на −2 под хранилищем
+        b = self.bunker
+        sample = [e for e in b.ents if e[0] == 'DHExperimentalSample']
+        b.ents = [e for e in b.ents if e[0] != 'DHExperimentalSample']
+        self.levels[-1].tiles.update(b.tiles)
+        self.levels[-1].ents.extend(b.ents)
+        if sample:
+            sx, sy = math.floor(sample[0][1]), math.floor(sample[0][2])
+            vx0, vy0, vx1, vy1 = sx - 7, sy - 10, sx + 7, sy + 2
+            self.lv_building(-2, vx0, vy0, vx1, vy1, 'WallReinforced', 'FloorDark', lights='Poweredlight')
+            self.lv_ent(-2, 'DHExperimentalSample', sx, sy - 4)
+            self.lv_building(-2, vx0 + 3, vy0 - 8, vx1 - 3, vy0, 'WallReinforced', 'FloorSteel',
+                             doors=[(sx, vy0, 'DHAirlockRepublicCommandLocked')], lights='Poweredlight')
+            self.levels[-2].ents = [e for e in self.levels[-2].ents if not (e[0] == 'WallReinforced' and
+                                                                           math.floor(e[1]) == sx and math.floor(e[2]) == vy0)]
+            self.ladder(sx - 3, vy0 - 4, -2, -1)
+            for x, y in ((vx0 + 2, sy - 2), (vx1 - 2, sy - 2)):
+                self.lv_ent(-2, 'DHSandbagBarricade', x, y)
+        # север площадки: казармы и полевой госпиталь
+        ny0 = tb.BASE[3] + 4
+        self.rect(X0 + 2, Y0 + 2, X1 - 2, Y1 - 2, 'FloorConcrete', reserve=False)
+        for i, bx in enumerate(range(X0 + 6, X0 + 70, 22)):
+            self.building(bx, ny0, bx + 18, ny0 + 12, 'WallSolid', 'FloorSteel',
+                          doors=[(bx + 9, ny0, 'DHAirlockRepublic')],
+                          windows=[(bx + 4, ny0), (bx + 14, ny0), (bx + 4, ny0 + 12), (bx + 14, ny0 + 12)])
+            for x in range(bx + 2, bx + 17, 3):
+                self.ent('RMCBedBunk' if 'RMCBedBunk' in self.known else 'Bed', x, ny0 + 10)
+                self.ent('RMCBedBunk' if 'RMCBedBunk' in self.known else 'Bed', x, ny0 + 7)
+        hx0 = X0 + 74
+        self.building(hx0, ny0, hx0 + 26, ny0 + 16, 'WallSolid', 'FloorWhite',
+                      doors=[(hx0 + 13, ny0, 'AirlockGlass')], windows=[(hx0 + 5, ny0), (hx0 + 21, ny0)])
+        for x in range(hx0 + 3, hx0 + 24, 4):
+            self.ent('RMCMedicalBed' if 'RMCMedicalBed' in self.known else 'MedicalBed', x, ny0 + 13)
+        self.ent('CrateMedicalSupplies', hx0 + 2, ny0 + 2)
+        # стена и КПП
+        gate_s = [(x, Y0) for x in range(tb.BASE_ROAD_X[0], tb.BASE_ROAD_X[1] + 1)]
+        gate_e = [(X1, y) for y in range(tb.BASE_ROAD_Y[0], tb.BASE_ROAD_Y[1] + 1)]
+        for x in range(X0, X1 + 1):
+            for y in (Y0, Y1):
+                if (x, y) not in gate_s:
+                    self.ent('WallReinforced', x, y, free=True)
+        for y in range(Y0 + 1, Y1):
+            for x in (X0, X1):
+                if (x, y) not in gate_e:
+                    self.ent('WallReinforced', x, y, free=True)
+        self.rect(tb.BASE_ROAD_X[0], Y0 - 6, tb.BASE_ROAD_X[1], Y0 + 6, ASPHALT)
+        self.rect(tb.BASE[2], tb.BASE_ROAD_Y[0], X1 + 4, tb.BASE_ROAD_Y[1], ASPHALT)
+        for x in list(range(tb.BASE_ROAD_X[0] - 6, tb.BASE_ROAD_X[0] - 1)) + list(range(tb.BASE_ROAD_X[1] + 2, tb.BASE_ROAD_X[1] + 7)):
+            self.ent('DHSandbagBarricade', x, Y0 - 1, free=True)
+        for x, y in ((X0 + 1, Y0 + 1), (X1 - 3, Y0 + 1), (X0 + 1, Y1 - 3), (X1 - 3, Y1 - 3)):
+            self.tower(x, y)
+        self.reserve(X0 - 3, Y0 - 8, X1 + 6, Y1 + 3)
+
+    def military(self):
+        """ПКО, ПВО, РЛС — прежние объекты в горных карманах (решение автора: горы — скалы, у объектов площадки),
+        блокпост на Н-14 между дамбой и базой."""
+        def put(name, attr, size):
+            x0, y0, x1, y1 = self.site_xy(name)
+            setattr(tb, attr, (x0, y0, x0 + size[0], y0 + size[1]))
+        put('ПКО', 'PKO', (44, 28))
+        put('ПВО', 'PVO', (40, 24))
+        put('РЛС', 'RLS', (40, 34))
+        tb.NORTH_ROAD_X = (tb.RLS[2] + 1, tb.RLS[2] + 4)
+        tb.World.pko(self)
+        tb.World.pvo(self)
+        tb.World.rls(self)
+        x0, y0, x1, y1 = self.site_xy('блокпост')
+        hy = gy(HW_V[1])
+        for x in range(x0, x1 + 1):
+            if x % 5:
+                self.ent('DHSandbagBarricade', x, hy + 4, free=True)
+                self.ent('DHSandbagBarricade', x, gy(HW_V[0]) - 4, free=True)
+        self.building(x0, hy + 6, x0 + 8, hy + 12, 'WallSolid', 'FloorSteel', doors=[(x0 + 4, hy + 6, 'Airlock')],
+                      windows=[(x0 + 2, hy + 6), (x0 + 6, hy + 6)])
+        self.tower(x1 - 4, hy + 6)
+        self.ent('DHFieldPhoneRepublicGate', x0 + 1, hy + 7)
+        self.car(x0 + 12, hy + 2, wreck=True)
+
+    def gorodok(self):
+        """Заброшенный шахтёрский городок (решение автора 2026-11-27, как был): бараки (часть двухэтажные, часть
+        разрушена), копёр со спуском в штольню на −1, бочки с огнём, брошенная техника, пруд."""
+        X0, Y0, X1, Y1 = self.site_xy('городок')
+        self.reserve(X0, Y0, X1, Y1)
+        street_y = (Y0 + Y1) // 2
+        self.road_h(X0, X1, street_y - 1, street_y + 2, tile='FloorDirt', posts=0, line=False)
+        blocks = []
+        for row, by in enumerate((street_y + 6, street_y - 16)):
+            for j, bx in enumerate(range(X0 + 26, X1 - 16, 20)):
+                blocks.append((bx, by, (row + j) % 2 == 0))
+        for i, (bx, by, two) in enumerate(blocks):
+            self.barrack(bx, by, two, i)
+        # копёр и штольня на −1
+        kx, ky = X1 - 14, Y0 + 8
+        self.building(kx - 5, ky - 5, kx + 5, ky + 5, 'WallSolidRust' if 'WallSolidRust' in self.known else 'WallSolid',
+                      'FloorTechMaint2', doors=[(kx, ky + 5, 'Airlock')], lights=None)
+        self.ent('Girder', kx - 2, ky)
+        self.ent('Girder', kx + 2, ky)
+        self.ladder(kx, ky, -1, 0)
+        tun = [(kx + i, ky) for i in range(-60, 1)] + [(kx - 60, ky + j) for j in range(0, 30)]
+        for (x, y) in tun:
+            for dx2 in (-1, 0, 1):
+                for dy2 in (-1, 0, 1):
+                    self.lv_tile(-1, x + dx2, y + dy2, 'FloorDirt')
+        for i, (x, y) in enumerate(tun):
+            if i % 9 == 0:
+                self.lv_ent(-1, 'RMCBarrelFire', x, y + 1 if (x, y + 1) in self.levels[-1].tiles else y)
+        self.lv_ent(-1, 'RMCPropVehicleCrawlerMining', kx - 30, ky)
+        self.ladder(kx - 60, ky + 29, -1, 0)                 # второй выход — на западе городка
+        for x, y in ((X0 + 20, street_y), (X0 + 60, street_y + 3), (X0 + 100, street_y - 3), (X1 - 20, street_y)):
+            self.ent('RMCBarrelFire', x, y)
+        self.car(X0 + 40, street_y, wreck=True)
+        self.car(X0 + 80, street_y + 1, wreck=True)
+
+    def npp3(self):
+        """АЭС (решения автора 2026-11-27): два реакторных купола (энергоблоки внутри, подвалы на −1, кольцевые балконы
+        на +1), вентиляционная труба до +2, машзал и пульт подковой, подстанция. Точка захвата и источник сети."""
+        X0, Y0, X1, Y1 = self.site_xy('АЭС')
+        self.reserve(X0 - 2, Y0 - 2, X1 + 2, Y1 + 2)
+        self.rect(X0, Y0, X1, Y1, 'FloorConcrete')
+        self.fence_rect(X0 - 1, Y0 - 1, X1 + 1, Y1 + 1, gates=[(gx(452) + i, Y1 + 1) for i in range(-2, 3)] +
+                        [(gx(470) + i, Y0 - 1) for i in range(-2, 3)])
+        cy = (Y0 + Y1) // 2 - 4
+        for k, cx in enumerate((X0 + 34, X0 + 72)):
+            r = 15
+            for x in range(cx - r - 1, cx + r + 2):
+                for y in range(cy - r - 1, cy + r + 2):
+                    d = math.hypot(x - cx, y - cy)
+                    if d > r + 0.4:
+                        continue
+                    self.tile(x, y, 'FloorSteel')
+                    self.roof.add((x, y))
+                    self.lv_tile(-1, x, y, 'Plating')
+                    if d >= r - 0.6:
+                        if (x, y) == (cx, cy - r):
+                            self.ent('AirlockEngineering', x, y)
+                        else:
+                            self.ent('WallReinforced', x, y)
+                        self.lv_ent(-1, 'WallReinforced', x, y)
+                    elif d > r - 3.2:
+                        self.lv_tile(1, x, y, 'FloorSteel')       # кольцевой балкон
+                        self.levels[1].roof.add((x, y))
+            self.ent('DHFusionReactor', cx, cy, foot=[(cx - 1 + i, cy - 1 + j) for i in range(3) for j in range(3)],
+                     comps=['    - type: Damageable', '      damageContainer: StructuralInorganic',
+                            '    - type: DHPoiObject', '      breakDamage: 600', '      point: npp',
+                            '      contamination: DHNppContamination', '      repairStack: Plasteel'])
+            self.ent('SignRadiation' if 'SignRadiation' in self.known else 'SignDanger', cx, cy - 4)
+            self.ladder(cx + r - 2, cy, -1, 1)
+            for a in range(0, 360, 45):
+                self.lv_ent(-1, 'MachineFrame', cx + int(round(9 * math.cos(math.radians(a)))),
+                            cy + int(round(9 * math.sin(math.radians(a)))))
+        # труба
+        tx, ty = X0 + 53, cy + 18
+        for x in range(tx - 2, tx + 3):
+            for y in range(ty - 2, ty + 3):
+                self.ent('WallReinforced', x, y)
+                self.lv_tile(1, x, y, 'Plating')
+                self.lv_ent(1, 'WallReinforced', x, y)
+                self.lv_tile(2, x, y, 'Plating')
+                self.lv_ent(2, 'WallReinforced', x, y)
+        # машзал и пульт подковой по южной стороне
+        self.building(X0 + 8, Y0 + 2, X1 - 8, Y0 + 12, 'WallReinforced', 'FloorTechMaint2',
+                      doors=[(x, Y0 + 12, 'AirlockEngineering') for x in (X0 + 20, X1 - 20)],
+                      windows=[(x, Y0 + 12) for x in range(X0 + 26, X1 - 26, 6)], window='ReinforcedWindow')
+        for x in range(X0 + 12, X1 - 10, 7):
+            self.ent('DHGasTurbine', x, Y0 + 6, foot=[(x + i, Y0 + 4 + j) for i in range(2) for j in range(5)])
+        px0 = X1 - 26
+        self.building(px0, Y1 - 14, X1 - 4, Y1 - 2, 'WallReinforced', 'FloorDark',
+                      doors=[(px0, Y1 - 8, 'AirlockEngineeringGlass')], windows=[(px0 + 6, Y1 - 2), (px0 + 14, Y1 - 2)],
+                      window='ReinforcedWindow')
+        for i, p in enumerate(['ComputerPowerMonitoring', 'ComputerAlert', 'ComputerPowerMonitoring']):
+            self.grid(p, px0 + 4 + i * 5, Y1 - 3)
+            self.ent('ChairOfficeDark', px0 + 4 + i * 5, Y1 - 4)
+        self.ent('DHControlPointPowerPlant', px0 - 4, Y1 - 6, free=True)
+        for x in range(X0 + 2, X1, 12):
+            self.post(x, Y1 - 1)
+
 
 FOREST = ['FloraTreeConifer', 'FloraTreeConifer', 'FloraTree', 'FloraTreeLarge', 'FloraTreeStumpConifer',
           'RMCBushJungle1', 'RMCBushJungle2']
@@ -965,6 +1162,10 @@ def main():
         m.terminal()
         m.dam()
         m.crash_site()
+        m.base3()
+        m.military()
+        m.gorodok()
+        m.npp3()
         m.place_water()
         m.edge()
         if m.missing:
