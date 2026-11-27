@@ -1,6 +1,8 @@
-# Места рождения (решение автора 2026-11-11): известные миры и обобщённые варианты по волнам заселения.
-# founded — год заселения, until — последний год, когда там рождались; polities — государство по годам
-# (до Коллапса — только ЗГА и ОНК), now — чей мир в 2318 году. Лор — claude/lore.md.
+# Места рождения (решения автора 2026-11-11 и 2026-11-27): известные миры TDH по волнам заселения и обобщённые
+# варианты. Только миры, где рождались люди: без пространства Аринталов и Имперского Мандата, Ксайрекса, Аргонов,
+# Махоров, без Поражённых миров и автоматических станций (Энцелад). founded — год заселения, until — последний год,
+# когда там рождались; polities — государство по годам (до Коллапса — только ЗГА и ОНК), now — чей мир в 2318 году.
+# Лор — claude/lore.md.
 
 - type: dhBirthplace
   id: DHBirthEarth
@@ -49,18 +51,33 @@
   group: dh-bp-group-sol
   order: 4
   founded: 2000
+  until: 2301
   polities:
   - from: 0
     polity: dh-polity-efs
   - from: 2106
     polity: dh-polity-zga
-  now: dh-polity-zga
+  now: dh-now-abandoned
+
+- type: dhBirthplace
+  id: DHBirthCeres
+  name: dh-bp-ceres
+  group: dh-bp-group-sol
+  order: 5
+  founded: 2000
+  until: 2301
+  polities:
+  - from: 0
+    polity: dh-polity-efs
+  - from: 2106
+    polity: dh-polity-zga
+  now: dh-now-abandoned
 
 - type: dhBirthplace
   id: DHBirthGalileanMoons
   name: dh-bp-galileanmoons
   group: dh-bp-group-sol
-  order: 5
+  order: 6
   founded: 2000
   polities:
   - from: 0
@@ -73,7 +90,7 @@
   id: DHBirthTitan
   name: dh-bp-titan
   group: dh-bp-group-sol
-  order: 6
+  order: 7
   founded: 2102
   polities:
   - from: 0
@@ -105,10 +122,32 @@
   now: dh-polity-zga
 
 - type: dhBirthplace
+  id: DHBirthTitov
+  name: dh-bp-titov
+  group: dh-bp-group-wave1
+  order: 102
+  founded: 2122
+  polities:
+  - from: 0
+    polity: dh-polity-zga
+  now: dh-polity-zga
+
+- type: dhBirthplace
+  id: DHBirthForest
+  name: dh-bp-forest
+  group: dh-bp-group-wave1
+  order: 103
+  founded: 2122
+  polities:
+  - from: 0
+    polity: dh-polity-zga
+  now: dh-polity-zga
+
+- type: dhBirthplace
   id: DHBirthSunnyflair
   name: dh-bp-sunnyflair
   group: dh-bp-group-wave1
-  order: 102
+  order: 104
   founded: 2122
   polities:
   - from: 0
@@ -119,7 +158,7 @@
   id: DHBirthSiriusPrimus
   name: dh-bp-siriusprimus
   group: dh-bp-group-wave1
-  order: 103
+  order: 105
   founded: 2122
   polities:
   - from: 0
@@ -130,7 +169,7 @@
   id: DHBirthProcyon
   name: dh-bp-procyon
   group: dh-bp-group-wave1
-  order: 104
+  order: 106
   founded: 2122
   polities:
   - from: 0
@@ -141,7 +180,7 @@
   id: DHBirthVegaPrimaris
   name: dh-bp-vegaprimaris
   group: dh-bp-group-wave1
-  order: 105
+  order: 107
   founded: 2122
   polities:
   - from: 0
@@ -152,7 +191,7 @@
   id: DHBirthAltairPrime
   name: dh-bp-altairprime
   group: dh-bp-group-wave1
-  order: 106
+  order: 108
   founded: 2122
   polities:
   - from: 0
@@ -184,10 +223,62 @@
   now: dh-polity-republic
 
 - type: dhBirthplace
+  id: DHBirthFogg
+  name: dh-bp-fogg
+  group: dh-bp-group-wave2
+  order: 201
+  founded: 2150
+  polities:
+  - from: 0
+    polity: dh-polity-zga
+  - from: 2302
+    polity: dh-polity-republic
+  now: dh-polity-republic
+
+- type: dhBirthplace
   id: DHBirthAriana
   name: dh-bp-ariana
   group: dh-bp-group-wave2
-  order: 201
+  order: 202
+  founded: 2150
+  polities:
+  - from: 0
+    polity: dh-polity-zga
+  - from: 2302
+    polity: dh-polity-republic
+  now: dh-polity-republic
+
+- type: dhBirthplace
+  id: DHBirthEiden
+  name: dh-bp-eiden
+  group: dh-bp-group-wave2
+  order: 203
+  founded: 2150
+  polities:
+  - from: 0
+    polity: dh-polity-zga
+  - from: 2302
+    polity: dh-polity-republic
+  now: dh-polity-republic
+
+- type: dhBirthplace
+  id: DHBirthZoller
+  name: dh-bp-zoller
+  group: dh-bp-group-wave2
+  order: 204
+  founded: 2150
+  polities:
+  - from: 0
+    polity: dh-polity-zga
+  - from: 2302
+    polity: dh-polity-republic
+  now: dh-polity-republic
+
+- type: dhBirthplace
+  id: DHBirthVen
+  name: dh-bp-ven
+  group: dh-bp-group-wave2
+  order: 205
   founded: 2150
   polities:
   - from: 0
@@ -200,7 +291,7 @@
   id: DHBirthAurelia
   name: dh-bp-aurelia
   group: dh-bp-group-wave2
-  order: 202
+  order: 206
   founded: 2150
   polities:
   - from: 0
@@ -213,7 +304,7 @@
   id: DHBirthReylan
   name: dh-bp-reylan
   group: dh-bp-group-wave2
-  order: 203
+  order: 207
   founded: 2150
   polities:
   - from: 0
@@ -226,7 +317,7 @@
   id: DHBirthNikolaevsk
   name: dh-bp-nikolaevsk
   group: dh-bp-group-wave2
-  order: 204
+  order: 208
   founded: 2150
   polities:
   - from: 0
@@ -239,7 +330,7 @@
   id: DHBirthSigitaria
   name: dh-bp-sigitaria
   group: dh-bp-group-wave2
-  order: 205
+  order: 209
   founded: 2150
   polities:
   - from: 0
@@ -252,7 +343,7 @@
   id: DHBirthForten
   name: dh-bp-forten
   group: dh-bp-group-wave2
-  order: 206
+  order: 210
   founded: 2150
   polities:
   - from: 0
@@ -265,7 +356,7 @@
   id: DHBirthPassionPrime
   name: dh-bp-passionprime
   group: dh-bp-group-wave2
-  order: 207
+  order: 211
   founded: 2150
   polities:
   - from: 0
@@ -283,6 +374,29 @@
   polities:
   - from: 0
     polity: dh-polity-zga
+  now: dh-polity-zga
+
+- type: dhBirthplace
+  id: DHBirthParia
+  name: dh-bp-paria
+  group: dh-bp-group-wave2
+  order: 221
+  founded: 2150
+  polities:
+  - from: 0
+    polity: dh-polity-zga
+  now: dh-polity-zga
+
+- type: dhBirthplace
+  id: DHBirthVyshina
+  name: dh-bp-vyshina
+  group: dh-bp-group-wave2
+  order: 222
+  founded: 2150
+  polities:
+  - from: 0
+    polity: dh-polity-zga
+  now: dh-polity-zga
 
 - type: dhBirthplace
   id: DHBirthWave2Other
@@ -303,38 +417,24 @@
   polities:
   - from: 0
     polity: dh-polity-zga
+  now: dh-polity-zga
 
 - type: dhBirthplace
-  id: DHBirthSolaris
-  name: dh-bp-solaris
+  id: DHBirthZoiland
+  name: dh-bp-zoiland
   group: dh-bp-group-wave3
   order: 301
   founded: 2183
   polities:
   - from: 0
     polity: dh-polity-zga
-  - from: 2304
-    polity: dh-polity-federation
-  now: dh-polity-federation
-
-- type: dhBirthplace
-  id: DHBirthZoiland
-  name: dh-bp-zoiland
-  group: dh-bp-group-wave3
-  order: 302
-  founded: 2183
-  polities:
-  - from: 0
-    polity: dh-polity-zga
-  - from: 2304
-    polity: dh-polity-federation
-  now: dh-polity-federation
+  now: dh-now-zoiland
 
 - type: dhBirthplace
   id: DHBirthBalion
   name: dh-bp-balion
   group: dh-bp-group-wave3
-  order: 303
+  order: 302
   founded: 2183
   polities:
   - from: 0
@@ -349,7 +449,7 @@
   id: DHBirthAlphaB
   name: dh-bp-alphab
   group: dh-bp-group-wave3
-  order: 304
+  order: 303
   founded: 2183
   polities:
   - from: 0
@@ -359,6 +459,45 @@
   - from: 2307
     polity: dh-polity-empire
   now: dh-polity-empire
+
+- type: dhBirthplace
+  id: DHBirthSolaris
+  name: dh-bp-solaris
+  group: dh-bp-group-wave3
+  order: 304
+  founded: 2183
+  polities:
+  - from: 0
+    polity: dh-polity-zga
+  - from: 2304
+    polity: dh-polity-federation
+  now: dh-polity-federation
+
+- type: dhBirthplace
+  id: DHBirthShine
+  name: dh-bp-shine
+  group: dh-bp-group-wave3
+  order: 305
+  founded: 2183
+  polities:
+  - from: 0
+    polity: dh-polity-zga
+  - from: 2304
+    polity: dh-polity-federation
+  now: dh-polity-federation
+
+- type: dhBirthplace
+  id: DHBirthDornan
+  name: dh-bp-dornan
+  group: dh-bp-group-wave3
+  order: 306
+  founded: 2183
+  polities:
+  - from: 0
+    polity: dh-polity-zga
+  - from: 2304
+    polity: dh-polity-federation
+  now: dh-polity-federation
 
 - type: dhBirthplace
   id: DHBirthWave3North
@@ -389,10 +528,120 @@
   now: dh-polity-federation
 
 - type: dhBirthplace
+  id: DHBirthSkay
+  name: dh-bp-skay
+  group: dh-bp-group-wave4
+  order: 400
+  founded: 2220
+  polities:
+  - from: 0
+    polity: dh-polity-zga
+  - from: 2302
+    polity: dh-polity-north-wars
+  - from: 2307
+    polity: dh-polity-empire
+  now: dh-polity-empire
+
+- type: dhBirthplace
+  id: DHBirthMemoria
+  name: dh-bp-memoria
+  group: dh-bp-group-wave4
+  order: 401
+  founded: 2220
+  polities:
+  - from: 0
+    polity: dh-polity-zga
+  - from: 2302
+    polity: dh-polity-north-wars
+  - from: 2307
+    polity: dh-polity-empire
+  now: dh-polity-empire
+
+- type: dhBirthplace
+  id: DHBirthOzur
+  name: dh-bp-ozur
+  group: dh-bp-group-wave4
+  order: 402
+  founded: 2220
+  polities:
+  - from: 0
+    polity: dh-polity-zga
+  - from: 2302
+    polity: dh-polity-north-wars
+  - from: 2307
+    polity: dh-polity-empire
+  now: dh-now-ozur
+
+- type: dhBirthplace
+  id: DHBirthElei
+  name: dh-bp-elei
+  group: dh-bp-group-wave4
+  order: 403
+  founded: 2220
+  polities:
+  - from: 0
+    polity: dh-polity-zga
+  - from: 2304
+    polity: dh-polity-federation
+  now: dh-polity-federation
+
+- type: dhBirthplace
+  id: DHBirthFuks
+  name: dh-bp-fuks
+  group: dh-bp-group-wave4
+  order: 404
+  founded: 2220
+  polities:
+  - from: 0
+    polity: dh-polity-zga
+  - from: 2304
+    polity: dh-polity-federation
+  now: dh-polity-federation
+
+- type: dhBirthplace
+  id: DHBirthMiola
+  name: dh-bp-miola
+  group: dh-bp-group-wave4
+  order: 405
+  founded: 2220
+  polities:
+  - from: 0
+    polity: dh-polity-zga
+  - from: 2304
+    polity: dh-polity-federation
+  now: dh-now-miola
+
+- type: dhBirthplace
+  id: DHBirthElijahCapital
+  name: dh-bp-elijahcapital
+  group: dh-bp-group-wave4
+  order: 406
+  founded: 2220
+  polities:
+  - from: 0
+    polity: dh-polity-zga
+  - from: 2253
+    polity: dh-polity-onk
+  now: dh-polity-onk
+
+- type: dhBirthplace
+  id: DHBirthRoneiro
+  name: dh-bp-roneiro
+  group: dh-bp-group-wave4
+  order: 407
+  founded: 2220
+  polities:
+  - from: 0
+    polity: dh-polity-zga
+  - from: 2253
+    polity: dh-polity-onk
+  now: dh-polity-onk
+
+- type: dhBirthplace
   id: DHBirthWave4North
   name: dh-bp-wave4north
   group: dh-bp-group-wave4
-  order: 400
+  order: 450
   founded: 2220
   polities:
   - from: 0
@@ -407,7 +656,7 @@
   id: DHBirthWave4South
   name: dh-bp-wave4south
   group: dh-bp-group-wave4
-  order: 401
+  order: 451
   founded: 2220
   polities:
   - from: 0
@@ -417,48 +666,10 @@
   now: dh-polity-federation
 
 - type: dhBirthplace
-  id: DHBirthWave4Lost
-  name: dh-bp-wave4lost
-  group: dh-bp-group-wave4
-  order: 402
-  founded: 2220
-  until: 2300
-  polities:
-  - from: 0
-    polity: dh-polity-zga
-  now: dh-now-dead-vaitar
-
-- type: dhBirthplace
-  id: DHBirthMiola
-  name: dh-bp-miola
-  group: dh-bp-group-wave4
-  order: 403
-  founded: 2220
-  polities:
-  - from: 0
-    polity: dh-polity-zga
-  - from: 2304
-    polity: dh-polity-federation
-  now: dh-now-miola
-
-- type: dhBirthplace
-  id: DHBirthRoneiro
-  name: dh-bp-roneiro
-  group: dh-bp-group-west
-  order: 500
-  founded: 2220
-  polities:
-  - from: 0
-    polity: dh-polity-zga
-  - from: 2253
-    polity: dh-polity-onk
-  now: dh-polity-onk
-
-- type: dhBirthplace
   id: DHBirthWestOther
   name: dh-bp-westother
-  group: dh-bp-group-west
-  order: 550
+  group: dh-bp-group-wave4
+  order: 452
   founded: 2183
   polities:
   - from: 0
@@ -466,6 +677,18 @@
   - from: 2253
     polity: dh-polity-onk
   now: dh-polity-onk
+
+- type: dhBirthplace
+  id: DHBirthWave4Lost
+  name: dh-bp-wave4lost
+  group: dh-bp-group-wave4
+  order: 453
+  founded: 2220
+  until: 2300
+  polities:
+  - from: 0
+    polity: dh-polity-zga
+  now: dh-now-dead-vaitar
 
 - type: dhBirthplace
   id: DHBirthSpaceborn
