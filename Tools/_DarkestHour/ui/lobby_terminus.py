@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Фон лобби «Терминус» (план осады п. 23, решение автора 2026-11-20): тактическая карта REP-27-7 на янтарном
-терминале — как на экране штаба. Сама карта берётся из генератора Терминуса (terminus_build.py), поэтому фон
+терминале — как на экране штаба. Сама карта берётся из генератора большого Терминуса (terminus3_build.py,
+решение автора 2026-11-27), поэтому фон
 совпадает с игровой картой: вода, горы, дороги, стены построек, точки захвата с подписями, сетка квадратов.
 Строки развёртки и бегущую полосу поверх рисует шейдер старого монитора в лобби, здесь их нет.
 
@@ -18,6 +19,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
 sys.path.insert(0, os.path.join(ROOT, 'Tools', '_DarkestHour', 'planet_map'))
 os.chdir(ROOT)
 import terminus_build as T  # noqa: E402
+import terminus3_build as T3  # noqa: E402
 
 OUT = os.path.join(ROOT, 'Resources/Textures/_DarkestHour/LobbyScreens/terminus_tactical.webp')
 FONT = os.path.join(ROOT, 'Resources/Fonts/_DarkestHour/IBMPlexMono/IBMPlexMono-Regular.ttf')
@@ -46,11 +48,7 @@ WALL = (190, 136, 54)
 def build_world():
     known, tiles = T.known_protos()
     T.KNOWN_TILES.update(tiles)
-    w = T.World(known)
-    for step in ('geography', 'base', 'dam', 'tanker', 'roads', 'village', 'field', 'construction', 'pko', 'pvo',
-                 'rls', 'spaceport', 'mines', 'npp', 'power', 'ground', 'boats', 'place_water', 'nature', 'edge'):
-        getattr(w, step)()
-    return w
+    return T3.build(T3.terrain(), known)
 
 
 def render_map(w, scale):
@@ -60,7 +58,11 @@ def render_map(w, scale):
     for (x, y), tile in w.tiles.items():
         if not (T.X0 <= x <= T.X1 and T.Y0 <= y <= T.Y1):
             continue
-        if tile in GROUND:
+        if tile == T3.DEEP_TILE:
+            c = WATER_DEEP
+        elif tile == T3.ROCK_TILE:
+            c = ROCK
+        elif tile in GROUND:
             c = GROUND[tile]
         elif tile in ('RMCFloorAsphalt',):
             c = ROAD
@@ -105,8 +107,8 @@ def render_map(w, scale):
 
 
 def grid(d, ox, oy, scale, font):
-    """Сетка квадратов по 32 клетки с подписями, как на тактической карте."""
-    step = 32
+    """Сетка квадратов по 64 клетки с подписями, как на тактической карте."""
+    step = 64
     for i, x in enumerate(range(T.X0, T.X1 + 2, step)):
         sx = ox + (x - T.X0) * scale
         d.line([(sx, oy), (sx, oy + (T.Y1 - T.Y0 + 1) * scale)], fill=(48, 38, 20), width=1)
@@ -135,12 +137,14 @@ def marker(d, ox, oy, scale, box, label, color, font):
 def main():
     random.seed(2318)
     w = build_world()
-    scale = 3
-    tmap = render_map(w, scale)
+    big = render_map(w, 2)
+    # Карта вертикальная (640×768): вписана по высоте, слева — справа личное дело.
+    fit = (H - 110) / big.height
+    tmap = big.resize((int(big.width * fit), int(big.height * fit)), Image.LANCZOS)
+    scale = 2 * fit
     canvas = Image.new('RGB', (W, H), BG)
-    # Карта крупнее экрана по высоте. Сдвинута влево, чтобы база и РЛС не уходили под личное дело справа.
-    ox = 48
-    oy = (H - tmap.height) // 2 + 40
+    ox = 260
+    oy = 60
     canvas.paste(tmap, (ox, oy))
 
     d = ImageDraw.Draw(canvas)
@@ -148,12 +152,17 @@ def main():
     font_b = ImageFont.truetype(FONT_BOLD, 16)
     grid(d, ox, oy, scale, font)
 
+    def site(name):
+        u0, v0, u1, v1 = T3.SITES[name]
+        return T3.gx(u0), T3.gy(v1), T3.gx(u1), T3.gy(v0)
+
     poi = [
-        (T.BASE, 'БАЗА «ТЕРМИНУС»', GREEN),
-        (T.PKO, 'ПКО', GREEN), (T.PVO, 'ПВО', GREEN), (T.RLS, 'РЛС/СВЯЗЬ', GREEN),
-        (T.NPP, 'АЭС', AMBER), (T.SPACEPORT, 'КОСМОДРОМ', AMBER), (T.CONSTRUCTION, 'СТРОЙКА', AMBER),
-        (T.DAM, 'ДАМБА', AMBER), (T.VILLAGE, 'ДЕРЕВНЯ', AMBER), (T.MINES, 'ГОРОДОК', AMBER),
-        (T.TANKER, 'ТАНКЕР', DIM),
+        (site('база'), 'БАЗА «ТЕРМИНУС»', GREEN),
+        (T.PKO, 'ПКО', GREEN), (T.PVO, 'ПВО', GREEN), (T.RLS, 'РЛС', GREEN),
+        (site('АЭС'), 'АЭС', AMBER), (site('космодром'), 'КОСМОДРОМ', AMBER), (site('завод'), 'ЗАВОД', AMBER),
+        (site('дамба'), 'ДАМБА', AMBER), (site('деревня'), 'ДЕРЕВНЯ', AMBER),
+        (site('нефтяной терминал'), 'ТЕРМИНАЛ', AMBER), (site('городок'), 'ГОРОДОК', DIM),
+        (site('танкер'), 'ТАНКЕР', DIM), (site('место падения'), 'МЕСТО ПАДЕНИЯ', DIM),
     ]
     for box, label, color in poi:
         marker(d, ox, oy, scale, box, label, color, font_b)

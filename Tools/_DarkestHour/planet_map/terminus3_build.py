@@ -475,6 +475,7 @@ class Map3(tb.World):
                 self.tiles[(gx(u), gy(v))] = DEEP_TILE
                 continue
             self.water[(gx(u), gy(v))] = deep
+        self.rock_cells = {(gx(u), gy(v)) for (u, v) in t.rock}
         for (u, v) in t.rock:
             c = (gx(u), gy(v))
             if (u, v) in t.rock_inner:
@@ -869,6 +870,8 @@ class Map3(tb.World):
         tb.World.pko(self)
         tb.World.pvo(self)
         tb.World.rls(self)
+        for attr in ('PKO', 'PVO', 'RLS'):
+            self.plateau(getattr(tb, attr))
         x0, y0, x1, y1 = self.site_xy('блокпост')
         hy = gy(HW_V[1])
         for x in range(x0, x1 + 1):
@@ -880,6 +883,71 @@ class Map3(tb.World):
         self.tower(x1 - 4, hy + 6)
         self.ent('DHFieldPhoneRepublicGate', x0 + 1, hy + 7)
         self.car(x0 + 12, hy + 2, wreck=True)
+
+    def is_rock(self, x, y):
+        return self.tiles.get((x, y)) == ROCK_TILE or (x, y) in self.rock_cells
+
+    def plateau(self, box, width=5):
+        """Горная площадка на +1 вокруг военного объекта (решение автора 2026-11-27): кольцо над скалами шириной
+        width, по внешнему краю мешки, две лестницы с площадки объекта наверх."""
+        x0, y0, x1, y1 = box
+        ring = set()
+        for x in range(x0 - width, x1 + width + 1):
+            for y in range(y0 - width, y1 + width + 1):
+                if x0 <= x <= x1 and y0 <= y <= y1:
+                    continue
+                if self.is_rock(x, y):
+                    ring.add((x, y))
+        if not ring:
+            return
+        for c in ring:
+            self.lv_tile(1, *c, 'FloorDesert')
+        rot = {(0, -1): 0.0, (0, 1): tb.PI, (-1, 0): tb.R270, (1, 0): tb.R90}
+        for (x, y) in ring:
+            outer = [d for d in rot if (x + d[0], y + d[1]) not in ring and not (x0 <= x + d[0] <= x1 and y0 <= y + d[1] <= y1)]
+            if outer and (x + y) % 2 == 0:
+                self.lv_ent(1, 'DHSandbagBarricade', x, y, rot[outer[0]])
+        placed = 0
+        for (lx, ly) in ((x0 + 1, y1 - 1), (x1 - 1, y1 - 1), (x0 + 1, y0 + 1), (x1 - 1, y0 + 1)):
+            if placed >= 2 or (lx, ly) in self.occ:
+                continue
+            near = [(lx + i, ly + j) for i in (-2, -1, 0, 1, 2) for j in (-2, -1, 0, 1, 2) if (lx + i, ly + j) in ring]
+            if not near:
+                continue
+            # мостик от лестницы до кольца
+            self.lv_tile(1, lx, ly, 'FloorSteel')
+            nx, ny = near[0]
+            for x in range(min(lx, nx), max(lx, nx) + 1):
+                self.lv_tile(1, x, ly, 'FloorSteel')
+            for y in range(min(ly, ny), max(ly, ny) + 1):
+                self.lv_tile(1, nx, y, 'FloorSteel')
+            self.ladder(lx, ly, 0, 1)
+            placed += 1
+
+    def village_houses(self):
+        """Деревня крупнее (решение автора: чердаки и вторые этажи): к прежней деревне — двухэтажные дома вокруг."""
+        X0, Y0, X1, Y1 = self.site_xy('деревня')
+        spots = [(X0 + 4, Y0 + 4), (X0 + 20, Y0 + 4), (X0 + 36, Y0 + 4), (X0 + 52, Y0 + 4), (X0 + 70, Y0 + 4),
+                 (X0 + 4, Y1 - 14), (X0 + 22, Y1 - 14), (X0 + 40, Y1 - 14)]
+        for i, (hx, hy) in enumerate(spots):
+            w, h = 11, 9
+            if hx + w > X1 or hy + h > Y1 or any((x, y) in self.water for x in range(hx - 2, hx + w + 3)
+                                                for y in range(hy - 2, hy + h + 3)) or any((x, y) in self.occ for x in range(hx - 1, hx + w + 2)
+                                                for y in range(hy - 1, hy + h + 2)):
+                continue
+            door = (hx + 5, hy, 'Airlock') if i % 2 else (hx + 5, hy + h, 'Airlock')
+            self.building(hx, hy, hx + w, hy + h, 'WallSolid', 'FloorWood', doors=[door],
+                          windows=[(hx + 2, hy), (hx + 9, hy), (hx + 2, hy + h), (hx + 9, hy + h), (hx, hy + 4),
+                                   (hx + w, hy + 4)], lights=None)
+            self.ent('Bed', hx + 1, hy + 1)
+            self.ent('TableWood' if 'TableWood' in self.known else 'Table', hx + 8, hy + 6)
+            self.lv_building(1, hx, hy, hx + w, hy + h, 'WallSolid', 'FloorWood',
+                             windows=[(hx + 3, hy), (hx + 8, hy), (hx + 3, hy + h), (hx + 8, hy + h)], window='Window',
+                             lights=None)
+            self.levels[1].roof.update((x, y) for x in range(hx, hx + w + 1) for y in range(hy, hy + h + 1))
+            self.ladder(hx + w - 2, hy + h - 2, 0, 1)
+            self.lv_ent(1, 'Bed', hx + 2, hy + h - 2)
+            self.lv_ent(1, 'Bed', hx + 5, hy + h - 2)
 
     def gorodok(self):
         """Заброшенный шахтёрский городок (решение автора 2026-11-27, как был): бараки (часть двухэтажные, часть
@@ -985,7 +1053,7 @@ class Map3(tb.World):
         """Собрать объект старым кодом генератора v2 во временном мире и перенести со сдвигом (dx, dy)."""
         w = tb.World(self.known)
         w.missing = self.missing
-        w.rng = random.Random(hash(fn.__name__) & 0xFFFF)
+        w.rng = random.Random(sum(map(ord, fn.__name__)))
         fn(w)
         for (x, y), t in w.tiles.items():
             if not self.inside(x + dx, y + dy):
@@ -1302,6 +1370,28 @@ def map_preview(m, path, z=0, box=None, scale=2):
     print('превью:', path, img.size)
 
 
+def build(t, known):
+    """Собрать карту целиком из готового рельефа t (Terrain после split)."""
+    setup_bounds()
+    m = Map3(known)
+    m.load_terrain(t)
+    for step in ('tanker', 'terminal', 'dam', 'crash_site', 'base3', 'military', 'gorodok', 'npp3', 'village3', 'village_houses',
+                 'spaceport3', 'factory', 'zp1', 'wiring', 'place_water', 'edge'):
+        getattr(m, step)()
+    return m
+
+
+def terrain():
+    t = Terrain()
+    t.geography()
+    t.roads_all()
+    t.sites()
+    t.ground()
+    t.nature()
+    t.split()
+    return t
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--preview', help='PNG превью каркаса')
@@ -1311,37 +1401,14 @@ def main():
                     help='записать Resources/Maps/_DarkestHour/Assault/terminus3*.yml (пока не подключены к игре)')
     args = ap.parse_args()
 
-    t = Terrain()
-    t.geography()
-    t.roads_all()
-    t.sites()
-    t.ground()
-    t.nature()
-    t.split()
+    t = terrain()
     t.stats()
     if args.preview:
         preview(t, args.preview)
     if args.write:
-        setup_bounds()
         known, tiles = tb.known_protos()
         tb.KNOWN_TILES.update(tiles)
-        m = Map3(known)
-        m.load_terrain(t)
-        m.tanker()
-        m.terminal()
-        m.dam()
-        m.crash_site()
-        m.base3()
-        m.military()
-        m.gorodok()
-        m.npp3()
-        m.village3()
-        m.spaceport3()
-        m.factory()
-        m.zp1()
-        m.wiring()
-        m.place_water()
-        m.edge()
+        m = build(t, known)
         if m.missing:
             print('НЕТ ПРОТОТИПОВ (пропущены):', sorted(m.missing))
         protos, used = tb.write_surface(m, os.path.join(tb.OUT, 'terminus3.yml'))

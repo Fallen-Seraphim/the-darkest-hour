@@ -401,11 +401,13 @@ dh-reinforcement-truck-boarded = You are in the back of a reinforcement truck ({
 
 # Terminus map greeting (siege plan item 23)
 dh-assault-briefing-terminus-republic = You are the garrison of Terminus Military Base on REP-27-7.
-    Objective: do not give up the experimental sample in the bunker vault. The Imperial carrier will tear a rift in about {$minutes} min — dig in and man the anti-air positions.
-    A Republic Navy squadron will arrive in about {$relief} min — hold out until it gets here.
-    Reinforcements come by truck along the highway. More about the war and the sides is in the guidebook, "Lore" section.
+    Objective: do not give up the experimental sample — it is in the vault on the lowest tier of the bunker under the base. The Imperial carrier will tear a rift in about {$minutes} min.
+    Hold the points — the dam, the oil terminal, the village, the factory, the nuclear plant and the spaceport — and the mountain anti-orbital, anti-air and radar posts: without them the carrier and dropships act freely.
+    A Republic Navy squadron will arrive in about {$relief} min — hold out until it gets here. Reinforcements come by truck along highway H-14 from the west and the east.
+    More about the war and the sides is in the guidebook, "Lore" section.
 dh-assault-briefing-terminus-empire = You are the Imperial Marines aboard the landing carrier IC-3 Sovereign.
-    Objective: land on REP-27-7, take Terminus Military Base and bring the experimental sample from its bunker aboard.
+    Objective: land on REP-27-7, take Terminus Military Base in the north-east and bring the experimental sample from the lowest tier of its bunker aboard.
+    Landing zones: LZ-1 in the south-western fields, LZ-2 on the tanker deck by the oil terminal, LZ-3 at the spaceport; a dropship can also set down in the open, but takes longer to lift off. The mountain anti-orbital, anti-air and radar posts cover the base — knock them out.
     The rift opens in about {$minutes} min. A Republic Navy squadron will arrive in about {$relief} min — we must be gone by then.
     Guard the carrier: it is your only way home. More about the war and the sides is in the guidebook, "Lore" section.
 
