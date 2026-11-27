@@ -157,6 +157,9 @@
     interfaces:
       enum.DHOverwatchUiKey.Key:
         type: DHOverwatchBoundUserInterface
+      # Проверка здоровья носителя (DHMarsSystem): окно анализатора здоровья.
+      enum.HealthAnalyzerUiKey.Key:
+        type: HealthAnalyzerBoundUserInterface
   - type: DHMars
 
 - type: entity
@@ -332,6 +335,25 @@
       map: [ "enum.ActionVisuals.Icon" ]
   - type: InstantAction
     event: !type:DHMarsInjectActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: DHActionMarsHealth
+  name: Health check
+  description: "Scan the paratrooper like a health analyzer: damage, blood, temperature. The window updates while it is open."
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    useDelay: 1
+    checkCanInteract: false
+    checkConsciousness: false
+  - type: Sprite
+    sprite: Objects/Specific/Medical/healthanalyzer.rsi
+    layers:
+    - state: icon
+      map: [ "enum.ActionVisuals.Icon" ]
+  - type: InstantAction
+    event: !type:DHMarsHealthActionEvent
 
 - type: entity
   parent: BaseAction

@@ -27,6 +27,9 @@ public sealed partial class DHMarsJamActionEvent : InstantActionEvent;
 /// <summary>Экстренная инъекция автоаптечки, не дожидаясь порога ранений.</summary>
 public sealed partial class DHMarsInjectActionEvent : InstantActionEvent;
 
+/// <summary>Проверка здоровья: анализатор здоровья, наведённый на носителя.</summary>
+public sealed partial class DHMarsHealthActionEvent : InstantActionEvent;
+
 /// <summary>Аварийный отход: пока десантник без сознания, экзоскелет сам несёт его к точке.</summary>
 public sealed partial class DHMarsCarryActionEvent : WorldTargetActionEvent;
 
