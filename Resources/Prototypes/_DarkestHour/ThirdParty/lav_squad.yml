@@ -13,7 +13,7 @@
     prototypes: [ DHLAVSquadCommanderGear ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-lav-name-format-commander
   - type: AntagImmune
 
@@ -25,7 +25,7 @@
     prototypes: [ DHLAVSquadDeputyGear ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-lav-name-format-deputy
   - type: AntagImmune
 
@@ -37,7 +37,7 @@
     prototypes: [ DHLAVSquadTechnicianGear ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-lav-name-format-technician
   - type: AntagImmune
 
@@ -49,7 +49,7 @@
     prototypes: [ DHLAVSquadSniperGear ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-lav-name-format-sniper
   - type: AntagImmune
 
@@ -61,7 +61,7 @@
     prototypes: [ DHLAVSquadMedicGear ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-lav-name-format-medic
   - type: AntagImmune
 
@@ -73,7 +73,7 @@
     prototypes: [ DHLAVSquadOperativeGear ]
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-lav-name-format-operative
   - type: AntagImmune
 

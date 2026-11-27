@@ -25,7 +25,7 @@
     syndStatusIcon: DHImperialFaction
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-imperial-commander
   mindRoles:
   - DHMindRoleImperialCommander
@@ -75,7 +75,7 @@
     syndStatusIcon: DHImperialFaction
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-imperial-weapons
   mindRoles:
   - DHMindRoleImperialWeaponsSpecialist
@@ -125,7 +125,7 @@
     syndStatusIcon: DHImperialFaction
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-imperial-medic
   mindRoles:
   - DHMindRoleImperialFieldMedic
@@ -175,7 +175,7 @@
     syndStatusIcon: DHImperialFaction
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-imperial-machinegunner
   mindRoles:
   - DHMindRoleImperialMachinegunner
@@ -225,7 +225,7 @@
     syndStatusIcon: DHImperialFaction
   - type: RandomMetadata
     nameSegments:
-    - NamesMilitaryLast
+    - DHNamesLast
     nameFormat: dh-name-format-imperial-rifleman
   mindRoles:
   - DHMindRoleImperialRifleman

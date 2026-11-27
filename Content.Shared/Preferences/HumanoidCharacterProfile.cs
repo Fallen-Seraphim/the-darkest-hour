@@ -286,6 +286,20 @@ namespace Content.Shared.Preferences
         }
 
         /// <summary>
+        /// DarkestHour: людям — имя вселенной TDH с оттенком мира рождения (<see cref="Content.Shared._DarkestHour.Characters.DHNameGeneratorSystem"/>).
+        /// </summary>
+        public static string RandomName(SpeciesPrototype species, Gender gender,
+            ProtoId<Content.Shared._DarkestHour.Characters.DHBirthplacePrototype>? birthplace, int age)
+        {
+            if (species.ID != DefaultSpecies.Id)
+                return RandomName(species, gender);
+
+            return IoCManager.Resolve<IEntitySystemManager>()
+                .GetEntitySystem<Content.Shared._DarkestHour.Characters.DHNameGeneratorSystem>()
+                .Generate(gender, birthplace, age);
+        }
+
+        /// <summary>
         /// Picks a random age using species.
         /// </summary>
         public static int RandomAge(SpeciesPrototype species)
@@ -371,8 +385,12 @@ namespace Content.Shared.Preferences
             profile.Sex = (randomizeCfg & RandomizeCfg.Sex) != 0 ? RandomSex(speciesProto) : baseProfile.Sex;
             profile.Voice = speciesProto.DefaultSoundsBySex[(int)profile.Sex];
             profile.Gender = (randomizeCfg & RandomizeCfg.Gender) != 0 ? RandomGender(profile.Sex) : baseProfile.Gender;
-            profile.Name = (randomizeCfg & RandomizeCfg.Name) != 0 ? RandomName(speciesProto, profile.Gender) : baseProfile.Name;
             profile.Age = (randomizeCfg & RandomizeCfg.Age) != 0 ? RandomAge(speciesProto) : baseProfile.Age;
+            // DarkestHour: подробное описание (место рождения и т. д.) не сбрасывается, имя — с оттенком мира рождения.
+            profile.DHDetails = baseProfile.DHDetails.Clone();
+            profile.Name = (randomizeCfg & RandomizeCfg.Name) != 0
+                ? RandomName(speciesProto, profile.Gender, profile.DHDetails.Birthplace, profile.Age)
+                : baseProfile.Name;
 
             profile.Appearance = HumanoidCharacterAppearance.Random(speciesProto, profile.Sex, randomizeCfg, baseProfile.Appearance);
 

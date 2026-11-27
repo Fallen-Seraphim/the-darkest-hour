@@ -1,0 +1,97 @@
+# Имена вселенной TDH — генерируется Tools/_DarkestHour/names/build_names.py, руками не править.
+
+- type: localizedDataset
+  id: DHNamesMaleLig
+  values:
+    prefix: dh-names-male-lig-
+    count: 91
+
+- type: localizedDataset
+  id: DHNamesFemaleLig
+  values:
+    prefix: dh-names-female-lig-
+    count: 70
+
+- type: localizedDataset
+  id: DHNamesMaleEur
+  values:
+    prefix: dh-names-male-eur-
+    count: 86
+
+- type: localizedDataset
+  id: DHNamesFemaleEur
+  values:
+    prefix: dh-names-female-eur-
+    count: 69
+
+- type: localizedDataset
+  id: DHNamesMaleCommon
+  values:
+    prefix: dh-names-male-common-
+    count: 74
+
+- type: localizedDataset
+  id: DHNamesFemaleCommon
+  values:
+    prefix: dh-names-female-common-
+    count: 65
+
+- type: localizedDataset
+  id: DHNamesLastLig
+  values:
+    prefix: dh-names-last-lig-
+    count: 82
+
+- type: localizedDataset
+  id: DHNamesLastEur
+  values:
+    prefix: dh-names-last-eur-
+    count: 89
+
+- type: localizedDataset
+  id: DHNamesLastCommon
+  values:
+    prefix: dh-names-last-common-
+    count: 240
+
+- type: localizedDataset
+  id: DHNamesLastFemaleLig
+  values:
+    prefix: dh-names-last-female-lig-
+    count: 82
+
+- type: localizedDataset
+  id: DHNamesLastFemaleEur
+  values:
+    prefix: dh-names-last-female-eur-
+    count: 89
+
+- type: localizedDataset
+  id: DHNamesLastFemaleCommon
+  values:
+    prefix: dh-names-last-female-common-
+    count: 240
+
+- type: localizedDataset
+  id: DHNamesMale
+  values:
+    prefix: dh-names-male-
+    count: 249
+
+- type: localizedDataset
+  id: DHNamesFemale
+  values:
+    prefix: dh-names-female-
+    count: 201
+
+- type: localizedDataset
+  id: DHNamesLast
+  values:
+    prefix: dh-names-last-
+    count: 410
+
+- type: localizedDataset
+  id: DHNamesLastFemale
+  values:
+    prefix: dh-names-last-female-
+    count: 410
