@@ -66,11 +66,23 @@ public sealed partial class DHHeavyGunSystem
             if (!RadarWorking(radarUid, radar) || !SameSide(side, radar.Faction))
                 continue;
 
-            if (xform.GridUid != null && radarXform.GridUid == xform.GridUid || radarXform.MapUid == xform.MapUid)
+            if (xform.GridUid != null && radarXform.GridUid == xform.GridUid ||
+                StackGround(radarXform.MapUid) == StackGround(xform.MapUid))
+            {
                 return true;
+            }
         }
 
         return false;
+    }
+
+    /// <summary>Карта уровня 0 стопки Z-уровней (РЛС на горе, большой Терминус, видит всю стопку).</summary>
+    private EntityUid? StackGround(EntityUid? map)
+    {
+        if (map is { } m && _zLevels.TryGetLevel(m, out var level))
+            return _zLevels.LevelMap(level.Stack, 0) ?? m;
+
+        return map;
     }
 
     /// <summary>Множитель шанса ПВО: 1 с РЛС, меньше — вслепую.</summary>
@@ -85,12 +97,13 @@ public sealed partial class DHHeavyGunSystem
     /// </summary>
     public void WarnIncomingDropship(EntityUid zone, DHAssaultFaction attacker, string shipName)
     {
-        var map = Transform(zone).MapUid;
+        var map = StackGround(Transform(zone).MapUid);
         var warned = new HashSet<DHAssaultFaction>();
         var query = EntityQueryEnumerator<DHRadarComponent, TransformComponent>();
         while (query.MoveNext(out var radarUid, out var radar, out var xform))
         {
-            if (!RadarWorking(radarUid, radar) || radar.Faction == attacker || xform.MapUid != map || !warned.Add(radar.Faction))
+            if (!RadarWorking(radarUid, radar) || radar.Faction == attacker || StackGround(xform.MapUid) != map ||
+                !warned.Add(radar.Faction))
                 continue;
 
             _assault.AnnounceToFaction(radar.Faction, Loc.GetString("dh-radar-sender"),

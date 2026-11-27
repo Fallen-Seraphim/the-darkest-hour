@@ -338,4 +338,4 @@
   components:
   - type: DHReinforcementEntry
     name: dh-reinforcement-entry-west
-    closedBy: [ dam, construction ]
+    closedBy: [ dam, village ] # большой Терминус: западный въезд через деревню и дамбу (решение автора 2026-11-27)

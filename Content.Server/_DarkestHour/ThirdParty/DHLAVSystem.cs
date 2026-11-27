@@ -137,7 +137,7 @@ public sealed partial class DHLAVSystem : EntitySystem
     private static readonly Color LavColor = Color.FromHex("#8A6AD0");
 
     /// <summary>Объекты для удержания — мирные точки контроля (военные — ПКО, ПВО, РЛС — не задание ЧВК).</summary>
-    private static readonly string[] HoldPoints = { "village", "construction", "npp", "spaceport", "dam" };
+    private static readonly string[] HoldPoints = { "village", "factory", "terminal", "npp", "spaceport", "dam" };
 
     /// <summary>Танкер — ЗП с этим словом в имени.</summary>
     private const string TankerZoneWord = "Танкер";

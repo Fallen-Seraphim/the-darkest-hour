@@ -56,3 +56,7 @@ dh-control-point-powered-backup = [color=#E0B050]Работает от резе�
 dh-control-point-powered-off = [color=#A05050]Нет питания: сеть АЭС потеряна.[/color]
 dh-control-point-powered-off-broken = [color=#A05050]Нет питания: объект зоны выведен из строя — нужен ремонт.[/color]
 dh-control-point-powered-off-jammed = [color=#A05050]Нет питания: в зоне стоит флаг ЧВК LA-V.[/color]
+dh-control-point-terminal = Нефтяной терминал
+dh-control-point-terminal-desc = Даёт 3 оч. командования в минуту.
+dh-control-point-factory = Завод
+dh-control-point-factory-desc = Даёт 3 оч. командования в минуту.
