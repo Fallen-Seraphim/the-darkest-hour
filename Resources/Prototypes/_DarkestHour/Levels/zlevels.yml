@@ -1,198 +1,63 @@
 # Z-уровни: переходы без ключа — ведут в ту же точку XY на соседнем уровне стопки (DHZLevelComponent на карте).
-# Лестничный пролёт ставится внизу (смотрит вверх по лестнице), проём — на том же тайле этажом выше (смотрит вниз).
-# Механика — DHZTransitSystem (пролёты, падение, взгляд) и DHLevelSystem (лестницы, люки, лифты).
+# Механика — DHZLadderSystem (лестницы), DHZTransitSystem (падение, взгляд) и DHLevelSystem (лифты, люки с ключом).
 
-- type: entity
-  parent: BaseStructure
-  id: DHZStairs
-  name: stairs
-  description: A flight of stairs going up. Walk up the steps to reach the floor above.
-  placement:
-    mode: SnapgridCenter
-  components:
-  - type: Transform
-    anchored: true
-  - type: Sprite
-    sprite: Structures/stairs.rsi
-    state: stairs_steel
-    drawdepth: FloorObjects
-  - type: Clickable
-  - type: InteractionOutline
-  - type: Physics
-    bodyType: Static
-    canCollide: false
-  - type: DHZStairs
-    up: true
-  - type: Tag
-    tags:
-    - Structure
-
-- type: entity
-  parent: DHZStairs
-  id: DHZStairsDark
-  suffix: dark
-  components:
-  - type: Sprite
-    state: stairs_dark
-
-- type: entity
-  parent: DHZStairs
-  id: DHZStairsWood
-  suffix: wood
-  components:
-  - type: Sprite
-    state: stairs_wood
-
-- type: entity
-  parent: DHZStairs
-  id: DHZStairwell
-  name: stairwell
-  description: The top of a flight of stairs. Walk down the steps to reach the floor below.
-  components:
-  - type: Sprite
-    sprite: _DarkestHour/Structures/Levels/levels.rsi
-    state: stairwell
-  - type: DHZStairs
-    up: false
-
-# --- Лестницы из RMC-14 (решение автора 2026-11-05): марш шириной 2–3 и длиной 2–3 тайла. Ступени — только
-# картинка; последняя ступень марша (DHZStairsTop*) поднимает на этаж выше. Наверху над маршем — проём: глухие
-# тайлы шахты (DHZStairShaft) и спуск (DHZStairwell) над последней ступенью.
+# --- Универсальная лестница (решение автора 2026-11-27): вместо маршей, проёмов, «лестниц наверх» и «люков вниз».
+# Ставится на каждом уровне в одной точке; ведёт туда, где в той же точке на соседнем уровне стоит другая. Спрайт
+# (RMC-14) выбирается сам: низ — лестница вверх, середина — сквозная, верх — проём с лестницей вниз.
 
 - type: entity
   abstract: true
-  id: DHZStairStepBase
-  name: stairs
-  description: A flight of stairs. Walk up to the top step to reach the floor above.
+  parent: BaseStructure
+  id: DHZLadderBase
   placement:
     mode: SnapgridCenter
   components:
   - type: Transform
     anchored: true
-  - type: Sprite
-    sprite: _RMC14/Structures/stairs.rsi
-    state: p_stair_full
-    drawdepth: FloorTiles
   - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+    canCollide: false
+  - type: DHZLadder
+  - type: Appearance
   - type: Tag
     tags:
     - Structure
 
 - type: entity
-  parent: DHZStairStepBase
-  id: DHZStairStep
-
-- type: entity
-  parent: DHZStairStepBase
-  id: DHZStairStepLeft
-  suffix: left
-  components:
-  - type: Sprite
-    state: p_stair_left_cap
-
-- type: entity
-  parent: DHZStairStepBase
-  id: DHZStairStepRight
-  suffix: right
-  components:
-  - type: Sprite
-    state: p_stair_right_cap
-
-- type: entity
-  parent: DHZStairStep
-  id: DHZStairsTop
-  suffix: top
-  components:
-  - type: InteractionOutline
-  - type: Physics
-    bodyType: Static
-    canCollide: false
-  - type: DHZStairs
-    up: true
-
-- type: entity
-  parent: DHZStairsTop
-  id: DHZStairsTopLeft
-  suffix: top, left
-  components:
-  - type: Sprite
-    state: p_stair_left_cap
-
-- type: entity
-  parent: DHZStairsTop
-  id: DHZStairsTopRight
-  suffix: top, right
-  components:
-  - type: Sprite
-    state: p_stair_right_cap
-
-- type: entity
-  parent: BaseStructure
-  id: DHZStairShaft
-  name: stairwell
-  description: The open shaft of a flight of stairs. Mind the drop.
-  components:
-  # Сам проём не рисуется: пола под ним нет, сквозь него видно марш этажом ниже (DHZLevelRenderSystem).
-  # Без пола закрепить нельзя — стоит незакреплённым статичным телом.
-  - type: Transform
-    anchored: false
-  - type: Sprite
-    sprite: _DarkestHour/Structures/Levels/levels.rsi
-    state: stairwell
-    drawdepth: FloorTiles
-    visible: false
-  - type: Fixtures
-    fixtures:
-      fix1:
-        shape:
-          !type:PhysShapeAabb
-          bounds: "-0.5,-0.5,0.5,0.5"
-        density: 100
-        mask:
-        - MachineMask
-        layer:
-        - MidImpassable
-        - LowImpassable
-
-- type: entity
-  parent: DHLadderUpBase
-  id: DHZLadderUp
+  parent: DHZLadderBase
+  id: DHZLadder
   name: ladder
-  description: A steel ladder leading up to the level above. Use it to climb up.
+  description: A steel ladder between levels. Click to climb up (or down if there's nothing above); more in the alternative actions.
   components:
-  - type: DHLadder
+  - type: Sprite
+    sprite: _RMC14/Structures/ladder.rsi
+    drawdepth: Objects
+    layers:
+    - state: ladder11
+      map: [ "base" ]
+  - type: GenericVisualizer
+    visuals:
+      enum.DHZLadderVisuals.Connections:
+        base:
+          None: { state: ladder10 }
+          Up: { state: ladder10 }
+          Down: { state: ladder01 }
+          Both: { state: ladder11 }
 
 - type: entity
-  parent: DHHatchBase
-  id: DHZHatchDown
-  name: floor hatch
-  description: A hatch with a ladder going down to the level below. Use it to climb down.
-  components:
-  - type: DHLadder
-    down: true
-
-- type: entity
-  parent: DHHatchBase
+  parent: DHZLadderBase
   id: DHZManhole
   name: manhole
   description: A heavy cast-iron cover over a shaft into the sewers. Use it to climb down.
   components:
   - type: Sprite
+    sprite: _DarkestHour/Structures/Levels/levels.rsi
     state: manhole
-  - type: DHLadder
-    down: true
+    drawdepth: FloorObjects
+  - type: DHZLadder
     delay: 3
-
-- type: entity
-  parent: DHHatchBase
-  id: DHZRoofHatch
-  name: roof hatch
-  description: A hatch in the roof with a ladder going down into the building. Use it to climb down.
-  components:
-  - type: Sprite
-    state: roof_hatch
-  - type: DHLadder
-    down: true
 
 - type: entity
   parent: DHLiftPlatformBase
@@ -230,7 +95,7 @@
   parent: BaseAction
   id: DHActionLookUp
   name: Look up
-  description: Look at the level above — through stairs, a ladder, a lift shaft, or straight up when nothing covers you. Press again to look higher with a wielded x8/x16 scope.
+  description: Toggle looking at the level above — in the open, or by a ladder or lift shaft. You can walk while looking. Press again to stop (with a wielded x8/x16 scope — to look higher first).
   components:
   - type: Action
     itemIconStyle: NoItem
@@ -246,7 +111,7 @@
   parent: BaseAction
   id: DHActionLookDown
   name: Look down
-  description: Look at the level below — through stairs, a hatch, a manhole, a lift shaft or over an edge. Press again to look lower with a wielded x8 (3 levels) or x16 (all) scope.
+  description: Toggle looking at the level below — over an edge, or by a ladder, manhole or lift shaft. You can walk while looking. Press again to stop (with a wielded x8 scope — 3 levels, x16 — all, deeper first).
   components:
   - type: Action
     itemIconStyle: NoItem

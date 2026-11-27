@@ -343,14 +343,14 @@ class World:
     def tower(self, x, y):
         """
         Наблюдательная вышка 3×3 (высота как преимущество, план осады п. 21): на земле — опоры по углам и лестница
-        посередине южной стороны, на +1 — площадка с мешками по краю и люком вниз над лестницей.
+        посередине южной стороны, на +1 — площадка с мешками по краю и той же лестницей (универсальная, 2026-11-27).
         """
         cells = [(x + i, y + j) for i in range(3) for j in range(3)]
         if any(c in self.occ for c in cells):
             return False
         for cx, cy in cells:
             self.tile(cx, cy, 'FloorConcrete')
-        self.ent('DHZLadderUp', x + 1, y)
+        self.ent('DHZLadder', x + 1, y)
         for cx, cy in ((x, y), (x + 2, y), (x, y + 2), (x + 2, y + 2)):
             self.ent('Girder', cx, cy)
         for c in cells:
@@ -359,7 +359,7 @@ class World:
         lv = self.p1
         for cx, cy in cells:
             lv.tiles[(cx, cy)] = 'FloorSteel'
-        lv.ents.append(('DHZHatchDown', x + 1, y, 0.0))
+        lv.ents.append(('DHZLadder', x + 1, y, 0.0))
         for i in range(3):
             lv.ents.append(('DHSandbagBarricade', x + i, y + 2, PI))   # север
             if i != 1:
@@ -1714,21 +1714,15 @@ class World:
         self.ent('PoweredlightEmpty', bx + 7, by + h - 1, LIGHT_ROT['N'], free=True)
         if not two:
             return
-        # лестница (ступени RMC): марш на север у западной стены
-        sx, sy = bx + 1, by + 2
-        for k in range(2):
-            piece = 'Left' if k == 0 else 'Right'
-            for r in range(3):
-                top = r == 2
-                self.ent(('DHZStairsTop' if top else 'DHZStairStep') + piece, sx + k, sy + r, R180)
-                self.p1.ents.append(('DHZStairwell' if top else 'DHZStairShaft', sx + k, sy + r, 0.0))
-        # второй этаж: пол, стены, окна; проём над маршем
+        # универсальная лестница у западной стены (решение автора 2026-11-27, вместо марша RMC)
+        sx, sy = bx + 1, by + 4
+        self.ent('DHZLadder', sx, sy)
+        self.p1.ents.append(('DHZLadder', sx, sy, 0.0))
+        # второй этаж: пол, стены, окна
         lv = self.p1
         for x in range(bx, bx + w + 1):
             for y in range(by, by + h + 1):
-                shaft = sx <= x <= sx + 1 and sy <= y <= sy + 1
-                if not shaft:
-                    lv.tiles[(x, y)] = 'FloorSteel'
+                lv.tiles[(x, y)] = 'FloorSteel'
                 lv.roof.add((x, y))
                 if x in (bx, bx + w) or y in (by, by + h):
                     win = (x in (bx + 4, bx + 9) and y in (by, by + h)) or (y == by + 5 and x in (bx, bx + w))
@@ -2174,7 +2168,7 @@ def write_level(lv, path, name):
     L += roof_data(lv.roof)
     groups = {}
     for proto, x, y, rot in rmc_ents(lv.ents):
-        if (x, y) in lv.tiles or proto == 'DHZStairShaft' or proto == 'DHZStairwell':
+        if (x, y) in lv.tiles:
             groups.setdefault(proto, []).append((x, y, rot))
     uid = 2
     for proto in sorted(groups):

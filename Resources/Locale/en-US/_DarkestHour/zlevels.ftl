@@ -5,7 +5,6 @@ dh-zlevel-name-up = level +{ $level }
 dh-zlevel-name-down = level -{ $level }
 dh-zlevel-map-up = Level +{ $level }
 dh-zlevel-map-down = Underground level -{ $level }
-dh-zlevel-stairs-blocked = The way is blocked.
 dh-zlevel-fell = You fall { $levels ->
     [one] a floor down!
    *[other] { $levels } floors down!
@@ -14,8 +13,8 @@ dh-zlevel-look-nothing = There are no other levels here.
 dh-zlevel-look-nothing-up = There is nothing above.
 dh-zlevel-look-nothing-down = There is nothing below.
 dh-zlevel-look-too-far = You can't see that far — a wielded x8 or x16 scope would help.
-dh-zlevel-look-covered = There's a ceiling above you — find stairs, a ladder or a lift shaft.
-dh-zlevel-look-no-edge = Nothing to look down through — get to an edge, stairs, a hatch or a manhole.
+dh-zlevel-look-covered = There's a ceiling above you — find a ladder or a lift shaft.
+dh-zlevel-look-no-edge = Nothing to look down through — get to an edge, a ladder, a hatch or a manhole.
 dh-zlevel-look-start = You look at { $level }.
 dh-zlevel-look-stop = You stop looking.
 dh-lift-choose-floor = Choose a level in the alternative actions.
@@ -54,3 +53,8 @@ dh-lift-ui-ready = Choose a floor.
 dh-lift-ui-here = { $level } (you are here)
 dh-lift-ui-send = Send
 dh-lift-ui-call = Call
+
+dh-zladder-verb-up = Climb up
+dh-zladder-verb-down = Climb down
+dh-zladder-verb-look-up = Look up
+dh-zladder-verb-look-down = Look down
