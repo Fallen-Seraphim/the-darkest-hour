@@ -168,8 +168,8 @@ public sealed partial class DHCarrierDecksSystem : EntitySystem
             return null;
 
         // В космосе и в переходе своего света нет — уровни над ними тоже без «солнца».
-        if (!HasComp<Content.Shared.Light.Components.MapLightComponent>(map))
-            RemComp<Content.Shared.Light.Components.MapLightComponent>(created.Value);
+        if (!HasComp<MapLightComponent>(map))
+            RemComp<MapLightComponent>(created.Value);
 
         _meta.SetEntityName(created.Value, $"{Name(map)} +{level}");
         if (!_created.TryGetValue(map, out var list))
