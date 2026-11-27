@@ -10,6 +10,7 @@ using Content.Shared.Doors.Systems;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Inventory;
 using Content.Shared.Maps;
+using Content.Shared.MedicalScanner;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
@@ -54,11 +55,12 @@ public sealed partial class DHMarsSystem : EntitySystem
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private TurfSystem _turf = default!;
     [Dependency] private UserInterfaceSystem _ui = default!;
+    [Dependency] private Content.Shared.Medical.HealthAnalyzer.HealthAnalyzerSystem _healthAnalyzer = default!;
 
     private static readonly EntProtoId[] ActionProtos =
     {
         "DHActionMarsMark", "DHActionMarsScan", "DHActionMarsTacMap", "DHActionMarsMotion", "DHActionMarsHack",
-        "DHActionMarsJam", "DHActionMarsInject", "DHActionMarsCarry",
+        "DHActionMarsJam", "DHActionMarsInject", "DHActionMarsHealth", "DHActionMarsCarry",
     };
 
     private static readonly EntProtoId DetectorProto = "DHMarsMotionDetector";
@@ -94,6 +96,7 @@ public sealed partial class DHMarsSystem : EntitySystem
         SubscribeLocalEvent<DHMarsComponent, DHMarsHackActionEvent>(OnHack);
         SubscribeLocalEvent<DHMarsComponent, DHMarsJamActionEvent>(OnJam);
         SubscribeLocalEvent<DHMarsComponent, DHMarsInjectActionEvent>(OnInject);
+        SubscribeLocalEvent<DHMarsComponent, DHMarsHealthActionEvent>(OnHealth);
         SubscribeLocalEvent<DHMarsComponent, DHMarsCarryActionEvent>(OnCarry);
         SubscribeLocalEvent<DHMarsComponent, SpeakAttemptEvent>(OnSpeakAttempt);
         SubscribeLocalEvent<RadioSendAttemptEvent>(OnRadioSend);
@@ -343,6 +346,28 @@ public sealed partial class DHMarsSystem : EntitySystem
         }
     }
 
+    /// <summary>Проверка здоровья: окно анализатора здоровья на носителя, обновляется раз в секунду, пока открыто.</summary>
+    private void OnHealth(Entity<DHMarsComponent> ent, ref DHMarsHealthActionEvent args)
+    {
+        if (args.Handled || !CanAct(ent, out var host))
+            return;
+
+        args.Handled = true;
+        if (_ui.IsUiOpen(ent.Owner, HealthAnalyzerUiKey.Key, ent.Owner))
+        {
+            _ui.CloseUi(ent.Owner, HealthAnalyzerUiKey.Key, ent.Owner);
+            return;
+        }
+
+        _ui.OpenUi(ent.Owner, HealthAnalyzerUiKey.Key, ent.Owner);
+        UpdateHealth(ent.Owner, host);
+    }
+
+    private void UpdateHealth(EntityUid mars, EntityUid host)
+    {
+        _ui.SetUiState(mars, HealthAnalyzerUiKey.Key, _healthAnalyzer.GetHealthAnalyzerUiState(host, true));
+    }
+
     #endregion
 
     #region Аварийный отход
@@ -437,8 +462,12 @@ public sealed partial class DHMarsSystem : EntitySystem
                     if (TryComp<DHMotionDetectorComponent>(comp.Detector, out var detector))
                         detector.Active = false;
                     _ui.CloseUi(uid, DHOverwatchUiKey.Key);
+                    _ui.CloseUi(uid, HealthAnalyzerUiKey.Key);
                 }
             }
+
+            if (online && _ui.IsUiOpen(uid, HealthAnalyzerUiKey.Key))
+                UpdateHealth(uid, host);
 
             if (comp.HackTarget != null && now >= comp.HackDone && online)
                 FinishHack(ent, host);
