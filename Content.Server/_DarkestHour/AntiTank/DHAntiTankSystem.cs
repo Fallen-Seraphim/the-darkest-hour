@@ -143,7 +143,17 @@ public sealed partial class DHAntiTankSystem : EntitySystem
         if (TryComp<DHBackblastComponent>(ent, out var blast))
             Backblast(blast, holder, coordinates, direction);
 
-        // Выстрелил — бросил: пустой тубус падает под ноги.
+        // Выстрелил — бросил: пустой тубус падает под ноги. Ракета не ссылается на удаляемую трубу (иначе PVS
+        // пытается передать клиенту удалённую сущность).
+        foreach (var projectile in args.FiredProjectiles)
+        {
+            if (TryComp<Content.Shared.Projectiles.ProjectileComponent>(projectile, out var proj) && proj.Weapon == ent.Owner)
+            {
+                proj.Weapon = null;
+                Dirty(projectile, proj);
+            }
+        }
+
         Spawn(ent.Comp.Spent, coordinates);
         QueueDel(ent);
     }
