@@ -83,11 +83,7 @@ public sealed partial class DHDropshipSystem
         _meta.SetEntityName(grid.Value, $"{shipName} — {Name(grid.Value)}");
         // Ярус едет за кабиной телепортом: без физики и столкновений, иначе поверхность или корпус авианосца под ним
         // расталкивают и разворачивают его (рассинхрон яруса с кабиной).
-        if (TryComp<PhysicsComponent>(grid.Value, out var body))
-        {
-            _physics.SetBodyType(grid.Value, Robust.Shared.Physics.BodyType.Static, body: body);
-            _physics.SetCanCollide(grid.Value, false, body: body);
-        }
+        _carrierDecks.Pin(grid.Value);
 
         return grid.Value.Owner;
     }
@@ -145,6 +141,12 @@ public sealed partial class DHDropshipSystem
     private void PlaceDeck(Entity<DHDropshipComponent> ship, EntityUid deck, EntityUid? map, Vector2 position,
         Angle rotation, bool underside)
     {
+        if (TryComp<PhysicsComponent>(deck, out var body) &&
+            (body.BodyType != Robust.Shared.Physics.BodyType.Static || body.CanCollide))
+        {
+            _carrierDecks.Pin(deck);
+        }
+
         var xform = Transform(deck);
         if (map == null)
         {

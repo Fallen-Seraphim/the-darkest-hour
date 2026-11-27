@@ -6,6 +6,8 @@ using Robust.Shared.ContentPack;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
+using Content.Shared.Shuttles.Components;
+using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Utility;
@@ -92,13 +94,7 @@ public sealed partial class DHCarrierDecksSystem : EntitySystem
                 continue;
             }
 
-            // Уровень едет за корпусом телепортом каждый тик: физику не считаем и ни с чем не сталкиваем — иначе
-            // перекрывающиеся гриды (челнок в вырезе палубы, корпус под ним) расталкивают и крутят его.
-            if (TryComp<PhysicsComponent>(grid.Value, out var body))
-            {
-                _physics.SetBodyType(grid.Value, Robust.Shared.Physics.BodyType.Static, body: body);
-                _physics.SetCanCollide(grid.Value, false, body: body);
-            }
+            Pin(grid.Value);
 
             var deck = EnsureComp<DHCarrierDeckComponent>(grid.Value);
             deck.Hull = hull;
@@ -139,6 +135,13 @@ public sealed partial class DHCarrierDecksSystem : EntitySystem
         {
             if (TerminatingOrDeleted(grid) || LevelAbove(map, level) is not { } target)
                 continue;
+
+            // Что-то (ванильный шаттл-код, прыжок) могло снова сделать уровень динамическим — вернуть.
+            if (TryComp<PhysicsComponent>(grid, out var body) &&
+                (body.BodyType != BodyType.Static || body.CanCollide))
+            {
+                Pin(grid);
+            }
 
             var deckXform = Transform(grid);
             if (deckXform.MapUid != target)
@@ -217,6 +220,27 @@ public sealed partial class DHCarrierDecksSystem : EntitySystem
 
     #region Помощники
 
+    /// <summary>
+    /// Грид, который едет за другим телепортом каждый тик (уровень авианосца, ярус челнока): физику не считаем и ни с
+    /// чем не сталкиваем, иначе перекрывающиеся гриды (челнок в вырезе палубы, корпус под ним) расталкивают и крутят
+    /// его. Ванильный <see cref="ShuttleComponent"/> выключен — чтобы шаттл-код не включил ему динамику обратно.
+    /// </summary>
+    public void Pin(EntityUid grid)
+    {
+        if (TryComp<ShuttleComponent>(grid, out var shuttle))
+            shuttle.Enabled = false;
+
+        if (!TryComp<PhysicsComponent>(grid, out var body))
+            return;
+
+        _physics.SetLinearVelocity(grid, Vector2.Zero, body: body);
+        _physics.SetAngularVelocity(grid, 0f, body: body);
+        _physics.SetBodyType(grid, BodyType.Static, body: body);
+        _physics.SetBodyStatus(grid, body, BodyStatus.OnGround);
+        _physics.SetFixedRotation(grid, true, body: body);
+        _physics.SetCanCollide(grid, false, body: body);
+    }
+
     /// <summary>Корпус (нижняя палуба), к которому относится грид: сам грид или грид его уровня.</summary>
     public EntityUid HullOf(EntityUid grid)
     {
@@ -260,4 +284,60 @@ public sealed partial class DHCarrierDecksSystem : EntitySystem
     }
 
     #endregion
+}
+
+/// <summary>
+/// Админ: где сейчас корпус авианосца, его уровни и челноки с ярусами — карта, уровень стопки, сдвиг и поворот
+/// относительно корпуса, тип тела. Для поиска рассинхрона гридов.
+/// </summary>
+[Content.Server.Administration.AdminCommand(Content.Shared.Administration.AdminFlags.Debug)]
+public sealed partial class DHCarrierDecksCommand : Robust.Shared.Console.LocalizedEntityCommands
+{
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private DHZLevelSystem _z = default!;
+
+    public override string Command => "dhcarrierdecks";
+
+    public override void Execute(Robust.Shared.Console.IConsoleShell shell, string argStr, string[] args)
+    {
+        var hulls = EntityManager.EntityQueryEnumerator<DHCarrierDecksComponent>();
+        while (hulls.MoveNext(out var hull, out var decks))
+        {
+            var (position, rotation) = _transform.GetWorldPositionRotation(hull);
+            shell.WriteLine($"{Describe(hull, position, rotation)} [hull]");
+            foreach (var (grid, level) in decks.Decks)
+            {
+                shell.WriteLine($"  +{level}: {Describe(grid, position, rotation)}");
+            }
+        }
+
+        var ships = EntityManager.EntityQueryEnumerator<Content.Server._DarkestHour.Assault.DHDropshipComponent>();
+        while (ships.MoveNext(out var ship, out var comp))
+        {
+            var (position, rotation) = _transform.GetWorldPositionRotation(ship);
+            shell.WriteLine($"{Describe(ship, position, rotation)} [dropship {comp.State}]");
+            if (comp.Roof is { } roof)
+                shell.WriteLine($"  roof: {Describe(roof, position, rotation)}");
+            if (comp.Underside is { } underside)
+                shell.WriteLine($"  underside: {Describe(underside, position, rotation)}");
+        }
+    }
+
+    private string Describe(EntityUid grid, System.Numerics.Vector2 basePosition, Angle baseRotation)
+    {
+        if (!EntityManager.EntityExists(grid))
+            return $"{grid} (deleted)";
+
+        var xform = EntityManager.GetComponent<TransformComponent>(grid);
+        var (position, rotation) = _transform.GetWorldPositionRotation(xform);
+        var map = xform.MapUid;
+        var level = _z.TryGetLevel(map, out var here) ? $"stack {here.Stack} L{here.Level}" : "no stack";
+        var body = EntityManager.TryGetComponent<PhysicsComponent>(grid, out var physics)
+            ? $"{physics.BodyType}{(physics.CanCollide ? " collide" : "")}"
+            : "no body";
+        var name = EntityManager.GetComponent<MetaDataComponent>(grid).EntityName;
+        var mapName = map != null ? EntityManager.GetComponent<MetaDataComponent>(map.Value).EntityName : "-";
+        return $"{name} ({grid}) map {map} «{mapName}» {level}; Δpos {(position - basePosition).Length():0.00}, " +
+               $"Δrot {(rotation - baseRotation).Degrees:0.0}°; {body}";
+    }
 }

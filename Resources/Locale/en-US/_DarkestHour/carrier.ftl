@@ -18,3 +18,5 @@ tiles-rmc-striped = striped tile
 tiles-rmc-tcomms = telecommunications tile
 tiles-rmc-underplating-no-weeds = plating
 tiles-dh-vehicle-interior-floor = vehicle floor
+cmd-dhcarrierdecks-desc = Shows the carrier hull, its levels and the dropships with their decks: map, level, offset and rotation relative to the hull, body type.
+cmd-dhcarrierdecks-help = Usage: dhcarrierdecks
