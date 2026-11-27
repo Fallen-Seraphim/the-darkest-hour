@@ -23,6 +23,23 @@ public enum DHHardpointSlot : byte
     PortRight,
 }
 
+/// <summary>
+/// Где модуль на машине — с какой стороны попадание бьёт прежде всего по нему (как зоны модулей в RMC-14 / RuCM).
+/// <see cref="Auto"/> — по месту: броня и курсовой пулемёт — лоб, поддержка — корма, ходовая и порты — борта,
+/// орудие башни — внешний (с любой стороны).
+/// </summary>
+public enum DHHardpointRegion : byte
+{
+    Auto,
+    Exterior,
+    Front,
+    Rear,
+    Sides,
+    Left,
+    Right,
+    Internal,
+}
+
 /// <summary>Модуль техники (предмет).</summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class DHHardpointComponent : Component
@@ -43,6 +60,10 @@ public sealed partial class DHHardpointComponent : Component
     /// <summary>Доля урона по машине, которая достаётся модулю.</summary>
     [DataField]
     public float DamageShare = 0.1f;
+
+    /// <summary>Зона модуля: попадание с этой стороны бьёт прежде всего по нему.</summary>
+    [DataField]
+    public DHHardpointRegion Region = DHHardpointRegion.Auto;
 
     /// <summary>Состояние слоя машины с этим модулем (целым и разбитым); пусто — модуль снаружи не виден.</summary>
     [DataField]
@@ -118,6 +139,19 @@ public sealed partial class DHVehicleHardpointsComponent : Component
     /// <summary>Машина может ехать (колёса стоят и целы).</summary>
     [DataField, AutoNetworkedField]
     public bool CanDrive = true;
+
+    /// <summary>
+    /// Доля урона по модулям, уходящая не модулю на стороне попадания, а случайному другому (как в RuCM — 25 %).
+    /// </summary>
+    [DataField]
+    public float HitSpillover = 0.25f;
+
+    /// <summary>Откуда пришло последнее попадание снаряда (смещение от центра машины в мире) и в каком тике.</summary>
+    [ViewVariables]
+    public System.Numerics.Vector2? HitOffset;
+
+    [ViewVariables]
+    public Robust.Shared.Timing.GameTick HitTick;
 
     /// <summary>Множитель скорости от колёс или гусениц.</summary>
     [DataField, AutoNetworkedField]

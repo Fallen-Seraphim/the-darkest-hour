@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Shared._DarkestHour.Vehicles;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
@@ -7,11 +8,13 @@ using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Popups;
+using Content.Shared.Projectiles;
 using Content.Shared.Tools;
 using Content.Shared.Tools.Systems;
 using Content.Shared.Verbs;
 using Content.Shared.Weapons.Ranged.Components;
 using Robust.Shared.Containers;
+using Robust.Shared.Physics.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
@@ -43,6 +46,7 @@ public sealed partial class DHVehicleServerSystem
         SubscribeLocalEvent<DHVehicleHardpointsComponent, GetVerbsEvent<Verb>>(OnHardpointVerbs);
         SubscribeLocalEvent<DHVehicleHardpointsComponent, DamageModifyEvent>(OnVehicleDamageModify);
         SubscribeLocalEvent<DHVehicleHardpointsComponent, DamageChangedEvent>(OnVehicleDamaged);
+        SubscribeLocalEvent<DHVehicleHardpointsComponent, ProjectileReflectAttemptEvent>(OnVehicleProjectileHit);
         SubscribeLocalEvent<DHVehicleHardpointsComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshSpeed);
         SubscribeLocalEvent<DHVehicleHardpointsComponent, ExaminedEvent>(OnHardpointsExamined);
 
@@ -350,8 +354,28 @@ public sealed partial class DHVehicleServerSystem
         RefreshHardpoints(ent); // и повреждения брони на спрайте
     }
 
+    /// <summary>Снаряд попал в машину: запомнить, с какой стороны (урон по модулям придёт в том же тике).</summary>
+    private void OnVehicleProjectileHit(Entity<DHVehicleHardpointsComponent> ent, ref ProjectileReflectAttemptEvent args)
+    {
+        if (args.Cancelled)
+            return;
+
+        var vehicle = _transform.GetWorldPosition(ent);
+        var offset = _transform.GetWorldPosition(args.ProjUid) - vehicle;
+        // Снаряд уже в центре (прошёл насквозь за тик) — сторона по встречному направлению полёта.
+        if (offset.LengthSquared() < 0.01f && TryComp<PhysicsComponent>(args.ProjUid, out var physics))
+            offset = -physics.LinearVelocity;
+
+        ent.Comp.HitOffset = offset;
+        ent.Comp.HitTick = _timing.CurTick;
+    }
+
     /// <summary>
-    /// Остальные модули получают свою долю урона по машине. Модуль на нуле разбит и не работает, пока его не заварят.
+    /// Остальные модули получают урон по машине (зоны модулей, как в RMC-14 / RuCM, решение автора 2026-11-27):
+    /// при попадании с понятной стороны (снаряд, удар) урон по модулям достаётся модулю на этой стороне — лоб, корма,
+    /// борт, — и его повреждения проступают на спрайте именно там; часть (<see cref="DHVehicleHardpointsComponent.HitSpillover"/>)
+    /// уходит случайному другому. Взрыв и урон без стороны — всем модулям по их доле, как раньше. Модуль на нуле разбит
+    /// и не работает, пока его не заварят.
     /// </summary>
     private void OnVehicleDamaged(Entity<DHVehicleHardpointsComponent> ent, ref DamageChangedEvent args)
     {
@@ -362,27 +386,141 @@ public sealed partial class DHVehicleServerSystem
         if (total <= 0f)
             return;
 
-        var changed = false;
+        var modules = new List<(DHHardpointSlot Slot, Entity<DHHardpointComponent> Module)>();
         foreach (var slot in ent.Comp.Slots.Keys)
         {
-            if (GetModule(ent, slot) is not { } module || module.Comp.Broken || module.Comp.ArmorAbsorb > 0f)
+            if (GetModule(ent, slot) is not { } module || module.Comp.Broken || module.Comp.ArmorAbsorb > 0f ||
+                module.Comp.DamageShare <= 0f)
+            {
                 continue;
+            }
 
-            var taken = total * module.Comp.DamageShare;
-            if (taken <= 0f)
-                continue;
+            modules.Add((slot, module));
+        }
 
-            module.Comp.Integrity = Math.Max(0f, module.Comp.Integrity - taken);
-            Dirty(module);
-            changed = true;
+        if (modules.Count == 0)
+            return;
 
-            if (module.Comp.Broken)
-                _popup.PopupEntity(Loc.GetString("dh-hardpoint-broken", ("module", module.Owner)), ent,
-                    PopupType.MediumCaution);
+        var changed = false;
+        if (HitApproach(ent, args.Origin) is { } approach)
+        {
+            // Весь урон по модулям — одной стороне: главному модулю там, часть — случайному другому.
+            var budget = 0f;
+            foreach (var (_, module) in modules)
+            {
+                budget += total * module.Comp.DamageShare;
+            }
+
+            var bestScore = int.MinValue;
+            var best = new List<Entity<DHHardpointComponent>>();
+            foreach (var (slot, module) in modules)
+            {
+                var score = RegionScore(RegionOf(slot, module.Comp), approach);
+                if (score > bestScore)
+                {
+                    bestScore = score;
+                    best.Clear();
+                }
+
+                if (score == bestScore)
+                    best.Add(module);
+            }
+
+            var primary = _random.Pick(best);
+            var spill = modules.Count > 1 ? Math.Clamp(ent.Comp.HitSpillover, 0f, 1f) : 0f;
+            changed |= DamageModule(ent, primary, budget * (1f - spill));
+            if (spill > 0f)
+            {
+                var others = modules.Where(m => m.Module.Owner != primary.Owner).Select(m => m.Module).ToList();
+                changed |= DamageModule(ent, _random.Pick(others), budget * spill);
+            }
+        }
+        else
+        {
+            foreach (var (_, module) in modules)
+            {
+                changed |= DamageModule(ent, module, total * module.Comp.DamageShare);
+            }
         }
 
         if (changed)
             RefreshHardpoints(ent);
+    }
+
+    private bool DamageModule(EntityUid vehicle, Entity<DHHardpointComponent> module, float amount)
+    {
+        if (amount <= 0f || module.Comp.Broken)
+            return false;
+
+        module.Comp.Integrity = Math.Max(0f, module.Comp.Integrity - amount);
+        Dirty(module);
+        if (module.Comp.Broken)
+            _popup.PopupEntity(Loc.GetString("dh-hardpoint-broken", ("module", module.Owner)), vehicle, PopupType.MediumCaution);
+
+        return true;
+    }
+
+    /// <summary>
+    /// Откуда пришёл удар, в системе машины (вперёд — <see cref="Angle.Zero"/>): по снаряду, попавшему в этом тике,
+    /// иначе по положению того, кто бил (как в RuCM). Нет ни того ни другого (взрыв, огонь) — null.
+    /// </summary>
+    private System.Numerics.Vector2? HitApproach(Entity<DHVehicleHardpointsComponent> ent, EntityUid? origin)
+    {
+        System.Numerics.Vector2? world = null;
+        if (ent.Comp.HitOffset is { } offset && ent.Comp.HitTick == _timing.CurTick)
+        {
+            world = offset;
+        }
+        else if (origin is { } source && Exists(source) && source != ent.Owner)
+        {
+            var here = _transform.GetMapCoordinates(ent);
+            var there = _transform.GetMapCoordinates(source);
+            if (here.MapId == there.MapId)
+                world = there.Position - here.Position;
+        }
+
+        ent.Comp.HitOffset = null;
+        if (world is not { } w || w.LengthSquared() < 0.0001f)
+            return null;
+
+        return (-_transform.GetWorldRotation(ent)).RotateVec(w);
+    }
+
+    private static DHHardpointRegion RegionOf(DHHardpointSlot slot, DHHardpointComponent module)
+    {
+        if (module.Region != DHHardpointRegion.Auto)
+            return module.Region;
+
+        return slot switch
+        {
+            DHHardpointSlot.Armor or DHHardpointSlot.Secondary => DHHardpointRegion.Front,
+            DHHardpointSlot.Support => DHHardpointRegion.Rear,
+            DHHardpointSlot.Wheels => DHHardpointRegion.Sides,
+            DHHardpointSlot.PortLeft => DHHardpointRegion.Left,
+            DHHardpointSlot.PortRight => DHHardpointRegion.Right,
+            _ => DHHardpointRegion.Exterior,
+        };
+    }
+
+    /// <summary>Насколько модуль подставлен удару с этой стороны: 2 — его сторона, 1 — снаружи вообще, 0 — внутри.</summary>
+    private static int RegionScore(DHHardpointRegion region, System.Numerics.Vector2 approach)
+    {
+        if (region == DHHardpointRegion.Internal)
+            return 0;
+
+        var forward = Angle.Zero.ToWorldVec();
+        var along = System.Numerics.Vector2.Dot(approach, forward);
+        var across = forward.X * approach.Y - forward.Y * approach.X; // > 0 — слева
+        var side = MathF.Abs(across) > MathF.Abs(along);
+        return region switch
+        {
+            DHHardpointRegion.Front when !side && along > 0f => 2,
+            DHHardpointRegion.Rear when !side && along < 0f => 2,
+            DHHardpointRegion.Sides when side => 2,
+            DHHardpointRegion.Left when side && across > 0f => 2,
+            DHHardpointRegion.Right when side && across < 0f => 2,
+            _ => 1,
+        };
     }
 
     private void OnRefreshSpeed(Entity<DHVehicleHardpointsComponent> ent, ref RefreshMovementSpeedModifiersEvent args)
