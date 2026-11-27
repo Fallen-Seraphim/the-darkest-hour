@@ -5,6 +5,7 @@ using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Physics.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 
@@ -41,17 +42,27 @@ public sealed partial class DHDropshipSystem
         var comp = ship.Comp;
         var now = _timing.CurTime;
 
-        // С ЗП: подъём по уровням над ней, дальше — к цели.
+        // С ЗП: подъём по уровням над ней, дальше — к цели. Кабина стоит на стойках (уровень 1); с неподготовленной
+        // площадки (посадка вне ЗП) подъём медленнее, временная ЗП убирается.
         if (comp.Zone is { } current && Exists(current) && Transform(current).MapUid is { } here &&
             HasComp<DHPlanetSurfaceMapComponent>(here))
         {
+            comp.FieldTakeoff = comp.FieldZone == current;
+            if (comp.FieldTakeoff)
+            {
+                QueueDel(current);
+                comp.FieldZone = null;
+            }
+
             comp.State = DHDropshipState.InFlight;
             comp.Zone = null;
             comp.Surface = here;
-            comp.Level = 0;
+            if (comp.Level < 0)
+                comp.Level = 0;
             comp.CruiseLevel = _aircraft.TopFloor(here, out _) + comp.CruiseHeight;
             comp.Flight = DHDropshipFlight.Climb;
-            comp.NextStep = now + comp.LevelStep;
+            comp.NextStep = now + ClimbStep(comp);
+            SyncDecks(ship);
             comp.NextShake = now;
             _audio.PlayGlobal(LaunchSound, Filter.Empty().AddInGrid(ship), true);
             WarnTarget(ship);
@@ -83,7 +94,7 @@ public sealed partial class DHDropshipSystem
         {
             // Переход с орбиты: пока он идёт, челнок в небе над точкой входа (там его уже ловит ПВО).
             var entry = EntryPoint(surface, _transform.GetWorldPosition(zone));
-            _landing.PlaceShuttle(ship, new EntityCoordinates(sky, entry));
+            PlaceShip(ship, new EntityCoordinates(sky, entry));
             comp.Flight = DHDropshipFlight.Transit;
             comp.TransitOut = false;
             comp.Surface = surface;
@@ -123,7 +134,7 @@ public sealed partial class DHDropshipSystem
         comp.Level = comp.CruiseLevel;
         comp.Flight = DHDropshipFlight.Cruise;
         comp.Manual = false;
-        _landing.PlaceShuttle(ship, new EntityCoordinates(air, entry));
+        PlaceShip(ship, new EntityCoordinates(air, entry));
         _landing.Shake(ship, 0.6f);
         Retarget(ship);
     }
@@ -197,7 +208,7 @@ public sealed partial class DHDropshipSystem
             case DHDropshipFlight.Climb:
                 if (now >= comp.NextStep)
                 {
-                    comp.NextStep = now + comp.LevelStep;
+                    comp.NextStep = now + ClimbStep(comp);
                     StepUp(ship);
                 }
 
@@ -215,6 +226,14 @@ public sealed partial class DHDropshipSystem
 
         if (comp.Manual)
         {
+            // Q/E — поворот корпуса вокруг центра (решение автора 2026-11-27).
+            if (comp.Pilot is { } turning && TryComp<DHDropshipPilotComponent>(turning, out var pilotKeys))
+            {
+                var turn = (pilotKeys.RotateLeft ? 1 : 0) - (pilotKeys.RotateRight ? 1 : 0);
+                if (turn != 0)
+                    RotateShip(ship, Angle.FromDegrees(turn * comp.TurnRate * frameTime));
+            }
+
             if (comp.PilotConsole is { } console && TryComp<InputMoverComponent>(console, out var mover))
             {
                 var buttons = mover.HeldMoveButtons;
@@ -253,13 +272,59 @@ public sealed partial class DHDropshipSystem
         }
 
         if (direction is { } dir)
+        {
+            // Ниже высоты полёта руками — в здания и крыши не влететь.
+            if (comp.Manual && comp.Flight == DHDropshipFlight.Cruise && comp.Level < comp.CruiseLevel &&
+                comp.Surface is { } surface && LevelMap(surface, comp.Level) is { } here &&
+                !Clear(ship, here, dir * step))
+            {
+                return;
+            }
+
             MoveShip(ship, dir * step);
+        }
     }
 
     private void MoveShip(Entity<DHDropshipComponent> ship, Vector2 delta)
     {
         var xform = Transform(ship);
         _transform.SetWorldPosition((ship.Owner, xform), _transform.GetWorldPosition(xform) + delta);
+        SyncDecks(ship);
+    }
+
+    /// <summary>Поставить кабину центром в точку (и ярусы вслед за ней).</summary>
+    private void PlaceShip(Entity<DHDropshipComponent> ship, EntityCoordinates center)
+    {
+        _landing.PlaceShuttle(ship, center);
+        SyncDecks(ship);
+    }
+
+    /// <summary>Повернуть корпус вокруг центра масс.</summary>
+    private void RotateShip(Entity<DHDropshipComponent> ship, Angle delta)
+    {
+        RotateShipTo(ship, _transform.GetWorldRotation(ship) + delta);
+    }
+
+    private void RotateShipTo(Entity<DHDropshipComponent> ship, Angle rotation)
+    {
+        var center = ShipCenter(ship);
+        var local = TryComp<PhysicsComponent>(ship, out var physics) ? physics.LocalCenter : Vector2.Zero;
+        _transform.SetWorldPositionRotation(ship, center - rotation.RotateVec(local), rotation);
+        SyncDecks(ship);
+    }
+
+    /// <summary>Перед посадкой корпус выравнивается по сторонам света, чтобы встать по клеткам.</summary>
+    private void SnapRotation(Entity<DHDropshipComponent> ship)
+    {
+        var rotation = _transform.GetWorldRotation(ship);
+        var quarter = Math.PI / 2;
+        RotateShipTo(ship, new Angle(Math.Round(rotation.Theta / quarter) * quarter));
+    }
+
+    /// <summary>Шаг подъёма: с неподготовленной площадки — дольше.</summary>
+    private TimeSpan ClimbStep(DHDropshipComponent comp)
+    {
+        return comp.FieldTakeoff ? comp.LevelStep * comp.FieldTakeoffFactor : comp.LevelStep;
     }
 
     /// <summary>Долетели до точки курса: над ЗП — снижение, за городом — уход на орбиту (или к авианосцу).</summary>
@@ -295,7 +360,7 @@ public sealed partial class DHDropshipSystem
         }
 
         ReleasePilot(ship);
-        _landing.PlaceShuttle(ship, new EntityCoordinates(sky.Value, ShipCenter(ship)));
+        PlaceShip(ship, new EntityCoordinates(sky.Value, ShipCenter(ship)));
         comp.Flight = DHDropshipFlight.Transit;
         comp.TransitOut = true;
         comp.Level = -1;
@@ -372,7 +437,8 @@ public sealed partial class DHDropshipSystem
 
         for (var next = comp.Level - 1; next >= 0; next--)
         {
-            if (next == 0)
+            // Кабина садится на стойки уровнем выше земли (нижний ярус — на земле).
+            if (next <= LandedLevel)
             {
                 TryLand(ship);
                 return;
@@ -414,6 +480,7 @@ public sealed partial class DHDropshipSystem
         }
 
         comp.Flight = DHDropshipFlight.Cruise;
+        comp.FieldTakeoff = false;
         Retarget(ship);
     }
 
@@ -424,6 +491,7 @@ public sealed partial class DHDropshipSystem
         _transform.SetCoordinates(ship, xform, new EntityCoordinates(map, position), rotation);
         ship.Comp.Level = level;
         _landing.Shake(ship, 0.25f);
+        SyncDecks(ship);
     }
 
     /// <summary>Посадка на ЗП (с последнего уровня). Занята — висим и пробуем снова.</summary>
@@ -440,15 +508,33 @@ public sealed partial class DHDropshipSystem
         if (!ZoneAvailable(ship, zone, out _))
             return;
 
+        // Кабина — на стойках уровнем выше земли, нижний ярус с рампой — на земле (как «Мидуэй» в CMU-14).
+        var zonePosition = _transform.GetWorldPosition(zone);
+        var cabinMap = comp.Surface is { } surface && comp.Underside != null ? LevelMap(surface, LandedLevel) : null;
+        if (cabinMap is { } blocked && !Clear(ship, blocked))
+            return;
+
         ReleasePilot(ship);
         ClearFlight(comp);
-        _landing.PlaceShuttle(ship, Transform(zone).Coordinates);
+        SnapRotation(ship);
         comp.State = DHDropshipState.Landed;
         comp.Zone = zone;
         comp.Destination = null;
+        if (cabinMap is { } upper)
+        {
+            comp.Level = LandedLevel;
+            PlaceShip(ship, new EntityCoordinates(upper, zonePosition));
+            GearDown(ship);
+        }
+        else
+        {
+            PlaceShip(ship, Transform(zone).Coordinates);
+        }
+
         _landing.Shake(ship, 1f);
         _audio.PlayGlobal(LandSound, Filter.Empty().AddInGrid(ship), true);
-        Announce(ship, Loc.GetString("dh-dropship-landed", ("zone", Name(zone))));
+        Announce(ship, Loc.GetString(zone == comp.FieldZone ? "dh-dropship-landed-field" : "dh-dropship-landed",
+            ("zone", Name(zone))));
     }
 
     private void ClearFlight(DHDropshipComponent comp)
@@ -475,8 +561,14 @@ public sealed partial class DHDropshipSystem
         {
             ReleasePilot(ship);
             comp.Manual = false;
+            // Опустились руками ниже высоты полёта — автопилот сначала поднимает обратно.
+            if (comp.Flight == DHDropshipFlight.Cruise && comp.Level < comp.CruiseLevel)
+            {
+                comp.Flight = DHDropshipFlight.Climb;
+                comp.NextStep = _timing.CurTime + comp.LevelStep;
+            }
             // В слое атмосферы автопилота нет: отпустили управление — челнок висит.
-            if (comp.Flight != DHDropshipFlight.Atmosphere)
+            else if (comp.Flight != DHDropshipFlight.Atmosphere)
                 Retarget(ship);
             UpdateUi(ent, ship);
             return;
@@ -501,6 +593,147 @@ public sealed partial class DHDropshipSystem
         ship.Comp.Pilot = pilot;
         ship.Comp.PilotConsole = console;
         _mover.SetRelay(pilot, console);
+        EnsureComp<DHDropshipPilotComponent>(pilot).Ship = ship;
+    }
+
+    /// <summary>Клавиши пилота: Q/E держат поворот, R/F — уровень выше/ниже.</summary>
+    private void OnPilotKey(DHDropshipPilotKey key)
+    {
+        if (!TryComp<DHDropshipPilotComponent>(key.Pilot, out var pilot) ||
+            !TryComp<DHDropshipComponent>(pilot.Ship, out var comp) || comp.Pilot != key.Pilot)
+        {
+            return;
+        }
+
+        if (key.Function == Content.Shared.Input.ContentKeyFunctions.ShuttleRotateLeft)
+            pilot.RotateLeft = key.Down;
+        else if (key.Function == Content.Shared.Input.ContentKeyFunctions.ShuttleRotateRight)
+            pilot.RotateRight = key.Down;
+        else if (key.Down && key.Function == DHDropshipKeyFunctions.Ascend)
+            ManualStep((pilot.Ship, comp), 1, key.Pilot);
+        else if (key.Down && key.Function == DHDropshipKeyFunctions.Descend)
+            ManualStep((pilot.Ship, comp), -1, key.Pilot);
+    }
+
+    private void OnAltitudeMessage(Entity<DHDropshipConsoleComponent> ent, ref DHDropshipAltitudeMessage args)
+    {
+        if (ShipOf(ent) is not { } ship)
+            return;
+
+        ManualStep(ship, Math.Sign(args.Step), args.Actor);
+        UpdateUi(ent, ship);
+    }
+
+    /// <summary>
+    /// Ручная смена высоты (решение автора 2026-11-27): уровень выше (не выше высоты полёта) или ниже, если там
+    /// свободно; ниже первого уровня — посадка прямо здесь.
+    /// </summary>
+    private void ManualStep(Entity<DHDropshipComponent> ship, int step, EntityUid? user)
+    {
+        var comp = ship.Comp;
+        var now = _timing.CurTime;
+        if (step == 0 || !comp.Manual || comp.State != DHDropshipState.InFlight ||
+            comp.Flight != DHDropshipFlight.Cruise || comp.Surface is not { } surface || !Exists(surface))
+        {
+            if (user != null)
+                _popup.PopupEntity(Loc.GetString("dh-dropship-altitude-unavailable"), user.Value, user.Value);
+            return;
+        }
+
+        if (now < comp.NextManualLevel)
+            return;
+
+        comp.NextManualLevel = now + comp.ManualLevelCooldown;
+        var next = comp.Level + step;
+        if (step < 0 && next <= LandedLevel)
+        {
+            LandHere(ship, user);
+            return;
+        }
+
+        if (next > comp.CruiseLevel)
+        {
+            if (user != null)
+                _popup.PopupEntity(Loc.GetString("dh-dropship-altitude-max"), user.Value, user.Value);
+            return;
+        }
+
+        if (LevelMap(surface, next) is not { } map || !Clear(ship, map) ||
+            LevelMap(surface, next + 1) is { } above && !Clear(ship, above))
+        {
+            if (user != null)
+                _popup.PopupEntity(Loc.GetString("dh-dropship-altitude-blocked"), user.Value, user.Value);
+            return;
+        }
+
+        SetLevel(ship, map, next);
+    }
+
+    /// <summary>
+    /// Посадка вне ЗП: под челноком на первом уровне ничего нет, на земле — ни стен, ни других кораблей. На месте
+    /// посадки ставится временная ЗП; взлёт отсюда дольше (<see cref="DHDropshipComponent.FieldTakeoffFactor"/>).
+    /// </summary>
+    private void LandHere(Entity<DHDropshipComponent> ship, EntityUid? user)
+    {
+        var comp = ship.Comp;
+        if (comp.Surface is not { } surface || comp.Underside == null ||
+            LevelMap(surface, LandedLevel) is not { } cabinMap)
+        {
+            if (user != null)
+                _popup.PopupEntity(Loc.GetString("dh-dropship-land-here-blocked"), user.Value, user.Value);
+            return;
+        }
+
+        SnapRotation(ship);
+        var center = ShipCenter(ship);
+        if (!Clear(ship, cabinMap) || !_rift.ExitFree(ship, new EntityCoordinates(surface, center)) ||
+            !GroundFree(ship, surface))
+        {
+            if (user != null)
+                _popup.PopupEntity(Loc.GetString("dh-dropship-land-here-blocked"), user.Value, user.Value);
+            return;
+        }
+
+        var zone = _landing.SpawnOnGround(FieldZoneProto, surface, center);
+        comp.FieldZone = zone;
+        comp.Destination = zone;
+        comp.ToHangar = false;
+        TryLand(ship);
+        if (comp.State != DHDropshipState.Landed)
+        {
+            // Не сели — временную площадку убрать.
+            QueueDel(zone);
+            comp.FieldZone = null;
+            comp.Destination = null;
+        }
+    }
+
+    private const string FieldZoneProto = "DHLandingZoneField";
+
+    /// <summary>На земле под кабиной нет стен и прочих закреплённых твёрдых препятствий.</summary>
+    private bool GroundFree(Entity<DHDropshipComponent> ship, EntityUid surface)
+    {
+        if (!TryComp<MapGridComponent>(ship, out var grid) || !TryComp<MapComponent>(surface, out var mapComp))
+            return true;
+
+        var tiles = _mapSystem.GetAllTilesEnumerator(ship, grid);
+        while (tiles.MoveNext(out var tile))
+        {
+            var world = _mapSystem.GridTileToWorldPos(ship, grid, tile.Value.GridIndices);
+            var box = Box2.CenteredAround(world, new Vector2(0.8f, 0.8f));
+            foreach (var uid in _lookup.GetEntitiesIntersecting(mapComp.MapId, box, LookupFlags.Static))
+            {
+                if (HasComp<MapGridComponent>(uid) || !Transform(uid).Anchored ||
+                    !TryComp<PhysicsComponent>(uid, out var physics) || !physics.CanCollide || !physics.Hard)
+                {
+                    continue;
+                }
+
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /// <summary>
@@ -533,7 +766,7 @@ public sealed partial class DHDropshipSystem
             return;
         }
 
-        _landing.PlaceShuttle(ship, new EntityCoordinates(sky, ShipCenter(ship)));
+        PlaceShip(ship, new EntityCoordinates(sky, ShipCenter(ship)));
         comp.Flight = DHDropshipFlight.Atmosphere;
         comp.Level = -1;
         comp.Waypoint = null;
@@ -558,7 +791,7 @@ public sealed partial class DHDropshipSystem
         comp.CruiseLevel = _aircraft.TopFloor(surface, out _) + comp.CruiseHeight;
         comp.Level = comp.CruiseLevel;
         comp.Flight = DHDropshipFlight.Cruise;
-        _landing.PlaceShuttle(ship, new EntityCoordinates(air, ShipCenter(ship)));
+        PlaceShip(ship, new EntityCoordinates(air, ShipCenter(ship)));
         _landing.Shake(ship, 0.4f);
         Retarget(ship);
     }
@@ -585,6 +818,9 @@ public sealed partial class DHDropshipSystem
         {
             RemComp<RelayInputMoverComponent>(pilot);
         }
+
+        if (comp.Pilot is { } keys)
+            RemComp<DHDropshipPilotComponent>(keys);
 
         comp.Pilot = null;
         comp.PilotConsole = null;
@@ -617,8 +853,11 @@ public sealed partial class DHDropshipSystem
         return _zLevels.LevelMap(stack, level);
     }
 
-    /// <summary>Под всеми клетками челнока на карте уровня нет пола (крыш, этажей, других челноков).</summary>
-    private bool Clear(Entity<DHDropshipComponent> ship, EntityUid map)
+    /// <summary>
+    /// Под всеми клетками челнока (со сдвигом <paramref name="offset"/>) на карте уровня нет пола (крыш, этажей,
+    /// других челноков). Свои ярусы не мешают.
+    /// </summary>
+    private bool Clear(Entity<DHDropshipComponent> ship, EntityUid map, Vector2 offset = default)
     {
         if (!TryComp<MapGridComponent>(ship, out var grid) || !TryComp<MapComponent>(map, out var mapComp))
             return true;
@@ -626,9 +865,18 @@ public sealed partial class DHDropshipSystem
         var tiles = _mapSystem.GetAllTilesEnumerator(ship, grid);
         while (tiles.MoveNext(out var tile))
         {
-            var world = _mapSystem.GridTileToWorldPos(ship, grid, tile.Value.GridIndices);
-            if (_zLevels.HasFloor(new MapCoordinates(world, mapComp.MapId)))
-                return false;
+            var world = _mapSystem.GridTileToWorldPos(ship, grid, tile.Value.GridIndices) + offset;
+            var point = new MapCoordinates(world, mapComp.MapId);
+            if (!_zLevels.HasFloor(point))
+                continue;
+
+            if (_mapSystem.TryFindGridAt(point, out var other, out _) &&
+                (other == ship.Comp.Roof || other == ship.Comp.Underside || other == ship.Owner))
+            {
+                continue;
+            }
+
+            return false;
         }
 
         return true;

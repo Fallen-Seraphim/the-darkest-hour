@@ -66,6 +66,13 @@ binds:
 - function: ShuttleBrake
   type: State
   key: Space
+# DarkestHour: ручной полёт челнока — уровень выше/ниже
+- function: DHDropshipAscend
+  type: State
+  key: R
+- function: DHDropshipDescend
+  type: State
+  key: F
 # Camera
 - function: CameraRotateLeft
   type: State

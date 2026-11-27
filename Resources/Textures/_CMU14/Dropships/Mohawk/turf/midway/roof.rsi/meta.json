@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "CM-SS13 contributors: thwomper, PoltavskaPraca, Steelpoint (cmss13-devs/cmss13#12866). Midway roof tiles from CMU-14 via RussianCM, assembled into one image for The Darkest Hour.",
+    "size": {
+        "x": 544,
+        "y": 736
+    },
+    "states": [
+        {
+            "name": "roof"
+        }
+    ]
+}
