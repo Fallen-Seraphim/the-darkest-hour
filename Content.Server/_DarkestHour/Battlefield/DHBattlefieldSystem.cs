@@ -42,6 +42,7 @@ public sealed partial class DHBattlefieldSystem : EntitySystem
     [Dependency] private DHFireSystem _fire = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
+    [Dependency] private Content.Shared._DarkestHour.Terrain.DHTerrainTileSystem _terrainTiles = default!;
     [Dependency] private SharedMapSystem _map = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private IPrototypeManager _proto = default!;

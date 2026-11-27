@@ -1,6 +1,7 @@
 // Перенесено из RMC-14 (через RussianCM, github.com/flex5hybrid/RussianCM): RMCWaterComponent и
 // RMCWaterSystem.Submersion — погружение в воду по cmss13#12918 (решение автора 2026-11-26: эффекты входа в воду как в
 // RuCM). Ксено-части убраны, поиск воды — по закреплённым сущностям клетки (наши DHWaterShallow/DHWaterDeep).
+using Content.Shared._DarkestHour.Terrain;
 using Content.Shared.Buckle.Components;
 using Content.Shared.Throwing;
 using Robust.Shared.Audio;
@@ -26,6 +27,7 @@ public sealed partial class DHWaterSubmersionSystem : EntitySystem
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private SharedMapSystem _map = default!;
+    [Dependency] private DHTerrainTileSystem _terrain = default!;
     [Dependency] private INetManager _net = default!;
 
     private static readonly EntProtoId WaterImpact = "RMCWaterImpact";
@@ -75,6 +77,13 @@ public sealed partial class DHWaterSubmersionSystem : EntitySystem
 
             water = uid;
             depth = component.Depth;
+        }
+
+        // Тайловая глубина (середина моря и озера большой карты): сущности воды нет.
+        if (water == null && _terrain.IsDeepWater(grid, gridComp, tile))
+        {
+            depth = DHTerrainTileSystem.DeepWaterDepth;
+            return true;
         }
 
         return water != null;

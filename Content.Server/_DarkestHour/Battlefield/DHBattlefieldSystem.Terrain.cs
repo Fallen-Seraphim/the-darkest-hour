@@ -96,7 +96,7 @@ public sealed partial class DHBattlefieldSystem
             }
         }
 
-        return false;
+        return _terrainTiles.IsImpassableTerrain(grid, gridComp, tile);
     }
 
     /// <summary>Множитель скорости машины: воронка под ней — медленнее.</summary>

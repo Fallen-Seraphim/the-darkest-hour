@@ -1,0 +1,9 @@
+- files: [ "sea_deep.png" ]
+  license: "CC-BY-SA-3.0"
+  copyright: "Frames of seadeep from cmss13 icons/turf/ground_map.dmi (https://github.com/cmss13-devs/cmss13/blob/718b6531ec71e34f671ab37c269469e1638cc2ec/icons/turf/ground_map.dmi), via RMC-14; cut into a tile strip for The Darkest Hour."
+  source: "https://github.com/cmss13-devs/cmss13"
+
+- files: [ "rock_mass.png" ]
+  license: "CC-BY-SA-3.0"
+  copyright: "The 'full' state of Structures/Walls/stone-sand.rsi by AftrLite (GitHub), based on the anywall format by 20nypercent and rye-rice (GitHub); used as a tile for The Darkest Hour."
+  source: "https://github.com/space-wizards/space-station-14"

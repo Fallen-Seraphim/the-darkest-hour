@@ -10,3 +10,7 @@ tiles-cm-default-yellow = yellow tiled floor
 tiles-cm-wood = wooden floor
 tiles-rmc-asphalt = asphalt
 tiles-rmc-cement = cement
+
+# Terrain tiles (big Terminus)
+tiles-dh-sea-deep = deep water
+tiles-dh-rock-mass = rock mass
