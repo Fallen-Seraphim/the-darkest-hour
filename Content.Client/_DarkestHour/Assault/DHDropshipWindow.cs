@@ -14,6 +14,8 @@ public sealed class DHDropshipWindow : DefaultWindow
     public event Action? OnFlares;
     public event Action<bool>? OnManual;
     public event Action<bool>? OnAtmosphere;
+    public event Action<bool>? OnRamp;
+    public event Action<int>? OnAltitude;
 
     private static readonly Color Ok = Color.FromHex("#8FD66B");
     private static readonly Color Warn = Color.FromHex("#E8B04A");
@@ -29,6 +31,12 @@ public sealed class DHDropshipWindow : DefaultWindow
     private bool _manualOn;
     private readonly Button _atmosphere = new();
     private bool _inAtmosphere;
+    private readonly Button _ramp = new();
+    private bool _rampLowered;
+    private readonly BoxContainer _altitude = new() { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 6 };
+    private readonly Button _up = new() { HorizontalExpand = true };
+    private readonly Button _down = new() { HorizontalExpand = true };
+    private readonly Label _manualHint = new() { FontColorOverride = Color.FromHex("#8A8A8A") };
     private readonly BoxContainer _destinations = new()
     {
         Orientation = BoxContainer.LayoutOrientation.Vertical,
@@ -56,6 +64,15 @@ public sealed class DHDropshipWindow : DefaultWindow
         root.AddChild(_manual);
         _atmosphere.OnPressed += _ => OnAtmosphere?.Invoke(!_inAtmosphere);
         root.AddChild(_atmosphere);
+        _up.Text = Loc.GetString("dh-dropship-ui-up");
+        _up.OnPressed += _ => OnAltitude?.Invoke(1);
+        _down.OnPressed += _ => OnAltitude?.Invoke(-1);
+        _altitude.AddChild(_up);
+        _altitude.AddChild(_down);
+        root.AddChild(_altitude);
+        root.AddChild(_manualHint);
+        _ramp.OnPressed += _ => OnRamp?.Invoke(!_rampLowered);
+        root.AddChild(_ramp);
         _abort.Text = Loc.GetString("dh-dropship-ui-abort");
         _abort.OnPressed += _ => OnAbort?.Invoke();
         root.AddChild(_abort);
@@ -103,6 +120,17 @@ public sealed class DHDropshipWindow : DefaultWindow
         _atmosphere.Visible = state.AtmosphereAvailable || state.InAtmosphere;
         _atmosphere.Text = Loc.GetString(state.InAtmosphere ? "dh-dropship-ui-atmosphere-leave"
             : "dh-dropship-ui-atmosphere-enter");
+
+        // Ручной полёт над полем боя: высота кнопками или R/F, поворот — Q/E; ниже первого уровня — посадка здесь.
+        _altitude.Visible = state.ManualLevels;
+        _manualHint.Visible = state.ManualLevels;
+        _manualHint.Text = Loc.GetString("dh-dropship-ui-manual-hint", ("level", state.Level));
+        _down.Text = Loc.GetString(state.Level <= 2 ? "dh-dropship-ui-land-here" : "dh-dropship-ui-down");
+
+        // Рампа — только на земле.
+        _rampLowered = state.RampLowered;
+        _ramp.Visible = state.RampAvailable;
+        _ramp.Text = Loc.GetString(state.RampLowered ? "dh-dropship-ui-ramp-raise" : "dh-dropship-ui-ramp-lower");
 
         // ЛТЦ: в полёте — залп; иначе только запас.
         _flares.Visible = state.MaxFlares > 0;

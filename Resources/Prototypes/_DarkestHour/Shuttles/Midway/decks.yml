@@ -1,0 +1,340 @@
+# Палубы «Мидуэя» (решение автора 2026-11-27, как в CMU-14): нижний ярус (рампа, стойки шасси, брюхо) и ходовая
+# крыша. Карты — midway_underside.yml и midway_roof.yml (Tools/_DarkestHour/midway/decks.py), механика —
+# DHDropshipSystem.Decks. Вид — CM-SS13 (CC-BY-SA-3.0, PR cmss13-devs/cmss13#12866) через CMU-14 / RuCM.
+
+# --- Нижний ярус ---
+
+- type: entity
+  abstract: true
+  parent: DHMidwayHullBase
+  id: DHMidwayUndersideBase
+  suffix: Midway, underside
+
+- type: entity
+  abstract: true
+  parent: DHMidwayUndersideBase
+  id: DHMidwayLandingGearBase
+  name: landing gear
+  description: A heavy landing strut of the dropship. The hull stands on these when it's down.
+  components:
+  - type: Transform
+    anchored: true
+    gridTraversal: false
+  - type: Clickable
+  - type: Physics
+    bodyType: Static
+  - type: DHDropshipGear
+
+- type: entity
+  parent: DHMidwayLandingGearBase
+  id: DHMidwayLandingGearFront
+  name: forward landing gear
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc_96x96.rsi
+    offset: "-1,-1"
+    layers:
+    - state: landing_gear
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.8
+          position: "-1,-1"
+        density: 1000
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+
+- type: entity
+  parent: DHMidwayLandingGearBase
+  id: DHMidwayLandingGearRear
+  name: rear landing gear
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc_96x96.rsi
+    offset: "1,1"
+    layers:
+    - state: landing_gear
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.8
+          position: "1,1"
+        density: 1000
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+
+- type: entity
+  parent: DHMidwayUndersideBase
+  id: DHMidwayGearHatchFront
+  name: landing gear hatch
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc_96x96.rsi
+    drawdepth: FloorObjects
+    offset: "-0.5,-0.40625"
+    color: "#ffffffe3"
+    layers:
+    - state: gear_hatch
+
+- type: entity
+  parent: DHMidwayUndersideBase
+  id: DHMidwayGearHatchRear
+  name: landing gear hatch
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/misc_96x96.rsi
+    drawdepth: FloorObjects
+    offset: "0.5,0.40625"
+    color: "#ffffffe3"
+    layers:
+    - state: gear_hatch
+
+- type: entity
+  parent: DHMidwayUndersideBase
+  id: DHMidwayBelly
+  name: dropship belly
+  description: The underside of the dropship's hull, right over your head.
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/belly.rsi
+    drawdepth: FloorObjects
+    offset: "8,11.5"
+    color: "#ffffff96"
+    layers:
+    - state: belly
+
+- type: entity
+  abstract: true
+  parent: DHMidwayUndersideBase
+  id: DHMidwayRampLoweredBase
+  name: boarding ramp
+  description: The dropship's boarding ramp. Walk up it to board, walk down it to leave.
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/ramp.rsi
+    drawdepth: HighFloorObjects
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DHDropshipRampVisuals.Lowered:
+        ramp:
+          True: { visible: true }
+          False: { visible: false }
+  - type: DHDropshipRampSegment
+
+- type: entity
+  parent: DHMidwayRampLoweredBase
+  id: DHMidwayRampLowered4
+  components:
+  - type: Sprite
+    layers:
+    - state: ramp-4-low
+      visible: false
+      map: [ "ramp" ]
+
+- type: entity
+  parent: DHMidwayRampLoweredBase
+  id: DHMidwayRampLowered5
+  components:
+  - type: Sprite
+    layers:
+    - state: ramp-5-low
+      visible: false
+      map: [ "ramp" ]
+
+- type: entity
+  parent: DHMidwayRampLoweredBase
+  id: DHMidwayRampLowered6
+  components:
+  - type: Sprite
+    layers:
+    - state: ramp-6-low
+      visible: false
+      map: [ "ramp" ]
+
+- type: entity
+  parent: DHMidwayRampLoweredBase
+  id: DHMidwayRampLowered7
+  components:
+  - type: Sprite
+    layers:
+    - state: ramp-7-low
+      visible: false
+      map: [ "ramp" ]
+
+- type: entity
+  parent: DHMidwayRampLoweredBase
+  id: DHMidwayRampLowered8
+  components:
+  - type: Sprite
+    layers:
+    - state: ramp-8-low
+      visible: false
+      map: [ "ramp" ]
+
+- type: entity
+  parent: DHMidwayRampLoweredBase
+  id: DHMidwayRampLowered9
+  components:
+  - type: Sprite
+    layers:
+    - state: ramp-9-low
+      visible: false
+      map: [ "ramp" ]
+
+- type: entity
+  parent: DHMidwayRampLoweredBase
+  id: DHMidwayRampLowered10
+  components:
+  - type: Sprite
+    layers:
+    - state: ramp-10-low
+      visible: false
+      map: [ "ramp" ]
+
+- type: entity
+  parent: DHMidwayRampLoweredBase
+  id: DHMidwayRampLowered11
+  components:
+  - type: Sprite
+    layers:
+    - state: ramp-11-low
+      visible: false
+      map: [ "ramp" ]
+
+- type: entity
+  parent: DHMidwayRampLoweredBase
+  id: DHMidwayRampLowered12
+  components:
+  - type: Sprite
+    layers:
+    - state: ramp-12-low
+      visible: false
+      map: [ "ramp" ]
+
+- type: entity
+  parent: DHMidwayRampLoweredBase
+  id: DHMidwayRampBulkhead
+  name: ramp bulkhead
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/walls.rsi
+    layers:
+    - state: "3,16"
+      visible: false
+      map: [ "ramp" ]
+  - type: Physics
+    bodyType: Static
+    canCollide: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+  - type: DHDropshipRampSegment
+    solid: true
+
+- type: entity
+  parent: DHMidwayUndersideBase
+  id: DHMidwayRampControlOutside
+  name: ramp access
+  description: Lowers or raises the boarding ramp while the dropship is on the ground.
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/interior_item.rsi
+    drawdepth: WallMountedItems
+    offset: "0,0.5"
+    layers:
+    - state: ramp_control
+  - type: Clickable
+  - type: InteractionOutline
+  - type: DHDropshipRampControl
+
+# --- Края рампы (переход между ярусами) ---
+
+- type: entity
+  id: DHMidwayRampEntryDown
+  name: ramp edge
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: false
+    gridTraversal: false
+  - type: DHDropshipRampEntry
+    up: false
+
+- type: entity
+  parent: DHMidwayRampEntryDown
+  id: DHMidwayRampEntryUp
+  components:
+  - type: DHDropshipRampEntry
+    up: true
+
+# --- Крыша ---
+
+- type: entity
+  parent: DHMidwayHullBase
+  id: DHMidwayRoofArt
+  name: dropship roof
+  description: The armoured top of the dropship's hull. You can walk on it.
+  suffix: Midway, roof
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _CMU14/Dropships/Mohawk/turf/midway/roof.rsi
+    drawdepth: FloorTiles
+    layers:
+    - state: roof
+
+# --- Посадка вне ЗП ---
+
+- type: entity
+  id: DHLandingZoneField
+  name: field landing site
+  description: Where a dropship touched down off the prepared pads.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+  - type: DHLandingZone
+    temporary: true
+
+# --- Лестница на крышу (универсальная лестница с постоянным спрайтом: кабина переезжает между картами) ---
+
+- type: entity
+  parent: DHZLadderBase
+  id: DHMidwayRoofLadderBottom
+  name: roof ladder
+  description: A ladder up to the roof hatch of the dropship. Works while the dropship is over the battlefield.
+  suffix: Midway
+  components:
+  - type: Transform
+    anchored: true
+    gridTraversal: false
+  - type: Sprite
+    sprite: _RMC14/Structures/ladder.rsi
+    drawdepth: Objects
+    state: ladder10
+
+- type: entity
+  parent: DHMidwayRoofLadderBottom
+  id: DHMidwayRoofLadderTop
+  name: roof hatch
+  description: A hatch in the dropship's roof with a ladder down into the cabin.
+  components:
+  - type: Sprite
+    state: ladder01

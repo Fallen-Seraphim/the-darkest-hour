@@ -1234,6 +1234,7 @@
   id: DHMidwayMidwayAft19d11253d9
   name: ramp access
   components:
+  - type: DHDropshipRampControl
   - type: Sprite
     sprite: _CMU14/Dropships/Mohawk/obj/structures/machinery/midway/interior_item.rsi
     drawdepth: WallMountedItems

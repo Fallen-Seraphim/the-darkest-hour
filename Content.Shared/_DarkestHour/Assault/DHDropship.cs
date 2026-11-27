@@ -132,6 +132,17 @@ public sealed class DHDropshipConsoleState(
 
     /// <summary>Можно подняться в слой атмосферы: челнок летит над полем боя.</summary>
     public bool AtmosphereAvailable;
+
+    /// <summary>Челнок стоит на земле с нижним ярусом: рампу можно опустить/поднять.</summary>
+    public bool RampAvailable;
+
+    public bool RampLowered;
+
+    /// <summary>Ручной полёт над полем боя: Q/E — поворот, R/F — уровень выше/ниже (ниже первого — посадка).</summary>
+    public bool ManualLevels;
+
+    /// <summary>Уровень челнока над землёй (в ручном полёте).</summary>
+    public int Level;
 }
 
 /// <summary>Лететь: в ангар (Zone = null) или на ЗП.</summary>

@@ -162,6 +162,42 @@ public sealed partial class DHDropshipComponent : Component
 
     [ViewVariables]
     public TimeSpan NextFlareRefill;
+
+    // --- Палубы, рампа и ручной полёт (решения автора 2026-11-27) ---
+
+    /// <summary>Нижний ярус (рампа, стойки, брюхо) — на уровне ниже кабины, только когда челнок стоит на земле.</summary>
+    [ViewVariables]
+    public EntityUid? Underside;
+
+    /// <summary>Ходовая крыша — на уровне выше кабины, пока челнок над полем боя.</summary>
+    [ViewVariables]
+    public EntityUid? Roof;
+
+    [ViewVariables]
+    public bool RampLowered;
+
+    /// <summary>Временная ЗП, созданная посадкой вне площадок: при взлёте убирается.</summary>
+    [ViewVariables]
+    public EntityUid? FieldZone;
+
+    /// <summary>Взлёт с неподготовленной площадки: прогрев и подъём дольше.</summary>
+    [ViewVariables]
+    public bool FieldTakeoff;
+
+    /// <summary>Прогрев двигателей и шаг подъёма вне ЗП во столько раз дольше.</summary>
+    [DataField]
+    public float FieldTakeoffFactor = 4f;
+
+    /// <summary>Поворот корпуса в ручном полёте, градусов в секунду.</summary>
+    [DataField]
+    public float TurnRate = 40f;
+
+    /// <summary>Ручная смена уровня — не чаще.</summary>
+    [DataField]
+    public TimeSpan ManualLevelCooldown = TimeSpan.FromSeconds(1.5);
+
+    [ViewVariables]
+    public TimeSpan NextManualLevel;
 }
 
 /// <summary>
@@ -219,6 +255,7 @@ public sealed partial class DHDropshipSystem : EntitySystem
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private UserInterfaceSystem _ui = default!;
     [Dependency] private DHZLevelSystem _zLevels = default!;
+    [Dependency] private DHDropshipInputSystem _dropshipInput = default!;
 
     private static readonly SoundSpecifier LaunchSound = new SoundPathSpecifier("/Audio/Effects/Shuttle/hyperspace_begin.ogg");
     private static readonly SoundSpecifier LandSound = new SoundPathSpecifier("/Audio/Effects/Shuttle/hyperspace_end.ogg");
@@ -242,6 +279,8 @@ public sealed partial class DHDropshipSystem : EntitySystem
         SubscribeLocalEvent<DHLandingZoneComponent, MapInitEvent>(OnZoneMapInit);
         SubscribeLocalEvent<DHLandingZoneBeaconComponent, UseInHandEvent>(OnBeaconUse);
         SubscribeLocalEvent<DHLandingZoneBeaconComponent, DHLandingZoneDeployDoAfterEvent>(OnBeaconDeployed);
+        SubscribeLocalEvent<DHDropshipRampControlComponent, Content.Shared.Interaction.InteractHandEvent>(OnRampControl);
+        _dropshipInput.KeyPressed += OnPilotKey;
 
         Subs.BuiEvents<DHDropshipConsoleComponent>(DHDropshipUiKey.Key, subs =>
         {
@@ -251,6 +290,8 @@ public sealed partial class DHDropshipSystem : EntitySystem
             subs.Event<DHDropshipFlaresMessage>(OnFlares);
             subs.Event<DHDropshipManualMessage>(OnManual);
             subs.Event<DHDropshipAtmosphereMessage>(OnAtmosphere);
+            subs.Event<DHDropshipRampMessage>(OnRampMessage);
+            subs.Event<DHDropshipAltitudeMessage>(OnAltitudeMessage);
             subs.Event<BoundUIClosedEvent>(OnConsoleClosed);
         });
     }
@@ -288,7 +329,9 @@ public sealed partial class DHDropshipSystem : EntitySystem
 
                 hangar.Comp.Ship = grid.Value.Owner;
                 var name = i < names.Count ? names[i] : Loc.GetString("dh-dropship-name-extra", ("number", i + 1));
-                SetupDropship(grid.Value, carrier, station, name).Hangar = hangar.Owner;
+                var setup = SetupDropship(grid.Value, carrier, station, name);
+                setup.Hangar = hangar.Owner;
+                LoadDecks((grid.Value.Owner, setup), hangar.Comp.Map);
             }
 
             return;
@@ -304,6 +347,7 @@ public sealed partial class DHDropshipSystem : EntitySystem
             }
 
             var dropship = SetupDropship(grid.Value, carrier, station, names[i]);
+            LoadDecks((grid.Value.Owner, dropship), path);
             Dock((grid.Value, dropship));
         }
     }
@@ -359,8 +403,10 @@ public sealed partial class DHDropshipSystem : EntitySystem
 
         ship.Comp.State = DHDropshipState.Docked;
         ship.Comp.Zone = null;
+        ship.Comp.RampLowered = false;
         ClearFlight(ship.Comp);
         ClearHover(ship);
+        SyncDecks(ship);
     }
 
     #endregion
@@ -504,11 +550,18 @@ public sealed partial class DHDropshipSystem : EntitySystem
         }
         else
         {
+            // Рампа поднимается сама; с неподготовленной площадки прогрев двигателей дольше.
+            if (comp.RampLowered)
+                SetRamp(ship, false, null);
+
+            var delay = comp.State == DHDropshipState.Landed && comp.FieldZone != null && comp.Zone == comp.FieldZone
+                ? comp.LaunchDelay * comp.FieldTakeoffFactor
+                : comp.LaunchDelay;
             comp.State = DHDropshipState.Departing;
-            comp.DepartAt = _timing.CurTime + comp.LaunchDelay;
+            comp.DepartAt = _timing.CurTime + delay;
             _audio.PlayGlobal(AlarmSound, Filter.Empty().AddInGrid(ship), true);
-            Announce(ship, Loc.GetString("dh-dropship-departing", ("destination", DestinationName(comp)),
-                ("seconds", (int) comp.LaunchDelay.TotalSeconds)));
+            Announce(ship, Loc.GetString(delay > comp.LaunchDelay ? "dh-dropship-departing-field" : "dh-dropship-departing",
+                ("destination", DestinationName(comp)), ("seconds", (int) delay.TotalSeconds)));
         }
 
         UpdateUi(ent, ship);
@@ -672,6 +725,8 @@ public sealed partial class DHDropshipSystem : EntitySystem
             UpdateHover(ship, now);
         }
 
+        UpdateRamps(now);
+
         if (now < _nextUpdate)
             return;
 
@@ -818,6 +873,10 @@ public sealed partial class DHDropshipSystem : EntitySystem
             InAtmosphere = comp.State == DHDropshipState.InFlight && comp.Flight == DHDropshipFlight.Atmosphere,
             AtmosphereAvailable = comp.State == DHDropshipState.InFlight && comp.Flight == DHDropshipFlight.Cruise,
             Retargetable = comp.State == DHDropshipState.InFlight && comp.Flight != DHDropshipFlight.Transit,
+            RampAvailable = comp.State == DHDropshipState.Landed && comp.Underside != null,
+            RampLowered = comp.RampLowered,
+            ManualLevels = comp.Manual && comp.State == DHDropshipState.InFlight && comp.Flight == DHDropshipFlight.Cruise,
+            Level = comp.Level,
         });
     }
 

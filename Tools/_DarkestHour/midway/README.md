@@ -9,3 +9,9 @@
 - `preview.py` — рисует превью карты в PNG.
 
 Пути в скриптах указывают на временную папку сессии — при повторном запуске поправьте их.
+
+## Палубы (2026-11-27)
+
+`decks.py` — нижний ярус (`midway_underside.yml`: рампа, стойки шасси, брюхо) и ходовая крыша (`midway_roof.yml`,
+картинка крыши собирается из 274 тайлов CMU в `roof.rsi`) из `midway_lower.yml` / `midway_upper.yml` RuCM, плюс края
+рампы и лестница на крышу в кабине. Прототипы — `Prototypes/_DarkestHour/Shuttles/Midway/decks.yml`.
