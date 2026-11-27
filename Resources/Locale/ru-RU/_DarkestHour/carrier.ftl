@@ -18,3 +18,5 @@ tiles-rmc-striped = плитка с разметкой
 tiles-rmc-tcomms = плитка узла связи
 tiles-rmc-underplating-no-weeds = обшивка
 tiles-dh-vehicle-interior-floor = пол отсека
+cmd-dhcarrierdecks-desc = Показывает корпус авианосца, его уровни и челноки с ярусами: карту, уровень, сдвиг и поворот относительно корпуса, тип тела.
+cmd-dhcarrierdecks-help = Использование: dhcarrierdecks
