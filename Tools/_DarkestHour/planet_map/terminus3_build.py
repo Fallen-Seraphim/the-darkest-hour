@@ -170,6 +170,17 @@ class Terrain:
             for v in range(pv - r - 1, pv + r + 2):
                 if (u - pu) ** 2 + (v - pv) ** 2 <= r * r:
                     self.water[(u, v)] = (u - pu) ** 2 + (v - pv) ** 2 <= (r - 3) ** 2
+        # мелководье у терминала и танкера (эскиз автора: «мелко вода»; напоминание автора 2026-11-27) — к танкеру
+        # и пирсам можно подойти вброд
+        tu0, tv0, tu1, tv1 = SITES['танкер']
+        for (u, v), deep in list(self.water.items()):
+            if not deep:
+                continue
+            wob = (tb.noise(u, v, 8, 81) - 0.5) * 6
+            near_tanker = tu0 - 5 < u + wob < tu1 + 5 and tv0 - 5 < v + wob < tv1 + 5
+            by_terminal = 318 < u + wob < 432 and 44 < v + wob and v < 110
+            if near_tanker or by_terminal:
+                self.water[(u, v)] = False
         # брод: мелко, без глубины
         for (u, v), deep in list(self.water.items()):
             if FORD_U[0] <= u <= FORD_U[1] and 540 <= v <= 590:
@@ -220,13 +231,13 @@ class Terrain:
         for u in range(DAM[0], DAM[2] + 1):
             for v in range(DAM[1], DAM[3] + 1):
                 self.water.pop((u, v), None)
-                self.tiles[(u, v)] = 'RMCFloorConcrete' if not (HW_V[0] <= v <= HW_V[1]) else ASPHALT
+                self.tiles[(u, v)] = 'FloorConcrete' if not (HW_V[0] <= v <= HW_V[1]) else ASPHALT
                 self.res.add((u, v))
         for name, (u0, v0, u1, v1) in [(b[0], b[1:]) for b in BRIDGES]:
             for u in range(u0, u1 + 1):
                 for v in range(v0, v1 + 1):
                     self.water.pop((u, v), None)
-                    self.tiles[(u, v)] = 'RMCFloorConcrete'
+                    self.tiles[(u, v)] = 'FloorConcrete'
                     self.res.add((u, v))
         for pts in ROADS.values():
             self.road(pts, 2.6, ASPHALT)
@@ -237,6 +248,10 @@ class Terrain:
 
     def mountain(self, u, v):
         n = tb.noise(u, v, 17, 31) - 0.5
+        # горы только севернее и западнее базы, юг и восток базы открыты (решение автора 2026-11-27)
+        bu0, bv0, bu1, bv1 = SITES['база']
+        if u > bu0 - 14 + n * 8 and v > bv0 - 12 + n * 8:
+            return 0.0
         if tb.in_poly(NE_MASSIF, u + n * 12, v + n * 12):
             if any(tb.path_dist(g, u, v) + (tb.noise(u, v, 6, 71) - 0.5) * 3 < 3.5 for g in GORGES):
                 return 0.0
@@ -330,9 +345,94 @@ def rectangles(cells):
     return rects
 
 
+# ------------------------------------------------------------------ запись в карту
+
+def gx(u):
+    return u - W // 2
+
+
+def gy(v):
+    return H // 2 - 1 - v
+
+
+def setup_bounds():
+    """Границы карты для общего кода terminus_build (World.inside, encode_chunks)."""
+    tb.X0, tb.X1, tb.Y0, tb.Y1 = -W // 2, W // 2 - 1, -H // 2, H // 2 - 1
+
+
+class Map3(tb.World):
+    """Большой Терминус: рельеф из Terrain, объекты — в координатах карты (x на восток, y на север)."""
+
+    def __init__(self, known):
+        super().__init__(known)
+        self.rng = random.Random(20261127)
+        self.temperate_cells = set()
+
+    def load_terrain(self, t):
+        for (u, v), tile in t.tiles.items():
+            self.tiles[(gx(u), gy(v))] = tile
+        for c in t.res:
+            self.res.add((gx(c[0]), gy(c[1])))
+        for (u, v), deep in t.water.items():
+            if (u, v) in t.deep_tiles:
+                self.tiles[(gx(u), gy(v))] = DEEP_TILE
+                continue
+            self.water[(gx(u), gy(v))] = deep
+        for (u, v) in t.rock:
+            c = (gx(u), gy(v))
+            if (u, v) in t.rock_inner:
+                self.tiles[c] = ROCK_TILE
+            else:
+                self.ent(tb.ROCK, *c)
+        for (u0, v0, u1, v1) in t.rock_blocks:
+            # прямоугольник u0..u1 × v0..v1 → в карте x0..x1 × y1..y0 (v растёт к югу)
+            x0, x1, y0, y1 = gx(u0), gx(u1) + 1, gy(v1), gy(v0) + 1
+            cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+            hw, hh = (x1 - x0) / 2, (y1 - y0) / 2
+            comps = ['    - type: Fixtures', '      fixtures:', '        fix1:', '          shape:',
+                     '            !type:PhysShapeAabb', f'            bounds: "{-hw},{-hh},{hw},{hh}"',
+                     '          mask:', '          - FullTileMask', '          layer:', '          - WallLayer',
+                     '          density: 1000',
+                     '    - type: Occluder', '      polygon:', f'      - "{-hw},{-hh}"', f'      - "{hw},{-hh}"',
+                     f'      - "{hw},{hh}"', f'      - "{-hw},{hh}"']
+            self.ents.append(('DHRockMass', cx, cy, 0.0, None, comps))
+        for (u, v) in t.trees:
+            self.ent(self.rng.choice(FOREST if not Terrain.desert(u, v) else DESERT_FLORA), gx(u), gy(v))
+        for (u, v) in t.grass_tall:
+            self.ent('RMCGrassTallJungle', gx(u), gy(v))
+        for u in range(W):
+            for v in range(H):
+                if not Terrain.desert(u, v):
+                    self.temperate_cells.add((gx(u), gy(v)))
+
+    def temperate(self, x, y):
+        return (x, y) in self.temperate_cells
+
+    def weather_free_areas(self):
+        """Умеренная зона (без песчаных бурь): строки с одинаковой восточной границей сливаются."""
+        rects = []
+        cur = None
+        for v in range(H - 1, -1, -1):
+            e = max(u for u in range(W) if not Terrain.desert(u, v))
+            y = gy(v)
+            if cur and cur[2] == gx(e) and cur[3] == y - 1:
+                cur[3] = y
+            else:
+                if cur:
+                    rects.append(cur)
+                cur = [tb.X0, y, gx(e), y]
+        rects.append(cur)
+        return rects
+
+
+FOREST = ['FloraTreeConifer', 'FloraTreeConifer', 'FloraTree', 'FloraTreeLarge', 'FloraTreeStumpConifer',
+          'RMCBushJungle1', 'RMCBushJungle2']
+DESERT_FLORA = ['RMCGrassDesert', 'RMCGrassDesertHeavy', 'RMCBoulderLarge', 'RMCCacti1', 'RMCCactus', 'RMCTreeJoshua']
+
+
 COLORS = {
     SAND: (214, 190, 140), DESERT: (226, 200, 150), GRASS: (96, 140, 70), GRASS2: (110, 152, 80),
-    DIRT: (128, 104, 74), ASPHALT: (70, 70, 74), 'FloorDirt': (150, 120, 84), 'RMCFloorConcrete': (150, 150, 150),
+    DIRT: (128, 104, 74), ASPHALT: (70, 70, 74), 'FloorDirt': (150, 120, 84), 'FloorConcrete': (150, 150, 150),
 }
 
 
@@ -386,6 +486,8 @@ def preview(t, path, scale=2):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--preview', help='PNG превью каркаса')
+    ap.add_argument('--write', action='store_true',
+                    help='записать Resources/Maps/_DarkestHour/Assault/terminus3*.yml (пока не подключены к игре)')
     args = ap.parse_args()
 
     t = Terrain()
@@ -398,6 +500,21 @@ def main():
     t.stats()
     if args.preview:
         preview(t, args.preview)
+    if args.write:
+        setup_bounds()
+        known, tiles = tb.known_protos()
+        tb.KNOWN_TILES.update(tiles)
+        m = Map3(known)
+        m.load_terrain(t)
+        m.place_water()
+        m.edge()
+        if m.missing:
+            print('НЕТ ПРОТОТИПОВ (пропущены):', sorted(m.missing))
+        protos, used = tb.write_surface(m, os.path.join(tb.OUT, 'terminus3.yml'))
+        bad = sorted(p for p in protos if p not in known)
+        badt = sorted(x for x in used if x not in tiles and x != 'Space')
+        if bad or badt:
+            print('ОШИБКИ: прототипы', bad, 'тайлы', badt)
 
 
 if __name__ == '__main__':
