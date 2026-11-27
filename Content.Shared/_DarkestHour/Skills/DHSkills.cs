@@ -201,6 +201,6 @@ public sealed partial class DHSkillsSystem : EntitySystem
 
     public static string LevelName(int level)
     {
-        return Loc.GetString($"dh-skill-level-{Math.Clamp(level, 0, 3)}");
+        return Robust.Shared.Localization.Loc.GetString($"dh-skill-level-{Math.Clamp(level, 0, 3)}");
     }
 }
