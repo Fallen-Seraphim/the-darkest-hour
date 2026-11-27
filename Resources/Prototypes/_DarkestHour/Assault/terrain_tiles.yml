@@ -1,0 +1,50 @@
+# Вода и скалы тайлами (решение автора 2026-11-27, большой Терминус 640×768): на огромной карте клетка воды или скалы
+# отдельной сущностью — сотни тысяч сущностей. Середина моря и озера — тайл глубокой воды (у берега остаётся кольцо
+# обычной DHWaterDeep: пешком не подойти), нутро горного массива — тайл скалы под большими блоками DHRockMass.
+# Код, который учитывает эти тайлы, — DHTerrainTileSystem.
+
+- type: tile
+  parent: BaseFloorPlanet
+  id: DHFloorSeaDeep
+  name: tiles-dh-sea-deep
+  sprite: /Textures/_DarkestHour/Tiles/terrain/sea_deep.png
+  variants: 3
+  placementVariants: [ 1.0, 1.0, 1.0 ]
+  weather: false
+  footstepSounds:
+    collection: RMCWaterDeepWading
+
+- type: tile
+  parent: BaseFloorPlanet
+  id: DHFloorRockMass
+  name: tiles-dh-rock-mass
+  sprite: /Textures/_DarkestHour/Tiles/terrain/rock_mass.png
+  weather: false
+
+# Блок скалы: невидимое (рисует тайл DHFloorRockMass) непроходимое и непрозрачное препятствие прямоугольником на
+# много клеток. Размер задаёт генератор карты в Fixtures и Occluder каждой сущности; в прототипе — одна клетка.
+- type: entity
+  id: DHRockMass
+  name: rock mass
+  description: Solid rock. There is no way through.
+  suffix: terrain block, map generator
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+        density: 1000
+  - type: Occluder

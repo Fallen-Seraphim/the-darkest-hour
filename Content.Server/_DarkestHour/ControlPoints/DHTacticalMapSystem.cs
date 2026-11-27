@@ -301,6 +301,13 @@ public sealed partial class DHTacticalMapSystem : EntitySystem
         if (id == "Space")
             return DHTacticalTerrain.Empty;
 
+        // Вода и скалы тайлами (большая карта, DHTerrainTileSystem).
+        if (id == Content.Shared._DarkestHour.Terrain.DHTerrainTileSystem.DeepWaterTile)
+            return DHTacticalTerrain.DeepWater;
+
+        if (id == Content.Shared._DarkestHour.Terrain.DHTerrainTileSystem.RockTile)
+            return DHTacticalTerrain.Rock;
+
         if (id.Contains("Asphalt") || id.Contains("Road"))
             return DHTacticalTerrain.Road;
 

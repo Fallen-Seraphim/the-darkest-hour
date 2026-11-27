@@ -10,3 +10,7 @@ tiles-cm-default-yellow = жёлтый плиточный пол
 tiles-cm-wood = деревянный пол
 tiles-rmc-asphalt = асфальт
 tiles-rmc-cement = бетон
+
+# Вода и скалы тайлами (большой Терминус)
+tiles-dh-sea-deep = глубокая вода
+tiles-dh-rock-mass = скальный массив

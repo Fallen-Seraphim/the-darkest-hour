@@ -15,6 +15,7 @@ public sealed partial class DHWaterSourceSystem : EntitySystem
     [Dependency] private SharedMapSystem _map = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private SharedSolutionContainerSystem _solution = default!;
+    [Dependency] private Content.Shared._DarkestHour.Terrain.DHTerrainTileSystem _terrain = default!;
 
     private static readonly SoundSpecifier FillSound = new SoundPathSpecifier("/Audio/Effects/Fluids/watersplash.ogg");
 
@@ -54,6 +55,6 @@ public sealed partial class DHWaterSourceSystem : EntitySystem
                 return true;
         }
 
-        return false;
+        return _terrain.IsDeepWater(gridUid, grid, tile);
     }
 }

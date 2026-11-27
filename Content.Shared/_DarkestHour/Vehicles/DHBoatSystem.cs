@@ -1,6 +1,7 @@
 using System.Numerics;
 using Content.Shared._DarkestHour.ControlPoints;
 using Content.Shared._DarkestHour.Fluids;
+using Content.Shared._DarkestHour.Terrain;
 using Content.Shared.Buckle.Components;
 using Content.Shared.Popups;
 using Robust.Shared.Map;
@@ -21,6 +22,7 @@ public sealed partial class DHBoatSystem : EntitySystem
     [Dependency] private SharedMapSystem _map = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private DHTerrainTileSystem _terrain = default!;
 
     public enum WaterKind : byte
     {
@@ -81,6 +83,10 @@ public sealed partial class DHBoatSystem : EntitySystem
 
             kind = WaterKind.Shallow;
         }
+
+        // Середина моря и озера на большой карте — тайл, без сущности.
+        if (kind == WaterKind.None && _terrain.IsDeepWater(grid, gridComp, tile))
+            return WaterKind.Deep;
 
         return kind;
     }
@@ -166,8 +172,11 @@ public sealed partial class DHBoatSystem : EntitySystem
 
     private bool Standable(EntityUid grid, MapGridComponent gridComp, Vector2i tile)
     {
-        if (!_map.TryGetTileRef(grid, gridComp, tile, out var tileRef) || tileRef.Tile.IsEmpty)
+        if (!_map.TryGetTileRef(grid, gridComp, tile, out var tileRef) || tileRef.Tile.IsEmpty ||
+            _terrain.IsDeepWater(tileRef.Tile) || _terrain.IsRock(tileRef.Tile))
+        {
             return false;
+        }
 
         var anchored = _map.GetAnchoredEntitiesEnumerator(grid, gridComp, tile);
         while (anchored.MoveNext(out var uid))

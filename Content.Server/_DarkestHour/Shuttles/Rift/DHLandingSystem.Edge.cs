@@ -17,6 +17,7 @@ public sealed partial class DHLandingSystem
 {
     [Dependency] private TurfSystem _turf = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
+    [Dependency] private Content.Shared._DarkestHour.Terrain.DHTerrainTileSystem _terrainTiles = default!;
 
     /// <summary>Сколько клеток от края карты (скалы края) держаться.</summary>
     private const float EdgeMargin = 5f;
@@ -159,6 +160,10 @@ public sealed partial class DHLandingSystem
     {
         var indices = _map.WorldToTile(surface, grid, position);
         if (!_map.TryGetTileRef(surface, grid, indices, out var tile) || tile.Tile.IsEmpty)
+            return false;
+
+        // Тайловая глубина и нутро скал (большая карта) — сущностей там нет.
+        if (_terrainTiles.IsDeepWater(tile.Tile) || _terrainTiles.IsRock(tile.Tile))
             return false;
 
         // Глубокая вода — как стол (MidImpassable): человек не пройдёт.
