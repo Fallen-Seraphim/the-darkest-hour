@@ -33,7 +33,7 @@ public sealed partial class DHDropshipSystem
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private DHZTransitSystem _zTransit = default!;
-    [Dependency] private Content.Shared.Damage.DamageableSystem _damageable = default!;
+    [Dependency] private Content.Shared.Damage.Systems.DamageableSystem _damageable = default!;
     [Dependency] private Content.Shared.Stunnable.SharedStunSystem _stun = default!;
     [Dependency] private Content.Shared.Throwing.ThrowingSystem _throwing = default!;
 
