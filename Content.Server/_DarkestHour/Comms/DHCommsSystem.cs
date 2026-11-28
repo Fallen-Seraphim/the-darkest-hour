@@ -27,6 +27,7 @@ namespace Content.Server._DarkestHour.Comms;
 public sealed partial class DHCommsSystem : EntitySystem
 {
     [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private Content.Server._DarkestHour.Carrier.DHCarrierDecksSystem _carrierDecks = default!;
     [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
@@ -158,7 +159,8 @@ public sealed partial class DHCommsSystem : EntitySystem
             xform = Transform(interior.Vehicle);
         }
 
-        if (xform.MapUid is not { } map)
+        // Палубы авианосца — отдельные карты над картой корпуса: зона связи — по карте корпуса.
+        if (_carrierDecks.BaseMap(xform.MapUid) is not { } map)
             return null;
 
         if (TryComp<DHPlanetAtmosphereMapComponent>(map, out var atmosphere))

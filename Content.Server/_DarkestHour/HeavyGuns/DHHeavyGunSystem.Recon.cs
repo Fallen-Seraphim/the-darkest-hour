@@ -44,7 +44,8 @@ public sealed partial class DHHeavyGunSystem
     /// <summary>Поверхность, которую видно с места консоли: тело, в атмосфере которого висим, иначе любая в системе.</summary>
     private EntityUid? ScanSurface(EntityUid console)
     {
-        var map = Transform(console).MapUid;
+        // Палубы авианосца — отдельные карты над картой корпуса.
+        var map = _carrierDecks.BaseMap(Transform(console).MapUid);
         if (TryComp<DHPlanetAtmosphereMapComponent>(map, out var atmosphere))
             return _landing.GetSurface(atmosphere.System, atmosphere.Body);
 

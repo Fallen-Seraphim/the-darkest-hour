@@ -488,6 +488,8 @@ public sealed partial class DHDropshipSystem : EntitySystem
     /// <summary>Id звёздной системы карты: орбита, слой атмосферы или поверхность.</summary>
     private string? SystemOfMap(EntityUid? map)
     {
+        // Ангар авианосца — на карте палубы над картой корпуса.
+        map = _carrierDecks.BaseMap(map);
         if (map == null)
             return null;
 
@@ -636,7 +638,7 @@ public sealed partial class DHDropshipSystem : EntitySystem
         {
             surface = below;
         }
-        else if (TryComp<DHPlanetAtmosphereMapComponent>(xform.MapUid, out var atmosphere) &&
+        else if (TryComp<DHPlanetAtmosphereMapComponent>(_carrierDecks.BaseMap(xform.MapUid), out var atmosphere) &&
                  _landing.GetSurface(atmosphere.System, atmosphere.Body) is { } fromSky)
         {
             surface = fromSky;

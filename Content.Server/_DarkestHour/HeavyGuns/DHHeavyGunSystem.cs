@@ -44,6 +44,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
 {
     [Dependency] private Content.Server._DarkestHour.Aviation.DHAircraftSystem _aircraft = default!;
     [Dependency] private Content.Server._DarkestHour.Carrier.DHCarrierDamageSystem _carrierDamage = default!;
+    [Dependency] private Content.Server._DarkestHour.Carrier.DHCarrierDecksSystem _carrierDecks = default!;
     [Dependency] private Content.Server._DarkestHour.Battlefield.DHBattlefieldSystem _battlefield = default!;
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private DHAssaultRuleSystem _assault = default!;
@@ -547,7 +548,9 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         if (xform.GridUid is not { } grid)
             return result;
 
-        if (TryComp<DHPlanetAtmosphereMapComponent>(xform.MapUid, out var atmosphere) &&
+        // Палубы авианосца — отдельные карты над картой корпуса: где висим — по карте корпуса.
+        var shipMap = _carrierDecks.BaseMap(xform.MapUid);
+        if (TryComp<DHPlanetAtmosphereMapComponent>(shipMap, out var atmosphere) &&
             _celestial.GetSystemMap(atmosphere.System) is { } atmosphereSystemMap &&
             _celestial.TryGetSystem(atmosphereSystemMap, out var atmosphereSystem, out _) &&
             atmosphereSystem.Bodies.Find(b => b.Id == atmosphere.Body) is { } below &&
@@ -557,7 +560,7 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
             return result;
         }
 
-        if (!_celestial.TryGetSystem(xform.MapUid, out var system, out var origin))
+        if (!_celestial.TryGetSystem(shipMap, out var system, out var origin))
             return result;
 
         var position = _transform.GetWorldPosition(grid) - origin;
@@ -634,8 +637,9 @@ public sealed partial class DHHeavyGunSystem : EntitySystem
         else
         {
             var reachable = ArtilleryBodies(ent);
-            if (reachable.Count > 0 || TryComp<DHPlanetAtmosphereMapComponent>(Transform(ent).MapUid, out _) ||
-                _celestial.TryGetSystem(Transform(ent).MapUid, out _, out _))
+            var shipMap = _carrierDecks.BaseMap(Transform(ent).MapUid);
+            if (reachable.Count > 0 || TryComp<DHPlanetAtmosphereMapComponent>(shipMap, out _) ||
+                _celestial.TryGetSystem(shipMap, out _, out _))
             {
                 foreach (var (_, body, altitude) in reachable)
                 {

@@ -18,6 +18,7 @@ namespace Content.Server._DarkestHour.Shuttles.Rift;
 public sealed partial class DHRiftNavSystem : EntitySystem
 {
     [Dependency] private DHCelestialSystem _celestial = default!;
+    [Dependency] private Content.Server._DarkestHour.Carrier.DHCarrierDecksSystem _carrierDecks = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private IPrototypeManager _proto = default!;
     [Dependency] private DHRiftSystem _rift = default!;
@@ -100,6 +101,7 @@ public sealed partial class DHRiftNavSystem : EntitySystem
     /// <summary>Система, в которой находится карта; карты без компонента — домашняя система.</summary>
     private string? CurrentSystem(EntityUid? map)
     {
+        map = _carrierDecks.BaseMap(map);
         if (map != null && TryComp<DHStarSystemMapComponent>(map, out var comp) && comp.System != null)
             return comp.System.Value.Id;
 
