@@ -28,6 +28,7 @@ namespace Content.Server._DarkestHour.Overwatch;
 public sealed partial class DHOverwatchSystem : EntitySystem
 {
     [Dependency] private DHAssaultRuleSystem _assault = default!;
+    [Dependency] private Content.Server._DarkestHour.Carrier.DHCarrierDecksSystem _carrierDecks = default!;
     [Dependency] private DHTacticalMapSystem _tacmap = default!;
     [Dependency] private Content.Server._DarkestHour.ThirdParty.DHLAVSystem _lav = default!;
     [Dependency] private DamageableSystem _damageable = default!;
@@ -374,7 +375,7 @@ public sealed partial class DHOverwatchSystem : EntitySystem
 
         if (xform.GridUid is { } grid)
             entry.Location = Name(grid);
-        else if (xform.MapUid is { } map && HasComp<DHPlanetAtmosphereMapComponent>(map))
+        else if (_carrierDecks.BaseMap(xform.MapUid) is { } map && HasComp<DHPlanetAtmosphereMapComponent>(map))
             entry.Location = Loc.GetString("dh-overwatch-location-air");
         else
             entry.Location = Loc.GetString("dh-overwatch-location-field");

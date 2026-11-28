@@ -1059,7 +1059,8 @@ public sealed partial class DHAircraftSystem : EntitySystem
             return "dh-aircraft-blocker-fuel";
         if (ent.Comp.Integrity < MinLaunchIntegrity)
             return "dh-aircraft-blocker-damage";
-        if (!HasComp<DHPlanetAtmosphereMapComponent>(Transform(ent).MapUid))
+        // Палубы авианосца — отдельные карты над картой корпуса: атмосфера — у карты корпуса.
+        if (!HasComp<DHPlanetAtmosphereMapComponent>(_carrierDecks.BaseMap(Transform(ent).MapUid)))
             return "dh-aircraft-blocker-orbit";
         // Ангар и палуба авианосца повреждены: пока пробоину не заварят, не взлететь (живучесть, п. 19).
         if (_carrierDamage.Damaged(Transform(ent).GridUid,

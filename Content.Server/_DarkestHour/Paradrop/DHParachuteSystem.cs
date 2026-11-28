@@ -24,6 +24,7 @@ namespace Content.Server._DarkestHour.Paradrop;
 public sealed partial class DHParachuteSystem : EntitySystem
 {
     [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private Content.Server._DarkestHour.Carrier.DHCarrierDecksSystem _carrierDecks = default!;
     [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private ExplosionSystem _explosion = default!;
@@ -199,7 +200,9 @@ public sealed partial class DHParachuteSystem : EntitySystem
     private bool InAtmosphereShip(EntityUid uid)
     {
         var xform = Transform(uid);
-        return xform.GridUid is { } grid && grid != xform.MapUid && HasComp<DHPlanetAtmosphereMapComponent>(xform.MapUid);
+        // Палубы авианосца — отдельные карты над картой корпуса: атмосфера — у карты корпуса.
+        return xform.GridUid is { } grid && grid != xform.MapUid &&
+               HasComp<DHPlanetAtmosphereMapComponent>(_carrierDecks.BaseMap(xform.MapUid));
     }
 
     /// <summary>Сброс за борт: груз выходит из корабля в атмосферу и начинает падать.</summary>
@@ -210,7 +213,8 @@ public sealed partial class DHParachuteSystem : EntitySystem
 
         args.Handled = true;
         var xform = Transform(ent);
-        if (xform.MapUid is not { } map)
+        // С палубы авианосца груз уходит в атмосферу на карте корпуса.
+        if (_carrierDecks.BaseMap(xform.MapUid) is not { } map)
             return;
 
         if (xform.Anchored)

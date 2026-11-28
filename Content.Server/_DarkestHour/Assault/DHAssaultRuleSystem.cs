@@ -701,6 +701,7 @@ public sealed partial class DHAssaultRuleSystem : GameRuleSystem<DHAssaultRuleCo
     /// <summary>Звёздная система карты: карта системы, поверхность или атмосфера тела; null — в пути (FTL).</summary>
     private string? SystemOfMap(EntityUid? map)
     {
+        map = _carrierDecks.BaseMap(map);
         if (TryComp<DHStarSystemMapComponent>(map, out var systemMap) && systemMap.System is { } system)
             return system.Id;
 
